@@ -1,0 +1,44 @@
+# ----
+#ranking(s) of university(es)
+#defaultView:LineChart
+SELECT ?year ?ranking ?universityLabel ?deternimationMethodLabel ?university WHERE {
+  VALUES ?university {
+    wd:Q832355
+    wd:Q1108197
+    wd:Q16952
+    wd:Q16955
+    
+    
+# to add another university :
+    # 1,uncomment the last commented line below,
+    # 2,optionnally replace « Zhejiang_University » by another university name,
+    # 3,put cursor to the end of line,
+    # 4,and press CTRL+SPACE，or CTRL+ALT+SPACE, or ALT+ENTER,
+    # 5,and select first item, and press CTRL+ENTER to execute
+    #wd:Zhejiang_University
+    
+    }
+  
+  VALUES ?deternimationMethod {
+    wd:Q478743
+    
+    
+# to add another deternimationMethod :
+    # 1,uncomment the last commented line below,
+    # 2,optionnally replace the « Shanghai .. » method by another one,
+    # 3,put cursor to the end of line,
+    # 4,and press CTRL+SPACE，or CTRL+ALT+SPACE, or ALT+ENTER,
+    # 5,and select first item, and press CTRL+ENTER to execute
+    #wd:Shanghai_Academic_Ranking_of_World_Universities
+    
+    }
+                              
+  
+  ?university p:P1352 ?statement.
+  ?statement ps:P1352 ?ranking.
+  ?statement pq:P459 ?deternimationMethod.
+  ?statement pq:P585 ?date.
+  
+  BIND (STR(YEAR(?date)) as ?year)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}

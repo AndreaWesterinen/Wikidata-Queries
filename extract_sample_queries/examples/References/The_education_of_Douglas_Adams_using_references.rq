@@ -1,0 +1,24 @@
+# ----
+# The education of Douglas Adams, to illustrate references
+#
+SELECT ?education ?educationLabel ?ref ?refLabel  WHERE {
+
+# We use the long notation to better illustrate the nature of the components.
+     wd:Q42         p:P69                ?statement    .
+     ?statement     ps:P69               ?education    .
+  OPTIONAL {
+     ?statement     prov:wasDerivedFrom  ?refstatement .
+     ?refstatement  pr:P248              ?ref          .
+  }
+
+# In short notation, this would be (without OPTIONAL) :
+#    wd:Q42         p:P69                [ ps:P69               ?education      ;
+#                                          prov:wasDerivedFrom 
+#                                                               [ pr:P248  ?ref 
+#                                                               ]
+#                                        ] .
+#
+# or:  wd:Q42 p:P69 [ ps:P69 ?education; prov:wasDerivedFrom [ pr:P248 ?ref ] ] .
+#
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}

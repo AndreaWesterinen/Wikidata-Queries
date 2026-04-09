@@ -1,0 +1,10 @@
+# ----
+#title: Facets of costume design
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?sitelinks
+WHERE {
+    ?item wdt:P1269 wd:Q16331597;            # Any facet of costume design
+                       # Edit the q-item (id) above to query other "facets of" statements
+          wikibase:sitelinks ?sitelinks.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en" }
+}
+ORDER BY DESC(?sitelinks)

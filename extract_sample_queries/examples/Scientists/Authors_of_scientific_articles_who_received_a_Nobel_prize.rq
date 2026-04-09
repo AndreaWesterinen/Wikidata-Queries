@@ -1,0 +1,25 @@
+# ----
+#  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
+
+#added in 2016-10; updated 2025-08
+
+#Authors of scientific articles who received a Nobel prize
+SELECT ?article ?articleLabel ?person ?personLabel ?_image ?award ?awardLabel
+WHERE {
+  hint:Query hint:optimizer "None" .      
+  ?award wdt:P279* wd:Q7191 . #award is a Nobel Prize
+  ?person wdt:P166 ?award ; #person received an award
+          wdt:P31 wd:Q5 . #person is instance of human
+  SERVICE wdsubgraph:scholarly_articles {
+    SELECT ?article ?articleLabel ?person 
+    WHERE  {
+    ?article wdt:P50 ?person ; #person is an author of article
+        wdt:P31 wd:Q13442814 . #article is a scientific article
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+    LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ OPTIONAL { ?person wdt:P18 ?_image. } #Wikimedia Commons has an image of person
+}
+LIMIT 100

@@ -1,0 +1,11 @@
+# ----
+# NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
+
+#topic: Internal Federation
+SELECT ?item ?bhl_id WHERE {
+{?item wdt:P4327 ?bhl_id .}
+UNION
+{SERVICE wdsubgraph:scholarly_articles {?item wdt:P4327 ?bhl_id . } }
+
+# Notice the change in number of results by removing the block after or the block before the UNION
+}

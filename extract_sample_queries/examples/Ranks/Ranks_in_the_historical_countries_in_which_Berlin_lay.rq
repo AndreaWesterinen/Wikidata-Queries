@@ -1,0 +1,19 @@
+# ----
+# Berlin's historical countries, with ranks
+#
+SELECT ?country ?countryLabel ?rank
+WHERE
+{
+# We use the long notation to better illustrate the nature of the components
+     wd:Q64      p:P17          ?statement .
+     ?statement  ps:P17         ?country   .
+     ?statement  wikibase:rank  ?rank      .
+
+# In short notation, this would be:
+#    wd:Q64      p:P17          [ ps:P17         ?country ;
+#                                 wikibase:rank  ?rank
+#                               ] .
+
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}
+ORDER BY ?countryLabel

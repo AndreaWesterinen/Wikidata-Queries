@@ -1,0 +1,20 @@
+# ----
+#  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
+
+#defaultView:BubbleChart
+SELECT ?occupationLabel (count(DISTINCT ?author) as ?count)
+WHERE
+{
+ hint:Query hint:optimizer "None" .      
+ SERVICE wdsubgraph:scholarly_articles {
+         SELECT ?author 
+           WHERE {
+              ?object wdt:P31 wd:Q13442814 ;
+                      wdt:P50 ?author .     }
+           LIMIT 1000 
+  }
+  ?author wdt:P106 ?occupation .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr" }
+}
+GROUP BY ?occupationLabel
+ORDER BY DESC(?count)

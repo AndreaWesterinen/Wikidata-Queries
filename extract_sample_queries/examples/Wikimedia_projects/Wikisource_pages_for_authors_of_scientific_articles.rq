@@ -1,0 +1,24 @@
+# ----
+#  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
+
+#Wikisource pages for authors of scientific articles, ordered by Wikisource language
+#added in 2017-09; updated 2025-08
+SELECT DISTINCT ?author ?wikisourceSitelink ?wikisourceLanguage WHERE {
+  hint:Query hint:optimizer "None" .      
+  {
+    SELECT DISTINCT ?author ?wikisourceSitelink ?wikisourceLanguage WHERE {
+      ?wikisourceSitelink schema:isPartOf [ wikibase:wikiGroup "wikisource" ];
+                      schema:inLanguage ?wikisourceLanguage;
+                      schema:about ?author.
+    }
+    LIMIT 20000
+  }
+ SERVICE wdsubgraph:scholarly_articles {
+         SELECT ?author 
+           WHERE {
+              ?object wdt:P31 wd:Q13442814 ;
+                      wdt:P50 ?author .     
+         }
+  }
+}
+ORDER BY ?wikisourceLanguage

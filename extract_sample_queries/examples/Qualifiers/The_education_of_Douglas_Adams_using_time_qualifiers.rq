@@ -1,0 +1,13 @@
+# ----
+# The education of Douglas Adams, to illustrate time qualifiers
+#
+SELECT ?education ?educationLabel ?starttime ?endtime
+WHERE
+{
+     wd:Q42 p:P69 [ps:P69 ?education;
+                   pq:P580 ?starttime;
+                   pq:P582 ?endtime;
+                  ].
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}
+ORDER BY ?starttime

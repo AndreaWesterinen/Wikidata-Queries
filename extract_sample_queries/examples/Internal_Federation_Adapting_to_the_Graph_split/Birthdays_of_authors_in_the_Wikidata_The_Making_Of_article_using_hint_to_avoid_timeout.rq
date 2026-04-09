@@ -1,0 +1,26 @@
+# ----
+# NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
+
+#topic: Internal Federation
+#defaultView:Timeline
+
+SELECT ?author ?authorLabel ?dateOfBirth WHERE {
+  
+   # Blazegraph gets confused with federation and tries to first get all millions of dates of birth on Wikidata.
+   # We need to tell it that it should not try and "optimize" this query, and just follow the order we set.
+   hint:Query hint:optimizer "None" .
+   
+  # First, get the 3 authors of the paper from the scholarly graph.
+  SERVICE wdsubgraph:scholarly_articles {
+    wd:Q118130164 wdt:P50 ?author .
+  }
+  
+  # Then, get their dates of birth from the main graph.
+  ?author wdt:P569 ?dateOfBirth .
+  
+  # Finally, get the label for their names.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+  
+  # Remove the line for the hint and the query will timeout. 
+  # Learn more in https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/WDQS_graph_split/Federation_Limits
+}

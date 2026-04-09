@@ -1,0 +1,40 @@
+# ----
+#title:Getting basic information for one item
+
+# declare MiMoText prefixes
+PREFIX mmd: <http://data.mimotext.uni-trier.de/entity/>
+PREFIX mmdt: <http://data.mimotext.uni-trier.de/prop/direct/>
+
+SELECT * WHERE {
+  # start with this book as an example
+  BIND(wd:Q215894 AS ?bookOnWikidata)
+  
+  # select additional information on Wikidata
+  ?bookOnWikidata wdt:P50 ?authorOnWikidata.
+  
+  # add labels from Wikidata
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en".
+    ?bookOnWikidata rdfs:label ?bookOnWikidataLabel.
+    ?authorOnWikidata rdfs:label ?authorOnWikidataLabel.
+  }
+  
+  # connect to MiMoText
+  ?bookOnWikidata wdt:P12047 ?MiMoTextID.
+  BIND(IRI(CONCAT(STR(mmd:), ?MiMoTextID)) AS ?bookOnMiMoText)
+  
+  # federated subquery to MiMoText
+  SERVICE <https://query.mimotext.uni-trier.de/proxy/wdqs/bigdata/namespace/wdq/sparql> {
+    # select additional information on MiMoText
+    ?bookOnMiMoText mmdt:P5 ?authorOnMiMoText;
+                    mmdt:P33 ?narrativeFormOnMiMoText.
+    
+    # add labels from MiMoText (this only works because MiMoText is also a Wikibase)
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en".
+      ?bookOnMiMoText rdfs:label ?bookOnMiMoTextLabel.
+      ?authorOnMiMoText rdfs:label ?authorOnMiMoTextLabel.
+      ?narrativeFormOnMiMoText rdfs:label ?narrativeFormOnMiMoTextLabel.
+    }
+  }
+}

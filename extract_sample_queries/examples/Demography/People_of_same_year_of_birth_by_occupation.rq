@@ -1,0 +1,16 @@
+# ----
+#title: People of same year of birth by occupation
+
+#Author: Leaf_plate  2025-08-30
+#defaultView:BubbleChart
+SELECT ?occupation ?occupationLabel (COUNT(?occupation) AS ?people)
+  WHERE {
+    ?item wdt:P31 wd:Q5.
+    ?item p:P569/psv:P569 ?birth_date_node.
+    ?birth_date_node wikibase:timePrecision "9"^^xsd:integer.  # Time precision = year
+    ?birth_date_node wikibase:timeValue ?birth_date.
+    FILTER (year(?birth_date) = 1111).  # Filtered for year 1111.
+    ?item wdt:P106 ?occupation.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }  
+}
+GROUP BY ?occupation ?occupationLabel

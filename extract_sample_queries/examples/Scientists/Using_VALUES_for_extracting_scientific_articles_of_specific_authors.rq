@@ -1,0 +1,15 @@
+# ----
+#  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
+
+ SELECT ?entity ?entityLabel ?authorLabel WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wdsubgraph:scholarly_articles {
+    SELECT ?entity ?entityLabel ?author WHERE {
+      VALUES ?author {wd:Q18016466} #initialize "?author with the Wikidata item "Lydia Pintscher"
+      ?entity wdt:P31 wd:Q13442814. #filter by scientific articles
+      ?entity wdt:P50 ?author.
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+    }
+   }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
+}

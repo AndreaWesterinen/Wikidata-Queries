@@ -1,0 +1,31 @@
+# ----
+# NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
+
+#topic: Internal Federation
+SELECT
+  ?work ?workLabel
+  ?author ?authorLabel
+WHERE {
+    # Lydia Pintscher    
+    VALUES ?author {wd:Q18016466} . 
+
+   SERVICE wdsubgraph:scholarly_articles {
+     # Note that you need to select ?workLabel here too
+     SELECT 
+       ?work ?workLabel
+       ?author
+     WHERE {
+       ?work wdt:P50 ?author .
+
+       # This call returns the labels for the ?work variable
+       SERVICE wikibase:label { 
+         bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". 
+       }
+     }
+  } 
+
+  # This call returns the labels for the ?author variable
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en".
+  }
+}

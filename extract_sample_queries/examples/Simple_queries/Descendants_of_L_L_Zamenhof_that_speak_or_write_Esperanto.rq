@@ -1,0 +1,10 @@
+# ----
+#title: Descendants of L. L. Zamenhof that speak or write Esperanto
+SELECT ?item ?itemLabel ?itemDescription WHERE {
+  wd:Q11758 wdt:P40+ ?item. # L. L. Zamenhof (Q11758) has descendant (P40+) ?item
+  ?item wdt:P1412 wd:Q143; # ?item speaks or writes (P1412) Esperanto (Q143)
+        wikibase:sitelinks ?sitelinks.
+        
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en,eo". }
+}
+ORDER BY DESC(?sitelinks)

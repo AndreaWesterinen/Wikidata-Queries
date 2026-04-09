@@ -1,0 +1,16 @@
+# ----
+#title: UN member states
+
+SELECT DISTINCT ?state ?stateLabel WHERE {
+  ?state wdt:P31/wdt:P279* wd:Q3624078;
+         p:P463 ?memberOfStatement.
+  ?memberOfStatement a wikibase:BestRank;
+                     ps:P463 wd:Q1065.
+                     
+  FILTER( ?state != wd:Q124653007)  # Exclude "realm of United Kingdom" (duplicates "United Kingdom")
+  MINUS { ?memberOfStatement pq:P582 ?endTime. }
+  MINUS { ?state wdt:P576|wdt:P582 ?end. }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en" }
+}
+ORDER BY ?stateLabel

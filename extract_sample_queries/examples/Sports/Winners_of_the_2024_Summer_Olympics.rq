@@ -1,0 +1,15 @@
+SELECT DISTINCT ?eventLabel ?goldCountryLabel ?silverCountryLabel ?bronzeCountryLabel WHERE {
+  ?event wdt:P31 wd:Q18536594; # individual event
+         wdt:P361+ wd:Q995653; # part of 2024 summer olympics
+         (p:P710|p:P1923) [ (ps:P710|ps:P1923) ?gold;
+                            pq:P166 wd:Q15243387 ]; # award: gold medal
+         (p:P710|p:P1923) [ (ps:P710|ps:P1923) ?silver;
+                            pq:P166 wd:Q15889641 ]; # award: silver medal
+         (p:P710|p:P1923) [ (ps:P710|ps:P1923) ?bronze;
+                            pq:P166 wd:Q15889643 ]. # award: bronze medal
+  # fetch the country of the winner
+  ?gold wdt:P1532 ?goldCountry.
+  ?silver wdt:P1532 ?silverCountry.
+  ?bronze wdt:P1532 ?bronzeCountry.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,mul". }
+} ORDER BY ?eventLabel
