@@ -43,6 +43,7 @@ It also includes a summary table at the top for quick scanning.
 
 Page-listed features and extensions:
 
+- Stored queries using `SERVICE <http://www.bigdata.com/rdf/stored-query#...>`
 - Named sub-queries using `WITH { ... } AS %name` and `INCLUDE %name`
 - `geof:globe()`
 - `geof:latitude()`
@@ -113,6 +114,7 @@ python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples -
 
 - The report is based on the specific Wikitech page listed above, not on a broader independent taxonomy.
 - Some features discussed on the page may have zero matches in the current local `examples/` tree.
+- Stored queries are also explicitly tracked, although none are currently in the sample set.
 
 ## Related Files
 

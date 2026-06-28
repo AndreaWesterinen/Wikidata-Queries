@@ -22,6 +22,12 @@ class Feature:
 
 FEATURES = [
     Feature(
+        name="Stored queries (`SERVICE <http://www.bigdata.com/rdf/stored-query#...>`) ",
+        section="Page-Listed Blazegraph Features",
+        pattern=r"SERVICE\s*<http://www\.bigdata\.com/rdf/stored-query#[^>]+>",
+        note="The Blazegraph StoredQuery page defines stored queries as custom applications exposed through a SERVICE URI. No matches were found in the current local example set.",
+    ),
+    Feature(
         name="Named sub-queries (`WITH { ... } AS %name`, `INCLUDE %name`)",
         section="Page-Listed Blazegraph Features",
         pattern=r"\bWITH\s*\{|\bINCLUDE\s*%",

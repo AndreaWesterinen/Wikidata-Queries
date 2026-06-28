@@ -10,6 +10,7 @@ This report uses the feature inventory described on the referenced Wikitech page
 
 | Section | Feature | Matches |
 | --- | --- | ---: |
+| Page-Listed Blazegraph Features | Stored queries (`SERVICE <http://www.bigdata.com/rdf/stored-query#...>`)  | 0 |
 | Page-Listed Blazegraph Features | Named sub-queries (`WITH { ... } AS %name`, `INCLUDE %name`) | 13 |
 | Page-Listed Function Extensions | `geof:globe()` | 0 |
 | Page-Listed Function Extensions | `geof:latitude()` | 0 |
@@ -28,8 +29,16 @@ This report uses the feature inventory described on the referenced Wikitech page
 
 ## Page-Listed Blazegraph Features
 
-- Features in this section: 1
+- Features in this section: 2
 - Total matches across this section: 13
+
+### Stored queries (`SERVICE <http://www.bigdata.com/rdf/stored-query#...>`) 
+
+- Local matches: 0
+- Notes: The Blazegraph StoredQuery page defines stored queries as custom applications exposed through a SERVICE URI. No matches were found in the current local example set.
+
+Matching files:
+- None in the current `examples/` tree
 
 ### Named sub-queries (`WITH { ... } AS %name`, `INCLUDE %name`)
 
