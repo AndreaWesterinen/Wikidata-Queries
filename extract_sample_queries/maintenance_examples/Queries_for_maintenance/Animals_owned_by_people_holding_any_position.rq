@@ -1,0 +1,14 @@
+SELECT ?animal ?animalLabel ?itemLabel (SAMPLE(?image) as ?image) 
+(GROUP_CONCAT(DISTINCT(?personLabel); separator=", ") as ?owners) {
+  ?item wdt:P31 wd:Q16521.
+  ?animal wdt:P31 ?item .
+  ?person wdt:P39 ?x .
+  ?animal wdt:P127 ?person .
+  OPTIONAL { ?animal wdt:P18 ?image }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?animal rdfs:label ?animalLabel .
+    ?item rdfs:label ?itemLabel .
+    ?person rdfs:label ?personLabel
+  }
+} GROUP BY ?animal ?animalLabel ?itemLabel

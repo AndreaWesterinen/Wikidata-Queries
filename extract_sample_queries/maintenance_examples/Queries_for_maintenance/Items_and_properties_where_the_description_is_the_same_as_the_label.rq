@@ -1,0 +1,6 @@
+#Items and properties where the description is the same as the label
+#by YMS, 2016-09-26
+select ?item ?label (lang(?label) as ?lang) where {
+  ?item rdfs:label ?label .
+  ?item schema:description ?label .
+} limit 50

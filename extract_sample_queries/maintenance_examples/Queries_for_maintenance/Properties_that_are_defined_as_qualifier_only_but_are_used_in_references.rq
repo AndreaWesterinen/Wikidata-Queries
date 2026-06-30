@@ -1,0 +1,11 @@
+# added before 2016-10
+SELECT ?entity ?claim ?prop
+WHERE
+{
+	?prop wdt:P31 wd:Q15720608 .
+	?prop wikibase:reference ?propClaim .
+	?ref ?propClaim ?o .
+	?statement prov:wasDerivedFrom ?ref .
+	?entity ?claim ?statement .
+}
+LIMIT 100

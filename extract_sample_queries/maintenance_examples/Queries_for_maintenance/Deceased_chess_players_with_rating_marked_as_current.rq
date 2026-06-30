@@ -1,0 +1,7 @@
+#title: Deceased chess players with rating marked as current
+SELECT DISTINCT ?person ?personLabel WHERE {
+  ?person p:P1087 ?eloRating.
+  ?eloRating wikibase:rank wikibase:PreferredRank.
+  ?person p:P570 []. # date of death
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en" }
+}

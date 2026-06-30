@@ -1,6 +1,6 @@
 # Blazegraph Features in the Sample Queries
 
-This task reviews the Wikitech page below and maps the Blazegraph-specific WDQS functionality it describes to the local query examples under `examples/`.
+This task reviews the Wikitech page below and maps the Blazegraph-specific WDQS functionality it describes to the local query examples under `examples/`, `advanced_examples/`, `human_examples/`, and `maintenance_examples/`.
 
 Source page:
 
@@ -8,12 +8,12 @@ Source page:
 
 ## Goal
 
-Identify the Blazegraph-specific features, extensions, and services discussed on the source page, then find which local example queries use them.
+Identify the Blazegraph-specific features, extensions, and services discussed on the 'Features and Capabilities' page, then find which local example queries use them.
 
 ## Inputs
 
 - Source documentation page on Wikitech
-- Local extracted query examples in `examples/`
+- Local extracted query examples in `examples/`, `advanced_examples/`, `human_examples/`, and `maintenance_examples/`
 
 ## Outputs
 
@@ -26,24 +26,22 @@ Identify the Blazegraph-specific features, extensions, and services discussed on
 
 The report is split into:
 
-- `Page-Listed Blazegraph Features`
-- `Page-Listed Function Extensions`
-- `Page-Listed SERVICE Extensions`
+- `Blazegraph Features`
+- `Function Extensions`
+- `SERVICE Extensions`
 - `Supporting Blazegraph-Specific Syntax`
 
 For each feature, the report includes:
 
 - A local match count
-- A short note about why the feature is included
-- A file-by-file list of matching `.rq` queries under `examples/`
+- A file-by-file list of matching `.rq` queries across the scanned example sets (if <100 queries)
 
 It also includes a summary table at the top for quick scanning.
 
 ## Currently Tracked Features
 
-Page-listed features and extensions:
+Features and extensions:
 
-- Stored queries using `SERVICE <http://www.bigdata.com/rdf/stored-query#...>`
 - Named sub-queries using `WITH { ... } AS %name` and `INCLUDE %name`
 - `geof:globe()`
 - `geof:latitude()`
@@ -65,9 +63,9 @@ Supporting syntax tracked separately:
 
 ## How Matching Works
 
-The script scans every `.rq` file under `examples/` and applies regex-based feature matchers.
+By default the script scans every `.rq` file under all four example sets (`examples/`, `advanced_examples/`, `human_examples/`, and `maintenance_examples/`) and applies regex-based feature matchers. Matching file paths are reported as absolute paths, so matches from the different sets are unambiguous.
 
-This is intentional to preserve exact file-level traceability. `all_examples.txt` is useful for quick one-file searching, but the `.rq` tree is the source of truth for the report because the final output needs exact matching file paths.
+This is intentional to preserve exact file-level traceability. `all_examples.txt` is useful for quick one-file searching, but the `.rq` trees are the source of truth for the report because the final output needs exact matching file paths.
 
 ## Usage
 
@@ -77,7 +75,7 @@ Run from the project root:
 python3 scripts/report_blazegraph_usage_in_examples.py
 ```
 
-This writes:
+With no arguments this scans all four example sets (`examples/`, `advanced_examples/`, `human_examples/`, `maintenance_examples/`) and writes:
 
 ```bash
 blazegraph_usage_report.md
@@ -87,16 +85,16 @@ blazegraph_usage_report.html
 Optional arguments:
 
 ```bash
-python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples --output-md blazegraph_usage_report.md --output-html blazegraph_usage_report.html
+python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples advanced_examples --output-md blazegraph_usage_report.md --output-html blazegraph_usage_report.html
 ```
 
 ## Script Arguments
 
 `--examples-dir`
 
-- Default: `examples`
-- Directory containing the `.rq` files to scan
-- Useful if you want to run the report against a different extracted query set
+- Default: `examples advanced_examples human_examples maintenance_examples`
+- One or more directories containing the `.rq` files to scan
+- Accepts a space-separated list, so you can scan a single set (`--examples-dir examples`) or any subset of the extracted query sets
 
 `--output-md`
 
@@ -113,8 +111,7 @@ python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples -
 ## Notes
 
 - The report is based on the specific Wikitech page listed above, not on a broader independent taxonomy.
-- Some features discussed on the page may have zero matches in the current local `examples/` tree.
-- Stored queries are also explicitly tracked, although none are currently in the sample set.
+- Some features discussed on the page may have zero matches across the current local example sets.
 
 ## Related Files
 
@@ -122,3 +119,6 @@ python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples -
 - `blazegraph_usage_report.html`
 - `scripts/report_blazegraph_usage_in_examples.py`
 - `examples/`
+- `advanced_examples/`
+- `human_examples/`
+- `maintenance_examples/`

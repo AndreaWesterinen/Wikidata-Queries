@@ -1,0 +1,9 @@
+#defaultView:Map{"layer":"?typeLabel"}
+SELECT ?item ?itemLabel ?geo ?type ?typeLabel (SAMPLE(?_image) AS ?image) WHERE {
+  ?type wdt:P279* wd:Q3839081 .
+  ?item wdt:P31 ?type ;
+        wdt:P625 ?geo .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P18 ?_image }
+}
+GROUP BY ?item ?itemLabel ?geo ?type ?typeLabel

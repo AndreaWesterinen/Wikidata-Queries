@@ -1,0 +1,18 @@
+#title:Non-English labels for Khalili Collections items
+SELECT ?lang ?count WITH {
+  SELECT ?work ?label WHERE {
+    ?work wdt:P195?/wdt:P361? wd:Q63160499. # Khalili Collections, or individual collections, or objects within collections
+    ?work (rdfs:label|skos:altLabel) ?label
+    FILTER(lang(?label) != "en") } } AS %core
+WHERE { {
+  SELECT ?lang (COUNT(?label) AS ?count) WHERE {
+    INCLUDE %core.
+    BIND(lang(?label) AS ?langcode).
+    OPTIONAL { ?language wdt:P218 ?langcode; rdfs:label ?langname FILTER(lang(?langname) = "en")}
+    BIND(IF (BOUND(?langname), ?langname, ?langcode) AS ?lang) 
+    } GROUP BY ?lang
+ } UNION {
+    SELECT ("TOTAL" AS ?lang) (COUNT(?label) AS ?count) WHERE {
+    INCLUDE %core.
+    } }
+} order BY DESC(?count) ?lang

@@ -1,0 +1,14 @@
+# Note: Adaptations of query may time out because it looks through all humans in the Wikidata graph.
+# Some ways to make this kind of query faster are to add more conditions
+# (like in the «Actors whose Spanish label ends with “ (actor)”» example)
+# or using the CirrusSearch engine (like in the «Labels containing HTML escape sequences» example).
+
+SELECT ?person ?label (LANG(?label) AS ?lang)
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          rdfs:label ?label.
+  FILTER(LANG(?label) IN ("en", "es", "fr", "de")). # tweak to taste
+  FILTER(CONTAINS(?label, "(")).
+}
+LIMIT 10

@@ -1,0 +1,9 @@
+SELECT ?publisher ?publisherLabel ?work WHERE {
+  # entities used as publisher
+  ?work wdt:P123 ?publisher .
+  # but that are actually a disambiguation page
+  ?publisher wdt:P31 wd:Q4167410 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,fr,de" .
+  }
+}

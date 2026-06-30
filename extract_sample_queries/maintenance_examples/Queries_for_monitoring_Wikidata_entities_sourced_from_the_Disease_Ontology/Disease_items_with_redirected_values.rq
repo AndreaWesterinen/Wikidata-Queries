@@ -1,0 +1,9 @@
+#added before 2016-10
+
+SELECT *
+WHERE
+{
+   ?disease ?p ?o ;
+            wdt:P699 ?doid.
+   ?o owl:sameAs ?sa .
+}

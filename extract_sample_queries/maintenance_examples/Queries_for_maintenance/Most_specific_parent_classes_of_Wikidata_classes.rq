@@ -1,0 +1,11 @@
+# What is or are the lowest common ancestor(s) of a 
+# church, a mosque, a synagogue and a palace in the 
+# Wikidata ontology ? Answer : an architectural structure
+
+SELECT ?lcs ?lcsLabel WHERE {
+    ?lcs ^wdt:P279* wd:Q32815, wd:Q34627, wd:Q16970, wd:Q16560 .
+    filter not exists {
+    ?sublcs ^wdt:P279* wd:Q32815, wd:Q34627, wd:Q16970, wd:Q16560 ;
+          wdt:P279 ?lcs . }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE], en" . }
+  }

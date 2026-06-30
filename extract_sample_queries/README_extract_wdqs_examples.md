@@ -1,6 +1,6 @@
 # Wikidata Query Examples Extractor
 
-This project extracts the live example queries used by the Wikidata Query Service UI and writes them to local files for review and update.
+This project extracts the example queries used by the Wikidata Query Service UI and writes them to local files for review and update.
 
 Only the query itself is written, no surrounding, explanatory text.
 
@@ -21,7 +21,7 @@ Names are sanitized for filesystem use:
 
 ## Source
 
-The extractor reads the live rendered examples page used by the query service:
+The extractor reads the rendered examples page used by the query service:
 
 - Query page: `https://query.wikidata.org/`
 - Examples source page: English `Wikidata:SPARQL_query_service/queries/examples`
@@ -91,6 +91,31 @@ At the time of the last run in this workspace, the extractor generated:
 - `55` category directories
 - `395` `.rq` files
 - `examples/all_examples.txt`
+
+## Topic-Specific Example Subpages
+
+In addition to the default `examples/` set, three additional WDQS example pages were extracted into their own sibling directories. Each was produced with the same script, overriding `--page-title` to point at the page and `--output-dir` to write to a new directory:
+
+- `advanced/` — 84 queries in 19 categories
+  ```bash
+  python3 scripts/extract_wdqs_examples.py \
+    --page-title 'Wikidata:SPARQL_query_service/queries/examples/advanced' \
+    --output-dir advanced_examples
+  ```
+- `human/` — 14 queries in 3 categories
+  ```bash
+  python3 scripts/extract_wdqs_examples.py \
+    --page-title 'Wikidata:SPARQL_query_service/queries/examples/human' \
+    --output-dir human_examples
+  ```
+- `maintenance/` — 64 queries in 3 categories
+  ```bash
+  python3 scripts/extract_wdqs_examples.py \
+    --page-title 'Wikidata:SPARQL_query_service/queries/examples/maintenance' \
+    --output-dir maintenance_examples
+  ```
+
+Each directory uses the same layout as `examples/`: one folder per category, one `.rq` file per query, and a combined `all_examples.txt`.
 
 ## Notes
 

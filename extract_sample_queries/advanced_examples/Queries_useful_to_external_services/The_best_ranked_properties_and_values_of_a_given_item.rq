@@ -1,0 +1,11 @@
+# added 2022-08
+# title: The best ranked properties and values of a given item
+# Based on the "winwaed"'s answer on Stack Overflow: https://stackoverflow.com/questions/56486888/how-to-get-property-labels-from-wikidata-using-sparql
+
+SELECT ?propLabel ?valueLabel
+WHERE
+{
+  wd:Q243 ?a ?value.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  ?prop wikibase:directClaim ?s .
+}

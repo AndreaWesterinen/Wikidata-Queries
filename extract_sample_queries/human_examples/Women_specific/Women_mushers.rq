@@ -1,0 +1,9 @@
+#title: Women mushers
+#added before 2016-10
+select distinct ?musher ?musherLabel
+where {
+  { ?musher wdt:P31 wd:Q5 .
+    ?musher wdt:P106 wd:Q500097 .
+    ?musher wdt:P21 wd:Q6581072}
+  SERVICE wikibase:label {
+           bd:serviceParam wikibase:language "fr,en" . }

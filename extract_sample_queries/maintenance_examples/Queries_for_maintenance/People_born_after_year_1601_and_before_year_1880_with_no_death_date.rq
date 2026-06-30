@@ -1,0 +1,12 @@
+# updated 2019-09-27
+SELECT ?h ?date
+WHERE
+{
+	?h wdt:P31 wd:Q5 .
+	?h wdt:P569 ?date .
+	OPTIONAL {?h wdt:P570 ?d }
+	FILTER (?date > "1601-01-01T00:00:00Z"^^xsd:dateTime)
+	FILTER (?date < "1880-01-01T00:00:00Z"^^xsd:dateTime)
+	FILTER (!bound(?d))
+}
+LIMIT 100

@@ -1,0 +1,9 @@
+#added before 2016-10
+
+SELECT ?thingLabel ?classLabel ?thing ?class
+WHERE
+{
+	?thing wdt:P31 ?class.
+	?thing wdt:P279 ?class.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

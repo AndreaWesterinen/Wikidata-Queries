@@ -1,0 +1,7 @@
+select ?item where {
+  ?item wdt:P31 wd:Q5;
+        p:P106 ?a, ?b.
+  filter(?a != ?b)
+  ?a ps:P106 wd:Q33999.
+  ?b ps:P106 wd:Q33999.
+}

@@ -1,0 +1,11 @@
+#Whose birthday is today?
+SELECT ?entity ?entityLabel ?entityDescription (YEAR(?date) as ?year)
+WHERE {
+    BIND(MONTH(NOW()) AS ?nowMonth)
+    BIND(DAY(NOW()) AS ?nowDay)
+    ?entity wdt:P569 ?date .
+    FILTER (MONTH(?date) = ?nowMonth && DAY(?date) = ?nowDay)
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }   
+}
+LIMIT 20

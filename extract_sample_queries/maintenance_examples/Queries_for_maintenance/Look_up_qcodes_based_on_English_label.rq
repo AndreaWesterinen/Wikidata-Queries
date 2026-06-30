@@ -1,0 +1,8 @@
+SELECT ?lab ?item WHERE {
+  ?item rdfs:label ?lab .
+  MINUS {?item wdt:P31 wd:Q4167836 } . # no category items
+  VALUES ?lab {"Agelenopsis pennsylvanica"@en
+    "Agelenopsis potteri"@en
+    "Anelosimus studiosus"@en
+  } .
+}

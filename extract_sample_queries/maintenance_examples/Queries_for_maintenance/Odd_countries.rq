@@ -1,0 +1,13 @@
+#added before 2016-10
+
+SELECT ?item ?country ?itemLabel ?countryLabel
+WHERE
+{
+  ?item wdt:P17 ?country.
+  MINUS { ?country wdt:P31/wdt:P279* wd:Q7275. }     # excludes normal countries
+  MINUS { ?country wdt:P31/wdt:P279* wd:Q183366. }   # excludes Scotland
+  MINUS { ?country wdt:P31/wdt:P279* wd:Q15893266. } # excludes Brittany
+  MINUS { ?country wdt:P31/wdt:P279* wd:Q1048835. }  # excludes the European Union
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 1000

@@ -1,0 +1,14 @@
+#title: Descendants of Bach
+SELECT ?human ?humanLabel ?fatherLabel ?motherLabel ?dob ?pobLabel ?famLabel ?geni
+WHERE
+{
+wd:Q1339 wdt:P40/wdt:P40* ?human .
+    ?human wdt:P31 wd:Q5 .      
+    OPTIONAL{?human wdt:P22 ?father .}
+    OPTIONAL{?human wdt:P25 ?mother .}
+    OPTIONAL{?human wdt:P569 ?dob .}
+    OPTIONAL{?human wdt:P19 ?pob .}
+    OPTIONAL{?human wdt:P2600 ?geni .}
+    OPTIONAL{?human wdt:P53 ?fam .}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

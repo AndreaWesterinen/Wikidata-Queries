@@ -1,0 +1,10 @@
+SELECT DISTINCT ?occ ?occLabelEN ?occLabelDE {
+  ?occ (wdt:P31/wdt:P31* | wdt:P279/wdt:P279*) wd:Q12737077 .
+  FILTER NOT EXISTS { ?occ wdt:P31 wd:Q5 }
+  FILTER NOT EXISTS { ?occ wdt:P31 wd:Q13406463 }
+  FILTER ( ?occ != wd:Q28640 )
+  ?occ rdfs:label ?occLabelDE filter (lang(?occLabelDE) = "de") .
+  OPTIONAL {
+    ?occ rdfs:label ?occLabelEN filter (lang(?occLabelEN) = "en")
+  }
+}

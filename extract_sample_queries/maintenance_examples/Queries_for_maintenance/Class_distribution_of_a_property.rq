@@ -1,0 +1,7 @@
+SELECT ?class (COUNT(?subject) AS ?countSubject) WHERE {
+  { SELECT DISTINCT ?subject ?class
+    WHERE {
+      ?subject wdt:P40 ?object .
+      ?subject wdt:P31 ?class
+    } }
+} GROUP BY ?class ORDER BY DESC(?countSubject)

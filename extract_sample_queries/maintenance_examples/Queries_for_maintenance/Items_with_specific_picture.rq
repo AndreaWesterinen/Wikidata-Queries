@@ -1,0 +1,9 @@
+#added before 2016-10
+
+SELECT ?item ?itemLabel
+WHERE
+{
+?item wdt:P18 <http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Netherlands.svg>
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+LIMIT 100

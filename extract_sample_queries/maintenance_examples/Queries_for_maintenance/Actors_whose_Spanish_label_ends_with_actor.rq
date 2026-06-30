@@ -1,0 +1,16 @@
+#added before 2016-10
+
+# Actors whose Spanish label ends with “ (actor)”.
+# Such labels are almost certainly imported from the Wikipedia article title,
+# which needs to be unique (to distinguish between John Doe the actor, John Doe the writer, etc.).
+# Wikidata labels have no such restrictions, and therefore should contain no such disambiguatory additions.
+# (This principle also applies to other professions and languages.)
+SELECT ?person ?label (LANG(?label) AS ?lang)
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          wdt:P106 wd:Q33999;
+          rdfs:label ?label.
+  FILTER(LANG(?label) = "es").
+  FILTER(STRENDS(?label, " (actor)")).
+}

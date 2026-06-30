@@ -1,0 +1,12 @@
+#added before 2016-10
+
+SELECT ?name ?nameLabel (COUNT(?otherName) AS ?count)
+WHERE
+{
+  ?name wdt:P31 wd:Q202444;
+        wdt:P460 ?otherName.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)
+LIMIT 10

@@ -1,0 +1,17 @@
+#added before 2016-10
+SELECT ?property ?alias ?occurences
+WHERE
+{
+  hint:Query hint:optimizer "None" .
+
+  {
+    SELECT ?alias (COUNT (?alias) as ?occurences) WHERE {	
+      ?tmp rdf:type wikibase:Property .
+      ?tmp skos:altLabel ?alias FILTER (LANG (?alias) = "en")
+    } GROUP BY ?alias
+  }
+
+  ?property rdf:type wikibase:Property .
+  ?property skos:altLabel ?alias FILTER (?occurences > 1) .
+}
+ORDER BY ?alias

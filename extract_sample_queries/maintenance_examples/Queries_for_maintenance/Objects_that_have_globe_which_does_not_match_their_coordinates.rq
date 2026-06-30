@@ -1,0 +1,8 @@
+#added before 2016-10
+
+SELECT ?item ?body ?globe
+WHERE {
+?item wdt:P376 ?body .
+?item p:P625/psv:P625/wikibase:geoGlobe ?globe .
+filter (?globe != ?body) .
+} LIMIT 30

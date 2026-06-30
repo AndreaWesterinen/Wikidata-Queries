@@ -1,0 +1,19 @@
+#author: Jan Ainali
+#title: QuickStatements-export för huvudtema
+SELECT DISTINCT ?qid ?P921 ?S887 # ?itemLabel ?item # Ta bort den första "#" för att kunna bedöma titlarna
+WHERE {
+VALUES ?topic { wd:Q61566  } # Ange Wikidataobjektet som du vill ange som huvudtema här
+?item wdt:P8433 [] ; # För att bara få med Riksdagsdokument.
+rdfs:label ?itemLabel .
+MINUS {?item wdt:P921 ?topic } # För att inte råka lägga till dubbla påståenden 
+                               # så kontrolleras det här om det redan finns 
+FILTER(CONTAINS(LCASE(?itemLabel), LCASE('skol')) ) .
+#|| CONTAINS(LCASE(?itemLabel), LCASE('Bildemontering'))
+#  ) . # Ange en lämplig söksträng för huvudtemat här
+#FILTER(!CONTAINS(LCASE(?itemLabel), LCASE('gymnasieskol'))) . # Ange en ev. uteslutning här
+BIND(REPLACE(STR(?item), 'http://www.wikidata.org/entity/', '' ) AS ?qid)
+BIND(REPLACE(STR(?topic), 'http://www.wikidata.org/entity/', '' ) AS ?P921)
+BIND('Q69652283' AS ?S887) # ändra inte (ska vara Q69652283)
+}
+offset 2000 limit 50
+#limit 100

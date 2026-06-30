@@ -11,118 +11,112 @@ from pathlib import Path
 
 PAGE_URL = "https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities"
 
+DEFAULT_EXAMPLE_DIRS = [
+    "examples",
+    "advanced_examples",
+    "human_examples",
+    "maintenance_examples",
+]
+
 
 @dataclass(frozen=True)
 class Feature:
     name: str
     section: str
     pattern: str
-    note: str
+    summarize: bool = False
 
 
 FEATURES = [
     Feature(
-        name="Stored queries (`SERVICE <http://www.bigdata.com/rdf/stored-query#...>`) ",
-        section="Page-Listed Blazegraph Features",
-        pattern=r"SERVICE\s*<http://www\.bigdata\.com/rdf/stored-query#[^>]+>",
-        note="The Blazegraph StoredQuery page defines stored queries as custom applications exposed through a SERVICE URI. No matches were found in the current local example set.",
-    ),
-    Feature(
         name="Named sub-queries (`WITH { ... } AS %name`, `INCLUDE %name`)",
-        section="Page-Listed Blazegraph Features",
+        section="Blazegraph Features",
         pattern=r"\bWITH\s*\{|\bINCLUDE\s*%",
-        note="Documented on the page as a Blazegraph-specific readability/performance feature.",
     ),
     Feature(
         name="`geof:globe()`",
-        section="Page-Listed Function Extensions",
+        section="Function Extensions",
         pattern=r"\bgeof:globe\s*\(",
-        note="Listed on the page as a Blazegraph-specific function for extracting globe information from coordinates.",
     ),
     Feature(
         name="`geof:latitude()`",
-        section="Page-Listed Function Extensions",
+        section="Function Extensions",
         pattern=r"\bgeof:latitude\s*\(",
-        note="Listed on the page as a Blazegraph-specific function for extracting latitude.",
     ),
     Feature(
         name="`geof:longitude()`",
-        section="Page-Listed Function Extensions",
+        section="Function Extensions",
         pattern=r"\bgeof:longitude\s*\(",
-        note="Listed on the page as a Blazegraph-specific function for extracting longitude.",
     ),
     Feature(
         name="`geof:distance()`",
-        section="Page-Listed Function Extensions",
+        section="Function Extensions",
         pattern=r"\bgeof:distance\s*\(",
-        note="The page treats this as the geospatial distance function currently used in Blazegraph-backed WDQS queries.",
     ),
     Feature(
         name="`wikibase:decodeUri()`",
-        section="Page-Listed Function Extensions",
+        section="Function Extensions",
         pattern=r"\bwikibase:decodeUri\s*\(",
-        note="Listed on the page as a custom Blazegraph function extension.",
     ),
     Feature(
         name="`SERVICE wikibase:around`",
-        section="Page-Listed SERVICE Extensions",
+        section="SERVICE Extensions",
         pattern=r"SERVICE\s+wikibase:around\b",
-        note="Geospatial service extension documented on the page.",
     ),
     Feature(
         name="`SERVICE wikibase:box`",
-        section="Page-Listed SERVICE Extensions",
+        section="SERVICE Extensions",
         pattern=r"SERVICE\s+wikibase:box\b",
-        note="Geospatial service extension documented on the page.",
     ),
     Feature(
         name="`SERVICE wikibase:label`",
-        section="Page-Listed SERVICE Extensions",
+        section="SERVICE Extensions",
         pattern=r"SERVICE\s+wikibase:label\b",
-        note="Label service documented on the page.",
+        summarize=True,
     ),
     Feature(
         name="`SERVICE bd:slice`",
-        section="Page-Listed SERVICE Extensions",
+        section="SERVICE Extensions",
         pattern=r"SERVICE\s+bd:slice\b",
-        note="Slice service documented on the page.",
     ),
     Feature(
         name="`SERVICE wikibase:mwapi`",
-        section="Page-Listed SERVICE Extensions",
+        section="SERVICE Extensions",
         pattern=r"SERVICE\s+wikibase:mwapi\b",
-        note="MediaWiki API integration service documented on the page.",
     ),
     Feature(
         name="`SERVICE gas:service`",
-        section="Page-Listed SERVICE Extensions",
+        section="SERVICE Extensions",
         pattern=r"SERVICE\s+gas:service\b",
-        note="Graph analytics service documented on the page.",
     ),
     Feature(
         name="`SERVICE bd:sample`",
-        section="Page-Listed SERVICE Extensions",
+        section="SERVICE Extensions",
         pattern=r"SERVICE\s+bd:sample\b",
-        note="Sampling service documented on the page.",
     ),
     Feature(
         name="`hint:Query ...` query hints",
         section="Supporting Blazegraph-Specific Syntax",
         pattern=r"\bhint:Query\b",
-        note="The page mentions query hints in the named sub-query discussion; they are not a top-level section, but they are Blazegraph-specific syntax used in the example set.",
     ),
     Feature(
         name="`bd:serviceParam`",
         section="Supporting Blazegraph-Specific Syntax",
         pattern=r"\bbd:serviceParam\b",
-        note="This parameter mechanism is used to configure Blazegraph/WDQS SERVICE extensions throughout the examples.",
+        summarize=True,
     ),
 ]
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Report Blazegraph-specific feature usage in examples/")
-    parser.add_argument("--examples-dir", default="examples", help="Directory containing .rq files")
+    parser = argparse.ArgumentParser(description="Report Blazegraph-specific feature usage across the example query sets")
+    parser.add_argument(
+        "--examples-dir",
+        dest="examples_dirs",
+        nargs="+",
+        default=DEFAULT_EXAMPLE_DIRS,
+        help="One or more directories containing .rq files (defaults to all example sets)",
+    )
     parser.add_argument(
         "--output-md",
         default="blazegraph_usage_report.md",
@@ -136,18 +130,34 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def find_matches(examples_dir: Path, pattern: str) -> list[Path]:
+def all_rq_files(examples_dirs: list[Path]) -> list[Path]:
+    files: list[Path] = []
+    for examples_dir in examples_dirs:
+        files.extend(sorted(examples_dir.rglob("*.rq")))
+    return files
+
+
+def find_matches(examples_dirs: list[Path], pattern: str) -> list[Path]:
     rx = re.compile(pattern)
     matches = []
-    for path in sorted(examples_dir.rglob("*.rq")):
+    for path in all_rq_files(examples_dirs):
         if rx.search(path.read_text(encoding="utf-8")):
             matches.append(path)
     return matches
 
 
-def build_report(examples_dir: Path) -> str:
+def format_dirs(examples_dirs: list[Path]) -> str:
+    return ", ".join(f"`{d.as_posix()}`" for d in examples_dirs)
+
+
+def summary_text(count: int) -> str:
+    rounded = (count // 100) * 100
+    return f"Over {rounded} matching files (not listed individually)"
+
+
+def build_report(examples_dirs: list[Path]) -> str:
     sections: list[str] = []
-    total_queries = sum(1 for _ in examples_dir.rglob("*.rq"))
+    total_queries = len(all_rq_files(examples_dirs))
     section_order = []
     grouped: dict[str, list[tuple[Feature, list[Path]]]] = {}
 
@@ -155,15 +165,15 @@ def build_report(examples_dir: Path) -> str:
         if feature.section not in grouped:
             grouped[feature.section] = []
             section_order.append(feature.section)
-        grouped[feature.section].append((feature, find_matches(examples_dir, feature.pattern)))
+        grouped[feature.section].append((feature, find_matches(examples_dirs, feature.pattern)))
 
     sections.append("# Blazegraph Feature Usage Report")
     sections.append("")
     sections.append(f"Source page reviewed: `{PAGE_URL}`")
     sections.append("")
-    sections.append(f"Scanned local example queries: `{total_queries}` `.rq` files under `{examples_dir}`.")
+    sections.append(f"Scanned local example queries: `{total_queries}` `.rq` files under {format_dirs(examples_dirs)}.")
     sections.append("")
-    sections.append("This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local `examples/` tree.")
+    sections.append("This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local example trees.")
     sections.append("")
     sections.append("## Summary Table")
     sections.append("")
@@ -187,21 +197,23 @@ def build_report(examples_dir: Path) -> str:
             sections.append(f"### {feature.name}")
             sections.append("")
             sections.append(f"- Local matches: {len(matches)}")
-            sections.append(f"- Notes: {feature.note}")
             sections.append("")
-            if matches:
+            if matches and feature.summarize:
+                sections.append("Matching files:")
+                sections.append(f"- {summary_text(len(matches))}")
+            elif matches:
                 sections.append("Matching files:")
                 sections.extend(f"- `{path.as_posix()}`" for path in matches)
             else:
                 sections.append("Matching files:")
-                sections.append("- None in the current `examples/` tree")
+                sections.append("- None in the current example trees")
             sections.append("")
 
     return "\n".join(sections)
 
 
-def build_report_html(examples_dir: Path) -> str:
-    total_queries = sum(1 for _ in examples_dir.rglob("*.rq"))
+def build_report_html(examples_dirs: list[Path]) -> str:
+    total_queries = len(all_rq_files(examples_dirs))
     section_order = []
     grouped: dict[str, list[tuple[Feature, list[Path]]]] = {}
 
@@ -209,7 +221,7 @@ def build_report_html(examples_dir: Path) -> str:
         if feature.section not in grouped:
             grouped[feature.section] = []
             section_order.append(feature.section)
-        grouped[feature.section].append((feature, find_matches(examples_dir, feature.pattern)))
+        grouped[feature.section].append((feature, find_matches(examples_dirs, feature.pattern)))
 
     parts: list[str] = []
     parts.append("<!DOCTYPE html>")
@@ -244,11 +256,12 @@ def build_report_html(examples_dir: Path) -> str:
     parts.append(
         f"<p>Source page reviewed: <a href=\"{html.escape(PAGE_URL)}\">{html.escape(PAGE_URL)}</a></p>"
     )
+    dirs_html = ", ".join(f"<code>{html.escape(d.as_posix())}</code>" for d in examples_dirs)
     parts.append(
-        f"<p>Scanned local example queries: <span class=\"count\">{total_queries}</span> <code>.rq</code> files under <code>{html.escape(examples_dir.as_posix())}</code>.</p>"
+        f"<p>Scanned local example queries: <span class=\"count\">{total_queries}</span> <code>.rq</code> files under {dirs_html}.</p>"
     )
     parts.append(
-        "<p>This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local <code>examples/</code> tree.</p>"
+        "<p>This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local example trees.</p>"
     )
     parts.append("</div>")
 
@@ -277,9 +290,11 @@ def build_report_html(examples_dir: Path) -> str:
         for feature, matches in feature_rows:
             parts.append('<div class="feature">')
             parts.append(f"<h3>{html.escape(feature.name)}</h3>")
-            parts.append(f"<p>Local matches: <span class=\"count\">{len(matches)}</span><br>Notes: {html.escape(feature.note)}</p>")
+            parts.append(f"<p>Local matches: <span class=\"count\">{len(matches)}</span></p>")
             parts.append("<p>Matching files:</p>")
-            if matches:
+            if matches and feature.summarize:
+                parts.append(f'<ul class="files"><li>{html.escape(summary_text(len(matches)))}</li></ul>')
+            elif matches:
                 parts.append('<ul class="files">')
                 for path in matches:
                     rel = path.as_posix()
@@ -288,7 +303,7 @@ def build_report_html(examples_dir: Path) -> str:
                     )
                 parts.append("</ul>")
             else:
-                parts.append('<ul class="files"><li class="none">None in the current <code>examples/</code> tree</li></ul>')
+                parts.append('<ul class="files"><li class="none">None in the current example trees</li></ul>')
             parts.append("</div>")
 
     parts.append("</body>")
@@ -298,15 +313,17 @@ def build_report_html(examples_dir: Path) -> str:
 
 def main() -> int:
     args = parse_args()
-    examples_dir = Path(args.examples_dir).resolve()
+    examples_dirs = [Path(d).resolve() for d in args.examples_dirs]
     output_md = Path(args.output_md).resolve()
     output_html = Path(args.output_html).resolve()
 
-    if not examples_dir.exists():
-        raise SystemExit(f"Examples directory not found: {examples_dir}")
+    missing = [d for d in examples_dirs if not d.exists()]
+    if missing:
+        formatted = ", ".join(str(d) for d in missing)
+        raise SystemExit(f"Examples directory not found: {formatted}")
 
-    report_md = build_report(examples_dir)
-    report_html = build_report_html(examples_dir)
+    report_md = build_report(examples_dirs)
+    report_html = build_report_html(examples_dirs)
     output_md.write_text(report_md + "\n", encoding="utf-8")
     output_html.write_text(report_html + "\n", encoding="utf-8")
     print(output_md)

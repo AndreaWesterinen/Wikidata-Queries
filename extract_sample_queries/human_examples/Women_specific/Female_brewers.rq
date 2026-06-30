@@ -1,0 +1,8 @@
+#title: Female brewers
+SELECT ?item ?itemLabel ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q5
+  ; wdt:P21 wd:Q6581072
+  ; wdt:P106 wd:Q836904.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?itemLabel

@@ -1,0 +1,197 @@
+[General] Whose birthday is today?
+#title: Whose birthday is today? 
+SELECT ?humanLabel (YEAR(?date) as ?year)
+WHERE
+{
+    BIND(MONTH(NOW()) AS ?nowMonth)
+    BIND(DAY(NOW()) AS ?nowDay)
+
+    ?human wdt:P31 wd:Q5.
+    ?human wdt:P569 ?date .
+    FILTER (MONTH(?date) = ?nowMonth && DAY(?date) = ?nowDay)
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+}
+LIMIT 10
+
+[General] Overall causes of death ranking
+#title: Overall causes of death ranking
+#defaultView:BubbleChart
+#TEMPLATE={"template":"Overall causes of death ranking of ?thing ","variables":{"?thing": {"query":"SELECT ?id  (COUNT(?id) AS ?count) WHERE {  ?sub wdt:P509 ?y.  ?sub wdt:P31 ?id. } GROUP BY ?id "} } }
+SELECT ?cid ?cause (COUNT(*) AS ?count) WHERE {
+  BIND(wd:Q5 AS ?thing)
+  ?pid wdt:P31 ?thing;
+      wdt:P509 ?cid.
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". ?cid rdfs:label ?cause}
+}
+GROUP BY ?cid ?cause
+ORDER BY DESC(?count) ?cause
+
+[General] The top 10 heaviest humans
+#title: The top 10 heaviest humans
+#defaultView:BubbleChart
+#TEMPLATE={ "template": "The top 10 heaviest ?type ", "variables": { "?type": { "query": "SELECT DISTINCT ?id WHERE { ?i wdt:P2067 ?v. ?i wdt:P31 ?id}" } } }
+SELECT ?item ?itemLabel ?mass ?image WHERE {
+  BIND(wd:Q5 AS ?type)
+  ?item wdt:P31 ?type;
+        p:P2067/psn:P2067/wikibase:quantityAmount ?mass.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,es,fr,de" }
+}
+ORDER BY DESC(?mass)
+LIMIT 10
+
+[General] Average number of children per year
+#title: Average number of children per year
+#defaultView:LineChart
+SELECT ?yearstr (AVG( ?_number_of_children ) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P1971 ?_number_of_children.
+  ?item p:P569/psv:P569 [
+                wikibase:timePrecision ?precision ;
+                wikibase:timeValue ?_date_of_birth ;
+              ] .
+  FILTER( ?_number_of_children >= 0 )
+  FILTER( ?precision >= "10"^^xsd:integer ) # precision of at least year
+  FILTER( ?year > 1900 )
+  BIND( year(?_date_of_birth) as ?year ).
+  BIND( str(?year) AS ?yearstr ).
+} GROUP BY ?yearstr
+
+[General] Cancer deaths per year and cancer type
+#title: Cancer deaths per year and cancer type
+#defaultView:AreaChart
+SELECT ?cid (STR(SAMPLE(?year)) AS ?year) (COUNT(*) AS ?count) ?cause WHERE {
+  ?pid wdt:P31 wd:Q5;  # instance of human
+       wdt:P509 ?cid;  # cause of death
+       wdt:P570 ?_date_of_death.
+  ?cid wdt:P279* wd:Q12078.  # type of cancer
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+                         ?cid rdfs:label ?cause. }
+  BIND ( YEAR(?_date_of_death) AS ?year )
+  FILTER( ?year > 1960 )
+}
+GROUP BY ?cid ?cause ?year
+
+[General] Viennese composers and their compositions by tonality
+#title: Viennese composers and their compositions by tonality
+#defaultView:Tree
+SELECT ?composer ?composerLabel ?composerImage ?tonality ?tonalityLabel ?composition ?compositionLabel WHERE {
+  ?composer wdt:P31 wd:Q5;
+            wdt:P19|wdt:P20|wdt:P551 wd:Q1741.
+  OPTIONAL { ?composer wdt:P18 ?composerImage. }
+  ?composition wdt:P86 ?composer;
+               wdt:P826 ?tonality.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de-at,de". }
+}
+ORDER BY ?composerLabel ?tonalityLabel
+
+[General] Birthplaces of humans named Antoine
+#title: Birthplaces of humans named Antoine
+#added before 2016-10
+
+# Coordinates of the birth places of people named Antoine
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord
+WHERE
+{
+  ?item wdt:P31 wd:Q5 .   # human
+  ?item wdt:P735 wd:Q15235674.
+  ?item wdt:P19 ?place.
+  ?place wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}
+
+[General] Map of all humans with Libris-URI according to birthplace
+#defaultView:Map
+#author: So9q based on fork of https://w.wiki/iVh by Salgo60
+#title: Map of all humans with Libris-URI according to birthplace
+#note: Times out on BlazeGraph
+SELECT ?item ?itemLabel ?itemDescription ?librisuri ?coord (sample(?img) AS ?image) (sample(?map) AS ?map) WHERE {
+  #?item wdt:P625 ?coord.
+  ?item wdt:P5587 ?librisid;
+        wdt:P31 wd:Q5;
+        wdt:P19 ?birthplace. 
+  ?birthplace wdt:P625 ?coord.
+  OPTIONAL {?item wdt:P18 ?img}.
+  OPTIONAL {?item wdt:P242 ?map}.
+  BIND(URI(CONCAT("https://libris.kb.se/katalogisering/",?librisid)) AS ?librisuri)
+SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+} group by ?item ?itemLabel ?itemDescription ?librisuri ?coord
+
+[Women specific] Women mushers
+#title: Women mushers
+#added before 2016-10
+select distinct ?musher ?musherLabel
+where {
+  { ?musher wdt:P31 wd:Q5 .
+    ?musher wdt:P106 wd:Q500097 .
+    ?musher wdt:P21 wd:Q6581072}
+  SERVICE wikibase:label {
+           bd:serviceParam wikibase:language "fr,en" . }
+
+[Women specific] Female brewers
+#title: Female brewers
+SELECT ?item ?itemLabel ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q5
+  ; wdt:P21 wd:Q6581072
+  ; wdt:P106 wd:Q836904.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?itemLabel
+
+[Women specific] Female scientists
+#title: Female scientists
+SELECT ?item ?itemLabel ?lastnameLabel ?birthdate ?deathdate ?nationalityLabel ?itemDescription WHERE {
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P21 wd:Q6581072 .
+    ?item wdt:P106/wdt:P279* wd:Q901 .
+    optional { ?item wdt:P734 ?lastname . }
+    optional { ?item wdt:P569 ?birthdate . }
+    optional { ?item wdt:P570 ?deathdate . }
+    optional { ?item wdt:P27 ?nationality . }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en,fr,de,es,it,no" }
+}
+ORDER BY ?itemLabel
+
+[Women specific] Streets in France named after a woman
+#title: Streets in France named after a woman
+SELECT ?street ?streetLabel ?cityLabel ?namedLabel
+WHERE
+{
+    ?street wdt:P31 wd:Q79007 .
+    ?street wdt:P17 wd:Q142 .
+    ?street wdt:P131 ?city .
+    ?street wdt:P138 ?named .
+    ?named wdt:P21 wd:Q6581072
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}
+ORDER BY ?city
+
+[Person specific] Descendants of Bach
+#title: Descendants of Bach
+SELECT ?human ?humanLabel ?fatherLabel ?motherLabel ?dob ?pobLabel ?famLabel ?geni
+WHERE
+{
+wd:Q1339 wdt:P40/wdt:P40* ?human .
+    ?human wdt:P31 wd:Q5 .      
+    OPTIONAL{?human wdt:P22 ?father .}
+    OPTIONAL{?human wdt:P25 ?mother .}
+    OPTIONAL{?human wdt:P569 ?dob .}
+    OPTIONAL{?human wdt:P19 ?pob .}
+    OPTIONAL{?human wdt:P2600 ?geni .}
+    OPTIONAL{?human wdt:P53 ?fam .}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+
+[Person specific] Timeline of compositions by Wolfgang Amadeus Mozart
+#title: Timeline of compositions by Wolfgang Amadeus Mozart
+#defaultView:Timeline
+SELECT DISTINCT ?item ?itemLabel ?catalog_code ?publication_date
+WHERE {
+	?item wdt:P86 wd:Q254 ; # composer: W. A. Mozart
+          wdt:P528 ?catalog_code ;
+          wdt:P577 ?publication_date .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

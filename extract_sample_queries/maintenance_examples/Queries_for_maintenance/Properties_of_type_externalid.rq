@@ -1,0 +1,7 @@
+# Make a list of properties of the type external-id
+SELECT ?property ?propertyLabel ?propertyDescription WHERE {
+  ?property wikibase:propertyType wikibase:ExternalId .
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}          
+} ORDER BY ?propertyLabel
