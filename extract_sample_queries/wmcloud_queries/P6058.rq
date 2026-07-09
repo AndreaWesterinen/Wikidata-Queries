@@ -1,0 +1,5 @@
+#defaultView:LineChart
+SELECT ?stringlength (COUNT(DISTINCT(?stringvalue)) AS ?count)
+WHERE {?item wdt:P6058 ?stringvalue . BIND(strlen(?stringvalue) as ?stringlength)}
+GROUP BY ?stringlength
+ORDER BY DESC(?count)

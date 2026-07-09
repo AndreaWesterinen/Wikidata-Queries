@@ -1,0 +1,13 @@
+#defaultView:BubbleChart
+SELECT ?o (COALESCE(?l, "nieokreślone") AS ?l2) (COUNT(?u) AS ?cnt) WHERE {
+  ?f (wdt:P279*) wd:Q2662430.
+  OPTIONAL { ?f wdt:P1001 ?o. }
+  ?f wdt:P279 ?p.
+  ?u wdt:P39 ?p.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?o rdfs:label ?l.
+  }
+}
+GROUP BY ?o ?l
+ORDER BY DESC (?cnt)

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?label
+{
+  ?item p:P131 ?lloc1 .
+  ?item p:P131 ?lloc2 FILTER( ?lloc2 != ?lloc1 ) .
+  ?item wdt:P131* wd:Q5765.
+  ?item rdfs:label ?label filter (lang(?label) = "ca")
+  }

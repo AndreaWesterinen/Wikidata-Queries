@@ -1,0 +1,6 @@
+SELECT * WHERE {
+  ?compound wdt:P31 wd:Q11173 ;
+            wdt:P234 ?inchi ;
+            wdt:P235 ?inchikey ;
+            wdt:P683 ?chebi ;
+}

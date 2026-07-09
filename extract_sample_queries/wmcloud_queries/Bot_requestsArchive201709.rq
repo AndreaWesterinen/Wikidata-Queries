@@ -1,0 +1,1 @@
+select ?i where{ ?i wdt:P3923 [] minus{?i wdt:P3765 [] }}

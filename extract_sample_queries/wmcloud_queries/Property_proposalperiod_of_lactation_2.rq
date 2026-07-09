@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+    ?item wdt:P1832 ?id .
+    ?item (wdt:P171)* ?higherParent .
+    ?higherParent wdt:P105 wd:Q37517 . # class
+    FILTER(!sameTerm(?higherParent, wd:Q7377)) # Mammalia
+}

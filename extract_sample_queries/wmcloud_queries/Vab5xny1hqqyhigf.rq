@@ -1,0 +1,26 @@
+construct { 
+           ?item wdt:P1476 ?title . 
+           ?item wdt:P577 ?date .
+           ?item wdt:P495 ?countries .
+         ?item wdt:P57  ?director .
+      ?item wdt:P2047  ?duration .
+      ?item wdt:P136  ?genre .
+      ?item wdt:P345 ?imdb .
+      ?item wdt:P4947 ?tmdb .
+      ?item wdt:P1265 ?allocine .
+      ?item wdt:P2142 ?boxoffice .
+      ?item wdt:P272 ?prodcompany . }
+WHERE{
+      BIND(wd:Q102438 as ?item) .
+      OPTIONAL{?item wdt:P1476 ?title  .}
+      OPTIONAL{?item wdt:P577 ?date .}
+      OPTIONAL{?item wdt:P495 ?countries .}        
+      OPTIONAL{?item wdt:P57  ?director .}
+      OPTIONAL{?item wdt:P2047  ?duration .}
+      OPTIONAL{?item wdt:P136  ?genre .}
+      OPTIONAL{?item wdt:P345 ?imdb .}
+      OPTIONAL{?item wdt:P4947 ?tmdb .}
+      OPTIONAL{?item wdt:P1265 ?allocine .}
+      OPTIONAL{?item wdt:P2142 ?boxoffice .}
+      OPTIONAL{?item wdt:P272 ?prodcompany .}
+}

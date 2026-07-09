@@ -1,0 +1,11 @@
+embed.html#SELECT ?work ?workLabel ?actor ?actorLabel ?char ?charLabel WHERE {
+  ?work p:P161 ?distribution .
+  ?distribution ps:P161 ?actor .
+  ?distribution pq:P453 ?char .
+  ?actor wdt:P21 ?actor_gender . 
+  ?char wdt:P21 ?char_gender . 
+  FILTER(?actor_gender IN (wd:Q1052281, wd:Q2449503)) .
+  FILTER(?char_gender IN (wd:Q1052281, wd:Q2449503)) .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} LIMIT 100

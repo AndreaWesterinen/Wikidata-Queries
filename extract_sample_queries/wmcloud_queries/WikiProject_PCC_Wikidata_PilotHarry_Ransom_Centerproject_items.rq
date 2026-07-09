@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item
+WHERE { 
+  ?item wdt:P5008 wd:Q105936481. 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+} 
+ORDER BY (LCASE(?itemLabel))

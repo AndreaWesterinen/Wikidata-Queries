@@ -1,0 +1,14 @@
+#title: Codes should be unique within a series
+# Complex constraint from [[Property talk:P2364]]
+# TODO: add missing series statements, fix code or define applicable exceptions
+SELECT DISTINCT ?item ?itemLabel ?item2 ?item2Label ?productioncode ?series ?seriesLabel ?age
+{
+	?item wdt:P2364 ?productioncode ; wdt:P179 ?series . 
+	?item2 wdt:P2364 ?productioncode ; wdt:P179 ?series .
+	FILTER( ?item != ?item2 && str(?item) > str(?item2) ) .
+  	FILTER( ?item not in ( wd:Q4115189,wd:Q13406268,wd:Q15397819 ) )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    BIND(IF(?item in (wd:Q14508187,wd:Q7758715),"<2018","") as ?age)
+}
+ORDER BY ?age ?seriesLabel ?productioncode 
+LIMIT 500

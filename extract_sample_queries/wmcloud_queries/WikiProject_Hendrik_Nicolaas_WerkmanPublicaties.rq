@@ -1,0 +1,8 @@
+#Publicaties van Werkman
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q732577 .
+  ?item wdt:P110 wd:Q559440 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

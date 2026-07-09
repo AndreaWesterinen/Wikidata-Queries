@@ -1,0 +1,22 @@
+# finds living Members of the UK Parliament who have date of birth, sexual orientation,
+# or membership of political party claims that have no URL-based reference
+# orders by reverse DOB so we can focus on likely currently active BLPs first.
+
+SELECT DISTINCT ?item ?itemLabel WHERE {
+   ?item wdt:P39 wd:Q16707842 ;
+         ?prop ?statement .
+  OPTIONAL {
+    ?item wdt:P569 ?dob .
+  }
+  FILTER NOT EXISTS {
+    ?item wdt:P570 ?deathDate .
+  }
+  FILTER (?prop = wdt:P569 || ?prop = wdt:P102 || ?prop = wdt:P91)
+  FILTER NOT EXISTS {
+        ?item ?prop ?statement .
+        ?statement prov:wasDerivedFrom ?derivedFrom  .
+    	?derivedFrom wdt:P854 ?url .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?dob)

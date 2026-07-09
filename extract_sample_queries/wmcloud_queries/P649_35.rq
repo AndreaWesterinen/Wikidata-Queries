@@ -1,0 +1,4 @@
+#title: Items who don't have "subject named as"
+# Complex constraint from [[Property talk:P649]]
+# Items that do have [[d:Q19558910|National Register of Historic Places listed place <small>(Q19558910)</small>]] in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not the qualifier [[Property:P1810|subject named as&#32;<small dir="ltr">(P1810)</small>]].
+SELECT ?item WHERE { ?item wdt:P1435 wd:Q19558910 . MINUS { ?item p:P1435 [ ps:P1435 wd:Q19558910 ; pq:P1810 [] ] } } LIMIT 1000

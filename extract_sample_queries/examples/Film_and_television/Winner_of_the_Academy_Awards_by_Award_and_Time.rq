@@ -1,3 +1,4 @@
+#title: Winner of the Academy Awards by Award and Time
 SELECT DISTINCT ?item ?itemLabel ?awardLabel ?time
 {
     ?item wdt:P106/wdt:P279* wd:Q3455803 ; # Items with the Occupation(P106) of Director(Q3455803) or a subclass(P279)

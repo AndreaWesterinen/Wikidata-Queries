@@ -1,0 +1,21 @@
+select ?lexemeId ?lemma WHERE {
+  ?lexemeId <http://purl.org/dc/terms/language> wd:Q10179.
+  {
+  SELECT DISTINCT ?lexemeId WHERE {
+      {
+        ?lexemeId p:P31 ?statement0.
+        ?statement0 (ps:P31/(wdt:P279*)) wd:Q504952.
+      }
+      UNION
+      {
+        ?lexemeId p:P5713 ?statement1.
+        ?statement1 (ps:P5713/(wdt:P279*)) wd:Q504952.
+      }
+	UNION
+	{
+	  ?lexemeId  wikibase:lexicalCategory wd:Q504952;
+	}
+    } 
+  }
+  ?lexemeId wikibase:lemma ?lemma.
+}

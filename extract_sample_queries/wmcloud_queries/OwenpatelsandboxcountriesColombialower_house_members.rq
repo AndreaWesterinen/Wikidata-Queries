@@ -1,0 +1,19 @@
+SELECT ?item ?country ?legislature ?position ?positiontype ?electoraldistrict ?edtype ?starttime ?endtime ?parliametarygroup ?fbid WHERE { 
+    BIND (wd:Q739 as ?country) .
+    BIND (wd:Q1571756 as ?legislature) .
+    ?member wdt:P361 ?legislature ;
+    MINUS {?member wdt:P576 [] }
+    MINUS { ?legislature wdt:P576 [] }
+    ?node ps:P39 ?member .
+    OPTIONAL { ?node pq:P4100 ?parliametarygroup }
+    OPTIONAL { ?node pq:P580 ?starttime }
+    OPTIONAL { ?node pq:P768 ?electoraldistrict .
+      OPTIONAL { ?electoraldistrict wdt:P31 ?edtype }
+    }
+    OPTIONAL { ?node pq:P582 ?endtime }
+    ?node ps:P39 ?position .
+    ?position wdt:P31 ?positiontype .
+    ?item p:P39 ?node .
+    OPTIONAL { ?item wdt:P2013 ?fbid }
+}
+ORDER BY ?item

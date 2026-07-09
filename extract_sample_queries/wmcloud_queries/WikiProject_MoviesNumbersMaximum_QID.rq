@@ -1,0 +1,1 @@
+SELECT ?item WHERE { VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?item wdt:P31 ?filmtype . BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid) FILTER (?qid > 21000000) } ORDER BY DESC(?qid) LIMIT 12

@@ -1,0 +1,6 @@
+SELECT ?Insel ?InselLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Insel wdt:P31 wd:Q23442.
+}
+order by ?InselLabel
+LIMIT 100

@@ -1,0 +1,6 @@
+#title: Q718422 is used as nationality
+# Complex constraint from [[Property talk:Q718422]]
+# Items with [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]] equal to [[d:Q718422|Third Hungarian Republic <small>(Q718422)</small>]]
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P27 wd:Q718422.
+}

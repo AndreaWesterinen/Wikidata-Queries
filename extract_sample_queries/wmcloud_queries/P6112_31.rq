@@ -1,0 +1,33 @@
+#Target required claim report for P6112: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P6112/ps:P6112 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P6112 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P6112 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q58840094 wd:Q56465024 wd:Q63349282 wd:Q87268130 wd:Q104216787 wd:Q71112969 } .
+			MINUS {
+				?value p:P971/ps:P971 ?values .
+			} .
+			OPTIONAL {
+				?value p:P971/ps:P971 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

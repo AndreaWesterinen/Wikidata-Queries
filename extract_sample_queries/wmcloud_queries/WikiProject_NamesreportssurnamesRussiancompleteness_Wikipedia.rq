@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?sitelink (CONCAT("https://ru.wikipedia.org/wiki/",REPLACE(?name," ","_")) as ?sitelink2)
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P971 wd:Q101352 , wd:Q7737 .
+  ?sitelink schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> ; schema:name ?name 
+}
+ORDER BY ?sitelink

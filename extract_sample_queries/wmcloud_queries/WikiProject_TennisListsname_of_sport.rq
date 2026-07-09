@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?lg ?tennis ?tennisplayer ?tabletennis ?tabletennisplayer ?wheelchairtennis ?softtennis ?realtennis 
+{
+    wd:Q847 rdfs:label ?tennis . BIND(lang(?tennis) as ?lg)
+    OPTIONAL     {  wd:Q10833314 rdfs:label ?tennisplayer        FILTER ( lang(?tennisplayer) = ?lg) }
+    OPTIONAL     {  wd:Q3930 rdfs:label ?tabletennis        FILTER ( lang(?tabletennis) = ?lg) }
+    OPTIONAL     {  wd:Q13382519 rdfs:label ?tabletennisplayer        FILTER ( lang(?tabletennisplayer) = ?lg) }  
+    OPTIONAL     {  wd:Q1153025 rdfs:label ?wheelchairtennis     FILTER ( lang(?wheelchairtennis) = ?lg)  }
+    OPTIONAL     {  wd:Q1515947 rdfs:label ?softtennis        FILTER ( lang(?softtennis) = ?lg) }
+    OPTIONAL     {  wd:Q2360406 rdfs:label ?realtennis        FILTER ( lang(?realtennis) = ?lg) }
+    ?item wdt:P424 ?lg ; wdt:P305 [] .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?lg
+LIMIT 2000

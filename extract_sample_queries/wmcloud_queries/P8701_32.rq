@@ -1,0 +1,13 @@
+#title: Most recent value shouldn't be from more than 10 or 12 years ago
+# Complex constraint from [[Property talk:P8701]]
+# TODO find values to add
+SELECT ?item (MAX(YEAR(?d)) AS ?mostrecent)
+WHERE
+{
+  ?item wdt:P8701 ?census.
+  ?census wdt:P585 ?d.
+  MINUS { ?item wdt:P276 / wdt:P576 [ ] }    
+}
+GROUP BY ?item
+HAVING (?mostrecent < ((YEAR(NOW())) - 11 ))
+ORDER BY ?mostrecent

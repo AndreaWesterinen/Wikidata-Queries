@@ -1,0 +1,11 @@
+SELECT ?item ?body ?globe 
+WHERE
+{
+?item wdt:P376 ?body .
+
+?item p:P625 ?coordinate .
+?coordinate psv:P625 ?v .
+?v wikibase:geoGlobe ?globe .
+
+filter (?globe != ?body) .                 
+}

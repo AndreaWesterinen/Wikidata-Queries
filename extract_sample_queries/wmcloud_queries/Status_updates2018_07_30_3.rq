@@ -1,0 +1,18 @@
+# direct-to-video sequels of theatrical movies
+#defaultView:Timeline
+SELECT ?movie ?movieLabel ?previous ?previousLabel (MIN(?publicationDate) AS ?publicationDate) (GROUP_CONCAT(DISTINCT ?companyLabel; separator = ", ") AS ?companies) WHERE {
+  ?movie wdt:P31/wdt:P279* wd:Q11424;
+         wdt:P155 ?previous;
+         wdt:P437 wd:Q844580.
+  MINUS { ?previous wdt:P437 wd:Q844580. }
+  OPTIONAL { ?movie wdt:P272 ?company. }
+  OPTIONAL { ?movie wdt:P577 ?publicationDate. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?movie rdfs:label ?movieLabel.
+    ?previous rdfs:label ?previousLabel.
+    ?company rdfs:label ?companyLabel.
+  }
+}
+GROUP BY ?movie ?movieLabel ?previous ?previousLabel
+ORDER BY ?publicationDate

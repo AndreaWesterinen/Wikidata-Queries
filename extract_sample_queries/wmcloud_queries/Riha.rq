@@ -1,0 +1,6 @@
+select ?item ?value ?sitelink where {
+
+  ?item wdt:P9391 ?value .
+  ?sitelink schema:about ?item. ?sitelink schema:isPartOf <https://cs.wikipedia.org/> .
+
+}

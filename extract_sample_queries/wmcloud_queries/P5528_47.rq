@@ -1,0 +1,4 @@
+#title: Country is not set to Brazil
+# Complex constraint from [[Property talk:P5528]]
+# Non-person items where the country is not set to [[d:Q155|Brazil <small>(Q155)</small>]]
+SELECT ?item WHERE { ?item wdt:P5528 ?imdb . minus {?item wdt:P31 wd:Q5} . minus{?item wdt:P17 wd:Q155} }

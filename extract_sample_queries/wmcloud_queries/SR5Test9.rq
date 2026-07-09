@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?idFMA ?labelFMA WHERE
+{
+  ?item wdt:P1402 ?idFMA;
+    p:P1402 _:b2.
+  _:b2 pq:P1810 ?labelFMA.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }               
+}

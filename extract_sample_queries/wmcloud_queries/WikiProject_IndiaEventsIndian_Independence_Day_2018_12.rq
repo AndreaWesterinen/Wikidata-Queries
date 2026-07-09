@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel ?value
+{
+          { ?item wdt:P31 wd:Q532 }
+    UNION { ?item wdt:P31 wd:Q486972 }
+    ?item wdt:P5578 ?value .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+}

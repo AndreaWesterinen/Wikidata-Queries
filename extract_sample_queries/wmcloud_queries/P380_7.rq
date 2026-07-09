@@ -1,0 +1,4 @@
+#title: Inconsistency between the identifier and the location
+# Complex constraint from [[Property talk:P380]]
+# Place with identifier prefix indicating a departement but located in another departement.
+SELECT DISTINCT ?item WHERE { ?item wdt:P380 ?merimee; wdt:P131/wdt:P374 ?insee . FILTER( substr(?merimee, 3, 2) != '00' && substr(?merimee, 3, 2) != substr(?insee, 1, 2) ). FILTER( ?item NOT IN ( wd:Q38383288, wd:Q41772591, wd:Q38503834, wd:Q3582098 ) ) . }

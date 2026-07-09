@@ -1,0 +1,7 @@
+SELECT ?item ?class WITH {
+  SELECT ?class (COUNT(?item) AS ?ct) WHERE { ?class ^wdt:P31 ?item } GROUP BY ?class
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  FILTER( ?ct = 1 ) .
+  ?item wdt:P31 ?class .
+} LIMIT 500

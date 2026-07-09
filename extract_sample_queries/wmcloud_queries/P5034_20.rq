@@ -1,0 +1,12 @@
+#title: Check year in ID with date of birth
+# Complex constraint from [[Property talk:P5034]]
+#
+SELECT ?item ?year ?born ?timeprecision {
+	?item wdt:P5034 ?id.
+    BIND (SUBSTR(?id, 4, 4) AS ?year)
+    ?item p:P569/psv:P569 ?timenode.
+    ?timenode wikibase:timeValue         ?born.
+    ?timenode wikibase:timePrecision     ?timeprecision.
+    FILTER (xsd:integer(?year) < YEAR(?born))
+    FILTER (?timeprecision != 7)
+}

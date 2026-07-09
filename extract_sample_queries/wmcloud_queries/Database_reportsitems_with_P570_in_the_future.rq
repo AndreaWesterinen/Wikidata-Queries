@@ -1,0 +1,1 @@
+SELECT ?item ?note WHERE { { ?item p:P570/ps:P570 ?dod . FILTER (?dod>now()) . ?item wdt:P31 wd:Q5 BIND("error: please check" as ?note) }  UNION { VALUES ?item { wd:Q376577 } BIND("ignore this line (should be the only one)" as ?note) }   }

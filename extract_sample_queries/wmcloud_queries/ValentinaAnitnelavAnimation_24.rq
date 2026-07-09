@@ -1,0 +1,44 @@
+#sample animated film by country
+SELECT DISTINCT ?country ?countryLabel ?sampleFilm ?sampleFilmLabel ?sampleFeatureFilm ?sampleFeatureFilmLabel ?sampleShortFilm ?sampleShortFilmLabel
+WHERE 
+{
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr,ru,it,es,nl,cs,sk,ja,zh,uk". }
+  {
+  SELECT DISTINCT ?country ?countryLabel 
+                  (SAMPLE(?film) as ?sampleFilm)
+                  (SAMPLE(?featureFilm) as ?sampleFeatureFilm)
+                  (SAMPLE(?shortFilm) as ?sampleShortFilm)
+  WHERE {
+    {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866.} UNION
+    {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107.}
+    MINUS{?film wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?film wdt:P31/wdt:P279* wd:Q5398426}
+  ?film wdt:P495 ?country.
+    OPTIONAL{
+      #getting films being a feature film (via P31)
+    {?film wdt:P31/wdt:P279* wd:Q24869} UNION
+    #marking films with a duration longer than or equal to 45 minutes/2700 seconds/0.75 hours
+    {?film p:P2047/psv:P2047 ?durationNode. 
+   {?durationNode wikibase:quantityUnit wd:Q7727; wikibase:quantityAmount ?duration. FILTER(?duration >= 45)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q11574; wikibase:quantityAmount ?duration. FILTER(?duration >= 2700)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q25235; wikibase:quantityAmount ?duration. FILTER(?duration >= 0.75)}
+     BIND(?film AS ?featureFilm)
+    }
+      }
+    OPTIONAL{
+      #getting films being a short film (via P31)
+    {?film wdt:P31/wdt:P279* wd:Q24862} UNION
+    #marking films with a duration smaller than 45 minutes/2700 seconds/0.75 hours
+    {?film p:P2047/psv:P2047 ?durationNode. 
+   {?durationNode wikibase:quantityUnit wd:Q7727; wikibase:quantityAmount ?duration. FILTER(?duration < 45)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q11574; wikibase:quantityAmount ?duration. FILTER(?duration < 2700)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q25235; wikibase:quantityAmount ?duration. FILTER(?duration < 0.75)}
+     BIND(?film AS ?shortFilm)
+  }
+      }
+  }
+  GROUP BY ?country ?countryLabel
+  }
+  
+}
+LIMIT 100

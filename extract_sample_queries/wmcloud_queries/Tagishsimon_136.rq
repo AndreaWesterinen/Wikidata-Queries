@@ -1,0 +1,9 @@
+SELECT ?url ?named_as ?item ?itemLabel ?itemDescription WHERE {
+  ?item p:P10913 ?stmt .
+  ?stmt a wikibase:BestRank .
+  ?stmt ps:P10913 ?ukat .
+  wd:P10913 wdt:P1630 ?fmt .
+  BIND(IRI(REPLACE(?ukat, '(^.*)', ?fmt)) AS ?url) .
+  OPTIONAL {?stmt pq:P1810 ?named_as} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?url

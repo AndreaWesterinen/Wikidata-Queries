@@ -1,0 +1,8 @@
+SELECT ?organization ?organizationLabel ?motto_text WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?organization wdt:P31 wd:Q43229;
+    wdt:P17 wd:Q668.
+  OPTIONAL { ?organization wdt:P1451 ?motto_text. }
+}
+ORDER BY DESC (?motto_text)
+LIMIT 5000

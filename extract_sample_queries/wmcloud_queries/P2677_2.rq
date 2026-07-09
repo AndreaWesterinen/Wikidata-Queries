@@ -1,0 +1,9 @@
+SELECT ?x ?xLabel ?xDescription {
+  { SELECT DISTINCT ?x WHERE {
+    ?x wdt:P31/wdt:P279?/wdt:P279? wd:Q860861 .
+    ?x p:P180/pq:P2677 ?pos .
+  } }
+  SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+  }
+} 

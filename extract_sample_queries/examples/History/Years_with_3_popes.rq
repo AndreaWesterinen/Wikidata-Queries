@@ -1,3 +1,4 @@
+#title: Years with 3 popes
 SELECT ?year ?pope1Label ?pope2Label ?pope3Label
 WHERE
 {

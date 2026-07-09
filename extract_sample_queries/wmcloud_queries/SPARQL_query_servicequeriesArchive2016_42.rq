@@ -1,0 +1,7 @@
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix wd: <http://www.wikidata.org/entity/>
+SELECT distinct ?prop WHERE {
+  ?tree0 (wdt:P150)* ?item .
+  ?tree0 (wdt:P17|wdt:P131)* wd:Q211 .
+  ?item ?prop wd:Q211 .
+}

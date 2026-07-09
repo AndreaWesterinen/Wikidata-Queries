@@ -1,0 +1,6 @@
+SELECT ?person ?personLabel ?artwork ?artworkLabel {
+  ?person wdt:P31 wd:Q5 .
+  MINUS { ?person wdt:P18 [] }
+  ?artwork wdt:P31/wdt:P279* wd:Q4502142 ; wdt:P180 ?person ; wdt:P4765 []
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

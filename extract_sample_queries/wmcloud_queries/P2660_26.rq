@@ -1,0 +1,12 @@
+#title: value should be lower or equal to elevation
+# Complex constraint from [[Property talk:P2660]]
+# TODO: correct value or elevation, adjust ranks, define exceptions
+SELECT ?item ?itemLabel ?item_elevation ?value
+{
+  ?item p:P7479 / psn:P7479 / wikibase:quantityAmount ?value .
+  ?item p:P2044 / psn:P2044 / wikibase:quantityAmount ?item_elevation .
+  FILTER( ?item_elevation >= ?value )
+  FILTER( ?item not in ( wd:Q15397819 , wd:Q4115189 ) ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+LIMIT 100

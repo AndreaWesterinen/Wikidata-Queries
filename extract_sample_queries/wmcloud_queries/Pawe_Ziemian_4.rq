@@ -1,0 +1,8 @@
+# powinowaci
+SELECT DISTINCT ?any ?anyLabel WHERE {
+  ?any wdt:P31 wd:Q954007 .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "pl,en" .
+  }
+}

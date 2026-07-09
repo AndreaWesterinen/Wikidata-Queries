@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?itemDescription ?img ?s
+{
+    ?item wdt:P106 wd:Q33999 ; wdt:P18 ?img ; wdt:P21 wd:Q6581072 
+    FILTER (xsd:integer(strafter(str(?item), "Q")) > 29957000) 
+    ?item wdt:P31 wd:Q5 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+    OPTIONAL { ?item wikibase:sitelinks ?sl ; wikibase:statements ?st . BIND( CONCAT("sl: ",str(?sl)," - st: ",str(?st)) as ?s) }
+}  
+ORDER BY DESC(xsd:integer(strafter(str(?item), "Q")))
+LIMIT 8

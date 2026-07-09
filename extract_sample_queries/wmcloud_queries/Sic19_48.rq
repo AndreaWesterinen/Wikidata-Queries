@@ -1,0 +1,46 @@
+embed.html#SELECT DISTINCT
+  ?work ?workLabel
+  ?author1 ?author1Label
+  ?author2 ?author2Label
+  ?x ?xLabel
+  ?countryLabel
+WITH {
+  SELECT
+    ?author1 
+    ?author2
+    ?x
+    (SAMPLE(?work_) AS ?work)
+    (SAMPLE(?country_) AS ?country)
+  WHERE {
+    ?author1 ( wdt:P108 | wdt:P1416 | wdt:P463 ) / wdt:P361* wd:Q503424 .  
+    ?author2 ( wdt:P108 | wdt:P1416 | wdt:P463 ) / wdt:P361* ?x .  
+    ?work_ wdt:P50 ?author1 .
+    ?work_ wdt:P50 ?author2 .
+
+    ?x wdt:P31/wdt:P279* wd:Q43229 ;
+       wdt:P17 ?country_ .
+
+    # Only display co-authorship for certain types of documents
+    # Journal and conference articles, books, not (yet?) software
+    VALUES ?publication_type { wd:Q13442814 wd:Q571 wd:Q10885494 wd:Q17928402 wd:Q23927052 }
+    ?work_ wdt:P31 ?publication_type .
+
+    # No self-links.
+    FILTER (?author1 != ?author2)
+    FILTER (?x != wd:Q503424)
+
+    # Images
+#    OPTIONAL { ?author1 wdt:P18 ?image1_ }
+ #   OPTIONAL { ?author2 wdt:P18 ?image2_ }
+
+    # Coloring of the nodes
+  #  BIND("FFFFFF" AS ?rgb_)
+  }
+  GROUP BY ?work ?author1 ?author2 ?x
+} AS %result
+WHERE {
+  INCLUDE %result
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,da,de,es,fr,jp,sv,ru,zh".
+  }
+}
+Limit 100000

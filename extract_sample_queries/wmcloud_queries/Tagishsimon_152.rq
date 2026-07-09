@@ -1,0 +1,25 @@
+SELECT ?item ?itemLabel ?P276Label ?P131Label ?P1312Label ?P1313Label ?P17Label  WITH {
+  SELECT ?item 
+WHERE 
+{
+   SERVICE bd:slice {
+   ?item wdt:P31 wd:Q61443690 .
+    bd:serviceParam bd:slice.offset 0 . # Start at item number (not to be confused with QID)
+    bd:serviceParam bd:slice.limit 40000 . # List this many items
+  }
+  FILTER NOT EXISTS { ?item schema:description ?description . filter(lang(?description)="en") }
+ } } as %i
+WITH { SELECT ?item ?P276 ?P131 ?P1312 ?P1313 ?P17 WHERE
+{
+  INCLUDE %i  
+  OPTIONAL {?item wdt:P17 ?P17.}
+  OPTIONAL {?item wdt:P131 ?P131 .
+           OPTIONAL {?P131 wdt:P131 ?P1312.
+                    OPTIONAL {?P1312 wdt:P131 ?P1313 .} } }
+  OPTIONAL {?item wdt:P276 ?P276 . }
+} } as %j
+WHERE
+{
+  INCLUDE %j
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

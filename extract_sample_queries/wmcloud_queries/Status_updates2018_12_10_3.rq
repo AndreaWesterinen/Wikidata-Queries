@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?folkm ?medlemmar ?mp ?layer ?coord {
+  ?item wdt:P31 wd:Q615980 .
+  ?item wdt:P625 ?coord .
+  ?item wdt:P1082 ?folkm .
+  ?item wdt:P2124 ?medlemmar .
+  BIND(FLOOR(?medlemmar/?folkm*1000+0.5)/10 AS ?mp)
+  BIND(IF(?mp<40,"-40",IF(?mp<50,"40-50",IF(?mp<60,"50-60",IF(?mp<70,"60-70",IF(?mp<80,"70-80","80-"))))) AS ?layer)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+}
+ORDER BY DESC(?mp)

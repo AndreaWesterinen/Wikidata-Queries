@@ -1,0 +1,10 @@
+SELECT ?item 
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q41176.
+  MINUS {?item p:P31 wd:Q24354 } . 
+  ?item p:P669 ?street .
+  ?street ps:P669 wd:Q847613 .
+  OPTIONAL {?street pq:P670 ?streetno } . 
+}
+ORDER BY xsd:integer(?streetno)

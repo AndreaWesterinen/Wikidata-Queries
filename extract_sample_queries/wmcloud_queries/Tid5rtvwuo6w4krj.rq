@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?collectionLabel ?image WHERE {
+  ?item wdt:P170 wd:Q33978 ;
+        wdt:P180 wd:Q243 .
+  OPTIONAL { ?item wdt:P195 ?collection . }
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?collectionLabel ?itemLabel

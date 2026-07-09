@@ -1,0 +1,33 @@
+SELECT DISTINCT ?item (COUNT(?geboortedatum) AS ?datumCount)
+  WITH {
+   SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q5.
+   	# place of birth within Netherlands
+	{?item wdt:P19 ?pob .
+  ?pob wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775    
+    }
+   	# OR work location within Netherlands
+	UNION  {?item wdt:P937 ?pow .
+              ?pow wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775}
+
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 ?por .
+              ?por wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P20 ?pod .
+              ?pod wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775}
+
+  ?item wdt:P9152 [].
+  } 
+  } AS %results
+    WHERE {
+     INCLUDE %results.
+   ?item wdt:P569 ?geboortedatum.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}
+GROUP BY ?item
+HAVING (?datumCount > 1)

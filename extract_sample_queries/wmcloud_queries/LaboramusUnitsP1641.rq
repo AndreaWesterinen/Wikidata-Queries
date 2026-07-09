@@ -1,0 +1,3 @@
+SELECT ?id WHERE {
+    ?id p:P1641/psv:P1641 [ wikibase:quantityUnit wd:Q199 ]
+}

@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?taxon_name ?APNI_ID ?NT_Flora_ID WHERE {
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}
+    ?item wdt:P5984 ?APNI_ID.
+    ?item wdt:P225 ?taxon_name.
+  
+  OPTIONAL { ?item wdt:P5953 ?NT_Flora_ID. }
+
+}
+ORDER BY ?taxon_name

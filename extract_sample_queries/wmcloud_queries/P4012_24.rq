@@ -1,0 +1,10 @@
+#title: Possibly malformed entries
+# Complex constraint from [[Property talk:P4012]]
+# check if family name and given names aren't inverted
+SELECT ?item ?l
+WHERE
+{
+  ?item wdt:P4012 [] ; rdfs:label ?l . 
+  FILTER( lang(?l) = "en" && REGEX( ?l, "^.+ [A-Z][A-Z]$")  )
+}
+LIMIT 100

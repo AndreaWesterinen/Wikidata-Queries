@@ -1,0 +1,14 @@
+#defaultView:BubbleChart
+SELECT distinct ?country ?countryLabel  (count(?site) as ?sites)
+
+WHERE { 
+  
+  ?site wdt:P1435 wd:Q9259 . 
+  ?site wdt:P17 ?country .
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}
+
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?sites)

@@ -1,0 +1,4 @@
+#title: Non-existent examples
+# Complex constraint from [[Property talk:P1855]]
+# Properties with examples that do not exist at the target items
+SELECT DISTINCT ?item WHERE { ?item p:P1855 ?example; wikibase:claim ?p; wikibase:statementProperty ?ps; wikibase:qualifier ?pq . MINUS { ?item wdt:P31/wdt:P279* wd:Q18720640 } . ?example ps:P1855 ?targetitem; ?pq ?value . MINUS { ?targetitem ?p ?statement . ?statement ?ps ?value } . } ORDER BY ?item

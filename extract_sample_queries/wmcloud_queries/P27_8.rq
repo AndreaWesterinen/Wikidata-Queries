@@ -1,0 +1,1 @@
+SELECT ?item ?d { ?item wdt:P27 wd:Q142 ; wdt:P569 ?d ; wdt:P31 wd:Q5 . FILTER(!ISBLANK(?d)) } ORDER BY ?d LIMIT 100

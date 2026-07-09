@@ -1,0 +1,14 @@
+SELECT ?item  (COUNT(?uses) as ?count){
+    hint:Query hint:optimizer "None".
+  {
+SELECT DISTINCT ?item {
+  [] wdt:P407 ?item.
+}
+    }
+  MINUS
+  {
+SELECT DISTINCT ?item {[] dct:language ?item}
+    }
+  ?uses wdt:P407 ?item.
+  FILTER(!wikibase:isSomeValue(?item))
+} GROUP BY ?item ORDER BY DESC(?count)

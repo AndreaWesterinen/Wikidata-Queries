@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+{
+	?item schema:description "film del  diretto da"@it  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en"}
+}
+LIMIT 5000

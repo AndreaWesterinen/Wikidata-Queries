@@ -1,0 +1,1 @@
+SELECT * { ?item wdt:P31/wdt:P31* wd:Q10884 . ?item wdt:P17 wd:Q29 } ORDER BY ?item

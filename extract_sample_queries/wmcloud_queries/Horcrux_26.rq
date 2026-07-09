@@ -1,0 +1,20 @@
+SELECT DISTINCT (URI(CONCAT(STR(?x),"#P6766")) as ?ids)
+WHERE {
+  ?x wdt:P17 wd:Q38 ;
+     p:P6766 ?wof_stmt1 ;
+     p:P6766 ?wof_stmt2 .
+  
+  ?wof_stmt1 ps:P6766 ?wof_id1 .
+  ?wof_stmt2 ps:P6766 ?wof_id2 .
+  FILTER (?wof_id1 != ?wof_id2)
+  
+  MINUS { ?wof_stmt1 pq:P582 ?q1 . }
+  MINUS { ?wof_stmt2 pq:P582 ?q2 . }
+  MINUS { ?wof_stmt1 wikibase:rank wikibase:DeprecatedRank . }
+  MINUS { ?wof_stmt2 wikibase:rank wikibase:DeprecatedRank . }
+  MINUS { ?wof_stmt1 pq:P518 ?q1 . FILTER NOT EXISTS { ?wof_stmt2 pq:P518 ?q2 . } }
+  MINUS { ?wof_stmt2 pq:P518 ?q2 . FILTER NOT EXISTS { ?wof_stmt1 pq:P518 ?q1 . } }
+  MINUS { ?wof_stmt1 pq:P518  ?q1 . ?wof_stmt2 pq:P518  ?q2 . FILTER (?q1 != ?q2) }
+  MINUS { ?wof_stmt1 pq:P2868 ?q1 . ?wof_stmt2 pq:P2868 ?q2 . FILTER (?q1 != ?q2) }
+  MINUS { ?wof_stmt1 pq:P1810 ?q1 . ?wof_stmt2 pq:P1810 ?q2 . FILTER (?q1 != ?q2) }
+}

@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(DISTINCT ?parent) as ?ct)
+WHERE
+{
+    ?item wdt:P1531+ ?parent ; wdt:P31 wd:Q26817508
+}
+GROUP BY ?item
+ORDER BY DESC(?ct) ?item
+LIMIT 30

@@ -1,0 +1,10 @@
+SELECT ?letter ?letterLabel (COUNT(DISTINCT ?character) AS ?count) (SAMPLE(?character) AS ?sample)
+WHERE
+{
+  ?letter wdt:P31/wdt:P279* wd:Q9788;
+          p:P487/ps:P487 ?character.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?letter ?letterLabel
+HAVING(?count > 2)
+ORDER BY DESC(?count)

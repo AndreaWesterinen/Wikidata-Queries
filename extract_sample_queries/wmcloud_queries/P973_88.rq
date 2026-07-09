@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P973/ps:P973 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://(www\\.)?allmusic.com/song/([a-z0-9\\-]+-|)(mt[0-9]{10}))$") )
+}

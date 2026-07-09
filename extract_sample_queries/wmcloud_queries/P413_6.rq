@@ -1,0 +1,7 @@
+#title: Same value in P413 and in P106
+# Complex constraint from [[Property talk:P413]]
+#
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P413 ?a; wdt:P106 ?b.
+  FILTER (?a = ?b)
+} ORDER BY ?item

@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?ltho) as ?ct) (GROUP_CONCAT( DISTINCT CONCAT("[[", strafter(str(?ltho), "y/"), "|", ?lthoLabel, "]]"); separator=", " ) as ?lighthouses) 
+{
+	?ltho wdt:P31 wd:Q39715 ; wdt:P84 ?item .
+    ?item wdt:P31 wd:Q5 .
+    FILTER (?ltho != wd:Q15397819 )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?ltho rdfs:label ?lthoLabel }          
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?ct) ?item

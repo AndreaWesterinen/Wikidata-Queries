@@ -1,5 +1,5 @@
-# ----
-#Show titles of articles about Ukrainian villages on Romanian Wikipedia, plus English and Ukrainian labels in Wikidata items
+#title: Titles of articles about Ukrainian villages on Romanian Wikipedia
+# Show titles of articles about Ukrainian villages on Romanian Wikipedia, plus English and Ukrainian labels in Wikidata items
 #added in 2017-05
 SELECT DISTINCT ?item ?LabelEN ?LabelUK ?page_titleRO WHERE {
   # item: is a - village

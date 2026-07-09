@@ -1,0 +1,8 @@
+SELECT (COUNT(*) AS ?c) ?adminLabel ?ap31Label WHERE {
+  ?item wdt:P31 wd:Q79007;
+    (wdt:P131+) wd:Q64;
+    wdt:P131 ?admin.
+  ?admin wdt:P31 ?ap31 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+}
+GROUP BY ?adminLabel ?ap31Label ORDER BY DESC(?c)

@@ -1,0 +1,10 @@
+#title:items described by (OS Name Book) source.
+SELECT ?item ?itemLabel ?namedAs ?URL ?lang ?coord WHERE {
+  ?item p:P1343 ?stat . 
+  ?stat ps:P1343 wd:Q111733012.
+  OPTIONAL { ?item wdt:P625 ?coord. }  
+  OPTIONAL { ?stat pq:P1810 ?namedAs. }
+  OPTIONAL { ?stat pq:P2699 ?URL. }
+  OPTIONAL { ?stat pq:P407 ?lang. }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

@@ -1,0 +1,37 @@
+#title: Map of Berlin U-Bahn
+#defaultView:Map{"hide":["?coords", "?line","?rgb"]}
+SELECT ?station ?stationLabel ?subwayLine ?coords ?line ?layer ?rgb WHERE {
+  VALUES ?search {
+    wd:Q68646 
+#metro system search
+  }
+      ?search wdt:P527 ?lignes.#what are the lines of that subway?
+      ?lignes wdt:P559 ?termini.#what are the termini of the lines of that subway
+  ?station wdt:P31 wd:Q110977120;  #subway station
+    wdt:P625 ?coords;    wdt:P81|wdt:P1192 ?subwayLine;    wdt:P197 ?pred.
+  ?pred wdt:P625 ?coords_pred;    wdt:P81|wdt:P1192 ?subwayLine_pred.
+  ?station p:P197 _:b1.
+  _:b1 ps:P197 ?pred ;    pq:P5051 ?towards;
+    pq:P81|pq:P1192 ?line_pq.  optional{?subwayLine wdt:P1671 ?line_number.}
+  FILTER(?subwayLine_pred = ?lignes)#take only the lines if correspondance on the same line
+  FILTER(?subwayLine = ?lignes)
+  FILTER(?towards = ?termini) 
+  MINUS { ?station (wdt:P576|wdt:P582|wdt:P3999) ?dispar. }#we do not want disappeared stations
+  MINUS {    ?station wdt:P5817|wdt:P5816 ?interdit.
+    VALUES ?interdit {    wd:Q811683    wd:Q63065035    wd:Q12377751   wd:Q97317113   wd:Q55653430   wd:Q30108381   wd:Q55570340   wd:Q11639308 wd:Q104664889 wd:Q110713763    }
+  }#we do not want particular cases, being built, etc
+ ?pred  p:P625 ?node_pred .
+  ?node_pred psv:P625/wikibase:geoLatitude ?lat1 ;        psv:P625/wikibase:geoLongitude ?lon1 .
+  ?node_pred a wikibase:BestRank.
+  ?station p:P625 ?node_station.
+ ?node_station psv:P625/wikibase:geoLatitude ?lat2 ;   psv:P625/wikibase:geoLongitude ?lon2.
+ ?node_station a wikibase:BestRank.
+  BIND(CONCAT("LINESTRING(", STR(?lon1), " ", STR(?lat1),  ",", STR(?lon2), " ", STR(?lat2), ")") AS ?str)
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line  )
+  ?subwayLine wdt:P465 ?rgb   .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr" .
+    ?subwayLine rdfs:label ?layer .
+    ?pred rdfs:label ?predLabel .
+    ?station rdfs:label ?stationLabel .
+  } } GROUP BY ?station ?stationLabel  ?subwayLine ?rgb ?predLabel ?layer  ?coords ?line order by asc( ?line_number ) ?subwayLine

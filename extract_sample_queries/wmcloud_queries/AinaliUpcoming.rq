@@ -1,0 +1,45 @@
+SELECT DISTINCT ?item ?itemLabel ?eventTimestamp (GROUP_CONCAT(DISTINCT ?subjectLabel; separator=', ') AS ?subjects) WHERE {
+  VALUES (?month ?month_order) {
+    ( wd:Q108 '01' )
+    ( wd:Q109 '02' )
+    ( wd:Q110 '03' )
+    ( wd:Q118 '04' )
+    ( wd:Q119 '05' )
+    ( wd:Q120 '06' )
+    ( wd:Q121 '07' )
+    ( wd:Q122 '08' )
+    ( wd:Q123 '09' )
+    ( wd:Q124 '10' )
+    ( wd:Q125 '11' )
+    ( wd:Q126 '12' )
+  }
+  
+  VALUES ?days {
+    wd:Q18574943
+    wd:Q422695
+  }
+  
+  ?item wdt:P31/wdt:P279* ?days .
+  MINUS { ?item wdt:P31 wd:Q57598 }
+  ?item wdt:P837 ?day .
+  MINUS { ?item wdt:P2894 [] }
+  ?day wdt:P361 ?month .
+  ?day p:P361 ?month_statement .
+  ?month_statement pq:P1545 ?day_of_month_rank .
+
+  BIND(IF(xsd:integer(?day_of_month_rank) < 10, CONCAT('0', STR(?day_of_month_rank)), STR(?day_of_month_rank)) AS ?day_of_month_rank_with_padding)
+  BIND(xsd:dateTime(CONCAT(STR(YEAR(NOW())), '-', STR(?month_order), '-', STR(?day_of_month_rank_with_padding), 'T23:59:59')) AS ?eventTimestamp)
+  FILTER(?eventTimestamp > NOW())
+  
+  OPTIONAL { ?item wdt:P921 ?subject }
+  OPTIONAL { ?item wdt:P547 ?commemorates }
+  BIND(IF(!BOUND(?subject), ?commemorates, ?subject) AS ?subject)
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en' .
+    ?subject rdfs:label ?subjectLabel .
+    ?item rdfs:label ?itemLabel .
+  }
+} 
+GROUP BY ?item ?itemLabel ?dayLabel ?eventTimestamp
+ORDER BY ?eventTimestamp

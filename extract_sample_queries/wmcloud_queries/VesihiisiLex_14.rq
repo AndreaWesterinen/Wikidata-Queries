@@ -1,0 +1,12 @@
+SELECT DISTINCT ?stated_in ?stated_inLabel (COUNT(?stated_in) AS ?count ) WHERE {
+  ?l a ontolex:LexicalEntry;
+       dct:language ?language.
+  ?language wdt:P218 'sv'.
+  ?l wdt:P5831 ?example.
+    ?l p:P5831 ?statement.
+    ?statement prov:wasDerivedFrom ?refnode.
+    ?refnode pr:P248 ?stated_in.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}
+GROUP BY ?stated_in ?stated_inLabel
+ORDER BY DESC(?count)

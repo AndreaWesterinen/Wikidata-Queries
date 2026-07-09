@@ -1,0 +1,23 @@
+SELECT ?bin_name ?author_cit ?taxon_date ?author_startdate ?author_enddate WHERE {
+#wd:Q1998926
+wd:Q11397030           p:P225 [ps:P225 ?bin_name;
+            pq:P574 ?taxon_date;
+            pq:P405 ?author
+                    ]
+OPTIONAL {
+  ?author rdfs:label ?author_name.
+  FILTER(LANG(?author_name) = "en") 
+  }
+OPTIONAL{?author p:P835 ?author2.
+  ?author2 ps:P835 ?author_cit.  
+  OPTIONAL{?author2 pq:P1319 ?author_startdate.         }        
+  OPTIONAL{?author2 pq:P1326 ?author_enddate.          }
+
+FILTER(IF(BOUND(?author_startdate),?author_startdate <= ?taxon_date, 1 = 1)).        
+FILTER(IF(BOUND(?author_enddate),?author_enddate >= ?taxon_date, 1 = 1)).  
+}
+  
+  BIND(COALESCE(?author_cit,?author_name) as ?author_cit)
+ 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

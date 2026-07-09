@@ -1,0 +1,6 @@
+SELECT ?sitelink ?itemLabel WHERE {
+  ?wsPage #schema:isPartOf <https://de.wikisource.org/> ;
+     schema:about ?item ;
+     wikibase:badge wd:Q20748092 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

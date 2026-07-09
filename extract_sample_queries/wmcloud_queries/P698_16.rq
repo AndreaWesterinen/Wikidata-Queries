@@ -1,0 +1,24 @@
+# Uses of P698: 
+# - as property (any rank/best rank). For performance reasons, detailed counts by rank are not included.
+# - as qualifier
+# - in references
+# by Jura1, rev 2016-03-03
+SELECT ?use ?rank ?items_with_property ?uses_of_property
+WHERE {
+  {
+    SELECT (wikibase:statementProperty as ?use) (COUNT(DISTINCT(?item)) as ?items_with_property) (COUNT(?value) as ?uses_of_property)
+    WHERE {?item p:P698 ?value}
+  } UNION {
+    SELECT (wikibase:statementProperty as ?use) (wikibase:BestRank as ?rank) (COUNT(DISTINCT(?item)) as ?items_with_property) (COUNT(?bestvalue) as ?uses_of_property)
+    WHERE {?item wdt:P698 ?bestvalue}
+  } UNION {
+    SELECT (wikibase:reference as ?use) (COUNT(DISTINCT(?item)) as ?items_with_property) (COUNT(?value) as ?uses_of_property)
+    WHERE {?item pr:P698 ?value}
+  } UNION {
+    SELECT (wikibase:qualifier as ?use) (COUNT(DISTINCT(?item)) as ?items_with_property) (COUNT(?value) as ?uses_of_property)
+    WHERE {?item pq:P698 ?value}
+  }
+}
+ORDER BY DESC(?use) DESC(?items_with_property) ?rank
+
+# PLEASE NOTE: Deleted items appear in counts for some ranks, but not in others.

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?value ?valueLabel (COUNT(DISTINCT ?item) as ?count)
+{
+	?item wdt:05 []; wdt:P625 ?value .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}
+GROUP BY ?value ?valueLabel
+ORDER BY DESC(?count)

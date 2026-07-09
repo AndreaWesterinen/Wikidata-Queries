@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?itemDescription ?dod ?start ?entry
+{
+	?entry		wdt:P1433 wd:Q16055052 .
+	?entry		wdt:P31 wd:Q19389637 .
+  	?entry 		wdt:P921 ?item .
+	?item wdt:P1343 wd:Q16055052 . 
+    ?item wdt:P570 ?dod . FILTER( YEAR(?dod)<1849) 
+	?item wdt:P31 wd:Q5 . 
+    OPTIONAL { ?item p:P241 [ ps:P241 wd:Q172771 ; pq:P580 ?start ] }        
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?dod)

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?daysinspace
+WHERE {
+  ?item wdt:P31 wd:Q5 . #person is instance of human
+  ?item wdt:P106 wd:Q11631 . # person has occupation astronaut
+  ?item wdt:P2873 ?timeinspace . # person has occupation astronaut  
+  BIND((ROUND(?timeinspace / 60 / 24 )) AS ?daysinspace) 
+  {?item ?property1 wd:Q213439 } UNION {?item ?property2 [wdt:P361 wd:Q213439] }. #person has some relationship to UVa
+}
+ORDER BY DESC(?daysinspace)

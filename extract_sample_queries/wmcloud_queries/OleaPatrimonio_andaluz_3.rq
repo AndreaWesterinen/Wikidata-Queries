@@ -1,0 +1,7 @@
+#Chats
+SELECT ?item  WHERE {
+  ?item wdt:P1435 wd:Q9259.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+  ?item wdt:P17 wd:Q29.
+  ?item wdt:P131* wd:Q5783.
+}

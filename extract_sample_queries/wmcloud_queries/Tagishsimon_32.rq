@@ -1,0 +1,28 @@
+SELECT ?item ?itemLabel ?countryLabel ?stateLabel ?locatedLabel ?linkcount ?Geonames with {
+  SELECT ?item ?country ?located WHERE {
+    ?item wdt:P31 wd:Q22698.
+    ?item wdt:P17 ?country .
+    ?item wdt:P131 ?located .
+  } limit 20000
+} as %i
+with {
+  select ?item ?country ?located ?state where
+  {
+    include %i
+    filter not exists { ?item schema:description ?itemDescripton  . filter(lang(?itemDescripton)="en") }
+    ?located rdfs:label ?itemLabel . filter(lang(?itemLabel)="en") 
+    ?located wdt:P131 ?state.
+  } 
+} as %j
+where
+{
+  include %j
+  filter (?country != ?located )
+  ?article schema:about ?item ;
+          schema:isPartOf <https://ceb.wikipedia.org/> . 
+  
+  ?item wikibase:sitelinks ?linkcount .
+#  ?item wdt:P1566 ?Geonames .
+          
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

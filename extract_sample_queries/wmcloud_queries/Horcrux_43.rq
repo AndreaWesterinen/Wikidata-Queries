@@ -1,0 +1,7 @@
+SELECT DISTINCT ?x ?xTitle ?xLabel
+WHERE {
+  ?x wdt:P31/wdt:P279* wd:Q21192438 .
+  ?x wdt:P31/wdt:P279* wd:Q95074 .
+  FILTER NOT EXISTS { ?x wdt:P31/wdt:P279* wd:Q3966183 . }
+}
+LIMIT 100000

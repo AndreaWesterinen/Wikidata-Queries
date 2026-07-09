@@ -1,0 +1,8 @@
+#title: In the museum without a link
+# Complex constraint from [[Property talk:P4712]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] → [[d:Q1700481|Minneapolis Institute of Art <small>(Q1700481)</small>]], but that don't have a [[Property:P4712|Minneapolis Institute of Art artwork ID&#32;<small dir="ltr">(P4712)</small>]] link
+SELECT DISTINCT ?item ?url WHERE {
+  ?item wdt:P195 wd:Q1700481 .
+  OPTIONAL { ?item wdt:P973 ?url } . 
+  MINUS { ?item wdt:P4712 [] } .
+}  LIMIT 500

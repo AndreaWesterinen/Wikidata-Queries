@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P4244/ps:P4244 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(\\[http://geoportal\\.bayern\\.de/bayernatlas/denkmal\\?lon=[0-9.]+&lat=[0-9.]+&zoom=\\d+&base=\\d+ ([A-Z][-0-9]+)\\])$") )
+}

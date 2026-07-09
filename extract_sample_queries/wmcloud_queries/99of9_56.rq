@@ -1,0 +1,24 @@
+#defaultView:Map
+SELECT ?place ?placeLabel ?location ?element ?elementLabel
+WHERE
+{
+  ?element wdt:P31 wd:Q11344 ; rdfs:label ?elementLabel .
+  
+  
+  wd:Q4946271 wdt:P625 ?loc00 . 
+  SERVICE wikibase:around { 
+    ?place wdt:P625 ?location . 
+    bd:serviceParam wikibase:center ?loc00 . 
+    bd:serviceParam wikibase:radius "0.002" . 
+  }
+ 
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .  }
+
+  ?place rdfs:label ?placeLabel 
+  FILTER((LANG(?placeLabel)) = "en")
+  FILTER((LANG(?elementLabel)) = "en")
+  #FILTER (CONTAINS(LCASE(str(?placeLabel)),LCASE(str(?elementlabel))))
+  FILTER (CONTAINS(LCASE(?placeLabel),"boron"))
+}
+#ORDER BY ?placeLabel
+LIMIT 10000

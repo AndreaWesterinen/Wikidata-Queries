@@ -1,0 +1,7 @@
+SELECT ?mun ?item  WHERE {
+  VALUES ?mun { wd:Q12348369 wd:Q9022143 wd:Q2557122 wd:Q2143868 wd:Q3313478 wd:Q6905368  wd:Q7258412 wd:Q2360428 wd:Q15121208 } .
+  ?mun wdt:P31/wdt:P279* wd:Q1952852 .
+  OPTIONAL {
+  ?mun wdt:P1313 ?item .
+  MINUS { ?item wdt:P576 [] } } .
+}

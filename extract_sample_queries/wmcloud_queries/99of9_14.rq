@@ -1,0 +1,23 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?p ?pLabel ?article WHERE {
+#SELECT ?c ?cLabel ?article WHERE {
+   ?c wdt:P279* wd:Q7946 .
+   ?p wdt:P31 ?c .
+  
+#   OPTIONAL {
+    ?article schema:about ?p .
+    ?article schema:inLanguage "en" .
+    FILTER (SUBSTR(str(?article), 1, 25) = "https://en.wikipedia.org/")
+#   }
+
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }

@@ -1,0 +1,21 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?item ?itemLabel ?count ?sample1 ?sampleLabel1 ?sample2 ?sampleLabel2
+
+WHERE {
+  
+      SERVICE <http://data.bibliotheken.nl/sparql>{
+               ?sampleLabel1 rdfs:label ?sample1 }.
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2) {
+			?item p:P1006 [ ps:P1006 ?val; wikibase:rank ?rank ] .
+			FILTER( ?rank != wikibase:DeprecatedRank ) .
+            BIND(URI(CONCAT("http://data.bibliotheken.nl/id/thes/", ?val)) as ?value).
+		} GROUP BY ?item HAVING ( ?count =2 ) LIMIT 10
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" } .
+}
+ORDER BY DESC(?count)

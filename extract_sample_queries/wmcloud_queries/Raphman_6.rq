@@ -1,0 +1,7 @@
+SELECT ?companyLabel ?ceoLabel ?dob WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  wd:Q155718 wdt:P527 ?company.
+  ?company wdt:P169 ?ceo.
+  ?ceo wdt:P569 ?dob. 
+}
+LIMIT 100

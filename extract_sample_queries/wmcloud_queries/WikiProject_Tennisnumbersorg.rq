@@ -1,0 +1,5 @@
+SELECT ?item (COUNT(DISTINCT ?org) as ?ct) (SAMPLE(?org) as ?sample)
+{
+    ?org wdt:P641 wd:Q847 .
+    ?org wdt:P31/wdt:P279* wd:Q43229 .
+    ?org (wdt:P31

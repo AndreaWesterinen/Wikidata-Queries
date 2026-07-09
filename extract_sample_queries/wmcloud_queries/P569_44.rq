@@ -1,0 +1,12 @@
+#title: Wrong calendar
+# Complex constraint from [[Property talk:P569]]
+# People born before 1582 whose birth date is registered using [[d:Q1985727|proleptic Gregorian calendar <small>(Q1985727)</small>]] instead of [[d:Q1985786|proleptic Julian calendar <small>(Q1985786)</small>]].
+SELECT DISTINCT ?item
+  WHERE {
+    ?birthclaim ps:P569 ?birth .
+    FILTER(?birth < "+1582-10-15T00:00:00Z"^^xsd:dateTime).
+    FILTER(?birth > "+0001-01-01T00:00:00Z"^^xsd:dateTime).
+    ?birthclaim psv:P569/wikibase:timeCalendarModel wd:Q1985727.
+    ?item p:P569 ?birthclaim.
+  }
+  LIMIT 1000

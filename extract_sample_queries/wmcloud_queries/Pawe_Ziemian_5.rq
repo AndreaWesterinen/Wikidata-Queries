@@ -1,0 +1,11 @@
+# dane dla drzewka pochodzenia gatunku
+SELECT DISTINCT ?u ?p ?uLabel ?n ?s ?sLabel ?sLatin WHERE {
+  wd:Q780 wdt:P171* ?u .
+  ?u wdt:P171 ?p .
+  ?u wdt:P225 ?n .
+  { ?u wdt:P31 wd:Q16521 } UNION { ?u wdt:P31 wd:Q310890 } UNION { ?u wdt:P31 wd:Q713623 } UNION { ?u wdt:P31 wd:Q23038290 }
+  OPTIONAL { ?u wdt:P105 ?s OPTIONAL { ?s rdfs:label ?sLatin filter (lang(?sLatin) = "la").} }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "pl" .
+  }
+}

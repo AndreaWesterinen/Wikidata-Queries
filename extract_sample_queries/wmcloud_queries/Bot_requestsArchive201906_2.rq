@@ -1,0 +1,2 @@
+# New wd:Q60909659
+SELECT ?any (COUNT(*) AS ?cnt) { ?item ?any [ prov:wasDerivedFrom/pr:P248 wd:Q1127581 ] } GROUP BY ?any

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?commons 
+{
+	?item wdt:P31 wd:Q26817508 .
+	{ ?item wdt:P1531 [] }
+	UNION {?item ^wdt:P1531 [] }
+	FILTER NOT EXISTS { ?item wdt:P18 [] }
+	?commons schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

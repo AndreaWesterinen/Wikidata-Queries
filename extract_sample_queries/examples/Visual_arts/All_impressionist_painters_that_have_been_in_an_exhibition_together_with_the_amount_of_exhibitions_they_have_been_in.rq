@@ -1,5 +1,4 @@
-# ----
-#title:Impressionist painters by number of exhibitions
+#title: Impressionist painters by number of exhibitions
 SELECT DISTINCT ?painter ?painterLabel (count (DISTINCT ?exhibition) as ?exhibition_count)
 (group_concat(DISTINCT ?exhibitionLabel; separator=", ") as ?exhibitions)
 WHERE {

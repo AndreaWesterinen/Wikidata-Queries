@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel (YEAR(?point_in_time) AS ?year) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P3450 wd:Q2707177.
+  OPTIONAL { ?item wdt:P585 ?point_in_time. }
+}
+ORDER BY DESC (?year)

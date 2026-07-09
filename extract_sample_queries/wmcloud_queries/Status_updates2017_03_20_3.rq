@@ -1,0 +1,25 @@
+#defaultView:ImageGrid
+# Faux Vermeer 
+# Genre/p136 : faux/Q1400612 
+# Créateur/p170 avec qualificateur d'après/P1777 Vermeer/wd:Q41264
+SELECT distinct ?item ?itemLabel ?date (GROUP_CONCAT(distinct ?creaLb; separator=" - ") as ?createur) ?img
+WHERE {
+  ?item wdt:P136 wd:Q1400612 ;
+        wdt:P170 ?crea ;
+        wdt:P18 ?img ;
+        p:P170 [ pq:P1777 wd:Q41264 ] ;
+        p:P571 ?declarationdate .
+  OPTIONAL { MINUS {?declarationdate pq:P1319 ?pasavant }
+             MINUS {?declarationdate pq:P1480 wd:Q5727902 }
+             ?declarationdate ps:P571 ?dateunique .
+             BIND (year(?dateunique) AS ?date)}
+  OPTIONAL { MINUS {?declarationdate pq:P1319 ?pasavant }
+             ?declarationdate pq:P1480 wd:Q5727902.
+             ?declarationdate ps:P571 ?dateunique .
+             BIND (CONCAT("c.",STR(year(?dateunique))) AS ?date)}
+  OPTIONAL { ?declarationdate pq:P1319 ?pasavant .
+             ?declarationdate pq:P1326 ?pasapres.
+             BIND (CONCAT(STR(year(?pasavant)),"-",STR(year(?pasapres))) AS ?date)}
+  ?crea rdfs:label ?creaLb . filter (lang(?creaLb) = "fr") .
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "fr"}
+} GROUP BY ?item ?itemLabel ?date ?img 

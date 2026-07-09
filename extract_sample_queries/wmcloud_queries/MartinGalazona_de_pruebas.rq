@@ -1,0 +1,10 @@
+#Gente del MNCN
+SELECT ?item ?itemLabel ?apellido1Label ?apellido2Label ?empleadorLabel ?trabaja_enLabel WHERE {
+  ?item wdt:P108 wd:Q1966699.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?item wdt:P734 ?apellido1. }
+  OPTIONAL { ?item wdt:P1950 ?apellido2. }
+  OPTIONAL { ?item wdt:P937 ?trabaja_en. }
+  OPTIONAL { ?item wdt:P108 ?empleador. }
+}
+LIMIT 2000

@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?parlamentsgrupp ?start ?ersatter ?valkrets ?colour WHERE {
+  ?item wdt:P31 wd:Q5; p:P39 ?parl.
+  ?parl ps:P39 wd:Q10655178; pq:P580 ?start .
+  FILTER NOT EXISTS { ?parl pq:P582 []}
+  OPTIONAL { ?parl pq:P1365 ?ersatter }
+  OPTIONAL { ?parl pq:P768 ?valkrets }
+  OPTIONAL { 
+    ?parl pq:P4100 ?parlamentsgrupp .
+    OPTIONAL { ?parlamentsgrupp wdt:P465 ?colour }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+}

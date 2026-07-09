@@ -1,0 +1,11 @@
+SELECT * WHERE {
+  ?item wdt:P17 wd:Q145 .
+  ?item wdt:P373 ?cat .
+  wd:P373 wdt:P1630 ?formatterurl .
+  BIND(IRI(REPLACE(?cat, '^(.+)$', ?formatterurl)) AS ?commonsurl).
+  OPTIONAL { ?item wdt:P18 ?dummy0 . }
+  FILTER(!bound(?dummy0)).
+  OPTIONAL { ?item wdt:P94 ?dummy1 . }
+  FILTER(!bound(?dummy1)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

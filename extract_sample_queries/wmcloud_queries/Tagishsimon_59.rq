@@ -1,0 +1,22 @@
+# places in Scotland according to P131, having a single P131
+
+select ?item ?itemLabel ?coords ?elseLabel (?elseLabel as ?layer)
+with { select ?item ?else ?coords where {
+   ?item wdt:P131 ?else  .
+  ?else wdt:P31 wd:Q15060255  .
+  ?item wdt:P625 ?coords .
+  } } as %i
+where
+{
+  include %i
+ 
+  filter not exists { ?item wdt:P131 ?else2 .   {?else2 wdt:P31 wd:Q15060255 .} UNION {?else2 wdt:P131* wd:Q21. hint:Prior hint:gearing "forward".} filter(str(?else2) != str(?else)) } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+                         ?else rdfs:label ?elseLabel.
+                         ?item rdfs:label ?itemLabel .} 
+  filter not exists {?item wdt:P276 [] . }
+  minus {?item wdt:P31/wdt:P279* wd:Q1229765 . hint:Prior hint:gearing "forward".}
+  minus {?item wdt:P31/wdt:P279* wd:Q21073029 . hint:Prior hint:gearing "forward".}
+  minus {?item wdt:P31/wdt:P279* wd:Q486972 . hint:Prior hint:gearing "forward".}
+}
+#defaultView:Map

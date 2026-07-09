@@ -1,0 +1,24 @@
+PREFIX wdtp: <http://www.wikidata.org/prop/direct/P8225>
+#title: values by total of sitelinks on items (max. 1000000 items)
+SELECT ?sls_on_items ?value ?valueLabel ?count
+WHERE
+{
+  {
+    {  SELECT ?value (SUM(?sls_i) AS ?sls_on_items) (COUNT(*) AS ?count)
+       WHERE 
+       {
+          SELECT * WHERE {
+          ?i wdtp: ?value.
+          hint:Prior hint:rangeSafe "true"^^xsd:boolean.
+          ?i wikibase:sitelinks ?sls_i.
+          }
+          LIMIT 1000000
+      }
+      GROUP BY ?value
+      ORDER BY DESC (?sls_on_items)
+      LIMIT 100           
+    }          
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC (?sls_on_items)

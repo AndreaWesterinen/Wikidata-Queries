@@ -1,0 +1,10 @@
+PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>
+
+SELECT DISTINCT ?item ?itemLabel ?osmId WHERE {
+  ?item wdt:P2186 ?wlm.
+  ?item wdt:P131* wd:Q16204 .
+  SERVICE <https://sophox.org/sparql> { 
+    MINUS { ?osmId osmt:wikidata ?item . }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,[AUTO_LANGUAGE]". }
+}

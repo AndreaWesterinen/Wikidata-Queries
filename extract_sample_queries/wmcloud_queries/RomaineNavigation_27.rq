@@ -1,0 +1,10 @@
+SELECT ?work ?workLabel ?geoloc ?collection ?collectionLabel ?instance_of ?instance_ofLabel ?location ?locationLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+  ?work wdt:P170 wd:Q158840.
+  ?work wdt:P195 ?collection.
+  ?collection wdt:P625 ?geoloc.
+  OPTIONAL { ?work wdt:P31 ?instance_of. }
+  OPTIONAL {  }
+  OPTIONAL { ?work wdt:P276 ?location. }
+}
+LIMIT 4000

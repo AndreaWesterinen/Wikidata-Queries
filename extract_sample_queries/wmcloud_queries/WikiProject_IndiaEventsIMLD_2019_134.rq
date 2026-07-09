@@ -1,0 +1,1 @@
+SELECT ?fplayback ?fplaybackLabel ?song ?songLabel ?year{?fplayback p:P166 ?prizestmt.?fplayback wdt:P31 wd:Q5.?prizestmt ps:P166 wd:Q5449081. OPTIONAL{?prizestmt pq:P585 ?date. BIND(YEAR(?date) as ?year)}. OPTIONAL{?prizestmt pq:P1686 ?song}SERVICE wikibase:label{bd:serviceParam wikibase:language "kn,en".}}ORDER BY ?date

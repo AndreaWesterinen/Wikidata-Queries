@@ -1,0 +1,12 @@
+#Esdeveniments per tipus
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+	?events wdt:P31*/wdt:P279 wd:Q1190554
+	; wdt:P31 ?name
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,5 @@
+# item-s with a certain property in wikidata
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P1683 ?dummy0 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

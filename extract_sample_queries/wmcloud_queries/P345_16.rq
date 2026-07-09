@@ -1,0 +1,8 @@
+#title: TV series episode without IMDB
+# Complex constraint from [[Property talk:P345]]
+# [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] -> [[d:Q21191270|television series episode <small>(Q21191270)</small>]], but no [[Property:P345|IMDb ID&#32;<small dir="ltr">(P345)</small>]], might need to add some filters later
+SELECT DISTINCT ?item {
+  ?item wdt:P31/wdt:P279* wd:Q21191270.
+  MINUS { ?item p:P345 [] }
+  MINUS { ?item wdt:P527/wdt:P345 [] }
+}

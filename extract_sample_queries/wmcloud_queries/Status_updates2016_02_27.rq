@@ -1,0 +1,21 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?itemLabel ?location ?locationL ?coords ?partof ?partofL ?pointintime ?starttime ?endtime WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q178561 .
+  OPTIONAL {
+    ?item wdt:P276 ?location .
+    ?location rdfs:label ?locationL filter (lang(?locationL) = "en") .
+    OPTIONAL { ?location wdt:P625 ?coords . }
+  }
+  OPTIONAL {
+    ?item wdt:P361 ?partof .
+    ?partof rdfs:label ?partofL filter (lang(?partofL) = "en") .
+  }
+  OPTIONAL { ?item wdt:P585 ?pointintime . }
+  OPTIONAL { ?item wdt:P580 ?starttime . }
+  OPTIONAL { ?item wdt:P582 ?endtime . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

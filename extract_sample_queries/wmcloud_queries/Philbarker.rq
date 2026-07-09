@@ -1,0 +1,11 @@
+SELECT ?hillfort ?hillfortLabel ?hillfortLoc (?distance AS ?kilometers)
+WHERE {
+  ?hillfort wdt:P31 [ wdt:P279* wd:Q744099 ] ; # is an instance of (a subclass) of hillfort 
+            wdt:P17 wd:Q145 ;                  # is in UK
+            wdt:P625 ?hillfortLoc .
+  wd:Q17811764 wdt:P625 ?homeLoc .             # Location of Morningside Library
+  BIND(geof:distance(?hillfortLoc, ?homeLoc) AS ?distance) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDERBY ( ?distance )
+LIMIT 100|

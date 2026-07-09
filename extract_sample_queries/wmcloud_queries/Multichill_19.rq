@@ -1,0 +1,20 @@
+SELECT ?item WHERE {
+  ?item p:P31 ?instancestatement .
+  ?instancestatement ps:P31 wd:Q3305213 .
+  ?instancestatement prov:wasDerivedFrom ?reference1 . 
+  ?instancestatement prov:wasDerivedFrom ?reference2 .
+  FILTER(?reference1!=?reference2) .
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 ?collection . 
+  ?instancestatement prov:wasDerivedFrom ?reference1 . 
+  ?instancestatement prov:wasDerivedFrom ?reference2 .
+  ?item p:P217 ?inventorynumber1statement . 
+  ?inventorynumber1statement ps:P217 ?inventorynumber1 .
+  ?inventorynumber1statement prov:wasDerivedFrom ?reference1 . 
+  ?inventorynumber1statement pq:P195 ?collection .
+  ?item p:P217 ?inventorynumber2statement . 
+  ?inventorynumber2statement ps:P217 ?inventorynumber2 .
+  ?inventorynumber2statement prov:wasDerivedFrom ?reference2 .   
+  ?inventorynumber2statement pq:P195 ?collection .
+    FILTER(?inventorynumber1!=?inventorynumber2) .
+  } LIMIT 250

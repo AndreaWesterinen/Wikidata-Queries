@@ -1,0 +1,16 @@
+# Examples from Riksdag documents
+SELECT DISTINCT ?l ?lemma ?example ?stated_in ?stated_inLabel ?year WHERE {
+  ?l rdf:type ontolex:LexicalEntry;
+    dct:language ?language;
+    wikibase:lemma ?lemma.
+  ?language wdt:P218 "sv".
+  ?l wdt:P5831 ?example;
+    p:P5831 ?statement.
+  ?statement prov:wasDerivedFrom ?refnode.
+  ?refnode pr:P248 ?stated_in.
+  ?stated_in wdt:P8433 ?riksdagNo.
+  OPTIONAL { ?stated_in wdt:P577 ?publication_date. }
+  BIND(STR(YEAR(?publication_date)) AS ?year)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+}
+ORDER BY DESC (?year)

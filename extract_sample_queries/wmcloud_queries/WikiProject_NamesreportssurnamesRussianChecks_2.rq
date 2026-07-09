@@ -1,0 +1,12 @@
+SELECT ?item
+  (COUNT(DISTINCT ?p) as ?count)
+  (SAMPLE(?p) as ?sample_p)
+{
+    VALUES ?alph {wd:Q101352 wd:Q187846}
+    ?item wdt:P282 wd:Q8209 ;
+          wdt:P31/wdt:P279? ?alph.          
+    FILTER NOT EXISTS { ?item wdt:P407 [] }
+    OPTIONAL { ?p wdt:P734 ?item }
+}
+GROUP BY ?item
+ORDER BY DESC(?count) ?item

@@ -1,0 +1,18 @@
+SELECT ?item 
+  (GROUP_CONCAT(DISTINCT ?cctLabel; separator="<br>") as ?ccts) 
+  (GROUP_CONCAT(DISTINCT ?cct2Label; separator="<br>") as ?cct2s) 
+  (SAMPLE(?sl) as ?sl)
+WHERE
+{ 
+    ?item wdt:P971 wd:Q847 .
+    OPTIONAL { ?item wdt:P971 ?cct . FILTER (?cct != wd:Q847) . FILTER NOT EXISTS { VALUES ?c { wd:Q6256 wd:Q3024240 wd:Q47488809 } ?cct wdt:P31 ?c }   } 
+    OPTIONAL { ?item wdt:P971 ?cct2 . FILTER (?cct2 != wd:Q847) . FILTER EXISTS { VALUES ?c { wd:Q6256 wd:Q3024240 wd:Q47488809 } ?cct2 wdt:P31 ?c }   } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". 
+                            ?cct rdfs:label ?cctLabel .
+                            ?cct2 rdfs:label ?cct2Label .
+                           }
+    OPTIONAL { ?item wikibase:sitelinks ?sl }
+}
+GROUP BY ?item
+ORDER BY ?ccts ?cct2s ?item
+LIMIT 5000

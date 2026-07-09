@@ -1,0 +1,4 @@
+SELECT ?item ?catalogcode WHERE { 
+?item p:P528 [ pq:P972 wd:Q108046092 ; ps:P528 ?catalogcode]. 
+  BIND( xsd:decimal(REPLACE(?catalogcode, "[a-z-]", "")) AS ?catnum)
+} ORDER BY ?catnum ?catalogcode

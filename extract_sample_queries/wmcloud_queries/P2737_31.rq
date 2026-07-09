@@ -1,0 +1,12 @@
+#title: Deprecation of P642
+# Complex constraint from [[Property talk:P2737]]
+# Replace [[Property:P642|of&#32;<small dir="ltr">(P642)</small>]] with [[Property:P11260|list item&#32;<small dir="ltr">(P11260)</small>]]
+SELECT DISTINCT ?item ?itemLabel ?itemvalLabel ?ofLabel
+WHERE
+{
+  {
+  ?item p:P2737 ?stm .
+  ?stm ps:P2737 ?itemval .
+  ?stm pq:P642 ?of .
+  }
+}

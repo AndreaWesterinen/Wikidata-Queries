@@ -1,0 +1,6 @@
+SELECT ?divesite ?divesiteLabel ?countryLabel ?location WHERE {
+  ?divesite (wdt:P31/wdt:P279*) wd:Q26205080.
+  OPTIONAL { ?divesite wdt:P17 ?country. }
+  OPTIONAL { ?divesite wdt:P625 ?location. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

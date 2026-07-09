@@ -1,0 +1,8 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription ?pages
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?item wdt:P1433 wd:Q665807 . 
+    ?item wdt:P304 ?pages . 
+    MINUS { ?item wdt:P478 [] } 
+}

@@ -1,0 +1,7 @@
+#title: Items with MCCP identifier missing inventory number
+# Complex constraint from [[Property talk:P10760]]
+# Items that have [[Property:P10760|MCCP ID&#32;<small dir="ltr">(P10760)</small>]], but an [[Property:P217|inventory number&#32;<small dir="ltr">(P217)</small>]] with the same value is missing. Might give some false positives.
+SELECT ?item ?id WHERE {
+  ?item wdt:P10760 ?id .
+  MINUS { ?item p:P217 [ ps:P217 ?id ; pq:P195 wd:Q1053735 ] }
+  }

@@ -1,0 +1,6 @@
+#title:Number of main subjects inferred from titles 
+SELECT (count(?item) as ?c)
+WHERE 
+{
+  ?item p:P921 [ prov:wasDerivedFrom [ pr:P887 wd:Q69652283 ] ].
+}

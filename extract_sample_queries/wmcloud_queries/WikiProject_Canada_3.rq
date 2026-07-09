@@ -1,0 +1,8 @@
+embed.html#SELECT ?loc ?locLabel (COUNT(?lac) AS ?count) WHERE {
+  ?lac wdt:P31 wd:Q23397 ; wdt:P17 wd:Q16 ; wdt:P131 ?loc .
+  ?loc rdfs:label ?locLabel .
+  FILTER (lang(?locLabel) = "fr").
+}
+GROUP BY ?loc ?locLabel
+HAVING (?count > 10)
+ORDER BY DESC(?count)

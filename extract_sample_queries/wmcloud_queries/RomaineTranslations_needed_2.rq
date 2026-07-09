@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?instanceOfLabel ?instanceOptionsLabel ?locationLabel WHERE {
+  ?item wdt:P1269 wd:Q366 .
+  OPTIONAL{?item wdt:P17 ?location .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}
+LIMIT 1000

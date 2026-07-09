@@ -1,0 +1,1 @@
+SELECT * { wds:Q41-e9e74dee-4732-f620-b0f3-44e22abed18f psv:P7295 / wikibase:timeCalendarModel ?calendar }

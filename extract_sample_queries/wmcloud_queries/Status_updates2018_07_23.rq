@@ -1,0 +1,10 @@
+# fictional characters married to their siblings
+SELECT DISTINCT ?character ?characterLabel ?spouseLabel ?universeLabel WHERE {
+  ?character wdt:P31/wdt:P279* wd:Q95074;
+             wdt:P26|^wdt:P26 ?spouse;
+             wdt:P3373|^wdt:P3373 ?spouse.
+  OPTIONAL { ?character wdt:P1080 ?universe. }
+  FILTER(STR(?character) < STR(?spouse))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?universeLabel ?characterLabel

@@ -1,0 +1,26 @@
+# MPs who are missing a death-date or have an explicitly unknown death-date
+SELECT DISTINCT ?item ?itemLabel ?born ?birthplaceLabel ?died ?deathplaceLabel ?lastseatLabel ?last
+{
+ ?membership wdt:P279 wd:Q16707842 .  ?item p:P39 ?positionStatement .  ?positionStatement ps:P39 ?membership . 
+ OPTIONAL { ?item wdt:P569 ?born . }
+ { filter not exists { ?item wdt:P570 ?died . } } UNION { ?item wdt:P570 ?died . FILTER isBLANK(?died) . }
+ OPTIONAL { ?item wdt:P735 ?name . }
+ OPTIONAL { ?item wdt:P21 ?gender . }
+ OPTIONAL { ?item wdt:P19 ?birthplace . }
+ OPTIONAL { ?item wdt:P20 ?deathplace . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }  
+  ?positionStatement pq:P582 ?last .  # note that this requires an end-date on the item
+  FILTER (?last <= "1950-01-01T00:00:00Z"^^xsd:dateTime) . # and end date was before 1950 (no living MPs this early)
+  ?positionStatement pq:P768 ?seat.  
+ FILTER NOT EXISTS {                  # this filter catches any cases where they came back to office later, to ensure we only report the final term
+ ?membership2 wdt:P279 wd:Q16707842 .
+ ?item p:P39 ?positionStatement2 . 
+ ?positionStatement2 ps:P39 ?membership2 . 
+ ?positionStatement2 pq:P580 ?start2 .
+ FILTER (?start2 >= ?last) .  }
+  { ?seat wdt:P460 ?seat2 .
+  BIND( ?seat2 AS  ?lastseat ) . }
+  UNION
+  { FILTER NOT EXISTS { ?seat wdt:P460 ?seat2 } .
+  BIND( ?seat AS  ?lastseat ) . }                            # this bit finds the WP article for the corresponding seat  
+}

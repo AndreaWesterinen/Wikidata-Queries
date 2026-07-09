@@ -1,0 +1,4 @@
+#title: Instances of music video should be a value of this property
+# Complex constraint from [[Property talk:P6718]]
+# TODO: linking the items below from an item for the song with P6718
+SELECT ?item WHERE { ?item wdt:P31 wd:Q193977 . MINUS { ?s wdt:P6718 ?item }  } LIMIT 500

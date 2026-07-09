@@ -1,0 +1,29 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?instance ?instanceLabel ?snak 
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?instance ?snak {
+			{
+				?item wdt:P6379 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P6379 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P6379 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS {
+				VALUES ?classes { wd:Q2668072 wd:Q166118 wd:Q33506 wd:Q17312283 wd:Q88667167 wd:Q15090615 wd:Q464980 } .			
+				?value wdt:P31/wdt:P279* ?classes .
+			} .
+			OPTIONAL {
+				?value wdt:P31 ?instance .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

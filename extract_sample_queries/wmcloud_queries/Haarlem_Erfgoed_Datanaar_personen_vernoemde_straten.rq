@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?vernoemd_naar ?geslacht ?beroep ?ambt ?geboortedatum ?afbeelding WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q83620.
+  ?item wdt:P131 wd:Q9920.
+  ?item p:P138 ?vernoemd_statement.
+  ?vernoemd_statement ps:P138 ?vernoemd_naar.  
+  ?vernoemd_naar wdt:P31 wd:Q5.
+  OPTIONAL {?vernoemd_naar wdt:P21 ?geslacht}
+  OPTIONAL {?vernoemd_naar wdt:P106 ?beroep}
+  OPTIONAL {?vernoemd_naar wdt:P39 ?ambt}
+  OPTIONAL {?vernoemd_naar wdt:P569 ?geboortedatum}
+  OPTIONAL {?vernoemd_naar wdt:P18 ?afbeelding}
+}

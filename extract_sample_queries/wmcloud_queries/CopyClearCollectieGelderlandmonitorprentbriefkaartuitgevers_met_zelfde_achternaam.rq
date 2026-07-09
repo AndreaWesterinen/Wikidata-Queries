@@ -1,0 +1,20 @@
+SELECT ?item ?item2 ?itemLabel ?item2Label ?output ?output2 WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item2 wdt:P31 wd:Q5.
+    ?item rdfs:label ?label.
+  ?item2 rdfs:label ?label2.
+
+  {?item2 wdt:P106  wd:Q84473837.} #prentbriefkaartuitgever
+  {?item wdt:P106  wd:Q84473837.} #prentbriefkaartuitgever
+  ?item wdt:P9152 ?Gelderid.
+  ?item2 wdt:P9152 ?Gelderid2.
+    FILTER((LANG(?label)) = "nl")
+  FILTER((LANG(?label2)) = "nl")
+    BIND(REPLACE(STR(?label),".* ","") AS ?output) .
+  BIND(REPLACE(STR(?label2),".* ","") AS ?output2) .
+
+
+      FILTER(?output = ?output2)
+    FILTER(?item != ?item2)
+#    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

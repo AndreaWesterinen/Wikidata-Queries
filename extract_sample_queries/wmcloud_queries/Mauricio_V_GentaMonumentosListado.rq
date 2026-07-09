@@ -1,0 +1,9 @@
+SELECT ?item ?lugar ?imagen ?tipo ?start  WHERE {
+  ?item (wdt:P1435/wdt:P279*) wd:Q1847467.
+  ?item p:P1435 ?status .
+  ?status  ps:P1435/wdt:P279* wd:Q1847467 .
+  ?status  pq:P580 ?start .
+  OPTIONAL { ?item wdt:P131 ?lugar. }
+  OPTIONAL { ?item wdt:P18 ?imagen. }
+  OPTIONAL { ?item wdt:P1435 ?tipo. }
+}

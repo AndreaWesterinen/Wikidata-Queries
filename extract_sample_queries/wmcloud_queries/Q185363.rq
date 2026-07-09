@@ -1,0 +1,17 @@
+select ?item ?itemLabel ?count 
+	with {
+	  select ?item {
+		?item wdt:P279* wd:Q7725634
+	  }
+	} as %items 
+	with { 
+		select ?item (count(?thing) as ?count) 
+			{
+				include %items .
+				?thing wdt:P31 ?item . 
+			} group by ?item 
+	} as %counts 
+where { 
+	include %counts 
+	service wikibase:label { bd:serviceParam wikibase:language ",en" }
+} order by desc(?count)

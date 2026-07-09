@@ -1,0 +1,10 @@
+#title: Check year (format: MMYY in MMYY X 11111)
+# Complex constraint from [[Property talk:P5968]]
+# Max year : 5 [http://www.cppap.fr/de-quelle-duree-dadmission-une-nouvelle-publication-beneficiera-t-elle/ source]
+SELECT ?item WHERE {
+  ?item wdt:P5968 ?CPPAPid.
+  BIND(SUBSTR(?CPPAPid, 3, 2) AS ?yearStr).
+  FILTER( REGEX( ?CPPAPid, "^(\\d{4} [A-Z] \\d{5})$" ) ) .
+  BIND(SUBSTR(YEAR(NOW()), 3, 2) AS ?yearMaxStr).
+  FILTER(xsd:integer(?yearStr) > (xsd:integer(?yearMaxStr) + 5))
+}

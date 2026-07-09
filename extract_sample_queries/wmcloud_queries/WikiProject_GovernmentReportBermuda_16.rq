@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?fieldOfWork ?fieldOfWorkLabel WHERE {
+  ?item p:P39 ?statement0.
+      ?statement0 (ps:P39/(wdt:P279*)) wd:Q56611800.
+  ?item wdt:P101 ?fieldOfWork .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

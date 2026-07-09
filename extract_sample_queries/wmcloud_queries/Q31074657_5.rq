@@ -1,0 +1,18 @@
+#title: Cims sense estat
+# Complex constraint from [[Property talk:Q31074657]]
+# Si l'estat és Andorra, ha d'estar referenciat
+select ?item where {
+  ?item p:P361 ?stat .
+  ?stat ps:P361 wd:Q31074657 .
+  ?stat pq:P2699 [] .
+  minus {
+    ?item p:P17 ?s .
+    ?s ps:P17 wd:Q228 .
+    ?s prov:wasDerivedFrom ?ref .
+    ?ref pr:P248 wd:Q31074657 .
+    ?ref pr:P854 [] .
+    ?ref pr:P813 [] .
+  }
+  minus { ?item wdt:P17 wd:Q29 }
+  minus { ?item wdt:P17 wd:Q142 }
+}

@@ -1,0 +1,4 @@
+#title: municipality in Austria without number
+# Complex constraint from [[Property talk:P964]]
+# [[d:Q667509|municipality of Austria <small>(Q667509)</small>]] lacking a [[Property:P964|Austrian municipality key&#32;<small dir="ltr">(P964)</small>]] statement specifying the [[d:Q23003|Community Identification Number <small>(Q23003)</small>]]
+SELECT ?item WHERE { ?item wdt:P31/wdt:P279* wd:667509 . MINUS { ?item wdt:P964 ?any . } }

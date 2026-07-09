@@ -1,0 +1,20 @@
+#Items about artists without  a Wikipedia page
+SELECT ?artist ?artistLabel  with { select distinct ?artist WHERE 
+ {
+   ?artist wdt:P106 ?occ.
+   VALUES ?occ {wd:Q483501 wd:Q11569986 wd:Q1028181 wd:Q1281618}    # occupations
+   ?artist wdt:P31 wd:Q5.             # is human
+   ?artist wdt:P21 wd:Q6581072.       # is female
+   ?artist wdt:P27 wd:Q408.    # is Australian
+      
+ } } as %i where
+
+{
+  include %i
+     MINUS
+    {?article schema:about ?artist. # and do not have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+     }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?artistLabel

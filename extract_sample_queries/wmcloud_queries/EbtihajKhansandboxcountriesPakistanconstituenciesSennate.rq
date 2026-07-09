@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  VALUES ?constituencyTypes { wd:Q58780003 }
+  ?item wdt:P31 ?constituencyTypes .
+  MINUS { ?item wdt:P576 [] }
+}

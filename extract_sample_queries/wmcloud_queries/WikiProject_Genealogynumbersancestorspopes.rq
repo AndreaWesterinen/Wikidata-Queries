@@ -1,0 +1,8 @@
+SELECT ?item ?num (COUNT(DISTINCT ?ancestor) as ?ct)
+{
+    ?item wdt:P31 wd:Q5; p:P39 ?s.
+    ?s ps:P39 wd:Q19546; pq:P1545 ?num.
+    ?item (wdt:P22|wdt:P25)+ ?ancestor .
+} 
+GROUP BY ?item ?num
+ORDER BY xsd:integer(?num)

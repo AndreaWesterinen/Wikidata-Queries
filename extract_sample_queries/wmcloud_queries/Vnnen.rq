@@ -1,0 +1,4 @@
+embed.html#SELECT ?q ?qDescription WHERE {
+  ?q wdt:P17 wd:Q16 ; wdt:P31 wd:Q23397 ; schema:description ?qDescription .
+  FILTER (lang(?qDescription) = "fi"). 
+}

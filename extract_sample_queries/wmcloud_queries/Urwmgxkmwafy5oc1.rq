@@ -1,0 +1,5 @@
+SELECT ?music_track_with_vocals ?music_track_with_vocalsLabel ?part_of ?part_ofLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?music_track_with_vocals wdt:P31 wd:Q55850593.
+  ?music_track_with_vocals wdt:P361 ?part_of.
+}

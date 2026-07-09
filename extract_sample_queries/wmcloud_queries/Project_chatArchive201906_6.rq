@@ -1,0 +1,10 @@
+SELECT ?human ?humanLabel ?position ?positionLabel ?date_of_death ?date_of_inception WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?human wdt:P31 wd:Q5;
+    wdt:P39 ?position; 
+    wdt:P570 ?date_of_death.
+  ?position wdt:P571 ?date_of_inception.
+    
+  FILTER((YEAR(?date_of_death)) < YEAR(?date_of_inception) )
+}
+LIMIT 100

@@ -1,0 +1,9 @@
+# Articles in wikidata, with an AFD_pub_id with Winston Ponder as author
+SELECT ?date ?item  ?itemLabel ?afd_pub_id WHERE {
+  ?item wdt:P50 wd:Q456583.
+  ?item wdt:P577 ?date.
+  optional {?item wdt:P6982 ?afd_pub_id}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+     
+    }
+ORDER BY ?date ?item ?itemLabel ?afd_pub_id 

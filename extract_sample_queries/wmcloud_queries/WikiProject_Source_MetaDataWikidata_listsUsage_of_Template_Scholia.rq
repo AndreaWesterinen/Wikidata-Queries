@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+ {
+   SELECT ?item WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "commons.wikimedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:\"Wikidata infobox\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+  } LIMIT 100
+ }
+ hint:Prior hint:runFirst "true".
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} LIMIT 100

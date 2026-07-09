@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "pt,de,en,fr,ms,ca". }
+  ?item wdt:P17 wd:Q155.
+  MINUS { ?item wdt:P31 ?is. }
+  MINUS { ?item wdt:P279 ?class. }
+  MINUS { ?item wdt:P2959 ?duplicate. }
+  MINUS { ?item wdt:P460 ?sameas. }
+  MINUS { ?item wdt:P1269 ?aspect. }
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://pt.wikipedia.org/>.
+}
+ORDER BY ?itemLabel
+LIMIT 1000

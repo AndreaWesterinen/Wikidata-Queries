@@ -1,0 +1,3 @@
+SELECT ?item ?_WDPA_id WHERE {
+  ?item (wdt:P31*/wdt:P279*) wd:Q2990328.
+}

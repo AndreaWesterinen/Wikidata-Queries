@@ -1,0 +1,17 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+   # Query to count burials recorded for Père-Lachaise cemetery by year
+
+SELECT ?year (COUNT (DISTINCT ?a) AS ?count) WHERE {
+   ?a wdt:P119 wd:Q311 .    # buried at Père-Lachaise cemetery 
+   ?a wdt:P570 ?date . 
+   BIND(year(?date) AS ?year)
+} GROUP BY ?year ORDER BY ?year

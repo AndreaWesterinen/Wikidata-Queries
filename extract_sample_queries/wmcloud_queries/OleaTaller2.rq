@@ -1,0 +1,84 @@
+SELECT
+  ?item
+  ?enlaces
+  ?cantidad
+WITH {
+  SELECT DISTINCT ?item {
+    VALUES ?pais { wd:Q77  wd:Q96  wd:Q155  wd:Q241 wd:Q298 wd:Q414 wd:Q419 
+                   wd:Q717 wd:Q733 wd:Q736 wd:Q750 wd:Q774 wd:Q783 wd:Q786 
+                   wd:Q790 wd:Q792 wd:Q800 wd:Q804 wd:Q811}
+  	# género = trans mujer
+  	{ ?item wdt:P21 wd:Q1052281.  ?item wdt:P27 ?pais.}
+	# género = trans hombre
+	UNION  { ?item wdt:P21 wd:Q2449503. ?item wdt:P27 ?pais.}
+ }
+} AS %0
+WITH {
+  SELECT ?item ?página ?edición {
+    INCLUDE %0.
+    ?página
+      schema:about ?item;
+      schema:isPartOf ?edición.
+    ?edición wikibase:wikiGroup "wikipedia".
+    FILTER(?edición != <https://es.wikipedia.org/>).
+  }
+} AS %1
+WITH {
+  SELECT ?item ?páginaTítulo ?edición {
+    INCLUDE %1.
+    BIND(wikibase:decodeUri(STRAFTER(STR(?página), '.wikipedia.org/wiki/')) AS ?páginaTítulo).
+  }
+} AS %2
+WITH {
+  SELECT DISTINCT ?edición ?ediciónCódigo {
+    INCLUDE %1.
+    BIND(STRBEFORE(STRAFTER(STR(?edición), 'https://'), '.wikipedia.org/') AS ?ediciónCódigo).
+  }
+} AS %3
+WITH {
+  SELECT DISTINCT ?edición ?ediciónLabel {
+    INCLUDE %3.
+    ?ediciónQid
+      wdt:P856 ?edición;
+      rdfs:label ?ediciónLabel.
+    FILTER(LANG(?ediciónLabel) = "es").
+  }
+} AS %4
+WITH {
+  SELECT ?item ?enlace {
+    INCLUDE %1.
+    INCLUDE %2.
+    INCLUDE %3.
+    INCLUDE %4.
+    BIND(CONCAT('[[:', ?ediciónCódigo, ':', ?páginaTítulo, '|', ?ediciónLabel, ']]') AS ?enlace).
+  }
+  # Queremos que los artículos sean ordenados según el nombre de la
+  # edición de Wikipedia (ejm. "Wikipedia en alemán" debe estar antes
+  # que "Wikipedia en checo" porque "alemán" es antes que "checo" en
+  # el orden lexicográfico, así que ordenamos descendentemente porque
+  # cuando la consulta es incluida en otra consulta, el orden se
+  # invierte. Creo que esto es un comportamiaento del motor de SPARQL
+  # que usa Wikidata, no del estándar de SPARQL.
+  ORDER BY DESC(?ediciónLabel)
+} AS %5
+WITH {
+  SELECT ?item (GROUP_CONCAT(?enlace; SEPARATOR = '<br>') AS ?enlaces) {
+    INCLUDE %5.
+  }
+  GROUP BY ?item
+} AS %6
+WITH {
+  SELECT ?item (COUNT(*) AS ?cantidad) {
+    INCLUDE %1.
+  }
+  GROUP BY ?item
+} AS %7
+{
+  INCLUDE %0.
+  OPTIONAL{INCLUDE %6}.
+  OPTIONAL{INCLUDE %7}.
+  # Si no quieres que las filas con 0 artículos en las versiones de
+  # Wikipedia, muestren cero en las celdas (es decir, prefieres que
+  # estén vacías), entonces elimina la siguiente linea.
+  BIND(IF(BOUND(?cantidad), ?cantidad, 0) AS ?cantidad).
+}

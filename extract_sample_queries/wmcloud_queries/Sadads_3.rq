@@ -1,0 +1,12 @@
+embed.html#SELECT ?item ?itemLabel ?value ?valueLabel ?st WHERE {
+  {
+    SELECT * WHERE {
+      ?item ?property wd:Q49085.
+      ?item wikibase:statements ?st.
+    }
+    ORDER BY ?st ?item
+    LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?st ?item

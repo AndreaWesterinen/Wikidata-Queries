@@ -1,0 +1,5 @@
+select ?item where { 
+?item wdt:P195 wd:Q160236.
+?item wdt:P217 ?inventoryID .
+FILTER( STRSTARTS(?inventoryID, "14.40.") ) .
+}

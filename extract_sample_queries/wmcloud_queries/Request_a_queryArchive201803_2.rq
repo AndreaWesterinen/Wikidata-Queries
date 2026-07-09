@@ -1,0 +1,9 @@
+SELECT DISTINCT ?numberLabel (count(?numberLabel) as ?count) WHERE {
+  ?number wdt:P31/wdt:P279 wd:Q12503 . #find integers
+  ?number rdfs:label ?numberLabel . FILTER(lang(?numberLabel) = "de")  #get the integer's en label
+  ?item ?property ?numberLabel .  #find items for which the integer's label value is an item property value
+  ?item rdfs:label ?itemLabel . FILTER(lang(?itemLabel) = "de") #show only de itemLabels 
+}
+group by ?numberLabel
+#having (?count > 10)
+order by DESC(?count)

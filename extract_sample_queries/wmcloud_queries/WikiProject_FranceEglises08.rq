@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P131/wdt:P131 wd:Q3164.
+  hint:Prior hint:gearing "forward".
+  ?item (wdt:P31/wdt:P279*) wd:Q16970.
+  hint:Prior hint:gearing "forward".
+}

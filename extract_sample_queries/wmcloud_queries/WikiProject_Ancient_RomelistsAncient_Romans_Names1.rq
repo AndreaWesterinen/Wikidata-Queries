@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P27 wd:Q1747689.
+  FILTER NOT EXISTS { ?item p:P2358 [] }
+}

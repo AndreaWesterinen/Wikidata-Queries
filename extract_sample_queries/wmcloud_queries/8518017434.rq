@@ -1,0 +1,7 @@
+# P31 - instance of, Q3024240 - former country
+SELECT ?country ?countryLabel WHERE {
+  ?country wdt:P31 wd:Q3024240 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

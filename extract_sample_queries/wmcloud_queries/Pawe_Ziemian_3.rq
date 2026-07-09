@@ -1,0 +1,8 @@
+# krewni i powinowaci
+SELECT DISTINCT ?kind ?kindLabel WHERE {
+  ?any pq:P1039 ?kind .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "pl,en" .
+  }
+}

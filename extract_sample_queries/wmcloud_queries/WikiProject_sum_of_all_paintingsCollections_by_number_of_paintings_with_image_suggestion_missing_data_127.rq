@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?inception ?creator ?creatorLabel ?sourceurl ?imageurl WHERE {
+  ?item wdt:P195 <http://www.wikidata.org/entity/Q40304752> .
+  ?item wdt:P31 wd:Q3305213 .  
+  ?item  p:P4765 ?imagesuggestion .
+  ?imagesuggestion ps:P4765 ?imageurl .
+  OPTIONAL { ?imagesuggestion pq:P2699 ?sourceurl } .
+  OPTIONAL { ?item wdt:P170 ?creator } .
+  OPTIONAL { ?item wdt:P571 ?inception } .
+  MINUS { ?item wdt:P170 ?minuscreator . ?minuscreator wdt:P569 ?dob . ?minuscreator wdt:P570 ?dod } .
+  MINUS { ?item wdt:P170 ?minuscreator . ?minuscreator wdt:P569 ?dob . FILTER(YEAR(?dob) > 1900) } .
+  MINUS { ?item wdt:P170 wd:Q4233718 . ?item wdt:P571 ?minusinception } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+LIMIT 2000

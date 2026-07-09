@@ -1,0 +1,6 @@
+SELECT ?subject ?subjectLabel ?target ?targetLabel ?edgeLabel WHERE {
+  wd:Q5994 ( wdt:P279 | wdt:P31 )* ?subject .
+  VALUES ( ?link ?edgeLabel ) { ( wdt:P31 "instance of" ) ( wdt:P279 "subclass of" ) }
+  ?subject ?link ?target .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

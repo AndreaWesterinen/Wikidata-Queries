@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "youtuber". # <-- UPDATE THIS
+    ?item wikibase:apiOutputItem mwapi:title .
+  }
+  ?item schema:description ?itemDescription . filter(lang(?itemDescription)="en") 
+
+#  FILTER (lcase(str(?itemDescription)) ="youtuber") # - exact match, case-insensitive
+#  FILTER (str(?itemDescription) ="youtuber") # - exact match, case-sensitive
+#  FILTER (contains(lcase(str(?itemDescription)),"youtuber")) # - case-insensitive, somewhere in the description
+  FILTER (contains(?itemDescription,"youtuber")) # - case-sensitive, somewhere in the description
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

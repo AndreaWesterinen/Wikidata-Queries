@@ -1,0 +1,1 @@
+SELECT ?item (YEAR(?vDate) AS ?vAnnee) ?vImage WHERE { ?item wdt:P31 wd:Q11424 ; wdt:P750 wd:Q5422590 ; wdt:P577 ?vDate . OPTIONAL { ?item wdt:P18 ?vImage . } }

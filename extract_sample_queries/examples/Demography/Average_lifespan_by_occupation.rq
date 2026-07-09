@@ -1,4 +1,4 @@
-# ----
+#title: Average lifespan by occupation
 # Select the desired columns and get labels
 SELECT ?occ ?occLabel ?avgAge ?avgBirthYear ?count
 WHERE

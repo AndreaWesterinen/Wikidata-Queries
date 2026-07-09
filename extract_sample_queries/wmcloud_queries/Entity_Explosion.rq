@@ -1,0 +1,38 @@
+SELECT DISTINCT ?genProp ?property ?valueUri ?fmt_URL ?URL ?rankstr ?regex_req ?regex ?lang ?format ?part ?operatorLabel ?jurisdiction WHERE {
+<http://www.wikidata.org/entity/Q30302769>  ?propertyUri ?valueUri.
+  ?genProp <http://wikiba.se/ontology#directClaim> ?propertyUri.
+  ?genProp rdfs:label ?property.
+  FILTER(LANG(?property) = "en")
+  FILTER(substr(str(?propertyUri),1,36)="http://www.wikidata.org/prop/direct/")
+  FILTER(substr(str(?valueUri),1,31)!="http://www.wikidata.org/entity/")
+  {
+    ?genProp p:P1630 ?statement .
+    ?statement ps:P1630 ?fmt_URL .
+    ?statement wikibase:rank ?rank .
+    BIND (STR(?rank) AS ?rankstr)
+    OPTIONAL {?statement pq:P8460 ?regex_req .}
+    OPTIONAL {?statement pq:P1793 ?regex .}
+    OPTIONAL {?statement pq:P407/wdt:P424 ?lang .}
+    OPTIONAL {?statement pq:P2701 ?format .}
+    OPTIONAL {?statement pq:P518 ?part .}
+    OPTIONAL {?statement pq:P137 ?operator .}
+    OPTIONAL {?statement pq:P1001 ?jurisdiction .}
+  } UNION {
+    ?genProp p:P3303 ?statement .
+    ?statement ps:P3303 ?fmt_URL .
+    ?statement wikibase:rank ?rank.
+    BIND (STR(?rank) AS ?rankstr)
+    OPTIONAL {?statement pq:P8460 ?regex_req .}
+    OPTIONAL {?statement pq:P1793 ?regex .}
+    OPTIONAL {?statement pq:P407/wdt:P424 ?lang .}
+    OPTIONAL {?statement pq:P2701 ?format .}
+    OPTIONAL {?statement pq:P518 ?part .}
+    OPTIONAL {?statement pq:P137 ?operator .}
+    OPTIONAL {?statement pq:P1001 ?jurisdiction .}
+  }
+  BIND (REPLACE( STR(?fmt_URL), "\\$1", ?valueUri ) AS ?URL)
+  FILTER(BOUND(?URL))
+  BIND (CONCAT(?property,?valueUri) AS ?sort)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "'+isoLanguage+',[AUTO_LANGUAGE],en" } .
+}
+ORDER BY ASC(?sort)

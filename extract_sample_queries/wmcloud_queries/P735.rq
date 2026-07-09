@@ -1,0 +1,9 @@
+#individual aminals with "given name" 
+SELECT DISTINCT ?item ?itemLabel ?typeLabel ?GivennameLabel
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q729.
+  ?item wdt:P31 ?type.
+  ?item wdt:P735 ?Givenname .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,16 @@
+#String lenghts by frequency with sample value
+#by Jura1, 2016-01-24, 2017-07-28
+
+SELECT ?stringlength (COUNT(DISTINCT(?stringvalue)) AS ?count) (SAMPLE(?stringvalue) as ?samplestringvalue)  (SAMPLE(?item) as ?sampleitem)
+(URI(CONCAT("https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3FitemDescription%20%3Fstringvalue%20%3Fstringlength%0A",
+            "WHERE%20%0A%7B%0A%09%3Fitem%20wdt%3A","P4386","%20%3Fstringvalue%20.%0A%20%20%20%20BIND%28strlen%28%3Fstringvalue%29%20as%20%3F",
+            "stringlength%29%0A%20%20%20%20FILTER%28%3Fstringlength%20%3D%20",str(?stringlength),"%29%0A%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3A",
+            "serviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%0ALIMIT%20100%0A")) as ?list)
+WHERE
+{
+  ?item wdt:P4386 ?stringvalue .
+    BIND(strlen(?stringvalue) as ?stringlength)
+}
+GROUP BY ?stringlength
+ORDER BY DESC(?count)
+LIMIT 10

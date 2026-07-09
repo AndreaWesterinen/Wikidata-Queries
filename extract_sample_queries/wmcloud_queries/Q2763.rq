@@ -1,0 +1,6 @@
+#Cats
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  { ?item wdt:P31 wd:Q5883980. }
+  MINUS { ?item (wdt:P7624|wdt:P7571) ?mb. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,4 @@
+SELECT ?thing ?thingLabel WHERE {
+  ?thing wdt:P366 wd:Q132781.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

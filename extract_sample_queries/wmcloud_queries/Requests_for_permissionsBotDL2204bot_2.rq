@@ -1,0 +1,17 @@
+# UZTARO and ALDIRI journals
+SELECT ?item (SAMPLE (?title) as ?izenburu) ?doi ?issue (group_concat(distinct(concat(?series_ordinal,": ",?authorLabel));SEPARATOR="; ") as ?authors)
+WHERE {
+{  ?item wdt:P1433 wd:Q12268801. } union
+{  ?item wdt:P1433 wd:Q12253132. }
+ optional { {?item wdt:P1476 ?title .} union {?item rdfs:label ?title.} filter(lang(?title)="eu")}
+  optional {?item wdt:P356 ?doi.}
+  optional {?item wdt:P433 ?issue.}
+  optional {{?item p:P50 ?authorstatement. 
+            ?authorstatement ps:P50 ?author. ?author rdfs:label ?authorLabel. filter(lang(?authorLabel)="eu")
+            ?authorstatement pq:P1545 ?series_ordinal.} union {
+            ?item p:P50 ?authorstatement. 
+            ?authorstatement ps:P50 ?author. ?author rdfs:label ?authorLabel. filter(lang(?authorLabel)="eu")
+            filter not exists {?authorstatement pq:P1545 ?series_ordinal.}
+            bind("NO_SER_ORD" as ?series_ordinal)
+            }}
+} group by ?item ?izenburu ?doi ?issue ?authors order by xsd:integer(?issue)

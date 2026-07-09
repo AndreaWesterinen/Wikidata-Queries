@@ -1,0 +1,13 @@
+#title: Qualifier P407 missing (LL filename)
+# Complex constraint from [[Property talk:P443]]
+# add qualifier (easy)
+SELECT ?item ?itemLabel ?file ?lang
+{
+	?item wdt:P443 ?value .
+    MINUS { ?item p:P443 [ pq:P407 [] ] }
+    MINUS { ?item rdf:type [] }
+    BIND(replace(wikibase:decodeUri(SUBSTR(STR(?value), 52)),"_"," ") AS ?file)  
+    FILTER ( REGEX( ?file, "^LL-.+$")  )
+    BIND( replace( ?file, "^LL-(Q\\d+) .+$", "$1") as ?lang)
+}
+LIMIT 100

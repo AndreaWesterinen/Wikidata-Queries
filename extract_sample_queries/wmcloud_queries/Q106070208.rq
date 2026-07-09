@@ -1,0 +1,7 @@
+SELECT ?item ?named ?page WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P1343 wd:Q106070208.
+  ?item p:P1343 ?statement.
+  ?statement pq:P1810 ?named ; ps:P1343 wd:Q106070208.
+  ?statement pq:P304 ?page ; ps:P1343 wd:Q106070208.
+  }

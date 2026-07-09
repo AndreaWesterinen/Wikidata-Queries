@@ -1,0 +1,4 @@
+#title: No source
+# Complex constraint from [[Property talk:P1480]]
+# Statements with sourcing circumstances without reference
+SELECT DISTINCT ?item { ?st pq:P1480 [] . MINUS { ?st prov:wasDerivedFrom [] } . ?item ?p ?st } LIMIT 2500

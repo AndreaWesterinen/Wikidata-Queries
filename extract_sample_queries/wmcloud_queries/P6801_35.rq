@@ -1,0 +1,4 @@
+#title: P1083 might need conversion
+# Complex constraint from [[Property talk:P6801]]
+# check/replace [[Property:P1083|maximum capacity&#32;<small dir="ltr">(P1083)</small>]] with P6801
+SELECT DISTINCT ?item ?b { ?item wdt:P31/wdt:P279* wd:Q16917; wdt:P1083 ?b } LIMIT 100

@@ -1,0 +1,29 @@
+SELECT 
+?item
+?itemLabel 
+?image
+?coor
+?Place_of_BirthLabel
+#?article
+
+
+WHERE
+{
+	?item wdt:P31 wd:Q5 ;   			#العنصر هو إنسان 
+          #wdt:P21 wd:Q6581072 ;		#العنصر هو أنثى
+ 	 	  wdt:P18 ?image ;   			#x العنصر له صورة على الويكي بيانات			
+          wdt:P69 wd:Q34433 ; 			#درس في اكسفورد 
+          wdt:P27 ?country.
+    ?country wdt:P361 wd:Q46 .
+    ?item wdt:P19 ?Place_of_Birth.		#تخزين خاصية مكان الميلاد في متغير نسميه ميلاد
+    ?Place_of_Birth wdt:P625 ?coor.		#إظهار إحداثيات مكان الميلاد
+  
+#?article  schema:about ?item .
+#?article  schema:isPartOf <https://en.wikipedia.org/> .
+  
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  
+ 
+}
+
+LIMIT 100

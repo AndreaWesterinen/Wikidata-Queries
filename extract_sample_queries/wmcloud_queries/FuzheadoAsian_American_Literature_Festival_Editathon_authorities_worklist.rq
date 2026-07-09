@@ -1,0 +1,14 @@
+SELECT ?item WHERE  
+{
+ {?item wdt:P166 wd:Q4806544.} UNION {
+  ?item wdt:P172/wdt:P279* wd:Q727928.
+  ?item wdt:P106/wdt:P279* wd:Q36180.} UNION {?item wdt:P166 wd:Q64717385} UNION {?item wdt:P166 wd:Q4806566}  
+    # Is there an en.wiki link? If so, reject it.
+    FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:isPartOf <https://en.wikipedia.org/>.}
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+ 
+    
+    BIND ((STR(?pic)) as ?image) .
+    BIND (REPLACE(STR(?item), "http://www.wikidata.org/entity/", "", "i") as ?itemId) .
+}

@@ -1,0 +1,18 @@
+#title: value < distance to parent peak
+# Complex constraint from [[Property talk:P2659]]
+# TODO: correct value or coordinates, adjust ranks, define exceptions
+SELECT ?item ?itemLabel  ?parentpeak ?parentpeakLabel ?topo_dist ?dist
+{
+  ?item wdt:P3137 ?parentpeak .
+  ?item p:P2659 / psn:P2659 / wikibase:quantityAmount ?topo_dist .
+  ?item wdt:P625 ?coor . 
+  ?parentpeak wdt:P625 ?parentpeak_coor .
+  BIND( ROUND(geof:distance(?coor, ?parentpeak_coor)*1000) as ?dist)
+  FILTER( ?topo_dist >= ?dist 
+         && (?topo_dist / ?dist) > 1.05  # 3% tolerance
+         && ?topo_dist >= (?dist + 1000)  # 1000 m tolerance
+        )
+  FILTER( ?item not in ( wd:Q15397819 , wd:Q4115189 ) ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+LIMIT 100

@@ -1,3 +1,4 @@
+#title: Databases listed in Wikidata and if available applicable licenses
 SELECT DISTINCT *
 WHERE
 {

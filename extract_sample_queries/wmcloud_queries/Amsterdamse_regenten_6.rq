@@ -1,0 +1,12 @@
+#defaultView:Map
+SELECT ?persoon ?persoonLabel ?bezit ?bezitLabel ?afbeelding ?coords (SAMPLE(?typelabel) AS ?bezitiseen) WHERE {
+  ?persoon wdt:P463 wd:Q56764476 .
+  ?bezit wdt:P127 ?persoon .
+  ?bezit wdt:P31 ?typebezit .
+  ?bezit wdt:P18 ?afbeelding .
+  ?bezit wdt:P625 ?coords .
+  ?typebezit rdfs:label ?typelabel .
+  FILTER (LANG(?typelabel)="nl") .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?persoon ?persoonLabel ?bezit ?bezitLabel ?afbeelding ?coords

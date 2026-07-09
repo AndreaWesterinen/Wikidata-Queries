@@ -1,0 +1,14 @@
+?##defaultView:Map
+SELECT ?place ?placeLabel ?location ?instanceofLabel 
+{
+  wd:Q4259914 wdt:P625 ?berlinLoc . 
+  SERVICE wikibase:around { 
+      ?place wdt:P625 ?location . 
+      bd:serviceParam wikibase:center ?berlinLoc . 
+      bd:serviceParam wikibase:radius "10" . 
+  } 
+  ?place wdt:P31 ?instanceof .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,ru" . 
+  }
+}

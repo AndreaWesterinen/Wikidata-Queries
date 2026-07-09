@@ -1,0 +1,1 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity p:P31 []. {?entity wdt:P69 wd:Q309350.} UNION {?entity wdt:P69 wd:Q6806876. }.}

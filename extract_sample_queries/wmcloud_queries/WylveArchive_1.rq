@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?instance ?instanceLabel
+{
+	{
+		SELECT DISTINCT ?item ?instance {
+			?item wdt:P650 [] .
+			MINUS {
+				?item wdt:P31/wdt:P279* wd:Q5 .
+			} .
+          	MINUS {
+				?item wdt:P31/wdt:P279* wd:Q16334295 .
+			} .
+			OPTIONAL {
+				?item wdt:P31 ?instance .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}

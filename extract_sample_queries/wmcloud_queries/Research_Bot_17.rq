@@ -1,0 +1,3 @@
+# number of MeSH ID (P486) statements
+# runtime: instantaneous
+SELECT (COUNT(*) AS ?count) WHERE { [] p:P486 []. }

@@ -1,0 +1,8 @@
+#title: Check P1098 value
+# Complex constraint from [[Property talk:P1252]]
+#
+SELECT ?item ?itemLabel ?value ?locuteur {
+	?item wdt:P1252 ?value.
+  ?item wdt:P1098 ?locuteur.
+ FILTER (?locuteur > 1000000000)
+}

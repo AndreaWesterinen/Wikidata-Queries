@@ -1,0 +1,4 @@
+#title: Missing qualifier for  "raa/fmi/" values
+# Complex constraint from [[Property talk:P1260]]
+# Values starting with "raa/fmi/" should always have [[Property:P1262|RAÄ number&#32;<small dir="ltr">(P1262)</small>]] as a qualifier.
+SELECT ?item WHERE { ?item p:P1260 ?statement . ?statement ps:P1260 ?val . FILTER (STRSTARTS(?val, 'raa/fmi/')) . FILTER NOT EXISTS { ?statement pq:P1262 ?x } }

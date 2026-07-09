@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P31/wdt:P279* wd:Q192611 .
+  ?item wdt:P17 wd:Q668
+  MINUS { ?item wdt:P31 wd:Q11774263 }
+  MINUS { ?item wdt:P31 wd:Q47481352 }
+  MINUS { ?item wdt:P31 wd:Q22692216 }
+  MINUS { ?item wdt:P31 wd:Q47490604 }
+  MINUS { ?item wdt:P31 wd:Q50394563 }
+  MINUS { ?item wdt:P576 [] }
+}
+ORDER BY ?item

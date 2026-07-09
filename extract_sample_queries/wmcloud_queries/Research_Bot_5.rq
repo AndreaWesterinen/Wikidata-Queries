@@ -1,0 +1,3 @@
+# number of PMID (P698) statements
+# runtime: instantaneous
+SELECT (COUNT(*) AS ?count) WHERE { [] p:P698 []. }

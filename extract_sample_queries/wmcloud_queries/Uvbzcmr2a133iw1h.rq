@@ -1,0 +1,5 @@
+SELECT ?item ?spouse ?pq ?date {
+  VALUES ?pq { pq:P580 pq:P582 } .
+  ?item p:P26 [ ps:P26 ?spouse; ?pq ?date ] .
+  FILTER( ?date > NOW() ) .
+}

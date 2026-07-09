@@ -1,0 +1,18 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+SELECT ?subject ?subjectLabel ?instance ?instanceLabel (year(?date) as ?year) ?date  WHERE { 
+   ?subject p:P577/psv:P577 ?date_node .
+   ?date_node wikibase:timeValue ?date .
+   FILTER ((?date) >= (now())) .  
+   ?subject wdt:P31 ?instance .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,en" .
+  }
+}
+ORDER BY DESC(?date)     
+LIMIT 100

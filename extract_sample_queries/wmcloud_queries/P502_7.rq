@@ -1,0 +1,10 @@
+#title: Check correspondence between the year in the identifier and the year of the event
+# Complex constraint from [[Property talk:P502]]
+# Check when the ID contain the year
+SELECT ?item {
+  ?item wdt:P502 ?value.
+  ?item wdt:P580 ?begin.
+  BIND (YEAR(?begin) AS ?beginYear).
+  BIND (SUBSTR(?value, 5, 4) AS ?substr).
+  FILTER (STR(?beginYear) != ?substr)
+}

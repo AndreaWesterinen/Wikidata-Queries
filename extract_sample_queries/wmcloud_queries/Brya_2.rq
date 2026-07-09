@@ -1,0 +1,9 @@
+SELECT ?item ?taxonName WHERE {
+      ?item p:P225 ?taxonNameStatement .
+      ?taxonNameStatement ps:P225 ?taxonName .
+      ?taxonNameStatement pq:P31 ?isA .
+      OPTIONAL {?item wdt:P1403 ?protonym} .
+      FILTER(sameTerm(?isA, wd:Q14594740))
+      FILTER(bound(?protonym))
+}
+ORDER BY ASC(?taxonName)

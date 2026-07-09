@@ -1,0 +1,10 @@
+#title: Items with incomplete location and/or collection provenance
+# Complex constraint from [[Property talk:P10779]]
+# All items should have [[Property:P276|location&#32;<small dir="ltr">(P276)</small>]] and [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q2647884|Hermann Göring Collection <small>(Q2647884)</small>]], but that shouldn't be the current (preferred) value
+SELECT ?item ?id WHERE {
+  ?item wdt:P10779 ?id .
+  MINUS { ?item p:P276/ps:P276 wd:Q2647884 ;
+                p:P195/ps:P195 wd:Q2647884 .
+         MINUS { ?item wdt:P276 wd:Q2647884 . ?item wdt:P195 wd:Q2647884 }
+         }
+  }

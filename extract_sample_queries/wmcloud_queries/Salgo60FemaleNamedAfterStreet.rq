@@ -1,0 +1,15 @@
+SELECT ?item  (COUNT(DISTINCT ?street) AS ?streetcount) WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P21 wd:Q6581072 .
+  ?street wdt:P138 ?item .
+  ?street wdt:P31 wd:Q79007 .
+  ?street wdt:P17 wd:Q34 .
+ 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "sv,en" .
+    ?item rdfs:label ?name .
+  }
+}
+GROUP BY ?item ?name 
+ORDER BY DESC(?streetcount)
+LIMIT 250

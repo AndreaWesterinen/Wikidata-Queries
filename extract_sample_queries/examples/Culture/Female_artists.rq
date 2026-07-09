@@ -1,3 +1,4 @@
+#title: Female artists
 SELECT DISTINCT ?women ?women_label ?women_description
 WHERE
 {

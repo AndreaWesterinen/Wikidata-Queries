@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?taste ?tasteLabel ?isLabel ?is ?subLabel ?sub WHERE { ?item wdt:P1552 ?taste . ?taste (wdt:P279+) wd:Q124794. OPTIONAL { ?item wdt:P279 ?sub } OPTIONAL { ?item wdt:P31 ?is } SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }} ORDER BY DESC(?tasteLabel) DESC(?isLabel) DESC(?subLabel)

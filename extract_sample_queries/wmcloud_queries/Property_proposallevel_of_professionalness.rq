@@ -1,0 +1,4 @@
+SELECT ?item ?sport WHERE {
+  ?item wdt:P2094* wd:Q14510042 .
+  OPTIONAL { ?item wdt:P641 ?sport }
+}

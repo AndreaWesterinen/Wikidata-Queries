@@ -1,0 +1,10 @@
+#title: Probably death
+# Complex constraint from [[Property talk:P2533]]
+# People with [[Property:P2533|WomenWriters ID&#32;<small dir="ltr">(P2533)</small>]] born before the year 1900, but no [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]]
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P2533 [] .
+  ?item p:P569 ?birthclaim .
+  MINUS { ?item p:P570 [] }
+  ?birthclaim ps:P569 ?birth .
+  FILTER(?birth < "+1900-00-15T00:00:00Z"^^xsd:dateTime) .
+}  ORDER BY ?birth LIMIT 1000

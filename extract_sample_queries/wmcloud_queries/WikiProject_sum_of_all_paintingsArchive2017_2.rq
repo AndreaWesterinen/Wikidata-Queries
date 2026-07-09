@@ -1,0 +1,10 @@
+# The number of paintings by painter
+
+SELECT ?painter ?painterLabel (COUNT(DISTINCT ?item) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P170 ?painter .
+  ?painter wdt:P570 ?dod .
+  FILTER(?dod <= "1947-01-01T00:00:00Z"^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+        
+} GROUP BY ?painter ?painterLabel HAVING (?count > 1 ) ORDER BY DESC(?count)

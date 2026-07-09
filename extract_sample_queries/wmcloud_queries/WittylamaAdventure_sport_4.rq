@@ -1,0 +1,9 @@
+#All systems of difficulty for climbing or bouldering.
+
+SELECT ?item ?itemLabel ?subclassLabel WHERE {
+  { ?item wdt:P279 wd:Q609276. }
+  UNION
+  { ?item wdt:P279 wd:Q5591695. }
+  ?item wdt:P279 ?subclass.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

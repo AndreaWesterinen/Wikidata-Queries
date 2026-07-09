@@ -1,3 +1,4 @@
+#title: Timeline of death of mathematicans and their theorems
 #defaultView:Timeline
 SELECT
   ?genderLabel

@@ -1,0 +1,8 @@
+# Llocs P131=Q8828
+# defaultView:Map
+SELECT ?place ?placeLabel WHERE {
+  ?place wdt:P131 wd:Q8828.
+  ?place rdfs:label ?label.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca,es,en,fr". }
+  FILTER((LANG(?label)) = "ca")
+}

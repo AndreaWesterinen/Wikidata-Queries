@@ -1,0 +1,11 @@
+SELECT ?item ?label ?_image ?itemLabel WHERE {
+  ?item wdt:P641 wd:Q42486.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?label.
+  }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+  
+  ?item wdt:P106 wd:Q13474373.
+}
+LIMIT 1000

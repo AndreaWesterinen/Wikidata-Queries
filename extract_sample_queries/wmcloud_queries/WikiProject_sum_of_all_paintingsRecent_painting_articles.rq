@@ -1,0 +1,14 @@
+SELECT ?item ?item2
+WHERE
+{
+	?item wdt:P31 wd:Q3305213 .
+	?sitelink schema:about ?item .
+    ?wikipedia schema:about ?item .
+    ?wikipedia schema:inLanguage [] .
+   MINUS { ?wikipedia schema:isPartOf <https://commons.wikimedia.org/> }
+   BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid)
+  OPTIONAL { ?item wdt:P18 ?image . 
+             ?item2 wdt:P18 ?image .
+             ?item2 wdt:P31 wd:Q3305213 .
+            FILTER(?item!=?item2) }
+} ORDER BY DESC(?qid) LIMIT 100

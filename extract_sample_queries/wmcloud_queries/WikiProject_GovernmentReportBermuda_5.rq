@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?fieldOfWork ?fieldOfWorkLabel WHERE {
+  ?item ?property ?value.
+  ?value pq:P2937 wd:Q113123448.
+  ?item wdt:P101 ?fieldOfWork .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

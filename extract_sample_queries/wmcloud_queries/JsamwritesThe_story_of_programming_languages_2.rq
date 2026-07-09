@@ -1,0 +1,7 @@
+SELECT DISTINCT ?langLabel
+WHERE {
+  ?lang wdt:P31/wdt:P279* wd:Q9143;
+            rdfs:label ?langLabel.
+  FILTER(LANG(?langLabel)="en")
+}
+ORDER by ?langLabel

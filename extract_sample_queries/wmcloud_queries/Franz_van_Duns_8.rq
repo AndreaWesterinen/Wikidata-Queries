@@ -1,0 +1,33 @@
+# Find all instances of (P31) and all subclasses of (P279*) of both camera (Q15328) and digital camera model (Q20741022) within WikiData.
+# Last revised: 2021-12-15.
+# Query makes use of UNION operator.
+# Explanation of Table columns: ?camera ?cameraLabel ?manufacturerLabel ?instanceOfLabel ?subclassOfLabel ?image (hyperlink only) ?massLabel ?WPENarticle (WPEN=Wikipedia:en) ?WPDEarticle (WPDE=Wikipedia:de)
+# NOTE: The sort order applied to the column "cameraLabel" displays entries containing foreign characters, such as "umlauts" or Greek characters, e.g. "Sony α7R IV", first after all entries containing the regular set of characters.
+
+SELECT DISTINCT ?camera ?cameraLabel ?manufacturerLabel ?instanceOfLabel ?subclassOfLabel ?image ?massLabel ?WPENarticle ?WPDEarticle
+WHERE {
+#  ?camera wdt:P31/wdt:P279* wd:Q15328 .              # instance of (P31) or subclass(es) of (P279*):  camera (Q15328)
+#  ?camera wdt:P31/wdt:P279* wd:Q20741022 .           # instance of (P31) or subclass(es) of (P279*):  digital camera model (Q20741022)
+
+  {?camera wdt:P31/wdt:P279* wd:Q15328 . }          # instance of (P31) or subclass(es) of (P279*):  camera (Q15328)
+  UNION
+  {?camera wdt:P31/wdt:P279* wd:Q20741022 . }       # instance of (P31) or subclass(es) of (P279*):  digital camera model (Q20741022)
+
+  OPTIONAL {?camera wdt:P176 ?manufacturer . }       # manufacturer (P176)
+  OPTIONAL {?camera wdt:P31 ?instanceOf . }          # instance of (P31)
+  OPTIONAL {?camera wdt:P279 ?subclassOf . }         # subclass of (P279) NOTE: Adding this term to the query raises RESULT from 1578 to 1635 !
+  OPTIONAL {?camera wdt:P18 ?image . }               # image (P18)
+  OPTIONAL {?camera wdt:P2067 ?mass . }              # mass (P2067)
+  
+  OPTIONAL {?WPENarticle schema:about ?camera .      #  has a Wikipedia:en article
+            ?WPENarticle schema:isPartOf <https://en.wikipedia.org/> .
+            ?ENsitelink ^schema:name ?WPENarticle . }
+
+  OPTIONAL {?WPDEarticle schema:about ?camera .      #  has a Wikipedia:de article
+            ?WPDEarticle schema:isPartOf <https://de.wikipedia.org/> .
+            ?DEsitelink ^schema:name ?WPDEarticle . }
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+
+ORDER BY ASC(UCASE(?cameraLabel))   # ASC(UCASE(?camera))

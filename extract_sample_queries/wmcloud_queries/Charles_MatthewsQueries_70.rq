@@ -1,0 +1,2 @@
+embed.html##defaultView:ImageGrid
+SELECT ?q ?img { ?q wdt:P170 wd:Q52914924 ; wdt:P18 ?img } LIMIT 2000

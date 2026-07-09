@@ -1,0 +1,6 @@
+#title:fontane
+#defaultView:Map
+SELECT ?bene ?coordinate
+WHERE {
+  ?bene wdt:P31/wdt:P279* wd:Q483453 ; wdt:P17 wd:Q38 ; wdt:P625 ?coordinate .
+}

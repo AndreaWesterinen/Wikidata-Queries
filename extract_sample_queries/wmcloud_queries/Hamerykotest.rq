@@ -1,0 +1,4 @@
+select ?item WHERE {
+  ?item <http://purl.org/dc/terms/language> wd:Q1321;
+            wikibase:lexicalCategory wd:Q24905.
+}

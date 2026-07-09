@@ -1,0 +1,1 @@
+SELECT ?sample (STR(?dob) AS ?dobs) WHERE { VALUES ?sample { wd:Q171291 wd:Q2186 wd:Q635 } . ?sample wdt:P569 ?dob . }

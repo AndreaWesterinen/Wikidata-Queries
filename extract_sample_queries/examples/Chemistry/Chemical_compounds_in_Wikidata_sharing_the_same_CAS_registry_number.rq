@@ -1,5 +1,4 @@
-# ----
-#two chemical compounds with the same CAS registry number
+#title: Chemical compounds in Wikidata sharing the same CAS registry number
 SELECT DISTINCT ?cas ?compound1 ?compound1Label ?compound2 ?compound2Label WHERE {
   ?compound1 wdt:P231 ?cas .
   ?compound2 wdt:P231 ?cas .

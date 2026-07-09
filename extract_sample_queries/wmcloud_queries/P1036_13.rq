@@ -1,0 +1,8 @@
+#title: Check 419.x
+# Complex constraint from [[Property talk:P1036]]
+#
+SELECT ?item WHERE {
+  ?item wdt:P1036 ?DDC.
+  FILTER( REGEX( STR( ?DDC ), "^(419.+)$" ))
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q34228}
+}

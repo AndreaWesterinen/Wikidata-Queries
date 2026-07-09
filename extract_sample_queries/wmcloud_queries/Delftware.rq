@@ -1,0 +1,8 @@
+#Delftware
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q28938152 .
+  ?item wdt:P131 wd:Q690 . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+}

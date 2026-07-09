@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?TrustID) AS ?countID) (COUNT(?item) AS ?countall) (CONCAT(str(ROUND(1000*?countID/?countall)/10), "%") AS ?percent) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 ?item .
+  OPTIONAL { ?painting wdt:P4373 ?TrustID } 
+  }
+GROUP BY ?item
+ORDER BY DESC(?countID)
+LIMIT 150

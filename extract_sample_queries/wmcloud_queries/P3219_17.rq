@@ -1,0 +1,4 @@
+#title: Element without P31 and without P279 (and without P361)
+# Complex constraint from [[Property talk:P3219]]
+# Element without P31 and without P279 (and without P361)
+SELECT DISTINCT ?item { ?item wdt:P3219 ?value . MINUS { ?item wdt:P31 [] } . MINUS { ?item wdt:P279 [] } . MINUS { ?item wdt:P361 [] } . } ORDER BY ?item

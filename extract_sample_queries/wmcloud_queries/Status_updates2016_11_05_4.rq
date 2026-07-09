@@ -1,0 +1,11 @@
+SELECT DISTINCT ?filmLabel ?film ?actorLabel ?characterLabel
+WHERE 
+{
+  # Remove next line to refer all works, not only Disney works
+  { ?film wdt:P449|wdt:P272 [ (wdt:P127/wdt:P749*) wd:Q7414 ] . } UNION { ?film wdt:P449 wd:Q7414 . }
+  ?film p:P161|p:P725 [ps:P161|ps:P725 ?actor ; pq:P453 ?character ] .
+  ?actor wdt:P735 ?name .
+  ?character wdt:P735 ?name .
+  FILTER (?actor != ?character)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} 

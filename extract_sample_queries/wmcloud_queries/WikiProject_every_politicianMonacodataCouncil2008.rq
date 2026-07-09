@@ -1,0 +1,9 @@
+SELECT ?item ?party ?start ?end
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q21328626 ; pq:P2937 wd:Q56230294 .
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P4100 ?party }
+}

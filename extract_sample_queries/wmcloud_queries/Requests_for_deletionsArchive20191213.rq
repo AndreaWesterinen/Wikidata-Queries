@@ -1,0 +1,8 @@
+SELECT ?item ?pq ?duplicate WHERE {
+  ?item p:P31 ?s .
+  ?s ps:P31 wd:Q28065731 .
+  OPTIONAL {
+    ?s ?pq ?duplicate .
+    ?pq ^wikibase:qualifier [] .
+  }
+}

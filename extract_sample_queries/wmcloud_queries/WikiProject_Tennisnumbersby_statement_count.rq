@@ -1,0 +1,9 @@
+SELECT (SAMPLE(?lh) as ?item) ?st (COUNT(?lh) as ?ct)
+WHERE
+{
+    	  ?lh wdt:P641 wd:Q847 .
+          ?lh wikibase:statements ?st .
+          FILTER NOT EXISTS { ?lh wdt:P31 wd:Q5 }
+}
+GROUP BY ?st
+ORDER BY ASC(xsd:integer(?st))

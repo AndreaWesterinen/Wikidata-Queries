@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{    
+  ?item wdt:P31 wd:Q476028. 
+  ?item wdt:P17 wd:Q229
+  FILTER NOT EXISTS {
+    ?article schema:about ?item ;
+    schema:isPartOf <https://el.wikipedia.org/> .
+  }
+}

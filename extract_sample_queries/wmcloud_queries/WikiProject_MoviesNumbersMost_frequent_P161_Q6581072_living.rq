@@ -1,0 +1,20 @@
+SELECT ?item  ?ct
+WHERE 
+{ 
+    {
+      SELECT ?item (COUNT(DISTINCT(?film)) AS ?ct)
+      {
+         { ?film wdt:P31 wd:Q11424 } 
+          UNION { ?film wdt:P31 wd:Q24862 } 
+          UNION { ?film wdt:P31 wd:Q506240 } 
+         ?film wdt:P161 ?item . ?item wdt:P21 wd:Q6581072
+      }
+      GROUP BY ?item 
+    }
+    hint:Query hint:optimizer "None".
+    optional {?item wdt:P570 ?dod } . FILTER(!BOUND(?dod)) . 
+    optional {?item wdt:P746 ?dis } . FILTER(!BOUND(?dis)) . 
+    ?item wdt:P31 wd:Q5 .
+} 
+ORDER BY DESC(?ct) 
+LIMIT 40

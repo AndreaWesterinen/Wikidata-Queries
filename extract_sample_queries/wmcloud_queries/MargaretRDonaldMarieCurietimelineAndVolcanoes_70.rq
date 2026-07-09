@@ -1,0 +1,10 @@
+# Art Gallery of South Australia artist who have work in the collection: Where were the artists born 
+#defaultView:Map
+SELECT   ?creatorLabel  ?birthplaceLabel ?coords WHERE {
+  
+  ?creator wdt:P6379 wd:Q705557. # artist with works in AGSA
+  ?creator wdt:P19 ?birthplace.
+  ?birthplace wdt:P625 ?coords.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+#LIMIT 1000

@@ -1,0 +1,18 @@
+# number of publications per year in Wikidata
+SELECT ?year (SUM(?count) AS ?total) WHERE {
+  {
+    SELECT ?publicationDate (COUNT(?item) AS ?count) WHERE {
+      #VALUES ?precision { "9"^^xsd:integer "10"^^xsd:integer "11"^^xsd:integer }
+      #?item p:P577/psv:P577 [
+      #        wikibase:timeValue ?publicationDate;
+      #        wikibase:timePrecision ?precision
+      #      ].
+      ?item wdt:P577 ?publicationDate.
+    }
+    GROUP BY ?publicationDate
+  }
+  FILTER(BOUND(?year)) # much more efficient than FILTER(!ISBLANK(?publicationDate)) 
+  BIND(YEAR(?publicationDate) AS ?year)
+}
+GROUP BY ?year
+ORDER BY ?year

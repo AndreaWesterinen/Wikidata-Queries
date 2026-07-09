@@ -1,0 +1,11 @@
+#title: Check year
+# Complex constraint from [[Property talk:P4690]]
+#
+SELECT ?item ?value {
+	?item wdt:P4690 ?value.
+    BIND (STR(?value) AS ?str).
+    BIND (SUBSTR(?str, STRLEN(?str)-9, 4) AS ?year).
+    BIND (xsd:integer(?year) AS ?int).
+    BIND (xsd:integer(YEAR(NOW())) AS ?actualYear).
+    FILTER(?int > ?actualYear)
+}

@@ -1,0 +1,9 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?coords ?image WHERE {
+  ?item wdt:P31 wd:Q38720 ;
+        wdt:P131 ?arrdt ;
+        wdt:P625 ?coords ;
+        wdt:P18 ?image .
+  ?arrdt wdt:P131 wd:Q90 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?itemLabel

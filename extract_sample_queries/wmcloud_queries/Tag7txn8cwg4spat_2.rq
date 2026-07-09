@@ -1,0 +1,12 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?dod ?place ?placeLabel ?coor 
+{
+	?item wdt:P570 ?dod
+	FILTER ( ?dod > "2016-07-30T00:00:00Z"^^xsd:dateTime)
+	FILTER ( ?dod > (now()-"P32D"^^xsd:duration) && ?dod < now() )
+	?item wdt:P31 wd:Q5 .
+  	?item wdt:P20 ?place .
+  	?place wdt:P625 ?coor .
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?dod) ?item

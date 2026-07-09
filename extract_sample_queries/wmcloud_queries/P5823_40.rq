@@ -1,0 +1,10 @@
+#title: Artworks in the Belvedere collection without a link
+# Complex constraint from [[Property talk:P5823]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q303139|Belvedere <small>(Q303139)</small>]] (without the ones with an [[Property:P582|end time&#32;<small dir="ltr">(P582)</small>]]), but that item doesn't have [[Property:P5823|Belvedere object ID&#32;<small dir="ltr">(P5823)</small>]]. Missing link can probably be added
+SELECT ?item WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q303139 .
+  MINUS { ?collectionstatement pq:P582 [] } 
+  FILTER NOT EXISTS {?item wdt:P5823 ?value . }
+}
+LIMIT 1000

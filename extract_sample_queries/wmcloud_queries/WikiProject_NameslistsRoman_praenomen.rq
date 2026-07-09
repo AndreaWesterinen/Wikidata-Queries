@@ -1,0 +1,8 @@
+SELECT ?item (SAMPLE(?holder) as ?sample) (COUNT(DISTINCT ?holder) as ?ct)
+{
+  	?item wdt:P31 wd:Q1240901 . 
+  	OPTIONAL { ?holder wdt:P2358 ?item } 
+  	MINUS { ?item wdt:P31 wd:Q4167410 } 
+  	MINUS { ?item wdt:P31 wd:Q101352 }
+}
+GROUP BY ?item

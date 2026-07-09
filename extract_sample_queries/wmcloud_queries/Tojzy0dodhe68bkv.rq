@@ -1,0 +1,7 @@
+SELECT ?item ?wikisourceTitle
+WHERE {
+  	?item wdt:P1433 wd:Q20961706 .
+	?wikisourceURL schema:about ?item ;
+			schema:isPartOf <https://fr.wikisource.org/> ;
+   			schema:name ?wikisourceTitle .
+}

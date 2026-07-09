@@ -1,0 +1,8 @@
+SELECT ?item  
+{
+  	?item wdt:P31 wd:Q6256
+	MINUS { ?item wdt:P31 wd:Q3024240 }     
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "vec". }
+      
+}

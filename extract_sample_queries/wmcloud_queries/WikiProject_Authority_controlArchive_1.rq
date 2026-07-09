@@ -1,0 +1,20 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+
+PREFIX prov: <http://www.w3.org/ns/prov#> SELECT ?item ?authorAbbrev (SUBSTR(?birthdate1, 1, 4) as ?birthyear) (SUBSTR(?deathdate1, 1, 4) as ?deathyear) WHERE {
+    ?item wdt:P428 ?authorAbbrev .
+    ?item p:P428 ?authorabbrev1 .
+    ?authorabbrev1 v:P428 ?authorabbrevValue .
+    ?authorabbrev1 prov:wasDerivedFrom ?ref .
+    OPTIONAL {?ref pr:P586 ?authorId} .
+    OPTIONAL {?item wdt:P569 ?birthdate1} .
+    OPTIONAL {?item wdt:P570 ?deathdate1} .
+    FILTER (!bound(?authorId))
+}
+ORDER BY ASC(?authorAbbrev)

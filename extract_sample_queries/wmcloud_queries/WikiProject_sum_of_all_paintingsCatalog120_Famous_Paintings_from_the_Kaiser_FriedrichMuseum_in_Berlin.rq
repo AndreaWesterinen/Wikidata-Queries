@@ -1,0 +1,9 @@
+SELECT ?item ?rkdurl ?bildindexurl ?catcode WHERE { 
+?item p:P528 [ pq:P972 wd:Q29585549 ; ps:P528 ?catcode].  
+wd:P350 wdt:P1630 ?formatterurl1 .
+  OPTIONAL { ?item wdt:P350 ?rkdid }.
+  BIND(REPLACE(?rkdid, '^(\\d+)$', CONCAT("[", ?formatterurl1, " $1]")) AS ?rkdurl)  .
+wd:P2092 wdt:P1630 ?formatterurl2 .
+  OPTIONAL { ?item wdt:P2092 ?bildindex }.
+  BIND(REPLACE(?bildindex, '^(\\d+)$', CONCAT("[", ?formatterurl2, " $1]")) AS ?bildindexurl)  .
+} ORDER BY xsd:integer(?catcode)

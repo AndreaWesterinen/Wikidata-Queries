@@ -1,0 +1,18 @@
+# Regicides and their victims
+SELECT DISTINCT ?regicide ?regicideLabel ?regicide_image ?victime ?victimeLabel ?titresLabel ?date_deces ?lieu_decesLabel ?cause_decesLabel ?victime_image WHERE { 
+  ?regicide wdt:P31 wd:Q5 .
+  ?regicide wdt:P1399 wd:Q1475448 .
+  OPTIONAL {?regicide wdt:P18 ?regicide_image . }
+  
+  OPTIONAL { 
+    ?victime wdt:P157 ?regicide .
+    OPTIONAL { ?victime wdt:P570 ?date_deces . } 
+    OPTIONAL { ?victime wdt:P20 ?lieu_deces . } 
+    OPTIONAL { ?victime wdt:P509 ?cause_deces . } 
+    OPTIONAL { ?victime wdt:P39 ?titres . }
+    OPTIONAL { ?victime wdt:P18 ?victime_image . }
+  }
+  
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+
+} ORDER BY ?regicide

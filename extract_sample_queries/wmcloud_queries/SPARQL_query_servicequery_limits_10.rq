@@ -1,0 +1,5 @@
+SELECT (COUNT(DISTINCT ?item) AS ?count) # ?item ?desc
+WHERE
+{
+	?item wdt:P31 wd:Q4167836 . # ~3 * 10^6 items
+}

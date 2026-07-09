@@ -1,0 +1,9 @@
+#Wereldtentoonstelling
+SELECT ?item ?itemLabel ?PIT
+WHERE 
+{
+  ?item wdt:P31 wd:Q172754.
+  OPTIONAl { ?item wdt:P585 ?PIT }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+order by asc(?PIT)

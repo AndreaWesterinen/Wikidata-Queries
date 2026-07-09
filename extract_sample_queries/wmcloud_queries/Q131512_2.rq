@@ -1,0 +1,2 @@
+select distinct ?item where
+{ ?item ?prop wd:Q12323650 } 

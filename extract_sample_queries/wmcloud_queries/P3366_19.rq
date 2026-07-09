@@ -1,0 +1,9 @@
+#title: Check filmmaking occupation
+# Complex constraint from [[Property talk:P3366]]
+# Check [[d:Q4220920|filmmaking occupation <small>(Q4220920)</small>]]
+SELECT ?item {
+	?item wdt:P3366 ?value .
+    FILTER NOT EXISTS { ?item wdt:P106 ?metier. ?metier wdt:P31 wd:Q4220920 }
+	FILTER NOT EXISTS { ?item wdt:P106/wdt:P279* wd:Q4220920 }
+    FILTER NOT EXISTS { ?item wdt:P106 wd:Q33999 }
+}

@@ -1,0 +1,51 @@
+embed.html##Maps of all public library branches The Netherlands, layered by arbitrary groups of provinces 
+#
+#WDQs
+#Groningen	wd:Q752
+#Friesland	wd:Q770
+#Drenthe    wd:Q772
+#Overijssel	wd:Q773
+#Gelderland	wd:Q775
+#Flevoland	wd:Q707
+#Utrecht	wd:Q776
+#Noord-Holland	wd:Q701
+#Zuid-Holland	wd:Q694
+#Noord-Brabant	wd:Q1101
+#Zeeland	wd:Q705
+#Limburg	wd:Q1093
+#
+#defaultView:Map{"hide":["?dplLoc"],"layer":"?group"}
+
+SELECT DISTINCT ?dpl ?dplLabel ?dplImage ?dplLoc ?muniLabel ?provLabel ?group
+
+WHERE {
+  ?dpl p:P31/ps:P31 wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. #public library branch in The Netherlands 
+  ?dpl wdt:P625 ?dplLoc. #Geo location of the dpl
+  OPTIONAL{?dpl wdt:P18 ?dplImage} #Image of the dpl} 
+  
+  #--- municipalities stuff----
+  ?dpl wdt:P131 ?muni. #municipality derived from library item, has one single value
+  ?muni p:P31 [ps:P31 ?muniIsA].
+  VALUES ?muniIsA {wd:Q2039348}
+  #Instead of the the above line, you can also do: FILTER(?muniIsA = wd:Q2039348) 
+  #-- Province stuff
+  ?muni wdt:P131 ?prov.  #find the province
+  
+  #Arbitrary groups of provinces 
+  VALUES ?group1 {wd:Q701 wd:Q775 wd:Q772}
+  VALUES ?group2 {wd:Q773 wd:Q1093 wd:Q694}
+  VALUES ?group3 {wd:Q752 wd:Q770 wd:Q1101}
+  VALUES ?group4 {wd:Q705 wd:Q707 wd:Q776}
+     
+  BIND(
+    IF(?prov IN (?group1), "Groep 1",
+    IF(?prov IN (?group2), "Groep 2",
+    IF(?prov IN (?group3), "Groep 3",
+    IF(?prov IN (?group4), "Groep 4",
+    "")))) AS ?group).
+  
+  VALUES ?group {"Groep 1" "Groep 2" "Groep 3" "Groep 4"}
+    
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}  
+}
+ORDER BY ?group

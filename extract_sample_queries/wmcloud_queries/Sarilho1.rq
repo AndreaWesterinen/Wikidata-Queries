@@ -1,0 +1,10 @@
+#Scientific Articles with name string ""
+SELECT ?scientific_article ?scientific_articleLabel
+WHERE {
+  ?scientific_article wdt:P31 wd:Q13442814.
+  ?scientific_article wdt:P2093 "".
+                       
+  SERVICE wikibase:label {
+	bd:serviceParam wikibase:language "en" .
+    }
+}

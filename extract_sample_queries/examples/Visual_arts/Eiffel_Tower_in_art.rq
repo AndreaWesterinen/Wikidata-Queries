@@ -1,3 +1,4 @@
+#title: Eiffel Tower in art
 SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?creatorLabel (YEAR(?date) as ?year) ?image
 WHERE
 {

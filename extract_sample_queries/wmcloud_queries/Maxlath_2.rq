@@ -1,0 +1,6 @@
+SELECT DISTINCT ?work WHERE {
+  ?work wdt:P31 wd:Q571 .
+  { ?item wd:P747 ?edition . } UNION { ?edition wdt:P629 ?work }
+  { ?edition wdt:P212 ?isbn13 . } UNION { ?edition wdt:P957 ?isbn10 . }
+  ?work wdt:P5331 ?oclcWorkId
+}

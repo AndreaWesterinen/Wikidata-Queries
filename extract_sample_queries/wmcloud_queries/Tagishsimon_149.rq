@@ -1,0 +1,19 @@
+SELECT DISTINCT ?item ?itemLabel ?areaLabel ?lat ?long WITH { SELECT ?item ?layer
+WHERE 
+{
+  {?item wdt:P131/wdt:P131 wd:Q22 . } hint:Prior hint:runFirst true.
+  ?item wdt:P31/wdt:P279* wd:Q23397. hint:Prior hint:gearing "forward".
+  filter not exists {?item wdt:P9284 [] .}
+  filter not exists {?item a wdno:P9284 .}
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  ?item wdt:P131 ?area .
+  ?area wdt:P131 wd:Q22 .  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item p:P625 ?stat . 
+  ?stat a wikibase:BestRank.
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat psv:P625/wikibase:geoLatitude ?lat.
+ }

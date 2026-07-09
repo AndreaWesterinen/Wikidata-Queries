@@ -1,0 +1,13 @@
+# items with property P3430 and no other identifiers
+SELECT ?item ?itemLabel ?value ?st
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P3430 ?value ; wikibase:identifiers 1
+       }
+       LIMIT 1000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?st) ?item

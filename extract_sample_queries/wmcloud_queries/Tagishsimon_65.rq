@@ -1,0 +1,24 @@
+SELECT DISTINCT ?other ?otherLabel ?propertyLabel ?itemLabel ?property2Label (?otherLabel as ?other_again)
+WHERE 
+{
+  VALUES ?site {  
+  wd:Q2463705 # Special Protection Area
+  wd:Q1191622 # Special Area of Conservation
+  wd:Q350723 # Country Park
+  wd:Q422211 # Site of Special Scientific Interest
+  wd:Q1367500 # Nature Conservation MPA
+  wd:Q6974560 # National Nature Reserve
+  wd:Q19683138 # Ramsar Site
+  wd:Q3457526 # Local Nature Reserve
+  wd:Q6978246 # National Scenic Area
+  }
+  ?item wdt:P131 wd:Q47134  .
+#  ?else wdt:P31 wd:Q15060255  . # Scottish Council Area
+  ?item p:P1435 ?stat .          # heritage designation
+  ?stat ps:P1435 ?site .
+  OPTIONAL {?other ?predicate ?item . ?property wikibase:directClaim ?predicate .
+           OPTIONAL {?item ?predicate2 ?other . ?property2 wikibase:directClaim ?predicate2 .} }
+  BIND(coalesce(?property,?property2) as ?test)
+  filter(bound(?test))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} 

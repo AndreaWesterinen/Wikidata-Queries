@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?subtitle
+
+WHERE 
+
+{
+  ?item wdt:P361 wd:Q1138524 .
+  ?item wdt:P1680 ?subtitle .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,15 @@
+#title: Not a park
+# Complex constraint from [[Property talk:P7127]]
+#
+SELECT ?item ?value {
+  ?item p:P7127 [ ps:P7127 ?value ].
+  FILTER( REGEX( STR(?value), "^(parks[a-z/\\-\\d]+)$" ) ).
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q46169 }
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q16023747 }
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q473972 }
+  FILTER NOT EXISTS { ?item p:P814[] }
+  FILTER NOT EXISTS { ?item p:P3515 [] }
+  FILTER NOT EXISTS { ?item wdt:P127 wd:Q308439 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q22698 }
+  FILTER NOT EXISTS { ?item wdt:P1435 wd:Q1967511 }
+}

@@ -1,0 +1,8 @@
+# IPNI numerical ID missing for women botanists
+SELECT ?item  ?itemLabel WHERE {
+  ?item wdt:P106 wd:Q2374149.
+  ?item wdt:P21 wd:Q6581072.
+  minus {?item wdt:P586 [].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
+ORDER BY ?item ?itemLabel

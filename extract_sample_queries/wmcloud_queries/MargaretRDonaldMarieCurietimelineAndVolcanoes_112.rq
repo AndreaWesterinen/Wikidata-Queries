@@ -1,0 +1,9 @@
+# journals by publisher
+
+SELECT ?publisherLabel ?journal ?journalLabel WHERE {
+  
+  ?journal wdt:P123 ?publisher.      # define variable publisher
+  ?journal wdt:P31 wd:Q5633421.      # item is journal
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?publisherLabel 

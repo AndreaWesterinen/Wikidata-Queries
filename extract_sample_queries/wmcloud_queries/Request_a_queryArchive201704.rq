@@ -1,0 +1,26 @@
+SELECT ?pointintime (COUNT(?pointintime) AS ?count) WHERE {
+  SELECT DISTINCT ?item ?pointintime {
+  {
+    SELECT ?item ?pointintime {
+      ?month wdt:P31 wd:Q5151 .
+      ?month wdt:P585 ?pointintime  .
+      ?item p:P39 ?positionstatement .
+      ?positionstatement ps:P39 wd:Q18887908 .
+      ?positionstatement pq:P580 ?startdate .
+      MINUS { ?positionstatement pq:P582 ?enddate } . 
+      FILTER( ?startdate < ?pointintime ) .
+    }
+  } UNION {
+    SELECT ?item ?pointintime WHERE {
+      ?month wdt:P31 wd:Q5151 .
+      ?month wdt:P585 ?pointintime  .
+      ?item p:P39 ?positionstatement .
+      ?positionstatement ps:P39 wd:Q18887908 .
+      ?positionstatement pq:P580 ?startdate .
+      ?positionstatement pq:P582 ?enddate . 
+      FILTER( ?startdate < ?pointintime && ?pointintime < ?enddate ) .
+    }
+   }
+  } 
+} GROUP BY ?pointintime ORDER BY ?pointintime
+LIMIT 123456

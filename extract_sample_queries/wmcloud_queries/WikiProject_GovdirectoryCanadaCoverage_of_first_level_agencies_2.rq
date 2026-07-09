@@ -1,0 +1,12 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31/wdt:P279* wd:Q2879 .
+  MINUS { ?entity wdt:P576 ?abolished }
+  OPTIONAL { 
+    ?entity p:P131 ?inStatement .
+    ?inStatement a wikibase:BestRank ; ps:P131 ?in .
+    FILTER NOT EXISTS { ?inStatement wdt:P582 [] }
+  }
+  OPTIONAL { 
+    ?entity p:P17 ?countryStatement .
+    ?countryStatement a wikibase:BestRank ; ps:P17 ?country .
+    FILTER NOT EXISTS { ?countryStatement wdt:P582 [] }
+  }.}

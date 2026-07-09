@@ -1,0 +1,19 @@
+SELECT DISTINCT ?item ?itemLabel ?long ?lat ?MMID ?named
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q33506.
+  ?item wdt:P17 wd:Q145 .
+  OPTIONAL {
+    ?item p:P10873 ?stat . 
+    ?stat ps:P10873 ?MMID.
+    OPTIONAL {?stat pq:P1810 ?named . }
+  }
+  OPTIONAL {
+    ?item p:P625 ?stat2 . 
+    ?stat2 a wikibase:BestRank .
+#  ?stat2 ps:P625 ?coord .
+    ?stat2 psv:P625/wikibase:geoLongitude ?long.
+    ?stat2 psv:P625/wikibase:geoLatitude ?lat.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

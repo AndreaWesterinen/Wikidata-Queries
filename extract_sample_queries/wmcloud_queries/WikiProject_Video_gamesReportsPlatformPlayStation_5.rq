@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+  ?item wdt:P400 wd:Q63184502.
+}
+GROUP BY ?item

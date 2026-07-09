@@ -1,0 +1,9 @@
+#title: Picture
+# Complex constraint from [[Property talk:P771]]
+#
+SELECT ?item ?pop {
+	?item p:P771 ?value.
+  ?item wdt:P1082 ?pop.
+	FILTER NOT EXISTS { ?item p:P18 [] }
+	FILTER (?pop > 10000)
+}

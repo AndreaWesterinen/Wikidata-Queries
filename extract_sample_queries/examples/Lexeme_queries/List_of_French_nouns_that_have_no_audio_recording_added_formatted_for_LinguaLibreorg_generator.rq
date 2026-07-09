@@ -1,5 +1,5 @@
-# ----
-# author: Lea Lacroix (WMDE) 2018-12-18
+#title: List of French nouns that have no audio recording added, formatted for LinguaLibre.org generator
+#author: Lea Lacroix (WMDE), 2018-12-18
 #contact: Yug
 SELECT ?id ?label
 WHERE {

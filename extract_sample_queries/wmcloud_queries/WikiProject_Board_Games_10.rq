@@ -1,0 +1,4 @@
+SELECT DISTINCT  ?author ?authorLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?author ((wdt:P170)|(wdt:P50)|(wdt:P287)|(wdt:P123)|(wdt:P61)|(wdt:P86)|(wdt:P178)|(wdt:P943)|(wdt:P112)|(wdt:P193)|(wdt:P676)|(wdt:P175)|(wdt:P84)|(wdt:P110)|(wdt:P1779)|(wdt:P6338)) wd:Q2246520.
+}

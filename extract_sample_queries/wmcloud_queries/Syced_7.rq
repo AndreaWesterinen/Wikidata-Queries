@@ -1,0 +1,6 @@
+SELECT ?place1 ?place1Label ?place2 ?place2Label
+WHERE 
+{
+  ?place1 wdt:P190 ?place2. # Twinned administrative bodies.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

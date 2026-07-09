@@ -1,0 +1,9 @@
+#Txoriak: Txepetxa eta senideak
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?_audio ?_image WHERE {
+  ?item wdt:P171 wd:Q3888717.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu". }
+  OPTIONAL {  }
+  OPTIONAL { ?item wdt:P51 ?_audio. }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+}

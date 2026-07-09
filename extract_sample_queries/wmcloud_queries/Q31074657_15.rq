@@ -1,0 +1,10 @@
+#title: Cims no localitzats a Catalunya ni Andorra
+# Complex constraint from [[Property talk:Q31074657]]
+# Puigpedrós i Vallhiberna són excepcions: Puigpedrós és molt a prop de la frontera catalana, però és a Foix. Vallhiberna és a la Franja.
+select ?item where {
+  ?item p:P361/ps:P361 wd:Q31074657 .
+  minus { 
+    values ?values { wd:Q228 wd:Q5705 wd:Q12709 }
+    ?item wdt:P131+ ?values
+  }
+}

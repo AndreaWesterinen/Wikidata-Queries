@@ -1,0 +1,9 @@
+SELECT ?item (count(DISTINCT ?form) as ?count) WHERE {
+  ?l ontolex:lexicalForm ?form ;
+     dct:language ?item .
+  {
+    ?form wdt:P898 ?ipa1 .
+  } UNION {
+    ?form p:P7243/pq:P898 ?ipa2 .
+  }
+} group by ?item order by desc(?count)

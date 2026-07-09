@@ -1,0 +1,21 @@
+SELECT ?item ?itemLabel ?geslacht ?geslachtLabel
+WITH {
+  SELECT DISTINCT ?item ?human WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 ?collectie.
+  ?item wdt:P735 ?voornaam.
+  FILTER NOT EXISTS {
+    ?item wdt:P21 [].
+   }
+}
+} AS %items
+WHERE {
+  INCLUDE %items.
+  ?item wdt:P735 ?voornaam.
+  ?voornaam wdt:P31 ?naamsoort.
+#  ?naamsoort wdt:P279 ?type.
+  ?naamsoort p:P279 ?type .
+  ?type pq:P642 ?van .
+  ?van wdt:P1552 ?geslacht.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

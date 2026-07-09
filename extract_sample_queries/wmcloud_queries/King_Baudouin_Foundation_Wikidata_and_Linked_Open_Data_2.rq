@@ -1,0 +1,12 @@
+PREFIX schema: <http://schema.org/>
+
+SELECT ?p ?pLabel ?makerLabel ?article WHERE {
+  ?p wdt:P195 wd:Q2780100.
+  ?p wdt:P170 ?maker 
+  OPTIONAL {
+    ?article schema:about ?maker.
+    ?article schema:inLanguage "nl".
+    FILTER((SUBSTR(STR(?article), 1, 25)) = "https://nl.wikipedia.org/")
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

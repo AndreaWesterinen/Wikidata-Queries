@@ -1,0 +1,9 @@
+#Stations operated by Nankai not having "connecting line(P81) which is operated by Nankai"
+SELECT ?line ?lineLabel ?station ?stationLabel WHERE {
+  ?station wdt:P137 wd:Q1188230.
+  ?station wdt:P31 wd:Q55488.
+  MINUS { ?station wdt:P81 ?line.
+         ?line wdt:P31 wd:Q728937.
+         ?line wdt:P137 wd:Q1188230. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,8 @@
+SELECT *
+{
+    ?item wdt:P1181 ?nv .
+    ?item p:P487 [ pq:P3831 wd:Q67204989 ; ps:P487 ?pos ] .
+    ?item p:P487 [ pq:P3831 wd:Q67204867 ; ps:P487 ?neg ] .  
+    ?item p:P487 [ pq:P3831 wd:Q67204704 ; ps:P487 ?pare ] .  
+}
+ORDER BY ?nv

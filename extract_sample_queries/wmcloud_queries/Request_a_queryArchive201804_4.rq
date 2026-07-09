@@ -1,0 +1,4 @@
+sparql?query=SELECT ?item ?DoD WHERE {
+  VALUES ?item { wd:Q12743958 wd:Q3595783 }
+  ?item wdt:P570 ?DoD.
+}

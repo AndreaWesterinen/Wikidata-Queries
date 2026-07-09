@@ -1,0 +1,27 @@
+# percentage of lexemes that have usage examples, by language
+SELECT 
+?languageLabel 
+?lexemes
+?examples
+?percentage
+WITH { # find all lexemes with language and optional example
+  SELECT ?language ?lexeme ?example WHERE {
+    ?lexeme a ontolex:LexicalEntry ;
+            dct:language ?language .
+    OPTIONAL {
+      ?lexeme wdt:P5831 ?example .
+    } 
+  }
+} AS %lexemes 
+WHERE {
+  # find number of lexemes and number of examples, per language
+  { SELECT ?language (COUNT(?lexeme) AS ?lexemes) (COUNT(?example) AS ?examples) WHERE {
+      INCLUDE %lexemes .
+    } GROUP BY ?language
+  }
+  # percentage of examples per lexemes for a language
+  BIND((100 * ?examples / ?lexemes) AS ?percentage)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . 
+  }
+} ORDER BY DESC(?percentage)

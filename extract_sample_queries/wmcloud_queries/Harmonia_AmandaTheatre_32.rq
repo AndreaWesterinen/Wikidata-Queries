@@ -1,0 +1,12 @@
+SELECT ?name ?nameLabel ?item ?itemLabel
+WHERE {
+ #?sitelink schema:about ?name ; schema:isPartOf <https://zh-min-nan.wikipedia.org/> .
+ ?name wdt:P31 wd:Q4167410 ;
+ wdt:P31 wd:Q101352 ;
+		rdfs:label ?label .
+ ?item wdt:P31 wd:Q4167410 ;
+ wdt:P31 ?nature ;
+		rdfs:label ?label .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ }GROUP BY ?name ?nameLabel ?item ?itemLabel
+HAVING(COUNT(?nature) = 1)

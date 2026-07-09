@@ -1,0 +1,18 @@
+SELECT ?item ?dt ?date
+WHERE
+{
+    values ?offsetmin { "1920-01-17T00:00:00"^^xsd:dateTime }. 
+    values ?offset0 { "1920-02-17T00:00:00"^^xsd:dateTime }. 
+    values ?offsetmax { "1920-03-17T00:00:00"^^xsd:dateTime }. 
+    VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q506240 wd:Q336144} . 
+    Bind((NOW() - ?offsetmin) as ?mintime). Bind((NOW() - ?offsetmax) as ?maxtime). 
+        ?item wdt:P31 ?filmtype . 
+        ?item p:P577 ?d . ?d psv:P577 ?date_node . 
+        ?d pq:P291 wd:Q142 .
+        ?date_node wikibase:timeValue ?date . 
+        FILTER (?date > "2016-12-31T00:00:00Z"^^xsd:dateTime) ?date_node wikibase:timePrecision "11"^^xsd:integer . Bind((?date - ?offset0) as ?datetime ). 
+        FILTER (  ?datetime > ?mintime ) . 
+        FILTER (  ?datetime < ?maxtime ) . 
+        BIND (SUBSTR(Str(?date),1,10) as ?dt) . 
+} 
+ORDER BY ?dt

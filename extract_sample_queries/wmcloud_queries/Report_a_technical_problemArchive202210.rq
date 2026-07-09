@@ -1,0 +1,24 @@
+#defaultView:LineChart
+SELECT ?日期 ?最低成交价格 
+?item
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item (wdt:P31/(wdt:P279*)) wd:Q114885389;
+    p:P2284 ?priceStatement.
+  ?priceStatement ps:P2284 ?price;
+    pq:P366 wd:Q215627;
+    pq:P1552 wd:Q10585806.
+  
+  OPTIONAL { ?item wdt:P585 ?itemPointTime. }
+  OPTIONAL { ?priceStatement pq:P585 ?priceStatementPointTime. }
+  BIND(IF(BOUND(?itemPointTime), ?itemPointTime, ?priceStatementPointTime) AS ?pointTime)
+  
+  BIND(YEAR(?pointTime) AS ?pointTimeYear)
+  BIND(MONTH(?pointTime) AS ?pointTimeMonth)
+  BIND(CONCAT(STR(?pointTimeYear), "年", STR(?pointTimeMonth), "月") AS ?date)
+  
+  BIND(?price as ?最低成交价格)
+  BIND(?pointTime as ?日期)
+}
+ORDER BY (?pointTime)
+LIMIT 10000

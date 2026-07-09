@@ -1,0 +1,12 @@
+SELECT ?item ?nru WHERE {
+  ?item wdt:P195 wd:Q211043 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+    ?item rdfs:label ?nru .
+  } .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ru" .
+    ?item rdfs:label ?ru .
+  } .
+  FILTER(lang(?ru) != "ru")
+} LIMIT 100

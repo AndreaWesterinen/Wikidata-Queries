@@ -1,3 +1,4 @@
+#title: Museums in Antwerp
 #defaultView:Map
 SELECT ?item ?itemLabel ?coordinates
 WHERE

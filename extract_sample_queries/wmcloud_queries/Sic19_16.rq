@@ -1,0 +1,6 @@
+embed.html##defaultView:Map{"hide":["?geo", "?rgb", "?layer"],"markercluster": true}
+SELECT DISTINCT ?geo WHERE {
+  ?x wdt:P31 wd:Q6256 ;
+     wdt:P30 wd:Q46 ;
+     wdt:P3896 ?geo.
+  }

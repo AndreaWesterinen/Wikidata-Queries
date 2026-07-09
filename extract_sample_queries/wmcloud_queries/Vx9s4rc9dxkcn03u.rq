@@ -1,0 +1,41 @@
+#defaultView:Map
+
+SELECT DISTINCT ?item ?itemLabel ?place ?placeLabel ?id ?coords ?article ?mapflags ?rgb WHERE {
+ ?c wdt:P279* wd:Q11032 .
+  ?item wdt:P31 ?c .
+ ?item wdt:P17|wdt:P495 wd:Q30 .
+ OPTIONAL{?item wdt:P5454 ?id .}
+ ?item wdt:P291|wdt:P159|wdt:P131 ?place .
+ ?place wdt:P625 ?coords.
+ OPTIONAL {   
+   SELECT ?item ?pageid ?ns WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "insource:\"infobox newspaper\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+      ?pageid wikibase:apiOutput "@pageid" .
+      ?ns wikibase:apiOutput "@ns" .
+    }
+  } LIMIT 15000
+ }
+    
+  OPTIONAL {
+      ?article schema:about ?item .
+      ?article schema:inLanguage "en" .
+      FILTER (SUBSTR(str(?article), 1, 25) = "https://en.wikipedia.org/")
+  }
+
+  BIND(IF(BOUND(?ns),"_infobox","_noinfobox") AS ?infobox).
+  BIND(IF(BOUND(?article),"enwiki","noenwiki") AS ?onwiki).  
+  BIND(CONCAT(?onwiki,?infobox) as ?layer) .
+
+  BIND( IF(BOUND(?article),   IF(BOUND(?ns), "009500" , "FFF000" )  ,  "FF0000"   )  AS ?rgb).  
+  
+ #hint:Prior hint:runFirst "true".
+ #OPTIONAL{ ?item wdt:P5454 ?id . }
+  
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} 

@@ -1,0 +1,16 @@
+#defaultView:ImageGrid
+select ?image ?painting ?paintingLabel ?paintingDescription ?thumb with {
+  select * {
+    service <https://query.wikidata.org/sparql> {
+      ?painting wdt:P170 wd:Q5582.
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". 
+                               ?painting rdfs:label ?paintingLabel.
+                               ?painting schema:description ?paintingDescription.
+                             }
+    } 
+  } 
+} as %paintings where {
+  include %paintings. 
+  ?image wdt:P180 ?painting;
+         schema:url ?thumb.
+}

@@ -1,0 +1,31 @@
+SELECT ?season ?seasonLabel ?item ?itemLabel ?max_ord
+WITH
+{
+    SELECT ?item (MAX(?ord1) as ?max_ord)
+    {
+	  ?season wdt:P31 wd:Q3464665 . 
+      FILTER NOT EXISTS { ?season wdt:P580 [] }
+      FILTER NOT EXISTS { ?item wdt:P582 [] }
+      ?season p:P179 ?st . 
+      ?st ps:P179 ?item . 
+      ?st pq:P1545 ?ord . 
+      BIND( xsd:integer(?ord) as ?ord1)
+    }
+    GROUP BY ?item
+} as %max
+WHERE
+{
+  INCLUDE %max
+  BIND( str(?max_ord ) as ?max_ord_)           
+  ?season p:P179 [ ps:P179 ?item ; pq:P1545 ?max_ord_ ] ; wdt:P31 wd:Q3464665 .
+  FILTER NOT EXISTS {  
+      ?season2 p:P179 [ ps:P179 ?item ; pq:P1545 ?ord2 ] . 
+      FILTER( xsd:integer(?ord2) > ?max_ord) 
+  }
+    FILTER NOT EXISTS { ?item wdt:P136 wd:Q3421644 }
+    FILTER NOT EXISTS { ?item wdt:P136 wd:Q182415 }
+    FILTER NOT EXISTS { ?item wdt:P136 wd:Q846662 }
+    FILTER NOT EXISTS { ?item wdt:P136 wd:Q1484397 }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }          
+}
+ORDER BY DESC(?max_ord) ?seasonLabel

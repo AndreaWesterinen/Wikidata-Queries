@@ -1,0 +1,73 @@
+#defaultView:Map{"hide":["?shape","?rbg"]}
+select distinct ?item ?itemLabel ?else ?elseLabel ?instanceLabel ?coord ?shape ?rgb with {
+  select distinct ?item ?else
+where { 
+  ?item wdt:P131 ?else . ?else wdt:P131* wd:Q22  .
+  filter not exists {?else p:P31/ps:P31 wd:Q15060255 . } # scottish council area
+  filter not exists {?else p:P31/ps:P31 wd:Q5124673 . } # scottish civil parish
+  filter not exists {?else p:P31/ps:P31 wd:Q7543008 . } # small burgh
+  filter not exists {?else p:P31/ps:P31 wd:Q6489113 . } # large burgh
+  filter not exists {?else p:P31/ps:P31 wd:Q1350181 . } # shire of scotland
+  filter not exists {?else p:P31/ps:P31 wd:Q21457810 . } # scottish district
+  filter not exists {?else p:P31/ps:P31 wd:Q3336843 . } # nation
+  filter not exists {?else p:P31/ps:P31 wd:Q104630835 . } # Scottish county of city
+  filter not exists {?else p:P31/ps:P31 wd:Q2138167 . } # Scottish region
+  filter not exists {?else p:P31/ps:P31 wd:Q42915594 . } # Scottish burgh
+  } } as %iq
+where
+{
+  { include %iq
+  optional { ?item wdt:P31 ?instance . }
+  optional { ?item wdt:P625 ?coord . }
+  filter not exists {?item wdt:P31/wdt:P279* ?thing .
+                     VALUES ?thing {
+                       wd:Q192611 # constituency
+                       wd:Q15060255  # council
+                       wd:Q1350181 # shire
+                       wd:Q7309443 # reg county
+                       wd:Q67376938 # hist county
+                       wd:Q633294 # region
+                       wd:Q1620908 # historic region
+                       wd:Q7925010 # vice county
+                       }
+                     }
+  }
+  UNION
+  {
+      ?item wdt:P31 wd:Q15060255 . 
+  ?item wdt:P3896 ?shape  # geoshape
+  bind(if(?item =wd:Q47134,"0087ff",
+if(?item =wd:Q80967,"800000",
+if(?item =wd:Q100166,"008000",
+if(?item =wd:Q126514,"808000",
+if(?item =wd:Q189912,"000080",
+if(?item =wd:Q202177,"c0c0c0",
+if(?item =wd:Q201149,"800080",
+if(?item =wd:Q202174,"008080",
+if(?item =wd:Q204940,"808080",
+if(?item =wd:Q206926,"ff0000",
+if(?item =wd:Q206934,"00ff00",
+if(?item =wd:Q207111,"ffff00",
+if(?item =wd:Q207257,"0000ff",
+if(?item =wd:Q207268,"ff00ff",
+if(?item =wd:Q207679,"00ffff",
+if(?item =wd:Q208121,"ffffff",
+if(?item =wd:Q208271,"000000",
+if(?item =wd:Q208279,"00005f",
+if(?item =wd:Q209131,"000087",
+if(?item =wd:Q209135,"0000af",
+if(?item =wd:Q209142,"0000d7",
+if(?item =wd:Q211091,"0000ff",
+if(?item =wd:Q211106,"005f00",
+if(?item =wd:Q211113,"005f5f",
+if(?item =wd:Q211889,"005f87",
+if(?item =wd:Q211925,"005faf",
+if(?item =wd:Q216802,"005fd7",
+if(?item =wd:Q217838,"005fff",
+if(?item =wd:Q2357511,"008700",
+if(?item =wd:Q2379199,"00875f",
+if(?item =wd:Q55934339,"008787","000000"))))))))))))))))))))))))))))))) as ?rgb)
+
+  }
+                     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

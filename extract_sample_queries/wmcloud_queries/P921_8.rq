@@ -1,0 +1,10 @@
+#title: Missing statement with property on article items labeled "Obituary"
+# Complex constraint from [[Property talk:P921]]
+#
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q13442814 ; rdfs:label "Obituary"@en .
+	FILTER NOT EXISTS { ?item wdt:P921 [] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+LIMIT 200

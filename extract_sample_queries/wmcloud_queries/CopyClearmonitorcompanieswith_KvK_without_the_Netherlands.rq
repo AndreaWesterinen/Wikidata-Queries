@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item  {
+  ?item wdt:P3220 ?kvk.
+  FILTER NOT EXISTS { ?item wdt:P17 [].}
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q5.}
+}

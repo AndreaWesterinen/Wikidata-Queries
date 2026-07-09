@@ -1,0 +1,27 @@
+SELECT ?_row {
+
+  {BIND("qid,P279,S143,P17,S143,P910,S143" AS ?_row)}
+  UNION
+  {
+  SELECT 
+(CONCAT(",Q8138141,Q1551807,Q172107,Q1551807,", STRAFTER(STR(?k1), '/entity/'), ",Q1551807") AS ?_row)
+
+#(IF(?rel != "CREATE", "LAST", "CREATE") AS ?_q) (IF(?rel != "CREATE", ?rel, "") AS ?_p) 
+#(IF(?rel = "P279", "Q8138141", IF(?rel = "P910", STRAFTER(STR(?k1), '/entity/'), IF(?rel = "P27", "Q172107", ""))) AS ?_v) ("S143" AS ?s143) ("Q1551807" AS ?q1551807) 
+{
+
+  filter (not exists{?p wdt:P279 wd:Q8138141. 
+                     ?p wdt:P910 ?k1.})
+        SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:api "Generator" .     
+     bd:serviceParam wikibase:endpoint "pl.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle "Kategoria:Kasztelanowie konarscy" .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+     bd:serviceParam mwapi:gcmtype "subcat" .
+
+   ?k1 wikibase:apiOutputItem mwapi:item .
+          }
+}}
+}

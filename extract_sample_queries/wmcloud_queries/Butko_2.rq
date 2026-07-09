@@ -1,0 +1,14 @@
+SELECT ?item ?label ?image ?typeindex ?commons
+WHERE
+{
+  VALUES ?type {wd:Q699}  # сказка
+  ?item wdt:P31 ?type .
+  ?item rdfs:label ?label FILTER (lang(?label) = "ru") .
+ 
+  OPTIONAL {
+?item wdt:P18 ?image.
+    ?item wdt:P2540 ?typeindex.
+    ?item wdt:P373 ?commons.
+  }
+}
+LIMIT 10000

@@ -1,0 +1,9 @@
+#Gemeente-archieven
+SELECT ?item ?itemLabel ?archivesLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q604177 .
+  ?item wdt:P17 wd:Q55 .
+  OPTIONAL {?item wdt:P131 ?city.} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

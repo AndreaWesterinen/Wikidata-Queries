@@ -1,0 +1,15 @@
+SELECT ?item ?doi (substr(?published1, 1, 10) as ?published )?volume ?issue ?pages ?title WHERE {
+  ?item wdt:P31 wd:Q13442814 .
+  ?item wdt:P1433 wd:Q220370 .
+  OPTIONAL {?item wdt:P356 ?doi} .
+  OPTIONAL {?item wdt:P577 ?published1} .
+  OPTIONAL {?item wdt:P478 ?volume} .
+  OPTIONAL {?item wdt:P433 ?issue} .
+  OPTIONAL {?item wdt:P304 ?pages0} . 
+  OPTIONAL {?item wdt:P1476 ?title} .   
+  BIND(replace(?pages0, "-", "–") AS ?pages)
+  BIND(if(contains(?pages,  "–"), strbefore(?pages, "–"), ?pages) as ?startpage)
+  BIND(if(contains(?pages,  "–"), strafter(?pages, "–"), ?pages) as ?endpage)
+  FILTER(!bound(?doi) || !bound(?published1) || !bound(?volume) || !bound(?issue) || !bound(?pages0) || !bound(?title)) 
+}
+ORDER BY ASC(xsd:integer(?volume)) ASC(xsd:integer(?issue)) ASC(xsd:integer(?startpage))

@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+  ?item wdt:P361 wd:Q21542493 .
+  ?item wdt:P1433 ?dummy0 .
+}

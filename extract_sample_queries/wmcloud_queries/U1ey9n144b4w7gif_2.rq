@@ -1,0 +1,8 @@
+SELECT ?subject ?subjectLabel ?image WHERE {
+  ?tafel wdt:P31 wd:Q721747;  # instances of commemorative plaques
+         wdt:P131 wd:Q3150 ;  # located in the administrative territorial entity of the city of Jena
+         wdt:P547 ?subject .   # subject of the commemoration
+  ?subject wdt:P18 ?image .   # image of the subject
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". } # labels 
+}
+#defaultView:ImageGrid

@@ -1,4 +1,3 @@
-# ----
 #title: Mayors that are any kind of domesticated animal
 SELECT ?image ?speciesLabel ?mayorLabel ?placeLabel WHERE {
   ?species wdt:P279* wd:Q622852 .
@@ -6,7 +5,7 @@ SELECT ?image ?speciesLabel ?mayorLabel ?placeLabel WHERE {
 
   ?mayor p:P39 ?node .
   ?node ps:P39 wd:Q30185 .
-  ?node pq:P642 ?place .
+  ?node pq:P1001 ?place .
   OPTIONAL {?mayor wdt:P18 ?image}
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
 }

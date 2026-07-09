@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?coord
+WHERE 
+{ 
+       ?item wdt:P131 ?sub1 . 
+       ?sub1 (wdt:P131)* wd:Q1273.
+       ?item wdt:P625 ?coord .
+  OPTIONAL { ?item wdt:P18 ?dummy0 }
+  FILTER(!bound(?dummy0))
+}

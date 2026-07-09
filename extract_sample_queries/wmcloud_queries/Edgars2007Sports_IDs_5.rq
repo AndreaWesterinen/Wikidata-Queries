@@ -1,0 +1,8 @@
+SELECT ?i1 ?i1Label ?val1 ?val2 where {
+  ?i1 wdt:P599 ?val1 .
+  ?i1 wdt:P2641 ?val2 .
+  filter( !(?val1 = ?val2) )
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "lv,en,fr" .
+  }
+}

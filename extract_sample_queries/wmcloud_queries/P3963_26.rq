@@ -1,0 +1,4 @@
+#title: Identifiants incorrects (département)
+# Complex constraint from [[Property talk:P3963]]
+# Identifiant correspondant à une église située dans un autre département selon le code INSEE
+SELECT ?item ?ID ?code WHERE {?item wdt:P3963 ?ID . ?item wdt:P131 ?commune . ?commune wdt:P374 ?code FILTER (SUBSTR(?ID, 0, 2) != SUBSTR(?code, 0, 2))  }

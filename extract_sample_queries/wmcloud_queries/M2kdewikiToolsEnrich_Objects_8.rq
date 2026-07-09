@@ -1,0 +1,9 @@
+SELECT ?item ?geo ?sitelink  WHERE {
+  { ?item wdt:P31 wd:Q5 . }
+  { ?item wdt:P106 wd:Q937857 . } 
+  #UNION { ?item wdt:P106 wd:Q82955 . } UNION { ?item wdt:P106 wd:Q11513337 . }
+  ?sitelink schema:about ?item .
+  ?sitelink schema:isPartOf <https://de.wikipedia.org/> .
+  OPTIONAL {?item wdt:P569 ?gebdat }  
+  FILTER (!bound(?gebdat))   # nur jene OHNE gebdat
+}

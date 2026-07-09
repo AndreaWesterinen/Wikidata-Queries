@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(DISTINCT ?loc) as ?count)
+{
+?loc wdt:P421 ?item
+}
+GROUP BY ?item
+ORDER BY DESC(?count)

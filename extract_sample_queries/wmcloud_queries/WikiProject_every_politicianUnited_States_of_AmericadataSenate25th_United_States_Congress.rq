@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?constituency ?group ?start ?end ?election ?cause WHERE {
+  ?item p:P39 ?stmt;
+    wdt:P31 wd:Q5.
+  ?stmt ps:P39 wd:Q4416090;
+    pq:P2937 wd:Q4632330.
+  OPTIONAL { ?stmt pq:P768 ?constituency. }
+  OPTIONAL { ?stmt pq:P4100 ?group. }
+  OPTIONAL { ?stmt pq:P580 ?start. }
+  OPTIONAL { ?stmt pq:P582 ?end. }
+  OPTIONAL { ?stmt pq:P2715 ?election. }
+  OPTIONAL { ?stmt pq:P1534 ?cause. }
+}

@@ -1,0 +1,5 @@
+select distinct (?l as ?item) (concat("[[Lexeme:", replace(str(?l), str(wd:), ""), "|", replace(str(?l), str(wd:), ""), "]]") as ?l_) ?lemma ?len {
+  ?l dct:language wd:Q188 ;
+     wikibase:lexicalCategory wd:Q1084 ;
+     wikibase:lemma ?lemma filter (regex(str(?lemma), "(.)\\1\\1")) .
+} order by ?lemma

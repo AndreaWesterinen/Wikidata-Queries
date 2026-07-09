@@ -1,0 +1,1 @@
+SELECT ?item ?taluk { ?item wdt:P131 ?taluk. ?taluk wdt:P31 wd:Q7694920 ; wdt:P131 wd:Q815464. }

@@ -1,0 +1,9 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P757]]
+# Items that do have [[d:Q9259|UNESCO World Heritage Site <small>(Q9259)</small>]] in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P757|World Heritage Site ID&#32;<small dir="ltr">(P757)</small>]]
+SELECT DISTINCT ?item {
+  ?item wdt:P1435 wd:Q9259.
+  MINUS { ?item wdt:P757 [] }.
+  MINUS { ?item wdt:P131/wdt:P757 [] }.
+  MINUS { ?item wdt:P361*/wdt:P757 [] }.
+}

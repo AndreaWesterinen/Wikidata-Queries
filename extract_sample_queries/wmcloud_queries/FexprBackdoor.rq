@@ -1,0 +1,22 @@
+#List of Indonesian movies
+SELECT ?film ?filmLabel ?filmDescription ?filmLabel_id ?release ?article ?website
+WHERE {
+	?film wdt:P31/wdt:P279* wd:Q11424 ;
+		wdt:P495 wd:Q252
+	OPTIONAL {
+		?film rdfs:label ?filmLabel_id filter (lang(?filmLabel_id) = "id")
+	}
+    OPTIONAL {
+		?article schema:about ?film .
+        ?article schema:isPartOf <https://id.wikipedia.org/>.
+	}
+    OPTIONAL {
+		?film wdt:P856 ?website
+	}
+    OPTIONAL {
+		?film wdt:P577 ?release
+	}
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,id" .
+	}
+}

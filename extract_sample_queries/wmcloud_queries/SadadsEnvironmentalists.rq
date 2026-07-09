@@ -1,0 +1,9 @@
+SELECT ?item ?st WHERE {
+  ?item wdt:P106/wdt:P279* wd:Q3578589.
+ ?item wikibase:statements ?st.
+
+  
+OPTIONAL { ?item wdt:P18 ?_image. }
+       }
+       ORDER BY ASC(?st)
+LIMIT 2000

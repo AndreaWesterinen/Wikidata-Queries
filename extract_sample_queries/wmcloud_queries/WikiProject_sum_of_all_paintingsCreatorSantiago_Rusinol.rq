@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?person ?lca ?les ?img
+WHERE 
+{
+  ?item wdt:P170 wd:Q366930 .
+  ?item wdt:P31 wd:Q3305213 . 
+  OPTIONAL { ?item wdt:P18 ?img . FILTER NOT EXISTS { ?item wdt:P7420 ?img } }
+  OPTIONAL {
+    ?item (wdt:P921

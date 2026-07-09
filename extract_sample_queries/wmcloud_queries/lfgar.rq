@@ -1,0 +1,7 @@
+#Bishops of Nowhere
+SELECT ?item ?itemLabel
+WHERE
+{
+	?item wdt:P39 wd:Q29182 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

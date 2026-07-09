@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?billions
+WHERE
+{
+  ?item wdt:P2218 ?worth.
+  FILTER(?worth>1000000000).
+  BIND(?worth/1000000000 AS ?billions).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?billions)

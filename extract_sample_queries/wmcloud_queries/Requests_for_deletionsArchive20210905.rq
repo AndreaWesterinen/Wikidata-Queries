@@ -1,0 +1,22 @@
+SELECT ?item ?itemLabel ?article ?sitelinks
+WHERE
+{
+  ?article  schema:about ?item ;
+      schema:isPartOf <https://www.mediawiki.org/> .
+  ?item wikibase:sitelinks ?sitelinks.
+  MINUS {
+    ?item p:P31 ?statementInstance.
+    ?statementInstance (ps:P31/(wdt:P279*)) _:anyValueP31.
+  }
+  MINUS {
+    ?item p:P279 ?statementSubclass.
+    ?statementSubclass (ps:P279/(wdt:P279*)) _:anyValueP279.
+  }
+  MINUS {
+    ?item p:P1269 ?statementFacetOf.
+    ?statementFacetOf (ps:P1269/(wdt:P279*)) _:anyValueP1269.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ASC(?sitelinks)
+LIMIT 1000

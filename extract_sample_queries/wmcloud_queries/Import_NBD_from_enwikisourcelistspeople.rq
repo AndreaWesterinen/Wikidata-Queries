@@ -1,0 +1,28 @@
+SELECT ?item (CONCAT("[[s:",str(?wstitle), "|","ws]]") as ?warticle)
+  ?mslitem
+  ?dob ?nastart ?start ?dod ?rank ?position ?ship ?min ?sts ?sls ?ids
+WITH
+{
+  SELECT ?item ?wstitle {
+  ?item	wdt:P1433 wd:Q16055052;	wdt:P31 wd:Q19389637 .
+  [] schema:about ?item ; schema:isPartOf <https://en.wikisource.org/> ; schema:name ?wstitle
+  }
+} as %a  
+WHERE
+{
+  INCLUDE %a
+  ?item wdt:P921 ?ms . 
+  ?ms rdfs:label ?msl . 
+  FILTER(lang(?msl)="en") . 
+  BIND(CONCAT("[[",strafter(str(?ms),"y/"),"\u007C",?msl,"]]") as ?mslitem) 
+  OPTIONAL { ?ms wdt:P569 ?dob }
+  OPTIONAL { ?ms p:P69 [ ps:P69 wd:Q3445998 ; pq:P580 ?nastart ] }    
+  OPTIONAL { ?ms p:P241 [ ps:P241 wd:Q172771 ; pq:P580 ?start ] }    
+  OPTIONAL { ?ms wdt:P570 ?dod }
+  OPTIONAL { ?ms wdt:P410 ?rank }
+  OPTIONAL { ?ms wdt:P39 ?position }
+  OPTIONAL { ?ms wdt:P5096 ?ship }  
+  BIND(YEAR(COALESCE(?dob, ?nastart, ?start)) as ?min)
+  ?ms wikibase:statements ?sts; wikibase:sitelinks ?sls ; wikibase:identifiers ?ids .
+}
+ORDER BY ?wstitle

@@ -1,0 +1,5 @@
+SELECT ?id ?label WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language wd:Q12107 ; wikibase:lexicalCategory wd:Q1084 ; ontolex:lexicalForm ?id .
+  ?id ontolex:representation ?label .
+  FILTER NOT EXISTS { ?id wdt:P443 ?audio. }
+}

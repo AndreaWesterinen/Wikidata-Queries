@@ -1,0 +1,14 @@
+# works with most citations
+# runtime: 20-45 s
+SELECT ?work ?workLabel ?count WITH {
+  SELECT ?work (COUNT(*) AS ?count) WHERE {
+    ?work wdt:P2860 [].
+  }
+  GROUP BY ?work
+  ORDER BY DESC(?count)
+  LIMIT 100
+} AS %works WHERE {
+  INCLUDE %works.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?count)

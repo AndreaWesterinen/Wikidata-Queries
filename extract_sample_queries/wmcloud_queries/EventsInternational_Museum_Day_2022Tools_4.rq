@@ -1,0 +1,8 @@
+SELECT DISTINCT ?museumPeople ?museumPeopleDescription
+WHERE 
+{
+  wd:Q33506 ^wdt:P279*/^wdt:P31 ?museum . 
+  ?museum wdt:P131+ wd:Q1356. 
+?museumPeople wdt:P108 ?museum MINUS { { ?museumPeople rdfs:description ?lang_label. FILTER((LANG(?lang_label)) = "fr") }  }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],bn". }
+}

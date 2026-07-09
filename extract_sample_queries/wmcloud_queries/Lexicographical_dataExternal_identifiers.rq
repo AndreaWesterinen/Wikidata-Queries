@@ -1,0 +1,8 @@
+SELECT ?item (GROUP_CONCAT(?link; separator=", ") as ?links){
+  {SELECT ?link ?item {
+  ?property wikibase:propertyType wikibase:ExternalId.
+  ?property p:P2302 ?x.
+  ?x ps:P2302 wd:Q55819106; pq:P2305 ?item.
+  ?property rdfs:label ?pl. FILTER(lang(?pl)="en")
+  BIND(CONCAT("[[", replace(str(?property),str(wd:),"Property:"),"|",?pl,"]]") as ?link)
+} ORDER BY ?lang ?property} } GROUP BY ?item

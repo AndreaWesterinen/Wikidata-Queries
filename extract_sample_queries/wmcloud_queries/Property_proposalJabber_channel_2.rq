@@ -1,0 +1,5 @@
+SELECT ?email ?Internet_Relay_Chat ?Internet_Relay_ChatLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Internet_Relay_Chat wdt:P1613 ?variable.
+}
+LIMIT 1000

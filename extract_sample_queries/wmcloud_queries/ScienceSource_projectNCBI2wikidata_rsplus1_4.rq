@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel
+  WHERE {?item wdt:P672 ?string.
+         FILTER(strstarts(?string, 'L01.313.500.750.100.710'))
+         
+         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+         }

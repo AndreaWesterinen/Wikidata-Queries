@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel WHERE {
+  ?article schema:about ?item;
+    schema:inLanguage "ar";
+    schema:name ?page.
+  FILTER((SUBSTR(STR(?article), 1 , 16 )) = "https://ar.wikip")
+  MINUS { ?item wdt:P31 _:b6. }
+  MINUS { ?item wdt:P279 _:b7. }
+  ?item rdfs:label ?itemLabel.
+  FILTER((LANG(?itemLabel)) = "ar")
+}
+LIMIT 5000

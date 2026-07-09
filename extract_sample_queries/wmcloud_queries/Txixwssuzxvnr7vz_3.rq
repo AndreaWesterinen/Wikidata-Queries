@@ -1,0 +1,19 @@
+# actors who were cast in two different films with the same title
+SELECT ?actorLabel ?title ?film1Description ?film2Description WHERE {
+  {
+    SELECT ?actor ?title ?film1 ?film2 WHERE {
+      # ?film1 is a film, starring ?actor, with title ?title.
+      ?film1 wdt:P31 wd:Q11424;
+             wdt:P161 ?actor;
+             wdt:P1476 ?title.
+      # ditto for ?film2 – since we’re using the same ?actor and ?title variable, we require that both films have the same actor and title
+      ?film2 wdt:P31 wd:Q11424;
+             wdt:P161 ?actor;
+             wdt:P1476 ?title.
+      # check that they’re not the same film
+      FILTER(?film1 != ?film2)
+    }
+    LIMIT 10
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

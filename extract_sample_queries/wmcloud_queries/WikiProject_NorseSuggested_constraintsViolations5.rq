@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P361+ wd:Q24175569 .
+  FILTER NOT EXISTS {
+    ?item wdt:P31/wdt:P279* wd:Q24439885 .
+  }
+  FILTER NOT EXISTS {
+    ?item wdt:P31/wdt:P279* wd:Q24444087 .
+  }
+}

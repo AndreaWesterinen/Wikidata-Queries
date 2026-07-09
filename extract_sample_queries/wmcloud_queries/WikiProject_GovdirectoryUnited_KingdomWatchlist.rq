@@ -1,0 +1,46 @@
+SELECT ?item WHERE { 
+  BIND(wd:Q145 AS ?country)
+  {	  VALUES ?type {
+		wd:Q2500378
+		wd:Q21451686
+		wd:Q83425186
+		wd:Q20667323
+		wd:Q108838260
+	  }
+      ?item wdt:P31 ?type ;
+           wdt:P17 ?country .
+  }
+  UNION
+  { VALUES ?type {
+			wd:Q3343298
+			wd:Q55657615 wd:Q524778 wd:Q169180 
+            wd:Q3044788
+            wd:Q7139410
+            wd:Q1412224
+            wd:Q16931297
+		}
+		?item wdt:P31 ?type ;
+	       wdt:P1001 wd:Q22 .
+		MINUS { ?item wdt:P31 wd:Q5532360 }
+        MINUS { ?item wdt:P1001 wd:Q1156248 }
+        MINUS { ?item p:P1001 ?js. ?js pq:P582 [] }
+	}
+	UNION
+	{ VALUES ?type {
+       wd:Q109768640 
+       wd:Q16988501 
+       wd:Q190752 
+       wd:Q4959031 
+       wd:Q7494979 
+       wd:Q41487 
+    }
+	  ?item wdt:P361 wd:Q4993654 ;
+         wdt:P31 ?type .
+	}
+	UNION
+	{ ?item wdt:P31 wd:Q270791 ;
+         wdt:P127 wd:Q32521 ;
+         wdt:P31 ?type .
+	}
+  MINUS { ?item wdt:P576 [] }
+}

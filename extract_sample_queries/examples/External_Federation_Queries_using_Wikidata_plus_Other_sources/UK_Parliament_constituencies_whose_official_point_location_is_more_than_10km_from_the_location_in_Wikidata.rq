@@ -1,8 +1,8 @@
-# ----
+#title: UK Parliament constituencies whose official point location is more than 10km from the location in Wikidata
 # Compare lat/long of Parliament and Wikidata constituency records
 
 #defaultView:Map{"hide":["?line"]}
-#
+
 # Zoom on the map to see lines.
 # See also results in table mode to see the variables.
 

@@ -1,0 +1,13 @@
+SELECT ?item ?gender ?start ?end ?party ?constituency ?dc_id ?twfy_id
+WHERE 
+{
+  ?item p:P39 ?ps .
+  ?ps ps:P39 wd:Q30524710 .
+  OPTIONAL { ?ps pq:P4100 ?party . }
+  OPTIONAL { ?ps pq:P768 ?constituency . }
+  OPTIONAL { ?ps pq:P580 ?start . }
+  OPTIONAL { ?ps pq:P582 ?end . }
+  OPTIONAL { ?item wdt:P6465 ?dc_id . }
+  OPTIONAL { ?item wdt:P2171 ?twfy_id . }
+  OPTIONAL { ?item wdt:P21 ?gender . }
+}

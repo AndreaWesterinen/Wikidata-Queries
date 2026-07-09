@@ -1,5 +1,5 @@
+#title: Paintings by Rembrandt in the Louvre or the Rijkmuseum
 #defaultView:ImageGrid
-
 SELECT DISTINCT ?item ?itemLabel ?itemDescription ?image ?collection WHERE {
     ?item wdt:P31 wd:Q3305213 ;            # Get items that are instances of painting
           wdt:P170 wd:Q5598   ;            # By creator Rembrandt

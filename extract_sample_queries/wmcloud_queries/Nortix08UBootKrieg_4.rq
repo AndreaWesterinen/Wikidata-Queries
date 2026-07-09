@@ -1,0 +1,16 @@
+#defaultView:Timeline
+# Zeitstrahl der verliehenen Ritterkreuze des Eisernen Kreuzes für U-Bootkommandanten der Kriegsmarine
+SELECT DISTINCT ?item ?itemLabel ?zeitpunkt ?bild
+WHERE {
+  ?item
+	wdt:P31 wd:Q5 ; # ist ein Mensch
+    wdt:P241 wd:Q151701 ; # Teilstreitkraft Kriegsmarine
+    wdt:P106 wd:Q3492027 ; #Tätigkeit Ubootfahrer
+    p:P166 ?auszeichnung . # hat eine Aussage Auszeichnung …
+    ?auszeichnung 
+      ps:P166 wd:Q165558 ; # … die Ritterkreuz des Eisernen Kreuzes ist
+      pq:P585 ?zeitpunkt . # Zeitpunkt der Verleihung
+  OPTIONAL { ?item wdt:P18 ?bild } # Bild anzeigen wenn vorhanden
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". } # Auswahl der Sprache
+}
+ORDER BY ?zeitpunkt

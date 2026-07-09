@@ -1,0 +1,8 @@
+#title: Item with [[Q27020041]] would generally have this property
+# Complex constraint from [[Property talk:P3450]]
+# TODO: add P3450
+SELECT ?item WHERE {
+	?item wdt:P31 wd:Q27020041 . 
+    FILTER NOT EXISTS { ?item wdt:P3450 [] } 
+}
+LIMIT 100

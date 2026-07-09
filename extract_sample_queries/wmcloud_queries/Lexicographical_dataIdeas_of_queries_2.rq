@@ -1,0 +1,4 @@
+SELECT DISTINCT ?lexeme ?audio WHERE {
+  ?lexeme a ontolex:LexicalEntry;
+              wdt:P443 ?audio.
+}

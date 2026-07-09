@@ -1,0 +1,19 @@
+SELECT ?item ?paper ?position  (CONCAT(
+      '[https://tools.wmflabs.org/author-disambiguator/?name=',
+      ENCODE_FOR_URI(?author_name), ' ', ?author_name, ']') AS ?disambiguator)
+where {
+    { ?item wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P1416 / wdt:P361* wd:Q213439 .}
+  
+  ?paper p:P50 ?author_statement .
+  ?author_statement ps:P50 ?item .
+  ?author_statement pq:P1545 ?position .
+  ?paper p:P2093 ?author_name_statement .
+  ?author_name_statement ps:P2093 ?author_name .
+  ?author_name_statement pq:P1545 ?position .
+  
+}
+LIMIT 1000

@@ -1,0 +1,10 @@
+#defaultView:Timeline
+SELECT DISTINCT ?Treaty ?TreatyLabel ?date WHERE {
+  ?Treaty (wdt:P31/wdt:P279*) wd:Q131569.
+  ?Treaty wdt:P276/wdt:P131* wd:Q90.
+  OPTIONAL {
+  ?Treaty wdt:P585 ?date.
+
+}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY ?date

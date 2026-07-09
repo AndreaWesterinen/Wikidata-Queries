@@ -1,0 +1,24 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+
+PREFIX prov: <http://www.w3.org/ns/prov#> SELECT ?item ?name ?year (SUBSTR(?published1, 1, 10) as ?published) ?publishedIn ?title WHERE {
+      ?item wdt:P225 ?name .
+      ?item p:P225 ?taxonName .
+      ?taxonName v:P225 ?taxonNameValue .
+      ?taxonName q:P574 ?date .
+      ?taxonName prov:wasDerivedFrom ?ref .  
+      OPTIONAL {?ref pr:P248/wdt:P1476 ?title} .
+      OPTIONAL {?ref pr:P248/wdt:P577 ?published1} .
+      OPTIONAL {?ref pr:P248/wdt:P1433/wdt:P1476 ?publishedIn} .
+      BIND(xsd:integer(YEAR(?date)) as ?year) 
+      #Filter(?year >= 2000)
+      #Filter(?year = 2011)  
+      Filter(?year >= 2011)  
+}
+ORDER BY DESC(?year) ASC(?name)

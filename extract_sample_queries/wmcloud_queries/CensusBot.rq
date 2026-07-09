@@ -1,0 +1,21 @@
+SELECT ?state ?stateLabel ?population ?date ?fips
+WHERE {
+  
+{?state wdt:P31 wd:Q35657} UNION 
+     {?state wdt:P1566 "4138106"} . # we want wd:Q61
+  
+ ?state p:P1082 ?populationStatement.
+ ?populationStatement ps:P1082 ?population.
+ ?populationStatement pq:P585 ?date.
+  
+ ?state p:P883 ?fipsStatement.
+ ?fipsStatement ps:P883 ?fips.
+
+ FILTER (year(?date) = 2010)
+ FILTER (isNumeric(xsd:integer(?fips)))
+
+  
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  
+} 
+ORDER BY DESC(?date) 

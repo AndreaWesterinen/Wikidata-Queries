@@ -1,0 +1,11 @@
+#Clothing with AAT but not EFV
+SELECT ?clothing ?clothingLabel ?_AAT_ID ?_EFV_ID WHERE{
+  ?clothing wdt:P279* wd:Q11460.
+  ?clothing p:P1014 ?aat_ID.   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?clothing wdt:P1014 ?_AAT_ID.  }
+  OPTIONAL {
+  ?clothing wdt:P3832 ?_EFV_ID
+  }
+  FILTER ( !bound(?_EFV_ID) ) .
+  }

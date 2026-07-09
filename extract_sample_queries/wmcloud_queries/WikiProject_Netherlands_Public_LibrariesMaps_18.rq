@@ -1,0 +1,80 @@
+embed.html##Zuid-Nederland, provincies Zuid-Holland, Linburg, Noord-Brabant en Zeeland
+#defaultView:Map
+SELECT ?Qvestiging ?QvestigingLabel ?coor ?partof ?partofLabel ?image ?layer WHERE {
+#SELECT ?s ?sLabel ?coor ?image ?layer WHERE { 
+  
+       ?Qvestiging (p:P31/ps:P31) wd:Q28564;wdt:P17 wd:Q55;
+          wdt:P625 ?coor ;
+          wdt:P361 ?partof ;
+          OPTIONAL {?Qvestiging wdt:P18 ?image .}
+  
+VALUES ?partof {
+#Zeeland 
+wd:Q620739	#St. ZB Planb en Bieb van Zeelnd
+#Noord-Brabant
+wd:Q59962203 #St.OB Theek5
+wd:Q59961930 #St.Basisbieb Het Markiezaat
+wd:Q59961932 #St OB Best
+wd:Q59962033 #Nieuwe Nobelaer 
+wd:Q59961951 #Bieb Breda
+wd:Q59962015 #St. OB Eindhoven
+wd:Q59962331 #St. de Bieb Veldhoven
+wd:Q59962312 #St. Bieb Midden-Brabant
+wd:Q59962038 #St. Bieb Dommeldal
+#Limburg
+wd:Q60197479 #Stadsbieb Maastricht
+wd:Q59962066 #St. OB Gulpen-Wittem
+wd:Q61754948 #St. OB Brunssum
+wd:Q59962157 #St. OB Meerssen
+wd:Q59962236 #St. Basisbieb Bibliorura 
+wd:Q61912787 #Bieb Kerkrade e.o.
+#Zuid-Holland
+wd:Q1861853 #Bieb Den Haag
+wd:Q59962242 #St.de Bieb Rotterdam
+wd:Q59961975 #St. DOK Delft
+wd:Q59962123 #St. OB Katwijk
+wd:Q59962354 #Bieb Vlaardingen
+wd:Q59838313 #St. OB AanZet
+wd:Q59962153 #St. OB Maassluis-Midden-Delflnd
+wd:Q62822576 #BplusC Bibliotheek Leiden
+wd:Q59961897 #St OB Rijn en Venen
+wd:Q59961954 #St.Bieb a/d IJssel
+wd:Q59962246 #St.Bieb Waterweg
+                 }
+BIND(
+#Zeeland
+IF(?partof = wd:Q620739,   "Middelburg en Vlissingen",
+#Noord-Brabant
+IF(?partof = wd:Q59962203, "Oosterhout, Dongen, Drimmelen, Geertruidenberg, Gilze-Rijen en Baarle-Nassau",
+IF(?partof = wd:Q59961930, "Bergen op Zoom, Steenbergen en Woensdrecht",
+IF(?partof = wd:Q59961932, "Best",
+IF(?partof = wd:Q59962033, "Etten-Leur",
+IF(?partof = wd:Q59961951, "Breda",
+IF(?partof = wd:Q59962015, "Eindhoven",
+IF(?partof = wd:Q59962331, "Veldhoven",
+IF(?partof = wd:Q59962312, "Tilburg, Waalwijk, Goirle, e.o.",
+IF(?partof = wd:Q59962038, "Geldrop-Mierlo, Nuenen c.a., Son en Breugel, Heeze-Leende",  
+#Limburg
+IF(?partof = wd:Q61912787, "Kerkrade, Simpelveld en Voerendaal",
+IF(?partof = wd:Q60197479, "Maastricht",
+IF(?partof = wd:Q59962157, "Meerssen",
+IF(?partof = wd:Q61754948, "Brunssum",
+IF(?partof = wd:Q59962066, "Gulpen-Wittem",
+IF(?partof = wd:Q59962236, "Roermond",
+#Zuid-Holland
+IF(?partof = wd:Q59961954, "Capelle & Krimpen a/d IJssel", 
+IF(?partof = wd:Q59961897, "Alphen a/d Rijn, Nieuwkoop, Kaag & Braassem en Zoeterwoude",
+IF(?partof = wd:Q62822576, "Leiden en Leiderdorp",
+IF(?partof = wd:Q1861853,  "Den Haag",
+IF(?partof = wd:Q59962242, "Rotterdam",
+IF(?partof = wd:Q59961975, "Delft",
+IF(?partof = wd:Q59838313, "Dordrecht, Barendrecht, Zwijndrecht, Gorinchem e.o.",
+IF(?partof = wd:Q59962153, "Maassluis en Midden-Delfland", 
+IF(?partof = wd:Q59962123, "Katwijk", 
+IF(?partof = wd:Q59962354, "Vlaardingen", 
+IF(?partof = wd:Q59962246, "Schiedam", 
+   "")))))))))))))))))))))))))))AS ?layer).  
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" }
+}
+ORDER BY ?layer ?partofLabel ?QvestigingLabel

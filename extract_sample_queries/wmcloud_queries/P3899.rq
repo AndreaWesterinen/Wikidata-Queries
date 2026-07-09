@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P3899/ps:P3899 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?:\\/\\/(www\\.)?medium\\.com\\/@([A-Za-z0-9_\\.]{1,30})/?)$") )
+}

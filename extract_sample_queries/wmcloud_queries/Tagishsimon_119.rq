@@ -1,0 +1,17 @@
+SELECT distinct ?item ?itemLabel ?sitelinks ?coord  ?stream ?streamLabel WITH { SELECT ?item 
+WHERE 
+{
+  ?item wdt:P131/wdt:P131 wd:Q22 . #} hint:Prior hint:runFirst true.
+  {?item wdt:P31 wd:Q4022 . }
+
+  
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item wikibase:sitelinks ?sitelinks.
+  ?item p:P403/pq:P625 ?coord .
+  ?item wdt:P403 ?stream . 
+  ?stream wdt:P31 wd:Q47521 .
+} order by ?streamLabel ?riverLabel

@@ -1,0 +1,24 @@
+SELECT ?item ?starttime ?endtime ?fonction ?item0 {
+  ?item p:P39 [ps:P39/wdt:P1001/wdt:P17 wd:Q142;
+                   pq:P580 ?starttime;
+                   pq:P582 ?endtime;
+                   ps:P39 ?fonction;
+              ].
+  ?item0 p:P39 [
+                   pq:P580 ?starttime;
+                   pq:P582 ?endtime;
+                   ps:P39 ?fonction;
+              ].
+  FILTER (?item != ?item0)
+  FILTER (?fonction NOT IN (
+    wd:Q382617, wd:Q3044918, wd:Q1285463, wd:Q30461, wd:Q14828018, wd:Q1872450, wd:Q15113603, wd:Q2994367, 
+    wd:Q3780304, wd:Q62084660, wd:Q20177062, wd:Q20203208, wd:Q3382119, wd:Q3510904, wd:Q59212140, wd:Q21032547
+  ))
+  FILTER (?starttime != ?endtime) # avoid Q1371497 (less than one day)
+  FILTER NOT EXISTS { ?fonction wdt:P279 wd:Q15113603 }
+  FILTER NOT EXISTS { ?fonction wdt:P279 wd:Q3044918 }
+  FILTER NOT EXISTS { ?fonction wdt:P279 wd:Q16886136 }
+  FILTER NOT EXISTS { ?fonction wdt:P279 wd:Q16543547 }
+  FILTER NOT EXISTS { ?fonction wdt:P279 wd:Q3780304 }
+}
+LIMIT 100

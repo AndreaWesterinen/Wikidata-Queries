@@ -1,0 +1,5 @@
+SELECT ?a ?aLabel ?aDescription ?aAltLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "pa". }
+  ?a wdt:P106 wd:Q49757.
+  ?a wdt:P27 wd:Q668.
+}

@@ -1,0 +1,6 @@
+SELECT ?init (COUNT(*) AS ?ct) (SAMPLE(?label) AS ?sample) {
+  ?item wdt:P762 [] .
+  MINUS { ?item wdt:P31 [] } .
+  ?item rdfs:label ?label FILTER( LANG( ?label ) = 'cs' ) .
+  BIND( IF( CONTAINS( STR( ?label ), ' ' ), STRBEFORE( STR( ?label ), ' ' ), STR( ?label ) ) AS ?init ) .
+} GROUP BY ?init ORDER BY DESC(?ct)

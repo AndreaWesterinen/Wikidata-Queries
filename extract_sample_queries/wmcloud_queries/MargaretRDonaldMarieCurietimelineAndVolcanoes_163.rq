@@ -1,0 +1,13 @@
+# articles authored by Benedictus Hubertus Danser (with publication dates)
+# the query also finds their article
+
+
+SELECT DISTINCT ?date ?item ?itemLabel ?journal ?journalLabel WHERE {
+  ?item wdt:P31 wd:Q13442814 ;          # is a scholarly article
+    wdt:P1433  wd:Q2839028 ;            # published in Bulletin du Jardin Botanique de Buitenzorg 
+    wdt:P50  wd:Q434331;                # author  Benedictus Hubertus Danser 
+    wdt:P577  ?date .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?date ?itemLabel ?journalLabel
+ LIMIT 4000    

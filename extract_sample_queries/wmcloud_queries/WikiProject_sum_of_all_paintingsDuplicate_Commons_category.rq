@@ -1,0 +1,8 @@
+SELECT ?item (CONCAT("[[:Commons:Category:", ?commonscategory, "|Category:", ?commonscategory, "]]") AS ?commonslink) ?item2 WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P373 ?commonscategory .
+  ?item2 wdt:P373 ?commonscategory . 
+  FILTER(?item!=?item2) .
+  #MINUS { ?item wdt:P361 ?item2 } 
+  #MINUS { ?item wdt:P527 ?item2 } 
+  } LIMIT 1000

@@ -1,0 +1,14 @@
+SELECT ?item 
+WHERE
+{
+{?item wdt:P39 wd:Q45722 . } UNION { ?item wdt:P39 wd:Q1729113 .}
+  ?item wdt:P31 wd:Q5 .
+{
+    ?item wdt:P570 ?time0 .
+    FILTER ( ?time0 <= "1700-01-01T00:00:00Z"^^xsd:dateTime )
+} UNION {
+    ?item wdt:P569 ?time1 .
+    FILTER ( ?time1 <= "1700-01-01T00:00:00Z"^^xsd:dateTime  )
+}
+}
+LIMIT 5000

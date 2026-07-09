@@ -1,0 +1,12 @@
+#title: Commons sitelinks different from P935 property
+# Complex constraint from [[Property talk:P935]]
+# Items with sitelinks linking to a different gallery than the property
+SELECT DISTINCT ?item {
+  ?item wdt:P935 ?gallery;
+        ^schema:about [
+          schema:isPartOf/^wdt:P856 wd:Q565;
+          schema:name ?name
+        ] .
+  FILTER ( !STRSTARTS( STR( ?name ), 'Category:' ) ) .
+  FILTER ( STR( ?name ) != ?gallery ) .
+}

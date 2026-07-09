@@ -1,0 +1,49 @@
+SELECT ?region ?regionLabel ?gss ?gss2 ?item ?itemLabel (GROUP_CONCAT(DISTINCT(?class_label); separator = ' / ') AS ?classes) ?eq ?la ?laLabel (GROUP_CONCAT(DISTINCT(?cp_label); separator = ' / ') AS ?civil_parishes)  
+
+WITH {
+  SELECT ?item ?gss ?gss2 ?eq ?la WHERE {
+    ?item wdt:P31 wd:Q7897276 .
+    OPTIONAL {?item wdt:P836 ?gss . FILTER(STRSTARTS(?gss, 'E43')) .
+      OPTIONAL {
+         ?item wdt:P836 ?gss2 . FILTER(STRSTARTS(?gss2, 'E06') || STRSTARTS(?gss2, 'E07') || STRSTARTS(?gss2, 'E08') || STRSTARTS(?gss2, 'E09')) .
+         BIND('===' AS ?eq) .
+         BIND(?item AS ?la) .
+      }
+    }
+    OPTIONAL {?item wdt:P836 ?gss2 . FILTER(!STRSTARTS(?gss2, 'E43')) .}
+    OPTIONAL {?item wdt:P131 ?la} .
+  }
+} AS %items
+
+WITH {
+  SELECT ?item ?cp ?cp_label WHERE {
+    hint:Query hint:optimizer "None".
+    INCLUDE %items .
+    FILTER (bound(?la)) .
+    ?cp wdt:P131 ?la .
+    ?cp wdt:P31 wd:Q1115575 .
+    FILTER NOT EXISTS {?cp p:P31 ?stmt . ?stmt ps:P31 wd:Q1115575 . ?stmt pq:P582 []} .
+    ?cp rdfs:label ?cp_label . FILTER(lang(?cp_label) = 'en') .
+  }
+} AS %cps
+
+
+WHERE {
+  INCLUDE %items .
+  OPTIONAL {
+    INCLUDE %cps .
+  }
+  OPTIONAL {
+    ?la wdt:P131* ?region .
+    ?region wdt:P31 wd:Q48091 .
+  }
+  OPTIONAL {
+    ?item wdt:P31 ?class .
+    ?class  rdfs:label ?class_label . FILTER(lang(?class_label) = 'en') .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+
+} GROUP BY ?gss ?gss2 ?item ?itemLabel ?eq ?la ?laLabel ?region ?regionLabel
+ORDER BY ?regionLabel ?laLabel ?itemLabel
+#columns=?regionLabel,?gss,?gss2,?item,?itemLabel,?classes,?eq,?la,?laLabel,?civil_parishes

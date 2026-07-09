@@ -1,0 +1,10 @@
+SELECT distinct ?partyLabel ?seatLabel ?mpLabel   ?image  ?coords ?rgb (?partyLabel AS ?layer)
+where {
+       ?mp p:P39 ?currps . ?currps ps:P39 ?currterm . ?currterm wdt:P279 wd:Q16707842 .
+       filter not exists { ?currps pq:P582 ?currend } .
+       ?currps pq:P768 ?seat . ?seat wdt:P625 ?coords . ?currps pq:P4100 ?party .
+       optional { ?mp wdt:P18 ?image }
+       ?party wdt:P465 ?rgb .
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} 
+#defaultView:Map{"hide":["?coords", "?layer", "?rgb"]}

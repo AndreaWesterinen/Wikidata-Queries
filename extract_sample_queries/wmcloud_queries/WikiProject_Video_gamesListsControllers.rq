@@ -1,0 +1,16 @@
+SELECT ?item (GROUP_CONCAT(?identifier) as ?identifiers) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31*/wdt:P279* wd:Q865422.
+  OPTIONAL { 
+    # Get external identifiers
+    ?item ?prop ?id.
+    ?propItem wikibase:directClaim ?prop.
+    ?propItem wikibase:propertyType wikibase:ExternalId.
+    ?propItem wdt:P31 wd:Q28147643 .
+    ?propItem wdt:P1630 ?formatterurl . 
+    ?propItem rdfs:label ?propItemLabel .
+    FILTER (lang(?propItemLabel) = "en"). 
+    BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterurl)) AS ?url).
+    BIND(CONCAT("[", str(?url), " ", ?propItemLabel, "]") as ?identifier)
+  } 
+} GROUP BY ?item ?gen

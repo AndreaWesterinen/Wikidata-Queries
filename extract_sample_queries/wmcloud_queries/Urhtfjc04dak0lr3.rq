@@ -1,0 +1,16 @@
+#List of Cricket teams, founding year and players on Wikidata
+SELECT  ?team ?teamLabel ?genderLabel (YEAR(?inception) as ?founded) (count(?player) as ?playerCount)
+WHERE 
+{
+  ?player wdt:P31 wd:Q5. # Player is a human
+  ?player wdt:P106 wd:Q12299841. # Player's occupation is a cricketer
+  ?player wdt:P54 ?team. # Player is a member of a sporting team
+  ?player wdt:P21 ?gender. # Get gender of the player
+  {?team wdt:P641 wd:Q5375.} # Sporting team plays cricket
+  UNION
+  {?team wdt:P31 wd:Q17376093.} # Sporting team is a cricket team
+  OPTIONAL{ ?team wdt:P571 ?inception.} # Get date of inception of the team
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?team ?teamLabel ?inception ?gender ?genderLabel
+ORDER BY ?inception

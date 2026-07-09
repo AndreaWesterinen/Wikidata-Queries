@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?d ?sl (-?sl + ?d as ?diff) (CONCAT("[",str(?url)," ws]") as ?ws)
+{
+      ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+      ?item wdt:P31 wd:Q5 ; wikibase:identifiers ?d .
+      ?item wikibase:sitelinks ?sl .
+      ?url schema:about ?entry ; schema:isPartOf <https://de.wikisource.org/> .
+      ?entry wdt:P31 wd:Q19389637 .
+}
+ORDER BY DESC(?sl) ?item
+LIMIT 100

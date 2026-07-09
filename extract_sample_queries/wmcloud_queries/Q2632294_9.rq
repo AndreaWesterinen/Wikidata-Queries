@@ -1,0 +1,24 @@
+/embed.html#SELECT 
+  ?lang ?langitem ?langitemLabel ?onseries
+  (COUNT(?l) as ?count)
+  (SAMPLE(?l) as ?sample_l)
+  (SUM(?diff_ot) as ?not_ot) ( ROUND( ?not_ot / ?count * 100 ) as ?per_cent)
+  (SAMPLE(?item) as ?sample_item)
+WHERE
+{
+  BIND( wd:Q2632294 as ?series) 
+  ?item wdt:P179 ?series .
+  hint:Prior hint:rangeSafe true .
+  ?item wdt:P31 wd:Q21191270 .
+  ?item rdfs:label ?l . 
+  BIND( lang(?l) as ?lang) 
+  # OPTIONAL { 
+  ?langitem wdt:P424 ?lang ; wdt:P305 [] #  }
+  OPTIONAL { ?series p:P407 [ ps:P407 ?langitem ; pq:P518 wd:Q59180636 ] . BIND("y" as ?onseries) }
+  OPTIONAL { ?series wdt:P364 ?langitem . BIND("OL" as ?onseries) }
+  OPTIONAL { ?item wdt:P1476 ?ot  }
+  BIND( IF( lcase(str(?l)) = lcase(str(?ot)),0,1) as ?diff_ot)  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?lang ?langitem ?langitemLabel ?onseries
+ORDER BY  DESC(?onseries = "OL") DESC(?not_ot) DESC(?count)

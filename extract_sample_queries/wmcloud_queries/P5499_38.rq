@@ -1,0 +1,10 @@
+#title: Artworks in the Boijmans collection using a [[Property:P973|described at URL&#32;<small dir="ltr">(P973)</small>]] to the Boijmans website
+# Complex constraint from [[Property talk:P5499]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q679527|Museum Boijmans Van Beuningen <small>(Q679527)</small>]] which have a link to the Boijmans website. Some formats can easily be moved, others need checking before moving
+SELECT ?item ?url ?value WHERE {
+  ?item wdt:P195 wd:Q679527 .
+  ?item wdt:P973 ?url .
+  FILTER REGEX(STR(?url), "^http://collectie.boijmans.nl/.*$")
+  OPTIONAL { ?item wdt:P5499 ?value } . 
+}
+LIMIT 1000

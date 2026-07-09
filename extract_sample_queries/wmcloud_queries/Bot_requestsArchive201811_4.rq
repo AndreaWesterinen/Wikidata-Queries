@@ -1,0 +1,6 @@
+SELECT ?item ?sitelink WHERE {
+  ?item wdt:P1433 wd:Q665807.
+  FILTER(NOT EXISTS { ?item wdt:P1476 ?title. })
+  ?sitelink schema:about ?item;
+    schema:isPartOf <https://de.wikisource.org/>.
+}

@@ -1,0 +1,10 @@
+# initial characters of free software
+#defaultView:BarChart
+SELECT ?character (COUNT(DISTINCT ?item) AS ?count) WHERE {
+  { ?item p:P31/ps:P31/wdt:P279* wd:Q341. } UNION
+  { ?item wdt:P31/wdt:P279* wd:Q7397; wdt:P275/(wdt:P31|wdt:P279)* wd:Q3943414. }
+  ?item rdfs:label ?label.
+  FILTER(LANG(?label) = "en")
+  BIND(UCASE(SUBSTR(?label, 1, 1)) AS ?character)
+}
+GROUP BY ?character

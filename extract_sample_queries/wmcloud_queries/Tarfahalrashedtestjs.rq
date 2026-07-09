@@ -1,0 +1,1 @@
+sparql?format=json&query=select ?wdLabel ?ps_Label ?ps_ ?wdpqLabel ?pq_Label {VALUES (?company) {(wd

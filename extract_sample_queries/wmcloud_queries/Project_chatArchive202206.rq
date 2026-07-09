@@ -1,0 +1,51 @@
+select ?country ?headOfState { 
+ bind ("1900"^^xsd:dateTime as ?beginTimecountryP31)  # bornes pour la date pour laquelle on veut les valeurs
+  bind ("1900"^^xsd:dateTime as ?endTimecountryP31)    #  (entre le premier janvier et le 31 décembre 2000 en l’occurrence)
+  
+  # récupération des localisation administratives des communes, quelles que soient leurs rangs
+  ?country p:P31 ?declarationcountryP31 .
+  ?declarationcountryP31
+    wikibase:rank ?rank_P31 ;  # récupération rang pour filtrer les rangs dépréciés
+    ps:P31 wd:Q3624078  .  # main value of the P31 statement 
+  optional {
+    ?declarationcountryP31
+      pq:P580 ?debutDeclarationcountryP31 .   # date de début de validité de la déclaration
+  }
+  optional {
+    ?declarationcountryP31
+      pq:P582 ?finDeclarationcountryP31 .     # date de fin de validité de la déclaration 
+  }
+  # dans le cas ou la déclaration n’a pas de date de fin, on met « maintenant » pour avoir une valeur
+  bind(coalesce(?finDeclarationcountryP31, now()) as ?finDeclarationcountryP31Final) . 
+  # dans le cas ou la déclaration n’a pas de date de début, on met arbitrairement l’an 1 comme date de début
+  bind(coalesce(?debutDeclarationcountryP31, "0001-01-01"^^xsd:dateTime) as ?debutDeclarationcountryP31Final) .
+  
+  filter (?rank_P31 != wikibase:DeprecatedRank) . # filtrer les rangs dépréciés pour éviter les erreurs
+  
+  # filtrage pour ne conserver que les valeurs pour les déclarations valables pendant la période donnée
+  filter (?finDeclarationcountryP31Final >= ?beginTimecountryP31 && ?debutDeclarationcountryP31Final <= ?endTimecountryP31 ) . 
+ bind ("1900"^^xsd:dateTime as ?beginTimecountryP35)  # bornes pour la date pour laquelle on veut les valeurs
+  bind ("1900"^^xsd:dateTime as ?endTimecountryP35)    #  (entre le premier janvier et le 31 décembre 2000 en l’occurrence)
+  
+  # récupération des localisation administratives des communes, quelles que soient leurs rangs
+  ?country p:P35 ?declarationcountryP35 .
+  ?declarationcountryP35
+    wikibase:rank ?rank_P35 ;  # récupération rang pour filtrer les rangs dépréciés
+    ps:P35 ?headOfState  .  # main value of the P35 statement 
+  optional {
+    ?declarationcountryP35
+      pq:P580 ?debutDeclarationcountryP35 .   # date de début de validité de la déclaration
+  }
+  optional {
+    ?declarationcountryP35
+      pq:P582 ?finDeclarationcountryP35 .     # date de fin de validité de la déclaration 
+  }
+  # dans le cas ou la déclaration n’a pas de date de fin, on met « maintenant » pour avoir une valeur
+  bind(coalesce(?finDeclarationcountryP35, now()) as ?finDeclarationcountryP35Final) . 
+  # dans le cas ou la déclaration n’a pas de date de début, on met arbitrairement l’an 1 comme date de début
+  bind(coalesce(?debutDeclarationcountryP35, "0001-01-01"^^xsd:dateTime) as ?debutDeclarationcountryP35Final) .
+  
+  filter (?rank_P35 != wikibase:DeprecatedRank) . # filtrer les rangs dépréciés pour éviter les erreurs
+  
+  # filtrage pour ne conserver que les valeurs pour les déclarations valables pendant la période donnée
+  filter (?finDeclarationcountryP35Final >= ?beginTimecountryP35 && ?debutDeclarationcountryP35Final <= ?endTimecountryP35 ) }

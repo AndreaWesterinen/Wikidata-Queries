@@ -1,0 +1,4 @@
+select distinct ?person ?personLabel where {
+  ?person wdt:p1595|wdt:P7781|wdt:P1399 wd:Q259745.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en." }
+} group by ?person ?personLabel

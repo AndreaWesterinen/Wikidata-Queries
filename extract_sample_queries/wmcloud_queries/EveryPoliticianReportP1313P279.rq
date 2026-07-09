@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?office
+WHERE {      
+  ?item wdt:P31 wd:Q6256 ; wdt:P1313 ?office .
+  FILTER NOT EXISTS { ?office wdt:P279* wd:Q2285706 } 
+}

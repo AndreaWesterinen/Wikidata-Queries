@@ -1,0 +1,17 @@
+SELECT distinct ?item ?label1 (CONCAT("<strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">The ID &quot;&quot;,?Qnumb,&quot;&quot; is unknown to the system. Please use a valid entity ID.</span></strong>") as ?cariche)
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 ?carica. 
+  {?carica wdt:P279* wd:Q3858501 .} #ministro
+  UNION
+  {?carica wdt:P279* wd:Q796897} #presidente del consigli
+  UNION
+  {?carica wdt:P279* wd:Q4011164} #vicepresidente
+  
+  ?statement pq:P5054 ?governo .
+  FILTER(?governo = wd:Q3773858)
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it" . ?item rdfs:label ?itLabel }
+  BIND(REPLACE(STR(?item), "http://www.wikidata.org/entity/", "") AS ?Qnumb)
+}

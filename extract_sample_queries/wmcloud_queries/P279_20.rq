@@ -1,0 +1,4 @@
+#title: Property cannot form cycles
+# Complex constraint from [[Property talk:P279]]
+# impossible claim or items should be merged
+SELECT ?item WHERE { ?item wdt:P279+ ?item } limit 3

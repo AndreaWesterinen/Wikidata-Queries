@@ -1,0 +1,12 @@
+SELECT ?item (GROUP_CONCAT(DISTINCT ?_nl; separator=", ") as ?nl) (GROUP_CONCAT(DISTINCT ?_ok) as ?ok)
+WHERE
+{
+	VALUES ?nat { wd:Q17 wd:Q41 wd:Q148 wd:Q159 wd:Q184 wd:Q212 wd:Q219 wd:Q221 wd:Q227 wd:Q230 wd:Q403 wd:Q668 wd:Q794 wd:Q796 wd:Q801 wd:Q865 wd:Q869 wd:Q884 wd:Q8646 wd:Q15180 wd:Q36704 wd:Q37024 wd:Q83286 }
+	?item wdt:P106 ?sub0 .
+	?sub0 (wdt:P279)* wd:Q26270618 .
+	?item wdt:P27 ?nat .
+	OPTIONAL { ?item wdt:P735/wdt:P1705 ?_nl }
+	OPTIONAL { ?item wdt:P1559 ?_nnl }
+	BIND(IF(CONTAINS(str(?_nnl),str(?_nl)),"✓","") as ?_ok)
+}
+GROUP BY ?item

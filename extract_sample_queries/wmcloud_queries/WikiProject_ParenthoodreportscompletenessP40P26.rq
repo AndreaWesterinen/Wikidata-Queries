@@ -1,0 +1,10 @@
+SELECT (wd:Q5 as ?item)
+  ("P40" as ?in)
+  ("P26" as ?out)
+  (COUNT(DISTINCT ?person) as ?all)
+  (COUNT(DISTINCT ?has) as ?with)
+{
+    ?person wdt:P40 [] .
+    OPTIONAL { ?person p:P26 ?relative . BIND(?person as ?has)  }
+    ?person wdt:P31 wd:Q5 ; wdt:P570 [] .
+}

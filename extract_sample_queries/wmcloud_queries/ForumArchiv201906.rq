@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?predicate ?literal ?lang WHERE {
+  VALUES ?literal {
+    'Thomas Müller'@de 'Mats Hummels'@de 'Ollikahn'@de 'CR7'@en # hier können auch tausende Literale aufgelistet werden, auch mit verschiedenen Sprachkürzel
+  }
+  VALUES ?predicate { rdfs:label skos:altLabel }
+  ?item ?predicate ?literal .
+  BIND(LANG(?literal) AS ?lang) .
+}

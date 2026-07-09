@@ -1,0 +1,13 @@
+SELECT ?item ?article
+WHERE
+{
+    ?item wdt:P225 ?taxonName .
+    #OPTIONAL {?item wdt:P373 ?commonscat} . 
+    OPTIONAL {?item wdt:P935 ?commonsgal} .   
+	?article schema:about ?item .
+	?article schema:isPartOf <https://commons.wikimedia.org/> .
+    #FILTER (STRSTARTS(STR(?article), "https://commons.wikimedia.org/wiki/Category"))
+    #FILTER (!bound(?commonscat))
+    FILTER (!STRSTARTS(STR(?article), "https://commons.wikimedia.org/wiki/Category"))
+    FILTER (!bound(?commonsgal))
+}

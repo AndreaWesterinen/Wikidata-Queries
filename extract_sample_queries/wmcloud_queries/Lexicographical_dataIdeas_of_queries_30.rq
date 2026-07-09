@@ -1,0 +1,10 @@
+SELECT DISTINCT ?lexeme ?lemma ?langLabel ?ipa WHERE {
+  ?lexeme a ontolex:LexicalEntry ;
+            dct:language ?lang;
+            wikibase:lemma ?lemma ;
+            wdt:P898 ?ipa .
+  filter(!regex(?ipa, "//"))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+order by lcase(?langLabel)
+limit 10

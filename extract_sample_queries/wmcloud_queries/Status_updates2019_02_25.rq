@@ -1,0 +1,21 @@
+PREFIX schema: <http://schema.org/>
+
+# Featured/Good articles in one language that don't have a French Wikipedia page
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?featuredArticle schema:about ?item.
+  ?featuredArticle schema:inLanguage "ru".
+  ?featuredArticle wikibase:badge ?badgeValues.
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P21 wd:Q6581072.
+  VALUES (?badgeValues) {
+    (wd:Q17437796)
+    (wd:Q17437798)
+  }
+  OPTIONAL {
+    ?sitelink schema:about ?item.
+    ?sitelink schema:inLanguage "fr".
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en,ru". }
+  FILTER(!BOUND(?sitelink))
+}
+ORDER BY ?itemLabel

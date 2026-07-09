@@ -1,0 +1,8 @@
+embed.html#SELECT ?instance ?instanceLabel (COUNT(?book) AS ?count) WHERE {
+	?book wdt:P31 ?instance .
+ ?instance wdt:P279* wd:Q7725634 .
+	?page schema:about ?book.
+	?page schema:isPartOf <https://fr.wikipedia.org/> .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}
+GROUP BY ?instance ?instanceLabel

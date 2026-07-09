@@ -1,0 +1,9 @@
+SELECT ?item ?url ?nl ?v ?st ?id ?sl
+WHERE
+{ 
+  ?item wdt:P31 wd:Q11422536
+  OPTIONAL { ?item wdt:P856 [] . BIND("✓" as ?url) }
+  OPTIONAL { ?item wdt:P1705 [] . BIND("✓" as ?nl) }
+  OPTIONAL { ?item  wdt:P214 [] . BIND("✓" as ?v) }
+  OPTIONAL { ?item  wikibase:statements ?st; wikibase:identifiers ?id; wikibase:sitelinks ?sl }
+}

@@ -1,0 +1,6 @@
+SELECT ?property ?subjectItem WHERE {  
+    ?property wikibase:propertyType wikibase:ExternalId .
+    OPTIONAL {?property wdt:P1629 ?subjectItem . }
+    # FILTER(!BOUND(?subjectItem)) 
+    # FILTER(BOUND(?subjectItem)) 
+}

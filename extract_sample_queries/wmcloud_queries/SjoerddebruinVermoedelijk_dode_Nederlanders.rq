@@ -1,0 +1,11 @@
+SELECT ?item WHERE {
+  { ?item wdt:P27 wd:Q55. }
+  UNION
+  { ?item wdt:P27 wd:Q29999. }
+  ?item wdt:P569 ?time0.
+  FILTER((?time0 >= "0000-01-01T00:00:00Z"^^xsd:dateTime) && (?time0 <= "1922-01-01T00:00:00Z"^^xsd:dateTime))
+  MINUS { ?item wdt:P2032 _:b7. }
+  MINUS { ?item wdt:P1317 _:b8. }
+  OPTIONAL { ?item wdt:P570 ?dummy0. }
+  FILTER(!(BOUND(?dummy0)))
+}

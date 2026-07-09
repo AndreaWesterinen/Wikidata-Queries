@@ -1,0 +1,7 @@
+SELECT ?item   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P724 ?identificador_Internet_Archive;
+    wdt:P31/wdt:P279*  wd:Q11424.
+  ?item wdt:P577 ?fecha_de_publicación. 
+  FILTER( ?fecha_de_publicación < "1928-01-01T00:00:00"^^xsd:dateTime )
+}

@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?refURL WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P69 ?statement .
+  ?statement ps:P69 wd:Q523926 .
+  ?statement prov:wasDerivedFrom ?ref .
+  ?ref pr:P854 ?refURL .
+  FILTER (CONTAINS(str(?refURL),'rada.ac.uk')) . 
+
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

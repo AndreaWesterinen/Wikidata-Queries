@@ -1,0 +1,22 @@
+### Œuvres du musée Saint-Raymond sur Wikidata
+
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT ?item ?itemLabel ?instanceLabel  ?NumInventaire (CONCAT("http://www.culture.gouv.fr/public/mistral/joconde_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=",?IDJoconde) as ?Joconde) ?image
+WHERE {
+  ?item wdt:P195 wd:Q1376  .                  # Item ayant en collection (P195) le musée Saint-Raymond (Q1376)
+  ?item wdt:P31 ?instance .                   # Nature de l'item (P31)
+  
+  {SELECT ?item (GROUP_CONCAT(DISTINCT  ?inv; separator=";") as ?NumInventaire)  # Numéros d'inventaire (P214) 
+    WHERE {?item wdt:P217 ?inv .                
+  }GROUP BY ?item}
+  
+  OPTIONAL{?item wdt:P347 ?IDJoconde.}        # Identifiant Joconde
+  
+  OPTIONAL{SELECT ?item (SAMPLE(?img) AS ?image)  # Fichier image sur Wikimedia Commons (P18) 
+    WHERE {?item wdt:P18 ?img .               
+  }GROUP BY ?item}
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "fr"}
+}ORDER BY ?item

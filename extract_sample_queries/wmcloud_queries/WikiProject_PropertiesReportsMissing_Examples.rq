@@ -1,0 +1,9 @@
+SELECT ?item ?p ?propertyDescription { 
+  MINUS { ?property wdt:P1855 [] } .
+  MINUS { ?property wdt:P2271 [] } .
+  MINUS { ?property wdt:P5192 [] } .
+  MINUS { ?property wdt:P5193 [] } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  BIND (concat("\u007B\u007BP\u007C",strafter(str(?property),"y/"),"\u007D\u007D") as ?p) 
+}

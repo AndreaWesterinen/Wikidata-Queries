@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT ?Marche_des_fiert_s_LGBT ?Marche_des_fiert_s_LGBTLabel ?localisation_administrative ?localisation_administrativeLabel ?coordonn_es_g_ographiques WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Marche_des_fiert_s_LGBT wdt:P31 wd:Q51404.
+  ?Marche_des_fiert_s_LGBT wdt:P131 ?localisation_administrative. 
+  ?localisation_administrative wdt:P625 ?coordonn_es_g_ographiques. 
+
+}

@@ -1,0 +1,7 @@
+#title: <span dir="ltr" lang="en">Use a currency as a unit</span>
+# Complex constraint from [[Property talk:P2630]]
+# <span dir="ltr" lang="en">cost of dammage who don't use a curency as a unit.</span>
+SELECT ?item ?currency WHERE {
+   ?item p:P2630/ps:P2630/wikibase:quantityUnit ?currency .
+   FILTER NOT EXISTS { ?currency wdt:P31/wdt:P279* wd:Q8142 }
+}

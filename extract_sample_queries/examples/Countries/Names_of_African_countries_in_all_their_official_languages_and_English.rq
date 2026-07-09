@@ -1,3 +1,4 @@
+#title: Names of African countries in all their official languages and English
 SELECT DISTINCT ?item ?itemLabel_ol ?official_language ?itemLabel_en WHERE {
   ?item wdt:P30 wd:Q15 ;
         wdt:P37 ?officiallanguage ;

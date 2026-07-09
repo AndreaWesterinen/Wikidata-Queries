@@ -1,0 +1,18 @@
+#shows files that depict athletics competitors and with the Valued Image assessment 
+#defaultView:ImageGrid
+SELECT ?file ?image
+
+WITH {
+  SELECT ?item WHERE {
+    SERVICE <https://query.wikidata.org/sparql> {
+      ?item wdt:P106 wd:Q11513337 .
+    }
+  }
+} AS %get_items
+
+WHERE {
+  INCLUDE %get_items
+  ?file wdt:P180 ?item .
+  ?file wdt:P6731 wd:Q63348040 .  # Commons valued image
+  ?file schema:url ?image .
+}

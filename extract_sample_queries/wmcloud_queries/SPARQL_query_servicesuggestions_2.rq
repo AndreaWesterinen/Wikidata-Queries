@@ -1,0 +1,13 @@
+bigdata/namespace/wdq/sparql?explain&query=PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?o ?oLabel WHERE {
+   wd:Q289 wdt:P31 ?a .
+   ?a wdt:P279* ?o.
+  
+   SERVICE wikibase:label {
+       bd:serviceParam wikibase:language "en" .
+   }
+}

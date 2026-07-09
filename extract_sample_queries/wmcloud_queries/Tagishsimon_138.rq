@@ -1,0 +1,26 @@
+SELECT ?item ?itemLabel ?pubInLabel ?month ?year ?volume ?number ?precision WHERE {
+  values ?pubIn {wd:Q6296164}
+  ?item wdt:P1433 ?pubIn.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  filter not exists {?item schema:description ?t . filter(lang(?t)="en")}
+  OPTIONAL {?item wdt:P478 ?volume.}
+  OPTIONAL {?item wdt:P433 ?number.}
+  ?item p:P577 ?stat . 
+    
+  ?stat psv:P577/wikibase:timePrecision ?precision.
+  ?stat ps:P577 ?pub.
+  BIND(YEAR(?pub) as ?year)
+  BIND(MONTH(?pub) as ?month_)
+  BIND(IF(?month_=1,"January",
+  IF(?month_=2,"February",
+  IF(?month_=3,"March",
+  IF(?month_=4,"April",
+  IF(?month_=5,"May",
+  IF(?month_=6,"June",
+  IF(?month_=7,"July",     
+  IF(?month_=8,"August",
+  IF(?month_=9,"September",
+  IF(?month_=10,"October",
+  IF(?month_=11,"November","December"))))))))))) as ?month)
+ 
+}

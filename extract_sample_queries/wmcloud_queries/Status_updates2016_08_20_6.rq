@@ -1,0 +1,18 @@
+#defaultView:BubbleChart
+SELECT ?color ?colorLabel ?rgb ?count
+WHERE
+{
+  {
+    SELECT ?color (COUNT(DISTINCT ?rgb) AS ?count)
+    WHERE
+    {
+      ?color wdt:P31?/wdt:P279* wd:Q1075;
+             wdt:P465 ?rgb.
+    }
+    GROUP BY ?color
+    HAVING(?count > 1)
+  }
+  ?color wdt:P465 ?rgb.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?color

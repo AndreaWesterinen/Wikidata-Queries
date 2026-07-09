@@ -1,0 +1,26 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("100" as ?height) 
+  ("100" as ?width) 
+  ("badges" as ?legend) 
+  ("fontsize:10,offset:5,angle:0" as ?showValues)
+  (GROUP_CONCAT(?badge;separator=",") as ?x)
+  (GROUP_CONCAT(?ct;separator=",") as ?y)
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  { SELECT
+	?badges
+	(COUNT(DISTINCT ?art) as ?ct) 
+	{
+	?art wdt:P1433 wd:Q665807 .
+	?article1 schema:about ?art ; schema:isPartOf <https://de.wikisource.org/> .
+	    OPTIONAL { ?article1 wikibase:badge ?badge1 }
+	    BIND(COALESCE(?badge1, wd:Q89032891) as ?badges)
+	}
+	GROUP BY ?badges
+	ORDER BY DESC(?ct)
+ }
+ ?badges rdfs:label ?badge . FILTER( lang(?badge) = "en") 
+}

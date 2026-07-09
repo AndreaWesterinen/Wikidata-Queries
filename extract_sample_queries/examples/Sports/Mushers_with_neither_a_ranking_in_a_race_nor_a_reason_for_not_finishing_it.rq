@@ -1,3 +1,4 @@
+#title: Mushers with neither a ranking in a race nor a reason for not finishing it
 SELECT DISTINCT ?race ?raceLabel ?musherLabel
 WHERE
 {

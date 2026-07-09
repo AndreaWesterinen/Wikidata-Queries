@@ -1,0 +1,14 @@
+SELECT ?idWD ?idWDLabel
+        (MAX(?indirizzo) as ?indirizzo)
+        (MAX(?coord) as ?coord)
+        (MAX(?commons) as ?commons)
+    WHERE {
+        ?idWD wdt:P131 wd:Q13364 .
+        OPTIONAL { ?idWD wdt:P969 ?indirizzo . }
+        OPTIONAL { ?idWD wdt:P625 ?coord . }
+        OPTIONAL { ?idWD wdt:P373 ?commons . }
+
+        ?idWD wdt:P1435 wd:Q26971668 .
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+    }
+    GROUP BY ?idWD ?idWDLabel

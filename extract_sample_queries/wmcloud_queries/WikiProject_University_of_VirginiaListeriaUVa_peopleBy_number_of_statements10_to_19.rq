@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?sl
+
+(CONCAT("{{Scholia|", ENCODE_FOR_URI(REPLACE(STR(?item), ".*Q", "Q")), "}}") AS ?item_string_resolver)
+WHERE {
+  { ?item ?property wd:Q213439. }
+  UNION
+  {
+    ?item ?property2 ?somevalue.
+    ?somevalue wdt:P361 wd:Q213439.
+  }
+  ?item wdt:P31 wd:Q5.
+  ?item wikibase:statements ?st.
+  ?item wikibase:sitelinks ?sl.
+  ?item rdfs:label ?item_label.
+
+  FILTER(?st < 20)
+  FILTER(?st > 9)
+  FILTER((LANG(?item_label)) = "en")
+}
+
+ORDER BY ASC(?st) ASC(?sl) ?item
+LIMIT 4000

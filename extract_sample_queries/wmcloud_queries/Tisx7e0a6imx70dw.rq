@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?dummy0 ?dummy1 WHERE {
+  ?item wdt:P625 ?dummy0 .
+  ?item wdt:P31 ?dummy1 .
+  OPTIONAL { ?item wdt:P17 ?dummy2 }
+  FILTER(!bound(?dummy2))
+}
+LIMIT 10000
+OFFSET 0

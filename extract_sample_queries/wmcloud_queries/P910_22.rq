@@ -1,0 +1,9 @@
+#title: Items that link to a Commons category
+# Complex constraint from [[Property talk:P910]]
+# These links should be moved to the category item
+SELECT ?item ?categoryitem ?commonscategory WHERE {
+  ?item wdt:P910 ?categoryitem .
+  ?commonscategory schema:about ?item .
+  ?commonscategory schema:isPartOf <https://commons.wikimedia.org/> .
+  FILTER REGEX(STR(?commonscategory), "https://commons.wikimedia.org/wiki/Category:") .
+  } LIMIT 1000

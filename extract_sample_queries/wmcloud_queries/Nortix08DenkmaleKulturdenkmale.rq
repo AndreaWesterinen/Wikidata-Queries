@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription ?st ?sl ?ids
+WHERE
+{
+  ?entity wdt:P1435 wd:Q11691318; wdt:P131* wd:Q1715; FILTER NOT EXISTS{ ?entity wdt:P5816 wd:Q63065035 }. 
+  # MINUS { ?entity wdt:   [] }
+  OPTIONAL { ?entity wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } 
+}

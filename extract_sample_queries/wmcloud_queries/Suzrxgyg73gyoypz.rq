@@ -1,0 +1,24 @@
+# Works created by females died in 1945
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+select distinct ?item ?itemLabel ?creaLabel ?workLabel (year(?date)as ?year)
+where {
+ {?item wdt:P170 ?crea .}        # P170/creator
+ UNION {?item wdt:P50 ?crea .}   # P50/author
+ #UNION {?item wdt:P86 ?crea .}  # P86/composer
+ #UNION {?item wdt:P87 ?crea .}  # P87/librettist
+ #UNION {?item wdt:P110 ?crea .} # P110/illustrator
+ #UNION {?item wdt:P655 ?crea .} # P655/translator
+ #UNION {?item wdt:P676 ?crea .} # P676/lyrics by
+ 
+ ?crea wdt:P21 wd:Q6581072 . # P21/sex or gender - Q6581072/female
+ ?crea wdt:P570 ?time0 .
+ FILTER ( ?time0 >= "1945-01-01T00:00:00Z"^^xsd:dateTime && ?time0 <= "1945-12-31T00:00:00Z"^^xsd:dateTime ) # P570/date of death in 1945
+ OPTIONAL {{?item wdt:P571 ?date} UNION {?item wdt:P577 ?date }} # P571/inception - P571/publication date
+ ?item wdt:P31 ?work
+ SERVICE wikibase:label {
+  bd:serviceParam wikibase:language "en,ar,be,bg,bn,ca,cs,da,de,el,es,et,fa,fi,fr,he,hi,hu,hy,id,it,ja,jv,ko,nb,nl,eo,pa,pl,pt,ro,ru,sh,sk,sr,sv,sw,te,th,tr,uk,yue,vec,vi,zh" #BabelRainbow
+ }
+}ORDER BY ?creaLabel 

@@ -1,0 +1,17 @@
+embed.html##  FILTER(?date < "1801-01-01T00:00:00Z"^^xsd:dateTime)
+#  FILTER(?date > "1440-01-01T00:00:00Z"^^xsd:dateTime)
+SELECT ?image ?date ?book ?bookLabel ?langLabel ?commons ?commonsurl ?collLabel ?place_madeLabel ?creatorLabel ?commLabel WHERE {
+  ?book (wdt:P31/wdt:P279*) wd:Q87167.
+  OPTIONAL { ?book wdt:P571 ?date. }
+  OPTIONAL { ?book wdt:P407 ?lang. }
+  OPTIONAL { ?book wdt:P373 ?commons. }
+  OPTIONAL { ?book wdt:P195 ?coll. }
+  OPTIONAL { ?book wdt:P1071 ?place_made. }
+  OPTIONAL { ?book wdt:P170 ?creator. }
+  OPTIONAL { ?book wdt:P88 ?comm. }
+  OPTIONAL { ?book wdt:P18 ?image. }
+  wd:P373 wdt:P1630 ?formatterurl .
+          BIND(IRI(REPLACE(?commons, '^(.+)$', ?formatterurl)) AS ?commonsurl).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?date ?langLabel

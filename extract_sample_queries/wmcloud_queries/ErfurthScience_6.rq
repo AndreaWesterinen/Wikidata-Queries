@@ -1,0 +1,12 @@
+SELECT ?author ?authorLabel (COUNT(?publication) AS ?count)
+WHERE 
+{
+ ?item wdt:P2860 ?publication .
+ ?publication wdt:P50 ?author .      
+ ?author wdt:P108 wd:Q158158;
+       wdt:P106 wd:Q1622272;
+       
+       wdt:P569 ?born.
+  FILTER (?born >= "1900-01-01T00:00:00Z"^^xsd:dateTime) .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+} GROUP BY ?author ?authorLabel ORDER BY DESC (?count)

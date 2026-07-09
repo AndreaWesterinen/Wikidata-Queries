@@ -1,0 +1,10 @@
+SELECT ?part ?partLabel ?canmore ?named ?osgr 
+WHERE 
+{
+  wd:Q18160231 wdt:P527 ?part.
+  ?part p:P718 ?stat.
+  ?stat ps:P718 ?canmore
+  OPTIONAL { ?stat pq:P1810 ?named . }
+  OPTIONAL { ?stat pq:P613 ?osgr . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

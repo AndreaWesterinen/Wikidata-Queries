@@ -1,3 +1,4 @@
+#title: Movies released in 2017
 SELECT DISTINCT ?item ?itemLabel WHERE {
   ?item wdt:P31 wd:Q11424.
   ?item wdt:P577 ?pubdate.

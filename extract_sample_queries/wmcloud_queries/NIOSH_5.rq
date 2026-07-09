@@ -1,0 +1,11 @@
+#Enhanced NIOSH authors by frequency
+SELECT ?proauthorLabel (COUNT(?item) AS ?count)
+WHERE 
+{
+  ?item wdt:P2880 ?nid.
+  {?item wdt:P50 ?author.} UNION {?item rdf:type wdno:P50.}
+  BIND (IF (isBLANK(?author), "unknown", ?author) AS ?proauthor).
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?proauthorLabel

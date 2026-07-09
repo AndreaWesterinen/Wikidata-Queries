@@ -1,0 +1,9 @@
+#title: Without date of birth and sex or gender data
+# Complex constraint from [[Property talk:P412]]
+#
+SELECT ?item {
+  ?item wdt:P412 [].
+  FILTER NOT EXISTS { ?item wdt:P569 [] }
+  FILTER NOT EXISTS { ?item wdt:P21 [] }
+  ?item wdt:P31 wd:Q5. 
+}

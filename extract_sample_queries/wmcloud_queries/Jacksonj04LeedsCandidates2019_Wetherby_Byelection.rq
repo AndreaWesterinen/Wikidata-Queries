@@ -1,0 +1,8 @@
+SELECT ?item ?ward ?party ?votes
+WHERE 
+{
+  ?item p:P3602 ?ps .
+  ?ps ps:P3602 wd:Q74410389 .
+  OPTIONAL { ?ps pq:P1268 ?party . }
+  OPTIONAL { ?ps pq:P1111 ?votes . }
+}

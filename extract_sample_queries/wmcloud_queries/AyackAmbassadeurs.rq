@@ -1,0 +1,14 @@
+SELECT  (uri(CONCAT(str(?p),strafter(str(?fonction),"y/Q"),str(COALESCE(YEAR(?start),00)))) as ?item) ?p ?fonction ?start ?end ?dob ?age_debut ?dod ?age_deces ?e
+WHERE 
+{
+  ?p p:P39 ?st .
+  ?st ps:P39 ?fonction.
+  OPTIONAL { ?st pq:P580 ?start }
+  OPTIONAL { ?st pq:P582 ?end }
+  OPTIONAL { ?p wdt:P569 ?dob }  FILTER NOT EXISTS { ?p wdt:P569 ?dob2 . FILTER( ?dob2 < ?dob) }
+  OPTIONAL { ?p wdt:P570 ?dod }  FILTER NOT EXISTS { ?p wdt:P570 ?dod2 . FILTER( ?dod2 > ?dod) }
+  BIND( YEAR(?start) - YEAR(?dob) as ?age_debut)
+  BIND( YEAR(?dod) - YEAR(?dob) as ?age_deces)
+  ?fonction wdt:P31 wd:Q28061729.
+  OPTIONAL { ?fonction wdt:P17 ?c . ?c p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?e ] . FILTER(?c != wd:Q142) }
+}

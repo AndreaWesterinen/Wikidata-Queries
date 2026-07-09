@@ -1,0 +1,6 @@
+SELECT ?item WHERE {
+SERVICE wikibase:around {
+      ?item wdt:P625 ?item_location .
+      bd:serviceParam wikibase:center "Point(18.070531 59.324995)"^^geo:wktLiteral .
+      bd:serviceParam wikibase:radius "4" .
+} }

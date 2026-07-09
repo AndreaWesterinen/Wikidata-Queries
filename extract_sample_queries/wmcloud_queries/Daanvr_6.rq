@@ -1,0 +1,18 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?itemDescription ?image (SAMPLE(?geo) AS ?geo) (SAMPLE(?pic) AS ?pic) (SAMPLE(?picAlbum) AS ?picAlbum) (SAMPLE(?article) AS ?article) WHERE {
+  ?item (wdt:P31/(wdt:P279*)) wd:Q328468.
+  #MINUS { ?item wdt:P625 ?geo. }
+  OPTIONAL { ?item wdt:P625 ?geo. }
+  OPTIONAL { ?item wdt:P18 ?pic. }
+  OPTIONAL { ?item wdt:P373 ?picAlbum. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?itemLabel;
+      schema:description ?itemDescription.
+  }
+  OPTIONAL {
+    ?article schema:about ?item;
+      schema:isPartOf <https://en.wikipedia.org/>.
+  }
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?image

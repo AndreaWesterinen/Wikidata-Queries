@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?itemLabel ?sitelink {
+  
+  VALUES ?searchTerm { "water" } SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "EntitySearch".
+    bd:serviceParam wikibase:endpoint "www.wikidata.org".
+    bd:serviceParam wikibase:limit 10 .
+    bd:serviceParam mwapi:search ?searchTerm.
+    bd:serviceParam mwapi:language "en".
+    ?item wikibase:apiOutputItem mwapi:item. ?num wikibase:apiOrdinal true.
+  }.
+  ?item (wdt:P279|wdt:P31)
+
+  # How to filter OUT the Wikidata entities with a sitelink to the English Wikipedia?
+
+  # some notes:
+  # FILTER(NOT EXISTS { ?article schema:isPartOf <https://en.wikipedia.org/>. }
+  # ?article schema:about ?item; 
+  # schema:isPartOf <https://en.wikipedia.org/> .
+  # ?item wikibase:wikiGroup "wikipedia".
+
+  ?type SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?searchTerm ?num

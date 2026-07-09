@@ -1,0 +1,10 @@
+SELECT ?pmid ?item #?itemLabel
+WHERE
+{
+  ?item wdt:P698 ?pmid.
+  MINUS {?item rdfs:label ?itemLabel 	filter(lang(?itemLabel) = "en")}
+  FILTER(!BOUND(?itemLabel))
+  FILTER NOT EXISTS { ?item wdt:P1476 ?title }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+#LIMIT 200

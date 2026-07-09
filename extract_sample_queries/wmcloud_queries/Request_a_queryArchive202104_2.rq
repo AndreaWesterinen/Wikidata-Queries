@@ -1,0 +1,10 @@
+# Forms of nouns in German
+# Based on a query by Uziel302
+SELECT ?lexemeId ?lemma ?form ?word ?grammatikalisches_Geschlecht ?grammatikalisches_GeschlechtLabel WHERE {
+  ?lexemeId dct:language wd:Q188;
+    wikibase:lexicalCategory wd:Q1084;
+    wikibase:lemma ?lemma;
+    ontolex:lexicalForm ?form.
+  ?form ontolex:representation ?word.
+  OPTIONAL { ?lexemeId wdt:P5185 ?grammatikalisches_Geschlecht. }
+}

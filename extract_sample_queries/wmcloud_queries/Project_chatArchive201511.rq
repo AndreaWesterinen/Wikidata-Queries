@@ -1,0 +1,23 @@
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?item ?itemLabel (COUNT(DISTINCT ?sitelink) as ?numberoflinks) WHERE {
+   ?item wdt:P31 wd:Q5 .
+   ?item wdt:P21 wd:Q6581072 .
+   ?item wdt:P569 ?date .
+   # ***********
+   # * v This line controls which profession is targeted. Replace the "Q1028181" with whatever item id.
+   ?item wdt:P106 wd:Q1028181 .
+   FILTER (?date < "1800-01-01T00:00:00Z"^^xsd:dateTime)
+   OPTIONAL { ?sitelink schema:about ?item . }
+   FILTER NOT EXISTS {
+     ?wfr schema:about ?item . 
+     ?wfr schema:inLanguage "en" 
+   }
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+   }
+ } GROUP BY ?item ?itemLabel ORDER BY DESC(?numberoflinks)

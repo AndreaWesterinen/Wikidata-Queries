@@ -1,0 +1,12 @@
+# by So9q, 2019-11-22
+# Total population in Øresund Region
+# Example of the SUM aggregate function
+SELECT distinct (sum(?folkm_ngd) as ?total_folkm) 
+WHERE {
+  ?item wdt:P361 wd:Q297853.
+  ?item wdt:P1082 ?folkm_ngd. 
+  ?area wdt:P31 wd:Q1907114.
+  ?area wdt:P527 ?item.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+group by ?area ?areaLabel

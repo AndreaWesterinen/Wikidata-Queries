@@ -1,8 +1,8 @@
-# ----
-#Concise list & map of the 355 Dutch municipalities, their geo coordinates and their provinces, per 1-1-2019
-#See also:
-#https://almanak.overheid.nl/organisaties/Gemeenten/ - 355 in aantal
-#https://nl.wikipedia.org/wiki/Lijst_van_Nederlandse_gemeenten - 355 in aantal
+#title: Map and list of municipalities in The Netherlands
+# Concise list & map of the 355 Dutch municipalities, their geo coordinates and their provinces, per 1-1-2019
+# See also:
+# - https://almanak.overheid.nl/organisaties/Gemeenten/ - 355 in aantal
+# - https://nl.wikipedia.org/wiki/Lijst_van_Nederlandse_gemeenten - 355 in aantal
 
 #defaultView:Map
 SELECT ?muni ?muniLabel ?location where {

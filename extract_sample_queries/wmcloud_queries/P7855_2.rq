@@ -1,0 +1,24 @@
+#Number of items/statements using qualifer P7855 for each property
+#added 2016-02-24 by Jura1
+
+SELECT ?property ?propertyLabel ?items ?statements
+WHERE
+{
+  {
+    SELECT ?property (COUNT(DISTINCT(?item)) as ?items) (COUNT(?value) as ?statements)
+    WHERE
+    {
+        ?prop pq:P7855 ?qualifierP7855value .
+        hint:Query hint:optimizer "None" .
+      ?item ?p ?prop .
+      ?property wikibase:claim ?p .
+        ?property wikibase:statementProperty ?ps .
+        ?prop ?ps ?value .
+    }
+    GROUP BY ?property
+    ORDER BY DESC(?items) DESC(?statements)
+    LIMIT 25
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+ORDER BY DESC(?items) DESC(?statements)

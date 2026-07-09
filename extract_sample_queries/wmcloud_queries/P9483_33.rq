@@ -1,0 +1,14 @@
+#title:Count of items with P9483 by number of statements
+#defaultView:AreaChart
+SELECT ?st ?ct {
+  {
+    BIND (0 AS ?ct)
+    BIND (0 AS ?st)
+  }
+  UNION {
+    SELECT ?st (COUNT(*) as ?ct) {
+      ?item wdt:P9483 ?value ; wikibase:statements ?st
+    }
+    GROUP BY ?st ORDER BY ?st
+  }
+}

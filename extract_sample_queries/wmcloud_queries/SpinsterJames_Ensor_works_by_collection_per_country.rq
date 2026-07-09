@@ -1,0 +1,5 @@
+SELECT ?item ?collection ?country WHERE {
+  ?item wdt:P170 wd:Q158840.
+  OPTIONAL { ?item wdt:P195 ?collection. }
+  OPTIONAL { ?collection wdt:P17 ?country. }
+}

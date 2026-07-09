@@ -1,0 +1,18 @@
+#Any type of building in Bologna with WP articles in [English OR Italian] AND NOT French
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+  
+    ?item wdt:P31/wdt:P279* wd:Q41176 ;
+          wdt:P131 wd:Q1891.
+
+   {?article schema:about ?item ;
+             schema:isPartOf <https://en.wikipedia.org/> .}
+UNION
+    {?article2 schema:about ?item ;
+              schema:isPartOf <https://it.wikipedia.org/>. }
+MINUS {?article3 schema:about ?item;
+                 schema:isPartOf <https://fr.wikipedia.org/>. }
+
+SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,it" }
+}
+ORDER BY (?itemLabel)

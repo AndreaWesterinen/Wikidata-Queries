@@ -1,4 +1,4 @@
-# ----
+#title: Countries that have adopted a cryptocurrency as legal tender
 # Countries that have adopted a cryptocurrency as legal tender
 SELECT ?country ?countryLabel ?currency ?currencyLabel
 WHERE

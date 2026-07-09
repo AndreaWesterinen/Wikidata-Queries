@@ -1,0 +1,5 @@
+select ?item where {
+?item p:P1399 ?statement
+optional { ?statement prov:wasDerivedFrom/pr:P143 ?val }
+filter (bound(?val))
+}

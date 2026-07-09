@@ -1,0 +1,10 @@
+SELECT 
+   (wd:Q847 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   ("[[Property:P1269|facet of]]" as ?type)
+("{{{level}}}" as ?level)
+("{{{descr}}}" as ?descr)
+WHERE
+{ 
+   { ?t wdt:P31/wdt:P279 wd:Q13219666 } UNION { ?t wdt:P31 wd:Q47345468 }  UNION { ?t ( wdt:P31

@@ -1,0 +1,16 @@
+# languages where some lexemes have more than one grammatical gender
+SELECT ?language ?languageLabel (COUNT(?lexeme) AS ?count)
+WITH {
+  SELECT ?lexeme WHERE {
+    ?lexeme p:P5185 ?genderStatement.
+  }
+  GROUP BY ?lexeme
+  HAVING(COUNT(?genderStatement) > 1)
+} AS %lexemesWithMultipleGenders
+WHERE {
+  INCLUDE %lexemesWithMultipleGenders.
+  ?lexeme dct:language ?language.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?language ?languageLabel
+ORDER BY DESC(?count)

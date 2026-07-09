@@ -1,0 +1,13 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#Nascuts abans del 1880 amb article a :ca i sense data de mort
+SELECT ?h ?label ?date WHERE {
+  ?h wdt:P31 wd:Q5.
+  ?h wdt:P569 ?date.
+  OPTIONAL { ?h wdt:P570 ?d. }
+  ?h rdfs:label ?label.
+  FILTER(?date < "1880-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(!BOUND(?d))
+  FILTER((LANG(?label)) = "en")
+}
+LIMIT 10000

@@ -1,0 +1,5 @@
+select ?value ?valueLabel (count(distinct ?ps) as ?uses) where
+{
+?item p:P18 ?ps . ?ps pq:P3831 ?value .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+} group by ?value ?valueLabel

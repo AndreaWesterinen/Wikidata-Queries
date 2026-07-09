@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?alias ?newLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q55488. 
+  ?item wdt:P17 wd:Q145.
+  ?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="en")
+  filter(strends(?itemLabel,"railway station"))
+  BIND(REPLACE(?itemLabel," railway station"," station") as ?newLabel )
+  BIND(REPLACE(?itemLabel," railway station"," Station") as ?newLabel2 )
+
+  filter not exists {?item skos:altLabel ?newLabel. filter(lang(?newLabel)="en")}
+  filter not exists {?item skos:altLabel ?newLabel2. filter(lang(?newLabel2)="en")}
+  optional {?item skos:altLabel ?alias. filter(lang(?alias)="en")}
+
+
+}

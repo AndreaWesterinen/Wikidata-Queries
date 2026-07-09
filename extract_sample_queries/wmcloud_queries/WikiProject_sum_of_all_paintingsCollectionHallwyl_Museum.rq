@@ -1,0 +1,9 @@
+SELECT ?item ?acq WHERE {
+  ?item wdt:P195 wd:Q4346239 .
+  ?item wdt:P31 wd:Q3305213 .
+OPTIONAL {
+    ?item p:P195 ?collstmt.
+    ?collstmt pq:P580 ?acq;
+      ps:P195 wd:Q4346239.
+  }
+  } LIMIT 1000

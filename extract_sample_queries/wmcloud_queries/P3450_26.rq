@@ -1,0 +1,7 @@
+#title: Value shouldn't be a disambiguation page
+# Complex constraint from [[Property talk:P3450]]
+# TODO: change value
+SELECT DISTINCT ?item ?value WHERE {
+  ?item wdt:P3450 ?value .
+  ?value  wdt:P31 wd:Q4167410 .
+} LIMIT 100

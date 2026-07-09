@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?office ?person 
+WITH {
+  SELECT DISTINCT ?item ?office 
+  WHERE {     
+    ?office wdt:P1001 ?item ; wdt:P279* wd:Q2285706 .
+  }
+} AS %hog_offices
+WHERE {     
+  INCLUDE %hog_offices .
+  ?person wdt:P31 wd:Q5; p:P39 ?ps .
+  ?ps ps:P39 ?office ; pq:P580 [] .
+  ?item wdt:P31 wd:Q3624078 . 
+  FILTER NOT EXISTS { ?ps pq:P582 [] }
+}

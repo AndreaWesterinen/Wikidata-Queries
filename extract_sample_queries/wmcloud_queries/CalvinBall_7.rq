@@ -1,0 +1,13 @@
+#I want to answer the lexicographical question: are feminine words, in general, longer or shorter than masculine words? 
+#feminine gender: wd:Q1775415
+#masculine gender: wd:Q499327
+# most common grammatical genders
+SELECT ?female ?len WHERE {
+  ?female a ontolex:LexicalEntry;
+              wdt:P5185 wd:Q1775415;
+              wikibase:lemma ?word.
+   BIND(strlen(?word) as ?len)  
+ # ?male a ontolex:LexicalEntry;
+    #          wdt:P5185 wd:Q499327.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  } 

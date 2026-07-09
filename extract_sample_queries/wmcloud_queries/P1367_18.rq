@@ -1,0 +1,10 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P1367]]
+# List of works that have [[Property:P1679|Art UK artwork ID&#32;<small dir="ltr">(P1679)</small>]] set, but that creator doesn't have a [[Property:P1367|Art UK artist ID&#32;<small dir="ltr">(P1367)</small>]] link
+SELECT ?item ?creator WHERE {
+	?item wdt:P1679 [] .
+    ?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P1367 [] } .
+    MINUS { ?item wdt:P170 wd:Q4233718 } . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl" }
+} ORDER BY ?creatorLabel

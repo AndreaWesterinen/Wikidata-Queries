@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item {
+  ?item wdt:P31 wd:Q5 ; p:P39 [ ps:P39 [wdt:P279* wd:Q21100241] ] . 
+  FILTER NOT EXISTS { ?item wdt:P19 [] } .
+}

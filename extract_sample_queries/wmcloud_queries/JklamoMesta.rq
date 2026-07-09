@@ -1,0 +1,21 @@
+SELECT ?item ?population ?normalizedarea ?hustota ?date ?itemlink ?starlink
+WHERE
+{
+    ?item p:P31 ?neco .
+    ?neco ps:P31 wd:Q15978299 .
+    ?item wdt:P17 wd:Q213 . 
+    ?item wdt:P1082 ?population.
+    MINUS { ?neco pq:P582 ?dummy0 }
+    OPTIONAL { ?item rdfs:label ?item_label . FILTER(lang(?item_label) = "cs") . BIND(CONCAT("[[",strafter(str(?item),"y/"),"|",str(?item_label),"]]") as ?itemlink) } .   
+    ?item p:P2046 [ psn:P2046 [ wikibase:quantityAmount ?normalizedSuperficie; wikibase:quantityUnit ?normalizedUnit ] ] .
+    ?item p:P2046 [ psv:P2046 [ wikibase:quantityAmount ?originalSuperficie; wikibase:quantityUnit ?originalUnit ] ] .
+    OPTIONAL {  
+    ?item p:P6 ?star .
+    ?star a wikibase:BestRank .  
+    ?star pq:P580 ?date 
+    MINUS { ?star pq:P582 [] } } .
+    OPTIONAL { ?item wdt:P6 ?staro . ?staro rdfs:label ?star_label . FILTER(lang(?star_label) = "cs") . BIND(CONCAT("[[",strafter(str(?staro),"y/"),"|",str(?star_label),"]]") as ?starlink) } . 
+    BIND(?normalizedSuperficie/1000000 AS ?normalizedarea) .
+    BIND(?population / ?normalizedarea AS ?hustota ) .
+}
+ORDER BY DESC(?population)

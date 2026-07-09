@@ -1,0 +1,8 @@
+SELECT ?item ?nr_s ?delabel WHERE {
+  ?item wdt:P31 wd:Q21191270.
+  ?item p:P179 ?series_statement.
+  ?series_statement ps:P179 wd:Q708661.
+  ?series_statement pq:P1545 ?nr_s.
+  ?item rdfs:label ?delabel.
+  FILTER((LANG(?delabel)) = "de")  
+} ORDER BY xsd:integer(?nr_s)

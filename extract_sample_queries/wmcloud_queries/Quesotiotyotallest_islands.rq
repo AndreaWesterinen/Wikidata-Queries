@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?peak ?peakLabel ?height
+{
+    {?item wdt:P31 wd:Q23442 .} UNION {?item wdt:P31/wdt:P279 wd:Q23442 .}
+     ?item wdt:P610 ?peak .
+     ?peak p:P2044 ?state .
+     ?state psn:P2044 / wikibase:quantityAmount ?m .
+     BIND(ROUND(?m) AS ?height)
+     MINUS{?state wikibase:rank wikibase:DeprecatedRank .}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY DESC (?height) LIMIT 50

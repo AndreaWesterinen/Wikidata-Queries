@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?incept ?architect ?NHLE ?style WHERE {
+  ?item wdt:P31 wd:Q543654.
+  ?item wdt:P17 wd:Q145.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  OPTIONAL { ?item wdt:P571 ?incept. }
+  OPTIONAL { ?item wdt:P84 ?architect. }
+  OPTIONAL { ?item wdt:P1216 ?NHLE. }
+  OPTIONAL { ?item wdt:P149 ?style. }
+} ORDER BY ?itemLabel

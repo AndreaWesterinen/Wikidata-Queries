@@ -1,0 +1,5 @@
+select ?item ?num ?lemma ?lexeme ?lang ?cat {
+  ?item wikibase:lemma ?lemma .
+  bind(xsd:integer(strafter(str(?item),"L")) as ?num)
+    filter (?num <= 1000)
+  bind (concat("[","[Lexeme:L", strafter(str(?item),"L"),"

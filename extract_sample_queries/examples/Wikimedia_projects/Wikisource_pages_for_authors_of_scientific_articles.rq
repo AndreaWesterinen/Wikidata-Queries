@@ -1,7 +1,6 @@
-# ----
+#title: Wikisource pages for authors of scientific articles, ordered by Wikisource language
 #  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
 
-#Wikisource pages for authors of scientific articles, ordered by Wikisource language
 #added in 2017-09; updated 2025-08
 SELECT DISTINCT ?author ?wikisourceSitelink ?wikisourceLanguage WHERE {
   hint:Query hint:optimizer "None" .      

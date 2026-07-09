@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  {?item wdt:P170 wd:Q47496. }
+  UNION
+  {?item wdt:P170 wd:Q29939705. }
+  UNION
+  {?item wdt:P57 wd:Q47496. }
+  UNION
+  {?item wdt:P57 wd:Q29939705. }
+  UNION
+  {?item wdt:P161 wd:Q47496. }
+  UNION
+  {?item wdt:P161 wd:Q29939705. }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+}

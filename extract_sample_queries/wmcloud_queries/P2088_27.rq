@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P2088/ps:P2088 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https://www\\.crunchbase\\.com)?/?organization/([^A-Z /]+))$") )
+}

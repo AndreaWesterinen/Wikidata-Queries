@@ -1,0 +1,6 @@
+SELECT ?item ?cc1 ?cc2 WHERE {
+  ?item wdt:P31 wd:Q6979593 .
+  ?item wdt:P2094 ?cc1 .
+  ?item wdt:P2094 ?cc2 .
+  FILTER(?cc1 != ?cc2) .
+}

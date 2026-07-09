@@ -1,0 +1,26 @@
+SELECT DISTINCT ?item ?Template ?Wikigroup ?LanguageCode
+
+(REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  (CONCAT(
+   "{",    "{Q",    "|", 
+    ?qid,    "}",    "}"
+   ) AS ?WikiItem)
+
+  (CONCAT(
+   "[[:m:", ?Wikigroup , ":", ?LanguageCode, ":", ?TemplateTitle,  "|", ?TemplateTitle, "]]"
+   ) AS ?TemplateLink)
+
+WHERE {
+  {VALUES ?Template {
+    wd:Q55622789 
+    }
+  }
+
+  ?TemplateURL schema:about ?Template;
+               schema:inLanguage ?LanguageCode ;
+               schema:isPartOf ?wikilang ; 
+               schema:isPartOf [ wikibase:wikiGroup ?Wikigroup ] ; 
+               schema:name ?TemplateTitle.
+  ?item wdt:P856 ?wikilang.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

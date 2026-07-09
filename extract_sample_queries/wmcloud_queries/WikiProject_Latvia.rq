@@ -1,0 +1,7 @@
+SELECT ?item ?labelLV ?labelFR WHERE {
+ ?item wdt:P31 wd:Q484170 .
+ ?item rdfs:label ?labelLV
+        filter(str(?labelLV) = str(?labelFR) && lang(?labelLV) = 'lv' && lang(?labelFR) = 'fr').
+ ?item rdfs:label ?labelFR
+}
+LIMIT 50

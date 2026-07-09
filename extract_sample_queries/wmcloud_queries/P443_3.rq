@@ -1,0 +1,12 @@
+#title: Qualifier P407 missing (filename starts with code)
+# Complex constraint from [[Property talk:P443]]
+# add qualifier (simple)
+SELECT ?item ?file
+{
+	?item wdt:P443 ?value .
+    MINUS { ?item p:P443 [ pq:P407 [] ] }
+    MINUS { ?item rdf:type [] }
+    BIND(replace(wikibase:decodeUri(SUBSTR(STR(?value), 52)),"_"," ") AS ?file)  
+    FILTER ( REGEX( ?file, "^[A-Z][a-z]-.+$")  )
+}
+LIMIT 100

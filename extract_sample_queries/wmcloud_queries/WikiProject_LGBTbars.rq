@@ -1,0 +1,5 @@
+SELECT ?item ?country WHERE {
+  ?item wdt:P31 wd:Q1043639;
+        wdt:P17 ?country.
+  OPTIONAL { ?item wdt:P131 [wdt:P17 ?country] } 
+}

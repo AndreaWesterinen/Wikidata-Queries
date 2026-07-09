@@ -1,5 +1,4 @@
-# ----
-# Make a list of the most used authority control properties for people for painters
+#title: Make a list of the most used authority control properties for people for painters
 SELECT ?propertyLabel ?propertyDescription ?count WHERE {
   {
     SELECT ?propertyclaim (COUNT(*) AS ?count) where {

@@ -1,0 +1,10 @@
+# cited articles Prof. Voit
+SELECT ?pub ?pubLabel (COUNT(DISTINCT ?citedby) as ?count)
+WHERE
+{ 
+    ?citedby wdt:P2860 ?pub .  
+    ?pub wdt:P50 wd:Q21256003 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?pub ?pubLabel
+ORDER BY DESC(?count) LIMIT 55

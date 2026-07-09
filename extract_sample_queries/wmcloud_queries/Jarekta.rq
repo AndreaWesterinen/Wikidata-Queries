@@ -1,0 +1,13 @@
+SELECT ?item  ?Len ?KDM WHERE { 
+ ?item wdt:P170 wd:Q381238 .  
+ MINUS{ ?item wdt:P31 wd:Q3658341 .}
+ MINUS{ ?item wdt:P31 wd:Q125191.}
+ MINUS{ ?item wdt:P31 wd:Q15709879 .}
+ MINUS{ ?item wdt:P18 [] .}
+ optional{ ?item p:P528 [ pq:P972 wd:Q106425660; ps:P528 ?KDM] . }
+
+ OPTIONAL {
+   ?item rdfs:label ?Len
+   FILTER((LANG(?Len)) = "en")
+ }
+}

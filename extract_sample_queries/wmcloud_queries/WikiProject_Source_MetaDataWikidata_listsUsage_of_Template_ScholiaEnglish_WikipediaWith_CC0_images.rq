@@ -1,0 +1,36 @@
+SELECT DISTINCT ?item ?image
+WITH {
+  SELECT ?cc0Title WHERE {
+    ?link schema:about/^wdt:P910 wd:Q6938433;
+          schema:isPartOf <https://commons.wikimedia.org/>;
+          schema:name ?cc0Title.
+  }
+} AS %cc0Title
+WITH {
+  SELECT ?item WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org";
+                      wikibase:api "Generator";
+                      mwapi:generator "search";
+                      mwapi:gsrsearch "hastemplate:Scholia";
+                      mwapi:gsrlimit "max";
+                      wikibase:limit 300 .
+      ?item wikibase:apiOutputItem mwapi:item.
+    }
+  }
+} AS %items
+WHERE {
+  hint:SubQuery hint:optimizer "None".
+  INCLUDE %items.
+  ?item wdt:P18 ?image.
+  BIND(REPLACE(wikibase:decodeUri(CONCAT("File:", STRAFTER(STR(?image), "/wiki/Special:FilePath/"))), " ", "_") AS ?imageTitle)
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Categories";
+                    wikibase:endpoint "commons.wikimedia.org";
+                    mwapi:titles ?imageTitle.
+    ?categoryTitle wikibase:apiOutput mwapi:category.
+  }
+  INCLUDE %cc0Title.
+  FILTER(STR(?categoryTitle) = STR(?cc0Title))
+  FILTER(?item NOT IN (wd:wd:Q8613, wd:Q8567, wd:Q970550))
+}

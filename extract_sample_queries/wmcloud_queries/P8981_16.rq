@@ -1,0 +1,21 @@
+#title: Globes to check
+# Complex constraint from [[Property talk:P8981]]
+# Globe should be Q405
+SELECT ?item ?itemLabel ?globe ?globeLabel ?lat ?lon
+WITH
+{
+  SELECT ?st ?stv ?globe
+  {
+    ?st psv:P8981 ?stv .
+    FILTER NOT EXISTS { ?stv wikibase:geoGlobe wd:Q405 }
+    ?stv wikibase:geoGlobe ?globe
+  }
+} as %coor
+WHERE
+{
+  INCLUDE %coor
+  ?stv wikibase:geoLatitude ?lat .
+  ?stv wikibase:geoLongitude ?lon .
+  ?item p:P8981 ?st     
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }        
+}

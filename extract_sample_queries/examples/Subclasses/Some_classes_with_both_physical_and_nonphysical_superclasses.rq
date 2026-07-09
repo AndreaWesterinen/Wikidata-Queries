@@ -1,4 +1,4 @@
-# ----
+#title: Some classes with both physical and non-physical super-classes
 # This gives a list of classes whose super-classes include both "physical entity" and "non-physical entity".
 # One of these is, presumably, in error.
 # Due to timeouts, it is necessary to explicitly limit the depth.

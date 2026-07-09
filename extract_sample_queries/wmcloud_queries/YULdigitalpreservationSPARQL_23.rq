@@ -1,0 +1,12 @@
+SELECT ?fileformat ?fileformatLabel 
+
+WHERE {
+  ?fileformat wdt:P31 wd:Q235557 .
+  
+ FILTER NOT EXISTS { ?fileformat p:P1195 ?fileextension }
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

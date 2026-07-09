@@ -1,0 +1,23 @@
+#title: Missing international league/tournament
+# Complex constraint from [[Property talk:P4790]]
+# All players with this property should have played in one of the leagues or cups included in Basketball-Reference.com's international section
+SELECT ?item
+{
+  ?item wdt:P4790 ?value .
+  OPTIONAL {
+    VALUES ?leagues { wd:Q1126104 wd:Q15062840 wd:Q929124 wd:Q29274 wd:Q185982 wd:Q456092 wd:Q427823 wd:Q1073722 }
+    ?item wdt:P118 ?leagues.
+    BIND(wdt:P118 AS ?rel)
+  }
+  OPTIONAL {
+    ?item wdt:P1344 ?tourn.
+    ?tourn wdt:P31 wd:Q159821.
+    BIND(wdt:P1344 AS ?rel)
+  }
+  OPTIONAL {
+    ?item wdt:P1344 ?season.
+    ?season wdt:P3450 wd:Q26001.
+    BIND(wdt:P1344 AS ?rel)
+  }
+  FILTER(!BOUND(?rel))
+}

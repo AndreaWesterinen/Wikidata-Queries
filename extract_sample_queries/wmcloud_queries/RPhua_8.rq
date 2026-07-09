@@ -1,0 +1,11 @@
+#bubble chart of councils with library buildings in New South Wales
+#defaultView:BubbleChart
+SELECT ?councilLabel (COUNT(?item) AS ?count)
+WHERE {
+  ?item wdt:P31 wd:Q856584; 
+        wdt:P131 ?council.
+  ?council wdt:P131 wd:Q3224.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}
+}
+GROUP BY ?councilLabel
+ORDER BY DESC(?count)

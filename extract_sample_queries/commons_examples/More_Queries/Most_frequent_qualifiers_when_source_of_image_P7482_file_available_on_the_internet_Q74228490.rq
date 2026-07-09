@@ -1,0 +1,34 @@
+# # Most frequent qualifier properties when "source of image" (P7482) = "file available on the internet" (Q74228490) 
+#  based on sample of 100,000 such images
+SELECT ?count ?qualifier ?qualifier_label ?example ?example_value ?example_value_label
+
+WITH {
+  SELECT ?file ?source_stmt WHERE {
+     service bd:sample {
+       ?source_stmt ps:P7482 wd:Q74228490 .
+        bd:serviceParam bd:sample.limit 100000 .
+        bd:serviceParam bd:sample.sampleType "RANDOM" .
+     } 
+     ?file p:P7482 ?source_stmt .
+  } 
+}  AS %files
+
+WITH {
+  SELECT (COUNT(DISTINCT(?file)) AS ?count) ?qualifier (SAMPLE(?file) AS ?example) (SAMPLE(?value) AS ?example_value) WHERE {
+     INCLUDE %files .
+     ?file p:P7482 ?source_stmt . 
+     ?source_stmt ?qualifier ?value .
+  } GROUP BY ?qualifier
+  ORDER BY DESC(?count)
+  LIMIT 200                      
+} AS %source_info
+ 
+WHERE {
+  INCLUDE %source_info .
+  service <https://query.wikidata.org/sparql> {
+    ?qualifier ^wikibase:qualifier ?qual_item . 
+    OPTIONAL {?qual_item rdfs:label ?qualifier_label FILTER (lang(?qualifier_label) = 'en') } .
+    OPTIONAL {?example_value rdfs:label ?example_value_label FILTER (lang(?example_value_label) = 'en') } .
+  }
+}
+ORDER BY DESC(?count)

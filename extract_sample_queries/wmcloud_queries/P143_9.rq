@@ -1,0 +1,9 @@
+SELECT (COUNT(*) AS ?cnt) WITH {
+  SELECT DISTINCT ?refNode WHERE {
+    ?refNode pr:P143 ?item .
+    MINUS { ?item wdt:P31/wdt:P279* wd:Q14827288 }
+  }
+} AS %s WHERE {
+  INCLUDE %s .
+  [] prov:wasDerivedFrom ?refNode .
+}

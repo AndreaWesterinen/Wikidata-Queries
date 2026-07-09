@@ -1,0 +1,12 @@
+#title: Commons sitelinks different from P373 property
+# Complex constraint from [[Property talk:P373]]
+# Items with sitelinks linking to a different category than the property
+SELECT DISTINCT ?item {
+  ?item wdt:P373 ?ccat;
+        ^schema:about [
+          schema:isPartOf/^wdt:P856 wd:Q565;
+          schema:name ?name
+        ] .
+  FILTER ( STRSTARTS( STR( ?name ), 'Category:' ) ) .
+  FILTER ( STRAFTER( STR( ?name ), 'Category:' ) != ?ccat ) .
+} LIMIT 7000

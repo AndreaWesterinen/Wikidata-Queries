@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription 
+WHERE
+{ 
+  ?item wdt:P31 wd:Q11424. ?item wdt:P577 ?publication_date. FILTER(YEAR(?publication_date) = 2015)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de,ru,fr,es,it,ja,zh" }
+}
+LIMIT 100

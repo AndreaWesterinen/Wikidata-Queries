@@ -1,0 +1,22 @@
+# Wikidata items for concepts that have a MeSH Descriptor ID (P486) and a Disease Ontology ID (P699)
+# and optionally a Wikidata label in English and Swahili
+# sorted by number of Wikimedia sitelinks for the concept
+
+SELECT 
+  DISTINCT ?item 
+  (CONCAT("[[d:Special:EntityPage/", REPLACE(STR(?ITEM), ".*Q", "Q"), "|", REPLACE(STR(?ITEM), ".*Q", "Q"), "]]&nbsp;[[File:Scholia logo.svg|10px|<span dir="ltr" lang="en">View profile on Scholia</span>|link=//scholia.toolforge.org/", REPLACE(STR(?item), ".*Q", "Q"), "]]") AS ?q)
+  ?English ?Hindi ?Swahili
+  ?sitelinks 
+
+WHERE {
+  ?item wdt:P486 [] .  
+  ?item wdt:P699 [] .  
+  ?item wikibase:sitelinks ?sitelinks .
+
+  OPTIONAL { ?item rdfs:label ??English filter (lang(?English) = "en") . }
+
+   { ?item rdfs:label ?Hindi filter (lang(?Hindi) = "hi") . }
+  UNION { ?item rdfs:label ?Swahili filter (lang(?Swahili) = "sw") . }
+  FILTER (?sitelinks > 25)
+}
+ORDER BY DESC(?sitelinks)

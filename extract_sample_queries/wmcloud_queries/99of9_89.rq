@@ -1,0 +1,10 @@
+SELECT distinct ?item ?itemLabel WHERE {
+  { ?item wdt:P361* wd:Q2329 .}
+  union
+  { ?item wdt:P361/wdt:P279* wd:Q2329 .}
+  union
+  { ?item wdt:P921/wdt:P279* wd:Q2329 .}
+  
+  #OPTIONAL { ?item wdt:P361 ?linkTo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

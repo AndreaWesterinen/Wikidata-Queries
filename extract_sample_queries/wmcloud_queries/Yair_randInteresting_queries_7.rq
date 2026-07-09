@@ -1,0 +1,72 @@
+#defaultView:Graph
+SELECT distinct ?parent ?parentLabel ?child ?childLabel ?edgeLabel
+WITH {
+  # Get a list of all items linked by sameas.
+  SELECT ?parent (GROUP_CONCAT( distinct( ?parentLabel ); separator=" / " ) AS ?parentLabel ) WHERE {
+    {SELECT distinct (MIN( ?_parent ) AS ?parent) WHERE {
+      ?_parent ( p:P460 | ^ps:P460 ) [ ( ^p:P460 | ps:P460 ) ?blank; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ].
+    } GROUP BY ?parent ?blank}
+    ?_parent ( p:P460 | ^ps:P460 ) [ ( ^p:P460 | ps:P460 ) ?parent; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ];
+    rdfs:label ?parentLabel FILTER( LANG( ?parentLabel ) = 'he' ) .
+  } GROUP BY ?parent } AS %linkedquery
+WITH {
+  SELECT ?child (GROUP_CONCAT( distinct( ?childLabel ); separator=" / " ) AS ?childLabel ) WHERE {
+    {SELECT distinct (MIN( ?_child ) AS ?child) WHERE {
+      ?_child ( p:P460 | ^ps:P460 ) [ ( ^p:P460 | ps:P460 ) ?blank; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ].
+    } GROUP BY ?child ?blank}
+    ?_child ( p:P460 | ^ps:P460 ) [ ( ^p:P460 | ps:P460 ) ?child; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ];
+    rdfs:label ?childLabel FILTER( LANG( ?childLabel ) = 'he' ) .
+  } GROUP BY ?child } AS %linkedquery2
+WHERE {
+
+  VALUES ( ?p ?edgeLabel ) {
+    ( p:P40 UNDEF )
+    ( p:P802 'student' )
+    ( p:P39 'successor' )
+  }
+  ?person ?p [ ( ps:P40 | ps:P802 | pq:1366 ) ?person2; prov:wasDerivedFrom / pr:P248 / wdt:P4230 [] ] .
+
+  {
+    INCLUDE %linkedquery .
+    ?person p:P460 [ ps:P460 ?parent; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ] .
+  } UNION {
+    INCLUDE %linkedquery .
+    BIND( ?parent AS ?person )
+  } UNION {
+    # List all relevant items not linked by sameas.
+    # Duplicate this line for performance reasons.
+    ?person ?p [ ( ps:P40 | ps:P802 | pq:1366 ) ?person2; prov:wasDerivedFrom / pr:P248 / wdt:P4230 [] ] .
+    BIND( ?person AS ?parent ).
+    {
+      ?person ?p [ ( ps:P40 | ps:P802 | pq:1366 ) []; prov:wasDerivedFrom / pr:P248 / wdt:P4230 [] ] .
+    } UNION {
+      [] ?p [ ( ps:P40 | ps:P802 | pq:1366 ) ?person; prov:wasDerivedFrom / pr:P248 / wdt:P4230 [] ] .
+    }
+    FILTER NOT EXISTS{ 
+      ?person p:P460 [ ps:P460 []; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ] .
+    }
+    ?person rdfs:label ?parentLabel FILTER( LANG( ?parentLabel ) = 'he' )
+  }
+  {
+    INCLUDE %linkedquery2 .
+    ?person2 p:P460 [ ps:P460 ?child; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ] .
+  } UNION {
+    INCLUDE %linkedquery2 .
+    BIND( ?child AS ?person2 )
+  } UNION {
+    # List all relevant items not linked by sameas.
+
+    ?person ?p [ ( ps:P40 | ps:P802 | pq:1366 ) ?person2; prov:wasDerivedFrom / pr:P248 / wdt:P4230 [] ] .
+    BIND( ?person2 AS ?child ).
+    {
+      ?person2 ?p [ ( ps:P40 | ps:P802 | pq:1366 ) []; prov:wasDerivedFrom / pr:P248 / wdt:P4230 [] ] .
+    } UNION {
+      [] ?p [ ( ps:P40 | ps:P802 | pq:1366 ) ?person2; prov:wasDerivedFrom / pr:P248 / wdt:P4230 [] ] .
+    }
+    FILTER NOT EXISTS{ 
+      ?person2 p:P460 [ ps:P460 []; prov:wasDerivedFrom / pr:P248 / wdt:P50 wd:Q26456 ] .
+    }
+    ?person2 rdfs:label ?childLabel FILTER( LANG( ?childLabel ) = 'he' )
+  }
+
+}

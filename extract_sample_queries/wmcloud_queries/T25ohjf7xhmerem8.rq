@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P106 wd:Q12039558 .
+  OPTIONAL { ?item wdt:P1087 ?dummy0 }
+  FILTER(!bound(?dummy0))
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,de,fr,es" .
+   }
+}
+#limit 30

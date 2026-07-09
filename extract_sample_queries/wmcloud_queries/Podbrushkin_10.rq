@@ -1,0 +1,12 @@
+SELECT DISTINCT ?instanceOfLabel (COUNT(?item) as ?count)
+WHERE { 
+  {
+    ?item wdt:P31 wd:Q5292 .
+  }UNION {?item wdt:P136 wd:Q5292 .}
+  OPTIONAL { ?item wdt:P31 ?instanceOf . }
+  # FILTER NOT EXISTS {?item wdt:P136 wd:Q5292}
+  ?item wikibase:sitelinks ?sitelinks
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
+GROUP BY ?instanceOfLabel
+ORDER BY DESC(?count)

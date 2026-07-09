@@ -1,0 +1,95 @@
+SELECT ?p ?pLabel ?ob ?obLabel (IF(?d1 = 9999 , "-", ?d1) AS ?dd1) (IF(?d2 = 0 , "-", ?d2) AS ?dd2) ?_fun ?_funLabel ?rod ?rodLabel WHERE {
+  {
+    SELECT DISTINCT ?p (SAMPLE(?r) AS ?rod) (SAMPLE(?fun) AS ?_fun) (SAMPLE(?o) AS ?ob) ?d1 ?d2 WHERE {
+      {
+        SELECT DISTINCT ?p (SAMPLE(?f) AS ?fu) (MIN(IF((BOUND(?data1)) && (!(ISBLANK(?data1))), YEAR(?data1), 9999 )) AS ?d1) (MAX(IF((BOUND(?data1)) && (!(ISBLANK(?data1))), YEAR(?data1), 0 )) AS ?d2) WHERE {
+          {
+            ?p wdt:P27 ?o1.
+            VALUES ?o1 {
+              wd:Q172107
+              wd:Q171348
+              wd:Q11710624
+            }
+          }
+          UNION
+          {
+            {
+              ?p wdt:P27 ?o1.
+              VALUES ?o1 {
+                wd:Q49683
+                wd:Q36
+              }
+            }
+            UNION
+            {
+              ?p wdt:P39 ?f1.
+              ?f1 (wdt:P279*) wd:Q2662430.
+            }
+            UNION
+            { ?p wdt:P1412 wd:Q809. }
+            UNION
+            {
+              ?p wdt:P53 ?r2.
+              ?r2 wdt:P31 ?r1.
+              VALUES ?r1 {
+                wd:Q27062351
+                wd:Q18655646
+              }
+            }
+          }
+          OPTIONAL { ?p wdt:P39 ?f. }
+          OPTIONAL {
+            {
+              ?p wdt:P569 ?data1.
+              FILTER(!(ISBLANK(?data1)))
+            }
+            UNION
+            {
+              ?p wdt:P1344 ?wyd.
+              ?wyd (wdt:P585|wdt:P571|wdt:P580) ?data1.
+            }
+            UNION
+            { ?p wdt:P570 ?data1. }
+            UNION
+            { ?p wdt:P2031 ?data1. }
+            UNION
+            { ?p wdt:P2032 ?data1. }
+            UNION
+            { ?p wdt:P1317 ?data1. }
+            UNION
+            {
+              ?p p:P39 ?fp.
+              ?fp ps:P39 ?f;
+                (pq:P580|pq:P585) ?data1.
+            }
+            UNION
+            {
+              ?p p:P39 ?fp.
+              ?fp ps:P39 ?f;
+                (pq:P582|pq:P585) ?data1.
+            }
+            UNION
+            {
+              ?p p:P39 ?fp.
+              ?fp ps:P39 ?f;
+                pq:P2937 ?kadencja.
+              ?kadencja wdt:P580 ?data1.
+            }
+          }
+        }
+        GROUP BY ?p
+      }
+      OPTIONAL { ?p wdt:P27 ?o. }
+      OPTIONAL { ?p wdt:P53 ?r. }
+      OPTIONAL { ?p wdt:P106 ?z. }
+      OPTIONAL { ?p wdt:P410 ?woj. }
+      BIND(IF(BOUND(?fu), ?fu, IF(BOUND(?z), ?z, ?woj)) AS ?fun)
+      BIND("1569-06-11"^^xsd:dateTime AS ?Rp)
+      BIND("1795-11-24"^^xsd:dateTime AS ?Rk)
+      FILTER((((?d1 <= ?Rk) && (?d1 >= ?Rp)) || ((?d2 >= ?Rp) && (?d2 <= ?Rk))) || (EXISTS { ?p wdt:P27 wd:Q172107. }))
+    }
+    GROUP BY ?p ?d1 ?d2
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?dd1) (?dd2) (?pLabel)

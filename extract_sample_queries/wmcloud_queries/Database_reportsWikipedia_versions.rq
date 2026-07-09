@@ -1,0 +1,1 @@
+SELECT ?item ?ms ?ml ?lc ?yr WHERE { ?item wdt:P31 wd:Q10876391 . OPTIONAL { ?item wdt:P571 ?start . BIND(YEAR(?start) As ?yr) } OPTIONAL { ?item wdt:P31 wd:Q21286559 . BIND(("Y") As ?ms)  } OPTIONAL { ?item wdt:P31 wd:Q21286561 . BIND(("Y") As ?ml)  } OPTIONAL { ?item wdt:P31 wd:Q36509592 . BIND(("Y") As ?lc)  } }

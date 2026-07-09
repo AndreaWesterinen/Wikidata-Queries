@@ -1,0 +1,88 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      {
+        ?item p:P131 ?statement0.
+        ?statement0 (ps:P131/(wdt:P131*)) wd:Q240319.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement1.
+        ?statement1 (ps:P131/(wdt:P131*)) wd:Q972185.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement2.
+        ?statement2 (ps:P131/(wdt:P131*)) wd:Q1112502.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement3.
+        ?statement3 (ps:P131/(wdt:P131*)) wd:Q3121018.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement4.
+        ?statement4 (ps:P131/(wdt:P131*)) wd:Q3192911.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement5.
+        ?statement5 (ps:P131/(wdt:P131*)) wd:Q3335812.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement6.
+        ?statement6 (ps:P131/(wdt:P131*)) wd:Q3460648.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement7.
+        ?statement7 (ps:P131/(wdt:P131*)) wd:Q6435710.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement8.
+        ?statement8 (ps:P131/(wdt:P131*)) wd:Q20855070.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement9.
+        ?statement9 (ps:P131/(wdt:P131*)) wd:Q20855211.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement10.
+        ?statement10 (ps:P131/(wdt:P131*)) wd:Q20855220.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement11.
+        ?statement11 (ps:P131/(wdt:P131*)) wd:Q20855259.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement12.
+        ?statement12 (ps:P131/(wdt:P131*)) wd:Q25112635.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement13.
+        ?statement13 (ps:P131/(wdt:P131*)) wd:Q25112643.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement14.
+        ?statement14 (ps:P131/(wdt:P131*)) wd:Q65121881.
+      }
+      UNION
+      {
+        ?item p:P131 ?statement15.
+        ?statement15 (ps:P131/(wdt:P131*)) wd:Q105473441.
+      }
+      ?item p:P31 ?statement16.
+      ?statement16 (ps:P31/(wdt:P279*)) wd:Q486972.
+    }
+  }
+}

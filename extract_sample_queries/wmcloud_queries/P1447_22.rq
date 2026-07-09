@@ -1,0 +1,13 @@
+#title: Check id
+# Complex constraint from [[Property talk:P1447]]
+# Rapid check id
+SELECT ?item ?id ?prefix ?sufix ?sub {
+	?item wdt:P1447 ?id.
+  BIND (STRBEFORE(?id, "/") AS ?prefix).
+  BIND (STRAFTER(?id, "-") AS ?sufix).
+  BIND (SUBSTR(?sufix, 1, 2) AS ?sub).
+  FILTER (STRLEN(?prefix) = 2).
+  FILTER (CONTAINS( ?sufix, ?prefix ) = false).
+  FILTER (?sub = ?prefix).
+  FILTER (?item NOT IN (wd:Q2553574, wd:Q58640718))
+}

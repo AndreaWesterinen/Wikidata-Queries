@@ -1,0 +1,6 @@
+SELECT DISTINCT ?watertype ?watertypeLabel WHERE {
+  ?watertype (wdt:P279*) wd:Q1267889.
+  OPTIONAL {  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "yue,zh,en". }
+}
+ORDER BY ?watertype

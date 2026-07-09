@@ -1,0 +1,13 @@
+SELECT ?item WHERE {
+   {?item wdt:P31 wd:Q50386450.
+   ?item wdt:P1441 ?work.
+   ?work wdt:P86/wdt:P279* wd:Q344683.} 
+  UNION
+  {?item wdt:P31 wd:Q500430.
+    ?item wdt:P1441 ?work.
+   ?work wdt:P86/wdt:P279* wd:Q344683.}
+  UNION
+  {?item wdt:P31 wd:Q14514600.
+    ?item wdt:P1441 ?work.
+   ?work wdt:P86/wdt:P279* wd:Q344683.}
+   }

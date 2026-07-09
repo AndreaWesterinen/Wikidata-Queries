@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item 
+WHERE {
+    ?item1 wdt:P31/wdt:P279 wd:Q16521 ;
+    ?p [ ] .
+    ?item a wikibase:Property;
+              wikibase:propertyType wikibase:ExternalId;
+              wikibase:claim ?p.
+  }

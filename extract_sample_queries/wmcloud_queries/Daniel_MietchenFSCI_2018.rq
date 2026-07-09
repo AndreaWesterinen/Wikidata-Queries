@@ -1,0 +1,28 @@
+#defaultView:Graph
+PREFIX target:           <http://www.wikidata.org/entity/Q622664>
+
+SELECT ?node ?nodeLabel ?nodeImage ?childNode ?childNodeLabel ?childNodeImage ?rgb WHERE {
+  {
+    BIND(target: AS ?node)
+    ?node ?p ?i.
+    OPTIONAL { ?node wdt:P18 ?nodeImage. }
+    ?childNode ?x ?p.
+    ?childNode rdf:type wikibase:Property.
+    FILTER(STRSTARTS(STR(?i), "http://www.wikidata.org/entity/Q"))
+    FILTER(STRSTARTS(STR(?childNode), "http://www.wikidata.org/entity/P"))
+  }
+  UNION
+  {
+    BIND("EFFBD8" AS ?rgb)
+    target: ?p ?childNode.
+    OPTIONAL { ?childNode wdt:P18 ?childNodeImage. }
+    ?node ?x ?p.
+    ?node rdf:type wikibase:Property.
+    FILTER(STRSTARTS(STR(?childNode), "http://www.wikidata.org/entity/Q"))
+  }
+  OPTIONAL {
+    ?node wdt:P18 ?nodeImage.
+    ?childNode wdt:P18 ?childNodeImage.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

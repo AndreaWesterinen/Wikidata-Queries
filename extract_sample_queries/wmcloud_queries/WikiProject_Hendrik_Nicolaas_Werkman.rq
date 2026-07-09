@@ -1,0 +1,18 @@
+# highlight objects from KB 
+SELECT DISTINCT 
+    ?item ?itemLabel (GROUP_CONCAT(?IsALabel ; separator = " --- ") as ?isEen) ?img ?ascessionnumber ?fulltext ?describedat ?Commonspdf WHERE {
+    BIND (wd:Q1526131 AS ?institution)
+    ?item p:P195 [ps:P195 ?institution ; pq:P2868 wd:Q29188408 ] .
+    OPTIONAL {?item wdt:P31 ?IsA.}
+    OPTIONAL {?item wdt:P217 ?ascessionnumber.}
+    OPTIONAL { ?item wdt:P18 ?img.}
+    OPTIONAL{?item wdt:P953 ?fulltext.}
+    OPTIONAL{?item wdt:P973 ?describedat.}
+    OPTIONAL{?item wdt:P996 ?Commonspdf.}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                          ?item rdfs:label ?itemLabel.
+                          ?IsA rdfs:label ?IsALabel.
+                         }  
+} 
+GROUP BY ?item ?itemLabel ?img ?ascessionnumber ?fulltext ?describedat ?Commonspdf 

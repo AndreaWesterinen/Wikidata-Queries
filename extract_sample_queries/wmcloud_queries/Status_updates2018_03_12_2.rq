@@ -1,0 +1,19 @@
+# women without wikipedia article ordered by number of statements
+SELECT ?woman ?womanLabel ?womanDescription ?statements
+WITH {
+  SELECT ?woman ?statements WHERE {
+    ?woman wdt:P31 wd:Q5;
+           wdt:P21 wd:Q6581072.
+    MINUS {
+      ?article schema:isPartOf [ wikibase:wikiGroup "wikipedia" ];
+               schema:about ?woman.
+    }
+    ?woman wikibase:statements ?statements. hint:Prior hint:rangeSafe true.
+  }
+  ORDER BY DESC(?statements)
+  LIMIT 1000
+} AS %women WHERE {
+  INCLUDE %women.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?statements)

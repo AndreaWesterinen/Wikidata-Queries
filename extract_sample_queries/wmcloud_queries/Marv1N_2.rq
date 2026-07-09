@@ -1,0 +1,16 @@
+#defaultView:Map
+SELECT ?archiveLabel ?archiv ?location ?layer  
+WHERE
+{
+  ?archiv wdt:P17 wd:Q213 .
+  ?archiv wdt:P31 ?type.
+  ?type (wdt:P279*) wd:Q166118.
+  OPTIONAL {
+    ?type rdfs:label ?layer
+    FILTER(LANG(?layer) = "[AUTO_LANGUAGE]").
+  }.
+  ?archiv wdt:P625 ?location. 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?layer

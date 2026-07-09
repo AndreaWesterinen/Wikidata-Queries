@@ -1,0 +1,9 @@
+SELECT ?directorLabel ?filmLabel (YEAR(?date) AS ?year) WHERE {
+  ?film wdt:P31 wd:Q11424 ;
+        wdt:P57 ?director ;
+        p:P166 ?statement.
+  ?statement ps:P166 wd:Q179808 ;
+             pq:P585 ?date .
+  ?director wdt:P21 wd:Q6581072 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

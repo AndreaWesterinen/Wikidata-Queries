@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (COUNT(?item) as ?count) WHERE {
+  ?artwork wdt:P3634 ?metid .
+  ?artwork p:P180 [
+    ps:P180 ?item ;
+    pq:P459 wd:Q106429444
+  ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+GROUP BY ?item ?itemLabel
+ORDER BY DESC (?count)
+LIMIT 300

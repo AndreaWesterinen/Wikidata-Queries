@@ -1,0 +1,35 @@
+#number of characters in wikidata by medium (literary, comic, operatic, film, animated, television, theatre)
+#defaultView:BubbleChart
+SELECT DISTINCT ?type (COUNT(DISTINCT ?chara) AS ?overallCount)
+     WHERE {
+      {?chara wdt:P31 ?sType. ?sType wdt:P279* wd:Q3658341.
+       MINUS{?sType wdt:P279* wd:Q1114461}
+       MINUS{?sType wdt:P279* wd:Q3375722}
+       BIND("literary character" AS ?type)
+      } UNION #literaryCharacters
+      {?chara wdt:P31/wdt:P279* wd:Q1114461.
+       BIND("comic character" AS ?type)
+      } UNION #comicCharacters
+      {?chara wdt:P31/wdt:P279* wd:Q50386450.
+     BIND("operatic character" AS ?type)
+    } UNION #operaticCharacters
+    {?chara wdt:P31 ?sType. ?sType wdt:P279* wd:Q15773347.
+     MINUS{?sType wdt:P279* wd:Q15711870}
+     MINUS{?sType wdt:P279* wd:Q15773317}
+     BIND("film character" AS ?type)
+    } UNION #filmCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q15711870.
+     BIND("animated character" AS ?type)
+    } UNION #animatedCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q1569167.
+     BIND("game character" AS ?type)
+    } UNION #gameCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q15773317.
+     BIND("television character" AS ?type)
+    } UNION #televisionCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q3375722.
+     BIND("theatre character" AS ?type)
+    } #theatreCharacters
+
+    }
+    GROUP BY ?type

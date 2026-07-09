@@ -1,0 +1,27 @@
+SELECT
+  ?item
+WITH {
+  SELECT DISTINCT ?item {
+    []
+      schema:about ?item;
+      schema:isPartOf <https://qu.wikipedia.org/>.
+  }
+} AS %0
+WITH {
+  SELECT ?item (COUNT(*) AS ?count) {
+    INCLUDE %0.
+    []
+      schema:about ?item;
+      schema:isPartOf/wikibase:wikiGroup "wikipedia".
+  }
+  GROUP BY ?item
+} AS %1
+WITH {
+  SELECT ?item {
+    INCLUDE %1.
+    FILTER(?count = 1)
+  }
+} AS %2
+{
+  INCLUDE %2.
+}

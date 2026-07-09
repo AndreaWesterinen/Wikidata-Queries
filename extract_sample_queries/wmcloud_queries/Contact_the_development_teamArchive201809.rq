@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE
+{
+  VALUES ?wo { wd:Q15324 wd:Q355304 }
+  ?item wdt:P31/wdt:P279* ?wo .
+  ?item wdt:P17 wd:Q863 .
+  FILTER NOT EXISTS { ?wru schema:about ?item . ?wru schema:inLanguage "ru" }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?itemLabel

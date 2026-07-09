@@ -1,0 +1,4 @@
+#title: Appendant category used without adequate main category
+# Complex constraint from [[Property talk:P3306]]
+# Q27253957 can only be used alongside Q27253939 or Q27253940, and Q27253960 can only be used alongside any other except Q27253956
+SELECT ?item WHERE { { ?item wdt:P3306 wd:Q27253957 . FILTER NOT EXISTS { VALUES ?main1 { wd:Q27253939 wd:Q27253940 } ?item wdt:P3306 ?main1 } } UNION { ?item wdt:P3306 wd:Q27253960 . FILTER NOT EXISTS { VALUES ?main2 { wd:Q27253939 wd:Q27253940 wd:Q27253945 wd:Q27253947 wd:Q27253952 } ?item wdt:P3306 ?main2 } } }

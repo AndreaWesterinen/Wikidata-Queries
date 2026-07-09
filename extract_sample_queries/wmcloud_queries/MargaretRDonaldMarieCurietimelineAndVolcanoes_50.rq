@@ -1,0 +1,9 @@
+SELECT DISTINCT ?female ?femaleLabel ?date_of_birth ?birthplaceLabel ?date_of_death ?deathplaceLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?female wdt:P21 wd:Q6581072;
+    wdt:P6379 wd:Q795228.
+  OPTIONAL { ?female wdt:P569 ?date_of_birth. }
+  OPTIONAL { ?female wdt:P570 ?date_of_death. }
+  OPTIONAL { ?female wdt:P19 ?birthplace. }
+  OPTIONAL { ?female wdt:P20 ?deathplace. }  
+}

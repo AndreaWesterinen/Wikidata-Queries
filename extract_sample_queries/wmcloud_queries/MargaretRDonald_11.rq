@@ -1,0 +1,20 @@
+# Items about Australian artists (defined by citizenship) with/without  a Wikipedia page
+SELECT ?artist ?artistLabel?article  with { select distinct ?artist WHERE 
+ {
+   ?artist wdt:P106 ?occ.
+   VALUES ?occ {wd:Q483501 wd:Q11569986 wd:Q1028181 wd:Q1281618 wd:Q33231 wd:Q3391743 wd:Q7541856 wd:Q10694573 wd:Q15296811 wd:Q713200}    # occupations
+   ?artist wdt:P31 wd:Q5.             # is human
+   ?artist wdt:P21 wd:Q6581072.       # is female
+   ?artist wdt:P27 wd:Q408.    # is Australian
+      
+ } } as %i where
+
+{
+  include %i
+     OPTIONAL
+    {?article schema:about ?artist. # and do not have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+     }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?artistLabel 

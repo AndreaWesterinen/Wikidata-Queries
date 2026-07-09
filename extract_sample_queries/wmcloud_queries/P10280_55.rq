@@ -1,0 +1,17 @@
+#title: value label (1: languages lacking a regex)
+# Complex constraint from [[Property talk:P10280]]
+# determine a regex and add it at [[Property:P10280#P1552]]: [[d:Q100884525|complex constraint value label <small>(Q100884525)</small>]]
+SELECT ?item ?lang (COUNT(*) as ?count) (SAMPLE(?l) as ?sample_l) (SAMPLE(?s) as ?sample_s) (SAMPLE(?value) as ?sample_value)
+WHERE
+{
+	hint:Query hint:optimizer "None".
+	?s wdt:P10280 ?value .
+	?value rdfs:label ?l .
+	BIND(lang(?l) as ?lang)
+	OPTIONAL { wd:P10280 p:P1552 [ ps:P1552 wd:Q100884525 ; pq:P8770 ?t ] FILTER( lang(?t) = ?lang) }
+	FILTER( !BOUND(?t) )
+	?item wdt:P424 ?lang ; wdt:P305 [] .
+}
+GROUP BY ?item ?lang 
+HAVING ( ?count > 4)
+ORDER BY DESC ( ?count)

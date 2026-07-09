@@ -1,0 +1,5 @@
+SELECT ?prop ?propLabel ?gr ?grLabel
+{
+    ?prop p:P2302 [ pq:P2304 ?gr ; ps:P2302 wd:Q21510864 ]
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }          
+}

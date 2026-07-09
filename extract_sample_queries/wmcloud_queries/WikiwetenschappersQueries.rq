@@ -1,0 +1,6 @@
+SELECT ?human ?humanLabel ?universityLabel WHERE {
+  ?university wdt:P31 wd:Q3918.
+  ?university wdt:P463 wd:Q3212092.
+  ?human wdt:P108 ?university.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

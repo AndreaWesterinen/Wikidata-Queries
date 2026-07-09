@@ -1,0 +1,8 @@
+SELECT ?person ?personLabel ?parent ?parentLabel ?uncle ?uncleLabel 
+{ 
+  ?person (wdt:P22 | wdt:P25 ) ?parent . 
+  { ?parent wdt:P3373 ?uncle } UNION { ?parent wdt:P26 / wdt:P3373 ?uncle } . 
+  ?uncle wdt:P21 wd:Q6581097 . ?uncle wdt:P31 wd:Q5 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 10

@@ -1,0 +1,31 @@
+SELECT ?item ?itemLabel ?headofgov (GROUP_CONCAT(?headofgovinstanceof; SEPARATOR = "<br />")  AS ?hoginstancelist) ?council ?member (GROUP_CONCAT(?memberinstanceof; SEPARATOR = "<br />")  AS ?memberinstancelist) ?numberconstituencies (COUNT(?constituency) AS ?countconstituencies) (GROUP_CONCAT(?constituencyLab; SEPARATOR = "<br />") AS ?constituencyList) WHERE { 
+  VALUES ?authority_types { wd:Q211690 wd:Q1136601 wd:Q15060255 wd:Q15979307 wd:Q1002812 wd:Q17364572 wd:Q180673 }
+  VALUES ?member_types { wd:Q708492 wd:Q4175034 }
+  ?item wdt:P31 ?authority_types .
+  MINUS {?item p:P31 ?node .
+         ?node ps:P31 ?authority_types ;
+               pq:P582 []}
+  OPTIONAL {?item wdt:P1313 ?headofgov .
+            ?headofgov wdt:P31 ?headofgovinstanceof
+            MINUS { ?headofgov wdt:P576 [] } 
+           } 
+  ?item wdt:P194 ?council .
+  OPTIONAL { ?council wdt:P4253 ?numberconstituencies } 
+  ?member wdt:P361 ?council .
+  ?member wdt:P279 ?member_types . 
+  ?member wdt:P31 ?memberinstanceof
+          MINUS {?member wdt:P576 [] } 
+  OPTIONAL { ?statement ps:P31 wd:Q589282 ;
+                        pq:P642 ?council.
+            ?constituency p:P31 ?statement ;
+                          rdfs:label ?constituencyLab . 
+            FILTER(lang(?constituencyLab) = 'en') 
+            MINUS { ?constituency wdt:P576 [] }
+           }
+  MINUS { ?council wdt:P576 [] } 
+  MINUS { ?item wdt:P576 [] } 
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q10864048 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+GROUP BY ?item ?itemLabel ?headofgov ?headofgovinstanceof ?council ?member ?memberinstanceof ?numberconstituencies
+ORDER BY ?authority_types ?item ?constituency

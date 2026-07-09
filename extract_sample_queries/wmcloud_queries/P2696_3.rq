@@ -1,0 +1,5 @@
+SELECT ?x ?xLabel ?fig (uri(concat("https://www.gymnastics.sport/site/athletes/bio_detail.php?id=",?fig)) as ?url1)
+WHERE { ?x wdt:P2696 ?fig .
+       wd:Q3108931 wdt:P2696 ?fig .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

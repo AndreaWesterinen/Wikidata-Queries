@@ -1,0 +1,1 @@
+SELECT ?item ?st ?sl {?item wdt:P361 wd:Q47037506 . OPTIONAL { ?item wikibase:statements ?st; wikibase:sitelinks ?sl } }

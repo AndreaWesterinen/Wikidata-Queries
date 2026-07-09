@@ -1,0 +1,9 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?bookLabel (sample(?img) as ?img) ?coord ?url WHERE {
+  ?item wdt:P625 ?coord.
+  ?item wdt:P1343 ?book.
+  ?book wdt:P361 wd:Q61723518.
+  ?book wdt:P953 ?url.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+  OPTIONAL { ?item wdt:P18 ?img. }
+} group by ?item ?itemLabel ?bookLabel ?coord ?url 

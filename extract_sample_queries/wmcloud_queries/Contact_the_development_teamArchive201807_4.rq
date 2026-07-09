@@ -1,0 +1,1 @@
+SELECT * WHERE {?wikipage schema:about wd:Q23769546; ?a ?b }

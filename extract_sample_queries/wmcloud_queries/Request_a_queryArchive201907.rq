@@ -1,0 +1,4 @@
+SELECT ?WDitem ?identifier ?WPtitle ?WPlink WHERE {
+	  VALUES ?identifier { '94362' '63706' '250063390' '64309' }
+	  ?WDitem wdt:P2276 ?identifier.
+	  ?WPlink schema:about ?WDitem; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?WPtitle.}

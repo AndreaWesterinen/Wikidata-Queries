@@ -1,0 +1,12 @@
+#title: Double birth date with a mistake on a birth date
+# Complex constraint from [[Property talk:P569]]
+# Diff: 1000 years
+SELECT ?item ?born1 ?born2
+  WHERE {
+    ?item wdt:P569 ?born1.
+    ?item wdt:P569 ?born2.
+    FILTER (?born1 != ?born2).
+    FILTER (YEAR(?born1) > YEAR(?born2) + 1000).
+    ?item wdt:P31 wd:Q5.
+  }
+  LIMIT 1

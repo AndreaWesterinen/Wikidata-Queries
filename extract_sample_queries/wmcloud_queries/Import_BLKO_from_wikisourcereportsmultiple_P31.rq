@@ -1,0 +1,20 @@
+SELECT DISTINCT
+	?item ?itemLabel
+	?count
+	?sample1 ?sample1Label
+	?sample2 ?sample2Label
+	(CONCAT( strafter( str(?item),"y/"),",Q19389637"  ) as ?qid_removeP31)
+WHERE
+{
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2)
+		{
+			?item wdt:P31 ?value ; wdt:P1433 wd:Q665807
+            FILTER NOT EXISTS { ?item wdt:P31 wd:Q1263068 }
+		}
+		GROUP BY ?item HAVING ( ?count > 1 )
+	}
+    FILTER( ?item != wd:Q89569452 )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?count)

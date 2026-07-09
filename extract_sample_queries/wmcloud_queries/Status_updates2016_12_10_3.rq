@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?layer ?coords WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q484170;
+		wdt:P17 wd:Q142;
+		wdt:P138 ?river;
+        wdt:P625 ?coords .
+  ?river wdt:P31/wdt:P279* wd:Q355304 .
+  ?river rdfs:label ?layer . FILTER(LANG(?layer) = 'fr')
+}
+ORDER BY ?riverLabel ?itemLabel

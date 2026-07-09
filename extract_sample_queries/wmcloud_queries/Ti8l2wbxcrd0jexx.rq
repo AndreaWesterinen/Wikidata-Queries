@@ -1,0 +1,7 @@
+SELECT DISTINCT ?highlight_term 
+{
+  	VALUES ?item { wd:Q309481 wd:Q4 wd:Q132821 wd:Q844482 wd:Q2438528 wd:Q149086 wd:Q10737 wd:Q173387 wd:Q201676 wd:Q39614 wd:Q18658526 wd:Q750652 wd:Q48422 }
+  	{ ?item rdfs:label ?term } UNION { ?item skos:altLabel ?term }
+  	BIND(str(?term) as ?highlight_term )
+}
+ORDER BY ?highlight_term

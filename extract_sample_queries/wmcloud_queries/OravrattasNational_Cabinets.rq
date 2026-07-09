@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?cabinet (COUNT(DISTINCT ?person) AS ?holders)
+WHERE 
+{
+  ?item p:P463 ?ms .
+  ?ms ps:P463 wd:Q1065 .
+  FILTER NOT EXISTS { ?ms pq:P582 [] }
+  
+  OPTIONAL { 
+    ?cabinet wdt:P31/wdt:P279* wd:Q640506 ; wdt:P1001 ?item ; wdt:P571 ?start .
+    ?cabinet wdt:P31 ?parent .
+    OPTIONAL { ?cabinet wdt:P582 ?end }
+    OPTIONAL { ?cabinet wdt:P576 ?end }
+    FILTER (!BOUND(?end)

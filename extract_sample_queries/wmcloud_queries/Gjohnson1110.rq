@@ -1,0 +1,12 @@
+SELECT DISTINCT ?wdProperty ?wdPropertyName ?dcProperty 
+WHERE {
+  ?wdProperty a wikibase:Property.
+  ?wdProperty wdt:P1628 ?dcProperty.
+  FILTER(STRSTARTS(STR(?dcProperty), "http://purl.org/dc/terms/"))
+  filter(regex(strafter(str(?dcProperty), "http://purl.org/dc/terms/"), "^[a-z]"))
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?wdProperty rdfs:label ?wdPropertyName.
+  }
+}
+ORDER BY ?dcProperty

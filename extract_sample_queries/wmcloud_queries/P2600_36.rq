@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P2600/ps:P2600 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https?://www\\.geni\\.com/people/)?[A-Za-z1-4ªéºí-]+/(600\\d{16})(\\?through=\\d+)?)$") )
+}

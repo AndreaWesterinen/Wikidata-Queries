@@ -1,0 +1,8 @@
+#title: Windmils in the Netherlands
+#defaultView:Map
+SELECT DISTINCT ?item ?geo ?img ?country WHERE {
+  ?item (wdt:P31/(wdt:P279*)) wd:Q38720;
+    wdt:P625 ?geo;
+    wdt:P17 wd:Q55.
+  OPTIONAL { ?item wdt:P18 ?img. }
+}

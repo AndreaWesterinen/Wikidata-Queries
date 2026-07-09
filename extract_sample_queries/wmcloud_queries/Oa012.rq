@@ -1,0 +1,9 @@
+SELECT ?oamandate ?oamandateLabel ?id ?coord ?date ?countryLabel #query that calls for oamandates, in addition to their optional coordinates and start dates
+WHERE {
+?oamandate (wdt:P31)* wd:Q2000006. #instance of a oamandate or some subclass there of 
+  OPTIONAL {?oamandate wdt:P571 ?date} #optionally the start date for the oamandate
+  OPTIONAL{?oamandate wdt:P625 ?coord.} #optionally has coordinates
+  OPTIONAL {?oamandate wdt:P17 ?country.} #optionally the country for the oamandate
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } #call label generator for Wikidata
+}
+#defaultView:Table

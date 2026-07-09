@@ -1,0 +1,7 @@
+#Wikidata property for a taxon
+SELECT ?item ?itemLabel
+WHERE
+{
+	?item wdt:P31 wd:Q18609040 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

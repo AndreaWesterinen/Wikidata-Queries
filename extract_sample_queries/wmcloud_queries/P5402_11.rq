@@ -1,0 +1,8 @@
+#title: Not the same language
+# Complex constraint from [[Property talk:P5402]]
+# Lexemes using this property should both use the same language item.
+select ?item (group_concat(distinct ?lemma; separator="/") as ?lemmas) ?lang ?lexcat {
+  ?item wdt:P5402 ?item2; wikibase:lexicalCategory ?lexcat; dct:language ?lang; wikibase:lemma ?lemma.
+  ?item2 dct:language ?lang2.
+  filter (?lang != ?lang2).
+} group by ?item ?lang ?lexcat order by ?lemmas

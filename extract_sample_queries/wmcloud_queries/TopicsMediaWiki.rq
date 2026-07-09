@@ -1,0 +1,9 @@
+SELECT DISTINCT ?project ?projectLabel ?inception ?use ?useLabel
+WHERE 
+{
+  ?project wdt:P31/wdt:P279* wd:Q6805426.
+  OPTIONAL {?project wdt:P571 ?inception}
+  OPTIONAL {?project wdt:P366 ?use}
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?inception) ?projectLabel

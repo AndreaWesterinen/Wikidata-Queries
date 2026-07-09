@@ -1,0 +1,3 @@
+SELECT ?item ?sitelinks WHERE {
+  ?item wdt:P31 wd:Q1756157 OPTIONAL {?item wikibase:sitelinks ?sitelinks}
+ . }

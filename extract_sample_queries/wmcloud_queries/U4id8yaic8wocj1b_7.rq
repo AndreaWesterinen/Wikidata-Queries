@@ -1,0 +1,4 @@
+SELECT DISTINCT ?christmasTraditionMovie ?christmasTraditionMovieLabel WHERE {
+  ?christmasTraditionMovie p:P31/ps:P31 wd:Q717040, [ wdt:P279* wd:Q11424 ].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,sv". }
+}

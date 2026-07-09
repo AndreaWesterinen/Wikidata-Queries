@@ -1,0 +1,3 @@
+SELECT (count(*) as ?countOf) WHERE {
+    ?item wdt:P31 wd:Q14594740 .
+}

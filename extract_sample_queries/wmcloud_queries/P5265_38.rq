@@ -1,0 +1,9 @@
+#title: Works in the collection missing identifier
+# Complex constraint from [[Property talk:P5265]]
+# List of works that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q2874177|Dordrechts Museum <small>(Q2874177)</small>]], but no [[Property:P5265|Dordrechts Museum artwork ID&#32;<small dir="ltr">(P5265)</small>]] statement
+SELECT ?item ?itemLabel ?itemDescription ?value ?valueLabel WHERE {
+  ?item wdt:P195 wd:Q2874177 .
+	FILTER NOT EXISTS { ?item p:P5265 ?[] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 1000

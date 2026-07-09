@@ -1,0 +1,5 @@
+SELECT ?value ?valueLabel (COUNT(*) AS ?cnt) WHERE {
+  ?item wdt:P3450 ?value .
+  MINUS { ?value wdt:P17 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?value ?valueLabel ORDER BY DESC(?cnt)

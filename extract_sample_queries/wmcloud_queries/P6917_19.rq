@@ -1,0 +1,43 @@
+#title: Need a link to Europe
+# Complex constraint from [[Property talk:P6917]]
+# Humains needs a link to Europe
+SELECT ?item {
+  ?item wdt:P6917 [].
+  ?item wdt:P31 wd:Q5.
+  FILTER NOT EXISTS { ?item wdt:P463 wd:Q881206 }
+  FILTER NOT EXISTS { ?item wdt:P463 wd:Q337234 }
+  FILTER NOT EXISTS { ?item wdt:P463 wd:Q16974387 } # quick
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q7246152 }
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q5089507 }
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q27169 } # MEP
+  FILTER NOT EXISTS { ?item wdt:P39 ?fonction. ?fonction wdt:P31/wdt:P279* wd:Q121998 }
+  FILTER NOT EXISTS { ?item wdt:P39/wdt:P279 wd:Q2661677 } # European Commissioner
+  FILTER NOT EXISTS { ?item wdt:P39/wdt:P1001 wd:Q183 } # to exclude Q896878
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q82955 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q599151 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q193391 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q15895020 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q1238570 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q212238 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q185351 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q3060597 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q1930187 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q15627169 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q11986654 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q201788 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q20972719 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q11063 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q188094 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q169470 }
+  FILTER NOT EXISTS { ?item wdt:P69 wd:Q859363 }
+  FILTER NOT EXISTS { ?item wdt:P108 wd:Q8880 } # extract: https://www.wikidata.org/wiki/Q3430381
+  FILTER NOT EXISTS { ?item wdt:P108 wd:Q3151643 } # quick
+  FILTER NOT EXISTS { ?item wdt:P108 wd:Q309867 }
+  FILTER NOT EXISTS { ?item wdt:P108 wd:Q3151954 }
+  FILTER NOT EXISTS { ?item wdt:P108 wd:Q42262 }
+  FILTER NOT EXISTS { ?item wdt:P108 wd:Q1109135 }
+  FILTER NOT EXISTS { ?item wdt:P108 wd:Q8919 }
+  FILTER NOT EXISTS { ?item wdt:P166 wd:Q1957668 } # optional
+  FILTER NOT EXISTS { ?item wdt:P6414 [] } # optional
+  FILTER (?item NOT IN (wd:Q3310560, wd:Q6793879, wd:Q47118225, wd:Q6699267, wd:Q21562208, wd:Q9609458, wd:Q3751471, wd:Q47494459, wd:Q1802530, wd:Q1577113, wd:Q15429401, wd:Q83154064, wd:Q164405, wd:Q3188641, wd:Q3311044, wd:Q18626446)) # quick
+}

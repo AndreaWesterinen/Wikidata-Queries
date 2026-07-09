@@ -1,0 +1,12 @@
+SELECT ?item ?sex_or_gender ?isni ?sl ?extids {
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P227 ?gnd.
+ ?item wdt:P21 ?sex_or_gender.
+ MINUS {?item wdt:P214 ?viaf.}
+ MINUS {?item wdt:P1889 []}
+ OPTIONAL {?item wdt:P213 ?isni.}
+ #?item wdt:P244 ?lc.
+ ?item wikibase:sitelinks ?sl . FILTER (?sl >= 10) . # only include items having X or more sitelinks
+ ?item wikibase:identifiers ?extids. FILTER (?extids >= 10) . # only include items having X or more external ids
+
+} ORDER BY DESC(?sl) DESC(?extids) LIMIT 100

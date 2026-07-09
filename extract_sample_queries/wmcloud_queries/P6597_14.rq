@@ -1,0 +1,18 @@
+#title: single native label
+# Complex constraint from [[Property talk:P6597]]
+# there should be just one [[Property:P1705|native label&#32;<small dir="ltr">(P1705)</small>]] statement on items
+SELECT
+  ?item 
+  (COUNT(DISTINCT ?st) as ?count)
+  (COUNT(DISTINCT str(?nl)) as ?count2)
+  (GROUP_CONCAT(DISTINCT str(?nl); separator=", ") as ?nls)
+WHERE
+{
+    ?item wdt:P6597 [] .
+    ?item p:P1705 ?st .
+    ?st ps:P1705 ?nl . 
+}
+GROUP BY ?item
+HAVING (?count2 > 1)
+ORDER BY DESC(?count2) ?item
+LIMIT 500

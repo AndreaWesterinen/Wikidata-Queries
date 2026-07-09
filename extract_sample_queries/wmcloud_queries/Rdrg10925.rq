@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item {
+  ?item wdt:P166 wd:Q15631401;
+        wdt:P106 wd:Q37226;
+        wdt:P27 [].
+}

@@ -1,0 +1,18 @@
+# statements with two references where one source cites the other
+SELECT ?subject ?subjectLabel ?propertyLabel ?objectLabel ?source1Label ?source2Label
+WITH { # subquery that actually finds the statements and sources (written as named subquery to ensure it’s only run once, independently of the rest of the query; see https://wiki.blazegraph.com/wiki/index.php/NamedSubquery)
+  SELECT ?statement ?source1 ?source2 WHERE {
+    ?statement prov:wasDerivedFrom/pr:P248 ?source1, ?source2. # statement has two “stated in” references
+    ?source1 wdt:P2860 ?source2. # first source cites the second one
+    FILTER(?source1 != ?source2). # apparently some items cite themselves?
+  }
+} AS %results WHERE {
+  INCLUDE %results.
+  # auxiliary query to find the subject, property and object of the statement, as well as labels
+  ?subject ?p ?statement.
+  ?statement ?ps ?object.
+  ?property a wikibase:Property;
+            wikibase:claim ?p;
+            wikibase:statementProperty ?ps.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel WHERE {
+	?item wdt:P27 wd:Q801.
+    ?article schema:about ?item ;
+	         schema:isPartOf <https://he.wikipedia.org/> .
+    ?item wdt:P570 ?dod .
+    FILTER(YEAR(?dod) = 1970)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

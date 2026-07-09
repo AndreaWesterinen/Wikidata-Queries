@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?Offizielle_Deutsche_Charts_Person_ID WHERE {
+  ?item p:P6893 ?statement.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P10372 ?Offizielle_Deutsche_Charts_Person_ID. }
+}
+LIMIT 1000

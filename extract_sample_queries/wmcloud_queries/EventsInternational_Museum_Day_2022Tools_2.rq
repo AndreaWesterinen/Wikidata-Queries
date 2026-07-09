@@ -1,0 +1,7 @@
+SELECT DISTINCT ?entity ?entityLabel WHERE {
+  ?entity (wdt:P31/(wdt:P279*)) wd:Q33506;
+  wdt:P17 wd:Q1006 . 
+  ?entity wdt:P17 wd:Q1006 .  
+  MINUS { { ?entity schema:description ?lang_label. FILTER((LANG(?lang_label)) = "es") } }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }
+ }

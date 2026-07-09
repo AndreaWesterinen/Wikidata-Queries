@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P8240]]
+# Items in [[d:Q1588|Louisiana <small>(Q1588)</small>]] that do have [[d:Q19558910|National Register of Historic Places listed place <small>(Q19558910)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P8240|National Register Database, Louisiana ID&#32;<small dir="ltr">(P8240)</small>]]
+SELECT ?item WHERE { ?item wdt:P131* wd:Q1588 . ?item wdt:P1435 wd:Q19558910 . MINUS { ?item wdt:P8240 [] . } } LIMIT 1000

@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "ski* -haswbstatement:P31".
+    ?title wikibase:apiOutput mwapi:title.
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  FILTER NOT EXISTS { ?item wdt:P21 []. }
+  FILTER NOT EXISTS { ?item wdt:P279 []. }  
+  ?article schema:about ?item ;
+          schema:isPartOf <https://en.wikipedia.org/> .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?itemLabel
+# LIMIT 10000

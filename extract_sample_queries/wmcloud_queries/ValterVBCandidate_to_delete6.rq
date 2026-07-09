@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?dummy1Label (CONCAT("{","{rfd links3\u007C",strafter(str(?item), "entity/"),"\u007CDoes not meet the [[Special:MyLanguage/Wikidata:Notability|notability policy]]}","}") as ?del) (CONCAT("{","{REVISIONTIMESTAMP: ", strafter(str(?item), "entity/"), " }","}") as ?data)
+WHERE{
+  VALUES ?val { wd:Q4167410 wd:Q13406463 wd:Q11266439 wd:Q28065731}
+  ?item wdt:P31 ?val .
+  ?item wikibase:sitelinks 0 .
+  ?item wdt:P31 ?dummy1 .
+  ?item wikibase:statements ?statementCount.
+  FILTER(?statementCount = 1).
+  
+  OPTIONAL{
+    ?backlink ?p1 ?item .
+  }
+  FILTER(!bound(?backlink))  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ?dummy1Label

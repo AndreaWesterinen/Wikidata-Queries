@@ -1,0 +1,26 @@
+#title: lists possibly to be associated with categories
+# Complex constraint from [[Property talk:P10280]]
+# todo: add P1753 statement on the relevant category; P2354 on item for citizenship or, at last, P2354 on the item for the city
+SELECT ?item ?article ?category ?wiki
+WHERE
+{
+  hint:Query hint:optimizer "None".
+	?cat wdt:P971 wd:Q987080, wd:Q13406463 . 
+    [] schema:about ?cat ; schema:isPartOf ?part ; schema:name ?catname .
+    BIND( strbefore(strafter(str(?part), "//"),"/") as ?wiki)
+    BIND( str(?catname) as ?category)  
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:endpoint ?wiki;
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?category ;
+                     mwapi:gcmprop "title";
+                     mwapi:gcmlimit "max".
+     ?article wikibase:apiOutput mwapi:title.
+     ?item wikibase:apiOutputItem mwapi:item.
+    } 
+  FILTER(bound(?item))
+  FILTER NOT EXISTS { [] wdt:P2354 ?item }
+  FILTER NOT EXISTS { [] wdt:P1753 ?item }
+  FILTER NOT EXISTS { ?item wdt:P279 wd:Q987080 }
+}

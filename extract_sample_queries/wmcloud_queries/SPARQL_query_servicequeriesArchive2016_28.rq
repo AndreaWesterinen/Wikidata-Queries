@@ -1,0 +1,11 @@
+SELECT ?occup (COUNT(?person) as ?count) WHERE {
+  ?person wdt:P31 wd:Q5 .
+  ?person wdt:P106 ?occup .
+  FILTER NOT EXISTS {
+    ?occup rdfs:label ?name_label
+    filter (lang(?name_label) = "lv")
+  }
+}
+GROUP BY ?occup
+ORDER BY DESC(?count)
+LIMIT 100

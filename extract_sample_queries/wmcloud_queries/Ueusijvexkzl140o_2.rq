@@ -1,0 +1,13 @@
+#Suffragettes
+SELECT ?item ?itemLabel ?dob ?coords ?pobLabel ?image
+WHERE 
+{
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P106 wd:Q322170 .
+  ?item wdt:P569 ?dob .
+  ?item wdt:P19 ?pob.
+  ?pob wdt:P625 ?coords .
+  ?item wdt:P18 ?image .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

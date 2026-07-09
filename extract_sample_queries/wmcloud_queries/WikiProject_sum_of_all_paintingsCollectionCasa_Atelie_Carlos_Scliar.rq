@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel WHERE { ?item wdt:P195 wd:Q56693193. ?item wdt:P31 wd:Q3305213. } LIMIT 2000

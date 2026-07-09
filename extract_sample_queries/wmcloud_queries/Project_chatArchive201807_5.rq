@@ -1,0 +1,1 @@
+select(count(*)as?c){[]p:P625/prov:wasDerivedFrom/pr:P143 wd:Q8449}

@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?plz WHERE 
+{
+  ?item wdt:P31 wd:Q79007.
+  ?item wdt:P131 wd:Q1731.
+  ?item rdfs:label ?name.
+  optional {
+    ?item wdt:P281 ?plz
+  }
+  MINUS {?item wdt:P138 [] }
+  FILTER (!CONTAINS( ?name, " "))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+} ORDER BY ?itemLabel

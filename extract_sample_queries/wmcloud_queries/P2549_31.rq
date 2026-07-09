@@ -1,0 +1,5 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x p:P2549 [ pq:P2937 ?leg ] .
+  FILTER NOT EXISTS { ?x p:P39 [ pq:P2937 ?leg ] . }
+}

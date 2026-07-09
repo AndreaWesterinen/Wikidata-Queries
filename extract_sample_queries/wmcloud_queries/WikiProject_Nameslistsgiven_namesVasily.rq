@@ -1,0 +1,9 @@
+SELECT ?item  (GROUP_CONCAT(DISTINCT CONCAT("[",str(?lk), " ", ?n, "]" ) ) as ?wp) 
+(COUNT(DISTINCT ?p) as ?ct) (SAMPLE(?p) as ?sample)
+{
+	?item wdt:P460* wd:Q4104185 . 
+    OPTIONAL { ?lk schema:about ?item ; schema:name ?n } 
+	OPTIONAL { ?p wdt:P735 ?item }
+}
+GROUP BY ?item 
+ORDER BY ?item

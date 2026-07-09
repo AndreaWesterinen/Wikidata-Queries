@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?coord2 ?layer ?layerLabel
+WHERE 
+{
+  ?item wdt:P131* wd:Q22.
+  
+  ?item p:P625 ?stat2 . 
+  ?stat2 ps:P625 ?coord2 .
+#  ?stat2 prov:wasDerivedFrom/pr:P143 wd:Q837615. # Cebwiki
+  ?stat2 prov:wasDerivedFrom/pr:P248 wd:Q1194038. # GeoNames
+  ?stat2 a wikibase:BestRank .
+  ?item wdt:P31 ?layer .
+  
+  ?item p:P625 ?stat . 
+  ?stat a wikibase:BestRank .
+  filter(str(?stat) != str(?stat2))
+  
+  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by ?layerLabel ?itemLabel

@@ -1,0 +1,6 @@
+Select ?item ?itemLabel where {
+  ?softwareVersion wdt:P1687 wd:P548.
+  ?item wdt:P31/wdt:P279* ?softwareVersion.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

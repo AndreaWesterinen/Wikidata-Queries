@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P19 ?place.
+  ?place wdt:P17 wd:Q145.
+  ?item wdt:P31 wd:Q5.
+  filter not exists {?item wdt:P21 [].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,13 @@
+#title: Check on numeric values
+# Complex constraint from [[Property talk:P5236]]
+# FIXME. Currently just sum of factors, not product nor qualifier. See [[Wikidata:Request_a_query#Multiplication_(a*b*c)/PRODUCT()_instead_of_SUM(?factor)]]
+SELECT ?item ?value
+  (SUM(?factor) as ?a) 
+  (GROUP_CONCAT(?factor;separator="*") as ?product)
+WHERE
+{
+    ?item wdt:P5236 / wdt:P1181 ?factor .
+    ?item wdt:P1181 ?value .
+}
+GROUP BY ?item ?value
+HAVING ( ?a > ?value )

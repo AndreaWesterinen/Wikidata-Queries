@@ -1,3 +1,4 @@
+#title: Solubilities of chemicals
 SELECT DISTINCT ?chemical ?chemicalLabel ?value ?units ?unitsLabel ?solvent ?solventLabel ?temperature ?temperatureUnit ?temperatureUnitLabel ?source ?sourceLabel ?doi
 WITH {
   SELECT DISTINCT ?chemical ?value ?units ?source ?doi ?solvent ?temperature ?temperatureUnit WHERE {

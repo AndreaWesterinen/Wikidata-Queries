@@ -1,0 +1,11 @@
+#title: Office holders shouldn't end before starting
+# Complex constraint from [[Property talk:P39]]
+# start date should be < end date. If two terms are mixed, separate statements should be made
+SELECT ?item ?position ?start ?end WHERE {
+  ?statement pqv:P580 ?start_node; pqv:P582 ?end_node . 
+  ?start_node wikibase:timePrecision 11; wikibase:timeValue ?start . 
+  ?end_node wikibase:timePrecision 11; wikibase:timeValue ?end . FILTER( ?end < ?start ) . 
+  ?item p:P39 ?statement .
+  ?statement ps:P39 ?position .
+  ?item wdt:P31 wd:Q5 
+}

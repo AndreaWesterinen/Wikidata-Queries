@@ -1,3 +1,4 @@
+#title: Get known variants reported in CIViC database (Q27612411) of genes reported in a Wikipathways pathway: Bladder cancer (Q30230812)
 SELECT DISTINCT ?pathway ?pathwayLabel ?pwpart ?pwpartLabel ?variant ?variantLabel ?disease?diseaseLabel WHERE {
 
    VALUES ?predictor {p:P3354 p:P3355 p:P3356 p:P3357 p:P3358 p:P3359}

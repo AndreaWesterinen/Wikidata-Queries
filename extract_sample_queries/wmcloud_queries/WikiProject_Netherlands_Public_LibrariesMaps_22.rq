@@ -1,0 +1,32 @@
+embed.html##Provincie Limburg
+#defaultView:Map
+SELECT ?Qvestiging ?QvestigingLabel ?coor ?partof ?partofLabel ?image ?layer WHERE {
+#SELECT ?s ?sLabel ?coor ?image ?layer WHERE { 
+  
+       ?Qvestiging (p:P31/ps:P31) wd:Q28564;wdt:P17 wd:Q55;
+          wdt:P625 ?coor ;
+          wdt:P361 ?partof ;
+          OPTIONAL {?Qvestiging wdt:P18 ?image .}
+  
+VALUES ?partof {
+#Limburg
+wd:Q60197479 #Stadsbieb Maastricht
+wd:Q59962066 #St. OB Gulpen-Wittem
+wd:Q61754948 #St. OB Brunssum
+wd:Q59962157 #St. OB Meerssen
+wd:Q59962236 #St. Basisbieb Bibliorura 
+wd:Q61912787 #Bieb Kerkrade e.o.
+                }
+BIND(
+#Limburg
+IF(?partof = wd:Q61912787, "Kerkrade, Simpelveld en Voerendaal",
+IF(?partof = wd:Q60197479, "Maastricht",
+IF(?partof = wd:Q59962157, "Meerssen",
+IF(?partof = wd:Q61754948, "Brunssum",
+IF(?partof = wd:Q59962066, "Gulpen-Wittem",
+IF(?partof = wd:Q59962236, "Roermond",
+   ""))))))AS ?layer).  
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" }
+}
+ORDER BY ?layer ?partofLabel ?QvestigingLabel

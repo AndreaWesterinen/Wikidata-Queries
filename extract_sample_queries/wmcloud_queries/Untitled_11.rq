@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?st
+WHERE {
+  ?item wdt:P31 wd:Q5;
+           p:P1350 ?statement.
+  ?statement ps:P1350 ?st.
+  ?statement pq:P642 wd:Q223366.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?st)
+LIMIT 1000

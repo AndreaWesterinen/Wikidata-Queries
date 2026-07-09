@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?dummyLabel ?LL ?LLunitLabel ?UL ?ULunitLabel ?appliesLabel ?supporterLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q42014143.
+  ?item p:P5446 ?statement.
+  ?statement ps:P5446 ?dummy.
+  OPTIONAL{
+    ?statement pqv:P5447 ?LLnode.
+    ?LLnode wikibase:quantityAmount ?LL.
+    ?LLnode wikibase:quantityUnit ?LLunit.
+  }
+  OPTIONAL{
+    ?statement pqv:P5448 ?ULnode.
+    ?ULnode wikibase:quantityAmount ?UL.
+    ?ULnode wikibase:quantityUnit ?ULunit.
+  }
+  OPTIONAL{?statement pq:P518 ?applies.}
+  OPTIONAL{?statement pq:P3680 ?supporter.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,9 @@
+#title: potential values (from subclass of honorary citizenship)
+# Complex constraint from [[Property talk:P10280]]
+#
+SELECT DISTINCT ?item ?hc
+WHERE 
+{ 
+ ?hc wdt:P279+ wd:Q987080; wdt:P910 ?item. 
+ MINUS { [] ps:P10280 ?item } 
+}

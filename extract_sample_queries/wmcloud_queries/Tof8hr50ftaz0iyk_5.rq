@@ -1,0 +1,14 @@
+# countries not involved in any world war
+SELECT DISTINCT ?country ?countryLabel WHERE {
+  # “country” (sovereign state and UN member)
+  ?country p:P31/ps:P31 wd:Q3624078;
+           wdt:P463 wd:Q1065.
+  # not participant of any world war
+  MINUS {
+    ?worldWar wdt:P31 wd:Q103495;
+              wdt:P710/wdt:P527? ?country.
+  }
+  # extant
+  MINUS { ?country wdt:P576|wdt:P582 ?end. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

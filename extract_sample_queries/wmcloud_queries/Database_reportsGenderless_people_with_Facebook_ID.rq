@@ -1,0 +1,5 @@
+select ?item (CONCAT("[https://www.facebook.com/",?facebook,"/about?section=contact-info&pnref=about]") AS ?facebooklink) {
+  ?item wdt:P31 wd:Q5 ; wdt:P2013 ?facebook
+  optional {?item wdt:P21 ?gender}
+  filter (!bound(?gender))
+} order by ?item

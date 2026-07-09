@@ -1,0 +1,8 @@
+#title: Items without P31 and without P279
+# Complex constraint from [[Property talk:P4644]]
+#
+SELECT ?item WHERE {
+  ?item wdt:P4644 ?value.
+  FILTER NOT EXISTS { ?item wdt:P31 [] }
+  FILTER NOT EXISTS { ?item wdt:P279 [] }
+}

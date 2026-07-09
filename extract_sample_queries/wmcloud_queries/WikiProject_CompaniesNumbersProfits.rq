@@ -1,0 +1,42 @@
+SELECT DISTINCT ?item ?revenue ?unit ?revenue_USD ?date WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q4830453;
+        p:P2295 ?statement .
+  OPTIONAL { ?item wdt:P159 ?hq } .
+  ?statement wikibase:rank ?rank .
+  FILTER( ?rank != wikibase:DeprecatedRank ) .
+  OPTIONAL {
+    FILTER( ?rank != wikibase:PreferredRank ) .
+    ?item p:P2295 ?statement1 .
+    ?statement1 wikibase:rank wikibase:PreferredRank .
+    FILTER( ?statement1 != ?statement ) .
+  } .
+  FILTER( !BOUND( ?statement1 ) ) .
+  OPTIONAL { ?statement pq:P585 ?date } .
+  {
+    ?statement psv:P2295 [
+      wikibase:quantityAmount ?revenue; wikibase:quantityUnit wd:Q4917
+    ] .
+    BIND( wd:Q4917 AS ?unit ) .
+    BIND( ?revenue AS ?revenue_USD ) .
+  } UNION {
+    ?statement psv:P2295 [
+      wikibase:quantityAmount ?revenue; wikibase:quantityUnit ?unit
+    ] .
+    FILTER( ?unit != wd:Q4917 ) .
+    ?unit p:P2284 ?unit_statement .
+    ?unit_statement wikibase:rank ?unit_rank;
+                    psv:P2284 [ wikibase:quantityUnit wd:Q4917; wikibase:quantityAmount ?usd ] .
+    FILTER( ?unit_rank != wikibase:DeprecatedRank ) .
+    OPTIONAL {
+      FILTER( ?unit_rank != wikibase:PreferredRank ) .
+      ?unit p:P2284 ?unit_statement1 .
+      ?unit_statement1 psv:P2284/wikibase:quantityUnit wd:Q4917;
+                       wikibase:rank wikibase:PreferredRank .
+      FILTER( ?unit_statement1 != ?unit_statement ) .
+    } .
+    FILTER( !BOUND( ?unit_statement1 ) ) .
+    BIND( ?revenue * ?usd AS ?revenue_USD ) .
+  } .
+}
+ORDER BY DESC(?revenue_USD)
+LIMIT 20

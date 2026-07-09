@@ -1,0 +1,7 @@
+SELECT ?value WHERE { VALUES ?cl { wd:<!--
+    celebrity or critic: -->Q5 wd:Q729 wd:<!--
+    m or tv:             -->Q11424 wd:Q15416 wd:<!--
+    tv with /s:          -->Q3464665 wd:<!--
+    franchise:           -->Q196600 wd:<!--
+    source:              -->Q35127 wd:Q1092563 <!--
+--> } . ?value wdt:P279* ?cl }

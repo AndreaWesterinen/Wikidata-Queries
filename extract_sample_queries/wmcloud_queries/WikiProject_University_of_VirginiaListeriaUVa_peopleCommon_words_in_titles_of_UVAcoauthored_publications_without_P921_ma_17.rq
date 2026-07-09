@@ -1,0 +1,45 @@
+SELECT 
+  DISTINCT 
+  ?locationstring ?item ?title 
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  ("P921" AS ?property)
+  (REPLACE(STR(?location), ".*Q", "Q") AS ?locationqid) 
+  ("S887" AS ?heuristic)
+  ("Q69652283" AS ?deduced)
+WITH { 
+ SELECT ?location ?locationstring WHERE
+   {  
+     ?location wdt:P463 wd:Q1065 .
+     { ?location skos:altLabel ?locationstring }
+     UNION
+     { ?location rdfs:label ?locationstring }
+     FILTER (LANG(?locationstring) = "en")
+     FILTER ((STRLEN(?locationstring) > 3))
+     FILTER (?location != wd:Q30 ) # USA; better treated separately
+     FILTER (!CONTAINS(?locationstring, "China" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "Georgia" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "Island" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "Niger" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "Congo" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "Mexico" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "India" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "Mongolia" )) # better treated separately
+     FILTER (!CONTAINS(?locationstring, "Bharat" )) # better treated separately
+     FILTER (?location != wd:Q160016 ) # members of the UN
+   } 
+  } AS %locations
+WITH { 
+SELECT DISTINCT ?item ?title ?locationstring ?location WHERE
+   {  
+     INCLUDE %locations
+      SERVICE bd:sample { ?item wdt:P921 wd:Q199687 . bd:serviceParam bd:sample.limit 3000 }     
+      ?item wdt:P1476 ?title .
+      FILTER ( CONTAINS(?title, ?locationstring))
+      MINUS { ?item wdt:P921 ?location }
+   } 
+} AS %publications
+WHERE { 
+     INCLUDE %publications
+  FILTER ( ?location != wd:Q1006 ) # Guinea; gives a false positive for Papua New Guinea
+}
+ORDER BY ASC(?qid)

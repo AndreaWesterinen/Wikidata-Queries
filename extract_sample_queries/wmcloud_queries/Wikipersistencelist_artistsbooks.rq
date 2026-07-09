@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?creatorLabel ?movementLabel ?pubdate ?aat ?collLabel
+WHERE
+{
+  ?item wdt:P31 wd:Q1062404 .  
+	OPTIONAL { ?item wdt:P170 ?creator }  
+	OPTIONAL { ?item wdt:P135 ?movement }
+	OPTIONAL { ?item wdt:P577 ?pubdate }
+	OPTIONAL { ?item wdt:P1014 ?aat }  
+	OPTIONAL { ?item wdt:P195 ?coll }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

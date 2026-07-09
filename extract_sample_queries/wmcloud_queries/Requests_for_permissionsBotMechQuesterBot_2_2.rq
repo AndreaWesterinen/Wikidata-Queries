@@ -1,0 +1,5 @@
+select distinct ?label {
+  ?item wdt:P31 wd:Q13100073 .
+  ?item rdfs:label ?label
+  filter(lang(?label) = 'zh-cn')
+}

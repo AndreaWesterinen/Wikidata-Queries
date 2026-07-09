@@ -1,0 +1,8 @@
+#title: Qualifier only valid to use with "range constraint" and "difference-within-range constraint"
+# Complex constraint from [[Property talk:P2313]]
+# This property must only be used as a qualifier for [[Property:P2302|property constraint&#32;<small dir="ltr">(P2302)</small>]] values of [[d:Q21510860|range constraint <small>(Q21510860)</small>]] and [[d:Q21510854|difference-within-range constraint <small>(Q21510854)</small>]].
+SELECT ?item ?itemLabel ?constraint ?constraintLabel ?min WHERE {
+  ?item p:P2302 [ps:P2302 ?constraint; pq:P2313 ?min].
+  FILTER (?constraint NOT IN (wd:Q21510860, wd:Q21510854)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

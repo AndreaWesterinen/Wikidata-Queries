@@ -1,0 +1,18 @@
+SELECT ?item ?sitter ?sittername ?dob ?dod ?sitterimage ?npgurl ?addlink WHERE {
+  wd:P6152 wdt:P1630 ?formatterurl .
+  ?item p:P195/ps:P195 wd:Q1459037.
+ 
+  MINUS { ?item wdt:P921 [] } . 
+  ?item wdt:P31/wdt:P279* wd:Q4502142 .
+  ?item rdfs:label ?sittername . 
+  FILTER(LANG(?sittername)="en")
+  { ?sitter rdfs:label ?sittername } UNION { ?sitter skos:altLabel ?sittername } . 
+  ?sitter wdt:P569 ?dob . 
+  OPTIONAL { ?sitter wdt:P570 ?dod } . 
+ OPTIONAL { ?sitter wdt:P18 ?sitterimage } . 
+  ?sitter wikibase:sitelinks ?sitterlinks .  
+  OPTIONAL { ?item wdt:P6152 ?npgid }.
+  BIND(REPLACE(?npgid, '^(.+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?npgurl)  .
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P921&entityid=", REPLACE(STR(?sitter), "http://www.wikidata.org/entity/", ""), " Add]") AS ?addlink)
+
+} ORDER BY DESC(?sitterlinks) LIMIT 3000

@@ -1,0 +1,9 @@
+# Number of siblings (humans)
+SELECT ?item ?number_of_siblings (?number_of_siblings + 1 as ?total) ?persons (ROUND(?persons/ ?total *100)/100 as ?sibling_groups) (?number_of_siblings * ?persons as ?cst)
+{	
+  	{SELECT ?ct (COUNT(DISTINCT?s) as ?persons) { SELECT ?s (COUNT(DISTINCT?o) as ?ct) { ?s wdt:P3373 ?o; wdt:P31 wd:Q5 } GROUP BY ?s } GROUP BY ?ct}
+  	?item wdt:P31 wd:Q21199 .
+  	?item wdt:P1181 ?number_of_siblings
+	FILTER( xsd:integer(?number_of_siblings) = xsd:integer(?ct) )          
+}
+ORDER BY ASC(?number_of_siblings)

@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?coord ?itemLabel WHERE {
+  ?item wdt:P131 ?sub1.
+  ?sub1 wdt:P131* wd:Q52502.
+  ?item wdt:P625 ?coord.
+  FILTER not exists { ?item wdt:P31 wd:Q18333556 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+  OPTIONAL { ?item wdt:P18 ?dummy0. }
+  FILTER(!BOUND(?dummy0))
+}

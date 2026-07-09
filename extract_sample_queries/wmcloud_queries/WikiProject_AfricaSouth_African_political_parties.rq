@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel ?subject WHERE {
+  ?item wdt:P31 wd:Q7278.
+  ?item wdt:P17 wd:Q258.
+}

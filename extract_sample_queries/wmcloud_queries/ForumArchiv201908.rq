@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?article ?noArticle ?enItem ?enArticle
+WHERE
+{
+#ist BKS
+	?item wdt:P31 wd:Q4167410;
+#mit Eintrag "verschieden von <Familienname>"
+          p:P1889 [ ps:P1889 ?enItem; pq:P1013 wd:Q27924673 ].  
+#und Artikel in deWP
+        ?article schema:about ?item .
+        ?article schema:isPartOf <https://de.wikipedia.org/>.
+#und Artikel in enWP fuer <Familienname>
+        ?enArticle schema:about ?enItem .
+        ?enArticle schema:isPartOf <https://en.wikipedia.org/>.
+#aber ohne Artikel in enWP fuer dieses Item
+          OPTIONAL{?noArticle schema:about ?item .
+        ?noArticle schema:isPartOf <https://en.wikipedia.org/>.}
+          FILTER (!BOUND(?noArticle))
+}

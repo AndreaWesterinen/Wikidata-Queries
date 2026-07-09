@@ -1,0 +1,4 @@
+#Main subjects given as articles
+SELECT ?item
+  WHERE {?item wdt:P921 ?subject.
+         ?subject wdt:P31 wd:Q34770}

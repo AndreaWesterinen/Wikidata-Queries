@@ -1,0 +1,8 @@
+#title: Qualifier [[Property:P3831|object has role&#32;<small dir="ltr">(P3831)</small>]] should have a value of the class [[d:Q26696044|candidate status <small>(Q26696044)</small>]]
+# Complex constraint from [[Property talk:P726]]
+# FIXME: Sample values: [[d:Q26696038|nominated candidate <small>(Q26696038)</small>]], [[d:Q26696048|candidate featured in polls <small>(Q26696048)</small>]]; sample item: [[Q22676594#P726]]
+SELECT ?item ?value ?qualifiervalue WHERE
+{
+	?item p:P726 ?statement . ?statement ps:P726 ?value . ?statement pq:P3831 ?qualifiervalue .
+  	MINUS { ?statement pq:P3831 ?qualifiervalue . ?qualifiervalue wdt:P31 wd:Q26696044 }
+}

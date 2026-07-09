@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?itemDescription ?all_sitelinks ?wp_sitelinks WITH {
+  SELECT ?item ?all_sitelinks WHERE {
+    ?item wdt:P21 wd:Q6581072; wikibase:sitelinks ?all_sitelinks .
+    FILTER(?all_sitelinks > 30) .
+    MINUS { ?item ^schema:about/schema:isPartOf <https://be.wikipedia.org/> }
+  }
+} AS %subquery1 WITH {
+  SELECT ?item ?all_sitelinks (COUNT(?wp_sitelink) AS ?wp_sitelinks) WHERE {
+    INCLUDE %subquery1 .
+    ?item wdt:P31 wd:Q5 .
+    ?wp_sitelink schema:about ?item; schema:isPartOf/wikibase:wikiGroup 'wikipedia' .
+  } GROUP BY ?item ?all_sitelinks
+} AS %subquery2 WHERE {
+  INCLUDE %subquery2 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} ORDER BY DESC(?wp_sitelinks) LIMIT 1000

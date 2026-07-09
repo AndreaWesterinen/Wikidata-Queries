@@ -1,0 +1,9 @@
+SELECT ?Property_ ?Property_Label ?Property_Description 
+WHERE {
+  
+	?Property_ p:P2302 ?constraint_statement .
+	?constraint_statement ps:P2302 wd:Q21510857 .
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 

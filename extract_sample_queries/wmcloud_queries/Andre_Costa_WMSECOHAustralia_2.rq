@@ -1,0 +1,5 @@
+#Setlements in Australia
+SELECT DISTINCT ?city ?cityLabel ?admin ?adminLabel
+WHERE {
+	?city wdt:P31/wdt:P279* wd:Q486972 .
+	?city wdt:P17 wd:Q408 .

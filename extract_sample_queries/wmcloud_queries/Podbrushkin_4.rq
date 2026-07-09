@@ -1,0 +1,7 @@
+#SELECT (COUNT(?item) as ?count) WHERE { 
+SELECT ?item ?itemLabel ?sitelinks WHERE { 
+  ?item wdt:P31* wd:Q699 .
+  FILTER NOT EXISTS {?item wdt:P31 wd:Q699 }
+  ?item wikibase:sitelinks ?sitelinks
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } }
+ORDER BY DESC(?sitelinks)

@@ -1,0 +1,8 @@
+#title: Born in > 1986
+# Complex constraint from [[Property talk:P6234]]
+#
+SELECT ?item ?born {
+	?item wdt:P6234 ?value .
+    ?item wdt:P569 ?born.
+    FILTER (YEAR (?born) > 1986)
+}

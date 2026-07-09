@@ -1,0 +1,13 @@
+#Find common strings for authors of scientific articles on the Zika virus
+SELECT * WHERE {
+  {
+    SELECT ?authorstring (COUNT(DISTINCT ?paper) AS ?count) (GROUP_CONCAT(DISTINCT ?paper; SEPARATOR = " , ") AS ?items) WHERE {
+      ?paper wdt:P2093 ?authorstring;
+#             wdt:P50 ?author;
+             wdt:P921 wd:Q202864 .
+    }
+    GROUP BY ?authorstring
+  }
+  FILTER(?count > 4)
+}
+ORDER BY DESC(?count)

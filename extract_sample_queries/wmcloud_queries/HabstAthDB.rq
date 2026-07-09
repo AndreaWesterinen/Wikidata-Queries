@@ -1,0 +1,6 @@
+SELECT ?person ?personLabel ?eventLabel ?pbLabel WHERE {
+  ?person p:P2415 ?pbQual .
+  ?pbQual pq:P2416 ?event .
+  ?pbQual ps:P2415 ?pb .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

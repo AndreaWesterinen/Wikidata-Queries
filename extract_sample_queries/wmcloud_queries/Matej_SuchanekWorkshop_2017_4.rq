@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item (?label AS ?itemLabel) ?coord {
+  ?item wdt:P17|wdt:P1001 wd:Q213 .
+  { ?item wdt:P31/wdt:P279* wd:Q811979 } UNION { ?item wdt:P31/wdt:P279* wd:Q43229 } .
+  ?item rdfs:label ?label FILTER( LANG( ?label ) = 'cs' ) .
+  MINUS { ?item wdt:P138 [] } .
+  FILTER( REGEX( ?label, '^[A-Z][^ ]+(ův|ov[aoy]) ' ) ) .
+  FILTER( !REGEX( ?label, '\\d' ) ) .
+  FILTER( !REGEX( ?label, '^Budova ' ) ) .
+  OPTIONAL { ?item (p:P159/pq:P625|wdt:P625) ?coord } .
+} ORDER BY ?label

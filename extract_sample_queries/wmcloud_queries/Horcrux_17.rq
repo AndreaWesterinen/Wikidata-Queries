@@ -1,0 +1,9 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q1134686 ;
+     wdt:P17 wd:Q38.
+  FILTER NOT EXISTS {?x wdt:P131  ?city.}
+  FILTER NOT EXISTS {?x wdt:P159  ?city2.}
+  FILTER NOT EXISTS {?x wdt:P740  ?city3.}
+}
+LIMIT 1000

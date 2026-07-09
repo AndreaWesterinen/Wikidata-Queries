@@ -1,0 +1,14 @@
+#title: qualifier value would generally be a label or an alias of the item
+# Complex constraint from [[Property talk:P5168]]
+# check if the property is used correctly or add an alias
+SELECT ?item ?itemLabel ?v 
+WHERE
+{
+	?item p:P138 [ pq:P5168 ?v ]
+	FILTER NOT EXISTS { ?item rdfs:label ?l .       FILTER( contains(lcase(?l) , lcase(?v)) && "mul" = lang(?v) )  }
+	FILTER NOT EXISTS { ?item rdfs:label ?l .       FILTER( contains(lcase(?l) , lcase(?v)) && lang(?l) = lang(?v) )  }
+	FILTER NOT EXISTS { ?item skos:altLabel ?a .    FILTER( contains(lcase(?a) , lcase(?v)) && "mul" = lang(?v) )  }
+	FILTER NOT EXISTS { ?item skos:altLabel ?a .    FILTER( contains(lcase(?a) , lcase(?v)) && lang(?a) = lang(?v) )  }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+LIMIT 50

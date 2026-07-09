@@ -1,0 +1,8 @@
+SELECT ?human ?occupation ?occupationLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?human wdt:P31 wd:Q5.
+  
+  
+  OPTIONAL { ?human wdt:P106 ?occupation. }
+}
+LIMIT 1000

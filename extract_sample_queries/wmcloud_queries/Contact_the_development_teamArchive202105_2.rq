@@ -1,0 +1,10 @@
+SELECT ?item ?wiki ?url ?lang (CONCAT("[[:",?lang,":",?pagetitle,"]]") as ?link)
+{ 
+  BIND( wd:Q2345 as ?item)
+  ?url schema:about ?item 
+       ; schema:isPartOf ?wiki 
+       ; schema:inLanguage ?lang 
+       ; schema:name ?pagetitle .
+  ?wiki wikibase:wikiGroup "wikipedia" .
+}
+ORDER BY (?lang != "en-simple") (?lang != "en")

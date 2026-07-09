@@ -1,0 +1,6 @@
+# model items
+SELECT ?concept ?conceptLabel ?item ?itemLabel 
+WHERE 
+{
+  ?concept wdt:P5869 ?item.
+  SERVICE wikibase:label { bd:serviceParam wikibase:lang

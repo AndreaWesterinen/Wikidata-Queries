@@ -1,0 +1,11 @@
+#Jews in the Crown of Aragon with their teachers and students
+#defaultView:Graph
+SELECT ?personLabel ?person ?studentLabel ?student_of ?student_ofLabel 
+
+WHERE {
+  ?person wdt:P140 wd:Q9268;
+    wdt:P27 wd:Q204920.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?person wdt:P802 ?student. }
+  OPTIONAL { ?person wdt:P1066 ?student_of. }
+}

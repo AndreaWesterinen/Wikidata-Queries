@@ -1,0 +1,8 @@
+#title: With only one page
+# Complex constraint from [[Property talk:P800]]
+#
+SELECT ?item ?value ?pages {
+	?item wdt:P800 ?value.
+  ?value wdt:P1104 ?pages.
+  FILTER (?pages = 1)
+}

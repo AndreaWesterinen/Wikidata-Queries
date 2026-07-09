@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item  ?arabic #?dummy # (COUNT(DISTINCT ?sitelink) as ?linkcount)
+	WHERE {
+	{ ?item wdt:P31  wd:Q5 }
+#	{ ?item wdt:P21 wd:Q6581097 }
+	{ ?item wdt:P18 ?dummy  }
+#	FILTER {  }
+	#FILTER NOT EXISTS { ?item wdt:P106   wd:Q33999  }
+	FILTER NOT EXISTS { ?item wdt:P106   wd:Q488111  }
+	FILTER NOT EXISTS {
+	?article schema:about ?item 
+	;	schema:isPartOf	<https://ar.wikipedia.org/> .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ar" }
+    }.
+#	FILTER ( ?item != wd:Q28640 ) .
+	?item rdfs:label ?arabic filter (lang(?arabic) = "ar")
+
+}# ORDER BY DESC(?linkcount)
+LIMIT 500

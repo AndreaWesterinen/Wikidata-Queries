@@ -1,0 +1,7 @@
+SELECT ?paper ?page_titleEN WHERE {
+  ?paper wdt:P31/wdt:P279* wd:Q11032;
+         wdt:P17 wd:Q30.
+  ?article schema:about ?paper.
+  ?article schema:isPartOf <https://en.wikipedia.org/>.
+  ?article schema:name ?page_titleEN.
+}

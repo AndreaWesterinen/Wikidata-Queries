@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(DISTINCT(?withlabel)) as ?ct) { ?withlabel wdt:P3321 ?malelabel . OPTIONAL { ?withlabel wdt:P31 ?hasinstance . } BIND(IF(BOUND(?hasinstance), ?hasinstance, wd:Q22260099) as ?item) . } GROUP BY ?item ORDER BY DESC(?ct) ?item

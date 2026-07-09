@@ -1,0 +1,14 @@
+# Streets in the Netherlands named after people
+#defaultView:BubbleChart
+SELECT ?named  ?namedLabel ?namedDescription (COUNT(?item) as ?ct)
+{
+
+  	?item wdt:P31 wd:Q79007 .
+  	?item wdt:P138 ?named .
+  	?item wdt:P17 wd:Q55 .
+
+  	?named wdt:P31 wd:Q5 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}
+}
+GROUP BY ?named  ?namedLabel ?namedDescription
+ORDER BY DESC(?ct)

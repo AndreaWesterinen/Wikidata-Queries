@@ -1,0 +1,34 @@
+SELECT DISTINCT (STRAFTER(STR(?i), "/entity/") AS ?_i) ("Dpl" AS ?_s) ?label WHERE {
+  {
+    { ?i wdt:P31 wd:Q19563262. }
+    UNION
+    { ?i wdt:P31 wd:Q29113513. }
+    OPTIONAL {
+      ?i schema:description ?dsc.
+      FILTER((LANG(?dsc)) = "pl")
+    }
+    ?i wdt:P131 ?w.
+    ?w wdt:P131 ?w1;
+      rdfs:label ?wLabel.
+    ?w1 rdfs:label ?w1Label.
+    FILTER((LANG(?wLabel)) = "pl")
+    FILTER((LANG(?w1Label)) = "pl")
+    FILTER(!(BOUND(?dsc)))
+    BIND(IF(STRSTARTS(?wLabel, "województwo"), ?wLabel, ?w1Label) AS ?_wLabel)
+    BIND(CONCAT("\"powiat w województwie ", REPLACE(STRAFTER(?_wLabel, "województwo "), "e$", "m"), " (I Rzeczpospolita)\"") AS ?label)
+  }
+  UNION
+  {
+    ?i wdt:P31 wd:Q2560367.
+    OPTIONAL {
+      ?i schema:description ?dsc.
+      FILTER((LANG(?dsc)) = "pl")
+    }
+    ?i wdt:P131 ?w.
+    ?w rdfs:label ?wLabel.
+    FILTER((LANG(?wLabel)) = "pl")
+    FILTER(!(BOUND(?dsc)))
+    BIND(CONCAT("\"jednostka podziału terytorialnego w województwie ", REPLACE(STRAFTER(?wLabel, "województwo "), "e$", "m"), " (I Rzeczpospolita)\"") AS ?label)
+  }
+}
+ORDER BY (?i)

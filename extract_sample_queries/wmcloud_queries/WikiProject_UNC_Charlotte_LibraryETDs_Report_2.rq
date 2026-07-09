@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE
+{
+  VALUES ?projects {wd:Q100153988 wd:Q113329855} 
+  ?item wdt:P5008 ?projects .
+  ?item wdt:P31 wd:Q187685 .
+}
+ORDER BY ?item

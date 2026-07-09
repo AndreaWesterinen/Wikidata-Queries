@@ -1,0 +1,12 @@
+# events starting in 2017 and ending in 2018, shortest duration first
+SELECT ?item ?itemLabel ?start ?end ?durationInDays WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q1656682;
+        p:P580/psv:P580 [ wikibase:timeValue ?start; wikibase:timePrecision ?startPrecision ];
+        p:P582/psv:P582 [ wikibase:timeValue ?end; wikibase:timePrecision ?endPrecision ].
+  FILTER("2017-01-01"^^xsd:dateTime <= ?start && ?start < "2018-01-01"^^xsd:dateTime)
+  FILTER("2018-01-01"^^xsd:dateTime <= ?end && ?end < "2019-01-01"^^xsd:dateTime)
+  FILTER(?startPrecision >= 10 && ?endPrecision >= 10) # precision 10 = month
+  BIND(?end - ?start AS ?durationInDays)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr". }
+}
+ORDER BY ASC(?durationInDays)

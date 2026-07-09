@@ -1,0 +1,10 @@
+#title: categories for honorary citizenship with "has list" (P2354), but not as "list related to category" (P1753)-value
+# Complex constraint from [[Property talk:P10280]]
+# add P2354 statement
+SELECT DISTINCT ?item ?hc ?list
+WHERE
+{
+  [] wdt:P10280 ?item .
+  ?item wdt:P301/wdt:P2354 ?list .
+  MINUS { ?item wdt:P1753 ?list }
+}

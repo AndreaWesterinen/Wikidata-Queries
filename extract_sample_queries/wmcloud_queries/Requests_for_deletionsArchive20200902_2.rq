@@ -1,0 +1,23 @@
+SELECT DISTINCT ?depth ?descendant ?descendantLabel ?descendantDescription (YEAR(?dob) as ?yob) (YEAR(?dod) as ?yod) ?ids ?spouse_ids  ?sl ?spouse_sl
+WHERE
+{
+  BIND( wd:Q75891071 as ?ancestor ) 
+  SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q75891071 ;
+                gas:traversalDirection "Forward" ;
+                gas:out ?descendant ;
+                gas:out1 ?depth ;
+                gas:maxIterations 100 ;
+                gas:linkType wdt:P40 .
+  }
+  OPTIONAL { ?descendant wdt:P569 ?dob }
+  OPTIONAL { ?descendant wdt:P570 ?dod }
+  OPTIONAL { ?descendant wikibase:identifiers ?ids }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en,en" }
+  OPTIONAL { ?descendant wdt:P26 / wikibase:identifiers ?spouse_ids }
+  OPTIONAL { ?descendant wikibase:sitelinks ?sl }
+  OPTIONAL { ?descendant wdt:P26 / wikibase:sitelinks ?spouse_sl }
+}
+ORDER BY ASC(?depth)
+LIMIT 1000

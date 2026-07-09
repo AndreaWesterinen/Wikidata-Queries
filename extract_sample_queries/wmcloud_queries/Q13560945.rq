@@ -1,0 +1,1 @@
+embed.html#SELECT (COUNT(DISTINCT ?item) as ?count) WHERE { ?item wdt:P734 wd:Q13560945; wdt:P31 wd:Q5 }

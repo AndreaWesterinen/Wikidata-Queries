@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?desc
+{
+  ?item wdt:P31 wd:Q79007 .
+  ?item schema:description ?desc .
+  FILTER( lang(?desc) = "en" && REGEX(?desc, "^Street in ") ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+}

@@ -1,0 +1,1 @@
+SELECT ?director ?directorLabel ?film ?filmLabel ?year{?director p:P166 ?prizestmt.?director wdt:P31 wd:Q5.?prizestmt ps:P166 wd:Q5449077. OPTIONAL{?prizestmt pq:P585 ?date. BIND(YEAR(?date) as ?year)}. OPTIONAL{?prizestmt pq:P1686 ?film}SERVICE wikibase:label{bd:serviceParam wikibase:language "te,en".}}ORDER BY ?date

@@ -1,0 +1,5 @@
+embed.html#SELECT ?item ?itemLabel ?namedAfter ?namedAfterLabel {
+  ?item wdt:P31/wdt:P279* wd:Q83620 ; wdt:P17 wd:Q142 ; wdt:P131 wd:Q12193 ; wdt:P138 ?namedAfter .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}
+ORDER BY ?itemLabel

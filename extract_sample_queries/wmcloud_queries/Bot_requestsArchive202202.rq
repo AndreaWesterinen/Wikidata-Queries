@@ -1,0 +1,9 @@
+SELECT *
+{
+  ?item wdt:P31 wd:Q5 .
+  [] schema:about ?item ; schema:isPartOf <https://es.wikipedia.org/> ; schema:name ?eswikititle  .
+  FILTER NOT EXISTS { ?item rdfs:label ?eswikititle }
+  ?item rdfs:label ?eslabel . 
+  FILTER( lang(?eslabel) = "es" && REGEX( ?eslabel, ",") ) 
+}
+LIMIT 100

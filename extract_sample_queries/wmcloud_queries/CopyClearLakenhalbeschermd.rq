@@ -1,0 +1,64 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("400" as ?width) 
+  ("200" as ?height) 
+  ("Groepen auteursrechtelijk beschermd" as ?legend) 
+  ("auteursrechtelijke status" as ?xAxisTitle) 
+  ("aantal vervaardigers" as ?yAxisTitle)
+  (GROUP_CONCAT(?status;separator=",") as ?x)
+  (GROUP_CONCAT(?color;separator=",") as ?colors)
+  ("fontsize:15,offset:-15" as ?showValues)
+  ("40" as ?innerRadius)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+SELECT ?color ?status ?count WHERE
+{{ 
+    SELECT (COUNT(?item0) as ?count) ("lightgreen" AS ?color) ("geboortedatum bekend" AS ?status) 
+    WHERE {
+    ?item0 wdt:P31 wd:Q5 .
+    ?item0 wdt:P6379 wd:Q2098586.
+    ?item0 wdt:P7763 wd:Q73555012.#C
+    ?item0 wdt:P569 ?geboren.
+    FILTER NOT EXISTS {?item0 wdt:P6275 wd:Q71528227 . } #PictoRight
+    FILTER NOT EXISTS {?item0 wdt:P570 [] . } #overleden
+    }        
+} UNION {
+    SELECT (COUNT(?item00) as ?count) ("darkgreen" AS ?color) ("overleden niet via PictoRight" AS ?status) 
+    WHERE {
+    ?item00 wdt:P31 wd:Q5 .
+    ?item00 wdt:P6379 wd:Q2098586.
+    ?item00 wdt:P7763 wd:Q73555012.#C
+    ?item00 wdt:P570 ?overleden.
+      FILTER NOT EXISTS {?item00 wdt:P6275 wd:Q71528227 . } #PictoRight
+    }        
+} UNION {
+    SELECT (COUNT(?item2) as ?count) ("darkred" AS ?color) ("overleden vertegenwoordigd door PictoRight" AS ?status) 
+    WHERE {
+    ?item2 wdt:P31 wd:Q5 .
+    ?item2 wdt:P6379 wd:Q2098586.
+    ?item2 wdt:P7763 wd:Q73555012.#C
+    ?item2 wdt:P6275 wd:Q71528227.#PictoRight
+    ?item2 wdt:P570 ?overlijdensdatum.
+    }        
+} UNION {
+    SELECT (COUNT(?item22) as ?count) ("red" AS ?color) ("niet overleden vertegenwoordigd door PictoRight" AS ?status) 
+    WHERE {
+    ?item22 wdt:P31 wd:Q5 .
+    ?item22 wdt:P6379 wd:Q2098586.
+    ?item22 wdt:P7763 wd:Q73555012.#C
+    ?item22 wdt:P6275 wd:Q71528227.#PictoRight
+    FILTER NOT EXISTS {?item22 wdt:P570 [] . } #overleden
+    }        
+} UNION {
+    SELECT (COUNT(?item3) as ?count) ("grey" AS ?color)("geen geboorte- en sterfdatum bekend" AS ?status) 
+    WHERE {
+    ?item3 wdt:P31 wd:Q5 .
+    ?item3 wdt:P6379 wd:Q2098586.
+    ?item3 wdt:P7763 wd:Q73555012.#C
+    FILTER NOT EXISTS {?item3 wdt:P570 [] . } #overleden
+    FILTER NOT EXISTS {?item3 wdt:P569 [] . } #geboren
+    }       
+
+}}}

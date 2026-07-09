@@ -1,0 +1,16 @@
+SELECT
+  (wd:Q5 as ?item)
+  ("P31" as ?in)
+  ("any" as ?out)
+  ?all
+  ?with
+  ?updated
+WITH
+{   
+    SELECT   (COUNT(DISTINCT ?item) as ?all)
+    WHERE     {  ?item wdt:P31 wd:Q5 }
+} as %a1
+WITH
+{   
+    SELECT   (COUNT(DISTINCT ?has) as ?with)
+    WHERE     {  ?has ( wdt:P22

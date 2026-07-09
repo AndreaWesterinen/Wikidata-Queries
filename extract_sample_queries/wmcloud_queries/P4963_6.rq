@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?itemLabel  ?SKBL ?coord WHERE {
+    ?item wdt:P4963 ?SKBLID.
+    ?item wdt:P625 ?coord.
+    minus {?item wdt:P31 wd:Q5}
+
+    BIND (URI(CONCAT("https://www.skbl.se/sv/artikel/",?SKBLID)) AS ?SKBL)
+    # https://www.skbl.se/sv/artikel/$1
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". } 
+} order by ?SKBLID

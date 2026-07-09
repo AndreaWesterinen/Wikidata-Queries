@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT DISTINCT ?coordinates ?item ?itemLabel ?image ?opening WHERE {
+  ?item wdt:P137 wd:Q610120 .
+  ?item wdt:P31/wdt:P279* wd:Q55488 .
+  ?item wdt:P625 ?coordinates  .
+  ?item wdt:P18 ?image .
+  ?item wdt:P1619 ?opening  .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

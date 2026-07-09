@@ -1,0 +1,8 @@
+SELECT ?human ?humanLabel ?geboortenaam ?taal WHERE {
+  ?university wdt:P31 wd:Q3918.
+  ?university wdt:P463 wd:Q3212092.
+  ?human wdt:P108 ?university.
+  ?human wdt:P1477 ?geboortenaam.
+  BIND( LANG(?geboortenaam) AS ?taal).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

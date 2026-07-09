@@ -1,0 +1,11 @@
+#title: Start date of the series should be before the start date of the series used as value
+# Complex constraint from [[Property talk:P2512]]
+# Sample: NCIS starts before NCIS:LA. Check date or statement
+SELECT ?item ?itemLabel ?value ?valueLabel
+{
+	?item wdt:P2512 ?value ; wdt:P580 ?s1 .
+    ?value wdt:P580 ?s2 . 
+    FILTER( ?s1 > ?s2 ) 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+LIMIT 100

@@ -1,0 +1,4 @@
+embed.html#SELECT ?film ?filmLabel ?language ?languageLabel {
+  ?film wdt:P31 wd:Q11424; wdt:P136 wd:Q226730; wdt:P364 ?language
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" }
+}

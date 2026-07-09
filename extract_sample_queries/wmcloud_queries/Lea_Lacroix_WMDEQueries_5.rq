@@ -1,0 +1,8 @@
+#defaultView:BarChart
+SELECT ?lang (COUNT(?item) AS ?count) WHERE {
+  ?item wdt:P131+ wd:Q145.
+  ?item rdfs:label ?itemLabel.
+  BIND(LANG(?itemLabel) AS ?lang)
+  FILTER (?lang in ("en", "cy", "gd", "ga", "br"))
+}
+GROUP BY ?lang

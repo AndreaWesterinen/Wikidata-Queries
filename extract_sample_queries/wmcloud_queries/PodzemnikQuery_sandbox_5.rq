@@ -1,0 +1,13 @@
+#Public sculptures in Christchurch, New Zealand
+SELECT ?item ?itemLabel ?coordinates ?inceptionname
+WHERE 
+{
+  ?item (wdt:P31/wdt:P279*) wd:Q12280.
+
+  ?item wdt:P131 wd:Q32159699.
+  
+  ?item wdt:P625 ?coordinates.
+  ?item wdt:P571 ?inceptionname.
+         
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

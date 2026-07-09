@@ -1,0 +1,12 @@
+#Design chairs
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?_designer ?_designerLabel ?_image ?_inception WHERE {
+  ?item wdt:P287 ?dummy1.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  ?item wdt:P31 ?sub0.
+  ?sub0 wdt:P279* wd:Q15026.
+  OPTIONAL { ?item wdt:P18 ?_image. }
+  OPTIONAL { ?item wdt:P287 ?_designer. }
+  OPTIONAL { ?item wdt:P571 ?_inception. }
+}
+ORDER BY ?_inception

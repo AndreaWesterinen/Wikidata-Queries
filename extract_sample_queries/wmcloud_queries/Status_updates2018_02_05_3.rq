@@ -1,0 +1,17 @@
+# older siblings who died less than a month before their younger sibling entered an office
+SELECT DISTINCT ?olderSibling ?olderSiblingLabel ?dateOfDeath ?youngerSiblingLabel ?startTime ?positionLabel WHERE {
+  ?olderSibling wdt:P31 wd:Q5;
+                wdt:P569 ?dateOfBirth1;
+                wdt:P570 ?dateOfDeath;
+                wdt:P3373 ?youngerSibling.
+  ?youngerSibling wdt:P31 wd:Q5;
+                  wdt:P569 ?dateOfBirth2;
+                  p:P39 [
+                    ps:P39 ?position;
+                    pq:P580 ?startTime
+                  ].
+  FILTER(?dateOfBirth1 < ?dateOfBirth2)
+  FILTER(?dateOfDeath < ?startTime && (?startTime - "P1M"^^xsd:duration) < ?dateOfDeath)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ASC(?startTime - ?dateOfDeath) ?startTime

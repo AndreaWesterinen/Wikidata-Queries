@@ -1,0 +1,22 @@
+#added before 2016-10
+SELECT DISTINCT ?ID ?item ?itemLabel ?otherinstanceof ?otherinstanceofLabel ?coord 
+#SELECT DISTINCT ?item ?itemLabel 
+WHERE
+{
+   ?item wdt:P31/wdt:P279* wd:Q23442 .                   # island
+   {?item wdt:P131 wd:Q252.}                               # ... situated in Indonesia
+   UNION
+   {?item wdt:P131 ?arr.                                  # ... or in the administrative territory of Australia
+   ?arr wdt:P131 wd:Q252. } 
+   UNION
+   {?item wdt:P17 wd:Q252}
+  
+   OPTIONAL {?item wdt:P31 ?otherinstanceof .
+             FILTER (?otherinstanceof!=wd:Q23442) .
+            }  # Instance of.. other than island
+   OPTIONAL {?item wdt:P4227  ?ID.}                      # id (option)
+   OPTIONAL {?item wdt:P625 ?coord.}                      # geographic coordinates (option)
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "id,en,nl,de,fr" .
+   }
+}

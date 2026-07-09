@@ -1,0 +1,4 @@
+SELECT ?city ?cityLabel WHERE {
+     VALUES ?city { wd:Q84 wd:Q90 }. # London, Paris 
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }  
+}

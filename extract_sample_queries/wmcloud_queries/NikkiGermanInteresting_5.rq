@@ -1,0 +1,7 @@
+select distinct (?l as ?item) (concat("[[Lexeme:", replace(str(?l), str(wd:), ""), "|", replace(str(?l), str(wd:), ""), "]]") as ?l_) ?lemma ?len {
+  ?l dct:language wd:Q188;
+     wikibase:lemma ?lemma.
+  bind (strlen(?lemma) as ?len).
+  filter (?len >= 40).
+  filter (!contains(?lemma, " ")).
+} order by desc(?len) ?lemma

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?cityLabel ?population ?coord ?countryLabel ?shortCountry ?city  WHERE {
+  ?city (wdt:P31/(wdt:P279*)) wd:Q515;
+    wdt:P1082 ?population;
+    wdt:P625 ?coord.
+  FILTER(?population > 100000 )
+  ?city wdt:P17 ?country.
+  ?country wdt:P298 ?shortCountry.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ASC (?shortCountry)

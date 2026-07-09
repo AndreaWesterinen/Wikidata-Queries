@@ -1,0 +1,6 @@
+select ?item where {
+
+?item wdt:P2410 ?id .
+?item wdt:P50 [].
+
+}

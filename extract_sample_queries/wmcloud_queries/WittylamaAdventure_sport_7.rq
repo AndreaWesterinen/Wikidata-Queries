@@ -1,0 +1,9 @@
+SELECT ?ski_resort ?ski_resortLabel ?countryLabel ?website ?rangeLabel ?location WHERE {
+  ?ski_resort wdt:P31 wd:Q130003.
+  OPTIONAL { ?ski_resort wdt:P17 ?country. }
+  OPTIONAL { ?ski_resort wdt:P625 ?location. }
+  OPTIONAL { ?ski_resort wdt:P856 ?website. }
+  OPTIONAL { ?ski_resort wdt:P131 ?region. }
+  OPTIONAL { ?ski_resort wdt:P4552 ?range. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

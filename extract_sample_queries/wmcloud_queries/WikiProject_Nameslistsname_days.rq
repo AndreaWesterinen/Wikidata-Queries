@@ -1,0 +1,21 @@
+SELECT DISTINCT ?item ?itemLabel ?month ?month_ ?monthnb ?daynb 
+(GROUP_CONCAT(DISTINCT ?czl; separator=", ") as ?cz_) 
+(GROUP_CONCAT(DISTINCT ?fil; separator=", ") as ?fi_) 
+(GROUP_CONCAT(DISTINCT ?nol; separator=", ") as ?no_) 
+(GROUP_CONCAT(DISTINCT ?lvl; separator=", ") as ?lv_) 
+(GROUP_CONCAT(DISTINCT ?sel; separator=", ") as ?se_) 
+WHERE
+{
+	?item wdt:P31 wd:Q14795564 . 
+    ?item p:P361 [ps:P361 ?month ; pq:P1545 ?daynb ] . ?month wdt:P31 wd:Q47018901 .
+    ?month wdt:P1545 ?monthnb .
+    OPTIONAL { ?cz p:P1750 [ps:P1750 ?item ; pq:P17 wd:Q213 ] ; wdt:P1705 ?cz0 . BIND(CONCAT("[[",strafter(str(?cz),"y/"),"|",?cz0,"]]") as ?czl) } 
+    OPTIONAL { ?fi p:P1750 [ps:P1750 ?item ; pq:P17 wd:Q33 ] ; wdt:P1705 ?fi0 . BIND(CONCAT("[[",strafter(str(?fi),"y/"),"|",?fi0,"]]") as ?fil) } 
+    OPTIONAL { ?no p:P1750 [ps:P1750 ?item ; pq:P17 wd:Q20 ] ; wdt:P1705 ?no0 . BIND(CONCAT("[[",strafter(str(?no),"y/"),"|",?no0,"]]") as ?nol) } 
+    OPTIONAL { ?se p:P1750 [ps:P1750 ?item ; pq:P17 wd:Q34 ] ; wdt:P1705 ?se0 . BIND(CONCAT("[[",strafter(str(?se),"y/"),"|",?se0,"]]") as ?sel) } 
+    OPTIONAL { ?lv p:P1750 [ps:P1750 ?item ; pq:P17 wd:Q211 ] ; wdt:P1705 ?lv0 . BIND(CONCAT("[[",strafter(str(?lv),"y/"),"|",?lv0,"]]") as ?lvl) } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?month rdfs:label ?monthLabel }
+    BIND( CONCAT( IF( 10 > xsd:integer(?monthnb), "0", "" ), ?monthnb, ' ', STR( ?monthLabel ) ) AS ?month_ ) .
+}
+GROUP BY ?item ?itemLabel ?month ?month_ ?monthnb ?daynb
+ORDER BY xsd:integer(?monthnb) xsd:integer(?daynb)

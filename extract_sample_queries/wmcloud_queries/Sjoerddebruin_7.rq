@@ -1,0 +1,6 @@
+select ?item ?itemLabel ?item2 ?item2Label {
+  ?item wdt:P1566 ?geonames ;
+        wdt:P17 wd:Q55 .
+  ?item2 wdt:P1566 ?geonames filter (?item != ?item2) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

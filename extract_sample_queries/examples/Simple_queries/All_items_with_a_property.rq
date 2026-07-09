@@ -1,4 +1,4 @@
-# ----
+#title: All items with a property
 # Sample to query all values of a property
 # Property talk pages on Wikidata include basic queries adapted to each property
 SELECT

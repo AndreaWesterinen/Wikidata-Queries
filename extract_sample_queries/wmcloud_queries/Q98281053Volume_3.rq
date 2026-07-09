@@ -1,0 +1,11 @@
+SELECT ?item ?named ?pages ?vol ?author1 ?author2 WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P1343 wd:Q98281053.
+  ?item p:P1343 ?statement.
+  ?statement pq:P478 "3" ; ps:P1343 wd:Q98281053.
+  OPTIONAL {?statement pq:P1810 ?named ; ps:P1343 wd:Q98281053.}
+  OPTIONAL {?statement pq:P304 ?pages ; ps:P1343 wd:Q98281053.}
+  OPTIONAL {?statement pq:P478 ?vol ; ps:P1343 wd:Q98281053.}
+  OPTIONAL {?statement pq:P50 ?author1 ; ps:P1343 wd:Q98281053.}
+  OPTIONAL {?statement pq:P2093 ?author2 ; ps:P1343 wd:Q98281053.}
+  }

@@ -1,0 +1,12 @@
+SELECT ?item ?part1 ?part2 ?date
+WHERE
+{
+  ?item wdt:P31 wd:Q21664088
+  OPTIONAL { ?item p:P527 [ pq:P1545 "1" ; ps:P527 ?part1 ] }
+  OPTIONAL { ?item p:P527 [ pq:P1545 "2" ; ps:P527 ?part2 ] }
+  OPTIONAL { 
+              ?item wdt:P527?/wdt:P577 ?date . 
+              FILTER NOT EXISTS { ?item wdt:P527?/wdt:P577 ?date2 . FILTER( ?date2 < ?date ) }
+           }
+}
+ORDER BY DESC(?date) ?item

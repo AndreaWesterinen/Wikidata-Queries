@@ -1,4 +1,4 @@
-# ----
+#title: PubMed references in CIViCdb
 # variants that are associated with renal cell carcinoma
 SELECT DISTINCT ?reference ?referenceLabel ?pmid
 WHERE

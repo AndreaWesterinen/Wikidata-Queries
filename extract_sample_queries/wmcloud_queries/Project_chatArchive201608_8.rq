@@ -1,0 +1,8 @@
+select ?item ?label ?lang ?d where {
+  { { ?item rdfs:label ?label } union  { ?item skos:altLabel ?label } }
+  filter (lcase(str(?label)) = lcase("John Campbell") )
+  #filter(lang(?label)="en") .
+  bind(lang(?label) as ?lang) .
+	OPTIONAL { ?item schema:description ?d .  FILTER(lang(?d)="en") }
+}
+limit 300

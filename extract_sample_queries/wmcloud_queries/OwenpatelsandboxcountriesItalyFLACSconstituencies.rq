@@ -1,0 +1,26 @@
+SELECT ?item ?council WHERE { 
+  ?region wdt:P31/wdt:P279* wd:Q10864048 ; 
+          wdt:P17 wd:Q38.
+  OPTIONAL {?region wdt:P1313 ?headofgov .
+            MINUS { ?headofgov wdt:P576 [] }
+            }
+  ?council wdt:P1001 ?region ;
+           wdt:P31 wd:Q1077701 .
+  OPTIONAL { ?council  wdt:P4253 ?numberconstituencies }
+  OPTIONAL {?member wdt:P361 ?council .
+            ?member wdt:P279 wd:Q4175034 .
+            MINUS {?member wdt:P576 [] }
+            }
+  OPTIONAL {
+    ?statement ps:P279 wd:Q192611 ; 
+               pq:P642 ?council. 
+    ?constype p:P279 ?statement .
+    ?item wdt:P31/wdt:P279* ?constype ;
+                  rdfs:label ?constituencyLab.
+    FILTER(lang(?constituencyLab) = 'en')
+    MINUS { ?item wdt:P576 [] }
+  }
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?council wdt:P576 [] }
+}
+ORDER BY ?item

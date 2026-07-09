@@ -1,0 +1,9 @@
+SELECT ?item ?haslist ?instanceother
+WHERE
+{ 
+    ?item wdt:P31 wd:Q13406463 ; wdt:P641 wd:Q847 
+    OPTIONAL { ?haslist wdt:P2354 ?item }     
+    OPTIONAL { ?item wdt:P31 ?instanceother . FILTER(  wd:Q13406463 != ?instanceother)  }       
+}
+ORDER BY ?item
+LIMIT 2000

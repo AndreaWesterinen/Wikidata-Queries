@@ -1,0 +1,20 @@
+SELECT ?item ?num ?ancestor ?ed WITH {
+SELECT ?item ?num ?ancestor ?ed
+{
+    ?item wdt:P31 wd:Q5; p:P39 ?s.
+    ?s ps:P39 wd:Q11696; pq:P1545 ?num.
+    ?item (wdt:P22|wdt:P25)+ ?ancestor .
+    ?ancestor p:P39 ?as.
+    ?as ps:P39 ?pos; pq:P582 ?ed.
+  FILTER(?pos IN (wd:Q18810062,wd:Q18810063))
+} 
+} AS %sq WITH {
+  SELECT (?item as ?item2) (MAX(?ed) as ?ed2) {
+    INCLUDE %sq .
+  } GROUP BY ?item
+} AS %sq2 WHERE {
+  INCLUDE %sq .
+  INCLUDE %sq2 .
+  FILTER ((?item=?item2) && (?ed=?ed2))
+}
+ORDER BY xsd:integer(?num)

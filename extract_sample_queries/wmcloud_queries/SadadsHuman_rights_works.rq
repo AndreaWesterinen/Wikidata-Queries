@@ -1,0 +1,4 @@
+SELECT ?date ?work ?workLabel ?topics
+WITH {
+  SELECT DISTINCT ?work WHERE {
+    ?work wdt:P921 / (wdt:P361+

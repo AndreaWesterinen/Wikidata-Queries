@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  ?item wdt:P1343 wd:Q16014700 .
+  OPTIONAL { ?item wdt:P1415 ?dummy0 }
+  FILTER(!bound(?dummy0))
+}

@@ -1,0 +1,15 @@
+# journals by publisher (where journal is in English)
+
+SELECT ?publisherLabel ?journal ?journalLabel ?start_time WHERE {
+  
+  ?journal wdt:P123 ?publisher.      # define variable publisher
+  ?journal wdt:P31 wd:Q773668.      # item is open access journal
+ 
+  ?journal p:31 ?stat . 
+  ?stat ps:P31 wd:Q773668.
+  ?stat pq:P580 ?start_time.   
+  
+  ?journal wdt:P407 wd:Q1860.       # language of journal is English
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?publisherLabel 

@@ -1,0 +1,20 @@
+# Enlist all Wikidata items where manufacturer is stated as being 'Carl Zeiss AG'.
+# Last revised: 2021-12-15.
+# Table columns: ?WDitem ?WDitemLabel ?instanceOfLabel ?subclassOfLabel (WD=Wikidata)
+# NOTE: The sort order applied to the column "cameraLabel" rearranges entries containing foreign characters, such as "umlauts" or Greek characters, e.g. "Sony α7R IV", AFTER entries containing the regular set of characters. 
+
+SELECT DISTINCT ?WDitem ?WDitemLabel ?instanceOfLabel ?subclassOfLabel    # WD=Wikidata   # NOTE: combining 'wdt:P279*' with '?subclassOf': 215 items, with '?subclassOfLabel': only 209 items!
+WHERE {
+ 
+  ?WDitem wdt:P176 wd:Q282186 .                      # Manufacturer (P176): Carl Zeiss AG (Q282186) # RESULT / 2021-12-15 => 15
+
+#  ?WDitem wdt:P31 ?instanceOfLabel                   # Display ONLY those items that have an 'instance of (P31)' entry
+  OPTIONAL {?WDitem wdt:P31 ?instanceOf . }          # IF PRESENT retrieve a value for 'instance of (P31)'  # NOTE: Adding this term to the query raises RESULT from 15 to 18
+
+#  OPTIONAL {?WDitem wdt:P279* ?subclassOf . }        # IF PRESENT retrieve a value for 'subclass of (P279*)'  # NOTE: Adding this term to the query raises RESULT from 15 to 209/215 items. These represent all sub-subclasse!
+  OPTIONAL {?WDitem wdt:P279 ?subclassOf . }         # IF PRESENT retrieve a value for 'subclass of (P279)'  # NOTE: Adding this term to the query keeps RESULT at 18
+ 
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+ 
+ORDER BY ASC(UCASE(?WDitemLabel)) ASC(UCASE(?instanceOfLabel))

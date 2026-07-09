@@ -1,0 +1,13 @@
+#title: English label would generally include the year of the census
+# Complex constraint from [[Property talk:P8701]]
+# TODO edit label
+SELECT DISTINCT ?item ?year ?l 
+WHERE 
+{
+  hint:Query hint:optimizer "None".
+  ?item ^wdt:P8701 _:b28; wdt:P585 ?d.
+  BIND(YEAR(?d) AS ?year)
+  ?item rdfs:label ?l.
+  FILTER( LANG(?l) = "en" && !CONTAINS(?l, STR(?year)))
+  FILTER( ?item != wd:Q106106013 )
+}

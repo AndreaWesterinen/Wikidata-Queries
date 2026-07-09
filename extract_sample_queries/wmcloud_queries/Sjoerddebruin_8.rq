@@ -1,0 +1,7 @@
+SELECT DISTINCT ?waterschap ?waterschapLabel ?datum_van_oprichting_of_creatie WHERE {
+  ?waterschap wdt:P31 wd:Q702081.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER(NOT EXISTS { ?waterschap wdt:P576 ?test. })
+  OPTIONAL { ?waterschap wdt:P571 ?datum_van_oprichting_of_creatie. }
+} 
+ORDER BY DESC(?datum_van_oprichting_of_creatie)

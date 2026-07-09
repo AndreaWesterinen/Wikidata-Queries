@@ -1,0 +1,17 @@
+SELECT ?item ?item1 ?p1 ?v1 ?p2 ?v2 WHERE {
+  ?item wdt:P31 ?sub0 .
+  ?sub0 (wdt:P279)* wd:Q134556 .
+  ?item wdt:P361 ?item1 .
+  ?item p:P361 ?node .
+  ?node ps:P361 ?item1 .
+  OPTIONAL {
+    ?node ?p1 ?v1 .
+    OPTIONAL {
+      ?node prov:wasDerivedFrom ?v1 .
+      ?v1 ?p2 ?v2 .
+    }
+  }
+  ?item1 wdt:P31 ?sub1 .
+  ?sub1 (wdt:P279)* wd:Q2031291 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?first ?count ?gn
+WITH
+{
+SELECT ?first (COUNT(?item0) as ?count) (SAMPLE(?item0) as ?item)
+{
+    hint:Query hint:optimizer "None".
+    ?item0 wdt:P27 wd:Q38 .
+    FILTER NOT EXISTS { ?item0 p:P735 [] } 
+    ?item0 rdfs:label ?l . 
+    FILTER( lang(?l) = "it" ) 
+    BIND( strbefore( ?l, " ") as ?first) 
+}
+GROUP BY ?first 
+HAVING ( ?count > 3)          
+} as %a         
+WHERE
+{
+  INCLUDE %a
+  FILTER NOT EXISTS { [] rdfs:label ?first ; wdt:P31/wdt:P279? wd:Q202444 ; wdt:P407 wd:Q652 }
+  OPTIONAL { ?gn rdfs:label ?first ; wdt:P31/wdt:P279? wd:Q202444  }
+  FILTER( ?first != "") 
+}
+ORDER BY DESC(?count)

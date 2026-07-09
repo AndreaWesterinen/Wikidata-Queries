@@ -1,0 +1,22 @@
+#Serralades properes sense P131
+SELECT ?item ?name ?coord ?lat ?lon
+WHERE {
+?item wdt:P17 wd:Q29.
+  ?item wdt:P31 wd:Q46831
+OPTIONAL {
+?item wdt:P625 ?coord .
+?item p:P625 ?coordinate .
+?coordinate psv:P625 ?coordinate_node .
+?coordinate_node wikibase:geoLatitude ?lat .
+?coordinate_node wikibase:geoLongitude ?lon .
+  }
+  MINUS {?item wdt:P131 []}
+  FILTER (?lat > 40.3)
+  FILTER (?lon > 0.1)  
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ca,en,es,an,eu,pl,sv,ceb" .
+?item rdfs:label ?name
+}
+}
+#ORDER BY ASC (?name)
+#defaultView:Map

@@ -1,0 +1,20 @@
+#Map of places of residence of accused witches.
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX schema: <http://schema.org/>
+
+#defaultView:Map
+SELECT ?person ?personLabel ?accusedwitch ?precision ?coords ?Gender ?Occupation ?Residence ?image 
+WHERE {
+  ?person wdt:P4478 ?accusedwitch .
+  ?person wdt:P31 wd:Q5.
+  ?person wdt:P551 ?residence .
+  ?residence wdt:P625 ?coords.
+  OPTIONAL { ?article schema:about ?person. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?person rdfs:label ?personLabel.
+    ?residence rdfs:label ?Residence .
+    ?occupation rdfs:label ?Occupation.
+    ?gender rdfs:label ?Gender.
+  }
+}

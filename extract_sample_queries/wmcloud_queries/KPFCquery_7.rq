@@ -1,0 +1,149 @@
+SELECT ?item ?itemLabel ?dateLabel ?mov_dateLabel ?weekdayLabel (CONCAT(?month_str, "-", ?day_str) AS ?isodate) ?rankLabel ?calendarLabel ?start ?end WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,la,de". }
+  #change year to desired item
+  OPTIONAL { ?year wdt:P31 wd:Q3186692 .
+           ?year wdt:P585 ?year_time .
+           FILTER(YEAR(?year_time) = 2022) 
+           # get dominical letter
+           ?year wdt:P31 ?year_type .
+           ?year_type wdt:P361 wd:Q90711969 .
+           }
+  # items that have feast day or periodic occurrence
+  ?item (p:P837|p:P841) ?node .
+  ?node (ps:P837|ps:P841) ?date .
+  # get date of movable feasts based on dominical letter
+  OPTIONAL { ?date p:P837 ?datenode2 .
+           ?date wdt:P2894 ?weekday .
+           ?datenode2 pq:P1264 ?year_type .
+           ?datenode2 ps:P837 ?mov_date .
+           # as below get month and day from date item for isodate
+           ?mov_date p:P361 ?month_node .
+           ?month_node ps:P361 ?month_item .
+           ?month_item p:P279 [pq:P1545 ?month] .
+           ?month_node pq:P1545 ?day .
+           }
+  # get date for Easter
+  OPTIONAL { ?date p:P585 ?datenode2 .
+           ?date wdt:P2894 ?weekday .
+           ?datenode2 pq:P1264 ?year .
+           ?datenode2 ps:P585 ?mov_date .
+           BIND(MONTH(?mov_date) AS ?month)
+           BIND(DAY(?mov_date) AS ?day)
+           }
+  # and for feasts of the Easter cycle
+  OPTIONAL { ?date p:P4895 ?time_index_node .
+            ?date wdt:P2894 ?weekday .
+            ?time_index_node ps:P4895 ?time_index .
+            ?time_index_node pq:P2210 ?easter .
+            ?time_index_node pq:P361 wd:Q12138 .
+            ?easter p:P585 ?datenode2 .
+           ?datenode2 pq:P1264 ?year .
+           ?datenode2 ps:P585 ?easterdate .
+            # isn't this a wonderful easy to use language?
+           BIND(MONTH(?easterdate + ?time_index) AS ?month)
+           BIND(IF(MONTH(?easterdate)=3,
+                   IF((DAY(?easterdate) + ?time_index)>245,
+                      DAY(?easterdate) + ?time_index - 245,
+                      IF((DAY(?easterdate) + ?time_index)>214,
+                         DAY(?easterdate) + ?time_index - 214,
+                         IF((DAY(?easterdate) + ?time_index)>184,
+                            DAY(?easterdate) + ?time_index - 184,
+                            IF((DAY(?easterdate) + ?time_index)>153,
+                               DAY(?easterdate) + ?time_index - 153,
+                               IF((DAY(?easterdate) + ?time_index)>122,
+                                  DAY(?easterdate) + ?time_index - 122,
+                                  IF((DAY(?easterdate) + ?time_index)>92,
+                                     DAY(?easterdate) + ?time_index - 92,
+                                     IF((DAY(?easterdate) + ?time_index)>61,
+                                        DAY(?easterdate) + ?time_index - 61,
+                                        IF((DAY(?easterdate) + ?time_index)>31,
+                                           DAY(?easterdate) + ?time_index - 31,
+                                           DAY(?easterdate) + ?time_index) ))))))),
+
+                   IF((DAY(?easterdate) + ?time_index)>244,
+                      DAY(?easterdate) + ?time_index - 244,
+                      IF((DAY(?easterdate) + ?time_index)>214,
+                         DAY(?easterdate) + ?time_index - 214,
+                         IF((DAY(?easterdate) + ?time_index)>183,
+                            DAY(?easterdate) + ?time_index - 183,
+                            IF((DAY(?easterdate) + ?time_index)>153,
+                               DAY(?easterdate) + ?time_index - 153,
+                               IF((DAY(?easterdate) + ?time_index)>122,
+                                  DAY(?easterdate) + ?time_index - 122,
+                                  IF((DAY(?easterdate) + ?time_index)>91,
+                                     DAY(?easterdate) + ?time_index - 91,
+                                     IF((DAY(?easterdate) + ?time_index)>61,
+                                        DAY(?easterdate) + ?time_index - 61,
+                                        IF((DAY(?easterdate) + ?time_index)>30,
+                                           DAY(?easterdate) + ?time_index - 30,
+                                           DAY(?easterdate) + ?time_index)) )))))))
+                AS ?day)
+            BIND(IF(MONTH(?easterdate)=3,
+                   IF((DAY(?easterdate) + ?time_index)>245,
+                      MONTH(?easterdate) + 8,
+                      IF((DAY(?easterdate) + ?time_index)>214,
+                         MONTH(?easterdate) + 7,
+                         IF((DAY(?easterdate) + ?time_index)>184,
+                            MONTH(?easterdate) + 6,
+                            IF((DAY(?easterdate) + ?time_index)>153,
+                               MONTH(?easterdate) + 5,
+                               IF((DAY(?easterdate) + ?time_index)>122,
+                                  MONTH(?easterdate) + 4,
+                                  IF((DAY(?easterdate) + ?time_index)>92,
+                                     MONTH(?easterdate) + 3,
+                                     IF((DAY(?easterdate) + ?time_index)>61,
+                                        MONTH(?easterdate) + 2,
+                                        IF((DAY(?easterdate) + ?time_index)>31,
+                                           MONTH(?easterdate) + 1,
+                                           MONTH(?easterdate) )))))))),
+
+                   IF((DAY(?easterdate) + ?time_index)>244,
+                      MONTH(?easterdate) + 8,
+                      IF((DAY(?easterdate) + ?time_index)>214,
+                         MONTH(?easterdate) + 7,
+                         IF((DAY(?easterdate) + ?time_index)>183,
+                            MONTH(?easterdate) + 6,
+                            IF((DAY(?easterdate) + ?time_index)>153,
+                               MONTH(?easterdate) + 5,
+                               IF((DAY(?easterdate) + ?time_index)>122,
+                                  MONTH(?easterdate) + 4,
+                                  IF((DAY(?easterdate) + ?time_index)>91,
+                                     MONTH(?easterdate) + 3,
+                                     IF((DAY(?easterdate) + ?time_index)>61,
+                                        MONTH(?easterdate) + 2,
+                                        IF((DAY(?easterdate) + ?time_index)>30,
+                                           MONTH(?easterdate) + 1,
+                                           MONTH(?easterdate) )))))))))
+                AS ?month)
+           }
+  # get weekday for non-movable feasts
+  OPTIONAL { ?date p:P2894 ?weekdaynode .
+           ?weekdaynode ps:P2894 ?weekday .
+           ?weekdaynode pq:P1264 ?year_type .
+           }
+  # get month and day from date item
+  OPTIONAL { ?date p:P361 ?month_node .
+           ?month_node ps:P361 ?month_item .
+           ?month_item p:P279 [pq:P1545 ?month] .
+           ?month_node pq:P1545 ?day .
+           }
+  BIND(IF((STRLEN(STR(?month)) = 1), CONCAT("0", STR(?month)), STR(?month)) AS ?month_str)
+  BIND(IF((STRLEN(STR(?day)) = 1), CONCAT("0", STR(?day)), STR(?day)) AS ?day_str)
+  # part of General Roman Calendar
+  ?node pq:P361 ?calendar .
+  {?node pq:P361 wd:Q13012667 }
+  # or part of the German language Regional calendar
+  #UNION
+  #{ ?node pq:P361 wd:Q2138391 }
+  # added to Calendar
+  OPTIONAL {?node pq:P580 ?start }
+  # liturgica rank
+  ?node pq:P9002 ?rank .
+  # removed from calendar
+  OPTIONAL { ?node pq:P582 ?end }
+  BIND("1970-01-02T00:00:00Z"^^xsd:dateTime AS ?querystart)
+  BIND(NOW() AS ?queryend)
+  FILTER ((?start <= ?queryend  && ?start >= ?querystart ) || (?end <= ?queryend && ?end >= ?querystart))
+  FILTER (BOUND(?date))
+}
+ORDER BY ?isodate

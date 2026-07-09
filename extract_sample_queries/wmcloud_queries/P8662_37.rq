@@ -1,0 +1,9 @@
+#title: Candidates (Hippolyte Jamain 1874)
+# Complex constraint from [[Property talk:P8662]]
+# add P8662 or novalue
+SELECT ?item
+{
+	?item wdt:P1343 wd:Q96636865 . 
+    MINUS { ?item p:P8662 [] }
+}
+ORDER BY ?item

@@ -1,3 +1,4 @@
+#title: Movies with Bud Spencer
 SELECT ?item ?itemLabel (MIN(?date) AS ?firstReleased) ?_image
 WHERE {
   ?item wdt:P161 wd:Q221074;

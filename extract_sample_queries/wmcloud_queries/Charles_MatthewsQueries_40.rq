@@ -1,0 +1,31 @@
+SELECT ?item ?itemLabel 
+
+WHERE {
+  ?item wdt:P1415 ?dummy0 .
+  MINUS { ?item wdt:P31 wd:Q5 }
+  MINUS { ?item wdt:P31 wd:Q8436 }
+  MINUS { ?item wdt:P31 wd:Q16334295 }
+  MINUS { ?item wdt:P31 wd:Q15632617 }
+  MINUS { ?item wdt:P31 wd:Q13417114 }
+  MINUS { ?item wdt:P31 wd:Q15966903 }
+  MINUS { ?item wdt:P31 wd:Q12334344 }
+  MINUS { ?item wdt:P31 wd:Q18347143 }
+  MINUS { ?item wdt:P31 wd:Q4502119 }
+  MINUS { ?item wdt:P31 wd:Q968159 }
+  MINUS { ?item wdt:P31 wd:Q16979650 }
+  MINUS { ?item wdt:P31 wd:Q176799 }
+  MINUS { ?item wdt:P31 wd:Q930164 }
+  MINUS { ?item wdt:P31 wd:Q61002 }
+  MINUS { ?item wdt:P31 wd:Q614084 }
+  MINUS { ?item wdt:P31 wd:Q952037 }
+  MINUS { ?item wdt:P31 wd:Q17524420 }
+  MINUS { ?item wdt:P31 wd:Q1797187 }
+  MINUS { ?item wdt:P31 wd:Q17376093 }
+  MINUS { ?item wdt:P31 wd:Q10648343 }
+  MINUS { ?item wdt:P31 wd:Q679206 }
+  MINUS { ?item wdt:P31 wd:Q6937938 }
+  MINUS { ?item wdt:P31 wd:Q216866 }
+  MINUS { ?item wdt:P31 wd:Q5971060 }
+  MINUS { ?item wdt:P31 wd:Q1851760 }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

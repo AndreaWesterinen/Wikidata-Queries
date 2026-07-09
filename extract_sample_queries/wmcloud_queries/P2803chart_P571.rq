@@ -1,0 +1,14 @@
+SELECT (wd:Q5 as ?item) ("Dates of inception" as ?legend) (GROUP_CONCAT(?itemLabel;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{	SELECT  ?p (COUNT(DISTINCT ?n) as ?ct)
+		{
+  			VALUES ?p3 psv:P571
+  			?n ?p3 ?n1 . ?n1	wikibase:timePrecision ?p .
+		}
+		GROUP BY  ?p
+		ORDER BY ASC(?ct)
+	}
+	?item wdt:P2803 ?p1
+	FILTER (?p = ?p1)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?item rdfs:label ?itemLabel  }
+}

@@ -1,0 +1,4 @@
+SELECT ?item ?type WHERE {
+  ?item wdt:P650 [] .
+  ?item wdt:P31 ?type .
+  }

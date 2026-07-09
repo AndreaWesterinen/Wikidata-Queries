@@ -1,0 +1,9 @@
+SELECT ?person (COUNT(?subjectOf) AS ?numberOfSubjects) WHERE {
+  ?person p:P1343 ?blkoeStmt.
+  ?blkoeStmt ps:P1343 wd:Q665807;
+    pq:P805 ?subjectOf.
+ 
+}
+
+GROUP BY ?person
+HAVING (COUNT(?subjectOf) > 1)

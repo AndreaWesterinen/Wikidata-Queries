@@ -1,0 +1,11 @@
+SELECT ?item ?sitelinks (COUNT(?partOf) AS ?wiktionaries) {
+  ?article schema:isPartOf ?partOf .
+  ?partOf wikibase:wikiGroup "wiktionary" .
+  ?article schema:name ?name; schema:about ?item .
+  FILTER( !CONTAINS( ?name, ':' ) ) .
+  FILTER( ?item != wd:Q5296 ) .
+  minus { ?item wdt:P31 wd:Q4167410 }
+  MINUS {?item wdt:P31/wdt:P279* wd:Q3241972.}
+  MINUS {?item wdt:P31/wdt:P279* wd:Q202444.}
+  ?item wikibase:sitelinks ?sitelinks .
+} GROUP BY ?item ?sitelinks

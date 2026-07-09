@@ -1,0 +1,22 @@
+select distinct ?item ?itemLabel ?example1 ?example2 ?facebook1 ?facebook2 where
+{
+{ ?item wdt:P2002 ?example1 . ?item wdt:P2002 ?example2 . 
+  filter(?example1 > ?example2) . 
+  # item has two values for example account
+  filter((lcase(?example1)) = (lcase(?example2)) ) . }
+  # but they are the same case-insensitive text
+
+  union
+
+{ ?item wdt:P2013 ?facebook1 . ?item wdt:P2013 ?facebook2 . 
+  filter(?facebook1 > ?facebook2) . 
+  filter((lcase(?facebook1)) = (lcase(?facebook2)) ) . }
+  # same but for facebook
+
+  # as of 2019-03-19, 176 example and 27 Facebook
+  
+  # nb please do *not* fix automatically by removing entries without checking them first
+  # as one value may have key qualifiers (follower count, verification, sources, etc)!
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

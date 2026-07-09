@@ -1,0 +1,2 @@
+SELECT ?item  (COUNT(DISTINCT ?passenger) as ?count) (COUNT(DISTINCT ?sitelink) as ?wp) (SAMPLE(?born) AS ?sb)
+(GROUP_CONCAT(DISTINCT CONCAT("{","{Label","

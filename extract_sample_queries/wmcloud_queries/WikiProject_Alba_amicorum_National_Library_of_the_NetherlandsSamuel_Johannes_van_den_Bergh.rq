@@ -1,0 +1,8 @@
+#Samuel Johannes van den Bergh
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q81564326 .
+  ?item wdt:P361 wd:Q72752427 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

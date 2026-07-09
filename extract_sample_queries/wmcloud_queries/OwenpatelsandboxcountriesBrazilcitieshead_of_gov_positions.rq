@@ -1,0 +1,7 @@
+SELECT ?cities ?item  WHERE { 
+  ?cities wdt:P31/wdt:P279* wd:Q3184121 .
+  ?cities wdt:P17 wd:Q155 .
+  MINUS {?cities wdt:P31/wdt:P279* wd:Q10864048 }
+  ?cities wdt:P1313 ?item .
+  MINUS { ?item wdt:P576 [] } 
+}

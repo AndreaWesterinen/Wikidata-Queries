@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?property ?propertyLabel ?group ?groupLabel WHERE {
+  ?group wdt:P5869 ?item.
+  FILTER(NOT EXISTS {?item wdt:P31 ?group.})
+  OPTIONAL {?item ?propt ?group.
+            ?property wikibase:directClaim ?propt.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?group ?property ?item
+LIMIT 100

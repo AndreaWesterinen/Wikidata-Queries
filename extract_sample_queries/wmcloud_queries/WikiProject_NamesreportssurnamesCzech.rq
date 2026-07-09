@@ -1,0 +1,13 @@
+SELECT ?item 
+  (COUNT(DISTINCT ?sn) as ?count)
+  (COUNT(DISTINCT ?p) as ?count_p)
+  (SAMPLE(?sn) as ?sample_sn)
+{
+    ?sn wdt:P407 wd:Q9056 .
+    ?sn wdt:P31/wdt:P279? wd:Q101352.
+    ?sn wdt:P31 ?item .
+    OPTIONAL { ?p wdt:P734 ?sn }
+}
+GROUP BY ?item
+HAVING ( ?count > 0) 
+ORDER BY DESC(?count)

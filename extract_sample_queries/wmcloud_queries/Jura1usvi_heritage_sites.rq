@@ -1,0 +1,13 @@
+SELECT ?item WHERE {
+{
+    ?item wdt:P814 ?dummy0 .
+} UNION {
+    ?item wdt:P809 ?dummy1 .
+} UNION {
+    ?item wdt:P649 ?dummy2 .
+} UNION {
+    ?item wdt:P1435 ?dummy3 .
+}
+  ?item wdt:P131 wd:Q11703 .
+}
+LIMIT 4000

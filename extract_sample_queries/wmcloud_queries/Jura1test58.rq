@@ -1,0 +1,10 @@
+SELECT ?item ?st ?sl ?id
+WHERE
+{
+   { ?item wdt:P31 wd:Q47345468 } UNION { ?item wdt:P31/wdt:P279 wd:Q13219666 } 
+   ?item wdt:P585 ?d .
+   FILTER (YEAR(?d) = 2015)
+   OPTIONAL { ?item wikibase:statements ?st ; wikibase:identifiers ?id ; wikibase:sitelinks ?sl }
+}
+ORDER BY ?item
+LIMIT 2000

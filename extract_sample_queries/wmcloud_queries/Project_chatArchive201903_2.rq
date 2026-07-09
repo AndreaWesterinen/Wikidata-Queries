@@ -1,0 +1,6 @@
+select (count (?lexeme) as ?lexemeCount)
+where
+{
+  ?lexeme wdt:P138 ?foo .
+  ?lexeme a ontolex:LexicalEntry .
+}

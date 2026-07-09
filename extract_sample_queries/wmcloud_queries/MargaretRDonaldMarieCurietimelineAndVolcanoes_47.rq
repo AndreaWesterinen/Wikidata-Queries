@@ -1,0 +1,5 @@
+SELECT ?Barbara_Hanrahan ?Barbara_HanrahanLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Barbara_Hanrahan wdt:P170 wd:Q4858957.
+}
+LIMIT 100

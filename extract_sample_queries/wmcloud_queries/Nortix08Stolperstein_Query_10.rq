@@ -1,0 +1,18 @@
+#defaultView:Map{"hide":["?geographische_Koordinaten", "?layer"]}
+SELECT ?Stolperstein ?StolpersteinLabel ?geographische_Koordinaten ?Bild ?layer
+WHERE {
+  ?Stolperstein wdt:P31 wd:Q26703203;
+                wdt:P131* wd:Q1715.
+  OPTIONAL {
+    ?Stolperstein wdt:P625 ?geographische_Koordinaten;
+    MINUS {?Stolperstein wdt:P18 ?Bild}
+    BIND ("Kein Bild vorhanden/No picture available" AS ?layer)
+  }
+  OPTIONAL {
+    ?Stolperstein wdt:P18 ?Bild;
+                  wdt:P625 ?geographische_Koordinaten.
+    BIND ("Bild vorhanden/Picture available" AS ?layer)
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"  }
+  }
+ORDER BY ?StolpersteinLabel

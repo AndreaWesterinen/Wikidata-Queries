@@ -1,0 +1,6 @@
+select distinct ?item ?itemLabel where 
+{ 
+  ?item wdt:P279* wd:Q131512 .  # subclass of "farmer"
+  filter not exists { ?item wdt:P279* wd:Q838811 } # not subclass of "peasant"
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} 

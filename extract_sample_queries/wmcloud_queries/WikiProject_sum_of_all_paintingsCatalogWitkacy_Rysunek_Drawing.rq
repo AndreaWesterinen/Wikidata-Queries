@@ -1,0 +1,5 @@
+SELECT ?item ?page ?kdm WHERE { 
+  ?item p:P1433 [ ps:P1433 wd:Q113870515; pq:P304 ?page ] .
+  optional{ ?item p:P528 [ ps:P528 ?kdm; pq:P972 wd:Q106425660; ] }
+  BIND(xsd:float(?page) as ?pageNum) .
+} order by ?pageNum

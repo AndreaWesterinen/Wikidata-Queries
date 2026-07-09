@@ -1,0 +1,17 @@
+#Distribution of names of municipalities derivated from castrum in the Iberian Peninsula
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?rgb WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q15284.
+  ?item wdt:P17 ?country.
+  ?item rdfs:label ?itemLabel.
+  ?item wdt:P625 ?coord.
+  FILTER((?country = wd:Q45) || (?country = wd:Q29))
+  FILTER((LANG(?itemLabel)) = "pt" || (LANG(?itemLabel)) = "es")
+  FILTER(REGEX(?itemLabel, "(Castro)") || REGEX(?itemLabel, "(Castelo|Castillo)") || REGEX(?itemLabel, "(Alcácer|Alcázar)"))
+  BIND(
+    IF(REGEX(?itemLabel, "(Castro)"),"FF0000",
+       IF(REGEX(?itemLabel, "(Castelo|Castillo)"),"606060",
+         IF(REGEX(?itemLabel, "(Alcácer|Alcázar)"),"006600",
+           "000000"))) AS ?rgb).
+
+}

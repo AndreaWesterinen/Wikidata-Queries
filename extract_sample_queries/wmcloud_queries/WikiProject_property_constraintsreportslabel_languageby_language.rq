@@ -1,0 +1,14 @@
+SELECT
+  ?item ?lang (COUNT(DISTINCT ?prop) as ?count)
+  (SAMPLE((CONCAT("[[Property:",substr(str(?prop), 32),"#P2302","\u007C",substr(str(?prop), 32),"]]"))) as ?propsample)
+WHERE {
+  ?prop p:P2302 ?cst .
+  ?cst a wikibase:BestRank ;
+    ps:P2302 wd:Q108139345 ;
+    pq:P424 ?lang .
+
+  OPTIONAL { ?item wdt:P424 ?lang ;
+    wdt:P305 [] . }
+}
+GROUP BY ?item ?lang
+ORDER BY DESC(?count) ?lang

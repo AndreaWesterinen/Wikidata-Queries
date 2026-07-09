@@ -1,0 +1,14 @@
+# botanists who are not male together with nationality
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?citizenship ?sitelink WHERE {
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  {?item wdt:P428 ?abbrev }  UNION {?item wdt:P106 wd:Q2374149.}  
+  MINUS {?item wdt:P21 wd:Q6581097.}
+  OPTIONAL {?item wdt:P27 ?citizenship.}
+  OPTIONAL 	{ ?sitelink schema:about ?item. ?sitelink schema:inLanguage "en" }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY ?citizenship ?itemLabel  
+ LIMIT 4000    

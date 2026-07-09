@@ -1,0 +1,11 @@
+SELECT ?item ?count ?items WHERE {
+  {
+    SELECT ?item (COUNT(?obj) AS ?count) (GROUP_CONCAT(?obj; SEPARATOR = " , ") AS ?items) WHERE { 
+      ?obj wdt:P691 ?item . 
+      
+    }
+    GROUP BY ?item 
+  }
+  FILTER(?count > 1)
+}
+order by desc (?count)

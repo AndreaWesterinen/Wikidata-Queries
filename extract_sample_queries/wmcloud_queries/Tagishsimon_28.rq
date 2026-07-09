@@ -1,0 +1,11 @@
+SELECT ?item (sample (?itemLabel1) as ?label) with {
+  select ?item WHERE 
+{
+  ?item wdt:P106 wd:Q33999 .
+}  offset 240000 limit 120000 } as %i
+where
+{
+  include %i
+  filter not exists {?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="en") }
+  ?item rdfs:label ?itemLabel1 .
+  } group by ?item

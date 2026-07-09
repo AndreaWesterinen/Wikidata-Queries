@@ -1,0 +1,8 @@
+#title: P575 < P570
+# Complex constraint from [[Property talk:P575]]
+#
+SELECT ?item ?died ?discovered {
+  ?item wdt:P575 ?discovered.
+  ?item wdt:P570 ?died.
+  FILTER (?discovered < ?died)
+}

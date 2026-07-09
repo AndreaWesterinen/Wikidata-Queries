@@ -1,0 +1,19 @@
+#defaultView:BubbleChart
+SELECT ?author ?authorLabel ?citationCount WITH {
+  SELECT ?cited (COUNT(DISTINCT ?article) AS ?citationCount) WHERE {
+    ?article wdt:P2860 ?cited ;
+             wdt:P1433 wd:Q2107904 .
+  } GROUP BY ?cited
+    ORDER BY DESC(?citationCount)
+    LIMIT 100
+} AS <bb>TICLES WITH {
+  SELECT ?author (COUNT(DISTINCT ?cited) AS ?citationCount) WHERE {
+    INCLUDE <bb>TICLES
+    ?cited wdt:P50 ?author
+  } GROUP BY ?author
+    ORDER BY DESC(?citationCount)
+    LIMIT 25
+} AS <be>THORS WHERE {
+  INCLUDE <be>THORS
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?citationCount)

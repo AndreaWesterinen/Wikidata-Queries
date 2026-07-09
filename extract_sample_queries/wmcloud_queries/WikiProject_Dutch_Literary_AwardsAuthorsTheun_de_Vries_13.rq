@@ -1,0 +1,31 @@
+#Jury members for awards won by Theun de Vries
+SELECT DISTINCT ?jury ?juryLabel ?jurypic ?roleLabel ?awardLabel ?year_authorwon ?author ?authorLabel  # s1 ?s2  #?year_award
+WHERE
+{
+  VALUES (?author) {(wd:Q2143934)}
+  ?author p:P166 ?s1 .
+  ?s1 ps:P166 ?award 
+  OPTIONAL {
+    ?s1 pq:P585 ?year1
+    BIND(YEAR(?year1) AS ?year_authorwon)
+  }
+
+  # Find relevant persons (P3342) for an award/year won by TdV
+  ?award p:P3342 ?s2.
+  OPTIONAL{
+    ?s2 ps:P3342 ?jury.
+    ?s2 pq:P3831 ?role.
+  }
+  FILTER(?role = wd:Q52008309) #only role=jurymember} 
+    
+  OPTIONAL {
+    ?s2 pq:P585 ?year_award1
+    BIND(YEAR(?year_award1) AS ?year_award)
+  }
+  FILTER (?year_authorwon = ?year_award) #find jurymembers only for the year when TdV won the award
+  OPTIONAL{?jury wdt:P18 ?jurypic}
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} ORDER BY ?year_authorwon

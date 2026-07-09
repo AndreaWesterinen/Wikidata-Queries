@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?code_postal WHERE {
+  ?item wdt:P31 wd:Q484170.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL {  }
+  ?item wdt:P131 wd:Q3194.
+  OPTIONAL { ?item wdt:P281 ?code_postal. }
+}
+  ORDER BY ASC(?code_postal)

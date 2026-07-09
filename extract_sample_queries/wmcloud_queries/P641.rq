@@ -1,0 +1,1 @@
+SELECT distinct ?sport ?sportLabel (COUNT(DISTINCT ?item) AS ?cnt) WHERE { ?item wdt:P31 wd:Q5; wdt:P641 ?sport . MINUS { ?item wdt:P106/wdt:P425/wdt:P279* ?sport } SERVICE wikibase:label { bd:serviceParam wikibase:language 'ru' }} GROUP BY ?sport ?sportLabel ORDER BY DESC(?cnt)

@@ -1,0 +1,1 @@
+SELECT ?item (SAMPLE(?e) as ?e2) (SAMPLE(?geo) as ?geo2) (SAMPLE(?fe) as ?fe2) (GROUP_CONCAT( DISTINCT CONCAT("{","{Q","

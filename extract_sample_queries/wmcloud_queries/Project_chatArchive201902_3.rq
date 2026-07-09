@@ -1,0 +1,6 @@
+SELECT ?article ?articleLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?article wdt:P31 wd:Q712597.
+  ?article wdt:P1433 wd:Q183191.
+}
+LIMIT 100

@@ -1,0 +1,10 @@
+#Wikidata scientific articles that contain "zika" in the title
+SELECT ?item ?title ?_PubMed_ID WHERE {
+  ?item wdt:P1476 ?title;
+        wdt:P31 wd:Q13442814.
+  FILTER(CONTAINS(LCASE(?title), "zika"))
+  MINUS  { { ?item wdt:P921 wd:Q202864 . } UNION { ?item wdt:P921 wd:Q8071861 . } }
+  MINUS { ?item wdt:P31 wd:Q309481 } #removes obituaries, e.g. Q22330879
+  OPTIONAL { ?item wdt:P698 ?_PubMed_ID. }
+}
+LIMIT 1000

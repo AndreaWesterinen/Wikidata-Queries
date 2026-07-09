@@ -1,0 +1,9 @@
+SELECT ?item ?last_paper ?work_period_end ?error WHERE {
+ {
+ SELECT ?item (MAX(?publication_date) AS ?last_paper) ?work_period_end WHERE{
+ ?item wdt:P2032 ?work_period_end;
+ ^wdt:P50/wdt:P577 ?publication_date
+ } GROUP BY ?item ?work_period_end
+ } 
+ bind(year(?last_paper)-year(?work_period_end) as ?error)
+} ORDER BY DESC(?error)

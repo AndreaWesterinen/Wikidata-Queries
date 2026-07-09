@@ -1,0 +1,18 @@
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT ?work ?inventory_number ?WorkPID ?workLabel ?creator ?creatorLabel ?collection ?collectionLabel ?image ?inception ?instance_of ?instance_ofLabel WHERE {
+  ?work wdt:P195 wd:Q1471477.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+  OPTIONAL { ?work wdt:P170 ?creator. }
+  OPTIONAL { ?work wdt:P195 ?collection. }
+  OPTIONAL { ?work wdt:P217 ?inventory_number. }
+  OPTIONAL {
+    ?work p:P195 ?y.
+    ?y prov:wasDerivedFrom ?z.
+    ?z pr:P854 ?WorkPID.
+  }
+  OPTIONAL { ?work wdt:P18 ?image. }
+  OPTIONAL { ?work wdt:P571 ?inception. }
+  OPTIONAL { ?work wdt:P31 ?instance_of. }
+}

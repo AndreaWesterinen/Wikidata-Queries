@@ -1,0 +1,5 @@
+SELECT DISTINCT ?weight_plain ?weight_normalised where
+{ 
+  wd:Q6882969 p:P2067/psn:P2067/wikibase:quantityAmount ?weight_normalised . 
+  wd:Q6882969 wdt:P2067 ?weight_plain       
+} 

@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P91 wd:Q6636 . ?item wdt:P21 wd:Q6581097 . MINUS { ?item wdt:P31 wd:Q15632617 } }

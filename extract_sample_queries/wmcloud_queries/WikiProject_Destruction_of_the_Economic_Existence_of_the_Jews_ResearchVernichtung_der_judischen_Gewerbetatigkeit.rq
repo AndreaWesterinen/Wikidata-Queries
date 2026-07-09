@@ -1,0 +1,16 @@
+SELECT ?sector ?sectorLabel (COUNT(?_city) AS ?count ) (SAMPLE(?_cityLabel) AS ?label ) WHERE {
+  ?item wdt:P31 wd:Q4830453.
+  ?item wdt:P2868 wd:Q19287329.
+  ?item wdt:P452 ?sector.
+  ?item wdt:P159 ?_city.
+  
+  ?_city wdt:P31 wd:Q42744322.
+  
+  ?_city rdfs:label ?_cityLabel.
+  ?sector rdfs:label ?sectorLabel. 
+  
+  FILTER((LANG(?sectorLabel)) = "de").  
+  FILTER((LANG(?_cityLabel)) = "de").
+  
+}
+GROUP BY ?_cityLabel ?sector ?sectorLabel

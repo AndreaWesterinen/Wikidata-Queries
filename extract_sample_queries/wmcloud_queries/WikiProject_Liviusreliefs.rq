@@ -1,0 +1,10 @@
+#vici codes
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q245117 .
+  ?item wdt:P5008 wd:Q68074438 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}
+
+order by desc(?itemLabel)

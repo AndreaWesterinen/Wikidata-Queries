@@ -1,4 +1,5 @@
-#Last updated 2021-04-25
+#title: Mountains over 8000 meters elevation
+#updated 2021-04-25
 #defaultView:Map
 SELECT ?item ?itemLabel ?itemDescription ?coord ?elevation
 WHERE

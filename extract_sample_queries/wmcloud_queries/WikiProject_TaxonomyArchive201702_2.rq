@@ -1,0 +1,6 @@
+#Subclasses of taxon
+SELECT ?item ?itemLabel
+{
+  ?item wdt:P279* wd:Q16521;
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

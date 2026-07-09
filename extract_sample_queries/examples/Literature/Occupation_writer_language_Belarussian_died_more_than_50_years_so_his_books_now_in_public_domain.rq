@@ -1,3 +1,4 @@
+#title: Occupation: writer, language: Belarussian, died more than 50 years (so his books now in public domain)
 SELECT ?writer ?writerLabel ?dateOfDeath WHERE {
   ?writer wdt:P31 wd:Q5;          # Instance of human
           wdt:P106 wd:Q36180;     # Occupation writer

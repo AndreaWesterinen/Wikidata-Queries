@@ -1,0 +1,6 @@
+SELECT DISTINCT ?connected_notice WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?retracted_paper wdt:P31 wd:Q45182324.
+  ?retracted_paper wdt:P5824 ?connected_notice
+}
+LIMIT 10000

@@ -1,0 +1,5 @@
+SELECT ?item ?ilpa WHERE {
+  ?item wdt:P31 wd:Q55488.
+  ?item wdt:P131* wd:Q22424.
+  OPTIONAL { ?item rdfs:label ?ilpa. FILTER(LANG(?ilpa)="pa") }
+}

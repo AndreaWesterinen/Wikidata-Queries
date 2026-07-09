@@ -1,3 +1,4 @@
+#title: All properties with descriptions and aliases and types
 SELECT ?property ?propertyType ?propertyLabel ?propertyDescription ?propertyAltLabel WHERE {
   ?property wikibase:propertyType ?propertyType .
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }

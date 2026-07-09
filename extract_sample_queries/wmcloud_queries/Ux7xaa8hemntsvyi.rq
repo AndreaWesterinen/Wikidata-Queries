@@ -1,0 +1,12 @@
+embed.html#SELECT ?person ?personLabel ?positionLabel ?organizationLabel {
+  {
+    SELECT ?person (SAMPLE(?position) AS ?position) (SAMPLE(?organization) AS ?organization) {
+      {
+        SELECT * { ?person wdt:P39 ?position . FILTER(?position = wd:Q18705668) }
+      } UNION {
+        SELECT * { ?person wdt:P463 ?organization . FILTER(?organization = wd:Q161806) }
+      }
+    } GROUP BY ?person
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+} ORDER BY ?personLabel

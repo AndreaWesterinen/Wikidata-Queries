@@ -1,0 +1,10 @@
+#title: 20th-century artists without nationality
+# Complex constraint from [[Property talk:P650]]
+# People with [[Property:P650|RKDartists ID&#32;<small dir="ltr">(P650)</small>]] born after 1900, but no [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]]
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P650 [] .
+  ?item p:P569 ?birthclaim .
+  MINUS { ?item p:P27 [] }
+  ?birthclaim ps:P569 ?birth .
+  FILTER(?birth > "+1900-00-00T00:00:00Z"^^xsd:dateTime) .
+}  ORDER BY ?birth LIMIT 1000

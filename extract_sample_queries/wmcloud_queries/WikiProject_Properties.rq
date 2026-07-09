@@ -1,0 +1,18 @@
+SELECT ?constraintType ?constraintTypeLabel ?avgCount ?maxCount WHERE {
+  {
+    SELECT ?constraintType (AVG(?count) AS ?avgCount) (MAX(?count) AS ?maxCount) WHERE {
+      {
+        SELECT ?property ?constraintType (COUNT(?constraint) AS ?count) WHERE {
+          ?property a wikibase:Property;
+                    p:P2302 ?constraint.
+          ?constraint ps:P2302 ?constraintType.
+          FILTER EXISTS { ?property wdt:P1855 ?example. }
+        }
+        GROUP BY ?property ?constraintType
+      }
+    }
+    GROUP BY ?constraintType
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?avgCount) ASC(LCASE(?constraintTypeLabel))

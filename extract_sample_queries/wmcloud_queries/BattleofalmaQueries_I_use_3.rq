@@ -1,0 +1,9 @@
+#Women who are classicists
+SELECT DISTINCT ?man ?manDescription ?manLabel ?article WHERE {
+  ?man wdt:P31 wd:Q5.
+  ?man wdt:P21 wd:Q6581097.
+  ?man wdt:P106/wdt:P279* wd:Q2468727.
+  ?article schema:about ?man .
+  ?article schema:isPartOf <https://en.wikipedia.org/>
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }  
+}|and

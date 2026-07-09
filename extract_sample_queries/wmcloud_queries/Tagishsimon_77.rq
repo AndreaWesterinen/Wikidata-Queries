@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?P31 ?P31Label WHERE {
+  ?item wdt:P17 wd:Q145.
+  {?item wikibase:statements "1"^^xsd:integer .}
+  UNION
+   {?item wikibase:statements "2"^^xsd:integer .}
+  OPTIONAL {?item wdt:P31 ?P31 . }
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" .   }
+  
+} order by ?itemLabel

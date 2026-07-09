@@ -1,0 +1,11 @@
+# (Film) directors lacking labels in a given language: en
+SELECT ?p ?pLabel (GROUP_CONCAT(DISTINCT ?ll; separator=",") as ?langs)  (COUNT(DISTINCT ?item) as ?ct)
+{ 
+	?item wdt:P57 ?p 
+	OPTIONAL { ?p rdfs:label ?pl . FILTER(lang(?pl)="en") } FILTER(!BOUND(?pl))
+  	?p wdt:P31 wd:Q5 
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "it,es,fi,nl,fr,de,sv,pl,en" }
+  	OPTIONAL { ?w schema:about ?p . ?w schema:inLanguage ?ll }
+}
+GROUP BY ?p ?pLabel
+ORDER BY DESC(?ct) 

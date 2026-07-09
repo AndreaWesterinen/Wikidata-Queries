@@ -1,0 +1,10 @@
+#inception barchart of library buildings in New South Wales
+#defaultView:BarChart
+SELECT ?year (COUNT(?year) as ?count)
+WHERE {
+  ?item wdt:P31 wd:Q856584; 
+        wdt:P131 [ wdt:P131 wd:Q3224 ];
+        wdt:P571 ?inception.
+  BIND(str(year(?inception)) AS ?year)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}
+} GROUP BY ?year ?count ORDER by ?year

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?prop ?disambig WHERE {
+  ?disambig wdt:P31 wd:Q4167410.
+  ?item ?p _:b0.
+    _:b0 ?ps ?disambig.
+    ?ps ^wikibase:statementProperty ?prop.
+  MINUS { ?item (wdt:P31/wdt:P279?) wd:Q4167410. }
+  MINUS { ?item (wdt:P31/wdt:P279?) wd:Q17362920. }
+  FILTER(?prop NOT IN(wd:P460, wd:P1889))
+  }
+LIMIT 100

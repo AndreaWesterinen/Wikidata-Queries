@@ -1,0 +1,7 @@
+SELECT DISTINCT (uri(concat(str(?x),"#",?propCode)) as ?url)
+WHERE {
+  VALUES ?p { p:P1986 p:P4223 p:P6404 p:P7993 p:P3365 p:P9775 p:P9760 p:P9734 p:P508 }
+  BIND(replace(str(?p),".*(?=P[0-9]+$)","") as ?propCode)
+  ?x ?p [pq:P1932 _:_] .
+}
+ORDER BY ?url

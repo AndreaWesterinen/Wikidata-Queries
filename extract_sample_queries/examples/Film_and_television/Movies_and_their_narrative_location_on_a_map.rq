@@ -1,3 +1,4 @@
+#title: Movies and their narrative location on a map
 #defaultView:Map
 SELECT ?movie ?movieLabel ?narrative_location ?narrative_locationLabel ?coordinates WHERE {
    ?movie wdt:P840 ?narrative_location ;

@@ -1,0 +1,14 @@
+#title: value should have a label in English
+# Complex constraint from [[Property talk:P8701]]
+# TODO add an English label
+SELECT DISTINCT ?item ?year ?location ?country
+{
+	hint:Query hint:optimizer "None".
+	?item ^ wdt:P8701 [] .
+	OPTIONAL { ?item rdfs:label ?l . FILTER( lang(?l)= "en" ) }
+	FILTER ( !BOUND(?l) )
+    OPTIONAL { ?item wdt:P276 ?location }
+    OPTIONAL { ?item wdt:P17 ?country }
+    OPTIONAL { ?item wdt:P585 ?d . BIND(YEAR(?d) as ?year) }
+}
+LIMIT 1000

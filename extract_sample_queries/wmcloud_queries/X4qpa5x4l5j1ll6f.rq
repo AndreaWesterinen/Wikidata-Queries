@@ -1,0 +1,6 @@
+#title:Klingon lexemes
+SELECT ?lemma ?lexemeId WHERE {
+  ?lexemeId dct:language wd:Q10134;
+    wikibase:lemma ?lemma.
+  filter(lang(?lemma) = 'tlh-latn')
+}

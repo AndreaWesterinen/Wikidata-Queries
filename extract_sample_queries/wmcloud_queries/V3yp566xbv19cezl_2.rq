@@ -1,0 +1,25 @@
+embed.html#select distinct ?item ?itemLabel ?leadership_start_time (MAX(?elec_date) AS ?elec_date) (MIN(?days) AS ?days) 
+
+with {
+  select ?elec ?elec_date WHERE {
+     ?elec wdt:P31 wd:Q15283424 .
+     ?elec wdt:P585 ?elec_date .
+  } 
+} AS <f5>ections
+    
+where {
+  hint:Query hint:optimizer "None".
+  ?role wdt:P279? wd:Q1553195 .
+  ?pos_stmt ps:P39 ?role .
+  ?pos_stmt pq:P580 ?leadership_start_time .
+  FILTER (year(?leadership_start_time) > 1945) .
+  MINUS {?role p:P279/pq:P642/wdt:P31 wd:Q848197} .
+  ?item p:P39 ?pos_stmt .
+  ?item wdt:P39/wdt:P279 wd:Q16707842 .
+  INCLUDE <f5>ections .
+  FILTER (?elec_date < ?leadership_start_time).
+  BIND ((?leadership_start_time - ?elec_date) AS ?days)
+    
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } .
+} GROUP BY ?item ?itemLabel ?leadership_start_time
+ORDER BY DESC(?days)

@@ -1,0 +1,8 @@
+#Instances of actual languages
+#Instances of actual languages (e.g. "instance of Hindi", often incorrectly set to indicate the language of something or to request a sitelink)
+SELECT ?item ?itemLabel
+WHERE {
+  ?item wdt:P31/wdt:P31* wd:Q34770 .
+  FILTER NOT EXISTS {?item wdt:P31 wd:Q34770}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

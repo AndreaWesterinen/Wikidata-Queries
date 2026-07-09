@@ -1,0 +1,15 @@
+#Skip med mer enn ett lengdemål angitt
+SELECT ?item ?itemLabel ?count
+WHERE
+{
+  {
+    SELECT ?item (COUNT(DISTINCT ?lengde) AS ?count) WHERE {
+      ?item wdt:P31* wd:Q11446 .
+      ?item wdt:P2043 ?lengde .
+    }
+    GROUP BY ?item
+  }
+  FILTER ( ?count > 1 )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC(?count) ?itemL

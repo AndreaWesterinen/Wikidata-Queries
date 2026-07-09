@@ -1,0 +1,2 @@
+# A list of instance of painting with collection Museu d'Art Jaume Morera, but no inventory number
+SELECT ?item WHERE { ?item wdt:P31 wd:Q3305213 . ?item wdt:P195 wd:Q5476145 . MINUS { ?item wdt:P217 [] } }

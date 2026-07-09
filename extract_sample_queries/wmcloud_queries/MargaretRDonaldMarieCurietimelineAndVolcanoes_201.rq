@@ -1,0 +1,13 @@
+# articles authored by Jessica Meeuwig
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?journal ?journalLabel WHERE {
+  ?item wdt:P31 wd:Q13442814.           # is a scholarly article
+  {?item wdt:P50  wd:Q61950221.} UNION 
+         {?item wdt:P50  wd:Q18378657. } # authored by Jessica Meeuwig & should also have Q18378657 (Jessica J. Meeuwig
+    ?item wdt:P1433 ?journal.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?itemLabel ?journalLabel
+ LIMIT 4000    

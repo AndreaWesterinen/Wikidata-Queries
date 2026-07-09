@@ -1,0 +1,8 @@
+SELECT ?item ?taxonName ?sitelink WHERE {
+	?item wdt:P225 ?taxonName .
+    ?item wdt:P105 wd:Q7432 . # species
+    OPTIONAL {?sitelink schema:about ?item} .
+    OPTIONAL {?item wdt:P171 ?parent} .
+    FILTER (!bound(?parent) && !bound(?sitelink))
+}
+ORDER BY ASC(?taxonName)

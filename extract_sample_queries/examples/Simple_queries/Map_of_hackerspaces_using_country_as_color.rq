@@ -1,4 +1,4 @@
-# ----
+#title: Map of hackerspaces using country as color
 #defaultView:Map{"layer":"?countryLabel", "hide":["?geo"]}
 SELECT DISTINCT ?item ?itemLabel ?geo ?countryLabel WHERE {
   ?item wdt:P31 wd:Q1032372;

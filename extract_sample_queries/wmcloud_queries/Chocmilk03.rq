@@ -1,0 +1,13 @@
+embed.html#SELECT ?p ?pLabel ?dod ?article WHERE {
+  ?p wdt:P27 wd:Q664.
+  ?p wdt:P570 ?dod .
+  ?p wdt:P21 wd:Q6581072 .
+  OPTIONAL {
+    ?article schema:about ?p .
+    ?article schema:inLanguage "en" .
+    FILTER (SUBSTR(str(?article), 1, 25) = "https://en.wikipedia.org/")
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}
+}
+ORDER BY DESC(?dod)
+LIMIT 100

@@ -1,3 +1,4 @@
+#title: Who discovered the most asteroids?
 SELECT ?discoverer ?discovererLabel ?count
 WITH {
   SELECT ?discoverer (COUNT(?asteroid) AS ?count)

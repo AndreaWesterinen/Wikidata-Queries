@@ -1,0 +1,17 @@
+# Map of things that are named after Polish citiziens or people born in Poland
+#defaultView:Map
+SELECT ?item ?itemLabel ?person ?personLabel ?coords WHERE {
+  {
+    ?item wdt:P138 ?person.
+    ?item wdt:P625 ?coords.
+    ?person wdt:P27 wd:Q36.
+  }
+  UNION
+  {
+    ?item wdt:P138 ?person.
+    ?item wdt:P625 ?coords.
+    ?person wdt:P19 ?place.
+    ?place wdt:P17 wd:Q36.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

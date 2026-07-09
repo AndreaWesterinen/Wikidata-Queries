@@ -1,0 +1,6 @@
+SELECT ?item (GROUP_CONCAT(DISTINCT(?enlabel)) as ?enlabels) WHERE 
+{  
+  ?item wdt:P31 wd:Q21191270 .
+  ?item wdt:P179 wd:Q23001956 .  
+  OPTIONAL { ?item rdfs:label ?enlabel . FILTER(lang(?enlabel)="en")  } 
+} GROUP BY ?item ORDER BY ?item

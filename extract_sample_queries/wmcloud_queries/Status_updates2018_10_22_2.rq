@@ -1,0 +1,31 @@
+#defaultView:Map
+# Workplaces of society portrait painter Philip de Laszlo
+#defaultView:Map{"hide":["?point", "?line"]}
+SELECT 
+  ?time ?end_time ?locationLabel ?point ?line 
+WITH {
+  SELECT ?subject ?location ?time ?end_time ?point ?point_str WHERE {
+    VALUES ?subject { wd:Q704208 } .
+    ?subject p:P937 ?work_location_statement .
+    ?work_location_statement ps:P937 ?location . 
+    ?location p:P625 / ps:P625 ?point .
+    ?location p:P625 / psv:P625 / wikibase:geoLatitude ?latitude .
+    ?location p:P625 / psv:P625 / wikibase:geoLongitude ?longitude .
+    ?work_location_statement pq:P580 ?time . 
+    OPTIONAL { ?work_location_statement pq:P582 ?end_time } .
+    BIND(CONCAT(STR(?longitude), ' ', STR(?latitude)) AS ?point_str)
+  }
+  ORDER BY (?time)
+} AS %points
+
+WITH {
+  SELECT ?subject (STRDT( CONCAT('LINESTRING (', GROUP_CONCAT(?point_str; separator=','), ')'), geo:wktLiteral) AS ?line) WHERE {
+    INCLUDE %points
+  } GROUP BY ?subject
+} AS %line
+
+WHERE {
+  INCLUDE %points
+  INCLUDE %line
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

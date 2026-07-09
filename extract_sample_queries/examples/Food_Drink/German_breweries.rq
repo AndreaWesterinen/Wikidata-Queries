@@ -1,5 +1,4 @@
-# ----
-#Locations of breweries in Germany
+#title: Locations of breweries in Germany
 #defaultView:Map
 SELECT ?breweryLabel ?breweryDescription ?coord
 WHERE

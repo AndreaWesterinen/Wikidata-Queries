@@ -1,0 +1,22 @@
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+SELECT ?item ?kamp ?labelwo2 
+  WITH {
+    SELECT ?kamp ?labelwo2 WHERE {
+      SERVICE <https://data.niod.nl/PoolParty/sparql/WO2_Thesaurus> {
+    SELECT ?kamp ?labelwo2 WHERE {
+      ?kamp skos:topConceptOf <https://data.niod.nl/WO2_Thesaurus/kampen/3650> .
+      ?kamp skos:prefLabel ?labelwo2 .
+      FILTER(LANG(?labelwo2)='nl') .
+    } LIMIT 5000
+  }
+  } } AS %wo2
+WITH {
+  SELECT ?item ?kamp {
+    ?item wdt:P2888 ?kamp .
+    FILTER(REGEX(STR(?kamp), "https://data.niod.nl/WO2_Thesaurus/kampen/.+")) .
+    }
+  } AS %wikidata
+WHERE {
+  INCLUDE %wo2.
+  INCLUDE %wikidata
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?ifid $ifidLink WHERE {
+  ?item wdt:P31 wd:Q16521. #taxon 
+  ?item wdt:P1391 ?ifid.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  bind(uri(concat("http://www.indexfungorum.org/names/NamesRecord.asp?RecordID=",?ifid)) as ?ifidLink)   
+
+  }
+LIMIT 400

@@ -1,0 +1,7 @@
+PREFIX schema: <http://schema.org/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?property ?descr WHERE {
+  ?property a wikibase:Property .
+  ?property schema:description ?descr FILTER ((lang(?descr) = "fr")) .
+}

@@ -1,0 +1,24 @@
+#All public library branches of the Netherlands, layered by province
+
+#defaultView:Map{"hide":["?dplLoc"],"layer":"?provLabel"}
+
+SELECT DISTINCT ?dpl ?dplLabel ?dplImage ?dplLoc ?muniLabel ?provLabel WHERE {
+  ?dpl p:P31/ps:P31 wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. #public library branch in The Netherlands 
+  ?dpl wdt:P625 ?dplLoc. #Geo location of the dpl
+  OPTIONAL{?dpl wdt:P18 ?dplImage} #Image of the dpl} 
+  
+  #--- Find the municipality the libraty is in
+  ?dpl wdt:P131 ?muni. #municipality derived from library item, has one single value
+  ?muni p:P31 [ps:P31 ?muniIsA].
+  VALUES ?muniIsA {wd:Q2039348}
+  #Instead of the the above line, you can also do: FILTER(?muniIsA = wd:Q2039348) 
+  
+  #-- Find the province the municipality is in
+  ?muni wdt:P131 ?prov.  #find the province
+  ?prov p:P31 [ps:P31 ?provIsA].
+  VALUES ?provIsA {wd:Q134390} #Only: province of the Netherlands (Q134390) 
+  
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}  
+ 
+}
+ORDER BY ?provLabel

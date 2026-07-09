@@ -1,0 +1,5 @@
+SELECT ?item ?any ?statedIn ?statedInLabel WHERE {
+  ?item ?any [ prov:wasDerivedFrom [ pr:P2566 []; pr:P248 ?statedIn ] ] .
+  FILTER(?statedIn NOT IN (wd:Q48798, wd:Q59911453)) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

@@ -1,0 +1,1 @@
+SELECT ?item WHERE { VALUES ?item { "red" "yellow" "yellow" "yellow" "green" } }

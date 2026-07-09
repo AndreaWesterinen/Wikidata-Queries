@@ -1,0 +1,26 @@
+#Properties with value a technical standard
+SELECT DISTINCT ?propertyRel ?propertyItem ?propertyItemLabel WHERE 
+{
+   ?item ?propertyRel ?standard.
+   {?standard wdt:P31/wdt:P279* wd:Q11942732.}
+  UNION
+  {?standard wdt:P31/wdt:P279* wd:Q9266.}
+  UNION
+  {?standard wdt:P31/wdt:P279* wd:Q600396.}
+  UNION
+  {?standard wdt:P31/wdt:P279* wd:Q41415.}
+  UNION
+  {?standard wdt:P31/wdt:P279* wd:Q1628963.}
+  UNION
+  {?standard wdt:P31/wdt:P279* wd:Q772630.}
+    UNION
+  {?standard wdt:P31/wdt:P279* wd:Q16911615.}
+    UNION
+  {?standard wdt:P31/wdt:P279* wd:Q182940.}
+    UNION
+  {?standard wdt:P31/wdt:P279* wd:Q622440.}
+    UNION
+  {?standard wdt:P31/wdt:P279* wd:Q1344463.}
+   ?propertyItem wikibase:directClaim ?propertyRel
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

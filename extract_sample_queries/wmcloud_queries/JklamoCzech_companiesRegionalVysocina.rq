@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?revenue ?hq ?date ?prof ?emp
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?hq wdt:P131* wd:Q190930  .                 
+    ?item p:P2139 ?revenueSt .
+    ?revenueSt a wikibase:BestRank; ps:P2139 ?revenue .
+    OPTIONAL { ?revenueSt pq:P585 ?date } .
+    OPTIONAL { ?item wdt:P2295 ?prof } . 
+    OPTIONAL { ?item wdt:P1128 ?emp } .
+    FILTER( ?item not in (wd:Q60161033))
+}
+ORDER BY DESC(?revenue)
+LIMIT 10

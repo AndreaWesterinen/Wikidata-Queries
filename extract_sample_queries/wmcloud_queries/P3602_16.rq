@@ -1,0 +1,8 @@
+#title: Elected, but not a candidate
+# Complex constraint from [[Property talk:P3602]]
+# People who got elected in an election, but don't have the [[Property:P3602|candidacy in election&#32;<small dir="ltr">(P3602)</small>]] statement for the election
+SELECT DISTINCT ?item ?election WHERE {
+  ?item p:P39 ?positionstatement .
+  ?positionstatement pq:P2715 ?election .
+  MINUS { ?item wdt:P3602 ?election }
+  }

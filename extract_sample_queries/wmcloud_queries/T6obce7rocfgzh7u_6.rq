@@ -1,0 +1,7 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?_coordinate_location ?_image WHERE {
+  ?item wdt:P31 wd:Q4022.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+   ?item wdt:P625 ?_coordinate_location. 
+  ?item wdt:P18 ?_image. 
+}

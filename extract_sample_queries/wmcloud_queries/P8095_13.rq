@@ -1,0 +1,15 @@
+#title: Poland
+# Complex constraint from [[Property talk:P8095]]
+# [[d:Q36|Poland <small>(Q36)</small>]]
+SELECT ?item ?value ?st {
+  ?item wdt:P8095 ?value ; wikibase:statements ?st.
+  FILTER NOT EXISTS { ?item wdt:P27 wd:Q36 }
+  FILTER NOT EXISTS { ?item wdt:P1695 [] }
+  FILTER NOT EXISTS { ?item wdt:P108/wdt:P17 wd:Q36 }
+  FILTER NOT EXISTS { ?item wdt:P166/wdt:P17 wd:Q36 }
+  FILTER NOT EXISTS { ?item wdt:P19/wdt:P17 wd:Q36 }
+  FILTER NOT EXISTS { ?item wdt:P735/wdt:P407 wd:Q809 }
+  FILTER NOT EXISTS { ?item wdt:P119/wdt:P17 wd:Q36 } # useless ?
+  FILTER (?st > 2)
+}
+ORDER BY ?st ?item

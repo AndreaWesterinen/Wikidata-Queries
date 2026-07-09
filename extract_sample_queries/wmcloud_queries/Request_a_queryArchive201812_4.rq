@@ -1,0 +1,21 @@
+PREFIX schema: <http://schema.org/>
+
+SELECT ?item (COUNT(DISTINCT ?sitelink) AS ?count) ?data_morte (SAMPLE(?date_out) AS ?do) (SAMPLE(?date_out2) AS ?do2) WHERE {
+  ?item wdt:P19 ?pob.
+  ?pob wdt:P131* wd:Q3908.
+  ?item wdt:P570 ?data_morte.
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P106 wd:Q36180.
+  ?sitelink schema:about ?item.
+  OPTIONAL {
+    ?item wdt:P570 ?dod.
+    ?item wdt:P569 ?d_nac.
+    BIND(YEAR(?dod) AS ?yod)
+    BIND(MONTH(?dod) AS ?mod)
+    BIND(DAY(?dod) AS ?daod)
+    BIND(CONCAT(IF((STRLEN(STR(?daod))) = 1, CONCAT("0", STR(?daod)), STR(?daod)), "-", IF((STRLEN(STR(?mod))) = 1, CONCAT("0", STR(?mod)), STR(?mod)), "-", STR(?yod)) AS ?date_out)
+  }
+  FILTER((YEAR(?data_morte)) <= ((YEAR(NOW())) - 81))
+}
+GROUP BY ?item ?data_morte
+ORDER BY YEAR(?data_morte) MONTH(?data_morte) DAY(?data_morte)

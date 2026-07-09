@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item p:P186 [pq:P1114 ?x].
+   FILTER EXISTS {
+   ?item wdt:P279* wd:Q40050 .
+   }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

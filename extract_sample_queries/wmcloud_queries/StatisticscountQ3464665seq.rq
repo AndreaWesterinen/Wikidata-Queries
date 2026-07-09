@@ -1,0 +1,1 @@
+SELECT (wd:Q3464665 as ?item) ?statcount WHERE {SELECT (COUNT(DISTINCT ?item) as ?statcount) WHERE { ?item wdt:P31 wd:Q3464665 ; p:P179 ?st .{ ?st pq:P155 [] } UNION { ?st rdf:type wdno:P155 } { ?st pq:P156 [] } UNION { ?st rdf:type wdno:P156 } ?st pq:P1545 [] } }

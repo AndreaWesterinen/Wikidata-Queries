@@ -1,0 +1,10 @@
+#title: Check prefix
+# Complex constraint from [[Property talk:P7149]]
+#
+SELECT ?item ?value ?prefix {
+	?item wdt:P7149 ?value.
+    FILTER (REGEX(STR(?value), "^(.+/poi/.+)$")).
+    BIND (STRBEFORE(STR(?value), "/poi/" ) AS ?prefix).
+    FILTER NOT EXISTS { ?item0 wdt:P7149 ?prefix }
+    FILTER (?prefix NOT IN ("all-parks"))
+}

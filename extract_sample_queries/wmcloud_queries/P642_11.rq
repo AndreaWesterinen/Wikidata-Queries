@@ -1,0 +1,6 @@
+SELECT ?type (COUNT(*) AS ?count)
+{
+  ?p p:P2302 [ ps:P2302 wd:Q21510851 ; pq:P2306 wd:P642 ] .
+  ?p wikibase:propertyType ?type 
+}
+GROUP BY ?type 

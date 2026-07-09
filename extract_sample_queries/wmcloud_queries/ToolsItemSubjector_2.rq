@@ -1,0 +1,8 @@
+#Katter
+SELECT (count (?item) as ?count) #?itemLabel 
+WHERE 
+{
+  ?medicines wdt:P31/wdt:P279* wd:Q35456.
+  ?item wdt:P921 ?medicines.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Hjälper dig hämta etiketten på ditt språk, om inte annat på engelska
+}

@@ -1,0 +1,21 @@
+SELECT ?item ?age WHERE {
+  hint:Query hint:optimizer "None" . {
+  hint:Query hint:optimizer "None" .
+  
+  SERVICE bd:slice { ?item p:P570 ?ddate_st . bd:serviceParam bd:slice.offset 2000000 . bd:serviceParam bd:slice.limit 250000 . }
+
+  ?item p:P569 ?date_st .
+  ?date_st ps:P569 ?date .
+  ?ddate_st ps:P570 ?ddate .
+  BIND (YEAR(?ddate) - YEAR(?date) AS ?age) .
+  FILTER (?age > 110) .
+
+  ?date_st psv:P569/wikibase:timePrecision ?date_prec . FILTER (?date_prec >= 9) .
+  ?ddate_st psv:P570/wikibase:timePrecision ?ddate_prec . FILTER (?ddate_prec >= 9) . 
+  FILTER (!EXISTS { ?item wdt:P2868 wd:Q1200828 }) .
+  FILTER (!EXISTS { ?item wdt:P2868 wd:Q106991708 }) .
+  FILTER (!EXISTS { ?date_st wikibase:rank wikibase:DeprecatedRank }) .
+  FILTER (!EXISTS { ?ddate_st wikibase:rank wikibase:DeprecatedRank }) .
+  ?item wdt:P31 wd:Q5 .
+  } UNION { BIND(wd:Q12769393 AS ?item) }  # otherwise listeria fails with "No items to show"
+} ORDER BY DESC(?age)

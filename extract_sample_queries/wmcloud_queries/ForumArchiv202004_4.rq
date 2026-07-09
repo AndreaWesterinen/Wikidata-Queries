@@ -1,0 +1,4 @@
+SELECT ?item ?blfdid (COUNT(?value) AS ?cnt) (GROUP_CONCAT(?value; SEPARATOR=', ') AS ?values) WHERE {
+  ?item wdt:P4244 ?blfdid .
+  ?item wdt:P625 ?value .
+} GROUP BY ?item ?blfdid HAVING(?cnt > 1)

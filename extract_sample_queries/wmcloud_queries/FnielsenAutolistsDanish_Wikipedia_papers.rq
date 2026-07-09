@@ -1,0 +1,1 @@
+select ?item where { ?danish_author wdt:P27 wd:Q35 .  ?item wdt:P50 ?danish_author .  { ?item wdt:P921/wdt:P31*/wdt:P279* wd:Q52 . } union { ?item wdt:P921/wdt:P361+ wd:Q52 . }  union { ?item wdt:P921/wdt:P1269+ wd:Q52 . } }

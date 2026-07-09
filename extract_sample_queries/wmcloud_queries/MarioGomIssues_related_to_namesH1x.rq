@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item
+WHERE {
+  {
+    SELECT ?item
+    WHERE {
+      ?item wdt:P21 wd:Q6581072 . # female
+      ?item wdt:P735 ?given .
+      VALUES ?given {
+        wd:Q3195783 # Mari (female)
+        wd:Q16421882 # Mari (male)
+      }
+      { ?item wdt:P27 ?country . }
+      UNION { ?item wdt:P19/wdt:P17 ?country . }
+      ?country wdt:P2936 wd:Q1321 . # Spanish
+    }
+    LIMIT 10
+  }
+}

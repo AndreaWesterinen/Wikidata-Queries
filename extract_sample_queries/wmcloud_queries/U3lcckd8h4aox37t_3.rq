@@ -1,0 +1,19 @@
+# random selection of 100 of the earliest 1000 works with an image created by women
+#defaultView:ImageGrid
+SELECT ?artist ?artistLabel ?art ?artLabel ?image ?date WHERE {
+  {
+    SELECT ?artist ?art (SAMPLE(?image) AS ?image) (MIN(?date) AS ?date) WHERE {
+      ?art wdt:P170 ?artist;
+           wdt:P18 ?image;
+           wdt:P571 ?date.
+      ?artist wdt:P31 wd:Q5.
+      { ?artist wdt:P21 wd:Q6581072. } UNION { ?artist wdt:P21 wd:Q1052281. } # using ?artist wdt:P21/wdt:P279? wd:Q6581072 instead would be nice, but is unfortunately too inefficient
+    }
+    GROUP BY ?artist ?art
+    ORDER BY ASC(?date)
+    LIMIT 1000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY SHA256(CONCAT(STR(NOW()), STR(?art))) # simulate random order – ORDER BY RAND() doesn’t have the desired effect
+LIMIT 100

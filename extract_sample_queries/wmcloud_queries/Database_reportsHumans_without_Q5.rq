@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?subclass ?subclassLabel
+{
+	?item wdt:P31 ?subclass .
+	?subclass wdt:P279* wd:Q5 
+	FILTER ( ?subclass != wd:Q5 )
+	MINUS { ?item wdt:P31 wd:Q5 }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}
+}
+LIMIT 2000

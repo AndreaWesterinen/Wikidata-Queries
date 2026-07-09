@@ -1,0 +1,10 @@
+#title: values of property P2033 with most sitelinks
+SELECT ?item ?itemLabel ?itemDescription ?sls
+WHERE
+{
+	?p wdt:P2033 ?item . 
+    ?item wikibase:sitelinks ?sls 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }      
+}
+ORDER BY DESC(?sls) ?item
+LIMIT 100

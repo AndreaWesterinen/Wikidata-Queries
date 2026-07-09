@@ -1,0 +1,16 @@
+SELECT ?property ?shortprop ?label ?constraintreport ?item (COUNT(?painting) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 ;
+        ?propertyclaim ?someidentifier .
+  ?property wikibase:directClaim ?propertyclaim ;
+            wikibase:propertyType wikibase:ExternalId ;
+            wdt:P31 wd:Q44847669 ;
+            rdfs:label ?label .
+  FILTER(LANG(?label)="en")
+  BIND(xsd:integer(REPLACE(STR(?property), "http://www.wikidata.org/entity/P", "")) AS ?propid)
+  # Trick Listeria into working on properties
+  BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(?propid + 1000000000))) AS ?item ) .
+  BIND(CONCAT("[[Property:P", STR(?propid), "]] (", STR(?label), ")") AS ?shortprop ) .
+  BIND(CONCAT("[[Wikidata:Database reports/Constraint violations/P", STR(?propid), "|Constraints]]:") AS ?constraintreport)
+  } GROUP BY ?property ?shortprop ?label ?constraintreport ?item 
+ORDER BY DESC(?count)
+LIMIT 250

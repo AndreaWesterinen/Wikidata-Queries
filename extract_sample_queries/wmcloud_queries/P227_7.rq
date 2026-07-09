@@ -1,0 +1,4 @@
+#title: GND ID - type human should have sex
+# Complex constraint from [[Property talk:P227]]
+# GND ID exists, type is human, sex missing
+SELECT ?item ?gndid {?item wdt:P227 ?gndid; wdt:P31 wd:Q5; MINUS {?item wdt:P21 []} }

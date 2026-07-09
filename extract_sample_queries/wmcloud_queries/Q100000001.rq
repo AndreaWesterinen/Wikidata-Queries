@@ -1,0 +1,24 @@
+embed.html##TEMPLATE={"template":"Nearby places (max. 4 km, 500 items)" }
+#defaultView:Map{"hide":["?coor","?distance_km","?distance_miles"]}
+#view:ImageGrid{"hide":["?img","?coor","?distance_km","?distance_miles"]}
+SELECT DISTINCT 
+  ?item ?itemLabel ?itemDescription
+  ?instanceofLabel 
+  ?img
+  ?coor ?distance_km (ROUND(?distance_km * 6.213)/10 as ?distance_miles)
+WHERE
+{ 
+  wd:Q100000001 wdt:P625 ?a0 .
+  SERVICE wikibase:around {
+      ?item wdt:P625 ?coor .
+      bd:serviceParam wikibase:center ?a0 .
+      bd:serviceParam wikibase:radius "4" .
+      bd:serviceParam wikibase:distance ?distance_km .      
+  }
+  hint:Query hint:optimizer "None".
+  OPTIONAL { ?item wdt:P31 ?instanceof }
+  OPTIONAL { ?item wdt:P18 ?img }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"}
+}
+ORDER BY ?distance_km
+LIMIT 500

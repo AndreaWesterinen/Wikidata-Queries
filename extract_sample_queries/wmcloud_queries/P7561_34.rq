@@ -1,0 +1,15 @@
+#title: value label (1: should match regex)
+# Complex constraint from [[Property talk:P7561]]
+# fix label or adjust regex for language at [[Property:P7561#P1552]]: [[d:Q100884525|complex constraint value label <small>(Q100884525)</small>]]
+SELECT ?item ?lang ?l ?value ?v ?t
+WHERE
+{
+	hint:Query hint:optimizer "None".
+	wd:P7561 p:P1552 [ ps:P1552 wd:Q100884525 ; pq:P8770 ?t ]
+	BIND( lang(?t) as ?lang)
+	?item wdt:P7561 ?value.
+	?item rdfs:label ?l . FILTER(lang(?l) = ?lang)
+	?value rdfs:label ?v . FILTER(lang(?v) = ?lang)
+	FILTER ( !REGEX(str(?v), str(?t) )  )
+}
+# ORDER BY ?lang ?v

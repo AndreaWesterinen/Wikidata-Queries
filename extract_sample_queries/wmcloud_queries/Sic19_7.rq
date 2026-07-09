@@ -1,0 +1,15 @@
+embed.html#PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?date ?book ?bookLabel ?lang ?langLabel ?pub ?pubLabel ?place ?placeLabel ?estc WHERE {
+  ?book wdt:P31 wd:Q571.
+  ?book wdt:P577 ?date.
+  ?book wdt:P407 ?lang. 
+  OPTIONAL { ?book wdt:P123 ?pub. }
+  OPTIONAL { ?book wdt:P291 ?place. }
+  OPTIONAL { ?book wdt:P3939 ?estc. }
+  VALUES ?lang { wd:Q9309 wd:Q1860 wd:Q7411 wd:Q7979 wd:Q7979 wd:Q397 wd:Q1472196 wd:Q150 wd:Q188 wd:Q1321 wd:Q35222 wd:Q35222 wd:Q35222 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(?date < "1801-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?date > "1440-01-01T00:00:00Z"^^xsd:dateTime)
+}
+ORDER BY ?date ?langLabel

@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?P709 ?elseLabel ?P276Label ?P206Label ?P706Label ?P3481
+{
+  ?item wdt:P131 ?else  .
+  ?else wdt:P31 wd:Q15060255  .
+  ?item wdt:P1435 wd:Q76199821 .
+  optional {?item wdt:P709 ?P709.}
+  optional {?item wdt:P276 ?P276.}
+  optional {?item wdt:P706 ?P706.}
+  optional {?item wdt:P206 ?P206.}
+  optional {?item wdt:P3481 ?P3481.}
+  
+#  filter not exists { ?item wdt:P718 ?canmore . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?itemLabel

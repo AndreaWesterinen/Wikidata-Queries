@@ -1,0 +1,6 @@
+SELECT * WHERE {
+  ?id wdt:P31/wdt:P279*/wdt:P1709* ?type
+                                             
+  # BIND ( <http://www.wikidata.org/entity/Q45661> AS ?id )
+  BIND ( <https://www.wikidata.org/entity/Q1759721> AS ?id )
+}

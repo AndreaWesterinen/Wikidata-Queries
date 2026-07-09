@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription ?count ?coor ?hascoor ?cat ?s1 ?wdl
+{
+	?item wdt:P31 wd:Q39614 ; wdt:P17 wd:Q213 . 
+	OPTIONAL { SELECT ?item (COUNT(?p) as ?count) { ?p wdt:P119 ?item  } GROUP BY ?item } 
+	OPTIONAL { ?item wdt:P625 ?coor . BIND("🌐" as ?hascoor) } 
+	OPTIONAL { ?item wdt:P1791 ?c33 . BIND(CONCAT("[[",strafter(str(?c33),"y/"),"|","cat]]") as ?cat) } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	OPTIONAL { ?item wdt:P131/wdt:P131* ?s1 . ?s1 wdt:P31 wd:Q138911 } 
+    OPTIONAL { ?a1 schema:about ?item ; schema:isPartOf <https://www.wikidata.org/> ; schema:name ?n . BIND(CONCAT("[[",?n,"|","📁]]") as ?wdl)  }
+}
+ORDER BY DESC(?count)

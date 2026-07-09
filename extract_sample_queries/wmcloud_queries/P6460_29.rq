@@ -1,0 +1,26 @@
+#title: Validate swedish organization numbers
+# Complex constraint from [[Property talk:P6460]]
+# Report organizations with incorrect organization numbers, found by validating the checksum
+SELECT ?item #?itemLabel ?orgnr ?checksum ?checksum2
+WITH {
+  SELECT DISTINCT *
+  WHERE {
+    ?item wdt:P6460 ?orgnr . FILTER(strlen(?orgnr) = 11)
+    BIND(IF(xsd:integer(substr(?orgnr,  1, 1))*2 > 9, xsd:integer(substr(?orgnr,  1, 1))*2 - 9, xsd:integer(substr(?orgnr,  1, 1))*2) +
+            xsd:integer(substr(?orgnr,  2, 1))*1 +
+         IF(xsd:integer(substr(?orgnr,  3, 1))*2 > 9, xsd:integer(substr(?orgnr,  3, 1))*2 - 9, xsd:integer(substr(?orgnr,  3, 1))*2) +
+            xsd:integer(substr(?orgnr,  4, 1))*1 +
+         IF(xsd:integer(substr(?orgnr,  5, 1))*2 > 9, xsd:integer(substr(?orgnr,  5, 1))*2 - 9, xsd:integer(substr(?orgnr,  5, 1))*2) +
+            xsd:integer(substr(?orgnr,  6, 1))*1 +
+         IF(xsd:integer(substr(?orgnr,  8, 1))*2 > 9, xsd:integer(substr(?orgnr,  8, 1))*2 - 9, xsd:integer(substr(?orgnr,  8, 1))*2) +
+            xsd:integer(substr(?orgnr,  9, 1))*1 +
+         IF(xsd:integer(substr(?orgnr, 10, 1))*2 > 9, xsd:integer(substr(?orgnr, 10, 1))*2 - 9, xsd:integer(substr(?orgnr, 10, 1))*2) AS ?checksum)
+    BIND(10*CEIL(?checksum/10) - ?checksum AS ?checksum2)
+    FILTER(substr(?orgnr, 11, 1) != ?checksum2 && substr(?orgnr, 3, 1) > 1)
+  }
+  #LIMIT 1000
+} AS %i
+WHERE {
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

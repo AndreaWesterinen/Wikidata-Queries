@@ -1,0 +1,12 @@
+SELECT ?item ?sitelink ?countryLabel
+WHERE 
+{
+  ?item wikibase:sitelinks "1"^^xsd:integer .
+  ?item wdt:P31 wd:Q54050.
+  ?item wdt:P17 ?country.
+  ?article schema:about ?item ;
+          schema:isPartOf <https://ceb.wikipedia.org/> .
+ # filter not exists {?item rdfs:label ?Len. filter(lang(?Len)="en")}
+  filter not exists {?item schema:description ?Len. filter(lang(?Len)="en")}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} offset 40000 limit 10000

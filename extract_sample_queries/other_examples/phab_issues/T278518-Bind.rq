@@ -1,0 +1,14 @@
+SELECT distinct ?id ?lang ?n
+WHERE {
+  hint:Query hint:optimizer "None".
+    {
+        ?id rdfs:label|skos:altLabel "Paris"@en .
+        BIND("EN" AS ?lang)
+    }
+    UNION
+    {
+        ?id rdfs:label|skos:altLabel "Paris"@eu .
+        BIND("EU" AS ?lang)
+    }
+    ?id wikibase:statements ?n .
+}

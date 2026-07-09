@@ -1,0 +1,9 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x p:P31 ?instanceOfStmt ;
+     p:P1376 ?capitalStmt .
+  ?instanceOfStmt ps:P31 wd:Q15303838 .
+  ?capitalStmt ps:P1376/wdt:P31 wd:Q3685476 .
+  { FILTER NOT EXISTS { ?instanceOfStmt pq:P582 ?anyDate. } FILTER NOT EXISTS { ?instanceOfStmt pq:P580 ?anyDate. } } UNION
+  { FILTER NOT EXISTS { ?capitalStmt    pq:P582 ?anyDate. } FILTER NOT EXISTS { ?capitalStmt    pq:P580 ?anyDate. } }
+}

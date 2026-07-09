@@ -1,0 +1,11 @@
+#Items in British Museum collection
+#defaultView:Table
+SELECT DISTINCT ?item ?itemLabel ?invNo ?when (YEAR(?when) as ?date) ?pic
+WHERE {
+  ?item p:P217 ?invItem . # … with an inventory number(P217) statement
+  ?invItem pq:P195 wd:Q6373. # qualifier: collection: British Museum
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+OPTIONAL { ?item wdt:P18 ?pic }
+OPTIONAL { ?item wdt:P217 ?invNo }
+}

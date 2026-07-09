@@ -1,0 +1,8 @@
+SELECT ?composition ?composerLabel ?compositionLabel
+WHERE
+{
+  ?composition wdt:P870/wdt:P279* wd:Q1444;
+               wdt:P870/wdt:P279* wd:Q42998;
+               wdt:P86 ?composer.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

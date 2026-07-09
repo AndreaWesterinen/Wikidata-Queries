@@ -1,0 +1,6 @@
+#defaultView:Graph
+SELECT ?parent ?parentLabel ?item ?itemLabel WHERE {
+  ?item (wdt:P749|wdt:P361)+ wd:Q691851.
+  ?item (wdt:P749|wdt:P361) ?parent.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

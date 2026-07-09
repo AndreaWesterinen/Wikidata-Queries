@@ -1,0 +1,9 @@
+#title: Human having received a prize for the film editor but not having a statement occupation (P106) film editor
+# Complex constraint from [[Property talk:P106]]
+#
+SELECT ?item WHERE {
+  VALUES ?awards { wd:Q281939 wd:Q609977 wd:Q28836661 wd:Q16662070 }.
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P166 ?awards.
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q7042855. }.
+} ORDER BY ?item

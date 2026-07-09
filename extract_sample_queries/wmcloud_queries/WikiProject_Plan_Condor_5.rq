@@ -1,0 +1,12 @@
+embed.html##desapariciones forzadas por grupo político
+#defaultView:Graph
+SELECT ?item ?itemLabel ?itemimagen ?grupo ?grupoLabel ?grupoImagen {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P27 wd:Q77.
+  OPTIONAL {?item wdt:P18 ?itemimagen}.
+  ?item wdt:P746 [].
+  {?item wdt:P102 ?grupo} UNION  {?item wdt:P463 ?grupo}  .
+  OPTIONAL {?grupo wdt:P18 ?grupoImagen}.
+  
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+}

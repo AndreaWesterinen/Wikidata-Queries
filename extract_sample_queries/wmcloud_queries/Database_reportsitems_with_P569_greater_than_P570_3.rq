@@ -1,0 +1,22 @@
+SELECT ?item ?bdate ?ddate (YEAR(?bdate) - YEAR(?ddate) AS ?delta) {
+  {
+    SELECT ?item ?bdate ?ddate {
+      hint:Query hint:optimizer "None" . 
+      service bd:slice {
+        ?item p:P570 ?pddate . bd:serviceParam bd:slice.offset 500000 ; bd:slice.limit 500000
+      }
+
+      ?item p:P569 ?pbdate . hint:Prior hint:rangeSafe true .
+      ?pbdate ps:P569 ?bdate . hint:Prior hint:rangeSafe true .
+      ?pddate ps:P570 ?ddate .
+      FILTER(?bdate > ?ddate)
+
+      ?pbdate psv:P569/wikibase:timePrecision ?bprec FILTER(?bprec >= 9) .
+      ?pddate psv:P570/wikibase:timePrecision ?dprec FILTER(?dprec >= 9 && ?bprec <= ?dprec) .
+
+      FILTER (!EXISTS{?pddate wikibase:rank wikibase:DeprecatedRank})
+      FILTER (!EXISTS{?pbdate wikibase:rank wikibase:DeprecatedRank})
+      ?item wdt:P31 wd:Q5
+    }
+  } UNION { BIND(wd:Q12769393 AS ?item) }  # otherwise listeria fails with "No items to show"
+} ORDER BY DESC(?delta)

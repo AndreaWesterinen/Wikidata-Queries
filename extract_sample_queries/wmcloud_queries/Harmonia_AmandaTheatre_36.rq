@@ -1,0 +1,27 @@
+SELECT DISTINCT ?item ?itemLabel ?search
+WHERE{
+  ?item wikibase:sitelinks 0 .
+  ?item wdt:P31 wd:Q101352 .
+
+  ?item wikibase:statements ?statementCount.
+  FILTER(?statementCount = 1).
+
+  FILTER(!bound(?backlink))
+  OPTIONAL{ ?backlink ?p1 ?item .  }
+  
+  FILTER(!bound(?ref))
+  OPTIONAL{
+    ?item ?p2 [prov:wasDerivedFrom ?ref] .
+    ?ref ?pr [] .
+  }
+
+  OPTIONAL{
+    ?item ?claim ?dummy0 .
+    ?property wikibase:propertyType wikibase:ExternalId .
+    ?property wikibase:directClaim ?claim
+  }
+  FILTER(!bound(?dummy0))
+    ?item rdfs:label ?name_label . FILTER(LANG(?name_label) = "en") .
+    BIND (URI(CONCAT("https://www.wikidata.org/w/index.php?title=Special%3ASearch&search=", STR(?name_label))) AS ?search) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

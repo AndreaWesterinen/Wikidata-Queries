@@ -1,0 +1,14 @@
+SELECT ?item (COUNT(*) AS ?count) WHERE {
+  ?item ?p [] .
+  ?item wdt:P106 wd:Q1028181 .
+  ?property wdt:P31 wd:Q19595382 .
+  ?property a wikibase:Property .
+  ?property wikibase:directClaim ?p .
+  ?item p:P569 ?birthclaim .
+  MINUS { ?item p:P570 [] }
+  ?birthclaim ps:P569 ?birth .
+  FILTER(?birth < "+1900-00-15T00:00:00Z"^^xsd:dateTime) .
+} 
+GROUP BY ?item
+ORDER BY DESC(?count)
+LIMIT 100

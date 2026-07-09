@@ -1,0 +1,12 @@
+SELECT ?item 
+WHERE
+{    
+	?item wdt:P31 wd:Q11424 .   
+  	?item wdt:P577 ?date   
+    FILTER (	datatype(?date) = xsd:dateTime 
+    			&& year(?date) = year(now())
+    			&& ?date < now()
+           )   
+}   
+ORDER BY DESC(?date) ?item 
+LIMIT 1000

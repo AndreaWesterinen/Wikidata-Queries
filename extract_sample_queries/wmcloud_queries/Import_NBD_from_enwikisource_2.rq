@@ -1,0 +1,16 @@
+SELECT
+	?item ?itemLabel
+	(CONCAT(strafter(replace(?itemLabel, " \\(.*\\)", ""), ","), " ", strbefore(?itemLabel, ",")) as ?name)
+	?article
+	(strafter(str(?item), "entity/") as ?QID)
+WHERE
+{
+	?item wdt:P1433 wd:Q16055052 .
+  	?item wdt:P31 wd:Q19389637
+  	OPTIONAL { ?item wdt:P921 ?subject }
+	FILTER(!BOUND(?subject)) 
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?article 	schema:about ?item
+	; 			schema:isPartOf	<https://en.wikisource.org/> .            
+}
+ORDER BY ?itemLabel

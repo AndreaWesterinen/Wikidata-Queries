@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?town WHERE {
+  ?item wdt:P31 wd:Q3305213.
+  ?item wdt:P276 ?loc.
+  ?loc wdt:P131 ?town.
+  ?town wdt:P131 wd:Q770.
+  OPTIONAL { ?item wdt:P195 ?coll. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} LIMIT 1000

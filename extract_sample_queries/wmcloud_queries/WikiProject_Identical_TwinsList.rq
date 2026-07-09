@@ -1,0 +1,14 @@
+SELECT (GROUP_CONCAT( ?nb;separator=",") as ?list)
+WITH
+{
+    SELECT ?nb 
+    WHERE
+    { 
+      ?item wdt:P31 wd:Q2301325 
+      BIND( xsd:integer(strafter(str(?item),"Q")) as ?nb)
+    } ORDER BY ?nb OFFSET 0 LIMIT 60           
+}   as %i
+WHERE
+{
+    INCLUDE %i
+}        

@@ -1,3 +1,4 @@
+#title: Biological pathways with protein structures in the PDB database
 SELECT ?pathway ?pathwayLabel ?WikiPathways ?Reactome (COUNT(DISTINCT ?protein) as ?count) WHERE {
   VALUES ?pathwayType { wd:Q4915012 wd:Q2996394 }
   ?pathway wdt:P31 ?pathwayType .

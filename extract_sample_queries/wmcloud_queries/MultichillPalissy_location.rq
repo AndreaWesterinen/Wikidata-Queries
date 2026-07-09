@@ -1,0 +1,13 @@
+SELECT ?item (SAMPLE(?addlink) AS ?addLink) (SAMPLE(?church) AS ?sugg) (COUNT(?church) AS ?count) WHERE {  
+  ?item wdt:P481 ?id .
+  ?item wdt:P136 wd:Q2864737 .
+  ?item wdt:P31 wd:Q3305213 ;
+        wdt:P131 ?admlocation .
+  MINUS { ?item wdt:P276 [] } .
+  ?church wdt:P131 ?admlocation .
+  ?church wdt:P31 wd:Q16970 .
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P276&entityid=", REPLACE(STR(?church), "http://www.wikidata.org/entity/", ""), " Add ]") AS ?addlink)
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr" }
+  } GROUP BY ?item
+HAVING (?count=1)
+LIMIT 1000

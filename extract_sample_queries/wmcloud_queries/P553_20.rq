@@ -1,0 +1,13 @@
+#title: Cleanup: YouTube statements to check
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      FILTER NOT EXISTS { wd:P553 p:P2302 [ps:P2302 wd:Q52558054 ;
+                 pq:P2303 ?item] }
+      ?item p:P553 ?statement0.
+      ?statement0 (ps:P553) wd:Q866.
+      #MINUS { ?statement0 (pq:P2699) []. }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+SELECT ?paper ?paperLabel 
+WHERE
+{
+  ?paper wdt:P50/owl:sameAs* wd:Q7087416 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

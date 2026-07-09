@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?itemLabel ?len ?unit
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q2354973.
+  ?item p:P2043 ?lenn.
+  ?lenn psn:P2043 ?leng.
+  ?leng wikibase:quantityAmount ?len.
+  ?leng wikibase:quantityUnit ?unit.
+  MINUS { ?item wdt:P31 wd:Q5456378 }
+  MINUS { ?item wdt:P31 wd:Q27464969 }
+  MINUS { ?item wdt:P31 wd:Q61005799 }
+  MINUS { ?item wdt:P5817 wd:Q12377751 }
+  MINUS { ?item wdt:P5817 wd:Q811683 }
+}
+ORDER BY DESC(?len)
+LIMIT 100

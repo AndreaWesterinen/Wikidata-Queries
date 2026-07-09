@@ -1,3 +1,4 @@
+#title: Numbers of Wikipedia sitelinks for items with an Art UK Artist ID () for each language
 SELECT ?lang (COUNT(DISTINCT ?article) AS ?count) WHERE {
   hint:Query hint:optimizer "None".
   ?item wdt:P1367 ?yp_id .

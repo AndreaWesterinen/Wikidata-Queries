@@ -1,0 +1,19 @@
+SELECT ?item ?name ?volume ?pages WHERE {
+  VALUES ?sp {wd:Q21856106 wd:Q21856107} . # Species Plantarum, 1st Ed., Vol. 1+2
+  ?item wdt:P225 ?name .
+  ?item wdt:P105 wd:Q7432 .
+  ?item p:P225 ?taxonName .
+  ?taxonName ps:P225 ?taxonNameValue .
+  ?taxonName pq:P405 wd:Q1043.
+  ?taxonName prov:wasDerivedFrom ?ref .
+  ?ref pr:P248 ?sp .   
+  OPTIONAL {?ref pr:P304 ?pages}
+  BIND(if(sameTerm(?sp, wd:Q21856106), "1", "2") as ?volume)
+  BIND(REPLACE(?pages, "-", "–") AS ?pages)
+  BIND(REPLACE(?pages, "\\[1230\\]", "1230") AS ?pages)
+  BIND(REPLACE(?pages, "\\[1231\\]", "1231") AS ?pages)
+  BIND(if(contains(?pages,  "–"), strbefore(?pages, "–"), ?pages) as ?startpage)
+  BIND(if(contains(?pages,  "–"), strafter(?pages, "–"), ?pages) as ?endpage)
+}
+ORDER BY ASC(xsd:integer(?startpage)) ASC(?name)
+#ORDER BY ASC(?name)|

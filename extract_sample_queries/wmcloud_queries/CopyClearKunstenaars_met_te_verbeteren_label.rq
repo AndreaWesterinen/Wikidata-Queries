@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+    ?item rdfs:label ?label . 
+  FILTER(LANG(?label) = "nl") .
+  FILTER(CONTAINS(?label, "  ")).
+  ?item wdt:P31 wd:Q5.
+  	# beroep = fotograaf of onderliggend
+  ?item (wdt:P106/wdt:P279*) wd:Q33231.
+  	# nationality = Kingdom of the Netherlands
+  {?item wdt:P27 wd:Q29999}
+   	# OR place of birth within Netherlands
+	UNION  {?item wdt:P19 ?pob .
+  ?pob wdt:P17 wd:Q55}
+   	# OR work location within Netherlands
+	UNION  {?item wdt:P937 ?pow .
+  ?pow wdt:P17 wd:Q55}
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 ?por .
+  ?por wdt:P17 wd:Q55}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P20 ?pod .
+  ?pod wdt:P17 wd:Q55}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

@@ -1,0 +1,28 @@
+#Dutch public library organisations
+SELECT 
+(SAMPLE(?item) AS ?OrganisatieID) 
+(SAMPLE(?itemLabel) AS ?OrganisatieNaam)  
+(SAMPLE(?itemDescription) AS ?OrganisatieOmschrijving)  
+(GROUP_CONCAT(DISTINCT ?municipalityLabel ; separator = ", ") as ?WerkzaamInGemeenten)
+(COUNT(DISTINCT ?municipality) AS ?AantalGemeenten)
+(GROUP_CONCAT(DISTINCT ?provinceLabel ; separator = ", ") as ?WerkzaamInProvincies)
+WHERE 
+{
+  ?item wdt:P31 wd:Q28564. #public library
+  ?item wdt:P31 wd:Q43229. #organization
+  ?item wdt:P17 wd:Q55. #from the Netherlands
+  OPTIONAL{?item wdt:P527 ?haspart.
+           ?haspart wdt:P131 ?municipality.
+           ?municipality wdt:P131 ?province  
+          } 
+  OPTIONAL{?item schema:description ?itemDescription. FILTER(lang(?itemDescription)="nl")}        
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl".
+          ?municipality rdfs:label ?municipalityLabel .
+          ?item rdfs:label ?itemLabel.
+          ?province rdfs:label ?provinceLabel.
+          }
+ 
+  } 
+GROUP BY ?item  
+ORDER BY DESC(?AantalGemeenten)

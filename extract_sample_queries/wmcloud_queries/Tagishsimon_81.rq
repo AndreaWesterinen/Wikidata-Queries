@@ -1,0 +1,7 @@
+SELECT ?item (group_concat(distinct ?nonENLabel;separator=", ") as ?nonENL) WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P31 wd:Q11424.
+  ?item rdfs:label ?nonENLabel.
+  filter(xsd:integer(strafter(str(?item),"Q"))>108317155)
+  filter not exists { ?item rdfs:label ?itemLabel. filter(lang(?itemLabel)="en") }
+} GROUP BY ?item

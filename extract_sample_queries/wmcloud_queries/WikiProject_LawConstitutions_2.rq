@@ -1,0 +1,1 @@
+SELECT ?item ?article WHERE { {?item wdt:P361+ [wdt:P31 wd:Q7755]} union {?item wdt:P31 wd:Q19917774} OPTIONAL {?article schema:about ?item} }

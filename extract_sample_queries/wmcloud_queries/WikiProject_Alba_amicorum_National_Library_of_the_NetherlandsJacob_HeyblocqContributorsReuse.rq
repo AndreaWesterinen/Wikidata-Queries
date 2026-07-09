@@ -1,0 +1,10 @@
+sparql?query=SELECT DISTINCT ?contributor ?contributorLabel ?contributorDescription ?image ?commonscat ?wparticleNL WHERE { 
+  BIND(wd:Q72752496 as ?album)
+  ?album wdt:P767 ?contributor.
+  ?contributor wdt:P18 ?image.
+  OPTIONAL{?contributor wdt:P373 ?commonscat.}
+  OPTIONAL{?wparticleNL schema:about ?contributor.
+           ?wparticleNL schema:isPartOf <https://nl.wikipedia.org/>.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+} 
+ORDER BY ?contributorLabel&format=json

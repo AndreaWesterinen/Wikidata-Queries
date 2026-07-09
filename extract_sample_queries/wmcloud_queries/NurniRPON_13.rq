@@ -1,0 +1,28 @@
+SELECT DISTINCT ?kat ?nk
+WHERE {
+
+  hint:Query hint:optimizer "None".
+  {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Urz%C4%99dnicy_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 9 .
+  }}}
+  UNION {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Urz%C4%99dnicy_ziemscy> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 9 .
+  }}}
+  
+    ?out schema:name ?nk.
+    ?out schema:about ?kat.
+   
+   OPTIONAL{?kat wdt:P301 ?gt1.}
+   OPTIONAL{?gt2 wdt:P910 ?kat.}
+   FILTER(!BOUND(?gt1))
+   FILTER(!BOUND(?gt2))
+} 
+ORDER BY (?nk)

@@ -1,0 +1,10 @@
+# A Robert Brown taxon without image
+SELECT ?item ?itemLabel ?image
+WHERE {
+  ?item wdt:P225 ?taxon.
+  ?taxon pq:P405 wd:Q21392387.
+   #?taxon pq:P405 wd:Q155764.         
+  FILTER NOT EXISTS {?taxon wdt:P18 ?image} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?itemLabel ?item 

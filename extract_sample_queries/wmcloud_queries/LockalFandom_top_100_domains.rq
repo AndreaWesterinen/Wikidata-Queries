@@ -1,0 +1,7 @@
+select (URI(CONCAT("http://www.wikidata.org/entity/Q", STR(COUNT(?code)))) as ?item) ?code (COUNT(?code) as ?count) 
+{
+  { 
+    select ?x (replace(?value, "^(?:[a-z-]+\\.)?([^:]+):.+$","$1") AS ?code) { ?x wdt:P6262 ?value }
+  }
+}
+group by ?code order by desc(?count) limit 100

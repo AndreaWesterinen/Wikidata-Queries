@@ -1,0 +1,5 @@
+#defaultView:Graph
+SELECT ?q ?qLabel ?target ?targetLabel WHERE {
+  ?q p:P40 [ ps:P40 ?target; prov:wasDerivedFrom / pr:P248 / ( wdt:P361 | wdt:P179 )+ wd:Q83367 ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "he". }
+}

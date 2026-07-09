@@ -1,0 +1,1 @@
+bigdata/namespace/wdq/sparql?format=json&query=CONSTRUCT+{?s+?p+?o.}+WHERE+{+VALUES+?s+{wds:Q44578-5412D4A8-8FB0-4347-A5B7-4A50EEA44409}+?s+?p+?o.}

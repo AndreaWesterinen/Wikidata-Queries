@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel
+WHERE {
+  ?item wdt:P641 ?sport ;
+        wdt:P361 ?tournament ;
+        wdt:P31 wd:Q2990963.
+  ?tournament wdt:P31 wd:Q57305027 .
+  FILTER (?sport IN (wd:Q1682809, wd:Q926191, wd:Q4179462, wd:Q4305887, wd:Q1482312, wd:Q38108))
+  MINUS { ?tournament wdt:P3967 ?item .}
+  MINUS { ?item wdt:P3085 ?qualify .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }

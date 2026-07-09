@@ -1,0 +1,2 @@
+#title:Change the property P946 to P213
+SELECT DISTINCT ?item WHERE { ?item wdt:P946 ?value . FILTER(REGEX(STR(?value), '^(0000 000[0-4] \\d{4} \\d{3}[\\dX])$') = true ) }

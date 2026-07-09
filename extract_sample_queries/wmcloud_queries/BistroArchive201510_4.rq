@@ -1,0 +1,18 @@
+PREFIX schema: <http://schema.org/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?item ?itemLabel (COUNT(distinct ?sitelink) as ?count) WHERE {
+   ?item wdt:P31 wd:Q5 .
+   ?item wdt:P27 wd:Q142 .
+   ?sitelink schema:about ?item .
+   FILTER EXISTS { ?wen schema:about ?item . ?wen schema:inLanguage "en" }
+   FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:inLanguage "fr" }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,en" .
+  }
+ } GROUP BY ?item ?itemLabel ORDER BY DESC(?count)

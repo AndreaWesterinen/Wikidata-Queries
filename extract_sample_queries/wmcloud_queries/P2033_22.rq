@@ -1,0 +1,4 @@
+#title: category items with P971=Q20683640 should be a value of P2033 (2)
+# Complex constraint from [[Property talk:P2033]]
+# Add category item to item for camera (batch 2 of 3)
+SELECT ?item ?cam WHERE { ?item wdt:P971 wd:Q20683640. MINUS { [] wdt:P2033 ?item } ?item rdfs:label ?l.FILTER (lang(?l)="en") BIND(REPLACE(?l,"Category:Taken with ","") as ?cam)} ORDER BY ?cam OFFSET 5000 LIMIT 5000

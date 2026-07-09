@@ -1,0 +1,10 @@
+#Work, not architectural
+SELECT DISTINCT ?item ?itemLabel ?ofLabel
+WHERE
+{
+  ?item p:P2699 ?stm .
+  ?stm pq:P642 ?of .
+   FILTER EXISTS { ?of wdt:P279+ wd:Q386724.}
+   FILTER NOT EXISTS { ?of wdt:P279+ wd:Q811979.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+}

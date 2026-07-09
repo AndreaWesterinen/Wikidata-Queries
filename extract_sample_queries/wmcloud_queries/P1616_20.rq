@@ -1,0 +1,13 @@
+#title: Not having P1454
+# Complex constraint from [[Property talk:P1616]]
+#
+SELECT DISTINCT ?item
+WHERE
+{
+   ?item wdt:P1616 ?value .
+   FILTER NOT EXISTS { ?item wdt:P1454 [] }
+   MINUS {
+     VALUES ?classes { wd:Q3917681 wd:Q484170 wd:Q18821702 wd:Q21869758 wd:Q423785 wd:Q192350 wd:Q3591564 wd:Q375928 wd:Q11204 wd:Q1641572 } .
+     ?item wdt:P31/wdt:P279* ?classes.
+   }
+} ORDER BY ?item

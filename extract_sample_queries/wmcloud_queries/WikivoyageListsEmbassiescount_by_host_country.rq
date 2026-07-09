@@ -1,0 +1,36 @@
+SELECT ( coalesce(?host, wd:Q22910791) as ?item)   ?host (COUNT(DISTINCT ?item) as ?ct1) (COUNT(?item) as ?ct)  
+	(SUM(xsd:integer(?c1)) as ?s)
+	(ROUND(?s / ?ct ) as ?pc)
+	(str(FLOOR(?s / ?ct / 10 )*10) as ?c2)
+	(ROUND(SUM(?p10)/ ?ct1  * 100 )  as ?hasLink)
+	(ROUND(SUM(?p4)/ ?ct1  * 100 )  as ?hasCoor)
+	(ROUND(SUM(?p8)/ ?ct1  * 100 )  as ?hasImg)
+	(CONCAT("data-sort-value='", ?c2, "' \u007C [[File:Progressbar", ?c2, ".png\u007Ccenter\u007C100px\u007C ", ?c2, "% (rounded from: ", str(?pc), "%)]]") as ?completeness)
+	(SAMPLE(?list) as ?list)
+	(SAMPLE(?cat) as ?cat)
+{
+SELECT DISTINCT
+	?item ?host ?l ?op ?p6 ?p4 ?p1 ?p8 ?p10 ?list ?cat
+	(str(( 10 * ROUND( (?p1 + ?p2 + ?p3 + ?p4 + ?p5 + ?p6 + ?p7 + ?p8 + ?p9 + ?p10 ) / 10 * 10))) as ?c1)
+{
+    ?item wdt:P31 wd:Q3917681
+	OPTIONAL {?item wdt:P131*/wdt:P17 ?host }	BIND(xsd:integer(BOUND(?host)) as ?p1)
+	OPTIONAL {?item wdt:P131 ?city }			BIND(xsd:integer(BOUND(?city)) as ?p2)
+	OPTIONAL {?item wdt:P969 ?addr }			BIND(xsd:integer(BOUND(?addr)) as ?p3)
+	OPTIONAL {?item wdt:P625 ?coor }			BIND(xsd:integer(BOUND(?coor)) as ?p4)
+	OPTIONAL {?item wdt:P137 ?op }				BIND(xsd:integer(BOUND(?op)) as ?p5)
+	OPTIONAL {?item wdt:P1329 ?phn }			BIND(xsd:integer(BOUND(?phn)) as ?p6)
+	OPTIONAL {?item wdt:P856 ?webs }			BIND(xsd:integer(BOUND(?webs)) as ?p7)
+	OPTIONAL {?item wdt:P18 ?image }			BIND(xsd:integer(BOUND(?image)) as ?p8)
+	OPTIONAL {?item wikibase:sitelinks ?sl }	BIND(xsd:integer(BOUND(?sl) && ?sl > 0) as ?p9)
+	OPTIONAL {?op p:P530 [ ps:P530 ?host ; pq:P531 ?item ] . BIND("ok" as ?l) }
+  	BIND(xsd:integer(BOUND(?l)) as ?p10)
+    OPTIONAL {?list1 p:P360 [ ps:P360 wd:Q3917681 ; pq:P17 ?host ] }
+    OPTIONAL {?list2 p:P360 [ ps:P360 wd:Q213283 ; pq:P17 ?host ] }
+    BIND(COALESCE( ?list1, ?list2, wd:Q344602) as ?list) 
+    OPTIONAL { ?list wdt:P1754 ?cat }
+}
+LIMIT 5000
+}
+GROUP BY ?host
+ORDER BY DESC(?pc) DESC(?ct1)

@@ -1,0 +1,35 @@
+select DISTINCT (STRAFTER(STR(?o), '/entity/') as ?oo) ("P53" AS ?p53) (STRAFTER(STR(?p), '/entity/') as ?pp ) ("S143" AS ?s143) ("Q1551807" AS ?q1551807) {
+ {select * { 
+  {select DISTINCT ?p ?t {
+  hint:Query hint:optimizer "None".
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Polskie_rody_szlacheckie> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  ?out schema:name ?t.
+  ?out schema:about ?k.
+
+  ?p wdt:P910 ?k.
+  ?p wdt:P31 ?r.
+  FILTER(?r IN (wd:Q27062351, wd:Q18655646, wd:Q13417114))
+  }limit 500 offset 0}
+
+ hint:Query hint:optimizer "None".
+ SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:api "Generator" .     
+     bd:serviceParam wikibase:endpoint "pl.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle ?t .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+     bd:serviceParam mwapi:gcmtype "page" .
+
+   ?o wikibase:apiOutputItem mwapi:item .
+  }
+  filter(not exists {?o wdt:P53 ?p}).
+  ?o wdt:P31 wd:Q5.
+ 
+ }}
+}

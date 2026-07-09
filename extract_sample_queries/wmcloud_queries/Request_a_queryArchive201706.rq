@@ -1,0 +1,64 @@
+SELECT
+      (group_concat(distinct     ?dateYear ; separator = ", ") AS     ?dateYears)
+      (group_concat(distinct  ?gameENLabel ; separator = ", ") AS  ?gameENLabels)
+      (group_concat(distinct  ?gameJALabel ; separator = ", ") AS  ?gameJALabels)
+      (group_concat(distinct ?hepburnLabel ; separator = ", ") AS ?hepburnLabels)
+      (group_concat(distinct   ?genreLabel ; separator = ", ") AS   ?genreLabels)
+      (group_concat(distinct     ?devLabel ; separator = ", ") AS     ?devLabels)
+      (group_concat(distinct     ?pubLabel ; separator = ", ") AS     ?pubLabels)
+      (group_concat(distinct    ?platLabel ; separator = ", ") AS    ?platLabels)
+      (group_concat(distinct     ?dataLink ; separator = ", ") AS     ?dataLinks)
+      #(?game AS ?dataPages)
+      (group_concat(distinct     ?wikiLink ; separator = ", ") AS     ?wikiLinks)
+      (group_concat(distinct     ?wikiName ; separator = ", ") AS     ?wikiNames)
+      (group_concat(distinct     ?cooLabel ; separator = ", ") AS     ?cooLabels)
+      WHERE {
+        ?game wdt:P31 wd:Q7889;
+        wdt:P136 wd:Q744038.
+        ?game rdfs:label ?gameENLabel.
+        FILTER(LANG(?gameENLabel) = "en").
+        BIND(CONCAT("=hyperlink(\"",replace(replace(STR(?game), "entity", "wiki"), "http", "https"),"\")") AS ?dataLink).
+        OPTIONAL {
+          ?game rdfs:label ?gameJALabel.
+          FILTER(LANG(?gameJALabel) = "ja").
+        }
+        OPTIONAL {
+          ?wikiURL schema:about ?game.
+          ?wikiURL schema:isPartOf <https://en.wikipedia.org/>.
+          ?wikiURL schema:name ?wikiName.
+          BIND(CONCAT("=hyperlink(\"",STR(?wikiURL),"\")") AS ?wikiLink).
+        }
+        OPTIONAL {
+          ?game wdt:P136 ?genre.
+          ?genre rdfs:label ?genreString.
+          FILTER(?genre != wd:Q744038).
+          FILTER(LANG(?genreString) = "en").
+          BIND(CONCAT(UCASE(SUBSTR(?genreString, 1, 1)), SUBSTR(?genreString, 2)) AS ?genreLabel).
+        }
+        OPTIONAL {?game wdt:P178 ?developer}
+        OPTIONAL {?game wdt:P123 ?publisher}
+        OPTIONAL {?game wdt:P400  ?platform}
+        OPTIONAL {
+          ?game wdt:P495 ?country.
+          ?country wdt:P297 ?cooLabel.
+        }
+        OPTIONAL {
+          ?game wdt:P577 ?date.
+          BIND(xsd:integer(IF(fn:starts-with(STR(wdt:P577), "http://www.wikidata.org/prop/P"), fn:replace(STR(wdt:P577), "http://www.wikidata.org/prop/P", ""), "???")) as ?pid)
+          BIND(IRI(CONCAT("http://www.wikidata.org/prop/novalue/P", STR(?pid))) as ?possibleWDNO)
+          ?date rdf:type ?typeOfStatementNode. # information about "no value" stored as type
+          BIND(IF(isBlank(?date), "unknown value", IF(?typeOfStatementNode = ?possibleWDNO, "no value", ?value)) as ?dateYear)
+#          BIND(YEAR(?date) AS ?dateYear).
+        }
+        OPTIONAL {?game wdt:P2125 ?hepburn}
+        SERVICE wikibase:label {
+          bd:serviceParam wikibase:language "en".
+          ?developer rdfs:label     ?devLabel.
+          ?publisher rdfs:label     ?pubLabel.
+           ?platform rdfs:label    ?platLabel.
+            ?hepburn rdfs:label ?hepburnLabel.
+        }
+      }
+    GROUP BY $game
+    ORDER BY ASC (?dateYears) ASC (?gameENLabels)
+    limit 200

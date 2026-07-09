@@ -1,0 +1,23 @@
+SELECT ?item ?itemLabel ?itemDescription ?st (CONCAT("[[:fr:",?fr,"|","article]]") as ?article)
+WITH
+{
+  SELECT ?item ?itemLabel ?itemDescription ?st ?fr
+  { 
+      ?item wdt:P31 wd:Q26817508 . 
+      [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?fr .
+      FILTER NOT EXISTS { ?item  wdt:P31 wd:Q26817508 ; wdt:P170 [] ; wdt:P571 [] ; wdt:P1531 [] ; wdt:P18 [] ; wdt:P495 [] ; wdt:P8193 []  }
+      OPTIONAL { ?item wikibase:statements ?st }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  }
+} as %test
+WHERE
+{
+  { INCLUDE %test }
+  UNION
+  {
+      BIND( wd:Q4115189 as ?item ) 
+      BIND( "should be the only line" as ?itemLabel ) 
+      BIND( "ignore this line" as ?itemDescription ) 
+   }          
+}
+ORDER BY (?item = wd:Q4115189 ) DESC(?st) ?itemLabel ?item

@@ -1,0 +1,10 @@
+#Labels containing markup tags
+
+SELECT ?item ?label
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814;
+        rdfs:label ?label.
+  FILTER CONTAINS(?label, "</").
+}
+LIMIT 100

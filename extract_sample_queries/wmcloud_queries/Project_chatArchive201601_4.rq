@@ -1,0 +1,28 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX p: <http://www.wikidata.org/prop/>
+
+SELECT * {
+  {SELECT ?item1 ?item2 (?birth1 as ?birth) (?death2 as ?death) WHERE {
+     ?item1 wdt:P26 ?item2 .
+     ?item1 p:P569/psv:P569 ?birth1_node .
+     ?birth1_node wikibase:timeValue ?birth1 .
+     ?birth1_node wikibase:timePrecision "11"^^xsd:integer .
+     ?item2 p:P570/psv:P570 ?death2_node .
+     ?death2_node wikibase:timeValue ?death2 .
+     ?death2_node wikibase:timePrecision "11"^^xsd:integer .
+     FILTER (?birth1 > ?death2)    
+   }}
+   UNION
+  {SELECT ?item1 ?item2 (?birth2 as ?birth) (?death1 as ?death) WHERE {
+   ?item1 wdt:P26 ?item2 .
+   ?item1 p:P570/psv:P570 ?death1_node .
+   ?death1_node wikibase:timeValue ?death1 .
+   ?death1_node wikibase:timePrecision "11"^^xsd:integer .
+   ?item2 p:P569/psv:P569 ?birth2_node .
+   ?birth2_node wikibase:timeValue ?birth2 .
+   ?birth2_node wikibase:timePrecision "11"^^xsd:integer .
+   FILTER (?birth2 > ?death1)    
+   }}
+ }

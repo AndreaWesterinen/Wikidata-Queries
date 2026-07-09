@@ -1,0 +1,10 @@
+# Lichen which have ausLichen IDs
+SELECT ?item ?taxon_name ?article  WHERE {
+
+  ?item wdt:P9093 ?ausLichenID.
+  ?item wdt:P225 ?taxon_name.
+  ?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  ?sitelink ^schema:name ?article .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  }

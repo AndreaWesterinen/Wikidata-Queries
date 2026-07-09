@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item  WHERE {
+  ?item wdt:P10221 ?identificador_PCI_de_UNESCO.
+  { ?item wdt:P17 wd:Q29. }
+  UNION
+  { ?item wdt:P495 wd:Q29. }
+}

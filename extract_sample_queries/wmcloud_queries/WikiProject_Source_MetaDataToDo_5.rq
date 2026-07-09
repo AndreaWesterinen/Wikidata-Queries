@@ -1,0 +1,7 @@
+#Items where author string statements do not have a stated as qualifier
+select DISTINCT ?work ?author where {
+  ?work p:P2093 ?author ;
+        wdt:P31 wd:Q13442814 .
+  MINUS { ?author pq:P1932 ?statedas }.
+}
+LIMIT 1000

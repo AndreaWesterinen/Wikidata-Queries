@@ -1,0 +1,8 @@
+SELECT ?item ?l (CONCAT("{","{rfd links2\u007C",strafter(str(?item), "entity/"),"\u007Cfrom [[Wikidata:Database reports/to delete/user categories]]}","}") as ?del)
+{
+	?item wdt:P31 wd:Q4167836 . 
+	?item rdfs:label ?l .
+	FILTER( lang(?l)="en" && strstarts(str(?l),"Category:Suspected Wikipedia sockpuppets of ") )
+	?item wikibase:sitelinks 1 .
+}
+LIMIT 1000

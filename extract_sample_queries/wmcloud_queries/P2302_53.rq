@@ -1,0 +1,7 @@
+#title: Preferred values are forbidden
+# Complex constraint from [[Property talk:P2302]]
+# Due to nature of constraints, making any specific constraint as preferred makes no sense and breaks tools that use wdt:P2302 in SPARQL queries.
+SELECT ?item {
+  ?item a wikibase:Property .
+  FILTER EXISTS{?item p:P2302 [wikibase:rank ?rank] FILTER(?rank = wikibase:PreferredRank)}
+}

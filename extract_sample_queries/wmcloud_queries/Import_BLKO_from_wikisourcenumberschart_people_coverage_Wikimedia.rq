@@ -1,0 +1,22 @@
+SELECT (wd:Q2481549 as ?item) ("sitelinks" as ?legend) (GROUP_CONCAT(?group;separator = ",") as ?labels) (GROUP_CONCAT(?count;separator = ",") as ?values)
+{
+	{
+SELECT ?group (COUNT(DISTINCT ?p) as ?count)
+{
+    ?p wdt:P1343 wd:Q665807 .
+    ?p wikibase:sitelinks ?st .
+    ?p wdt:P31 wd:Q5 .
+    BIND(
+         IF(?st = 0 , " 0" , 
+         IF(?st = 1 , " 1" , 
+         IF(?st = 2 , " 2" , 
+         IF(?st < 6 , " 3-5" , 
+         IF(?st < 10 , " 6-9" , 
+         IF(?st < 20 , "10-19" , 
+         IF(?st < 50 , "20-49" , "50+"
+        ) ) ) ) ) ) ) as ?group)
+}
+GROUP BY ?group
+ORDER BY DESC(?group)               
+	}
+}

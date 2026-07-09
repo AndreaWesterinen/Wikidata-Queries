@@ -1,0 +1,5 @@
+SELECT ?ist_ein_e_ ?ist_ein_e_Label WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }
+  ?ist_ein_e_ wdt:P31 wd:Q1639634.
+}
+LIMIT 1000

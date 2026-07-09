@@ -1,0 +1,6 @@
+SELECT ?movie ?movieLabel ?categoryLabel
+WHERE{
+  	?category wdt:P31 wd:Q40237 . 
+    ?movie wdt:P166 ?category
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}
+}

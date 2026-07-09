@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?instanceLabel ?from ?via WHERE { ?item wdt:P31/wdt:P279* wd:Q17379835; wdt:P31 ?instance; wikibase:sitelinks 0 . MINUS { [] schema:about ?item } ?from ?via ?item . SERVICE wikibase:label { bd:serviceParam wikibase:language 'en,de' } }

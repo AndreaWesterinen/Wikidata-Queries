@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P3361 ?pictoright.
+  FILTER NOT EXISTS{ ?item wdt:P4663 ?dacs. }
+}

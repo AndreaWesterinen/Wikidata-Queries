@@ -1,0 +1,11 @@
+#defaultView:Timeline
+SELECT ?Medina_of_Fez ?Medina_of_FezLabel ?inception ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  OPTIONAL {  }
+  
+  ?Medina_of_Fez wdt:P361 wd:Q2072102.
+   OPTIONAL { ?Medina_of_Fez wdt:P18 ?image. }
+  OPTIONAL { ?Medina_of_Fez wdt:P571 ?inception. }
+ 
+}

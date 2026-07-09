@@ -1,0 +1,7 @@
+#Cleveringa chair at the UBL
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P39 wd:Q85027613 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

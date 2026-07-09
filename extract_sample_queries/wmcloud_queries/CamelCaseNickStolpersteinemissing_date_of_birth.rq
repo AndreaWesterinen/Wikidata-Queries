@@ -1,0 +1,80 @@
+#by CamelCaseNick
+select (?stolperstein as ?item) ?inscription where {
+  ?stolperstein wdt:P31 wd:Q26703203;
+                wdt:P1684 ?inscription.
+
+  filter(!regex(?inscription, "(?: |/)(?:Jg|Jahrg|geboren|born(?: Dublin)?|NATO|născută?|nascut|nat|ur|geb|nar|rođena|s|lětnik|n[ée]e?|dz|fødselsår|født|născuta|née? (?:le|en))(?:\\.|,|\\:)? ?(?:\\d{1,2}[\\./](?:\\d{1,2}[\\./]| \\p{L}+\\.? ))?(\\d{4}|unbekannt)", "i"))
+  filter(!regex(?inscription, "(geb|Jg)\\. ?\\?"))
+  filter(!regex(?inscription, "�"))
+  minus {
+    values ?stolperstein {
+      # no date of birth
+      wd:Q43651536
+      wd:Q43652819
+      wd:Q43652931
+      wd:Q43675301
+      wd:Q43675411
+      wd:Q44200365
+      wd:Q44200642
+      wd:Q44430927
+      wd:Q50424552
+      wd:Q51284584
+      wd:Q51987958
+      wd:Q54820093
+      wd:Q61054655
+      wd:Q61991977
+      wd:Q63807480
+      wd:Q63808819
+      wd:Q64224607
+      wd:Q65048673
+      wd:Q98242740
+      wd:Q99551161
+      wd:Q99707212
+      wd:Q100282013
+      wd:Q100748297
+      wd:Q100748358
+      wd:Q100908808
+      wd:Q100908931
+      wd:Q100908965
+      wd:Q100980027
+      wd:Q101087633
+      wd:Q101240075
+      wd:Q108669150
+      wd:Q112656213
+      wd:Q112656214
+      wd:Q112662624
+
+      # Stolperstein for groups (Zusatz-/Kopfsteine)
+      wd:Q53845062
+      wd:Q54832979
+      wd:Q55316674
+      wd:Q55380169
+      wd:Q55579455
+      wd:Q59354518
+      wd:Q61983713
+      wd:Q62024598
+      wd:Q63969306
+      wd:Q64682156
+      wd:Q90297164
+      wd:Q95432983
+      wd:Q95466134
+      wd:Q97577713
+      wd:Q97782453
+      wd:Q97999763
+      wd:Q98048223
+      wd:Q98048795
+      wd:Q98097577
+      wd:Q98131099
+      wd:Q98244997
+      wd:Q100489663
+      wd:Q100900632
+      wd:Q101239875
+      wd:Q104650063
+      wd:Q104857147
+      wd:Q112656202
+      wd:Q112663461
+      wd:Q112663469
+      wd:Q115793148
+    }
+  }
+}

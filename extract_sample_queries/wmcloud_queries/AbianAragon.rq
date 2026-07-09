@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?coord ?place ?country ?instance ?image ?locator WHERE {
+  ?item wdt:P131* wd:Q4040.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+  OPTIONAL { ?item wdt:P625 ?coord. }
+  OPTIONAL { ?item wdt:P131 ?place. }
+  OPTIONAL { ?item wdt:P17 ?country. }
+  OPTIONAL { ?item wdt:P31 ?instance. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P242 ?locator. }
+  FILTER(!BOUND(?coord)).
+}
+ORDER BY ?itemLabel
+LIMIT 1000

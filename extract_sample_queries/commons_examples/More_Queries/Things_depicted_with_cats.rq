@@ -1,0 +1,49 @@
+# Things depicted with cats
+
+#defaultView:ImageGrid
+SELECT ?count ?depicted ?depictedLabel ?sampleImg
+
+WITH {
+  SELECT ?target WHERE {
+    SERVICE <https://query.wikidata.org/sparql> {   
+        { ?target wdt:P31?/wdt:P279* wd:Q146 }     ## include specific sorts of cats and individual cats
+        UNION
+        { ?target wdt:P31? wd:Q43577 }              ## and also breeds of cat
+    }
+  }
+} AS %targets
+    
+WITH {
+  SELECT (COUNT(DISTINCT(?file)) AS ?count) ?depicted (SAMPLE(?file) AS ?sample) WHERE {
+    INCLUDE %targets .
+    ?file p:P180 ?stmt .
+    ?stmt ps:P180 ?target .
+ #   ?stmt wikibase:rank wikibase:PreferredRank .       ##  Make sure the cat is marked as prominent -- **commented out for now**
+    
+    ?file p:P180 ?stmt2.  FILTER (?stmt2 != ?stmt) .    ##  now get another depicts statement
+    ?stmt2 ps:P180 ?depicted . 
+  } GROUP BY ?depicted
+} AS %things 
+
+WITH {
+  SELECT ?count ?depicted ?sample WHERE {
+    INCLUDE %things .
+    MINUS {                                           ## exclude anything that was an original target
+      SELECT (?target AS ?depicted) WHERE {
+        INCLUDE %targets .
+      }
+    }
+  }
+} AS %things1
+
+WHERE {
+  INCLUDE %things1 .
+  SERVICE <https://query.wikidata.org/sparql> {
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+      ?depicted rdfs:label ?depictedLabel .
+    }
+  }
+  ?sample schema:contentUrl ?url;
+          schema:url ?sampleImg.
+} ORDER BY DESC(?count)

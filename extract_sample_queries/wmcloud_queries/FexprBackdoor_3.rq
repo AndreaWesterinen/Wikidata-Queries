@@ -1,0 +1,19 @@
+#List of Indonesian person
+SELECT ?person ?personLabel ?personDescription ?personLabel_id ?dateOfBirth ?dateOfDeath ?article ?website WHERE {
+  ?person wdt:P31 wd:Q5;
+    wdt:P27 wd:Q252;
+    wdt:P106 wd:Q2526255.
+  OPTIONAL {
+    ?person rdfs:label ?personLabel_id.
+    FILTER((LANG(?personLabel_id)) = "id")
+  }
+  OPTIONAL {
+    ?article schema:about ?person;
+      schema:isPartOf <https://id.wikipedia.org/>.
+  }
+  OPTIONAL { ?person wdt:P856 ?website. }
+  OPTIONAL { ?person wdt:P569 ?dateOfBirth. }
+  OPTIONAL { ?person wdt:P570 ?dateOfDeath. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,id". }
+}
+ORDER BY (?personLabel)

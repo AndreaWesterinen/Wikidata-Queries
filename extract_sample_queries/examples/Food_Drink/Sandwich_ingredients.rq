@@ -1,3 +1,4 @@
+#title: Sandwich ingredients
 SELECT ?sandwich ?ingredient ?sandwichLabel ?ingredientLabel
 WHERE
 {

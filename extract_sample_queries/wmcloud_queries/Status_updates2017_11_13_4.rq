@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?coords ?itemLabel (?connecting_line AS ?layer) WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q928830.
+  ?item wdt:P625 ?coords.
+  ?item wdt:P361 wd:Q325309.
+  ?item wdt:P81 ?connecting_line.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu". }
+  OPTIONAL { ?item wdt:P197 ?adjacent_station. }
+}
+ORDER BY ?itemLabel

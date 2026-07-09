@@ -1,0 +1,13 @@
+SELECT ?author ?authorLabel ?item ?playLabel
+WHERE {
+  ?author wdt:P106 wd:Q214917.
+  ?author wdt:P19 ?town .
+  ?town wdt:P17 wd:Q241 .
+  ?item wdt:P50 ?author .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?author rdfs:label ?authorLabel .
+    ?item rdfs:label ?playLabel .
+
+  }
+}

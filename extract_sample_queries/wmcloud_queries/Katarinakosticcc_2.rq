@@ -1,0 +1,14 @@
+embed.html##defaultView:Graph
+SELECT  ?group ?groupLabel ?item ?itemLabel ?itemDescription ?itemImage
+
+WHERE
+
+{
+
+ VALUES ?item {wd:Q187729 wd:Q2234824 wd:Q115497930 } 
+ ?item wdt:P279 ?group
+# OPTIONAL {?item wdt:P18 ?itemImage}
+SERVICE wikibase:label{ bd:serviceParam wikibase:language "sr". }
+
+
+} 

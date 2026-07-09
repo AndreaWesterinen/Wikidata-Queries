@@ -1,3 +1,4 @@
+#title: French communes with names ending in ac
 #defaultView:Map
 SELECT ?item ?itemLabel ?coord
 WHERE

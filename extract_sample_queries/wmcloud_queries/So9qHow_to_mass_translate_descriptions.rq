@@ -1,0 +1,11 @@
+# q-items missing danish description referenced from a lexeme
+SELECT distinct ?any ?lab ?desc WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lexicalCategory wd:Q1084;
+        ontolex:sense ?s.
+  minus { ?l wdt:P31 wd:Q217438 }
+  ?s wdt:P5137 ?any. 
+  ?any rdfs:label ?lab. filter(lang(?lab) = "da")
+  ?any schema:description ?desc. filter(lang(?desc) = "fi")
+  FILTER NOT EXISTS {?any schema:description ?da. filter(lang(?da) = "da")}
+}

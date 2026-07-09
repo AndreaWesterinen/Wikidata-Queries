@@ -1,0 +1,8 @@
+# Subclass of 'human' and also instance of 'profession' or 'ethnic group'
+SELECT ?item ?itemLabel
+WHERE
+{
+  ?item wdt:P279 wd:Q5 .
+          
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

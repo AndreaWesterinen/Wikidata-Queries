@@ -1,0 +1,9 @@
+#title: items that could use this
+# Complex constraint from [[Property talk:P9161]]
+#
+SELECT ?item
+{
+	?item wdt:P31 wd:Q187685 . 
+	MINUS { ?item wdt:P9161 [] }
+}
+LIMIT 1000

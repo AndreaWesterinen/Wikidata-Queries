@@ -1,0 +1,13 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P2741]]
+# List of works that are in [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] [[d:Q430682|Tate <small>(Q430682)</small>]] and have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]] set, but that creator doesn't have a [[Property:P2741|Tate artist ID&#32;<small dir="ltr">(P2741)</small>]] link
+SELECT ?item ?creator
+{
+	{ ?item wdt:P195 wd:Q430682 } UNION
+    { wd:Q430682 wdt:P527 ?subtate .
+	?item wdt:P195 ?subtate }
+    ?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P2741 [] } .
+	#MINUS { ?item wdt:P170 wd:Q4233718 } . # Filter out anonymous
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+} ORDER BY ?creatorLabel

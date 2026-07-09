@@ -1,0 +1,4 @@
+SELECT ?id WHERE {
+    ?id p:P1124/psv:P1124 [ wikibase:quantityUnit wd:Q488021 ]
+    FILTER(?id != wd:Q13406268 && ?id != wd:Q15397819)
+}

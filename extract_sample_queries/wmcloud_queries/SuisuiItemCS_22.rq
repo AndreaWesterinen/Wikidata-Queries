@@ -1,0 +1,12 @@
+embed.html#SELECT DISTINCT ?i ?iLabel ?len ?pop WHERE{
+ ?i (wdt:P31/wdt:P279*) wd:Q1054813;wdt:P131 wd:Q131320;rdfs:label ?l.
+ BIND(?l AS ?len).
+ FILTER((LANG(?l)) = "en")
+ OPTIONAL{?i wdt:P1082 ?pop.
+  OPTIONAL{?i wdt:P1082 ?pop2.
+   FILTER(?pop2 < ?pop)}.
+  FILTER(!BOUND(?pop2)).
+ }.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "ja".}
+}
+ORDER BY DESC(?pop)

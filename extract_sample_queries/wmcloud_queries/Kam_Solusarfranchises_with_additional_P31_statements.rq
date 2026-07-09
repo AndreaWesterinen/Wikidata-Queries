@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(?instance) AS ?count) WHERE { ?item wdt:P31 wd:Q196600 ; wdt:P31 ?instance . } GROUP BY ?item HAVING (?count>1) ORDER BY DESC(?count)

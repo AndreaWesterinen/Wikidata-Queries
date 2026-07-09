@@ -1,0 +1,24 @@
+#by CamelCaseNick
+select (?stolperthing as ?item)
+with {
+  select distinct ?place {
+    [wdt:P31 ?stspType] wdt:P131+ ?place. values ?stspType { wd:Q26703203 wd:Q43638585 }
+    filter exists { ?place wdt:P31/wdt:P279* ?type. values ?type { wd:Q515 wd:Q15284 wd:Q3266850 } }
+    minus { ?place wdt:P31/wdt:P279* wd:Q447523. } filter(?place not in (wd:Q1209, wd:Q240))
+  }
+} as %places
+where {
+  {
+    values ?stspType { wd:Q26703203 wd:Q43638585 }
+    ?stolperthing wdt:P31 ?stspType;
+                  wdt:P131 ?placeA.
+    minus {
+      include %places.
+      ?placeA wdt:P131* ?place.
+    }
+  } union {
+    values ?stspType { wd:Q26703203 wd:Q43638585 }
+    ?stolperthing wdt:P31 ?stspType.
+    minus { ?stolperthing wdt:P131 ?placeA. }
+  }
+}

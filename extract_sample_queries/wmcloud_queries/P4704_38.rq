@@ -1,0 +1,8 @@
+#title: In the museum without a link
+# Complex constraint from [[Property talk:P4704]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] -> [[d:Q1192305|Smithsonian American Art Museum <small>(Q1192305)</small>]], but that don't have a [[Property:P4704|Smithsonian American Art Museum artwork ID&#32;<small dir="ltr">(P4704)</small>]] link
+SELECT DISTINCT ?item ?url WHERE {
+  ?item wdt:P195 wd:Q1192305 .
+  OPTIONAL { ?item wdt:P973 ?url } . 
+  MINUS { ?item wdt:P4704 [] } .
+}  LIMIT 500

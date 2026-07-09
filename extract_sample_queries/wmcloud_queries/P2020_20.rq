@@ -1,0 +1,13 @@
+#title: Quick check if look like a soccer player or an association football referee
+# Complex constraint from [[Property talk:P2020]]
+#
+SELECT ?item {
+  ?item wdt:P2020 []. 
+  ?item wdt:P106 [].
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q937857 }.
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q859528 }.
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q202648 }.
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q628099 }.
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q2445218 }.
+  FILTER NOT EXISTS { ?item wdt:P413 [] }.  
+}

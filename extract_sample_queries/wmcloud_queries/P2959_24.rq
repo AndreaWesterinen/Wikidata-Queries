@@ -1,0 +1,7 @@
+#title: Items with P31 = [[d:Q21286738|Wikimedia permanent duplicate item <small>(Q21286738)</small>]] or P2959 should have at least one sitelink
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: Merge the items, add the missing sitelinks or remove P2959/Q21286738
+SELECT DISTINCT ?item WHERE {
+	{ ?item wdt:P31 wd:Q21286738 } UNION { ?item wdt:P2959 [] } .
+	?item wikibase:sitelinks 0 .
+} ORDER BY ASC(xsd:integer(STRAFTER(str(?item), "Q")))

@@ -1,0 +1,2 @@
+#title:Add inverse statements from P833
+SELECT DISTINCT ?item WHERE { ?item wdt:P833 ?item2 . MINUS { ?item2 wdt:P833 ?item } . }

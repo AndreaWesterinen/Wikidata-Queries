@@ -1,0 +1,13 @@
+select ?item ?itemLabel ?a ?b ?c ?d ?e ?f ?location ?locationLabel ?terrain ?terrainLabel ?councilLabel ?itemDescription ?P31 ?P31Label   with { 
+  select ?item ?itemLabel ?itemDescription ?P31 ?P31Label ?council ?councilLabel  ?locationLabel ?terrainLabel where {
+  ?item wdt:P709 [] . hint:Prior hint:runFirst true.
+  ?item wdt:P131 ?council . ?council wdt:P31 wd:Q15060255 .
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  optional {?item wdt:P31 ?P31 . filter (?P31 not in (wd:Q811979))   } 
+   optional {?item wdt:P276 ?location .   }
+   optional {?item wdt:P706 ?terrain .   }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by lcase(?P31Label) ?itemLabel

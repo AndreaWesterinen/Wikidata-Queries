@@ -1,0 +1,9 @@
+SELECT ?entity ?entityLabel ?date (YEAR(?date) as ?year) 
+WHERE {
+    ?entity wdt:P569 ?date .
+    FILTER (MONTH(?date) = 6 && DAY(?date) = 19)
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+}
+LIMIT 10

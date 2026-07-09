@@ -1,0 +1,1 @@
+SELECT ?supactress ?supactressLabel ?film ?filmLabel ?year{?supactress p:P166 ?prizestmt.?supactress wdt:P31 wd:Q5.?prizestmt ps:P166 wd:Q5449108. OPTIONAL{?prizestmt pq:P585 ?date. BIND(YEAR(?date) as ?year)}. OPTIONAL{?prizestmt pq:P1686 ?film}SERVICE wikibase:label{bd:serviceParam wikibase:language "ta,en".}}ORDER BY ?date

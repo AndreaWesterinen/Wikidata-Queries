@@ -1,0 +1,39 @@
+SELECT ?item ?itemLabel ?count ?countBeschermd ?countPubliekdomein ?countOnbekend ?beschermdPercentage ?publiekdomeinPercentage  ?onbekendPercentage
+WITH {
+  SELECT DISTINCT ?item ?human WHERE {
+    ?human wdt:P31 wd:Q5 .
+    ?human wdt:P6379 ?item.
+    #?item wdt:P17 wd:Q55.# nl-instituut
+  }
+} AS %humans
+WITH {
+  SELECT DISTINCT ?human ?beschermd ?publiekdomein ?onbekend WHERE {
+    INCLUDE %humans.
+    OPTIONAL {
+      ?human wdt:P7763 wd:Q73555012
+      BIND(1 AS ?beschermd)
+    }
+    OPTIONAL {
+      ?human wdt:P7763 wd:Q71887839
+      BIND(1 AS ?publiekdomein)
+    }
+    OPTIONAL {
+      FILTER NOT EXISTS
+       {?human wdt:P7763 []
+       }
+      BIND(1 AS ?onbekend)
+    }
+  }
+} AS %humansWithRep
+WITH {
+  SELECT ?item (COUNT(?human) AS ?count) (SUM(?beschermd) AS ?countBeschermd) (CONCAT(str(ROUND(SUM(?beschermd)* 100 / (COUNT(?human)))), "% (", str(SUM(?beschermd)), " persons)") AS ?beschermdPercentage) (SUM(?publiekdomein) AS ?countPubliekdomein) (CONCAT(str(ROUND(SUM(?publiekdomein)* 100 / (COUNT(?human)))), "% (", str(SUM(?publiekdomein)), " persons)") AS ?publiekdomeinPercentage) (SUM(?onbekend) AS ?countOnbekend) (CONCAT(str(ROUND(SUM(?onbekend)* 100 / (COUNT(?human)))), "% (", str(SUM(?onbekend)), " persons)") AS ?onbekendPercentage) WHERE {
+    INCLUDE %humans.
+    INCLUDE %humansWithRep.
+  }
+  GROUP BY ?item
+} AS %items
+WHERE {
+  INCLUDE %items.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER (?count>100)
+}

@@ -1,0 +1,2 @@
+SELECT (SAMPLE(?a) as ?item) (URI(CONCAT("urn:uuid:",lcase(?value))) as ?uuid) (COUNT(DISTINCT ?a) as ?ct) 
+  (SAMPLE(CONCAT("{","{P","

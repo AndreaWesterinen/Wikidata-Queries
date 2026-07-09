@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?item2 ?partOf (IF(BOUND(?dupe), CONCAT('{', '{Done}', '}'), '') AS ?done) {
+  { ?item wdt:P460 ?item2 } UNION { ?item2 wdt:P460 ?item } .
+  ?item wikibase:sitelinks 1; wdt:P31 wd:Q5; ^schema:about/schema:isPartOf ?partOf .
+  ?item2 wdt:P31 wd:Q5; wikibase:sitelinks ?links; ^schema:about/schema:isPartOf ?partOf2 .
+  FILTER( SAMETERM( ?partOf, ?partOf2 ) ) .
+  FILTER( !( ?links = 1 && xsd:integer( STRAFTER( STR( ?item ), STR( wd:Q ) ) ) < xsd:integer( STRAFTER( STR( ?item2 ), STR( wd:Q ) ) ) ) ) .
+  OPTIONAL {
+    ?item p:P31 [ ps:P31 wd:Q17362920; pq:P642 ?dupe ] .
+    FILTER( ?dupe = ?item2 ) .
+  } .
+} ORDER BY ?partOf ?item

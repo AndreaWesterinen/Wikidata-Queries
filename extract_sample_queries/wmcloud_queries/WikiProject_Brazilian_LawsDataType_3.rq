@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q6453643.
+  {?item wdt:P17 wd:Q155.}
+  UNION
+  {?item wdt:P1001 wd:Q155.}
+  UNION
+  {?item wdt:P9119 [].}
+} LIMIT 100

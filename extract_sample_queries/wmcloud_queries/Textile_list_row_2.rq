@@ -1,0 +1,7 @@
+# Most used properties for a given class
+SELECT ?property ?propertyLabel ?propertyDescription (COUNT(?propertyclaim) AS ?count) WHERE {
+  ?item wdt:P31/wdt:P279 wd:Q877729 .
+  ?property wikibase:claim ?propertyclaim .
+  ?item ?propertyclaim [] . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?property ?propertyLabel ?propertyDescription ORDER BY DESC (?count)

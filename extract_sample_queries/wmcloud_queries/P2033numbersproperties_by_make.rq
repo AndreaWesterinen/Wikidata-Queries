@@ -1,0 +1,1 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity (wdt:P2033\u007Cwdt:P2009\u007Cwdt:P2010) [].}

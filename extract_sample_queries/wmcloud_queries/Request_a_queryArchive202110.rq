@@ -1,0 +1,5 @@
+SELECT DISTINCT ?predicate ?object WHERE 
+{
+   <https://en.wikipedia.org/> ?predicate ?object . 
+
+}

@@ -1,0 +1,14 @@
+#defaultView:ImageGrid
+SELECT ?object ?objectLabel ?image (COUNT(DISTINCT ?sitelink) AS ?sitelinks)
+WHERE {
+  {
+    { ?object wdt:P397+ wd:Q525 . }
+    UNION
+    { ?object wdt:P361 wd:Q544 . }
+  }
+  ?object wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  ?sitelink schema:about ?object .
+}
+GROUP BY ?object ?objectLabel ?image
+ORDER BY DESC(?sitelinks)

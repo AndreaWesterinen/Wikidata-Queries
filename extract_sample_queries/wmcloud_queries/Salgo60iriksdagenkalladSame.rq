@@ -1,0 +1,19 @@
+SELECT DISTINCT ?nameUsedinSwedishPM1 
+(SAMPLE(?item) AS ?item) 
+(SAMPLE(?person2) AS ?person2)
+WHERE {
+  ?item p:P2561 ?nameSwedishPMp1.
+  ?person2 p:P2561 ?nameSwedishPMp2.
+  {
+    ?nameSwedishPMp1 ps:P2561 ?nameUsedinSwedishPM1;
+      pq:P3831 wd:Q110382440.
+  }
+  {
+    ?nameSwedishPMp2 ps:P2561 ?nameUsedinSwedishPM2;
+      pq:P3831 wd:Q110382440.
+  }
+  FILTER((?nameUsedinSwedishPM1 = ?nameUsedinSwedishPM2) && (?item != ?person2) 
+        && (str(?item) > str(?person2))
+        )
+}
+GROUP BY ?nameUsedinSwedishPM1 ?person1

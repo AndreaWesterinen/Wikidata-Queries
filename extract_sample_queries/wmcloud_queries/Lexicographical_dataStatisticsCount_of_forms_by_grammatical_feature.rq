@@ -1,0 +1,3 @@
+SELECT ?item (count(?form) as ?count) WHERE {
+   ?form wikibase:grammaticalFeature ?item .
+} group by ?item order by desc(?count)

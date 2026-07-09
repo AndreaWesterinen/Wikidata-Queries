@@ -1,0 +1,16 @@
+#title: Human > 2.10 m without occupation
+# Complex constraint from [[Property talk:P2048]]
+# Human(s) without [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] and without [[Property:P1050|medical condition&#32;<small dir="ltr">(P1050)</small>]] = [[d:Q501829|gigantism <small>(Q501829)</small>]]
+SELECT ?item ?height WHERE {
+  ?item          p:P2048                     ?stmnode.
+  ?stmnode       psn:P2048                   ?valuenode.  # normalised value
+  ?valuenode     wikibase:quantityAmount     ?height.
+  ?item wdt:P31 wd:Q5.
+ filter (?height > 2.10)
+ FILTER NOT EXISTS {
+   ?item wdt:P106 [].
+ }
+ FILTER NOT EXISTS {
+   ?item wdt:P1050 wd:Q501829.
+ }
+}

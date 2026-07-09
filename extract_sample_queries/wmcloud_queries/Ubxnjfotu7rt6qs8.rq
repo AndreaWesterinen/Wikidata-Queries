@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item p:P1462 ?statement.
+  ?statement pq:P31 [].
+  filter not exists {?item wdt:P31 [].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

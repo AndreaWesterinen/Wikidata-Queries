@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (COUNT(DISTINCT ?statement) AS ?count) WHERE {
+
+     ?statement pq:P2241 ?item;
+                       
+     SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+     }                  
+
+}  GROUP BY ?item ?itemLabel
+ORDER BY DESC (?count)
+LIMIT 20

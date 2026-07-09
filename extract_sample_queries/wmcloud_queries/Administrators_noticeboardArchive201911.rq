@@ -1,0 +1,5 @@
+SELECT ?Pok_mon_move ?Pok_mon_moveLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Pok_mon_move wdt:P279 wd:Q15141195.
+}
+LIMIT 100

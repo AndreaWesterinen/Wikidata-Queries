@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription WHERE { 
+  ?item wdt:P279* wd:Q3858501 . 
+  OPTIONAL{ ?backlink ?p1 ?item . }
+  FILTER(!bound(?backlink))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }                  
+}

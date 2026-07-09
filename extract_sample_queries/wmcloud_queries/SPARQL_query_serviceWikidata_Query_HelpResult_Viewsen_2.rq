@@ -1,0 +1,24 @@
+embed.html##Battles per year per continent and country last 80 years (animated)
+
+#defaultView:BarChart
+SELECT (SAMPLE(?_continentLabel) AS ?contient) (COUNT(?_country) AS ?battles) (SAMPLE(?_countryLabel) AS ?_countryLabel) (SAMPLE(?year) AS ?year)  WHERE {
+  ?subj wdt:P31 wd:Q178561.
+  OPTIONAL { ?subj wdt:P580 ?d1. }
+  OPTIONAL { ?subj wdt:P585 ?d2. }
+  OPTIONAL { ?subj wdt:P582 ?d3. }
+  BIND(IF(!BOUND(?d1), IF(!BOUND(?d2), ?d3, ?d2), ?d1) AS ?date)
+  BIND(str(YEAR(?date)) AS ?year)
+  ?subj wdt:P276 ?_loc.
+  ?_loc wdt:P17 ?_country.
+  ?_country wdt:P30 ?_continent.
+  ?_country rdfs:label ?_countryLabel.
+  ?_continent rdfs:label ?_continentLabel.
+  
+  BIND((NOW()) - ?date AS ?distance)
+  FILTER(BOUND(?year))
+  FILTER((LANG(?_countryLabel)) = "en")
+  FILTER((LANG(?_continentLabel)) = "en")
+  FILTER((0 <= ?distance) && (?distance < 31 * 12 * 80))
+}
+GROUP BY ?year ?_country
+ORDER BY ?_countryLabel

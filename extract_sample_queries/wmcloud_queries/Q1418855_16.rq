@@ -1,0 +1,21 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q1418855>
+SELECT ?f ?gn ?ct1 ?ct2 ?sample ?sampleLabel ?sampleDescription ?othergender ?othergenderLabel ?othergenderDescription
+WITH
+{
+    SELECT ?f ?gn (COUNT(DISTINCT ?p) as ?ct1) (COUNT(DISTINCT ?p1) as ?ct2) (SAMPLE(?p) as ?sample ) (SAMPLE(?p1) as ?othergender)
+    WHERE 
+    {
+      wdname: wdt:P1560 ?gn .
+      ?p1 wdt:P734 ?f .
+      ?p1 wdt:P735 ?gn .
+      ?p wdt:P735 wdname: . 
+      ?p wdt:P734 ?f .
+    }
+    GROUP BY ?f ?gn
+} 
+as %all
+{
+  INCLUDE %all
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }          
+}
+ORDER BY DESC(?ct1)

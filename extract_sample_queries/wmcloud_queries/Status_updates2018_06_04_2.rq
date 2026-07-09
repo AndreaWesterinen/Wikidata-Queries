@@ -1,0 +1,15 @@
+select ?count ?human ?humanLabel ?humanDescription
+WITH {
+  SELECT ?human (COUNT(DISTINCT ?article) AS ?count) WHERE {
+    ?human wdt:P27 wd:Q35 .
+    ?human wdt:P106 / wdt:P279* wd:Q2066131 .
+    ?human wdt:P21 wd:Q6581072.
+    ?article schema:about ?human .
+  }
+  GROUP BY ?human
+} AS %results
+WHERE {
+  INCLUDE %results
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "da,en". }
+}
+ORDER BY DESC(?count)

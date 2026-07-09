@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(distinct ?sitelink) as ?count) WHERE { ?item wdt:P31 wd:Q4830453 . ?sitelink <http://schema.org/about> ?item . } GROUP BY ?item HAVING (?count>40) ORDER BY DESC(?count) LIMIT 30

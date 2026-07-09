@@ -1,0 +1,9 @@
+SELECT ?l ?lemma ?posLabel WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ;
+        wikibase:lexicalCategory ?pos.
+  ?language wdt:P218 'sv'
+            FILTER NOT EXISTS {?l ontolex:lexicalForm ?form }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?posLabel

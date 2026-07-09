@@ -1,0 +1,7 @@
+# AFD taxa without parents
+SELECT ?item  ?itemLabel WHERE {
+  ?item wdt:P6039 ?AFD_id.
+  minus {?item wdt:P846 [].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
+ORDER BY ?item ?itemLabel

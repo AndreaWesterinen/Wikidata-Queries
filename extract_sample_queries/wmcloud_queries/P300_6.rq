@@ -1,0 +1,8 @@
+#title: Non-ISO 3166-2 codes for Wales
+# Complex constraint from [[Property talk:P300]]
+# The alternate Welsh codes from BS 6879 are not ISO 3166-2 codes and should be marked as deprecated.
+select distinct ?item {
+  values ?code { "GB-POG" "GB-CAF" "GB-CRD" "GB-GFY" "GB-DDB" "GB-FFL" "GB-YNM" "GB-MTU" "GB-FYN" "GB-CTL" "GB-CNW" "GB-BNF" "GB-ATA" "GB-BMG" "GB-WRC" }
+  ?item p:P300 [ ps:P300 ?code ; wikibase:rank ?rank ] .
+  filter (?rank != wikibase:DeprecatedRank) .
+}

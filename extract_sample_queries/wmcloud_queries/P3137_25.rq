@@ -1,0 +1,13 @@
+#title: elevation of value should be higher
+# Complex constraint from [[Property talk:P3137]]
+# correct values or elevation, define exceptions
+SELECT ?item ?itemLabel ?item_elevation ?parentpeak ?parentpeakLabel ?parentpeak_elevation
+{
+  ?item wdt:P3137 ?parentpeak .
+  ?item p:P2044 / psn:P2044 / wikibase:quantityAmount ?item_elevation .
+  ?parentpeak p:P2044 / psn:P2044 / wikibase:quantityAmount ?parentpeak_elevation .
+  FILTER( ?item_elevation > ?parentpeak_elevation )
+  FILTER( ?item not in ( wd:Q15397819 , wd:Q4115189 ) ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+LIMIT 100

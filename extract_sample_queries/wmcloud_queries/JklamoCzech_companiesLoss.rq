@@ -1,0 +1,14 @@
+SELECT ?item ?profit ?hq ?date
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?item p:P2295 ?profitSt .
+    ?profitSt a wikibase:BestRank; ps:P2295 ?profit .
+    OPTIONAL { ?profitSt pq:P585 ?date } .
+    FILTER( ?item not in (wd:Q11878499,wd:Q12021167,wd:Q28920259,wd:Q12021780,wd:Q43912780))
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "cs, en" }
+}
+ORDER BY ASC(?profit)
+LIMIT 16

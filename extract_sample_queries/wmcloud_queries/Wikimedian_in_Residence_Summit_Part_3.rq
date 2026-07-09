@@ -1,0 +1,43 @@
+SELECT ?item ?itemLabel ?sexLabel ?birthplaceLabel ?wasinLabel # must be the same list of variables as after GROUP BY  (bottom of query)
+
+(SAMPLE(?education_label) as ?education_sampled) 	#just pick one at random if there are multiple values
+(GROUP_CONCAT(?awards_label;separator=' --- ') as ?awards_combined) 	# Combines multiple values together, but can be duplicate values
+(GROUP_CONCAT(DISTINCT ?Genre_label;separator=', ') as ?genre_combined)	# using the DISTINCT word stops duplicates being included
+
+
+WHERE {
+  ?item wdt:P106 wd:Q177220 .
+  ?item wdt:P19/wdt:P131* wd:Q25 .
+  
+#The built in Wikidata label service does not work within the aggregation functions (SAMPLE and GROUP_CONCAT in this case). So the I need to manually get the labels for ?awards, ?Genre and ?education
+  OPTIONAL { ?item wdt:P166 ?awards .
+            ?awards rdfs:label ?awards_label . #manual way of getting label
+            FILTER (lang(?awards_label) = "en") #manual way of getting label  
+           }
+  
+   OPTIONAL { ?item wdt:P136 ?Genre  .
+             ?Genre rdfs:label ?Genre_label . #manual way of getting label
+            FILTER (lang(?Genre_label) = "en") #manual way of getting label  
+            }
+  
+   OPTIONAL { ?item wdt:P69 ?education .
+            ?education rdfs:label ?education_label . #manual way of getting label
+            FILTER (lang(?education_label) = "en") #manual way of getting label 
+            }
+  
+  OPTIONAL { ?item wdt:P21 ?sex .}
+  OPTIONAL { ?item wdt:P569 ?dob .}
+  OPTIONAL { ?item wdt:P69 ?education .}
+  OPTIONAL { ?item wdt:P19 ?birthplace .}
+  OPTIONAL {?item wdt:P412 ?voice .}
+  OPTIONAL { ?item wdt:P1344 ?wasin .}
+  
+  OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "cy" } 
+	
+	FILTER (!BOUND(?sitelink)) 
+    
+SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en, cy" .
+	} 
+}
+GROUP BY ?item ?itemLabel ?sexLabel ?birthplaceLabel ?wasinLabel  # Added GROUP BY - You must have the SAME list of variables here as up at the top in your SELECT clause

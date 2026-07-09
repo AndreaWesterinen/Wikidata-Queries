@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value 
+{
+	?item1 wdt:P1566 ?value .
+    ?item1 wdt:P17 wd:Q408 .
+	?item2 wdt:P1566 ?value .
+	FILTER( ?item1 != ?item2 && STR( ?item1 ) < STR( ?item2 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 10000

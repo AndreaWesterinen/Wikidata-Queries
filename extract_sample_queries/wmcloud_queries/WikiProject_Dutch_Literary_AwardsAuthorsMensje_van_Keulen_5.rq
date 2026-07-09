@@ -1,0 +1,26 @@
+# Awards for which a given ?author was a member of the jury
+SELECT DISTINCT ?author ?authorLabel 
+(IRI(GROUP_CONCAT(DISTINCT ?rol ; separator = "****")) as ?role)
+(GROUP_CONCAT(DISTINCT ?rolLabel ; separator = "****") as ?roleLabel)
+?award ?awardLabel ?year ?awardDescription 
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)} 
+  ?award wdt:P3342 ?author. #Items for which ?author was a relevant person (P3342)
+    FILTER(?award != wd:Q65926936) #minus the 1958 individual instances of the PCHooftprijs
+  ?award p:P3342 ?s. #Relevant person for specific award
+  ?s ps:P3342 ?author. #only ?author
+  ?s pq:P3831 ?rol 
+    FILTER(?rol != wd:Q1275330) #not the role as laureate
+  OPTIONAL {?s pq:P585 ?year1
+  BIND(YEAR(?year1) AS ?year)}
+                        
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+    ?rol rdfs:label ?rolLabel.
+    ?award rdfs:label ?awardLabel.
+    ?author rdfs:label ?authorLabel.
+    ?award schema:description ?awardDescription.
+  }
+} GROUP BY ?author ?authorLabel ?award ?awardLabel ?year ?awardDescription
+ORDER BY ?year

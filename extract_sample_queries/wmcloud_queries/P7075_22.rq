@@ -1,0 +1,4 @@
+#title: Element with a value of "based on" equal to a value of "mod of"
+# Complex constraint from [[Property talk:P7075]]
+#
+SELECT ?item ?modof WHERE { ?item wdt:P7075 ?modof.  ?item wdt:P144 ?modof. }

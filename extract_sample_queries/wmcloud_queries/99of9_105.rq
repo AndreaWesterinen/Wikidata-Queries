@@ -1,0 +1,16 @@
+#defaultView:Graph
+SELECT DISTINCT ?item1 ?item2 ?item1Label ?item2Label ?rgb ?id1 ?id2 WHERE {
+  ?item2 wdt:P7033 ?id2.
+  ?item2 wdt:P31|wdt:P279 ?item1 .
+  ?item1 wdt:P7033 ?id1.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+  OPTIONAL{?item2 wdt:P31 ?instance2}
+  OPTIONAL{?item2 wdt:P279 ?subclass2}
+  #BIND( substr(md5(STR(?subclass2)),1,6) as ?rgb )
+  #BIND(IF(BOUND(?rgb),?rgb,substr(md5(STR(?instance2)),1,6)) AS ?rgb).
+  BIND( substr(md5(STR(?instance2)),1,6) as ?rgb )
+  BIND(IF(BOUND(?rgb),?rgb,substr(md5(STR(?subclass2)),1,6)) AS ?rgb).
+
+}
+LIMIT 10000

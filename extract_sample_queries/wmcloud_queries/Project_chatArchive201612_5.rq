@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel
+WHERE
+{
+	?item wdt:P31 wd:Q476028 .
+  	?item wdt:P17 wd:Q21 .
+	FILTER NOT EXISTS { ?item wdt:P462 [] . }
+	?article schema:about ?item . ?article schema:isPartOf <https://el.wikipedia.org/>
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "el" }
+}

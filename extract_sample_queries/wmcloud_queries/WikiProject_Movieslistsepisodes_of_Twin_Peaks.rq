@@ -1,0 +1,10 @@
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+SELECT DISTINCT ?item ?nr_all (GROUP_CONCAT(DISTINCT(?enlabel)) as ?enlabels) WHERE 
+{  
+  ?item wdt:P31/wdt:P279* wd:Q21191270 .
+  ?item wdt:P179 wd:Q23971551 . 
+  ?item p:P179 ?series_statement . 
+  ?series_statement pq:P1545 ?nr_all  .
+  ?series_statement v:P179 wd:Q23971551 .
+  OPTIONAL { ?item rdfs:label ?enlabel . FILTER(lang(?enlabel)="en")  } 
+} GROUP BY ?item ?nr_all ORDER BY xsd:integer(?nr_all)

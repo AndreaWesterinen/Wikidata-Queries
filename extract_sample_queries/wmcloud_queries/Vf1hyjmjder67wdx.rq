@@ -1,0 +1,12 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?naturelb; SEPARATOR = " ; ") AS ?natureP31) (GROUP_CONCAT(DISTINCT ?no_inv; SEPARATOR = " ; ") AS ?inv) (SAMPLE(?img) AS ?image) WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q738680.
+  ?item wdt:P31 ?nature.
+  ?nature rdfs:label ?naturelb.
+  ?item wdt:P195 wd:Q1376.
+  ?item wdt:P217 ?no_inv.
+  OPTIONAL { ?item wdt:P18 ?img. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  FILTER((LANG(?naturelb)) = "fr")
+  ?item wdt:P2596 wd:Q11772.
+}
+GROUP BY ?item ?itemLabel ?img

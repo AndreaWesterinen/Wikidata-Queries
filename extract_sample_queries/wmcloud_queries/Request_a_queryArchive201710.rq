@@ -1,0 +1,11 @@
+embed.html##defaultView:BubbleChart
+SELECT  ?kön (COUNT(?person) as ?count)
+WHERE
+{
+	?person wdt:P3217 ?SBL.
+    ?person wdt:P21 ?gen.
+    ?gen rdfs:label ?kön.
+    FILTER((LANG(?kön)) = "en")    
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?kön

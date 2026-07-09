@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?sn1 ?sn2 ?ti
+{
+	?item wdt:P31 wd:Q1260524 ; wdt:P1552 [] ; wdt:P4895 ?ti . 
+    OPTIONAL { ?item wdt:P1813  ?sn1 . FILTER(lang(?sn1)="zxx") }
+    OPTIONAL { ?item wdt:P1813  ?sn2 . FILTER(lang(?sn2)="en") }  
+}
+ORDER BY ?ti

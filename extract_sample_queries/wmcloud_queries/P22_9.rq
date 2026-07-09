@@ -1,0 +1,4 @@
+#title: People that are both father and mother
+# Complex constraint from [[Property talk:P22]]
+#
+SELECT DISTINCT ?item WHERE { ?item ^wdt:P22 []; ^wdt:P25 [] }

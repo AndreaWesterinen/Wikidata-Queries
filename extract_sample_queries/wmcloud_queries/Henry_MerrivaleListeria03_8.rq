@@ -1,0 +1,5 @@
+SELECT ?item 
+WHERE { 
+  ?item wdt:P9001 ?id; wdt:P2924 ?breid .
+MINUS { ?wru schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> . }
+}

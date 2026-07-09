@@ -1,0 +1,17 @@
+select * {
+  {
+    select ?item ?value ?prefix ?test ?code {
+      ?item wdt:P6262 ?value.
+      BIND (STRBEFORE(?value, ":" ) AS ?code_)
+      BIND (STRAFTER(?code_, "." ) AS ?prefix)
+      BIND (IF (?prefix != "", ?prefix, ?code_) AS ?code)
+      FILTER (?code NOT IN ("muppet", "thelastofus", "gta", "lyrics", "dune", "lego", "tardis", "saintsrow", "youtube")) # universe
+      ?test wdt:P4073 ?code.
+    }
+    LIMIT 2000
+  }
+  FILTER (?item != ?test) # ie: `lego:LEGO` case, univers de Dune (Q769936), ... (100+ results)
+  MINUS { ?item ?p ?test }
+          
+  MINUS { ?item wdt:P31 wd:Q5 } # actrice, ie: wd:Q237530
+  #MINUS { ?item wdt:P1080

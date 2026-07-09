@@ -1,0 +1,7 @@
+#title: Overlapping subclasses
+# Complex constraint from [[Property talk:P2738]]
+# Class which is a subclass of two classes listed as disjoint
+SELECT DISTINCT ?item ?overlap WHERE {
+  ?item p:P2738 ?m . ?m pq:P642 ?a, ?b . FILTER ( ?a != ?b ) .
+  ?overlap wdt:P279 ?a, ?b .
+}

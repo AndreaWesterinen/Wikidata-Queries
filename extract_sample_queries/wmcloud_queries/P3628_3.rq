@@ -1,0 +1,9 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?value ?coords
+{
+	?item wdt:P3628 ?value .
+    OPTIONAL {
+       ?item wdt:P625 ?coords .
+    }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}

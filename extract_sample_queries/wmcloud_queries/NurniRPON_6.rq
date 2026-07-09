@@ -1,0 +1,27 @@
+SELECT DISTINCT (STRAFTER(STR(?osoby), '/entity/') as ?oo) ("P39" AS ?p53) (STRAFTER(STR(?f), '/entity/') as ?ff ) ("S143" AS ?s143) ("Q877583" AS ?wiki)
+{
+{SELECT ?osoby ?f WHERE {
+  hint:Query hint:optimizer "None".
+  ?f (wdt:P279*) wd:Q2662430;
+    wdt:P910 ?k.
+     ?link schema:about ?k; 
+   schema:isPartOf <https://be.wikipedia.org/>; 
+   schema:name ?t.
+   
+   SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:api "Generator" .     
+     bd:serviceParam wikibase:endpoint "be.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle ?t .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+     bd:serviceParam mwapi:gcmtype "page" .
+
+   ?osoby wikibase:apiOutputItem mwapi:item .
+   }
+}}
+  FILTER(NOT EXISTS{?osoby wdt:P39 ?f}).
+  ?osoby wdt:P31 wd:Q5.
+  FILTER (NOT EXISTS{?osoby wdt:P39 ?f1.
+                    ?f1 wdt:P279* ?f.})
+}

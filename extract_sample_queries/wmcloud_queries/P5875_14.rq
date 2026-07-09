@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P5875/ps:P5875 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https?://www.researchgate.net/publication/)?(/d+)(_[A-Za-z']+)+)$") )
+}

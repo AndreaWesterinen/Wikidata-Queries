@@ -1,0 +1,11 @@
+#title: Possible disambiguation in key language label
+# Complex constraint from [[Property talk:P650]]
+# Items with [[Property:P650|RKDartists ID&#32;<small dir="ltr">(P650)</small>]] with a label in either Dutch, English, German or French that looks like a disambiguation.
+SELECT DISTINCT ?item ?label WHERE {
+  VALUES ?lang { "de" "en" "fr" "nl" } . 
+  ?item wdt:P650 ?rkdid .
+  ?item rdfs:label ?label .
+  FILTER (REGEX(STR(?label), ".*\\(.*") && (!(REGEX(STR(?label), ".*\\(I.*")))) .
+  FILTER( LANG( ?label ) = ?lang ) .
+} ORDER BY ?label 
+LIMIT 1000

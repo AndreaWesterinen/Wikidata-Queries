@@ -1,0 +1,8 @@
+SELECT (wd:Q5 as ?item)(COUNT(DISTINCT ?item) as ?count)
+  WHERE {
+    ?item wdt:P131+ wd:Q142.
+    hint:Prior hint:gearing "forward".
+    ?item (wdt:P31/wdt:P279*) wd:Q39614.
+    hint:Prior hint:gearing "forward".
+  MINUS { ?item wdt:P18 [].}
+  }

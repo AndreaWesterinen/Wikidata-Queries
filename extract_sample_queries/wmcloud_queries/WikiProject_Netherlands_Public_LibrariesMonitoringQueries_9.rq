@@ -1,0 +1,28 @@
+# Email address P968 
+# email is optional 
+# Can have multiple values 
+# Must start with 'mailto:' and contain a '@' and end with a '.tld'
+
+SELECT DISTINCT 
+?item ?itemLabel 
+?email #Email address P968 
+?emailPart1 ?emailPart2 ?emailPart3 #?emailPart4 ?emailPart4Length
+?emailRefURL ?emailRefDate ?OffWebsiteP856
+
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL {?item p:P968 [ps:P968 ?email].} # Email address P968  
+    
+  BIND(STRBEFORE(STR(?email), ":") as ?emailPart1)
+  BIND(STRAFTER(STR(?email), ":") as ?emailPart2)
+  BIND(STRAFTER(STR(?emailPart2), "@") as ?emailPart3)
+
+  OPTIONAL {?item p:P856 [ps:P856 ?OffWebsiteP856].} #official website (P856)
+  OPTIONAL {?item p:P968 [prov:wasDerivedFrom [pr:P854 ?emailRefURL]] .} #reference --> Reference url P854
+  OPTIONAL {?item p:P968 [prov:wasDerivedFrom [pr:P813 ?emailRefDate ]] .} #reference --> Retrieved P813
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+
+}
+ORDER BY ASC(?emailPart3)

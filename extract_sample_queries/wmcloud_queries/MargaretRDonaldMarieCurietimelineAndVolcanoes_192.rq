@@ -1,0 +1,6 @@
+# inaturalist place ids
+#defaultView:Map
+SELECT  * WHERE{
+  ?item wdt:P7471 ?placeid;         # Hasfocus group of Know My Name
+        wdt:P625 ?coords.
+  }

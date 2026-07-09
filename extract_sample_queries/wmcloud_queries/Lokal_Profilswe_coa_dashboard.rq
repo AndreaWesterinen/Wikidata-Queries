@@ -1,0 +1,1 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31 ?type; wdt:P17 wd:Q34. FILTER(?type in (wd:Q14659, wd:Q2532754)).}

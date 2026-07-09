@@ -1,0 +1,32 @@
+SELECT DISTINCT ?item ?twitter_link ?facebook_link ?instagram_link ?youtube_link ?website WITH {
+  SELECT ?identifier ?wdt ?formatter WHERE {
+    VALUES ?identifier { wd:P2002 wd:P2013 wd:P2003 }
+    ?identifier wikibase:directClaim ?wdt; wdt:P1630 ?formatter .
+  }
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  ?item p:P106/ps:P106/wdt:P279* wd:Q26270618 .
+  OPTIONAL {
+    ?item wdt:P2002 ?twitter_handle .
+    wd:P2002 wdt:P1630 ?twitter_formatter .
+    BIND(CONCAT('[', REPLACE(?twitter_formatter, '\\$1', $twitter_handle), ' ', $twitter_handle, ']') AS ?twitter_link) .
+  }
+  OPTIONAL {
+    ?item wdt:P2013 ?facebook_handle .
+    wd:P2013 wdt:P1630 ?facebook_formatter .
+    BIND(CONCAT('[', REPLACE(?facebook_formatter, '\\$1', $facebook_handle), ' ', $facebook_handle, ']') AS ?facebook_link) .
+  }
+  OPTIONAL {
+    ?item wdt:P2003 ?instagram_handle .
+    wd:P2003 wdt:P1630 ?instagram_formatter .
+    BIND(CONCAT('[', REPLACE(?instagram_formatter, '\\$1', $instagram_handle), ' ', $instagram_handle, ']') AS ?instagram_link) .
+  }
+  OPTIONAL {
+    ?item wdt:P2397 ?youtube_handle .
+    wd:P2397 wdt:P1630 ?youtube_formatter .
+    BIND(CONCAT('[', REPLACE(?youtube_formatter , '\\$1', $youtube_handle ), ' ', $youtube_handle , ']') AS ?youtube_link) .
+  }
+  OPTIONAL {
+    ?item wdt:P856 ?website .
+  }
+  ?item wdt:P2002

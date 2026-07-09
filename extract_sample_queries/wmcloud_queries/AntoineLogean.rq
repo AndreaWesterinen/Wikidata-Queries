@@ -1,0 +1,10 @@
+PREFIX schema: <http://schema.org/>
+
+SELECT ?item ?itemLabel ?itemDescription ?hq WHERE {
+  ?item wdt:P31 wd:Q4830453.
+  ?item schema:description ?label.
+  MINUS { ?item wdt:P159 ?hq. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER((LANG(?label)) = "en")
+  FILTER(CONTAINS(STR(?label), "company in"))
+}

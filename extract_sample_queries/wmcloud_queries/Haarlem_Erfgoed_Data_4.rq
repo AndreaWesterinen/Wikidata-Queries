@@ -1,0 +1,14 @@
+embed.html##defaultView:Map
+
+SELECT ?street ?streetLabel ?start ?coords ?nameOrigin ?nameOriginLabel
+WHERE 
+{
+  ?street wdt:P31 wd:Q79007.
+  ?street wdt:P571 ?start.
+  ?street wdt:P131 wd:Q2680952.
+  ?street wdt:P625 ?coords.
+  OPTIONAL { ?street wdt:P138 ?nameOrigin }.
+  FILTER (year(xsd:dateTime(?start)) > 1900 && year(xsd:dateTime(?start)) < 1910)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+}
+ORDER BY (?start)

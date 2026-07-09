@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P951/ps:P951 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?:\\/\\/nektar\\.oszk\\.hu\\/resource\\/auth\\/([1-9]\\d*))$") )
+}

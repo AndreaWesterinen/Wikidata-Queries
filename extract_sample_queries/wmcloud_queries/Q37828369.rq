@@ -1,0 +1,5 @@
+embed.html#SELECT ?WikiData_item_ ?WikiData_item_Label ?its_anatomical_location_is___ ?its_anatomical_location_is___Label
+{
+	?WikiData_item_ wdt:P927 ?its_anatomical_location_is___ .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"  }    
+}

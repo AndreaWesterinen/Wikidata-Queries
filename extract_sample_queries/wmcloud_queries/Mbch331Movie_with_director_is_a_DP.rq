@@ -1,0 +1,1 @@
+SELECT * WHERE { ?item wdt:P57 ?sub0 . ?sub0 wdt:P31 wd:Q4167410 . OPTIONAL {?sub0 wdt:P345 ?imdb} }

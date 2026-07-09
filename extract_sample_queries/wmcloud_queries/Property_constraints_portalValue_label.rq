@@ -1,0 +1,10 @@
+embed.html#SELECT ?Property_ ?Property_Label ?Property_Description ?format_as_a_regular_expression (lang(?format_as_a_regular_expression) as ?lang)
+WHERE 
+{
+  
+	?Property_ p:P1552 ?constraint_statement .
+	?constraint_statement ps:P1552 wd:Q100884525 .
+	OPTIONAL {?constraint_statement pq:P8770 ?format_as_a_regular_expression .}
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

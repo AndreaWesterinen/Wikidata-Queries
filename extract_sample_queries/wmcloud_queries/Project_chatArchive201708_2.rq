@@ -1,0 +1,1 @@
+embed.html#SELECT DISTINCT ?title { ?article schema:isPartOf <https://en.wikipedia.org/> ; schema:about [ wdt:P39 wd:Q33512801 ] ;  schema:name ?title  }

@@ -1,0 +1,33 @@
+#Target required claim report for P344: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P344/ps:P344 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P344 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P344 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q222344 wd:Q1414443 wd:Q33231 wd:Q706364 wd:Q1208175 } .
+			MINUS {
+				?value p:P106/ps:P106 ?values .
+			} .
+			OPTIONAL {
+				?value p:P106/ps:P106 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

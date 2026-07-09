@@ -1,0 +1,7 @@
+SELECT ?item ?deprecatedcollection WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+   p:P195 ?statement.
+  ?statement wikibase:rank wikibase:DeprecatedRank;
+    ps:P195 ?deprecatedcollection.
+  MINUS { ?statement pq:P2241 ?reason } 
+}

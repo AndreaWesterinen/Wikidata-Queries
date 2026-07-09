@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?itemDescription ?ord ?season ?seasonLabel ?start ?end ?endseries ?ends ?count ?epsample ?wp
+{
+    hint:Query hint:optimizer "None".
+    ?season wdt:P31 wd:Q69154911 .
+	?season wdt:P580 ?start
+    OPTIONAL { ?season wdt:P582 ?end }
+    FILTER NOT EXISTS { ?season wdt:P580 ?start2 . FILTER( ?start > ?start2 ) }            
+	FILTER ( ?start > "2018-01-01T00:00:00Z"^^xsd:dateTime)
+	FILTER ( ?start > (now()-"P365D"^^xsd:duration) && ?start < now()

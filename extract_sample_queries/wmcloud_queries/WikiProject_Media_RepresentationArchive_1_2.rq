@@ -1,0 +1,18 @@
+#Getting all films with a Feldman score. Films that did not meet criterium g) due to missing prerequisites should be considered as passing criterium g) (alternative_score)
+SELECT ?item ?itemLabel ?feldman_result (GROUP_CONCAT(?enLabel; separator=', ') AS ?criteria) ?original_score (?original_score + ?point AS ?alternative_score)  WHERE {
+    #getting items (?item) passing the Feldman Test and the corresponding statements (?st)
+    {?item p:P1552 ?st. ?st ps:P1552 wd:Q104144628. BIND("passing" AS ?feldman_result)}
+    UNION
+    #getting items failing the Feldman Tests
+    {?item p:P1552 ?st. ?st ps:P1552 wd:Q104144642. BIND("failing" AS ?feldman_result)}
+    
+    #getting criteria and score
+    OPTIONAL{?st pq:P1013 ?criterium. ?criterium rdfs:label ?enLabel. FILTER(LANG(?enLabel)="en")}
+    OPTIONAL{?st pq:P444 ?score. BIND(xsd:integer(REPLACE(STR(?score), "/10","")) AS ?original_score)
+            #if there is no sex scene or no romantic relationship, the film should still get the point for criterium g)
+            OPTIONAL{?st pq:P1013 wd:Q104176605. BIND(1 AS ?p)}
+            BIND(IF(BOUND(?p),?p,0) AS ?point)
+            }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?feldman_result ?original_score ?point ?alternative_score

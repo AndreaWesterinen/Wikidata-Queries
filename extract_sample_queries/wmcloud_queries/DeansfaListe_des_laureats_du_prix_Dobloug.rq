@@ -1,0 +1,49 @@
+#Join Swedish and Norway recipients
+SELECT ?item ?year_received ?swedish_recipients ?norway_recipients
+WHERE {
+# this first subquery is a hack to address the fact that 
+# $item can't be a variable (?year_received)
+{
+  SELECT DISTINCT ?item ?itemLabel ?year_received WHERE {
+    ?item wdt:P31 wd:Q577.
+    ?item wdt:P585 ?point_in_time.
+    FILTER(?item != wd:Q23104). 
+    BIND(YEAR(?point_in_time) AS ?year_received)
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "fr,en,de,es".
+      ?item rdfs:label ?itemLabel.
+    }
+  }
+}
+# the following is basically an inner join. 
+# it automatically joins on common columns (?year_received).
+{
+  SELECT DISTINCT ?year_received (GROUP_CONCAT(DISTINCT ?itemLabel; SEPARATOR = ", ") AS ?swedish_recipients) 
+  WHERE {
+    ?item wdt:P27 wd:Q34; p:P166 ?prize.
+    ?prize ps:P166 wd:Q1233326; pq:P585 ?date_received.
+    BIND(YEAR(?date_received) AS ?year_received)
+    SERVICE wikibase:label { 
+      bd:serviceParam wikibase:language "fr,en,de,es". 
+      ?item rdfs:label ?itemLabel.
+    }
+  }
+  GROUP BY ?year_received
+}
+# same here: following is an inner join. 
+# it automatically joins on common columns (?year_received).
+{
+  SELECT DISTINCT ?year_received (GROUP_CONCAT(DISTINCT ?itemLabel; SEPARATOR = ", ") AS ?norway_recipients) 
+  WHERE {
+    ?item wdt:P27 wd:Q20; p:P166 ?prize.
+    ?prize ps:P166 wd:Q1233326; pq:P585 ?date_received.
+    BIND(YEAR(?date_received) AS ?year_received)
+    SERVICE wikibase:label { 
+      bd:serviceParam wikibase:language "fr,en,de,es". 
+      ?item rdfs:label ?itemLabel.
+    }
+  }
+  GROUP BY ?year_received
+}
+}
+ORDER BY (?year_received)

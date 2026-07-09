@@ -1,0 +1,8 @@
+#Pel·lis filmades a les Illes Balears
+SELECT ?film ?label ?filmDescription ?placeLabel
+WHERE {
+    ?film wdt:P915 ?place.
+    ?place wdt:P131*/wdt:P706* wd:Q5765.
+    ?film rdfs:label ?label filter (lang(?label) = "ca")
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ca" .}
+ }

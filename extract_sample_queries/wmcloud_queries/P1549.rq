@@ -1,0 +1,8 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?prop ?propLabel ?value WHERE {
+  ?prop wdt:P1549 ?value filter (lang(?value) = "ru") .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" . }
+}

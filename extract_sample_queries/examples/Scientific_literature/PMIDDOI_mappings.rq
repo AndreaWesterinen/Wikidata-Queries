@@ -1,3 +1,4 @@
+#title: PMID-DOI mappings
 SELECT DISTINCT ?pmid ?doi
 WHERE
 {

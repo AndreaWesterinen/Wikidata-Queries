@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P495 wd:Q35 . 
+	?item wdt:P31 wd:Q11424 . 
+    ?item wikibase:sitelinks 1 .
+    [] schema:about ?item ; schema:isPartOf <https://da.wikipedia.org/> .
+    FILTER NOT EXISTS { ?item wdt:P364 [] } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "da"}
+}

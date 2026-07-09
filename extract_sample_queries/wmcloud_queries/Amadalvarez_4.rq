@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?coord ?catalogCode ?pointInTime ?describedAtUrl ?notariLabel ?adreça ?link WHERE {
+  ?item wdt:P31 wd:Q54877479.
+#  ?item wdt:P1343 wd:Q20102343.
+  ?item p:P528 ?p528stm .
+  ?item wdt:P131 ?city .
+  ?p528stm ps:P528 ?catalogCode;
+           pq:P972 wd:Q20102343.
+  OPTIONAL { ?p528stm pq:P585 ?pointInTime }
+  OPTIONAL { ?p528stm pq:P2699 ?describedAtUrl }
+  OPTIONAL { ?p528stm pq:P664 ?notari }
+  OPTIONAL { ?p528stm pq:P969 ?adreça }
+  OPTIONAL { ?city wdt:P625 ?coord }
+   BIND(CONCAT('[', str(?describedAtUrl), ' ', ?catalogCode, ']') AS ?link) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'ca,[AUTO_LANGUAGE]' }
+}

@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q860861 .
+  ?item wdt:P571 ?time0 .
+  FILTER ( ?time0 >= "2000-01-01T00:00:00Z"^^xsd:dateTime && ?time0 <= "2100-01-01T00:00:00Z"^^xsd:dateTime )
+}

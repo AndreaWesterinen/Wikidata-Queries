@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?thing wdt:P3634 ?id .
+  ?thing wdt:P5008 wd:Q116234000 .
+  ?thing wdt:P195 ?item .
+  ?item wdt:P31 wd:Q61781831 .
+} 
+GROUP BY ?item 
+ORDER BY DESC (?count)

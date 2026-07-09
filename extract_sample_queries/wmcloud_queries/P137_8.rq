@@ -1,0 +1,9 @@
+#title: Operate an airport
+# Complex constraint from [[Property talk:P137]]
+# Detect some mistakes
+SELECT ?item {
+	?item wdt:P137 ?value;
+          wdt:P31 wd:Q1248784.
+    MINUS { ?value wdt:P17 [] }
+    MINUS { ?value wdt:P31/wdt:P279* wd:Q43229 }
+}

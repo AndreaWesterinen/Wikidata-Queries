@@ -1,0 +1,15 @@
+SELECT ?item  ?linkcount 
+WHERE {
+    ?item wdt:P31 wd:Q5 . # Only humans
+    ?item wdt:P21 wd:Q6581072 . # that are women
+    ?item wdt:P106/wdt:P279* wd:Q81096 . # and are some kind of engineer
+    ?item wikibase:sitelinks ?linkcount .
+  FILTER (?linkcount >= 5) .       # only include items with 5 or more sitelinks
+  MINUS { # but not on English Wikipedia
+    ?article schema:about ?item .
+    ?article schema:inLanguage "en" .
+    ?article schema:isPartOf <https://en.wikipedia.org/>  
+  }
+}
+GROUP BY ?item ?linkcount
+ORDER BY DESC(?linkcount)

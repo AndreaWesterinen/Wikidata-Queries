@@ -1,0 +1,8 @@
+SELECT (uri(concat("https://tools.wmflabs.org/mix-n-match/?#/catalog_editor/",?value)) as ?missing)
+WHERE
+{
+	?item wdt:P5176 ?value .
+   MINUS { [] wdt:P2264 ?value }
+}
+ORDER BY xsd:integer(?value) 
+LIMIT 500

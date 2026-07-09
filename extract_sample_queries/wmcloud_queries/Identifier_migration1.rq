@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?depicts ?depictsLabel ?iconclass WHERE {
+	?item wdt:P1257 ?iconclass .
+    ?item wdt:P180 ?depicts .
+    ?depicts wdt:P1256 ?iconclass . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} LIMIT 1000

@@ -1,0 +1,24 @@
+# holidays occurring today (only holidays occurring periodically on a date of the Gregorian calendar)
+SELECT ?holiday ?holidayLabel WHERE {
+  # first get the item for today’s date by stitching together the English label (month name + day number) and finding items with that label
+  VALUES (?monthNumber ?monthName) {
+    (1 "January"@en)
+    (2 "February"@en)
+    (3 "March"@en)
+    (4 "April"@en)
+    (5 "May"@en)
+    (6 "June"@en)
+    (7 "July"@en)
+    (8 "August"@en)
+    (9 "September"@en)
+    (10 "October"@en)
+    (11 "November"@en)
+    (12 "December"@en)
+  }
+  FILTER(?monthNumber = MONTH(NOW())).
+  BIND(CONCAT(?monthName, " "@en, STRLANG(STR(DAY(NOW())),"en")) AS ?dateLabel).
+  ?date rdfs:label ?dateLabel.
+  # then find holidays occurring on that day
+  ?holiday wdt:P837 ?date.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

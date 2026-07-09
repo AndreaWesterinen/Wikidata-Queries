@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?linkcount WHERE 
+{ ?item p:P3222 ?neid. FILTER(NOT EXISTS {?article schema:about ?item. ?article schema:inLanguage "sv". })
+  ?item wikibase:sitelinks ?linkcount .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?linkcount)

@@ -1,0 +1,11 @@
+embed.html##defaultView:Map
+SELECT ?layer ?cheese ?cheeseLabel ?img ?coord
+WHERE
+{
+	?cheese wdt:P279* wd:Q10943 ; wdt:P1071/wdt:P625 ?coord ; wdt:P186 ?ingredient .
+	?ingredient wdt:P279 wd:Q8495 .
+    ?ingredient rdfs:label ?layer .
+	optional { ?cheese wdt:P18 ?img }
+	FILTER (lang(?layer) = "en").
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

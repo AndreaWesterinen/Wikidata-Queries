@@ -1,0 +1,3 @@
+SELECT ?p ?o WHERE {
+  wd:Q88271758 ?p ?o .
+}

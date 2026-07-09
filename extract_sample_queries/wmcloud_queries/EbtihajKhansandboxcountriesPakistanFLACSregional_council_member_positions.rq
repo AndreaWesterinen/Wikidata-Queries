@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?itemLabel ?itemSubclassedFrom ?itemInstanceOf ?council ?region WHERE { 
+    ?region wdt:P31/wdt:P279* wd:Q10864048 ; 
+            wdt:P17 wd:Q843 .
+    ?council wdt:P1001 ?region ;
+            wdt:P31/wdt:P279* wd:Q11204 .
+    OPTIONAL {
+    {
+      ?council wdt:P527 ?item .
+      MINUS {?item wdt:P31/wdt:P279* wd:Q11204 }
+    } UNION {
+      ?council wdt:P527 ?house .
+      ?house wdt:P31/wdt:P279* wd:Q11204 .
+      ?house wdt:P527 ?item
+    }
+    OPTIONAL { ?item wdt:P31 ?itemInstanceOf }
+      }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

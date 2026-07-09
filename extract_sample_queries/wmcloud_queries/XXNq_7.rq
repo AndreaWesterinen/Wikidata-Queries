@@ -1,0 +1,17 @@
+PREFIX schema: <http://schema.org/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?item ?itemLabel WHERE {
+   ?item wdt:P106 wd:Q937857 .
+   ?item wdt:P27 wd:Q218 .
+   FILTER EXISTS { ?wen schema:about ?item . ?wen schema:inLanguage "en" }
+   FILTER NOT EXISTS { ?wro schema:about ?item . ?wro schema:inLanguage "ro" }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+ }

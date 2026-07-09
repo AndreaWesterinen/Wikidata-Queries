@@ -1,0 +1,18 @@
+#Most cited female authors
+#added 2016-12
+
+SELECT ?author ?authorLabel ?count
+WITH {
+  SELECT ?author (COUNT(?publication) AS ?count) WHERE {
+    ?item wdt:P2860 ?publication . #citations
+    ?publication wdt:P50 ?author . #authors
+    ?author wdt:P21 wd:Q6581072. #females
+  }
+  GROUP BY ?author
+} AS %results
+WHERE {
+  INCLUDE %results
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC(?count)
+LIMIT 100

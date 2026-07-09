@@ -1,0 +1,12 @@
+SELECT DISTINCT
+	?item ?e (lang(?e) as ?e_lang) ?festival ?f (lang(?f) as ?f_lang)
+	(strafter(str(?item), "y/") as ?1) ("P179" as ?2) (strafter(str(?festival), "y/") as ?3)
+{
+  	?item wdt:P31 wd:Q27787439 .
+	FILTER NOT EXISTS { ?item wdt:P179 [] }
+ 	?item rdfs:label ?e .
+ 	?festival wdt:P31 wd:Q220505 .
+ 	?festival rdfs:label ?f .
+ 	FILTER ( contains(str(?e), str(?f) ) )
+}
+LIMIT 1000

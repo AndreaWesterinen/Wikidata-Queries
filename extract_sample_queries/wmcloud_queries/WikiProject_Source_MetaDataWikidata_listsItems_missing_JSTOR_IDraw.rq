@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item  
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "\"10.2307\" haswbstatement:P356 -haswbstatement:P888".
+    ?title wikibase:apiOutput mwapi:title.
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+}
+LIMIT 3000

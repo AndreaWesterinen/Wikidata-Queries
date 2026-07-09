@@ -1,3 +1,4 @@
+#title: Countries that have a Featured Article on Russian Wikipedia
 SELECT ?sitelink ?itemLabel WHERE {
   ?item wdt:P31 wd:Q6256.
   ?sitelink schema:isPartOf <https://ru.wikipedia.org/>;

@@ -1,0 +1,11 @@
+SELECT ?ct ?ta ?taxonname ?taDescription
+WITH
+{
+    SELECT ?taxonname (COUNT(DISTINCT ?t) as ?ct) { ?t wdt:P225 ?taxonname } GROUP BY ?taxonname HAVING (?ct>1) 
+} as %dups
+WHERE
+{
+    INCLUDE %dups
+    ?ta wdt:P225 ?taxonname .
+}
+ORDER BY DESC(?ct) ?taxonname ?ta

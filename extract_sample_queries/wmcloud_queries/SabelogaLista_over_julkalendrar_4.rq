@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?startdatum WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "da,[AUTO_LANGUAGE],en". }
+  ?item wdt:P179 wd:Q12342902.
+  OPTIONAL { ?item wdt:P580 ?startdatum. }
+}
+ORDER BY (?startdatum)

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?pers ?persLabel ?item ?itemLabel WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q3624078.
+  ?item wdt:P138/wdt:P138* ?pers.
+  ?pers wdt:P31/wdt:P279* wd:Q5.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?persLabel

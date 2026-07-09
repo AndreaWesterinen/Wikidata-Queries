@@ -1,0 +1,8 @@
+SELECT ?item ?sitelink ?egyetem ?egyetemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],hu". }
+  ?item wdt:P279 wd:Q11415564.
+  FILTER (?item NOT IN (wd:Q17403163, wd:Q17403176, wd:Q101453383, wd:Q5287501)) .
+  OPTIONAL { ?item wdt:P910 ?tmakateg. }
+  OPTIONAL { ?item wdt:P1027 ?egyetem. }  
+}
+#LIMIT 300

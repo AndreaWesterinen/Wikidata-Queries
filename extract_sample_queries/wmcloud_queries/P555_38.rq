@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-dash>
+SELECT DISTINCT ?item WHERE { ?item wdt:P555 ?value . FILTER( REGEX(STR(?value), '^(\\d+–\\d+)$') = false )}

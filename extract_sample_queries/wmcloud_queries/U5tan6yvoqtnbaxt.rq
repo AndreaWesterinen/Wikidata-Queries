@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+  hint:Query hint:optimizer "None" .
+  ?item wdt:P159 []; wdt:P625 []; wdt:P31/wdt:P279* wd:Q43229 .
+  MINUS { ?item p:P159/pq:P625 [] } .
+  MINUS { VALUES ?cl { wd:Q2221906 wd:Q618123 } . ?item wdt:P31/wdt:P279* ?cl } .
+} LIMIT 1000

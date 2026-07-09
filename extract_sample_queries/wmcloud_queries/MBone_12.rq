@@ -1,0 +1,12 @@
+SELECT DISTINCT ?qid ("P17" AS ?pid) ?value WHERE {
+  ?item (p:P31/ps:P31/wdt:P279*) wd:Q811979.
+  ?item wdt:P131 ?admin.
+  ?admin wdt:P17 ?adcountry.
+  ?adcountry wdt:P31 wd:Q3624078.
+  MINUS { ?item wdt:P17 ?itcountry. }
+  MINUS { ?adcountry wdt:P156 ?successor. }
+  MINUS { ?item wdt:P576 ?Aufl_sungsdatum. }
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+  BIND(SUBSTR(STR(?adcountry), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?value)
+}
+LIMIT 200

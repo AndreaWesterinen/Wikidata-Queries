@@ -1,0 +1,24 @@
+SELECT DISTINCT ?item (CONCAT("{","{rfd links3\u007C",strafter(str(?item), "entity/"),"\u007CDoes not meet the [[Special:MyLanguage/Wikidata:Notability|notability policy]]}","}") as ?del) (CONCAT("{","{REVISIONTIMESTAMP: ", strafter(str(?item), "entity/"), " }","}") as ?data) (CONCAT("[[Special:Search/","{","{label|",strafter(str(?item), "entity/"),"}","}","|","search]]") as ?search)
+WHERE{
+  ?item wikibase:sitelinks 0 .
+  FILTER(?statementCount = 1).
+?item wdt:P31 wd:Q101352 .
+
+  ?item wikibase:statements ?statementCount.
+  OPTIONAL{
+    ?backlink ?p1 ?item .
+  }
+  FILTER(!bound(?backlink))
+  OPTIONAL{
+    ?item ?p2 [prov:wasDerivedFrom ?ref] .
+    ?ref ?pr [] .
+  }
+  FILTER(!bound(?ref))
+
+  OPTIONAL{
+    ?item ?claim ?dummy0 .
+    ?property wikibase:propertyType wikibase:ExternalId .
+    ?property wikibase:directClaim ?claim
+  }
+  FILTER(!bound(?dummy0))
+} LIMIT 250

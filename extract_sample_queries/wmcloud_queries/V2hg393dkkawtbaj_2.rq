@@ -1,0 +1,9 @@
+# from https://www.wikidata.org/wiki/Special:AbuseLog/8121747
+SELECT *
+{
+    BIND("1eab06ca9a34a5b1e021c3300718570951c7d0b3 http://www.dwa.de" as ?removed_lines)
+    BIND("793cbec79dde7f040454ea50c8b73e113e085bde https://www.dwa.de" as ?added_lines) 
+    BIND( REPLACE(?removed_lines, ".{40} http://(.*)", "$1") as ?removed_n) 
+    BIND( REPLACE(?added_lines, ".{40} https://(.*)", "$1") as ?added_n) 
+    BIND( ?removed_n != ?added_n  as ?filter) 
+}  

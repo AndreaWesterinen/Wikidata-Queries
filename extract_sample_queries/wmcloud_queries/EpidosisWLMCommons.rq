@@ -1,0 +1,17 @@
+SELECT ?item ?wikiloves (CONCAT("[https://commons.wikimedia.org/wiki/Category:",?commons3," ", ?commons3, "]") as ?commonsLink) WHERE {
+  ?item wdt:P2186 ?wikiloves .
+  ?item wdt:P17 wd:Q38 .
+  ?item wdt:P373 ?commons.
+  {
+    SELECT ?commons2  WHERE {
+    ?item2 wdt:P2186 ?wikiloves .
+    ?item2 wdt:P17 wd:Q38 .
+    ?item2 wdt:P373 ?commons2.
+    }
+    GROUP BY ?commons2
+    HAVING (COUNT(?commons2) >1)
+  }
+  FILTER(?commons = ?commons2)
+  BIND(REPLACE(STR(?commons)," ","_") AS ?commons3) .
+}
+ORDER BY ?commons2

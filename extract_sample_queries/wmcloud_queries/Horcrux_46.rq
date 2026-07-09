@@ -1,0 +1,29 @@
+SELECT DISTINCT
+  ?episode
+  ?episodeNum
+  ?seasonLabel            # OPT 1
+  ?seriesLabel ?seasonNum # OPT 2
+WHERE {
+  ?episode p:P4908 ?seasonStmt .
+  ?seasonStmt ps:P4908 ?season .
+  OPTIONAL { ?seasonStmt pq:P1545 ?episodeNum . }
+  FILTER NOT EXISTS { ?episode schema:description ?episodeDesc . FILTER (lang(?episodeDesc) = "it") }
+  
+  {# OPT 1
+    ?season rdfs:label ?seasonLabel .
+    FILTER (lang(?seasonLabel) = "it" && regex(?seasonLabel, "^[a-z]+ stagione d[ei] "))
+  }
+  UNION
+  {# OPT 2
+    ?episode wdt:P179 ?series ;
+             wdt:P4908/p:P179 [ ps:P179  ?series ;
+                                pq:P1545 ?seasonNum ] .
+    ?series rdfs:label ?seriesLabel . FILTER (lang(?seriesLabel) = "it")
+    FILTER NOT EXISTS {
+      ?season rdfs:label ?seasonLabel .
+      FILTER (lang(?seasonLabel) = "it" && regex(?seasonLabel, "^[a-z]+ stagione d[ei] "))
+    }
+  }
+}
+ORDER BY ?seasonLabel
+LIMIT 100000

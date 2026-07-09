@@ -1,0 +1,36 @@
+ # Tony award nominees or winners who are involved with other Tony award nominees or winners  
+SELECT DISTINCT ?item ?itemLabel ?itemgenderLabel ?maritalStatus ?spouseLabel ?spousegenderLabel
+WHERE
+{
+	?item ?union ?spouse .
+    
+    VALUES (?union ?maritalStatus) {
+      (wdt:P26 "spouse")
+      (wdt:P451 "partner")
+    }
+    ?item ?prop ?distinctionStatement .
+    ?distinctionStatement ?propS ?distinction .
+    ?distinction wdt:P31*/wdt:P279 wd:Q191874 .
+    OPTIONAL { ?item wdt:P21 ?itemgender . }
+
+    VALUES (?prop ?propS) {
+      (p:P1411 ps:P1411) 
+      (p:P166 ps:P166)
+    }
+  
+    ?spouse ?prop2 ?distinctionStatement2 .
+    ?distinctionStatement2 ?propS2 ?distinction2 .
+    ?distinction2 wdt:P31*/wdt:P279 wd:Q191874 .
+
+    VALUES (?prop2 ?propS2) {
+      (p:P1411 ps:P1411) 
+      (p:P166 ps:P166)
+    }
+  
+    OPTIONAL { ?spouse wdt:P21 ?spousegender . }
+
+    ?item wdt:P31 wd:Q5 .
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+
+} ORDER BY ?itemLabel ?distinction ?year

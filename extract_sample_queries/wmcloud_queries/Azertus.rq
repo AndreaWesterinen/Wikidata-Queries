@@ -1,0 +1,11 @@
+#title:Items which humans are also instances of
+SELECT ?s ?sLabel ?n WHERE {
+  {
+    SELECT DISTINCT ?s (COUNT(?S) AS ?n) WHERE {
+      ?item wdt:P27 wd:Q30.
+      ?item wdt:P31 ?s.
+      ?item wdt:P31 wd:Q5.
+    } GROUP BY ?s
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?n)

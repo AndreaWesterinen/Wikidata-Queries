@@ -1,0 +1,17 @@
+SELECT (wd:Q2481549 as ?item) ("father, mother or child (P22/P25/P40)" as ?legend) (GROUP_CONCAT(?p;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{
+		SELECT  ?p (COUNT(DISTINCT ?mainsubject) as ?ct)
+		{
+			?entry 	wdt:P31 wd:Q19389637
+  			; 		wdt:P1433 wd:Q665807 .
+  			?entry wdt:P921 ?mainsubject . ?mainsubject wdt:P31 wd:Q5 
+  			OPTIONAL { ?mainsubject wdt:P22 ?fa }
+  			OPTIONAL { ?mainsubject wdt:P25 ?mo }
+  			OPTIONAL { ?mainsubject wdt:P40 ?chi }
+  			BIND(CONCAT(IF(!BOUND(?fa),"---","father-"),IF(!BOUND(?mo),"---","-mother-"),IF(!BOUND(?chi),"---","-child")) as ?p)
+		}
+		GROUP BY  ?p
+		ORDER BY ASC(?p)                 
+	}
+}

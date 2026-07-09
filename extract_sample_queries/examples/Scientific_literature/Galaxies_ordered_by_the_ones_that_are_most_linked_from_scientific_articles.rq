@@ -1,8 +1,6 @@
-# ----
-#title:Galaxies ordered by the ones that are most linked from scientific articles
-#author: So9q
-#date:2021-10-27
-#note:I deliberately choose a smaller subgraph (galaxies) to prevent a timeout on WDQS
+#title: Galaxies ordered by the ones that are most linked from scientific articles
+#author: So9q, 2021-10-27
+#note: I deliberately choose a smaller subgraph (galaxies) to prevent a timeout on WDQS
 SELECT ?main_subject ?main_subjectLabel (count(?item) as ?c)
 WHERE
 {

@@ -1,0 +1,4 @@
+#title: Websites should have this property
+# Complex constraint from [[Property talk:P856]]
+#
+SELECT ?item { ?item wdt:P31 wd:Q35127 . MINUS { ?item wdt:P856 [] }  } LIMIT 100

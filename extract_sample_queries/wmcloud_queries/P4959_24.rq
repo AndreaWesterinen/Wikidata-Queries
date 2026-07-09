@@ -1,0 +1,9 @@
+#title: Missing Paris.fr ID
+# Complex constraint from [[Property talk:P4959]]
+#
+SELECT ?item {
+  ?item wdt:P127 wd:Q3278478.
+  FILTER NOT EXISTS { ?item p:P4959 [] }
+  VALUES ?values { wd:Q7075 wd:Q39614 wd:Q1282870 wd:Q1501 wd:Q483110 wd:Q1202618 }.
+  ?item wdt:P31 ?values.
+}

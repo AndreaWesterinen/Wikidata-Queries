@@ -1,4 +1,3 @@
-# ----
 #title: Human Development Index of specified country(s)
 #defaultView:LineChart
 SELECT ?year ?hdi ?countryLabel WHERE {

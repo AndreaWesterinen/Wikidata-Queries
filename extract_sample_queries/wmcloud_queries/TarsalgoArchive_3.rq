@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?county ?countyLabel ?area ?area_sqha WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  { ?item wdt:P31 wd:Q13218690. }  UNION  { ?item wdt:P31 wd:Q2590631. }  MINUS { ?item wdt:P576 ?dissolved. }
+  ?item wdt:P17 wd:Q28.
+  OPTIONAL {
+    ?item (wdt:P131+) ?county.
+    ?county wdt:P31 wd:Q188604.
+  }
+  OPTIONAL { ?item wdt:P2046 ?area. }
+  OPTIONAL { ?item p:P2046 [ a wikibase:BestRank; psn:P2046/wikibase:quantityAmount ?area_sqm ] . 
+              BIND( ROUND(?area_sqha/100) as ?area_sqkm)
+              BIND( ROUND(?area_sqm/10000) as ?area_sqha)
+             }  
+} ORDER BY ?itemLabel

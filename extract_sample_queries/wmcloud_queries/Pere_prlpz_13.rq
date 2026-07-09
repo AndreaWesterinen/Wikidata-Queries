@@ -1,0 +1,24 @@
+#Edificis P131* Catalunya menys P131* municipis de Catalunya
+SELECT ?item ?name ?mun ?muname ?coord ?lat ?lon
+WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q41176.
+  ?item wdt:P131 ?com.
+  ?com wdt:P31 wd:Q937876.
+  OPTIONAL {
+?item wdt:P625 ?coord .
+?item p:P625 ?coordinate .
+?coordinate psv:P625 ?coordinate_node .
+?coordinate_node wikibase:geoLatitude ?lat .
+?coordinate_node wikibase:geoLongitude ?lon .
+  }
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ca,en,es,an,eu,pl,sv,ceb" .
+?item rdfs:label ?name
+}
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "ca" .
+?mun rdfs:label ?muname
+}
+}
+#ORDER BY ASC (?name)
+#defaultView:Map

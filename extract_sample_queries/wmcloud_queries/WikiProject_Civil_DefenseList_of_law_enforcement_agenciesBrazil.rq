@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE {
+  ?item p:P31 ?statement0.
+  ?statement0 (ps:P31/(wdt:P279*)) wd:Q732717.
+  ?item p:P17 ?statement1.
+  ?statement1 ps:P17 wd:Q155.  # Change country here
+  MINUS { ?item wdt:P31 wd:Q861951. } # NOT police station
+}

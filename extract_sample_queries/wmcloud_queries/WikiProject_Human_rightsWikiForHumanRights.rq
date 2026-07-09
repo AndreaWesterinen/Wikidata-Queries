@@ -1,0 +1,1 @@
+SELECT ?item ?linkcount WHERE { ?item wdt:P5008 wd:Q71324502. OPTIONAL {?item wikibase:sitelinks ?linkcount .} }

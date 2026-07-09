@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?authors; separator=', ') AS ?authorstring)  WHERE {
+  ?item wdt:P31 wd:Q13442814.
+  ?item wdt:P1433 wd:Q3274923.
+  ?item wdt:P478 "30".
+  ?item wdt:P433 "9-10".
+  ?item wdt:P2093 ?authors.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel ?authorstring

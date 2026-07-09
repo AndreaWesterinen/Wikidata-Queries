@@ -1,0 +1,29 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+  #  Query to list U.S. Presidents and their spouses in order of inauguration,
+  #  including presidents with no spouse
+  #  From page [[Wikidata:SPARQL_query_service/queries/USPres_optional_spouse]]
+
+SELECT ?pres ?presLabel ?spouse ?spouse_label WHERE {
+   ?pres wdt:P31 wd:Q5 .
+
+   ?pres p:P39 ?position_held_statement .
+   ?position_held_statement v:P39 wd:Q11696 .
+   ?position_held_statement pq:P580 ?start .
+
+   OPTIONAL {
+       ?pres wdt:P26 ?spouse .
+       ?spouse rdfs:label ?spouse_label filter (lang(?spouse_label) = "en").
+   }
+
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+
+ } ORDER BY ?start

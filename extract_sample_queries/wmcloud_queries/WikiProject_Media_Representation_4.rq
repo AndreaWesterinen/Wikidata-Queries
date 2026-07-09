@@ -1,0 +1,61 @@
+#summary of test results for ethnicity related tests, ordered by number of wikipedia sitelinks
+SELECT ?item ?itemLabel ?type (MIN(YEAR(?date)) AS ?year)
+(GROUP_CONCAT(DISTINCT ?riz; separator = '/') AS ?Riz) 
+(GROUP_CONCAT(DISTINCT ?waithe; separator = '/') AS ?Waithe) 
+(GROUP_CONCAT(DISTINCT ?shukla; separator = '/') AS ?Shukla) 
+(GROUP_CONCAT(DISTINCT ?bubblegum; separator = '/') AS ?BubbleGum) 
+(GROUP_CONCAT(DISTINCT ?afrobubblegum; separator = '/') AS ?AfroBubbleGum) 
+?sitelinks
+#first I'm getting all items with at least one result for one of the tests
+WITH { SELECT DISTINCT ?item ?type WHERE {
+    #getting possible results
+    VALUES ?test {wd:Q102180036 wd:Q104144087 wd:Q104144383 wd:Q105816692 wd:Q105726358}
+    #for consideration an item has to have at least one result for one of the tests
+    ?item wdt:P5021 ?test.
+    #excluding television series episodes and chapters
+    MINUS{?item wdt:P31/wdt:P279* wd:Q21191270}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q1980247}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q11424 BIND("film" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q5398426 BIND("television series" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q7725634 BIND("literary work" AS ?type)}
+}
+} AS %items
+#now I get the results for all relevant tests
+ WHERE {    
+    INCLUDE %items
+    #getting riz
+    OPTIONAL{?item p:P5021 ?st_riz. ?st_riz ps:P5021 wd:Q102180036; pq:P9259 ?riz_result.
+            ?riz_result rdfs:label ?riz. FILTER(LANG(?riz)="en")}
+    #getting waithe
+    OPTIONAL{?item p:P5021 ?st_waithe. ?st_waithe ps:P5021 wd:Q104144087; pq:P9259 ?waithe_result.
+             ?waithe_result rdfs:label ?waithe_label. FILTER(LANG(?waithe_label)="en")
+             OPTIONAL{?st_waithe pq:P444 ?waithe_score}
+             BIND(IF(BOUND(?waithe_score),CONCAT(?waithe_label," (",?waithe_score,")"),?waithe_label) AS ?waithe)
+            }
+    #getting shukla
+    OPTIONAL{?item p:P5021 ?st_shukla. ?st_shukla ps:P5021 wd:Q104144383; pq:P9259 ?shukla_result.
+             ?shukla_result rdfs:label ?shukla_label. FILTER(LANG(?shukla_label)="en")
+             OPTIONAL{?st_shukla pq:P444 ?shukla_score}
+             BIND(IF(BOUND(?shukla_score),CONCAT(?shukla_label," (",?shukla_score,")"),?shukla_label) AS ?shukla)
+            }
+   #getting bubblegum
+    OPTIONAL{?item p:P5021 ?st_bubblegum. ?st_bubblegum ps:P5021 wd:Q105816692; pq:P9259 ?bubblegum_result.
+             ?bubblegum_result rdfs:label ?bubblegum_label. FILTER(LANG(?bubblegum_label)="en")
+             OPTIONAL{?st_bubblegum pq:P444 ?bubblegum_score}
+             BIND(IF(BOUND(?bubblegum_score),CONCAT(?bubblegum_label," (",?bubblegum_score,")"),?bubblegum_label) AS ?bubblegum)
+            }
+    #getting afrobubblegum
+    OPTIONAL{?item p:P5021 ?st_afrobubblegum. ?st_afrobubblegum ps:P5021 wd:Q105726358; pq:P9259 ?afrobubblegum_result.
+             ?afrobubblegum_result rdfs:label ?afrobubblegum_label. FILTER(LANG(?afrobubblegum_label)="en")
+             OPTIONAL{?st_afrobubblegum pq:P444 ?afrobubblegum_score}
+             BIND(IF(BOUND(?afrobubblegum_score),CONCAT(?afrobubblegum_label," (",?afrobubblegum_score,")"),?afrobubblegum_label) AS ?afrobubblegum)
+            }
+    ?item wikibase:sitelinks ?sitelinks.
+    OPTIONAL{?item wdt:P577 ?publication}
+    OPTIONAL{?item wdt:P580 ?start}
+    BIND(IF(BOUND(?publication),?publication,?start) AS ?date)
+   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?count ?sitelinks ?type
+ORDER BY DESC(?sitelinks)

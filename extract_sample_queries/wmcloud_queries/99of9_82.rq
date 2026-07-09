@@ -1,0 +1,10 @@
+SELECT * WHERE {
+  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:api "Search" .
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam mwapi:srsearch "insource:\"infobox newspaper\"" .
+      ?title wikibase:apiOutput mwapi:title .
+      ?pageid wikibase:apiOutput "@pageid" .
+      ?ns wikibase:apiOutput "@ns" .
+  }
+} LIMIT 200

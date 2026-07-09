@@ -1,0 +1,11 @@
+# Index fungorum genera taxa with a parent 
+SELECT ?item ?itemLabel ?taxon_name ?IF ?AusfungiID ?AuslichenID ?mycobank WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  {?item wdt:P1391 ?IF.} UNION {?item wdt:P9076 ?AusfungiID.} UNION {?item wdt:P9093 ?AuslichenID.}
+  
+  ?item wdt:P225 ?taxon_name.
+  OPTIONAL {?item wdt:P962 ?mycobank}
+
+}
+ORDER BY ?taxon_name
+#LIMIT 200

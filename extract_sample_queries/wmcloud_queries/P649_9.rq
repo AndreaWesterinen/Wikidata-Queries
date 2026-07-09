@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P649]]
+# Items that do have [[d:Q19558910|National Register of Historic Places listed place <small>(Q19558910)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P649|NRHP reference number&#32;<small dir="ltr">(P649)</small>]]
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q19558910 } . ?item wdt:P1435 ?value . MINUS { ?item wdt:P649 [] } } LIMIT 1000

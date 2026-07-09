@@ -1,0 +1,10 @@
+SELECT ?doi (COUNT(DISTINCT ?article) as ?count) WHERE {
+  VALUES ?journal { wd:Q5535339 }  
+  ?article wdt:P1433 ?journal ;
+           wdt:P356 ?doi .
+  FILTER (REGEX(?doi, "\\(")).
+  FILTER (!REGEX(?doi, "<"))
+  }
+GROUP BY ?doi
+HAVING (?count > 1)
+ORDER BY DESC(?count)

@@ -1,0 +1,4 @@
+#title: Items that use "wd" in formatter URLs should have URL match pattern
+# Complex constraint from [[Property talk:P1630]]
+# <code>wd</code> in formatter URLs is commonly used to indicate arbitrary values. To allow backward conversion from such URLs into identifiers (for tools like [[d:Q98398855|Entity Explosion <small>(Q98398855)</small>]]), property also should have a hand-crafted [[Property:P8966|URL match pattern&#32;<small dir="ltr">(P8966)</small>]].
+SELECT ?item WHERE { ?item a wikibase:Property ; wdt:P1630 ?formatter . FILTER(REGEX(?formatter, "https:\\/\\/[^\\/]+\\/.*\\bwd\\b")) . FILTER NOT EXISTS { ?item wdt:P8966 [] } }

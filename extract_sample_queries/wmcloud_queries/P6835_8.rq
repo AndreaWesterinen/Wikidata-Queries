@@ -1,0 +1,11 @@
+#title: Regex #1
+# Complex constraint from [[Property talk:P6835]]
+# .*\\text\{.+\}.*
+SELECT ?item ?value ?str {
+  ?statement1 pq:P6835 ?value;
+              wikibase:rank ?rank.
+  ?item ?p1 ?statement1.
+  BIND( STR( ?value ) AS ?str ).
+  BIND( REGEX( ?str, "\\\\text\\{.+\\}.*" ) AS ?regexresult ).
+  FILTER( ?regexresult = false ) .
+}

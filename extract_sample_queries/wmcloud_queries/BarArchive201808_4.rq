@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (count(?genere) as ?num)
+WHERE 
+{
+  ?item wdt:P17 wd:Q38 .
+  ?item wdt:P31 ?genere .
+  FILTER EXISTS { ?item wdt:P31 wd:Q486972 } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel
+HAVING (?num < 2)
+ORDER BY DESC(?num)

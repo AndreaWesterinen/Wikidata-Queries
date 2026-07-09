@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(?person) AS ?count) WHERE { ?person wdt:P31 wd:Q5 . ?person wdt:P27 ?item . OPTIONAL {?person wdt:P21 ?gender} . FILTER (!bound(?gender)) . } GROUP BY ?item ORDER BY DESC(?count) LIMIT 20

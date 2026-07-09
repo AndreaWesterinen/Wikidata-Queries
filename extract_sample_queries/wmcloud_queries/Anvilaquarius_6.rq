@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?addressLabel ?deWParticle ?Commons (SAMPLE(?img) AS ?img)
+ WHERE {
+ ?item wdt:P1435 ?status .
+ ?item wdt:P131 wd:Q6832 .
+ OPTIONAL { ?item wdt:P969 ?address . }
+ OPTIONAL {
+ ?item wdt:P18 ?img .
+ }
+ OPTIONAL { ?deWParticle schema:about ?item; schema:isPartOf <https://de.wikipedia.org/> } .
+ OPTIONAL { ?Commons schema:about ?item; schema:isPartOf <https://commons.wikimedia.org/> } .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "de,de" }
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?addressLabel ?deWParticle ?Commons
+LIMIT 300

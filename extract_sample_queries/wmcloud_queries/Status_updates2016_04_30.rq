@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?stat) AS ?count)
+WHERE
+{
+  ?item p:P348 ?stat.
+}
+GROUP BY ?item
+ORDER BY DESC(?count)
+LIMIT 10

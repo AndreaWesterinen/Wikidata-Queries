@@ -1,0 +1,6 @@
+SELECT ?official_language ?langcode 
+WHERE {
+wd:Q458 wdt:P37 ?official_language .     # get all official languages of the EU
+?official_language wdt:P424 ?langcode .  # and their Wikimedia language codes
+
+}

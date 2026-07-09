@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?en ?cs WHERE {
+  ?item wdt:P31 wd:Q5153359.
+  ?item rdfs:label ?cs.
+  OPTIONAL {
+    ?item rdfs:label ?en.
+    FILTER((LANG(?en)) = "en")
+  }
+  FILTER((LANG(?cs)) = "cs")
+}

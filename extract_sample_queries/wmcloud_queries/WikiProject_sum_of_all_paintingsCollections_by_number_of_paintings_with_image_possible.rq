@@ -1,0 +1,14 @@
+SELECT ?item (CONCAT("[[Wikidata:WikiProject sum of all paintings/Collection/",?name, "|list]]") AS ?listlink) (COUNT(?item) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .  
+  MINUS { ?painting wdt:P18 ?image }.
+  MINUS { ?painting wdt:P571 ?inception . FILTER(YEAR(?inception) > (NOW()-95)) }  .
+  MINUS { ?painting wdt:P170/wdt:P570 ?dod . FILTER(YEAR(?dod) > (NOW()-70)) }  .
+  ?painting wdt:P195 ?item . 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+} GROUP BY ?item ?name ?listlink
+HAVING (?count > 10)
+ORDER BY DESC(?count) 
+LIMIT 250

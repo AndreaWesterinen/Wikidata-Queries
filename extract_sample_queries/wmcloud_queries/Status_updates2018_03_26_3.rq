@@ -1,0 +1,11 @@
+SELECT  ?person ?personLabel   ?software ?softwareLabel
+
+WHERE {
+  ?person wdt:P485 wd:Q964035 .
+  ?software wdt:P178 ?person.
+ 
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

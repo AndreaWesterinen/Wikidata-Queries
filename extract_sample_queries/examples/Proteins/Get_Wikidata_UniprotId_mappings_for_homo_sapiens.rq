@@ -1,3 +1,4 @@
+#title: Get Wikidata - UniprotId mappings for homo sapiens
 SELECT ?item ?itemLabel ?uniprotid ?tax_node
 WHERE
 {

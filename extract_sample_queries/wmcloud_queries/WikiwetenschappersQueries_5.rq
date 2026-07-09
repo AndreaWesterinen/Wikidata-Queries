@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?altLabel WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P108 wd:Q1065414.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  ?item skos:altLabel ?alt.
+  FILTER((LANG(?label)) = "nl")
+  FILTER((LANG(?alt)) = "nl")
+  FILTER(CONTAINS(?label, "."))
+  # MINUS {FILTER(CONTAINS(?alt, "."))}
+}

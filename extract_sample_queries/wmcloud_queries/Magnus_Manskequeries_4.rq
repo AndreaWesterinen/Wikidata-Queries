@@ -1,0 +1,5 @@
+SELECT ?q ?x {
+  ?x schema:about ?q ; schema:isPartOf <https://species.wikimedia.org/>  .
+  ?q wikibase:statements ?statementcount
+  FILTER ( ?statementcount = 0 )
+}

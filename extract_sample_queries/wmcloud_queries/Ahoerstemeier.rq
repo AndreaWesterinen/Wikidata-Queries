@@ -1,0 +1,14 @@
+#Monuments in Bangkok Noi
+#defaultView:Map
+SELECT DISTINCT ?entity ?entityLabel ?locationLabel ?coord ?lat ?lon WHERE {
+  ?entity wdt:P31 wd:Q427287 .      # Thai temple
+  ?entity wdt:P17 wd:Q869 .			# in Thailand
+  FILTER NOT EXISTS { ?entity wdt:P1566 ?x } .	# no geonames 
+  ?entity wdt:P625 ?coord .
+  ?entity p:P625 ?coordinate .
+  ?coordinate psv:P625 ?coordinate_node .
+  ?coordinate_node wikibase:geoLatitude ?lat .
+  ?coordinate_node wikibase:geoLongitude ?lon .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?monumentLabel

@@ -1,0 +1,6 @@
+select ?item where {
+
+  ?item wdt:P2536 [] .
+  ?item p:P569 [ps:P569 ?datnar ; prov:wasDerivedFrom/pr:P854 ?url ] filter(contains(str(?url),"wikidata.org")) . 
+
+}

@@ -1,0 +1,7 @@
+SELECT ?item ?st
+{
+    ?item wdt:P31/wdt:P279* wd:Q11424 .
+    ?article schema:about ?item ; schema:isPartOf <https://ca.wikipedia.org/> .
+    ?item wikibase:sitelinks 1; wikibase:statements ?st
+}
+ORDER BY DESC(xsd:integer(STRAFTER(str(?item), "Q")))

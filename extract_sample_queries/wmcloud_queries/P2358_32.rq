@@ -1,0 +1,11 @@
+#title: Labels in English would generally be different from Polish (pl)
+# Complex constraint from [[Property talk:P2358]]
+# output: item with English label, English label, Polish label
+SELECT ?item ?en ?pl
+{
+  ?item wdt:P2358 [ ] ; wdt:P31 wd:Q5 .
+  ?item rdfs:label ?en . FILTER( lang(?en) = "en" ) 
+  ?item rdfs:label ?pl . FILTER( lang(?pl) = "pl" ) 
+  FILTER( str(?en) = str(?pl) )
+}
+LIMIT 1000

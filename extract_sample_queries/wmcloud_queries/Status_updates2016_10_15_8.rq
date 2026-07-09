@@ -1,0 +1,23 @@
+# People who received military decorations from two different countries
+SELECT
+?person ?personLabel
+(SAMPLE(CONCAT(?award1Label, " (", ?country1Label, ")")) AS ?firstAward)
+(SAMPLE(CONCAT(?award2Label, " (", ?country2Label, ")")) AS ?secondAward)
+WHERE {
+  ?person wdt:P31 wd:Q5;
+          wdt:P166 ?award1, ?award2.
+  wd:Q1788716 ^(wdt:P31|wdt:P279)* ?award1, ?award2.
+  FILTER(?award1 != ?award2).
+  ?award1 wdt:P17 ?country1.
+  ?award2 wdt:P17 ?country2.
+  FILTER(?country1 != ?country2).
+  FILTER((?country1 != wd:Q159 || ?country2 != wd:Q15180) && (?country1 != wd:Q15180 || ?country2 != wd:Q159)).
+  
+  OPTIONAL { ?person rdfs:label ?personLabel. FILTER(LANG(?personLabel) = "en"). }
+  OPTIONAL { ?award1 rdfs:label ?award1Label. FILTER(LANG(?award1Label) = "en"). }
+  OPTIONAL { ?award2 rdfs:label ?award2Label. FILTER(LANG(?award2Label) = "en"). }
+  OPTIONAL { ?country1 rdfs:label ?country1Label. FILTER(LANG(?country1Label) = "en"). }
+  OPTIONAL { ?country2 rdfs:label ?country2Label. FILTER(LANG(?country2Label) = "en"). }
+}
+GROUP BY ?person ?personLabel
+LIMIT 50

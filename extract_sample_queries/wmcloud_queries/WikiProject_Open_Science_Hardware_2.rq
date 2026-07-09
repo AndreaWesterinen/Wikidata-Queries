@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?gosh ?goshLabel
+WHERE{
+
+  ?item wdt:P361 wd:Q62391989.
+  BIND(wd:Q62391989 as ?gosh)
+
+  
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

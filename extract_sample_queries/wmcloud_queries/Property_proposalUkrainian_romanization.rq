@@ -1,0 +1,5 @@
+SELECT ?Wikidata_property_for_transliteration_system ?Wikidata_property_for_transliteration_systemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Wikidata_property_for_transliteration_system wdt:P31 wd:Q20085670.
+}
+LIMIT 100

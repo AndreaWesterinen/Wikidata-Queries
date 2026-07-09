@@ -1,0 +1,8 @@
+#IMO number
+SELECT ?item ?itemLabel ?imo ?cmns WHERE {
+  ?item wdt:P31* wd:Q11446.
+  ?item wdt:P8047 wd:Q20.
+  MINUS { ?item wdt:P1093 _:b7. }
+  OPTIONAL { ?item wdt:P729 ?imo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}

@@ -1,0 +1,11 @@
+#List of album contributions, order by contribution number
+SELECT DISTINCT ?contrib
+(GROUP_CONCAT(DISTINCT ?contribNr ; separator = " -- ") as ?ContributionNrs)
+?contribLabel 
+
+WHERE {?contrib wdt:P31 wd:Q81564326;wdt:P361 wd:Q72752496 .  
+        OPTIONAL{?contrib p:P1343 [ps:P1343 wd:Q82260552; pq:P958 ?contribNr].}
+     
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
+GROUP BY  ?contrib ?contribLabel 
+ORDER BY ?ContributionNrs

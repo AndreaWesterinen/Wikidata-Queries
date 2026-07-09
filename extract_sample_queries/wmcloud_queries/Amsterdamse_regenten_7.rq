@@ -1,0 +1,5 @@
+SELECT ?persoon ?persoonLabel ?echtgenoot ?echtgenootLabel WHERE {
+  ?persoon wdt:P463 wd:Q56764476 .
+  ?persoon wdt:P26 ?echtgenoot .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

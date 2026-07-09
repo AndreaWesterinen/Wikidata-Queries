@@ -1,0 +1,24 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak ?rank ?statement
+WHERE
+{
+  {
+    SELECT ?item ?value ?result ?snak ?rank ?statement WHERE {
+      {
+        ?item p:P5102 ?statement .
+        ?statement ps:P5102 ?value; wikibase:rank ?rank .
+        BIND("mainsnak" AS ?snak) .
+      } UNION {
+        ?statement pq:P5102 ?value; wikibase:rank ?rank .
+        ?item ?p1 ?statement .
+        BIND("qualifier" AS ?snak) .
+      } UNION {
+        ?ref pr:P5102 ?value .
+        ?statement prov:wasDerivedFrom ?ref; wikibase:rank ?rank .
+        ?item ?p2 ?statement .
+        BIND("reference" AS ?snak) .
+      } .
+      FILTER( ?value NOT IN ( wd:Q29509043, wd:Q29509080, wd:Q132555, wd:Q712144, wd:Q28962310, wd:Q28962312, wd:Q41719, wd:Q16582801, wd:Q3918409, wd:Q18603603, wd:Q50376823, wd:Q2839009, wd:Q30230067, wd:Q53737447, wd:Q17125668, wd:Q18912752, wd:Q27058, wd:Q965330, wd:Q28831311, wd:Q24025284, wd:Q19357312, wd:Q744069, wd:Q603908, wd:Q26944781, wd:Q4895105, wd:Q45123627, wd:Q18122778, wd:Q32188232, wd:Q18706315, wd:Q774228, wd:Q63971158, wd:Q64447881, wd:Q1520777, wd:Q68575046, wd:Q230768, wd:Q5727902, wd:Q3739281, wd:Q53815, wd:Q10585806, wd:Q111305333, wd:Q2796622, wd:Q226995, wd:Q4676846, wd:Q47035128, wd:Q52834024, wd:Q55935291, wd:Q55935272, wd:Q56644435, wd:Q91013007, wd:Q64643615, wd:Q90177495, wd:Q100349848, wd:Q59864995, wd:Q104378399, wd:Q104603903, wd:Q83489981, wd:Q37113960, wd:Q105223969, wd:Q60614352, wd:Q70918737, wd:Q13649246, wd:Q107217620, wd:Q3144351, wd:Q101072, wd:Q96102813, wd:Q96102817, wd:Q101437313, wd:Q18603648, wd:Q110143752, wd:Q110290991, wd:Q110290992, wd:Q139060, wd:Q311290, wd:Q110418529, wd:Q84590041, wd:Q129580, wd:Q10578722, wd:Q202785, wd:Q3962655, wd:Q855395, wd:Q1321906, wd:Q112627455, wd:Q20734200, wd:Q112883215, wd:Q55909176, wd:Q367293, wd:Q106418668, wd:Q113326371, wd:Q1630279, wd:Q188224, wd:Q114980101, wd:Q115211583, wd:Q115471214, wd:Q115630159, wd:Q115667526, wd:Q116142274, wd:Q99841874, wd:Q116822097 ) ) .
+    } LIMIT 100
+  } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

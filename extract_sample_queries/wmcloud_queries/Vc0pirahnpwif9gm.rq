@@ -1,0 +1,5 @@
+embed.html#SELECT DISTINCT ?item ?desc WHERE {
+	?item wdt:P4638 [] ; schema:description ?desc .
+	FILTER (lang(?desc) = "en"). 
+	FILTER regex (?desc, "^British peer or relation$").
+}

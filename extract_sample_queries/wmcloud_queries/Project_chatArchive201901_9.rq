@@ -1,0 +1,10 @@
+SELECT ?item ?item1 WHERE {
+  ?item wdt:P31 ?sub0 .
+  ?sub0 (wdt:P279)* wd:Q7366 .
+  ?item wdt:P361 ?item1 .
+  ?item p:P361 ?node .
+  ?node ps:P361 ?item1 .
+  ?node pq:P1545 ?ord.
+  ?item1 wdt:P31 ?sub1 .
+  ?sub1 (wdt:P279)* wd:Q2031291 .
+}

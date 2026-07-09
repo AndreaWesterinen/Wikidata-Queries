@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT distinct ?country ?countryLabel ?image ( SAMPLE( COALESCE( ?rgb1, ?rgb2 ) ) AS ?rgb ) ?geoshape WHERE {
+  ?country wdt:P31 wd:Q3624078;
+     wdt:P3896 ?geoshape;
+     wdt:P163 ?flag .
+  OPTIONAL { ?flag p:P462 / pq:P465 ?rgb1 . FILTER ( ?rgb1 != 'FFFFFF' ) }
+  OPTIONAL { ?flag wdt:P462 / wdt:P465 ?rgb2 . FILTER ( ?rgb2 != 'FFFFFF' ) }
+  OPTIONAL { ?flag wdt:P18 ?image }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?country ?countryLabel ?geoshape ?image

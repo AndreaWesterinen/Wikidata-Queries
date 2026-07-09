@@ -1,0 +1,5 @@
+SELECT ?fonds ?fondsLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?fonds wdt:P31 wd:Q5509032.
+  ?fonds wdt:P361 wd:Q2780100.
+ }

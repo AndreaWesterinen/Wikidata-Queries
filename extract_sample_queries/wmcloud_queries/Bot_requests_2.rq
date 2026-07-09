@@ -1,0 +1,6 @@
+sparql?query=SELECT ?item ?host 
+ WHERE  {
+  wd:Q72705885 ^(wdt:P279*) ?instance.
+  ?item wdt:P31 ?instance.
+  OPTIONAL { ?item wdt:P856 ?host. }
+}'

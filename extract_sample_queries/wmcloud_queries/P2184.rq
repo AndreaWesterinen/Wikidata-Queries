@@ -1,0 +1,7 @@
+SELECT * WHERE {
+  ?q wdt:P31 wd:Q17524420;
+     rdfs:label ?label FILTER ( lang( ?label ) = 'en' ) FILTER ( STRSTARTS( ?label, 'history of ' ) ) .
+  FILTER NOT EXISTS {
+    [] wdt:P2184 ?q .
+  }
+}

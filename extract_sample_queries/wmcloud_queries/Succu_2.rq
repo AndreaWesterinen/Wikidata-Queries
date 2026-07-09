@@ -1,0 +1,8 @@
+SELECT ?item ?taxonName ?birdLifeId ?iucnId WHERE {  
+     ?item wdt:P5257 ?birdLifeId .
+     ?item wdt:P225 ?taxonName .
+     OPTIONAL {?item wdt:P627 ?iucnId }
+     FILTER (?birdLifeId != ?iucnId)
+     #FILTER (!BOUND(?iucnId))
+}
+ORDER BY ?taxonName

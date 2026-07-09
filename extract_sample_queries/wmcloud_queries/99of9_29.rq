@@ -1,0 +1,23 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?publisher ?publisherLabel (COUNT(?p) AS ?count) WHERE {
+#SELECT ?p ?pLabel ?author ?authorLabel ?publisher ?publisherLabel ?date WHERE {
+   ?c wdt:P279* wd:Q571 .
+   ?p wdt:P31 ?c .
+   #OPTIONAL {?p wdt:P50 ?author .} 						#author
+   #OPTIONAL {?p wdt:P123 ?publisher .}                      # publisher
+   ?p wdt:P123 ?publisher .                      # publisher
+   #?p wdt:P577 ?date .
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }
+GROUP BY ?publisher ?publisherLabel
+ORDER BY DESC(?count)
+LIMIT 100

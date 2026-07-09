@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel WHERE {
+
+   ?item wdt:P31 wd:Q34442 .  # instance of: roads 
+   ?item p:P625 ?coord_statement .
+   ?coord_statement ps:P625 ?coords .
+   ?item p:P17 ?country_statement .
+   ?country_statement ps:P17 ?country
+   FILTER NOT EXISTS {
+     	?coord_statement ?pq_pred ?pq_obj . # a triple involving the award statement ...     
+        ?prop wikibase:qualifier ?pq_pred . # ... with a predicate ?pq_pred that is a qualifier
+   }
+   FILTER ( ?country = wd:Q408 )
+
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+
+ } ORDER BY ASC(?itemLabel)

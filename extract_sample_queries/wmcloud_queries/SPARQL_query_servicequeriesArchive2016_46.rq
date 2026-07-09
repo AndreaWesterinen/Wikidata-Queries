@@ -1,0 +1,6 @@
+select ?item ?lang where {
+  
+  { { ?item rdfs:label ?label filter(lang(?label) = "fr" || lang(?label) = "en" || lang(?label) = "de" ) } union  { ?item skos:altLabel ?label filter(lang(?label) = "fr" || lang(?label) = "en"  || lang(?label) = "de") } }
+  filter (lcase(str(?label)) = lcase("Paris") )
+  bind(lang(?label) as ?lang) .
+} limit 10

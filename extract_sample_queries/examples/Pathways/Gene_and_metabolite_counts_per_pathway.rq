@@ -1,5 +1,4 @@
-# ----
-#Gene and metabolite counts per path
+#title: Gene and metabolite counts per pathway
 #defaultView:ScatterChart
 SELECT ?path ?genes ?metabolites ?pathway WHERE {
   {SELECT DISTINCT ?path (COUNT(?pwPart) AS ?genes) WHERE {

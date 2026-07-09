@@ -1,0 +1,8 @@
+embed.html##defaultView:TreeMap
+SELECT ("ambassadors to India" as ?divLabel) ?c ?cLabel ?a ?aLabel
+{
+  ?c wdt:P31 wd:Q30056023.
+  ?a wdt:P39 ?c.
+  SERVICE wikibase:label {  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+#

@@ -1,0 +1,4 @@
+SELECT ?prop (COUNT(*) AS ?cnt) WHERE {
+  [] ?prop [ wdt:P31 wd:Q22936940; wdt:P641/wdt:P279* wd:Q847 ] .
+  MINUS { ?prop ^wikibase:directClaim [] }
+} GROUP BY ?prop ORDER BY DESC(?cnt)  

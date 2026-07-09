@@ -1,0 +1,18 @@
+#P131 Catalunya
+SELECT ?item ?name ?coord ?lat ?lon
+WHERE {
+?item wdt:P131 wd:Q5705 .
+  OPTIONAL {
+?item wdt:P625 ?coord .
+?item p:P625 ?coordinate .
+?coordinate psv:P625 ?coordinate_node .
+?coordinate_node wikibase:geoLatitude ?lat .
+?coordinate_node wikibase:geoLongitude ?lon .
+  }
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ca,en,es,an,eu,pl,sv,ceb" .
+?item rdfs:label ?name
+}
+}
+#ORDER BY ASC (?name)
+#defaultView:Map

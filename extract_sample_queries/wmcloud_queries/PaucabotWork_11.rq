@@ -1,0 +1,10 @@
+#Tractats
+SELECT ?tractat ?tractatLabel ?data
+WHERE {
+    ?tractat wdt:P31*/wdt:P279* wd:Q131569 .
+    ?tractat wdt:P585 ?data .
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ca,en" .}
+    FILTER (YEAR(?data) >= 1800)
+  	FILTER (YEAR(?data) < 1900)
+ }
+ORDER BY ASC(?data)

@@ -1,0 +1,13 @@
+#title:Swedish nouns that don't have a form marked genitive
+SELECT DISTINCT ?l ?lemma WHERE {
+  ?l rdf:type ontolex:LexicalEntry;
+    dct:language ?language;
+    wikibase:lemma ?lemma;
+    wikibase:lexicalCategory wd:Q1084.
+  ?language wdt:P218 "sv".
+  MINUS {
+    ?l ontolex:lexicalForm ?form.
+    ?form wikibase:grammaticalFeature wd:Q146233.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?magaparent
+WHERE 
+{
+  ?item wdt:P59 wd:Q10578; #constel·lació Hdyra Femella
+        wdt:P31 wd:Q523. #P31=estrella
+  OPTIONAL{?item wdt:P1215 ?magaparent}.
+  FILTER(?magaparent < 6)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ca,en". }
+}
+ORDER BY ASC(?magaparent)
+LIMIT 10

@@ -1,0 +1,11 @@
+# Wikidata entries with a parliamentary term in P463 but without the corresponding parliamentary term membership in P39
+
+select distinct ?item ?itemLabel where
+{
+ wd:Q41582597 wdt:P2937 ?term .
+ ?item wdt:P463 ?term . 
+ minus { ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q41582597 . }
+ 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

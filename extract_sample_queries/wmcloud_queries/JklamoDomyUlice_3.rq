@@ -1,0 +1,25 @@
+SELECT DISTINCT ?item ?itemLabel (count (DISTINCT ?bud) as ?count) 
+WHERE {
+    ?item wdt:P31 wd:Q79007 .
+    ?item wdt:P17 wd:Q213 . 
+    ?item wdt:P131 ?prs .
+    {  
+    ?prs wdt:P131 wd:Q1085 .
+    }
+    UNION
+    {
+    ?prs wdt:P131 ?vrs .
+    ?vrs wdt:P131 wd:Q1085 .  
+    } 
+    UNION
+    {
+    ?prs wdt:P131 ?vrs .
+    ?vrs wdt:P131 ?drs .  
+    ?drs wdt:P131 wd:Q1085 .  
+    } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "cs" }
+    ?bud wdt:P669 ?item .
+    ?bud wdt:P4856 ?cp .
+} GROUP BY ?item ?itemLabel
+ORDER BY DESC (?count)
+LIMIT 50

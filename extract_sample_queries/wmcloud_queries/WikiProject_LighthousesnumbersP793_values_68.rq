@@ -1,0 +1,10 @@
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?img ?date ?layerLabel
+{
+	?item wdt:P31 wd:Q39715 . 
+	?item p:P793 [ ps:P793 wd:Q168983 ; pq:P585 ?date ]
+    OPTIONAL { ?item wdt:P18 ?img }
+    OPTIONAL { ?item wdt:P17 ?layer }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }  
+}
+ORDER BY ASC(?date)

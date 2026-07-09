@@ -1,0 +1,4 @@
+#title: Unique value per rating property
+# Complex constraint from [[Property talk:P2676]]
+# Value must be unique within the rating system it applies to (but the same value may be used by multiple systems)
+SELECT DISTINCT ?item ?system ?id WHERE { ?item ?property [ pq:P2676 ?id ] . ?item2 ?property [ pq:P2676 ?id ] . FILTER ( ?item != ?item2 ) . OPTIONAL { ?system wikibase:claim ?property } }

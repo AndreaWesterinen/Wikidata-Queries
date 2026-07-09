@@ -1,0 +1,75 @@
+#credited crew members being older than 70 at release date (showing only their latest film)
+SELECT ?sitelink ?crewLabel ?age ?filmLabel ?numberOfFilms (year(?releaseDateOfLastFilm) AS ?releaseYear) ?dateOfBirth ?dateOfDeath  
+WHERE
+{
+?film  wdt:P179 wd:Q56070713;
+       wdt:P577 ?releaseDateOfLastFilm;
+       rdfs:label ?filmLabel.
+FILTER (lang(?filmLabel) = "en")
+
+{  
+SELECT ?crew ?sitelink ?crewLabel ?age (COUNT(DISTINCT ?film) AS ?numberOfFilms) ?releaseDateOfLastFilm ?dateOfBirth ?dateOfDeath  
+WHERE
+{
+?film wdt:P179 wd:Q56070713;
+     (wdt:P86|wdt:P162|wdt:P57|wdt:P58|wdt:P1431|wdt:P2554|wdt:P3174|wdt:P3092|wdt:P3275) ?crew.
+{
+SELECT ?crew ?sitelink ?crewLabel (MAX(?age) AS ?age) (MAX(?rdate) AS ?releaseDateOfLastFilm) (MAX(?bdate) AS ?dateOfBirth) (MAX(?ddate) AS ?dateOfDeath)  
+WHERE
+{
+  {
+  #Disney feature film crew members 
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+        wdt:P577 ?rdate;
+        (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275) ?st.
+  }
+  
+  #getting rid of long dead people
+  MINUS
+  {
+  ?film (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275) ?st;
+        wdt:P577 ?rdate.                                                                  
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275) ?crew.
+         
+  ?crew wdt:P570 ?ddate.
+  FILTER(year(?ddate) + 10 < year(?rdate))
+  }
+
+  #making sure the statements were derived from the credits and getting the crew
+   ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275) ?crew;
+        prov:wasDerivedFrom ?ref.   
+  
+  ?ref pr:P248 ?film1.
+    
+  
+ #getting the dates of birth and death
+  ?crew wdt:P569 ?bdate.
+  OPTIONAL{?crew wdt:P570 ?ddate}
+  FILTER(year(?bdate) < 2000).
+  
+  #getting the age
+  BIND(ROUND(year(?rdate) - year(?bdate)) AS ?age)
+  
+  #filtering for persons older than 70
+  FILTER(?age>=70)
+  
+  #getting the sitelinks
+  OPTIONAL
+  {
+    ?sitelink schema:about ?crew;
+              schema:isPartOf <https://en.wikipedia.org/> ;
+              schema:inLanguage "en".
+  } 
+
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?crew ?crewLabel ?sitelink
+ORDER BY DESC(?ageAtLastFilm)
+}
+}
+GROUP BY ?crew ?sitelink ?crewLabel ?age ?releaseDateOfLastFilm ?dateOfBirth ?dateOfDeath 
+}
+}
+ORDER BY DESC(?age)

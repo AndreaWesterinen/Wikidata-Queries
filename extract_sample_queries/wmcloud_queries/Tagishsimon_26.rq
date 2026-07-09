@@ -1,0 +1,12 @@
+#Cats
+SELECT ?item ?CBDB with {select  ?item ?CBDB  
+WHERE 
+{
+  hint:Query hint:optimizer "None" .
+  ?item wdt:P496 ?CBDB.
+  ?item wdt:P31 wd:Q5. }  } as %i
+where
+{include %i
+  minus {?item schema:description ?itemLabel . filter(lang(?itemLabel)="en") }
+  minus {?article schema:about ?item .}
+} 

@@ -1,0 +1,29 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  	# beroep = fotograaf of onderliggend
+  ?item (wdt:P106/wdt:P279*) wd:Q3391743.
+  	# nationality = Kingdom of the Netherlands
+   	# place of birth within Netherlands
+	{?item wdt:P19 ?pob .
+  ?pob wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775    
+    }
+   	# OR work location within Netherlands
+	UNION  {?item wdt:P937 ?pow .
+              ?pow wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775}
+
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 ?por .
+              ?por wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P20 ?pod .
+              ?pod wdt:P131 ?gemeente.
+   ?gemeente wdt:P131 wd:Q775}
+  ?item wdt:P9152 [].#CollectieGelderland
+  FILTER NOT EXISTS {?item wdt:P7763 []}.  
+  FILTER NOT EXISTS {?item wdt:P570 []}.  
+#  FILTER (?born > "1900-01-01T00:00:00Z"^^xsd:dateTime )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

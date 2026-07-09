@@ -1,0 +1,7 @@
+SELECT ?topic ?label (LANG(?label) AS ?lang)
+WHERE
+{
+  ?topic wdt:P31 wd:Q18636219;
+          rdfs:label ?label.
+  FILTER(LANG(?label) = "en").
+}

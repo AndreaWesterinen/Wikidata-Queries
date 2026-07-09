@@ -1,0 +1,32 @@
+SELECT ?item ?itemLabel ?value ?result (STRLEN(STR(?value)) AS ?stringlength)  ?snak ?rank WHERE {
+	{
+		SELECT ?item ?value ?result ?snak ?rank WHERE {
+			{
+				?item p:P898 [ ps:P898 ?value; wikibase:rank ?rank ] .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement1 pq:P898 ?value;
+					wikibase:rank ?rank .
+				?item ?p1 ?statement1 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P898 ?value .
+				?statement2 prov:wasDerivedFrom ?ref;
+					wikibase:rank ?rank .
+				?item ?p2 ?statement2 .
+				BIND("reference" AS ?snak) .
+			} .
+			BIND( REGEX(STR(?value), "^([iyɨʉɯuɪʏʊeøɘɵɤoəɛœɜɞʌɔæɐaɶɑɒ mɱnɳɲŋɴʘǀǃǂǁpbtdʈɖcɟkɡqɢʡʔɓɗʄɠʛɸβfvθðszʃʒʂʐçʝxɣχʁħʕʜʢhɦʼʋɹɻjɰɺɫʙrʀяʍwɥⱱɾɽɕʑɧɬɮꞎlɭʎ ʰⁿˡëäʷʲˠˁ ãẽĩõũỹ áéíóúý àèìòùỳ āēīōūȳ âêîôûŷ ǎěǐǒǔ őű ȁȅȉȍȕ ɚɝ ʦʣʧʤʨʥ \\x{0300&#125;-\\x{0304}\\x{0306}\\x{0308}\\x{030B}\\x{030C}\\x{030F}\\x{0318&#125;-\\x{031A}\\x{031C&#125;-\\x{0320}\\x{0324}\\x{0325}\\x{0329}\\x{032A}\\x{032C}\\x{032F}\\x{0330}\\x{0334}\\x{0339&#125;-\\x{033D}\\x{035C}\\x{0361} ˈˌːˑ.|‖↗↘˧˦˨˥˩ꜛꜜ]+)$") AS ?regexresult ) .
+			FILTER( ?regexresult = false ) .
+			BIND( IF(?regexresult = true, "pass", "fail") AS ?result ) .
+			FILTER( ?item NOT IN (wd:Q4115189, wd:Q13406268, wd:Q15397819) ) .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}
+#ORDER BY ?rank ?snak ?value
+#PLEASE NOTE: This is experimental and may only work for simple patterns.
+#Tests may fail due to:
+#(1) differences in regex format between SPARQL (https://www.w3.org/TR/xpath-functions/#regex-syntax) and PCRE (used by constraint reports). Don't change the regex to work with SPARQL!
+#(2) some bug in the link that brought you here
+#Known to fail: P227 (multiple curly braces), P274, P281

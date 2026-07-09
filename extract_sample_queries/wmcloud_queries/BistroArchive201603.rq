@@ -1,0 +1,33 @@
+# Q: lister les personnes mortes âgées dont les ancêtres sont eux-mêmes morts âgés ? Par exemple, des personnes qui sur trois générations sont morts à plus de 80 ans
+# R: essai avec trois générations à >80 sans égard à la précision des dates (siècle ou année ou jour)
+# Utiliser "image grid" pour afficher les images
+# par Jura1 2016-03-22
+SELECT DISTINCT
+	?item ?itemLabel ?age ?date 
+	?item2 ?item2Label ?age2  
+	?item3 ?item3Label ?age3
+	?img
+	?img2
+	?img3
+{
+	?item wdt:P569 ?date ; wdt:P570 ?ddate
+	bind( year(?ddate)-year(?date) as ?age ) .
+	FILTER (?age > 80) . 
+  
+	?item wdt:P40 ?item2 .
+	?item2 wdt:P569 ?date2 ; wdt:P570 ?ddate2 .
+	bind( year(?ddate2)-year(?date2) as ?age2 ) .
+	FILTER (?age2 > 80) . 
+  
+	?item2 wdt:P40 ?item3 .
+	?item3 wdt:P569 ?date3 ; wdt:P570 ?ddate3 .
+	bind( year(?ddate3)-year(?date3) as ?age3 ) .
+	FILTER (?age3 > 80) . 
+  
+	OPTIONAL { ?item wdt:P18 ?img }
+	OPTIONAL { ?item2 wdt:P18 ?img2 }
+	OPTIONAL { ?item3 wdt:P18 ?img3 }
+	SERVICE wikibase:label {  bd:serviceParam wikibase:language "en" .}
+}
+ORDER BY DESC(?date)
+LIMIT 1000

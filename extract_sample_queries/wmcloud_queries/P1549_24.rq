@@ -1,0 +1,5 @@
+select * {
+  ?item wdt:P1549 ?v.
+  minus { [] wikibase:lemma ?v }
+  minus { [] ontolex:representation ?v }
+}

@@ -1,6 +1,5 @@
-# ----
+#title: Software applications ranked in descending order by the number of writable file formats
 #defaultView:BubbleChart
-#title:Software applications ranked in descending order by the number of writable file formats
 SELECT ?app ?appLabel (COUNT(?format) AS ?count)
 WHERE {
   ?app (p:P31/ps:P31/wdt:P279) wd:Q7397 .

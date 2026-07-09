@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?office ?officeLabel
+WHERE { 
+  ?item wdt:P31 wd:Q3624078 .
+  OPTIONAL { ?item wdt:P1906 ?office . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q3024240 }
+  FILTER NOT EXISTS { ?item wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY ?itemLabel

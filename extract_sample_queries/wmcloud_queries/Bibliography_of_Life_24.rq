@@ -1,0 +1,10 @@
+# count ausfungi id taxa without authors
+SELECT  ?item ?itemLabel WHERE {
+  #hint:Prior hint:gearing "forward" .
+  ?item wdt:P9076 ?ausfungi_id.
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  minus {?stat pq:P405 ?author.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+
+} 

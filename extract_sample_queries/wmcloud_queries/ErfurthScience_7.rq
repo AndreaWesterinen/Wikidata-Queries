@@ -1,0 +1,8 @@
+# references of scholarly article
+SELECT ?citedby ?citedbyLabel 
+WHERE
+{ 
+    ?citedby wdt:P2860 ?pub .  
+    ?pub wdt:P356 "10.1002/ANIE.200454078" .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

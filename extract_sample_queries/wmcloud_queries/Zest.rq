@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?label ?havename WHERE {
+  ?item wdt:P4224 wd:Q16521.
+  ?item rdfs:label ?labelWithLanguage.
+  BIND(STR(?labelWithLanguage) AS ?label)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(STRSTARTS(?labelWithLanguage, "Category:Taxa named by"))
+  FILTER((LANG(?labelWithLanguage)) = "en")
+OPTIONAL { ?item p:P4224 [ pq:P138 ?havename ].}
+}
+LIMIT 1000

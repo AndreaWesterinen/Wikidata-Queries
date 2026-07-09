@@ -1,0 +1,13 @@
+#defaultView:Map{"layer":"?nationLabel"}
+SELECT ?item ?itemLabel ?coord ?image ?nation ?nationLabel
+WHERE 
+{
+  ?item wdt:P39 wd:Q27169;
+        wdt:P27 ?nation;
+        wdt:P19 ?place.
+  ?place wdt:P625 ?coord.
+  
+  OPTIONAL{ ?item wdt:P18 ?image }
+   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

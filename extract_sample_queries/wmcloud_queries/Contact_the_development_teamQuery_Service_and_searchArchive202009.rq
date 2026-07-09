@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?title ?instance_of ?instance_ofLabel
+WHERE
+{
+  VALUES ?search_string { "book" }
+  SERVICE wikibase:mwapi { 
+      bd:serviceParam wikibase:endpoint "en.wikibooks.org" ; 
+                      wikibase:api "Generator" ;
+                      mwapi:generator "search" ;              
+                      mwapi:gsrsearch ?search_string ;
+                      mwapi:gsrlimit "max" ;                  
+                      mwapi:gsrnamespace "0" .    
+      ?title wikibase:apiOutput mwapi:title .      
+      ?item wikibase:apiOutputItem mwapi:item . 
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 10

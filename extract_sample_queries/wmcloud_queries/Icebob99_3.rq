@@ -1,0 +1,8 @@
+embed.html## Distribution of values of a property
+SELECT ?pers1 ?pers1Label ?pers2 ?pers2Label
+WHERE {
+  ?pers1 wdt:P31 wd:Q5.
+  ?pers1 wdt:P157 ?pers2 .
+  ?pers2 wdt:P157 ?pers1 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

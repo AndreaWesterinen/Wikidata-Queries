@@ -1,0 +1,11 @@
+SELECT ?software ?softwareLabel ?os ?osLabel
+
+WHERE {
+  ?software (p:P31/ps:P31/wdt:P279*) wd:Q7397 .
+  ?software wdt:P306 ?os
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

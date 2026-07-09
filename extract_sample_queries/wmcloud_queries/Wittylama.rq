@@ -1,0 +1,13 @@
+#Name, foundation year, and flag of the capital cities of the EU countries.
+#Duplicate entry for Amsterdam (two countries), Vienna (two flags), Vilnius (two years).
+
+SELECT ?item ?itemLabel ?capitalLabel ?founded ?flag
+WHERE {
+  ?item wdt:P463 wd:Q458;
+        wdt:P36 ?capital.
+OPTIONAL  {?capital wdt:P41 ?flag.}
+OPTIONAL  {?capital wdt:P571 ?founded.}
+  
+SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY (?capitalLabel)

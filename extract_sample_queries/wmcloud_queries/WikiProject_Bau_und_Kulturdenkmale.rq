@@ -1,0 +1,9 @@
+SELECT ?denkmaltyp ?denkmaltypLabel ?denkmaltypDescription (COUNT(*) AS ?cnt) WITH {
+  SELECT DISTINCT ?denkmaltyp ?denkmaltypLabel ?denkmaltypDescription WHERE {
+    ?denkmaltyp wdt:P279* wd:Q358 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],de,en' }
+  }
+} AS %s WHERE {
+  INCLUDE %s .
+  ?denkmal wdt:P31|wdt:P1435 ?denkmaltyp; wdt:P17 wd:Q183 .
+} GROUP BY ?denkmaltyp ?denkmaltypLabel ?denkmaltypDescription ORDER BY DESC(?cnt)

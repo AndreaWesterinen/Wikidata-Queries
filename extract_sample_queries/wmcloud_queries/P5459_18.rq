@@ -1,0 +1,8 @@
+#title: Born in 1940+
+# Complex constraint from [[Property talk:P5459]]
+#
+SELECT ?item ?born {
+	?item wdt:P5459 ?value .
+    ?item wdt:P569 ?born.
+    FILTER (YEAR (?born) >= 1940)
+}

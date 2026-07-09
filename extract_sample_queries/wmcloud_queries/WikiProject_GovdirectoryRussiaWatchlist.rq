@@ -1,0 +1,19 @@
+SELECT ?item WHERE {
+  BIND(wd:Q159 AS ?country)
+
+  VALUES ?type {
+    wd:Q4481741 # ministries (21)
+    wd:Q7188 # government (1)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+  MINUS { ?item wdt:P1366 [] }
+  MINUS { ?item wdt:P576 ?ddate .
+         MINUS { ?item wdt:P31 wd:Q4481741 ;
+                       wdt:P576 ?ddate ;
+                       wdt:P571 ?idate .
+                FILTER ( ?idate > ?ddate )
+               }
+         }          
+}

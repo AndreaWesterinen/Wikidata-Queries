@@ -1,0 +1,9 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q64698701>
+#defaultView:BubbleChart
+SELECT ?gender ?genderLabel ?count
+WHERE
+{
+    { SELECT ?g (COUNT(?p) as ?count) { ?p wdt:P735 wdname:  OPTIONAL { ?p wdt:P27 ?g }  } GROUP BY ?g }
+    BIND( COALESCE(?g, wd:Q22910791 ) as ?gender)  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". ?gender rdfs:label ?genderLabel }
+}

@@ -1,0 +1,3 @@
+embed.html#SELECT (COUNT(?q) AS ?count) WHERE {
+  ?q wdt:P380 [].
+}

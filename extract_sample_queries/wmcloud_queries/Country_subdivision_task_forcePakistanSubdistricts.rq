@@ -1,0 +1,1 @@
+SELECT ?item ?province { ?item wdt:P31 wd:Q18670606 . ?item wdt:P131* ?province . ?province wdt:P131 wd:Q843 }

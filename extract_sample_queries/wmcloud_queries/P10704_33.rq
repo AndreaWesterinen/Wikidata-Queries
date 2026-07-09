@@ -1,0 +1,9 @@
+SELECT distinct ?item ?itemLabel ?bio_value ?paper ?paperLabel ?doi 
+{
+  ?item wdt:P10704 ?bio_value .
+  optional { values ?journal { wd:Q4914871 wd:Q29043655 } .
+             ?paper wdt:P1433 ?journal . # In Bio Memoirs RS or Obit Notices RS
+             ?paper wdt:P921 ?item .
+             ?paper wdt:P356 ?doi } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

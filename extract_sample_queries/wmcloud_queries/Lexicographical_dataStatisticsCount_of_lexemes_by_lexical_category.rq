@@ -1,0 +1,7 @@
+select ?item (concat(replace(str(?item),str(wd:),"{{Q|"),"}}") as ?link) ?count
+with {
+  select ?item (count(*) as ?count) { [] wikibase:lexicalCategory ?item } group by ?item
+} as %stats
+{
+  include %stats.
+} order by desc(?count)

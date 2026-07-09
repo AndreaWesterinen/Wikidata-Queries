@@ -1,3 +1,4 @@
+#title: Cities as big as Eindhoven give or take 1000
 #defaultView:Map
 SELECT ?city ?cityLabel ?location ?populatie2 WHERE {
   { SELECT DISTINCT * WHERE {

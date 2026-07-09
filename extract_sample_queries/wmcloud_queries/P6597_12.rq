@@ -1,0 +1,11 @@
+#title: en label required
+# Complex constraint from [[Property talk:P6597]]
+# Items with this property should have labels in English
+SELECT ?item ?value
+{
+	hint:Query hint:optimizer "None".  
+	?item wdt:P6597 ?value .
+	OPTIONAL { ?item rdfs:label ?l . FILTER(lang(?l)="en" )  }
+	FILTER ( !BOUND(?l) )
+}
+LIMIT 100

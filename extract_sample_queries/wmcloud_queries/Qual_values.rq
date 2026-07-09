@@ -1,0 +1,10 @@
+SELECT ?qualifier_value ?qualifier_valueLabel (COUNT(DISTINCT ?statement) AS ?count) WHERE {
+
+     ?statement pq:{{{1}}} ?qualifier_value;
+                       
+     SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+     }                  
+
+}  GROUP BY ?qualifier_value ?qualifier_valueLabel
+ORDER BY DESC (?count)

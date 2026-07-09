@@ -1,0 +1,5 @@
+SELECT ?Capannori ?CapannoriLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Capannori wdt:P131 wd:Q216881.
+}
+LIMIT 100

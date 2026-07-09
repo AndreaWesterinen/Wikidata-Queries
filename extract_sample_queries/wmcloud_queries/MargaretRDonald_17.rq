@@ -1,0 +1,21 @@
+# Items about female artists with/without  a Wikipedia page whose works are in Rijksmuseum
+SELECT ?artist ?artistLabel ?article  with { select distinct ?artist WHERE 
+ {
+   ?artist wdt:P106 ?occ.
+   VALUES ?occ {wd:Q1028181      }    # occupations (painter only)
+   ?artist wdt:P31 wd:Q5.             # is human
+   ?artist wdt:P21 wd:Q6581072.       # is female
+   ?artist wdt:P6379 ?collection.     # collection
+   VALUES ?collection {wd:Q190804 }   # Rijksmuseum (Q190804)
+      
+ } } as %i where
+
+{
+  include %i
+     OPTIONAL
+    {?article schema:about ?artist. # and do not have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+     }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?artistLabel ?article

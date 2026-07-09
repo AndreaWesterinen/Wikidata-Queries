@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item WHERE {
+  VALUES ?cargo { wd:Q26691402 wd:Q61507012 }
+  ?item wdt:P39 ?cargo .
+  }

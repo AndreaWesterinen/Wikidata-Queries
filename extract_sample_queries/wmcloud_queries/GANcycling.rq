@@ -1,0 +1,12 @@
+SELECT ?item ?category ?date ?year WHERE {
+  # find cycling races 
+  ?item wdt:P31 ?category .
+  ?category wdt:P641 wd:Q3609 .
+  # with a point in time or start date
+  OPTIONAL { ?item wdt:P571 ?date. }
+  BIND(YEAR(?date) AS ?year)
+  # but at least one of those
+  FILTER(BOUND(?date) && DATATYPE(?date) = xsd:dateTime).
+  FILTER (?date >= "1850-00-00T00:00:00Z"^^xsd:dateTime && ?date < "2019-00-00T00:00:00Z"^^xsd:dateTime) .
+}
+ORDER BY ?date

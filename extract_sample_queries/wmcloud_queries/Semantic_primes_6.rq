@@ -1,0 +1,11 @@
+select ?lexeme ?lemma ?language ?category (lang(?lemma) as ?code) {
+ ?sense wdt:P5137 wd:Q1 .
+ ?lexeme wikibase:lexicalCategory ?categoryid .
+ ?categoryid rdfs:label ?category .
+ ?lexeme ontolex:sense ?sense .
+ ?lexeme wikibase:lemma ?lemma .
+ ?lexeme dct:language ?languageid .
+ ?languageid rdfs:label ?language .
+ filter(lang(?language) = "en")
+ filter(lang(?category) = "en")
+}

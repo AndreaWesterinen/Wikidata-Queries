@@ -1,0 +1,9 @@
+SELECT ?firstLetter (COUNT(?form) AS ?count ) WHERE {
+  ?lexeme a ontolex:LexicalEntry ; dct:language ?language ; ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?word .
+  ?language wdt:P218 'br' .
+  BIND ( SUBSTR(UCASE(?word), 1, 1) AS ?firstLetter )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?firstLetter
+ORDER BY DESC(?count)

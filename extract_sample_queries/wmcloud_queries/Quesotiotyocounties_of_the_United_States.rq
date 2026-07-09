@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel ?stateLabel ?FIPS ?poprounded ?arearounded ?start ?also  WHERE {
+  ?item wdt:P31 ?uscounty .
+  VALUES ?uscounty {wd:Q13410400 wd:Q13217186 wd:Q11774062 wd:Q13212489 wd:Q13410403 wd:Q13414354 wd:Q13410411 wd:Q13410422 wd:Q13410428 wd:Q13410431 wd:Q13410433 wd:Q11812346 wd:Q13410438 wd:Q11774149 wd:Q13410444 wd:Q13410447 wd:Q13410454 wd:Q13410464 wd:Q13410485 wd:Q13410496 wd:Q12262532 wd:Q13410508 wd:Q13410520 wd:Q13414358 wd:Q13414361 wd:Q13414369 wd:Q13414753 wd:Q13414754 wd:Q13414755 wd:Q13414757 wd:Q13414758 wd:Q12178655 wd:Q13414759 wd:Q13414760 wd:Q13414761 wd:Q13414763 wd:Q13414764 wd:Q13414765 wd:Q12037308 wd:Q13415366 wd:Q11774097 wd:Q13415365 wd:Q13415367 wd:Q13415368 wd:Q13415369 wd:Q13415370 wd:Q12178928 wd:Q13415371 wd:Q13410524} .
+  OPTIONAL{?item wdt:P131 ?state .
+           ?state wdt:P5086 ?FIPS .}
+  OPTIONAL{?item wdt:P1082 ?pop .
+          BIND((ROUND(?pop/1000) * 1000) AS ?poprounded) .}
+  OPTIONAL{?item wdt:P2046 ?area .
+          BIND((ROUND(?area/100) * 100) AS ?arearounded) .}
+  OPTIONAL{?item p:P571/ps:P571 ?inception .
+          BIND(YEAR(?inception) AS ?start).}
+  OPTIONAL{?item wdt:P31 ?also
+          FILTER(?also != ?uscounty)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY ?stateLabel ?itemLabel

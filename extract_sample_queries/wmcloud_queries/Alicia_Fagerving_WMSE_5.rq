@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?code
+WHERE 
+{
+  ?item wdt:P1770 ?code.
+  ?item wdt:P131 wd:Q184797.
+  FILTER(!STRSTARTS(?code, 'SB')) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ro". }
+}

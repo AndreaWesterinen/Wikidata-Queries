@@ -1,0 +1,11 @@
+#Cats
+SELECT ?item ?itemLabel ?countryLabel ?adminLabel
+WHERE
+{
+	?item wdt:P31 wd:Q3917681 . 
+    OPTIONAL {
+      ?item wdt:P17 ?country .
+      ?item wdt:P131 ?admin .
+    }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

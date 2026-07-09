@@ -1,0 +1,21 @@
+SELECT ?item ?itemLabel ?coord2 ?P31Label
+WHERE 
+{
+  ?item wdt:P131 wd:Q47134.
+  
+  ?item p:P625 ?stat2 . 
+  ?stat2 ps:P625 ?coord2 .
+  ?stat2 prov:wasDerivedFrom/pr:P248 wd:Q1194038.
+  ?stat2 a wikibase:BestRank .
+  ?stat2 psv:P625/wikibase:geoLongitude ?long2.
+  ?stat2 psv:P625/wikibase:geoLatitude ?lat2.
+  ?item wdt:P31 ?P31 .
+  
+  MINUS { ?stat2 prov:wasDerivedFrom/pr:P854 ?url.
+          filter(strstarts(str(?url),"https://maps.nls.uk")) }
+  
+  BIND(CONCAT('LINESTRING (', STR(?long), ' ', STR(?lat), ',', STR(?long2), ' ', STR(?lat2), ')') AS ?str) .
+    BIND(STRDT(?str, geo:wktLiteral) AS ?line) 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by ?P31Label ?itemLabel

@@ -1,0 +1,19 @@
+SELECT ?item ?viafwikidata ?ntawikidata ?person ?otheritem {
+  SERVICE <http://data.bibliotheken.nl/sparql> {
+  SELECT ?item ?person WHERE {
+  ?person schema:mainEntityOfPage/schema:isPartOf <http://data.bibliotheken.nl/id/dataset/persons> .
+  ?person schema:sameAs ?item .
+  FILTER REGEX(STR(?item), "http://www.wikidata.org/entity/") .
+  #FILTER(regex(?item, 'wikidata', 'i'))
+  } LIMIT 15000
+      }
+  # The URI (wdtn) links don't seem to be fully populated
+  MINUS { ?item wdtn:P1006 ?person } .
+  #MINUS { ?item wdt:P1006 [] } .
+  MINUS { ?item owl:sameAs ?item2 . ?item2 wdtn:P1006 ?person }
+  #MINUS { ?item owl:sameAs ?item2 . ?item2 wdt:P1006 [] }
+  OPTIONAL{ ?item wdtn:P214 ?viafwikidata } . 
+  OPTIONAL{ ?item wdtn:P1006 ?ntawikidata } . 
+  OPTIONAL { ?otheritem wdtn:P1006 ?person } .
+}
+LIMIT 15000

@@ -1,0 +1,22 @@
+# All items with label (rdfs:label) ends with "a word"
+# with their nature (P:31)
+# and optionnaly their gender (P:21)
+SELECT ?item ?label ?nature ?natureLabel ?genre ?genreLabel
+WHERE
+{
+ ?item  rdfs:label  ?label .
+ FILTER(lang(?label)="fr") .
+ FILTER(STRENDS(?label, "la Résistance")) .
+ ?item wdt:P31 ?nature .
+ ?nature rdfs:label ?natureLabel .
+ FILTER(lang(?natureLabel)="fr") .
+ OPTIONAL
+ {
+  ?item wdt:P21 ?genre .
+  ?genre rdfs:label ?genreLabel .
+  FILTER(lang(?genreLabel)="fr") .
+ }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}
+#ORDER BY ?item
+LIMIT 20

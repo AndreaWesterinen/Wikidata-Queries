@@ -1,0 +1,26 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("decade of death" as ?xAxisTitle) 
+  ("coverage % Prague POD" as ?yAxisTitle)
+  (GROUP_CONCAT(?decade;separator=",") as ?x)
+  (GROUP_CONCAT(?percentage;separator=",") as ?y)
+  ("fontsize:10,offset:5,angle:0" as ?showValues)
+  ("rect" as ?type)
+  ("200" as ?heigth) 
+  ("600" as ?width) 
+WHERE
+{
+  { SELECT ?decade (COUNT(DISTINCT ?item) as ?count_all) (COUNT(DISTINCT ?has) as ?count_with) (ROUND( ?count_with / ?count_all * 100 )  as ?percentage)
+  {
+    ?item wdt:P20 ?place . 
+    ?place wdt:P131* wd:Q1085 .
+    ?item wdt:P570 ?d . 
+    FILTER( YEAR(?d) > 1699 && YEAR(?d) < 1900 )
+    BIND( FLOOR( YEAR(?d)/10) *10 as ?decade) 
+    OPTIONAL { ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item . BIND(?item as ?has) }
+    ?item wdt:P31 wd:Q5 .
+  }
+  GROUP BY ?decade
+  ORDER BY DESC(?decade)
+  }
+}

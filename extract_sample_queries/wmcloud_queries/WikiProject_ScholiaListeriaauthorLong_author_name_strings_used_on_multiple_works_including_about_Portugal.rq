@@ -1,0 +1,50 @@
+SELECT
+  # Sample publication with that author name string
+  DISTINCT ?item
+
+  # Number of works with the author
+  ?count
+
+  # Author as a string
+  ?author
+
+  # Length of author name string
+  ?length
+
+  # Product of count and length
+  ?product
+
+# Build URL to the Author disambiguator tool
+  (CONCAT(
+      "[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=",
+      ENCODE_FOR_URI(?author), "&filter=wdt%3AP2093+%22", ENCODE_FOR_URI(?author), "%22 Find papers where an author name string is '''''",?author , "''''']") AS ?string_resolver)
+
+WITH {
+  SELECT DISTINCT ?work WHERE {
+    ?work wdt:P921 wd:Q45 . 
+  }
+  LIMIT 200000
+} AS %works
+WITH {
+  SELECT
+    DISTINCT ?author
+    (SAMPLE(?work) AS ?item)
+    (COUNT(?work) AS ?count)
+  WHERE {
+    INCLUDE %works
+    ?work wdt:P2093 ?author .
+    FILTER(regex (?author, "^(?=^[A-Z][a-z]{1,}.*)(?=.*[a-z]$).*$")).
+  }
+  GROUP BY ?author
+} AS %result
+WHERE {
+  INCLUDE %result
+  FILTER(?count > 3)
+  BIND(STRLEN(REPLACE(?author, " ", "")) AS ?length)
+#  FILTER(?length > 15)
+  BIND((?count * ?length)  AS ?product)
+  FILTER(?product > 30)
+
+}
+ORDER BY DESC(?product)
+LIMIT 500

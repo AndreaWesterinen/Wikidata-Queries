@@ -1,0 +1,6 @@
+SELECT ?collection ?collectionLabel (count(?Dura_Europos) as ?count) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Dura_Europos wdt:P189 wd:Q464266.
+  ?Dura_Europos wdt:P195 ?collection
+}
+group by ?collection ?collectionLabel

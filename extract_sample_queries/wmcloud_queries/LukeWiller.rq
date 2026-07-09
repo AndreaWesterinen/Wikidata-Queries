@@ -1,0 +1,14 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?pic ?item2 ?item2Label ?coord WHERE {
+
+   ?item wdt:P18 ?pic .
+   ?item wdt:P31/wdt:P279* wd:Q486972 .
+   ?item wdt:P17 wd:Q38 .
+   ?item2 wdt:P18 ?pic .
+   FILTER (!sameTerm(?item, ?item2)) .
+   FILTER NOT EXISTS {?item2 wdt:P31 wd:Q4167410} .
+   ?item wdt:P625 ?coord .
+  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en", "it", "fr", "nl" . }
+           
+}

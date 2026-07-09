@@ -1,0 +1,7 @@
+SELECT ?person ?personLabel ?relative ?relativeLabel
+{ 
+  ?person wdt:P22/wdt:P25 ?relative.
+  ?person wdt:P31 wd:Q5 . ?relative wdt:P31 wd:Q5 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 10

@@ -1,0 +1,14 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+SELECT (?depth/2 as ?number) (count(?actor) as ?cnt) {
+  SERVICE gas:service {
+     gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS" ;
+     gas:in wd:Q106418 ; gas:out ?actor ; gas:out1 ?depth ; gas:linkType wdt:P161 ; gas:traversalDirection "Undirected" .
+  }
+  FILTER( ?depth < 23 && ?depth/2 = xsd:integer(?depth/2)) .
+} 
+group by ?depth
+order by ?number

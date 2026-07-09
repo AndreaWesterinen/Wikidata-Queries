@@ -1,0 +1,23 @@
+SELECT DISTINCT ?constituency ?constituencyLabel ?typeLabel ?start ?end ?startMP ?startMPLabel ?endMP ?endMPLabel
+{
+ ?item p:P39 ?positionStatement .                                   # report for error-checking imports from Historic Hansard
+ ?positionStatement ps:P39 wd:Q37303713 . 
+ ?positionStatement pq:P768 ?constituency . 
+ OPTIONAL { ?constituency wdt:P31 ?type . }                         # find miscellaneous data about the constituency
+ OPTIONAL { ?constituency wdt:P571 ?start . }
+ OPTIONAL { ?constituency wdt:P576 ?end . } 
+ OPTIONAL {                                                         # find the MP elected at the general election which began the term
+           wd:Q37303713 wdt:P2715 ?election .
+           ?startMP p:P39 ?positionStatement2 .
+           ?positionStatement2 ps:P39 wd:Q37303713 . 
+           ?positionStatement2 pq:P768 ?constituency .     
+           ?positionStatement2 pq:P2715 ?election .                            
+          }
+ OPTIONAL {                                                         # find the MP in office at dissolution (may not always be one)
+           ?endMP p:P39 ?positionStatement3 .
+           ?positionStatement3 ps:P39 wd:Q37303713 . 
+           ?positionStatement3 pq:P768 ?constituency .     
+           ?positionStatement3 pq:P1534 wd:Q741182 .    
+          }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel ?count 
+WHERE
+{
+	{ 	SELECT ?item (count(*) as ?count) 
+      	WHERE
+		{
+      		?pid wdt:P1435 ?item . 
+            ?iteem schema:about ?pid
+	;	schema:isPartOf	<https://ko.wikipedia.org/> .
+    	}
+    	GROUP BY ?item
+		ORDER BY DESC(?count)
+		LIMIT 2000                 
+	}
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ko" . }
+}
+ORDER BY DESC(?count)

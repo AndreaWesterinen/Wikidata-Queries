@@ -1,0 +1,12 @@
+#defaultView:BubbleChart
+SELECT ?instanceLabel (count(*) as ?count)
+WHERE {
+  ?item wdt:P17 wd:Q27 . 
+  ?item wdt:P31 ?instance .
+  ?item wdt:P2186 ?wlmid .
+  FILTER(STRSTARTS(?wlmid, 'IE-')) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?instanceLabel
+ORDER BY DESC(?count) ASC(?instanceLabel)
+LIMIT 100

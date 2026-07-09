@@ -1,0 +1,3 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31 ?type .
+VALUES ?type { wd:Q15063586 wd:Q1008803 }
+  ?entity wdt:P31 ?type.}

@@ -1,0 +1,19 @@
+#title: Items for numbers up to 10000 should be available
+# Complex constraint from [[Property talk:P5176]]
+#
+SELECT ?item ?actual ?plan
+WITH
+{ 
+  SELECT (COUNT(DISTINCT ?item) as ?actual) (SAMPLE(?plan) as ?plan)
+  { 
+    BIND( 10000 as ?plan) 
+    ?item wdt:P5176 [] ; wdt:P1181 ?nv . 
+    FILTER(xsd:integer(?nv) <= ?plan && xsd:integer(?nv) >= 1 )  
+  }
+} as %count
+WHERE
+{
+  include %count
+  FILTER( ?plan != ?actual )
+  BIND( wd:Q37201125 as ?item )
+}

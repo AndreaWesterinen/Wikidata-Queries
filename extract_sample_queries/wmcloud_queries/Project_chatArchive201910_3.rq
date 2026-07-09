@@ -1,0 +1,6 @@
+SELECT ?Wikimedian_in_Residence ?Wikimedian_in_ResidenceLabel ?sex_or_gender ?sex_or_genderLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Wikimedian_in_Residence wdt:P106 wd:Q3809586.
+  OPTIONAL { ?Wikimedian_in_Residence wdt:P21 ?sex_or_gender. }
+}
+LIMIT 1000

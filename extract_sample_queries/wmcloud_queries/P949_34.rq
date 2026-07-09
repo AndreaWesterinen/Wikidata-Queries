@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-add0>
+SELECT DISTINCT ?item WHERE { ?item wdt:P949 ?value . FILTER( REGEX(STR(?value), '^\\d{9}$') = false )}

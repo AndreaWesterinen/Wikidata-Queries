@@ -1,0 +1,18 @@
+SELECT ?item 
+  (SAMPLE(?name0) as ?name) 
+  (SAMPLE(?st0) as ?st)
+  (SAMPLE(?sl0) as ?sl)
+  (SAMPLE(?flower0) as ?flower)
+  (SAMPLE(?plant0) as ?plant)
+  (GROUP_CONCAT( DISTINCT CONCAT("[[:",REPLACE(?lang,"en-simple","simple"),":",?namewp,"|",?lang,"]]"); separator= "</br>") as ?articles) 
+WHERE
+{
+    ?item wdt:P31 wd:Q21157076 . 
+    OPTIONAL { ?item wdt:P2561 ?n . BIND(str(?n) as ?name0) }
+    OPTIONAL { ?item wikibase:statements ?st0 ; wikibase:sitelinks ?sl0 }
+    OPTIONAL { ?item p:P18 [ pq:P3831 wd:Q506 ; ps:P18 ?flower0 ]  }
+    OPTIONAL { ?item p:P18 [ pq:P3831 wd:Q756 ; ps:P18 ?plant0 ]  }
+    OPTIONAL { [] schema:about ?item ; schema:name ?namewp ; schema:inLanguage ?lang ; schema:isPartOf / wikibase:wikiGroup "wikipedia" }
+}
+GROUP BY ?item
+ORDER BY DESC(?sl) ?name

@@ -1,3 +1,4 @@
+#title: Map of institutions where Canadian citizens got their PhD
 #defaultView:Map
 SELECT DISTINCT ?institution ?institutionLabel ?academics ?academicsLabel ?degree ?degreeLabel ?geoloc ?image WHERE {
   ?academics wdt:P31 wd:Q5 ; # instances (P31) of humans (Q5)

@@ -1,0 +1,5 @@
+#Pàgines de desambiguació de Wikimedia amb la descripció "Pàgina de desambiguació"
+SELECT ?item
+  WHERE { ?item wdt:P31 wd:Q4167410; 
+       schema:description "Pàgina de desambiguació"@ca. 
+  }

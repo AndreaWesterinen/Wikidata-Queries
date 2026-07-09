@@ -1,0 +1,8 @@
+#title: Value in Thailand
+# Complex constraint from [[Property talk:P1174]]
+# In [[d:Q869|Thailand <small>(Q869)</small>]]
+SELECT ?item ?value {
+	?item wdt:P1174 ?value.
+  ?item wdt:P17 wd:Q869.
+  FILTER (?value > 32588303)
+}

@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?labelen ?nllabel ?aliashaakjeweg ?aliasdejonge ?aliasdeoude WHERE {
+  ?item rdfs:label ?label.
+  ?item rdfs:label ?labelen.
+  ?item wdt:P650 ?rkd.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  FILTER((LANG(?label)) = "nl")
+  FILTER((LANG(?labelen)) = "en")
+  BIND(REPLACE(STR(?label)," ?(\\([^\\)]{1,}\\))","") AS ?nllabel) .
+  BIND(REPLACE(STR(?label),"\\(([^\\)]{1,})\\)","$1") AS ?aliashaakjeweg) .
+  BIND(REPLACE(STR(?label),"\\((I|jr\\.?)\\)","de Jonge") AS ?aliasdejonge) .
+  BIND(REPLACE(STR(?label),"\\((II|sr\\.?)\\)","de Oude") AS ?aliasdeoude) .
+  FILTER(STRENDS(?label, ")"))
+}

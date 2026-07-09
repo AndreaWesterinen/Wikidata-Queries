@@ -1,0 +1,17 @@
+#defaultView:Map
+SELECT distinct ?museum ?museumLabel ?location ?dist ?img ?article ?URL WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+  SERVICE wikibase:around {
+    ?museum wdt:P625 ?location.
+    bd:serviceParam wikibase:center "[AUTO_COORDINATES]".
+    bd:serviceParam wikibase:radius "20".
+    bd:serviceParam wikibase:distance ?dist.
+  }
+  {?museum  wdt:P31 wd:Q33506}
+  UNION
+  {?museum  wdt:P31/wdt:P279* wd:Q33506}
+  OPTIONAL {?article schema:about ?museum;
+                     schema:inLanguage "sv"}
+  OPTIONAL{?museum  wdt:P18 ?img}
+  OPTIONAL {?museum  wdt:P856 ?URL}
+} limit 100

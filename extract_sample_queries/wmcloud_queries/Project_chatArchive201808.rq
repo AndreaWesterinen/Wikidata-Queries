@@ -1,0 +1,13 @@
+SELECT ?subject ?subjectLabel ?wdp ?wdpLabel ?object ?objectLabel WHERE {
+  { SELECT ?subject ?wdp ?object WHERE {
+    ?subject wdt:P31 wd:Q5 . # instance of human
+    ?statement wikibase:hasViolationForConstraint ?constraint.
+    ?subject ?p ?statement .
+    ?statement ?ps ?object .
+    ?wdp wikibase:statementProperty ?ps .
+    ?wdp wikibase:claim ?p . 
+  } LIMIT 10 }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+  }
+} 

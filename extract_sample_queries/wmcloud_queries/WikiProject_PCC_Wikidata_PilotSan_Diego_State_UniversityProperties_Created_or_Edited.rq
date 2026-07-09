@@ -1,0 +1,9 @@
+SELECT ?item ?property ?wikilink WHERE {
+  
+  ?property wdt:P5008 wd:Q100363299.
+  ?property rdf:type ?datatype
+  FILTER ((?datatype) =wikibase:Property)
+
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  BIND(CONCAT('\u007B\u007BP\u007C', SUBSTR(STR(?property), 32), '\u007D\u007D') AS ?wikilink) .
+}

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P6379 wd:Q99349995.
+  ?item wdt:P6379 wd:Q50632603.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}

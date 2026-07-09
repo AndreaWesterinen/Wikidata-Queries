@@ -1,0 +1,33 @@
+#Target required claim report for P942: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P942/ps:P942 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P942 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P942 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q7302866 wd:Q55850593 wd:Q55850643 } .
+			MINUS {
+				?value p:P31/ps:P31 ?values .
+			} .
+			OPTIONAL {
+				?value p:P31/ps:P31 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

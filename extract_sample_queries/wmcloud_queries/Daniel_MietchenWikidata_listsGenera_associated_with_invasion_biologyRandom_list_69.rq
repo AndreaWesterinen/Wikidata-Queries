@@ -1,0 +1,34 @@
+embed.html#PREFIX target: <http://www.wikidata.org/entity/Q14923461>
+SELECT DISTINCT
+(CONCAT(
+ENCODE_FOR_URI(REPLACE(STR(?item), ".*Q", "Q")), "|P921|", ENCODE_FOR_URI(REPLACE(STR(?taxon), ".*Q", "Q")), "|P1932|", (CONCAT("\"", ?a, "\"")), "|S887|Q69652283") AS ?QuickStatements)
+WITH {
+SELECT DISTINCT ?taxon WHERE {
+SERVICE bd:sample { ?taxon wdt:P171 target: . bd:serviceParam bd:sample.limit 100 }
+?taxon wdt:P105 wd:Q7432 .
+}
+} AS %taxa
+WITH
+{ SELECT ?item ?title ?taxon ?taxonname WHERE {
+INCLUDE %taxa
+?taxon wdt:P225 ?taxonname .
+SERVICE wikibase:mwapi
+{
+bd:serviceParam wikibase:endpoint "www.wikidata.org";
+wikibase:api "Generator";
+mwapi:generator "search";
+mwapi:gsrsearch ?taxonname;
+mwapi:gsrlimit "max".
+?item wikibase:apiOutputItem mwapi:title.
+}
+?item wdt:P1476 ?title .
+MINUS {?item wdt:P921 ?taxon }
+MINUS {?item wdt:P921 [wdt:P171* ?taxon ] }
+FILTER (REGEX(LCASE(?title), LCASE(CONCAT( "\\", "b", ?taxonname ,"\\", "b"))))
+}
+}
+AS %items
+WHERE {
+INCLUDE %items
+BIND (SUBSTR(?title, STRLEN(STRBEFORE(REPLACE(?title, ?taxonname, "=:=", "i"), "=:=")) +1, STRLEN(?taxonname)) AS ?a)
+}

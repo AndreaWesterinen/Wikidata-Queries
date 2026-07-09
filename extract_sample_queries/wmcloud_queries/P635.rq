@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?istat ?catasto ?codiceregione WHERE {
+  ?item wdt:P31 wd:Q747074 .
+  ?item wdt:P635 ?istat .
+  ?item wdt:P806 ?catasto .
+  ?item wdt:P131/wdt:P131 ?regione .
+  ?regione wdt:P635 ?codiceregione
+}
+LIMIT 8300

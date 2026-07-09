@@ -1,0 +1,14 @@
+SELECT ?precisionLabel ?datetime_precision ?count 
+{
+	{
+  	SELECT ?datetime_precision (count(*) as ?count)
+	{	
+  		?node psv:P585/wikibase:timePrecision ?datetime_precision
+	} 
+	GROUP BY ?datetime_precision
+	LIMIT 10
+	}
+	?precision	wdt:P1106 ?datetime_precision1
+	FILTER(?datetime_precision = ?datetime_precision1)                
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }                                
+}

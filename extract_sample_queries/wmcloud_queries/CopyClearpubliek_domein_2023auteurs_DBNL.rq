@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P570 ?death.
+  ?item wdt:P723 [].
+#  ?collectie wdt:P17 wd:Q55.
+  FILTER(YEAR(?death) = 1952)
+}

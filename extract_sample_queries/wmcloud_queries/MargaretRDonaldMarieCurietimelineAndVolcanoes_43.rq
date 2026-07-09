@@ -1,0 +1,10 @@
+#Japanese paintings in Wikidata
+SELECT DISTINCT ?item ?itemLabel ?creator ?creatorLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q3305213 . # painting
+  ?item wdt:P170 ?creator.    # creator of painting
+  ?creator wdt:P27 wd:Q17.     # creator has/had Japapanese citizenship 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?creatorLabel

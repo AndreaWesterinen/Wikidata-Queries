@@ -1,0 +1,13 @@
+SELECT ?item ?dod ?stct ?slct
+{
+	?item wdt:P570 ?dod
+	FILTER ( ?dod > "2016-07-30T00:00:00Z"^^xsd:dateTime)
+	FILTER ( ?dod > (now()-"P32D"^^xsd:duration) && ?dod < now() )
+	?item wdt:P31 wd:Q5 .
+  	OPTIONAL { ?item wdt:P1196 ?q } . FILTER(!BOUND(?q))
+	?item wdt:P569 ?dob
+	FILTER ( ?dob > "1954-12-31T00:00:00Z"^^xsd:dateTime)
+  	OPTIONAL { ?item wikibase:statements ?stct }
+  	OPTIONAL { ?item wikibase:sitelinks ?slct }
+}
+ORDER BY DESC(?slct) DESC(?dod) ?item

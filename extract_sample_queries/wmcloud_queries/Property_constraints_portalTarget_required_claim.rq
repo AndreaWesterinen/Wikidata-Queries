@@ -1,0 +1,12 @@
+SELECT ?Property_ ?Property_Label ?Property_Description ?property_ ?property_Label ?item_ ?item_Label ?constraint_status_ ?constraint_status_Label
+WHERE {
+  
+	?Property_ p:P2302 ?statement .
+	?statement ps:P2302 wd:Q21510864 .
+	OPTIONAL {?statement pq:P2306 ?property_ .}
+	OPTIONAL {?statement pq:P2305 ?item_ .}
+	OPTIONAL {?statement pq:P2316 ?constraint_status_ .}
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 

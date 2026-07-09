@@ -1,0 +1,7 @@
+#title: Properties should have examples
+# Complex constraint from [[Property talk:Properties/Constraints]]
+# All properties should be documented with examples ([[Property:P1855|Wikidata property example&#32;<small dir="ltr">(P1855)</small>]])
+SELECT ?property { 
+  ?property wikibase:propertyType ?type .
+  MINUS { ?property wdt:P1855 ?example }
+} LIMIT 100

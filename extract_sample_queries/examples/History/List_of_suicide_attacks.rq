@@ -1,3 +1,4 @@
+#title: List of suicide attacks
 SELECT ?h ?hLabel ?location (CONCAT("injured: ",str(?injured)) as ?injuredl) (concat("dead: ",str(?dead)) as ?deadl) ?date ?image
 WHERE
 {

@@ -1,0 +1,11 @@
+#title: Inconsistency between the codes
+# Complex constraint from [[Property talk:P374]]
+# Place with postal code prefix indicating a departement but located in another departement.
+SELECT ?item ?cc ?cp
+  WHERE {
+    ?item wdt:P374 ?cc . #code Insee de commune
+    ?item wdt:P281 ?cp . #code postal
+    FILTER ( ?cc NOT IN( "39274", "44060", "06900" ) ) #valid exceptions
+    FILTER ( SUBSTR(?cp, 1, 2) != "20" ) #excluding Corse 2A/2B != 20
+    FILTER ( SUBSTR(?cp, 1, 2) != SUBSTR(?cc, 1, 2) )
+  }

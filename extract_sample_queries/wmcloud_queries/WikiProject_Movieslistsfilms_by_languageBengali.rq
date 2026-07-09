@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription ?st ?sl ?d
+{
+	?item wdt:P364 wd:Q9610 . 
+	?item wdt:P31/wdt:P279* wd:Q11424 .   
+	OPTIONAL { ?item wdt:P577 ?d }
+	OPTIONAL { ?item wikibase:sitelinks ?sl; wikibase:statements ?st }
+}
+ORDER BY DESC(?d) ?item

@@ -1,0 +1,8 @@
+#typeface to foundry links
+#defaultView:Graph
+SELECT ?foundry ?foundryLabel ?rgb ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q17451.
+  ?item wdt:P4586 ?foundry.
+  BIND( "3182BD" AS ?rgb) #color code foundry nodes
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr,de". }
+}

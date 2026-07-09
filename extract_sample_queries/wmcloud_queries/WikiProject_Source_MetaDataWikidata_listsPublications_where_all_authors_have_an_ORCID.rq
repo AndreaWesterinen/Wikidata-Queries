@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item 
+WHERE {
+  ?author wdt:P496 ?orcid ; wdt:P21 wd:Q6581072 ; wdt:P184 [] ; wdt:P166 [] ; wdt:P69 [] .
+  ?item wdt:P50 ?author ; wdt:P1433 [] ; wdt:P921 [] .
+  FILTER NOT EXISTS { ?item wdt:P2093 ?authornamestring. }
+}
+LIMIT 1000

@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?prop ?propLabel ?rank ?value ?valueLabel
+WHERE
+{
+	?item p:P39 [ ?pq ?value; wikibase:rank ?rank ] .
+	?prop wikibase:qualifier ?pq .
+	FILTER( ?prop NOT IN ( wd:P580, wd:P582, wd:P1534, wd:P585, wd:P1365, wd:P1366, wd:P155, wd:P156, wd:P1545, wd:P1706, wd:P108, wd:P748, wd:P4353, wd:P2715, wd:P768, wd:P1268, wd:P1111, wd:P1734, wd:P2097, wd:P138, wd:P1810, wd:P1932, wd:P5102, wd:P805, wd:P3680, wd:P1310, wd:P1480, wd:P459, wd:P2937, wd:P4100, wd:P102, wd:P463, wd:P361, wd:P1393, wd:P3831, wd:P2868, wd:P4626, wd:P4649, wd:P1552, wd:P828, wd:P1001, wd:P4241, wd:P1319, wd:P8555, wd:P8554, wd:P1326, wd:P1317, wd:P530, wd:P531, wd:P2389, wd:P5054, wd:P708, wd:P1598, wd:P611, wd:P1416, wd:P276, wd:P937, wd:P101, wd:P1444, wd:P94, wd:P1065, wd:P2960, wd:P2241, wd:P7452, wd:P2047, wd:P7779, wd:P180, wd:P10663, wd:P1264, wd:P41, wd:P1478, wd:P642 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 100

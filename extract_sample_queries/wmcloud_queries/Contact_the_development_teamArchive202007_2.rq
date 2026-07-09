@@ -1,0 +1,1 @@
+SELECT * { wd:P21  wikibase:propertyType ?a }

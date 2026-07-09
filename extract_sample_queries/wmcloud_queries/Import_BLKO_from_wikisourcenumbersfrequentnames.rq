@@ -1,0 +1,12 @@
+SELECT ?fn (COUNT(DISTINCT ?art) as ?ct)  (SAMPLE(?art) as ?item)
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?art wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q19389637 . 
+    ?art wdt:P1476 ?title . 
+    BIND( strbefore (str(?title), ",") as ?fn1 )
+    BIND( IF(?fn1 = "", str(?title), ?fn1 ) as ?fn )  
+}
+GROUP BY ?fn
+HAVING ( ?ct > 4)
+ORDER BY DESC(?ct)

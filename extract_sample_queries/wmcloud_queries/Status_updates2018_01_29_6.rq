@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT ?movie ?movieLabel ?place ?placeLabel ?coord ?image
+WHERE 
+{
+  ?movie wdt:P31 wd:Q11424 .
+  ?movie wdt:P915 ?place .
+  ?place wdt:P17 wd:Q40 .
+  ?place wdt:P625 ?coord .
+  OPTIONAL { ?movie wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

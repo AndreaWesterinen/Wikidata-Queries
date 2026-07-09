@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?itemNatureLabel ?institution ?institutionLabel
+{
+  ?item wdt:P126 ?institution. #un élément disposant de la propriété "mainteance assurée par" une institution
+  ?item wdt:P31 ?itemNature. #un élément dont la nature est spécifiée.
+  ?institution wdt:P31/wdt:P279* wd:Q1030034. #l'institution qui prend en charge doit être une GLAM
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en, de, it". }
+}
+ORDER BY (?itemNatureLabel)

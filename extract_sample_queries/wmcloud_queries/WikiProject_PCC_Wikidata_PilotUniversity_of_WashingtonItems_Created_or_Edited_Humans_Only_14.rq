@@ -1,0 +1,9 @@
+SELECT ?item
+WHERE
+{
+  ?item wdt:P5008 wd:Q98970039.
+  ?item wdt:P31 wd:Q5.
+  ?item rdfs:label ?itemLabel.
+  FILTER(LANG(?itemLabel) = "en") .
+  FILTER(STRSTARTS(?itemLabel, 'N')) .
+}

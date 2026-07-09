@@ -1,0 +1,23 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?item ?itemLabel ?property ?propertyLabel ?value ?valueLabel ?qualifier_value ?qualifier_valueLabel WHERE {
+
+     ?statement pq:P2241 ?qualifier_value .
+  
+                       
+     ?property wikibase:claim ?p .
+     ?property wikibase:statementProperty ?ps .
+     ?item ?p ?statement .
+     ?statement ?ps ?value
+                
+                       
+     SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+     }                  
+
+}  ORDER BY ?qualifier_valueLabel ?itemLabel

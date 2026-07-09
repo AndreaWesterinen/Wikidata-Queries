@@ -1,3 +1,4 @@
+#title: People deceased in 2018 ordered by the number of sitelinks
 SELECT ?person ?personLabel ?died ?sitelinks
 WITH {
   SELECT *

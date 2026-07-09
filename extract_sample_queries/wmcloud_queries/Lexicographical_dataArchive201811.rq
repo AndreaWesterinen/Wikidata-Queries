@@ -1,0 +1,4 @@
+SELECT ?l ?lemma  WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language wd:Q5137 ;
+        wikibase:lemma ?lemma .
+}

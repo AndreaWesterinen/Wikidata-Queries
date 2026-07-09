@@ -1,7 +1,5 @@
-# ----
 #title: Senses on English lexemes with an offensive or profanity style statement
-# date: 2024-01-25
-# author: So9q
+# author: So9q, 2024-01-25
 SELECT ?l ?sense ?lemma ?swearLabel WHERE {
   ?l ontolex:sense ?sense ; # the sense
      dct:language wd:Q1860 ; # the language

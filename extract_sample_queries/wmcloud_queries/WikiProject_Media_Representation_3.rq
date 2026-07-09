@@ -1,0 +1,53 @@
+#summary of test results for lgbt+ related tests ordered by number of wikipedia sitelinks
+SELECT ?item ?itemLabel ?type (MIN(YEAR(?date)) AS ?year)
+(GROUP_CONCAT(DISTINCT ?vito_russo; separator = '/') AS ?Vito_Russo)
+(GROUP_CONCAT(DISTINCT ?topside; separator = '/') AS ?Topside)
+(GROUP_CONCAT(DISTINCT ?coates; separator = '/') AS ?Coates)
+(GROUP_CONCAT(DISTINCT ?bubblegum; separator = '/') AS ?BubbleGum)
+?sitelinks
+#first I'm getting all items with at least one result for one of the tests
+WITH { SELECT DISTINCT ?item ?type WHERE {
+    #getting possible results
+    VALUES ?test {wd:Q93605402 wd:Q105641628 wd:Q105640076 wd:Q105816692}
+    #for consideration an item has to have at least one result for one of the tests
+    ?item wdt:P5021 ?test.
+    #excluding television series episodes and chapters
+    MINUS{?item wdt:P31/wdt:P279* wd:Q21191270}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q1980247}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q11424 BIND("film" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q5398426 BIND("television series" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q7725634 BIND("literary work" AS ?type)}
+}
+} AS %items
+#now I get the results for all relevant tests
+ WHERE {    
+    INCLUDE %items
+    #getting vito russo
+    OPTIONAL{?item p:P5021 ?st_vito_russo. ?st_vito_russo ps:P5021 wd:Q93605402; pq:P9259 ?vito_russo_result.
+             ?vito_russo_result rdfs:label ?vito_russo_label. FILTER(LANG(?vito_russo_label)="en")
+              OPTIONAL{?st_vito_russo pq:P444 ?vito_russo_score}
+              BIND(IF(BOUND(?vito_russo_score),CONCAT(?vito_russo_label," (",?vito_russo_score,")"),?vito_russo_label) AS ?vito_russo)}
+    #getting topside
+    OPTIONAL{?item p:P5021 ?st_topside. ?st_topside ps:P5021 wd:Q105640076; pq:P9259 ?topside_result.
+             ?topside_result rdfs:label ?topside_label. FILTER(LANG(?topside_label)="en")
+              OPTIONAL{?st_topside pq:P444 ?topside_score}
+              BIND(IF(BOUND(?topside_score),CONCAT(?topside_label," (",?topside_score,")"),?topside_label) AS ?topside)}
+    #getting coates
+    OPTIONAL{?item p:P5021 ?st_coates. ?st_coates ps:P5021 wd:Q105641628; pq:P9259 ?coates_result.
+             ?coates_result rdfs:label ?coates_label. FILTER(LANG(?coates_label)="en")
+              OPTIONAL{?st_coates pq:P444 ?coates_score}
+              BIND(IF(BOUND(?coates_score),CONCAT(?coates_label," (",?coates_score,")"),?coates_label) AS ?coates)}
+    #getting bubblegum
+    OPTIONAL{?item p:P5021 ?st_bubblegum. ?st_bubblegum ps:P5021 wd:Q105816692; pq:P9259 ?bubblegum_result.
+             ?bubblegum_result rdfs:label ?bubblegum_label. FILTER(LANG(?bubblegum_label)="en")
+              OPTIONAL{?st_bubblegum pq:P444 ?bubblegum_score}
+              BIND(IF(BOUND(?bubblegum_score),CONCAT(?bubblegum_label," (",?bubblegum_score,")"),?bubblegum_label) AS ?bubblegum)}
+    ?item wikibase:sitelinks ?sitelinks.
+    OPTIONAL{?item wdt:P577 ?publication}
+    OPTIONAL{?item wdt:P580 ?start}
+    BIND(IF(BOUND(?publication),?publication,?start) AS ?date)
+   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?count ?sitelinks ?type
+ORDER BY DESC(?sitelinks)

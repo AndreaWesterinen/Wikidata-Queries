@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?pubYear ?article ?articleLabel WHERE {
+  ?australianPlace wdt:P131* wd:Q408 .
+  ?item wdt:P291 ?australianPlace .
+  ?item wdt:P577 ?pubDate .
+  FILTER ((?pubDate >= "1800-01-01T00:00:00Z"^^xsd:dateTime) && (?pubDate <= "1899-12-31T00:00:00Z"^^xsd:dateTime)) .
+  BIND(YEAR(?pubDate) as ?pubYear) . 
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://en.wikisource.org/>
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?pubYear

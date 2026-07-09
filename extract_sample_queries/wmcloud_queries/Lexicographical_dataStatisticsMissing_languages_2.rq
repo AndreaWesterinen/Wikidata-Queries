@@ -1,0 +1,11 @@
+SELECT ?item ?count{
+    hint:Query hint:optimizer "None".
+  ?item wdt:P1098 ?count.
+  MINUS
+  {
+SELECT DISTINCT ?item {[] dct:language ?item}
+    }
+  MINUS {?item wdt:P31 wd:Q25295}
+  MINUS {?item wdt:P31 wd:Q941501}
+  FILTER(!wikibase:isSomeValue(?count))
+} ORDER BY DESC(?count)

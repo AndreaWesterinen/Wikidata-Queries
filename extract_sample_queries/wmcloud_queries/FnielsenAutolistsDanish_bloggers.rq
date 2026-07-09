@@ -1,0 +1,9 @@
+SELECT ?item WHERE {
+  ?item wdt:P1581 ?blog
+  {
+    select distinct ?item WHERE {
+      { ?item wdt:P1412 wd:Q9035 }
+  	  UNION { ?item wdt:P27 wd:Q35 }
+    }
+  }
+}

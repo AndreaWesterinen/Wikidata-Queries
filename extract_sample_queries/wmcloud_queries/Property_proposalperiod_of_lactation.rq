@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?higherParentName WHERE {
+    ?item wdt:P959 ?id .
+    ?item (wdt:P171)* ?higherParent .
+    ?higherParent wdt:P105 wd:Q35409 . # family
+    FILTER(!sameTerm(?higherParent, wd:Q43238)) # Poaceae
+}

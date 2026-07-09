@@ -1,0 +1,5 @@
+PREFIX math: <http://www.w3.org/2005/xpath-functions/math/#>
+
+SELECT ?val WHERE {
+ BIND( math:log(100) AS ?val) .
+}

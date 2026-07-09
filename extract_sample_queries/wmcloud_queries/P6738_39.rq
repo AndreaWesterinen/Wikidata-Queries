@@ -1,0 +1,9 @@
+#title: Artworks in the Whitney Museum of American Art collection without a link
+# Complex constraint from [[Property talk:P6738]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q639791|Whitney Museum of American Art <small>(Q639791)</small>]], but that item doesn't have [[Property:P6738|Whitney Museum of American Art artwork ID&#32;<small dir="ltr">(P6738)</small>]]. Missing link can probably be added
+SELECT ?item WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q639791 .
+  FILTER NOT EXISTS {?item wdt:P6738 ?value . }
+}
+LIMIT 1000

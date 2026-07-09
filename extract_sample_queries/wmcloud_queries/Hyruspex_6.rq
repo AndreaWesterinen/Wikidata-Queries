@@ -1,0 +1,3 @@
+#nombre d'habitants dans le canton de Genève
+SELECT ?chiffrepopulation WHERE { wd:Q11917 (p:P1082/ps:P1082) ?chiffrepopulation. }
+LIMIT 10

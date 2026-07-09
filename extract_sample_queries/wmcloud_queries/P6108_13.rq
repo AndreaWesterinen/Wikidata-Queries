@@ -1,0 +1,7 @@
+#title: Check URL
+# Complex constraint from [[Property talk:P6108]]
+# URL contain `json`, `manifest` or an ID
+SELECT ?item ?v {
+	?item wdt:P6108 ?value .
+    BIND (STR(?value) AS ?v)
+    FILTER (REGEX(?v, "^(.*(json

@@ -1,0 +1,4 @@
+#title: Value "last" not allowed
+# Complex constraint from [[Property talk:P1366]]
+# If item is last in a series, value type should be "no value", rather than a value of [[d:Q30013662|last <small>(Q30013662)</small>]], which is ambiguous
+SELECT ?item ?itemLabel WHERE {?item ?prop [pq:P1366 wd:Q30013662].}

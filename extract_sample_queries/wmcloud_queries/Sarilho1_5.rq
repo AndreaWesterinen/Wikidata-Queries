@@ -1,0 +1,27 @@
+#Find articles authored by Paul Erdős
+#SELECT ?article ?articleLabel WHERE{
+#?article wdt:P31 wd:Q13442814;
+#      wdt:P50 wd:Q173746.
+#      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } }
+
+#Find Paul Erdős co-authors
+#defaultView:Graph
+SELECT ?item ?itemLabel ("7FFF00" as ?rgb) ?article (" " as ?articleLabel) WHERE{
+  ?article wdt:P31 wd:Q13442814;
+           wdt:P50 wd:Q173746, ?item.
+  #FILTER(?item != wd:Q173746)
+  ?article wdt:P2093 ?itemname
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } }
+
+#Limit 1000
+
+#defaultView:Graph
+#SELECT ?item1 ?item1Label ("7FFF00" as ?rgb) ?item2 ?item2Label ?article1 (" " as ?article1Label) ?article2 (" " as ?article2Label) WHERE{
+#  ?article1 wdt:P31 wd:Q13442814;
+#           wdt:P50 wd:Q173746, ?item1.
+#  ?article2 wdt:P31 wd:Q13442814;
+#           wdt:P50 ?item1, ?item2.
+#  FILTER(?item1 != ?item2)
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } }
+
+#Limit 1000

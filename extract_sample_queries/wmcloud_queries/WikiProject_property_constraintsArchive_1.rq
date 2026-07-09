@@ -1,0 +1,7 @@
+SELECT ?item
+WHERE
+{
+	?item wdt:P1435 ?value .
+	FILTER NOT EXISTS { ?item wdt:P131|wdt:P276 [] } .
+}
+LIMIT 1000

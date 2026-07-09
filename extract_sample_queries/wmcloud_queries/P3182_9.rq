@@ -1,0 +1,7 @@
+#title: Type inconsistency
+# Complex constraint from [[Property talk:P3182]]
+# Inconsistency between the type and the [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]].
+SELECT ?item WHERE {
+	?item wdt:P3182 ?FANTOIR ; wdt:P31/wdt:P279* wd:Q83620 .
+	FILTER regex( substr(?FANTOIR, 7, 1) , "[A-Z]" )
+}

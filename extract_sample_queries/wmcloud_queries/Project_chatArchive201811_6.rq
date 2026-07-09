@@ -1,0 +1,8 @@
+SELECT ?edition ?editionLabel ?gutenbergid    WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?edition wdt:P2034 ?gutenbergid.
+?edition wdt:P31 wd:Q3331189 .
+  filter(not exists{?edition wdt:P629 ?original.})
+}
+ORDER BY ?book
+LIMIT 100

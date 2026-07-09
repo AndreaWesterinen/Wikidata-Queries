@@ -1,0 +1,22 @@
+SELECT ?item
+?label ?title
+?diff
+WHERE {
+  ?item wdt:P195 wd:Q1568434.
+  ?item wdt:P1476 ?title.
+  ?item rdfs:label ?label. FILTER (lang(?label) = "en") 
+
+  FILTER(substr(str(?title), strlen(?title)) = 's')
+  FILTER(substr(str(?label), strlen(?label)) != 's')
+  # seems in a whitespace regex "\s*" the "\" was left out
+  
+  BIND( ((strlen(?title)-strlen(?label))) AS ?diff)
+  FILTER(?diff > 0 && ?diff < 4)
+  
+#  FILTER regex(?title, concat(?label, 's+'), 'i')
+# for some reason this only catches single words ->
+# some difference in whitespace?
+# but applying "replace( [string] , '\\s+', '', 'i')" on both doesn't work either
+}
+ORDER BY ?diff
+LIMIT 1000

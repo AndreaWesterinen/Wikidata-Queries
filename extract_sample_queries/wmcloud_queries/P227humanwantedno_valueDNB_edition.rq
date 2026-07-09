@@ -1,0 +1,16 @@
+SELECT ?sl ?extids ?item ?itemLabel ?itemDescription ?sex_or_genderLabel ?viaf ?isni (GROUP_CONCAT(STR(?ed); SEPARATOR=", ") AS ?edd) ?date
+WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P227 ?v .
+  ?v a wdno:P227 ; prov:wasDerivedFrom [ pr:P1292 ?ed ; pr:P813 ?date ] .
+  OPTIONAL {?item wdt:P21 ?sex_or_gender.}
+  OPTIONAL {?item wdt:P214 ?viaf.}
+  OPTIONAL {?item wdt:P213 ?isni.}
+ #?item wdt:P244 ?lc .
+  ?item wikibase:sitelinks ?sl . #FILTER (?sl >= 1) . # only include items having X or more sitelinks
+  ?item wikibase:identifiers ?extids. #FILTER (?extids >= 1) . # only include items having X or more external ids
+ #?sitelink schema:isPartOf <https://de.wikipedia.org/>; schema:about ?item .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+GROUP BY ?sl ?extids ?item ?itemLabel ?itemDescription ?sex_or_genderLabel ?viaf ?isni ?date
+ORDER BY DESC(?sl) DESC(?extids) DESC(?viaf) DESC(?isni)

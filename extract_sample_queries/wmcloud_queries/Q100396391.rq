@@ -1,0 +1,6 @@
+SELECT ?item ?named ?pages ?url WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P1343 wd:Q100396391.
+  ?item p:P1343 ?statement.
+  OPTIONAL {?statement pq:P2699 ?url ; ps:P1343 wd:Q100396391.}
+  }

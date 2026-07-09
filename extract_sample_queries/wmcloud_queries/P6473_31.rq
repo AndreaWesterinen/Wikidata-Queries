@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P6473]]
+# Items in [[d:Q1522|New Mexico <small>(Q1522)</small>]] that do have [[d:Q19558910|National Register of Historic Places listed place <small>(Q19558910)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P6473|NMSRCP reference number&#32;<small dir="ltr">(P6473)</small>]]
+SELECT ?place WHERE { ?place wdt:P131* wd:Q1522 . ?place wdt:P1435 wd:Q19558910 . MINUS { ?place wdt:P6473 [] . } } LIMIT 1000

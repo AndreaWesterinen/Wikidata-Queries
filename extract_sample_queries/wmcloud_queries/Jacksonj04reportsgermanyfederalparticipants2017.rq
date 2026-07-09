@@ -1,0 +1,34 @@
+SELECT
+  ?item
+  ?area
+  ?areaType
+  ?electionDate
+  ?startDate
+  ?endDate
+  ?partOf
+  ?representing
+  ?parlGroup
+  (sample(?givenName) as ?givenName)
+  (sample(?familyName) as ?familyName)
+  (group_concat(?fbPage) as ?fbPages)
+WHERE {
+  ?item p:P1344 ?statement .
+  
+  ?statement ps:P1344 wd:Q23558762 .
+  
+  ?statement ps:P1344 ?election .
+  
+  optional { ?statement pq:P768 ?area .
+           ?area wdt:P31 ?areaType }
+  optional { ?item wdt:P2013 ?fbPage }
+  optional { ?item wdt:P735 ?givenName }
+  optional { ?item wdt:P734 ?familyName }
+  optional { ?statement pq:P2715 ?election .
+             ?election wdt:P585 ?electionDate }
+  optional { ?statement pq:P1268 ?representing }
+  optional { ?statement pq:P361 ?partOf }
+  optional { ?statement pq:P4100 ?parlGroup }
+  optional { ?statement pq:P580 ?startDate }
+  optional { ?statement pq:P582 ?endDate }
+}
+GROUP BY ?item ?position ?area ?areaType ?electionDate ?startDate ?endDate ?partOf ?representing ?parlGroup

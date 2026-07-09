@@ -1,0 +1,8 @@
+#title: Not located in Brittany
+# Complex constraint from [[Property talk:P1529]]
+# All items should have a P131 with a place in Britanny.
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P1529 ?id.
+  FILTER ( ?id NOT in ("IA00007694") ) #valid exceptions
+  MINUS { ?item wdt:P131+ wd:Q12130 } .
+}

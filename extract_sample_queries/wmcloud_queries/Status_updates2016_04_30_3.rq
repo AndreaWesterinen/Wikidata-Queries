@@ -1,0 +1,8 @@
+#Map of U1 subway stations in Berlin
+#defaultView:Map
+SELECT ?stationLabel ?coord
+WHERE {
+	?station wdt:P81 wd:Q99691 .
+	?station wdt:P625 ?coord
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+}

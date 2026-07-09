@@ -1,0 +1,7 @@
+SELECT ?item ?st WHERE {
+ ?item wdt:P31 wd:Q5. 
+ ?item wdt:P106/wdt:P279* wd:Q1476215. 
+ ?item wikibase:statements ?st.
+
+       }
+ORDER BY ASC(?st)

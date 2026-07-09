@@ -1,0 +1,16 @@
+#title: value label (experimental)
+# Complex constraint from [[Property talk:P1791]]
+# compares label of value with label of subject per regex for language at [[Property:P1791#P1552]]: [[d:Q100883797|complex constraint value label template <small>(Q100883797)</small>]]
+SELECT ?item ?lang ?l ?value ?v ?t ?check
+WHERE 
+{
+  hint:Query hint:optimizer "None".
+  wd:P1791 p:P1552 [ ps:P1552 wd:Q100883797 ; pq:P1450 ?t ]
+  BIND( lang(?t) as ?lang) 
+  ?item wdt:P1791 ?value .
+  ?item rdfs:label ?l . FILTER(lang(?l) = ?lang) 
+  ?value rdfs:label ?v . FILTER(lang(?v) = ?lang)
+  BIND ( REPLACE(str(?l), "^(.+)$", str(?t)) as ?check) 
+  FILTER ( !REGEX(str(?v), ?check)  )
+}
+LIMIT 350

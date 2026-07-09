@@ -1,0 +1,11 @@
+embed.html#SELECT DISTINCT ?pm ?pmLabel ?fonctionLabel
+WHERE
+{
+    {?pm wdt:P39/wdt:P279 wd:Q2505921} Union {?pm wdt:P39 wd:Q839078 }
+    OPTIONAL {?pm wdt:P39 ?fonction}
+    SERVICE wikibase:label {
+            bd:serviceParam wikibase:language "fr","en" 
+    }
+}
+ORDER BY (?pmLabel) 
+LIMIT 1000

@@ -1,0 +1,20 @@
+SELECT DISTINCT 
+  ?item
+  (CONCAT("[[:fr:",?n,"\u007C",?n,"]]") as ?n0)
+  (CONCAT("[[:en:",?nen,"\u007C",?nen,"]]") as ?n1)  
+  ?sts ?sls ?ids
+  ?entry ?start
+  (CONCAT("[[s:",str(?wstitle), "|", replace(str(?wstitle),"A Naval Biographical Dictionary/",""), "]]") as ?warticle)
+WHERE
+{
+  ?item wdt:P1343 wd:Q16055052; wdt:P31 wd:Q5 .
+  [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?n .
+  ?item wikibase:statements ?sts ; wikibase:sitelinks ?sls ; wikibase:identifiers ?ids .
+	?entry		wdt:P1433 wd:Q16055052 .
+	?entry		wdt:P31 wd:Q19389637 .
+  	?entry 		wdt:P921 ?item . 
+    [] schema:about ?entry ; schema:isPartOf <https://en.wikisource.org/> ; schema:name ?wstitle
+    OPTIONAL { ?item p:P241 [ ps:P241 wd:Q172771 ; pq:P580 ?start ] }   
+    OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?nen . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,18 @@
+#title: default P31 values for eswiki (claimless items)
+# Complex constraint from [[Property talk:P31]]
+# TODO: add P31
+SELECT ?item ?n ?pref ?inst
+WHERE
+{
+  VALUES ( ?pref ?inst ) { 
+    ( "Plantilla:" wd:Q11266439 )
+    ( "Módulo:" wd:Q15184295 )
+    ( "Categoría:" wd:Q4167836 )
+    ( "Wikipedia:" wd:Q14204246 )
+    ( "Anexo:" wd:Q13406463 )  
+  }
+  ?item wikibase:statements 0 . 
+  [] schema:about ?item ; schema:isPartOf <https://es.wikipedia.org/> ; schema:name ?n . 
+  FILTER( strstarts(?n , ?pref) ) 
+}  
+LIMIT 1000

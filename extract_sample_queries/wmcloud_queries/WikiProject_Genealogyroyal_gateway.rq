@@ -1,0 +1,26 @@
+SELECT ?item ?ancestor ?ed ?desc ?path WITH {SELECT DISTINCT ?item {
+  ?item (wdt:P20|(p:P20/pq:P131)) ?dp. ?dp wdt:P30 wd:Q49. ?dp wdt:P31/wdt:P279* wd:Q133156.
+  ?item wdt:P19 ?bp. ?bp wdt:P17/wdt:P30 wd:Q46.
+  ?item wdt:P40 [].
+  ?item (wdt:P22|wdt:P25)/(wdt:P22|wdt:P25) [].
+} } AS %t1 WITH {
+SELECT ?item ?ancestor ?ed
+{
+    INCLUDE %t1 .
+    ?item (wdt:P22|wdt:P25)+ ?ancestor .
+    ?ancestor p:P39 ?as.
+    ?as ps:P39 ?pos; pq:P582 ?ed.
+  FILTER(?pos IN (wd:Q18810062,wd:Q18810063))
+} 
+} AS %t2 WITH {
+  SELECT (?item as ?item2) (MAX(?ed) as ?ed2) {
+    INCLUDE %t2 .
+  } GROUP BY ?item
+} AS %t3 WHERE {
+  INCLUDE %t2 .
+  INCLUDE %t3 .
+  FILTER ((?item=?item2) && (?ed=?ed2))
+  BIND(CONCAT("{","{numdescendants|",strafter(str(?item),"entity/"),"}","}") AS ?desc)
+  BIND(CONCAT("{","{descent path text|",strafter(str(?ancestor),"entity/"),"|",strafter(str(?item),"entity/"),"}","}") AS ?path)
+}
+ORDER BY desc(?ed)

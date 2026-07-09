@@ -1,0 +1,6 @@
+# things Republicans have “discovered or invented”
+SELECT ?item ?itemDescription ?republican ?republicanLabel WHERE {
+  ?republican wdt:P102 wd:Q29468.
+  ?item wdt:P61 ?republican.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

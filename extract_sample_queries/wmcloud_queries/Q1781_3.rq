@@ -1,0 +1,12 @@
+#title: Budapest is used as death location for people died before 1873
+# Complex constraint from [[Property talk:Q1781]]
+# Items with [[Property:P20|place of death&#32;<small dir="ltr">(P20)</small>]] equal to [[d:Q1781|Budapest <small>(Q1781)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] after 1873-01-01
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P20 wd:Q1781.
+  ?item p:P570 [ psv:P570 ?node; wikibase:rank ?rank ] .
+  FILTER(?rank != wikibase:DeprecatedRank) .
+  ?node wikibase:timeValue ?death .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (?death < "1873-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER (?precision >= "9"^^xsd:integer)
+}

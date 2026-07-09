@@ -1,0 +1,12 @@
+#title: ru description to include P1705 value
+# Complex constraint from [[Property talk:P6597]]
+# Russian description format is generally "фамилия - <P1705 value>"
+SELECT ?item ?nl ?ru_desc 
+{
+	?item wdt:P6597 [] .
+    hint:Prior hint:rangeSafe true .  
+    ?item wdt:P1705 ?nl . 
+    ?item schema:description ?ru_desc . FILTER(lang(?ru_desc)="ru" && !CONTAINS( ?ru_desc, ?nl ) )
+    ?item wdt:P282 wd:Q8229 . 
+}
+LIMIT 200

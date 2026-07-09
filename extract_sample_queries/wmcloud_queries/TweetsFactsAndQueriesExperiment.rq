@@ -1,0 +1,1 @@
+SELECT ?item ?youtube WHERE { ?item wdt:P31 wd:Q25271174; wdt:P361 wd:Q19291990. OPTIONAL { ?item wdt:P1651 ?ytId. BIND(CONCAT("[https://www.youtube.com/watch?v=",?ytId, " ", ?ytId, "]") AS ?youtube). } }

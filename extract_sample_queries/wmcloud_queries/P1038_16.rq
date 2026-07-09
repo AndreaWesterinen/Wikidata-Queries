@@ -1,0 +1,16 @@
+#title: Use more specific properties
+# Complex constraint from [[Property talk:P1038]]
+# Use [[Property:P22|father&#32;<small dir="ltr">(P22)</small>]], [[Property:P25|mother&#32;<small dir="ltr">(P25)</small>]], [[Property:P26|spouse&#32;<small dir="ltr">(P26)</small>]], [[Property:P40|child&#32;<small dir="ltr">(P40)</small>]], etc. instead of [[Property:P1038|relative&#32;<small dir="ltr">(P1038)</small>]] with [[Property:P1039|kinship to subject&#32;<small dir="ltr">(P1039)</small>]]
+SELECT ?item # ?itemLabel ?property ?propertyLabel ?value ?valueLabel
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?property ?value {
+			?item wdt:P1038 [] .
+			VALUES ?value { wd:Q7565 wd:Q7560 wd:Q7569 wd:Q177232 wd:Q308194 wd:Q1196129 wd:Q212878 wd:Q188830 wd:Q19822352 wd:Q1282201 wd:Q15384699 wd:Q223973 wd:Q41795928 wd:Q41795941 wd:Q31184 wd:Q10861465 wd:Q595094 } .
+			?item p:P1038/pq:P1039 ?value .
+			BIND( wd:P1038 AS ?property ) .
+		} LIMIT 1000
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

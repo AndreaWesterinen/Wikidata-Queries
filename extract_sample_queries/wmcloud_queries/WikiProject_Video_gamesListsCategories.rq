@@ -1,0 +1,25 @@
+SELECT ?item ?itemLabel ?shortprop ?statementqualifier WHERE {
+  VALUES ?subject {
+    wd:Q7889
+  }
+  VALUES ?type {
+    wd:Q30432511
+    wd:Q1474116
+    wd:Q15647814
+    wd:Q15407973
+    wd:Q56428020
+    wd:Q59542487
+    wd:Q59541917
+    wd:Q4167836
+  }
+  { ?item (wdt:P4224/(wdt:P279*)) ?subject. }
+  UNION
+  { ?item (wdt:P921/(wdt:P279*)) ?subject. }
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  OPTIONAL {
+    ?item p:P4224 ?statement.
+    ?statement rdf:type wikibase:BestRank;
+      ?qualifier ?statementqualifier.
+    ?qualifierproperty wikibase:qualifier ?qualifier.
+    BIND(xsd:integer(REPLACE(STR(?qualifierproperty), "http://www.wikidata.org/entity/P", "")) AS ?propid)
+    BIND(CONCAT("{", "{P

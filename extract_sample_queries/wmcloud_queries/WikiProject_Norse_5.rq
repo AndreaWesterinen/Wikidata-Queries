@@ -1,0 +1,7 @@
+#Everything meaningfully related to Norse culture.
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  {
+    ?item (wdt:P279|wdt:P361|wdt:P1269|wdt:P2596|wdt:P31)* wd:Q24175569 .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

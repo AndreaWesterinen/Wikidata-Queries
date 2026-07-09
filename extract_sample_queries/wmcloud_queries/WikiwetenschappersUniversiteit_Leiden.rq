@@ -1,0 +1,9 @@
+#Katten
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P108 wd:Q156598.
+  ?item wdt:P106 wd:Q1622272.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER NOT EXISTS {?item wdt:P2861 ?code}
+}

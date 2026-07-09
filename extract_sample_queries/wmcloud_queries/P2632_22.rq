@@ -1,0 +1,11 @@
+#title: Error in start or end date
+# Complex constraint from [[Property talk:P2632]]
+# Negative interval between end date and start date
+SELECT DISTINCT ?item
+WHERE { 
+  ?item p:P2632 ?statement.
+  ?statement pq:P580 ?start.
+  ?statement pq:P582 ?end.
+  BIND( year(?end)-year(?start) as ?diff ).
+  FILTER (?diff < 0)
+}

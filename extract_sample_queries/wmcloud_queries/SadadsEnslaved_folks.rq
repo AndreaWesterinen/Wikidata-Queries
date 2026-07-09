@@ -1,0 +1,2 @@
+SELECT ?people 
+WHERE { ?people wdt:P3716 wd:Q12773225; wikibase:statements ?st } ORDER BY ASC(?st) ?item

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P1030/ps:P1030 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((Iso|Fl|Oc|Q|LFl|VQ)(\\(\\d\\))?( [WRGY]{1,4})\\.([0-9]+)s)$") )
+}

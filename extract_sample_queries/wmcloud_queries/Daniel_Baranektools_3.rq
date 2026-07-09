@@ -1,0 +1,11 @@
+SELECT DISTINCT ?statement WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],cs". }
+  ?item wdt:P1343 wd:Q103989905;
+			p:P570 ?statement;
+        	p:P570 [ ps:P570 ?narkdyHrub; psv:P570 [wikibase:timePrecision 9]].
+  ?statement ps:P570 ?narkdy;
+             psv:P570 [wikibase:timePrecision 11];
+             wikibase:rank ?rank.
+  FILTER (?rank = wikibase:NormalRank)
+  MINUS { ?item p:P570 [psv:P570 [wikibase:timePrecision 11]; wikibase:rank wikibase:PreferredRank] }
+}

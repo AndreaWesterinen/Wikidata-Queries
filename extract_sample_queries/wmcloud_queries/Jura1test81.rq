@@ -1,0 +1,12 @@
+SELECT ?item (COUNT(DISTINCT ?stu) as ?ct) (SAMPLE(?sl) as ?sl) (SAMPLE(?st) as ?st) (SAMPLE(?w) as ?w) (SAMPLE(?wp) as ?wp) (SAMPLE(?coor) as ?coor) (SAMPLE(?all) as ?all)
+WHERE
+{
+    ?item wdt:P31 wd:Q9826 ; wdt:P17 wd:Q30 ; wdt:P131* wd:Q16641
+    OPTIONAL { ?item ^wdt:P69 ?stu }
+    OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl }
+    OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w1  BIND( CONCAT("[[:en:",str(?w1),"|en]]") as ?wp) } 
+    OPTIONAL { ?item wdt:P3876 ?allcat . [] schema:about ?allcat ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w2  BIND( CONCAT("[[:en:",str(?w2),"|en]]") as ?all) } 
+    OPTIONAL { ?item wdt:P856 ?ws . BIND( "✓" as ?w) }  
+    OPTIONAL { ?item wdt:P625 ?coor1 . BIND( "✓" as ?coor) }  
+}
+GROUP BY ?item ORDER BY DESC(?ct)

@@ -1,0 +1,31 @@
+#defaultView:Graph
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+select ?author ?authorLabel ?work ?workLabel where {
+  {
+    select ?work ?author where {
+      service gas:service {
+        gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS" ;
+                    gas:in wd:Q173746 ;
+                    gas:target wd:Q25975509 ;
+                    gas:traversalDirection "Undirected" ;
+                    gas:out ?work ;
+                    gas:out1 ?depth ;
+                    gas:out2 ?predecessor ;
+                    gas:linkType wdt:P50 ;
+                    gas:maxIterations 12;
+                    gas:maxVisited 2000 .
+      }
+      ?work wdt:P50 ?author
+    }
+  }
+  union {
+    bind(wd:Q25975509 as ?work)
+    ?work wdt:P50 ?author .
+  }
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+   }
+}

@@ -1,0 +1,11 @@
+SELECT 
+   (wd:Q847 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   ( wd:Q47405126 as ?type)
+("4" as ?level)
+("finals" as ?descr)
+WHERE
+{
+ { ?a wdt:P31 wd:Q47405126 ; wdt:P641 wd:Q847   }
+}

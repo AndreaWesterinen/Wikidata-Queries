@@ -1,0 +1,2 @@
+#title:Normalize values
+SELECT DISTINCT ?item WHERE { ?item wdt:P18 ?value . FILTER( REGEX(STR(?value), '^http://commons\\.wikimedia\\.org/wiki/Special:FilePath/[a-z]') = true)}

@@ -1,0 +1,12 @@
+SELECT DISTINCT ?subject ?subjectLabel (sample(?image) as ?img) (count(distinct ?episode) as ?count) (GROUP_CONCAT(distinct ?serieLabel; separator=" -- ") as ?series) WHERE {
+  ?episode wdt:P31 wd:Q1983062.
+  ?episode wdt:P179 ?serie.
+  ?episode wdt:P921 ?subject.
+  optional { ?subject wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". 
+                         ?serie rdfs:label ?serieLabel.
+                          ?subject rdfs:label ?subjectLabel.
+                         }
+  
+} group by ?subject ?subjectLabel 
+having (count(distinct ?episode) > 4)

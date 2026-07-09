@@ -1,0 +1,16 @@
+#title: Places around the point (0, 0) (300 km)
+# Complex constraint from [[Property talk:P625]]
+# 300 km around the point (0, 0)
+SELECT ?item ?dist {
+  SERVICE wikibase:around { 
+      ?item wdt:P625 ?location. 
+      bd:serviceParam wikibase:center "Point(0.0 0.0)"^^geo:wktLiteral.
+      bd:serviceParam wikibase:radius "300".
+  }
+  BIND(geof:distance("Point(0.0 0.0)"^^geo:wktLiteral, ?location) as ?dist)
+  FILTER (?item NOT IN (wd:Q24041662, wd:Q16896007, wd:Q23538)).
+  FILTER NOT EXISTS {
+    VALUES ?t { wd:Q32099 wd:Q146591 }.
+    ?item wdt:P31 ?t.
+  }
+}

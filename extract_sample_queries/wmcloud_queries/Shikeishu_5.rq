@@ -1,0 +1,8 @@
+# Clubs in Berlin
+SELECT ?item ?itemLabel WHERE {
+    ?item wdt:P31/wdt:P279* wd:Q1228895 .
+    ?item wdt:P131* wd:Q64 .
+  	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}

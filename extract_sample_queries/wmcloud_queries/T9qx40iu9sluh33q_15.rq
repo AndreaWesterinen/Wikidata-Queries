@@ -1,0 +1,22 @@
+#defaultView:ImageGrid
+SELECT ?work ?workLabel (SAMPLE(?image) AS ?image) (SAMPLE(?count) AS ?count)
+WHERE
+{
+  {
+    SELECT ?work (COUNT(DISTINCT ?depicted) AS ?count)
+    WHERE
+    {
+      ?work wdt:P31/wdt:P279* wd:Q838948;
+            wdt:P180 ?depicted.
+      ?depicted wdt:P31/wdt:P279* ?class.
+      FILTER(?class IN (wd:Q5, wd:Q95074)).
+    }
+    GROUP BY ?work
+    ORDER BY DESC(?count)
+    LIMIT 50
+  }
+  OPTIONAL { ?work wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en", "fr", "da", "pl". }
+}
+GROUP BY ?work ?workLabel
+ORDER BY DESC(?count)

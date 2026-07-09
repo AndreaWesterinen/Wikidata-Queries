@@ -1,0 +1,9 @@
+#title: Items of an "allowed entity types constraint" must be Wikidata datatypes
+# Complex constraint from [[Property talk:P2305]]
+# The only allowed items for the [[Property:P2305|item of property constraint&#32;<small dir="ltr">(P2305)</small>]] qualifier to the [[d:Q52004125|allowed-entity-types constraint <small>(Q52004125)</small>]] are [[d:Q29934200|Wikibase item <small>(Q29934200)</small>]], [[d:Q29934218|Wikibase property <small>(Q29934218)</small>]], [[d:Q59712033|Wikibase MediaInfo <small>(Q59712033)</small>]], [[d:Q51885771|Wikibase lexeme <small>(Q51885771)</small>]], [[d:Q54285143|Wikibase form <small>(Q54285143)</small>]] and [[d:Q54285715|Wikibase sense <small>(Q54285715)</small>]].
+SELECT ?item ?itemLabel ?datatype ?datatypeLabel WHERE {
+  ?item p:P2302 [ ps:P2302 wd:Q52004125; pq:P2305 ?datatype; wikibase:rank ?rank ].
+  FILTER (?datatype NOT IN (wd:Q29934200, wd:Q29934218, wd:Q59712033, wd:Q51885771, wd:Q54285143, wd:Q54285715)).
+  FILTER (?rank != wikibase:DeprecatedRank)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?country ?countryLabel WHERE {
+  ?item schema:description "building in Africa"@en  .
+  ?item wdt:P17 ?country .
+  #?country wdt:P30 wd:Q46 . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+  } LIMIT 2000

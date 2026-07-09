@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?station ?stationLabel ?dateOpened ?image ?location
+WHERE
+{
+  ?station wdt:P31 wd:Q55488 .
+  ?station wdt:P17 wd:Q145 .
+  OPTIONAL {?station wdt:P1619 ?dateOpened .}
+  OPTIONAL {?station wdt:P18 ?image .}
+  ?station wdt:P625 ?location .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

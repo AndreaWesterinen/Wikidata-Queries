@@ -1,0 +1,12 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?layer
+WHERE 
+{
+  ?item wdt:P131/wdt:P131 wd:Q22. 
+  ?item wdt:P706 ?island.
+  ?island wdt:P31 wd:Q23442.
+  ?item wdt:P625 ?coord . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                         ?island rdfs:label ?layer .
+                          ?item rdfs:label ?itemLabel} 
+}

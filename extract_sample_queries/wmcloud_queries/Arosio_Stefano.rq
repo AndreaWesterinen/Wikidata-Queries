@@ -1,0 +1,45 @@
+SELECT ?item (GROUP_CONCAT(distinct ?identifier) as ?identifiers) ?country ?gamesCount ?cpuInfo WHERE {
+ #per le colonne visualizzate si guardi piu sotto columns=item
+ 
+ #costruzione label???
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". }
+ 
+ #filtri veri e propri
+ ?gen wdt:P361 wd:Q129781.
+ ?item wdt:P279* ?gen.
+ ?item wdt:P176* ?manufacturer.
+{ ?item  wdt:P31 wd:Q56682555 } UNION { ?item  wdt:P31 wd:Q10929058 } UNION { ?item  wdt:P31 wd:Q115187350 }
+ 
+ OPTIONAL {
+    # Get external identifiers
+    ?item ?prop ?id.
+    ?propItem wikibase:directClaim ?prop.
+    ?propItem wikibase:propertyType wikibase:ExternalId.
+    ?propItem wdt:P31 wd:Q28147643 .
+    ?propItem wdt:P1630 ?formatterurl .
+    ?propItem rdfs:label ?propItemLabel .
+    FILTER (lang(?propItemLabel) = "en").
+    BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterurl)) AS ?url).
+    BIND(CONCAT("[", str(?url), " ", ?propItemLabel, "]") as ?identifier)
+ }
+ 
+ # calcolo cpuInfo
+ OPTIONAL { ?item wdt:P361 wd:Q58853262. BIND(wd:Q58853262 AS ?pc50Xfamily). }
+ OPTIONAL { ?item wdt:P2283 wd:Q173475. BIND(wd:Q173475 AS ?isDiodeTransistorLogic). }
+ OPTIONAL { ?item wdt:P2283 wd:Q265899. BIND(wd:Q265899 AS ?isTTL7400). }
+ OPTIONAL { ?item wdt:P2283 wd:Q173451. BIND(wd:Q173451 AS ?isTTL). }
+ OPTIONAL { ?item wdt:P2283 wd:Q173431. BIND(wd:Q173431 AS ?isCMOS). }
+ OPTIONAL { ?item wdt:P880 ?cpu}
+ BIND(IF(BOUND(?pc50Xfamily),'Into PC-50x cartridges',?cpu) AS ?cpu2).
+ BIND(IF(BOUND(?isTTL7400), ?isTTL7400, ?cpu2) AS ?cpu3).
+ BIND(IF(BOUND(?isTTL), ?isTTL, ?cpu3) AS ?cpu4).
+ BIND(IF(BOUND(?isCMOS), ?isCMOS, ?cpu4) AS ?cpu5).
+ BIND(IF(BOUND(?isDiodeTransistorLogic), ?isDiodeTransistorLogic, ?cpu5) AS ?cpuInfo).
+ 
+ # calcolo paese dal manufacturer
+ OPTIONAL{?manufacturer wdt:P17 ?country .}
+ 
+ # calcolo numero di giochi
+ OPTIONAL { ?item p:P2670 ?partOfClass . ?partOfClass pq:P1114 ?gamesCount }
+ 
+} GROUP BY ?item ?country ?gamesCount ?cpuInfo

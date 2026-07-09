@@ -1,0 +1,23 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT DISTINCT ?item ?itemLabel ?high ?highl ?high_elevation ?low ?lowl ?low_elevation ?span WHERE {
+  #?item wdt:P31 wd:Q160016 .
+  ?item wdt:P610 ?high .
+  ?item p:P610 ?high_statement .
+  { ?high wdt:P2044 ?high_elevation } UNION { ?high_statement pq:P2044 ?high_elevation }
+  OPTIONAL { ?high rdfs:label ?highl filter (lang(?highl) = "en") . }
+  ?item wdt:P1589 ?low .
+  ?item p:P1589 ?low_statement .
+  ?low_statement pq:P2044 ?low_elevation .
+  OPTIONAL { ?low rdfs:label ?lowl filter (lang(?lowl) = "en") . }
+  BIND( ?high_elevation - ?low_elevation as ?span )
+  SERVICE wikibase:label {
+   bd:serviceParam wikibase:language "en" .
+  }
+} ORDER BY DESC(?span) DESC(?low_elevation) DESC(?high_elevation) ?high ?itemLabel

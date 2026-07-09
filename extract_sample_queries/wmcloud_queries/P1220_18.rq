@@ -1,0 +1,8 @@
+#title: P106 missing
+# Complex constraint from [[Property talk:P1220]]
+#
+SELECT DISTINCT ?item {
+  ?item wdt:P166 wd:Q2442442.
+  MINUS { ?item wdt:P106 wd:Q1198887. }.
+  MINUS { ?item wdt:P106 wd:Q158852. }.
+}

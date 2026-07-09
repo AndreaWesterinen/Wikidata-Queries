@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?dob ?dod WHERE 
+{
+  ?item wdt:P1343 wd:Q28837176 .
+  OPTIONAL { ?item wdt:P170 ?creator . 
+  ?creator wdt:P569 ?dob .
+  ?creator wdt:P570 ?dod . 
+  } 
+}

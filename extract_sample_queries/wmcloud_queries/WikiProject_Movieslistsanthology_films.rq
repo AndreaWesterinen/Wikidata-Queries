@@ -1,0 +1,9 @@
+SELECT
+	?item 
+	(COUNT(DISTINCT ?director) as ?ct)
+{
+  	?item wdt:P31 wd:Q336144
+	OPTIONAL { ?item wdt:P57 ?director }          
+}
+GROUP BY ?item
+ORDER BY DESC(xsd:integer(STRAFTER(str(?item), "Q")))

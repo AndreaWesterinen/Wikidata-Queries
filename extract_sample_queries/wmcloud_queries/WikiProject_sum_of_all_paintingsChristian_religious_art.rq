@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?mainsubject ?mainsubjectLabel WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P136 wd:Q2864737 .
+  MINUS { ?item wdt:P921 [] } .
+  ?item rdfs:label ?label .
+  ?item2 rdfs:label ?label .
+  ?item2 wdt:P921 ?mainsubject .
+  ?mainsubject wdt:P31 wd:Q1406161 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }  LIMIT 20000

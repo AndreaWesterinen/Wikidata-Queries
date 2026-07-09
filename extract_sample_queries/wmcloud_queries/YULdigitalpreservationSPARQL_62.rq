@@ -1,0 +1,12 @@
+SELECT DISTINCT ?sep ?sepLabel
+
+WHERE {
+  
+  ?sep p:P2699 ?st1 .
+        ?st1 pq:P31 wd:Q26261192 .
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

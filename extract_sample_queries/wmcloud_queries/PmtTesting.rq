@@ -1,0 +1,10 @@
+SELECT ?Norge ?author ?authorLabel ?f_dselsdato WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Norge wdt:P27 wd:Q20.
+  OPTIONAL {  }
+  ?Norge wdt:P106 wd:Q482980.
+  
+  OPTIONAL { ?Norge wdt:P569 ?f_dselsdato. }
+  OPTIONAL { ?Norge wdt:P50 ?forfatter. }
+}
+LIMIT 10000

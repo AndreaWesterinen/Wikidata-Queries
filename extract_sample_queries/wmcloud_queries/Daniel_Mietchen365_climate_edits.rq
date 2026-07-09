@@ -1,0 +1,56 @@
+#title: Variants of author name strings
+SELECT 
+  (COUNT(?work) AS ?count)
+  ?string
+  (CONCAT("https://author-disambiguator.toolforge.org/names_oauth.php?doit=Look+for+author&name=", 
+        ENCODE_FOR_URI(?string)) AS ?author_resolver_url) 
+WITH
+{
+  # Find strings associated with the target author
+  SELECT DISTINCT ?string_
+  WHERE
+  {
+    VAlUES ?target { 
+ wd:Q104093574 wd:Q106253912 wd:Q108377868 wd:Q11683157 wd:Q1332530 wd:Q1430548 wd:Q1473147 wd:Q1479527 wd:Q15062339 wd:Q15429717 wd:Q15994834 wd:Q15995285 wd:Q16192989 wd:Q1690835 wd:Q17001404 wd:Q19663370 wd:Q205618 wd:Q22278196 wd:Q22915113 wd:Q23580027 wd:Q23583773 wd:Q23760514 wd:Q241155 wd:Q2491965 wd:Q283509 wd:Q28402972 wd:Q2851811 wd:Q431876 wd:Q47451028 wd:Q47538727 wd:Q50074170 wd:Q5133464 wd:Q5133467 wd:Q5133493 wd:Q5200054 wd:Q5218635 wd:Q522528 wd:Q5271215 wd:Q534878 wd:Q55640112 wd:Q55640226 wd:Q57087586 wd:Q57814636 wd:Q58039850 wd:Q58333076 wd:Q59160125 wd:Q59667340 wd:Q6003228 wd:Q60330350 wd:Q60760913 wd:Q6205839 wd:Q6306738 wd:Q6319415 wd:Q6376526 wd:Q6543659 wd:Q7382944 wd:Q75839706 wd:Q80672929 wd:Q96606072    
+    }
+    { ?target rdfs:label ?string_. } # in label
+    UNION
+    { ?target skos:altLabel ?string_. } # in alias
+    UNION
+    {
+      ?author_statement ps:P50 ?target ; 
+                        pq:P1932 ?string_. # in "stated as" strings for "author" statements on work items
+    }
+  }
+} AS %RAWstrings
+WITH
+# This part is due to Dipsacus fullonum, as per https://w.wiki/5Brk
+{
+  # Calculate capitalization variants of these raw strings
+  SELECT DISTINCT ?string
+  WHERE
+  {
+    {
+      INCLUDE %RAWstrings
+      BIND(STR(?string_) AS ?string) # the raw strings
+    }
+    UNION
+    {
+      INCLUDE %RAWstrings
+      BIND(UCASE(STR(?string_)) AS ?string) # uppercased versions of the raw strings
+    }
+    UNION
+    {
+      INCLUDE %RAWstrings
+      BIND(LCASE(STR(?string_)) AS ?string) # lowercased versions of the raw strings
+    }
+  }
+} AS %NORMALIZEDstrings
+WHERE {
+  # Find works that have "author name string" values equal to these normalized strings
+  INCLUDE %NORMALIZEDstrings
+  OPTIONAL { ?work wdt:P2093 ?string. }
+}
+GROUP BY ?string
+HAVING (?count > 0)
+ORDER BY DESC (?count)

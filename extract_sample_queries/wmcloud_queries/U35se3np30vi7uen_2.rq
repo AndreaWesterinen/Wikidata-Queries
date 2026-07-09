@@ -1,0 +1,8 @@
+#Movies with Bud Spencer and Terence Hill
+SELECT ?item ?itemLabel ?_image ?publication_date WHERE {
+  ?item wdt:P161 wd:Q221074.
+  ?item wdt:P161 wd:Q243430.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+  OPTIONAL { ?item wdt:P577 ?publication_date. }
+}

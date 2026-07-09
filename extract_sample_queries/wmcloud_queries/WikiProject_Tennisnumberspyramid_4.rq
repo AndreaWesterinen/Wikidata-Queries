@@ -1,0 +1,9 @@
+SELECT 
+   (wd:Q847 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   (wd:Q47443726 as ?type)
+("1 A" as ?level)
+("tournament AKA competition AKA recurring tournament  AKA tournament with multiple editions" as ?descr)
+WHERE
+   { ?a wdt:P279 wd:Q13219666 }

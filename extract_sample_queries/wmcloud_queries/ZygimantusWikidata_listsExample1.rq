@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?l ?img ?population ?population_format ?area ?area_format WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P31 wd:Q5153359 .
+  ?item wdt:P31 wd:Q15978299 .
+  ?item wdt:P131* ?district . ?district wdt:P31 wd:Q548611 . 
+  ?item wdt:P1082 ?population;
+    wdt:P2046 ?area.
+  BIND(CONCAT("{", "{formatnum:{", "{#expr: ", STR(?area), " round 2 }", "}", "}", "}") AS ?area_format)
+  BIND(CONCAT("{", "{formatnum:", STR(?population), "}", "}") AS ?population_format)
+  ?district rdfs:label ?l.
+  FILTER((LANG(?l)) = "lt")
+  OPTIONAL { ?item wdt:P18 ?img. }
+}
+ORDER BY DESC (?population) DESC (?area) (?img)

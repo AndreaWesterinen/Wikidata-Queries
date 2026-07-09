@@ -1,0 +1,32 @@
+# This query shows the completeness of references of statements used in the query for the article
+# "List of people killed by and disappeared during the Brazilian military dictatorship"
+# ("Lista de mortos e desaparecidos políticos na ditadura militar brasileira" article in Portuguese Wikipedia)
+SELECT DISTINCT
+(concat(STR(sum(?ref_nasc)),'/',STR(count(?ref_nasc)),' (',STR(FLOOR(10000*sum(?ref_nasc)/count(?ref_nasc))/100),'%)') as ?P569)
+(concat(STR(sum(?ref_mort)),'/',STR(count(?ref_mort)),' (',STR(FLOOR(10000*sum(?ref_mort)/count(?ref_mort))/100),'%)') as ?P570)
+(concat(STR(sum(?ref_org)),'/',STR(count(?ref_org)),' (',STR(FLOOR(10000*sum(?ref_org)/count(?ref_org))/100),'%)') as ?P463)
+(concat(STR(sum(?ref_ocu)),'/',STR(count(?ref_ocu)),' (',STR(FLOOR(10000*sum(?ref_ocu)/count(?ref_ocu))/100),'%)') as ?P106)
+WITH {
+SELECT DISTINCT ?item ?ref_nasc ?ref_mort ?ref_org ?ref_ocu WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  {?item wdt:P6673 ?i} UNION {?item wdt:P6674 ?ii} UNION {?item wdt:P6690 ?iii} UNION {?item wdt:P6692 ?iv} UNION {?item wdt:P1343 wd:Q78782867.
+                                                                                                                   ?item p:P1343 [ prov:wasDerivedFrom [ pr:P304 ?page ] ].}
+  
+  MINUS {?item wdt:P570 ?data_morte. FILTER(?data_morte < "1964-04-01T00:00:00Z"^^xsd:dateTime)}
+  
+  # Contagem de referências
+  OPTIONAL {?item p:P463 [ prov:wasDerivedFrom ?ref_organização_aux ].}
+  OPTIONAL {?item p:P106 [ prov:wasDerivedFrom ?ref_ocupação_aux ].}
+  OPTIONAL {?item p:P569 [ prov:wasDerivedFrom ?ref_nascimento_aux ].}
+  OPTIONAL {?item p:P570 [ prov:wasDerivedFrom ?ref_morte_aux ].}
+  
+  BIND(IF(BOUND(?ref_organização_aux),1,0) AS ?ref_org)
+  BIND(IF(BOUND(?ref_ocupação_aux),1,0) AS ?ref_ocu)
+  BIND(IF(BOUND(?ref_nascimento_aux),1,0) AS ?ref_nasc)
+  BIND(IF(BOUND(?ref_morte_aux),1,0) AS ?ref_mort)
+}
+  
+} AS %results
+WHERE{
+  INCLUDE %results.
+}

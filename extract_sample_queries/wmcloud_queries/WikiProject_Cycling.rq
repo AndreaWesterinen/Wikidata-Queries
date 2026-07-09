@@ -1,0 +1,9 @@
+SELECT ?class ?classLabel (COUNT(DISTINCT ?statement) AS ?count)
+WHERE 
+{
+  ?item p:P1923 ?statement.
+  ?item wdt:P31 ?class.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?class ?classLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,17 @@
+SELECT
+	?item ?itemLabel
+	?dob ?start ?dod
+	?entry ?entryLabel
+    ?item2 ?quote
+WHERE
+{
+	?entry	wdt:P1433 wd:Q16055052 ; wdt:P31 wd:Q19389637 ; p:P921 ?st . 
+    ?st pq:P518 wd:Q59615872 ; ps:P921 ?item .
+    OPTIONAL { ?st prov:wasDerivedFrom / pr:P1683 ?quote }
+    ?entry p:P921 [ ps:P921 ?item2 ; a wikibase:BestRank ]  .
+  	OPTIONAL { ?item wdt:P569 ?dob }
+    OPTIONAL { ?item p:P241 [ ps:P241 wd:Q172771 ; pq:P580 ?start ] }    
+  	OPTIONAL { ?item wdt:P570 ?dod }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?entryLabel

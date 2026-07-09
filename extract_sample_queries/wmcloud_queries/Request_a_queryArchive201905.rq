@@ -1,0 +1,52 @@
+select ?bound (group_concat(?countryLabel;separator=", ") as ?countries) ?created_countries ?dissolved_countries
+
+with {
+
+  select ?country (coalesce(?countryLabelFr, ?countryLabelEn, ?country) as ?countryLabel) {
+     ?country wdt:P31/wdt:P279* wd:Q3624078 # sovereign states, I don’t know if it’s the right item
+     optional { ?country rdfs:label ?countryLabelFr filter(lang(?countryLabelFr)= "fr")} .
+     optional { ?country rdfs:label ?countryLabelEn filter(lang(?countryLabelEn)= "en")}
+                                                          
+  } order by ?countryLabel
+}as %countries
+with
+{
+  select distinct ?bound { #(group_concat(?createdCLabel) as ?created_countries) (group_concat(?destructedCLabel) as ?dissolved_countries){
+    ?country (wdt:P571|wdt:P576) ?bound. 
+    include %countries .
+    filter (year(?bound) > 1800)
+   }
+} as %bounds
+
+with {
+  select ?bound (group_concat(?countryLabel;separator=", ") as ?created_countries) { 
+       include %bounds .
+       optional {
+           include %countries  
+           ?bound ^wdt:P571 ?country
+       }
+    } group by ?bound   
+} as %created
+
+with {
+  select ?bound (group_concat(?countryLabel;separator=", ") as ?dissolved_countries) { 
+       include %bounds .
+       optional {
+           include %countries  
+           ?bound ^ wdt:P576 ?country
+       }
+    } group by ?bound    
+} as %destructed
+
+where {
+  include %bounds .
+  include %countries .
+  include %created .
+  include %destructed .
+  ?country wdt:P571 ?creation .
+  optional { ?country wdt:P576 ?dest_maybe . }
+  bind (coalesce(?dest_maybe, now()) as ?destruction)
+
+  filter ( ?creation <= ?bound  && ?destruction > ?bound ) .
+
+} group by ?bound ?created_countries ?dissolved_countries order by ?bound

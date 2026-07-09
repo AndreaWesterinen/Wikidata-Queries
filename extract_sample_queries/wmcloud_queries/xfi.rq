@@ -1,0 +1,9 @@
+# Title: Search lexeme using wikibase:lemma 
+# What is lexeme (Q111352) and lemma (Q18514)?
+SELECT ?lexeme ?lemma ?langLabel ?lang WHERE {
+ ?lexeme wikibase:lemma ?lemma.
+ ?lexeme <http://purl.org/dc/terms/language> ?lang.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+ FILTER(REGEX(?lemma, "^Prague")) # ^ lemma starts with string
+}
+LIMIT 20

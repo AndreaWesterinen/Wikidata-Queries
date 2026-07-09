@@ -1,0 +1,12 @@
+#title: Cims que comparteixen una mateixa URL
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item1 ?item2 ?url where {
+  ?item1 p:P361 ?stat1 .
+  ?stat1 ps:P361 wd:Q31074657 .
+  ?stat1 pq:P2699 ?url .
+  ?item2 p:P361 ?stat2 .
+  ?stat2 ps:P361 wd:Q31074657 .
+  ?stat2 pq:P2699 ?url .
+  filter(str(?item1) < str(?item2))
+}

@@ -1,0 +1,6 @@
+SELECT ?organisationLabel (COUNT(?item) AS ?count) WHERE {
+  ?item wdt:P5164 ?organisation.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?organisationLabel
+ORDER BY DESC (?count)

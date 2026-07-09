@@ -1,0 +1,16 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?p ?pLabel ?electro ?mp ?bp WHERE {
+   ?p wdt:P31 wd:Q11344 .
+   OPTIONAL {?p wdt:P1108 ?electro .}
+   OPTIONAL {?p wdt:P2101 ?mp .}
+   OPTIONAL {?p wdt:P2102 ?bp .}
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }

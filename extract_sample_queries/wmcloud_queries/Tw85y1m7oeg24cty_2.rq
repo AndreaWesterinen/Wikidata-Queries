@@ -1,0 +1,14 @@
+SELECT ?item ?dod ?itemLabel ?itemDescription ?nom
+WHERE
+{
+	?item wdt:P570 ?dod .
+	FILTER ( ?dod >= "2017-01-01T00:00:00Z"^^xsd:dateTime && ?dod <= "2017-12-31T00:00:00Z"^^xsd:dateTime )
+  	?item wdt:P31 wd:Q5 .
+  	OPTIONAL { ?item wdt:P569 ?v }
+  	OPTIONAL { ?item wdt:P1559 ?nom }
+ FILTER(NOT EXISTS {
+   ?item rdfs:label ?lang_label.
+   FILTER(LANG(?lang_label) = "fr")
+ })
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en", "nl", "it", "ru", "ja". }  
+}

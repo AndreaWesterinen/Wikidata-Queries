@@ -1,0 +1,31 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("year of publication" as ?xAxisTitle) 
+  ("total pages published" as ?yAxisTitle)
+  (GROUP_CONCAT(?year;separator=",") as ?x)
+  (GROUP_CONCAT(?yeartotal;separator=",") as ?y)
+  ("area" as ?type)
+  ("200" as ?height) 
+  ("600" as ?width) 
+WHERE
+{
+  { select ?year (max(?pagestotal) as ?yeartotal)
+{              
+  SELECT ?vol ?year (COUNT(?p) as ?pagestotal)
+  {
+   # hint:Query hint:optimizer "None".
+    ?volitem wdt:P179 wd:Q665807 . 
+    ?volitem wdt:P577 ?pub .
+    ?volitem wdt:P478 ?vol .
+    BIND(YEAR(?pub) as ?year)
+    OPTIONAL { 
+      ?p wdt:P1433 wd:Q665807 ; wdt:P478 ?vol2 ; wdt:P31 wd:Q19389637 .
+      FILTER( xsd:integer(?vol2) <= xsd:integer(?vol) )
+    }      
+  }
+  GROUP BY ?vol ?year
+}                
+GROUP BY ?year
+ORDER BY DESC(?year)
+  }
+}

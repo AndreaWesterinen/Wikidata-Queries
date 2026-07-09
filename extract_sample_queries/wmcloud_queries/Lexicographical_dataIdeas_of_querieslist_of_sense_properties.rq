@@ -1,0 +1,15 @@
+select (?property as ?item) ?propertyLabel ?count 
+  
+  with {
+    select ?prop (count(?prop) as ?count ) {
+      ?lex ontolex:sense ?sense .
+      ?sense ?prop ?val . 
+      ?val a wikibase:BestRank .
+    } group by ?prop
+  } as %props
+
+{ 
+  include %props
+  ?property wikibase:claim ?prop .
+ 
+} order by desc(?count)

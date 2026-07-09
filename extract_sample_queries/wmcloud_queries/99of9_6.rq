@@ -1,0 +1,16 @@
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix entity: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+  # Query to find, for a given starting class ?taxon (in this case Q4504),
+  # all the taxons that are parent taxons of it
+
+SELECT ?taxon ?taxonname WHERE {
+  ?tree0 (wdt:P171)* ?taxon .
+  BIND (entity:Q4504 AS ?tree0)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?taxon rdfs:label ?taxonname .
+  }
+}

@@ -1,0 +1,4 @@
+#title: Single value by statement
+# Complex constraint from [[Property talk:P8241]]
+# One minimum age statements should have only one type
+SELECT DISTINCT ?item ?s WHERE { ?item ?p ?s . ?s pq:P8241 ?v } GROUP BY ?item ?s HAVING (COUNT(?v) > 1)

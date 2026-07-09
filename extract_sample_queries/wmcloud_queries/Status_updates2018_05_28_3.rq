@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?placeBirthLabel ?placeDeathLabel ?coordsBirth ?coordsDeath ?distance WHERE {
+  ?item wdt:P31 wd:Q5 ;
+        wdt:P19 ?placeBirth ;
+        wdt:P20 ?placeDeath .
+  ?placeBirth wdt:P625 ?coordsBirth .
+  ?placeDeath wdt:P625 ?coordsDeath .
+  BIND (geof:distance(?coordsBirth, ?coordsDeath) AS ?distance)
+  FILTER (?distance > 19000)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC(?distance)

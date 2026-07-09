@@ -1,0 +1,20 @@
+SELECT
+  ?item
+  (COUNT(DISTINCT ?relative) AS ?descendants)
+  (SAMPLE(?relative) as ?sample)
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?entry wdt:P1433 wd:Q665807;
+    wdt:P921 ?item.
+  ?item wdt:P31 wd:Q5;
+    wdt:P569 ?dob.
+  FILTER((YEAR(?dob)) > 1800 )
+  ?item (wdt:P40+) ?relative.
+  FILTER(?relative != ?item)
+  ?relative wdt:P569 ?dob2 . 
+  FILTER((YEAR(?dob2)) > 1900 )
+  MINUs { ?relative wdt:P570 [] }
+}
+GROUP BY ?item
+ORDER BY DESC(?descendants)

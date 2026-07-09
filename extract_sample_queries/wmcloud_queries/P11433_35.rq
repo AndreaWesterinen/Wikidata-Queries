@@ -1,0 +1,5 @@
+#title: Items with property P11433 and no other identifiers
+SELECT ?item ?itemLabel ?value {
+  ?item wdt:P11433 ?value ; wikibase:identifiers 1
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} LIMIT 1000

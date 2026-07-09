@@ -1,0 +1,17 @@
+select ?item ?itemLabel where {
+ { ?item wdt:P1344 wd:Q8613 . }
+  UNION
+  {?item wdt:P1344 ?event .
+  ?event wdt:P361 wd:Q8613 .
+   }
+  UNION
+  {?item wdt:P1344 ?descipline .
+  ?event wdt:P361 wd:Q8613 .#daļa no 2016 OS
+  ?descipline wdt:P361 ?event .#daļa no event
+   }
+  
+  
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en,fr,de,no,pl,es,ru" .
+    }
+  }

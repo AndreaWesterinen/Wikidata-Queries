@@ -1,0 +1,38 @@
+#Animated films (feature films/short films) by country
+SELECT DISTINCT ?country ?countryLabel 
+              (COUNT(DISTINCT ?film) AS ?filmCount) 
+              (COUNT(DISTINCT ?featureFilm) AS ?featureFilmCount)
+              (COUNT(DISTINCT ?shortFilm) AS ?shortFilmCount)
+WHERE 
+{
+  {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866} UNION
+  {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107}
+  MINUS{?film wdt:P31/wdt:P279* wd:Q5398426}
+  MINUS{?film wdt:P31/wdt:P279* wd:Q24856}
+  ?film wdt:P495 ?country.
+  OPTIONAL{
+     #marking films being a feature film (via P31)
+  {?film wdt:P31/wdt:P279* wd:Q24869} UNION
+  #marking films with a duration longer than or equal to 45 minutes/2700 seconds/0.75 hours
+  {?film p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+    MINUS {?film wdt:P31/wdt:P279* wd:Q24869}
+    MINUS {?film wdt:P31/wdt:P279* wd:Q24862}
+    FILTER(?duration >= 2700)
+  }
+  BIND(?film AS ?featureFilm)
+    }
+  OPTIONAL{
+     #marking films being a short film (via P31)
+  {?film wdt:P31/wdt:P279* wd:Q24862} UNION
+  #marking films with a duration shorter than 45 minutes/2700 seconds/0.75 hours
+  {?film p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+    MINUS {?film wdt:P31/wdt:P279* wd:Q24869}
+    MINUS {?film wdt:P31/wdt:P279* wd:Q24862}
+    FILTER(?duration < 2700)
+  }
+    BIND(?film AS ?shortFilm)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?filmCount)

@@ -1,0 +1,5 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+
+SELECT ?i WHERE {
+   ?i p:P387 ?q .
+}

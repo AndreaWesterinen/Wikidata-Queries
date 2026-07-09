@@ -1,0 +1,21 @@
+#defaultView:Graph
+select ?topSubclass ?parent ?parentLabel ?topSubclassLabel
+with {
+  select ?bottomSuperclass  {
+      bind ( wd:Q198 as ?bottom) .
+      ?bottom wdt:P279* ?bottomSuperclass. 
+  }
+} as %superclasses
+
+with {
+  select (?bottomSuperclass as ?topSubclass) ?top {
+    include %superclasses
+      bind ( wd:Q13878858 as ?top) .
+      ?bottomSuperclass wdt:P279* ?top.
+  }
+} as %subclasses
+{
+  include %subclasses .
+  ?topSubclass wdt:P279 ?parent filter exists { { select (?topSubclass as ?class ){ include %subclasses} } filter (?class = ?parent) }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en,[AUTO_LANGUAGE],en". }
+}

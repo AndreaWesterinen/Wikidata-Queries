@@ -1,0 +1,6 @@
+SELECT ?item ?article {
+    ?item wikibase:statements 0 .
+    ?article schema:about ?item;
+             schema:isPartOf <https://fr.wikipedia.org/>.
+}
+LIMIT 1500

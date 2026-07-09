@@ -1,0 +1,6 @@
+SELECT ?prop (COUNT(?lexeme) AS ?count) WHERE {
+  ?lexeme a ontolex:LexicalEntry ; ?prop ?value.
+}
+GROUP BY ?prop
+HAVING ( ?count < 10 )
+ORDER BY ASC(?count)

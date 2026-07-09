@@ -1,0 +1,24 @@
+#musical works with authors
+SELECT DISTINCT ?item ?itemLabel ?author ?authorLabel
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q2188189; wdt:P50 ?author
+  
+  MINUS{?item wdt:P31/wdt:P279* wd:Q571}
+  
+  FILTER (?item NOT IN (
+    #?items that seem to confuse a poem and a musical setting of that poem
+    wd:Q12307193, wd:Q22232678, wd:Q22335810, wd:Q22336205, wd:Q500337, wd:Q5151284, wd:Q10470097
+    ,wd:Q1215056 
+    
+    #?items where I don't know what they are about
+    ,wd:Q6805046, wd:Q7039542, wd:Q7052292, wd:Q11139274, wd:Q11221891, wd:Q11229255, wd:Q11307681
+    ,wd:Q11491870, wd:Q11515596, wd:Q11515596, wd:Q11661413, wd:Q12179330, wd:Q12179863
+    
+    #other messed up items
+    ,wd:Q1169767
+  
+  ))
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

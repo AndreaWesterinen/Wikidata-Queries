@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?position ?start ?end ?replacesLabel ?replacedbyLabel WHERE {
+  ?item p:P39 ?stat . 
+  ?stat ps:P39 wd:Q56761097 .
+  ?stat ps:P39 ?position.  
+  OPTIONAL {?stat pq:P580 ?start }
+  OPTIONAL {?stat pq:P582 ?end }
+  OPTIONAL {?stat pq:P1365 ?replaces }
+  OPTIONAL {?stat pq:P1366 ?replacedby }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} order by ?start

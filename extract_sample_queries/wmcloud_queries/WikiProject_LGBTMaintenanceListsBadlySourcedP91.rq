@@ -1,0 +1,14 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P91 [
+    prov:wasDerivedFrom ?ref
+  ] .
+  ?ref pr:P143 [] .
+  FILTER NOT EXISTS {
+    ?item p:P91 [
+     prov:wasDerivedFrom ?ref2 
+    ] 
+    FILTER (?ref2 != ?ref ) 
+    FILTER NOT EXISTS { ?ref2 pr:P143 [] } .
+  }
+}

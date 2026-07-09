@@ -1,0 +1,4 @@
+#title: located in an administrative territorial entity different from an Austrian municipality
+# Complex constraint from [[Property talk:P4219]]
+# Tyrolean art located in an administrative territorial entity different from an Austrian municipality
+SELECT ?item WHERE { ?item wdt:P4219 [] . FILTER NOT EXISTS { ?item wdt:P131/wdt:P964 []} } ORDER BY ?item

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+	?statement wikibase:hasViolationForConstraint wds:P642-D2FD6874-6853-493A-A224-9613F9A94E1A .
+	?item ?p ?statement .
+	FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ja" } .
+}

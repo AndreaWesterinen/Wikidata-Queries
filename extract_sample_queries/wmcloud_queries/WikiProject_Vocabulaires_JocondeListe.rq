@@ -1,0 +1,59 @@
+SELECT DISTINCT ?property 
+?shortprop  ?item ?constraintreport ?editgroups ?completeness ?records
+?templates ?catalogs ?constraints ?subjects
+(COUNT(?propertyclaim) AS ?usage) (ROUND(100*?usage/?records) AS ?percent)
+WITH {
+  SELECT DISTINCT ?property
+  WHERE {
+    VALUES ?type {
+      wikibase:ExternalId
+      wikibase:Url
+    }
+    ?property wikibase:propertyType ?type;
+      wdt:P1629 wd:Q809825.
+  }
+} AS %properties
+WITH {
+  SELECT DISTINCT ?item ?property
+                  ?shortprop ?constraintreport ?editgroups ?completeness ?records
+                  (GROUP_CONCAT(DISTINCT ?subject) as ?subjects)
+                  (GROUP_CONCAT(DISTINCT ?template) as ?templates)
+                  (GROUP_CONCAT(DISTINCT ?catalog) as ?catalogs)
+                  (GROUP_CONCAT(DISTINCT ?constraint) as ?constraints) 
+  WHERE {
+    INCLUDE %properties.
+    BIND(xsd:integer(REPLACE(STR(?property), "http://www.wikidata.org/entity/P", "")) AS ?propid)
+    BIND(CONCAT("{", "{P\u007c", STR(?propid), "}", "}") AS ?shortprop ) .
+    BIND(CONCAT("[[Wikidata:Database reports/Constraint violations/P", STR(?propid), "|Constraints]]") AS ?constraintreport)
+    BIND(CONCAT("[[toolforge:editgroups/?tags=prop-P", STR(?propid), "|Edit groups]]") AS ?editgroups)
+    BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(?propid + 1000000000))) AS ?item ) .
+    OPTIONAL {
+      ?property wdt:P1629 ?_subject.
+      MINUS { ?_subject wdt:P31 wd:Q11266439 }
+      BIND(CONCAT("{", "{Q\u007c", REPLACE(STR(?_subject), "http://www.wikidata.org/entity/", ""), "}", "}") AS ?subject ) .
+    }
+    OPTIONAL {
+      ?property wdt:P2667 ?_template.
+      BIND(CONCAT("{", "{Q\u007c", REPLACE(STR(?_template), "http://www.wikidata.org/entity/", ""), "}", "}") AS ?template ) .
+    }
+    OPTIONAL { 
+      ?property wdt:P2302 ?_constraint.
+      BIND(CONCAT("{", "{Q\u007c", REPLACE(STR(?_constraint), "http://www.wikidata.org/entity/", ""), "}", "}") AS ?constraint ) .
+    }
+
+    OPTIONAL { ?property wdt:P2429 ?completeness. }
+    OPTIONAL { ?property wdt:P2264 ?mixnmatch. }
+    OPTIONAL { ?property wdt:P4876 ?records. }
+
+    BIND(CONCAT("[https://tools.wmflabs.org/mix-n-match/#/catalog/", STR(?mixnmatch), " ", ?mixnmatch, "]") AS ?catalog)
+  } 
+GROUP BY ?item ?property ?shortprop ?constraintreport ?editgroups ?completeness ?records
+} AS %properties_bis
+WHERE {
+  INCLUDE %properties.
+  INCLUDE %properties_bis.
+  ?property wikibase:claim ?propertyclaim.
+  ?other_item ?propertyclaim _:b1.
+  }
+
+GROUP BY ?property ?shortprop ?item ?constraintreport ?editgroups ?completeness ?records ?subjects ?constraints ?templates ?catalogs

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P2860 ?item .
+}
+ORDER BY ?item
+OFFSET 300 LIMIT 300

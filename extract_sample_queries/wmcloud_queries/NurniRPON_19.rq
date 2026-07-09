@@ -1,0 +1,32 @@
+SELECT DISTINCT ?o ?oLabel ?l ?_fll WHERE {
+  {
+    SELECT ?o (GROUP_CONCAT(?fl; SEPARATOR = ", ") AS ?_fll) WHERE {
+      {
+        SELECT DISTINCT ?o ?fl WHERE {
+          ?o wdt:P27 wd:Q172107.
+          FILTER(NOT EXISTS {
+            ?o schema:description ?op.
+            FILTER((LANG(?op)) = "pl")
+          })
+          OPTIONAL { ?o wdt:P569 ?du. }
+          OPTIONAL { ?o wdt:P570 ?ds. }
+          OPTIONAL {
+            ?o wdt:P39 ?f.
+            ?f wdt:P279 ?u;
+              rdfs:label ?fl.
+            FILTER(?u IN(wd:Q625652, wd:Q63208630, wd:Q8138141, wd:Q9367321, wd:Q2042693, wd:Q8146019))
+            FILTER((LANG(?fl)) = "pl")
+          }
+        }
+        ORDER BY (?o) (?fl)
+      }
+    }
+    GROUP BY ?o
+  }
+  BIND(CONCAT(IF(BOUND(?fl), ?fl, ""), IF(BOUND(?fl1), ?fl1, "")) AS ?_fl)
+  BIND(IF(!(BOUND(?du)), "?", COALESCE(STR(YEAR(?du)), "?")) AS ?_ur)
+  BIND(IF(!(BOUND(?ds)), "?", COALESCE(STR(YEAR(?ds)), "?")) AS ?_zm)
+  BIND(CONCAT(IF((?_ur = "?") && (?_zm = "?"), "", CONCAT("(ur. ", ?_ur, ", zm. ", ?_zm, ") ")), ?_fl) AS ?l)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?o)

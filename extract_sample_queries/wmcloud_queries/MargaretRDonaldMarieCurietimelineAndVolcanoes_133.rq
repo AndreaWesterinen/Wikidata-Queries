@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel  WHERE{
+  ?item wdt:P5008 wd:Q87337959.            # Hasfocus group of Know My Name
+  
+ 
+  #OPTIONAL 	{ ?sitelink schema:about ?female. ?sitelink schema:inLanguage "en" }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY ?itemLabel  
+ LIMIT 4000    

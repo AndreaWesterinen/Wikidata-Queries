@@ -1,0 +1,13 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?item ?itemLabel ?dateOfDeath (COUNT(DISTINCT ?sitelink) AS ?sites) WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item (wdt:P106/wdt:P279*) wd:Q214917.
+  ?item wdt:P570 ?dateOfDeath.
+  ?sitelink schema:about ?item.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER((?dateOfDeath >= "1947-01-01T00:00:00"^^xsd:dateTime) && (?dateOfDeath <= "1947-12-31T23:59:59"^^xsd:dateTime))
+}
+GROUP BY ?item ?itemLabel ?dateOfDeath
+ORDER BY DESC(?sites)

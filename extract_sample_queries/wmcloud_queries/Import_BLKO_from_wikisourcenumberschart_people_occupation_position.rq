@@ -1,0 +1,17 @@
+SELECT (wd:Q5 as ?item) ("occupation and position (P106/P39)" as ?legend) 
+  (GROUP_CONCAT(?p;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{	SELECT  ?p (COUNT(DISTINCT ?mainsubject) as ?ct)
+		{
+			?entry 	wdt:P31 wd:Q19389637
+  			; 		wdt:P1433 wd:Q665807 .
+          	?entry wdt:P921 ?mainsubject
+          	OPTIONAL { ?mainsubject wdt:P106 ?dob }
+          	OPTIONAL { ?mainsubject wdt:P39 ?dod }
+            ?mainsubject wdt:P31 wd:Q5 .
+			BIND(CONCAT(IF(!BOUND(?dob),"---","occu-"),IF(!BOUND(?dod),"---","-posi")) as ?p)
+		}
+		GROUP BY  ?p
+		ORDER BY ASC(?p)                  
+	}
+}

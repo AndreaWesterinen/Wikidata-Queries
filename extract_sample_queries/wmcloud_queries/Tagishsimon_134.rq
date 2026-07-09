@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE 
+{
+  ?item p:P709 ?stat1 .
+  ?stat1 ps:P709 ?LB1 .
+  ?item p:P709 ?stat2 .
+  ?stat2 ps:P709 ?LB2 .
+  ?item p:P718 ?stat3 .
+  ?item p:P718 ?stat4 .
+  FILTER (?LB1 = ?LB2) 
+  FILTER (STR(?stat1) != STR(?stat2)) 
+  FILTER (STR(?stat3) != STR(?stat4)) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

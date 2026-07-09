@@ -1,0 +1,11 @@
+SELECT DISTINCT (?cat as ?item) ?c ?en ?ca ?cs ?da ?de ?es ?fr ?it ?nl ?pl ?pt ?ru ?sv (ROUND(?gdp/1000000000) as ?gdpB) ?sls
+WHERE
+{
+    ?ite wdt:P31/wdt:P279? wd:Q100773131 ; wdt:P910 ?cat . 
+    ?ite wdt:P276 / wdt:P5086 ?c .
+    OPTIONAL { ?ite wdt:P2131 ?gdp }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://ca.wikipedia.org/>  BIND( CONCAT("+") as ?ca)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://cs.wikipedia.org/>  BIND( CONCAT("+") as ?cs)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://da.wikipedia.org/>  BIND( CONCAT("+") as ?da)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://de.wikipedia.org/>  BIND( CONCAT("+") as ?de)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?en_l  BIND( CONCAT("[","[w:",str(?en_l),"

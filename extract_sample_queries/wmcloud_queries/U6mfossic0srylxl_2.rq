@@ -1,0 +1,10 @@
+#defaultView:ScatterChart
+SELECT ?year (COUNT(?person) AS ?count)
+WHERE
+{
+  wd:Q3044 wdt:P40* ?person.
+  ?person wdt:P569 ?DoB .
+  BIND (year(?DoB) as ?year )
+  FILTER ( ?year > 700 )
+}
+GROUP BY ?year

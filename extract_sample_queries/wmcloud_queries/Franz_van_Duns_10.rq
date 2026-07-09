@@ -1,0 +1,31 @@
+# Find all 'subclasses of (P279*)' an 'objective (Q3880557)' within WikiData.
+# Last revision:  2021-12-15.
+# Table columns with explanations:  ?lens ?lensLabel ?manufacturerLabel ?instanceOfLabel ?subclassOfLabel ?image (hyperlink only) ?massLabel ?focallengthLabel ?WPENarticle (WPEN=Wikipedia:en) ?WPDEarticle (WPDE=Wikipedia:de)
+# NOTE:  The sort order applied to the column "lensLabel" displays entries containing foreign characters, such as "umlauts" or Greek characters, e.g. "Sony α7R IV", first after all entries containing the regular set of characters.
+# NOTE:  This query should reveal all lenses stored within WikiData!  CAVEAT: Lenses erraneously not classified as one of the subclasses of 'objective' will remain excluded from this list.
+
+SELECT DISTINCT ?lens ?lensLabel ?manufacturerLabel ?instanceOfLabel ?subclassOfLabel ?image ?massLabel ?WPENarticle ?WPDEarticle  # RESULT => 2021-12-15: 667 items
+#SELECT DISTINCT ?lens ?lensLabel   # ?manufacturerLabel ?instanceOfLabel ?subclassOfLabel ?image ?massLabel ?WPENarticle ?WPDEarticle  # RESULT => 2021-12-15: 469 items
+WHERE {
+#  {?lens wdt:P31/wdt:P279* wd:Q192234 . }             # instance of (P31) or subclass(es) of (P279*):  camera lens (Q192234)  # RESULT => 42 items
+#  {?lens wdt:P31/wdt:P279* wd:Q3880557 . }             # instance of (P31) or subclass(es) of (P279*):  objective (Q3880557)  # RESULT => 49 items
+  {?lens wdt:P279* wd:Q3880557 . }       # subclass(es) of (P279*):  objective (Q3880557)  # RESULT => 2021-12-15: 469 items when only columns ?lens and ?lensLabel are shown; 667 items when the following 7 columns are also displayed.
+
+  OPTIONAL {?lens wdt:P176 ?manufacturer . }       # manufacturer (P176)
+  OPTIONAL {?lens wdt:P31 ?instanceOf . }          # instance of (P31)
+  OPTIONAL {?lens wdt:P279 ?subclassOf . }         # subclass of (P279) NOTE: Adding this term to the query raises RESULT from 1578 to 1635 !
+  OPTIONAL {?lens wdt:P18 ?image . }               # image (P18)
+  OPTIONAL {?lens wdt:P2067 ?mass . }              # mass (P2067)
+  
+  OPTIONAL {?WPENarticle schema:about ?lens .      #  has a Wikipedia:en article
+            ?WPENarticle schema:isPartOf <https://en.wikipedia.org/> .
+            ?ENsitelink ^schema:name ?WPENarticle . }
+
+  OPTIONAL {?WPDEarticle schema:about ?lens .      #  has a Wikipedia:de article
+            ?WPDEarticle schema:isPartOf <https://de.wikipedia.org/> .
+            ?DEsitelink ^schema:name ?WPDEarticle . }
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+
+ORDER BY ASC(UCASE(?lensLabel))  ASC(UCASE(?instanceOfLabel))  ASC(UCASE(?subclassOfLabel))

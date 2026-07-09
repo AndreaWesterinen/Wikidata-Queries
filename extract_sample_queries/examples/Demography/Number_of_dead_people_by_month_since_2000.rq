@@ -1,3 +1,4 @@
+#title: Number of dead people by month since 2000
 SELECT ?yearmonth (COUNT(?person) as ?count)
 WHERE
 {

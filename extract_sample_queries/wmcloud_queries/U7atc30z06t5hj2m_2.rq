@@ -1,0 +1,6 @@
+select distinct ?prop ?propLabel {
+  ?item (p:P1766|p:P41|p:P4004|p:P94) [?qual []] .
+  ?prop wikibase:qualifier ?qual .
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+} limit 7

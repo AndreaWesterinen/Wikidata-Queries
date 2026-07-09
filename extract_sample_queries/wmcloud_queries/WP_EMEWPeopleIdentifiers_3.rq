@@ -1,0 +1,43 @@
+SELECT ?item ?p ?prop ?source ?ID ?MnM ?seq ?count ?example ?link ?listLink
+
+WITH {
+  SELECT ?prop ?source ?MnM ?wdt ?seq (COUNT(DISTINCT(?person)) AS ?count) (SAMPLE(?person) AS ?example) WHERE {
+    VALUES (?seq ?prop) {
+       (10 wd:P1415)(20 wd:P1648)(30 wd:P6829) # ODNB, D Welsh B, D Irish B
+       (40 wd:P1614)(50 wd:P1599)(60 wd:P3029) # HistParl, Cambridge, TNA
+       (70 wd:P1816)(80 wd:P1711)(90 wd:P1871) # NPG, Brit Mus, CERL
+       (100 wd:P6060)(105 wd:P3410)(110 wd:P2966)(120 wd:P2401) #  MoEML, CCEd, NLW, Bacon
+       (130 wd:P1802)(140 wd:P2973)(150 wd:P2866) # EMLO, Spencerians, Shakeosphere
+       
+    }
+    OPTIONAL {?prop wdt:P9073 ?item1 }.
+    OPTIONAL {?prop wdt:P1629 ?item2 }.
+#    FILTER(bound(?item1) || bound(?item2)) .
+    BIND(COALESCE(?item1, ?item2) AS ?source) .
+    OPTIONAL {?prop wdt:P2264 ?mnm .
+      wd:P2264 wdt:P1630 ?mnm_fmt .
+      BIND(IRI(REPLACE(?mnm, '(^.*)', ?mnm_fmt)) AS ?mnm_url) .
+      BIND(CONCAT('[', str(?mnm_url), ' MnM]') AS ?MnM) .
+    }
+    ?prop wikibase:directClaim ?wdt .
+    ?person ?wdt ?val .
+    ?person wdt:P31 wd:Q5 .
+    ?person wdt:P570|wdt:P4602 ?dod .
+    FILTER (year(?dod) < 1700)
+    FILTER (!(year(?dod) < 1500))
+  } GROUP BY ?source ?prop ?MnM ?seq ?wdt
+} AS %props
+
+WHERE {
+  INCLUDE %props .
+  ?example ?wdt ?value .
+  ?prop wdt:P1630 ?fmt . 
+  BIND(IRI(REPLACE(?value, '(^.*)', ?fmt)) AS ?url) .
+  BIND(CONCAT('[', str(?url), ' ', str(?value), ']') AS ?link) .
+  
+  BIND(STRAFTER(str(?prop),'entity/P') AS ?p) .
+  BIND(CONCAT('[[Property:P',?p,'|P', ?p, ']]') AS ?ID) .
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?p)) AS ?item) .  # dummy
+  BIND(CONCAT('{','{/get list{','{sub','st:!}','}','prop=P',STR(?p),'}','}') AS ?listLink) .
+
+} ORDER BY ?seq

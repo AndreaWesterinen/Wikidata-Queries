@@ -1,0 +1,3 @@
+ASK {
+   FILTER( wd:Q95 > wd:Q1000002 || wd:Q95 < wd:Q1000002 ) .
+}

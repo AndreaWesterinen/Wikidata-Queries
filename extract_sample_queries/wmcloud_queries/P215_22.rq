@@ -1,0 +1,4 @@
+SELECT ?item ?class {
+  ?item wdt:P215 ?class .
+  FILTER(!regex(?class, "^(?:[\\[(A-Za-z?\\d]|:\\+|<=?|>=?)[A-Za-z\\d\\-+*?/()\\[\\]:\\. _;,!~']*$"))
+}

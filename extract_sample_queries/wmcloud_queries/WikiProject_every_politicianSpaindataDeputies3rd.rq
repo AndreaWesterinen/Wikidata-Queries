@@ -1,0 +1,12 @@
+SELECT ?item ?party ?district ?start ?end ?replaces ?replacedBy
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q18171345  ; pq:P2937 wd:Q958373 .
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P768 ?district }
+  OPTIONAL { ?statement pq:P4100 ?party }
+  OPTIONAL { ?statement pq:P1365 ?replaces }
+  OPTIONAL { ?statement pq:P1366 ?replacedBy }
+}

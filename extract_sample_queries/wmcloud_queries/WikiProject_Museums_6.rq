@@ -1,0 +1,13 @@
+embed.html##defaultView:Map
+SELECT ?museumLabel ?museum ?location ?layer  WHERE {
+  ?museum wdt:P31 ?type.
+  ?type (wdt:P279*) wd:Q33506.
+  OPTIONAL {
+    ?type rdfs:label ?layer
+    FILTER(LANG(?layer) = "[AUTO_LANGUAGE]").
+  }.
+  ?museum wdt:P625 ?location. 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?layer

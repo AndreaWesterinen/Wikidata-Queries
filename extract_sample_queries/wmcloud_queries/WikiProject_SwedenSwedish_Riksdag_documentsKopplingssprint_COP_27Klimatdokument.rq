@@ -1,0 +1,6 @@
+SELECT ?item ?link WHERE {
+?item wdt:P8433 [] ; rdfs:label ?itemLabel ;
+      p:P953 ?s.
+?s ps:P953 ?url ; pq:P2701 wd:Q62626012 .
+BIND(CONCAT('[',STR(?url),' länk]') AS ?link)
+FILTER(CONTAINS(LCASE(?itemLabel), ' klimat')

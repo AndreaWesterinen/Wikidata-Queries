@@ -1,0 +1,8 @@
+#title: In the Museum without a link
+# Complex constraint from [[Property talk:P4643]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] -> [[d:Q510324|Philadelphia Museum of Art <small>(Q510324)</small>]], but that don't have a [[Property:P4643|Philadelphia Museum of Art work ID&#32;<small dir="ltr">(P4643)</small>]] link
+SELECT DISTINCT ?item ?url WHERE {
+  ?item wdt:P195 wd:Q510324 .
+  OPTIONAL { ?item wdt:P973 ?url } . 
+  MINUS { ?item wdt:P4643 [] } .
+}  LIMIT 500

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?capital ?capitalLabel ?ofLabel ?start ?end
+WHERE
+{
+  ?capital p:P31 ?capitalStat.
+  ?capitalStat ps:P31/wdt:P279* wd:Q5119.
+  OPTIONAL { ?capitalStat pq:P642 ?of. }
+  OPTIONAL { ?capitalStat pq:P580 ?start. }
+  OPTIONAL { ?capitalStat pq:P582 ?end. }
+  MINUS { [] wdt:P36 ?capital. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

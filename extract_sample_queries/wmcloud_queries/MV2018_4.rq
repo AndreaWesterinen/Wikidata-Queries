@@ -1,0 +1,11 @@
+embed.html## Denkmäler von Komponisten
+#defaultView:Map
+SELECT DISTINCT ?statue ?statueLabel ?composer ?composerLabel ?image ?coordinates WHERE {
+  ?statue wdt:P31/wdt:P279* wd:Q179700;
+          wdt:P180 ?composer.
+  OPTIONAL { ?statue wdt:P18 ?image. }
+  OPTIONAL { ?statue wdt:P625 ?coordinates. }
+  ?composer wdt:P31 wd:Q5;
+            wdt:P106/wdt:P279* wd:Q36834.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

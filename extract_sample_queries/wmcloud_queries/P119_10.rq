@@ -1,0 +1,72 @@
+#title: Check important persons # 5
+# Complex constraint from [[Property talk:P119]]
+#
+SELECT DISTINCT ?item {
+  ?item wdt:P119/wdt:P31/wdt:P279* wd:Q162875;
+        wdt:P31 wd:Q5.
+  MINUS { ?item wdt:P22/wdt:P39 ?functionFather } # pere ayant une fonction, ** large **
+  #MINUS { ?item p:P1442 ?b } # 52, bien pratique, image de la tombe
+  MINUS { ?item wdt:P22/wdt:P119/wdt:P31 wd:Q162875 } # 43, exclude Q541665   ** duplicate code: Q162875 **
+  MINUS { ?item wdt:P26/wdt:P39 ?functionConjoint } # 29, exclude Q33673045
+  MINUS { ?item wdt:P40/wdt:P39 ?functionChild } # exclude : "mother of Jiajing Emperor" (Q8254570)
+  MINUS {
+    VALUES ?columbarium { wd:Q3006253 wd:Q17364144 wd:Q10918978 wd:Q3893448 wd:Q994694 wd:Q7231495 wd:Q46700479 wd:Q5574219 }. # Q10918978: tombe de lui meme
+    ?item wdt:P119 ?columbarium.
+  }
+  MINUS { ?item wdt:P22/wdt:P97 wd:Q273613 } # titre de noblesse du pere
+  MINUS { ?item wdt:P39/wdt:P279* wd:Q116 } # monarque
+  MINUS { ?item wdt:P39/wdt:P279* wd:Q15995642 } # pere chef religieux
+  MINUS {
+    VALUES ?occupations { wd:Q23833535 wd:Q372436 wd:Q131524 wd:Q2095549 wd:Q49757 wd:Q3242115 wd:Q43845 }
+    ?item wdt:P106 ?occupations
+  }
+  MINUS { ?item wdt:P39 wd:Q3409212 } # fonctions
+  MINUS { ?item wdt:P39 wd:Q175240 }
+  MINUS { ?item wdt:P39 wd:Q7636765 }
+  MINUS { ?item wdt:P39 wd:Q477406 }
+  
+  #MINUS { ?item wdt:P97 [] } # titre de noblesse
+  MINUS { ?item wdt:P802 [] } # eleve
+  
+  MINUS { ?item wdt:P509 wd:Q81672 }
+  
+  MINUS {
+    VALUES ?bornOrDied { wdt:P19 wdt:P20 }.
+    ?item ?bornOrDied wd:Q8356
+  }
+  
+  MINUS { ?item wdt:P410 [] } # grade militaire, wd:Q83460
+  MINUS { ?item wdt:P800 [] } # oeuvre notable
+  MINUS { ?item wdt:P119/wdt:P825 ?item }
+  MINUS { ?item wdt:P119/wdt:P2025 [] }
+  #MINUS { ?item wdt:P1196 [] } # quick
+  MINUS { ?item wdt:P140 [] } # quick
+  MINUS { ?item wdt:P39/wdt:P31 wd:Q294414 } # qui a une fonction publique
+  MINUS { ?item wdt:P27 wd:Q156418 } # nationalité particulière
+  
+  MINUS { ?item wdt:P166/wdt:P31 wd:Q1046088 }
+  MINUS { ?item wdt:P166 wd:Q1313340 }
+  MINUS { ?item wdt:P166/wdt:P361 wd:Q163700 }
+  
+  MINUS { ?item wdt:P734 wd:Q669368 } # nom de famille
+  
+  MINUS {
+    VALUES ?family { wd:Q2025037 wd:Q645719 wd:Q852111 wd:Q210398 wd:Q727118 wd:Q7107138 wd:Q112707 wd:Q3394207 wd:Q155616 }.
+    ?item wdt:P53 ?family.
+  }
+  
+  MINUS { ?item p:P1045 [] } # Jaures, todo: Q12688 element à revoir ; -4
+  MINUS { ?item wdt:P39/wdt:P279* wd:Q2285706 } # exclude Q379779 ; -3
+  FILTER (?item != wd:Q562417) # article de qualité fawiki
+  
+  MINUS { ?item wdt:P39 wd:Q17014422 }
+  FILTER (?item != wd:Q2893913)
+  
+  MINUS { ?item wdt:P39 wd:Q3025636 }
+  
+  MINUS { ?item wdt:P39/wdt:P279 wd:Q132050 }
+  MINUS { ?item wdt:P97 wd:Q719039 }
+  
+  FILTER (?item NOT IN (wd:Q6111001, wd:Q991533, wd:Q29173739, wd:Q64091692, wd:Q1441740, wd:Q2226355, wd:Q3260829, wd:Q5795869, 
+                        wd:Q3611140, wd:Q634348, wd:Q12579341, wd:Q837818))
+}

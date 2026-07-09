@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?_PubMed_ID
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814 ;
+        rdfs:label ?itemLabel .
+  OPTIONAL { ?item wdt:P698 ?_PubMed_ID. }
+  FILTER(CONTAINS(LCASE(?itemLabel), "zika"))
+  FILTER (LANG(?itemLabel)="en")
+}

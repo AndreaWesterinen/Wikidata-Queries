@@ -1,0 +1,15 @@
+#defaultView:LineChart
+SELECT ?gender (str(SAMPLE(?birthyear)) AS ?year ) (COUNT(*) AS ?count)  ?geslacht WHERE {
+  ?item wdt:P6379 wd:Q2114028.
+  ?item wdt:P569 ?geboortedatum.
+  ?item wdt:P21 ?gender.
+    ?gender rdfs:label ?geslacht.
+    FILTER((LANG(?geslacht)) = "nl")
+
+  BIND (ROUND(YEAR(?geboortedatum)/10)*10  AS ?birthyear)
+    FILTER( ?birthyear > 1800 )
+    FILTER( ?birthyear < 1980 )
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en". }
+} GROUP BY ?gender ?geslacht ?birthyear 
+ORDER BY ?birthyear

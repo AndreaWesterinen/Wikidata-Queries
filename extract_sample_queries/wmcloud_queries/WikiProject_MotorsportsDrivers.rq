@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel ?racing_reference_info_driver_ID ?motorsportstats_com_driver_ID ?Driver_Database_driver_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P106 wd:Q10349745.
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL { ?item wdt:P3048 ?racing_reference_info_driver_ID. }
+  OPTIONAL { ?item wdt:P8140 ?motorsportstats_com_driver_ID. }
+  OPTIONAL { ?item wdt:P3684 ?Driver_Database_driver_ID. }
+  MINUS {?item wdt:P3048 ?racing_reference_info_driver_ID. 
+         ?item wdt:P8140 ?motorsportstats_com_driver_ID. 
+         ?item wdt:P3684 ?Driver_Database_driver_ID.}
+  ?item rdfs:label ?label_en.
+  FILTER (lang(?label_en) = "en").
+} 
+ORDER BY (?winnerLabel)
+LIMIT 500

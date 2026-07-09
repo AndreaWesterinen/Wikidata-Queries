@@ -1,0 +1,4 @@
+#title: IGPCV sense referència amb URL
+# Complex constraint from [[Property talk:P2473]]
+# Elements amb codi IGPCV sense cap referència que tingui una URL de la referència
+SELECT ?item WHERE { ?item p:P2473 ?statement. minus { ?statement prov:wasDerivedFrom/pr:P854 ?url. } }

@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?instanceOfLabel ?instanceOptionsLabel ?location ?locationLabel WHERE {
+  VALUES ?instanceOptions {wd:Q79007 wd:Q174782 wd:Q1251403}
+  ?item wdt:P31 ?instanceOptions .
+  ?item wdt:P17 wd:Q55 .
+  MINUS { ?item wdt:P5207 ?some. }
+  MINUS { ?item wdt:P576 ?some3. }
+  MINUS { ?item rdf:type wdno:P5207. }
+  OPTIONAL{?item wdt:P625 ?location .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}
+LIMIT 10000

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P170 ?artist. 
+  ?artist wdt:P6379 wd:Q191228.
+  ?item wdt:P31/wdt:P279* wd:Q20742776.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+}

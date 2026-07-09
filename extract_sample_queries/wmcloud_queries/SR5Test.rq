@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item WHERE {
+  { ?item (wdt:P31/(wdt:P279*)) wd:Q5341295. }
+  ?item wdt:P17 wd:Q884.
+}

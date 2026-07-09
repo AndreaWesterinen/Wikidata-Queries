@@ -1,4 +1,5 @@
-#author: Elwinlhq 2022-11-20
+#title: List of Puno Quechua lexeme-forms that have no audio recording added, formatted for LinguaLibre.org generator
+#author: Elwinlhq, 2022-11-20
 #contact: Yug
 SELECT ?id ?label WHERE {
   ?l a ontolex:LexicalEntry ; dct:language wd:Q5218 ; wikibase:lexicalCategory wd:Q24905 ; ontolex:lexicalForm ?id .

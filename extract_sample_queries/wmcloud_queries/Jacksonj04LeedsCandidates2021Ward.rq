@@ -1,0 +1,10 @@
+SELECT ?item ?ward ?party ?votes
+WHERE 
+{
+  ?item p:P3602 ?ps .
+  ?ps ps:P3602 wd:Q86754528 .
+  OPTIONAL { ?ps pq:P102 ?party . }
+  OPTIONAL { ?ps pq:P768 ?ward . }
+  OPTIONAL { ?ps pq:P1111 ?votes . }
+}
+ORDER BY DESC(?votes)

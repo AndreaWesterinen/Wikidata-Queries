@@ -1,0 +1,13 @@
+SELECT ?item ?statements WITH {
+  SELECT ?item WHERE {
+    ?item wikibase:sitelinks 0; wikibase:identifiers 0; wdt:P31 wd:Q5 .
+  }
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  MINUS { [] ?backlink ?item }
+  OPTIONAL { ?item ?p [ prov:wasDerivedFrom [ ?pr [] ] ] . FILTER (?pr != pr:P143) . FILTER(?pr != pr:P3452) }
+  FILTER(!BOUND(?p)) .
+  MINUS { ?item p:P973 [] }
+  MINUS { ?item p:P1343 [] }
+  ?item wikibase:statements ?statements .
+} ORDER BY ASC(?statements) LIMIT 1000

@@ -1,4 +1,4 @@
-# ----
+#title: English common names and information for animals given their scientific names
 # Given the scientific name for a list of animals, it will return all the
 # English common names, their length, life expectency, height, wing span and mass
 # Note: There is more information on these specific animals. Unfortunately, a lot of animals on WikiData have missing information (e.g. no life expectancy or mass)

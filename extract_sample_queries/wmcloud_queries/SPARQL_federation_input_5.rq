@@ -1,0 +1,2 @@
+SELECT ?uri 
+WHERE{ ?uri wdt:P31 wd:Q26261192}

@@ -1,0 +1,8 @@
+SELECT ?item ?title ?retrieved WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P1476 ?titlestatement .
+  ?titlestatement ps:P1476 ?title .
+  ?titlestatement prov:wasDerivedFrom ?reference .
+  ?reference pr:P143 wd:Q565 .
+  OPTIONAL { ?reference pr:P813 ?retrieved } 
+  } 

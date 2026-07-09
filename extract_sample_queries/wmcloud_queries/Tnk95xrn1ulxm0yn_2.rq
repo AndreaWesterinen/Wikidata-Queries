@@ -1,0 +1,10 @@
+SELECT ?country ?countryLabel ?lang ?capital ?capitalLabel
+WHERE {
+  ?country wdt:P31 wd:Q6256 .
+  ?country wdt:P37/wdt:P218 ?lang .
+  ?country wdt:P36 ?capital .
+  ?country rdfs:label ?countryLabel FILTER (LANG(?countryLabel) = ?lang) .
+  ?capital rdfs:label ?capitalLabel FILTER (LANG(?capitalLabel) = ?lang) .
+  FILTER (?countryLabel = ?capitalLabel) .
+}
+ORDER BY ?country ?lang

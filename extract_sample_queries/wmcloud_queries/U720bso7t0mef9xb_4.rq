@@ -1,0 +1,8 @@
+SELECT distinct ?line ?lineLabel ?length WHERE {
+  ?line wdt:P361 wd:Q129612.
+  OPTIONAL {
+    ?line wdt:P2043 ?length.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+ }
+ORDER BY xsd:integer(?lineLabel) ?lineLabel

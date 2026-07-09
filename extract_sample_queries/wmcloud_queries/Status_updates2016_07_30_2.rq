@@ -1,0 +1,11 @@
+SELECT ?actor ?actorLabel ?FilmCount WHERE {
+  {
+    SELECT ?actor (COUNT(?film) AS ?FilmCount) WHERE {
+  ?film wdt:P57 wd:Q193648.
+  ?film wdt:P161 ?actor.
+    }
+    GROUP BY ?actor
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?FilmCount)

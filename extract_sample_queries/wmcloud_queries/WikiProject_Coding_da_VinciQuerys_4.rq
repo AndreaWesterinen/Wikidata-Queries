@@ -1,0 +1,14 @@
+embed.html#SELECT ?item ?itemLabel ?property ?propertyLabel ?targetLabel WHERE {
+  {
+    SELECT ?item ?property ?target WHERE {          
+      ?property wikibase:claim ?p;
+        wikibase:statementProperty ?ps.
+      ?st ?ps ?target.
+      ?target wdt:P179 wd:Q51845238.
+      ?item ?p ?st.
+      FILTER(?p NOT IN (p:P155, p:P156, p:P527)) # exclude properties follows, followed by and has part(s)
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de". }
+}
+ORDER BY (?property)

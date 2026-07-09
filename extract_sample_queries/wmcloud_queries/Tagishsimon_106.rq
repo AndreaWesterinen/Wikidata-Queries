@@ -1,0 +1,23 @@
+SELECT distinct ?item ?itemLabel ?long ?lat  ?item2 ?item2Label ?ref WITH { SELECT ?item ?item2 
+WHERE 
+{
+    {?item wdt:P131/wdt:P131 wd:Q22 . } hint:Prior hint:runFirst true.
+  
+  ?item wdt:P403 ?item2 .
+  ?item2 wdt:P31/wdt:P279* wd:Q23397. hint:Prior hint:gearing "forward".
+  FILTER NOT EXISTS {?item2 wdt:P200 ?item}
+  
+  
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item p:P403 ?stat . 
+  ?stat a wikibase:BestRank .
+  ?stat pq:P625 ?coord .
+  ?stat pqv:P625/wikibase:geoLongitude ?long.
+  ?stat pqv:P625/wikibase:geoLatitude ?lat. 
+  ?stat prov:wasDerivedFrom ?stat2 . 
+  ?stat2 pr:P854 ?ref .
+} 

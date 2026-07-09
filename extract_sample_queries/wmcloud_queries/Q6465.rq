@@ -1,0 +1,4 @@
+SELECT ?item ?nom WHERE {
+  ?item wdt:P31 wd:Q6465 .
+  ?item wdt:P1448 ?nom
+} order by ?nom ?item

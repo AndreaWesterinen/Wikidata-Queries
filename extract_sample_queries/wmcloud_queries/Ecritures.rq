@@ -1,0 +1,8 @@
+#  photography clubs from the Netherlands
+SELECT ?item ?itemLabel WHERE {
+  {?item wdt:P31/wdt:P279* wd:Q15911314}  UNION {?item wdt:P31/wdt:P279* wd:Q43229} UNION {?item wdt:P31/wdt:P279* wd:Q4830453}
+  ?item wdt:P101 wd:Q11633 .
+  ?item wdt:P17 wd:Q55 .
+  OPTIONAL {?item wdt:P921 wd:Q11633 .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

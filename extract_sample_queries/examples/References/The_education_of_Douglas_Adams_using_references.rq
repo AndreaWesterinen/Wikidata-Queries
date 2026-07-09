@@ -1,6 +1,4 @@
-# ----
-# The education of Douglas Adams, to illustrate references
-#
+#title: The education of Douglas Adams, to illustrate references
 SELECT ?education ?educationLabel ?ref ?refLabel  WHERE {
 
 # We use the long notation to better illustrate the nature of the components.

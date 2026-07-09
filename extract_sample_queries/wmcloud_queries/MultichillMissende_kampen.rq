@@ -1,0 +1,29 @@
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+SELECT ?item ?kampid ?kamp ?labelnl ?labelde ?labelen
+  WITH {
+    SELECT ?item  ?kampid ?kamp ?labelnl ?labelde ?labelen WHERE {
+      SERVICE <https://data.niod.nl/PoolParty/sparql/WO2_Thesaurus> {
+    SELECT ?item ?kampid ?kamp ?labelnl ?labelde ?labelen WHERE {
+      ?kamp skos:topConceptOf <https://data.niod.nl/WO2_Thesaurus/kampen/3650> .
+      ?kamp skos:prefLabel ?labelnl .
+      FILTER(LANG(?labelnl)='nl') .
+      ?kamp skos:prefLabel ?labelde .
+      FILTER(LANG(?labelde)='de') .
+      ?kamp skos:prefLabel ?labelen .
+      FILTER(LANG(?labelen)='en') .
+      BIND(xsd:integer(REPLACE(STR(?kamp), "https://data.niod.nl/WO2_Thesaurus/kampen/", "")) AS ?kampid)
+      # Trick Listeria into working on properties
+      BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(?kampid + 1000000000))) AS ?item ) .
+    } LIMIT 5000
+  }
+  } } AS %wo2
+WITH {
+  SELECT ?existingitem ?kamp {
+    ?existingitem wdt:P2888 ?kamp .
+    FILTER(REGEX(STR(?kamp), "https://data.niod.nl/WO2_Thesaurus/kampen/.+")) .
+    }
+  } AS %wikidata
+WHERE {
+  INCLUDE %wo2.
+  MINUS { INCLUDE %wikidata }
+}  ORDER BY ?kampid

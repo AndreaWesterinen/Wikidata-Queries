@@ -1,0 +1,31 @@
+#curate academic articles with main subject tags
+#
+SELECT 
+  DISTINCT 
+  ?item ?title
+#comment out the above line to get code for Quickstatments
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  ("P921" AS ?property)
+  ("Q204175" AS ?ReplaceWithYourTargetID)
+#replace the Q ID
+  ("S887" AS ?heuristic)
+  ("Q69652283" AS ?deduced)
+
+WHERE {
+  hint:Query hint:optimizer "None".
+  
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "\"golden hamster\" haswbstatement:P31=Q13442814 -haswbstatement:P921=Q204175".
+#replace the P21 Q ID
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+  
+  ?item wdt:P1476 ?title.
+  FILTER CONTAINS(LCASE(?title), "golden hamster").
+#this makes sure that the query is for the title
+
+}

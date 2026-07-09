@@ -1,5 +1,4 @@
-# ----
-#title:Elevations over 8000 meter
+#title: Elevations over 8000 meter
 SELECT ?elevation ?item ?itemLabel ?itemDescription ?coord WHERE {
   hint:Query hint:optimizer "None".
   ?st psn:P2044 ?psn .

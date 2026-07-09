@@ -1,0 +1,1 @@
+SELECT (wd:Q20978290 as ?item) ?statcount WHERE {SELECT (COUNT(DISTINCT ?item2) as ?statcount) {?item2 p:P1889 / pq:P1013 wd:Q20978290 ; wdt:P31 wd:Q5 } }

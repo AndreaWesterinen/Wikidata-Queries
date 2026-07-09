@@ -1,0 +1,4 @@
+SELECT * WHERE {
+  ?item p:P551 ?st .
+  ?st prov:wasDerivedFrom/pr:P248 wd:Q56236334
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?st ?sl
+       { VALUES ?location {wd:Q123766 wd:Q488653}
+          ?item ?property ?location ; wdt:P31 wd:Q5; wikibase:statements ?st ; wikibase:sitelinks ?sl
+       }
+       ORDER BY ASC(?st) ?item 
+       LIMIT 2000

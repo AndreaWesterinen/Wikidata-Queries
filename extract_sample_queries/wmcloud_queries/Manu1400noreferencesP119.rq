@@ -1,0 +1,4 @@
+SELECT ?item {
+	?item p:P119 ?link.
+    MINUS {
+      ?link prov:wasDerivedFrom/(pr:P143

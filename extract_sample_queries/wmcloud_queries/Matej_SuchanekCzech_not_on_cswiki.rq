@@ -1,0 +1,5 @@
+SELECT ?item ?sitelinks WHERE {
+  ?item wdt:P17 wd:Q213 .
+  MINUS { ?item ^schema:about/schema:isPartOf <https://cs.wikipedia.org/> } .
+  ?item wikibase:sitelinks ?sitelinks .
+} ORDER BY DESC(?sitelinks) LIMIT 2000

@@ -1,0 +1,4 @@
+#title: All captains should be sportspeople
+# Complex constraint from [[Property talk:P634]]
+# Clubs with captains who are not sportspeople
+SELECT DISTINCT ?item WHERE { ?item wdt:P634 ?captain . MINUS { ?captain wdt:P106/wdt:P279* wd:Q2066131 } . }

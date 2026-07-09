@@ -1,0 +1,25 @@
+SELECT
+  (wd:Q5 as ?item)
+  ("P31" as ?in)
+  ("Q42680489" as ?out)
+  ?all
+  ?with
+  ?updated
+WITH
+{   
+    SELECT   (COUNT(DISTINCT ?item) as ?all)
+    WHERE     {  ?item wdt:P31 wd:Q5 }
+} as %a1
+WITH
+{   
+    SELECT   (COUNT(DISTINCT ?has) as ?with)
+    WHERE     {  
+      { ?has wdt:P40 [] ; wdt:P26 [] ; wdt:P31 wd:Q5 } UNION { ?has wdt:P22 [] ; wdt:P25 [] ; wdt:P31 wd:Q5 }
+    }
+} as %a2
+WHERE
+{
+    INCLUDE %a1
+    INCLUDE %a2    
+    BIND(now() as ?updated)
+}

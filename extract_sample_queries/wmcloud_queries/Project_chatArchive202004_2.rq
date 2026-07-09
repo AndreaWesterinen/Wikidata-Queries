@@ -1,0 +1,8 @@
+SELECT *
+{
+  ?item1 wdt:P31 wd:Q11424 .
+  ?a schema:about ?item1 .
+  ?a schema:about ?item2 . 
+  FILTER( ?item1 != ?item2 ) 
+}
+LIMIT 100

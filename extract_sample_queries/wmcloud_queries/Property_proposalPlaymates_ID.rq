@@ -1,0 +1,7 @@
+SELECT ?property ?propertyLabel ?numberOfRecords WHERE {
+  ?property a wikibase:Property;
+            wdt:P4876 ?numberOfRecords.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?numberOfRecords
+LIMIT 20

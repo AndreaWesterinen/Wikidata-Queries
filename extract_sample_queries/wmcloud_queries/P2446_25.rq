@@ -1,0 +1,4 @@
+#title: Identical ID for Transfermarkt player and coach
+# Complex constraint from [[Property talk:P2446]]
+# Person that has both "Transfermarkt player ID" and "Transfermarkt coach ID", and the ID is the same. These are normally errors, because the player and coach IDs are different (even for the same person!).
+SELECT ?item ?id WHERE { ?item wdt:P2446 ?id; wdt:P2447 ?id }

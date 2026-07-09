@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(?omvat) AS ?omvatCount) {
+  ?item wdt:P6379 ?collectie.
+  ?item wdt:P31/(wdt:P279)* wd:Q10648343.
+  OPTIONAL {
+   ?item wdt:P527 ?omvat.
+  }
+}
+GROUP BY ?item
+HAVING (?omvatCount < 2)

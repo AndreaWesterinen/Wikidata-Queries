@@ -1,0 +1,38 @@
+#defaultView:BubbleChart
+SELECT DISTINCT ?researcharea ?researchareaLabel (count(?scientist) AS ?count) WHERE {
+  {
+    {
+      SELECT * WHERE { #Scientists born in Austria
+        ?scientist wdt:P496 ?oricd.
+        ?scientist wdt:P19 ?geburtsort.
+        ?geburtsort wdt:P17 wd:Q40.
+        ?scientist wdt:P101 ?researcharea. 
+      }
+    }
+  }
+  UNION
+  {
+    {
+      SELECT * WHERE { #Scientists with Austrian citizenship
+        ?scientist wdt:P496 ?oricd.
+        ?scientist wdt:P27 wd:Q40.
+        ?scientist wdt:P101 ?researcharea.
+        ?scientist wdt:P101 ?researcharea. 
+      }
+    }
+  }
+  UNION
+  {
+    {
+      SELECT * WHERE { #Scientists with Austrian employer
+        ?scientist wdt:P496 ?oricd.
+        ?scientist wdt:P108 ?employer.
+        ?employer wdt:P17 wd:Q40.
+        ?scientist wdt:P101 ?researcharea. 
+      }
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+group by ?researcharea ?researchareaLabel
+ORDER BY DESC((count(?scientist)))

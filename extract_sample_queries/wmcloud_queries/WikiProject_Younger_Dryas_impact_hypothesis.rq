@@ -1,0 +1,21 @@
+#title:Map of places around coordinates
+#defaultView:Map
+
+SELECT ?place ?placeLabel ?location ?dist WHERE {
+  SERVICE wikibase:around { 
+      ?place wdt:P625 ?location .
+    
+      # (Longitude <space> Latitude)
+      bd:serviceParam wikibase:center "Point(38.92209 37.22403)"^^geo:wktLiteral .
+    
+      # Radius in kilometers
+      bd:serviceParam wikibase:radius "10" . 
+    
+      # Needed to sort by the distance
+      bd:serviceParam wikibase:distance ?dist.
+  } 
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+ORDER BY ASC(?dist)

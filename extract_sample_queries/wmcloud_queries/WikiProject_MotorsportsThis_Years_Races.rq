@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?ordinal ?flag WHERE {
+  ?item p:P361 ?season.
+  ?season ps:P361 ?series.
+  OPTIONAL {?item wdt:P585 ?start.}
+  OPTIONAL {?season pq:P1545 ?ordinal.}
+  OPTIONAL {?item wdt:P17 ?country.
+            ?country wdt:P41 ?flag.}
+  ?auto_race (wdt:P31/(wdt:P279*)) wd:Q24050099.
+  ?auto_race wdt:P585 ?point_in_time.
+  ?auto_race wdt:P361 ?series.
+  FILTER(YEAR(?point_in_time) = YEAR(NOW()))
+} ORDER BY ?start

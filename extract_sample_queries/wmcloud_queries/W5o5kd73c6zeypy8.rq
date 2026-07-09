@@ -1,0 +1,1 @@
+SELECT * { wd:Q106114504 p:P2046/psn:P2046 [wikibase:quantityAmount ?amount ; wikibase:quantityUnit ?unit ] }

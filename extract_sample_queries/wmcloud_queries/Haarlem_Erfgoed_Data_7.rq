@@ -1,0 +1,16 @@
+#defaultView:Map
+SELECT ?street ?streetLabel ?image ?namedafter ?namedafterLabel ?coords WHERE {
+  ?street wdt:P31 wd:Q79007.
+  ?street wdt:P131 wd:Q9920.
+  ?street wdt:P138 ?namedafter.
+  ?street wdt:P625 ?coords.
+  ?namedafter wdt:P18 ?image.
+  { ?namedafter wdt:P19 wd:Q9920. }
+  UNION
+  { ?namedafter wdt:P937 wd:Q9920. }
+  UNION
+  { ?namedafter wdt:P551 wd:Q9920. }
+  UNION
+  { ?namedafter wdt:P20 wd:Q9920. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

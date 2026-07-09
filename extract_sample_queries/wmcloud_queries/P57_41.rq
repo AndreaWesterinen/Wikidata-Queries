@@ -1,0 +1,33 @@
+#Target required claim report for P57: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P57/ps:P57 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P57 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P57 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q2526255 wd:Q3455803 wd:Q667982 wd:Q2059704 wd:Q3387717 wd:Q779815 wd:Q1235146 wd:Q2702296 wd:Q2340668 wd:Q1414443 wd:Q635067 wd:Q158852 wd:Q1076502 wd:Q3029431 wd:Q11284414 wd:Q63538345 wd:Q2459497 wd:Q17456089 wd:Q1298794 wd:Q21234364 wd:Q3766177 wd:Q28054786 wd:Q3029403 wd:Q6102247 wd:Q10846391 } .
+			MINUS {
+				?value p:P106/ps:P106 ?values .
+			} .
+			OPTIONAL {
+				?value p:P106/ps:P106 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

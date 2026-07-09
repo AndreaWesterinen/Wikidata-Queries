@@ -1,0 +1,100 @@
+#title: Contemporary Constraint
+# Complex constraint from [[Property talk:P176]]
+# values of these statements should have existed at the same time as the subject
+SELECT ?item ?value
+WHERE {
+  ?item wdt:P176 ?value .
+  OPTIONAL { ?item p:P571/psv:P571 [ wikibase:timeValue ?item_inception ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P571/psv:P571 [ wikibase:timeValue ?value_inception ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?item p:P576/psv:P576 [ wikibase:timeValue ?item_dissolution ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P576/psv:P576 [ wikibase:timeValue ?value_dissolution ; wikibase:timePrecision "11"^^xsd:integer ] . }  
+  OPTIONAL { ?item p:P580/psv:P580 [ wikibase:timeValue ?item_start ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P580/psv:P580 [ wikibase:timeValue ?value_start ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?item p:P582/psv:P582 [ wikibase:timeValue ?item_end ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P582/psv:P582 [ wikibase:timeValue ?value_end ; wikibase:timePrecision "11"^^xsd:integer ] . }  
+
+  FILTER (
+    (
+      !BOUND(?item_inception) ||
+      (
+        (
+          !BOUND(?value_dissolution) || 
+          ?item_inception>?value_dissolution
+        ) &&
+        (
+          !BOUND(?value_end) || 
+          ?item_inception>?value_end
+        )
+      )
+    ) && 
+    (
+      !BOUND(?value_inception) || 
+      (
+        (
+          !BOUND(?item_dissolution) || 
+          ?value_inception>?item_dissolution
+        ) &&
+        (
+          !BOUND(?item_end) || 
+          ?value_inception>?item_end
+        )
+      )
+    ) && 
+    (
+      !BOUND(?item_start) || 
+      (
+        (
+          !BOUND(?value_dissolution) || 
+          ?item_start>?value_dissolution
+        ) &&
+        (
+          !BOUND(?value_end) || 
+          ?item_start>?value_end
+        )
+      )
+    ) && 
+    (
+      !BOUND(?value_start) || 
+      (
+        (
+          !BOUND(?item_dissolution) || 
+          ?value_start>?item_dissolution
+        ) &&
+        (
+          !BOUND(?item_end) || 
+          ?value_start>?item_end
+        )
+      )
+    ) && 
+    ( 
+      ( 
+        BOUND(?item_inception) && 
+        ( 
+          BOUND(?value_dissolution) || 
+          BOUND(?value_end) 
+        )
+      ) || 
+      ( 
+        BOUND(?value_inception) &&
+        ( 
+          BOUND(?item_dissolution) ||
+          BOUND(?item_end) 
+        )
+      ) ||
+      ( 
+        BOUND(?item_start) &&
+        ( 
+          BOUND(?value_dissolution) ||
+          BOUND(?value_end) 
+        )
+      ) ||
+      ( 
+        BOUND(?value_start) &&
+        ( 
+          BOUND(?item_dissolution) ||
+          BOUND(?item_end) 
+        )
+      )
+    )
+  ) 
+}

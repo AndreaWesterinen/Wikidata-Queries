@@ -1,0 +1,9 @@
+SELECT ?item (MD5(CONCAT(str(?item),str(RAND()))) as ?random)
+WHERE
+{
+  SERVICE bd:sample { ?item wdt:P17 wd:Q142 . bd:serviceParam bd:sample.limit 5000  }
+  ?item (wdt:P31/wdt:P279*) wd:Q811979.
+  MINUS { ?item wdt:P625 _:b1. }  
+} 
+ORDER BY ?random
+LIMIT 10

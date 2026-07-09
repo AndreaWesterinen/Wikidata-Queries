@@ -1,0 +1,3 @@
+SELECT ?item ?itemLabel (strbefore(strafter(str(?itemDescription),"("),")") as ?desc) ?st 
+  (SAMPLE(CONCAT("<small>",COALESCE(?fl,""),"</small> →[",COALESCE(str(?ws), str(?ws3))," ", COALESCE(strafter(?wst,"BLKÖ:"),str(?wst3)),"]")) as ?ws_ ) 
+  (SAMPLE(CONCAT("{","{Q+","

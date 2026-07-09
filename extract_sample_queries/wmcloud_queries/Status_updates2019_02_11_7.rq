@@ -1,0 +1,10 @@
+embed.html##defaultView:Graph
+#All species in the hummingbird (Trochilidae) family, with an image if available
+SELECT ?item ?itemLabel ?genus ?genusLabel ?image WHERE {
+  ?item wdt:P31 wd:Q16521.
+  ?item wdt:P105 wd:Q7432.
+  ?item wdt:P171* wd:Q43624.
+  ?item wdt:P171 ?genus.
+  OPTIONAL {?item wdt:P18 ?image.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

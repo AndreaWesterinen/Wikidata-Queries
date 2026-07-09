@@ -1,0 +1,11 @@
+# Gotta catch 'em all if they are prime
+SELECT ?pokemonLabel ?pokedexNumber WHERE {
+	?prime wdt:P31 wd:Q49008 .
+	?prime wdt:P1181 ?pokedexNumber .
+
+	?pokemon wdt:P31 wd:Q3966183.
+	?pokemon wdt:P1112 ?pokedexNumber.
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }.
+}
+ORDER BY ?pokedexNumber

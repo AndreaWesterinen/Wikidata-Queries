@@ -1,0 +1,9 @@
+#Map of Libraries in NZ
+SELECT DISTINCT ?library ?libraryLabel ?geo ?geoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?library (wdt:P31/wdt:P279*) wd:Q7075.
+  ?library wdt:P17 wd:Q664.
+  ?library wdt:P131 wd:Q32159699.
+  ?library wdt:P625 ?geo.
+
+}

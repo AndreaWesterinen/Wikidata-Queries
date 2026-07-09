@@ -1,0 +1,15 @@
+#defaultView:BubbleChart
+SELECT ?body ?bodyLabel  (COUNT(?standard) AS ?count)
+
+WHERE {
+ 
+  ?standard wdt:P1462 ?body .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }
+
+GROUP BY ?body ?bodyLabel
+ORDER BY DESC(?count)

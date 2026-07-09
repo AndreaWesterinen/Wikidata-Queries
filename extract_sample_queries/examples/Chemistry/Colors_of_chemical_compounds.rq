@@ -1,3 +1,4 @@
+#title: Colors of chemical compounds
 #defaultView:BubbleChart
 SELECT ?rgb ?colorLabel (COUNT(?compound) AS ?count)
 WHERE

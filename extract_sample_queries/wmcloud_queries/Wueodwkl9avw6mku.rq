@@ -1,0 +1,5 @@
+SELECT distinct ?recteur ?recteurLabel ?lienpersee WHERE { 
+  ?recteur wdt:P973 ?lienpersee.
+  filter contains(str(?lienpersee), 'persee.fr')
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }
+ORDER BY ?lienpersee

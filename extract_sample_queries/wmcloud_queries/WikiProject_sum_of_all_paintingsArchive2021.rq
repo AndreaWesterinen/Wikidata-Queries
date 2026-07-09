@@ -1,0 +1,6 @@
+#defaultView:ImageGrid
+SELECT ?item ?image WHERE { 
+  ?item wdt:P31 wd:Q93184 . 
+  ?item wdt:P170 wd:Q762 .
+  OPTIONAL { ?item wdt:P18 ?image } . 
+}

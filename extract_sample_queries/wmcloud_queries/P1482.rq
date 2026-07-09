@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P1482/ps:P1482 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(http://(.+))$") )
+}

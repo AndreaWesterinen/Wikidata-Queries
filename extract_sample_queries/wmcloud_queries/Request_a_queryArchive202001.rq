@@ -1,0 +1,20 @@
+SELECT ?item ?linkcount ?maitronlinked WHERE {
+  ?item wdt:P1142 wd:Q6199 . # political ideology is anarchism
+  FILTER NOT EXISTS { ?wen schema:about ?item; schema:isPartOf <https://en.wikipedia.org/> . }
+  ?item wdt:P31 wd:Q5 .      # instance of human
+  ?item wikibase:sitelinks ?linkcount . 
+  FILTER (?linkcount > 0)
+  OPTIONAL { 
+    ?item wdt:P4724 ?maitronid . 
+    bind(concat("[http://maitron-en-ligne.univ-paris1.fr/spip.php?article",str(?maitronid)," ", str(?maitronid),"]") as ?maitronlinked)
+  }
+  MINUS {
+    VALUES ?item { 
+      wd:Q56562095 # Toufik-de-Planoise  wikimedian no sources
+      wd:Q961619   # https://en.wikipedia.org/wiki/Wolfi_Landstreicher PROD 
+    }
+  }
+} 
+
+ORDER BY DESC(?linkcount)
+LIMIT 1000

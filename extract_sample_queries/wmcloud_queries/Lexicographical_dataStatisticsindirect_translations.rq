@@ -1,0 +1,13 @@
+SELECT ?item
+(GROUP_CONCAT(DISTINCT CONCAT(?lemmal, "<sup>(",?lg,")</sup>")) as ?lemmas)
+(COUNT(DISTINCT ?lang) as ?ct) {
+  { SELECT ?item ?lang ?lg
+  (GROUP_CONCAT(DISTINCT CONCAT("[[", replace(str(?a),str(wd:),"Lexeme:"),"|",REPLACE(?lemma,"^(M[0-9][0-9][0-9])x.*$","$1.."),"]]") ; separator=", ") as ?lemmal) {
+    ?a wikibase:lemma ?lemma ; ontolex:sense / wdt:P5137 ?item ; dct:language ?lang.
+    OPTIONAL { ?lang wdt:P305 ?lg_ }
+    BIND(IF(BOUND(?lg_),?lg_,LANG(?lemma)) as ?lg)
+    FILTER ( ?a NOT IN ( wd:L123, wd:L1234) )
+    FILTER NOT EXISTS { ?a wikibase:lexicalCategory wd:Q102786 }
+  } GROUP BY ?item ?lang ?lg ORDER BY ?item DESC(?lg) }
+}
+GROUP BY ?item HAVING(?ct> 3) ORDER BY DESC(?ct) LIMIT 400

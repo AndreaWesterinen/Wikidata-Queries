@@ -1,0 +1,25 @@
+embed.html##defaultView:Map{"hide":["?geo", "?rgb", "?layer"],"markercluster": true}
+SELECT DISTINCT ?geo ?xLabel ?plugLabel (SAMPLE(?x) AS ?x) (SAMPLE(?plug) AS ?plug) (SAMPLE(?layer) AS ?layer) WHERE {
+  ?x wdt:P31/wdt:P279* wd:Q6256 ;
+     wdt:P3896 ?geo ;
+     wdt:P2853 ?plug.
+  BIND(
+    IF(?plug = wd:Q2335539, "AS/NZS 3112",
+    IF(?plug = wd:Q1528507, "BS 1363",
+    IF(?plug = wd:Q1383497, "BS 546",
+    IF(?plug = wd:Q1378312, "Europlug",
+    IF(?plug = wd:Q1653438, "IEC 60906-1",
+    IF(?plug = wd:Q1123613, "Schuko",
+    IF(?plug = wd:Q2335530, "SEV 1011",
+    IF(?plug = wd:Q24288454, "Type A",
+    IF(?plug = wd:Q24288456, "Type B",  
+    IF(?plug = wd:Q2335524, "Type D",
+    IF(?plug = wd:Q2335536, "Type E",
+    IF(?plug = wd:Q1266396, "Type H", 
+    IF(?plug = wd:Q1502017, "Type K",
+    IF(?plug = wd:Q1520890, "Type L",   
+        ""))))))))))))))
+    AS ?layer).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?geo ?xLabel ?plugLabel

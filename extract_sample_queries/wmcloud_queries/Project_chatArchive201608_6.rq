@@ -1,0 +1,7 @@
+SELECT ?aLabel ?bLabel ?a ?b
+WHERE
+{
+	?a wdt:P460 ?b.
+	?a wdt:P2959 ?b.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "hy" }
+}

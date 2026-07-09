@@ -1,0 +1,36 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P31 ?grouping.
+BIND(wd:Q34 AS ?country)
+{
+VALUES ?type {
+wd:Q68295960 # Swedish government agency(förvaltningsmyndighet) (249)
+wd:Q107407151 # Swedish government agency(myndighet under riksdagen) (5)
+wd:Q10397683 # AP-fund (6)
+wd:Q59603261 # state-ownded enterprise (3)
+wd:Q10330441 # state level departments (11)
+wd:Q341627 # court of appeal(hovrätten) (6)
+wd:Q2065704 # local court(tingsrätt) (48)
+wd:Q190752 # supreme court (2)
+wd:Q1289455 # administrative court of appeal (4)
+wd:Q18292311 # migration court (4)
+wd:Q10530889 # regional rent tribunal (8)
+}
+?entity wdt:P31 ?type; wdt:P17 ?country .
+}
+UNION
+{
+VALUES ?type {
+wd:Q108059166 # delegations (7)
+wd:Q108058047 # general consulates (9)
+wd:Q3917681 # embassies (93)
+}
+?entity wdt:P31 ?type; wdt:P137 ?country .
+}
+UNION
+{
+VALUES ?entity {
+wd:Q10475844 # Swedish National Courts Administration
+}
+}  
+MINUS { ?entity wdt:P576 [] }
+MINUS { ?entity wdt:P1366 [] }
+MINUS { ?entity wdt:P3999 [] }. ?entity wdt:P31 ?grouping .} GROUP BY ?grouping HAVING (?count < 1) ORDER BY DESC(?count) LIMIT 1000

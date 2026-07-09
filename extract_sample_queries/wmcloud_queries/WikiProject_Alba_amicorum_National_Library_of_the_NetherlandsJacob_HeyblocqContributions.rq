@@ -1,0 +1,57 @@
+#Contributions of the Album Amicorum Jacob Heyblocq (AAJH)
+
+SELECT DISTINCT ?contrib ?contribLabel 
+?contribFollowsNr #previous contribNr
+?contribNr #number of contribution acording to catalog Q82260552
+?contribFollowedByNr #next contribNr
+
+(GROUP_CONCAT(DISTINCT ?pages; separator = " -- ") as ?contribPages) 
+#?contribPages #page numbers involved in this contribution
+#(GROUP_CONCAT(DISTINCT ?images; separator = " -- ") as ?contribImages) 
+?contribImages #images involved in this contribution
+
+?creatorLabel
+?creatorImage
+
+?dateOfCreation
+?placeOfCreationLabel
+?LatLonOfCreation
+
+
+ WHERE 
+{
+  ?contrib wdt:P361 wd:Q72752496.
+  
+  ?contrib wdt:P528 ?contribNr. #number of contribution acording to catalog Q82260552
+  OPTIONAL{?contrib wdt:P155 ?contribFollows.
+           ?contribFollows wdt:P528 ?contribFollowsNr.} #previous contribNr
+  OPTIONAL{?contrib wdt:P156 ?contribFollowedBy.
+          ?contribFollowedBy wdt:P528 ?contribFollowedByNr.} #next contribNr
+  
+  ?contrib wdt:P304 ?pages. #page numbers involved in this contribution
+  ?contrib wdt:P18 ?contribImages. #images involved in this contribution
+  
+  {?contrib wdt:P50 ?creator.} UNION {?contrib wdt:P767 ?creator.} #authors and contributors of this contribution
+  OPTIONAL{?creator wdt:P18 ?creatorImage.}
+  
+  OPTIONAL{?contrib wdt:P1071 ?placeOfCreation.}
+  OPTIONAL{?contrib wdt:P625 ?LatLonOfCreation.}
+  OPTIONAL{?contrib wdt:P571 ?dateOfCreation.}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+#                         ?creator rdfs:label ?creatorLabel.
+#                         ?contrib rdfs:label ?contribLabel.
+                         }
+}
+GROUP BY ?contrib ?contribLabel 
+?contribFollowsNr 
+?contribNr 
+?contribFollowedByNr
+?contribImages 
+?creatorLabel
+?creatorImage
+?dateOfCreation
+?placeOfCreationLabel
+?LatLonOfCreation
+
+ORDER BY ?contribLabel

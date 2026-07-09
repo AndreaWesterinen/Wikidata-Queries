@@ -1,0 +1,5 @@
+SELECT DISTINCT ?Soft ?SoftLabel ?LicenceLabel WHERE {
+  ?Soft (wdt:P31/wdt:P279*) wd:Q341.
+  ?Soft wdt:P275 ?Licence.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

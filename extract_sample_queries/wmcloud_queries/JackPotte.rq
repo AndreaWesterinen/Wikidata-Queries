@@ -1,0 +1,11 @@
+SELECT ?l1 ?lemma1 ?l2 ?lemma2 WHERE {
+  ?l1 a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma1.
+  ?l2 a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma2.
+  ?language wdt:P218 'fr'.
+  FILTER ( ?l1 != ?l2 ).
+  FILTER regex (?lemma1, ?lemma2).
+  FILTER regex (?lemma2, ?lemma1).
+}
+limit 10

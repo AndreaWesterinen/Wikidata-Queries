@@ -1,0 +1,13 @@
+SELECT ?anthropologue ?pays_de_nationalit_ ?pays_de_nationalit_Label ?image ?date_de_naissance ?domaine_d_activit_ ?domaine_d_activit_Label ?anthropologueLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?anthropologue wdt:P106 wd:Q4773904.
+  OPTIONAL { ?anthropologue wdt:P27 ?pays_de_nationalit_. }
+  
+  
+  ?anthropologue wdt:P21 wd:Q6581072.
+  OPTIONAL { ?anthropologue wdt:P18 ?image. }
+  OPTIONAL { ?anthropologue wdt:P569 ?date_de_naissance. }
+  OPTIONAL { ?anthropologue wdt:P101 ?domaine_d_activit_. }
+  ?anthropologue wdt:P106 wd:Q34074720.
+}
+LIMIT 5000

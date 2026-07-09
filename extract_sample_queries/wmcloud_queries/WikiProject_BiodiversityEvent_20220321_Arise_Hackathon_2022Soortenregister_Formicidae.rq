@@ -1,0 +1,38 @@
+SELECT ?item ?namer (YEAR(?nameyr) as ?nameyear) ?enwiki ?nlwiki ?commons ?tarsier WHERE {
+  ?item wdt:P31 wd:Q16521.
+  ?item wdt:P105 wd:Q7432.
+  ?item (wdt:P171*) wd:Q7386;
+    wdt:P3405 ?soortenregister.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+  OPTIONAL {
+    ?item wdt:P225 ?taxonname.
+    BIND(replace(?taxonname," ","_") AS ?taxonstr)
+    BIND(CONCAT("[https://andrawaag.github.io/tarsier/jupyter_link.html?name=", ?taxonstr, " Find images with Tarsier]") AS ?tarsier)
+  }
+  OPTIONAL {
+    ?item wdt:P225 ?taxonname;
+      p:P225 [
+        pq:P405 ?namer;
+        pq:P574 ?nameyr
+      ].
+  }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL {
+    ?item ^schema:about ?nlarticle .
+    ?nlarticle schema:isPartOf <https://nl.wikipedia.org/>;
+    schema:name ?nlarticlename .
+    BIND(CONCAT("[", STR(?nlarticle), " ", ?nlarticlename, "]") AS ?nlwiki)
+  }
+  OPTIONAL {
+    ?item ^schema:about ?enarticle .
+    ?enarticle schema:isPartOf <https://en.wikipedia.org/>;
+    schema:name ?enarticlename .
+    BIND(CONCAT("[", STR(?enarticle), " ", ?enarticlename, "]") AS ?enwiki)
+  }
+  OPTIONAL {
+    ?item ^schema:about ?commonslink .
+    ?commonslink schema:isPartOf <https://commons.wikimedia.org/>;
+    schema:name ?commonsname .
+    BIND(CONCAT("[", STR(?commonslink), " ", ?commonsname, "]") AS ?commons)
+  }
+}

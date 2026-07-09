@@ -1,0 +1,5 @@
+select ?item where {
+  ?item wdt:P2888 ?e .
+  FILTER (STRSTARTS(STR(?e),"http://identifiers.org/doid")) .
+  filter not exists {?item wdt:P699 ?doid}
+}

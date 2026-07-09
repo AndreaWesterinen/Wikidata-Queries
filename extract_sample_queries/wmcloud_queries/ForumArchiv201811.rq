@@ -1,0 +1,22 @@
+# Find World wide hot springs using the Wikidata Query service
+# taken from
+# http://wiki.bitplan.com/index.php/SPARQL#Hotsprings_worldwide
+# Created 2018-11 by Wolfgang Fahl BITPlan GmbH
+# 
+# display the results as a map
+#defaultView:Map
+#
+# select the hot spring and its coordinates
+SELECT ?hotspring ?coord 
+WHERE 
+{
+  # any subject
+  # which is an instance of
+  # https://www.wikidata.org/wiki/Property:P31
+  # hotspring
+  # https://www.wikidata.org/wiki/Q177380
+  ?hotspring wdt:P31 wd:Q177380.
+  # get the coordinate location value for any found hotspring
+  # https://www.wikidata.org/wiki/Property:P625
+  ?hotspring wdt:P625 ?coord.
+}

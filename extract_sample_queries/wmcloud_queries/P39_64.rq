@@ -1,0 +1,2 @@
+#title:Change the qualifier P155 to P1365
+SELECT DISTINCT ?item WHERE { ?item p:P39/pq:P155 []}

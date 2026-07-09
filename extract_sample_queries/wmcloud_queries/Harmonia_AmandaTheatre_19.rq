@@ -1,0 +1,17 @@
+#defaultView:Timeline
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?award_label (SAMPLE(?date) AS ?year) (SAMPLE(?photo) AS ?pic)
+WHERE {
+  ?item p:P166 ?awardStatement .
+  ?awardStatement ps:P166 ?award ;
+         pq:P585 ?date .
+  VALUES (?award ?award_label) {
+    (wd:Q1131356 "Theatre World Award")
+    (wd:Q28007396 "Dorothy Loudon Award")
+    (wd:Q28007416 "Special Award")
+    (wd:Q28007447 "John Willis Award")
+    (wd:Q28007406 "Lunt-Fontanne Award")
+  } .
+  OPTIONAL { ?item wdt:P18 ?photo . }
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" .  }
+}GROUP BY ?item ?itemLabel ?itemDescription ?award_label 
+ORDER BY ?year

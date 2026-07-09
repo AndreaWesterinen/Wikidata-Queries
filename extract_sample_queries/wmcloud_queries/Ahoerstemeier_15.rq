@@ -1,0 +1,10 @@
+#defaultView:Table
+SELECT DISTINCT ?entity ?entityLabel ?id WHERE {
+  ?entity wdt:P31 wd:Q759421.       # NSG
+  ?entity wdt:P131 ?location .      # which have a location
+  ?location wdt:P131* wd:Q5946 .    # which is in HSK
+  ?entity wdt:P3974 ?id .
+  FILTER(!EXISTS { ?entity wdt:P3179 ?x. })  # no overlap defined
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+}
+ORDER BY ?id

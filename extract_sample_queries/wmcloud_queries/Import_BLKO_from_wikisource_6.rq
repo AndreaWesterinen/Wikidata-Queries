@@ -1,0 +1,8 @@
+SELECT DISTINCT ?entity ?entityLabel ?prop (strlen(?prop) as ?len) 
+WHERE
+{
+    ?entity wdt:P1433 wd:Q665807 .  
+    ?entity wdt:P31 wd:Q19389637 .  
+    ?entity wdt:P1922 ?prop .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

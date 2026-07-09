@@ -1,0 +1,13 @@
+SELECT ?item ?dod (SAMPLE (?stct) as ?stct) (SAMPLE (?slct) as ?slct) (GROUP_CONCAT(?article;separator=", ") as ?articles) (SAMPLE(?q2) as ?q2) (SAMPLE(?q4) as ?q4)
+{
+	?item wdt:P570 ?dod
+	FILTER ( ?dod > "2016-08-30T00:00:00Z"^^xsd:dateTime)
+	FILTER ( ?dod > (now()-"P32D"^^xsd:duration) && ?dod < now() )
+	?item wdt:P31 wd:Q5 .
+	OPTIONAL { ?item wdt:P27 ?q } . 	FILTER(!BOUND(?q))
+	OPTIONAL { ?item wdt:P19/wdt:P17 ?q2 }
+	OPTIONAL { ?item wdt:P20/wdt:P17 ?q4 }
+  	OPTIONAL { ?item wikibase:statements ?stct }
+  	OPTIONAL { ?item wikibase:sitelinks ?slct }
+	OPTIONAL { ?article1 schema:about ?item; schema:inLanguage ?lang . BIND(CONCAT("[",str(?article1)," ",str(?lang),"]") as ?article) }
+} GROUP BY ?item ?dod ORDER BY DESC(?dod) ?item

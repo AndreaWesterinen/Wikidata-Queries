@@ -1,0 +1,8 @@
+SELECT ?item ?protocolNumber WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q15836568 .
+  ?item p:P361 ?partOfStatement .
+  ?partOfStatement ps:P361 wd:Q81414 .
+  ?partOfStatement pq:P1545 ?protocolNumber .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ASC(?protocolNumber)

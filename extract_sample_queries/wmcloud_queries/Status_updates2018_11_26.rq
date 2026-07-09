@@ -1,0 +1,20 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coords (round(year(?date)/100) as ?layer ) ?img WHERE {
+    { 
+    SELECT DISTINCT ?item (SAMPLE(?directcoords) AS ?directcoords) (SAMPLE(?placecoords) AS ?placecoords) (SAMPLE(?date) AS ?date) {
+      ?item wdt:P195 wd:Q1376 ; wdt:P571 ?date .
+      
+      ?item p:P189 ?discoveryplaceS .
+      ?discoveryplaceS ps:P189 ?discoveryplace .
+      OPTIONAL { ?discoveryplaceS pq:P625 ?directcoords . }
+      OPTIONAL { ?discoveryplace wdt:P625 ?placecoords . }
+      
+    } GROUP BY ?item
+  }
+  
+  BIND(COALESCE(?directcoords, ?placecoords) AS ?coords)
+
+  
+  optional { ?item wdt:P18 ?img } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

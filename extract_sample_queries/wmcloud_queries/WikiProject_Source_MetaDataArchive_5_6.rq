@@ -1,0 +1,5 @@
+SELECT ?retraction_notice ?retraction_noticeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?retraction_notice wdt:P31 wd:Q7316896.
+}
+LIMIT 10000

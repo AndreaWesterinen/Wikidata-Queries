@@ -1,0 +1,14 @@
+SELECT 
+    ?item ?itemLabel 
+    ?whatever ?whateverLabel 
+    (COUNT(DISTINCT ?class) as ?ct)
+{
+    ?item wdt:P31 wd:Q6979593 . 
+    ?item wdt:P2094 ?whatever .  
+    ?item wdt:P2094 ?class 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY
+    ?item ?itemLabel 
+    ?whatever ?whateverLabel 
+HAVING (?ct > 1)

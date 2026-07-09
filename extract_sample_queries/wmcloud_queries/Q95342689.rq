@@ -1,0 +1,11 @@
+embed.html#SELECT ?item ?itemLabel ?id1 ?id2 ?url1 ?url2 {
+ 
+  ?item p:P691 ?statement1, ?statement2 FILTER( ?statement1 != ?statement2 ) .
+  ?statement1 ps:P691 ?id1 .
+  ?statement2 ps:P691 ?id2 ; pq:P2241 wd:Q1263068 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,en,de,fr". }
+  
+  bind(concat("https://aleph.nkp.cz/F/?func=find-c&local_base=aut&ccl_term=ica=", ?id1) as ?url1) .
+  bind(concat("https://aleph.nkp.cz/F/?func=find-c&local_base=aut&ccl_term=ica=", ?id2) as ?url2) .
+  
+} 

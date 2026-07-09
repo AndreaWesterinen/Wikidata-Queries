@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?house ?houseLabel ?ref WHERE {
+  ?item wdt:P1435 wd:Q76199821.
+  ?item wdt:P2789 ?house .
+  ?house wdt:P3481 ?ref . 
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" .  }
+  
+}

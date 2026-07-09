@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?parent ?parentLabel ?sport ?sportLabel WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q1539532; wdt:P361 ?parent; wdt:P641 ?sport .
+  ?sport wdt:P279* wd:Q2215841 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}       

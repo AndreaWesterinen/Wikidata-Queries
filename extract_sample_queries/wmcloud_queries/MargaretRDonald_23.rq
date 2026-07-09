@@ -1,0 +1,19 @@
+# Items about women who are FRS with/without  a Wikipedia page
+# and demanding that they be a researcher  [Property:P106] researcher [Q1650915 or researcher 
+# no demand that they be human
+SELECT ?FRS ?FRSLabel?article  with { select distinct ?FRS WHERE 
+ {
+   ?FRS wdt:P166 wd:Q15631401.     # have been awarded an FRS
+   ?FRS wdt:P21 wd:Q6581072.       # is female
+      
+ } } as %i where
+
+{
+  include %i
+     OPTIONAL
+    {?article schema:about ?FRS. # and optionally have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+     }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?FRSLabel 

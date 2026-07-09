@@ -1,0 +1,12 @@
+#defaultView:Graph
+SELECT ?item1 ?image1 ?item1Label ?item2 ?image2 ?item2Label ?edgeLabel WHERE {
+VALUES ?item1 {wd:Q202864 wd:Q1148004 wd:Q11995 wd:Q22138769 wd:Q1165479 wd:Q56793087 wd:Q15794049 wd:Q836749 wd:Q477918 wd:Q310911
+}
+VALUES ?item2 {wd:Q202864 wd:Q1148004 wd:Q11995 wd:Q22138769 wd:Q1165479 wd:Q56793087 wd:Q15794049 wd:Q836749 wd:Q477918 wd:Q310911
+}
+{?item1 ?prop ?item2.} 
+?edge ?dummy ?prop ; rdf:type wikibase:Property
+OPTIONAL {?item1 wdt:P18 ?image1}
+OPTIONAL {?item2 wdt:P18 ?image2}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

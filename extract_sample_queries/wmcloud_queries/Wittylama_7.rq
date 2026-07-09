@@ -1,0 +1,14 @@
+#Current, physical, libraries for which we have a country but no geolocation. 
+#Why are two West German libraries showing, despite the "MINUS End Time property request?
+
+SELECT DISTINCT ?library ?libraryLabel ?end ?countryLabel
+WHERE {
+  ?library wdt:P31/wdt:P279* wd:Q7075;
+           wdt:P17 ?country.
+  MINUS { ?library wdt:P31/wdt:P279* wd:Q212805;
+                   wdt:P582 ?end;
+                   wdt:P625 ?coord.}
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC (?countryLabel)

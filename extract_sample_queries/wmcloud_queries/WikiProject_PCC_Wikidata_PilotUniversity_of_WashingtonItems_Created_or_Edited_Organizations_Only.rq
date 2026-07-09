@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P5008 wd:Q98970039;
+        wdt:P31/wdt:P279* wd:Q43229. hint:Prior hint:gearing "forward".
+}

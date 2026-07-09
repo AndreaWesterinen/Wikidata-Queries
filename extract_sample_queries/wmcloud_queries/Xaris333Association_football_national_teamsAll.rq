@@ -1,0 +1,7 @@
+SELECT ?item
+WHERE
+{
+  	{ ?item wdt:P31 wd:Q6979593 } UNION { ?item wdt:P31 wd:Q45043950 } UNION { ?item wdt:P31 wd:Q45045176 } UNION { ?item wdt:P31 wd:Q45047789 } UNION { ?item wdt:P31 wd:Q45049649 } UNION { ?item wdt:P31 wd:Q45053817 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?label)

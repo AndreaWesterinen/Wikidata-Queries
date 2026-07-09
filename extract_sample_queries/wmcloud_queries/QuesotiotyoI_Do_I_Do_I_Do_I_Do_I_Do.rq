@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?z (SAMPLE(?dob) as ?dob) (SAMPLE(?dod) as ?dod) ?count
+{ {
+      SELECT DISTINCT ?item ?dob ?sl ?st (COUNT(?value) AS ?count)
+      { ?item p:P26/ps:P26 ?value ; wdt:P31 wd:Q5 ; wdt:P569 ?dob ; wikibase:sitelinks ?sl ; wikibase:statements ?st . }
+      GROUP BY ?item ?dob ?sl ?st ORDER BY DESC(?count) LIMIT 600
+  }
+  filter (?dob >= "1857-01-01"^^xsd:dateTime)
+  filter (?count >= 5)
+  OPTIONAL{?item wdt:P570 ?dod.}
+  BIND((?sl + (?st/4)) AS ?z)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel ?count ?z ORDER BY DESC(?z) DESC(?cnt)

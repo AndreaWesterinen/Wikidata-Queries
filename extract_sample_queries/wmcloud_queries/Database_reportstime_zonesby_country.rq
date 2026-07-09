@@ -1,0 +1,17 @@
+SELECT
+	?item
+	(GROUP_CONCAT( DISTINCT( CONCAT("[[", strafter(str(?tz),"y/"),"|", ?tzLabel ,"]] ",str(?ct),"; ") )) as ?zones)
+	(SUM(?ct) as ?stmts)
+{
+	{
+  		SELECT ?item ?tz (COUNT(DISTINCT ?loc) as ?ct)
+		{
+			?loc wdt:P421 ?tz .
+  			?loc wdt:P17 ?item
+		}
+		GROUP BY ?item ?tz
+	}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?tz rdfs:label ?tzLabel }
+}
+GROUP BY ?item
+ORDER BY DESC(?stmts)

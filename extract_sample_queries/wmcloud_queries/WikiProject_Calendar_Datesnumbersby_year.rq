@@ -1,0 +1,20 @@
+SELECT (SAMPLE(?item) as ?item) ?y (COUNT(DISTINCT ?item) as ?ct) (SUM(?sl) as ?zsl) (SAMPLE(?ctr) as ?redir)
+WITH
+{
+  SELECT ?y (COUNT(DISTINCT ?redir) as ?ctr) 
+  {
+    ?item wdt:P31 wd:Q47150325 ; wdt:P585 ?d .
+    ?redir owl:sameAs ?item . 
+    BIND(YEAR(?d) as ?y)
+  }      
+  GROUP BY ?y
+} as %a
+WHERE
+{
+    ?item wdt:P31 wd:Q47150325 ; wdt:P585 ?d .
+    BIND( YEAR(?d) as ?y)
+    OPTIONAL { ?item wikibase:sitelinks ?sl }
+    OPTIONAL { INCLUDE %a }
+}
+GROUP BY ?y 
+ORDER BY DESC(?y)

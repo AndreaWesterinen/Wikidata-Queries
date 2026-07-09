@@ -1,0 +1,4 @@
+SELECT (COUNT(*) as ?count)
+{
+    ?item wdt:P19 / wdt:P17 wd:Q38 ; wdt:P569 ?d1 ; wdt:P734 ?fn ; wdt:P21 ?g .
+}  

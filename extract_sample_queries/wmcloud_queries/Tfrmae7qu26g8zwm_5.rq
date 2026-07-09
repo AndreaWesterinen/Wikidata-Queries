@@ -1,0 +1,2 @@
+# Source: https://twitter.com/MagnusManske/status/799026604861231104
+SELECT ?q { ?q wdt:P214 ?viaf MINUS { ?q (wdt:P31|wdt:P279) ?instance } }

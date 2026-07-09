@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?p ?statement ?statedLabel ?wID ?url ?name ?date ?pr ?pr_
+    WHERE {
+      ?statement prov:wasDerivedFrom ?ref.
+      ?item ?p ?statement.
+      filter (?p in (p:P2949))
+      ?ref ?pr ?pr_ . 
+      filter (?pr in (pr:P854))
+      Optional {?ref pr:P248 ?stated}
+      Optional {?ref pr:P2949 ?wID}
+      Optional {?ref pr:P854 ?url}
+      Optional {?ref pr:P1810 ?name}
+      Optional {?ref pr:P813 ?date}
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }

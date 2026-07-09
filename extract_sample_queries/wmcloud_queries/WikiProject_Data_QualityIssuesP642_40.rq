@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?ofLabel
+WHERE
+{
+  ?item p:P2699 ?stm .
+  ?stm pq:P642 ?of .
+  FILTER ( ?of = ?item )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+}

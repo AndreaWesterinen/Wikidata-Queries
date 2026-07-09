@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel $value WHERE {
+  ?item wdt:P1190 $value .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } . 
+}

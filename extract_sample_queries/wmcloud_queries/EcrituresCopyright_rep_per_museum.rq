@@ -1,0 +1,34 @@
+#Count copyrightrep for Dutch museums
+SELECT ?museum ?museumLabel ?count ?countCISAC ?countOther
+WITH {
+  SELECT DISTINCT ?museum ?copyrightrep WHERE {
+    ?copyrightrep wdt:P6275 ?museum .
+    ?museum wdt:P31/wdt:P279* wd:Q33506 .
+    ?museum wdt:P17 wd:Q55 .
+  }
+} AS %copyrightreps
+WITH {
+  SELECT ?copyrightrep ?CISAC ?Other WHERE {
+    INCLUDE %copyrightreps .
+    OPTIONAL {
+      ?copyrightrep wdt:P6275 wd:Q739586 .
+      BIND(1 AS ?CISAC)
+    }
+    OPTIONAL {
+      ?copyrightrep wdt:P6275 ?rep .
+      MINUS { ?copyrightrep wdt:P6275 wd:Q739586. }
+      BIND(1 AS ?Other)
+    }
+  }
+} AS %copyrightrepsWithName
+WITH {
+  SELECT ?museum (COUNT(?copyrightrep) AS ?count) (SUM(?CISAC) AS ?countCISAC) (SUM(?Other) AS ?countOther) WHERE {
+    INCLUDE %copyrightreps .
+    INCLUDE %copyrightrepsWithName .
+  }
+  GROUP BY ?museum
+} AS %museums
+WHERE {
+  INCLUDE %museums .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+}

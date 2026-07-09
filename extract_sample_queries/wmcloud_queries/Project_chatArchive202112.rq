@@ -1,0 +1,19 @@
+#defaultView:Map
+SELECT ?city ?label ?population ?coords ?layer WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?city wdt:P17 wd:Q668.
+  ?city wdt:P31/wdt:P279? wd:Q486972 .
+  OPTIONAL { ?city wdt:P1082 ?population. }
+  OPTIONAL { ?city wdt:P625 ?coords . }
+  ?city rdfs:label ?label .
+  FILTER(LANG(?label) = "en") 
+   BIND(
+    IF(?population < 1000000, "<1M",
+    IF(?population < 2000000, "1M-2M",
+    IF(?population < 5000000, "2M-5M",
+    IF(?population < 10000000, "5M-10M",
+    IF(?population < 20000000, "10M-20M",
+    ">20M")))))
+    AS ?layer).
+}
+  LIMIT 12000

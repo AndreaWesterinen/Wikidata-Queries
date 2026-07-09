@@ -1,0 +1,9 @@
+select ?cat ?catLabel WITH {
+  SELECT ?cat { 
+    ?cat wdt:P31/wdt:P279* wd:Q4167836 OPTIONAL {?cat wdt:P4224 ?f} FILTER(!BOUND(?f))
+  } OFFSET 3000000 LIMIT 50000
+} AS %q
+{
+  INCLUDE %q
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

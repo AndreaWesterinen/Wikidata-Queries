@@ -1,0 +1,6 @@
+SELECT * 
+{
+    ?item wdt:P496 [] ; wikibase:statements 4  ; skos:altLabel ?alt  ; rdfs:label ?l . 
+    FILTER(lang(?l)="en")      
+    FILTER( substr(?l,1,1) != substr(?alt,1,1) )
+}

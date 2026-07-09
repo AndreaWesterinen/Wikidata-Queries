@@ -1,0 +1,6 @@
+select * where {
+	?item wdt:P971 wd:Q12202 .
+	?item wdt:P971 wd:Q1931388 .
+	?sitelink schema:about ?item .
+	?sitelink schema:isPartOf <https://en.wikipedia.org/> .
+}

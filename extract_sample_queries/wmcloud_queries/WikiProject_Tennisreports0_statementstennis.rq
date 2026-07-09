@@ -1,0 +1,28 @@
+SELECT 
+  ?item 
+  (GROUP_CONCAT(DISTINCT str(?l); separator=" // ") as ?labels)
+  (GROUP_CONCAT(DISTINCT lang(?l)) as ?lgs)
+  (SAMPLE(?sl) as ?sl)
+WITH
+{
+   SELECT ?item ?l (lcase(str(?l)) as ?lc)
+   WHERE             
+   { 
+     ?item wikibase:statements 0 ; rdfs:label ?l . 
+      FILTER(  contains(lcase(str(?l)),"tennis") )
+   }
+   LIMIT 1000
+}  as %i2
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    INCLUDE %i2 
+    FILTER(  !contains(?lc,"table tennis") )
+    FILTER(  !contains(?lc,"tennistavolo") )
+    FILTER(  !contains(?lc,"tennis de table") ) 
+    FILTER(  !contains(?lc,"tischtennis") ) 
+    FILTER(  !contains(?lc,"bordtennis") ) 
+    OPTIONAL { ?item wikibase:sitelinks ?sl }             
+}
+GROUP BY ?item
+ORDER BY DESC(xsd:integer(strafter(str(?item), "Q")))

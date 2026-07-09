@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q464980 .  #exhibition
+  {?item wdt:P276/wdt:P279* wd:Q1782422 .}
+  UNION {
+  ?item wdt:P276 ?locatie .
+  ?locatie wdt:P466 wd:Q1782422.
+  }
+  UNION {
+   ?item wdt:P664 wd:Q1782422.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

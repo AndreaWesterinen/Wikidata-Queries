@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription ?st ?sl ?ids
+WHERE
+{
+  ?entity ( wdt:P3137 \u007C wdt:P2660 \u007C wdt:P2659 \u007C wdt:P7479 ) []. 
+  # MINUS { ?entity wdt:   [] }
+  OPTIONAL { ?entity wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } 
+}

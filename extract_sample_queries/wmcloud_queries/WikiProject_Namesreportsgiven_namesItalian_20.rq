@@ -1,0 +1,14 @@
+SELECT ?item
+  (COUNT(DISTINCT ?p) as ?count)
+  (SAMPLE(?p) as ?sample_p)
+{
+    ?item wdt:P407 wd:Q652 ;
+          wdt:P31/wdt:P279? wd:Q202444 .
+    hint:Prior hint:gearing "forward" .
+    FILTER NOT EXISTS { ?item schema:description ?d . 
+                       FILTER ( lang(?d) = "it" && REGEX(?d, "prenome")   ) 
+                      }
+    OPTIONAL { ?p wdt:P735 ?item .}
+}
+GROUP BY ?item
+ORDER BY DESC(?count) ?item

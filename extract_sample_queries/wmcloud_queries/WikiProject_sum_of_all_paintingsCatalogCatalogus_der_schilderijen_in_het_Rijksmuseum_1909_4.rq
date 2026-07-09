@@ -1,0 +1,9 @@
+SELECT ?item ?catcode ?catnum WHERE {
+  ?item p:P528 ?catstmt.
+  ?catstmt pq:P972 wd:Q106831415;
+    ps:P528 ?catcode.
+  BIND(REPLACE(?catcode, "[0-9]*", "") AS ?catletter) 
+  BIND( xsd:integer(REPLACE(?catcode, "[a-zA-Z()/.-]", "")) AS ?catnum) 
+  FILTER(?catletter >= "a" )
+}
+ORDER BY (?catnum)

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q40231 .
+  # make sure it has an exact date
+  ?item p:P585 [ ps:P585 ?when ; psv:P585/wikibase:timePrecision "11"^^xsd:integer ] .
+  FILTER NOT EXISTS { ?item wdt:P17 [] }
+  FILTER (?when < NOW())
+}
+ORDER BY DESC(?when)
+LIMIT 500

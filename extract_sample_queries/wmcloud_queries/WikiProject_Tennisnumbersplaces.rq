@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?itemDescription (COUNT(DISTINCT ?p) as ?ct) (SAMPLE(?p) as ?sample)
+{
+	?p wdt:P641 wd:Q847 ; wdt:P625 [] ; wdt:P17 [] 
+    MINUS { ?p wdt:P31*/wdt:P279* wd:Q13219666 }          
+    ?p ( wdt:P31

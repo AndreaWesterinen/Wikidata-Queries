@@ -1,4 +1,4 @@
-# ----
+#title: Birthplaces of astronauts
 # select all astronauts with name, image, birthdate, birthplace and coordinates of the birthplace
 
 SELECT ?astronaut ?astronautLabel ?image ?birthdate ?birthplace ?coord WHERE {

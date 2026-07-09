@@ -1,0 +1,22 @@
+# Movies by rate of actors who studied at RADA (When distribution has at last 5 actors)
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?item ?itemLabel ((xsd:float(?nbRadaActors)/xsd:float(?totalNbActors)) AS ?rate)  WHERE {
+  {
+    SELECT DISTINCT ?item (COUNT(?actors) AS ?nbRadaActors) {
+      ?item wdt:P31/wdt:P279* wd:Q11424 .
+      ?item wdt:P161 ?actors .
+      ?actors wdt:P69 wd:Q523926 .
+
+    } GROUP BY ?item 
+  }
+  
+  {
+    SELECT DISTINCT ?item (COUNT(?actors) AS ?totalNbActors) {
+      ?item wdt:P31/wdt:P279* wd:Q11424 .
+      ?item wdt:P161 ?actors .
+    } GROUP BY ?item HAVING (?totalNbActors >= 5)
+
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY DESC(?rate)

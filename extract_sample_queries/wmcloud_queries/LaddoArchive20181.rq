@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item WHERE { ?item p:P17/prov:wasDerivedFrom/pr:P887 wd:Q1275124 }

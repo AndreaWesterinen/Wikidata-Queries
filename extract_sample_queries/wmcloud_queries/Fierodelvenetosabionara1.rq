@@ -1,0 +1,22 @@
+SELECT
+  ?item 
+  ?c (CONTAINS(?c,"-") as ?subtag)
+  ?wdlabelen
+  (CONCAT("[[:en:",?enwikipeda,"\u007C",?enwikipeda,"]]") as ?wikipedia_link_en)
+  ?lang
+  ?wdlabelinlang
+  (CONCAT("[[:",?lang,":",?wikipeda,"\u007C",?wikipeda,"]]") as ?wikipedia_link)
+WHERE
+{
+  VALUES ?lang { "vec" }
+  ?item wdt:P424 ?c .
+  hint:Prior hint:rangeSafe true .
+  MINUS{?item wdt:P31 wd:Q47495990}
+  MINUS{?item wdt:P31/wdt:P279* wd:Q14827288} #exclude Wikimedia projects
+  MINUS{?item wdt:P31/wdt:P279* wd:Q17442446} #exclude Wikimedia internal stuff
+  OPTIONAL { ?item rdfs:label ?wdlabelinlang . FILTER( lang(?wdlabelinlang)= "vec" ) }
+  OPTIONAL { ?item rdfs:label ?wdlabelen . FILTER(lang(?wdlabelen)="en") }
+  OPTIONAL { [] schema:about ?item ; schema:inLanguage ?lang; schema:isPartOf / wikibase:wikiGroup "wikipedia" ; schema:name ?wikipeda } 
+  OPTIONAL { [] schema:about ?item ; schema:inLanguage "en"; schema:isPartOf / wikibase:wikiGroup "wikipedia" ; schema:name ?enwikipeda } 
+}
+ORDER BY ?c

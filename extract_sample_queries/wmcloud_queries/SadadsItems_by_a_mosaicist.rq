@@ -1,0 +1,7 @@
+SELECT * WHERE {
+?creator wdt:P106 wd:Q282718. 
+?item wdt:P170 ?creator. 
+MINUS { ?item wdt:P31/wdt:P279* wd:Q133067} 
+MINUS { ?item wdt:P31/wdt:P279* wd:Q3305213} 
+MINUS { ?item wdt:P31/wdt:P279* wd:Q11060274} 
+}

@@ -1,0 +1,11 @@
+#title: Species likely to need property
+# Complex constraint from [[Property talk:P10322]]
+# Add P10322 with value or [[Help:Statements#Unknown_or_no_values|novalue]]
+SELECT ?item ?sls 
+{
+	?item wdt:P105 wd:Q7432 . 
+    ?item wdt:P171+ wd:Q26332 .
+	?item wdt:P31 wd:Q16521 .  
+    FILTER NOT EXISTS { ?item p:P10322 [ ] }
+    ?item wikibase:sitelinks ?sls . 
+}

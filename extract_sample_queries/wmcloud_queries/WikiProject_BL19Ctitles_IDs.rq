@@ -1,0 +1,24 @@
+SELECT ?item ?prop ?propLink ?item_count ?stmt_count WHERE {
+    {
+        SELECT ?prop (COUNT(DISTINCT ?item) AS ?item_count) (COUNT(DISTINCT ?stmt) AS ?stmt_count) WHERE {
+           
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P195 wd:Q53764729 .
+           ?item ?p ?stmt .
+           ?prop wikibase:claim ?p .
+           {?prop wdt:P31/wdt:P279* wd:Q19847637}  # Wikidata property representing a unique identifier 
+             UNION
+           {?prop wdt:P31/wdt:P279* wd:Q18614948}  # Wikidata property for authority control
+           
+          
+        }  GROUP BY ?prop
+    }
+
+           
+    ?prop rdfs:label ?prop_label . FILTER(lang(?prop_label) = 'en') .
+    BIND(STRAFTER(STR(?prop), 'P') AS ?propno) .
+    BIND(CONCAT('[[:d:Property:P', ?propno, '|', STR(?prop_label), ']]') AS ?propLink) .
+    BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?propno)) AS ?item) .  # dummy
+   
+
+} ORDER BY DESC (?item_count) DESC (?stmt_count) ?prop

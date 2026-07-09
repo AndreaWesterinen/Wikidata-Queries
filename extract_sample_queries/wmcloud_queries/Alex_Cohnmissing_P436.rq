@@ -1,0 +1,13 @@
+SELECT ?item ?mbaurl WHERE {
+  wd:P434 wdt:P1630 ?formatterurl.
+  ?item (wdt:P31/(wdt:P279*)) wd:Q108346082;
+    (wdt:P175/wdt:P434) ?mba.
+  MINUS { ?item wdt:P436 ?mbrg. }
+  MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q134556. }
+  MINUS { ?item wdt:P5813 ?mbre. }
+  MINUS { ?item wdt:P175 wd:Q3108914. }
+  MINUS { ?item wdt:P31 wd:Q59557805. }
+  MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q20671381. }
+  BIND(IRI(REPLACE(?mba, "^(.+)$", ?formatterurl)) AS ?mbaurl)
+}
+LIMIT 100

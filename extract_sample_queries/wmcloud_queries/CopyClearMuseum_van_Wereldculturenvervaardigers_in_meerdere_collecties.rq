@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(?collection) AS ?count) WHERE {
+  ?item wdt:P6379  wd:Q17153751.
+  ?item wdt:P6379 ?collection.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+GROUP BY ?item HAVING ( ?count > 1 )
+ORDER BY DESC(?count)

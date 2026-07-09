@@ -1,0 +1,14 @@
+SELECT ?item
+(GROUP_CONCAT(DISTINCT CONCAT(?lemmal, "<sup>(",?lemmalang,")</sup>")) as ?lemmas)
+(COUNT(DISTINCT ?lang) as ?ct) {
+  { SELECT ?item ?lang ?lemmalang
+  (GROUP_CONCAT(DISTINCT CONCAT("[[", replace(str(?a),str(wd:),"Lexeme:"),"|",REPLACE(?lemma,"^(M[0-9][0-9][0-9])x.*$","$1.."),"]]") ; separator=", ") as ?lemmal) {
+    ?a wikibase:lemma ?lemma_ ; dct:language ?lang ; ontolex:sense ?sense . ?sense wdt:P9970 ?item .
+    optional { ?sense wdt:P9971 ?tr }
+    bind(LANG(?lemma_) as ?lemmalang)
+    bind(if(bound(?tr),concat("'''",str(?lemma_),"'''"),?lemma_) as ?lemma)
+    FILTER ( ?a NOT IN ( wd:L123, wd:L1234) )
+    FILTER NOT EXISTS { ?a wikibase:lexicalCategory wd:Q102786 }
+  } GROUP BY ?item ?lang ?lemmalang ORDER BY ?item }
+}
+GROUP BY ?item HAVING(?ct > 1) ORDER BY DESC(?ct)

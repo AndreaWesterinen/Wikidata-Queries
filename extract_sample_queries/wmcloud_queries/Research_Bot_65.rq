@@ -1,0 +1,37 @@
+SELECT DISTINCT ?authorstring (COUNT(?item) AS ?count)
+WHERE {
+  hint:Query hint:optimizer "None".
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "McClintock haswbstatement:P31=Q13442814".
+    ?page_title wikibase:apiOutput mwapi:title.
+  }}
+  UNION
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "Jeffrey haswbstatement:P31=Q13442814".
+    ?page_title wikibase:apiOutput mwapi:title.
+  }}
+  
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+#  FILTER NOT EXISTS { ?item wdt:P921 wd:Q27318. }
+  
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P2093 ?authorstring.
+  FILTER CONTAINS(LCASE(?authorstring), "mcclintock").
+  FILTER CONTAINS(LCASE(?authorstring), "j").
+  FILTER CONTAINS(LCASE(?authorstring), "e").
+  FILTER (!CONTAINS(LCASE(?authorstring), "s")).
+  FILTER (!CONTAINS(LCASE(?authorstring), "b")).
+  FILTER (!CONTAINS(LCASE(?authorstring), "a")).
+  FILTER (!CONTAINS(LCASE(?authorstring), "w")).
+  FILTER (!CONTAINS(LCASE(?authorstring), "p")).
+  FILTER (!CONTAINS(LCASE(?authorstring), "h")).
+  FILTER (!CONTAINS(LCASE(?authorstring), "u")).
+  FILTER (!CONTAINS(LCASE(?authorstring), "r")).
+}
+GROUP BY ?authorstring
+ORDER BY DESC(?count)
+LIMIT 100

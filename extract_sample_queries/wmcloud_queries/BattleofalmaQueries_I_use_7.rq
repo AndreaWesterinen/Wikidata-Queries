@@ -1,0 +1,8 @@
+#Castles 
+Select ?item ?itemLabel ?image #itemLabel has a capital L to work
+where
+{
+  ?item wdt:P31 wd:Q23413 ;
+        wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr, en, de". }
+  }

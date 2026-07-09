@@ -1,0 +1,2 @@
+#Cats
+SELECT ?item ?property WHERE { ?item wikibase:grammaticalFeature wd:Q1182686. }

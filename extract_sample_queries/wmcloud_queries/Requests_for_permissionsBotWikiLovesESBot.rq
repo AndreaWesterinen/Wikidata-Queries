@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (COUNT(?place) as ?ct)
+WHERE
+{
+	VALUES ?muni { wd:Q2074737 }
+  	?place wdt:P31 ?muni . 
+	OPTIONAL { ?place wdt:P31 ?item } .
+  	# FILTER (?item != wd:Q2074737) .   
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?ct)

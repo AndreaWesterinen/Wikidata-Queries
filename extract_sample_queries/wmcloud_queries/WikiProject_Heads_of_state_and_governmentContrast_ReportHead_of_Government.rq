@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?head ?office ?officeholder ?person WHERE {      
+  ?item wdt:P31 wd:Q3624078; wdt:P463 wd:Q1065 ; wdt:P1313 ?office .
+  FILTER NOT EXISTS { ?office wdt:P576 ?end_date } .
+  OPTIONAL {
+    ?person p:P39 ?posn ; wdt:P31 wd:Q5 .
+    ?posn ps:P39 ?office ; pq:P580 ?start_date .
+    OPTIONAL { ?posn pq:P582 ?end_date }  
+    FILTER ( !bound(?end_date)

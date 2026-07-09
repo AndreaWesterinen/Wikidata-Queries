@@ -1,0 +1,21 @@
+embed.html##defaultView:ImageGrid
+SELECT ?img 
+WHERE 
+{
+  BIND(wd:Q1181173 as ?cem ) 
+  [] schema:about ?cem ; schema:isPartOf <https://commons.wikimedia.org/> ; schema:name ?ccat . 
+  BIND( CONCAT("incategory:\"", strafter(?ccat, ":"), "\" -haswbstatement:P180") as ?search) 
+  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "commons.wikimedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch ?search .
+      bd:serviceParam mwapi:gsrlimit "max" .    
+      bd:serviceParam mwapi:gsrnamespace "6" .    
+      ?article wikibase:apiOutput mwapi:title  .
+      ?ns wikibase:apiOutput "@ns" .   
+      } 
+  BIND(URI(REPLACE(ENCODE_FOR_URI(?article),"^File%3A","http://commons.wikimedia.org/wiki/Special:FilePath/")) as ?img )
+  FILTER NOT EXISTS { [] ps:P18 ?img }
+  FILTER NOT EXISTS { [] ps:P1442 ?img }
+}

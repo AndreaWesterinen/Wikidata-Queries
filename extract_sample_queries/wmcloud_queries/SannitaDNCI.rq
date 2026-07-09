@@ -1,0 +1,5 @@
+SELECT ?item ?DNCI ?namedas WHERE {
+  ?item wdt:P2510 ?DNCI
+ OPTIONAL { ?item p:P2510 [ps:P2510 ?DNCI ; pq:P1810 ?namedas] . }
+}
+ORDER BY ?DNCI

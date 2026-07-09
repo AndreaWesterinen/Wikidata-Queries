@@ -1,0 +1,12 @@
+SELECT ?item ?inv ?rkdid ?rkdurl WHERE {
+  wd:P350 wdt:P1630 ?formatterurl .
+  ?item wdt:P195 wd:Q18600731 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 wd:Q18600731 .
+    FILTER regex(?inv, "^C\\d+.*$") 
+  OPTIONAL { ?item wdt:P350 ?rkdid }.
+  BIND(REPLACE(?rkdid, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?rkdurl)  .  
+  } ORDER BY xsd:integer(REPLACE(?inv, "^C(\\d+).*$", "$1")) ?inv
+LIMIT 2000

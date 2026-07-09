@@ -1,0 +1,9 @@
+#title: Values shouldn't be the same for P301 and P971
+# Complex constraint from [[Property talk:P971]]
+# to do: remove it from either [[Property:P301|category&#39;s main topic&#32;<small dir="ltr">(P301)</small>]] or [[Property:P971|category combines topics&#32;<small dir="ltr">(P971)</small>]]
+SELECT ?item ?value
+{
+	?item wdt:P971 ?value .
+	?item wdt:P301 ?value .  
+}
+LIMIT 500

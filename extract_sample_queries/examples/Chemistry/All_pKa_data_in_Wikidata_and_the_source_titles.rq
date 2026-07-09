@@ -1,3 +1,4 @@
+#title: All pKa data in Wikidata and the source titles
 SELECT ?compound ?compoundLabel ?pKa ?source ?sourceLabel ?doi
 WHERE
 {

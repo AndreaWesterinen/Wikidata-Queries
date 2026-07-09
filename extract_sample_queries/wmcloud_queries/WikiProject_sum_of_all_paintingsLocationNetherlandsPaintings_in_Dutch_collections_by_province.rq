@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?painting) AS ?count)
+WHERE {
+  ?item wdt:P31 wd:Q134390.
+  ?loc wdt:P131* ?item.
+  ?painting wdt:P195 ?loc.
+  ?painting wdt:P31 wd:Q3305213.
+} GROUP by ?item
+ORDER by DESC (?count)
+LIMIT 40

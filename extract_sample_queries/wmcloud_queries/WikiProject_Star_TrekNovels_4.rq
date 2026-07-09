@@ -1,0 +1,13 @@
+SELECT ?item ?stardate (year(?earliestEditionReleaseDate) AS ?year) WHERE {
+  ?item wdt:P31 wd:Q72996181.
+  OPTIONAL {
+    ?item wdt:P747 ?earliestEdition. 
+    ?earliestEdition wdt:P577 ?earliestEditionReleaseDate.
+    FILTER NOT EXISTS {
+      ?item wdt:P747 ?edition . 
+      ?edition wdt:P577 ?editionReleaseDate . 
+      FILTER (?editionReleaseDate < ?earliestEditionReleaseDate )
+    }
+  }
+  OPTIONAL { ?item p:P840 [ pq:P4895 ?stardate ]. }
+}

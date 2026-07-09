@@ -1,0 +1,20 @@
+SELECT ?short_author #(COUNT(DISTINCT ?paper1) AS ?count1) 
+?author ?authorLabel WHERE {
+#  { ?paper1 wdt:P921 wd:Q202864 . } UNION { ?paper1 wdt:P921 wd:Q8071861 . }
+  { ?paper1 wdt:P921 wd:Q202864 . }
+#  { ?paper1 wdt:P921 ?topic . }
+#  ?paper1 wdt:P31 wd:Q13442814.
+  ?paper1 wdt:P2093 ?short_author.
+#  { ?paper2 wdt:P921 wd:Q202864 . } UNION { ?paper2 wdt:P921 wd:Q8071861 . }
+  { ?paper2 wdt:P921 wd:Q202864 . } 
+#  ?paper2 wdt:P31 wd:Q13442814.
+  ?paper2 wdt:P50 ?author.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?author rdfs:label ?authorLabel.
+  }
+  FILTER(CONTAINS(LCASE(?authorLabel), LCASE(?short_author)))
+}
+#GROUP BY ?short_author ?author ?authorLabel
+#ORDER BY DESC(?count1)
+LIMIT 100

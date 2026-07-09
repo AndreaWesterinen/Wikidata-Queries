@@ -1,0 +1,34 @@
+#Gender ratio among fictional characters in wikidata
+#defaultView:BarChart
+SELECT ?gender (COUNT(DISTINCT ?character) AS ?number) 
+WHERE
+{
+  #Characters
+  {
+  #getting characters and their gender
+  ?character wdt:P31/wdt:P279* wd:Q95074
+  OPTIONAL
+  {
+  ?character wdt:P21 ?gen.
+  ?gen rdfs:label ?gLabel.
+  FILTER(LANG(?gLabel) = "en")
+  }
+  
+  }
+  UNION
+  
+  #Unisex character groups
+  {
+  
+  #getting characters and their gender
+  ?character wdt:P31/wdt:P279* wd:Q24577840;
+             p:P2670 ?st.
+  ?st pq:P21 ?gen.
+  ?gen rdfs:label ?gLabel.
+  FILTER(LANG(?gLabel) = "en")
+  }
+  
+  BIND(IF(!BOUND(?gen), "unknown/none", ?gLabel) AS ?gender)
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?gender

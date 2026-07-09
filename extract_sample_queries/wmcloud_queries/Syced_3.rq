@@ -1,0 +1,11 @@
+SELECT ?human1 ?human1Label ?human2 ?human2Label ?image
+WHERE
+{
+	?human1 wdt:P31 wd:Q5.
+	?human2 wdt:P31 wd:Q5.
+	?human1 wdt:P18 ?image.
+	?human2 wdt:P18 ?image.
+    FILTER (?human1 != ?human2).
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 5

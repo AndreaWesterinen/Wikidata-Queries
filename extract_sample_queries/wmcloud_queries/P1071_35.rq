@@ -1,0 +1,9 @@
+#title: Fictional
+# Complex constraint from [[Property talk:P1071]]
+#
+SELECT ?item ?value {
+	?item wdt:P1071 ?value.
+    ?value wdt:P31/wdt:P279* wd:Q3895768.
+	FILTER NOT EXISTS { ?item wdt:P1080 [] }
+    FILTER NOT EXISTS {?item (wdt:P31/wdt:P279*|wdt:P279*) wd:Q14897293}    
+}

@@ -1,0 +1,1 @@
+select ?l ?lemma { ?l wikibase:lemma ?lemma ; dct:language wd:Q2417210 . minus { ?l ontolex:sense [] } }

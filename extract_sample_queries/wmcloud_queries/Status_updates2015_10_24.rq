@@ -1,0 +1,20 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+select distinct ?movie ?movieLabel ?actorLabel (year(?date) as ?year)
+where {
+  ?movie wdt:P31/wdt:P279* wd:Q11424 . #film
+  ?movie wdt:P577 ?date .
+  ?movie p:P161 ?actorS . #avec des acteurs
+  ?actorS v:P161 ?actor .  
+  ?actorS q:P453/wdt:P144* wd:Q3266236 #rôle : Dracula ou succédanés
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,en"
+  } 
+} ORDER BY ?date

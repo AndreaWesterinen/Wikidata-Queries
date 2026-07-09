@@ -1,0 +1,4 @@
+#title: Statement appears to contain multiple values
+# Complex constraint from [[Property talk:P1549]]
+# If there are multiple values (e.g. male and female forms), they should be entered as separate statements.
+select * { ?item wdt:P1549 ?text filter (regex(str(?text), "[,/()]")) }

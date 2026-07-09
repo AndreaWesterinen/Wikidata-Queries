@@ -1,0 +1,11 @@
+#dragon / serpent artworks in Wikidata
+SELECT DISTINCT ?item ?itemLabel ?creator ?creatorLabel 
+WHERE 
+{
+  ?item wdt:P170 ?creator.    # creator of work
+  {?item wdt:P180 wd:Q1254187.} # depicts a dragon 
+  UNION {?item wdt:P180 wd:Q2102.} # depicts a serpent 
+         .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?creatorLabel

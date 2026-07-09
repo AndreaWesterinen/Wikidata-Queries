@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?massifLabel ?elevation ?prominence ?isolation ?coords WHERE {
+  ?item wdt:P361 ?massif .
+  ?massif wdt:P361* wd:Q1286 .
+  OPTIONAL { ?item wdt:P2044 ?elevation . }
+  OPTIONAL { ?item wdt:P2660 ?prominence . }
+  OPTIONAL { ?item wdt:P2659 ?isolation . }
+  ?item wdt:P625 ?coords .
+  FILTER ( ?prominence >= 1500 )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC(?prominence) ?itemLabel

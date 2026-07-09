@@ -1,0 +1,7 @@
+#title: Municipis sense vegueria
+# Complex constraint from [[Property talk:Q33146843]]
+#
+select ?item where {
+   ?item wdt:P31 wd:Q33146843.
+   minus { ?item wdt:P131+/wdt:P31 wd:Q697390 }
+ }

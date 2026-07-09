@@ -1,0 +1,33 @@
+SELECT ?item ?legislature ?speakerpos ?speaker ?executivepos ?executives WHERE { 
+  ?item wdt:P31 wd:Q3624078 .
+  MINUS { ?item wdt:P576 ?dissolved . }
+  OPTIONAL { ?item wdt:P1906 ?headofstatepos . }
+  OPTIONAL { ?item wdt:P35 ?headofstate . }
+  OPTIONAL { ?item wdt:P194 ?bicameral . #양원제
+            ?bicameral wdt:P31 wd:Q189445 .
+            ?bicameral wdt:P527 ?legislature .
+            VALUES ?upperlower { wd:Q637846 wd:Q375928 }
+            ?legislature wdt:P31 ?upperlower .
+    OPTIONAL {             ?legislature wdt:P2388 ?speakerpos . 
+          OPTIONAL {
+        ?speakerpos p:P1308 ?var2 .
+        ?var2 ps:P1308 ?speaker .
+        FILTER NOT EXISTS { ?var2 pq:P582 ?var3 . } 
+        }
+    }
+           }
+  
+  OPTIONAL { ?item wdt:P194 ?legislature . # 단원제
+            ?legislature wdt:P31 wd:Q37002670 .
+    OPTIONAL { ?legislature wdt:P2388 ?speakerpos .
+      OPTIONAL {
+        ?speakerpos p:P1308 ?var2 .
+        ?var2 ps:P1308 ?speaker .
+        FILTER NOT EXISTS { ?var2 pq:P582 ?var3 . }
+        }
+      }
+            }
+
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?nomLabel (SUBSTR(?nomLabel,1,1) AS ?letter) WHERE
+{
+  ?item wdt:P91 ?orientation .
+  ?item wdt:P734 ?nom .
+  FILTER( ?orientation in (wd:Q271534, wd:Q43200)) .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }  
+
+}

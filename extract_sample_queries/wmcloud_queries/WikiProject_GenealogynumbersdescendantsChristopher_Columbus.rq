@@ -1,0 +1,7 @@
+SELECT (wd:Q7322 as ?item) (COUNT(DISTINCT ?relative) as ?descendants) WHERE
+{
+  SERVICE gas:service
+  {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ; gas:in wd:Q7322 ; gas:traversalDirection "Forward" ; gas:out ?relative ; gas:maxIterations 1000 ; gas:linkType wdt:P40 .
+  }
+}

@@ -1,0 +1,6 @@
+#Count all items with a property
+SELECT (COUNT (DISTINCT ?item) AS ?count)
+WHERE
+{
+  ?item wdt:P819 ?value
+}

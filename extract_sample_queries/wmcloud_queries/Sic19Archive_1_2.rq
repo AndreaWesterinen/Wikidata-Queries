@@ -1,0 +1,8 @@
+# University of Wales Press books with combined book/version items.
+
+SELECT ?x ?xLabel WHERE {
+  ?x  wdt:P31 wd:Q3331189;  # instanceOf: version
+      wdt:P31 wd:Q571;      # instanceOf: book
+      wdt:P123 wd:Q7896557. # publisher: University of Wales Press
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

@@ -1,0 +1,17 @@
+SELECT distinct
+ ?building ?buildingLabel (sample(?location) AS ?location)  (sample(?img) AS ?img) ?article (sample(?URL) AS ?URL) ?TORA ?INSTloc ?Kulturarv WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+  ?building wdt:P625 ?location.
+  ?building  wdt:P4820 ?TORAID.
+  BIND (URI(CONCAT("https://tora.entryscape.net/wp/view/#esc_context=26&esc_entry=",?TORAID)) AS ?TORA)
+  OPTIONAL {?article schema:about ?building;
+                     schema:inLanguage "sv";
+                     schema:isPartOf <https://sv.wikipedia.org/>}
+  OPTIONAL{?building  wdt:P18 ?img}
+  OPTIONAL {?building  wdt:P856 ?URL}
+  OPTIONAL {?building  wdt:P4173 ?InstLocID}
+  BIND(URI(CONCAT("https://www.instagram.com/explore/locations/",?InstLocID)) AS ?INSTloc)
+  #raa/bbr/21300000012782 -> http://kulturarvsdata.se/raa/bbr/html/21300000012782  
+  {?building  wdt:P1260 ?KulturarvsID} 
+  BIND(URI(CONCAT("http://kulturarvsdata.se/",REPLACE(?KulturarvsID,"bbr/","bbr/html/"))) AS ?Kulturarv)
+} group by ?building ?buildingLabel ?article ?TORA ?INSTloc ?Kulturarv

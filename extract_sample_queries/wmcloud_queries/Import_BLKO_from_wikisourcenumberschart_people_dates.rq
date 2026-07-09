@@ -1,0 +1,17 @@
+SELECT (wd:Q5 as ?item) ("dates of birth and death (P569/P570)" as ?legend) (GROUP_CONCAT(?p;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{	SELECT  ?p (COUNT(DISTINCT ?mainsubject) as ?ct)
+		{
+			?entry 	wdt:P31 wd:Q19389637
+  			; 		wdt:P1433 wd:Q665807 .
+          	?entry wdt:P921 ?mainsubject
+          	OPTIONAL { ?mainsubject wdt:P569 ?dob }
+          	OPTIONAL { ?mainsubject wdt:P570 ?dod }
+          	OPTIONAL { ?mainsubject wdt:P1317 ?fl }
+          	?mainsubject wdt:P31 wd:Q5 .
+          	BIND(CONCAT(IF(!BOUND(?dob),"---","born-"),IF(!BOUND(?dod),"---","-died"),IF( !BOUND(?dob) && !BOUND(?dod) && BOUND(?fl),"floruit only","")) as ?p)
+		}
+		GROUP BY  ?p
+		ORDER BY ASC(?p)                  
+	}
+}

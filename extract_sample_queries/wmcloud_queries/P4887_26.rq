@@ -1,0 +1,11 @@
+#title: Paintings with creator missing link
+# Complex constraint from [[Property talk:P4887]]
+# List of paintings in [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] [[d:Q1744024|Slovak National Gallery <small>(Q1744024)</small>]] with creator that doesn't have a [[Property:P4887|Web umenia creator ID&#32;<small dir="ltr">(P4887)</small>]] link (can be expanded later to more types of works or more collections).
+SELECT DISTINCT ?item ?creator WHERE {
+        ?item wdt:P31 wd:Q3305213 .
+        ?item wdt:P195 wd:Q1744024 .
+        ?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P4887 [] } .
+        MINUS { ?item wdt:P170 wd:Q4233718 } . 
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en,sk" }
+} ORDER BY ?creatorLabel

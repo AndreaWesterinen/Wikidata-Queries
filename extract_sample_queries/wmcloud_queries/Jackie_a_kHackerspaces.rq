@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?countryLabel ?hqLabel ?ATELabel WHERE {
+#  ?founder wdt:P106 wd:Q34074720.
+#  ?item wdt:P112 ?founder.
+  ?item wdt:P31 wd:Q1032372
+  OPTIONAL { ?item wdt:P17 ?country }
+  OPTIONAL { ?item wdt:P159 ?hq }
+  OPTIONAL { ?item wdt:P131 ?ATE }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

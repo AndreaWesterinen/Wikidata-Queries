@@ -1,5 +1,4 @@
-# ----
-#title:Paintings depicting woodwind instruments
+#title: Paintings depicting woodwind instruments
 #defaultView:ImageGrid
 SELECT ?item ?itemLabel ?object ?objectLabel ?artistLabel ?image
 WHERE

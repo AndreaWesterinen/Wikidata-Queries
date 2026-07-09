@@ -1,0 +1,41 @@
+SELECT ?peopleSample ?name ?native ?originalName
+WITH {
+ SELECT ?name ?originalName WHERE {
+ VALUES ?name {wd:Q37115089
+wd:Q37052788
+}
+ #these values are the results of the subquery after, because the subquery is too heavy so should be run separately and then the Values changed
+ ?name wdt:P31 ?nature.
+ ?nature wdt:P279* wd:Q101352.
+ ?name wdt:P1705 ?originalName.
+ FILTER(LANG(?originalName) = "mul")
+ FILTER NOT EXISTS { ?item wdt:P734 ?name. }
+ }
+ GROUP BY ?name ?originalName
+ HAVING(COUNT(DISTINCT ?nature) = 1 && COUNT(DISTINCT ?originalName) = 1)
+} AS %names
+WITH {
+ SELECT ?name ?originalName (SAMPLE(?people) AS ?peopleSample) WHERE {
+ hint:Query hint:optimizer "None".
+ INCLUDE %names.
+ BIND(STR(?originalName) AS ?originalNameStr)
+ SERVICE wikibase:mwapi {
+ bd:serviceParam wikibase:api "Search".
+ bd:serviceParam wikibase:endpoint "www.wikidata.org".
+ bd:serviceParam mwapi:srsearch ?originalNameStr.
+ ?title wikibase:apiOutput mwapi:title.
+ }
+ BIND(URI(CONCAT(STR(wd:), ?title)) AS ?people)
+ ?people wdt:P1559 ?native.
+ #FILTER(LANG(?native) = "ja")
+ ?people wdt:P31 wd:Q5;
+ FILTER NOT EXISTS { ?people wdt:P734 ?name . }
+ FILTER(STRENDS(?native, ?originalNameStr)).
+ }
+ GROUP BY ?name ?originalName
+ HAVING(COUNT(?native)=1)
+} AS %results WHERE {
+ INCLUDE %results.
+ ?peopleSample wdt:P1559 ?native.
+ #FILTER(LANG(?native) = "ja")
+}LIMIT 100

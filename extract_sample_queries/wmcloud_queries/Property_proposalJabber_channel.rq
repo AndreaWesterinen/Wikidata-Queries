@@ -1,0 +1,6 @@
+SELECT ?email ?emailLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?email wdt:P31 wd:Q5.
+  ?email wdt:P968 ?variable.
+}
+LIMIT 1000

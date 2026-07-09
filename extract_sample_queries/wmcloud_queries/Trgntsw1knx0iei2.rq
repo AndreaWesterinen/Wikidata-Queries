@@ -1,0 +1,6 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coords ?subreddit WHERE {
+ ?item wdt:P3984 ?subreddit .
+ ?item wdt:P625 ?coords
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

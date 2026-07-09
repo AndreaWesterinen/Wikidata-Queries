@@ -1,0 +1,21 @@
+SELECT ?item ?itemLabel ?idcount ?idurl ?mixurl WHERE {
+  wd:P1736 wdt:P1630 ?formatterurl .
+  ?item wdt:P1736 ?id .
+  BIND(REPLACE(?id, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?idurl)  .
+  ?item wdt:P31 wd:Q5 .
+  ?item wikibase:identifiers ?idcount . 
+  FILTER NOT EXISTS { 
+    ?item wdt:P21 [] .
+    ?item wdt:P106 [] .
+    ?item wdt:P569 [] .
+    ?item wdt:P27 [] .
+    FILTER (?idcount > 1) . 
+  }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+    OPTIONAL {
+    ?item rdfs:label ?name .
+    FILTER (lang(?name) = "en") .
+    BIND(CONCAT("[https://tools.wmflabs.org/mix-n-match/#/search/", REPLACE(STR(?name), " ", "%20"), " search in Mix'n'match for more identifiers]") AS ?mixurl)  .
+  }
+} ORDER BY ?name
+LIMIT 1500

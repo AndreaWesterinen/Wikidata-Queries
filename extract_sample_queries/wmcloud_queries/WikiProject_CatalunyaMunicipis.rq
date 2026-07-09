@@ -1,0 +1,4 @@
+select ?item where {
+    ?item wdt:P31 wd:Q33146843.
+    minus { ?item ^schema:about/schema:isPartOf <https://ca.wikipedia.org/> }
+  }

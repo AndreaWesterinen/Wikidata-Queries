@@ -1,0 +1,2 @@
+#title:Change the property P957 to P212
+SELECT DISTINCT ?item WHERE { ?item wdt:P957 ?value . FILTER( REGEX(STR(?value), '^97[89]-[0-9-]{13}$') = true ) }

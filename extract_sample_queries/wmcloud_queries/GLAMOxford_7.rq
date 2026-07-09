@@ -1,0 +1,8 @@
+SELECT ?thesis ?thesisLabel ?authorLabel ?authorwp ?ora_url WHERE {
+?thesis wdt:P31 wd:Q187685;  # doctoral theses
+        wdt:P4101 wd:Q34433;  # submitted to University of Oxford
+        wdt:P953 ?ora_url     # with open access link
+OPTIONAL {?thesis wdt:P50 ?author
+OPTIONAL{ ?authorwp schema:about ?author. ?authorwp schema:isPartOf <https://en.wikipedia.org/> } }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+} ORDER BY DESC(?authorwp)

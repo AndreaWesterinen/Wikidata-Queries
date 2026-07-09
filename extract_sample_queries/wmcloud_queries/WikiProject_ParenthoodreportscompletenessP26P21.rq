@@ -1,0 +1,6 @@
+SELECT (wd:Q5 as ?item)  ("P26" as ?in)  ("P21" as ?out)  (COUNT(DISTINCT ?item) as ?all)  (COUNT(DISTINCT ?has) as ?with)
+{
+    ?item wdt:P26 []
+    OPTIONAL { ?item wdt:P21 [] . BIND(?item as ?has)  }
+    ?item wdt:P31 wd:Q5 .
+}

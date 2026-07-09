@@ -1,0 +1,26 @@
+#number of animated films with female directors by country and year
+#defaultView:BarChart
+SELECT (STR(?minDate) AS ?year) (COUNT(DISTINCT(?item)) AS ?itemCount) ?countryLabel
+
+WHERE
+{
+  FILTER(BOUND(?minDate))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  {
+  SELECT DISTINCT ?item (MIN(YEAR(?date)) AS ?minDate) ?country
+  WHERE 
+  {
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; wdt:P57/wdt:P21 wd:Q6581072; (wdt:P577|wdt:P2754) ?date} UNION
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; wdt:P57/wdt:P21 wd:Q6581072; (wdt:P577|wdt:P2754) ?date}
+    
+    #excluding film series
+    MINUS{?item wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q5398426}
+    
+    ?item wdt:P495 ?country
+    
+  }
+    GROUP BY ?item ?country
+  } 
+}
+GROUP BY ?minDate ?countryLabel

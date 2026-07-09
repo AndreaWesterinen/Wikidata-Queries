@@ -1,0 +1,4 @@
+#title: Wrong IMSLP identifier for human
+# Complex constraint from [[Property talk:P839]]
+# IMSLP identifier for human should start by "Category:"
+SELECT ?item WHERE { ?item wdt:P31 wd:Q5 ; wdt:P839 ?id . FILTER(!STRSTARTS(?id,"Category:") ) }

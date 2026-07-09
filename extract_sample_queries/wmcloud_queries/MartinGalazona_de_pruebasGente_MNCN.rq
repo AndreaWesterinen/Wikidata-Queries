@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?apellido ?apellidoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item p:P937 ?statement0.
+      ?statement0 (ps:P937/(wdt:P279*)) wd:Q1966699.
+    }
+    LIMIT 1000
+  }
+  OPTIONAL { ?item wdt:P734 ?apellido. }
+ 
+}

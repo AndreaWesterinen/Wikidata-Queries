@@ -1,0 +1,6 @@
+#defaultView:ImageGrid
+SELECT * WHERE {
+  ?item p:P1014/pq:P1810 ?name .
+  OPTIONAL {?item wdt:P18 ?pic} .
+  FILTER(STRENDS(?name, 'us')) .
+ }

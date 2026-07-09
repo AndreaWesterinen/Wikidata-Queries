@@ -1,0 +1,12 @@
+#Hermitage prints
+SELECT ?pic ?labelEn ?labelRu ?num WHERE {
+  ?pic wdt:P31 wd:Q11060274.
+  ?pic wdt:P276 wd:Q132783.
+  OPTIONAL { 
+    ?pic wdt:P217 ?num. 
+    ?pic rdfs:label ?labelEn.
+    FILTER((LANG(?labelEn)) = "en")
+    ?pic rdfs:label ?labelRu.
+    FILTER((LANG(?labelRu)) = "ru")
+  }
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?should_link_via_P1376_to ?should_link_via_P1376_toLabel 
+WHERE
+{
+	?should_link_via_P1376_to wdt:P36 ?item .
+	FILTER NOT EXISTS { ?item wdt:P1376 ?should_link_via_P1376_to } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 100

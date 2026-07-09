@@ -1,0 +1,9 @@
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+SELECT (max(?depth)+1 as ?level) WHERE {
+  SERVICE gas:service { gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+    gas:in wd:Q2186582 ;
+    gas:out ?item ;
+    gas:out1 ?depth ;
+    gas:linkType wdt:P2499 .
+  }
+}

@@ -1,3 +1,4 @@
+#title: People who lived in the same period as another person
 SELECT ?person ?personLabel ?personDescription ?birth ?death ?age
 {
   ?person wdt:P31 wd:Q5. # instance of human

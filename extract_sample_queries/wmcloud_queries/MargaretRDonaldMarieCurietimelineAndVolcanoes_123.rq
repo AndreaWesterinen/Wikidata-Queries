@@ -1,0 +1,13 @@
+# taxon names with APNI ids, and no basionym
+SELECT ?item ?APNI_ID ?taxon_name WHERE {
+  #SERVICE wikibase:label {
+    #bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    #?Wikidata wdt:P5984 ?APNI_ID.
+    ?item wdt:P5984 ?APNI_ID.
+    ?item wdt:P225 ?taxon_name.
+  #}
+  MINUS {?item wdt:P566 ?basionym.}
+  #OPTIONAL { ?Wikidata wdt:P5984 ?APNI_ID. }
+  #OPTIONAL { ?Wikidata wdt:P225 ?taxon_name. }
+}
+#ORDER BY ?taxon_name

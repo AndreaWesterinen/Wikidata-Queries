@@ -1,0 +1,19 @@
+embed.html##Population of countries sharing a border with Germany
+
+#defaultView:LineChart
+SELECT ?country  ?year ?population ?countryLabel WHERE {
+  {
+    SELECT ?country ?year (AVG(?population) AS ?population) WHERE {
+      {
+        SELECT ?country (str(YEAR(?date)) AS ?year) ?population WHERE {
+          ?country wdt:P47 wd:Q183.
+          ?country p:P1082 ?populationStatement.
+          ?populationStatement ps:P1082 ?population.
+          ?populationStatement pq:P585 ?date.
+        }
+      }
+    }
+    GROUP BY ?country ?year
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

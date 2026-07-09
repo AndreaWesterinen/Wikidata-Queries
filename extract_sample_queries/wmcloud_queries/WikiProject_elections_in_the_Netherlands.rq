@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?subelectionLabel?politieke_partijLabel ?positie_op_lijst
+WHERE {
+  ?item p:P3602 ?node .
+        ?node ps:P3602 ?subelection .
+    ?subelection wdt:P31 wd:Q4289143 .
+      ?subelection wdt:P17 wd:Q55 .
+
+    OPTIONAL { ?node pq:P1545 ?positie_op_lijst }
+    OPTIONAL { ?node pq:P1268 ?politieke_partij }
+  FILTER(NOT EXISTS { ?subelection  wdt:P361 [] })
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl" }
+} ORDER BY ?positie_op_lijst

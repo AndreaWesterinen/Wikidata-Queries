@@ -1,0 +1,5 @@
+SELECT ?item ?birdLifeId ?iucnId WHERE {  
+     ?item wdt:P5257 ?birdLifeId .
+     OPTIONAL {?item wdt:P627 ?iucnId }
+     FILTER (?birdLifeId != ?iucnId)
+}

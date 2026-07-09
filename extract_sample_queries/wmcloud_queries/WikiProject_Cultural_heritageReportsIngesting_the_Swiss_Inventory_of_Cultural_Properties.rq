@@ -1,0 +1,18 @@
+SELECT 	?item ?PCP_NO ?Label_en ?Label_de ?Label_fr ?Label_it 
+		?place ?canton ?country ?coordinate_Location
+
+WHERE {
+	{?item wdt:P1435 wd:Q8274529.} UNION {?item wdt:P1435 wd:Q12126757 .} #have Heritage Status Class A or B (Note that domicil Swiss is redundant
+	OPTIONAL { ?item rdfs:label ?Label_de . FILTER (lang(?Label_de) = "de") } #Languages
+ 	OPTIONAL { ?item rdfs:label ?Label_fr . FILTER (lang(?Label_fr) = "fr") }
+ OPTIONAL { ?item rdfs:label ?Label_it . FILTER (lang(?Label_it) = "it") }
+	OPTIONAL { ?item rdfs:label ?Label_en . FILTER (lang(?Label_en) = "en") }
+ 
+ 	OPTIONAL {?item wdt:P381 ?PCP_NO .}
+ 
+ 	#OPTIONAL {?item wdt:P131 ?place}
+ # OPTIONAL {?item wdt:P131 ?canton} # Kanton kann nicht das selbe sein...
+ 	OPTIONAL {?item wdt:P17 ?country}
+ 	OPTIONAL {?item wdt:P625 ?coordinate_Location}
+ 
+}

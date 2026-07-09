@@ -1,0 +1,4 @@
+SELECT ?property ?propertyLabel WHERE {
+  ?property wikibase:propertyType wikibase:Quantity; p:P2302/ps:P2302 wd:Q52848401 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} ORDER BY ASC(xsd:integer(STRAFTER(STR(?property), 'entity/P')))

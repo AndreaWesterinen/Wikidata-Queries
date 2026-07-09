@@ -1,0 +1,5 @@
+embed.html#SELECT ?label (COUNT(?lac) AS ?count) WHERE {
+  ?lac wdt:P17 wd:Q16 ; wdt:P31 wd:Q23397 ; rdfs:label ?label .
+  FILTER (lang(?label) = "fr").
+}
+GROUP BY ?label

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?l
+{
+  ?item wdt:P9160 [] ; rdfs:label ?l .
+  FILTER( lang(?l) = "en" && REGEX ( ?l, "[A-Z]{3}") && !CONTAINS( ?l, "III") ) 
+}

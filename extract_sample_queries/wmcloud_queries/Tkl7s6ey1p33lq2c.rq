@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT distinct ?item ?itemLabel ?coord WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q1370598 ;
+        wdt:P625 ?location ;
+        p:P625 [ psv:P625 [ wikibase:geoLatitude ?lat ; ] ; ps:P625 ?coord ]
+  FILTER(?lat < -48).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?lat ?itemLabel

@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel ?geboortedatum ?overlijdensdatum
+{
+	?item wdt:P6379 wd:Q17153751 .
+    ?item wdt:P570 ?overlijdensdatum.
+    OPTIONAL {
+    ?item wdt:P569 ?geboortedatum.
+    }
+  FILTER NOT EXISTS 
+
+  {?item p:P570 [ ps:P570 ?dod;
+                    prov:wasDerivedFrom 
+                    [ pr:P248 wd:Q80851728; 
+                    ]
+                  ].
+  }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" } .
+}

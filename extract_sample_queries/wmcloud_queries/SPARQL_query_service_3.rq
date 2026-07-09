@@ -1,0 +1,9 @@
+sparql?query=SELECT ?singer ?singerLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?singer wdt:P106 wd:Q177220.
+  
+  ?singer wdt:P136 wd:Q11403.
+  ?singer wdt:P27 wd:Q155.
+  ?singer wdt:P21 wd:Q6581072.
+}
+LIMIT 100

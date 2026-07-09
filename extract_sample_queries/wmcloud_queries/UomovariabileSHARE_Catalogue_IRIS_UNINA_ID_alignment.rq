@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?occupationLabel ?SHARECATid ?IRISUNINAid ?VIAF ?ORCID ?SBN ?IdRef  WHERE {
+  ?item wdt:P3987 ?SHARECATid;
+    wdt:P9843 ?IRISUNINAid.
+OPTIONAL { ?item wdt:P106 ?occupation. }
+OPTIONAL {?item wdt:P214 ?VIAF. }
+OPTIONAL { ?item wdt:P496 ?ORCID. }
+  OPTIONAL { ?item wdt:P396 ?SBN. }
+OPTIONAL { ?item wdt:P269 ?IdRef. }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

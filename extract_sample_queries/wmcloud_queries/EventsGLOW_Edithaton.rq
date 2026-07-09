@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?birth ?death WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P39 wd:Q18171345.
+  OPTIONAL { ?item wdt:P102 ?partidoPolitico. }
+  OPTIONAL { ?item wdt:P569 ?birth. }
+  OPTIONAL { ?item wdt:P570 ?death. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en,fr,it,ft". }
+  FILTER(!BOUND(?partidoPolitico)).
+  FILTER(year(?birth) > 1940 || !BOUND(?birth))
+  ?item wdt:P39 wd:Q18171345.
+}
+ORDER BY ?itemLabel

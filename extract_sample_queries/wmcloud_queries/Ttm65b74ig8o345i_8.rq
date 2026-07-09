@@ -1,0 +1,12 @@
+#Locations of departemental archives
+#defaultView:Map
+
+SELECT ?objectLabel ?objectDescription ?link ?coord
+WHERE {
+ ?object wdt:P31 wd:Q2860456 ;
+ wdt:P625 ?coord .
+
+ SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "fr"
+ }
+}

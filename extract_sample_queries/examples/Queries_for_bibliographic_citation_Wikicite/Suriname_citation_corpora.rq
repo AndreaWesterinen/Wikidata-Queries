@@ -1,3 +1,4 @@
+#title: Suriname citation corpora
 SELECT ?item ?itemLabel ?_PubMed_ID
 WHERE
 {

@@ -1,0 +1,1 @@
+SELECT ?item ?samian ?itemLabel ?lastUpdate ?versionNo WHERE { ?item wdt:P31 wd:Q102202066. ?item wdt:P361 wd:Q90412636. ?item wdt:P2888 ?samian. ?item  schema:dateModified ?lastUpdate. ?item schema:version ?versionNo. SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }

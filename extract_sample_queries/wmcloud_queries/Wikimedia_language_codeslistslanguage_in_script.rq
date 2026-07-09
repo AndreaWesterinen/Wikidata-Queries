@@ -1,0 +1,24 @@
+SELECT
+  ?item 
+  ?c (CONTAINS(?c,"-") as ?subtag)
+  ?wdlabelen
+  (CONCAT("[[w:",?enwiki,"\u007C",?enwiki,"]]") as ?wikipedia_link_en)
+  ?lang
+  ?wdlabelinlang
+  (CONCAT("[[:",?lang,":",?wiki,"\u007C",?wiki,"]]") as ?wikipedia_link)
+  ?wdlabelautonym
+  (CONCAT("[[:",?c,":",?autonymwiki,"\u007C",?autonymwiki,"]]") as ?wikipedia_link_autonym)
+WHERE
+{
+  VALUES ?lang { "fr" }
+  ?item wdt:P424 ?c ; wdt:P31 wd:Q64362969 .
+  hint:Prior hint:rangeSafe true .
+  hint:Query hint:optimizer "None".
+  OPTIONAL { ?item rdfs:label ?wdlabelinlang . FILTER( lang(?wdlabelinlang)= "fr" ) }
+  OPTIONAL { ?item rdfs:label ?wdlabelen . FILTER(lang(?wdlabelen)="en") }
+  OPTIONAL { ?item rdfs:label ?wdlabelautonym . FILTER( lang(?wdlabelautonym)= ?c ) }
+  OPTIONAL { [] schema:about ?item ; schema:inLanguage ?lang; schema:isPartOf / wikibase:wikiGroup "wikipedia" ; schema:name ?wiki } 
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?enwiki } 
+  OPTIONAL { [] schema:about ?item ; schema:inLanguage ?c; schema:isPartOf / wikibase:wikiGroup "wikipedia" ; schema:name ?autonymwiki }
+}
+ORDER BY ?c

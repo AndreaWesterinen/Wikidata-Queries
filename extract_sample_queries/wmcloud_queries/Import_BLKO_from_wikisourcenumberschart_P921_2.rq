@@ -1,0 +1,1 @@
+embed.html#SELECT(COUNT(DISTINCT ?e) as ?t){?e wdt:P1433 wd:Q665807;wdt:P31 wd:Q19389637. MINUS{?e wdt:P921[]}.}

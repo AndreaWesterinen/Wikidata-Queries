@@ -1,0 +1,3 @@
+SELECT ?item {
+  ?item wdt:P17 wd:Q142; p:P131 ?s FILTER NOT EXISTS {?s pq:P580 []} FILTER NOT EXISTS {?s pq:P582 []} FILTER NOT EXISTS {?s ps:P131/wdt:P31 wd:Q194203} 
+} GROUP BY ?item HAVING (COUNT(*)>1)

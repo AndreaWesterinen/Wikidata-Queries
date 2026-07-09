@@ -1,0 +1,6 @@
+SELECT ?Philippines ?PhilippinesLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "hil". }
+  ?Philippines wdt:P17 wd:Q928;
+    wdt:P31 wd:Q29946056.
+}
+LIMIT 100

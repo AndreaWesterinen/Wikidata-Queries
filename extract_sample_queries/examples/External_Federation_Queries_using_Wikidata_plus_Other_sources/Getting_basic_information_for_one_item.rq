@@ -1,5 +1,4 @@
-# ----
-#title:Getting basic information for one item
+#title: Getting basic information for one item
 
 # declare MiMoText prefixes
 PREFIX mmd: <http://data.mimotext.uni-trier.de/entity/>

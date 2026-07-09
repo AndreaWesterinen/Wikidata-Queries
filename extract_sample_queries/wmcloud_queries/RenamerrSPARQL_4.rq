@@ -1,0 +1,5 @@
+SELECT ?item ?olimpbase ?snak { 
+  { ?item p:P3940/ps:P3940 ?olimpbase . BIND('mainsnak' AS ?snak) } UNION 
+  { ?item ?anyprop [ pq:P3940 ?olimpbase ] . BIND('qualifier' AS ?snak) } UNION
+  { ?item ?anyprop [ prov:wasDerivedFrom [ pr:P3940 ?olimpbase ] ] . BIND('reference' AS ?snak) }
+}

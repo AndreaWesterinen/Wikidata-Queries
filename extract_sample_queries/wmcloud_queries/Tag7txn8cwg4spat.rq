@@ -1,0 +1,14 @@
+?#SELECT 
+	("P570" as ?label)
+	(COUNT(distinct ?item1) as ?all)
+	(COUNT(distinct ?P2) as ?value1)
+	(COUNT(distinct ?P2alt) as ?value2)
+
+WHERE
+{
+	?item1 wdt:P31 wd:Q5 .
+	?sitelink schema:about ?item1 ; schema:isPartOf	<https://it.wikipedia.org/> .
+  	OPTIONAL { ?item1 wdt:P569 ?P1v . BIND(IF(!BOUND(?P1v), 0, ?item1) as ?P1) }
+  	OPTIONAL { ?item1 wdt:P570 ?P2v . BIND(IF(!BOUND(?P2v), 0, ?item1) as ?P2) } 
+	BIND(IF(!BOUND(?P2v), IF(YEAR(?P1v)>1900,?item1, 0),0) as ?P2alt) 
+}

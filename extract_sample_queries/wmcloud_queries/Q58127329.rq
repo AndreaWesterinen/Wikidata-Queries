@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?gen ?img ?sl ?sp1 ?la
+{
+	?item wdt:P734 wd:Q37018433 .
+	?item p:P18/ps:P18 ?img .
+	FILTER( contains(str(?img), "Ehrenbuch") )
+	OPTIONAL { ?item wdt:P26 ?sp . ?sp wdt:P21 wd:Q6581097 ; wdt:P734 wd:Q37018433 . BIND("y" as ?sp1) }
+	?item wikibase:sitelinks ?sl .
+	OPTIONAL { ?item rdfs:label ?la . FILTER(lang(?la)="la")  }
+	OPTIONAL { SELECT ?item ?gen { 
+	SERVICE gas:service { gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP"; gas:in wd:Q31191509; gas:traversalDirection "Forward"; gas:out ?item; gas:out1 ?gen; gas:maxIterations 100; gas:linkType wdt:P40}  }  }
+}
+ORDER BY ?img

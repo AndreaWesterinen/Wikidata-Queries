@@ -1,0 +1,15 @@
+SELECT ?country ?countryLabel
+       (COUNT(DISTINCT ?city) AS ?cities)
+       (GROUP_CONCAT(DISTINCT ?cityLabel; SEPARATOR=", ") AS ?cityLabels) WHERE {
+  { SELECT ?country ?countryLabel (COUNT(DISTINCT ?city) AS ?cities) WHERE {
+    ?city wdt:P1376|^wdt:P36 ?country ;
+          wdt:P31/wdt:P279* wd:Q515 .
+    ?country rdfs:label ?countryLabel ;
+             wdt:P31/wdt:P279* wd:Q3624078 .
+    FILTER (LANG(?countryLabel) = "en")
+    } GROUP BY ?country ?countryLabel HAVING (?cities > 1)
+  } ?city wdt:P1376|^wdt:P36 ?country ;
+          wdt:P31/wdt:P279* wd:Q515 ;
+          rdfs:label ?cityLabel .
+  FILTER (LANG(?cityLabel) = "en")
+} GROUP BY ?country ?countryLabel ORDER BY ASC(?countryLabel)

@@ -1,0 +1,6 @@
+SELECT ?author ?item WHERE {
+   ?item wdt:P31 wd:Q13442814 .
+   ?item wdt:P50 ?author .
+   ?author wdt:P1416 wd:Q7914452 .
+   ?author wdt:P108 wd:Q29052 .
+  }

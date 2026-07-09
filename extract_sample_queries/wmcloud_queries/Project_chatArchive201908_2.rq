@@ -1,0 +1,6 @@
+select ?class ?classLabel ?intermediaire ?intermediaireLabel ?parent ?parentLabel  {
+  ?class (^wdt:P279)* wd:Q22001389 ; 
+         wdt:P279 ?parent .
+  ?class wdt:P279 ?intermediaire . ?intermediaire wdt:P279 ?parent .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

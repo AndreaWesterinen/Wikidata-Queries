@@ -1,0 +1,30 @@
+SELECT DISTINCT ?country ?countryLabel ?daysInUN (SUM(?daysInOffice) AS ?daysKnown) ((100* ?daysKnown / ?daysInUN) AS ?filledPercent) WHERE {      
+  # Current UN Member States
+  ?country wdt:P31 wd:Q3624078 ; p:P463 ?ms .
+  ?ms ps:P463 wd:Q1065 ; pq:P580 ?joined .
+  FILTER NOT EXISTS { ?ms pq:P582 [] } 
+  BIND(FLOOR(NOW()-?joined) AS ?daysInUN)
+  
+  # what office(s) = head of government, and when?
+  ?country p:P1313 ?os .
+  ?os ps:P1313 ?office .
+  OPTIONAL { ?os pq:P580 ?officeStart }
+  OPTIONAL { ?os pq:P582 ?officeEnd }
+  FILTER ( !BOUND(?officeEnd) || (?officeEnd > ?joined) )
+
+  # Who has held office in that period?  
+  BIND(IF(BOUND(?officeStart), IF(?officeStart < ?joined, ?joined, ?officeStart), ?joined) AS ?effectiveStart)
+  BIND(IF(BOUND(?officeEnd), ?officeEnd, NOW()) AS ?effectiveEnd)
+
+  ?person wdt:P31 wd:Q5 ; p:P39 ?ps .
+  ?ps ps:P39 ?office ; pq:P580 ?heldStart .
+  OPTIONAL { ?ps pq:P582 ?heldEnd }
+  FILTER ( !BOUND(?heldEnd) || (?heldEnd > ?effectiveStart) )
+  BIND(IF(BOUND(?heldEnd), ?heldEnd, NOW()) AS ?heldPeriodEnd)
+  BIND(IF(?heldStart < ?effectiveStart, ?effectiveStart, ?heldStart) AS ?heldPeriodStart)
+  BIND(FLOOR(?heldPeriodEnd - ?heldPeriodStart) AS ?daysInOffice)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?country ?countryLabel ?daysInUN
+ORDER BY DESC(?filledPercent) ?countryLabel

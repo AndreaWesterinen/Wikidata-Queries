@@ -1,0 +1,11 @@
+#Museums in Scotland, if they have an en.wikipedia page, where they are, and an image if we have one
+#added subclass of museums, hopefully this will pick up art galleries
+SELECT DISTINCT ?Museum ?MuseumLabel ?place ?placeLabel 
+WHERE
+{
+?place wdt:P131* wd:Q22 . hint:Prior hint:gearing "forward".
+?Museum wdt:P31/wdt:P279* wd:Q33506 . hint:Prior hint:gearing "forward".
+?Museum wdt:P276 ?place .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+
+}

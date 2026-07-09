@@ -1,0 +1,11 @@
+SELECT ?item ?inv ?url WHERE {
+  ?item wdt:P31 wd:Q21199;
+    wdt:P1181 ?value.
+  FILTER((?value >= 1 ) && (?value <= 5200 ))
+  BIND(CONCAT("SK-A-", STR(?value)) AS ?inv)
+  BIND(CONCAT("SK-A-", STR(?value), "-A") AS ?inva)
+  BIND(CONCAT("https://www.rijksmuseum.nl/en/collection/", ?inv) AS ?url)
+  FILTER(NOT EXISTS { ?painting p:P217/ps:P217 ?inv. })
+  FILTER(NOT EXISTS { ?painting p:P217/ps:P217 ?inva. })
+}
+ORDER BY (?value)

@@ -1,0 +1,12 @@
+SELECT DISTINCT ?husband ?husbandLabel ?husbandDescription
+WHERE
+{
+  ?husband wdt:P31 wd:Q5;
+           wdt:P21 wd:Q6581097;
+           p:P26 [];
+           rdfs:label ?husbandLabel;
+           schema:description ?husbandDescription.
+  FILTER(LANG(?husbandLabel) = "en").
+  FILTER(LANG(?husbandDescription) = "en").
+  FILTER(CONTAINS(?husbandDescription, "husband")).
+}

@@ -1,0 +1,16 @@
+#Overview of album contributions to AA of the KB 
+SELECT DISTINCT ?item ?itemLabel ?relatedToAlbum ?relatedToAlbumLabel ?ThisItemIsA ?ThisItemIsALabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q81564326 .
+  ?item wdt:P5008 wd:Q99484628 .
+  ?item wdt:P31 ?itemIsA .
+  OPTIONAL {?item p:P18 ?image.}
+  OPTIONAL {?item p:P5008 [pq:P518 ?relatedToAlbum].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+  ?item rdfs:label ?itemLabel.
+  ?itemIsA rdfs:label ?itemIsALabel.
+  ?relatedToAlbum rdfs:label ?relatedToAlbumLabel.
+} 
+}
+ORDER BY ?relatedToAlbum

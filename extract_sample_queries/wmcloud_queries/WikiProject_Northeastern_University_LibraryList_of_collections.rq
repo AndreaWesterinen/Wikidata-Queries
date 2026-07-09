@@ -1,0 +1,1 @@
+select ?item where { hint:Query hint:optimizer "None". ?item wdt:P31 wd:Q9388534; wdt:P126 wd:Q109363303 . }

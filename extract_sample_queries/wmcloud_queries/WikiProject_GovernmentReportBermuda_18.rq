@@ -1,0 +1,9 @@
+SELECT DISTINCT ?representative ?representativeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?representative WHERE {
+      ?representative p:P39 ?statement0.
+      ?statement0 (ps:P39/(wdt:P279*)) wd:Q56611800.
+    }
+  }
+}

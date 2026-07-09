@@ -1,0 +1,7 @@
+#title: Items with P19 = "no value" (P31=Q5)
+# Complex constraint from [[Property talk:P19]]
+# People are all born at some place
+SELECT ?item
+  WHERE {
+    ?item p:P19/a wdno:P19 ; wdt:P31 wd:Q5
+  } LIMIT 100

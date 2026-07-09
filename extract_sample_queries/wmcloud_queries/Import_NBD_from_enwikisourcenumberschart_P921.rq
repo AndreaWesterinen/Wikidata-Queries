@@ -1,0 +1,14 @@
+SELECT (wd:Q5 as ?item) ("main subject (P921)" as ?legend) (GROUP_CONCAT(?itemLabel;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{	SELECT  ?p (COUNT(?entry) as ?ct)
+		{
+			?entry 	wdt:P31 wd:Q19389637
+  			; 		wdt:P1433 wd:Q16055052 .
+          	OPTIONAL { ?entry wdt:P921 ?mainsubject }
+          	BIND(IF(!BOUND(?mainsubject),wd:Q22910791,wd:Q24036257) as ?p)
+		}
+		GROUP BY  ?p
+		ORDER BY ASC(?ct)                  
+	}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?p rdfs:label ?itemLabel  }
+}

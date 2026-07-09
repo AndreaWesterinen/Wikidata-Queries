@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?parent ?parentLabel ?sitelinks WHERE { 
+  VALUES ?parent {wd:Q24723 wd:Q148453 wd:Q1742962 wd:Q1747998 wd:Q2349495 wd:Q4164367 wd:Q7534220 wd:Q10313304 wd:Q11946197 wd:Q12578980 wd:Q19602704 wd:Q24842448 wd:Q24944707 wd:Q42402646 wd:Q108293881}
+  ?item wdt:P31 ?parent .
+  ?item wikibase:sitelinks ?sitelinks
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }
+ORDER BY DESC(?sitelinks)
+#LIMIT 100

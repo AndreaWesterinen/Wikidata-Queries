@@ -1,0 +1,14 @@
+#mapeo de desapariciones forzadas de uruguayos (lugar de la detención ilegal) y de centros clandestinos de detención
+#defaultView:Map{"layer":"?instanciaLabel"}
+SELECT ?item ?itemLabel ?lugar ?instanciaLabel {
+  ?item wdt:P31 ?instancia.
+    {?item wdt:P31 wd:Q5.
+    ?item wdt:P27 wd:Q77.
+    ?item p:P746 ?statement.
+    ?statement pq:P625 ?lugar}
+  UNION
+    {?item wdt:P31 wd:Q8343784.
+    ?item wdt:P17 wd:Q77.
+    ?item wdt:P625 ?lugar}.
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+}

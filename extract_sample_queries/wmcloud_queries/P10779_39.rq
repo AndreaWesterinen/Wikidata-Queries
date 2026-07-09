@@ -1,0 +1,7 @@
+#title: Items with Goering inventory number missing identifier
+# Complex constraint from [[Property talk:P10779]]
+# Items that have an [[Property:P217|inventory number&#32;<small dir="ltr">(P217)</small>]] in [[d:Q2647884|Hermann Göring Collection <small>(Q2647884)</small>]], but [[Property:P10779|Collection Hermann Göring DB ID&#32;<small dir="ltr">(P10779)</small>]] is missing
+SELECT ?item ?inv WHERE {
+ ?item p:P217 [ ps:P217 ?inv ; pq:P195 wd:Q2647884 ] 
+  MINUS { ?item wdt:P10779 [] } .
+  }

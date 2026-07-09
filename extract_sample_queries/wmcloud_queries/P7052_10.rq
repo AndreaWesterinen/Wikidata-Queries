@@ -1,0 +1,7 @@
+embed.html#SELECT ?Uniform_Resource_Name_URN ?item ?itemLabel ?value
+{
+    { BIND( wdt:P7052 as ?wdt) ?p wikibase:directClaim ?wdt; p:P7470 ?st. ?st ps:P7470 ?f. OPTIONAL {?st pq:P1793 ?r} BIND(CONCAT("^",COALESCE(?r,"(^.*)"),"$") as ?re) }
+    ?item ?wdt ?value. FILTER(REGEX(str(?value),?re)) BIND(URI(REPLACE(str(?value),?re,?f)) as ?Uniform_Resource_Name_URN)
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"}
+}
+LIMIT 100

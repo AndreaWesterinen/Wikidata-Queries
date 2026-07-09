@@ -1,0 +1,25 @@
+embed.html##defaultView:Tree
+SELECT ?continent ?continentFlag ?continentLabel 
+?country ?countryLabel ?countryFlag 
+?region ?regionLabel ?regionFlag 
+?city ?cityImage ?pop2 WHERE {
+  ?continent wdt:P31 wd:Q5107.
+  ?country wdt:P31 wd:Q3624078;
+           wdt:P30 ?continent; 
+  OPTIONAL { ?continent wdt:P242 ?continentFlag. }
+  OPTIONAL { ?country wdt:P41 ?countryFlag. }
+  OPTIONAL {
+    ?country wdt:P150 ?region.
+    OPTIONAL { ?region wdt:P41 ?regionFlag. }
+    OPTIONAL {
+      ?region wdt:P36 ?city.
+      ?city rdfs:label ?bareCityLabel.
+      FILTER(LANG(?bareCityLabel) = "en").
+      OPTIONAL { ?city wdt:P1082 ?pop. }
+      OPTIONAL { ?city wdt:P18 ?cityImage. }
+      BIND(IF(BOUND(?pop),CONCAT(?bareCityLabel, " (Population: ", STR(?pop), ")"),?bareCityLabel) AS ?pop2).
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?continentLabel ?countryLabel ?regionLabel ?cityLabel

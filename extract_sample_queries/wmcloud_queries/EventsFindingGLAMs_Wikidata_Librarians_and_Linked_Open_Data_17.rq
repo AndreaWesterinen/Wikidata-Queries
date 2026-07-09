@@ -1,0 +1,10 @@
+# Count of P69 'educated at' grouped by educational establishment, for  
+#'Wikidata entries for Ghanaian MPs in thre 7th Parliament of the 4th Republic
+
+ select ?educatedLabel (count(distinct ?person) as ?count)
+   where {
+    ?person p:P39 ?positionStatement . ?positionStatement ps:P39 wd:Q61659845 . 
+   ?person wdt:P69 ?educated . # where were they educated
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+   } group by ?educatedLabel
+#defaultView:BubbleChart

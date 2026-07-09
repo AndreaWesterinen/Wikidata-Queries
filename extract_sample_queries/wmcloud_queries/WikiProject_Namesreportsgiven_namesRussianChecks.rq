@@ -1,0 +1,11 @@
+SELECT ?item
+  (COUNT(DISTINCT ?p) as ?count)
+  (SAMPLE(?p) as ?sample_p)
+{
+    ?item wdt:P282 wd:Q8209 ;
+          wdt:P31/wdt:P279? wd:Q202444 .          
+    FILTER NOT EXISTS { ?item wdt:P407 [] }
+    OPTIONAL { ?p wdt:P735 ?item }
+}
+GROUP BY ?item
+ORDER BY DESC(?count) ?item

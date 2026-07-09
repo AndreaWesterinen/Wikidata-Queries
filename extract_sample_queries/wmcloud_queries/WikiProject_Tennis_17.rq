@@ -1,0 +1,5 @@
+SELECT ?item ?instance ?season WHERE {
+  ?item wdt:P31 wd:Q47345468 .
+  OPTIONAL { ?item wdt:P31 ?instance . FILTER(?instance != wd:Q47345468) }
+  OPTIONAL { ?item wdt:P3450 ?season }
+}

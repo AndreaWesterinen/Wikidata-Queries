@@ -1,5 +1,4 @@
-# ----
-#title:All forms in Swedish missing a pronunciation for the form with a representation identical to the lemma of the lexeme
+#title: All forms in Swedish missing a pronunciation for the form with a representation identical to the lemma of the lexeme
 # So9q 13-01-2021
 SELECT ?l ?lemma ?form ?audio WHERE {
   ?l dct:language wd:Q9027;

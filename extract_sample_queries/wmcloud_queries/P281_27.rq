@@ -1,0 +1,4 @@
+#title: Check postal codes in Western Australia
+# Complex constraint from [[Property talk:P281]]
+#
+SELECT DISTINCT ?item ?zipCode WHERE { ?item wdt:P17 wd:Q408; wdt:P131 wd:Q3206; wdt:P281 ?zipCode. FILTER( REGEX( STR( ?zipCode ), "^((6[0-6]\\d{2}|67[0-8\\d|679[0-7]|6[89]\\d))$" ) = false ) . } ORDER BY ?item

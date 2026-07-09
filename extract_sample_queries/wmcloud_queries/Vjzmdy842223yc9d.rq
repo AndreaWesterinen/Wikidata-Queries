@@ -1,0 +1,49 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?titreEn ?article ?linkcount ?size WHERE {
+  
+  #Recherche femme
+  ?item wdt:P21 wd:Q6581072.
+
+  #Recherche occupation
+  ?item wdt:P106 wd:Q901.
+
+  #recherche nationalité
+  #?item wdt:P27 wd:Q142.
+
+  #Nombre de liens Wikipedia
+  ?item wikibase:sitelinks ?linkcount.
+        
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    
+ ?article schema:about ?item ;
+          schema:isPartOf <https://en.wikipedia.org/> ;
+          schema:name ?titreEn
+
+  FILTER NOT EXISTS {
+    [] schema:about ?item ;
+             schema:isPartOf <https://fr.wikipedia.org/> .
+  }
+
+   SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:api "Search" .
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+    
+      bd:serviceParam mwapi:srsearch ?titreEn .
+      bd:serviceParam mwapi:srwhat "nearmatch" .
+      ?title wikibase:apiOutput mwapi:title .
+      ?size wikibase:apiOutput "@size" .
+      bd:serviceParam  mwapi:prop "revisions" .
+  }
+  
+  FILTER(xsd:integer(?size) < 2000)
+  FILTER(?linkcount > 2)
+  ###########################################
+  # Le problème de filtre se situe ci-dessous =====>>>>
+  #
+  filter(?titreEN = "Tscharna Rayss")
+  #
+  ###########################################
+}
+order by xsd:integer(?size)
+limit 100

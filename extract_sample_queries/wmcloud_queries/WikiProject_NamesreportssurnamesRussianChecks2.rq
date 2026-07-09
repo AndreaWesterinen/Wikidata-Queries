@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(DISTINCT ?st) as ?count)
+WHERE
+{
+    ?item wdt:P407 wd:Q7737 ;
+          wdt:P31/wdt:P279? wd:Q101352.
+    ?item p:P282 ?st
+}
+GROUP BY ?item
+HAVING (?count > 1)
+ORDER BY DESC(?count)

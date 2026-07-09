@@ -1,5 +1,5 @@
-# ----
-#by Jura1, 2021-05-21
+#title: Glaciers map
+#author: Jura1, 2021-05-21
 #defaultView:Map{"hide":["?coor","?area_scale_km"], "layer": "?area_scale_km"}
 SELECT ?item ?itemLabel ?itemDescription ?coor ?area_sqkm ?area_scale_km
 {

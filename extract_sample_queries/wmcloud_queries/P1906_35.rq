@@ -1,0 +1,9 @@
+#title: Officeholder present on state's item not present on office's item
+# Complex constraint from [[Property talk:P1906]]
+# If item has a [[Property:P1906|office held by head of state&#32;<small dir="ltr">(P1906)</small>]] with value A and [[Property:P35|head of state&#32;<small dir="ltr">(P35)</small>]] with value B, A should have a [[Property:P1308|officeholder&#32;<small dir="ltr">(P1308)</small>]] with value B
+SELECT ?item ?office ?holder
+WHERE
+{
+  ?item wdt:P1906 ?office; wdt:P35 ?holder .
+  MINUS { ?office wdt:P1308 ?holder }
+}

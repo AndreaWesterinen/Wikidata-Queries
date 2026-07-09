@@ -1,0 +1,20 @@
+SELECT ?item (SAMPLE(?a) as ?sample) (SAMPLE(?auto) as ?hasauto) (COUNT(*) AS ?count) (COUNT(?person) AS ?persons) (COUNT(?place) AS ?places) (COUNT(?name) AS ?nameitems) (SAMPLE(?comcat) as ?commons)
+WHERE
+{
+    ?a p:P443/pq:P407 ?item .
+    MINUS { ?a wikibase:lemma [] }
+    MINUS { ?a rdf:type <http://www.w3.org/ns/lemon/ontolex#Form> }
+    OPTIONAL { ?a wdt:P31 wd:Q5  BIND(?a as ?person) }
+    OPTIONAL { ?a wdt:P625 []    BIND(?a as ?place) } 
+    OPTIONAL { ?a wdt:P31 wd:Q202444 BIND(?a as ?name) } 
+    OPTIONAL { ?a wdt:P31 wd:Q11879590 BIND(?a as ?name) } 
+    OPTIONAL { ?a wdt:P31 wd:Q12308941 BIND(?a as ?name) } 
+    OPTIONAL { ?a wdt:P31 wd:Q3409032 BIND(?a as ?name) } 
+    OPTIONAL { ?a wdt:P31 wd:Q101352 BIND(?a as ?name) }  
+    OPTIONAL { ?item p:P443 [ pq:P407 ?item ] BIND("✓" as ?auto) }    
+    OPTIONAL { ?item p:P7084 [ pq:P642 wd:Q184377 ; ps:P7084 ?r ] . [] schema:about ?r ; schema:isPartOf <https://commons.wikimedia.org/> ; schema:name ?com . 
+              BIND(CONCAT("[[c:", ?com, "|", strafter(?com, ":"), "]]" ) as ?comcat) }   
+}
+GROUP BY ?item
+ORDER BY DESC(?count) ?item
+LIMIT 500

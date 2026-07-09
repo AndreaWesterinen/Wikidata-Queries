@@ -1,0 +1,11 @@
+SELECT ?occupation (GROUP_CONCAT(DISTINCT(?occupationLabel); separator=", ") as ?occupationLabel) (COUNT(*) AS ?count)
+WHERE {
+  ?item wdt:P21 wd:Q6581072 .
+  ?item wdt:P106 ?occupation .
+  OPTIONAL {
+    ?occupation wdt:P2521 ?occupationLabel .
+    FILTER(LANG(?occupationLabel) = "fr") .
+  }
+}
+GROUP BY ?occupation
+ORDER BY DESC(?count)

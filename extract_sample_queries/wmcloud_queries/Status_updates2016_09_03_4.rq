@@ -1,0 +1,10 @@
+# Drama schools by number of students on Wikidata
+# originally from https://twitter.com/ash_crow/status/770754162766311424 , edited 2014-09-05
+SELECT ?school ?schoolLabel (SAMPLE(?schoolWebsite) as ?website) (COUNT(?student) AS ?students) WHERE {
+  	?school wdt:P31/wdt:P279* wd:Q2143781 .
+  	OPTIONAL { ?school wdt:P856 ?schoolWebsite } .
+  
+  	?student wdt:P31 wd:Q5 . 
+    ?student wdt:P69 ?school .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} GROUP BY ?school ?schoolLabel ORDER BY DESC(?students)

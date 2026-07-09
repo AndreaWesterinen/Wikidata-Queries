@@ -1,0 +1,27 @@
+SELECT ?item ?itemLabel  ?P31Label ?P131Label ?P17Label
+# (YEAR(?P577) as ?year) ?P86Label
+# (sample(?tt) as ?count)
+WHERE 
+{
+ 
+  SERVICE bd:slice {
+        ?item wdt:P31 wd:Q3947.
+    bd:serviceParam bd:slice.offset 100000 . # Start at item number (not to be confused with QID)
+    bd:serviceParam bd:slice.limit 100000 . # List this many items
+  }
+  filter not exists {?item schema:description ?t . filter(lang(?t)="en")}
+#  filter not exists {?item rdfs:label ?t . filter(lang(?t)="en")}
+#  ?item rdfs:label ?tt.
+  OPTIONAL {?item wdt:P131 ?P131.}
+  OPTIONAL {?item wdt:P17 ?P17.}
+  ?item wdt:P31 ?P31.
+#  OPTIONAL {?item wdt:P175 ?performer.}
+#  OPTIONAL {?item wdt:P86 ?composer .}
+  
+#  OPTIONAL {?item wdt:P50 ?P50 . }
+#  OPTIONAL {?item wdt:P577 ?P577. }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+
+} 
+#group by ?item ?itemLabel 

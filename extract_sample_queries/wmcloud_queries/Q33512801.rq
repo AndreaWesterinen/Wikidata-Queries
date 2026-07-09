@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?constituency ?party ?start ?end {
+  ?item p:P39 ?positionStatement .
+  ?positionStatement ps:P39 wd:Q33512801 . 
+  OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+  OPTIONAL { ?positionStatement pq:P4100 ?party . }
+  OPTIONAL { ?positionStatement pq:P580 ?start . }
+  OPTIONAL { ?positionStatement pq:P582 ?end . }
+}

@@ -1,3 +1,4 @@
+#title: Versions of The Scream
 SELECT
   ?item
   (SAMPLE (?itemL) AS ?title)

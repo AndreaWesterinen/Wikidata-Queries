@@ -1,0 +1,11 @@
+#title: Labels in Catalan would generally be different from Latin
+# Complex constraint from [[Property talk:P2358]]
+# output: item with English label, Catalan label, Latin label
+SELECT ?item ?ca ?la
+{
+  ?item wdt:P2358 [ ] ; wdt:P31 wd:Q5 .
+  ?item rdfs:label ?la . FILTER( lang(?la) = "la" ) 
+  ?item rdfs:label ?ca . FILTER( lang(?ca) = "ca" ) 
+  FILTER( str(?ca) = str(?la) )
+}
+LIMIT 1000

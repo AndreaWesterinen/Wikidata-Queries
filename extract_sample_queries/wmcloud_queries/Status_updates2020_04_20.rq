@@ -1,0 +1,26 @@
+SELECT ?item ?itemLabel ?itemDescription ?osm ?ceremonial ?ceremonialLabel ?ceremonialDescription ?ceremonialosm ?administrative ?administrativeLabel ?administrativeDescription ?administrativeosm WHERE {
+  ?item wdt:P31 wd:Q1138494.
+  OPTIONAL { wd:P402 wdt:P1630 ?formatterurl . ?item wdt:P402 ?osmid . BIND(IRI(REPLACE(?osmid, '^(.+)$', ?formatterurl)) AS ?osm). }
+  OPTIONAL {
+    ?item wdt:P1889 ?ceremonial.
+    ?ceremonial wdt:P31 wd:Q180673 .
+    OPTIONAL { wd:P402 wdt:P1630 ?formatterurl . 
+              ?ceremonial p:P402 ?ceremonialstatement.
+              ?ceremonialstatement ps:P402 ?ceremonialosmid .
+              ?ceremonialstatement pq:P518 wd:Q180673 .
+              BIND(IRI(REPLACE(?ceremonialosmid, '^(.+)$', ?formatterurl)) AS ?ceremonialosm). }
+    OPTIONAL { wd:P402 wdt:P1630 ?formatterurl . ?ceremonial wdt:P402 ?ceremonialosmid . BIND(IRI(REPLACE(?ceremonialosmid, '^(.+)$', ?formatterurl)) AS ?ceremonialosm). }
+  }
+  OPTIONAL {
+    ?item wdt:P1889 ?administrative.
+    ?administrative wdt:P31/wdt:P279* wd:Q643815 .
+    OPTIONAL { wd:P402 wdt:P1630 ?formatterurl . 
+              ?administrative p:P402 ?administrativestatement.
+              ?administrativestatement ps:P402 ?administrativeosmid .
+              ?administrativestatement pq:P518/wdt:P279* wd:Q643815 .
+              BIND(IRI(REPLACE(?administrativeosmid, '^(.+)$', ?formatterurl)) AS ?administrativeosm). }
+    OPTIONAL { wd:P402 wdt:P1630 ?formatterurl . ?administrative wdt:P402 ?administrativeosmid . BIND(IRI(REPLACE(?administrativeosmid, '^(.+)$', ?formatterurl)) AS ?administrativeosm). }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY (?itemLabel)
+LIMIT 49

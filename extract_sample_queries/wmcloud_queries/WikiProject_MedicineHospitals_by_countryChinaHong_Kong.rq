@@ -1,0 +1,11 @@
+SELECT ?item ?status
+WITH
+{
+  SELECT ?item { ?item wdt:P31/wdt:P279* wd:Q16917 . MINUS {?item wdt:P17 wd:Q668} } 
+} as %h 
+WHERE
+{
+  INCLUDE %h 
+  {?item wdt:P17 wd:Q8646 } UNION {?item wdt:P17 wd:Q1054923 } UNION {?item wdt:P17 wd:Q148; wdt:P131/wdt:P131* wd:Q8646 }  
+  OPTIONAL { ?item p:P31/ps:P31 wd:Q64578911 . BIND(wd:Q64578911 as ?status1) } BIND(COALESCE(?status1,wd:Q64624840) as ?status)
+}

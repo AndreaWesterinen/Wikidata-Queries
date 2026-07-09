@@ -1,3 +1,4 @@
+#title: Assemblies by number of seats
 SELECT DISTINCT ?item ?title ?seats ?jurisdiction (YEAR(?inception) AS ?start) (YEAR(?dissolution) AS ?end)
 WHERE
 {

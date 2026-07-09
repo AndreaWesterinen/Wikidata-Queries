@@ -1,0 +1,24 @@
+SELECT 
+  ?item ?raw ?unformatted ?translate ?anchor1 
+  (GROUP_CONCAT(DISTINCT CONCAT("{","{anchor\u007C",?anchor,"}","}")) as ?anchors) 
+  (GROUP_CONCAT(DISTINCT ?hpage) as ?helppages)
+  (CONCAT(?anchor1, COALESCE(?anchors,""), " ","\n",?translate, COALESCE(?helppages,"") ) as ?output)
+WHERE
+{
+    VALUES ?item { wd:Q13406268 wd:Q15397819 wd:Q87066524 wd:Q86989962 }
+    ?item wdt:P370 ?raw .
+    ?item p:P370 ?st . ?st ps:P370 ?raw 
+    BIND(CONCAT("<","translate","><","!--T:",strafter(str(?item),"Q"),"--> ", ?raw,"</","translate",">") as ?translate)  
+    BIND(CONCAT("{","{anchor\u007CQ",strafter(str(?item),"Q"),"}","} ") as ?anchor1)                      
+    OPTIONAL { ?st pq:P370 ?anchor }  
+    OPTIONAL { ?st pq:P805 ?h. [] schema:about ?h; schema:isPartOf <https://www.wikidata.org/> ; schema:name ?hp. 
+        BIND(CONCAT("\n{","{see\u007C",str(?hp),"}","}") as ?hpage)                         
+    }
+    BIND(REPLACE(REPLACE(
+        ?raw,
+        "'''", "")
+        ,"\\\u005B{2}([^\u007C]+\\\u007C)?([^\\\u005D]+)\\\u005D{2}", "$2")
+    as ?unformatted)
+}
+GROUP BY ?item ?raw ?translate ?anchor1 ?unformatted
+ORDER BY ?item

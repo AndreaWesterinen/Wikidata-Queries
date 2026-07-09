@@ -1,0 +1,4 @@
+SELECT ?item ?redirId ?pq ?qualifierValue WHERE {
+  ?item p:P1153/wikibase:rank wikibase:PreferredRank; p:P1153 [ ps:P1153 ?redirId; wikibase:rank wikibase:NormalRank; ?pq ?qualifierValue ] .
+  FILTER(?pq NOT IN (wikibase:rank, prov:wasDerivedFrom, ps:P1153)) .
+}

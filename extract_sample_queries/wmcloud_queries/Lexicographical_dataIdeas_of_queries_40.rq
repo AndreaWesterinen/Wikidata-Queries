@@ -1,0 +1,11 @@
+# Lexeme languages by number of "item for this sense" statements
+
+#defaultView:BubbleChart
+SELECT ?languageLabel (COUNT(?example) AS ?count ) WHERE {
+  ?l a ontolex:LexicalEntry; dct:language ?language.
+  ?l ontolex:sense ?sense .
+  ?sense wdt:P5137 ?example.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?languageLabel
+ORDER BY DESC(?count)

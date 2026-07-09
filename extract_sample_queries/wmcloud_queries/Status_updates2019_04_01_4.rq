@@ -1,0 +1,9 @@
+#archiviste
+SELECT ?item ?itemLabel ?img ?occupation ?occupationLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P106 wd:Q635734.
+  ?item wdt:P27 wd:Q142.
+  ?item wdt:P18 ?img.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P106 ?occupation. }
+}

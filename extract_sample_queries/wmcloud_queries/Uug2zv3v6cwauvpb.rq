@@ -1,0 +1,12 @@
+embed.html##defaultView:BubbleChart
+SELECT DISTINCT ?uLabel (COUNT(?r) as ?pop) ?u
+{
+  ?r wdt:P31 wd:Q5.
+  ?r wdt:P108 ?u.
+  ?u wdt:P17 wd:Q668.
+  ?u wdt:P31/wdt:P279* wd:Q3918.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "gu,hi,en" }
+}
+GROUP BY ?pop ?uLabel ?u
+ORDER BY DESC(?pop)
+#

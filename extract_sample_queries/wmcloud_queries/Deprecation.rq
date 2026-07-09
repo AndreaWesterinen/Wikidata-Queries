@@ -1,0 +1,1 @@
+SELECT ?reason ?reasonLabel (COUNT(?reason) AS ?count) { [] pq:P2241 ?reason . SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' } } GROUP BY ?reason ?reasonLabel ORDER BY DESC(?count)

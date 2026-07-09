@@ -1,0 +1,7 @@
+sparql?format=json&query=#items from tm collection
+SELECT ?item ?itemLabel ?esiintym__kohteesta ?esiintym__kohteestaLabel ?tekij_ ?tekij_Label ?image WHERE {
+  ?item wdt:P195 wd:Q86443703.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en". }
+  OPTIONAL { ?item wdt:P31 ?esiintym__kohteesta. }
+  OPTIONAL { ?item wdt:P170 ?tekij_. }
+}

@@ -1,0 +1,15 @@
+#Naturschutzgebiete NRW
+#defaultView:Map
+SELECT ?entity ?entityLabel ?id ?locationLabel ?area ?inception ?coord ?image WHERE {
+  ?entity wdt:P31 wd:Q759421.
+  ?entity wdt:P17 wd:Q183.
+  ?entity wdt:P3974 ?id.
+  ?entity wdt:P2046 ?area.
+  ?entity wdt:P571 ?inception.
+  ?entity wdt:P625 ?coord.
+  OPTIONAL { ?entity wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  FILTER(EXISTS { ?entity wdt:P3974 ?x. })
+}
+ORDER BY ?id
+LIMIT 4000

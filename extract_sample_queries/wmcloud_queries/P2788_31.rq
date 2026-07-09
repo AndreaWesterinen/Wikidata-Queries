@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?property ?value {
+			?item wdt:P2788 ?value .
+          MINUS { ?item rdfs:label ?label .
+                 FILTER( LANG(?label)="cs" ) }			
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

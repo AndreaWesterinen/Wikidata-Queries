@@ -1,0 +1,11 @@
+#by Jura1, 2016-01-24
+
+SELECT ?lang (COUNT(DISTINCT(?monolingualstring)) as ?count)
+WHERE
+{
+  ?item wdt:P7535 ?monolingualstring .
+  BIND(lang(?monolingualstring) as ?lang)
+}
+GROUP BY ?lang
+ORDER BY DESC(?count)
+LIMIT 50

@@ -1,0 +1,49 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("400" as ?width) 
+  ("200" as ?height) 
+  ("Vervaardigers Stichting Kunst in de Publieke Ruimte in Arnhem" as ?legend) 
+  ("auteursrechtelijke status" as ?xAxisTitle) 
+  ("aantal vervaardigers" as ?yAxisTitle)
+  (GROUP_CONCAT(?status;separator=",") as ?x)
+  (GROUP_CONCAT(?color;separator=",") as ?colors)
+  ("fontsize:15,offset:-15" as ?showValues)
+  ("40" as ?innerRadius)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+SELECT ?color ?status ?count WHERE
+{{ 
+    SELECT (COUNT(?item) as ?count) ("green" AS ?color) ("publiek domein" AS ?status) 
+    WHERE {
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P6379 wd:Q98907720.
+    ?item wdt:P7763 wd:Q71887839.#PD
+    
+    }       
+} UNION {
+    SELECT (COUNT(?item0) as ?count) ("red" AS ?color) ("beschermd" AS ?status) 
+    WHERE {
+    ?item0 wdt:P31 wd:Q5 .
+    ?item0 wdt:P6379 wd:Q98907720.
+    ?item0 wdt:P7763 wd:Q73555012.#C
+      FILTER NOT EXISTS {?item0 wdt:P6275 wd:Q71528227 . } #PictoRight
+    }        
+} UNION {
+    SELECT (COUNT(?item2) as ?count) ("darkred" AS ?color) ("beschermd via PictoRight" AS ?status) 
+    WHERE {
+    ?item2 wdt:P31 wd:Q5 .
+    ?item2 wdt:P6379 wd:Q98907720.
+    ?item2 wdt:P7763 wd:Q73555012.#C
+    ?item2 wdt:P6275 wd:Q71528227.#PictoRight
+    }        
+} UNION {
+    SELECT (COUNT(?item3) as ?count) ("grey" AS ?color)("onbekend" AS ?status) 
+    WHERE {
+    ?item3 wdt:P31 wd:Q5 .
+    ?item3 wdt:P6379 wd:Q98907720.
+      FILTER NOT EXISTS {?item3 wdt:P7763 ?status.}
+    }       
+
+}}}

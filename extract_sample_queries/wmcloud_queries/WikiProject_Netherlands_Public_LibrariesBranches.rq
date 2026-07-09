@@ -1,0 +1,38 @@
+#Full table all libraries
+SELECT DISTINCT ?item ?itemLabel ?isil ?itemDescription ?partof ?image  
+?full_address 
+?native_label ?street ?street_number ?postal_code
+?place ?municipality ?province
+?coord_loc ?osm_url ?elevation 
+?phone ?email ?off_website ?desc_at_url ?archive_url  
+
+WHERE 
+{
+  ?item wdt:P31 wd:Q28564. #public library
+  ?item wdt:P31 wd:Q11396180. #library branch 
+  ?item wdt:P17 wd:Q55. #from the Netherlands 
+
+  OPTIONAL {?item wdt:P361 ?partof.}  #part of P361  
+  OPTIONAL {?item wdt:P18 ?image.}  #image P18
+  OPTIONAL {?item wdt:P1705 ?native_label.} #native label P1705    
+  OPTIONAL {?item wdt:P131 ?municipality. # located in the administrative territorial entity (P131)  
+            ?municipality wdt:P131 ?province.}
+  OPTIONAL {?item wdt:P276 ?place .}  #location (P276) 
+  OPTIONAL {?item wdt:P625 ?coord_loc.}  #coordinate location (P625)
+  #retrieve OSM url,  reference URL (P854) 
+  OPTIONAL {?item p:P625 [prov:wasDerivedFrom [pr:P854 ?osm_url]] .}
+  OPTIONAL {?item wdt:P2044 ?elevation .} #elevation above sea level (P2044)
+  OPTIONAL {?item wdt:P969 ?full_address .} #located at street address (P969)
+  OPTIONAL {?item wdt:P669 ?street .} #located on street (P669)
+  OPTIONAL {?item p:P669 [pq:P670 ?street_number].} #Find  street number (P670), qualifier of P669
+  OPTIONAL {?item wdt:P281 ?postal_code .} #postal code (P281)
+  OPTIONAL {?item wdt:P1329 ?phone .} #phone number (P1329)
+  OPTIONAL {?item wdt:P968 ?email .} #e-mail (P968)
+  OPTIONAL {?item wdt:P856 ?off_website .} #official website (P856)
+  OPTIONAL {?item wdt:P973 ?desc_at_url .} #described at URL (P973)
+  #Retrieve WaybackMachineURL, archive URL (P1065) 
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P1065 ?archive_url]] .}
+  OPTIONAL {?item wdt:P791 ?isil .} #International Standard Identifier for Libraries (P791) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}
+ORDER BY ?item

@@ -1,0 +1,24 @@
+SELECT DISTINCT ?item ?sl ?itemLabel ?yob ?yod ?itemDescription ?sp1 ?f ?c ?familyLabel ?gen 
+{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P734 wd:Q12785732 . 
+    OPTIONAL { ?item wdt:P569 ?dob . BIND(YEAR(?dob) as ?yob)  }
+    OPTIONAL { ?item wdt:P570 ?dod . BIND(YEAR(?dod) as ?yod)  }  
+    OPTIONAL { ?item wdt:P22 ?f  }  
+    OPTIONAL { ?item wdt:P53 ?family  }    
+    OPTIONAL { ?item wdt:P26 ?sp . ?sp wdt:P21 wd:Q6581097 ; wdt:P734 wd:Q12785732 . BIND("y" as ?sp1)  }    
+    { SELECT ?item (COUNT(?child) as ?c) { ?item wdt:P734 wd:Q12785732  OPTIONAL { ?item wdt:P40 ?child } } GROUP BY ?item }  
+	?item wikibase:sitelinks ?sl 
+    OPTIONAL { SELECT ?item ?gen { 
+        SERVICE gas:service {    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q103842846 ;
+                gas:traversalDirection "Forward" ;
+                gas:out ?item ;
+                gas:out1 ?gen ;
+                gas:maxIterations 100 ;
+                gas:linkType wdt:P40 }  
+                                 }
+            }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(BOUND(?yob)) ?yob ?item

@@ -1,0 +1,10 @@
+SELECT  ?personLabel 
+
+WHERE {
+  ?person wdt:P106 wd:Q16830344 .
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

@@ -1,0 +1,1 @@
+SELECT * { wd:Q2013 p:P571 ?st}  

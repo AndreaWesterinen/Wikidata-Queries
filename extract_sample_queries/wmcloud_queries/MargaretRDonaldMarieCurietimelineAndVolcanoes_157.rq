@@ -1,0 +1,11 @@
+SELECT ?human ?humanLabel ?value ?st
+{
+  {
+       SELECT *
+       {  ?human wdt:P31 wd:Q5; wdt:P27 wd:Q664; wikibase:statements 1
+        }
+       LIMIT 10000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?st) ?human

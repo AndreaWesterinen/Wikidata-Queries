@@ -1,0 +1,16 @@
+SELECT ?item (YEAR(?chart_year) AS ?year) ?ranking (SAMPLE(?youtube_video_candidate) AS ?youtube_video) WHERE {
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?performer rdfs:label ?performerLabel  
+  }
+  ?item wdt:P31/wdt:P279* wd:Q2188189.
+  ?item p:P2291 ?charted_in.
+  OPTIONAL { ?item wdt:P1651 ?youtube_video_id }.
+  BIND(CONCAT("https://www.youtube.com/watch?v=", ?youtube_video_id) AS ?youtube_video_candidate).
+  ?charted_in ps:P2291 ?chart.
+  ?charted_in pq:P1352 ?ranking.
+  ?chart wdt:P459 wd:Q17036134.
+  ?chart wdt:P585 ?chart_year.
+}
+GROUP BY ?item ?charted_in ?chart ?ranking ?chart_year
+ORDER BY DESC(?year) ASC(?ranking)

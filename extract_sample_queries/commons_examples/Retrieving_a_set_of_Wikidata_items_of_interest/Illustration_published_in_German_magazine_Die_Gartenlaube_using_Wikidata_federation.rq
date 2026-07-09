@@ -1,0 +1,21 @@
+#defaultView:ImageGrid{"hide":["?img2"]}
+select ?articleLabel ?articleDesc ?article ?img2 ?imgDesc with {
+  select * {
+    # SELECT all articles published in German magazine 'Die Gartenlaube'
+    service <https://query.wikidata.org/sparql> {
+      ?article wdt:P1433 wd:Q655617.
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". 
+                               ?article rdfs:label ?articleLabel.
+                               ?article schema:description ?articleDesc. 
+                             }
+    }
+  }
+} as %items where {
+  include %items .
+  # Select images published in any article.
+  ?file wdt:P1433 ?article; 
+        schema:url ?img2.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,de,en". 
+                           ?file rdfs:label ?imgDesc. 
+                         }
+}

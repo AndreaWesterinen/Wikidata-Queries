@@ -1,3 +1,4 @@
+#title: List of small monuments and other similar sites with link to Commons category (sitelink or P373)
 SELECT ?item ?comm ?p373 ?cat WHERE {
   ?item wdt:P131* wd:Q894107. # ... municipality ...
 

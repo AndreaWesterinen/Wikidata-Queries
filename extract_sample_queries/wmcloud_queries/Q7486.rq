@@ -1,0 +1,13 @@
+#Most popular fathers
+SELECT  (SAMPLE(?father) as ?father) ?fatherLabel  (SAMPLE(?picture) as ?picture) (COUNT(?father) as ?children)
+WHERE
+{
+	?subj wdt:P22 ?father .
+	OPTIONAL {
+		?father wdt:P18 ?picture .
+		}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?fatherLabel
+ORDER BY DESC(?children)
+LIMIT 50

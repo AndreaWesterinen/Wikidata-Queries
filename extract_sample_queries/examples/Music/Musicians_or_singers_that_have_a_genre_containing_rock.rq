@@ -1,3 +1,4 @@
+#title: Musicians or singers that have a genre containing 'rock'
 SELECT DISTINCT ?human ?humanLabel
 WHERE
 {

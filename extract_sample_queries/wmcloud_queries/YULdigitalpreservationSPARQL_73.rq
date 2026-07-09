@@ -1,0 +1,13 @@
+SELECT   ?school ?schoolLabel (COUNT(?person) AS ?count)
+
+WHERE {
+  ?person wdt:P166 wd:Q1316544 .
+  ?person wdt:P69  ?school .
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }
+
+GROUP BY ?school ?schoolLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,22 @@
+SELECT ?item ?itemLabel ?occ ?occLabel ?image ?linkcount WHERE {
+  ?item wdt:P21 wd:Q6581072 .                                                         #donna
+  ?item wdt:P31 wd:Q5 .                                                               #essere umano
+  ?item wdt:P106 ?occ .
+  VALUES ?occ {
+    wd:Q3075052                                                                       #folclorista
+    wd:Q1371378                                                                       #etnologa
+    wd:Q12347522                                                                      #etnografa
+    wd:Q17484288                                                                      #etnomusicologa
+    wd:Q32518759                                                                      #etnobotanica
+  }
+  FILTER NOT EXISTS {                                                                 #non ha voce in itwiki
+    ?wen schema:about ?item .
+    ?wen schema:isPartOf <https://it.wikipedia.org/> .
+  }
+  OPTIONAL {?item wikibase:sitelinks ?linkcount .}                                    #numero versioni linguistiche 
+  FILTER (?linkcount > 3 ) .
+  OPTIONAL {?item wdt:P18 ?image}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". }  #label in italiano
+}
+ORDER BY DESC(?linkcount)
+LIMIT 1000

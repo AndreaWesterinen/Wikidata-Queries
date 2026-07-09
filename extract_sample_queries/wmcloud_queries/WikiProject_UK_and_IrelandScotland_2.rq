@@ -1,0 +1,15 @@
+#defaultView:Map
+SELECT ?place ?placeLabel ?location ?dist ?instanceLabel WHERE {
+  wd:Q1026785 wdt:P625 ?point . 
+  SERVICE wikibase:around { 
+      ?place wdt:P625 ?location . 
+      bd:serviceParam wikibase:center ?point . 
+      bd:serviceParam wikibase:radius "180" . 
+  } 
+  filter not exists {?place wdt:P131 [] . }
+  filter not exists {?place wdt:P31 wd:Q848797 . }
+  optional {?place wdt:P31 ?instance .}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+  }
+} ORDER BY ASC(?dist)

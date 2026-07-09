@@ -1,0 +1,37 @@
+embed.html##title: Swedish Bathwaters with line to connected water
+#defaultView:Map{"hide":["?bathcoord","?lakecoord","?line","?str","?layer"]}
+SELECT ?str ?bathwater ?bathwaterLabel ?bathcoord ?lake ?lakeLabel ?lakecoord ?dist ?line ?SJOID ?layer ?EionetBathingWaterIDentifier ?Hav ?VISS WHERE {
+  ?bathwater wdt:P6104 wd:Q106774536.
+   ?bathwater  wdt:P625 ?xx.
+   ?bathwater  p:P625 [ a wikibase:BestRank ;
+           psv:P625 [
+             wikibase:geoLatitude ?bathcoordlat ;
+             wikibase:geoLongitude ?bathcoordlon ;
+             wikibase:geoGlobe ?globe ;
+           ] ;
+           ps:P625 ?bathcoord
+          ]
+  OPTIONAL { ?bathwater wdt:P9616 ?EionetBathingWaterIDentifier. }
+  {
+    ?bathwater wdt:P206 ?lake.
+   ?lake  wdt:P625 ?rr.
+       ?lake  p:P625 [a wikibase:BestRank ;
+           psv:P625 [
+             wikibase:geoLatitude ?lat ;
+             wikibase:geoLongitude ?long ;
+             wikibase:geoGlobe ?globe2 ;
+           ] ;
+           ps:P625 ?lakecoord
+          ]
+    OPTIONAL { ?lake wdt:P761 ?SJOID. }
+  }
+   BIND(geof:distance(?bathcoord, ?lakecoord) as ?dist) . 
+  #filter (?dist >= 3)
+  BIND (floor(?dist/10)*10 as ?layer) 
+  BIND(CONCAT('LINESTRING (', STR(?bathcoordlon), ' ', STR(?bathcoordlat), ',', STR(?long), ' ', STR(?lat), ')') AS ?str) .
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line) 
+  BIND(URI(CONCAT("https://badplatsen.havochvatten.se/badplatsen/karta/#/bath/",?EionetBathingWaterIDentifier)) AS  ?Hav)
+  BIND(URI(CONCAT("https://viss.lansstyrelsen.se/Waters.aspx?waterEUID=SE",?SJOID)) AS ?VISS)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,sv". }
+}
+ORDER BY DESC(?dist)

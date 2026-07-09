@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?P625 ?P18 ?P373 (group_concat(?P206Label_;separator="; ") as ?P206Label) ?statements
+WHERE 
+{
+  ?item wdt:P31 wd:Q11997323.
+  {?item wdt:P17 wd:Q145 .}
+  UNION
+  {?item wdt:P17 wd:Q27 .}
+  ?item wikibase:statements ?statements.
+  optional {?item wdt:P625 ?P625 .}
+  optional {?item wdt:P18 ?P18 .}
+  optional {?item wdt:P373 ?P373 .}
+  optional {?item wdt:P206 ?P206 .}
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                         ?item rdfs:label ?itemLabel . 
+                         ?P206 rdfs:label ?P206Label_ .  }
+} group by ?item ?itemLabel ?P625 ?P18 ?P373 ?statements order by ?itemLabel

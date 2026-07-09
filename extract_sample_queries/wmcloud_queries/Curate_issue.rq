@@ -1,0 +1,1 @@
+SELECT * { ?item wdt:P31 wd:Q1 } LIMIT 100

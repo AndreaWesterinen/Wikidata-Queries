@@ -1,0 +1,14 @@
+# accused Scottish witches: without a significant event
+SELECT DISTINCT  ?witch ?witchLabel ?article WHERE {
+  ?witch wdt:P4478 ?personID.
+  minus {?witch wdt:P793 ?significantEvent} 
+  OPTIONAL {
+     ?article schema:about ?witch. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+
+#ORDER BY (?st) ?witch
+
+#LIMIT 500

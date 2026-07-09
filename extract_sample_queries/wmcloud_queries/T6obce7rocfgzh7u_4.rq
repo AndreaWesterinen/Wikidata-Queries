@@ -1,0 +1,7 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?_image ?_subclass_of ?_subclass_ofLabel  WHERE {
+  ?item wdt:P31 wd:Q188451.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?item wdt:P279 ?_subclass_of. }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+}

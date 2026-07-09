@@ -1,0 +1,12 @@
+SELECT ?a ?aLabel ?img ?loc
+WHERE
+{
+  #find all instances of ?a that is an instance or subclass of any landmark or tourist destination
+{?a wdt:P31/wdt:P279* wd:Q2319498 .} UNION {?a wdt:P31/wdt:P279* wd:Q1200957.}
+  #if that instance has a point location, find it, for map viz
+ OPTIONAL{?a wdt:P625 ?loc .}
+  #if that instance has an image from WM commons, find it, for map viz
+ OPTIONAL{?a wdt:P18 ?img .} 
+  #find labels
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, es". }
+  }

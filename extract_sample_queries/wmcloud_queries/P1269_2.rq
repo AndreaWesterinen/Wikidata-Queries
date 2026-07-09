@@ -1,0 +1,10 @@
+#title: instances of "certain aspects of a person's life" lacking this property
+# Complex constraint from [[Property talk:P1269]]
+#
+SELECT ?item ?p WHERE
+{
+ ?item wdt:P31/wdt:P279? wd:Q20127274 .
+ FILTER NOT EXISTS { ?item wdt:P1269 [] }
+ OPTIONAL { ?item p:P31 / pq:P642 ?p }
+}
+LIMIT 500

@@ -1,0 +1,8 @@
+#Corporate name entities whose archives are at UMD
+SELECT ?item ?itemLabel ?itemDescription
+WHERE 
+{
+  ?item wdt:P485 wd:Q7895690
+        FILTER NOT EXISTS { ?item wdt:P31 wd:Q5 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

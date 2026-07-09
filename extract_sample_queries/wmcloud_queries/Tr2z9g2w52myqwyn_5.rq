@@ -1,0 +1,22 @@
+SELECT ?item ?name ?idcount ?sitelinks ?rato WHERE {
+    ?item wdt:P106 wd:Q1028181 .
+    ?item wdt:P31 wd:Q5 .
+    {
+          ?item wikibase:identifiers ?idcount .
+    ?item wikibase:sitelinks ?sitelinks . 
+    FILTER ( ?sitelinks > 0 ) .
+    BIND ( xsd:float(?idcount) / xsd:float(?sitelinks) as ?rato)
+      } UNION {
+          ?item wikibase:identifiers ?idcount .
+    ?item wikibase:sitelinks ?sitelinks . 
+      FILTER ( ?sitelinks=0 ) .
+      BIND ( xsd:float(?idcount) / xsd:float(1) as ?rato)
+      }
+      
+      SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+  }
+ORDER BY DESC(?rato )
+LIMIT 500

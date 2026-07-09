@@ -1,0 +1,6 @@
+embed.html#SELECT DISTINCT ?narrativeLabel ?charactersLabel ?roleLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?narrative p:P674 ?characterStatement.
+  ?characterStatement ps:P674 ?characters; pq:P3831 ?role.
+}
+ORDER BY ?narrativeLabel ?charactersLabel

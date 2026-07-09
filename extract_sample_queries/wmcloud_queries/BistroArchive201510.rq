@@ -1,0 +1,5 @@
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix entity: <http://www.wikidata.org/entity/>
+SELECT ?item WHERE {
+  ?item wdt:P39 entity:Q191954 .
+}

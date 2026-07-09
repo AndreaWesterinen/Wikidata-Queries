@@ -1,0 +1,7 @@
+sparql?query=SELECT ?Bundesland ?BundeslandLabel ?Endzeitpunkt WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Bundesland wdt:P31 wd:Q21815132.
+  ?Bundesland wdt:P17 wd:Q183.
+  OPTIONAL { ?Bundesland wdt:P576 ?Endzeitpunkt. }
+}
+LIMIT 1000

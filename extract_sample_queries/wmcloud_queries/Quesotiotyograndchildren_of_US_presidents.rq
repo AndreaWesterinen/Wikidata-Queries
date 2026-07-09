@@ -1,0 +1,18 @@
+SELECT ?prez ?prezLabel ?item ?itemLabel ?desc ?child
+WHERE
+{
+  ?prez wdt:P39 wd:Q11696.
+  ?prez wdt:P31 wd:Q5.
+  ?prez wdt:P40 ?child.
+        ?prez p:P39 ?statement.
+        ?statement ps:P39 wd:Q11696.
+        ?statement pq:P580 ?starttime.
+  ?child wdt:P40 ?item.
+        MINUS{?prez p:P40 [ps:P40 ?child; pq:P1039 ?kinship]}.
+  OPTIONAL{?child wdt:P569 ?dob2}.
+  OPTIONAL{?item wdt:P569 ?dob}.
+  OPTIONAL{?item wdt:P570 ?dod}.
+  OPTIONAL{?item schema:description ?desc
+        FILTER(lang(?desc)="en")}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+} ORDER BY ?starttime ?dob2 ?dob

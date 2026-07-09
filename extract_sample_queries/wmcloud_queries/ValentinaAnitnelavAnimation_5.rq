@@ -1,0 +1,39 @@
+embed.html##dead Disney characters
+SELECT ?character ?characterLabel ?filmLabel (GROUP_CONCAT(DISTINCT ?modLabel;separator=", ") AS ?mannerOfDeath) (GROUP_CONCAT(DISTINCT ?codLabel;separator=", ") AS ?causeOfDeath) 
+(GROUP_CONCAT(DISTINCT ?kbLabel;separator=", ") AS ?killedBy) ?lastWords
+WHERE
+{
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+        wdt:P527* ?film1.
+  
+  #getting dead characters and the manner of Death
+  ?character wdt:P1441 ?film1;
+             wdt:P1196 ?mannerOfDeath.
+  
+  ?mannerOfDeath rdfs:label ?modLabel.
+  FILTER(LANG(?modLabel)="en")
+  
+  OPTIONAL
+  {
+    ?character wdt:P509 ?causeOfDeath.
+    ?causeOfDeath rdfs:label ?codLabel.
+    FILTER(LANG(?codLabel)="en")
+  }
+  OPTIONAL
+  {
+    ?character wdt:P157 ?killedBy.
+    ?killedBy rdfs:label ?kbLabel.
+    FILTER(LANG(?kbLabel)="en")
+  }
+  OPTIONAL
+  {
+    ?character wdt:P3909 ?lastWords.
+  }
+             
+             
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+GROUP BY ?character ?characterLabel ?filmLabel ?lastWords
+ORDER BY ?characterLabel

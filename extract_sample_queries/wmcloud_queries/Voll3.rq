@@ -1,0 +1,16 @@
+SELECT 
+  DISTINCT ?city ?citylabel ?gerbonis ?population ?adminlabel ?start ?valuelabel
+WHERE
+{
+  ?city wdt:P31 ?value .
+  FILTER(?value IN (wd:Q15127838, wd:Q15584664)) .
+  OPTIONAL { ?city p:P31 ?citystart .   ?citystart pq:P580 ?start. } .
+  ?city wdt:P1082 ?population .
+  ?city wdt:P94 ?gerbonis .
+  ?city wdt:P131 ?admin .
+  ?admin wdt:P31 ?admintype .
+  FILTER(?admintype IN (wd:Q3345345, wd:Q3624078)) .
+  ?city rdfs:label ?citylabel . FILTER(lang(?citylabel)="lv")
+  ?admin rdfs:label ?adminlabel . FILTER(lang(?adminlabel)="lv")
+  ?value rdfs:label ?valuelabel . FILTER(lang(?valuelabel)="lv")
+}

@@ -1,0 +1,7 @@
+sparql?query=SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q13220204 .
+  ?item wdt:p17 wd:Q38 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,it". }
+}

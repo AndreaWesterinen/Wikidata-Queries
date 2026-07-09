@@ -1,0 +1,10 @@
+#title: list should have qualifier with series as value
+# Complex constraint from [[Property talk:P1811]]
+# [[Property:P360|is a list of&#32;<small dir="ltr">(P360)</small>]] should be qualified with [[Property:P179|part of the series&#32;<small dir="ltr">(P179)</small>]] and item for series as value
+SELECT ?item ?itemLabel ?eplist ?eplistLabel 
+WHERE
+{
+  ?item wdt:P1811 ?eplist .
+  FILTER NOT EXISTS { ?eplist p:P360 [ pq:P179 ?item ] }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

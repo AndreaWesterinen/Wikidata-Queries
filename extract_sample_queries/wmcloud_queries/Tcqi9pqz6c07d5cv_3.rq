@@ -1,0 +1,24 @@
+# Moon Trees: trees grown from seeds that went around the moon
+#defaultView:Map
+SELECT ?tree ?treeLabel (SAMPLE(?coords) AS ?coords) (SAMPLE(?layer) AS ?layer) WHERE {
+  ?tree wdt:P31 wd:Q6907628.
+  OPTIONAL { ?tree wdt:P625 ?treeCoords. }
+  OPTIONAL { ?tree wdt:P276/wdt:P625 ?locationCoords. }
+  BIND(COALESCE(?treeCoords, ?locationCoords) AS ?coords).
+  OPTIONAL {
+    ?tree wdt:P31 ?taxon.
+    ?taxon wdt:P31/wdt:P279* wd:Q16521.
+    ?taxon rdfs:label ?taxonLabel.
+    FILTER(LANG(?taxonLabel) = "en").
+    OPTIONAL {
+      ?taxon wdt:P1843 ?taxonCommonName.
+      FILTER(LANG(?taxonCommonName) = "en").
+    }
+  }
+  BIND(COALESCE(?taxonCommonName, ?taxonLabel) AS ?layer).
+  OPTIONAL {
+    ?tree rdfs:label ?treeLabel.
+    FILTER(LANG(?treeLabel) = "en").
+  }
+}
+GROUP BY ?tree ?treeLabel

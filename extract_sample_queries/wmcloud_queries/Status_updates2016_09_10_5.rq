@@ -1,0 +1,9 @@
+SELECT ?person ?personLabel ?died
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          wdt:P570 ?died.
+  FILTER(?died >= NOW() - "P7D"^^xsd:duration).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?died

@@ -1,0 +1,20 @@
+SELECT ?item ?wikiP ?count WITH {
+          
+         SELECT ?wiki (COUNT(DISTINCT ?creator) AS ?count) WHERE {   
+               hint:Query hint:optimizer "None".
+               ?creator wdt:P4081 [] .  
+               ?creator wdt:P31 wd:Q5 .
+               ?article schema:about ?creator .
+               ?article schema:isPartOf ?wiki .
+#               ?wiki wikibase:wikiGroup "wikipedia" .
+           } GROUP BY ?wiki 
+        } AS %wiki_counts 
+
+        WHERE {
+           INCLUDE %wiki_counts .
+          
+#           ?item wdt:P31 wd:Q10876391 .
+           ?item wdt:P856 ?wiki .
+           ?item wdt:P1800 ?wikiP .
+       
+        }  ORDER BY DESC (?count) ?wikiP

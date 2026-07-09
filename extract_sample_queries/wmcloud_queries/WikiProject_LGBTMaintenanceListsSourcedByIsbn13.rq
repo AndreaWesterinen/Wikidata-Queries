@@ -1,0 +1,8 @@
+SELECT ?item ?ref ?titre WHERE {
+  ?item p:P91 ?orientation .
+  ?orientation prov:wasDerivedFrom ?refnode .
+  ?refnode pr:P212 ?ref .
+  OPTIONAL { 
+    ?refnode pr:P1476 ?titre .
+  }
+}

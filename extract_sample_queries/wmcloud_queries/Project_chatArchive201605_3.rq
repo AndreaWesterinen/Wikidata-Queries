@@ -1,0 +1,12 @@
+#Prenoms palmesans
+#defaultView:BubbleChart
+SELECT ?cid ?cause (count(*) as ?count)
+WHERE {
+	?pid wdt:P19 wd:Q8826 .
+	?pid wdt:P735 ?cid .
+	OPTIONAL {
+		?cid rdfs:label ?cause filter (lang(?cause) = "en") .
+	}
+}
+GROUP BY ?cid ?cause
+ORDER BY DESC(?count) ASC(?cause)

@@ -1,0 +1,15 @@
+index.html#SELECT DISTINCT ?site ?siteLabel ?coordinates  ?layer ?lat ?long ?url
+WHERE 
+{
+  ?site wdt:P361 wd:Q503262 . hint:Prior hint:runFirst true.
+  ?site p:P625 ?stat . 
+  ?stat a wikibase:BestRank.
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat psv:P625/wikibase:geoLatitude ?lat.
+  ?stat ps:P625 ?coordinates.
+  ?site wdt:P31 ?type 
+  OPTIONAL {?site p:P1343/ps:P2699 ?url .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                         ?type rdfs:label ?layer .
+                         ?site rdfs:label ?siteLabel}
+} order by ?long

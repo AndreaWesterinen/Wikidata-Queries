@@ -1,0 +1,5 @@
+SELECT ?journal ?journalLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?journal wdt:P31 wd:Q65770378.
+}
+LIMIT 10000

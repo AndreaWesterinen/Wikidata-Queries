@@ -1,0 +1,9 @@
+#title: Check prefix 'languages'
+# Complex constraint from [[Property talk:P4801]]
+#
+SELECT ?item ?value ?marc {
+	?item wdt:P220 ?value.
+  ?item wdt:P4801 ?marc.
+  BIND (SUBSTR(?marc, 1, 9) AS ?prefix).
+  FILTER (?prefix NOT IN ("languages"))
+}

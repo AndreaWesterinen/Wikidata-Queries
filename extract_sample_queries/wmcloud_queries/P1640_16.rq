@@ -1,0 +1,7 @@
+#title: Need P31
+# Complex constraint from [[Property talk:P1640]]
+#
+SELECT ?item {
+  ?item p:P1640/ps:P1640 ?value.
+  MINUS { ?value p:P31 [] }.
+}

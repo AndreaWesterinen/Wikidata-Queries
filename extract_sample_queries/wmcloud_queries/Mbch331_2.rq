@@ -1,0 +1,20 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?item ?itemLabel ?nom ?nomLabel ?werk ?werklbl
+{
+  ?item p:P1411 ?nom_stmt .
+  ?nom_stmt ps:P1411 ?nom .
+   FILTER NOT EXISTS { ?nom_stmt pq:P585 ?x } .
+  OPTIONAL {?nom_stmt pq:P1686 ?werk . OPTIONAL {?werk rdfs:label ?werklbl filter (lang(?werklbl) = "nl") .} }
+  
+SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl,en" .
+  }
+} ORDER BY ASC(?item)

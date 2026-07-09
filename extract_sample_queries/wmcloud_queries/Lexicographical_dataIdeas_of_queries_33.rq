@@ -1,0 +1,11 @@
+SELECT ?l1 ?l2 ?lemma ?l1lang ?l1catLabel WITH {
+  SELECT * WHERE {
+    ?l1 a ontolex:LexicalEntry ; wikibase:lemma ?lemma ; dct:language/wdt:P218 ?l1lang ; wikibase:lexicalCategory ?l1cat .
+    ?l2 a ontolex:LexicalEntry ; wikibase:lemma ?lemma ; dct:language/wdt:P218 ?l2lang ; wikibase:lexicalCategory ?l2cat .
+    } } AS %i
+WHERE {
+  include %i
+  FILTER(?l1 != ?l2)
+  FILTER(?l1lang = ?l2lang && ?l1cat = ?l2cat)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?l1lang ?lemma

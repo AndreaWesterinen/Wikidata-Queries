@@ -1,5 +1,5 @@
-# ----
-# author: Yug 2024-12-11
+#title: List of French communes in Finistère, formatter for Lingualibre.org list generator
+# author: Yug, 2024-12-11
 # https://w.wiki/CNrc
 SELECT ?id ?label
 WHERE {

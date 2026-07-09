@@ -1,0 +1,6 @@
+SELECT ?item ?label_id WHERE {
+  ?item wdt:P31 wd:Q79007.
+  ?item wdt:P17 wd:Q55.
+  ?item rdfs:label ?label_id.
+  MINUS {
+    ?item rdfs:la

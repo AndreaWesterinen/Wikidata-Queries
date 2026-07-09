@@ -1,4 +1,5 @@
-SELECT ?place ?placeLabel ?location ?instanceLabel
+#title: Places within 1km of the Empire State Building
+ SELECT ?place ?placeLabel ?location ?instanceLabel
 WHERE
 {
   wd:Q9188 wdt:P625 ?loc .

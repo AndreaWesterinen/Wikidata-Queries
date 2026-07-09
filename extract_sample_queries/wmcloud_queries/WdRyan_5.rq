@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?youtube WITH {
+  SELECT ?item ?youtube WHERE 
+{
+  ?item p:P2397/pq:P1810 ?youtube.
+  FILTER CONTAINS (LCASE(?youtube),"vods")
+ # FILTER CONTAINS (?youtube,"VODs")
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

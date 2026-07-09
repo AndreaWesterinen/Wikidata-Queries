@@ -1,0 +1,14 @@
+SELECT ?item ?itmlbl ?wardno ?panchayat ?gplbl WHERE {
+  ?item wdt:P31 wd:Q1195098;
+    wdt:P131 wd:Q1535742;
+    p:P361 ?id.
+  ?id pq:P1545 ?wardno.
+  ?item wdt:P361 ?panchayat.
+  ?panchayat wdt:P31 wd:Q2732840.
+  OPTIONAL {
+    ?item rdfs:label ?itmlbl.
+   ?panchayat rdfs:label ?gplbl.
+    FILTER((LANG(?itmlbl)) = "ml")
+    FILTER((LANG(?gplbl)) = "ml")
+  }
+}

@@ -1,0 +1,7 @@
+#defaultView:Graph
+SELECT DISTINCT ?os ?osLabel ?subclassOf WHERE {
+  ?os wdt:P279* wd:Q9135 .
+  OPTIONAL { ?os wdt:P279 ?subclassOf } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?osLabel

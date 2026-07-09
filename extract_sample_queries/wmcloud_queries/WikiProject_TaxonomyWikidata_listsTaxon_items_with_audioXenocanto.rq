@@ -1,0 +1,14 @@
+SELECT 
+  DISTINCT ?item 
+  (CONCAT(
+      '[https://www.xeno-canto.org/species/',
+      ENCODE_FOR_URI(?xeno), ' ', ?xeno, ']') AS ?xenocanto)
+
+WHERE { 
+  ?item wdt:P31 wd:Q16521 . 
+  ?item wdt:P171* wd:Q25341 .
+  ?item wdt:P2426 ?xeno .
+  ?item ^wdt:P921 ?work .
+  
+}
+LIMIT 100

@@ -1,0 +1,7 @@
+#mlNumberLabels
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q21199.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ml". }
+}

@@ -1,0 +1,18 @@
+SELECT ?item ?ordinal ?flag ?plan_view_image WHERE {
+  ?item wdt:P31 ?Formula_One_race.
+  ?Formula_One_race wdt:P279 wd:Q65742449.
+  ?item wdt:P585 ?start.
+  ?item p:P361 ?season.
+  ?season ps:P361 ?year.
+  ?year wdt:P3450 wd:Q1968.
+  OPTIONAL {?season pq:P1545 ?ordinal.}
+  OPTIONAL {
+    ?item wdt:P17 ?country.
+    ?country wdt:P41 ?flag.
+  }
+  OPTIONAL { 
+    ?item wdt:P2283 ?layout.
+    ?layout wdt:P3311 ?plan_view_image.
+  }
+}
+order by ?start

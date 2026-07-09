@@ -1,0 +1,20 @@
+SELECT DISTINCT ?term ?instanceof ?legislature ?ordinal ?inception ?dissolved ?follows ?followedby ?item WHERE {
+  ?cities wdt:P31 wd:Q515 .
+  ?cities wdt:P17 wd:Q739 .
+  MINUS {?cities wdt:P31/wdt:P279* wd:Q10864048 }
+  ?cities wdt:P1082 ?population .
+  FILTER (?population > 250000) .
+  ?cities wdt:P194 ?item .
+  OPTIONAL { 
+    ?statement ps:P31/wdt:279* wd:Q15238777 ;
+               pq:P642 ?item .
+    ?term p:P31 ?statement .
+    ?term wdt:P31 ?instanceof .
+    OPTIONAL { ?statement pq:P642 ?legislature }
+    OPTIONAL { ?statement pq:P1545 ?ordinal }
+    OPTIONAL { ?term wdt:P571 ?inception }
+    OPTIONAL { ?term wdt:P576 ?dissolved }
+    OPTIONAL { ?term wdt:P156 ?followedby }
+    OPTIONAL { ?term wdt:P155 ?follows }
+  }
+}

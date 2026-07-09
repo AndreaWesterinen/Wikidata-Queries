@@ -1,0 +1,8 @@
+SELECT DISTINCT ?q ?qLabel {
+  ?q wdt:P31/wdt:P279* wd:Q19595382 . # Wikidata property for authority control for people
+  ?q rdf:type wikibase:Property . # Just properties
+  MINUS { ?q wdt:P31/wdt:P279* wd:Q21818626 } # No sports-related ones
+  MINUS { ?q wdt:P2264 [] } # Only the ones without mix'n'match
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY ?q

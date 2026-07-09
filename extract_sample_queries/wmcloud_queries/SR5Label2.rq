@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?label ?sitelink WHERE {
+  ?article schema:about ?item;
+    schema:isPartOf <https://ar.wikipedia.org/>;
+    schema:name ?sitelink.
+  ?item rdfs:label ?label;
+    wdt:P31 wd:Q16521.
+  FILTER((LANG(?label)) = "ar")
+  FILTER(?sitelink != ?label)
+  FILTER("false"^^xsd:boolean = (CONTAINS(?sitelink, ")")))
+}
+LIMIT 7

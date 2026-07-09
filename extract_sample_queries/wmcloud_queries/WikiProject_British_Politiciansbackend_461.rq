@@ -1,0 +1,22 @@
+# Finds items with a term in the 1509-58 period, but sourced *only* to a different HoP volume
+
+
+SELECT DISTINCT ?item ?itemLabel ?termLabel ?constituencyLabel {
+  ?item p:P39 ?positionStatement . 
+  ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+  OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+  
+  ?term wdt:P571 ?termstart . bind(year(?termstart) as ?startyear) . 
+  filter (?startyear >= 1509 ) . filter (?startyear <= 1558 ) .
+  
+ ?positionStatement prov:wasDerivedFrom ?ref . 
+         ?ref pr:P1614 ?refhop . FILTER(!STRSTARTS(?refhop, "1509")).
+
+ minus { ?positionStatement prov:wasDerivedFrom ?ref1509 . 
+         ?ref1509 pr:P1614 ?refhop1509 . FILTER(STRSTARTS(?refhop1509, "1509")). }  
+
+  # has a term sourced to 1509
+  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} 

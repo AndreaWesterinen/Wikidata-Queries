@@ -1,0 +1,8 @@
+#title: Items with location not linked to Art UK venue ID
+# Complex constraint from [[Property talk:P1679]]
+# Items that have [[Property:P276|location&#32;<small dir="ltr">(P276)</small>]], but that item doesn't have a [[Property:P1602|Art UK venue ID&#32;<small dir="ltr">(P1602)</small>]] statement. Missing link can probably be added
+SELECT DISTINCT ?item ?location {
+	?item wdt:P1679 ?value .
+    ?item wdt:P276 ?location .
+    MINUS { ?location wdt:P1602 [] } 
+} LIMIT 500

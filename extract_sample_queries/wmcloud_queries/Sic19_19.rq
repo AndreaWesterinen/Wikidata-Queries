@@ -1,0 +1,8 @@
+embed.html#SELECT ?x ?xLabel ?ethos ?url ?ftLabel WHERE {
+  ?x wdt:P31/wdt:P279* wd:Q187685 ;
+     wdt:P4536 ?ethos ;
+     wdt:P953 ?url ;
+     p:P953 ?fturl .
+  ?fturl pq:P3274 ?ft .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

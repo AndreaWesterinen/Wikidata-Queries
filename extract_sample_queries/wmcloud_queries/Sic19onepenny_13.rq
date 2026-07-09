@@ -1,0 +1,41 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?rgb ?value ?valueLabel ?class ?classLabel WHERE {
+  
+  BIND(wd:Q109934464 AS ?blood)
+  
+  { { SELECT ?item ?value ?class WHERE {
+    BIND(wd:Q109934464 AS ?blood)
+    ?blood wdt:P629 / wdt:P6524 ?work .
+       { ?work ( wdt:P747 | wdt:P4969 | wdt:P179 | wdt:P155 | wdt:P156 | wdt:P144 | wdt:P1433 | wdt:P361 | wdt:P527 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P5059 )* ?item .}
+         UNION
+       { ?item ( wdt:P144 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P2550 | wdt:P5059 )* / ( wdt:P144 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P2550 | wdt:P5059 )+  ?work .}
+    
+    VALUES ?p { wdt:P144 wdt:P629 wdt:P9745 wdt:P6524 wdt:P2550 wdt:P5059 wdt:P747 wdt:P4969 wdt:P179 wdt:P155 wdt:P156 wdt:P1433 wdt:P361 wdt:P527 }  
+    { ?item ?p ?value }
+    UNION
+    { ?value ?p ?item }
+    ?item wdt:P31 ?class .
+    } } }
+  UNION
+  { { SELECT ?item ?value ?class WHERE {
+    BIND(wd:Q109934464 AS ?blood)
+    ?blood wdt:P629 ?expression .
+       { ?expression ( wdt:P747 | wdt:P4969 | wdt:P179 | wdt:P155 | wdt:P156 | wdt:P144 | wdt:P1433 | wdt:P361 | wdt:P527 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P5059 )* ?item .}
+         UNION
+       { ?item ( wdt:P144 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P2550 | wdt:P5059 )* / ( wdt:P144 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P2550 | wdt:P5059 )+  ?expression .}
+    
+    VALUES ?p { wdt:P144 wdt:P629 wdt:P9745 wdt:P6524 wdt:P2550 wdt:P5059 wdt:P747 wdt:P4969 wdt:P179 wdt:P155 wdt:P156 wdt:P1433 wdt:P361 wdt:P527 }  
+    { ?item ?p ?value }
+    UNION
+    { ?value ?p ?item } 
+    ?item wdt:P31 ?class .
+    } } }  
+    
+  OPTIONAL { ?item wdt:P31 wd:Q3374808 . BIND("bb0a1e" AS ?rgb) }
+  OPTIONAL { {?item ( wdt:P629 | wdt:P2550 ) [] .} . BIND("ff8080" AS ?rgb) }
+  OPTIONAL { { ?item ( wdt:P144 | wdt:P361 | wdt:P9745 | wdt:P5059 )* / wdt:P6524 [] .} UNION {?item wdt:P6524 [] } . BIND("008000" AS ?rgb) }
+  OPTIONAL { ?item wdt:P9622 ?pop . BIND("000080" AS ?rgb) }
+  OPTIONAL { ?item ( wdt:P144 | wdt:P361 | wdt:P9745 | wdt:P5059 )* ?work . BIND("8080ff" AS ?rgb) } 
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

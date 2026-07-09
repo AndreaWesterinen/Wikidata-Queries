@@ -1,0 +1,6 @@
+SELECT ?serieLabel (COUNT(?episode) AS ?count) WHERE {
+  ?episode wdt:P31 wd:Q21191270 .
+  ?episode wdt:P179 ?serie
+  FILTER NOT EXISTS {?episode wdt:P345 ?imdb}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} GROUP BY ?serieLabel ORDER BY DESC(?count)

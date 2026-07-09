@@ -1,0 +1,7 @@
+SELECT ?item ?idurl WHERE {
+  wd:P1736 wdt:P1630 ?formatterurl .
+  ?item wdt:P1736 ?id .
+  BIND(REPLACE(?id, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?idurl)  .
+  ?item wdt:P31 wd:Q5 .
+} ORDER BY ?name
+LIMIT 1500

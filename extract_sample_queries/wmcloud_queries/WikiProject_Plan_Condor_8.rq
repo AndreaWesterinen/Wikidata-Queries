@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?lugar (sample(?imagen) as ?imagen) ?layer {
+  values ?tipo { wd:Q57165555 wd:Q8343784 wd:Q58854609}
+  ?item wdt:P31 ?tipo .
+  ?item wdt:P17 wd:Q77.
+  OPTIONAL {?item wdt:P793 ?evento}.
+  OPTIONAL {?item wdt:P18 ?imagen}.
+  OPTIONAL {?item wdt:P625 ?lugar}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". ?evento rdfs:label ?layer .?item rdfs:label ?itemLabel}
+}
+group by ?item ?itemLabel ?lugar ?layer

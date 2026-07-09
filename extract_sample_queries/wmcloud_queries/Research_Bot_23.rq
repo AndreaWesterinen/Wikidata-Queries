@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q13442814 ;
+        wdt:P50 ?author.
+  ?author wdt:P496 ?orcid.
+  MINUS { ?item wdt:P921 ?topic }
+}

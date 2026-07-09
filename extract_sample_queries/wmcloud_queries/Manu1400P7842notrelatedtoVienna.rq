@@ -1,0 +1,7 @@
+SELECT ?item ?nbStatements {
+  ?item wdt:P7842 [].
+  ?item wikibase:statements ?nbStatements .
+  MINUS { ?item ?aaa wd:Q40 }.
+  MINUS { ?item ?bbb wd:Q28513 }.
+  MINUS { ?item ?ccc wd:Q1741 }. # exclude: Q2568834 (lieu de publication: Vienne)
+  MINUS { ?item wdt:P1417

@@ -1,0 +1,7 @@
+SELECT ?item (GROUP_CONCAT(DISTINCT(?frlabel)) as ?frlabels) WHERE 
+{  
+  ?item wdt:P31 wd:Q21191270 .
+  ?item wdt:P179 wd:Q599996 .   
+  MINUS { ?item wdt:P4908 ?season .}
+  OPTIONAL { ?item rdfs:label ?frlabel . FILTER(lang(?frlabel)="fr")  } 
+} GROUP BY ?item

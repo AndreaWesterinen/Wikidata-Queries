@@ -1,0 +1,9 @@
+SELECT ?event ?eventLabel (COUNT(?item) as ?count)
+WHERE 
+{
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P793 ?event.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?event ?eventLabel
+ORDER BY DESC(?count)

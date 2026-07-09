@@ -1,0 +1,8 @@
+#title: Codi postal incorrecte
+# Complex constraint from [[Property talk:P9746]]
+# element amb codi CEICE però amb un codi postal que no comença per 3, 12 o 46
+select ?item ?postal where {
+  ?item wdt:P9746 [] .
+  ?item wdt:P281 ?postal .
+  filter(!regex(str(?postal), "^((3|12|46)\\d{3})$")) .
+}

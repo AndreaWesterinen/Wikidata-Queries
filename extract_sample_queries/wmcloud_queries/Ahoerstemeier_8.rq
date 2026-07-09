@@ -1,0 +1,14 @@
+#Rivers in Germany without LAWA
+#defaultView:Map
+SELECT DISTINCT ?entity ?entityLabel ?locationLabel ?coord WHERE {
+ # ?entity wdt:P31 wd:Q4022 .      # river
+    ?entity wdt:P31 wd:Q47521 .      # stream
+  ?entity wdt:P17 wd:Q183 .			# in Germany
+  FILTER EXISTS { ?entity wdt:P1566 ?x } .	# has geonames 
+   FILTER NOT EXISTS { ?entity wdt:P3866 ?x } .	# has no LAWA 
+ ?entity wdt:P625 ?coord .
+  ?entity p:P625 ?coordinate .
+  ?coordinate psv:P625 ?coordinate_node .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ceb" }
+}
+ORDER BY ?monumentLabel

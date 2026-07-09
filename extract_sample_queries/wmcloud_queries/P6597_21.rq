@@ -1,0 +1,12 @@
+#title: ja description to include P1705 value
+# Complex constraint from [[Property talk:P6597]]
+# Japanese description format is generally "姓 (<P1705 value>)"
+SELECT ?item ?nl ?ja_desc 
+{
+	?item wdt:P6597 [] .
+    hint:Prior hint:rangeSafe true .  
+    ?item wdt:P1705 ?nl . 
+    ?item schema:description ?ja_desc . FILTER(lang(?ja_desc)="ja" && !CONTAINS( ?ja_desc, ?nl ) )
+    ?item wdt:P282 wd:Q8229 . 
+}
+LIMIT 200

@@ -1,0 +1,9 @@
+select ?item ?statement ?coords where {
+
+  ?item wdt:P17 wd:Q213 .
+  ?item p:P625 ?statement. 
+    ?statement ps:P625 ?coords .
+    minus {?s prov:wasDerivedFrom [] .}
+
+
+}

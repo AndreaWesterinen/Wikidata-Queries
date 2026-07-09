@@ -1,0 +1,5 @@
+embed.html#SELECT ?item ?itemLabel ?URL WHERE {
+  ?item wdt:P973 ?URL .
+  FILTER regex (str(?URL) , "^http://www.lesbiographies.com/" ).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

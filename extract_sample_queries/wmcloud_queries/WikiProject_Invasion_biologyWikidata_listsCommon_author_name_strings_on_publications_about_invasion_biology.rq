@@ -1,0 +1,27 @@
+#defaultView:Table
+SELECT ?item ?authorstring ?count 
+
+  # Build URL to the Author disambiguator tool
+  (CONCAT(
+      "[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=",
+      ENCODE_FOR_URI(?authorstring), " Find papers where an author name string is '''''",?authorstring , "''''' or similar]") AS ?string_resolver)
+
+  (CONCAT(
+      "[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=",
+      ENCODE_FOR_URI(?authorstring), "&filter=wdt%3AP2093+%22", ENCODE_FOR_URI(?authorstring), "%22 Find papers where an author name string is '''''",?authorstring , "''''']") AS ?filtered_string_resolver)
+
+WITH {
+  SELECT (count(?work) as ?count) ?authorstring (SAMPLE(?work) AS ?item) WHERE {
+    { ?work wdt:P921/wdt:P31*/wdt:P279* wd:Q183368 . }
+    union { ?work wdt:P921/wdt:P361+ wd:Q183368 . }
+    union { ?work wdt:P921/wdt:P1269+ wd:Q183368 . }
+    ?work wdt:P2093 ?authorstring .
+  }
+  GROUP BY ?authorstring
+} AS %result
+WHERE {
+  INCLUDE %result
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,da,de,es,fr,jp,nl,no,ru,sv,zh" . } 
+}
+ORDER BY DESC(?count)
+LIMIT 1000

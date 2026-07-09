@@ -1,0 +1,15 @@
+# Paintings without articles on svwiki
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?i ?iLabel (COUNT(DISTINCT ?sitelink) AS ?linkcount) WHERE {
+  ?i wdt:P31 wd:Q3305213.
+  ?sitelink schema:about ?i.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(NOT EXISTS {
+    ?article schema:about ?i.
+    ?article schema:inLanguage "sv".
+    ?article schema:isPartOf <https://sv.wikipedia.org/>.
+  })
+}
+GROUP BY ?i ?iLabel
+ORDER BY DESC(?linkcount)

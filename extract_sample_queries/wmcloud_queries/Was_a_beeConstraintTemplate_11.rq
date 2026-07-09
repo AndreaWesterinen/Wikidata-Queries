@@ -1,0 +1,18 @@
+# Unique value constraint report for Was a bee/ConstraintTemplate: report by value
+SELECT
+    ?value (SAMPLE(?valueLabel) AS ?valueLabel) (SAMPLE(?ct) AS ?ct)
+    (GROUP_CONCAT(DISTINCT(strafter(str(?item), "/entity/"));separator=", ") as ?items)
+    (GROUP_CONCAT(DISTINCT(?itemLabel);separator=", ") as ?itemLabels) {
+  { SELECT ?value (COUNT(DISTINCT ?item) as ?ct) { ?item wdt:Was a bee/ConstraintTemplate ?value }
+    GROUP BY ?value HAVING (?ct>1) ORDER BY DESC(?ct) LIMIT 500 }
+  
+  ?item wdt:Was a bee/ConstraintTemplate ?value
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,en" . 
+    ?item rdfs:label ?itemLabel .
+    ?value rdfs:label ?valueLabel
+  }
+}
+GROUP BY ?value
+ORDER BY DESC(?ct)

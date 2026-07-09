@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?DOP ?imdb {
+?item wdt:P344 ?item2 .
+?item2 wdt:P31 wd:Q4167410 .
+OPTIONAL {?item wdt:P345 ?imdb .}
+  OPTIONAL {?item2 rdfs:label ?item2Label . filter(lang(?item2Label)="nl"\u007C\u007Clang(?item2Label)="en")}
+  OPTIONAL {?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="nl"\u007C\u007Clang(?itemLabel)="en")}
+BIND(CONCAT("[[",substr(str(?item2),32),if(bound(?item2Label),CONCAT("\u007C",str(?item2Label)),""),"]]") as ?DOP)
+}

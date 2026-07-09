@@ -1,0 +1,12 @@
+#defaultView:Map
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?layer
+WHERE
+{
+	{ ?item wdt:P1459 ?building . }
+  UNION { ?item wdt:P3007 ?monument . }
+     ?item wdt:P625 ?coord .
+
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

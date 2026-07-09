@@ -1,0 +1,12 @@
+SELECT ?item ?article ?sujetitem ?sujet ?page WHERE {
+  ?item wdt:P361 wd:Q20961706.
+  ?item wdt:P31 wd:Q17329259.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr".
+    ?item rdfs:label ?article.
+    ?sujetitem rdfs:label ?sujet.
+  }
+  ?page schema:about ?item.
+  ?page schema:isPartOf <https://fr.wikisource.org/> .
+  OPTIONAL { ?item wdt:P921 ?sujetitem. }
+}

@@ -1,0 +1,10 @@
+SELECT ?item ?inv WHERE {
+  ?item wdt:P195 wd:Q132783 .
+  ?item wdt:P31 wd:Q3305213 .
+  OPTIONAL {
+    ?item p:P217 ?invstatement .
+    ?invstatement ps:P217 ?inv .
+    ?invstatement pq:P195 wd:Q132783 .
+    }
+  } ORDER BY xsd:integer(REPLACE(?inv, "^(ГЭ-)(\\d+)([^\\d].*)?$", "$2"))
+LIMIT 4000

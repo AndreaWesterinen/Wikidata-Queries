@@ -1,0 +1,15 @@
+SELECT ?director ?director_label (count(distinct ?film) as ?films) (count(distinct ?sitelink) as ?sitelinks) ((?films * ?sitelinks) as ?rank)
+WHERE
+{
+	?director wdt:P106 wd:Q2526255 .  				# has "film director" as occupation
+	?film wdt:P57 ?director . 	 					# get all films directed by the director
+    ?sitelink schema:about ?director .				# get all the sitelinks about the director
+
+	OPTIONAL {?director rdfs:label ?director_label  # get the label of the director (if it exists)
+              FILTER (lang(?director_label) = "en") # filter for only English labels
+	} 	
+}
+
+GROUP BY ?director ?director_label
+ORDER BY DESC(?rank)
+LIMIT 100

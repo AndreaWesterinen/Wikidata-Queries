@@ -1,0 +1,9 @@
+#title: Items with notname wouldn't have a value
+# Complex constraint from [[Property talk:P735]]
+# todo: TBD, e.g. change rank to deprecated
+SELECT ?item ?value
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q1747829; wdt:P735 ?value.
+  FILTER(!(wikibase:isSomeValue(?value)))
+}

@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?articleEN ?articleNL WHERE {
+  FILTER NOT EXISTS {?item wdt:P31 wd:Q5.}
+  FILTER NOT EXISTS {?item wdt:P31/wdt:P279* wd:Q10648343.}
+  ?item wdt:P9468 ?limacode.
+OPTIONAL {
+    ?articleNL schema:about ?item.
+    ?articleNL schema:isPartOf <https://nl.wikipedia.org/>.
+  }
+OPTIONAL {
+  ?articleEN schema:about ?item.
+   ?articleEN schema:isPartOf <https://en.wikipedia.org/>.
+  }
+
+}

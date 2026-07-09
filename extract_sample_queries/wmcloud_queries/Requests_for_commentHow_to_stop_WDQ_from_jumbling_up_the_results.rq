@@ -1,0 +1,13 @@
+sparql?query=#Look up q-codes based on English label
+SELECT ?lab ?item WHERE {
+  ?item rdfs:label ?lab .
+  MINUS {?item wdt:P31 wd:Q4167836 } . # no category items
+  VALUES ?lab {
+"Anthoceros punctatus"@en
+"Anthoceros agrestis"@en
+"Phaeoceros laevis"@en
+"Phaeoceros carolinianus"@en
+"Haplomitrium hookeri"@en
+    
+  } .
+}

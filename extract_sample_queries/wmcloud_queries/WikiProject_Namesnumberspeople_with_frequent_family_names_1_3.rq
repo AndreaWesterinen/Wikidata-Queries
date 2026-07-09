@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P734 ?fam . VALUES ?fam { wd:Q1158446 wd:Q1605060 wd:Q59853 wd:Q1688722 wd:Q15080511 wd:Q13421990 wd:Q1177810 wd:Q1260663 wd:Q1645480 wd:Q1158485 } . 
+  MINUS { ?entity wdt:P734 []; wdt:P734 ?fam . VALUES ?fam { wd:Q1158446 wd:Q1605060 wd:Q59853 wd:Q1688722 wd:Q15080511 wd:Q13421990 wd:Q1177810 wd:Q1260663 wd:Q1645480 wd:Q1158485 }  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

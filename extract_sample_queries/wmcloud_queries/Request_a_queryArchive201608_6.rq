@@ -1,0 +1,26 @@
+SELECT ?item ?itemLabel (COUNT(distinct ?article) as ?count)
+{
+    {
+        SELECT ?item
+		{
+			{
+				hint:Query hint:optimizer "None" .	
+				?item wdt:P31 wd:Q5  .
+				?item wdt:P27 wd:Q399 .
+				MINUS {?sitelinkhy schema:about ?item . ?sitelinkhy schema:isPartOf <https://hy.wikipedia.org/>}
+			}
+          ?article schema:about ?item .
+  			{
+  		  ?article schema:isPartOf <https://ru.wikipedia.org/>
+  			}
+  		   UNION  
+  			{
+  		  ?article schema:isPartOf <https://en.wikipedia.org/>
+  			}
+        }
+    }
+    ?article schema:about ?item .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru" }
+}
+GROUP BY ?item ?itemLabel 
+ORDER BY DESC(?count)

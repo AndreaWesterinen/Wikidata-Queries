@@ -1,0 +1,8 @@
+SELECT DISTINCT ?work ?workLabel ?languageLabel
+WHERE
+{
+  ?work wdt:P37|wdt:P103|wdt:P364|wdt:P407|wdt:P1412 ?language.
+  ?language wdt:P31/wdt:P279* wd:Q7275.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?languageLabel

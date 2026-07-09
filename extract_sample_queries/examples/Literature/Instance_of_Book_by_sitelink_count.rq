@@ -1,3 +1,4 @@
+#title: Instance of Book by sitelink count
 # old method for sitelink count
 SELECT ?s ?desc ?linkcount
 WHERE

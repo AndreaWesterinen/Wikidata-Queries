@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?st ?ids ?sl
+WHERE 
+{ 
+    ?item wdt:P734 wd:Q1645480
+          ; wdt:P31 wd:Q5 
+          ; wikibase:statements ?st
+          ; wikibase:sitelinks ?sl
+          ; wikibase:identifiers ?ids 
+   MINUS { ?item wdt:P1087 [] }
+   MINUS { ?item wdt:P496 [] ; wikibase:identifiers 1 }
+   FILTER( ?item != wd:Q34296 )
+   FILTER( ?item != wd:Q128956 )
+}
+ORDER BY DESC(xsd:integer(STRAFTER(str(?item), "Q")))
+LIMIT 4000

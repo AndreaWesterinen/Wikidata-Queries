@@ -1,0 +1,20 @@
+SELECT ?occup ?occupLabel ?count
+WHERE
+{
+	{
+		SELECT ?occup (COUNT(?person) as ?count)
+		WHERE
+		{
+			?person wdt:P106 ?occup
+		}
+		GROUP BY ?occup
+		ORDER BY DESC(?count)
+		LIMIT 1000
+	}
+  	OPTIONAL {?occup rdfs:label ?label1 	filter(lang(?label1) = "xal")}
+	FILTER(!BOUND(?label1))
+  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru,ba" }
+}
+ORDER BY DESC(?count)
+LIMIT 50

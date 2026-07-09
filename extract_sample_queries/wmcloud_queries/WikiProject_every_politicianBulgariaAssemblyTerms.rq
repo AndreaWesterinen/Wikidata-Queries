@@ -1,0 +1,5 @@
+SELECT ?item (COUNT(DISTINCT ?person) AS ?members) WHERE { 
+  ?item wdt:P31 wd:Q43792361 .
+  OPTIONAL { ?person p:P39/pq:P2937 ?item }
+}
+GROUP BY ?item

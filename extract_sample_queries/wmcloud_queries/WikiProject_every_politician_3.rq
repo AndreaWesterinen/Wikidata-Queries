@@ -1,0 +1,13 @@
+embed.html##defaultView:BubbleChart
+  SELECT ?occupationLabel (count(?pol) as ?cnt) WHERE {
+
+     ?pol wdt:P39 wd:Q1939555 .
+     ?pol p:P106/ps:P106 ?occupation .
+
+	 FILTER (?occupation != wd:Q82955)
+     SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "de" .
+     }
+
+  }
+  GROUP BY ?occupationLabel

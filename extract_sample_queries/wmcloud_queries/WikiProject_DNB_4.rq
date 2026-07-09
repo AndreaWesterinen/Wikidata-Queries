@@ -1,0 +1,24 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#biographical articles published in DNB00,DNB01,DNB12
+#with author missing
+SELECT ?instance ?instance_label ?publication_label (count(distinct ?DNBentry ) as ?number) 
+WHERE 
+{    	{ ?DNBentry wdt:P1433 wd:Q15987216 . } #DNB00
+  UNION { ?DNBentry wdt:P1433 wd:Q16014700 . } #DNB01
+  UNION { ?DNBentry wdt:P1433 wd:Q16014697 . } #DNB12
+  UNION { ?DNBentry wdt:P1433 wd:Q1210343 . } #DNB
+	?DNBentry wdt:P31 	wd:Q19389637 . #articles only, not cross-references
+ 	?DNBentry wdt:P31 	?instance .
+   ?DNBentry wdt:P1433  ?publication
+  OPTIONAL 	{?DNBentry wdt:P50  	?author} .
+ OPTIONAL 	{?publication rdfs:label ?publication_label filter (lang(?publication_label) = "en") .} 
+ OPTIONAL 	{?instance rdfs:label ?instance_label filter (lang(?instance_label) = "en") .} 
+   FILTER 	(!bound(?author))
+} GROUP BY ?instance ?instance_label ?publication_label
+ORDER BY ?publication_label

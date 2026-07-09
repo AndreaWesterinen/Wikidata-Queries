@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?dateLabel WHERE {
+ { ?date wdt:P279 wd:Q205892. } UNION
+ { ?date wdt:P31 wd:Q14795564. }
+ ?item wdt:P19 ?date.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

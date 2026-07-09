@@ -1,0 +1,9 @@
+#defaultView:LineChart
+SELECT ?stringyear (COUNT(?painting) AS ?count)  WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P571 ?inception .
+  BIND(YEAR(?inception) AS ?year) .
+  BIND (STR(?year) AS ?stringyear) . 
+  FILTER(?year > 999)
+  } GROUP BY ?stringyear
+ORDER BY ?year

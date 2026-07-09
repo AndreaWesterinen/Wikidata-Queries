@@ -1,0 +1,10 @@
+SELECT ?taxon ?taxonName ?taxonLabel ?taxonCommonName
+WHERE
+{
+  ?taxon wdt:P31/wdt:P279* wd:Q16521;
+         wdt:P225 ?taxonName.
+  FILTER(STRENDS(?taxonName, "unicornis")).
+  OPTIONAL { ?taxon wdt:P1843 ?taxonCommonName. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?taxonName

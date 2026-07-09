@@ -1,0 +1,8 @@
+#title: GND ID - type human should not have GND ID containing -
+# Complex constraint from [[Property talk:P227]]
+# GND ID exists, type is human, GND ID contains -
+SELECT ?item ?gndid {
+  ?item wdt:P227 ?gndid;
+        wdt:P31 wd:Q5. 
+  FILTER(REGEX(STR(?gndid), "-")) 
+}

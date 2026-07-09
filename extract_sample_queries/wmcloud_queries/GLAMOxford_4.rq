@@ -1,0 +1,5 @@
+SELECT (SUM(?count) as ?total) WHERE {
+VALUES ?in {wd:Q82133 wd:Q2210813} # Bodleian and Sackler
+?thing wdt:P195 ?in; wdt:P953 ?url.
+?thing wikibase:statements ?count.
+}

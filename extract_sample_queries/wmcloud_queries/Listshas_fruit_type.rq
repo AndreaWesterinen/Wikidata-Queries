@@ -1,0 +1,4 @@
+SELECT ?item ?ft ?img WHERE {
+   ?item wdt:P4000 ?ft .
+   OPTIONAL { ?ft wdt:P18 ?img }
+  }

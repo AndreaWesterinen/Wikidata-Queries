@@ -1,0 +1,4 @@
+#title: Check postal codes in Victoria
+# Complex constraint from [[Property talk:P281]]
+#
+SELECT DISTINCT ?item ?zipCode WHERE { ?item wdt:P17 wd:Q408; wdt:P131 wd:Q36687; wdt:P281 ?zipCode. FILTER( REGEX( STR( ?zipCode ), "^([38]\\d{3})$" ) = false ) . } ORDER BY ?item

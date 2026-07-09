@@ -1,0 +1,12 @@
+# taxa with an article where ancestor is Arachnida & has an AFD-id
+SELECT ?item  ?taxon_name ?article WHERE {
+  ?item wdt:P225 ?taxon_name.
+  ?item wdt:P171* wd:Q1358.
+  ?item wdt:P6039 ?AFD_id
+  OPTIONAL{
+     ?article schema:about ?item. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+}
+ORDER BY ?taxon_name ?itemAFD

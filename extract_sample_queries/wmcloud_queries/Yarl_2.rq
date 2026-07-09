@@ -1,0 +1,12 @@
+SELECT ?item ?label
+WHERE
+{
+  ?item wdt:P17 wd:Q36;
+        wdt:P1435 wd:Q29940414;
+        rdfs:label ?label.
+  FILTER(LANG(?label) = "pl").
+  FILTER(STRENDS(?label, " w.")).
+  # XX
+  # w.
+  # r.
+}

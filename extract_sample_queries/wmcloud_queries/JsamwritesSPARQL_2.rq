@@ -1,0 +1,12 @@
+#Properties, their labels, descriptions and if they exist of which they are a subproperty
+#added before 2016-10
+
+SELECT ?property ?propertyLabel ?propertyDescription (lang(?propertyLabel) as ?lang)
+WHERE
+{
+    ?property a wikibase:Property 
+    ; rdfs:label ?propertyLabel
+    ; schema:description ?propertyDescription.
+    filter(lang(?propertyLabel) = lang(?propertyDescription)).
+} 
+LIMIT 100

@@ -1,0 +1,4 @@
+#title: Value "first" not allowed
+# Complex constraint from [[Property talk:P155]]
+# If item is first in a series, value type should be "no value", rather than a value of [[d:Q19269277|first <small>(Q19269277)</small>]], which is ambiguous
+SELECT ?item ?itemLabel WHERE {?item ?prop [pq:P155 wd:Q19269277].}

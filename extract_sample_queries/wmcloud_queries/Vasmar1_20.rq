@@ -1,0 +1,9 @@
+#Norskregistrerte skip med oppføring i DNV uten angitt registreringshavn
+SELECT ?item ?itemLabel ?imo ?land ?bruttotonn ?dnv ?landLabel WHERE {
+  ?item wdt:P17 wd:Q20.
+  ?item wdt:P458 ?imo.
+  ?item wdt:P5006 ?dnv.
+  MINUS { ?item wdt:P532 _:b4. }
+  OPTIONAL { ?item wdt:P1093 ?bruttotonn. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}

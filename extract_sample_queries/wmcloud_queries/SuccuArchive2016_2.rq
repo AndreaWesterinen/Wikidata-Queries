@@ -1,0 +1,15 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT ?item ?qId ?taxonName ?cyCommonName WHERE {
+  ?item wdt:P225 ?taxonName .
+  ?item wdt:P1843 ?cyCommonName .
+  FILTER(lang(?cyCommonName) = 'cy' )
+  BIND(str(?item) as ?url)
+  BIND(strafter(?url, "http://www.wikidata.org/entity/") as ?qId)
+
+} 
+ORDER BY ASC(?taxonName)

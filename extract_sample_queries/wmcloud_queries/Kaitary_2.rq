@@ -1,0 +1,19 @@
+SELECT ?player ?article ?birthyear ?placeLabel ?given_name ?given_nameLabel ?award_received ?award_receivedLabel WHERE {
+  ?player wdt:P136 wd:Q282131.
+  OPTIONAL { ?player wdt:P569 ?born. }
+  OPTIONAL { ?player wdt:P19 ?place. }
+  BIND(YEAR(?born) AS ?birthyear)
+  OPTIONAL {
+    ?article schema:about ?player;
+      schema:isPartOf <https://en.wikipedia.org/>.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?player wdt:P106 wd:Q639669.
+  OPTIONAL {  }
+  OPTIONAL { ?player wdt:P735 ?given_name. }
+  OPTIONAL { ?player wdt:P166 ?award_received. }
+  OPTIONAL {  }
+  OPTIONAL {  }
+  OPTIONAL {  }
+}
+ORDER BY (?birthyear)

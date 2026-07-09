@@ -1,0 +1,6 @@
+embed.html#SELECT ?item ?itemLabel ?kLabel WHERE {
+  ?item wdt:P131+ wd:Q1209.
+  ?item wdt:P1435 ?k.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}
+ORDER BY ?itemLabel

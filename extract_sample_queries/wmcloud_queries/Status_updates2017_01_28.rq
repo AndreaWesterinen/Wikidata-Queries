@@ -1,0 +1,12 @@
+SELECT ?wikipediaLabel ?filmcount WHERE {
+  ?wikipedia wdt:P31 wd:Q10876391 .
+  ?wikipedia wdt:P424 ?sprachcode .
+  ?wikipedia rdfs:label ?wikipediaLabel 
+  FILTER(lang(?wikipediaLabel) = "de") 
+  { SELECT ?sprachcode (COUNT(DISTINCT ?film) as ?filmcount) WHERE {
+    	?film wdt:P31/wdt:P279* wd:Q11424 .
+    	?article schema:about ?film . 
+    	?article schema:inLanguage ?sprachcode
+    } GROUP BY ?sprachcode 
+  }                                       
+} ORDER BY DESC (?filmcount) LIMIT 10

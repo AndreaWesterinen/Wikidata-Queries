@@ -1,0 +1,14 @@
+SELECT ?item (COUNT(DISTINCT ?item0) as ?count) (COUNT(DISTINCT ?haspart) as ?count_with) ( ?count - ?count_with as ?missing) (SAMPLE(?haspart) as ?sample_with) (SAMPLE(?without) as ?sample_missing)
+{
+  ?item0 wdt:P31/wdt:P279* wd:Q10648343 .
+  ?item0 wdt:P31 ?item .
+  OPTIONAL { ?item0 wdt:P527 [] . BIND(?item0 as ?haspart) }
+  OPTIONAL { ?item0 ^wdt:P463 [] . BIND(?item0 as ?haspart) }
+  OPTIONAL { ?item0 wdt:P31 [] . 
+            FILTER NOT EXISTS { ?item0 wdt:P527 [] } . 
+            FILTER NOT EXISTS { ?p wdt:P463 ?item0 }
+            BIND(?item0 as ?without) }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item
+ORDER BY DESC(?missing) ?count_with ?item

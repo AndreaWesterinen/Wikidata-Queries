@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?height ?adminLabel
+{
+  ?item p:P2048/psn:P2048/wikibase:quantityAmount ?height ;  # normalized height
+        wdt:P31 wd:Q11303 .      
+  OPTIONAL { ?item wdt:P131 ?admin } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}
+ORDER BY DESC(?height)
+LIMIT 50

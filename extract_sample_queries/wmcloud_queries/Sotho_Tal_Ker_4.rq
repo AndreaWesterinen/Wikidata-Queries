@@ -1,0 +1,31 @@
+select *
+with {
+  select * {
+    ?item wdt:P213 ?v .
+    filter (strends(?v, "0") || strends(?v, "1") || strends(?v, "2") || strends(?v, "3")) .
+  }
+} as %subset
+where {
+  include %subset .
+  bind (replace(substr(?v, 19, 1), "X", "10") as ?cd) .
+  bind (((((((((((((((
+        xsd:integer(substr(?v, 1, 1))
+      + xsd:integer(substr(?v, 2, 1)) )*2
+      + xsd:integer(substr(?v, 3, 1)) )*2
+      + xsd:integer(substr(?v, 4, 1)) )*2
+      + xsd:integer(substr(?v, 6, 1)) )*2
+      + xsd:integer(substr(?v, 7, 1)) )*2
+      + xsd:integer(substr(?v, 8, 1)) )*2
+      + xsd:integer(substr(?v, 9, 1)) )*2
+      + xsd:integer(substr(?v, 11, 1)) )*2
+      + xsd:integer(substr(?v, 12, 1)) )*2
+      + xsd:integer(substr(?v, 13, 1)) )*2
+      + xsd:integer(substr(?v, 14, 1)) )*2
+      + xsd:integer(substr(?v, 16, 1)) )*2
+      + xsd:integer(substr(?v, 17, 1)) )*2
+      + xsd:integer(substr(?v, 18, 1)) )*2
+    as ?total) .
+  bind ((?total - floor(?total/11)*11) as ?mod) .
+  bind ((12 - ?mod - (floor((12 - ?mod)/11)*11)) as ?res) .
+  filter (!(xsd:string(?res) = ?cd)) .
+}

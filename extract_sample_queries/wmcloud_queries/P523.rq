@@ -1,0 +1,24 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak ?rank ?statement
+WHERE
+{
+  {
+    SELECT ?item ?value ?result ?snak ?rank ?statement WHERE {
+      {
+        ?item p:P523 ?statement .
+        ?statement ps:P523 ?value; wikibase:rank ?rank .
+        BIND("mainsnak" AS ?snak) .
+      } UNION {
+        ?statement pq:P523 ?value; wikibase:rank ?rank .
+        ?item ?p1 ?statement .
+        BIND("qualifier" AS ?snak) .
+      } UNION {
+        ?ref pr:P523 ?value .
+        ?statement prov:wasDerivedFrom ?ref; wikibase:rank ?rank .
+        ?item ?p2 ?statement .
+        BIND("reference" AS ?snak) .
+      } .
+      FILTER( ?value NOT IN ( wd:Q104460, wd:Q731470, wd:Q738167, wd:Q607992, wd:Q645135, wd:Q104168, wd:Q870498, wd:Q870511, wd:Q597383, wd:Q684942, wd:Q193738, wd:Q876805, wd:Q367597, wd:Q776333, wd:Q210611, wd:Q743343, wd:Q507402, wd:Q188654, wd:Q191935, wd:Q104162, wd:Q103910, wd:Q1424618, wd:Q5025306, wd:Q515287, wd:Q5025307, wd:Q5025308, wd:Q5025303, wd:Q5025311, wd:Q43712, wd:Q43667, wd:Q1276038, wd:Q2060764, wd:Q33062, wd:Q5025305, wd:Q1269670, wd:Q79064, wd:Q1267676, wd:Q10528257, wd:Q10739169, wd:Q288112, wd:Q1032866, wd:Q13389102, wd:Q1807140, wd:Q1736601, wd:Q583151, wd:Q13389115, wd:Q62100, wd:Q260369, wd:Q381595, wd:Q681835, wd:Q1187992, wd:Q582801, wd:Q753045, wd:Q1064996, wd:Q752878, wd:Q912190, wd:Q1065155, wd:Q1062563, wd:Q62412, wd:Q1089613, wd:Q1089625, wd:Q576789, wd:Q731293, wd:Q730523, wd:Q650845, wd:Q731313, wd:Q264200, wd:Q253839, wd:Q10265844, wd:Q65955, wd:Q940381, wd:Q647290, wd:Q1068088, wd:Q744718, wd:Q639443, wd:Q1179385, wd:Q545853, wd:Q1030848, wd:Q373772, wd:Q133738, wd:Q740340, wd:Q912962, wd:Q713094, wd:Q1073812, wd:Q642169, wd:Q1051453, wd:Q686803, wd:Q858203, wd:Q1077376, wd:Q591906, wd:Q860048, wd:Q1077390, wd:Q76402, wd:Q855153, wd:Q914322, wd:Q1075885, wd:Q549024, wd:Q726791, wd:Q929395, wd:Q911899, wd:Q1080207, wd:Q530828, wd:Q917293, wd:Q47158, wd:Q633834, wd:Q911869, wd:Q540479, wd:Q914363, wd:Q284787, wd:Q300887, wd:Q375180, wd:Q791313, wd:Q764255, wd:Q500054, wd:Q375784, wd:Q733565, wd:Q855125, wd:Q499312, wd:Q45805, wd:Q663355, wd:Q843329, wd:Q734179, wd:Q732702, wd:Q622265, wd:Q301728, wd:Q752187, wd:Q185567, wd:Q691429, wd:Q645398, wd:Q257290, wd:Q492941, wd:Q278141, wd:Q338199, wd:Q44626, wd:Q502179, wd:Q503349, wd:Q508587, wd:Q76252, wd:Q508691, wd:Q514893, wd:Q508675, wd:Q508438, wd:Q76274, wd:Q508633, wd:Q502171, wd:Q101873, wd:Q55810, wd:Q508479, wd:Q508650, wd:Q167254, wd:Q499307, wd:Q499299, wd:Q508465, wd:Q76267, wd:Q146094, wd:Q514873, wd:Q76259, wd:Q103924, wd:Q428579, wd:Q444693, wd:Q492596, wd:Q498831, wd:Q25546, wd:Q25445, wd:Q26185, wd:Q102416, wd:Q101313, wd:Q188645 ) ) .
+    } LIMIT 100
+  } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

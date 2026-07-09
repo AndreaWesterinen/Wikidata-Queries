@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?maxelo (MIN(?date) AS ?firstdate) WITH {
+  SELECT ?item (MAX(?elo) AS ?maxelo) WHERE {
+    ?item p:P1087 [ ps:P1087 ?elo; wikibase:rank ?rank ] .
+    FILTER(?rank != wikibase:DeprecatedRank) .
+    FILTER(?elo > 2499) .
+  } GROUP BY ?item
+} AS %s WHERE {
+  INCLUDE %s .
+  ?item wdt:P21 wd:Q6581072 .
+  ?item p:P1087 ?s . 
+  ?s ps:P1087 ?maxelo .
+  OPTIONAL {
+    ?s pq:P585 ?date .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?item ?itemLabel ?maxelo ORDER BY DESC(?maxelo) ASC(?firstdate)

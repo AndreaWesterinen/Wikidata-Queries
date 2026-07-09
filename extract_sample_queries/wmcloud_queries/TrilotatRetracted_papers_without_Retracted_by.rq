@@ -1,0 +1,7 @@
+SELECT ?retracted_paper ?retracted_paperLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER(NOT EXISTS { ?retracted_paper wdt:P5824 ?x. })
+  MINUS { ?retracted_paper rdf:type wdno:P5824. }
+  ?retracted_paper wdt:P31 wd:Q45182324.
+}
+LIMIT 10000

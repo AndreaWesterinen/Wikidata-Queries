@@ -1,0 +1,11 @@
+# AusFungi species taxa with no parent 
+SELECT ?item ?itemLabel ?taxon_name ?ausFungiID  WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P9076 ?ausFungiID.
+  ?item wdt:P105 wd:Q7432.
+  ?item wdt:P225 ?taxon_name.
+  MINUS{?item wdt:P171 ?parent}
+
+}
+ORDER BY ?taxon_name
+#LIMIT 200

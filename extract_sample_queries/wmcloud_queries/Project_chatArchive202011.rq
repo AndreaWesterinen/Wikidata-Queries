@@ -1,0 +1,11 @@
+  SELECT ?q ?label ?esperanto (COUNT(?q) AS ?count)
+  WHERE {
+   ?q (wdt:P31/wdt:P279) wd:Q61788060.
+    ?q rdfs:label ?label
+       FILTER(LANG(?label) = "en")
+       OPTIONAL {
+         ?q rdfs:label ?esperanto. 
+         FILTER(LANG(?esperanto) = "eo")
+         }
+    ?q ?statement ?val .
+    } GROUP BY ?q ?label ?esperanto  ORDER BY DESC(COUNT(?q))

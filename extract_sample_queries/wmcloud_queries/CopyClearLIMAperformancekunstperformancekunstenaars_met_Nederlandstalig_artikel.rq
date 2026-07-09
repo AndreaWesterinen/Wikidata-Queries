@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?articleNL WHERE {
+  ?item wdt:P106 wd:Q10774753.
+    ?articleNL schema:about ?item.
+    ?articleNL schema:isPartOf <https://nl.wikipedia.org/>.
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+}

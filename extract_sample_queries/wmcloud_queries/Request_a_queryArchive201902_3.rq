@@ -1,0 +1,5 @@
+#defaultView:Graph
+# Egocentric co-author graph for an author
+SELECT ?author1 ?author1Label ?rgb ?author2 ?author2Label
+WITH {
+  SELECT (COUNT(?work) AS ?cou

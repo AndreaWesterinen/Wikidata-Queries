@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+  ?item p:P225 ?taxonnamestatement .
+  ?taxonnamestatement pq:P405 wd:Q191963 .
+  } LIMIT 2000

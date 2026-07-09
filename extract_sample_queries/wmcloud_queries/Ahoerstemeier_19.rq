@@ -1,0 +1,8 @@
+#LSG in NRW
+#defaultView:Map
+SELECT DISTINCT ?lsg ?lsgLabel ?cdda ?wdpa ?coord WHERE {
+  ?lsg wdt:P31 wd:Q21503788.
+  ?lsg wdt:P131 wd:Q1198.
+  ?lsg wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

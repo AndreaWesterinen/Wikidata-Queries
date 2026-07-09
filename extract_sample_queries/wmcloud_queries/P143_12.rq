@@ -1,0 +1,28 @@
+#title: Likely incorrect values
+# Complex constraint from [[Property talk:P143]]
+# values with 5+ uses. If there are many, ask for conversion at [[Wikidata:Bot requests]]
+SELECT ?item ?ct 
+WHERE
+{
+  {
+    SELECT ?item (count(*) as ?ct)
+    WHERE
+    {
+      ?stmt pr:P143 ?item
+    }
+    GROUP BY ?item
+    HAVING(?ct > 4)          
+    ORDER BY DESC(?ct)
+    LIMIT 2000
+  }
+  MINUS { ?item wdt:P31 wd:Q10876391 }
+  FILTER ( ?item != wd:Q565 )
+  FILTER ( ?item != wd:Q28563569 )
+  MINUS { ?item wdt:P31 wd:Q15156455 }  
+  MINUS { ?item wdt:P31 wd:Q22001389 }    
+  MINUS { ?item wdt:P31 wd:Q19826567 }    
+  MINUS { ?item wdt:P31 wd:Q55657495 }    
+  MINUS { ?item wdt:P31 wd:Q20671729 }    
+  FILTER ( ?item != wd:Q13679 )
+}
+ORDER BY DESC(?ct) ASC(?item)

@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?museum (CONCAT("[[Wikidata:WikiProject sum of all paintings/Catalog/",?name, "|list]]") AS ?listlink)
+WHERE 
+{
+  ?item wdt:P31 ?guide.
+  ?item wdt:P921 ?museum. 
+  ?museum wdt:P31 wd:Q207694.
+   VALUES ?guide { wd:Q47114558 wd:Q5146094 wd:Q223638 wd:Q63161834 } .
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+}

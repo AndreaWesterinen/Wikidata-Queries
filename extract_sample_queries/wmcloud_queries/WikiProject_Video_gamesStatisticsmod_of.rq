@@ -1,0 +1,5 @@
+SELECT ?item (COUNT(?mod) as ?count) WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q7889.
+  ?mod wdt:P7075 ?item.
+} GROUP BY ?item
+ORDER BY DESC(?count)

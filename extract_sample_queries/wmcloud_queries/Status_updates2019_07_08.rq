@@ -1,0 +1,69 @@
+#defaultView:Map{"hide":["?geoshape","?rgb","?WelshSpeakerPercentage"],"layer":"?WelshSpeakerPercentage"}
+SELECT DISTINCT 
+?area ?areaLabel
+?2011
+?WelshSpeakerPercentage
+?geoshape 
+?rgb 
+WHERE {
+   
+  ?area wdt:P3896 ?geoshape .
+   
+  { SELECT ?area ?2011 ?2011_percent WHERE {
+    
+  BIND(CONCAT("2001: ", ?2011_Population, " ; ", ?2011_Speakers, " ", ?2011_Percent) as ?2011)
+
+  { SELECT ?area ?2011_Population ?2011_Speakers ?2011_Percent ?2011_percent WHERE {
+  
+  BIND(CONCAT("Population: ", STR(?2011_population)) as ?2011_Population)
+  BIND(CONCAT("Welsh speakers: ", STR(?2011_speakers)) as ?2011_Speakers)
+  BIND(CONCAT("(", SUBSTR(STR(?2011_percent),0,5), "%).") as ?2011_Percent)
+   
+  { SELECT ?area ?2011_speakers ?2011_population ?2011_percent WHERE {
+  
+  BIND(100 * ?2011_speakers / ?2011_population AS ?2011_percent)
+
+  { SELECT ?area ?2011_speakers ?2011_population WHERE { 
+    ?area wdt:P31 wd:Q15979307 ;
+          p:P2936 ?2011_SpeakersStatement ;
+          p:P1082 ?2011_PopulationStatement .
+    
+    ?2011_SpeakersStatement ?pq_qual ?pq_obj .    
+    ?qual wikibase:qualifier ?pq_qual .
+    ?2011_SpeakersStatement pq:P585 "2011-00-00T00:00:00Z"^^xsd:dateTime ;
+                   pq:P1098 ?2011_speakers .
+    
+    ?2011_PopulationStatement ?pq_qual ?pq_obj .    
+    ?qual wikibase:qualifier ?pq_qual .
+    ?2011_PopulationStatement pq:P585 "2011-00-00T00:00:00Z"^^xsd:dateTime ;
+                   ps:P1082 ?2011_population .
+  } }
+    } }
+    } }
+    } }
+  
+ BIND(
+    IF(?2011_percent < 10, "0-10%",
+    IF(?2011_percent < 20, "10-20%",
+    IF(?2011_percent < 30, "20-30%",
+    IF(?2011_percent < 40, "30-40%",
+    IF(?2011_percent < 50, "40-50%",
+    IF(?2011_percent < 60, "50-60%",
+    IF(?2011_percent < 70, "60-70%",   
+    "70%+")))))))
+    AS ?WelshSpeakerPercentage). 
+  
+  BIND(
+    IF(?2011_percent < 10, "ffe6e6",
+    IF(?2011_percent < 20, "ffb3b3",
+    IF(?2011_percent < 30, "ff8080",
+    IF(?2011_percent < 40, "ff4d4d",
+    IF(?2011_percent < 50, "ff1a1a",
+    IF(?2011_percent < 60, "e60000",
+    IF(?2011_percent < 70, "b30000",   
+    "800000")))))))
+    AS ?rgb).
+ 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY ?WelshSpeakerPercentage

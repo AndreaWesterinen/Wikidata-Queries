@@ -1,0 +1,61 @@
+SELECT DISTINCT (STRAFTER(STR(?o), "/entity/") AS ?oo) ?plec ?val WHERE {
+  ?o1 wdt:P27 ?p.
+  {
+    ?o wdt:P22 ?o1.
+    BIND("P31" AS ?plec)
+    BIND("Q5" AS ?val)
+    OPTIONAL { ?o wdt:P31 ?i. }
+    FILTER(!(BOUND(?i)))
+  }
+  UNION
+  {
+    ?o wdt:P25 ?o1.
+    BIND("P31" AS ?plec)
+    BIND("Q5" AS ?val)
+    OPTIONAL { ?o wdt:P31 ?i. }
+    FILTER(!(BOUND(?i)))
+  }
+  UNION
+  {
+    ?o wdt:P26 ?o1.
+    BIND("P31" AS ?plec)
+    BIND("Q5" AS ?val)
+    OPTIONAL { ?o wdt:P31 ?i. }
+    FILTER(!(BOUND(?i)))
+  }
+  UNION
+  {
+    ?o wdt:P40 ?o1.
+    BIND("P31" AS ?plec)
+    BIND("Q5" AS ?val)
+    OPTIONAL { ?o wdt:P31 ?i. }
+    FILTER(!(BOUND(?i)))
+  }
+  UNION
+  {
+    ?o wdt:P27 ?k.
+    FILTER(?p IN(wd:Q172107, wd:Q49683, wd:Q171348, wd:Q221457, wd:Q11710624, wd:Q36))
+  }
+  UNION
+  {
+    OPTIONAL {
+      ?o1 wdt:P25 ?o.
+      BIND("P21" AS ?plec)
+      BIND("Q6581072" AS ?val)
+      OPTIONAL { ?o wdt:P21 ?pl. }
+      FILTER(!(BOUND(?pl)))
+    }
+  }
+  UNION
+  {
+    OPTIONAL {
+      ?o1 wdt:P22 ?o.
+      BIND("P21" AS ?plec)
+      BIND("Q6581097" AS ?val)
+      OPTIONAL { ?o wdt:P21 ?pl. }
+      FILTER(!(BOUND(?pl)))
+    }
+  }
+
+  FILTER(?p IN(wd:Q172107, wd:Q49683, wd:Q171348, wd:Q221457, wd:Q11710624, wd:Q36))
+}

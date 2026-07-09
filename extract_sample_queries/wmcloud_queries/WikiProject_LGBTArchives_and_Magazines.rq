@@ -1,0 +1,16 @@
+SELECT ?item
+{
+  {
+    SELECT ?item
+    {
+      ?item wdt:P31 wd:Q61710689
+    }  
+  }
+  UNION
+  {
+    SELECT ?item
+    {
+      ?item wdt:P31 wd:Q61851987
+    }  
+  }
+}

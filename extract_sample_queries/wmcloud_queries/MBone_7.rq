@@ -1,0 +1,7 @@
+SELECT DISTINCT ?ISO_639_2 ?label_en ?label_de ?label_fr WHERE {
+  ?Language wdt:P219 ?ISO_639_2.
+  OPTIONAL {?Language rdfs:label ?label_en , ?label_de , ?label_fr}
+  filter(lang(?label_en) = 'en' && lang(?label_de) = 'de' && lang(?label_fr) = 'fr')
+}
+ORDER BY ?ISO_639_2
+LIMIT 506

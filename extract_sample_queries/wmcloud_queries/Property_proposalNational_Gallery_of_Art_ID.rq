@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?_image WHERE {
+  ?item wdt:P195 wd:Q214867.
+  OPTIONAL { ?item wdt:P18 ?_image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(NOT EXISTS { ?item wdt:P973 ?foo. })
+}

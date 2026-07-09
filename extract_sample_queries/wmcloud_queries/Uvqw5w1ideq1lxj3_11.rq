@@ -1,0 +1,15 @@
+SELECT DISTINCT ?itemLabel ?itemDescription ?linkcount ?item
+WHERE
+{
+    ?item
+            wdt:P31 wd:Q5 ;
+            wdt:P21 wd:Q6581072 ;
+            wikibase:sitelinks ?linkcount ;
+            wdt:P27/wdt:P30 ?continent ;
+            wdt:P27/wdt:P30 wd:Q15 .
+OPTIONAL {?article schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> .}
+FILTER (!BOUND(?article))
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+group by ?itemLabel ?itemDescription ?linkcount ?item having(COUNT(DISTINCT ?continent) = 1)
+ORDER BY DESC (?linkcount)

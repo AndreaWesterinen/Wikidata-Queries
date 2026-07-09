@@ -1,0 +1,4 @@
+#title: Commons category sitelink does not match P373
+# Complex constraint from [[Property talk:P373]]
+# P373 should generally be the same as the sitelink
+SELECT ?item ?commonscat ?sitelink ?name WHERE { ?item wdt:P373 ?commonscat. ?sitelink schema:about ?item; schema:isPartOf <https://commons.wikimedia.org/>; schema:name ?name . FILTER( CONTAINS(STR(?sitelink), 'Category:') = true ) . FILTER( ?commonscat != SUBSTR(STR(?name), 10) ) .} LIMIT 1000

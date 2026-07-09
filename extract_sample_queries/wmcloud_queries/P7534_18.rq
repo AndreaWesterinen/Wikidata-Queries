@@ -1,0 +1,4 @@
+#title: FIX ALLCAPS LABELS
+# Complex constraint from [[Property talk:P7534]]
+# see [[Help:Label]]
+SELECT ?item ?l WHERE { ?item wdt:P7534 []; rdfs:label ?l. FILTER( lang(?l) ="en" && REGEX(?l,"[A-Z]{4,}") )  }  LIMIT 10

@@ -1,0 +1,23 @@
+# Unique value constraint report for P932: report by value
+
+SELECT
+    ?value (SAMPLE(?ct) AS ?ct)
+    (GROUP_CONCAT(DISTINCT(STRAFTER(STR(?item), "/entity/")); separator=", ") AS ?items)
+    (GROUP_CONCAT(DISTINCT(?title); separator=", ") AS ?itemLabels)
+WHERE    
+{
+  	{ 	SELECT DISTINCT ?value (COUNT(DISTINCT ?item) as ?ct)
+  		WHERE
+  		{ 
+  			?item wdt:P698 ?value 
+		}
+    	GROUP BY ?value HAVING (?ct>1) 
+    	ORDER BY DESC(?ct)
+    	LIMIT 1
+	}
+  	?item wdt:P698 ?value .
+    ?item wdt:P1476 ?itile .
+}
+GROUP BY ?value
+ORDER BY DESC(?ct)
+LIMIT 1

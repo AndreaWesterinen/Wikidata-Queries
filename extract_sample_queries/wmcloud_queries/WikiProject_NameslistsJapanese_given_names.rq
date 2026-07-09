@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item 
+{
+	{ ?item wdt:P31 wd:Q202444 } UNION { ?item wdt:P31 wd:Q11879590 } UNION { ?item wdt:P31 wd:Q12308941 } UNION { ?item wdt:P31 wd:Q3409032 .}
+	?item wdt:P407 wd:Q5287 .
+    ?item rdfs:label ?itemLblEN.
+    FILTER (lang(?itemLblEN) = "en"  )
+    FILTER (regex(?itemLblEN, "^[A-M]") )
+}
+LIMIT 5000

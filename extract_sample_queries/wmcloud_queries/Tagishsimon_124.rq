@@ -1,0 +1,64 @@
+#defaultView:Map
+SELECT DISTINCT ?layer ?layerLabel ?dot ?dotLabel ?coord ?line 
+  WITH { SELECT DISTINCT ?sea WHERE 
+  {                                                                                            # things in Scotland with a mouth or outflow
+    {?somethingelse wdt:P131/wdt:P131 wd:Q22 .} hint:Prior hint:runFirst true.
+    ?somethingelse wdt:P403|wdt:P201 ?sea .                                                    # mouth or outflow is ?sea
+  } } as %i
+
+  WITH { SELECT ?sea ?layer WHERE 
+  {                                                                                            # establish that ?sea is a sea by establishing 
+    INCLUDE %i                                                                                 
+    FILTER NOT EXISTS {?sea wdt:P403|wdt:P201 [].}                                             # that it does not have a mouth
+    FILTER NOT EXISTS {?sea wdt:P361/wdt:P31/wdt:P279* wd:Q23397 . hint:Prior hint:gearing "forward".}
+                                                                                               # nor part of a lake
+    ?sea ^wdt:P403|^wdt:P201 ?layer.                                                           # ?layer is the river before the sea
+    ?layer wdt:P131/wdt:P131 wd:Q22 . hint:Prior hint:gearing "forward".                       # is in Scotland
+} } as %j
+
+WHERE
+{
+  INCLUDE %j
+  ?layer (^wdt:P403|^wdt:P201)* ?dot.                                                          # things connected to the ?layer
+    
+  {?dot p:P403 ?stat .} UNION 
+  {?dot p:P201 ?stat . }
+  ?stat a wikibase:BestRank .
+  ?stat pq:P625 ?coord .
+  ?stat pqv:P625/wikibase:geoLongitude ?long.
+  ?stat pqv:P625/wikibase:geoLatitude ?lat.
+  filter not exists {?stat pq:P518 wd:Q7376362 . }
+  
+  OPTIONAL 
+  {                                                                                           # if the thing is not a sea, get its coords
+    ?dot wdt:P201|wdt:P403 ?dash.
+    {?dash wdt:P31?/wdt:P279* wd:Q355304 . hint:Prior hint:gearing "forward". } # watercourse
+    UNION {?dash wdt:P31/wdt:P279* wd:Q23397 . hint:Prior hint:gearing "forward". } # lake
+    UNION {?dash wdt:P31/wdt:P279* wd:Q19817101 . hint:Prior hint:gearing "forward". } # coastal landform
+    UNION {?dash wdt:P31/wdt:P279* wd:Q2507626 . hint:Prior hint:gearing "forward". } # water body
+    {?dash p:P403 ?stat2 .} UNION 
+    {?dash p:P201 ?stat2 . }
+    ?stat2 a wikibase:BestRank .
+    ?stat2 pq:P625 ?coord2 .
+    ?stat2 pqv:P625/wikibase:geoLongitude ?long2.
+    ?stat2 pqv:P625/wikibase:geoLatitude ?lat2.
+    filter not exists {?stat2 pq:P518 wd:Q7376362 . }
+  }
+  OPTIONAL 
+  {                                                                                           # if the thing is a sea, use ?dot's coords
+                                                                                              # ?sea coord is unhelpful. This way at least we get a dot
+    ?dot wdt:P201|wdt:P403 ?dash.
+    ?dash wdt:P31 wd:Q165 .
+  {?dot p:P403 ?stat2 .} UNION 
+  {?dot p:P201 ?stat2 . }
+
+    ?stat2 a wikibase:BestRank .
+    ?stat2 pq:P625 ?coord2 .
+    ?stat2 pqv:P625/wikibase:geoLongitude ?long2.
+    ?stat2 pqv:P625/wikibase:geoLatitude ?lat2.
+    filter not exists {?stat2 pq:P518 wd:Q7376362 . }
+  }
+  BIND(CONCAT('LINESTRING (', STR(?long), ' ', STR(?lat), ',', STR(?long2), ' ', STR(?lat2), ')') AS ?str) .
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

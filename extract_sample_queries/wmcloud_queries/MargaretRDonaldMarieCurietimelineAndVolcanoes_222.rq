@@ -1,0 +1,10 @@
+# taxa with an APNI id and an author
+SELECT ?item  ?taxon_name ?apni_id WHERE {
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+   minus{?stat pq:P405 ?author.}
+  ?item wdt:P5984 ?apni_id.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+
+ORDER BY ?taxon_name ?item ?apni_id

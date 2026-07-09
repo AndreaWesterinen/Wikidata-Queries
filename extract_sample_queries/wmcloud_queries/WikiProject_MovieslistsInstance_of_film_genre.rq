@@ -1,0 +1,16 @@
+SELECT ?item ?qid ?P17 ?P17Label ?P495 ?P495Label (GROUP_CONCAT(DISTINCT ?rymurl) as ?rym_url) (GROUP_CONCAT(DISTINCT ?amurl) as ?am_url) WHERE {
+  BIND( xsd:integer( STRAFTER( STR( ?item ), STR( wd:Q ) ) ) AS ?qid )
+  ?item wdt:P31/wdt:P279* wd:Q201658.
+  OPTIONAL {?item wdt:P17 ?P17.} 
+  OPTIONAL {?item wdt:P495 ?P495.} 
+  OPTIONAL {?item wdt:P11588 ?rymID.
+            BIND(CONCAT("[https://rateyourmusic.com/film_genre/",?rymID," ",?rymID,"]") as ?rymurl)}
+  OPTIONAL {?item p:P11564 ?amstat .  
+    OPTIONAL {?amstat pq:P1810 ?amQ_ .}
+    ?amstat ps:P11564 ?amID .
+    BIND(IF(BOUND(?amQ_),?amQ_,"_ID_") as ?amQ)
+    wd:P11564 rdfs:label ?propItemLabelam.
+    FILTER((LANG(?propItemLabelam)) = "en")
+    BIND(CONCAT("[https://www.allmovie.com/", ?amID," ",?amQ, "]") AS ?amurl)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} group by ?item ?P17 ?P17Label ?P495 ?P495Label ?qid ORDER BY ?qid

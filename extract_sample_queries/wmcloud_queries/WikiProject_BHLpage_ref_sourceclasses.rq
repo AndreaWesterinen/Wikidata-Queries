@@ -1,0 +1,7 @@
+SELECT (?class AS ?item) (COUNT(DISTINCT(?ref)) AS ?count) WHERE {
+            hint:Query hint:optimizer "None".
+            ?ref pr:P687 ?p .
+            ?ref pr:P248 ?source .
+            ?source wdt:P31 ?class
+     }
+     GROUP BY ?class ORDER BY DESC(?count)

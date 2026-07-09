@@ -1,0 +1,25 @@
+SELECT DISTINCT ?female ?femaleLabel  ?sitelink ?ADBLink ?NGVLink ?DAAOLink ?AGSALink ?TroveLink ?AuckLink ?AWRLink WHERE {
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?female wdt:P21 wd:Q6581072;         # instance of female
+    wdt:P5008 wd:Q87337959.            # In focus group of Know My Name
+  
+   optional {?female wdt:P1907 ?ADB.}
+   optional {?female wdt:P2041 ?NGV.}
+   optional {?female wdt:P1707 ?DAAO.}
+   optional {?female wdt:P6804 ?AGSA.}
+   optional {?female wdt:P1315 ?Trove.}
+   optional {?female wdt:P3372 ?Auck.}
+   optional {?female wdt:P4186 ?AWR.}
+   bind(uri(concat("https://www.aucklandartgallery.com/explore-art-and-ideas/artist/",?Auck)) as ?AuckLink)   
+   bind(uri(concat("https://www.aucklandartgallery.com/explore-art-and-ideas/artist/",?Auck)) as ?AuckLink)   
+   bind(uri(concat("https://trove.nla.gov.au/people/",?Trove)) as ?TroveLink)   
+   bind(uri(concat("http://adb.anu.edu.au/biography/",?ADB)) as ?ADBLink)   
+   bind(uri(concat("https://www.ngv.vic.gov.au/explore/collection/artist/",?NGV)) as ?NGVLink) 
+   bind(uri(concat("https://www.daao.org.au/bio/",?DAAO)) as ?DAAOLink) 
+   bind(uri(concat("https://www.agsa.sa.gov.au/collection-publications/collection/creators/_/",?AGSA)) as ?AGSAink)  
+  OPTIONAL 	{ ?sitelink schema:about ?female. ?sitelink schema:inLanguage "en" }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+
+  }
+ ORDER BY ?femaleLabel  
+ LIMIT 4000    

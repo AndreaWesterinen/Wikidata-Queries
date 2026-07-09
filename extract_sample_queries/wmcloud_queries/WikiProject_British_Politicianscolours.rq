@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?rgb ?colour (count(DISTINCT(?MP)) as ?count) (year(min(?date)) AS ?firstDate) where
+{
+ ?MP p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+        { ?term wdt:P279* wd:Q16707842 . } 
+  union { ?term wdt:P279* wd:Q3272410 . }  
+  union { ?term wdt:P279* wd:Q1711695 . }  
+  union { ?term wdt:P279* wd:Q3406079 . }  
+ ?positionStatement ps:P39 ?term .
+ ?positionStatement pq:P4100 ?item .
+ ?positionStatement pq:P580 ?date . 
+ optional { ?item wdt:P465 ?rgb } . # colour if known
+ bind(concat("|", "{","{ font color

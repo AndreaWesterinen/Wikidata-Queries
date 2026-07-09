@@ -1,0 +1,27 @@
+#Target required claim report for P5328: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?snak
+		WHERE
+		{
+			{
+				?item p:P5328/ps:P5328 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P5328 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P5328 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS { ?value p:P4634 [] } .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

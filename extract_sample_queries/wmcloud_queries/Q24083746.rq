@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?cabinet_start ?cabinet_end ?who ?mem_start ?mem_end WHERE {
+  BIND (wd:Q24083746 AS ?cabinet) 
+  ?cabinet wdt:P2670 ?item; wdt:P571 ?cabinet_start .
+  OPTIONAL { ?cabinet wdt:P576 ?cabinet_end } .
+  BIND(if(BOUND(?cabinet_end), ?cabinet_end, NOW()) as ?effective_cabinet_end)
+  
+  OPTIONAL {
+    ?who p:P39 ?mem .
+    ?mem ps:P39 ?item ; pq:P580 ?mem_start .
+    OPTIONAL { ?mem pq:P582 ?mem_end }
+    BIND(if(BOUND(?mem_end), ?mem_end, NOW()) as ?effective_end)
+    FILTER((?effective_end > ?cabinet_start) && (?mem_start < ?effective_cabinet_end))
+  }
+}

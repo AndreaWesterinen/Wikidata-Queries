@@ -1,0 +1,16 @@
+# via vrouw met elkaar verbonden vroedschapsleden
+SELECT ?a ?aLabel ?relatieLabel ?vrouw ?vrouwLabel ?relatiebLabel ?b ?bLabel WHERE {
+  ?a wdt:P463 wd:Q56764476 . 
+  ?b wdt:P463 wd:Q56764476 . 
+  ?a ?arelation ?vrouw .
+  ?vrouw wdt:P31 wd:Q5 .
+  ?vrouw wdt:P21 wd:Q6581072 .
+  ?vrouw ?brelation ?b .
+  FILTER (?a != ?b)
+  FILTER NOT EXISTS{ ?a ?directrelation ?b . }
+  ?relatie wikibase:directClaim ?arelation .
+  ?relatieb wikibase:directClaim ?brelation .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}
+ORDER BY ?vrouw
+LIMIT 100

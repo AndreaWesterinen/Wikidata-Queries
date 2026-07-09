@@ -1,0 +1,28 @@
+embed.html## Query Find in WikiData people with Place of Burial Q252312 Norra Begravningsplatsen
+# Show Wikitree ID, Find A Grave ID and if picture of the grave exist
+#defaultView:ImageGrid
+select  ?person ?personLabel  ?personDescription ?pic ?graveplot ?SpotifyArtist ?article {
+{
+	?person wdt:P119 wd:Q252312; #Place of burial
+            p:P119 [ 
+              pq:P965 ?graveplot;
+              pq:P625 ?coord;]         
+            
+   OPTIONAL { ?person wdt:P2949 ?WikiTreeID .} 			# If we have a WikiTree profile
+   OPTIONAL { ?person wdt:P535 ?FindAGraveID .} 		# If we have a FindAGrave ID
+   OPTIONAL{ ?person wdt:P18 ?pic .} 					# If we have an illustration
+   OPTIONAL{ ?person wdt:P1442 ?picGrave .} 			# If we have a picture of the grave
+   { ?person wdt:P1902 ?SpotifyArtistID .} 			# SPotify Artist   
+   BIND (URI(CONCAT("http://www.findagrave.com/cgi-bin/fg.cgi?page=gr&df=all&GRid=",?FindAGraveID)) AS ?FindAGrave)
+   BIND (URI(CONCAT("https://open.spotify.com/artist/",?SpotifyArtistID)) AS ?SpotifyArtist)
+  
+OPTIONAL {
+      ?article schema:about ?person .
+      ?article schema:inLanguage "sv" .
+      ?article schema:isPartOf <https://sv.wikipedia.org/> .
+    }
+ }   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv"}
+  BIND (!?personLabel as ?l)
+ }
+Order by ?personLabel

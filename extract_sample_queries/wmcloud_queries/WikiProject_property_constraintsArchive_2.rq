@@ -1,0 +1,8 @@
+SELECT ?property (COUNT(DISTINCT ?constraint) AS ?count) WHERE {
+  ?property a wikibase:Property;
+            p:P2302 ?constraint.
+  ?constraint ps:P2302 wd:Q21510865.
+}
+GROUP BY ?property
+HAVING(?count > 1)
+ORDER BY DESC(?count)

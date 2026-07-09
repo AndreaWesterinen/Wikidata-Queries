@@ -1,0 +1,9 @@
+SELECT ?item ?year
+WHERE
+{
+	?item wdt:P921 wd:Q52; wdt:P31 wd:Q13442814 .
+	FILTER NOT EXISTS { ?item wdt:P921 wd:Q2013 }
+	OPTIONAL { ?item wdt:P577 ?d . BIND( YEAR(?d) as ?year) }
+}
+ORDER BY DESC(?year) DESC(xsd:integer(STRAFTER(str(?item), "Q")))
+LIMIT 201

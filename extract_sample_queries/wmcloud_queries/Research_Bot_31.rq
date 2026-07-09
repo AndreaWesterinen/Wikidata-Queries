@@ -1,0 +1,16 @@
+SELECT ?item 
+?itemLabel 
+WITH {
+  SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q13442814 ;
+        wdt:P50 ?author.
+  FILTER NOT EXISTS { ?item wdt:P921 ?topic ; wdt:P2093 [] .}
+  }
+  LIMIT 10000
+} AS %papers
+WHERE {
+  INCLUDE %papers .
+  		?item rdfs:label ?itemLabel.
+		FILTER(LANG(?itemLabel) = "en").
+ }
+LIMIT 10000

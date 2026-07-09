@@ -1,0 +1,13 @@
+#defaultView:ImageGrid
+SELECT ?q (min(?image) AS ?img) (GROUP_CONCAT(DISTINCT(?qLabel); separator=", ") AS ?label) (COUNT(DISTINCT ?sitelink) as ?linkcount) {
+  ?q (wdt:P31/wdt:P279*) wd:Q3305213 .
+  ?sitelink schema:about ?q .
+  OPTIONAL { ?q wdt:P18 ?image }
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+		?q rdfs:label ?qLabel .
+  }       
+  }
+GROUP BY ?q
+ORDER BY DESC(?linkcount)
+LIMIT 500

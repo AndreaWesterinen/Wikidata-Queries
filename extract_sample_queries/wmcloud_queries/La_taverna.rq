@@ -1,0 +1,8 @@
+#Obres del MAMT amb P31 paper (Q11472) q cal canviar a dibuix (Q93184)
+SELECT ?item ?itemLabel ?_creatorLabel WHERE {
+  ?item wdt:P31 wd:Q11472.
+  ?item wdt:P195 wd:Q9046976.
+  OPTIONAL { ?item wdt:P170 ?_creator. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca". }
+}
+ORDER BY ?_creator

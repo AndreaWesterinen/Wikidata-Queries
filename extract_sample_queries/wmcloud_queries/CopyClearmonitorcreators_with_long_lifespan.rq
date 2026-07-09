@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?age
+WITH {
+  SELECT DISTINCT ?item ?born ?death WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 ?collectie.
+  ?item wdt:P569 ?born .
+  ?item wdt:P570 ?death .
+}
+} AS %items
+WHERE {
+  INCLUDE %items.
+  bind( year(?death) - year(?born)  as ?age )
+  FILTER (?age > 120).  
+  ?item p:P569/psv:P569 ?birth_date_node .
+   ?birth_date_node wikibase:timePrecision ?birthPrecision .
+   ?item p:P570/psv:P570 ?death_date_node .
+   ?death_date_node wikibase:timePrecision ?deathPrecision .
+  filter(?birthPrecision>8)
+  filter(?deathPrecision>8)
+}

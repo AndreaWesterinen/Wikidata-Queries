@@ -1,0 +1,21 @@
+#Items about female scientists with/without  a Wikipedia page
+SELECT ?scientist ?scientistLabel ?article with { select distinct ?scientist WHERE 
+ {
+   ?scientist wdt:P31 wd:Q5.             # is human
+   ?scientist wdt:P21 wd:Q6581072.       # is female
+   ?scientist wdt:P27 wd:Q408.           # is Australian
+   ?scientist wdt:P106 ?occ.
+   VALUES ?occ {wd:Q2374149 wd:Q864503 wd:Q901 wd:Q1650915 wd:Q169470  wd:Q170790 wd:Q2732142 wd:Q593644 wd:Q20739288 wd:Q61745762}    # occupations
+      
+ } } as %i where
+
+{
+  include %i
+     #MINUS
+     OPTIONAL     
+    {?article schema:about ?scientist. # and optionally have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+     }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?article ?scientistLabel

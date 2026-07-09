@@ -1,0 +1,36 @@
+SELECT
+  # A coauthor
+  DISTINCT ?item
+
+  # Number of works with the coauthor
+  ?count
+
+# Build URL to the Author disambiguator tool for a given author name string
+  (CONCAT(
+      "[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=",
+      ENCODE_FOR_URI(?coauthor ), " More publications with author name string '''''", ?coauthor , "''''']") AS ?disambiguator2)
+
+# Build URL to the Author disambiguator tool for a given author name string and a coauthor associated with the institution
+  (CONCAT(
+      "[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=",
+      ENCODE_FOR_URI(?coauthor ), "&filter=wdt%3AP50+wd%3A", ?qid , " Publications with author name string '''''", ?coauthor , "''''' and at least one UVa co-author]") AS ?disambiguator1)
+ 
+WHERE {
+  SELECT DISTINCT ?coauthor (COUNT(DISTINCT ?work) as ?count) ?item (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) WHERE {
+    { ?item wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P1416 / wdt:P361* wd:Q213439 .}
+
+    ?work wdt:P50 ?item ; wdt:P2093 ?coauthor .
+ FILTER(regex (?coauthor, "^(?=^[A-Z][a-z]{1,}.*)(?=.*[a-z]$).*$")).
+ FILTER(!CONTAINS(LCASE(?coauthor), "."))
+
+  }
+  GROUP BY ?coauthor ?count ?item ?qid
+  HAVING (?count > 4)
+#           LIMIT 2000
+}
+ORDER BY DESC(?count) 
+LIMIT 100

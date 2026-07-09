@@ -1,0 +1,18 @@
+SELECT ?werk ?werkLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  {
+  ?werk wdt:P655 wd:Q92759384.
+  }
+  UNION
+  {
+    ?werk wdt:P823 wd:Q92759384.
+  }
+  UNION
+  {
+    ?werk wdt:P50 wd:Q92759384.
+  }
+    UNION
+  {
+    ?werk wdt:P98 wd:Q92759384.
+  }
+}

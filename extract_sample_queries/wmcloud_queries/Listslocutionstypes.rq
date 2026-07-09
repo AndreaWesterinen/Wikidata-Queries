@@ -1,0 +1,5 @@
+SELECT ?item (CONCAT("[https://www.wikidata.org/w/index.php?title=Special%3AWhatLinksHere&namespace=146&target=",strafter(str(?item),"y/")," list]") as ?list)
+WHERE 
+{
+     ?item wdt:P279 wd:Q3257782 
+}

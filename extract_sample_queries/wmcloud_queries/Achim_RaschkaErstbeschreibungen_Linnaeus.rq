@@ -1,0 +1,9 @@
+SELECT ?item WHERE {
+  ?item wdt:P171 ?sub0 .
+  ?sub0 (wdt:P171)* wd:Q151542 .
+  ?item p:P225 ?item_st1 .
+  ?item_st1 ps:P225 [] .
+  {
+    ?item_st1 pq:P405 wd:Q1043 .
+  }
+}

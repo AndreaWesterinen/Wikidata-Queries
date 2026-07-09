@@ -1,0 +1,35 @@
+embed.html#SELECT * 
+WITH
+{
+  SELECT DISTINCT ?cem ?ws ?endpoint ?lang
+  {
+    BIND( wd:Q55029087 as ?cem ) 
+    { [] schema:about ?cem; schema:isPartOf ?ws; schema:inLanguage ?lang .
+    MINUS { ?ws wikibase:wikiGroup "wikiquote" } }
+    UNION { BIND("en" as ?lang) BIND(<https://en.wikipedia.org/> as ?ws) }
+    BIND( strbefore(strafter(str(?ws),"//"),"/") as ?endpoint)       
+  }
+} as %endpoint
+WHERE
+{  hint:Query hint:optimizer "None".
+  INCLUDE %endpoint
+  ?cem rdfs:label ?l . FILTER(lang(?l) = ?lang) 
+  # ?cem skos:altLabel ?l . FILTER(lang(?l) = "en") 
+  BIND( CONCAT("\"",str(?l),"\"") as ?search) 
+  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint ?endpoint .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch ?search .
+      bd:serviceParam mwapi:gsrlimit "max" .    
+      bd:serviceParam mwapi:gsrnamespace "0" .    
+      ?article wikibase:apiOutput mwapi:title  .
+      ?item wikibase:apiOutputItem mwapi:item .    
+      ?ns wikibase:apiOutput "@ns" .   
+      } 
+  FILTER(BOUND(?item) ) 
+  ?item wdt:P31 wd:Q5 . OPTIONAL { ?item wdt:P119 ?pb } FILTER(!BOUND(?pb) ) 
+  ?item wdt:P570 ?dod .
+  ?article_to_check schema:about ?item ; schema:isPartOf ?ws 
+  BIND(URI(CONCAT("https://www.wikidata.org/w/index.php?title=",strafter(str(?item),"y/"),"&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P119&entityid=",strafter(str(?cem),"y/") ) ) as ?click_to_add) 
+}

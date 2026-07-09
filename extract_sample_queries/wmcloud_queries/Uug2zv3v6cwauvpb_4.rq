@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?ownerLabel ?workLabel ?universeLabel WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q15720873 .
+  OPTIONAL { ?item wdt:P1080 ?universe }
+  OPTIONAL { ?item wdt:P1441 ?work }
+  OPTIONAL { ?item wdt:P127 ?owner }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?universeLabel ?itemLabel ?ownerLabel

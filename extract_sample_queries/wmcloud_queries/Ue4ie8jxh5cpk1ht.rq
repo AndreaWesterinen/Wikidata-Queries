@@ -1,0 +1,1 @@
+SELECT DISTINCT ?q ?label { ?q wdt:P2580 [] ; rdfs:label ?label FILTER ( lang(?label)='en') FILTER (REGEX(STR(?label), "[\\(\\.]")) }

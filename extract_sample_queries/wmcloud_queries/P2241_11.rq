@@ -1,0 +1,4 @@
+#title: <span dir="ltr" lang="en">Non-deprecated statements</span>
+# Complex constraint from [[Property talk:P2241]]
+# <span dir="ltr" lang="en">Items with statements qualified by [[Property:P2241|reason for deprecated rank&#32;<small dir="ltr">(P2241)</small>]] that are not deprecated</span>
+SELECT ?item WHERE { hint:Query hint:optimizer "None" . ?statement pq:P2241 ?value; wikibase:rank ?rank . FILTER(?rank != wikibase:DeprecatedRank) . ?item ?p ?statement . [] wikibase:claim ?p }

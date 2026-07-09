@@ -1,3 +1,4 @@
+#title: The Simpsons television series episodes list by season
 SELECT ?show ?showLabel ?seasonNumber ?episode ?episodeLabel
 WHERE {
   BIND(wd:Q886 as ?show) .

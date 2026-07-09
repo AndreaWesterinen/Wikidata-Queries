@@ -1,0 +1,10 @@
+embed.html#SELECT ?item ?library ?x WHERE {
+  { ?item wdt:P4645 ?x }
+  UNION
+  { ?item wdt:P4527 ?x ; wdt:P31/wdt:P279* wd:Q7075 }
+  UNION
+  { ?item wdt:P791 ?x }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de,it,da,fi". 
+  ?item rdfs:label ?library . }
+  }

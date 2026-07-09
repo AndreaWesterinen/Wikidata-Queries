@@ -1,0 +1,7 @@
+SELECT ?human ?humanLabel
+WHERE {
+  ?human wdt:P31 wd:Q5 .
+  ?human wdt:P27 wd:Q142 .
+  MINUS { ?human p:P21 ?gender . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}

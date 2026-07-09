@@ -1,0 +1,7 @@
+SELECT ?item WHERE {
+  ?item wdt:P972 wd:Q31805038 .
+  ?item wikibase:sitelinks 0; wikibase:identifiers 0 . # no sitelinks and no identifiers; this is not 100% safe (phab:T145712), so some false-positives may show up in the results
+  MINUS { [] ?backlink ?item } # no backlinks
+  OPTIONAL { ?item ?p [ prov:wasDerivedFrom [ ?pr [] ] ] . FILTER(?pr NOT IN (pr:P143, pr:P3452)) } . FILTER(!BOUND(?p)) . # no references (except P143--imported from and P3452--inferred from)
+  MINUS { ?item p:P973|p:P1343 [] } # none of these statements: P973--described at URL, P1343--described by source
+}

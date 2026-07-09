@@ -1,0 +1,8 @@
+SELECT ?item ?d (CONCAT("[",str(?url)," ws]") as ?ws)
+{
+      ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+      ?item wdt:P31 wd:Q5 ; wikibase:identifiers ?d .
+      ?url schema:about ?entry .
+}
+ORDER BY DESC(?d)
+LIMIT 100

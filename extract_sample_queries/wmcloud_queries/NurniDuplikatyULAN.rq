@@ -1,0 +1,109 @@
+SELECT ?item ?nr ?id
+{
+  {SELECT (COUNT(DISTINCT *) AS ?cnt) ?nr ?id 
+    {
+      
+      {
+        ?p wdt:P245 ?nr.
+        BIND ("ULAN" as ?id).
+      }
+      UNION {
+        ?p wdt:P2949 ?nr.
+        BIND ("WIKITREE" as ?id).
+      }
+      UNION {
+        ?p wdt:P648 ?nr.
+        BIND ("OPEN LIBRARY id." as ?id).
+      }
+      UNION {
+        ?p wdt:P650 ?nr.
+        BIND ("RKD" as ?id).
+      }
+      UNION {
+        ?p wdt:P651 ?nr.
+        BIND ("BPN" as ?id).
+      }
+      UNION {
+        ?p wdt:P1367 ?nr.
+        BIND ("ART UK id." as ?id).
+      }
+      UNION {
+        ?p wdt:P1711 ?nr.
+        BIND ("BM id." as ?id).
+      }
+      UNION {
+        ?p wdt:P1816 ?nr.
+        BIND ("NPG id." as ?id).
+      }
+      UNION {
+        ?p wdt:2268 ?nr.
+        BIND ("ORSAY id." as ?id).
+      }
+      UNION {
+        ?p wdt:P2843 ?nr.
+        BIND ("BENEZIT id." as ?id).
+      }
+      UNION {
+        ?p wdt:P227 ?nr.
+        BIND ("GND id." as ?id).
+      }
+      UNION {
+        ?p wdt:P2799 ?nr.
+        BIND ("BVMC id." as ?id).
+      }
+      UNION {
+        ?p wdt:P214 ?nr.
+        BIND ("VIAF" as ?id).
+      }
+    }
+    GROUP BY ?nr ?id
+    HAVING (?cnt > 1)
+  }
+
+  {
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P245 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P2949 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P648 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P650 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P651 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P245 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P1367 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P1711 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P1816 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P2268 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P2843 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P227 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P2799 ?nr.}
+  UNION{
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P214 ?nr.}
+  MINUS
+  {?item wdt:P31 wd:Q17362920}
+
+}
+ORDER BY ASC(?nr)

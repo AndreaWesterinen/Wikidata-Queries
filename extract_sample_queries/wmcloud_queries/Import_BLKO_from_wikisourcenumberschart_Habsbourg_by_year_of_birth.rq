@@ -1,0 +1,25 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("Habsbourg by date of birth" as ?legend) 
+  ("25-year period" as ?xAxisTitle) 
+  ("count per 25-year period" as ?yAxisTitle)
+  (GROUP_CONCAT(?year;separator=",") as ?x)
+  (GROUP_CONCAT(?count_all;separator=",") as ?y)
+  ("rect" as ?type)
+  ("200" as ?heigth) 
+  ("600" as ?width) 
+WHERE
+{
+  { SELECT ?year (COUNT(DISTINCT ?item) as ?count_all)
+  {
+    ?entry wdt:P361 wd:Q88724376 .
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+    ?item wdt:P569 ?d . 
+    FILTER( YEAR(?d) > 1599 && YEAR(?d) < 1900 )
+    BIND( FLOOR(YEAR(?d)/25)*25 as ?year) 
+    ?item wdt:P31 wd:Q5 .
+  }
+  GROUP BY ?year
+  ORDER BY DESC(?year)
+  }
+}

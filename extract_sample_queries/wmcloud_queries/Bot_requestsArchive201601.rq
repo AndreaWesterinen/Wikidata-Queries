@@ -1,0 +1,30 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+PREFIX prov: <http://www.w3.org/ns/prov#> 
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+SELECT 
+	?day
+	#?year 
+	(COUNT(DISTINCT(?item)) as ?count)
+WHERE 
+{ 
+	?date_node wikibase:timePrecision "11"^^xsd:integer .
+    ?date_node wikibase:timeValue ?date . 
+    BIND(day(?date) As ?day)
+    FILTER (?day < 4) 
+    FILTER (month(?date) = 1) 
+    ?item p:P569/<http://www.wikidata.org/prop/statement/value/P569> ?date_node . 
+    ?item wdt:P31 wd:Q5 .
+    BIND(year(?date) As ?year)
+}
+GROUP BY 
+	?day
+	#?year
+#ORDER BY DESC(?year)

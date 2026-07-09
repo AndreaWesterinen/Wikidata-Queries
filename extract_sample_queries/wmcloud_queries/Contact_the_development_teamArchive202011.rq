@@ -1,0 +1,12 @@
+embed.html#SELECT ?item ?itemLabel ?genderLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q22989102.
+  OPTIONAL{?item wdt:P21 ?gender .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca". }
+   FILTER(EXISTS {
+   ?item rdfs:label ?lang_label.
+   FILTER(LANG(?lang_label) = "ca")
+ })
+}
+ORDER BY ?itemLabel

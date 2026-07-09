@@ -1,3 +1,4 @@
+#title: Wikidata statement with a reference to data in Figshare of which a Wikicite item exists
 SELECT DISTINCT ?wikiciteLabel ?doi WHERE {
    ?wikicite p:P356/ps:P356 ?doi .
    ?statement prov:wasDerivedFrom ?ref .

@@ -1,3 +1,4 @@
+#title: Birth places of German poets
 #defaultView:Map{"hide": ["?coord"]}
 SELECT ?subj ?subjLabel ?place ?placeLabel ?coord ?birthyear
 WHERE {

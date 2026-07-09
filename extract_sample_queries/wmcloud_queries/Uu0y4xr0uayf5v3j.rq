@@ -1,0 +1,20 @@
+embed.html##defaultView:AreaChart
+SELECT ?cid (str(SAMPLE(?year)) AS ?year )  (COUNT(*) AS ?count)  ?cause WHERE {
+  ?pid wdt:P31 wd:Q11424.
+  ?pid wdt:P364 ?cid.
+  ?pid wdt:P495 wd:Q668.
+  ?pid wdt:P57 ?dir;
+       wdt:P58 ?prod.
+  FILTER(?dir = ?prod).
+  OPTIONAL {
+    ?cid rdfs:label ?cause.
+    FILTER((LANG(?cause)) = "en")
+  }
+   ?pid wdt:P577 ?_date_of_death. 
+  BIND ( YEAR(?_date_of_death) AS ?year )
+  FILTER( BOUND(?cause)  )
+  FILTER( BOUND(?year)  )
+  FILTER( ?year > 1983 )
+}
+GROUP BY ?cid ?cause ?year
+#

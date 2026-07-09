@@ -1,0 +1,15 @@
+#Get QID from doi
+SELECT DISTINCT ?doi ?item ?itemLabel
+WHERE 
+{
+  VALUES ?doi
+  {
+    "10.1021/NN4038223"
+    "10.1021/JA0772400"
+    "10.1002/ANIE.200702767"
+  }
+  BIND (ucase(?doi) AS ?doiu)
+  BIND (lcase(?doi) AS ?doil)
+  {?item wdt:P356 ?doi} UNION {?item wdt:P356 ?doiu} UNION {?item wdt:P356 ?doil}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

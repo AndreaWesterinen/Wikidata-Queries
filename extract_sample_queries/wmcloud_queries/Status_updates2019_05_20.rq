@@ -1,0 +1,52 @@
+# Most common properties for maps, with top 5 values
+
+SELECT ?prop ?propLabel  ?prop_items ?prop_stmts ?val ?valLabel ?val_count ?samp ?sampLabel
+
+WITH {
+  SELECT ?item ?prop ?stmt ?val WHERE {
+    hint:Query hint:optimizer "None" .
+    wd:Q4006 ^wdt:P279*/^wdt:P31 ?item .
+    MINUS {?item wdt:P31 wd:Q17146139}
+    ?item ?p ?stmt .
+    ?prop wikibase:claim ?p .
+    ?prop wikibase:statementProperty ?ps .
+    MINUS {
+       {?prop wdt:P31/wdt:P279* wd:Q19847637}  # Wikidata property representing a unique identifier 
+       UNION
+       {?prop wdt:P31/wdt:P279* wd:Q18614948}  # Wikidata property for authority control
+    }
+    ?stmt ?ps ?val .
+  } #LIMIT 2000
+} AS %maps_props_vals
+
+WITH {
+  SELECT ?prop (COUNT(DISTINCT(?item)) AS ?prop_items) (COUNT(DISTINCT(?stmt)) AS ?prop_stmts) WHERE {
+    INCLUDE %maps_props_vals 
+  } GROUP BY ?prop
+} AS %prop_stats                                                        
+                                                        
+WITH {  
+  SELECT ?prop ?val (COUNT(DISTINCT(?item)) AS ?val_count) (SAMPLE(?item) AS ?samp) WHERE {
+     INCLUDE %maps_props_vals
+  } GROUP BY ?prop ?val
+  HAVING (?val_count > 3)                 
+} AS %prop_val_counts
+
+WITH {
+  SELECT ?prop ?val ?samp ?val_count (COUNT(DISTINCT(?val1)) AS ?val_rank) WHERE {
+      INCLUDE %prop_val_counts .
+      {
+         SELECT ?prop (?val AS ?val1) (?val_count AS ?val1_count) WHERE {
+             INCLUDE %prop_val_counts
+         }
+      }
+      FILTER (?val1_count >= ?val_count)
+  } GROUP BY ?prop ?val ?val_count ?samp
+} AS %prop_val_ranks
+                     
+WHERE {
+    INCLUDE %prop_stats .
+    INCLUDE %prop_val_ranks .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    FILTER (?val_rank < 6) .
+} ORDER BY DESC(?prop_items) DESC(?prop_stmts) ?prop ?val_rank

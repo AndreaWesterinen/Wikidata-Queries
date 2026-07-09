@@ -1,0 +1,3 @@
+SELECT ?item WHERE {
+  VALUES ?mtb { wd:Q1443804 wd:Q24011709 }
+  ?item (wdt:P131

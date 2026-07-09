@@ -1,0 +1,10 @@
+SELECT ?item ?l
+{
+	?item wdt:P31 wd:Q4167836 ; rdfs:label ?l . 
+    FILTER
+    (  
+      lang(?l)="en" 
+      && REGEX( str(?l), "^Category:[12]\\d\\d\\d establishments$" )
+    )
+}
+LIMIT 100

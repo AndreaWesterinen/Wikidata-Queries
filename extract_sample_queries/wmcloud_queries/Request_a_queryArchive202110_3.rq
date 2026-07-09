@@ -1,0 +1,7 @@
+SELECT ?predicate ?property ?propertyLabel ?value
+WHERE 
+{
+  wd:Q48895080 ?predicate ?value. 
+  ?property wikibase:directClaim ?predicate.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

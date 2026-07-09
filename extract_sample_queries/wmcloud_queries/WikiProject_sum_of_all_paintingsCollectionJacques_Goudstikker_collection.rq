@@ -1,0 +1,6 @@
+SELECT ?item ?inv1 ?inv2 WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q2284748 .
+  OPTIONAL { ?item p:P217 [ pq:P195 wd:Q28045665 ; ps:P217 ?inv1]. }
+  OPTIONAL { ?item p:P217 [ pq:P195 wd:Q2284748 ; ps:P217 ?inv2]. }
+  }

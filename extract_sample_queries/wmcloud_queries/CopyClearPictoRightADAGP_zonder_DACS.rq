@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?dacs ?adagp ?citizen ?citizenLabel WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". } 
+  ?item wdt:P3901 ?adagp.
+  FILTER NOT EXISTS{ ?item wdt:P4663 ?dacs. }
+  OPTIONAL { ?item wdt:P27 ?citizen. }
+}

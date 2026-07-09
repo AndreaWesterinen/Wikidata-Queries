@@ -1,0 +1,33 @@
+#Target required claim report for P725: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P725/ps:P725 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P725 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P725 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q33999 wd:Q10800557 wd:Q10798782 wd:Q2405480 wd:Q622807 wd:Q11481802 wd:Q177220 wd:Q15077007 } .
+			MINUS {
+				?value p:P106/ps:P106 ?values .
+			} .
+			OPTIONAL {
+				?value p:P106/ps:P106 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

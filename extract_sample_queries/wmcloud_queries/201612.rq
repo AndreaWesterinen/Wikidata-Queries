@@ -1,0 +1,21 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#Sample query to start a list of values for property P3243
+#Remove some of the "#" below to see if it helps you
+
+SELECT ?item ?itemLabel ?value
+?okpd ?okpd2 ?okp
+WHERE
+{
+	
+    OPTIONAL {?item wdt:P3245 ?okpd } .
+  	OPTIONAL {?item wdt:P3250 ?okpd2 } .
+	OPTIONAL {?item wdt:P3248 ?okp } .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,es,fr"  }    
+}
+LIMIT 1000

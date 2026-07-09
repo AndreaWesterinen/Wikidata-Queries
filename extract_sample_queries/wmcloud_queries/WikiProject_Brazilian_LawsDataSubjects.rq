@@ -1,0 +1,5 @@
+SELECT ?item (SAMPLE(?law) AS ?example) (COUNT(?law) AS ?number_of_laws) WHERE {
+  {?law wdt:P31 wd:Q820655.} UNION {?law wdt:P31 wd:Q6453643.}
+  ?law wdt:P17 wd:Q155; wdt:P921 ?item; wdt:P577 ?date.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ORDER BY DESC(?number_of_laws)

@@ -1,0 +1,10 @@
+#List of all the Steinbrüche
+#defaultView:Map
+SELECT ?itemDescription ?image ?coord ?item WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q188040.
+  ?item wdt:P625 ?coord.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P131 wd:Q1202.
+  OPTIONAL {  }
+}

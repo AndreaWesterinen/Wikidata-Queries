@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?geonameID where {
+  ?item wdt:P31 wd:Q22698.
+  ?article schema:about ?item ; schema:isPartOf <https://ceb.wikipedia.org/> .
+  ?item wdt:P1566 ?geonameID.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by ?geonameID

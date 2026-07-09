@@ -1,0 +1,6 @@
+SELECT ?item ?label WHERE {
+  ?item wdt:P31 wd:Q46190676 .
+  MINUS { ?item wdt:P2094 [] }
+  ?item rdfs:label ?label . FILTER(LANG(?label) = 'en') .
+  FILTER(REGEX(STR(?label), " – [Ss]ingles?$")) .
+}

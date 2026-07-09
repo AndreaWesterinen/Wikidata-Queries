@@ -1,0 +1,12 @@
+select ?item ?itemLabel ?lit ?litLabel ?izdevums ?sakums ?beigas where {
+  #{?item wdt:P31 wd:Q82414 } union {?item wdt:P31 wd:Q159821}
+  ?item wdt:P31 wd:Q159821 .
+ # optional { ?item wdt:P545 ?lit . }
+  optional { ?item wdt:P393 ?izdevums . }
+  optional { ?item wdt:P580 ?sakums . }
+  optional { ?item wdt:P582 ?beigas . }
+  
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "lv,en" .
+    }
+  }

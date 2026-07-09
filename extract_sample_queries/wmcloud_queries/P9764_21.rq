@@ -1,0 +1,11 @@
+#title: Wrong self-referencing position
+# Complex constraint from [[Property talk:P9764]]
+# Position cannot be itself
+SELECT * WHERE {
+  ?item p:P5238 ?node.
+  ?node ps:P5238 [] ;
+        pq:P1545 ?rank ;
+        pq:P9764 ?position.
+  FILTER ( ?position = ?rank )
+}
+}

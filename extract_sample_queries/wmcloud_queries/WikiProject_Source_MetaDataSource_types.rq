@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?cslType ?cslUri 
+WHERE {
+  ?item wdt:P279+ wd:Q386724 # types of works
+  { { ?item wdt:P2888 ?cslUri } UNION { ?item wdt:P1709 ?cslUri } }
+    FILTER (SUBSTR(STR(?cslUri),1,41) = "https://citationstyles.org/ontology/type/")
+    BIND (SUBSTR(STR(?cslUri),42) AS ?cslType) }
+}

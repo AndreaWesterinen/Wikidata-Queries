@@ -1,0 +1,8 @@
+# najdi tvary kde chybí IPA
+SELECT ?l ?form ?word WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?word .
+  ?language wdt:P218 'cs' .
+  FILTER NOT EXISTS {?form wdt:P898 ?o}
+}

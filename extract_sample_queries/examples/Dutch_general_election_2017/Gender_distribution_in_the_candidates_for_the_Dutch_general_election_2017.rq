@@ -1,5 +1,5 @@
-# ----
-#Kandidaten voor de Nederlandse tk verkiezingen van 2017
+#title: Gender distribution in the candidates for the Dutch general election 2017
+# Kandidaten voor de Nederlandse tk verkiezingen van 2017
 #defaultView:Dimensions
 SELECT ?positie_op_lijst ?genderLabel ?politieke_partijLabel WHERE {
   ?item p:P3602 ?node.

@@ -1,0 +1,14 @@
+SELECT ?Property_ ?Property_Label ?Property_Description ?min_quantity_ ?max_quantity_ ?min_date_ ?max_date_ ?constraint_status_ ?constraint_status_Label
+WHERE {
+  
+	?Property_ p:P2302 ?statement .
+	?statement ps:P2302 wd:Q21510860 .
+	OPTIONAL {?statement pq:P2313 ?min_quantity_ .}
+	OPTIONAL {?statement pq:P2312 ?max_quantity_ .}
+	OPTIONAL {?statement pq:P2310 ?min_date_ .}
+	OPTIONAL {?statement pq:P2311 ?max_date_ .}
+	OPTIONAL {?statement pq:P2316 ?constraint_status_ .}
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 

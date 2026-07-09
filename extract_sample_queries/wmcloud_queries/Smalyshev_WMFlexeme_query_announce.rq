@@ -1,0 +1,11 @@
+SELECT DISTINCT ?l ?word ?len WHERE {
+ {
+   ?l a ontolex:LexicalEntry ; dct:language wd:Q1860 ; wikibase:lemma ?word
+   BIND(strlen(?word) as ?len)  
+  } UNION {
+   ?l a ontolex:LexicalEntry ; dct:language wd:Q1860 ; ontolex:lexicalForm/ontolex:representation ?word
+   BIND(strlen(?word) as ?len)  
+  }
+} 
+order by DESC(?len) 
+LIMIT 20

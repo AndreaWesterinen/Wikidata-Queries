@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?value ?precision ?tpLabel ?model ?modelLabel
+{
+    {  SELECT *
+       WHERE
+       {
+           ?item p:P7589/psv:P7589 [ wikibase:timeValue ?value ; wikibase:timePrecision ?precision ; wikibase:timeCalendarModel ?model ]
+       }
+       LIMIT 200
+    }
+
+    # for labels
+    ?tp wdt:P2803 ?pr . FILTER( str(?pr) = str(?precision) )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

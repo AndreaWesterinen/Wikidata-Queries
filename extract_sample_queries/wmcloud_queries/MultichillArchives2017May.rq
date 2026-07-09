@@ -1,0 +1,7 @@
+SELECT DISTINCT ?series ?seriesLabel  ((?anzahl-COUNT(?episode)) AS ?count) WHERE {
+  ?episode wdt:P31 wd:Q21191270 .
+  ?episode wdt:P345 ?imdb .
+  ?episode wdt:P179 ?series .
+  ?series wdt:P1113 ?anzahl
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} GROUP BY ?series ?seriesLabel ?anzahl ORDER BY DESC(?count)

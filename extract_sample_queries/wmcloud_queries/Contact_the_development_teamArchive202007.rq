@@ -1,0 +1,1 @@
+SELECT * { ?a wikibase:identifiers ?ids } LIMIT 10

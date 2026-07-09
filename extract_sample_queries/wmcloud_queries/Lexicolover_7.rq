@@ -1,0 +1,8 @@
+SELECT ?word WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?word .
+  ?language wdt:P218 'cs' . 
+}
+GROUP BY ?word
+ORDER BY ASC(?word)

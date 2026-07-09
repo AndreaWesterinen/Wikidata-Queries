@@ -1,0 +1,58 @@
+SELECT  ?item ?itemLabel
+  (SAMPLE(?ms1_) AS ?ms1) (SAMPLE(?ms1_Label) AS ?ms1Label)
+  (SAMPLE(?ms2_) AS ?ms2) (SAMPLE(?ms2_Label) AS ?ms2Label)
+  (SAMPLE(?ms3_) AS ?ms3) (SAMPLE(?ms3_Label) AS ?ms3Label)
+  (SAMPLE(?ft_) AS ?ft) (SAMPLE(?ft_Label) AS ?ftLabel)
+WHERE 
+{
+  OPTIONAL {
+    {
+      SELECT ?item ?ms (COUNT(?lt) AS ?number)
+      WHERE
+      {
+       values ?thing {
+         wd:Q4677783   # Act of Parliament of the United Kingdom
+         wd:Q105774620 # Public Act of Parliament of the United Kingdom
+         wd:Q100165600 # Local Act of Parliament of the United Kingdom 
+
+         wd:Q18009431  # Act of the Parliament of Great Britain
+         wd:Q18009569  # act of the Parliament of Scotland
+         wd:Q18009587  # act of the Parliament of England 
+         wd:Q18009650  # Act of the Parliament of Ireland 
+
+         wd:Q18009506  # Act of the Scottish Parliament
+         wd:Q4676706   # Act of the National Assembly for Wales
+         wd:Q100271152 # Act of the Northern Ireland Assembly
+         wd:Q100324105 # Act of the Northern Ireland Parliament 
+
+         wd:Q7604686   # UKSI
+         wd:Q7437991   # SSI
+         wd:Q7604693   # NISR Statutory Rules of NI 
+         wd:Q7604692   # Statutory Rules and Orders
+         wd:Q6804197   # Measure of the National Assembly for Wales
+       }
+       ?item wdt:P31 ?thing.
+        OPTIONAL
+        {
+          ?item wdt:P921 ?ms .
+          ?item wdt:P921 ?lt .
+          FILTER (STR(?lt) <= STR(?ms))
+        }
+      }
+      GROUP by ?item ?ms
+    }
+  }
+  optional { ?item wdt:P457 ?ft_ . }
+  BIND (IF (?number = 1, ?ms, ?unbound) AS ?ms1_)
+  BIND (IF (?number = 2, ?ms, ?unbound) AS ?ms2_)
+  BIND (IF (?number = 3, ?ms, ?unbound) AS ?ms3_)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?itemLabel .
+    ?ms1_ rdfs:label ?ms1_Label .
+    ?ms2_ rdfs:label ?ms2_Label .
+    ?ms3_ rdfs:label ?ms3_Label .
+    ?ft_ rdfs:label ?ft_Label .
+  }
+}
+GROUP BY ?item ?itemLabel ?ft_ ?ft_Label

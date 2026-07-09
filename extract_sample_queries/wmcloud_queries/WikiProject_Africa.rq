@@ -1,0 +1,6 @@
+SELECT * WHERE {
+#  ?publication wdt:P31 wd:Q13442814 . 
+  ?publication wdt:P921 wd:Q38157 .
+  ?publication wdt:P1476 ?title .
+  
+}

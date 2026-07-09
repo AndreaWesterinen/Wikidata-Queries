@@ -1,0 +1,10 @@
+#Katzen
+SELECT ?item ?itemLabel ?hov
+WHERE 
+{
+  ?item wdt:P281 "01561".
+  optional {
+    ?item wdt:P7046 ?hov.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

@@ -1,0 +1,14 @@
+SELECT DISTINCT ?districtALabel ?districtBLabel WHERE {
+  ?districtA wdt:P31 wd:Q261023;
+             wdt:P1545 ?districtANr.
+  ?districtB wdt:P31 wd:Q261023;
+             wdt:P1545 ?districtBNr.
+  ?districtA wdt:P47 ?districtB.
+  FILTER NOT EXISTS {
+    ?line wdt:P361 wd:Q129612; 
+          wdt:P131 ?districtA, ?districtB.
+  }
+  FILTER (?districtANr < ?districtBNr)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+ORDER BY xsd:integer(?districtANr) xsd:integer(?districtBNr)

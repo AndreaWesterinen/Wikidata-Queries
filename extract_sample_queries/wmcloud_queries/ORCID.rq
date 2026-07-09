@@ -1,0 +1,9 @@
+#ORCID member organisations
+
+SELECT DISTINCT ?item ?itemLabel
+WHERE
+{
+  ?item wdt:P463 wd:Q19861084 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} 
+ORDER BY ?itemLabel

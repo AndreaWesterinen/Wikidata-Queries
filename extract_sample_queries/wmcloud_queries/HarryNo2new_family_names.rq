@@ -1,0 +1,1 @@
+SELECT ?item ?l1 (BOUND(?l5) as ?hasen) ?st ?ls ?sl (REGEX(str(?l1),".* .*") as ?space) (REGEX(str(?l1),"([Dd][aeiu]

@@ -1,0 +1,11 @@
+#title: frequent pattern without item
+# Complex constraint from [[Property talk:P1030]]
+# create an item for the light characteristic. Ensure patterns are normalized before creating items for them. "W" might be missing.
+SELECT (SAMPLE(?item) as ?item) ?value (COUNT(DISTINCT ?item) as ?count) 
+WHERE
+{ ?item wdt:P1030 ?value . 
+  MINUS { ?pattern wdt:P1030 ?value ; wdt:P31 wd:Q1738955 } . FILTER(!REGEX(?value, "FI"))   
+} 
+GROUP BY ?value
+ORDER BY DESC(?count)
+LIMIT 20

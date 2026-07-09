@@ -1,0 +1,6 @@
+embed.html##defaultView:Map
+SELECT ?person ?personLabel ?place ?placeLabel ?coord WHERE {
+  ?person wdt:P119 ?place .
+  ?place wdt:P131+ wd:Q1741 ; wdt:P625 ?coord .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

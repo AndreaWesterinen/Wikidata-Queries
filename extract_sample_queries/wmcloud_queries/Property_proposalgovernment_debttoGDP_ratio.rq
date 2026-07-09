@@ -1,0 +1,9 @@
+#Cats
+SELECT ?item ?itemLabel ?gdp ?debt
+WHERE 
+{
+  ?item wdt:P2131 ?gdp;
+        wdt:P2133 ?debt.
+        
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,27 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak {
+			{
+				?item p:Property proposal/Archive/31/ps:Property proposal/Archive/31 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:Property proposal/Archive/31 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:Property proposal/Archive/31 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS {
+				?value p:P361/ps:P361 wd:Q302556 .
+			} .
+			OPTIONAL {
+				?value p:P361/ps:P361 ?target .
+			} .
+		} LIMIT 500
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}

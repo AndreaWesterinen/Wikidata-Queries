@@ -1,0 +1,18 @@
+SELECT ?country ?countryLabel ?item ?itemLabel 
+WHERE
+{
+  # Current members of the United Nations
+  ?country p:P463 ?mst .
+  ?mst ps:P463 wd:Q1065 .
+  FILTER NOT EXISTS { ?mst pq:P582 [] } 
+
+  ?country wdt:P194 ?legislature .
+  OPTIONAL { 
+    ?legislature wdt:P527 ?house .
+    ?house p:P31/ps:P31/wdt:P279* wd:Q10553309 .
+  }
+  
+  BIND( IF(BOUND(?house), ?house, ?legislature) AS ?item) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?countryLabel ?itemLabel

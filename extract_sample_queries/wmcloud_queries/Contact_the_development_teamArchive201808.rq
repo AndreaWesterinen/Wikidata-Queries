@@ -1,0 +1,10 @@
+embed.html#SELECT DISTINCT ?item ?dn ?m 
+
+WHERE {
+  ?item wdt:P25 ?m.
+  ?item wdt:P31 wd:Q5.
+  ?m wdt:P31 wd:Q5.
+  OPTIONAL {?item wdt:P569 ?dn}
+  FILTER(NOT EXISTS { ?m wdt:P21 wd:Q6581072.}) 
+}
+ORDER BY ?dn

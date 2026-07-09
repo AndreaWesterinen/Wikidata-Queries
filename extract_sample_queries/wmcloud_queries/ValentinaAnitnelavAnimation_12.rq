@@ -1,0 +1,33 @@
+#Disney supervising animator by their number of film credits as supervising animator
+SELECT ?animatorLabel ?sitelink (group_concat(DISTINCT ?label;separator=", ") as ?film) (COUNT(DISTINCT ?film) AS ?number)  
+WHERE
+{
+  #getting the films
+ ?film wdt:P179 wd:Q56070713;
+       wdt:P136 wd:Q28968511;
+       rdfs:label ?label;
+       wdt:P527* ?film1.
+  
+ ?film1  p:P3092 ?st.
+  
+  #getting the animators
+  ?st ps:P3092 ?animator;
+      (pq:P794 | pq:P3831) wd:Q28007056;
+      prov:wasDerivedFrom ?ref.                                                                             
+  
+  #making sure they are credited
+  {?ref pr:P248/wdt:P361* ?film}
+  
+  #getting the sitelinks
+  OPTIONAL
+  {
+    ?sitelink schema:about ?animator;
+              schema:isPartOf <https://en.wikipedia.org/> ;
+              schema:inLanguage "en".
+  } 
+  
+  FILTER (lang(?label) = "en")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?animatorLabel ?sitelink
+ORDER BY DESC(?number)

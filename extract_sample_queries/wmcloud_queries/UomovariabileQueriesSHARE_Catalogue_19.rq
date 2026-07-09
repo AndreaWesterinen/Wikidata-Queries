@@ -1,0 +1,4 @@
+SELECT ?q ?qLabel 
+{ ?q wdt:P3987 [] MINUS { ?q wdt:P213 [] } 
+                   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
+LIMIT 100

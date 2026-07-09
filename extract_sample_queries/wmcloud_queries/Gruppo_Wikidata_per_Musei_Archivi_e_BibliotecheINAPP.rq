@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(DISTINCT(?v)) AS ?count)
+WHERE {
+  ?item wdt:P2378 wd:Q108366664 . 
+  ?item wikibase:directClaim ?itemst .
+  ?v ?itemst ?value .
+}
+GROUP BY ?item ?count

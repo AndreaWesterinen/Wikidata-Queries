@@ -1,0 +1,8 @@
+SELECT ?item ?rank
+WHERE
+{
+     ?item p:P6379 [ps:P6379 ?collection;
+                   wikibase:rank wikibase:PreferredRank;
+                  ].
+#     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?name ?st ?sl
+WHERE
+{
+    ?item wdt:P31 wd:Q21160573 . 
+    OPTIONAL { ?item wdt:P2561 ?n . BIND(str(?n) as ?name) }
+    ?item wikibase:statements ?st ; wikibase:sitelinks ?sl 
+}
+ORDER BY ?name

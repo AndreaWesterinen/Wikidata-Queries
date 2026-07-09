@@ -1,0 +1,12 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?qid WHERE {
+   ?item wdt:P31 wd:Q5 . 
+          OPTIONAL {?item wdt:P735 ?givenname} .
+          FILTER (!bound(?givenname)) .  
+   BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid)
+   FILTER (?qid > 21000000)
+} ORDER BY DESC(?qid) LIMIT 100

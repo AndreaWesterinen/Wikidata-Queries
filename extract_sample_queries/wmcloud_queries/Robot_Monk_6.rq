@@ -1,0 +1,6 @@
+SELECT ?item1 ?item1Label WHERE {
+ ?item1 wdt:P460 ?item2.
+  FILTER (?item1 = ?item2)
+ 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

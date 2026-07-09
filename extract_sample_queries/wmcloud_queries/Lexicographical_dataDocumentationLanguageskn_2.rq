@@ -1,0 +1,8 @@
+SELECT ?category ?categoryLabel (count(?category) as ?countKannada) WHERE {
+  ?lexeme dct:language wd:Q33673; 
+          wikibase:lexicalCategory ?category;
+          wikibase:lemma [].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],kn". }
+}
+GROUP BY ?category ?categoryLabel
+ORDER BY ?countKannada

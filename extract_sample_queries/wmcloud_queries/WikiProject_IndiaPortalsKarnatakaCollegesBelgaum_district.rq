@@ -1,0 +1,5 @@
+SELECT ?item ?ilkn WHERE {
+  ?item wdt:P31 wd:Q189004.
+  ?item wdt:P131 wd:Q815464.
+  OPTIONAL { ?item rdfs:label ?ilkn. FILTER(LANG(?ilkn)="kn") }
+}

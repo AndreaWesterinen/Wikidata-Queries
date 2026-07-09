@@ -1,0 +1,23 @@
+SELECT DISTINCT ?categoryItem ?commonsCategory #?articleItemLabel ?categoryItemLabel 
+WHERE {
+    # ?article and ?category share the same P373 ("Commons Category")
+	?articleItem  wdt:P373 ?commonsCategory .
+	?categoryItem wdt:P373 ?commonsCategory .
+    #FILTER(?categoryItem != ?articleItem) 
+
+    # ?article is an "article"  and ?category is an "category" item
+	?category wdt:P31 wd:Q4167836 .
+  	MINUS {?articleItem wdt:P31 wd:Q4167836 } .
+  
+    # P301 and P910 are set properly
+    ?articleItem  wdt:P910 ?categoryItem .
+    ?categoryItem wdt:P301 ?articleItem  .
+  
+    # sitelink to Commons points to the same category as property P373
+    ?commonsSitelink schema:about ?categoryItem .
+    BIND (REPLACE(REPLACE(REPLACE(SUBSTR(str(?commonsSitelink),47,200), "%20", " ", "i"), "%28", "(", "i"), "%29", ")", "i") AS ?commonslink) 
+    FILTER(STRSTARTS(str(?commonsSitelink), "https://commons.wikimedia.org/wiki/Category"))
+    FILTER(?commonslink = ?commonsCategory)
+  
+    #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} LIMIT 5

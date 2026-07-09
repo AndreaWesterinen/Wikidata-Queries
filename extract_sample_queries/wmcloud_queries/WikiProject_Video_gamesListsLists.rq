@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?shortprop ?listqualifier WHERE {
+  VALUES ?subject {
+    BJ:Q7889
+  }
+  ?item wdt:P31 wd:Q13406463;
+     BJ:P360 ?subject.
+  OPTIONAL {
+    ?item p:P360 ?liststatement.
+    ?liststatement rdf:type wikibase:BestRank;
+      ?qualifier ?listqualifier.
+    ?qualifierproperty wikibase:qualifier ?qualifier.
+    BIND(xsd:integer(REPLACE(STR(?qualifierproperty), "http://www.wikidata.org/entity/P", "")) AS ?propid)
+    BIND(CONCAT("{", "{P|", STR(?propid), "}", "}") AS ?shortprop ) .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

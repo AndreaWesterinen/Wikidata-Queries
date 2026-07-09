@@ -1,0 +1,5 @@
+SELECT ?Mineral ?MineralLabel ?benannt_nach ?benannt_nachLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Mineral wdt:P31 wd:Q7946.
+  ?Mineral wdt:P138 ?benannt_nach.
+}

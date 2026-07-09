@@ -1,0 +1,2 @@
+#defaultView:Map
+select * { ?s wdt:P39 wd:Q13217683 ; wdt:P19/wdt:P625 ?l . OPTIONAL {?s wdt:P570 ?d} FILTER (!BOUND(?d)) }

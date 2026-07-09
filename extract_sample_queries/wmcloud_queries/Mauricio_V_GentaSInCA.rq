@@ -1,0 +1,11 @@
+SELECT ?lugar ?lugarLabel ?sinca ?coordenadas ?situado_en_la_entidad_territorial_administrativa ?situado_en_la_entidad_territorial_administrativaLabel ?instancia_de ?instancia_deLabel ?imagen WHERE {
+  ?lugar wdt:P17 wd:Q414;
+    p:P528 _:b19.
+  _:b19 ps:P528 ?sinca;
+    pq:P972 wd:Q6129743.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  OPTIONAL { ?lugar wdt:P625 ?coordenadas. }
+  OPTIONAL { ?lugar wdt:P131 ?situado_en_la_entidad_territorial_administrativa. }
+  OPTIONAL { ?lugar wdt:P31 ?instancia_de. }
+  OPTIONAL { ?lugar wdt:P18 ?imagen. }
+}

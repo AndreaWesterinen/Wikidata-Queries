@@ -1,0 +1,4 @@
+SELECT *
+{
+  	<https://vec.wikipedia.org/wiki/A> schema:isPartOf ?siteurl
+}

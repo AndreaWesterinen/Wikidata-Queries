@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?nli WHERE {
+  ?item p:P244 [ ps:P244 ?nli ].
+  MINUS {
+    ?item p:P8189 ?j9u.
+  }
+}

@@ -1,0 +1,28 @@
+SELECT DISTINCT 
+    ?item ?itemLabel 
+    ?whatever ?whateverLabel 
+    # ?nationalteam ?nationalteamLabel
+{
+    ?item wdt:P31 wd:Q6979593 .
+    ?item wdt:P2094 ?whatever . 
+    FILTER (?whatever != wd:Q35554451 )  
+    FILTER (?whatever != wd:Q606060 ) 
+    FILTER (?whatever != wd:Q44418853 )  
+    FILTER (?whatever != wd:Q44418672 ) 
+    FILTER (?whatever != wd:Q44418451 )  
+    FILTER (?whatever != wd:Q44418152 )
+    FILTER (?whatever != wd:Q44408003 )  
+    FILTER (?whatever != wd:Q44417973 ) 
+    FILTER (?whatever != wd:Q44417630 )  
+    FILTER (?whatever != wd:Q44417376 ) 
+    FILTER (?whatever != wd:Q44419278 )  
+    FILTER (?whatever != wd:Q44419274 ) 
+    FILTER (?whatever != wd:Q44419268 )  
+    FILTER (?whatever != wd:Q44419261 )
+    FILTER (?whatever != wd:Q44408576 )  
+    FILTER (?whatever != wd:Q44418568 ) 
+    FILTER (?whatever != wd:Q44419248 )  
+    FILTER (?whatever != wd:Q44419241 ) 
+    # FILTER ( ?whatever = ?nationalteam )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

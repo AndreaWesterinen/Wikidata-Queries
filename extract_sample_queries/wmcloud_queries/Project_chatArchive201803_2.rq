@@ -1,0 +1,9 @@
+SELECT ?item ?delabel ?nr WHERE {
+  ?item wdt:P31 wd:Q3464665 .
+  ?item p:P179 ?series_statement.
+  ?series_statement ps:P179 ?series.
+  ?series_statement pq:P1545 ?nr.
+  ?series rdfs:label ?delabel . FILTER(lang(?delabel) = "de")
+  MINUS { ?item schema:description ?d FILTER (LANG (?d) = "de") .}
+  
+}

@@ -1,3 +1,4 @@
+#title: List of digital libraries in the world
 SELECT DISTINCT ?item ?itemLabel ?website
 WHERE {
 ?item wdt:P31/wdt:P279* wd:Q212805 # digital libraries or subtypes

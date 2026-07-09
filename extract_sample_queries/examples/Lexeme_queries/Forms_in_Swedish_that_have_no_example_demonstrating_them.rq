@@ -1,5 +1,4 @@
-# ----
-#title:Forms in Swedish that have no example demonstrating them
+#title: Forms in Swedish that have no example demonstrating them
 # 2021-08-06
 SELECT ?form ?lemma
 WHERE {

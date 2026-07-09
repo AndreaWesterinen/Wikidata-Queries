@@ -1,0 +1,5 @@
+#defaultView:LineChart
+SELECT ?year (COUNT(*) AS ?count) {
+  wdt:P619 ?date .
+  BIND( STR( YEAR( ?date ) ) AS ?year ) .
+} GROUP BY ?year

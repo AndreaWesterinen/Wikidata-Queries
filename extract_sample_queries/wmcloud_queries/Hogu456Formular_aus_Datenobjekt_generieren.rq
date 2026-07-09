@@ -1,0 +1,23 @@
+# Query to help selectively dump statements from a source item to be used for a destination item (or new item)
+# 
+SELECT ?targetsubject ?predicate ?predicateLabel ?object ?objectLabel 
+WHERE 
+{
+  # CHOOSE ONE of the destinations below, but not both
+  # SET THIS TO a specific Wikidata item
+  # BIND (wd:Q111 AS ?targetsubject)   # qid of the item you want to affect
+  # Copying to a new item? Use "LAST"
+  BIND ("LAST" AS ?targetsubject)  # Use this if generating QS for a new item
+
+  # SET THIS TO be the source Q item/subject
+  BIND (wd:Q2664039 AS ?subject)  # qid of source item to copy from 
+
+  # SET THIS TO list of properties you are interested in copying
+  VALUES ?predicate { 
+    wdt:P180 wdt:P31 wdt:P195 wdt:P495 
+  }
+
+  # Dump the statements you want to copy
+  ?subject ?predicate ?object .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P17 wd:Q30.
+  ?item rdfs:label ?itemLabel.
+  FILTER((LANG(?itemLabel)) = 

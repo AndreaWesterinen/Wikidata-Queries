@@ -1,0 +1,9 @@
+#title: Full check prefix
+# Complex constraint from [[Property talk:P1320]]
+#
+SELECT ?item ?value ?uPrefix {
+	?item wdt:P1320 ?value.
+	BIND (REPLACE(UCASE (STRBEFORE(?value, "/")), "_", "-") AS ?uPrefix)
+    MINUS { ?country wdt:P297 ?uPrefix }  
+    MINUS { ?country wdt:P300 ?uPrefix }
+}

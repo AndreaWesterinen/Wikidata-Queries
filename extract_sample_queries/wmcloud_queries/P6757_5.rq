@@ -1,0 +1,12 @@
+#by Jura1, 2015-01-25
+#scales: <1=<1, 1=1-9, 2=10-99, 3=100-999, etc.
+
+SELECT ?scale (COUNT(?quantityvalue) AS ?count)
+{
+  ?item wdt:P6757 ?quantityvalue .
+    BIND(strlen(STR(ROUND(?quantityvalue))) as ?length)
+    BIND(IF(?quantityvalue<1,"<1",?length)   as ?scale)
+}
+GROUP BY ?scale
+ORDER BY ?scale
+LIMIT 100

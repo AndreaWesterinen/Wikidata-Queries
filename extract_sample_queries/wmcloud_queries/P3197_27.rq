@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P3197]]
+# Items that do have [[d:Q14451490|recognized federal heritage building of Canada <small>(Q14451490)</small>]] or [[d:Q14480054|classified federal heritage building of Canada <small>(Q14480054)</small>]] in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P3197|Federal Heritage Buildings ID (Canada)&#32;<small dir="ltr">(P3197)</small>]]
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q14451490 wd:Q14480054 } . ?item wdt:P1435 ?value . MINUS { ?item wdt:P3197 [] } }

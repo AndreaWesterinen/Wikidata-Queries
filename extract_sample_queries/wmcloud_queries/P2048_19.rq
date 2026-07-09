@@ -1,0 +1,12 @@
+#title: Check units
+# Complex constraint from [[Property talk:P2048]]
+#
+SELECT ?item ?unit
+WHERE {
+  ?item p:P2048/psv:P2048/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P31 wd:Q1978718.
+  }.
+  FILTER (?unit NOT IN (wd:Q468402, wd:Q355198, wd:Q28171715)).
+  FILTER (?item NOT IN (wd:Q55402287, wd:Q191794)).
+}

@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?url
+WHERE
+{
+    ?item wdt:P31 wd:Q5 . #human
+	?item wdt:P21 wd:Q6581072 . #gender female
+    {?url wikibase:badge wd:Q17437796} #with badge featured
+    UNION #or
+    {?url wikibase:badge wd:Q17437798} #with badge quality
+    ?url schema:about ?item .
+    FILTER regex(str(?url), "en.wikipedia.org") #in this project
+	FILTER(?item NOT IN (wd:Q15397819, wd:Q13406268, wd:Q4115189) ) .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . } #show label in this language
+}

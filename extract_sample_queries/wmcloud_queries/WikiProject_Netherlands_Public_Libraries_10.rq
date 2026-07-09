@@ -1,0 +1,18 @@
+#Number of public library organisations in Dutch provinces
+SELECT 
+?province ?provinceLabel ?item ?itemLabel 
+#(COUNT(?municipality) AS ?AantalOBVestigingen)  
+#(GROUP_CONCAT(DISTINCT ?itemLabel ; separator = " --- ") as ?OBVestigingen)
+
+WHERE { #?itemLabel
+  ?item wdt:P31 wd:Q28564. #public library
+  ?item wdt:P31 wd:Q28324850. #library system 
+  ?item wdt:P17 wd:Q55. #from the Netherlands
+  ?item wdt:P159 ?headquarters. #headquarter location
+  ?headquarters wdt:P131 ?municipality.
+  ?municipality wdt:P131 ?province.
+  #FILTER( ?instanceOf IN(wd:Q2039348)). #filter only the value "municipality of the Netherlands" Q2039348
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" .
+                         }
+}
+#GROUP BY ?municipality ?municipalityLabel

@@ -1,0 +1,9 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel ?wpt 
+WHERE
+{
+    ?item wdt:P1433 wd:Q665807 .  ?item wdt:P31 wd:Q19389637 .  
+    # wdt:P31 wd:Q13433827
+    [] schema:about ?item ; schema:isPartOf <https://de.wikisource.org/> ; schema:name ?wpt  
+    FILTER ( REGEX(?wpt, "Genealogie") || REGEX(?wpt, "Wappen")  || REGEX(?wpt, "Familie")  )                     
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de" }
+}

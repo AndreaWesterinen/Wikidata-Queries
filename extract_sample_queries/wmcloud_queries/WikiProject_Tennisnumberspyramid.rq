@@ -1,0 +1,11 @@
+SELECT 
+   (wd:Q847 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   (wd:Q47345468 as ?type)
+("1 B" as ?level)
+("tournament edition AKA competition edition  AKA tournament" as ?descr)
+WHERE
+{ 
+   { ?a wdt:P31/wdt:P279 wd:Q13219666 } UNION { ?a wdt:P31 wd:Q47345468 }
+}

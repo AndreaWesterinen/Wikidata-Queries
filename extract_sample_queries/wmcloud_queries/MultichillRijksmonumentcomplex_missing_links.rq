@@ -1,0 +1,34 @@
+SELECT ?item ?complex ?complexid ?rijksmonument ?rijksmonumentid  
+  WITH {
+    SELECT ?complexid ?rijksmonumentid WHERE {
+      # Federation work around
+      #SERVICE <https://data.pdok.nl/sparql> {
+        SERVICE <https://linkeddata.cultureelerfgoed.nl/sparql> {
+          SELECT (STR(?complexidint) AS ?complexid) (STR(?rijksmonumentidint) AS ?rijksmonumentid) WHERE {
+  ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://linkeddata.cultureelerfgoed.nl/def/ceo#Complex> .
+  ?uri <https://linkeddata.cultureelerfgoed.nl/def/ceo#complexnummer> ?complexidint .
+  ?uri <https://linkeddata.cultureelerfgoed.nl/def/ceo#heeftRijksmonument> ?rm . 
+  ?rm <https://linkeddata.cultureelerfgoed.nl/def/ceo#isOnderdeelVanComplex> ?uri .
+  ?rm <https://linkeddata.cultureelerfgoed.nl/def/ceo#rijksmonumentnummer> ?rijksmonumentidint . 
+  } ORDER BY ?complexid
+        }
+      #}
+    }
+    
+  } AS %rce
+WITH {
+    SELECT ?complexid ?rijksmonumentid WHERE {
+  ?complex wdt:P7135 ?complexid .
+  ?complex wdt:P527 ?rijksmonument .
+  ?rijksmonument wdt:P361 ?complex .
+  ?rijksmonument wdt:P359 ?rijksmonumentid .
+  } ORDER BY ?complexid
+  } AS %wikidata  
+  
+WHERE {
+  INCLUDE %rce 
+  MINUS { INCLUDE %wikidata } .
+  BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(xsd:integer(?rijksmonumentid) + 1000000000))) AS ?item ) .
+  OPTIONAL { ?complex wdt:P7135 ?complexid } .
+  OPTIONAL { ?rijksmonument wdt:P359 ?rijksmonumentid . } .
+}

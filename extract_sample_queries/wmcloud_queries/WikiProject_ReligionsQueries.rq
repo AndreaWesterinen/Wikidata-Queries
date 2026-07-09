@@ -1,0 +1,8 @@
+sparql?query=#Jainism sub-traditions
+#defaultView:Graph
+SELECT ?item ?itemLabel ?_subclass_of ?_subclass_ofLabel WHERE {
+  ?item wdt:P279+ wd:Q9232.
+  ?item wdt:P279 ?_subclass_of.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

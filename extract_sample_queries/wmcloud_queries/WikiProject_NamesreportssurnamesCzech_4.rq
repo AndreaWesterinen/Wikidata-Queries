@@ -1,0 +1,18 @@
+SELECT (wd:Q5 as ?item) (GROUP_CONCAT(?t; separator=", ") as ?names)  (GROUP_CONCAT(?t2; separator=", ") as ?names2)
+{
+SELECT ?gn ?nl ?cs ?en
+  (CONCAT( "[[", strafter(str(sample(?p)),"y/") , "|", ?nl , "]]") as ?t)
+  (CONCAT( "[[", strafter(str(sample(?p)),"y/") , "|", ?en , "]]") as ?t2)
+  (COUNT(DISTINCT ?p) as ?count)
+{
+    ?gn wdt:P407 wd:Q9056 ;
+          wdt:P31 wd:Q18972245;
+          wdt:P1705 ?nl . 
+    ?p wdt:P734 ?gn .
+    OPTIONAL { ?gn rdfs:label ?en . FILTER(lang(?en)= "en" ) }
+    OPTIONAL { ?gn rdfs:label ?cs . FILTER(lang(?cs)= "cs" ) }
+}
+GROUP BY ?gn ?nl ?cs ?en
+HAVING ( ?count < 25 )
+ORDER BY DESC(str(?nl))
+}

@@ -1,0 +1,10 @@
+#Find common strings for authors of scientific articles
+SELECT * WHERE {
+  {
+    SELECT ?authorstring (COUNT(?paper) AS ?count) (GROUP_CONCAT(?paper; SEPARATOR = " , ") AS ?items) WHERE { { ?paper wdt:P2093 ?authorstring . }}
+    GROUP BY ?authorstring
+  }
+  FILTER(CONTAINS(LCASE(?authorstring), "george davey smith"))
+
+#   FILTER(?count > 10)
+}

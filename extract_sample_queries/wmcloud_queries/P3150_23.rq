@@ -1,0 +1,14 @@
+#title: P569 with dateprecision 11
+# Complex constraint from [[Property talk:P3150]]
+# Items with this property generally wouldn't have P569 with full precision date
+SELECT ?item ?birthday ?date
+{
+	?item wdt:P3150 ?birthday .
+  	?item p:P569 ?d . 
+	?d psv:P569 ?datevalue .
+	?datevalue wikibase:timeValue ?date .
+	?datevalue wikibase:timePrecision 11 . 		
+	?d wikibase:rank ?rank .FILTER(?rank != wikibase:DeprecatedRank)
+  	FILTER ( ?item not in ( wd:Q4115189,wd:Q13406268,wd:Q15397819 ) )
+}
+LIMIT 500

@@ -1,0 +1,4 @@
+SELECT ?item ?member WHERE {
+  ?item wdt:P31 wd:Q4502119.
+  OPTIONAL { ?member wdt:P463 ?item. }
+}

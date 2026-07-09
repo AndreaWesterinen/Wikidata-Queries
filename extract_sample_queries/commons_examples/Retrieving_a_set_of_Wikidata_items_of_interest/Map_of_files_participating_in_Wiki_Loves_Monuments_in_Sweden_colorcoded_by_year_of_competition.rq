@@ -1,0 +1,42 @@
+# Map of files participating in Wiki Loves Monuments in Sweden, color-coded by year of competition
+#defaultView:Map
+select ?image ?wlm ?wlmLabel ?username ?coords ?thumb ?layer 
+
+with {
+  select * {
+    service <https://query.wikidata.org/sparql> {
+      ?wlm wdt:P179 wd:Q105194463.
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". 
+                               ?wlm rdfs:label ?wlmLabel.
+                             }      
+    }
+  } 
+} as %items 
+
+where {
+  include %items. 
+  ?image wdt:P1344 ?wlm.
+  OPTIONAL {?image wdt:P1259 ?coords}
+  OPTIONAL {?image (p:P170/pq:P4174) ?username.}
+
+  ?image schema:contentUrl ?url;
+         schema:url ?thumb. 
+  
+     BIND(
+          IF(?wlm = wd:Q105201214, "2011",
+          IF(?wlm = wd:Q105201215, "2012",
+          IF(?wlm = wd:Q105201216, "2013",
+          IF(?wlm = wd:Q105201217, "2014",
+          IF(?wlm = wd:Q105201218, "2015",
+          IF(?wlm = wd:Q105201219, "2016",
+          IF(?wlm = wd:Q105201220, "2017",
+          IF(?wlm = wd:Q105201221, "2018",
+          IF(?wlm = wd:Q105201222, "2019",
+          IF(?wlm = wd:Q105201223, "2020",
+          IF(?wlm = wd:Q107225499, "2021",
+          IF(?wlm = wd:Q111360858, "2022",
+          IF(?wlm = wd:Q117023903, "2023",
+          IF(?wlm = wd:Q129989463, "2024",
+          IF(?wlm = wd:Q135732957, "2025",
+          ""))))))))))))))) AS ?layer).
+}

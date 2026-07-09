@@ -1,0 +1,6 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?image {
+  ?item wdt:P31 wd:Q503186 .
+  ?item wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja" }
+}

@@ -1,0 +1,5 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord WHERE {
+  ?item wdt:P195 wd:Q1376 ; wdt:P189/wdt:P625 ?coord .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

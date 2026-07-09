@@ -1,0 +1,35 @@
+SELECT ?item ?itemLabel ?population ?coords WHERE {
+  ?item wdt:P31 wd:Q484170 .
+  ?item rdfs:label ?itemLabel .
+  FILTER (lang(?itemLabel) = "fr") .
+  #FILTER regex (?itemLabel, "^[AÁÀÂËÆ].*$").
+  #FILTER regex (?itemLabel, "^B.*$").
+  #FILTER regex (?itemLabel, "^C.*$").
+  #FILTER regex (?itemLabel, "^D.*$").
+  #FILTER regex (?itemLabel, "^[EÉÈÊË].*$").
+  FILTER regex (?itemLabel, "^F.*$").
+  #FILTER regex (?itemLabel, "^G.*$").
+  #FILTER regex (?itemLabel, "^H.*$").
+  #FILTER regex (?itemLabel, "^[IÍÌÎÏ].*$").
+  #FILTER regex (?itemLabel, "^J.*$").
+  #FILTER regex (?itemLabel, "^K.*$").
+  #FILTER regex (?itemLabel, "^L.*$").
+  #FILTER regex (?itemLabel, "^M.*$").
+  #FILTER regex (?itemLabel, "^N.*$").
+  #FILTER regex (?itemLabel, "^[OÓÒÔÖŒ].*$").
+  #FILTER regex (?itemLabel, "^P.*$").
+  #FILTER regex (?itemLabel, "^Q.*$").
+  #FILTER regex (?itemLabel, "^R.*$").
+  #FILTER regex (?itemLabel, "^S.*$").
+  #FILTER regex (?itemLabel, "^T.*$").
+  #FILTER regex (?itemLabel, "^[UÚÙÛÜ].*$").
+  #FILTER regex (?itemLabel, "^V.*$").
+  #FILTER regex (?itemLabel, "^W.*$").
+  #FILTER regex (?itemLabel, "^X.*$").
+  #FILTER regex (?itemLabel, "^[YÝỲŶŸ].*$").
+  #FILTER regex (?itemLabel, "^Z.*$").
+  ?item wdt:P1082 ?population .
+  ?item wdt:P625 ?coords .
+}
+ORDER BY DESC(?population)
+LIMIT 1

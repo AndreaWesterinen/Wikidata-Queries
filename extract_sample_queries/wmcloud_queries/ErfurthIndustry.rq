@@ -1,0 +1,9 @@
+#Dresdner Unternehmen mit Pressemappe
+SELECT DISTINCT ?item ?itemLabel ?presseMappenID
+WHERE 
+{
+  ?item wdt:P31 wd:Q4830453.
+  ?item wdt:P159 wd:Q1731.
+  ?item wdt:P4293 ?presseMappenID.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+}

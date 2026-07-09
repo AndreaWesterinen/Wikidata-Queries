@@ -1,0 +1,7 @@
+SELECT ?st
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?item wdt:P31 wd:Q21191270 ; wdt:P364 ?lang ; p:P407 ?st .
+    ?st ps:P407 ?lang .
+}

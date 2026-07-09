@@ -1,0 +1,32 @@
+SELECT ?item ?country WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P195 ?collection .
+  ?collection wdt:P17 ?country . # Only collections with countries, filters out the private collection
+  MINUS { ?collection wdt:P17 wd:Q38 } . # Italy
+  MINUS { ?collection wdt:P17 wd:Q20 } . # Norway
+  MINUS { ?collection wdt:P17 wd:Q29 } . # Spain
+  MINUS { ?collection wdt:P17 wd:Q30 } . # United States of America
+  MINUS { ?collection wdt:P17 wd:Q145 } . # United Kingdom
+  MINUS { ?collection wdt:P17 wd:Q183 } . # Germany
+  MINUS { ?collection wdt:P17 wd:Q142 } . # France
+  MINUS { ?collection wdt:P17 wd:Q159 } . # Russia
+  MINUS { ?collection wdt:P17 wd:Q36 } . # Poland
+  MINUS { ?collection wdt:P17 wd:Q39 } . # Switzerland
+  MINUS { ?collection wdt:P17 wd:Q40 } . # Austria
+  MINUS { ?collection wdt:P17 wd:Q155 } . # Brazil
+  MINUS { ?collection wdt:P17 wd:Q31 } . # Belgium
+  MINUS { ?collection wdt:P17 wd:Q55 } . # Netherlands
+  MINUS { ?collection wdt:P17 wd:Q16 } . # Canada
+  MINUS { ?collection wdt:P17 wd:Q96 } . # Mexio
+  MINUS { ?collection wdt:P17 wd:Q45 } . # Portugal
+  MINUS { ?collection wdt:P17 wd:Q33 } . # Finland
+  MINUS { ?collection wdt:P17 wd:Q399 } . # Armenia
+  MINUS { ?collection wdt:P17 wd:Q212 } . # Ukraine
+  MINUS { ?collection wdt:P17 wd:Q34 } . # Sweden
+  MINUS { ?collection wdt:P17 wd:Q17 } . # Japan
+  MINUS { ?collection wdt:P17 wd:Q237 } . # Vatican City
+  MINUS { ?collection wdt:P17 wd:Q28 } . # Hungary
+  MINUS { ?collection wdt:P17 wd:Q213 } . # Czech Republic
+  MINUS { ?collection wdt:P17 wd:Q35 } . # Denmark
+  MINUS { ?item wdt:P217 [] }
+  } LIMIT 2000

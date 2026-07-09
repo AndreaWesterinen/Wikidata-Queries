@@ -1,0 +1,13 @@
+SELECT ?occupation ?occupationLabel ?occupationSuperClass ?occupationSuperClassLabel WHERE {
+ 
+ ?occupation (wdt:P279) ?occupationSuperClass.
+ 
+ SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en".
+ }
+ Filter (?occupationSuperClass in (wd:Q189459
+,wd:Q1234713
+,wd:Q19829980
+,wd:Q16727193
+,wd:Q901))
+}

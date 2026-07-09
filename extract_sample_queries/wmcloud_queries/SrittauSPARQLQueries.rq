@@ -1,0 +1,19 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?airport ?icao ?airportLabel WHERE {
+    ?subdivision wdt:P279+ wd:Q387917 .   # all subdivision types of Germany
+    ?location wdt:P31 ?subdivision .      # all locations in Germany
+    ?airportType wdt:P279* wd:Q62447 .    # all types of aerodromes
+    ?airport wdt:P31 ?airportType .       # all aerodromes
+    ?airport wdt:P131 ?location .         # all aerodromes in Germany
+    OPTIONAL { ?airport wdt:P239 ?icao }
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "de" .
+    }
+ } ORDER BY ?airportLabel

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P18/ps:P18 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(((?i).+\\.(ogg|wav|oga|mid|flac|opus|mp3)))$") )
+}

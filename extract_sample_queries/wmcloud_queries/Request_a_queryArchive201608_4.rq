@@ -1,0 +1,21 @@
+SELECT ?item ?itemLabel ?gender ?genderLabel ?father ?fatherLabel
+		?mother ?motherLabel (GROUP_CONCAT(?childLabel; separator=", ") as ?children)
+where {
+  { ?item wdt:P31 ?instance .
+  	values ?instance { wd:Q22988604}
+  }
+  	UNION
+  { ?item wdt:P31 ?instance .
+   	?instance wdt:P279 wd:Q22988604 .
+  }
+  ?item wdt:P21 ?gender .
+  ?item wdt:P22 ?father .
+  ?item wdt:P25 ?mother .
+  ?item wdt:P40 ?child .
+  ?child rdfs:label ?childLabel FILTER(lang(?childLabel)="en")
+  
+      SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+  }
+GROUP BY ?item ?itemLabel ?gender ?genderLabel ?father ?fatherLabel ?mother ?motherLabel

@@ -1,0 +1,8 @@
+#title: Inconsistency between the identifier and the lemma
+# Complex constraint from [[Property talk:P7722]]
+# Identifier should be the same as the lemma of the lexeme.
+SELECT * WHERE {
+  ?l wdt:P7722 ?id ; wikibase:lemma ?lemma  .
+  FILTER ( LANG(?lemma) = "fr" )
+  FILTER ( STR(lcase(?lemma)) != lcase(IF(CONTAINS(?id,"/"), STRBEFORE(?id,"/"), ?id )) )
+}

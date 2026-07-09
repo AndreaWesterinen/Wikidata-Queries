@@ -1,0 +1,11 @@
+SELECT ?item ?article ?title ?image
+WHERE
+{
+  ?item wdt:P31 wd:Q16521 . # instance of taxon
+  ?item p:P225 ?taxon_name_stm .
+  ?taxon_name_stm pq:P574 "2021-01-01"^^xsd:dateTime .
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://de.wikipedia.org/> .
+  ?article schema:name ?title .
+  OPTIONAL { ?item wdt:P18 ?image . } 
+}

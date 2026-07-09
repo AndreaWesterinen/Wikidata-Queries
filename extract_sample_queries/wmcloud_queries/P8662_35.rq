@@ -1,0 +1,13 @@
+#title: Potential candidates for this property (cultivars without year)
+# Complex constraint from [[Property talk:P8662]]
+# add [[Property:P8662|Les Roses cultivées à L&#39;Haÿ en 1902 ID&#32;<small dir="ltr">(P8662)</small>]] or [[Property:P571|inception&#32;<small dir="ltr">(P571)</small>]]
+SELECT ?item
+WHERE
+{
+	?item wdt:P31 wd:Q26817508 .
+	MINUS { ?item p:P8662 [] }
+	MINUS { ?item p:P571 [] }
+	OPTIONAL { ?item wdt:P170 ?obt }
+}
+ORDER BY ?item
+LIMIT 200

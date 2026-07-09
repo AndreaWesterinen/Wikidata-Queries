@@ -1,0 +1,10 @@
+SELECT ?itemLabel ?jardueraLabel ?sexua_edo_generoaLabel ?jaiolekuaLabel ?jaiotza_data WHERE {
+  { ?item wdt:P19 wd:Q496567. }
+  UNION
+  { ?item wdt:P937 wd:Q496567. }
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL { ?item wdt:P106 ?jarduera. }
+  OPTIONAL { ?item wdt:P21 ?sexua_edo_generoa. }
+  OPTIONAL { ?item wdt:P569 ?jaiotza_data. }
+  OPTIONAL { ?item wdt:P19 ?jaiolekua. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu, es, en"}}

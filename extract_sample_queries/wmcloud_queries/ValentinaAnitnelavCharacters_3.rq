@@ -1,0 +1,94 @@
+#characters inspired by the author's relatives
+SELECT DISTINCT ?character ?characterLabel (GROUP_CONCAT(DISTINCT ?workString; separator=", ") AS ?appearances) 
+    (GROUP_CONCAT(DISTINCT ?roleString; separator=", ") AS ?roles) ?inspiration ?inspirationLabel 
+    (GROUP_CONCAT(DISTINCT ?relationship; separator=", ") AS ?relationships) ?author ?authorLabel
+WHERE 
+{
+  #getting all characters inspired by something
+  ?character wdt:P31/wdt:P279* wd:Q95074; wdt:P941 ?inspiration.
+  #getting the works the characters appear in and its author
+  {?character wdt:P1441 ?work.} UNION {?work wdt:P674 ?character.}
+  ?work wdt:P50 ?author.
+  
+  #getting the English labels of the works
+  OPTIONAL {?work rdfs:label ?workS. FILTER(LANG(?workS)="en")}
+  BIND(IF(BOUND(?workS), ?workS, "") AS ?workString)
+  
+  #self
+  OPTIONAL {?author wdt:P279? ?inspiration. BIND ("self" AS ?relationship)}
+  
+  #parents
+  OPTIONAL {?author wdt:P22 ?inspiration. BIND ("father" AS ?relationship)}
+  OPTIONAL {?author wdt:P25 ?inspiration. BIND ("mother" AS ?relationship)}
+  OPTIONAL {?inspiration wdt:P40 ?author. ?inspiration wdt:P21 wd:Q6581072. BIND ("mother" AS ?relationship)}
+  OPTIONAL {?inspiration wdt:P40 ?author. ?inspiration wdt:P21 wd:Q6581097. BIND ("father" AS ?relationship)}
+  
+  #grandparents
+  OPTIONAL {?author (wdt:P22|wdt:P25)/wdt:P22 ?inspiration. BIND ("grandfather" AS ?relationship)}
+  OPTIONAL {?author (wdt:P22|wdt:P25)/wdt:P25 ?inspiration. BIND ("grandmother" AS ?relationship)} 
+  OPTIONAL {?inspiration wdt:P40/wdt:P40 ?author. ?inspiration wdt:P21 wd:Q6581097. BIND ("grandfather" AS ?relationship)}
+  OPTIONAL {?inspiration wdt:P40/wdt:P40 ?author. ?inspiration wdt:P21 wd:Q6581072. BIND ("grandmother" AS ?relationship)}
+  
+  #children
+  OPTIONAL {?author wdt:P40 ?inspiration. ?inspiration wdt:P21 wd:Q6581072. BIND ("daughter" AS ?relationship)}
+  OPTIONAL {?author wdt:P40 ?inspiration. ?inspiration wdt:P21 wd:Q6581097. BIND ("son" AS ?relationship)}
+  OPTIONAL {?inspiration (wdt:P22|wdt:P25) ?author. ?inspiration wdt:P21 wd:Q6581072. BIND ("daughter" AS ?relationship)}
+  OPTIONAL {?inspiration (wdt:P22|wdt:P25) ?author. ?inspiration wdt:P21 wd:Q6581097. BIND ("son" AS ?relationship)}
+  
+  #grandchildren
+  OPTIONAL {?author wdt:P40/wdt:P40 ?inspiration. ?inspiration wdt:P21 wd:Q6581072. BIND ("granddaughter" AS ?relationship)}
+  OPTIONAL {?author wdt:P40/wdt:P40 ?inspiration. ?inspiration wdt:P21 wd:Q6581097. BIND ("grandson" AS ?relationship)}
+  OPTIONAL {?inspiration (wdt:P22|wdt:P25)/(wdt:P22|wdt:P25) ?author. ?inspiration wdt:P21 wd:Q6581072. BIND ("granddaughter" AS ?relationship)}
+  OPTIONAL {?inspiration (wdt:P22|wdt:P25)/(wdt:P22|wdt:P25) ?author. ?inspiration wdt:P21 wd:Q6581097. BIND ("grandson" AS ?relationship)}
+  
+  #siblings
+  OPTIONAL {{?author wdt:P3373 ?inspiration.} UNION {?inspiration wdt:P3373 ?author.} ?inspiration wdt:P21 wd:Q6581072. BIND ("sister" AS ?relationship)}
+  OPTIONAL {{?author wdt:P3373 ?inspiration.} UNION {?inspiration wdt:P3373 ?author.} ?inspiration wdt:P21 wd:Q6581097. BIND ("brother" AS ?relationship)}
+  
+  #aunts and uncles
+  OPTIONAL {?author (wdt:P22|wdt:P25)/wdt:P3373 ?inspiration. ?inspiration wdt:P21 wd:Q6581072. BIND ("aunt" AS ?relationship)}
+  OPTIONAL {?author (wdt:P22|wdt:P25)/wdt:P3373 ?inspiration. ?inspiration wdt:P21 wd:Q6581097. BIND ("uncle" AS ?relationship)}
+  OPTIONAL {?inspiration wdt:P3373/wdt:P40 ?author. ?inspiration wdt:P21 wd:Q6581072. BIND ("aunt" AS ?relationship)}
+  OPTIONAL {?inspiration wdt:P3373/wdt:P40 ?author. ?inspiration wdt:P21 wd:Q6581097. BIND ("uncle" AS ?relationship)}
+  
+  #nieces and nephews
+  OPTIONAL {?author wdt:P3373/wdt:P40 ?inspiration. ?inspiration wdt:P21 wd:Q6581072. BIND ("niece" AS ?relationship)}
+  OPTIONAL {?author wdt:P3373/wdt:P40 ?inspiration. ?inspiration wdt:P21 wd:Q6581097. BIND ("nephew" AS ?relationship)}
+  OPTIONAL {?inspiration (wdt:P22|wdt:P25)/wdt:P3373 ?author. ?inspiration wdt:P21 wd:Q6581072. BIND ("niece" AS ?relationship)}
+  OPTIONAL {?inspiration (wdt:P22|wdt:P25)/wdt:P3373 ?author. ?inspiration wdt:P21 wd:Q6581097. BIND ("nephew" AS ?relationship)}
+  
+  #stepparents
+  OPTIONAL {?author wdt:P3448 ?inspiration. ?inspiration wdt:P21 wd:Q6581072. BIND ("stepmother" AS ?relationship)}
+  OPTIONAL {?author wdt:P3448 ?inspiration. ?inspiration wdt:P21 wd:Q6581097. BIND ("stepfather" AS ?relationship)}
+  
+  #stepchildren
+  OPTIONAL {?inspiration wdt:P3448 ?author. ?inspiration wdt:P21 wd:Q6581072. BIND ("stepdaughter" AS ?relationship)}
+  OPTIONAL {?inspiration wdt:P3448 ?author. ?inspiration wdt:P21 wd:Q6581097. BIND ("stepson" AS ?relationship)}
+  
+  #partners
+  OPTIONAL {{?inspiration wdt:P26 ?author.} UNION {?author wdt:P26 ?inspiration.} ?inspiration wdt:P21 wd:Q6581072. BIND ("wife" AS ?relationship)}
+  OPTIONAL {{?inspiration wdt:P26 ?author.} UNION {?author wdt:P26 ?inspiration.} ?inspiration wdt:P21 wd:Q6581097. BIND ("husband" AS ?relationship)}
+  OPTIONAL {{?inspiration wdt:P451 ?author.} UNION {?author wdt:P451 ?inspiration.} BIND ("significant other" AS ?relationship)}
+  
+  #other
+  OPTIONAL {?author p:P1038 ?st. ?st ps:P1038 ?inspiration.
+              OPTIONAL{?st pq:P1039 ?relation. ?relation rdfs:label ?relationlabel. FILTER(LANG(?relationlabel)="en")} BIND(IF(BOUND(?relation), ?relationlabel, "relative") AS ?relationship)} 
+  OPTIONAL {?inspiration p:P1038 ?st. ?st ps:P1038 ?author.
+              OPTIONAL{?st pq:P1039 ?relation. ?relation rdfs:label ?relationlabel. FILTER(LANG(?relationlabel)="en")} BIND(IF(BOUND(?relation), CONCAT("inverse", ?relationlabel), "relative") AS ?relationship)}
+  
+  FILTER(BOUND(?relationship))
+  
+  #getting the character roles
+  OPTIONAL{?character p:P5800 ?st. 
+           ?st ps:P5800 ?role. 
+           OPTIONAL{?st pq:P642 ?workQ}
+           #excluding character roles in works the author didn't write
+           FILTER(!BOUND(?workQ) || ?workQ = ?work)
+           ?role rdfs:label ?roleString. FILTER(LANG(?roleString)="en")}
+  
+  
+       
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?character ?characterLabel ?inspiration ?inspirationLabel ?author ?authorLabel
+ORDER BY ?relationships

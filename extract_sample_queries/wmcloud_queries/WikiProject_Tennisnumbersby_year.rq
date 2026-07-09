@@ -1,0 +1,10 @@
+SELECT (SAMPLE(?item) as ?item) ?year (COUNT(DISTINCT ?item) as ?ct) 
+WHERE
+{
+   { ?item wdt:P31 wd:Q47345468 } UNION { ?item wdt:P31/wdt:P279 wd:Q13219666 } 
+   ?item wdt:P585 ?d .
+   BIND (YEAR(?d) as ?year)
+}
+GROUP BY ?year
+ORDER BY DESC(?year)
+LIMIT 2000

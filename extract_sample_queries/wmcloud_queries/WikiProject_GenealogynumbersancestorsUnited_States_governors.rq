@@ -1,0 +1,9 @@
+SELECT ?item ?num (COUNT(DISTINCT ?ancestor) as ?ct) ?state
+{
+    ?item wdt:P31 wd:Q5; p:P39 ?s.
+    ?s ps:P39 ?position; pq:P1545 ?num.
+    ?position wdt:P279 wd:Q889821; wdt:P1001 ?state.
+    ?item (wdt:P22|wdt:P25)+ ?ancestor .
+} 
+GROUP BY ?item ?num ?state
+ORDER BY ?state xsd:integer(?num)

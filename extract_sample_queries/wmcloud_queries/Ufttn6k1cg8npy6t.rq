@@ -1,0 +1,10 @@
+SELECT *
+{
+    ?item wdt:P31/wdt:P279* wd:Q40231 .
+    [] schema:about ?item ; schema:name ?n .
+    ?item rdfs:label ?l .
+    FILTER( lang(?l)=lang(?n) # & strlen(?l)+3 < strlen(?n) 
+           && regex(?n, "\\d{4}") && !regex(?l, "\\d{4}")  ) 
+    BIND(lang(?l) as ?lg)
+}
+LIMIT 10000

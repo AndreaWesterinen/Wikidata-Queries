@@ -1,0 +1,19 @@
+SELECT ?person ?personLabel ?legislatorPosition ?legislatorPositionLabel ?item ?itemLabel WHERE {
+  ?person wdt:P31 wd:Q5 .
+  ?person wdt:P106 wd:Q82955 .
+  ?person wdt:P39 ?legislatorPosition .
+  ?legislatorPosition wdt:P361 ?item.
+  ?item wdt:P31/wdt:P279* wd:Q11204.
+  ?item wdt:P17 wd:Q258.
+  ?item wdt:P1001 ?juris .
+  { 
+    { ?juris wdt:P31/wdt:P279* wd:Q1530824 }
+    UNION
+    { ?juris wdt:P31/wdt:P279* wd:Q1500352 }
+  }
+  SERVICE wikibase:label {
+
+        bd:serviceParam wikibase:language "en" .
+
+    }
+}

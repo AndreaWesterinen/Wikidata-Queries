@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel
+WHERE
+{
+  ?item wdt:P31 wd:Q4423781 ;
+        rdfs:label ?itemLabel filter (lang(?itemLabel) = "ru") .
+  ?article schema:about ?item ; schema:isPartOf <https://ru.wikisource.org/> .
+}
+LIMIT 8000

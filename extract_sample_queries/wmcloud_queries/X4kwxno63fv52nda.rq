@@ -1,0 +1,5 @@
+SELECT ?lexeme (COUNT(DISTINCT ?form) AS ?forms) WHERE {
+  ?lexeme dct:language/wdt:P31/wdt:P279* wd:Q34228;
+          ontolex:lexicalForm ?form.
+}
+GROUP BY ?lexeme

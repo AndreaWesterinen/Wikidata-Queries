@@ -1,0 +1,4 @@
+SELECT (COUNT(?id) AS ?countOfId) WHERE {  
+	?item wdt:P1070 ?id .
+	FILTER (strStarts(?id, "kew-")) 
+}

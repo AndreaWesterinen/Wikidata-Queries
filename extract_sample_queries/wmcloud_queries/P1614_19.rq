@@ -1,0 +1,4 @@
+#title: item requires statement constraint
+# Complex constraint from [[Property talk:P1614]]
+# Requires a P39 which is an instance or subclass of an MP
+SELECT ?item WHERE { ?item wdt:P39/wdt:P279* ?MP. values ?MP {wd:Q18018860 wd:Q18015642 wd:Q16707842} }

@@ -1,0 +1,10 @@
+embed.html##defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?itemDescription (URI(REPLACE(?pattern, '\\$1', ?carthalia)) AS ?carthalia_URL) (SAMPLE(?coord) AS ?coord) 
+WHERE {
+        wd:P5652 wdt:P1630 ?pattern .
+        ?item wdt:P5652 ?carthalia .
+        ?item wdt:P625 ?coord .
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,fr,it,ru". }
+    }
+GROUP BY ?item ?itemLabel ?itemDescription ?carthalia ?carthalia_URL ?pattern ?coord
+LIMIT 8000

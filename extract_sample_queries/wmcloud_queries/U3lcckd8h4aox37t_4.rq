@@ -1,0 +1,8 @@
+#defaultView:Timeline
+SELECT ?compound ?compoundLabel ?discoverer ?discovererLabel ?date WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  VALUES ?thing { wd:Q11344 wd:Q11173 wd:Q79529 }
+  ?compound wdt:P31 ?thing ;
+            wdt:P61 ?discoverer .
+  OPTIONAL { ?compound wdt:P575 ?date }
+}

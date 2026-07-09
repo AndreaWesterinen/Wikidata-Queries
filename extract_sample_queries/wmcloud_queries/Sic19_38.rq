@@ -1,0 +1,13 @@
+embed.html##defaultView:Map{"hide":["?coor","?operator"],"layer":"?typeLabel"}
+SELECT ?lib ?libLabel ?coor ?image ?operatorLabel ?typeLabel WHERE {  
+  
+       ?lib wdt:P31/wdt:P279* wd:Q7075 ;
+            wdt:P17 wd:Q55 ;
+            wdt:P31 ?type ;
+            wdt:P625 ?coor .
+          OPTIONAL{ {?lib wdt:P137 ?operator. } UNION {?lib wdt:P361 ?operator. } }
+          OPTIONAL {?lib wdt:P18 ?image .}
+       
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?operatorLabel

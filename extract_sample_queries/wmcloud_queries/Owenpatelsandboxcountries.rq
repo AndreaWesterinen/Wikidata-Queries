@@ -1,0 +1,7 @@
+select ?item WHERE {
+  VALUES ?country {wd:Q155 wd:Q16 wd:Q739 wd:Q38 wd:Q668 wd:Q822 wd:Q96 wd:Q733 wd:Q884 wd:Q865 wd:Q8646}
+  ?item wdt:P31/wdt:P279 wd:Q11204 .
+  ?item wdt:P17 ?country .
+  ?item wdt:P1001 ?country
+  MINUS { ?item wdt:P576 [] }
+}

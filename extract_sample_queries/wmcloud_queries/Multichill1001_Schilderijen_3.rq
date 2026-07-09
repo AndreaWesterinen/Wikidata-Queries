@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?itemDescription ?links ?page WHERE {
+  {
+    SELECT ?item ?links ?page WHERE {
+      ?item wdt:P31 wd:Q3305213;
+        wikibase:sitelinks ?links.
+      OPTIONAL {
+        ?described ps:P1343 wd:Q66362718;
+          pq:P304 ?page.
+        ?item p:P1343 ?described.
+      }
+    }
+    ORDER BY DESC (?links)
+    LIMIT 1001
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY DESC (?links)

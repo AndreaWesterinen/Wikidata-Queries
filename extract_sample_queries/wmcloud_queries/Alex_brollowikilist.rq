@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P21 wd:Q6581072 . ?sitelink schema:about ?item ; schema:isPartOf <https://it.wikisource.org/> }

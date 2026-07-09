@@ -1,0 +1,10 @@
+#title: URL incorrecta
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item ?url where {
+  ?item p:P361 ?stat .
+  ?stat ps:P361 wd:Q31074657 .
+  ?stat pq:P2699 ?url .
+  bind(regex(str(?url), "^(https:\\/\\/www\\.feec\\.cat\\/activitats\\/100-cims\\/cim\\/[a-z]+(-[a-z]+)*\\/)$") as ?regexresult) .
+  filter(?regexresult = false) .
+}

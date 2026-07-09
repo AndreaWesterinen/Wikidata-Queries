@@ -1,0 +1,10 @@
+#Bijay Mohanty filmography, 170 items @ 22JUL2020
+SELECT ?Film ?FilmLabel ?dirLabel ?year 
+WHERE {
+?Film wdt:P161 wd:Q4907192.
+  OPTIONAL { ?Film wdt:P577 ?date.
+          BIND( YEAR( ?date ) AS ?year ) }.  
+  OPTIONAL {?Film wdt:P57 ?dir.}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }	
+} 
+ORDER BY ?date

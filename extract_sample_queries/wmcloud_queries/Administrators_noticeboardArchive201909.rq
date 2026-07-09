@@ -1,0 +1,9 @@
+#Taxa,that have been described by Johann Carl and that have images
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?itemDescription ?cat ?image
+WHERE 
+{ 
+?item (p:P225/pq:P405) wd:Q22103900. 
+?item wdt:P18 ?image
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

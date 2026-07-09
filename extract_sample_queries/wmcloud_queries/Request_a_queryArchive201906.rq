@@ -1,0 +1,1 @@
+SELECT ?date ?qid { wd:Q38074555 p:P1114 [ ps:P1114 ?qid ; pq:P585 ?date ] }

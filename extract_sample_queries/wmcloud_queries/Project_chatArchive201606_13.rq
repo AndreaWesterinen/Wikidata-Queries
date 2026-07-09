@@ -1,0 +1,10 @@
+SELECT ?instance ?championship ?championshipLabel ?start (SAMPLE(?participants) AS ?participants) (COUNT(?participant) AS ?listedParticipants) WHERE {
+  ?championship wdt:P31 ?instance . VALUES ?instance {wd:Q19317 wd:Q260858} .
+  ?championship wdt:P580 ?start .
+  OPTIONAL{?championship wdt:P1132 ?participants}
+  OPTIONAL{?championship wdt:P1923 ?participant}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
+}
+GROUP BY ?instance ?championship ?championshipLabel ?start
+HAVING (?participants != ?listedParticipants)
+ORDER BY DESC(?instance) ?start

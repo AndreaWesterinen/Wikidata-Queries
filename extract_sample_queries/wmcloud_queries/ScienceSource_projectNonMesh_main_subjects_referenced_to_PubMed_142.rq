@@ -1,0 +1,6 @@
+#Locating P921 statements referenced to PubMed, specific value
+SELECT ?statement 
+  WHERE {?reference pr:P248 wd:Q180686.
+         ?statement prov:wasDerivedFrom ?reference.
+         ?statement ps:P921 wd:Q7632070.
+        }

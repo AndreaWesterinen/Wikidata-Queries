@@ -1,0 +1,9 @@
+#title: max value
+# Complex constraint from [[Property talk:P2067]]
+#
+SELECT ?item ?mass {
+     ?item p:P2067 [psn:P2067 ?nodeMass;
+                  ].
+     ?nodeMass     wikibase:quantityAmount ?mass.
+     FILTER (?mass > 100000000000000000000000000000000000000000000000000000).
+}

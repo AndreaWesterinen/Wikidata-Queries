@@ -1,0 +1,1 @@
+SELECT * { ?item schema:description "voetbalster uit wodka"@nl }

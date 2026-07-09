@@ -1,0 +1,19 @@
+# languages with more than one writing system
+SELECT ?language ?languageLabel (COUNT(?writingSystem) AS ?count) (GROUP_CONCAT(?writingSystemLabel; separator = ", ") AS ?writingSystems) WITH {
+  SELECT ?language WHERE {
+    ?language p:P282/ps:P282 ?writingSystem.
+  }
+  GROUP BY ?language
+  HAVING(COUNT(?writingSystem) > 1)
+} AS %languages WHERE {
+  INCLUDE %languages.
+  ?language p:P282/ps:P282 ?writingSystem.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?language rdfs:label ?languageLabel.
+    ?writingSystem rdfs:label ?writingSystemLabel.
+  }
+}
+GROUP BY ?language ?languageLabel
+HAVING(?count > 1)
+ORDER BY DESC(?count) ASC(?languageLabel)

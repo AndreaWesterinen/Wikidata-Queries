@@ -1,4 +1,4 @@
-#papers about Wikidata
+#title: Papers about Wikidata
 SELECT ?item ?itemLabel
 WHERE {
   ?item wdt:P921 wd:Q2013. hint:Prior hint:runFirst true.

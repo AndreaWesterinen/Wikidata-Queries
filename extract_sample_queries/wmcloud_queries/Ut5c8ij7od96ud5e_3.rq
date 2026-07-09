@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?countryLabel WHERE {
+  ?item wdt:P31 wd:Q4022 ;
+        rdfs:label ?itemLabel;
+  OPTIONAL { ?item wdt:P17 ?country . ?country rdfs:label ?countryLabel . FILTER (lang(?countryLabel) = "fr") }
+  FILTER (lang(?itemLabel) = "es") .
+  FILTER regex (?itemLabel, "^Guad") .
+}
+ORDER BY ?itemLabel ?countryLabel

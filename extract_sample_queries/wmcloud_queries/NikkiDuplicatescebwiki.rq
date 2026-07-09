@@ -1,0 +1,13 @@
+select ?item ?wiki ?item2 ?pagename ?pagename2 ?country where {
+	?item p:P31 ?statement .
+	?statement ps:P31 wd:Q17362920 .
+	{ ?statement pq:P642 ?item2 . } union
+	{ ?statement pq:P460 ?item2 . } union
+	{ ?statement pq:P805 ?item2 . } union
+	{ ?item wdt:P460 ?item2 . }
+
+	?sitelink schema:about ?item ; schema:isPartOf <https://ceb.wikipedia.org/> ; schema:name ?pagename .
+	?sitelink2 schema:about ?item2 ; schema:isPartOf <https://ceb.wikipedia.org/> ; schema:name ?pagename2 .
+
+	optional { ?item2 wdt:P17/rdfs:label ?country filter (lang(?country) = "en") }
+} order by ?country ?item limit 5000

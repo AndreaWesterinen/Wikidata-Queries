@@ -1,0 +1,5 @@
+SELECT *
+{
+    wd:Q13406268 wdt:P585 ?d
+    BIND(FLOOR((YEAR(?d)-1)/100)+1 as ?century)                 
+}                 

@@ -1,0 +1,1 @@
+SELECT ?item ?lemma WHERE { ?item wdt:P31 wd:Q5 ; wikibase:lemma ?lemma . }

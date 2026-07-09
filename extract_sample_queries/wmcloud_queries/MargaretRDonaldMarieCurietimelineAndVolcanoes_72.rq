@@ -1,0 +1,12 @@
+# Fossilworks wikidata items without an enwiki article
+SELECT ?item ?itemLabel?taxon_name ?Fossilworks_ID  WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    ?item wdt:P842 ?Fossilworks_ID.
+    ?item wdt:P225 ?taxon_name.
+   #?item wdt:P171 wd:Q81666.   # whose genus is Acacia
+  MINUS
+  {?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  }
+}
+ORDER BY ?itemLabel ?item ?taxon_name 

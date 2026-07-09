@@ -1,3 +1,4 @@
+#title: Languages and dialects spoken in the Netherlands with their optional Wikipedia editions
 SELECT DISTINCT ?language ?languageLabel ?wikipediaLabel where {
   ?language wdt:P31 ?instance;
             wdt:P17 wd:Q55.

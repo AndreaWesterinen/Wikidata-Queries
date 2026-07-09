@@ -1,0 +1,60 @@
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#number of animated films with female directors by year
+#defaultView:BarChart
+SELECT (STR(?year) AS ?years) ?filmCount ?filmType 
+    
+WITH {
+  SELECT DISTINCT (YEAR(?date) AS ?year) WHERE {
+    ?yearItem wdt:P31 wd:Q577; wdt:P585 ?date.
+    FILTER(YEAR(?date)>= 1895 && YEAR(?date)<= 2025)
+    }
+  } AS %years
+
+WITH {
+  SELECT DISTINCT ?year ?filmType (COUNT(DISTINCT ?item) AS ?itemCount) WHERE {
+    FILTER(BOUND(?year))
+    {
+    SELECT DISTINCT ?item (MIN(YEAR(?date)) AS ?year) ?filmType WHERE {
+      {
+            ?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; wdt:P57/wdt:P21 wd:Q6581072; (wdt:P577|wdt:P2754) ?date.
+          } UNION {
+            ?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; wdt:P57/wdt:P21 wd:Q6581072; (wdt:P577|wdt:P2754) ?date.
+          }
+          MINUS { ?item (wdt:P31/wdt:P279*) wd:Q24856. }
+          MINUS { ?item (wdt:P31/wdt:P279*) wd:Q5398426. }
+        OPTIONAL {
+          {?item (wdt:P31/wdt:P279*) wd:Q24869. } UNION {
+          ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+          FILTER(?duration >= 2700)
+        }
+            BIND("feature" AS ?filmT)
+          }
+          OPTIONAL {
+            {?item (wdt:P31/wdt:P279*) wd:Q24862. } UNION {
+          ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+          FILTER(?duration < 2700)
+        }
+            BIND("short" AS ?filmT)
+          }
+        BIND(IF(!BOUND(?filmT),"unknown",?filmT) AS ?filmType)
+      }
+    GROUP BY ?item ?filmType
+    }
+  }
+GROUP BY ?year ?filmType
+} AS %films
+
+WHERE {
+  INCLUDE %years
+  OPTIONAL{
+  INCLUDE %films
+  BIND(?itemCount AS ?count)
+  }
+  BIND(IF(!BOUND(?count),0,?itemCount) AS ?filmCount)
+  }

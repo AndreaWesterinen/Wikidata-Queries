@@ -1,0 +1,13 @@
+SELECT ?item ?taxonName WHERE {
+   SERVICE gas:service {
+     gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS" .
+     gas:program gas:in wd:Q756 . 
+     gas:program gas:out ?item . 
+     gas:program gas:maxIterations 20 . 
+     gas:program gas:maxVisited 600000 .
+     gas:program gas:linkType wdt:P171 .
+     gas:program gas:traversalDirection "Reverse" .
+   }
+   ?item wdt:P105 wd:Q7432 .
+   ?item wdt:P225 ?taxonName .
+}

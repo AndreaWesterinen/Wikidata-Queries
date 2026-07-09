@@ -1,0 +1,12 @@
+#title: categories with "category's main topic" (P301)-value that lacks relevant P279
+# Complex constraint from [[Property talk:P10280]]
+# todo: TBD
+SELECT DISTINCT ?item ?hc 
+WHERE 
+{
+  [ ] ps:P10280 ?item.
+  ?item wdt:P301 ?hc.
+  MINUS { ?hc wdt:P279 wd:Q987080 }
+  MINUS { ?hc wdt:P279 wd:Q110713305 }
+  MINUS { ?hc wdt:P279 wd:Q16687686 }
+}

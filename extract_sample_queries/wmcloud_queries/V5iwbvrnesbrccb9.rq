@@ -1,0 +1,4 @@
+select ?person {
+  ?person wdt:P39/wdt:P279* wd:Q82955 .
+  filter not exists { ?person wdt:P106 [] } .
+}

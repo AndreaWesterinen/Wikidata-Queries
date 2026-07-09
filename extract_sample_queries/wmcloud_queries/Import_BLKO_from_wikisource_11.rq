@@ -1,0 +1,12 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription ?scanimage ?pages
+WHERE
+{
+    ?item wdt:P1433 wd:Q665807 . 
+    MINUS { ?item wdt:P31 wd:Q1302249 }
+	?item p:P996 ?st . 
+    MINUS { ?st pq:P7668 ?scanp } 
+    ?st ps:P996 ?scanimage .
+    OPTIONAL { ?item wdt:P304 ?pages } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY xsd:integer(?pages)

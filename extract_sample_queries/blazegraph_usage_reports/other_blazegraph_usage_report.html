@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blazegraph Feature Usage Report: Other Queries</title>
+<style>
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem auto; max-width: 1100px; padding: 0 1rem; line-height: 1.5; color: #1f2937; }
+        h1, h2, h3 { color: #111827; }
+        code { background: #f3f4f6; padding: 0.1rem 0.3rem; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; }
+        th, td { border: 1px solid #d1d5db; padding: 0.5rem 0.65rem; text-align: left; vertical-align: top; }
+        th { background: #f9fafb; }
+        .meta { margin-bottom: 1.5rem; }
+        .feature { margin-bottom: 2rem; }
+        .count { font-weight: 600; }
+        ul.files { margin-top: 0.5rem; }
+        li.none { color: #6b7280; }
+        a { color: #0f766e; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+</style>
+</head>
+<body>
+<h1>Blazegraph Feature Usage Report: Other Queries</h1>
+<div class="meta">
+<p>Source page reviewed: <a href="https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities">https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities</a></p>
+<p>Scanned local example queries: <span class="count">11</span> <code>.rq</code> files under <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted</code>.</p>
+<p>This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local example trees.</p>
+</div>
+<h2>Summary Table</h2>
+<table>
+<thead><tr><th>Section</th><th>Feature</th><th>Matches</th></tr></thead>
+<tbody>
+<tr><td>Blazegraph Features</td><td>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</td><td>5</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:globe()</code></td><td>0</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:latitude()</code></td><td>0</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:longitude()</code></td><td>0</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:distance()</code></td><td>0</td></tr>
+<tr><td>Function Extensions</td><td><code>wikibase:decodeUri()</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:around</code></td><td>1</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:box</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:label</code></td><td>7</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:slice</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:mwapi</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE gas:service</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:sample</code></td><td>0</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>hint:Query ...</code> query hints</td><td>1</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>bd:serviceParam</code></td><td>7</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:geoGlobe</code></td><td>0</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:globe</code></td><td>0</td></tr>
+</tbody>
+</table>
+<h2>Blazegraph Features</h2>
+<p>Features in this section: <span class="count">1</span><br>Total matches across this section: <span class="count">5</span></p>
+<div class="feature">
+<h3>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</h3>
+<p>Local matches: <span class="count">5</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T323423-NamedSubqueries-Optional1.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T323423-NamedSubqueries-Optional1.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T323423-NamedSubqueries-Optional2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T323423-NamedSubqueries-Optional2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo1.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo1.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo3.rq</code></a></li>
+</ul>
+</div>
+<h2>Function Extensions</h2>
+<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">0</span></p>
+<div class="feature">
+<h3><code>geof:globe()</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>geof:latitude()</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>geof:longitude()</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>geof:distance()</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:decodeUri()</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<h2>SERVICE Extensions</h2>
+<p>Features in this section: <span class="count">7</span><br>Total matches across this section: <span class="count">8</span></p>
+<div class="feature">
+<h3><code>SERVICE wikibase:around</code></h3>
+<p>Local matches: <span class="count">1</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo1.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted/geo1.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE wikibase:box</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE wikibase:label</code></h3>
+<p>Local matches: <span class="count">7</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>7 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE bd:slice</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE wikibase:mwapi</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE gas:service</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE bd:sample</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<h2>Supporting Blazegraph-Specific Syntax</h2>
+<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">8</span></p>
+<div class="feature">
+<h3><code>hint:Query ...</code> query hints</h3>
+<p>Local matches: <span class="count">1</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T278518-Bind.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T278518-Bind.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>bd:serviceParam</code></h3>
+<p>Local matches: <span class="count">7</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>7 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:someValue</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:geoGlobe</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:globe</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+</body>
+</html>

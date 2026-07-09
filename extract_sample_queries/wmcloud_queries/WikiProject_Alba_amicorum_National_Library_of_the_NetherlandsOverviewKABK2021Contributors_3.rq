@@ -1,0 +1,24 @@
+#Contributors to the Album amicorum of Jacobus Heyblocq (1623-1690), rector of the Latin school in Amsterdam (Q72752496)
+SELECT DISTINCT ?item ?itemLabel ?gender ?genderLabel ?image ?dateofbirth ?dateofdeath 
+(GROUP_CONCAT(DISTINCT ?occupationLabel ; separator = " -- ") as ?Occupations)
+?CommonsCategory
+?WPNL
+WHERE 
+{
+  ?item p:P31/ps:P31 wd:Q5.
+  wd:Q72752496 p:P767/ps:P767 ?item.
+  OPTIONAL {?item p:P18/ps:P18 ?image.}
+  OPTIONAL {?item p:P21/ps:P21 ?gender.}
+  OPTIONAL {?item p:P569/ps:P569 ?dateofbirth.}
+  OPTIONAL {?item p:P570/ps:P570 ?dateofdeath.}                          
+  OPTIONAL {?item p:P106/ps:P106 ?occupation.}
+  OPTIONAL{ ?item p:P373/ps:P373 ?commonscat.
+  BIND(URI(CONCAT("https://commons.wikimedia.org/wiki/Category:", REPLACE(?commonscat, " ", "_", "i"))) as ?CommonsCategory).}
+  OPTIONAL{?WPNL schema:about ?item ; schema:isPartOf <https://nl.wikipedia.org/>.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en".
+                          ?occupation rdfs:label ?occupationLabel.
+                          ?item rdfs:label ?itemLabel.
+                          ?gender rdfs:label ?genderLabel.
+                          } 
+} GROUP BY ?item ?itemLabel ?gender ?genderLabel ?image ?dateofbirth ?dateofdeath ?CommonsCategory ?WPNL
+  ORDER BY ASC(?CommonsCategory)

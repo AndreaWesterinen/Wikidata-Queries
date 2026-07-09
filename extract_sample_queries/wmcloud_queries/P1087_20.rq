@@ -1,0 +1,17 @@
+#title: Elo ratings without retrieval date (2)
+# Complex constraint from [[Property talk:P1087]]
+# Elo ratings without retrieval date (using olimpbase.org)
+SELECT ?item ?elo WITH {
+  SELECT DISTINCT ?refHandle WHERE {
+    [] p:P1087/prov:wasDerivedFrom ?refHandle .
+  }
+} AS %subquery WITH {
+  SELECT ?refHandle WHERE {
+    INCLUDE %subquery .
+    ?refHandle pr:P854 [] .
+    MINUS { ?refHandle pr:P813 [] }
+  }
+} AS %subquery2 WHERE {
+  INCLUDE %subquery2 .
+  ?item p:P1087 [ prov:wasDerivedFrom ?refHandle; ps:P1087 ?elo ] .
+}

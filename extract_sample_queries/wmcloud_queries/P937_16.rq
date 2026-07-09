@@ -1,0 +1,7 @@
+#title: Not world value
+# Complex constraint from [[Property talk:P937]]
+#
+SELECT ?item {
+  ?item wdt:P937 wd:Q2.
+  ?item wdt:P31 wd:Q5.    
+}

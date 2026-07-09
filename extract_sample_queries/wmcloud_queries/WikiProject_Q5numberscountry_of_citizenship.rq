@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(*) as ?ct)
+{
+	[] wdt:P27 ?item
+	; wdt:P31 wd:Q5
+}
+GROUP BY ?item
+HAVING (?ct>49)
+ORDER BY DESC(?ct)
+LIMIT 500

@@ -1,0 +1,14 @@
+select ?item ?itemLabel ?itemDescription ?P31 ?P31Label ?council ?councilLabel  ?designation ?designationLabel where {
+  VALUES ?designation {
+    wd:Q10729142 # cat C
+    wd:Q10729054 # cat A
+    wd:Q10729125 # cat B
+    wd:Q219538   # Scheduled Monument
+    wd:Q83245825 # part of a Scheduled Monument
+  }
+  ?item wdt:P1435 ?designation . 
+  filter not exists { ?item wdt:P709 [] . }
+  ?item wdt:P131 ?council . ?council wdt:P31 wd:Q15060255 .
+  OPTIONAL { ?item wdt:P31 ?P31 . filter (?P31 not in (wd:Q811979)) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . } 
+}

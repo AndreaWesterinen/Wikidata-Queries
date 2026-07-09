@@ -1,0 +1,15 @@
+SELECT ?item ?taxonName ?referencedBy ?title ?pages ?bhl ?referenceHasRoleLabel WHERE {
+    BIND(wd:Q14560 AS ?higherParent)
+    ?item (wdt:P171)* ?higherParent .
+    ?item p:P225 ?taxonNameStatement .
+    ?taxonNameStatement ps:P225 ?taxonName .
+    ?taxonNameStatement prov:wasDerivedFrom ?ref .
+    ?ref pr:P248 ?referencedBy .
+    ?referencedBy wdt:P31 wd:Q13442814 . #scientific article
+    ?referencedBy wdt:P1476 ?title .
+    OPTIONAL {?ref pr:P304 ?pages}
+    OPTIONAL {?ref pr:P687 ?bhl}
+    OPTIONAL {?ref pr:P6184 ?referenceHasRole}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+ORDER BY ASC(?title) ASC(?pages)

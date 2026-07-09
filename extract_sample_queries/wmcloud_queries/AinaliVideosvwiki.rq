@@ -1,0 +1,1 @@
+SELECT ?item ?article WHERE {  ?item wdt:P10 ?video.   ?article schema:about ?item; schema:isPartOf <https://sv.wikipedia.org/>.}

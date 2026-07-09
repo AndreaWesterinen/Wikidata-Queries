@@ -1,0 +1,8 @@
+# Languages and the grammatical tenses they have in common
+#defaultView:Graph
+SELECT ?item ?itemLabel ?case ?caseLabel (concat("F3A2FF") as ?rgb)
+WHERE
+{
+	?item wdt:P3103 ?case .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}

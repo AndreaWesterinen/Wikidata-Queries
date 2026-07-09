@@ -1,0 +1,6 @@
+SELECT (count(?l) as ?count)# ?lemma
+ WHERE {
+  ?l a ontolex:LexicalEntry ;
+       dct:language ?lang ;
+       wdt:P1343 [];
+}

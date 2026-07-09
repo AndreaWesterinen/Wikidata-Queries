@@ -1,0 +1,7 @@
+embed.html#SELECT *
+WHERE
+{
+    ?lexeme wikibase:lemma ?lemma ; dct:language wd:Q27811 .
+    BIND( lang(?lemma) as ?c)
+}
+LIMIT 100

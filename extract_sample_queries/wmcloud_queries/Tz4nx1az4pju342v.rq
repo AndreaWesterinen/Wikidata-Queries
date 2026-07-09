@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?iso ?glottolog
+WHERE {
+    ?item wdt:P220 ?iso . # looking for language that has a ISO 639-3 code
+    MINUS {?item rdf:type wdno:P1394 .} # without those with a « no value » Glottolog ID
+    OPTIONAL {?item wdt:P1394 ?glottolog .} # show the Glottolog ID if it exists
+    FILTER(NOT EXISTS {
+      ?item schema:description ?description .
+      FILTER(LANG(?itemDescription) = "en") # with missing description in English
+    })
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" ,"es", "ru", "de" } # show the label and descriptions in French, if it doesn't exist then in Spanish, then Russian, then German
+}
+ORDER BY ?itemLabel

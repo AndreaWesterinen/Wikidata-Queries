@@ -1,0 +1,10 @@
+sparql?query=#Paintings by garcia de Benabarre showing collection
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?image ?collection ?collectionLabel WHERE {
+  ?item wdt:P31 wd:Q3305213.
+  ?item wdt:P170 wd:Q583132.
+  ?item (wdt:P195/wdt:P361*) ?collection.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+#  FILTER(?collection = wd:Q160236 )
+}

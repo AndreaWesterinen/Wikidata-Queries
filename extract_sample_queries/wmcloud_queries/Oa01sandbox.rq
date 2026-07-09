@@ -1,0 +1,13 @@
+SELECT ?item WHERE {
+	?item wdt:P31 wd:Q5 .
+        ?item wdt:P108 ?employer .
+
+VALUES ?employer {
+wd:Q13371#Harvard
+}
+
+	FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:isPartOf <https://en.wikipedia.org/>.}
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,fr,de,pl" .
+	}
+}

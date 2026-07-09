@@ -1,0 +1,4 @@
+SELECT ?item WHERE 
+{
+   { ?item wdt:P31 wd:Q58468273 } UNION { { ?item wdt:P31 wd:Q1377447 } UNION { ?item wdt:P31 wd:Q317623 } UNION { ?item wdt:P31 wd:Q15087423 } . { ?item wdt:P921 wd:Q214609 } UNION { ?item wdt:P921 wd:Q206615 } UNION { ?item wdt:P921 wd:Q11344 } UNION { ?item wdt:P921 wd:Q11427 } UNION { ?item wdt:P921 wd:Q172587 } UNION { ?item wdt:P921 wd:Q11474 } UNION { ?item wdt:P921 wd:Q181790 } UNION { ?item wdt:P921 wd:Q11426 } UNION { ?item wdt:P921 wd:Q37756 } UNION { ?item wdt:P921 wd:Q518350 } UNION { ?item wdt:P921 wd:Q447725 } UNION { ?item wdt:P921 wd:Q45621 } UNION { ?item wdt:P921 wd:Q81163 } . { ?item wdt:P921 wd:Q2101564 } UNION { ?item wdt:P31 wd:Q2101564 } }
+}

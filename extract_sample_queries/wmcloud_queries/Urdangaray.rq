@@ -1,0 +1,12 @@
+SELECT
+(COUNT(?AAAS) AS ?number_of_AAAS_awards)
+#(COUNT(?FRS) AS ?number_of_FRS_awards)
+#(COUNT(?APS) AS ?number_of_APS_awards)
+
+WHERE 
+{
+  ?AAAS wdt:P166 wd:Q52382875.
+  #?FRS wdt:P166 wd:Q15631401.
+  #?APS wdt:P166 wd:Q15631401.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,13 @@
+# articles authored by Clair Alston-Knox
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?journal ?journalLabel ?publicationDate WHERE {
+  ?item wdt:P31 wd:Q13442814 ;         # is a scholarly article
+    wdt:P50  wd:Q57243917 ;              # authored byClair Alston-Knox
+    wdt:P1433 ?journal;
+    wdt:P577 ?publicationDate.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?publicationDate ?itemLabel ?journalLabel
+ LIMIT 4000    

@@ -1,0 +1,28 @@
+embed.html##defaultView:ImageGrid
+#Federated search Wikidata -> NobelPrice.org
+PREFIX nobel: <http://data.nobelprize.org/terms/>
+ 
+SELECT DISTINCT (sample(?place) as ?place) (sample(?img) as ?img)  ?placeLabel ?motivation ?article ?NobelArticle WHERE {
+  ?laureate wdt:P2888 ?laureate_nobel_uri .  
+  FILTER (strStarts(str(?laureate_nobel_uri), "http://data.nobelprize.org/resource/laureate/"))
+  {
+    {?place wdt:P376 wd:Q111} #Mars
+  UNION
+    {?place wdt:P376 wd:Q405} #Moon
+  }
+  ?place wdt:P138 ?laureate .
+  # ?place wdt:P625 ?geo . 
+  ?place wdt:P18 ?img.
+
+  OPTIONAL {?article schema:about ?laureate .
+            ?article schema:isPartOf <https://en.wikipedia.org/>}
+
+  OPTIONAL{?laureate wdt:P3188 ?Na}
+  BIND (URI(CONCAT("https://www.nobelprize.org/nobel_prizes/",?Na,"-facts.html")) AS ?NobelArticle)
+  SERVICE <http://data.nobelprize.org/sparql> {
+    ?laureate_nobel_uri nobel:laureateAward / nobel:motivation ?motivation .
+    FILTER (lang(?motivation) = 'en')
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,da,nl". }
+} Group by  ?placeLabel ?motivation ?article ?NobelArticle

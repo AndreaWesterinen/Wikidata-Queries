@@ -1,3 +1,4 @@
+#title: Museums in Brittany
 SELECT DISTINCT ?museumLabel ?museumDescription ?villeId ?villeIdLabel (?villeIdLabel AS ?ville) ?coord ?lat ?lon
 WHERE
 {

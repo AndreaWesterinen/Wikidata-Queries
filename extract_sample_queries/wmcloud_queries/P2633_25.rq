@@ -1,0 +1,12 @@
+#title: English label generally start with "geography of " or end with "geography"
+# Complex constraint from [[Property talk:P2633]]
+# Todo: add label (if missing), fix label if incorrect, correct/remove P2633-statement if pointing to the wrong item
+SELECT ?item ?itemLabel ?geo ?l ?geoLabel
+WHERE 
+{
+  ?item wdt:P2633 ?geo . 
+  OPTIONAL { ?geo rdfs:label ?l . FILTER ( lang( ?l ) = 'en' ) }
+  FILTER ( !( STRSTARTS( ?l, 'geography of ' ) && BOUND(?l)  ) )
+  FILTER ( !( STRENDS( ?l, 'geography' ) && BOUND(?l)  ) )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr,sv,pt,pl,ms,bg,be,ru,hy,ar". }
+}

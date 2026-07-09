@@ -1,0 +1,39 @@
+SELECT distinct ?item ?itemLabel
+{  
+  VALUES ?term {
+wd:Q56285355
+wd:Q56285388
+wd:Q56285398
+wd:Q60576668
+wd:Q60576676
+wd:Q60576685
+wd:Q60576692
+wd:Q60576698
+wd:Q60576865
+wd:Q60576866
+wd:Q60576867
+wd:Q60576869
+wd:Q60576870
+wd:Q60576871
+wd:Q60576872
+wd:Q60576873
+wd:Q60576874
+wd:Q60576875
+wd:Q60576876
+wd:Q60576879
+wd:Q60576880
+wd:Q60576881
+wd:Q60576882
+wd:Q60576883
+wd:Q60576884
+wd:Q60576885
+wd:Q60576886
+wd:Q60576888
+wd:Q60576889
+wd:Q60576890
+wd:Q60576891
+wd:Q60576892
+  }
+ ?item p:P39 ?ps . ?ps ps:P39 ?term . filter not exists { ?item wdt:P1614 ?hop }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

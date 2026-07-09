@@ -1,0 +1,12 @@
+embed.html#SELECT ?age_in_years (COUNT(?age_in_years) AS ?cnt) WITH {
+  SELECT DISTINCT ?item WHERE {
+    ?item p:P106/ps:P106/wdt:P279* wd:Q26270618 .
+    MINUS { ?item wdt:P570 [] }
+    MINUS { ?item wdt:P20 [] }
+  }
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  ?item p:P569/psv:P569 [ wikibase:timeValue ?date_of_birth; wikibase:timePrecision ?precision ] .
+  FILTER(?precision >= 9) .
+  BIND(ROUND((NOW() - ?date_of_birth)/365) AS ?age_in_years)
+} GROUP BY ?age_in_years ORDER BY ASC(?age_in_years)

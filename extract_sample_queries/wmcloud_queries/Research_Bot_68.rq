@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?DO ?languages WHERE {
+  {
+    SELECT ?item ?DO (COUNT(?language) AS ?languages) WHERE {
+      ?item wdt:P699 ?DO;
+        rdfs:label ?label.
+      BIND(LANG(?label) AS ?language)
+    }
+    GROUP BY ?item ?DO
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC (?languages)

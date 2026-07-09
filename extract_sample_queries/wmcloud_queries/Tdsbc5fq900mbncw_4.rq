@@ -1,0 +1,8 @@
+SELECT (GROUP_CONCAT(?occ; separator=" ") as ?occupations)
+{
+	SELECT (CONCAT("wd:",strafter(str(?occup), "y/")) as ?occ) ?occup (COUNT(?person) as ?count)
+	{
+		?person wdt:P106 ?occup
+	}
+	GROUP BY ?occup		ORDER BY DESC(?count)		LIMIT 200
+}

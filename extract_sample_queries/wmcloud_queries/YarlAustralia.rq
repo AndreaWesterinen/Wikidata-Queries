@@ -1,0 +1,9 @@
+SELECT ?heritageLabel (COUNT(?item) AS ?count)
+WHERE 
+{
+  ?item wdt:P17 wd:Q408.
+  ?item wdt:P1435 ?heritage.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?heritageLabel
+ORDER BY DESC(?count)

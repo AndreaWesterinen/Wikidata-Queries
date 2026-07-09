@@ -1,0 +1,12 @@
+SELECT ?property ?propertyLabel ?count ?stolperstein WHERE {
+  {
+    SELECT ?property (COUNT(DISTINCT ?stolperstein) AS ?count) (SAMPLE(?stolperstein) AS ?stolperstein) WHERE {
+      ?stolperstein wdt:P31 wd:Q26703203;
+                    ?p ?statement.
+      ?property wikibase:claim ?p.
+    }
+    GROUP BY ?property ?propertyLabel
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

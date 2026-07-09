@@ -1,0 +1,6 @@
+SELECT ?item ?id
+WHERE {
+  ?item wdt:P5398 ?id .
+  FILTER NOT EXISTS {?item rdfs:label ?label FILTER (lang(?label) = "en"). }
+ }
+LIMIT 1500

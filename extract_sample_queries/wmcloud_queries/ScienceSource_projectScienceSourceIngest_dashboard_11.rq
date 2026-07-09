@@ -1,0 +1,11 @@
+SELECT DISTINCT ?paper
+
+WHERE {
+      ?paper wdt:P31 wd:Q13442814;
+             wdt:P31 wd:Q7318358;
+             wdt:P921 ?subject;
+             wdt:P1476 ?title;
+             wdt:P275 [ ].
+      ?subject wdt:P1995 ?spec.
+      ?spec wdt:P361* wd:Q7867             
+      }

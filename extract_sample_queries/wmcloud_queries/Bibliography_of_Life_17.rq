@@ -1,0 +1,8 @@
+# Articles in wikidata, with Rob van Soest as author
+SELECT ?item  ?itemLabel WHERE {
+  #optional {?item wdt:P6982 ?AFD_pub_id.}
+  ?item wdt:P50 wd:Q15638220.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+   
+    }
+ORDER BY ?item ?itemLabel

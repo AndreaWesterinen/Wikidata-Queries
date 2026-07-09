@@ -1,0 +1,16 @@
+SELECT ?item ?nturl ?artukurl WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q333515 .
+  ?item wdt:P31 wd:Q3305213 .
+  OPTIONAL { wd:P4373 wdt:P1630 ?ntformatterurl .
+            ?item wdt:P4373 ?ntid .
+            BIND(REPLACE(?ntid, '^(.+)$', CONCAT("[", ?ntformatterurl, " $1]")) AS ?nturl) .
+            }
+  OPTIONAL { wd:P1679 wdt:P1630 ?artukformatterurl .
+            ?item wdt:P1679 ?artukid .
+            BIND(REPLACE(?artukid, '^(.+)$', CONCAT("[", ?artukformatterurl, " $1]")) AS ?artukurl) .
+            }
+  MINUS { ?item wdt:P170/wdt:P569 [] } .
+  MINUS { ?item wdt:P170/wdt:P570 [] } .
+  MINUS { ?item wdt:P170 [] . ?item wdt:P571 [] } .
+} LIMIT 2500

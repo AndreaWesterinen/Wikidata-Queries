@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?kleks
+WHERE
+{
+
+?item wdt:P5556 ?kleks . 
+   MINUS { ?item wdt:P625 ?coord. }
+  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" . }
+}

@@ -1,0 +1,19 @@
+#title:Items which humans are also instances of (but maybe should not be)
+# Author: Azertus
+# Description: Imperfect, but useful.
+#              The ?how query shows which properties are used to link to the item.
+#              The ?which query shows all items which are linked to the item
+SELECT ?s ?sLabel ?n ?how ?which WHERE {
+  {
+    SELECT ?s (COUNT(?s) AS ?n) WHERE {
+      ?item wdt:P27 wd:Q30. # filter on USA to limit query
+      ?item wdt:P31 ?s.
+      ?item wdt:P31 wd:Q5.
+    } GROUP BY ?s
+  }
+  #MINUS { ?s wdt:P31*/wdt:P279* wd:Q5 } # does not work
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". ?s rdfs:label ?sLabel. }
+  BIND ( REPLACE(str(?s),"http://www.wikidata.org/entity/","") AS ?q)
+  BIND ( URI(CONCAT("https://query.wikidata.org/#%23title%3A%20Properties%20used%20to%20link%20people%20%28Q5%29%20to%20",?sLabel,"%0ASELECT%20%3Fprop%20%3FpropLabel%20%28COUNT%28%3Fprop%29%20AS%20%3Fn%29%20WHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP31%20wd%3AQ5.%0A%20%20%3Fitem%20%3Fpred%20wd%3A",?q,".%0A%20%20%3Fprop%20wikibase%3AdirectClaim%20%3Fpred.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%20GROUP%20BY%20%3Fprop%20%3FpropLabel")) AS ?how)
+  BIND ( URI(CONCAT("https://query.wikidata.org/#%23title%3A%20People%20linked%20to%20",?sLabel,"%20by%20property%0ASELECT%20%3Fitem%20%3FpropLabel%20WHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP31%20wd%3AQ5.%0A%20%20%3Fitem%20%3Fpred%20wd%3A",?q,".%0A%20%20%3Fprop%20wikibase%3AdirectClaim%20%3Fpred.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%20ORDER%20BY%20%3Fprop")) AS ?which)
+} ORDER BY ?n ?sLabel

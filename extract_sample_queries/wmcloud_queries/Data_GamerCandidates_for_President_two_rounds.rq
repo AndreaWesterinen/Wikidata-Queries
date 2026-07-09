@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item 
+WHERE
+{
+  ?municipality_elections wdt:P31 wd:Q60676589 .
+  ?election wdt:P361 ?municipality_elections .
+  ?election wdt:P726 ?item .
+  ?item wdt:P31 wd:Q5 .
+}

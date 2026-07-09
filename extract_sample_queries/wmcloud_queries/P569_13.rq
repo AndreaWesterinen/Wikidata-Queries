@@ -1,0 +1,10 @@
+#title: Sport: association football
+# Complex constraint from [[Property talk:P569]]
+#
+SELECT ?item ?dateOfBirth
+  WHERE {
+    ?item wdt:P641 wd:Q2736; # sport
+    wdt:P569 ?dateOfBirth.
+    hint:Prior hint:rangeSafe true.
+    FILTER(?dateOfBirth < "1750-00-00"^^xsd:dateTime)
+  }

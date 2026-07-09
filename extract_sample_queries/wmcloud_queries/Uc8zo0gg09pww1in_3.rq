@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?itemLabel ?image ?placeofbirth ?coord ?gender ?dob 
+WHERE {
+?item wdt:P27 wd:Q1009.
+?item wdt:P31 wd:Q5.
+?item wdt:P106/wdt:P279* wd:Q177220.
+?item wdt:P106/wdt:P279* wd:Q753110.
+?item wdt:P106/wdt:P279* wd:Q639669.
+OPTIONAL {?item wdt:P19 ?placeofbirth.
+?placeofbirth wdt:P625 ?coord. }
+OPTIONAL {?item wdt:P18 ?image.}
+OPTIONAL {?item wdt:P569 ?dob.}
+OPTIONAL {?item wdt:P21 ?gender.}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+#defaultView:Map

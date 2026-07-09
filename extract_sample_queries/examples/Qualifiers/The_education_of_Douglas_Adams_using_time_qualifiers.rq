@@ -1,6 +1,4 @@
-# ----
-# The education of Douglas Adams, to illustrate time qualifiers
-#
+#title: The education of Douglas Adams, to illustrate time qualifiers
 SELECT ?education ?educationLabel ?starttime ?endtime
 WHERE
 {

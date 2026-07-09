@@ -1,0 +1,53 @@
+#number of animated film by century
+#defaultView:LineChart
+SELECT DISTINCT (STR(?year) AS ?years) ?filmCount ?countryLabel 
+WITH {
+  SELECT DISTINCT ?item (YEAR(?date) AS ?year) ?country WHERE {
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; (wdt:P577|wdt:P2754) ?date; wdt:P495 ?country} UNION
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; (wdt:P577|wdt:P2754) ?date; wdt:P495 ?country}
+    
+    #excluding film series
+    MINUS{?item wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q5398426}
+  }
+
+} AS %animatedMovies
+WITH {
+  SELECT DISTINCT ?country WHERE {
+    INCLUDE %animatedMovies
+  }
+
+} AS %countriesWithAnimatedMovies
+WITH {
+  SELECT DISTINCT ?year WHERE {
+    INCLUDE %animatedMovies
+    FILTER(?year>0)
+  }
+  
+} AS %yearsWithAnimatedMovies
+WITH {
+SELECT ?year (COUNT(DISTINCT ?item) AS ?itemCount) ?country
+  WHERE
+  {
+    INCLUDE %animatedMovies
+    FILTER(?year>0)
+  }
+  GROUP BY ?year ?country
+  }AS %yearCountryFilmCount
+WITH  {
+  SELECT DISTINCT ?year ?country ?filmCount WHERE {
+  INCLUDE %yearsWithAnimatedMovies.
+  INCLUDE %countriesWithAnimatedMovies
+  OPTIONAL {
+    INCLUDE %yearCountryFilmCount
+    BIND(?itemCount as ?count)
+    }
+    BIND(IF(BOUND(?count),?count,0) AS ?filmCount)
+  }
+  } AS %countryYearPairs
+
+WHERE
+{
+  INCLUDE %countryYearPairs
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

@@ -1,4 +1,4 @@
-# ----
+#title: Using VALUES for extracting scientific articles of specific authors
 #  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
 
  SELECT ?entity ?entityLabel ?authorLabel WHERE {

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item (REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT("http://www.imdb.com/find?&s=tt&exact=true&ref_=fn_al_tt_ex&q=", ?delabel), " ", "%20"), "ä", "%C3%A4"), "ö", "%C3%B6"), "ü", "%C3%BC"), "Ä", "%C3%84"), "Ö", "%C3%96"), "Ü", "%C3%9C"), "ß", "%C3%9F") as ?imdb_link) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q11424 .
+  ?item wdt:P3107 ?ldif .
+  ?item rdfs:label ?delabel .
+  FILTER(lang(?delabel) = "de")
+  MINUS { ?item p:P345/a wdno:P345 . }
+  MINUS { ?item wdt:P345 ?imdb . }
+} ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))

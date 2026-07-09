@@ -1,0 +1,12 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel (YEAR(?date) AS ?year) ?dimensions ?locationLabel ?countryLabel ?image WHERE {
+  ?item wdt:P170 wd:Q41264 .
+  { ?item wdt:P180/wdt:P31/wdt:P279* wd:Q4006 } UNION { ?item wdt:P180/wdt:P279* wd:Q4006 } 
+  OPTIONAL { ?item p:P276 ?statement . ?statement ps:P276 ?location . FILTER NOT EXISTS { ?statement pq:P582 ?x } OPTIONAL { ?location wdt:P17 ?country } }
+  OPTIONAL { ?item wdt:P18 ?image }
+  OPTIONAL { ?item wdt:P2048 ?length }
+  OPTIONAL { ?item wdt:P2049 ?width }
+  OPTIONAL { ?item wdt:P571 ?date }
+  BIND (CONCAT(STR(?length),"×",STR(?width)) AS ?dimensions)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

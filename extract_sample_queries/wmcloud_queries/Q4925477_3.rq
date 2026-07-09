@@ -1,0 +1,20 @@
+embed.html##defaultView:LineChart
+#by Jura1, February 2020
+SELECT (STR(?year) as ?decade) (ROUND(?countJohn / ?countall * 100) as ?percentage) 
+WITH
+{
+  SELECT ?year (COUNT(?p) as ?countall) (COUNT(DISTINCT ?n1) as ?countJohn)
+  WHERE
+  {
+      hint:Query hint:optimizer "None".
+      ?p wdt:P27 wd:Q30 ; wdt:P21 wd:Q6581097 ; wdt:P735 ?nn ; wdt:P569 ?dob
+      BIND( FLOOR( YEAR(?dob)/10)*10 as ?year)
+      BIND( IF(?nn = wd:Q4925477 , ?p , "other") as ?n1)        
+  }
+  GROUP BY ?year
+} as %a
+WHERE
+{
+  INCLUDE %a
+  FILTER ( ?year > 1770 && ?year < YEAR(now())   )          
+}

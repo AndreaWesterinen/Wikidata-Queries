@@ -1,5 +1,4 @@
-# ----
-#ranking(s) of university(es)
+#title: Ranking(s) of university(es)
 #defaultView:LineChart
 SELECT ?year ?ranking ?universityLabel ?deternimationMethodLabel ?university WHERE {
   VALUES ?university {

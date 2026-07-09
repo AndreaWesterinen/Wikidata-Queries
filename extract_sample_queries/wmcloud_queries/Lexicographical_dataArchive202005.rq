@@ -1,0 +1,4 @@
+embed.html#SELECT ?l ?lemma ?langLabel WHERE {
+  ?l wdt:P5185 wd:Q1775415 ; wdt:P5185 wd:Q499327 ; wikibase:lemma ?lemma ; dct:language ?lang .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

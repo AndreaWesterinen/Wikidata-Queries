@@ -1,0 +1,5 @@
+SELECT ?item ?date WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q7889.
+  ?item wdt:P577 ?date.
+  FILTER(YEAR(?date) = 1971).
+}

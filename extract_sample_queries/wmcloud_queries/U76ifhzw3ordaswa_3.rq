@@ -1,0 +1,1 @@
+SELECT ?v (count(?q) AS ?cnt) { ?q wdt:P1708 ?v } GROUP BY ?v HAVING ( ?cnt>1 )

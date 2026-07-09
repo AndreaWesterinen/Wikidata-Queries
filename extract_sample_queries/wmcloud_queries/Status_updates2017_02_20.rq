@@ -1,0 +1,8 @@
+# people born at sea
+SELECT DISTINCT ?person ?personLabel ?placeLabel ?dob WHERE {
+ ?person wdt:P19 ?place.
+ { ?place wdt:P31/wdt:P279* wd:Q165. } UNION { ?place wdt:P31/wdt:P279* wd:Q1229765. }
+ OPTIONAL { ?person wdt:P569 ?dob. }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?dob ?placeLabel

@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(DISTINCT ?item1) AS ?count)
+WHERE
+{
+	?item1 p:P2044 ?statement .
+    ?statement pq:P459 ?item
+}
+GROUP BY ?item
+ORDER BY DESC(?count)

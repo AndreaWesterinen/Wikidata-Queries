@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?itemLabel ?genoemd ?overlijdensdatum ?gelijk
+{
+	?item wdt:P6379 wd:Q17153751 .
+    ?item wdt:P570 ?overlijdensdatum.
+
+  ?item p:P570 [ ps:P570 ?dod;
+                    prov:wasDerivedFrom 
+                    [ pr:P248 wd:Q80851728; 
+                      pr:P1810 ?genoemd;
+                    ]
+                  ].
+    BIND (YEAR(?overlijdensdatum) AS ?jaar)
+    BIND (CONTAINS(?genoemd, ?jaar) AS ?gelijk)
+   FILTER (
+      ?gelijk = FALSE
+   )
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" } .
+}

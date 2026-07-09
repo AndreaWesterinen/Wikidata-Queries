@@ -1,0 +1,28 @@
+#defaultView:Map
+SELECT distinct ?item ?itemLabel ?sitelinks ?coord  ?lat ?nlat ?long ?nlong WITH { SELECT ?item 
+WHERE 
+{
+  ?item wdt:P131/wdt:P131 wd:Q22 . #} hint:Prior hint:runFirst true.
+  {?item wdt:P31 wd:Q55659167.}
+  UNION
+  {?item wdt:P31 wd:Q4022 . }
+  UNION
+  {?item wdt:P31 wd:Q47521 . }
+  ?item wdt:P403 [] .
+  
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item wikibase:sitelinks ?sitelinks.
+  ?item p:P625 ?stat .
+  ?stat a wikibase:BestRank .
+  ?stat ps:P625 ?coord .
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat psv:P625/wikibase:geoLatitude ?lat.
+  BIND((?lat - 56.2) as ?nlat)
+  BIND((?long - -5.92987) as ?nlong)
+  FILTER (?lat > 56.1999)
+  FILTER ((?nlong / ?nlat) < 1.31)
+} order by desc(?sitelinks) ?itemLabel

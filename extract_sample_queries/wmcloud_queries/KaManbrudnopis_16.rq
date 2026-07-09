@@ -1,0 +1,9 @@
+SELECT ?l ?lemma ?form ?as WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ; ontolex:lexicalForm ?form.
+  ?language wdt:P218 'pl'.
+  ?form wdt:P5276 ?as .
+  FILTER( (!(STRSTARTS( ?as , "[" )||STRSTARTS( ?as , "/" )))
+          ||
+          (!(STRENDS( ?as , "]" )||STRENDS( ?as , "/" ))) )
+} ORDER BY ?lemma

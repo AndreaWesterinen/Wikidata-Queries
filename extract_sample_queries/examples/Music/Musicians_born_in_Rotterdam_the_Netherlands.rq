@@ -1,3 +1,4 @@
+#title: Musicians born in Rotterdam (the Netherlands)
 SELECT DISTINCT ?item ?itemLabel ?itemDescription where {
     ?item wdt:P106/wdt:P279* wd:Q639669 .
     ?item wdt:P19/wdt:P131* wd:Q34370 .

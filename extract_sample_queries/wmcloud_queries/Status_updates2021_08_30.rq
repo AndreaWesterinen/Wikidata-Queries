@@ -1,0 +1,50 @@
+embed.html##defaultView:Map{"hide":["?x_coords","?rgb"]}
+SELECT ?x ?xLabel ?description ?x_coords ?rgb  WITH {
+
+SELECT ?data ?x ?x_coords WHERE { 
+  ?x p:P2044/psn:P2044 [ 
+     wikibase:quantityAmount ?data 
+  ] .
+  ?x wdt:P625 ?x_coords .
+  ?x wdt:P17 wd:Q34 .
+#  ?x wdt:P131+ [ wdt:P31 wd:Q15979307 ] .
+  }
+} AS %data
+# determine the max and min values (used to calculate the spread)
+WITH { 
+  SELECT (MAX(?data) AS ?max_data)  (MIN(?data) AS ?min_data) WHERE {
+  INCLUDE %data            
+ }} AS %min_max
+WHERE {
+  INCLUDE %data
+  INCLUDE %min_max   
+   ?x rdfs:label ?xLabel. FILTER (LANG(?xLabel) = "sv") .
+   BIND (CONCAT("Höjd över havsnivån för ", ?xLabel, " är omkring ", STR(ROUND(?data)), " meter" ) AS ?description) 
+  BIND ( ?max_data - ?min_data AS ?spread )
+  BIND (255 - xsd:integer( 255 * (?data - ?min_data) / ?spread) AS ?green ) # 255 -> 0
+  BIND ( FLOOR (?green / 16) AS ?green_1 )
+  BIND ( COALESCE(
+    IF(?green_1 < 10, STR(?green_1), 1/0),
+    IF(?green_1 = 10, "a", 1/0),
+    IF(?green_1 = 11, "b", 1/0),
+    IF(?green_1 = 12, "c", 1/0),
+    IF(?green_1 = 13, "d", 1/0),
+    IF(?green_1 = 14, "e", 1/0),
+    IF(?green_1 = 15, "f", 1/0),
+    "ERROR"
+  ) AS ?green_hex1 )
+  BIND (FLOOR(?green - (16 * xsd:integer( ?green / 16 ))) AS ?green_2)
+  BIND ( COALESCE(
+    IF(?green_2 < 10, STR(?green_2), 1/0),
+    IF(?green_2 = 10, "a", 1/0),
+    IF(?green_2 = 11, "b", 1/0),
+    IF(?green_2 = 12, "c", 1/0),
+    IF(?green_2 = 13, "d", 1/0),
+    IF(?green_2 = 14, "e", 1/0),
+    IF(?green_2 = 15, "f", 1/0),
+    "ERROR"
+  ) AS ?green_hex2 )
+  BIND (CONCAT(STR(?green_hex1), STR(?green_hex2)) AS ?green_hex )
+
+  BIND (CONCAT("00", STR(?green_hex), "00") AS ?rgb)   
+}

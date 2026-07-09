@@ -1,0 +1,4 @@
+SELECT ?item ?_WDPA_id WHERE {
+  ?item wdt:P279 wd:Q589
+}
+LIMIT 1000

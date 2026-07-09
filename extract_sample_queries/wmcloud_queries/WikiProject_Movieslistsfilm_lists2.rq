@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+{
+	{ ?item wdt:P360 wd:Q11424 } UNION { ?item wdt:P31 wd:Q1371849 } 
+  	FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(xsd:integer(SUBSTR(str(?item), 33)))
+OFFSET 4000
+LIMIT 4000

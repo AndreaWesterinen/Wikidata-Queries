@@ -1,0 +1,15 @@
+PREFIX schema: <http://schema.org/>
+SELECT ?item ?itemLabel ?numLinks ?who WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P27 wd:Q142.      # citizen of France
+  ?item wikibase:sitelinks ?numLinks.
+  ?item schema:description ?who.
+  FILTER((LANG(?who)) = "en")
+  FILTER(?numLinks >= 5)
+  MINUS {
+    ?article schema:about ?item.
+    ?article schema:isPartOf <https://fr.wikipedia.org/>. # no French Wikipedia page
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?numLinks)

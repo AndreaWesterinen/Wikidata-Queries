@@ -1,0 +1,4 @@
+#title: Missing [[Property:P1196|manner of death&#32;<small dir="ltr">(P1196)</small>]], deducable from [[Property:P509|cause of death&#32;<small dir="ltr">(P509)</small>]]
+# Complex constraint from [[Property talk:P1196]]
+# Entites from whose cause of death the manner is deducable
+SELECT DISTINCT ?item { VALUES ?manner { wd:Q10737 wd:Q3739104 wd:Q171558 wd:Q149086 wd:Q15729048 wd:Q8454 } . ?item wdt:P509/wdt:P279+ ?manner . MINUS { ?item wdt:P1196 [] } }

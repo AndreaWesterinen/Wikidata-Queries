@@ -1,0 +1,15 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q7889.
+  ?item wikibase:sitelinks ?linkcount.
+  OPTIONAL {
+    ?property rdf:type wikibase:Property.
+    ?property wikibase:propertyType wikibase:ExternalId.
+    ?property (wdt:P31/wdt:P279*) wd:Q28147643.
+    ?property wikibase:directClaim ?wdt.
+    ?item ?wdt ?id.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER(!BOUND(?id))
+}
+ORDER BY DESC(?linkcount)
+LIMIT 1000

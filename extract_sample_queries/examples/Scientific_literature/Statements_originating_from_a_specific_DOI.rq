@@ -1,3 +1,4 @@
+#title: Statements originating from a specific DOI
 SELECT ?entryRes ?entry ?statement
 WHERE
 {

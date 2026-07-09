@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?paper wdt:P31 wd:Q13442814 ; wdt:P50 ?item ; wdt:P1325 ?resource . filter strstarts(str(?resource), "https://openfmri.org/dataset/") }

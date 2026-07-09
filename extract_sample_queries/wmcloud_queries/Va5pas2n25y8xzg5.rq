@@ -1,0 +1,12 @@
+SELECT ?item ?LabelEN ?LabelNL WHERE {
+  ?item wdt:P31 wd:Q13442814;
+         rdfs:label ?label.
+  ?item rdfs:label ?LabelEN filter (lang(?LabelEN) = "en") .
+  ?item rdfs:label ?LabelNL filter (lang(?LabelNL) = "nl") .
+
+  FILTER(STRSTARTS(?LabelEN, ?LabelNL)).
+  FILTER(REGEX(?LabelEN, "\\(.+\\)")).
+  FILTER(REGEX(?LabelNL, "^[^\\(\\)]+$")).
+}
+ORDER BY (?itemLabel)
+LIMIT 50

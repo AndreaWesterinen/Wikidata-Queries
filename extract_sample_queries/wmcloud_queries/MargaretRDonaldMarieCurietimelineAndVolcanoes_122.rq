@@ -1,0 +1,10 @@
+# taxa with enwiki articles where author name is Barbara Lynette Rye
+SELECT ?item ?stat ?taxon_name ?article WHERE {
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  ?stat pq:P405 wd:Q5719316.   
+  ?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
+ORDER BY ?taxon_name ?item

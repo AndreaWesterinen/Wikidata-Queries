@@ -1,0 +1,1 @@
+SELECT ?item WHERE {   ?item p:P971 ?s1, ?s2 filter(?s1 != ?s2) .  ?s1 ps:P971  ?tema1.  ?s2 ps:P971 wd:Q349 .  ?tema1 wdt:P279 wd:Q349 .} 

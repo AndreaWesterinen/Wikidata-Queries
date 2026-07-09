@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel (GROUP_CONCAT(?instanceL; SEPARATOR=', ') AS ?instanceLabel) ?s ?country WHERE {
+  ?item wdt:P31 ?instance; p:P17 ?s .
+  ?instance wdt:P279* wd:Q11446 .
+  OPTIONAL {
+    ?instance rdfs:label ?instanceL .
+    FILTER(LANG(?instanceL) = 'en') .
+  }
+  ?s ps:P17 ?country .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?item ?itemLabel ?s ?country

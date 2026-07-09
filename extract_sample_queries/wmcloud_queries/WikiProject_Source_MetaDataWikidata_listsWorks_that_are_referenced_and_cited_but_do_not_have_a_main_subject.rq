@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item 
+WHERE { 
+    ?statement prov:wasDerivedFrom/pr:P248 ?item .
+    ?item wdt:P50 ?author ;
+          wdt:P932 [] .
+    ?author wdt:P21 wd:Q6581072 ;
+            wdt:P496 ?orcid .
+    [] wdt:P2860 ?item .
+  FILTER NOT EXISTS { ?item wdt:P921 [] }
+    
+}
+#GROUP BY ?item
+#HAVING (COUNT(DISTINCT ?statement) > 10)
+LIMIT 100

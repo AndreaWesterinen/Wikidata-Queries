@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel
+WHERE {
+   ?item wdt:P31 wd:Q3305213 .   # paintings only
+   ?item p:P793/pq:P642 [] .     # "of" qualifier
+   FILTER EXISTS { ?statement prov:wasDerivedFrom ?ref }  
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+Limit 1000

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P17 wd:Q38 ;
+     schema:description ?desc
+  FILTER (lang(?desc) = "it")
+  FILTER regex(?desc, "^Frazione") .
+}
+LIMIT 100000

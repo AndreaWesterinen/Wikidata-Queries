@@ -1,0 +1,4 @@
+embed.html#SELECT * WHERE {
+?sk wdt:P106 wd:Q484188;
+    wdt:P1449 ?nick.
+}

@@ -1,0 +1,5 @@
+SELECT ?item (COUNT(?item) AS ?count) WHERE {
+   ?person wdt:P108 wd:Q1783178 .
+   ?person wdt:P8413 ?item .
+   ?work wdt:P50 ?person  
+   FILTER ( EXISTS {?item wdt:P5008 wd:Q100153988 . }

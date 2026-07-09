@@ -1,0 +1,35 @@
+SELECT ?item ?sensecount ?p5137count ?wncount ?ilicount ?owcount
+WITH { 
+  SELECT ?item (COUNT(?sense) as ?sensecount) {
+    ?a dct:language ?item ; ontolex:sense ?sense
+  } GROUP BY ?item
+} AS %sensecounts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?sense) as ?p5137count) {
+    ?a dct:language ?item. OPTIONAL { ?a ontolex:sense ?sense. ?sense wdt:P5137 [] }
+  } GROUP BY ?item
+} AS %p5137counts
+WITH {
+  SELECT ?item (COUNT(DISTINCT ?s) as ?wncount) {
+    ?l dct:language ?item . OPTIONAL { ?l ontolex:sense ?s. ?s wdt:P5137/wdt:P8814 [] }
+  } GROUP BY ?item
+} AS %wordnets
+WITH {
+  SELECT ?item (COUNT(DISTINCT ?s) as ?ilicount) {
+    ?l dct:language ?item . OPTIONAL { ?l ontolex:sense ?s. ?s wdt:P5137/wdt:P5063 [] }
+  } GROUP BY ?item
+} AS %ili
+WITH {
+  SELECT ?item (COUNT(DISTINCT ?s) as ?owcount) {
+    ?l dct:language ?item . OPTIONAL { ?l ontolex:sense ?s. ?s wdt:P5137/wdt:P1245 [] }
+  } GROUP BY ?item
+} AS %ow
+WHERE {
+  INCLUDE %sensecounts.
+  INCLUDE %p5137counts.
+  INCLUDE %wordnets.
+  INCLUDE %ili.
+  INCLUDE %ow.
+  FILTER(?sensecount > 25 && (?wncount > 0 || ?ilicount > 0 || ?owcount > 0))
+}
+ORDER BY DESC(?sensecount) DESC(?p5137count) DESC(?owcount) DESC(?wncount) DESC(?ilicount)

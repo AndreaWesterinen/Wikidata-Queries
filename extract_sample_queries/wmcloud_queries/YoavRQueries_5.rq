@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?start ?end
+WHERE 
+{
+  hint:Query hint:optimizer "None" .
+  ?item wdt:P39 wd:Q13217683 .
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q13217683 .
+  ?statement pq:P768 wd:Q99 .
+  OPTIONAL { ?statement pq:P580 ?start . }
+  OPTIONAL { ?statement pq:P582 ?end . }
+  filter not exists {?article schema:about ?item ;
+          schema:isPartOf <https://he.wikipedia.org/> . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?itemLabel ?start

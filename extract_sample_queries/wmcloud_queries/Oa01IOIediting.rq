@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?founded_byLabel ?itemDescription 
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q56056731.
+  OPTIONAL { ?item wdt:P112 ?founded_by. }
+}
+LIMIT 1000

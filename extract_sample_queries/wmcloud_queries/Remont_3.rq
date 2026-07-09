@@ -1,0 +1,8 @@
+#Films de Brenton Spencer
+SELECT ?item ?itemLabel
+WHERE {
+  ?item wdt:P57 wd:Q4961731;
+        wdt:P577 ?date
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel
+ORDER BY (?date)

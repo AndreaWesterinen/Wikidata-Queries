@@ -1,0 +1,11 @@
+#title: Population > 1000000000
+# Complex constraint from [[Property talk:P1082]]
+#
+SELECT ?item ?population {
+    ?item wdt:P1082 ?population.
+    FILTER (?population > 1000000000).
+    # TODO: add sandbox
+    FILTER (?item NOT IN (wd:Q179997, wd:Q668, wd:Q2, wd:Q11188, wd:Q17566023, wd:Q5401, wd:Q862086, wd:Q148, wd:Q473750, wd:Q2483481, wd:Q27527)).
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q5107 }.
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q2775969 }.
+}

@@ -1,0 +1,32 @@
+SELECT DISTINCT ?itemLabel ?item  ?origineleNaam  ?naam ?genderLabel ?auteursrechtenstatusLabel ?RKD ?geboortedatum ?overlijdensdatum ?gelijk 
+{
+	?item wdt:P6379 wd:Q1860378 .
+    ?item wdt:P31 wd:Q5.
+    ?item rdfs:label ?label.
+   ?item p:P6379 [ ps:P6379 wd:Q1860378;
+                    prov:wasDerivedFrom 
+                    [ pr:P1810 ?origineleNaam; 
+                    ]
+                  ].
+    BIND (CONCAT (STRAFTER(?origineleNaam, ', '), ' ', (STRBEFORE(?origineleNaam, ', '))) AS ?origineleNaamReversed).
+    BIND ( IF (CONTAINS (?origineleNaam, ", "), ?origineleNaamReversed, ?origineleNaam ) AS ?naam )
+
+    BIND (CONTAINS(?label, ?naam) AS ?gelijk)
+    FILTER((LANG(?label)) = "nl")
+
+    OPTIONAL { 
+      ?item wdt:P569 ?geboortedatum.
+    }
+    OPTIONAL {
+      ?item wdt:P570 ?overlijdensdatum.
+	}
+    ?item wdt:P7763 ?auteursrechtenstatus.
+    OPTIONAL {
+       ?item wdt:P650 ?RKD.
+    }
+    OPTIONAL {
+       ?item wdt:P21 ?gender.
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" } .
+}
+ORDER BY ?itemLabel 

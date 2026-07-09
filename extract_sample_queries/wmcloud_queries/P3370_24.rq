@@ -1,0 +1,24 @@
+#title: Most frequent P734 values without property (France, POB)
+# Complex constraint from [[Property talk:P3370]]
+# family names used as P734 values, but without a P3370 statement. Selection by place of birth
+SELECT ?item ?l ?count ?sample
+WITH
+{
+  SELECT ?item (COUNT(DISTINCT ?p) as ?count) (SAMPLE(?p) as ?sample)
+  {
+    ?p wdt:P19 / wdt:P17 wd:Q142 .
+    hint:Prior hint:rangeSafe true .    
+    ?p wdt:P734 ?item .
+    ?p wdt:P31 wd:Q5 .
+  }
+  GROUP BY ?item
+  HAVING ( ?count > 10 )           
+} as %a         
+WHERE
+{
+  INCLUDE %a
+  FILTER NOT EXISTS { ?item wdt:P3370 [] }
+  ?item rdfs:label ?l . FILTER(lang(?l) = "fr" ) 
+}
+ORDER BY DESC(?count)
+LIMIT 100

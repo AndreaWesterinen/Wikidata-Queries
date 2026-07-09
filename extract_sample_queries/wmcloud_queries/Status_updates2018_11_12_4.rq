@@ -1,0 +1,53 @@
+SELECT ?countryLabel ?weekday ?count ?totalCount ?percentage
+WITH {
+  SELECT ?country ?offset (COUNT(DISTINCT ?election) AS ?count) WHERE {
+    ?election wdt:P31/wdt:P279* wd:Q40231;
+              wdt:P17 ?country;
+              p:P585/psv:P585 [
+                wikibase:timeValue ?date;
+                wikibase:timePrecision ?precision
+              ].
+    FILTER(?precision >= "11"^^xsd:integer)
+    MINUS { ?country wdt:P156|wdt:P576|wdt:P582 ?end. }
+    BIND(?date - "1776-07-04"^^xsd:dateTime AS ?offsetInt)
+    BIND(?offsetInt - (7 * xsd:integer(xsd:float(?offsetInt) / 7.0)) AS ?offsetSigned)
+    BIND(IF(?offsetSigned < 0, ?offsetSigned + 7, ?offsetSigned) AS ?offset)
+  }
+  GROUP BY ?country ?offset
+} AS %offsets
+WITH {
+  SELECT ?country ?weekday ?count WHERE {
+    INCLUDE %offsets.
+    BIND(IF(?offset = 0, "Thursday"@en,
+            IF(?offset = 1, "Friday"@en,
+               IF(?offset = 2, "Saturday"@en,
+                  IF(?offset = 3, "Sunday"@en,
+                     IF(?offset = 4, "Monday"@en,
+                        IF(?offset = 5, "Tuesday"@en,
+                           IF(?offset = 6, "Wednesday"@en,
+                              "unknown day"@en)))))))
+         AS ?weekday)
+  }
+} AS %weekdays
+WITH {
+  SELECT ?country (MAX(?count) AS ?maxCount) (SUM(?count) AS ?totalCount) WHERE {
+    INCLUDE %weekdays.
+  }
+  GROUP BY ?country
+  HAVING(?totalCount >= 3) # filter out countries with not enough data (3 is a very generous limit)
+} AS %maxWeekdayCount
+WITH {
+  SELECT ?country (SAMPLE(?weekday) AS ?weekday) ?count ?totalCount WHERE {
+    INCLUDE %weekdays.
+    INCLUDE %maxWeekdayCount.
+    FILTER(?count = ?maxCount)
+  }
+  GROUP BY ?country ?count ?totalCount
+} AS %maxWeekday
+WHERE {
+  INCLUDE %maxWeekday.
+  BIND(?count / ?totalCount AS ?ratio)
+  BIND(CONCAT(SUBSTR(STR(100 * ?ratio), 1, 5), "%") AS ?percentage)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?totalCount)

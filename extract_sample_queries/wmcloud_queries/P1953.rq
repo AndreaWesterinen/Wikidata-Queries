@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P1953/ps:P1953 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https://www\\.discogs\\.com/artist/([1-9][0-9]*)[A-Za-z-]*)$") )
+}

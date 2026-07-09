@@ -1,0 +1,4 @@
+#title: Single value (per input language) constraint
+# Complex constraint from [[Property talk:P1705]]
+# The property should not be used more than once with the same language code per item; see [[Property talk:P1705#Multiculturalism]] for discussion
+SELECT ?item WHERE { ?item wdt:P1705 ?nativeLabel } GROUP BY ?item HAVING(COUNT(?nativeLabel) > 1 && COUNT(DISTINCT LANG(?nativeLabel)) = 1)

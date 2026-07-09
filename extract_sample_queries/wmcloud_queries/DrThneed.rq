@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT DISTINCT ?thing ?thingLabel ?item ?itemLabel ?coord ?commemorates ?commemoratesLabel WHERE {
+  { ?item wdt:P3023 ?lbs. }
+  UNION
+  { ?item wdt:P106 wd:Q17769800. }
+  UNION
+  { ?item wdt:P106 wd:Q10076267. }
+  ?thing (wdt:P180|wdt:P547|wdt:P138|wdt:P88|wdt:P127) ?item;
+    wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

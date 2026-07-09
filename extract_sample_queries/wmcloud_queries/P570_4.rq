@@ -1,0 +1,6 @@
+#title: Items with P570 = "no value" (P31=Q5)
+# Complex constraint from [[Property talk:P570]]
+# Most people are not immortal
+SELECT ?item WHERE {
+ ?item p:P570/a wdno:P570; wdt:P31 wd:Q5 
+} LIMIT 100

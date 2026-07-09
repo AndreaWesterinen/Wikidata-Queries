@@ -1,0 +1,8 @@
+embed.html#select ?constituency ?item ?name ?group ?start ?end where {
+?item p:P39 ?z. ?z pq:P768 wd:Q1031720.
+wd:Q1031720 rdfs:label ?constituency. filter(lang(?constituency)="en")
+?item rdfs:label ?name. filter(lang(?name)="en")
+optional {?z pq:P4100 ?g. ?g rdfs:label ?group. filter(lang(?group)="en")}  
+optional {?z pq:P580 ?i. bind(year(?i) as ?start)}
+optional {?z pq:P582 ?j. bind(year(?j) as ?end)}
+} order by ?start ?i

@@ -1,0 +1,20 @@
+embed.html#SELECT DISTINCT ?municip ?link ?municipLabel ?statutLabel ?url_OK ?mrcLabel ?regionLabel  
+WHERE 
+{
+    ?municip (wdt:P31*/wdt:P279*) wd:Q3327873 .
+    ?municip wdt:P31 ?statut .
+    ?municip wdt:P131 ?mrc.
+    ?mrc wdt:P131 ?region.
+    Optional {?municip wdt:P571 ?dateCreation }
+    OPTIONAL { ?municip wdt:P856 ?url.  BIND(1 AS ?url_OK). }
+  FILTER(NOT EXISTS { ?municip wdt:P571 ?dateCreation. })
+  OPTIONAL {
+    ?link schema:about ?municip.
+    ?link schema:isPartOf <https://fr.wikipedia.org/>.
+  }
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "fr" .
+	}
+} 
+ORDER BY ?regionLabel ?municipLabel
+LIMIT 1000

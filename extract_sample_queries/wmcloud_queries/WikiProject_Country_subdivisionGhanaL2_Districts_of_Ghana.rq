@@ -1,0 +1,6 @@
+# title: L2 (the 260 Districts of Ghana)
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q545769.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  MINUS {?item wd:Q107663145 [] }
+}

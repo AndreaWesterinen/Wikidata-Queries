@@ -1,0 +1,10 @@
+#Cats
+SELECT ?item ?itemLabel ?dob
+WHERE 
+{
+  ?item wdt:P39 wd:Q10655178.
+  OPTIONAL {?item wdt:P569 ?dob}
+  MINUS {?item wdt:P1214 []}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}
+ORDER BY DESC(?dob) 

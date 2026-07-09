@@ -1,0 +1,6 @@
+SELECT (COUNT(*) AS ?count) 
+WHERE 
+{
+  ?item wdt:P171 _:b9.
+  FILTER((xsd:integer(STRAFTER(STR(?item), "Q"))) > 104595000 )
+}

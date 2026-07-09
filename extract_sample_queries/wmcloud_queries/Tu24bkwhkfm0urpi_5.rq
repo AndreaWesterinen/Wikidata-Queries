@@ -1,0 +1,5 @@
+#defaultView:ImageGrid
+SELECT * WHERE {
+  ?person wdt:P2037 ?github .
+  ?person wdt:P18 ?image
+}

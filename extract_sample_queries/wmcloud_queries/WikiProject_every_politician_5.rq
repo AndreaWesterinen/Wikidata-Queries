@@ -1,0 +1,18 @@
+#defaultView:BubbleChart
+
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?professionLabel (COUNT(*) AS ?count)
+WHERE {
+    ?person wdt:P31 wd:Q5 .
+    ?person p:P39 ?mandate .
+    ?mandate v:P39 wd:Q3044918 .
+    ?mandate q:P580 ?start .
+    FILTER (?start >= "2012-06-20T00:00:00Z"^^xsd:dateTime)
+    FILTER NOT EXISTS { ?mandate q:P582 ?end . }
+    ?person wdt:P106 ?profession .
+    #FILTER (?profession != wd:Q82955)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}
+GROUP BY ?professionLabel

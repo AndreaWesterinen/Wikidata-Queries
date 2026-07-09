@@ -1,0 +1,6 @@
+SELECT ?item ?label_sa ?label_en {
+  ?item rdfs:label ?label_sa .
+  ?item rdfs:label ?label_en .
+  FILTER(LANG(?label_sa) = 'sa')
+  FILTER(LANG(?label_en) = 'en')
+} LIMIT 1000

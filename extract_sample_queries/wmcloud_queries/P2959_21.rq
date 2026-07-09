@@ -1,0 +1,13 @@
+#title: Items for permanent duplicates and English labels
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: TBD (remove them?)
+SELECT DISTINCT ?item #?itemLabel ?itemDescription ?value ?valueLabel ?valueDescription
+{
+	?item wdt:P2959 ?value .
+  	?item wdt:P31 wd:Q21286738 .
+  	?item rdfs:label ?label .
+  	FILTER ( LANG( ?label ) = "en" ) .
+  	MINUS { ?item wdt:P31 wd:Q4167836 } .
+  	#SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+}
+ORDER BY ASC(xsd:integer(STRAFTER(str(?value), "Q")))

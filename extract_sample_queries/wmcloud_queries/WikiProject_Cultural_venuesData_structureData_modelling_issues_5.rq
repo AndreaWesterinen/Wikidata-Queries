@@ -1,0 +1,10 @@
+#List of venues w/o Street adress in Switzerland
+SELECT   ?item 
+         ?itemLabel
+WHERE 
+{
+  ?item wdt:P3820 ?itemLabel.
+  ?item wdt:P17 wd:Q39.
+  MINUS {?item wdt:P6375 ?item2}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

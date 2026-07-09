@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coordenadas ?sitelink  WHERE {
+  ?item wdt:P625 ?coordenadas .
+  ?sitelink schema:isPartOf <https://fr.wikipedia.org/>.
+   ?sitelink schema:about ?item .
+  { ?sitelink wikibase:badge wd:Q17437796 .}  UNION { ?sitelink wikibase:badge wd:Q17437798 . } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr" } .
+} ORDER BY ?itemLabel

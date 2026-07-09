@@ -1,0 +1,17 @@
+#defaultView:Map
+SELECT distinct ?item ?itemLabel ?sitelinks ?coord ?coord2 ?a WITH { SELECT ?item ?river
+WHERE 
+{
+  VALUES ?river {wd:Q7337108}
+  ?item wdt:P403 ?river .
+
+  
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item wikibase:sitelinks ?sitelinks.
+  ?item wdt:P625 ?coord .
+  ?river wdt:P625 ?coord2.
+} order by desc(?sitelinks) ?itemLabel

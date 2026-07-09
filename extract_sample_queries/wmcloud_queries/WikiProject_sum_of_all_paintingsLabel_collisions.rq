@@ -1,0 +1,10 @@
+SELECT ?item ?item2 ?label ?description (LANG(?label) AS ?lang) WHERE {
+  ?item wdt:P31 wd:Q3305213;
+        rdfs:label ?label;
+        schema:description ?description.
+  ?item2 rdfs:label ?label;
+         schema:description ?description.
+  FILTER(LANG(?label) = LANG(?description))
+  FILTER(STR(?item) < STR(?item2))
+}
+LIMIT 1000

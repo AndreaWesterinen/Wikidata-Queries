@@ -1,0 +1,11 @@
+SELECT (sample(?item) as ?sampleItem) (sample(?match_uri) as ?sampleURI) ?host (COUNT(?item) AS ?count)
+ WHERE {
+  ?item wdt:P1889 ?some_property_to_cut_down_the_query.
+   ?item wdt:P2888|wdt:P1709  ?match_uri
+   #?item wdt:P2888 ?match_uri .
+    BIND (STRAFTER(str(?match_uri),"://") AS ?url) 
+    BIND (STRBEFORE(?url, "/") AS ?host) 
+}
+GROUP BY ?host
+HAVING (?count > 1)
+ORDER BY DESC(?count)

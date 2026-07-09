@@ -1,0 +1,9 @@
+#title: Potential values
+# Complex constraint from [[Property talk:P9969]]
+# TODO add, correct or define exception
+SELECT ?item ?catalogue WHERE
+{
+	?catalogue wdt:P31 wd:Q1050259 ; wdt:P921 ?item .
+    FILTER NOT EXISTS { [] wdt:P9969 ?catalogue }    
+    ?item wdt:P31 wd:Q5 .
+}

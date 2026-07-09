@@ -1,0 +1,21 @@
+embed.html#SELECT
+  ?prop ?propLabel (SAMPLE(?in_this_item) as ?in_this_item_) (COUNT (DISTINCT ?s) as ?count) (SAMPLE(?proptype) as ?proptype_)  
+  (URI(CONCAT(str(SAMPLE(COALESCE(?s0,?s))),"#",strafter(str(?prop),str(wd:)))) as ?actual_use_or_sample)
+WITH
+{
+  SELECT *
+  {
+    { SELECT ?s { ?s wdt:P31 wd:Q12308941 . MINUS { ?s rdf:type [] } } LIMIT 100 } 
+    hint:Prior hint:runFirst true . ?prop wikibase:directClaim ?wdt . ?s ?wdt [] .
+  } 
+} as %tst
+WHERE
+{
+  INCLUDE %tst
+  OPTIONAL { wd:Q1418855 ?wdt []. BIND("present" as ?in_this_item)   BIND( wd:Q1418855 as ?s0) }   
+  ?prop wikibase:propertyType ?proptype
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". ?prop rdfs:label ?propLabel }          
+}
+GROUP BY ?prop ?propLabel
+ORDER BY ( ?proptype_ = wikibase:ExternalId )  DESC(?count)
+LIMIT 50

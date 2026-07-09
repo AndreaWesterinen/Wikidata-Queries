@@ -1,0 +1,10 @@
+embed.html##defaultView:BubbleChart
+SELECT ?nl (COUNT(DISTINCT ?item) as ?count) 
+{
+    ?item p:P735 [ pq:P7338 [] ; ps:P735 ?value ] .
+    ?item wdt:P39 wd:Q19546 .
+    ?item wdt:P31 wd:Q5 . 
+    ?value wdt:P1705 ?nl . 
+}
+GROUP BY ?nl
+ORDER BY DESC(?count)

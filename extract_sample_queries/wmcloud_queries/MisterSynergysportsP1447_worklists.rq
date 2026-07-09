@@ -1,0 +1,3 @@
+SELECT ?item (COUNT(DISTINCT ?sr) AS ?cnt) WHERE {
+  ?item p:P1447 [ rdf:type wikibase:BestRank; ps:P1447 ?sr ] .
+} GROUP BY ?item HAVING(?cnt>1)

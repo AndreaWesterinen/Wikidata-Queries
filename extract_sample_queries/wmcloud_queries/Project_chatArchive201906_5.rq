@@ -1,0 +1,8 @@
+SELECT ?human ?humanLabel ?occupation ?occupationLabel ?date_of_death WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?human wdt:P31 wd:Q5;
+    wdt:P106 wd:Q10798782;
+    wdt:P570 ?date_of_death.
+  FILTER((YEAR(?date_of_death)) < 1927 )
+}
+LIMIT 100

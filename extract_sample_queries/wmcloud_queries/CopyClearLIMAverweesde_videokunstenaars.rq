@@ -1,0 +1,7 @@
+SELECT ?item ?id WHERE {
+  ?item wdt:P650 ?id;
+        wikibase:identifiers "1"^^xsd:integer;
+        wdt:P31 wd:Q5.
+  ?item wdt:P106 wd:Q18216771.
+  MINUS { ?otheritem ?otherproperty ?item } 
+  } ORDER BY ASC(xsd:integer(?id))

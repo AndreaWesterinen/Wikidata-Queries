@@ -1,0 +1,4 @@
+SELECT ?item  ?countryLabel ?sitelinks WHERE {
+  ?item wdt:P31 wd:Q190752 OPTIONAL {?item wdt:P17 ?country} OPTIONAL {?item wikibase:sitelinks ?sitelinks}  
+SERVICE wikibase:label { bd:serviceParam wikibase:language "vec". }  
+ }

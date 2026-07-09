@@ -1,0 +1,18 @@
+#query adapted from https://www.wikidata.org/w/index.php?diff=436408375 by [[User:Queryzo]]
+SELECT ?item ?year ?population
+WHERE
+{
+	?item wdt:P31 wd:Q10876391 .
+	?item wdt:P856 ?sprachcode .
+	?item rdfs:label ?year 
+	FILTER(lang(?year) = "en") 
+	{ SELECT ?sprachcode (COUNT(DISTINCT ?film) as ?population) WHERE {
+    	?film wdt:P31/wdt:P279* wd:Q11424 .
+    	?article schema:about ?film . 
+    	?article schema:isPartOf ?sprachcode
+    } 
+	GROUP BY ?sprachcode 
+	}                                       
+}
+ORDER BY DESC (?population)
+LIMIT 20

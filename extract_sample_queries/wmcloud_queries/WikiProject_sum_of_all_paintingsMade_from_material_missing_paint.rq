@@ -1,0 +1,8 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213;
+        wdt:P186 ?madestatement .
+  FILTER NOT EXISTS { ?item wdt:P186/wdt:P279* wd:Q174219  } . # paint
+  FILTER NOT EXISTS { ?item wdt:P186 wd:Q189085 } . # pastel
+  FILTER NOT EXISTS { ?item wdt:P186/wdt:P279 wd:Q127418 } . # ink
+  }
+LIMIT 800

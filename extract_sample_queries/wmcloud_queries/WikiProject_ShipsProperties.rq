@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?sub0Label WHERE {
+  ?item wdt:P31 ?sub0.
+  { ?sub0 wdt:P31 wd:Q2235308. }
+  UNION
+  { ?sub0 wdt:P31 wd:Q559026. }
+  UNION
+  { ?sub0 wdt:P31 wd:Q1428357. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,10 @@
+SELECT ?oLabel ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P91 ?o;
+        
+    p:P91 ?orientation.
+  FILTER(NOT EXISTS { ?orientation prov:wasDerivedFrom ?ref. })
+  FILTER ( ! wikibase:isSomeValue(?o) ).
+  FILTER(  ?o != wd:Q1035954).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

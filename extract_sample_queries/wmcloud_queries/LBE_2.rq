@@ -1,0 +1,9 @@
+SELECT ?type ?typeLabel (count(distinct ?item) as ?number)
+WHERE
+{
+       ?item wdt:P1717 ?dummy0 .
+	?item wdt:P31 ?type .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" } 
+}
+GROUP BY ?type ?typeLabel
+LIMIT 10

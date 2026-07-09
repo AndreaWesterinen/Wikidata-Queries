@@ -1,0 +1,10 @@
+SELECT 
+	?item 
+	(GROUP_CONCAT(CONCAT("[",str(?sitelink)," ", ?lang,"]"); separator=", ") as ?wp) 
+	(COUNT(distinct ?sitelink) as ?count) 
+    WHERE { ?item wdt:P27 wd:Q36 . ?item wdt:P106 wd:Q13219587.  
+        OPTIONAL { ?sitelink schema:abosut ?item . ?sitelink schema:inLanguage ?lang .  } . 
+        FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:inLanguage "pl" } 
+    }
+GROUP BY ?item  
+LIMIT 100

@@ -1,0 +1,7 @@
+SELECT ?drug ?drugLabel ?drugID ?compoundID WHERE {
+  ?drug wdt:P665 ?drugID ;
+        wdt:P665 ?compoundID .
+  FILTER (STRSTARTS(STR(?drugID),"D"))
+  FILTER (STRSTARTS(STR(?compoundID),"C"))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

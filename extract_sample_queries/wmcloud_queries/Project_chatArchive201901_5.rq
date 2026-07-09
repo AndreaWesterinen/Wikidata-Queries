@@ -1,0 +1,1 @@
+SELECT ?banner (group_concat(?q) AS ?items) (count(?q) AS ?cnt) { ?q wdt:P948 ?banner } GROUP BY ?banner HAVING (?cnt>1) ORDER BY DESC(?cnt)

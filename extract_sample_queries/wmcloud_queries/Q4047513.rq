@@ -1,0 +1,17 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?d (count(?mem) as ?n) WHERE 
+{
+  { SELECT distinct ?d WHERE {
+    ?m p:P39 [ v:P39 wd:Q4047513; ( q:P580 | q:P582 ) ?d ].
+   }}
+   ?mem p:P39 ?st .
+   ?st v:P39 wd:Q4047513.
+   ?st q:P580 ?sd filter( ?sd < ?d ) .
+   optional { ?st q:P582 ?ed . } filter( !bound( ?ed ) || ?ed >= ?d )
+} group by ?d order by ?d

@@ -1,0 +1,49 @@
+select (?l as ?item) (concat("[[Lexeme:", replace(str(?l), str(wd:), ""), "|", replace(str(?l), str(wd:), ""), "]]") as ?l_) ?lemma ?nom ?nomex ?acc ?accex ?dat ?datex ?gen
+with {
+select
+  ?l
+  ?lemma
+  ?num1
+  (group_concat(distinct ?form1; separator="/") as ?nom)
+  (group_concat(distinct ?form2; separator="/") as ?gen)
+  (group_concat(distinct ?form3; separator="/") as ?dat)
+  (group_concat(distinct ?form4; separator="/") as ?acc)
+{
+  ?l dct:language wd:Q188;
+     wikibase:lexicalCategory/wdt:P279* wd:Q36224 ;
+     wikibase:lemma ?lemma .
+  {
+    ?l wdt:P31/wdt:P279* wd:Q1189745 .
+  } union  {
+    ?l ontolex:sense/wdt:P5137/wdt:P31*/wdt:P279* wd:Q1189745 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f1 .
+    ?f1 ontolex:representation ?form1 .
+    ?f1 wikibase:grammaticalFeature wd:Q131105 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f2 .
+    ?f2 ontolex:representation ?form2 .
+    ?f2 wikibase:grammaticalFeature wd:Q146233 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f3 .
+    ?f3 ontolex:representation ?form3 .
+    ?f3 wikibase:grammaticalFeature wd:Q145599 .
+    filter not exists { ?f3 wikibase:grammaticalFeature wd:Q953129 }
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f4 .
+    ?f4 ontolex:representation ?form4 .
+    ?f4 wikibase:grammaticalFeature wd:Q146078 .
+    filter not exists { ?f4 wikibase:grammaticalFeature wd:Q953129 }
+  }
+} group by ?l ?lemma ?num1
+} as %inner
+where {
+  include %inner .
+  bind(if(str(?nom)!="",concat("Hier ist '''",?nom, "'''"),"") as ?nomex) .
+  bind(if(str(?acc)!="",concat("Ich sehe '''",?acc,"'''"),"") as ?accex) .
+  bind(if(str(?dat)!="",concat("Ich helfe '''",?dat,"'''"),"") as ?datex) .
+} order by ?lemma

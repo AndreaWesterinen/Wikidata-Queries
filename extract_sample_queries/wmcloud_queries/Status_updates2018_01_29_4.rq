@@ -1,0 +1,8 @@
+SELECT ?object ?objectLabel (COUNT(?item) AS ?count) 
+WHERE 
+{
+  ?item wdt:P361 wd:Q13915.
+  ?item wdt:P180 ?object .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?object ?objectLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q4013975 .
+  ?item wdt:P31 wd:Q3305213 . 
+} LIMIT 4000

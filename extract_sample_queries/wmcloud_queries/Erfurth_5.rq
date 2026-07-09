@@ -1,0 +1,16 @@
+#1Lib1Nearby
+SELECT ?item ?itemLabel ?nearby
+WHERE 
+{
+  ?item wdt:P31 wd:Q7075.
+  ?item wdt:P131 wd:Q1731;
+  p:P625 [
+           psv:P625 [
+             wikibase:geoLatitude ?lat ;
+             wikibase:geoLongitude ?lon ;
+           ] ;
+           ps:P625 ?coord
+         ]
+  BIND(URI(CONCAT("https://www.wikidata.org/wiki/Special:Nearby#/coord/",STR(?lat),",",STR(?lon))) as ?nearby)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

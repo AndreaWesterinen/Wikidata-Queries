@@ -1,0 +1,29 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+#by Jura1, 2015-02-07
+
+SELECT * 
+WHERE 
+{
+  {SELECT 	
+		("as" as ?what1)     
+		(COUNT(DISTINCT(?item)) as ?number_of_items_with_property)
+		(COUNT(?value) 			as ?number_of_statements)
+WHERE	
+		{
+          	?item p:P2421 ?value . 
+        }				
+}
+UNION
+  {SELECT 	
+		("bes" as ?what1)     
+		(COUNT(DISTINCT(?item)) as ?number_of_items_with_property)
+		(COUNT(?value) 			as ?number_of_statements)
+WHERE	
+		{
+          	?item wdt:P2421 ?value . 
+        }				
+}
+  
+}

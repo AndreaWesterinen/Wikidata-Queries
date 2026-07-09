@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription ?loc ?locLabel ?locDescription
+WHERE
+{
+    ?item wdt:P31 wd:Q11446 ; wdt:P276 ?loc . 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

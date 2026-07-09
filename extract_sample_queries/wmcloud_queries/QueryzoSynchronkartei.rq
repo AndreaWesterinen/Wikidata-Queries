@@ -1,0 +1,11 @@
+SELECT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q11424 .
+  ?item wdt:P495 wd:Q183 .
+        { ?item wdt:P5510 [] }
+  UNION { ?item wdt:P3844 [] }
+  UNION { ?item wdt:P5786 [] }
+  FILTER NOT EXISTS {
+    ?item rdfs:label ?delabel .
+    FILTER(lang(?delabel) = "de")
+  }
+} ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))

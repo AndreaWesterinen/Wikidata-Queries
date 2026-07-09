@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?bodyLabel WHERE {
+	?item wdt:P376 ?body .
+    ?page schema:about ?item.
+	?page schema:isPartOf <https://it.wikipedia.org/> .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

@@ -1,0 +1,8 @@
+#title: honorary doctorate of a university without "conferred by"
+# Complex constraint from [[Property talk:P1027]]
+# [[d:Q11415564|honorary doctorate <small>(Q11415564)</small>]] without [[Property:P1027|conferred by&#32;<small dir="ltr">(P1027)</small>]]
+SELECT ?item {
+  ?item wdt:P279 wd:Q11415564.
+  FILTER NOT EXISTS { ?item wdt:P1027 [] }.
+  FILTER (?item NOT IN (wd:Q17403163))
+}

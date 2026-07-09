@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?itemDescription ?count
+{
+	?item wdt:P19/wdt:P17* wd:Q33 .
+	OPTIONAL { ?wp schema:about ?item ; schema:inLanguage "fi" }
+	FILTER (!BOUND(?wp))
+	?item wdt:P21 wd:Q6581072 .
+	?item wikibase:sitelinks ?count
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fi,sv,en,de,fr". }
+}
+ORDER BY DESC(?count)

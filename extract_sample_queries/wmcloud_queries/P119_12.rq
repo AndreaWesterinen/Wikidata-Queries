@@ -1,0 +1,10 @@
+#title: Simple contemporary constraint
+# Complex constraint from [[Property talk:P119]]
+#
+SELECT ?subject ?value ?subject_death ?value_dissolution {
+  ?subject wdt:P119 ?value;
+           p:P570/psv:P570 [ wikibase:timeValue ?subject_death ; wikibase:timePrecision "11"^^xsd:integer ].
+  ?value p:P576/psv:P576 [ wikibase:timeValue ?value_dissolution ; wikibase:timePrecision "11"^^xsd:integer ].
+  FILTER (?subject_death > ?value_dissolution).
+  ?value wdt:P31/wdt:P279* wd:Q39614.
+}

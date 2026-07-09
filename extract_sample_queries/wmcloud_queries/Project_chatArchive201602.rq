@@ -1,0 +1,20 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?prop ?propLabel ?count WHERE {
+    {
+        SELECT ?prop (COUNT(DISTINCT ?item) AS ?count) WHERE {
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P217 ?invnum .
+           ?item ?p ?id .
+           ?prop wikibase:directClaim ?p .
+          
+        }  GROUP BY ?prop
+    }
+           
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+
+} ORDER BY DESC (?count)

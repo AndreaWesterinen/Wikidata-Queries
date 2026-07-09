@@ -1,0 +1,13 @@
+#Dresdner Unternehmen mit Geokoordinaten (Headquarter)
+SELECT ?item ?itemLabel ?street ?coord ?industryLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q4830453.
+  ?item wdt:P159 wd:Q1731.
+  ?item wdt:P452 ?industry. 
+  optional {
+  ?item p:P159 [ pq:P625 ?coord; pq:P969 ?street;]
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+  
+}

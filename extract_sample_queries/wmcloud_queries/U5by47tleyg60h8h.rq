@@ -1,0 +1,35 @@
+SELECT ?item ?itemLabel ?position ?positionLabel ?began ?ended WHERE {
+  BIND (wd:Q30178117 AS ?cabinet) .
+  
+  # Dates of this cabinet
+  ?cabinet wdt:P31 ?parent . 
+  ?cabinet wdt:P571|wdt:P580 ?cabinetStart .
+  OPTIONAL { ?cabinet wdt:P576|wdt:P582 ?cabinetEndDate } .
+  BIND(COALESCE(?cabinetEndDate, NOW()) AS ?cabinetEnd)
+ 
+  # Positions in this cabinet
+  ?position p:P361 ?ps .
+  ?ps ps:P361 ?parent .
+  OPTIONAL { ?ps pq:P580 ?positionCabinetStart }
+  OPTIONAL { ?ps pq:P582 ?positionCabinetEnd }
+  OPTIONAL { ?position wdt:P571|wdt:P580 ?positionStart }
+  OPTIONAL { ?position wdt:P576|wdt:P582 ?positionEnd }  
+  BIND(COALESCE(?positionCabinetStart, ?positionStart, ?cabinetStart) AS ?start)
+  BIND(COALESCE(?positionCabinetEnd, ?positionEnd, ?cabinetEnd) AS ?end)
+  FILTER(?start < ?cabinetEnd)
+  FILTER(?end > ?cabinetStart)
+  
+  # People with those positions in this cabinet
+  ?item p:P39 ?held .
+  ?held ps:P39 ?position ; pq:P580 ?personStart .
+  OPTIONAL { ?held pq:P582 ?personEndDate } 
+  BIND(COALESCE(?personEndDate, NOW()) AS ?personEnd)
+  FILTER (?personStart < ?cabinetEnd)
+  FILTER (?personEnd > ?cabinetStart)
+ 
+  # Dates of service
+  BIND(IF(?personStart > ?cabinetStart, ?personStart, ?cabinetStart) AS ?began)
+  BIND(IF(?personEnd < ?cabinetEnd, ?personEnd, (IF(?cabinetEnd = NOW(), "", ?cabinetEnd))) AS ?ended)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?positionLabel ?began

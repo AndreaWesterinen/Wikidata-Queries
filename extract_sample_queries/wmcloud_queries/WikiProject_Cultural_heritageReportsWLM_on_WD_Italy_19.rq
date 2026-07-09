@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?luogo ?luogoLabel
+WHERE 
+{
+  ?item wdt:P17 wd:Q38;
+        wdt:P2186 ?wlm;
+        wdt:P276 ?luogo;
+        wdt:P131 ?luogo.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

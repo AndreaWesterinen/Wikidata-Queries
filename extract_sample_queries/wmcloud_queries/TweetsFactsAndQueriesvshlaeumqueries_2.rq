@@ -1,0 +1,26 @@
+embed.html#SELECT
+(COUNT(?airport) AS ?countAirport)
+(SUM(IF(?namedAfterHuman, 1, 0)) AS ?countNamedAfterHuman)
+(SUM(IF(?namedAfterWoman, 1, 0)) AS ?countNamedAfterWoman)
+(SUM(IF(?namedAfterHuman, 1, 0)) / COUNT(?airport) AS ?ratioNamedAfterHuman)
+(SUM(IF(?namedAfterWoman, 1, 0)) / COUNT(?airport) AS ?ratioNamedAfterWoman)
+(SUM(IF(?namedAfterWoman, 1, 0)) / SUM(IF(?namedAfterHuman, 1, 0)) AS ?ratioNamedAfterWomanOfNamedAfterHuman)
+WITH {
+  SELECT ?airport ?airportLabel ?namedAfterHuman ?namedAfterWoman WHERE {
+    ?airport wdt:P31/wdt:P279* wd:Q644371.
+    OPTIONAL {
+      ?airport wdt:P138 ?eponym.
+      ?eponym wdt:P31 wd:Q5.
+      OPTIONAL {
+        ?eponym wdt:P21/wdt:P279* wd:Q6581072.
+        BIND(true AS ?namedAfterWoman_)
+      }
+    }
+    BIND(BOUND(?eponym) AS ?namedAfterHuman)
+    BIND(COALESCE(?namedAfterWoman_, false) AS ?namedAfterWoman)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+} AS %airports
+WHERE {
+  INCLUDE %airports.
+}

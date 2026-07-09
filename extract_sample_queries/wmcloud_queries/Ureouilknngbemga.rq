@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?image ?startYear ?endYear WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}
+  ?item wdt:P39 wd:Q11039843 ;
+        wdt:P31 wd:Q5 ;
+        p:P39 ?mandate_statement .
+  
+  ?mandate_statement ps:P39 ?mandate .
+  
+  OPTIONAL { ?mandate_statement pq:P580 ?startDate . } .
+  OPTIONAL { ?mandate_statement pq:P582 ?endDate . } .
+  OPTIONAL { ?item wdt:P18 ?image . } .
+  
+  BIND(str(YEAR(?startDate)) as ?startYear)
+  BIND(str(YEAR(?endDate)) as ?endYear)
+  FILTER (?mandate = wd:Q11039843)
+} ORDER BY ?startDate

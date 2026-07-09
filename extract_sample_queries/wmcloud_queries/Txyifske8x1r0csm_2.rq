@@ -1,0 +1,10 @@
+# National parks
+#defaultView:Map
+SELECT ?national_park ?national_parkLabel ?coordinate_location ?image WHERE {
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+ ?national_park wdt:P31 wd:Q46169.
+ ?national_park wdt:P17 wd:Q668.
+ OPTIONAL { ?national_park wdt:P625 ?coordinate_location. }
+ OPTIONAL { ?national_park wdt:P18 ?image. }
+}
+LIMIT 140

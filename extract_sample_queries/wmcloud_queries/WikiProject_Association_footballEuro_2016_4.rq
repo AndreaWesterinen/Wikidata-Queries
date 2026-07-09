@@ -1,0 +1,10 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?team ?teamLabel ?nationalTeamLabel  WHERE {
+  ?team wdt:P31 wd:Q24199684 .
+  ?team wdt:P31 ?nationalTeam .
+  ?nationalTeam wdt:P31 wd:Q6979593
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+}

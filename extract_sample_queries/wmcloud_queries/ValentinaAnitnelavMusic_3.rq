@@ -1,0 +1,14 @@
+select ?work ?workLabel ?year (GROUP_CONCAT(DISTINCT ?label; separator=", ") AS ?types) ?namesake ?namesakeLabel ?birthyear ?deathyear
+where {
+  ?work wdt:P31 ?type . ?type wdt:P279* wd:Q7366; rdfs:label ?label.
+  FILTER(LANG(?label)="en")
+  # work is a type of song or poem
+  ?work wdt:P138 ?namesake . ?namesake wdt:P31 wd:Q5 . 
+  # named after a person
+  optional { ?namesake wdt:P569 ?born . bind(year(?born) as ?birthyear) }
+  optional { ?namesake wdt:P570 ?died . bind(year(?died) as ?deathyear) }
+  optional { ?work wdt:P577|wdt:P571 ?date . bind(year(?date) as ?year) }
+  # dates
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+GROUP BY ?work ?workLabel ?year ?namesake ?namesakeLabel ?birthyear ?deathyear

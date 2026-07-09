@@ -1,0 +1,13 @@
+# Frequency of Roman praenomina in Wikidata
+# Reference list at  https://www.wikidata.org/wiki/Wikidata:WikiProject_Names/lists/Roman_praenomen
+# by Jura1, 2016-07-37, thanks to data recently added by Epìdosis
+#defaultView:BubbleChart
+SELECT ?item ?itemLabel (SAMPLE(?holder) as ?sample) (COUNT(DISTINCT ?holder) as ?ct)
+{
+  	?item wdt:P31 wd:Q1240901 . 
+  	OPTIONAL { ?holder wdt:P2358 ?item } 
+  	MINUS { ?item wdt:P31 wd:Q4167410 } 
+  	MINUS { ?item wdt:P31 wd:Q101352 }
+  	SERVICE wikibase:label {  bd:serviceParam wikibase:language "en" .}
+}
+GROUP BY ?item ?itemLabel

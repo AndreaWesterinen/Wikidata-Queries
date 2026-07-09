@@ -1,0 +1,11 @@
+#title: de label required
+# Complex constraint from [[Property talk:P6597]]
+# Items with this property should have labels in German
+SELECT ?item ?value
+{
+	hint:Query hint:optimizer "None".  
+	?item wdt:P6597 ?value .
+	OPTIONAL { ?item rdfs:label ?l . FILTER(lang(?l)="de" )  }
+	FILTER ( !BOUND(?l) )
+}
+LIMIT 100

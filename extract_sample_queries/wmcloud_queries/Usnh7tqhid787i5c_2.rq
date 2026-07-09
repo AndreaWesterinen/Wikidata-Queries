@@ -1,0 +1,17 @@
+SELECT DISTINCT ?property ?propertyLabel ?propertyDescription ?sexe ?sexeLabel ?typeLabel (count(?person) as ?effectif)
+WHERE
+{
+    ?property rdf:type wikibase:Property ;
+              wdt:P31/wdt:P279* wd:Q36218176, wd:Q55452870 ;
+              wikibase:directClaim ?propertyMainValue .
+  
+    ?person ?propertyMainValue [] .
+    optional {
+       ?person wdt:P21 ?sexe2
+       bind(if(isBlank(?sexe2), "inconnu", ?sexe2) as ?sexe3) 
+    }
+    bind(if(!bound(?sexe3), "non specifié", ?sexe3) as ?sexe) 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }	
+   ?person wdt:P31 ?type .
+} group by ?property ?propertyLabel ?propertyDescription ?sexe ?sexeLabel ?type ?typeLabel
+  order by ?property ?sexe

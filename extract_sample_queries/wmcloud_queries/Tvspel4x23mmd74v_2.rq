@@ -1,0 +1,15 @@
+SELECT DISTINCT ?country (group_concat(distinct ?languageL ; separator = ", ") as ?languages) WHERE {
+  ?item wdt:P31 wd:Q6256 ;
+        wdt:P37 ?language .
+
+  FILTER NOT EXISTS {
+    ?item wdt:P37 ?y . 
+    ?p wdt:P31 wd:Q6256 ;
+       wdt:P37 ?y ;
+       wdt:P30 wd:Q46 .
+  }
+  ?language rdfs:label ?languageL filter (lang(?languageL) = "en") .
+  ?item rdfs:label ?country filter (lang(?country) = "en") .
+}
+GROUP BY ?country
+ORDER BY ?country

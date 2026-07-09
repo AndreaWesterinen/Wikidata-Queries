@@ -1,0 +1,12 @@
+SELECT DISTINCT
+  (SAMPLE(COALESCE(?en_label, ?item_label)) as ?name)
+  (SAMPLE(?item) as ?wikidata)
+WHERE {
+  ?item wdt:P279* wd:Q10943.
+  OPTIONAL {?item rdfs:label ?en_label. FILTER(LANG(?en_label) = "en")} OPTIONAL {?item rdfs:label ?item_label}
+  MINUS { 
+    ?item wdt:P186 ?material. ?material rdfs:label ?material_label . FILTER(LANG(?material_label) = "en")
+    ?material wdt:P279* wd:Q8495.
+  }
+  ?item wdt:P186 ?material.
+} GROUP BY ?item ORDER BY ASC(?label)

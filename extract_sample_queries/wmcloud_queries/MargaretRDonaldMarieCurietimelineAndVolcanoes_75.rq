@@ -1,0 +1,10 @@
+# Find Acacias without a taxon range map
+SELECT ?item ?itemLabel?taxon_name ?range_map  WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    ?item wdt:P225 ?taxon_name.
+    ?item wdt:P171 wd:Q81666.   # whose genus is Acacia
+  MINUS
+  {?item wdt:P181 ?range_map.
+  }
+}
+ORDER BY ?itemLabel ?item ?taxon_name 

@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT distinct ?subjectLabel  ?coords WHERE{
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+  ?item wdt:P823 wd:Q3052772.
+  ?item wdt:P180 ?subject.
+  ?subject wdt:P625 ?coords.
+}

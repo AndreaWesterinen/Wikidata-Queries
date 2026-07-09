@@ -1,0 +1,1 @@
+SELECT ?q ?qLabel ?catchphrase { ?q wdt:P6251 ?catchphrase . SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }

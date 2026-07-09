@@ -1,0 +1,4 @@
+#title: items for Emperors of China would have this property
+# Complex constraint from [[Property talk:P6902]]
+#
+SELECT ?item { ?item wdt:P39 wd:Q268218 . MINUS { ?item wdt:P6902 [] }  }

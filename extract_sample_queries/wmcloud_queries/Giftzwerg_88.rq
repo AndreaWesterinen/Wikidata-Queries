@@ -1,0 +1,7 @@
+SELECT DISTINCT ?Naturdenkmal_in_Germany ?Naturdenkmal_in_GermanyLabel ?Naturdenkmal_in_GermanyDescription ?LUBW_Protected_Area_No WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+  ?Naturdenkmal_in_Germany wdt:P31 wd:Q21573182;
+    wdt:P5965 ?LUBW_Protected_Area_No;
+  wdt:P131 wd:Q82838.
+}
+ORDER BY (?Naturdenkmal_in_GermanyLabel) (?LUBW_Protected_Area_No) (?Bild)

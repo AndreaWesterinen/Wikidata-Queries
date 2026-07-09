@@ -1,0 +1,1 @@
+SELECT ?fed ?country { wd:Q48663 p:P527 [ ps:P527 ?fed; pq:P1532 ?country] }

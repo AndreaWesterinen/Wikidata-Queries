@@ -1,0 +1,10 @@
+SELECT ?edition ?editionLabel ?publisherLabel ?gutenbergid ?instancetype  ?pubdate   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?edition wdt:P2034 ?gutenbergid.
+    ?edition wdt:P577 ?pubdate. 
+  ?edition wdt:P123 ?publisher.
+  FILTER (?publisher != wd:Q22673 )
+  OPTIONAL { ?edition wdt:P31 ?instancetype}
+}
+ORDER BY ?book
+LIMIT 100

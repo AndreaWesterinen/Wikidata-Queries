@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabel ?name ?sitelink (CONCAT("[[:","el",":",?name,"]]") as ?art) ?cat
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?cat wdt:P971 wd:Q202444 , wd:Q9129 .
+  [] schema:about ?cat ; schema:isPartOf <https://el.wikipedia.org/> ; schema:name ?sitelink . 
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:endpoint "el.wikipedia.org";
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?sitelink ;         
+                     mwapi:gcmlimit "max".
+     ?name wikibase:apiOutput mwapi:title.             
+     ?item wikibase:apiOutputItem mwapi:item
+    }
+  FILTER NOT EXISTS { ?item wdt:P407 wd:Q9129 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 }
+  # SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it" }
+}
+ORDER BY ?sitelink ?name

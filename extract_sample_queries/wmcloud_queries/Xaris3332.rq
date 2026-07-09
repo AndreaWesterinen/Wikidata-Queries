@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?start ?end ?endcause ?endcauseLabel 
+WHERE
+{
+  wd:Q714581 p:P286 ?st .
+  ?st ps:P286 ?item .
+  OPTIONAL { ?st pq:P580 ?start } 
+  OPTIONAL { ?st pq:P582 ?end } 
+  OPTIONAL { ?st pq:P1534 ?endcause } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?start)

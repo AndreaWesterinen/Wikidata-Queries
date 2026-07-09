@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?osm ?value
+{
+	?item wdt:P1282 ?osm .
+    BIND(strafter( ?osm, "=") as ?value) 
+	FILTER( CONTAINS(?value, "_") )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+LIMIT 1000

@@ -1,0 +1,12 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord
+WHERE {
+  wd:Q91134 wdt:P625 ?center
+  SERVICE wikibase:around {
+  ?item wdt:P625 ?coord .
+  bd:serviceParam wikibase:center ?center .
+  bd:serviceParam wikibase:radius "120" . }
+  MINUS { ?item wdt:P131 ?adm . }
+  MINUS { ?item wdt:P31 wd:Q486972 . }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it,en". }
+}

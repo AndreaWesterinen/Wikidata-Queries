@@ -1,0 +1,22 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?nb ?person ?personLabel ?start ?end WHERE
+{
+   ?person p:P39 ?position_held_statement .
+   ?position_held_statement v:P39 wd:Q3773745 . #position held: governor of Vermont
+   ?position_held_statement q:P580 ?start . # only with start date
+   OPTIONAL { ?position_held_statement q:P582 ?end } .
+   OPTIONAL { ?position_held_statement q:P1545 ?nb } .
+   ?person wdt:P31 wd:Q5 .   			#only real people
+  
+  OPTIONAL { 
+     ?person rdfs:label ?personLabel filter (lang(?personLabel) = "en"). 
+   }
+}
+ORDER BY ?start

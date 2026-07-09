@@ -1,0 +1,32 @@
+#title: Probably wrongly used as birthday
+# Complex constraint from [[Property talk:P569]]
+# Use [[Property:P3150|birthday&#32;<small dir="ltr">(P3150)</small>]] for birthday (if full birth year isn't known).
+SELECT ?item ?birth ?date
+  WHERE {
+    {
+      SELECT DISTINCT *
+      WHERE {
+        ?item p:P569/psv:P569 [
+          wikibase:timeValue ?birth; wikibase:timePrecision 10
+        ].
+        FILTER(?birth > "+0000-00-00T00:00:00Z"^^xsd:dateTime).
+        FILTER(?birth < "+0032-00-00T00:00:00Z"^^xsd:dateTime).
+        FILTER (?item not in (wd:Q4115189,wd:Q13406268,wd:Q15397819)).
+      }
+      LIMIT 200
+    }
+    {
+      SELECT *
+      WHERE {
+        BIND("^(\\d\\d?)月(\\d\\d?)日$" AS ?regex)
+        ?date wdt:P31 wd:Q14795564;
+        rdfs:label ?label
+        FILTER(lang(?label) = "zh").
+        FILTER(regex(?label, ?regex)).
+        BIND(xsd:integer(replace(?label, ?regex, "$1")) AS ?month).
+        BIND(xsd:integer(replace(?label, ?regex, "$2")) AS ?day).
+      }
+    }
+    FILTER(MONTH(?birth) = ?month && YEAR(?birth) = ?day).
+  }
+  ORDER BY (?item)

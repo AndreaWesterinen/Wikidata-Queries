@@ -1,0 +1,11 @@
+SELECT DISTINCT ?building ?buildingLabel ?thurgauID ?address
+WHERE
+{
+  ?building wdt:P8493 ?thurgauID .
+  OPTIONAL {?building wdt:P6375 ?address .}
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,fr,it,rm,en"
+  }
+}
+ORDER BY ?building

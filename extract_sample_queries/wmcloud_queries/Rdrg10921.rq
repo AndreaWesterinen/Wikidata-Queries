@@ -1,0 +1,6 @@
+SELECT ?item {
+  ?item wdt:P31 wd:Q5;
+        wdt:P19 wd:Q5582862;
+        wdt:P106 wd:Q36180.
+  FILTER NOT EXISTS {?item wdt:P570 []}.
+}

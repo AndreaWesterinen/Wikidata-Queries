@@ -1,0 +1,18 @@
+# Awards won by a given ?author, with year and winning work
+SELECT DISTINCT ?author ?authorLabel ?role ?roleLabel ?item ?itemLabel ?year ?itemDescription 
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)} 
+  ?item wdt:P3342 ?author. #Items for which ?author was a relevant person (P3342)
+    FILTER(?item != wd:Q65926936) #minus the 1958 individual instance of the PCHooftprijs
+  ?item p:P3342 ?s. #Relevant person for specific award
+  ?s ps:P3342 ?author. #Only for ?author
+  ?s pq:P3831 ?role 
+    FILTER(?role = wd:Q1275330) #role=laureate
+  OPTIONAL { ?s pq:P585 ?year1
+  BIND(YEAR(?year1) AS ?year)}
+                        
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} ORDER BY ?year 

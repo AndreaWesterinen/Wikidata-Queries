@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?inv   WHERE {
+  ?item wdt:P195 wd:Q28045665 .
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P195 wd:Q18600731 } . # Didn't end up in the RCE art collection
+  ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 wd:Q28045665 .           
+  } ORDER BY xsd:integer(REPLACE(?inv, "NK", ""))
+ 
+LIMIT 4000

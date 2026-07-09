@@ -1,0 +1,23 @@
+# people who were both MPs and AMs at the same time
+SELECT DISTINCT ?person ?personLabel ?mpStart ?mpEnd ?amStart ?amEnd
+WHERE {
+  # find all AMs and MPs
+  ?person p:P39 ?amStatement, ?mpStatement.
+  ?amStatement ps:P39/wdt:P279* wd:Q3406079.
+  ?mpStatement ps:P39/wdt:P279* wd:Q16707842.
+
+  # with start and stop dates
+  ?amStatement pq:P580 ?amStart.
+  OPTIONAL { ?amStatement pq:P582 ?amEnd_. }
+  BIND(COALESCE(?amEnd_, NOW()) AS ?amEnd)
+
+  ?mpStatement pq:P580 ?mpStart.
+  OPTIONAL { ?mpStatement pq:P582 ?mpEnd_. }
+  BIND(COALESCE(?mpEnd_, NOW()) AS ?mpEnd)
+
+  # check they overlapped
+  FILTER ( ?mpStart <= ?amEnd && ?amStart <= ?mpEnd )
+
+  # get their names
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

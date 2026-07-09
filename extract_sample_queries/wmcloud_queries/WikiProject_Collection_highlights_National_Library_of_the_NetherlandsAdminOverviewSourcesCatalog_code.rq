@@ -1,0 +1,12 @@
+select ?item ?itemLabel ?CatalogcodePPN ?CC_catalog ?CC_reference_url ?CC_stated_in ?CC_retrieved
+where {
+  ?item p:P195 ?st .
+  ?st  ps:P195 wd:Q1526131 .
+  ?st pq:P2868 wd:Q29188408
+  OPTIONAL {?item wdt:P528 ?CatalogcodePPN.}  
+  OPTIONAL {?item p:P528 [prov:wasDerivedFrom [pr:P854 ?CC_reference_url]] .} 
+  OPTIONAL {?item p:P528 [pq:P972 ?CC_catalog].}   
+  OPTIONAL {?item p:P528 [prov:wasDerivedFrom [pr:P248 ?CC_stated_in]] .} 
+  OPTIONAL {?item p:P528 [prov:wasDerivedFrom [pr:P813 ?CC_retrieved]] .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+} ORDER BY ?itemLabel

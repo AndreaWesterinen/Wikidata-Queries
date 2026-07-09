@@ -1,0 +1,6 @@
+SELECT ?slashyesno (COUNT(?slashyesno) as ?cnt) WHERE{
+  ?item wdt:P856 ?url.
+  BIND(STR(?url) AS ?strurl)
+  BIND(SUBSTR(?strurl, STRLEN(?strurl), STRLEN(?strurl)) AS ?lastchar)
+  BIND(IF(?lastchar = '/', 'yes', 'no') AS ?slashyesno)
+} GROUP BY ?slashyesno

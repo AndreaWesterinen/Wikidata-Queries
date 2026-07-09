@@ -1,0 +1,10 @@
+#Women who are footballers
+SELECT DISTINCT ?woman ?womanDescription ?womanLabel ?article ?item WHERE {
+  ?woman wdt:P31 wd:Q5.
+  ?woman wdt:P21 wd:Q6581072.
+  ?woman wdt:P106/wdt:P279* wd:Q937857.
+  ?woman wdt:P18 ?image .
+  ?article schema:about ?woman .
+  ?article schema:isPartOf <https://en.wikipedia.org/>
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }  
+} 

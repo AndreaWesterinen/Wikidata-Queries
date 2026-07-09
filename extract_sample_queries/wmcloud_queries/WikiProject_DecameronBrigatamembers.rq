@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?itemDescription 
+  (GROUP_CONCAT(DISTINCT CONCAT("[[",strafter(str(?t),"y/"),"|",REPLACE(?tale,"Decameron ",""),"]]"); separator=" &nbsp; ") as ?narrates)
+  (SAMPLE(?day) as ?r)
+  (SAMPLE(?gender) as ?gender)
+  ?n ?sl ?st ?ids
+  (GROUP_CONCAT(DISTINCT(str(?l)); separator=", ") as ?names)
+{ 
+	?item ^ wdt:P527 wd:Q43256358 . 
+    OPTIONAL { ?item wdt:P1705 ?n }
+    OPTIONAL { ?day wdt:P674 ?item ; wdt:P31 wd:Q43148525 }
+    OPTIONAL { ?t wdt:P2438 ?item ; p:P1813 [ ps:P1813 ?tale ; pq:P1013 wd:Q43306125]  }
+    OPTIONAL { ?item wdt:P21/p:P1813 [pq:P3831 wd:Q7884742; ps:P1813 ?gender] }
+    OPTIONAL { ?item wikibase:sitelinks ?sl ; wikibase:statements ?st ; wikibase:identifiers ?ids }
+    { ?item rdfs:label ?l } UNION { ?item skos:altLabel ?l } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} 
+GROUP BY ?item ?itemLabel ?itemDescription ?n ?sl ?st ?ids
+ORDER BY ?r

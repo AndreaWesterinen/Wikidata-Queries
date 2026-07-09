@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?sitelink ?geonamesId ?coordinate
+WHERE {
+  ?item wdt:P31 wd:Q23442.
+  ?item wdt:P17 wd:Q252 .
+  ?sitelink schema:about ?item .
+  ?sitelink schema:inLanguage 'ceb' .
+  ?item wdt:P625 ?coordinate .
+  ?item wdt:P1566 ?geonamesId .
+  MINUS {
+    ?item p:P625 ?coordinateStatement .
+    ?coordinateStatement prov:wasDerivedFrom ?ref .
+    ?ref ?anyReference ?value .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "id,en". }
+}
+ORDER BY ?item

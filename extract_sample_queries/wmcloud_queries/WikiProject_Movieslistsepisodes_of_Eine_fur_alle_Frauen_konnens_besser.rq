@@ -1,0 +1,15 @@
+SELECT ?item ?nr_all (GROUP_CONCAT(DISTINCT ?delabel) AS ?delabels) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q21191270.
+  
+
+   ?item p:P179 ?series_statement .
+   ?series_statement ps:P179 wd:Q1306748 .
+    ?series_statement pq:P1545 ?nr_all.
+  
+  OPTIONAL {
+    ?item rdfs:label ?delabel.
+    FILTER((LANG(?delabel)) = "de")
+  }
+}
+GROUP BY ?item ?nr_all
+ORDER BY xsd:integer(?nr_all)

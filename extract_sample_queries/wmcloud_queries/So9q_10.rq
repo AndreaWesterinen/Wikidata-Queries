@@ -1,0 +1,7 @@
+# swedish lexeme missing combines
+SELECT ?l ?lemma WHERE {
+  ?l dct:language wd:Q9027;
+     wikibase:lemma ?lemma; 
+  minus {?l wdt:P5238 [].}
+  minus {?l wdt:P5191 [].}
+}

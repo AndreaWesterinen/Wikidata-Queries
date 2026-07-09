@@ -1,0 +1,20 @@
+# places of education of UK MPs by number of MPs educated there, with % of total UK MPs
+# (only counting MPs since 1800, since there was no United Kingdom before the Acts of Union 1800 – the Parliament of Great Britain is a separate entity)
+SELECT ?institution ?institutionLabel ?count (100*?count/?total AS ?percent) WITH {
+  SELECT ?institution (COUNT(DISTINCT ?mp) AS ?count) WHERE {
+    ?mp wdt:P31 wd:Q5;
+        p:P39/ps:P39/wdt:P279* wd:Q16707842;
+        p:P69/ps:P69 ?institution.
+  }
+  GROUP BY ?institution ?institutionLabel
+} AS %institutions WITH {
+  SELECT (COUNT(DISTINCT ?mp) AS ?total) WHERE {
+    ?mp wdt:P31 wd:Q5;
+        p:P39/ps:P39/wdt:P279* wd:Q16707842.
+  }
+} AS %MPs WHERE {
+  INCLUDE %institutions.
+  INCLUDE %MPs.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

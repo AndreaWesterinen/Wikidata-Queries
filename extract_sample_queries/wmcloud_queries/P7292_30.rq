@@ -1,0 +1,12 @@
+#title:Items with most values of the property P7292
+SELECT ?item ?itemLabel ?cnt
+{
+  {
+    SELECT ?item (COUNT(?value) AS ?cnt) {
+      ?item wdt:P7292 ?value
+    }
+    GROUP BY ?item ORDER BY DESC(?cnt) LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?cnt)

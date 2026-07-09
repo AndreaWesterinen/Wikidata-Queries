@@ -1,0 +1,44 @@
+#defaultView:Graph
+SELECT ?item1 ?item1Label ?rgb ?item2 ?item2Label ?edgeLabel
+
+WITH {
+  SELECT ?item1 ?rgb WHERE {
+    {
+      # Find character
+      SELECT (?character as ?item1) ?rgb WHERE {
+        ?film wdt:P31 wd:Q11424.
+        ?film wdt:P179 wd:Q22092344.
+        ?film wdt:P674 ?character.
+        BIND("0000ff" as ?rgb)                 #blue
+      }
+    }
+    UNION
+    {
+      # Find films
+      SELECT (?film as ?item1) ?rgb WHERE {
+        ?film wdt:P31 wd:Q11424.
+        ?film wdt:P179 wd:Q22092344.  
+        BIND("ffa500" as ?rgb)                 #orange
+      }
+    }
+    
+  }
+} AS %item1
+WITH {
+  SELECT (?item1 AS ?item2) WHERE {
+    INCLUDE %item1.
+  }
+} AS %item2
+
+WHERE {
+  INCLUDE %item1 .
+  INCLUDE %item2 .
+  ?item1 ?wdt ?item2 .
+  ?edge wikibase:directClaim ?wdt;
+#        rdfs:label ?label;
+        a wikibase:Property .
+#  OPTIONAL { ?item1 wdt:P18 ?image1 . }
+#  OPTIONAL { ?item2 wdt:P18 ?image2 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+#  FILTER(CONTAINS(?label, "killed" OR "characters")).
+}

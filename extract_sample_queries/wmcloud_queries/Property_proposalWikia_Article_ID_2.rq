@@ -1,0 +1,5 @@
+SELECT (COUNT (DISTINCT ?item) AS ?count) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P973 ?described_at_URL. }
+  FILTER (CONTAINS(str(?described_at_URL),'.wikia.com/wiki/')) .   
+}

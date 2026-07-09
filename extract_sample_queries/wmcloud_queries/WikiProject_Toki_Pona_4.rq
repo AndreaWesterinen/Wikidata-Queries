@@ -1,0 +1,5 @@
+SELECT DISTINCT ?lemma WHERE {
+  ?lexeme a ontolex:LexicalEntry;
+       wikibase:lemma ?lemma;
+       dct:language wd:Q36846;
+} ORDER BY ?lemma

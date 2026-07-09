@@ -1,0 +1,10 @@
+# Movies by number of actors who studied at RADA
+SELECT DISTINCT ?item ?itemLabel (COUNT(?actors) AS ?nbActors) {
+  ?item wdt:P31/wdt:P279* wd:Q11424 .
+  ?item wdt:P161 ?actors .
+  ?actors wdt:P69 wd:Q523926 .
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+} GROUP BY ?item ?itemLabel ORDER BY DESC(?nbActors)

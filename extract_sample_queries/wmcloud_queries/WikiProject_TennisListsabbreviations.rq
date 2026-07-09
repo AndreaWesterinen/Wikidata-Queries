@@ -1,0 +1,7 @@
+SELECT ?item (str(?value) as ?val)
+{
+?item wdt:P641 wd:Q847 ; wdt:P1813 ?value 
+FILTER NOT EXISTS { ?item wdt:P31 wd:Q5 }          
+}
+ORDER BY ?val
+LIMIT 5000

@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?lang) AS ?count) (GROUP_CONCAT(DISTINCT ?lang; separator=',') as ?languages)
+WHERE
+{
+  ?item ( wdt:P747 | ^ wdt:P629 ) ?edition .
+  ?edition ^schema:about [ schema:isPartOf/wikibase:wikiGroup "wikisource"; schema:inLanguage ?lang ] .
+} 
+GROUP BY ?item 
+ORDER BY DESC(?count) 
+LIMIT 500

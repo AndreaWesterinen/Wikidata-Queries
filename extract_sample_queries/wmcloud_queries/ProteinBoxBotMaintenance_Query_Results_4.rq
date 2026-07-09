@@ -1,0 +1,5 @@
+select ?p ?pLabel where {
+  ?p wdt:P31 wd:Q8054 .
+  ?p wdt:P31 wd:Q7187 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,12 @@
+# Bürgermeister Düsseldor aus dem Item Düsseldorf
+
+SELECT ?Buergermeister ?BuergermeisterLabel ?Start ?Ende WHERE {
+  wd:Q1718 p:P6 ?statements .           #Definition Düsseldorf
+  ?statements ps:P6 ?Buergermeister .   #Abfrage Statements in "Leider der Regierung"
+  ?statements pq:P580 ?Start .   #Abfrage Qualifier Start
+  OPTIONAL {?statements pq:P582 ?Ende .}   #Abfrage Qualifier Ende optional
+
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  }

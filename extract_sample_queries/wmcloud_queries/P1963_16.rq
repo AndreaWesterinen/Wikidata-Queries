@@ -1,0 +1,4 @@
+#title: Check "has quality" values
+# Complex constraint from [[Property talk:P1963]]
+#
+SELECT ?item ?value {?item p:P1963/pq:P1552 ?value.MINUS {?value wdt:P31 wd:Q84597428}  } LIMIT 100

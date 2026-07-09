@@ -1,0 +1,21 @@
+SELECT DISTINCT ?item ?itemDescription ?itemAltLabel (COALESCE(?married,?siblings,"?") as ?ty) (COALESCE(?music0,?music1) as ?fi) ?sls ?sts ?ids (COALESCE(?wp0,?wp1) as ?wp)
+{
+  VALUES ?duos { wd:Q10648343 wd:Q14073567 wd:Q3046146 } .
+  ?item wdt:P31 ?duos .
+  MINUS { ?item wdt:P527 [] } 
+  MINUS { [] wdt:P463 ?item } 
+  MINUS { [] wdt:P361 ?item }   
+  ?item wikibase:sitelinks ?sls ; wikibase:statements ?sts ; wikibase:identifiers ?ids .
+  OPTIONAL { ?item wdt:P31 wd:Q14073567 . BIND("S" as ?siblings) }
+  OPTIONAL { ?item wdt:P31 wd:Q3046146 . BIND("⚭" as ?married) }  
+  OPTIONAL { ?item wdt:P31/wdt:P279* wd:Q9212979 . BIND("𝄠" as ?music0) }  
+  OPTIONAL { ?item wdt:P31/wdt:P279* wd:Q215380 . BIND("𝄠" as ?music1) }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  OPTIONAL { ?item wikibase:sitelinks 1 . [] schema:about ?item ; schema:isPartOf / wikibase:wikiGroup "wikipedia" ; schema:inLanguage ?lang ; schema:name ?n . 
+             BIND( CONCAT("[[:",?lang,":",?n,"]]") as ?wp1) 
+           }
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?n0 . 
+             BIND( CONCAT("[[:w:",?n0,"]]") as ?wp0) 
+           }  
+}
+ORDER BY DESC( xsd:integer(strafter(str(?item),"Q") )) ?item

@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel  ?nomeof ?nomeofLabel
+WHERE {
+ ?item wdt:P31 wd:Q2276925; wdt:P131 wd:Q95038 ; wdt:P36   ?nomeof.
+  
+}

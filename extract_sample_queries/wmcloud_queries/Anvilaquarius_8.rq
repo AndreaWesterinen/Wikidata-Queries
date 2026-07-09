@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?adminLabel ?countryLabel ?Theatrum ?AmphiTheatrum WHERE {
+  ?item wdt:P31 wd:Q19757.
+  OPTIONAL { ?item wdt:P17 ?country . }
+  OPTIONAL { ?item wdt:P131 ?admin . }
+  OPTIONAL { ?item wdt:P5634 ?Theatrum. }
+  OPTIONAL { ?item wdt:P5633 ?AmphiTheatrum. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it,de". }
+}
+LIMIT 500

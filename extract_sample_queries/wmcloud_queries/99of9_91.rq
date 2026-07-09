@@ -1,0 +1,39 @@
+#added before 2016-10
+
+#defaultView:BubbleChart
+SELECT ?department ?departmentLabel ?count ?rgb
+WHERE
+{
+  {
+    SELECT ?department (COUNT(?act) AS ?count) WHERE {
+      ?act (wdt:P31/wdt:P279*) wd:Q56731284.
+      ?act wdt:P126 ?department.
+    }
+    GROUP BY ?department
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  values (?department ?rgb) { 
+    (wd:Q1191489 "7700FF")
+    (wd:Q17002394 "FF00FF")
+    (wd:Q16257337 "00FFFF")
+    (wd:Q2981744 "FF0000")
+    (wd:Q4294668 "00FF00")
+    (wd:Q3295575 "0000FF")
+    (wd:Q3277092 "000000")
+    (wd:Q4294705 "FFFF77")
+    (wd:Q55393012 "FF77FF")
+    (wd:Q16257333 "77FFFF")
+    (wd:Q3055310 "FF7777")
+    (wd:Q3044789 "770000")
+    (wd:Q19872842 "7777FF")
+    (wd:Q19872849 "FF7700")
+    (wd:Q28129565 "007700")
+    (wd:Q39071190 "FFFF00")
+    (wd:Q4294808 "777777")
+    (wd:Q4294371 "000077")
+  }
+
+}
+ORDER BY DESC(?count)
+LIMIT 100

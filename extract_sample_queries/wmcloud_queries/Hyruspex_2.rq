@@ -1,0 +1,23 @@
+#defaultView:ImageGrid
+SELECT ?author ?authorLabel ?linksCount (SAMPLE(?image) AS ?image)
+WHERE {
+  ?author wdt:P31 wd:Q5 .
+  ?author wdt:P106/wdt:P279* wd:Q482980 .
+  ?author wdt:P18 ?image .
+  ?author wdt:P21 wd:Q6581072 .
+
+  ?author wikibase:sitelinks ?linksCount .
+
+  OPTIONAL {
+    ?wfr schema:about ?author .
+    ?wfr schema:inLanguage "fr" .
+  }
+
+  FILTER(!BOUND(?wfr))
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,en" .
+  }
+}
+GROUP BY ?author ?authorLabel ?linksCount
+ORDER BY DESC(?linksCount)

@@ -1,0 +1,16 @@
+SELECT ?WikiData_item ?WikiData_itemLabel ?TA98_Latin_term ?TA98_ID ?TE_ID ?TH_ID ?FMA_ID ?UBERON_ID ?MeSH_ID ?Neurolex_ID ?WikiPedia_article ?Commons_page #Showing data in this order
+WHERE
+{
+	?WikiData_item wdt:P1323 ?TA98_ID . #Collecting all items which have TA98 ID data, from whole WikiData item pages
+  
+	OPTIONAL {?WikiData_item wdt:P3982 ?TA98_Latin_term } #If collected item has TA98 Latin term data, show that.
+	OPTIONAL {?WikiData_item wdt:P1693 ?TE_ID }  #If collected item has TE ID data, show that.
+	OPTIONAL {?WikiData_item wdt:P1694 ?TH_ID }  #If collected item has TH ID data, show that.
+	OPTIONAL {?WikiData_item wdt:P1402 ?FMA_ID }  #If collected item has FMA ID data, show that.
+	OPTIONAL {?WikiData_item wdt:P1554 ?UBERON_ID }  #If collected item has UBERON ID data, show that.
+	OPTIONAL {?WikiData_item wdt:P486 ?MeSH_ID }  #If collected item has MeSH ID  data, show that.
+	OPTIONAL {?WikiData_item wdt:P696 ?Neurolex_ID }  #If collected item has Neurolex ID data, show that.
+	OPTIONAL {?WikiPedia_article schema:about ?WikiData_item; schema:isPartOf <https://[AUTO_LANGUAGE].wikipedia.org/> } #If collected item has link to WikiPedia, show that
+	OPTIONAL {?Commons_page schema:about ?WikiData_item; schema:isPartOf <https://commons.wikimedia.org/> } #If collected item has link to Commons, show that
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"  }    
+}

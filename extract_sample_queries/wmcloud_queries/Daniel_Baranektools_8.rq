@@ -1,0 +1,52 @@
+embed.html#SELECT DISTINCT
+?cas
+(COUNT(?item) as ?pocet_obci)
+(SUM(?domy) as ?pocet_domu)
+(SUM(?obyv_celkem) as ?obyv_celkem_sum)
+(SUM(?katol) as ?katol_sum)
+(SUM(?evang) as ?evang_sum)
+(SUM(?csl) as ?csl_sum)
+(SUM(?zid) as ?zid_sum)
+(SUM(?jine) as ?jine_sum)
+(SUM(?bv) as ?bv_sum)
+(SUM(?cj) as ?cj_sum)
+(SUM(?nj) as ?nj_sum)
+(SUM(?zidN) as ?zidN_sum)
+(SUM(?jina) as ?jina_sum)
+(SUM(?cizi) as ?cizi_sum)
+WHERE {
+    ?item wdt:P31 wd:Q39825;
+          wdt:P361 [ wdt:P131 wd:Q94384808];
+          wdt:P585 ?cas.
+          
+    OPTIONAL { ?item wdt:P1448 ?cs. FILTER(LANG(?cs) = "cs"). }
+    OPTIONAL { ?item wdt:P1448 ?de. FILTER(LANG(?de) = "de"). }
+    OPTIONAL {?item wdt:P4080 ?domy.}
+    OPTIONAL { ?item p:P1082 ?obyv.
+          ?obyv pq:P1013 wd:Q56229478.
+          ?obyv ps:P1082 ?obyv_celkem.
+        }
+    FILTER NOT EXISTS { ?obyv pq:P518 ?celkem_temp. }
+
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q1841; ps:P1082 ?katol].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q23540; ps:P1082 ?evang].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q9268; ps:P1082 ?zid].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q2060869; ps:P1082 ?csl].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q58721; ps:P1082 ?bv].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P1013 wd:Q13414953; pq:P518 wd:Q55107540; ps:P1082 ?jine].}
+
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q9056; ps:P1082 ?cjJ].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q188; ps:P1082 ?njJ].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q91075059; ps:P1082 ?cjN].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q42884; ps:P1082 ?njN].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q7325; ps:P1082 ?zidN].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P1013 wd:Q901711; pq:P518 wd:Q55107540; ps:P1082 ?jinaJ].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P1013 wd:Q231002; pq:P518 wd:Q55107540; ps:P1082 ?jinaN].}
+    OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q473741; ps:P1082 ?cizi].}
+
+  BIND(IF(BOUND(?cjJ),?cjJ,?cjN) as ?cj)
+  BIND(IF(BOUND(?njJ),?njJ,?njN) as ?nj)
+  BIND(IF(BOUND(?jinaJ),?jinaJ,?jinaN) as ?jina)
+}
+GROUP BY ?cas
+ORDER BY ?cas

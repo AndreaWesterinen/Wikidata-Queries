@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value
+{
+  ?item wdt:P5811 ?value .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+ORDER BY DESC(?value)
+LIMIT 50

@@ -1,0 +1,7 @@
+#Cats
+SELECT ?item ?itemLabel ?NRHP_reference_number ?NMSRCP_reference_number WHERE {
+  ?item wdt:P1435 wd:Q19842079.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P649 ?NRHP_reference_number. }
+  OPTIONAL { ?item wdt:P6473 ?NMSRCP_reference_number. }
+}

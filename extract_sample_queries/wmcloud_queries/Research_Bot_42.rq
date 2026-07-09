@@ -1,0 +1,7 @@
+SELECT ?item ?title WHERE {
+  ?item wdt:P932 [];
+        wdt:P1476 ?title ;
+        wdt:P50 [wdt:P496 []] .
+  MINUS { ?item wdt:P921 [] }.
+}
+LIMIT 1000

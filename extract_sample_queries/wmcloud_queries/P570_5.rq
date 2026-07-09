@@ -1,0 +1,10 @@
+#title: Check horse longevity
+# Complex constraint from [[Property talk:P570]]
+#
+SELECT ?item ?itemLabel ?born ?died ?diff WHERE {
+  ?item wdt:P31 wd:Q726. # horses
+  ?item wdt:P569 ?born.
+  ?item wdt:P570 ?died.
+  BIND((?died - ?born)/365 AS ?diff)
+  FILTER (?diff > 62.945205479452056).
+} ORDER BY ?diff

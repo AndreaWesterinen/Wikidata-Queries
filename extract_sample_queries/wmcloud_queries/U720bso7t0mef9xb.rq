@@ -1,0 +1,12 @@
+# items that have or will have been gone for as long as they were there this month
+SELECT ?item ?itemLabel ?itemDescription ?start ?end ?daysThere ?daysGone ?dateWhereDaysThereEqualsDaysGone WHERE {
+  ?item wdt:P571 ?start;
+        wdt:P576 ?end.
+  BIND(?end - ?start AS ?daysThere)
+  BIND(FLOOR(NOW() - ?end) AS ?daysGone)
+  FILTER(?daysThere > 0) # T186452
+  BIND(?end + STRDT(CONCAT("P", xsd:string(xsd:integer(?daysThere)), "D"), xsd:duration) AS ?dateWhereDaysThereEqualsDaysGone)
+  FILTER(YEAR(?dateWhereDaysThereEqualsDaysGone) = YEAR(NOW()) && MONTH(?dateWhereDaysThereEqualsDaysGone) = MONTH(NOW()))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?dateWhereDaysThereEqualsDaysGone

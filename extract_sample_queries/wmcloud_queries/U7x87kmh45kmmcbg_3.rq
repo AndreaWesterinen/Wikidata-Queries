@@ -1,0 +1,6 @@
+# beast species in the Harry Potter universe
+SELECT ?species ?speciesLabel WHERE {
+  ?species wdt:P31/wdt:P279* wd:Q2537344.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY LCASE(?speciesLabel)

@@ -1,0 +1,11 @@
+#Unique value constraint report for P2767: report listing each item
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value
+{
+	?item1 wdt:P155 ?value .
+	?item1 wdt:P31 wd:Q18536594 .
+	?item2 wdt:P155 ?value .
+  minus {values ?value { wd:Q997453 }}
+  ?item1 rdfs:label ?itemLabel filter (lang(?itemLabel) = "en"&& contains(?itemLabel, "2016 Summer Olympics"))
+	FILTER(?item1 != ?item2) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "lv,en" } .
+} LIMIT 500

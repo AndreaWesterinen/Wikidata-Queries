@@ -1,0 +1,7 @@
+SELECT ?state_of_Malaysia ?state_of_MalaysiaLabel ?area WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?state_of_Malaysia wdt:P31 wd:Q15063586.
+  OPTIONAL { ?state_of_Malaysia wdt:P2046 ?area. }
+}
+ORDER BY(?area)
+LIMIT 100

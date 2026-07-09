@@ -1,0 +1,16 @@
+#defaultView:AreaChart
+SELECT ?cid (STR(SAMPLE(?year)) AS ?year) (COUNT(*) AS ?count) ?journal WHERE {
+  VALUES ?cid {wd:Q4767851 wd:Q6020763 wd:Q6020786 wd:Q6020785 wd:Q6020790
+ wd:Q7753202 wd:Q6020793 wd:Q6020797 wd:Q6020800 wd:Q6020803
+			 wd:Q6020807 wd:Q6020816 wd:Q6020819 wd:Q6020821 wd:Q6020823
+			 wd:Q6020825 wd:Q6295323 wd:Q6295328 wd:Q6704257 wd:Q15710015
+			 wd:Q15710016 wd:Q15710030 wd:Q25099420 wd:Q25303369 wd:Q39048414} 
+  ?article wdt:P31 wd:Q13442814;
+ wdt:P1433 ?cid;
+ wdt:P577 ?_date_of_pub.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en".
+ ?cid rdfs:label ?journal. }
+  BIND ( YEAR(?_date_of_pub) AS ?year )
+}
+GROUP BY ?cid ?journal ?year
+#

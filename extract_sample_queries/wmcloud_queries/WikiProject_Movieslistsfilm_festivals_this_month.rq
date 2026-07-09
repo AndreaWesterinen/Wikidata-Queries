@@ -1,0 +1,29 @@
+SELECT ?item ?abbr ?countrylabel ?st ?sl ?id ?link ?viaf (COALESCE(?c1,?c2) as ?commons) ?site   (COALESCE(?wiki1,?wiki3,?wiki2) as ?wiki)
+{
+  	?item wdt:P31 wd:Q220505 .
+  	OPTIONAL { ?item wdt:P576 ?dummy0 } FILTER(!bound(?dummy0))
+  	OPTIONAL {	?edition wdt:P31 wd:Q27787439 .
+				?edition wdt:P179 ?item .
+              	?edition wdt:P585 ?y .
+              	{	SELECT ?item (MAX(?year) as ?y) { ?edition wdt:P31 wd:Q27787439 ; wdt:P179 ?item ; wdt:P585 ?year }	GROUP BY ?item	}
+              	OPTIONAL { ?edition wdt:P393 ?nb } 
+              	BIND(IF(BOUND(?nb),CONCAT("&nbsp;<sup>",str(?nb),"</sup>"),"") as ?ednb)
+                BIND(CONCAT("[[",strafter(str(?edition),"y/"),"|",str(YEAR(?y)),?ednb,"]]") as ?link)
+             }
+  	?item wdt:P2922 / p:P1545 [ ps:P1545 ?m ; pq:P1013 wd:Q50101 ] 
+	FILTER(MONTH(NOW())=xsd:integer(?m))
+	OPTIONAL { ?c schema:about ?item . ?c schema:isPartOf <https://commons.wikimedia.org/> . ?c schema:name ?cn1  BIND( CONCAT("[[c:",str(?cn1),"|✓]]") as ?c1) } 
+	OPTIONAL { ?item wdt:P910 ?cat . ?cc schema:about ?cat . ?cc schema:isPartOf <https://commons.wikimedia.org/> .  ?cc schema:name ?cn2   BIND( CONCAT("[[c:",str(?cn2),"|✓]]") as ?c2) }           
+  	OPTIONAL { ?item wikibase:statements ?st }
+  	OPTIONAL { ?item wikibase:sitelinks ?sl }
+  	OPTIONAL { ?item wikibase:identifiers ?id }
+  	OPTIONAL { ?item wdt:P17 ?country }
+  	OPTIONAL { ?item wdt:P1813 ?abbr }  
+  	OPTIONAL { ?item wdt:P214 ?v . BIND("✓" as ?viaf) }
+  	OPTIONAL { ?item wdt:P856 ?ws . BIND(  CONCAT("[", str(?ws) , " " , replace( str(?ws), "https?://(www.)?", ""), "]") as ?site) }  
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w1  BIND( CONCAT("[[:en:",str(?w1),"|en]]") as ?wiki1) } 
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?w3  BIND( CONCAT("[[:fr:",str(?w3),"|fr]]") as ?wiki3) } 
+  OPTIONAL { ?item wikibase:sitelinks 1 . ?wi2 schema:about ?item FILTER NOT EXISTS { ?wi2 schema:isPartOf <https://commons.wikimedia.org/> } ?wi2 schema:inLanguage ?l ; schema:name ?w2  BIND( CONCAT("[[:",?l,":",str(?w2),"|",?l,"]]") as ?wiki2) } 
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?country rdfs:label ?countrylabel }
+}
+ORDER BY DESC(ROUND(?sl/10)) DESC(xsd:integer(STRAFTER(str(?item), "Q")))

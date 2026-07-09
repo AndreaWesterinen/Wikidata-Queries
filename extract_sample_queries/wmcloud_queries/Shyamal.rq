@@ -1,0 +1,12 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel ?itemDescription ?pic ?dob ?dod
+WHERE {
+	?item wdt:P106 wd:Q901 .		# scientist only
+	{ ?item wdt:P19/ wdt:P131* wd:Q64 }	# place of birth Berlin 
+		UNION { ?item wdt:P20/ wdt:P131* wd:Q64 }	# place of death Berlin
+          OPTIONAL { ?item wdt:P569 ?dob  }
+          OPTIONAL { ?item wdt:P570 ?dod  }
+          OPTIONAL { ?item wdt:P18 ?pic }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+#Order by date of birth, avoid overriding this in the template with sort=
+ORDER BY ?dob

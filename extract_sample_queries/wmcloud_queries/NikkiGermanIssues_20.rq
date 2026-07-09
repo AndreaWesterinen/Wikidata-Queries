@@ -1,0 +1,18 @@
+select distinct (?l as ?item) (concat(replace(str(?l),str(wd:),"{{L|"),"}}") as ?l_) {
+  values ?prefix {
+    "be" "ent" "emp" "er" "ge" "miss" "ver" "zer"
+    "ab" "an" "auf" "auseinander" "aus" "bei" "dabei" "dar" "daran" "dazwischen" "da" "durch"
+    "ein" "empor" "entgegen" "entlang" "entzwei" "fehl" "fern" "fest" "fort" "frei" "gegenüber" "gleich"
+    "heim" "herab" "heran" "herauf" "heraus" "herbei" "herein" "herüber" "herum" "herunter" "hervor" "her"
+    "hinab" "hinauf" "hinaus" "hinein" "hinterher" "hinunter" "hinweg" "hinzu" "hin" "hoch"
+    "los" "mit" "nach" "nebenher" "nieder" "statt" "um" "voran" "voraus" "vorbei" "vorüber" "vorweg" "vor"
+    "weg" "weiter" "wieder" "zurecht" "zurück" "zusammen" "zu" 
+  }
+  ?l dct:language wd:Q188;
+     wikibase:lexicalCategory wd:Q24905;
+     wikibase:lemma ?lemma.
+  filter (strstarts(?lemma, ?prefix)).
+  filter (strends(?lemma, "ieren")).
+  minus { ?l wdt:P31 wd:Q3254028 }
+  minus { ?l wdt:P31 wd:Q105714288 }
+} order by ?lemma

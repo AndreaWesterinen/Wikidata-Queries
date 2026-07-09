@@ -1,0 +1,16 @@
+embed.html#SELECT ?count ?work ?workLabel ?author ?authorLabel
+WITH {
+  SELECT ?work ?author (COUNT(?citing_work) AS ?count) WHERE {
+    ?work p:P50 ?author_statement  .
+    ?author_statement ps:P50 ?author .
+    ?author_statement pq:P1545 "1" . 
+    ?author (wdt:P1416 | wdt:P108 ) / wdt:P17 wd:Q34 .
+    ?citing_work wdt:P2860 ?work .
+  } 
+  GROUP BY ?work ?author
+} AS %results
+WHERE {
+  INCLUDE %results
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

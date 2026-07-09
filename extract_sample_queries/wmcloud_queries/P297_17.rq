@@ -1,0 +1,9 @@
+#title: Distinct best value constraint
+# Complex constraint from [[Property talk:P297]]
+# A given value should be used by just one value with best rank (normal rank without another statement in preferred rank or preferred rank)
+SELECT DISTINCT ?item ?item2 ?value 
+{
+	?item wdt:P297 ?value .
+	?item2 wdt:P297 ?value .
+	FILTER( ?item != ?item2 && STR( ?item ) < STR( ?item2 ) ) .
+}

@@ -1,0 +1,84 @@
+SELECT DISTINCT (STRAFTER(STR(?osoby), '/entity/') as ?_osoby) ("P140" AS ?_rel) (STRAFTER(STR(?wyznanie), '/entity/') as ?_wyznanie) ("S143" AS ?s143) ("Q1551807" AS ?wiki)
+{
+  hint:Query hint:optimizer "None".
+  {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Ludzie_zwi%C4%85zani_z_bra%C4%87mi_czeskimi_w_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  BIND(wd:Q1019741 AS ?wyznanie)
+  }
+  UNION
+  {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Ludzie_zwi%C4%85zani_z_bra%C4%87mi_polskimi_w_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  BIND(wd:Q749576 AS ?wyznanie)
+  }
+  UNION
+  {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Ludzie_zwi%C4%85zani_z_kalwinizmem_w_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  BIND(wd:Q101849 AS ?wyznanie)
+  }
+  UNION
+  {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Ludzie_zwi%C4%85zani_z_katolicyzmem_w_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  BIND(wd:Q9592 AS ?wyznanie)
+  }
+  UNION
+  {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Ludzie_zwi%C4%85zani_z_luteranizmem_w_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  BIND(wd:Q75809 AS ?wyznanie)
+  }
+  UNION
+  {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Ludzie_zwi%C4%85zani_z_prawos%C5%82awiem_w_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  BIND(wd:Q3333484 AS ?wyznanie)
+  }
+  
+  
+  ?out schema:name ?nk.
+  ?out schema:about ?kat.
+    
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:api "Generator" .     
+     bd:serviceParam wikibase:endpoint "pl.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle ?nk .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+     bd:serviceParam mwapi:gcmtype "page" .
+
+  ?osoby wikibase:apiOutputItem mwapi:item .
+  }
+  
+  ?osoby wdt:P31 wd:Q5.
+  FILTER(NOT EXISTS{?osoby wdt:P140 ?wyznanie.})
+          
+}
+ORDER BY ?_wyznanie

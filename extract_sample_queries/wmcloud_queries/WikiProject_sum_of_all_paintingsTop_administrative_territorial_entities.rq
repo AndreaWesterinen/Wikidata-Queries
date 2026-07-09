@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(distinct ?painting) AS ?count) (COUNT(distinct ?collection) AS ?nbCollections) (SAMPLE(?collection) AS ?collection) (SAMPLE(?painting) AS ?painting)  WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P276/wdt:P361*/wdt:P131 ?item . 
+  OPTIONAL { ?painting wdt:P195 ?collection }
+  } GROUP BY ?item 
+ORDER BY DESC (?count)
+LIMIT 200

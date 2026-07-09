@@ -1,0 +1,12 @@
+#title:"residence" (P551) of people with property "student register of the University of Helsinki ID (1853–1899)" (P3325) statements
+#defaultView:Map{"hide":["?coordinates"]}
+SELECT DISTINCT ?person ?personLabel ?personDescription ?coordinates ?image ?value
+WHERE 
+{
+  ?person wdt:P3325 ?value ; wdt:P551/wdt:P625 ?coordinates.
+  hint:Query hint:optimizer "None".
+  OPTIONAL { ?person wdt:P18 ?image }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

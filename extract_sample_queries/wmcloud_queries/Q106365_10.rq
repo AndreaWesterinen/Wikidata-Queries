@@ -1,0 +1,10 @@
+embed.html##title: films with Isabelle Huppert missing "director of photography" (P344)
+SELECT DISTINCT ?film ?filmLabel ?filmDescription 
+{
+  	hint:Query hint:optimizer "None" .
+  	?film ?wdt wd:Q106365 .
+  	?property wikibase:directClaim ?wdt ; wikibase:claim ?p ; wikibase:statementProperty ?ps
+  	{ ?film wdt:P31/wdt:P279* wd:Q11424 } UNION { ?film wdt:P31 wd:Q5398426 }
+    FILTER NOT EXISTS { ?film wdt:P344 [] }   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

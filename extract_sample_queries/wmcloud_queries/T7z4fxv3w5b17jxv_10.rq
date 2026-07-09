@@ -1,0 +1,7 @@
+SELECT DISTINCT ?identifier (SAMPLE(?identifierL) AS ?label) (count(*) AS ?count) WHERE {
+  ?item wdt:P380 ?merimee .
+  ?item wdt:P31 ?identifier .
+  ?identifier rdfs:label ?identifierL filter (lang(?identifierL) = "fr") .
+}
+GROUP BY ?identifier
+ORDER BY DESC(?count) ?label

@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "Ruth".
+    ?title wikibase:apiOutput mwapi:title.
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  ?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="en")
+  FILTER NOT EXISTS { ?item wdt:P734 wd:Q37494439 }
+  FILTER(regex(?itemLabel,".*Ruth$"))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q5
+}
+# LIMIT 10000

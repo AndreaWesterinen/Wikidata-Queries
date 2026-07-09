@@ -1,0 +1,10 @@
+SELECT *
+{
+    BIND(wd:Q1860 as ?lang )
+    BIND(wd:Q47018901 as ?value )
+    ?lexeme <http://www.w3.org/ns/lemon/ontolex#sense> / wdt:P5137 / wdt:P31 ?value .
+    ?lexeme wikibase:lemma ?lemma .
+    ?lexeme <http://purl.org/dc/terms/language> ?lang .
+    ?lexeme <http://www.w3.org/ns/lemon/ontolex#lexicalForm> / <http://www.w3.org/ns/lemon/ontolex#representation> ?form .
+    FILTER( substr(str(?form),0,1) != ucase(substr(str(?form),0,1)) )
+}  

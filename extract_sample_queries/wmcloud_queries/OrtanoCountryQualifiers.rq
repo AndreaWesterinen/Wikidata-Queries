@@ -1,0 +1,13 @@
+SELECT (?human AS ?item) WHERE {
+  ?human p:P19 [
+    ps:P19 ?place;
+    pq:P17 ?country
+  ].
+  #FILTER(?human = wd:Q241502)
+  ?place wdt:P17 ?country.
+  FILTER NOT EXISTS { ?place p:P17/ps:P17 ?country2. FILTER(?country2 != ?country)}
+  #?place wdt:P17 ?country2.
+  #FILTER(?country2 = ?country)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+#LIMIT 1000

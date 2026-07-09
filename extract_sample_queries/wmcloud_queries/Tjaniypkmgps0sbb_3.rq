@@ -1,0 +1,11 @@
+# taxa with more female than male individuals
+SELECT ?taxon ?taxonLabel (SUM(?male) AS ?maleCount) (SUM(?female) AS ?femaleCount) WHERE {
+  ?taxon wdt:P31 wd:Q16521.
+  ?item wdt:P31 ?taxon.
+  OPTIONAL { ?item wdt:P21 wd:Q44148. BIND(1 AS ?male). }
+  OPTIONAL { ?item wdt:P21 wd:Q43445. BIND(1 AS ?female). }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?taxon ?taxonLabel
+HAVING(?femaleCount > ?maleCount)
+ORDER BY DESC(?femaleCount - ?maleCount)

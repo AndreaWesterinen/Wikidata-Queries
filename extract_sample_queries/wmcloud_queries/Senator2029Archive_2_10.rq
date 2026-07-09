@@ -1,0 +1,17 @@
+#Trouve tous les éléments connus de Wikidata qui sont des "articles scientifiques" et dont le sujet principal est "Wikidata". 
+#Puis affiche (en anglais) leur nom et celui des revues où ils sont publiés (en plus de leur ID Wikidata) ainsi que leur date de publication.
+#Enfin ordonne les selon l'ordre alphabéthique des noms des revues.
+#Adapted from https://example.com/b3d2c/status/1065305561401630722
+
+SELECT ?item ?itemLabel ?pub ?pubLabel (MIN(?date) as ?date) (GROUP_CONCAT(DISTINCT ?prop; separator=", ") as ?describes_properties) 
+WHERE 
+{
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P921 wd:Q2013.
+  OPTIONAL { ?item wdt:P577 ?date }
+  ?item wdt:P1433 ?pub.
+  OPTIONAL { ?item wdt:P3176 ?p . ?p rdfs:label ?prop . FILTER(lang(?prop)="en") }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?pub ?pubLabel
+ORDER BY ?pubLabel

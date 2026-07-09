@@ -1,7 +1,6 @@
-# ----
+#title: People elevated in the public domain in 2020 "life+50 years"
 #added before 2019-02
 
-#Shows people raised in the public domain "life + 50 years".
 SELECT ?item ?itemLabel ?genderLabel (GROUP_CONCAT(DISTINCT ?occupationLabel; SEPARATOR=", ") AS ?occupations) (GROUP_CONCAT(DISTINCT ?countryLabel; SEPARATOR=", ") AS ?countries) ?death ?articles {
   VALUES ?target_country { wd:Q16 wd:Q142 wd:Q39 wd:Q31 wd:Q30 } . #countries: Canada, France, Switzerland, Belgium, USA. Removing this line to get worldwide may cause a query timeout.
   VALUES ?occ { wd:Q2500638 wd:Q20826540 wd:Q215627 } . #occupation: creator, erudite, person. These 3 occupations will also look for subclasses. Example: Alan Turing is a cryptographer, a subclass of cryptologist, a subclass of mathematician, a subclass of scientist, a subclass of erudite.

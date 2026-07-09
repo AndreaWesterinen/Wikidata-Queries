@@ -1,0 +1,10 @@
+SELECT ?disciplineLabel ?genderLabel (AVG(?height_in_m) AS ?averageheight) (COUNT(?person) AS ?number)
+WHERE {
+  ?person wdt:P2416 ?discipline ;
+          wdt:P641 wd:Q38108 .
+  ?person wdt:P21 ?gender .
+  ?person p:P2048/psn:P2048/wikibase:quantityAmount ?height_in_m .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?disciplineLabel ?genderLabel
+ORDER BY ?averageheight

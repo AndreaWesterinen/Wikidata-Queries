@@ -1,0 +1,19 @@
+SELECT ?property ?propLabel (COUNT(*) AS ?count) WHERE {
+  {
+    SELECT ?item WHERE {
+      ?item wdt:P31 wd:Q11173 .
+    }
+    LIMIT 10000 #subsample only XXXX compounds
+  }
+   ?item ?property ?value .
+  
+  # get the property label
+  # see https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries#Adding_labels_for_properties
+  hint:Query hint:optimizer "None" .
+  ?prop wikibase:directClaim ?property .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?property ?propLabel
+ORDER BY DESC(?count) ?propLabel
+LIMIT 5000

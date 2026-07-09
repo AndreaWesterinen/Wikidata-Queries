@@ -1,0 +1,13 @@
+SELECT DISTINCT ?itemwith ?painter ?item ?quickurl {
+  ?itemwith wdt:P31 wd:Q79007 .
+  ?itemwith  wdt:P17 wd:Q55 .
+  ?itemwith wdt:P138 ?painter . 
+  ?painter wdt:P106 wd:Q1028181 .
+  ?itemwith rdfs:label ?streetlabel.
+  FILTER(LANG(?streetlabel) = "nl") .
+  ?item rdfs:label ?streetlabel .
+  ?item wdt:P31 wd:Q79007 .
+  ?item  wdt:P17 wd:Q55 .
+  MINUS { ?item wdt:P138 [] } .
+  BIND(CONCAT("[https://tools.wmflabs.org/wikidata-todo/quick_statements.php?list=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "%09P138%09", REPLACE(STR(?painter), "http://www.wikidata.org/entity/", ""), " Add]") AS ?quickurl)  . 
+} LIMIT 10000

@@ -1,0 +1,13 @@
+#title: en description to include "family name"
+# Complex constraint from [[Property talk:P6597]]
+# Default English language description for Latin script family names is "family name"
+SELECT ?item ?en_desc 
+{
+	?item wdt:P6597 [] .
+    hint:Prior hint:rangeSafe true .  
+    ?item schema:description ?en_desc . 
+    FILTER(  lang(?en_desc)="en" 
+             && !CONTAINS( ?en_desc, "family name" )
+          )
+    ?item wdt:P282 wd:Q8229
+}

@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P1260 ?id. FILTER(REGEX(?id, "^raa/fmi/")) . 
+  MINUS { ?entity wdt:P131 []; wdt:P1260 ?id. FILTER(REGEX(?id, "^raa/fmi/"))  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

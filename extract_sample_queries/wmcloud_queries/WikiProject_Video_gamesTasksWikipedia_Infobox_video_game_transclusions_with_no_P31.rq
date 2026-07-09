@@ -1,0 +1,12 @@
+SELECT ?item WHERE {
+  SERVICE wikibase:mwapi {
+        bd:serviceParam wikibase:endpoint "en.wikipedia.org";
+                        wikibase:api "Generator";
+                        mwapi:generator "transcludedin";
+                        mwapi:gtilimit "max";
+                        mwapi:titles "Template:Infobox video game";.
+        ?item wikibase:apiOutputItem mwapi:item.
+  }
+  FILTER BOUND (?item)
+  FILTER NOT EXISTS { ?item wdt:P31 [] }
+}

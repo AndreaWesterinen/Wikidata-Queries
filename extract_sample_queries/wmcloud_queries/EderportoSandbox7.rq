@@ -1,0 +1,112 @@
+SELECT
+?item
+(count(?pessoa) as ?total)
+(?total - sum(?p21_existe) as ?p21_count)
+(?total - sum(?p31_existe) as ?p31_count)
+(?total - sum(?p570_existe) as ?p570_count)
+(?total - sum(?p106_existe) as ?p106_count)
+(?total - sum(?p569_existe) as ?p569_count)
+(?total - sum(?p1343_existe) as ?p1343_count)
+(?total - sum(?p19_existe) as ?p19_count)
+(?total - sum(?p6673_existe) as ?p6673_count)
+(?total - sum(?p6674_existe) as ?p6674_count)
+(?total - sum(?p27_existe) as ?p27_count)
+(?total - sum(?p18_existe) as ?p18_count)
+(?total - sum(?p463_existe) as ?p463_count)
+(?total - sum(?p20_existe) as ?p20_count)
+(?total - sum(?p6692_existe) as ?p6692_count)
+(?total - sum(?p735_existe) as ?p735_count)
+(?total - sum(?p746_existe) as ?p746_count)
+(?total - sum(?p6690_existe) as ?p6690_count)
+(?total - sum(?p509_existe) as ?p509_count)
+(?total - sum(?p734_existe) as ?p734_count)
+(?total - sum(?p102_existe) as ?p102_count)
+(?total - sum(?p1412_existe) as ?p1412_count)
+(?total - sum(?p214_existe) as ?p214_count)
+(?total - sum(?p69_existe) as ?p69_count)
+(?total - sum(?p1196_existe) as ?p1196_count)
+(?total - sum(?p244_existe) as ?p244_count)
+(?total - sum(?p119_existe) as ?p119_count)
+(?total - sum(?p1449_existe) as ?p1449_count)
+(?total - sum(?p2163_existe) as ?p2163_count)
+(?total - sum(?p213_existe) as ?p213_count)
+(?total - sum(?p373_existe) as ?p373_count)
+(?total - sum(?p2632_existe) as ?p2632_count)
+WITH {
+  SELECT DISTINCT ?pessoa ?p21_existe ?p31_existe ?p570_existe ?p106_existe ?p569_existe ?p1343_existe ?p19_existe ?p6673_existe ?p6674_existe ?p27_existe ?p18_existe ?p463_existe ?p20_existe ?p6692_existe ?p735_existe ?p746_existe ?p6690_existe ?p509_existe ?p734_existe ?p102_existe ?p1412_existe ?p214_existe ?p69_existe ?p1196_existe ?p244_existe ?p119_existe ?p1449_existe ?p2163_existe ?p213_existe ?p373_existe ?p2632_existe
+  WHERE {
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    {?pessoa wdt:P6673 ?i} UNION {?pessoa wdt:P6674 ?ii} UNION {?pessoa wdt:P6690 ?iii} UNION {?pessoa wdt:P6692 ?iv} UNION {?pessoa wdt:P1343 wd:Q78782867.
+                                                                                                                     ?pessoa p:P1343 [ prov:wasDerivedFrom [ pr:P304 ?page ] ].}
+    
+    MINUS {?pessoa wdt:P570 ?data_morte.
+           FILTER(?data_morte < "1964-04-01T00:00:00Z"^^xsd:dateTime)}
+    
+    OPTIONAL{?pessoa wdt:P21 ?p21.}
+    OPTIONAL{?pessoa wdt:P31 ?p31.}
+    OPTIONAL{?pessoa wdt:P570 ?p570.}
+    OPTIONAL{?pessoa wdt:P106 ?p106.}
+    OPTIONAL{?pessoa wdt:P569 ?p569.}
+    OPTIONAL{?pessoa wdt:P1343 ?p1343.}
+    OPTIONAL{?pessoa wdt:P19 ?p19.}
+    OPTIONAL{?pessoa wdt:P6673 ?p6673.}
+    OPTIONAL{?pessoa wdt:P6674 ?p6674.}
+    OPTIONAL{?pessoa wdt:P27 ?p27.}
+    OPTIONAL{?pessoa wdt:P18 ?p18.}
+    OPTIONAL{?pessoa wdt:P463 ?p463.}
+    OPTIONAL{?pessoa wdt:P20 ?p20.}
+    OPTIONAL{?pessoa wdt:P6692 ?p6692.}
+    OPTIONAL{?pessoa wdt:P735 ?p735.}
+    OPTIONAL{?pessoa wdt:P746 ?p746.}
+    OPTIONAL{?pessoa wdt:P6690 ?p6690.}
+    OPTIONAL{?pessoa wdt:P509 ?p509.}
+    OPTIONAL{?pessoa wdt:P734 ?p734.}
+    OPTIONAL{?pessoa wdt:P102 ?p102.}
+    OPTIONAL{?pessoa wdt:P1412 ?p1412.}
+    OPTIONAL{?pessoa wdt:P214 ?p214.}
+    OPTIONAL{?pessoa wdt:P69 ?p69.}
+    OPTIONAL{?pessoa wdt:P1196 ?p1196.}
+    OPTIONAL{?pessoa wdt:P244 ?p244.}
+    OPTIONAL{?pessoa wdt:P119 ?p119.}
+    OPTIONAL{?pessoa wdt:P1449 ?p1449.}
+    OPTIONAL{?pessoa wdt:P2163 ?p2163.}
+    OPTIONAL{?pessoa wdt:P213 ?p213.}
+    OPTIONAL{?pessoa wdt:P373 ?p373.}
+    OPTIONAL{?pessoa wdt:P2632 ?p2632.}
+    
+    BIND(IF(BOUND(?p21),0,1) as ?p21_existe)
+    BIND(IF(BOUND(?p31),0,1) as ?p31_existe)
+    BIND(IF(BOUND(?p570),0,1) as ?p570_existe)
+    BIND(IF(BOUND(?p106),0,1) as ?p106_existe)
+    BIND(IF(BOUND(?p569),0,1) as ?p569_existe)
+    BIND(IF(BOUND(?p1343),0,1) as ?p1343_existe)
+    BIND(IF(BOUND(?p19),0,1) as ?p19_existe)
+    BIND(IF(BOUND(?p6673),0,1) as ?p6673_existe)
+    BIND(IF(BOUND(?p6674),0,1) as ?p6674_existe)
+    BIND(IF(BOUND(?p27),0,1) as ?p27_existe)
+    BIND(IF(BOUND(?p18),0,1) as ?p18_existe)
+    BIND(IF(BOUND(?p463),0,1) as ?p463_existe)
+    BIND(IF(BOUND(?p20),0,1) as ?p20_existe)
+    BIND(IF(BOUND(?p6692),0,1) as ?p6692_existe)
+    BIND(IF(BOUND(?p735),0,1) as ?p735_existe)
+    BIND(IF(BOUND(?p746),0,1) as ?p746_existe)
+    BIND(IF(BOUND(?p6690),0,1) as ?p6690_existe)
+    BIND(IF(BOUND(?p509),0,1) as ?p509_existe)
+    BIND(IF(BOUND(?p734),0,1) as ?p734_existe)
+    BIND(IF(BOUND(?p102),0,1) as ?p102_existe)
+    BIND(IF(BOUND(?p1412),0,1) as ?p1412_existe)
+    BIND(IF(BOUND(?p214),0,1) as ?p214_existe)
+    BIND(IF(BOUND(?p69),0,1) as ?p69_existe)
+    BIND(IF(BOUND(?p1196),0,1) as ?p1196_existe)
+    BIND(IF(BOUND(?p244),0,1) as ?p244_existe)
+    BIND(IF(BOUND(?p119),0,1) as ?p119_existe)
+    BIND(IF(BOUND(?p1449),0,1) as ?p1449_existe)
+    BIND(IF(BOUND(?p2163),0,1) as ?p2163_existe)
+    BIND(IF(BOUND(?p213),0,1) as ?p213_existe)
+    BIND(IF(BOUND(?p373),0,1) as ?p373_existe)
+    BIND(IF(BOUND(?p2632),0,1) as ?p2632_existe)  
+  }
+} as %ITEMS WHERE {
+  INCLUDE %ITEMS.
+  BIND(wd:Q5 as ?item)
+} group by ?item

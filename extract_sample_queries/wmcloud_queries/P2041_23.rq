@@ -1,0 +1,4 @@
+#title: Australian artists missing DAAO ID
+# Complex constraint from [[Property talk:P2041]]
+# Person from Australia with National Gallery of Victoria artist ID, but no  DAAO ID
+SELECT DISTINCT ?item { ?item wdt:P2041 ?value . ?item wdt:P27 wd:Q408 . MINUS { ?item wdt:P1707 [] } }

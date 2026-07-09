@@ -1,3 +1,5 @@
+#title: Members of the French National Assembly born out of France
+
 SELECT DISTINCT ?item ?itemLabel ?placeLabel ?countryLabel
 WHERE
 {

@@ -1,0 +1,5 @@
+SELECT ?item ?ilhi WHERE {
+  ?item wdt:P31 wd:Q55488.
+  ?item wdt:P131* wd:Q1184.
+  OPTIONAL { ?item rdfs:label ?ilhi. FILTER(LANG(?ilhi)="hi") }
+}

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?itemLabel ?dc_url WHERE {
+  ?item wdt:P1709 ?dc_url .
+  FILTER(STRSTARTS(str(?dc_url), "http://purl.org/dc")) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?dc_url

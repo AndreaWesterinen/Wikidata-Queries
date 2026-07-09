@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?NeuroName_hier_ID ?NeuroName_plain_ID
+WHERE
+{
+	?item wdt:P4395 ?NeuroName_hier_ID .
+  
+	OPTIONAL {?item wdt:P4394 ?NeuroName_plain_ID } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}
+LIMIT 1000

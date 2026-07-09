@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?max ?areakm
+{
+	{ ?item wdt:P31 wd:Q23442 } 	UNION 
+  	{ ?item wdt:P31 wd:Q503481 } 	UNION
+  	{ ?item wdt:P31 wd:Q207524 } 	UNION 
+  	{ ?item wdt:P279 wd:Q23442 } 	UNION
+  	{ ?item wdt:P31 wd:Q1402592 }
+  	?item wdt:P131 wd:Q11703 .
+  	OPTIONAL { ?item p:P610/pq:P2044 ?max1 }
+  	OPTIONAL { ?item wdt:P610/wdt:P2044 ?max2 }
+  	BIND(IF(BOUND(?max1), ?max1, ?max2) as ?max)
+  	OPTIONAL { 	?item p:P2046/psv:P2046 [ wikibase:quantityAmount ?area ; wikibase:quantityUnit ?unit ] . 
+              	OPTIONAL { ?unit p:P558 [ ps:P558 ?s; pq:P282 wd:Q8229 ] . }
+              	?unit wdt:P2370 ?siu . BIND(str(round(?siu * ?area/1000)/1000) as ?si)
+              	BIND(CONCAT('align=right  data-sort-value="',?si,'" | ', ?si , '&nbsp;km²&nbsp;&nbsp;<','ref>' ,str(?area), " ", ?s, "</","ref>") as ?areakm )
+  	}
+} LIMIT 4000

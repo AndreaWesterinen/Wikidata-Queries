@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?first ?count ?gn
+WITH
+{
+SELECT ?first (COUNT(?item0) as ?count) (SAMPLE(?item0) as ?item)
+{
+    hint:Query hint:optimizer "None".
+    ?item0 wdt:P27 wd:Q159 ; wdt:P734 ?first
+}
+GROUP BY ?first 
+HAVING ( ?count > 10)
+} as %a         
+WHERE
+{
+  INCLUDE %a
+  FILTER NOT EXISTS { ?first wdt:P407 wd:Q7737  }
+  ?first wdt:P1705 ?gn .
+}
+ORDER BY DESC(?count)

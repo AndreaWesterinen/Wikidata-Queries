@@ -1,0 +1,8 @@
+#defaultView:Timeline
+# Make a time line of (TV) episodes
+SELECT ?episode ?episodeLabel ?date 
+WHERE
+  { { ?episode wdt:P31 wd:Q1983062 } UNION { ?episode wdt:P31 wd:Q21191270 }
+   OPTIONAL { ?episode wdt:P1191 ?date }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

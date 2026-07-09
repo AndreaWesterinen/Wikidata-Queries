@@ -1,0 +1,6 @@
+SELECT ?item (year(?point) AS ?year) WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P166 wd:Q102121453.
+  ?item p:P166 ?statement.
+  ?statement pq:P585 ?point ; ps:P166 wd:Q102121453.
+  }

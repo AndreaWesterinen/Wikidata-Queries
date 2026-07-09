@@ -1,0 +1,8 @@
+SELECT DISTINCT ?entity ?entityLabel ?prop WHERE {
+  ?entity wdt:P31/wdt:P279* wd:Q18616576 . 
+  ?entity wdt:P17 wd:Q408 .
+  FILTER NOT EXISTS {
+    ?entity wdt:P2264 ?prop .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

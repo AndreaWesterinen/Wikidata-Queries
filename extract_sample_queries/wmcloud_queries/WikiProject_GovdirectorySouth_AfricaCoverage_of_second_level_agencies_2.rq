@@ -1,0 +1,3 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31 ?type .
+  VALUES ?type { wd:Q1589568  wd:Q1500352 wd:Q1530824 }
+  MINUS {?entity wdt:P576 [] }.}

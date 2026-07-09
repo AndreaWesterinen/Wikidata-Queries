@@ -1,0 +1,7 @@
+SELECT ?item ?label ?description WHERE {
+  ?item wdt:P17 wd:Q20;
+  rdfs:label ?label;
+  schema:description ?description .
+  FILTER(lang(?label)="en" && lang(?description)="eo" && REGEX(str(?description), ".*Norveĝio.*") )
+}
+LIMIT 100

@@ -1,0 +1,22 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#Find episode lists that could be using "television season" as P31 value instead (step 1).
+#made for enwiki, try others as well
+#by Jura1 Dec 31, 2015
+SELECT ?season ?seasonLabel ?instance ?series ?sitelink
+WHERE 
+{
+    ?season wdt:P31 wd:Q13406463 . ?season wdt:P360 wd:Q1983062 .
+    ?sitelink <http://schema.org/about> ?season . 
+    ?season wdt:P31 ?instance
+  	FILTER(SUBSTR(str(?sitelink), 1, 30) = "https://en.wikipedia.org/wiki/")
+  	FILTER(CONTAINS(str(?sitelink), 'eason')) .
+    OPTIONAL {?season wdt:P179 ?series }
+  	SERVICE wikibase:label {
+    	bd:serviceParam wikibase:language "en" .
+    	?season rdfs:label ?seasonLabel .
+  	}
+}
+ORDER BY ?seasonLabel

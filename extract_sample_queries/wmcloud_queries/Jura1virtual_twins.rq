@@ -1,0 +1,1 @@
+SELECT ?item { ?item wdt:P1889 [] ; wdt:P31 wd:Q5 ; p:P1889/pq:P1013 wd:Q20978290 . FILTER NOT EXISTS { ?item wdt:P31 wd:Q159979 } } LIMIT 4000

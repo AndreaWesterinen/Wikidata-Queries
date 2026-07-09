@@ -1,0 +1,27 @@
+#defaultView:ImageGrid
+
+#Federated search Wikidata -> NobelPrice.org
+PREFIX nobel: <http://data.nobelprize.org/terms/>
+ 
+SELECT DISTINCT  ?place ?img  (sample(?twitter) AS ?twitter) (sample(?offweb) AS ?offweb) ?motivation ?article ?NobelArticle  WHERE {
+  ?laureate wdt:P2888 ?laureate_nobel_uri .  
+  {
+    {?laureate wdt:P2002 ?twitterID}
+  UNION
+    {?laureate wdt:P856 ?offweb}
+  }
+  FILTER (strStarts(str(?laureate_nobel_uri), "http://data.nobelprize.org/resource/laureate/"))
+  OPTIONAL {?laureate wdt:P18 ?img}
+
+  OPTIONAL {?article schema:about ?laureate .
+            ?article schema:isPartOf <https://en.wikipedia.org/>}
+
+  OPTIONAL{?laureate wdt:P3188 ?Na}
+  BIND (URI(CONCAT("https://www.nobelprize.org/nobel_prizes/",?Na,"-facts.html")) AS ?NobelArticle)
+  BIND (URI(CONCAT("https://twitter.com/",?twitterID)) AS ?twitter)
+  SERVICE <http://data.nobelprize.org/sparql> {
+    ?laureate_nobel_uri nobel:laureateAward / nobel:motivation ?motivation .
+    FILTER (lang(?motivation) = 'en')
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,da,nl". }
+}  Group By ?place ?img  ?motivation ?article ?NobelArticle ?coord22

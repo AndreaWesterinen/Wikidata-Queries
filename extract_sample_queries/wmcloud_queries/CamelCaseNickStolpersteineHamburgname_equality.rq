@@ -1,0 +1,44 @@
+#by CamelCaseNick
+prefix commons: <http://commons.wikimedia.org/wiki/Special:FilePath/>
+select (concat(?highlighter, ?n, ?highlighter) as ?name) ?year ?item ?addresses ?images ?notes ?commemoratedMissing
+with {
+  select
+    (if(count(distinct ?inscription) < count(?stolperstein), "'''", "") as ?highlighter)
+    (count(?stolperstein) - count(?commemoratedName) as ?commemoratedMissing)
+    (concat(?name,"") as ?n)
+    ?year
+    (min(?stolperstein) as ?item)
+    (group_concat(concat("''[[:d:", replace(str(?stolperstein), str(wd:), ""), "|", strbefore(?address, ","), "]]''"); separator = " und ") as ?addresses)
+    (concat("") as ?images)
+  where {
+    ?stolperstein wdt:P31 wd:Q26703203;
+                  wdt:P131+ wd:Q1055;
+                  wdt:P6375?address;
+                  wdt:P1684 ?inscription;
+                  wdt:P18 ?image;
+                  rdfs:label ?Lde.
+    filter(lang(?Lde) = "de")
+    minus { ?stolperstein wdt:P1366|wdt:P576 []. }
+    optional {
+      ?stolperstein wdt:P547/rdfs:label ?commemoratedName.
+      filter(lang(?commemoratedName) = "de")
+    }
+    bind(replace(replace(replace(replace(replace(replace(replace(coalesce(?commemoratedName, replace(?Lde,"^Stolperstein für (Prof\\. )?(Dr\\. )?", "")), "ä", "ae"), "ö", "oe"), "ü", "ue"), "Ä", "Ae"), "Ö", "Oe"), "Ü", "Ue"), "ß", "ss") as ?name)
+    optional { filter regex(?inscription, " Jg\\.? (\\d{4}) ") bind(replace(?inscription, "^.* Jg\\.? (\\d{4}) .*$", "$1") as ?year) }
+    filter(strstarts(?inscription, "Hier wohnte ")
+           && strstarts(?Lde, "Stolperstein für ")
+           && !regex(?name, "^(den|die|das|Unbekannt|Zwangsarbeiter|\\d)")
+           && ?stolperstein not in (wd:Q63807404, wd:Q63190499, wd:Q64528822, wd:Q98429992))
+  }
+  group by ?name ?year
+  having(count(?stolperstein) > 1)
+} as %duplicates
+where {
+  include%duplicates.
+  bind(if(
+    ?n in ("Elise Wilda", "Emma Wilda", "Ernst Wilda", "Therese Wilda", "Amalie Leser", "Siegbert Leser", "Clara Tuch", "Theodor Tuch", "Irma Zancker", "Heinz Adolf Abrahamssohn", "Gertrud Becher", "Charlotte Danziger", "Katharina Leipelt", "Hans Leipelt", "Hermann Wolff", "Guenther Brann", "Bela Meier", "Henry Meier", "August Postler", "Gerda Pulka", "Charlotte Friedmann", "Hanna Meyberg", "Erna Fratje Michelsohn", "Anton Wohinz", "Walter Gutmann", "Ruth Meyer", "Helene Horwitz", "Herbert Wagener", "Marie van Biema", "Robert Bachmann", "Roland Behrend", "Edith Behrend", "Kaatje Benninga", "Eduard Hertz", "Herbert Kaftal", "Hermann Kaftal", "James Lewie", "Rosa Muellner", "Joseph Norden", "Hugo Salinger", "Siegmund Silberberg", "Max Wolfsohn", "Guenther Brauer", "Meta Blumenthal", "Elsa Blumenthal", "Gabriele Kaftal", "Edgar Rosenbaum", "Nathan Mendel Sarason", "Ida Sarason", "Bella Hirsch", "Leopold Hirsch", "Helene Guttmann", "Jacob Guttmann", "Elisabeth Kassel", "Frieda Sternheim", "Georg Baruch", "Marion Baruch", "Rolf Arno Baruch", "Hannelore Baum", "Ruth Bieber", "Rudolf Borgzinner", "Clara Cohn", "Max Rosenbaum", "Kurt Silberstein", "Ernst Antonio Cassuto", "Edgar Fels", "Alice Hertz", "Heinz Wittkowsky", "Margarethe Wolfsohn", "Marianne Landau", "Ursula Geistlich"),
+    "Doppeltverlegung geklärt", 
+    if(?n in ("Laura Mosbach"),
+      "einer durch Baustelle verschwunden", 
+      "")) as ?notes)
+}

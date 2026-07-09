@@ -1,0 +1,9 @@
+#title: Every country should have this property
+# Complex constraint from [[Property talk:P1082]]
+# TODO: add P1082
+SELECT ?item 
+{
+    ?item wdt:P31 wd:Q6256 . 
+    FILTER NOT EXISTS { ?item wdt:P1082 [] } .
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q3024240 } .
+}

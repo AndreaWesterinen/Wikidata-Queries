@@ -1,0 +1,3 @@
+select (count(?val) as ?num_decl){
+  ?item p:P485 ?val
+}

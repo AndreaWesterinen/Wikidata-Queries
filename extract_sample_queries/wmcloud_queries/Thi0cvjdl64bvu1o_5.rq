@@ -1,0 +1,8 @@
+# items with no father or no mother
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  { ?item a wdno:P22. }
+  UNION
+  { ?item a wdno:P25. }
+  MINUS { ?item wikibase:rank []. } # filter out statement nodes
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

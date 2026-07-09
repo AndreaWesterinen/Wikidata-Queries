@@ -1,0 +1,29 @@
+# Wikidata items for concepts that have a MeSH Descriptor ID (P486) and a Disease Ontology ID (P699)
+# and a Wikidata label in English and nine Indian languages
+# sorted by number of Wikimedia sitelinks for the concept
+
+SELECT 
+  DISTINCT ?item 
+  (CONCAT("{{Scholia-inline|", REPLACE(STR(?item), ".*Q", "Q"), "}}") AS ?q)
+  ?English ?Hindi ?Bangla ?Marathi ?Telugu ?EastPunjabi ?Kannada ?Odia ?Urdu ?Malayalam
+  ?sitelinks 
+
+WHERE {
+  ?item wdt:P486 [] .  
+  ?item wdt:P699 [] .  
+  ?item wikibase:sitelinks ?sitelinks .
+
+  ?item rdfs:label ?English filter (lang(?English) = "en") .
+
+  ?item rdfs:label ?Hindi filter (lang(?Hindi) = "hi") .
+  ?item rdfs:label ?Bangla filter (lang(?Bangla) = "bn") .
+
+  ?item rdfs:label ?Marathi filter (lang(?Marathi) = "mr") .
+  ?item rdfs:label ?Telugu filter (lang(?Telugu) = "te") .
+  ?item rdfs:label ?EastPunjabi filter (lang(?EastPunjabi) = "pa") .
+  ?item rdfs:label ?Kannada filter (lang(?Kannada) = "kn") .
+  ?item rdfs:label ?Odia filter (lang(?Odia) = "or") .
+  ?item rdfs:label ?Urdu filter (lang(?Urdu) = "ur") .
+  ?item rdfs:label ?Malayalam filter (lang(?Malayalam) = "ml") .
+}
+ORDER BY DESC(?sitelinks)

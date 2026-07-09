@@ -1,0 +1,15 @@
+SELECT *
+{
+  VALUES ( ?pref ?inst ) { 
+    ( "Modèle:" wd:Q11266439 )
+    ( "Module:" wd:Q15184295 )
+    ( "Catégorie:" wd:Q4167836 )
+    ( "Projet:" wd:Q4167836 )    
+    ( "Wikipédia:" wd:Q14204246 )  
+    ( "Aide:" wd:Q56005592 )     
+    ( "Liste de" wd:Q13406463 )      
+  }    
+  ?item wikibase:statements 0 . 
+  [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?n . 
+  FILTER( strstarts(?n , ?pref) ) 
+}

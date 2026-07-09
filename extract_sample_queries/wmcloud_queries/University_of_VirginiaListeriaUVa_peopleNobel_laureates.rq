@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item 
+WHERE {
+  ?item wdt:P166 ?award ; #person received an award
+          wdt:P31 wd:Q5 . #person is instance of human
+  ?award wdt:P31*/wdt:P279* wd:Q7191 . #award is a Nobel Prize
+  {?item ?property1 wd:Q213439 } UNION {?item ?property2 [wdt:P361 wd:Q213439] }. #person has some relationship to UVa
+}

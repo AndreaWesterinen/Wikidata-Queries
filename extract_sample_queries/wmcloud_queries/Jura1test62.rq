@@ -1,0 +1,1 @@
+SELECT ?item {?item wdt:P31/wdt:P279* wd:Q11424; wdt:P407 [] FILTER NOT EXISTS {?item wdt:P364 []} } ORDER BY ?item LIMIT 1000

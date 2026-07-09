@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?lokasiLabel ?magnitudo ?koordinat WHERE {
+  ?item wdt:P31 wd:Q7944;
+        wdt:P17 wd:Q252.
+  ?item wdt:P276 ?lokasi.
+  ?item wdt:P2527 ?magnitudo.
+  ?item wdt:P625 ?koordinat.
+  ?artikel schema:about ?item;
+                       schema:isPartOf <https://id.wikipedia.org/>.
+  ?item wdt:P585 ?waktu.
+  FILTER ( YEAR(?waktu) >= 2020 )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "id". }
+}

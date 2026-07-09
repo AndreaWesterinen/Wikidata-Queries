@@ -1,0 +1,12 @@
+#title: Check westernmost point and easternmost point of countries
+# Complex constraint from [[Property talk:P1334]]
+#
+SELECT ?item ?westernmostPoint ?easternmostPoint ?dist
+{
+    ?item wdt:P31/wdt:P279* wd:Q6256.
+    ?item wdt:P1335 ?westernmostPoint .
+    ?item wdt:P1334 ?easternmostPoint .
+    BIND(geof:distance(?westernmostPoint, ?easternmostPoint) as ?dist) 
+    FILTER (?dist < 1)
+}
+ORDER BY (?dist)

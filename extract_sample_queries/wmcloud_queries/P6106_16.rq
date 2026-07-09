@@ -1,0 +1,13 @@
+#title: Proper nouns with capitals
+# Complex constraint from [[Property talk:P6106]]
+# e.g. in French (" 	Maurétanie"). Uses [[d:Q147276|proper noun <small>(Q147276)</small>]] as lexical category
+SELECT ?item ?lang ?lexeme ?lemma ?form (substr(str(?form),1,1) as ?test)
+{
+    BIND(wd:Q147276 as ?item )
+    ?lang wdt:P6106 ?item . 
+    ?lexeme wikibase:lexicalCategory ?item .
+    ?lexeme wikibase:lemma ?lemma .
+    ?lexeme <http://purl.org/dc/terms/language> ?lang .
+    ?lexeme <http://www.w3.org/ns/lemon/ontolex#lexicalForm> / <http://www.w3.org/ns/lemon/ontolex#representation> ?form .
+    FILTER( substr(str(?form),1,1) != ucase(substr(str(?form),1,1)) )
+}

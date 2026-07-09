@@ -1,0 +1,2 @@
+#title:Change the property P646 to P2671
+SELECT DISTINCT ?item WHERE { ?item wdt:P646 ?value . FILTER(REGEX(STR(?value), '^(/g/[0-9a-zA-Z_]+)$') = true ) }

@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?metid ?img 
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q3305213 .
+  ?item wdt:P3634 ?metid .
+  MINUS { ?item wdt:P180 ?dep }
+  ?item wdt:P18 ?img
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

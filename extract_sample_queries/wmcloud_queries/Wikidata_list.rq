@@ -1,0 +1,3 @@
+SELECT (?property AS ?item) WHERE {
+  ?property wdt:P2302 wd:Q21503250.
+}

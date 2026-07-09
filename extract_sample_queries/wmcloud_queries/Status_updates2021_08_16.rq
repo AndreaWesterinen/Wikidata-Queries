@@ -1,0 +1,62 @@
+#title: Map of the birthplace of sports team players by decade (lines link birthplace to home venue location)
+#defaultView:Map{"hide":["?loc", "?start_year", "?end_year", "?line" ]}
+SELECT ?x ?xLabel ?loc ?layer ?img ?line ?birthplace ?birthplaceLabel ?teamLabel WITH {
+SELECT ?team ?inception WHERE {
+  BIND ( wd:Q9617 AS ?team ) 
+  ?team wdt:P571 ?inception .
+}} AS %team
+WITH { SELECT ?num ?start ?end ?gap  WHERE {
+  INCLUDE %team
+  BIND (10 * FLOOR(YEAR(?inception) / 10) AS ?start) 
+  BIND (10 AS ?gap )
+  BIND (10 * FLOOR(YEAR(NOW()) / 10) AS ?end )        
+  BIND ( (?end - ?start ) / ?gap + 1 AS ?x )
+  [] p:P31 [
+     ps:P31 wd:Q21199 ;
+     pq:P155 ?prev].
+  ?prev wdt:P1181 ?num .
+  FILTER (?num > 0 && ?num <= ?x )
+  } } AS %range
+WITH { SELECT ?decade WHERE { 
+  INCLUDE %range
+  BIND (?start + (?num - 1) * ?gap AS ?decade) 
+} ORDER BY ?decade }
+    AS %decades                    
+WITH { SELECT ?x ?start_year ?end_year ?team WHERE {
+  INCLUDE %team
+  BIND ( NOW() AS ?today )
+  ?x wdt:P31 wd:Q5.
+  ?x p:P54 ?stmt.
+  ?stmt ps:P54 ?team.
+  ?stmt pq:P580 ?start.
+  OPTIONAL { ?stmt pq:P582 ?end } 
+  BIND ( IF (wikibase:isSomeValue(?end), ?today, ?end ) AS ?new_end) 
+  BIND(COALESCE(?new_end, ?today) as ?new_end)
+  BIND (YEAR(?start) AS ?start_year) 
+  BIND (YEAR(?new_end) AS ?end_year) 
+} } AS %players
+WHERE {
+  INCLUDE %players
+  INCLUDE %decades
+    ?x wdt:P19 ?birthplace.
+    ?birthplace wdt:P625 ?loc.
+    OPTIONAL { ?x wdt:P18 ?img }
+    FILTER ( (?start_year >= ?decade && ?start_year < ?decade + 10) || (?end_year < ?decade + 10 && ?end_year >= ?decade ) || (?decade > ?start_year && ?decade < ?end_year ))
+    ?birthplace p:P625 [
+      ps:P625 [];
+      psv:P625 [
+        wikibase:geoLongitude ?poblon;
+        wikibase:geoLatitude  ?poblat; 
+   ]] .
+  ?team wdt:P115 ?home .
+  ?home p:P625 [
+    ps:P625 [];
+    psv:P625 [
+      wikibase:geoLongitude ?centrelon;
+      wikibase:geoLatitude  ?centrelat]] .
+  BIND(CONCAT('LINESTRING (', STR(?poblon), ' ', STR(?poblat), ',', STR(?centrelon), ' ', STR(?centrelat), ')') AS ?str) .
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line) 
+  BIND(CONCAT(STR(?decade),"s") AS ?layer) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ASC(?layer)

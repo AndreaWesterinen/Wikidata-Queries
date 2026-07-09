@@ -1,0 +1,8 @@
+SELECT ?item ?ids ?st ?sl ?sta
+{  
+  	?item wdt:P31 wd:Q5398426 . MINUS { ?item wdt:P582 [] }
+	?item wikibase:identifiers ?ids ; wikibase:statements ?st; wikibase:sitelinks ?sl 
+	OPTIONAL { ?item wdt:P580 ?sta }
+}
+ORDER BY DESC(?sta) ?item
+LIMIT 5000

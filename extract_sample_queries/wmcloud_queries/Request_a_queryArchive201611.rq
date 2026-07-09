@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?coord WHERE {
+  ?item wdt:P3003 ?abandoned .
+  ?item wdt:P625 ?coord .
+  OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "cs" .} 
+  FILTER (!BOUND(?sitelink))
+SERVICE wikibase:label { bd:serviceParam wikibase:language "cs". }  }

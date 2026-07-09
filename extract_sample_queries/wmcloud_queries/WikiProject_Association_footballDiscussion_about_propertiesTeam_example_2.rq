@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?club_de_futbol ?club_de_futbolLabel WHERE {
+  ?item wdt:P31 wd:Q476028.
+#  ?item wdt:P361 ?value.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca,en". }
+}
+LIMIT 50000

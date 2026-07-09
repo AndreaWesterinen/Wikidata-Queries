@@ -1,0 +1,12 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?image ?employer ?employerLabel
+WHERE
+{
+  ?item wdt:P106 wd:Q2374149 .
+  ?item wdt:P3987 ?idSHARE .
+  ?item wdt:P108 ?employer .
+  ?employer wdt:P31 wd:Q3918 .
+  ?employer wdt:P131+ wd:Q38 .
+  OPTIONAL {?item wdt:P18 ?image .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

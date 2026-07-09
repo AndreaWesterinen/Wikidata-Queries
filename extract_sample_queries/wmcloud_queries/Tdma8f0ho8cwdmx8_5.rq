@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT ?flag ?inscription ?countryLabel ?image WHERE {
+  ?flag wdt:P31/wdt:P279* wd:Q186516;
+        wdt:P1684 ?inscription.
+  OPTIONAL { ?flag wdt:P1001|wdt:P17 ?country. }
+  OPTIONAL { ?flag wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

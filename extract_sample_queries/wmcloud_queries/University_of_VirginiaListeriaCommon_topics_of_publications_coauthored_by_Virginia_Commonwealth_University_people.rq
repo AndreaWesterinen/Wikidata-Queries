@@ -1,0 +1,24 @@
+PREFIX target: <http://www.wikidata.org/entity/Q2303536>
+
+SELECT DISTINCT ?item #?sl 
+(COUNT(DISTINCT ?work) AS ?count) (SAMPLE(?a) AS ?author)
+  (CONCAT(
+      "[https://tools.wmflabs.org/scholia/organization/Q2303536/topic/",
+      ENCODE_FOR_URI(REPLACE(STR(?item), ".*Q", "Q")), " 𝄛]") AS ?publist)
+
+WHERE {
+  { ?a ?property target:. }
+  UNION
+  {
+    ?a ?property2 _:b9.
+    _:b9 wdt:P361 target: .
+  }
+  ?work wdt:P50 ?a ; wdt:P921 ?item .
+#  ?item wikibase:sitelinks ?sl.
+  ?item rdfs:label ?item_label.
+  FILTER((LANG(?item_label)) = "en")
+}
+GROUP BY ?item #?sl 
+?count ?author ?publist
+ORDER BY DESC(?count) #DESC(?sl) 
+LIMIT 3000

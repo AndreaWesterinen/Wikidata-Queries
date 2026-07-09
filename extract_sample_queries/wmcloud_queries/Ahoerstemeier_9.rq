@@ -1,0 +1,11 @@
+#Wat without geonames
+#defaultView:Table
+SELECT DISTINCT ?entity ?entityLabel ?locationLabel WHERE {
+  ?entity wdt:P31 wd:Q427287.
+  ?entity wdt:P17 wd:Q869.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(NOT EXISTS { ?entity wdt:P1566 ?x. })
+  FILTER(NOT EXISTS { ?entity wdt:P625 ?x. })
+  OPTIONAL { ?entity wdt:P131 ?location. }
+}
+ORDER BY ?entityLabel

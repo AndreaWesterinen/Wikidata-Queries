@@ -1,0 +1,12 @@
+#title: Cims amb més d'una URL
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item ?url1 ?url2 where {
+  ?item p:P361 ?stat1 .
+  ?stat1 ps:P361 wd:Q31074657 .
+  ?stat1 pq:P2699 ?url1 .
+  ?item p:P361 ?stat2 .
+  ?stat2 ps:P361 wd:Q31074657 .
+  ?stat2 pq:P2699 ?url2 .
+  filter(str(?url1) < str(?url2))
+}

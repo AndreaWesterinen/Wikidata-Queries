@@ -1,0 +1,7 @@
+SELECT ?item  WHERE {
+  ?item wdt:P31 wd:Q2074737.
+  FILTER(NOT EXISTS {
+    ?townhall wdt:P131 ?item;
+              wdt:P31 wd:Q112793351.
+  })
+}

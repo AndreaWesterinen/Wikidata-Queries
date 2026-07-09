@@ -1,0 +1,10 @@
+SELECT DISTINCT ?person ?personLabel
+WHERE
+{
+	?person wdt:P31 wd:Q5 .
+	?person wdt:P108 ?museum .
+  	?person wdt:P108 wd:Q1142142
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?person ?personLabel
+ORDER BY ?personLabel

@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?game) as ?count) (GROUP_CONCAT(?game2; separator=", ") as ?games) WHERE {
+  ?item wdt:P31 wd:Q7058673.
+  OPTIONAL {
+    ?game wdt:P179 ?item.
+    ?game wdt:P31/wdt:P279* wd:Q7889.
+    BIND(REPLACE(STR(?game), "^.*(Q\\d*)$", "[[d:Special:EntityPage/$1|$1]]") AS ?game2)
+  }
+} GROUP BY ?item

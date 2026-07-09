@@ -1,0 +1,41 @@
+SELECT ?item ?from WHERE {
+  { ?item wdt:P31 wd:Q5. }
+  { ?item wdt:P463 wd:Q12347661 }#FLE
+  UNION
+  { ?item wdt:P463 wd:Q20481873 }#PacoLibereco
+  UNION
+  { ?item wdt:P463 wd:Q33126 }#SAT
+  UNION
+  { ?item wdt:P463 wd:Q12349322 }#IKEK
+  UNION
+  { ?item wdt:P463 wd:Q3459207 }#SAT-Amikaro
+  UNION
+  { ?item wdt:P463 wd:Q2868177 }#SLEA
+  UNION
+  { ?item wdt:P463 wd:Q4430597 }#SEU
+  UNION
+  { ?item wdt:P463 wd:Q3459213 }#SATEB
+  UNION
+  { ?item wdt:P463 wd:Q3459212 }#SATeH
+  UNION
+  { ?item wdt:P463 wd:Q20480634 }#ALLE
+  UNION
+  { ?item wdt:P463 wd:Q20479129 }#Ouvrière
+  UNION
+  { ?item wdt:P463 wd:Q19724056 }#KEKK
+  UNION
+  { ?item wdt:P463 wd:Q12349350 }#IPE
+  UNION
+  { ?item wdt:P463 wd:Q4784646 }#NALE
+  UNION
+  { ?item wdt:P463 wd:Q12346345 }#DLEA
+  { ?item p:P106 ?occupation. }
+  ?occupation ps:P106 wd:Q860918.
+  OPTIONAL { 
+    ?occupation pqv:P580 [
+        wikibase:timePrecision ?from_precision;
+        wikibase:timeValue ?from_time;
+      ];
+  }
+  BIND(YEAR(?from_time) AS ?from)
+}

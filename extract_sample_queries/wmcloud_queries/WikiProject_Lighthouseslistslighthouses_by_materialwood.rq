@@ -1,0 +1,8 @@
+SELECT ?item ?st ?sl
+{
+    ?item wdt:P31 wd:Q39715 ; wdt:P186 wd:Q287
+    OPTIONAL {?item wikibase:statements ?st ; wikibase:sitelinks ?sl }.
+	FILTER (?item != wd:Q15397819 )
+}  
+ORDER BY DESC(?item)
+LIMIT 300

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?start ?end ?district ?districtLabel ?group ?groupLabel WHERE { 
+  ?item p:P39 ?mem .
+  ?mem ps:P39 wd:Q654291 ; pq:P2937 wd:Q85677302 . 
+  OPTIONAL { ?mem pq:P580  ?start }
+  OPTIONAL { ?mem pq:P582  ?end }
+  OPTIONAL { ?mem pq:P768  ?district }
+  OPTIONAL { ?mem pq:P4100 ?group }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

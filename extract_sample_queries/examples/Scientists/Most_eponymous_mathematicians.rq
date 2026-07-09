@@ -1,3 +1,4 @@
+#title: Most eponymous mathematicians
 SELECT ?eponym ?eponymLabel ?count ?sample ?sampleLabel
 WHERE
 {

@@ -1,0 +1,4 @@
+select * where {
+	values ?item { wd:Q21200485 }
+	?sitelink schema:about ?item
+}

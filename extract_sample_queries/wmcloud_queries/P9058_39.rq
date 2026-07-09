@@ -1,0 +1,8 @@
+#title: Check date
+# Complex constraint from [[Property talk:P9058]]
+#
+SELECT ?item {
+  ?item p:P9058 [];
+        wdt:P569 ?born.
+  FILTER (YEAR(?born) < 1800).
+}

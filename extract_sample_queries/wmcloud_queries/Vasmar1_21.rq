@@ -1,0 +1,9 @@
+SELECT ?skip ?skipLabel ?landLabel ?bygget ?utfaset WHERE {
+  ?skip (wdt:P31/wdt:P279*) wd:Q11446.
+  ?skip p:P730 _:b1.
+  _:b1 pq:P828 wd:Q336332.
+  OPTIONAL { ?skip wdt:P730 ?utfaset. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  OPTIONAL { ?skip wdt:P17 ?land. }
+  OPTIONAL { ?skip wdt:P729 ?bygget. }
+}

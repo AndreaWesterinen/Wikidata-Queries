@@ -1,0 +1,25 @@
+SELECT
+  (SAMPLE(?number_of_forms) / SAMPLE(?number_of_lexemes) AS ?form_to_lexeme_ratio)
+  (SAMPLE(?number_of_lexemes) AS ?number_of_lexemes)
+  (SAMPLE(?number_of_forms) AS ?number_of_forms)
+  ?language ?languageLabel 
+WHERE {
+  {
+    SELECT ?language (COUNT(*) AS ?number_of_lexemes) WHERE {
+      [] dct:language ?language .
+    }
+    GROUP BY ?language
+  }
+  UNION
+  {
+    SELECT ?language (COUNT(*) AS ?number_of_forms) WHERE {
+      [] ^ontolex:lexicalForm / dct:language ?language .
+    }
+    GROUP BY ?language
+
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?language ?languageLabel
+HAVING (?number_of_forms > 1)
+ORDER BY DESC(?form_to_lexeme_ratio)

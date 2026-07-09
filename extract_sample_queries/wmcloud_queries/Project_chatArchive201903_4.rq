@@ -1,0 +1,5 @@
+SELECT ?constituency ?constituencyLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?subtype wdt:P279 wd:Q54063790.
+  ?constituency wdt:P31 ?subtype.
+}

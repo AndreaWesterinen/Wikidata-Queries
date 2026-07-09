@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value ?locLabel ?instanceofLabel 
+{
+	?item p:P1191 [ ps:P1191 ?value ; pq:P276 ?loc ] .
+    ?item wdt:P31 ?instanceof           
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+LIMIT 10000

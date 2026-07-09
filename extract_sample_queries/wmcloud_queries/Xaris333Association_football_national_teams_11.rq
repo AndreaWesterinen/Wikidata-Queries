@@ -1,0 +1,11 @@
+SELECT DISTINCT 
+    ?item ?itemLabel 
+    ?whatever ?whateverLabel 
+    # ?nationalteam ?nationalteamLabel
+{
+    ?item wdt:P31 wd:Q6979593 .
+    ?item wdt:P31 ?whatever . 
+    FILTER (?whatever != wd:Q6979593 )  
+    # FILTER ( ?whatever = ?nationalteam )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

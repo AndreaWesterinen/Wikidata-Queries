@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?count ?sample_w (?sts - ?ids - 1 as ?sts0) ?sls ?ids
+WITH
+{
+   SELECT DISTINCT ?item { { [] wdt:P58 ?item } UNION { ?item wdt:P106 wd:Q28389 } }
+}  as %all
+WITH
+{
+  SELECT ?item 
+  { include %all }
+  ORDER BY DESC( xsd:integer(SUBSTR(STR(?item),33)) ) 
+  LIMIT 200    
+}  as %select
+WHERE
+{
+	include %select
+    ?item wikibase:statements ?sts ; wikibase:sitelinks ?sls ; wikibase:identifiers ?ids 
+    OPTIONAL { SELECT ?item (COUNT(?w) as ?count) (SAMPLE(?w) as ?sample_w) { ?w wdt:P58 ?item } GROUP BY ?item }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC( xsd:integer(SUBSTR(STR(?item),33)) )

@@ -1,0 +1,11 @@
+SELECT ?authorstring ?citedpaper 
+WHERE
+{ 
+  { ?paper wdt:P2860 ?citedpaper . } 
+  { ?citedpaper wdt:P31 wd:Q13442814 . } 
+  { ?citedpaper wdt:P50 ?author . } 
+  { ?citedpaper wdt:P2093 ?authorstring . } 
+
+#  FILTER(CONTAINS(LCASE(?authorstring), "smith"))
+}
+GROUP BY ?authorstring ?citedpaper 

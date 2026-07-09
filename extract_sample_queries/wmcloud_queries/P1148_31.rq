@@ -1,0 +1,29 @@
+#title: Correct english label for isotopes
+# Complex constraint from [[Property talk:P1148]]
+# english label for isotopes should follow the pattern "[elementname]-[number of nuclides]". If not something is probably wrong.
+select distinct (?isotope as ?item) ?rank ?neutron_number ?at_number ?isotopeLabelEn ?elementLabelEn  {
+  ?isotopeclass wdt:P279* wd:Q25276 .
+  ?isotope p:P31 [ ps:P31 ?isotopeclass ;
+                          pq:P1545 ?rank ] .
+  ?isotope wdt:P1148 ?neutron_number ;
+           wdt:P1086 ?at_number ;
+           wdt:P31/p:P279 [ps:P279 wd:Q25276 ; pq:P642 ?element ] .
+  ?element wdt:P31 wd:Q11344 ;
+           rdfs:label ?elementLabelEn . 
+  
+  filter (lang(?elementLabelEn) = "en" )
+  
+  ?isotope rdfs:label ?isotopeLabelEn filter (lang(?isotopeLabelEn) = "en") .
+  
+  
+  filter (str(?isotopeLabelEn) != concat(?elementLabelEn,"-",?rank)  )
+  
+  #exceptions 
+  filter not exists {
+    values (?isotope ?isotopeLabelEn ?rank) {
+      (wd:Q54389 "tritium"@en "3")
+      (wd:Q102296 "deuterium"@en "2")
+      (wd:Q12830437 "protium"@en "1")
+    }
+  }   
+}

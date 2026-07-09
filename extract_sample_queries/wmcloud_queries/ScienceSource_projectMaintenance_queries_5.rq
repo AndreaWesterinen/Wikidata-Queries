@@ -1,0 +1,10 @@
+#Main subjects given as articles
+SELECT ?item ?itemLabel ?subjectLabel
+  WHERE {?item wdt:P921 ?subject.
+         ?subject wdt:P31 wd:Q13442814;
+                  wdt:P1476 ?title.
+         FILTER(STRLEN(?title) < 15)
+
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+         }
+LIMIT 50

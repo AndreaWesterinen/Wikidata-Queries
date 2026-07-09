@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?instanceOfLabel ?countryLabel WHERE {
+  
+  ?item wdt:P31 wd:Q1286517 .
+  ?item wdt:P17 wd:Q55 . 
+  ?item wdt:P17 ?country . #You asked for the P17 in the table, so I've added this - however, all rows will show Netherlands because of the line above (P17 = Q55). 
+  ?item wdt:P31 ?instanceOf .
+  
+  MINUS {?item wdt:P625 ?coordinates} #new line to remove all results that have coordinates
+
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }  #change the "en" if you want the labels in different language
+}

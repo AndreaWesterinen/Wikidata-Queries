@@ -1,0 +1,19 @@
+#  count distinct NGA artworks/ paintings/drawing/print/sculpture/visual art/photograph 
+
+SELECT   (COUNT(DISTINCT(?artwork)) AS ?count) WHERE {
+  {?artwork wdt:P31 wd:Q3305213.}    # painting
+  UNION
+   {?artwork wdt:P31 wd:Q11060274.}  # print
+  UNION 
+   {?artwork wdt:P31 wd:Q93184.}     # drawing
+  UNION 
+   {?artwork wdt:P31 wd:Q860861.}    # sculpture
+  UNION 
+   {?artwork wdt:P31 wd:Q42314818.}  # visual art
+  UNION 
+   {?artwork wdt:P31 wd:Q125191.} # photograph
+
+   ?artwork wdt:P195 wd:Q795228.     # Art work is in NGA
+        
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,15 @@
+SELECT
+  ?item 
+  ?fr
+  ?2016 ?2017 ?2018 
+WHERE
+{
+   ?item wdt:P31 wd:Q47443726 .
+   FILTER NOT EXISTS { ?item wdt:P576 [] }
+   OPTIONAL { ?item wdt:P2257 ?fr . FILTER( ?fr > 1) }
+   OPTIONAL { ?2016 wdt:P3450 ?item ; wdt:P585 ?d0 . FILTER( YEAR(?d0)=2016 ) }
+   OPTIONAL { ?2017 wdt:P3450 ?item ; wdt:P585 ?d1 . FILTER( YEAR(?d1)=2017 ) }
+   OPTIONAL { ?2018 wdt:P3450 ?item ; wdt:P585 ?d2 . FILTER( YEAR(?d2)=2018 ) }
+}
+ORDER BY ?item
+LIMIT 4000

@@ -1,0 +1,9 @@
+SELECT ?work ?workLabel ?author ?authorLabel ?year {
+  ?work wdt:P407 wd:Q34239.
+  ?work p:P166 ?prizestmt.
+  ?prizestmt ps:P166 wd:Q172582.
+  OPTIONAL { ?prizestmt pq:P585 ?date. }
+  OPTIONAL { ?prizestmt pq:P1346 ?author. }
+  BIND(YEAR(?date) as ?year).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "gom-deva,en". }
+} ORDER BY ?year

@@ -1,0 +1,10 @@
+# People with a Theatre World Award and no IBDB id
+SELECT DISTINCT ?item ?itemLabel{
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P166 wd:Q1131356 .
+  FILTER NOT EXISTS { ?item wdt:P1220 ?ibdb . }
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

@@ -1,0 +1,12 @@
+#title:"place of birth" (P19) of people with property "Share-VDE 1.0 author ID" (P6329) statements
+#defaultView:Map{"hide":["?coordinates"]}
+SELECT DISTINCT ?person ?personLabel ?personDescription ?coordinates ?image ?value
+WHERE 
+{
+  ?person wdt:P6329 ?value ; wdt:P19/wdt:P625 ?coordinates.
+  hint:Query hint:optimizer "None".
+  OPTIONAL { ?person wdt:P18 ?image }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

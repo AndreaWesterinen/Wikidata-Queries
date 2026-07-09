@@ -1,0 +1,9 @@
+#List of venues w/o country
+SELECT   ?item 
+         ?itemLabel
+WHERE 
+{
+  ?item wdt:P3820 ?itemLabel.
+  ?item wdt:P31 wd:Q43229.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

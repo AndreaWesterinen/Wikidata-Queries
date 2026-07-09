@@ -1,0 +1,24 @@
+SELECT ?item ?prop ?propLink ?count WHERE {
+    {
+        SELECT ?prop (COUNT(DISTINCT ?item) AS ?count) WHERE {
+           
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P6829 [] .
+           ?item ?p ?id .
+           ?prop wikibase:directClaim ?p .
+           {?prop wdt:P31/wdt:P279* wd:Q19847637}  # Wikidata property representing a unique identifier 
+             UNION
+           {?prop wdt:P31/wdt:P279* wd:Q18614948}  # Wikidata property for authority control
+           
+          
+        }  GROUP BY ?prop
+    }
+
+           
+    ?prop rdfs:label ?prop_label . FILTER(lang(?prop_label) = 'en') .
+    BIND(STRAFTER(STR(?prop), 'P') AS ?propno) .
+    BIND(CONCAT('[[:d:Property:P', ?propno, '|', STR(?prop_label), ']]') AS ?propLink) .
+    BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?propno)) AS ?item) .  # dummy
+   
+
+} ORDER BY DESC (?count)

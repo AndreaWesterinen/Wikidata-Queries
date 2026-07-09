@@ -1,4 +1,4 @@
-# ----
+#title: Featured articles of all Wikimedia projects
 # Get all Featured Articles (Q17437796)
 SELECT ?lang ?name ?itemLabel ?sitelink ?linkcount ?item WHERE {
   ?item wikibase:sitelinks ?linkcount.

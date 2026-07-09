@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel WHERE {
+   ?item wdt:P17 wd:Q40;
+   rdfs:label ?itemLabel;
+   FILTER (LANG(?itemLabel) = "de-at"). 
+   FILTER regex(?itemLabel, "geonames", "i").
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de" } .
+} limit 500

@@ -1,0 +1,15 @@
+SELECT ?statement ?hasDuplicate ?hasReference WHERE {
+  ?human wdt:P31 wd:Q5;
+    p:P31 ?statement.
+  ?statement ps:P31 ?o.
+  ?o (wdt:P31/(wdt:P279*)) wd:Q1781513.
+  OPTIONAL {
+    ?human p:P106 ?duplicateStatement.
+    ?duplicateStatement ps:P413 ?o.
+  }
+  OPTIONAL { ?statement prov:wasDerivedFrom ?reference. }
+  BIND(BOUND(?duplicateStatement) AS ?hasDuplicate)
+  BIND(BOUND(?reference) AS ?hasReference)
+  #TODO: qualifiers?
+}
+LIMIT 100

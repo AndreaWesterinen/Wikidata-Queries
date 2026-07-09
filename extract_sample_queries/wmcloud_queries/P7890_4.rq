@@ -1,0 +1,9 @@
+SELECT ?protocol (COUNT(?item) as ?count) (COUNT(DISTINCT(?item)) as ?countdistinct)
+WHERE
+{
+  ?item wdt:P7890 ?value .
+    BIND(strbefore( str(?value), ":") as ?protocol)
+}
+GROUP BY ?protocol
+ORDER BY DESC(?count)
+LIMIT 10

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE {?item wdt:P5008 wd:Q55439927.
+       ?item p:P921 ?statement.
+       ?reference pr:P248 wd:Q180686.
+         ?statement prov:wasDerivedFrom ?reference.
+         ?statement ps:P921 wd:Q3286546. 
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+      }

@@ -1,0 +1,11 @@
+SELECT ?item ?sitelinks WHERE {
+  ?item wikibase:sitelinks ?sitelinks. hint:Prior hint:rangeSafe true. # https://wiki.blazegraph.com/wiki/index.php/QueryHints
+  FILTER(?sitelinks >= 75) # arbitrary limit to optimize the query by removing most items (assuming that the desired results will have more statements than this)
+  MINUS {
+    ?article schema:isPartOf <https://ca.wikipedia.org/>;
+             schema:about ?item.
+  }
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q17442446. } # remove templates etc.
+}
+ORDER BY DESC(?sitelinks)
+LIMIT 10

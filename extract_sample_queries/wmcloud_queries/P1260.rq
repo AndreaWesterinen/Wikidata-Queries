@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?kulturarvsdata
+WHERE 
+{
+  ?item wdt:P1260 ?kulturarvsdata .
+  FILTER regex (?kulturarvsdata, "(html)").
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv" }
+}

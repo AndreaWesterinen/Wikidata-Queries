@@ -1,0 +1,9 @@
+SELECT ?item ?wiki1 ?sl ?st ?site ?coor
+WHERE
+{ 
+?item wdt:P31/wdt:P279* wd:Q726929
+OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl }
+OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w1  BIND( CONCAT("[[:en:",str(?w1),"|en]]") as ?wiki1) } 
+OPTIONAL { ?item wdt:P856 ?ws . BIND(  CONCAT("[", str(?ws) , " " , replace( str(?ws), "https?://(www.)?", ""), "]") as ?site) } 
+  	OPTIONAL { ?item wdt:P625 ?v . BIND("✓" as ?coor) }
+}

@@ -1,0 +1,7 @@
+#title: Check qualifier
+# Complex constraint from [[Property talk:P9086]]
+# P2676 qualifier must meet regex "<tt>^局影[本外港陸]字第1[01]\d{4}(\(補\))?號$</tt>"
+SELECT ?item ?ID {
+  ?item p:P9086 [ pq:P2676 ?ID ] .
+  FILTER( ! REGEX(  ?ID , "^(局影[本外港陸]字第1[01]\\d{4}(\\(補\\))?號|)$" ) )
+}

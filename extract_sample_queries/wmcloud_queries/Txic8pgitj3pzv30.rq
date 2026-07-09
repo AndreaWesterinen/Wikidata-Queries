@@ -1,0 +1,8 @@
+SELECT ?church ?churchLabel
+WHERE
+{
+	?church wdt:P31/wdt:P279* wd:Q16970.
+  	?church wdt:P17 wd:Q142.
+    MINUS { ?church wdt:P3963 [] } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr" }
+}

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?taxonName {
+  BIND(wd:Q9482 AS ?higherParent) # Sciuridae
+  ?item (wdt:P171)* ?higherParent .  
+  ?item p:P225 ?statement .
+  ?statement ps:P225 ?taxonName .
+  ?statement prov:wasDerivedFrom ?refnode .
+  OPTIONAL {?refnode pr:P6184 ?role}. 
+  FILTER(!BOUND(?role))
+}
+ORDER BY ASC(?taxonName)

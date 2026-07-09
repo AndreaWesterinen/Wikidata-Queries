@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?count 
+WHERE
+{
+	{ 	SELECT ?item (count(*) as ?count) 
+      	WHERE
+		{
+      		?pid wdt:P31 ?item . 
+            ?iteem schema:about ?pid
+	;	schema:isPartOf	<https://ar.wikipedia.org/> .
+    	}
+    	GROUP BY ?item
+		ORDER BY DESC(?count)
+		LIMIT 50                 
+	}
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "ar" . }
+}
+ORDER BY DESC(?count)

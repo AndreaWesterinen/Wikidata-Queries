@@ -1,0 +1,13 @@
+# Other properties generally found on  items with P8430. 
+# Limited to statements with best rank (wdt:), exceptions not filtered
+# query added by Jura1, 2017-08-03
+
+SELECT ?item ?itemLabel ?itemDescription ?value ?valueLabel
+WHERE
+{
+	?item wdt:P8430 ?value .
+	FILTER NOT EXISTS { ?item   wdt:P131 wd:Q1741 }
+	FILTER NOT EXISTS { ?item   wdt:P131 ?district. ?district wdt:P31 wd:Q261023 }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" } .
+}
+LIMIT 1000

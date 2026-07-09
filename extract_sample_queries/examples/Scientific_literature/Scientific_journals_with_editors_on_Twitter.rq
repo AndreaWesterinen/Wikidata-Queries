@@ -1,3 +1,4 @@
+#title: Scientific journals with editors on Twitter
 SELECT ?journal ?journalLabel ?editor ?editorLabel ?twitter ?ex_publisher ?ex_publisherLabel
 WITH {
   SELECT ?journal ?editor ?twitter (SAMPLE(?publisher) AS ?ex_publisher) WHERE {

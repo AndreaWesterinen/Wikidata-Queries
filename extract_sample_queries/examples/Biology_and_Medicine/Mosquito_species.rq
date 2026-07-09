@@ -1,4 +1,4 @@
-# ----
+#title: Mosquito species
 # Species of mosquitoes
 # added 2017-06
 SELECT ?item ?taxonname WHERE {

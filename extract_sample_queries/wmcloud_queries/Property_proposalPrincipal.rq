@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?itemDescription ?dir ?dirLabel 
+{
+    ?item wdt:P1037 ?dir .
+    ?item wdt:P279*/wdt:P31 wd:Q3914 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

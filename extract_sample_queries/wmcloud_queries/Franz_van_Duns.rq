@@ -1,0 +1,12 @@
+#Wikidata Entries with manufacturer=Carl Zeiss AG (P176=Q282186) AND image captured with: Sony α7R IV (P4082=Q65976324)
+#Configured 2020-07
+
+SELECT DISTINCT ?idExtension ?extension ?idExtensionLabel ?idCamera
+WHERE
+{
+	?idExtension wdt:P176 wd:Q282186;
+	             wdt:P279 wd:Q192234
+                 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?extension

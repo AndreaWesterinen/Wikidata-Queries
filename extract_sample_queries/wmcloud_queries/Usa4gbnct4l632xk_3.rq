@@ -1,0 +1,10 @@
+#defaultView:Timeline
+SELECT DISTINCT ?author ?authorLabel ?date ?image WHERE {
+  ?author wdt:P106/wdt:P279* wd:Q2095549 .
+   ?author wdt:P569 ?date FILTER (YEAR(?date)<1900).
+   ?author wdt:P19 ?place .
+   ?place wdt:P17 wd:Q142 .
+  OPTIONAL{?author wdt:P18 ?image .}
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "de, fr, en" }
+
+ }

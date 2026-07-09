@@ -1,0 +1,20 @@
+SELECT ?instance ?instanceLabel (COUNT(?item) AS ?count) WHERE {
+    {
+        SELECT ?item ?imdb WHERE {
+           
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P345 ?imdb .
+          
+        }# limit 100000
+		
+    }
+		?item wdt:P31 ?instance .
+           FILTER (SUBSTR(?imdb,1,2)='tt') .
+           
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+
+}
+GROUP BY ?instance ?instanceLabel
+ORDER BY DESC(?count)

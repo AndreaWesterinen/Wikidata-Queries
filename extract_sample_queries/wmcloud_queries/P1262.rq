@@ -1,0 +1,10 @@
+#Cats
+SELECT ?item ?itemLabel ?raa_nr ?kulturarvsdata
+WHERE
+{
+	?item wdt:P1262 ?raa_nr .
+    OPTIONAL {
+      ?item wdt:P1260 ?kulturarvsdata .
+    }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "sv" }
+}

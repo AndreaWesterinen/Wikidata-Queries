@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?name ?translation
+WHERE 
+{
+  ?item p:P2561 ?stat . 
+  ?stat ps:P2561 ?name  . filter(lang(?name)="gd")
+  ?stat pq:P2441 ?translation . filter(lang(?translation)="en")
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

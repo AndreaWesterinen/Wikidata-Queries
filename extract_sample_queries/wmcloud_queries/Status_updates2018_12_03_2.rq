@@ -1,0 +1,7 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr, en". }
+  wd:Q59312512 wdt:P180 ?item.
+  OPTIONAL { ?item wdt:P18 ?image. }
+}
+LIMIT 500

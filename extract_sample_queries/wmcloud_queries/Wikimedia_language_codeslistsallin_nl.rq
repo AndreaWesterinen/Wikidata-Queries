@@ -1,0 +1,34 @@
+SELECT
+  ?item 
+  ?c (CONTAINS(?c,"-") as ?subtag)
+  ?wdlabelen
+  (CONCAT("[[w:",?enwiki,"\u007C",?enwiki,"]]") as ?wikipedia_link_en)
+  ?lang
+  ?wdlabelinlang
+  (CONCAT("[[:",?lang,":",?wiki,"\u007C",?wiki,"]]") as ?wikipedia_link)
+  ?wdlabelautonym
+  (CONCAT("[[:",?c,":",?autonymwiki,"\u007C",?autonymwiki,"]]") as ?wikipedia_link_autonym)
+  ?lexeme
+  ?incubators ?ws ?wt
+WHERE
+{
+  VALUES ?lang { "nl" }
+  ?item wdt:P424 ?c .
+  hint:Prior hint:rangeSafe true .
+  hint:Query hint:optimizer "None".
+  MINUS{?item wdt:P31 wd:Q47495990}
+  MINUS{?item wdt:P31/wdt:P279* wd:Q14827288} #exclude Wikimedia projects
+  MINUS{?item wdt:P31/wdt:P279* wd:Q17442446} #exclude Wikimedia internal stuff
+  OPTIONAL { ?item rdfs:label ?wdlabelinlang . FILTER( lang(?wdlabelinlang)= "nl" ) }
+  OPTIONAL { ?item rdfs:label ?wdlabelen . FILTER(lang(?wdlabelen)="en") }
+  OPTIONAL { ?item rdfs:label ?wdlabelautonym . FILTER( lang(?wdlabelautonym)= ?c ) }
+  OPTIONAL { [] schema:about ?item ; schema:inLanguage ?lang; schema:isPartOf / wikibase:wikiGroup "wikipedia" ; schema:name ?wiki } 
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?enwiki } 
+  OPTIONAL { [] schema:about ?item ; schema:inLanguage ?c; schema:isPartOf / wikibase:wikiGroup "wikipedia" ; schema:name ?autonymwiki }
+  OPTIONAL { ?a wdt:P5137 ?item . ?lexeme ontolex:sense ?a ; dct:language ?item }
+  OPTIONAL { SELECT ?item (GROUP_CONCAT(CONCAT("[",str(?inc),"]")) as ?incubators) { ?item wdt:P9748 ?inc } GROUP BY ?item } 
+  OPTIONAL { SELECT ?c (GROUP_CONCAT(CONCAT("[",str(?inc),"]")) as ?ws) { { ?inc schema:isPartOf <https://wikisource.org/> ; schema:about ?item .?item wdt:P31 wd:Q21450877 ; wdt:P424 ?c } UNION { ?item wdt:P31 wd:Q15156455 ; wdt:P856 ?inc; wdt:P424 ?c } } GROUP BY ?c } 
+  OPTIONAL { SELECT ?c (GROUP_CONCAT(CONCAT("[",str(?inc),"]")) as ?wt) {      ?item wdt:P31 wd:Q22001389 ; p:P407 ?st ; wdt:P856 ?inc1 .     ?st ps:P407 / wdt:P424 ?c .     OPTIONAL { ?st prov:wasDerivedFrom / pr:P4656 ?inc0 }
+     BIND(COALESCE(?inc0, ?inc1) as ?inc)  } GROUP BY ?c } 
+}
+ORDER BY ?c

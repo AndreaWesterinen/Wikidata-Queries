@@ -1,0 +1,7 @@
+#title: Check qualifier
+# Complex constraint from [[Property talk:P2747]]
+# P2676 qualifier must meet regex "<tt>^F/1?\d{4}/[ADEJ]$</tt>"
+SELECT ?item ?ID {
+  ?item p:P2747 [ pq:P2676 ?ID ] .
+  FILTER( ! REGEX(  ?ID , "^(F/1?\\d{4}/[ADEJ]|)$" ) )
+}

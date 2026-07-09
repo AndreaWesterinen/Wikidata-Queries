@@ -1,0 +1,10 @@
+#title: No preferred value
+# Complex constraint from [[Property talk:P1082]]
+# P1082 with multiple values none of which is preferred
+SELECT DISTINCT ?item {
+  ?item wdt:P1082 [];
+        p:P1082 ?statement;
+        p:P1082 ?statement1 .
+  FILTER( ?statement != ?statement1 ) .
+  MINUS { ?item p:P1082/wikibase:rank wikibase:PreferredRank } .
+}

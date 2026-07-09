@@ -1,0 +1,4 @@
+#title: Qualifier should be used with P989
+# Complex constraint from [[Property talk:P7569]]
+# Currently only [[Property:P989|spoken text audio&#32;<small dir="ltr">(P989)</small>]] is using this qualifier (add others if needed)
+SELECT ?item ?p WHERE { ?st pq:P7569 [] . MINUS { ?item p:P989 ?st } MINUS { ?item p:P1855 ?st } ?item ?p ?st }

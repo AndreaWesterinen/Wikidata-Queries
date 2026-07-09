@@ -1,0 +1,2 @@
+SELECT ?item ?itemLabel ?coord ?height ?layer ?image WHERE { ?item wdt:P31 wd:Q8502. ?item wdt:P625 ?coord. ?item wdt:P17 wd:Q39.  ?item wdt:P2044 ?height . BIND( IF(?height < 1000, "<1000 metres", IF(?height < 2000, "1000 - 2000 metres", IF(?height < 3000, "2000 - 3000 metres", IF(?height < 4000, "3000 - 4000 metres", "> 4000 metres")))) AS ?layer). OPTIONAL {?item wdt:P18 ?image.} 
+                                                            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }

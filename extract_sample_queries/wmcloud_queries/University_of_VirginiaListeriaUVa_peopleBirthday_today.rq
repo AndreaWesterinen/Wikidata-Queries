@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item  
+WHERE { 
+?date_node wikibase:timePrecision "11"^^xsd:integer . 
+?date_node wikibase:timeValue ?date . 
+FILTER (year(?date) > 1700 && day(?date) = day(now()) && month(?date) = month(now()))
+?item p:P569/psv:P569 ?date_node . 
+?item ?property wd:Q213439 .
+?item wdt:P31 wd:Q5 . 
+} 
+ORDER BY DESC(?date) ?item 
+LIMIT 10

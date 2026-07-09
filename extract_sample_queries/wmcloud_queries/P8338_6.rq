@@ -1,0 +1,14 @@
+#title: qualifier value would generally be a label or an alias of the item used with P138
+# Complex constraint from [[Property talk:P8338]]
+# check if the property is used correctly or add an alias to the value of [[Property:P138|named after&#32;<small dir="ltr">(P138)</small>]]
+SELECT ?item ?itemLabel ?v ?namedafter ?namedafterLabel 
+WHERE
+{
+    ?item p:P138 [ ps:P138 ?namedafter ; pq:P8338 ?v ]
+    FILTER NOT EXISTS { ?namedafter rdfs:label ?l .       FILTER( contains(lcase(?l) , lcase(?v)) && "mul" = lang(?v) )  }
+    FILTER NOT EXISTS { ?namedafter rdfs:label ?l .       FILTER( contains(lcase(?l) , lcase(?v)) && lang(?l) = lang(?v) )  }
+    FILTER NOT EXISTS { ?namedafter skos:altLabel ?a .    FILTER( contains(lcase(?a) , lcase(?v)) && "mul" = lang(?v) )  }
+    FILTER NOT EXISTS { ?namedafter skos:altLabel ?a .    FILTER( contains(lcase(?a) , lcase(?v)) && lang(?a) = lang(?v) )  }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+LIMIT 20

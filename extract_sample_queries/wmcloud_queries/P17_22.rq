@@ -1,0 +1,18 @@
+#title: countries should agree: ATE in single country
+# Complex constraint from [[Property talk:P17]]
+# current countries should have best rank, historic or disputed - normal, absolutely wrong - deprecated
+SELECT DISTINCT ?item
+WHERE 
+{
+  ?item  wdt:P31/wdt:P279 wd:Q15916867        . # ATE in single country
+  ?item  wdt:P17            ?countriesOfItem  .
+  ?item  wdt:P31            ?class            .
+  ?class wdt:P17            ?countriesOfClass
+         
+  # disagreement
+  FILTER NOT EXISTS {
+    ?item wdt:P17 ?countriesOfItem        .
+    ?class    wdt:P17 ?countriesOfClass       .
+    FILTER(?countriesOfItem = ?countriesOfClass)
+  }
+}

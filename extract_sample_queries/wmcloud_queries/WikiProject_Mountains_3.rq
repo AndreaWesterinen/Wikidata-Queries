@@ -1,0 +1,22 @@
+SELECT 
+(COUNT(distinct ?item) as ?mountaincount) 
+(COUNT(distinct ?gps) as ?gpscount) 
+(COUNT(?elevation) as ?elevationcount) 
+(COUNT(?prominence) as ?prominencecount)
+(COUNT(distinct ?peakbagger) as ?peakbaggercount)
+(COUNT(distinct ?summitpost) as ?summitpostcount) 
+(COUNT(distinct ?peakware) as ?peakwarecount) 
+(COUNT(distinct ?bivouacmountain) as ?bivouacmountaincount)
+WHERE
+{
+    {SELECT DISTINCT ?item WHERE {
+	    ?item wdt:P31/wdt:P279* wd:Q8502 .
+    }}
+	OPTIONAL{?item wdt:P2044 ?elevation} .
+	OPTIONAL{?item wdt:P2660 ?prominence }.
+	OPTIONAL{?item wdt:P625 ?gps} .
+    OPTIONAL{?item wdt:P3109 ?peakbagger}.
+    OPTIONAL{?item wdt:P3309 ?summitpost}.
+    OPTIONAL{?item wdt:P3513 ?peakware}.
+    OPTIONAL{?item wdt:P3507 ?bivouacmountain}
+}

@@ -1,0 +1,8 @@
+#Edificis de les illes Balears sense especificar
+SELECT ?ed ?label
+WHERE {
+    ?ed wdt:P131*/wdt:P706* wd:Q5765.
+	?ed wdt:P31 wd:Q41176.
+    ?ed rdfs:label ?label filter (lang(?label) = "ca")
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ca,es,en,fr" .}
+  }

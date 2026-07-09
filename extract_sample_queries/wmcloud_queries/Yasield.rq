@@ -1,0 +1,17 @@
+embed.html#PREFIX schema: <http://schema.org/>
+
+SELECT ?itemLabel ?itemDescription ?occupationLabel ?placeofbirthLabel ?dob ?sitelink ?item WHERE {
+  ?item wdt:P27 wd:Q1008.
+  ?item wdt:P21 wd:Q6581072.
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P19 ?placeofbirth. }
+  OPTIONAL { ?item wdt:P106 ?occupation. }
+  OPTIONAL { ?item wdt:P569 ?dob. }
+  OPTIONAL {
+    ?sitelink schema:about ?item.
+    ?sitelink schema:isPartOf <https://fr.wikipedia.org/>.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}
+LIMIT 1000

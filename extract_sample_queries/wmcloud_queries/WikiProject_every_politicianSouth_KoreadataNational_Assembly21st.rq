@@ -1,0 +1,18 @@
+SELECT ?item ?party ?district ?region ?start ?end
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q14850694 ; pq:P2937 wd:Q90759969 .
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P768 ?district .
+    OPTIONAL { ?district wdt:P131* ?region .
+               ?region wdt:P31/wdt:P279 wd:Q10864048 . 
+           }
+  }
+  OPTIONAL { ?item p:P102 ?partyStatement .
+             ?partyStatement ps:P102 ?party. 
+           MINUS { ?party wdt:P576 ?dissolved } # Party dissolved
+           MINUS { ?partyStatement pq:P582 ?exitParty } # voluntary leaving
+           } 
+}

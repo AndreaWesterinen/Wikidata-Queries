@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?scopeLabel
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?scope
+		WHERE
+		{
+			{
+}
+		} LIMIT 100
+	} .
+	FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

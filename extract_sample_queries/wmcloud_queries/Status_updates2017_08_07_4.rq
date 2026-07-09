@@ -1,0 +1,14 @@
+#Timeline of early female writers
+#defaultView:Timeline
+SELECT ?person ?personLabel ?date (SAMPLE(?image) AS ?image) WHERE {
+  ?person wdt:P31 wd:Q5.
+  ?person wdt:P21 wd:Q6581072.
+  ?person wdt:P106 wd:Q36180.
+  ?person wdt:P570 ?date.
+  FILTER (year(?date) < 1500)
+  FILTER (year(?date) > 600)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?person wdt:P18 ?image. }
+}
+GROUP BY ?date ?person ?personLabel 
+Limit 100

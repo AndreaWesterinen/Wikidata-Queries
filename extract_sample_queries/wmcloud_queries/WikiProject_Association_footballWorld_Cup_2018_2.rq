@@ -1,0 +1,11 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?teamLabel (SUM(?score) AS ?goals) (COUNT(?score) AS ?games) WHERE {
+  ?match wdt:P179 wd:Q170645 .
+  ?match p:P1923 ?teamStatement . ?teamStatement v:P1923 ?team . ?teamStatement pq:P1351 ?score
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+}
+GROUP BY ?team ?teamLabel
+ORDER BY DESC(?goals) ASC(?games)

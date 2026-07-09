@@ -1,0 +1,4 @@
+#title: Items which are instances of a disambiguation page
+# Complex constraint from [[Property talk:P1566]]
+# Items should not be instances of disambiguation pages.
+select distinct ?item { ?item wdt:P1566 [] ; wdt:P31/wdt:P31 wd:Q4167410 } limit 1000

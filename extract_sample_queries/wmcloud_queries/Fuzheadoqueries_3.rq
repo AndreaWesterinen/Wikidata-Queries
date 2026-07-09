@@ -1,0 +1,64 @@
+#defaultView:Graph
+SELECT ?item1 ?image1 ?item1Label ?item2 ?image2 ?item2Label ?edgeLabel 
+WITH {
+  SELECT ?ids1 WHERE {
+    VALUES ?ids1 {"687670" "687677" "11157" "19144" "19141" "13084" "11721" "701989" "11269" "501247" "501231" "503267" "717556" "318359" "269555" "267576" "283224" "24960" "285755" "268324" "19003" "11859" "264711" "11866" "689997" "283221" "10481" "10497" "10501" "10946" "11311" "10154" "10890" "10068" "432231" "268330" "285833" "268340" "286586" "24648" "8218" "11417" "388957" "365208" "389056" "80403" "155774" "157537" "33021" "745991" "812826" "263204" "4593" "802" "5505" "10531" "12600" "16584" "11040" "200" "1997" "21698" "13134" "134" } 
+  }
+} AS %ids1
+
+WITH {
+  SELECT ?item1 WHERE {
+    {
+      # Start with generating Q numbers of the Met object IDs
+      INCLUDE %ids1 .
+      ?item1 wdt:P3634 ?ids1 .
+    }
+    UNION
+    {
+      # Find depictions - P180
+      SELECT (?q as ?item1) WHERE {
+        SELECT ?q WHERE 
+        {
+          {
+            SELECT ?q (COUNT(?q) as ?count) WHERE {
+              INCLUDE %ids1 .
+              ?item1 wdt:P3634 ?ids1 .
+              ?item1 wdt:P180 ?q .
+            } GROUP BY ?q
+          } FILTER (?count > 1)
+        } 
+      }
+    }
+    UNION
+    {
+      # Find creators - P170
+      SELECT (?q as ?item1) WHERE {
+        SELECT ?q WHERE 
+        {
+          {
+            SELECT ?q (COUNT(?q) as ?count) WHERE {
+              INCLUDE %ids1 .
+              ?item1 wdt:P3634 ?ids1 .
+              ?item1 wdt:P170 ?q .
+            } GROUP BY ?q
+          } FILTER (?count > 0)
+        } 
+      }
+    }
+  }
+} AS %item1
+WITH {
+  SELECT (?item1 AS ?item2) WHERE {
+    INCLUDE %item1.
+  }
+} AS %item2
+WHERE {
+  INCLUDE %item1 .
+  INCLUDE %item2 .
+  ?item1 ?wdt ?item2 .
+  ?edge wikibase:directClaim ?wdt;
+        a wikibase:Property .
+  OPTIONAL { ?item1 wdt:P18 ?image1 . }
+  OPTIONAL { ?item2 wdt:P18 ?image2 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

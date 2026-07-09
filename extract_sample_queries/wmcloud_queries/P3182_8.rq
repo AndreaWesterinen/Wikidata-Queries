@@ -1,0 +1,8 @@
+#title: Localisation inconsistency
+# Complex constraint from [[Property talk:P3182]]
+# Inconsistency between this identifier and the [[Property:P374|INSEE municipality code&#32;<small dir="ltr">(P374)</small>]] of the commune of the [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]].
+SELECT ?item WHERE {
+	?item wdt:P3182 ?FANTOIR ; wdt:P131 ?localisation .
+	?localisation wdt:P374 ?INSEE .
+	FILTER( substr(?FANTOIR, 1, 2) != substr(?INSEE, 1, 2) && substr(?FANTOIR, 4, 3) != substr(?INSEE, 3, 3) )
+}

@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel WHERE {
+   ?item wdt:P641 wd:Q7291 .
+  FILTER EXISTS { ?wen schema:about ?item . ?wen schema:inLanguage "de" }
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q4167836 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q11266439 }
+  FILTER NOT EXISTS { ?item wdt:P2581 ?dummy0 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q11753321 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q17633526 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q19887878 }
+		SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "de,en" .
+	}
+}
+ORDER BY ?BWF

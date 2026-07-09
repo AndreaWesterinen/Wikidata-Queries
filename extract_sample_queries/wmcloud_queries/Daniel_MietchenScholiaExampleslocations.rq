@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item (COUNT(?work) as ?count) WHERE
+{
+?work wdt:P921 ?item ;
+      wdt:P50 ?author ;
+      wdt:P2860 [ wdt:P50 ?citedauthor ].
+  ?item wdt:P625 ?geoloc .
+}
+GROUP BY ?item
+HAVING(?count > 2)
+LIMIT 100

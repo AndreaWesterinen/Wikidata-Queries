@@ -1,0 +1,2 @@
+#title:Add new claim P935:none
+SELECT DISTINCT ?item { ?item schema:dateModified ?date . FILTER( NOW() - ?date < 1 ) . ?item ^schema:about [ schema:isPartOf <https://commons.wikimedia.org/>; schema:name ?sitelink ] . BIND( STR( ?sitelink ) AS ?gallery ) . FILTER( !STRSTARTS( ?gallery, 'Category:' ) ) . MINUS { ?item wdt:P935 [] } . MINUS { ?item p:P31/ps:P31 wd:Q4167836 } . MINUS { ?gallery ^wdt:P935 [] } . MINUS { ?item p:P31/ps:P31 wd:Q4167410 } . FILTER( !CONTAINS( ?gallery, ':' ) ) . }

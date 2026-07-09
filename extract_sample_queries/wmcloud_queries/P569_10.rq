@@ -1,0 +1,13 @@
+#title: Year 0 in Gregorian calendar
+# Complex constraint from [[Property talk:P569]]
+# See also: [[phab:T94064]]
+SELECT DISTINCT ?item ?birth
+  WHERE {
+    ?item p:P569/psv:P569 [
+      wikibase:timeValue ?birth; wikibase:timePrecision ?precision
+    ].
+    # If year of ?birth is ±0, DATATYPE(?birth) is xsd:string, not xsd:dateTime.
+    FILTER REGEX(?birth, "0000\\-\\d\\d-\\d\\dT").
+    FILTER(?precision >= 9).
+    FILTER (?item not in (wd:Q4115189,wd:Q13406268,wd:Q15397819)).
+  } LIMIT 1000

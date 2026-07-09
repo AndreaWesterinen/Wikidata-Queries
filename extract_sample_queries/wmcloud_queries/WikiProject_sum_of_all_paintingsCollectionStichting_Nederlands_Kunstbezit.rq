@@ -1,0 +1,10 @@
+SELECT ?item ?inv ?qualifierproperty ?creatorqualifier WHERE {
+  ?item p:P195/ps:P195 wd:Q28045665 ;
+        wdt:P31 wd:Q3305213 ;
+        p:P217 [ps:P217 ?inv ; pq:P195 wd:Q28045665 ].
+  OPTIONAL { ?item p:P170 ?creatorstatement .
+             ?creatorstatement rdf:type	wikibase:BestRank .
+             ?creatorstatement ?qualifier ?creatorqualifier .
+             ?qualifierproperty wikibase:qualifier ?qualifier }
+  } ORDER BY xsd:integer(REPLACE(?inv, "NK", ""))
+ LIMIT 2000

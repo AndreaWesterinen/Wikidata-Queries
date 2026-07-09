@@ -1,0 +1,14 @@
+#title: Distance between locations
+# Complex constraint from [[Property talk:P2632]]
+#
+SELECT DISTINCT ?item {
+  ?item wdt:P2632 ?lieuD;
+        wdt:P19 ?born;
+        wdt:P570 ?died.
+  ?lieuD wdt:P625 ?coordD.
+  ?born wdt:P625 ?coordB.
+  FILTER (YEAR(?died) < 1700)
+  BIND(geof:distance(?coordD, ?coordB) as ?dist)
+  FILTER (?dist > 5000) # 5000 km
+  FILTER (?lieuD != wd:Q2656389) # an island
+}

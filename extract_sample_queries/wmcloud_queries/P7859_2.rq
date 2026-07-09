@@ -1,0 +1,16 @@
+#title: Value doesn't match P244
+# Complex constraint from [[Property talk:P7859]]
+# value starting with "lccn-" doesn't match [[Property:P244|Library of Congress authority ID&#32;<small dir="ltr">(P244)</small>]]-value. Some false positives: need to replace -%d with %06d.
+SELECT ?item ?value ?lccn
+{
+	?item wdt:P7859 ?value .
+    OPTIONAL
+    { 
+      ?item wdt:P244 ?lccn . 
+      BIND( concat("lccn-", ?lccn ) as ?lccnvalue )
+    }
+    FILTER NOT EXISTS { ?item wdt:P7859 ?lccnvalue }
+    FILTER NOT EXISTS { ?item p:P7859 / ps:P7859 ?lccnvalue }
+    FILTER ( regex ( ?value, "^lccn-.*" ) )
+}
+LIMIT 500

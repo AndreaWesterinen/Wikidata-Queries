@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item p:P2002 ?username. FILTER NOT EXISTS { ?username ps:P2002 [] } }

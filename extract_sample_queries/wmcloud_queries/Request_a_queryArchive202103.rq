@@ -1,0 +1,67 @@
+#defaultView:Map{"hide":["?coords", "?year"],"layer":"?year"}
+SELECT ?item ?itemLabel ?itemDescription ?cat ?coords ?image ?year ?kap_year ?architects (IF(BOUND(?image), ?artist, "") AS ?artist)(IF(BOUND(?image), ?usage, "") AS ?usage)
+
+WITH {
+    SELECT 
+    ?item ?itemLabel ?itemDescription ?cat ?coords 
+    (SAMPLE(?img) as ?image) 
+    (MIN(YEAR(?date)) as ?year)(CONCAT("KAP: ", STR(?year)) AS ?kap_year)
+    (GROUP_CONCAT(DISTINCT ?architectLabel;separator=", ") AS ?architects) 
+
+
+    WHERE 
+    {
+      ?item p:P166 [ps:P166 wd:Q1795794; a wikibase:BestRank; pq:P585 ?date];      
+     
+      #Commons Cat
+      OPTIONAL {?comm schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> .}
+      OPTIONAL {?item wdt:P373 ?p373 .} # or get the Commonscat property 
+      BIND(IRI(CONCAT("https://commons.wikimedia.org/wiki/Category:",?p373)) AS ?p373_uri).  
+      BIND(COALESCE(?comm, ?p373_uri) AS ?cat) . # still very long
+  
+ 
+      OPTIONAL{
+        ?item wdt:P625 ?coords.
+      }
+      OPTIONAL{
+        ?item wdt:P18 ?img.
+      }
+      OPTIONAL {
+        ?item wdt:P84 ?architect. # up to 7 per ?item, needs grouping
+      }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de" .
+                         ?item rdfs:label ?itemLabel .
+                        ?architect rdfs:label ?architectLabel .
+                        ?typology rdfs:label ?typologyLabel.
+                         ?item schema:description ?itemDescription
+                        }
+    } 
+    GROUP BY ?item ?itemLabel ?itemDescription ?coords ?cat 
+
+} as %items 
+
+WHERE {
+  INCLUDE %items .
+
+  BIND(STRAFTER(wikibase:decodeUri(STR(?image)), "http://commons.wikimedia.org/wiki/Special:FilePath/") AS ?fileTitle)
+
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint "commons.wikimedia.org";
+                    wikibase:api "Generator";
+                    wikibase:limit "once";
+                    mwapi:generator "allpages";
+                    mwapi:gapfrom ?fileTitle;
+                    mwapi:gapnamespace 6; # NS_FILE
+                    mwapi:gaplimit "1";
+                    mwapi:prop "imageinfo";
+                    mwapi:iiprop "extmetadata" ;
+                    mwapi:iiextmetadatafilter "UsageTerms|Artist" .
+
+   
+   ?usage wikibase:apiOutput "imageinfo/ii/extmetadata/UsageTerms/@value".
+   ?artist wikibase:apiOutput "imageinfo/ii/extmetadata/Artist/@value".
+   # BIND(REPLACE(?artist,"(<a .*?\>)(.*?)(<\/a>)(.*)",$1) as ?stripped_artist)
+   
+  }
+   
+}

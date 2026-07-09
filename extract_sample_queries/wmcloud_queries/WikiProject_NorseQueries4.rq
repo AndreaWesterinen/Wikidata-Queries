@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  { ?Metaclass wdt:P361+ wd:Q24175569 . }
+  UNION
+  { ?Metaclass wdt:P2596 wd:Q24175569 . }
+  ?item wdt:P31+ ?Metaclass .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

@@ -1,0 +1,21 @@
+embed.html##defaultView:ImageGrid
+SELECT ?item ?itemLabel ?ministere ?ministereLabel ?datedebut ?datefin ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  {
+    ?item p:P39 ?statement.
+    ?statement ps:P39 ?ministere.
+    ?ministere (wdt:P279*) wd:Q83307;
+      wdt:P17 wd:Q142.
+  }
+  UNION
+  {
+    ?item p:P39 ?statement.
+    ?statement ps:P39 ?ministere.
+    ?ministere (wdt:P279*) wd:Q736559;
+      wdt:P17 wd:Q142.
+  }
+  OPTIONAL { ?statement pq:P580 ?datedebut. }
+  OPTIONAL { ?statement pq:P582 ?datefin. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+}
+ORDER BY DESC (?datedebut)

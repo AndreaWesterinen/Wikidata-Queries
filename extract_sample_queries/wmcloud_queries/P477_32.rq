@@ -1,0 +1,4 @@
+#title: Items with pictures but no Commons Category
+# Complex constraint from [[Property talk:P477]]
+# Items that do have [[Property:P18|image&#32;<small dir="ltr">(P18)</small>]], but not [[Property:P373|Commons category&#32;<small dir="ltr">(P373)</small>]]
+SELECT DISTINCT ?item WHERE { ?item wdt:P477 []; wdt:P18 [] . MINUS { ?item wdt:P373 [] } }

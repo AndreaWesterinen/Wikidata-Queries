@@ -1,0 +1,14 @@
+SELECT ?item ?ordinal ?flag WHERE {
+  ?item wdt:P31 ?Nascar_race.
+  ?Nascar_race wdt:P279 wd:Q5393774.
+  ?item wdt:P585 ?start.
+  ?item p:P361 ?season.
+  ?season ps:P361 ?year.
+  ?year wdt:P3450 wd:Q2707177.
+  OPTIONAL {?season pq:P1545 ?ordinal.}
+  OPTIONAL {
+    ?item wdt:P17 ?country.
+    ?country wdt:P41 ?flag.
+  }
+}
+order by ?start

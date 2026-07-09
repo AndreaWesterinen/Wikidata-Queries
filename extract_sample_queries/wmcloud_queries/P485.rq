@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?start ?end
+{
+  ?item p:P485 ?stmt .
+  ?stmt ps:P485 ?value .
+  OPTIONAL {
+    ?stmt pqv:P580/wikibase:timeValue ?start .
+  }
+  OPTIONAL {
+    ?stmt pqv:P582/wikibase:timeValue ?end .
+  }
+  FILTER(BOUND(?start) || BOUND(?end))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+LIMIT 1000

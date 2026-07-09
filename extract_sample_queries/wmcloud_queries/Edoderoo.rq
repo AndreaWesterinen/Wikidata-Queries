@@ -1,0 +1,1 @@
+select ?item ?itemLabel ?gelegeninLabel where {?item wdt:P31 wd:Q48021659 . OPTIONAL {?item wdt:P131 ?gelegenin} {service wikibase:label {bd:serviceParam wikibase:language "nl"}}} order by ?gelegenin

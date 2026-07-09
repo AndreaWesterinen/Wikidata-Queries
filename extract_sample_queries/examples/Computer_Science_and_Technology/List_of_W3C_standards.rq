@@ -1,3 +1,4 @@
+#title: List of W3C standards
 SELECT DISTINCT ?standard ?standardLabel ?website
 WHERE
 {

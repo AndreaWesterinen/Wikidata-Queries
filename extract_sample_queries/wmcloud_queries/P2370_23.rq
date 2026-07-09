@@ -1,0 +1,26 @@
+#title: Property missing?
+# Complex constraint from [[Property talk:P2370]]
+# TODO: if applicable, add [[Property:P2442|conversion to standard unit&#32;<small dir="ltr">(P2442)</small>]] or [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]]=[[d:Q21684377|unit without standard conversion to SI <small>(Q21684377)</small>]] or define exceptions
+SELECT ?item ?itemLabel ?count
+WITH
+{
+  SELECT ?item (COUNT(DISTINCT ?st) as ?count)
+  {
+  ?st wikibase:quantityUnit ?item .
+  FILTER(?item != wd:Q199)
+  MINUS { ?item wdt:P31 wd:Q8142 }
+  MINUS { ?item wdt:P2370 [] } 
+  MINUS { ?item wdt:P31 wd:Q21684377 }            
+  }
+  GROUP BY ?item
+  HAVING(?count > 24)
+} as %inc1
+WHERE
+{
+    INCLUDE %inc1
+    FILTER ( ?item != wd:Q550207 ) 
+    FILTER ( ?item not in ( wd:Q5 ,  wd:Q319604 , wd:Q11229 , wd:Q181011 ) )            
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)
+LIMIT 150

@@ -1,0 +1,19 @@
+SELECT DISTINCT ?item ?articleNL ?articleEN ?articleDE WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P6379 wd:Q191228.
+  ?item wdt:P6379 wd:Q106058221.
+  ?item wdt:P6379 wd:Q1782422.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+OPTIONAL{
+    ?articleNL schema:about ?item.
+    ?articleNL schema:isPartOf <https://nl.wikipedia.org/>.
+}
+OPTIONAL{
+    ?articleEN schema:about ?item.
+    ?articleEN schema:isPartOf <https://en.wikipedia.org/>.
+}
+OPTIONAL{
+    ?articleDE schema:about ?item.
+    ?articleDE schema:isPartOf <https://de.wikipedia.org/>.
+}
+}

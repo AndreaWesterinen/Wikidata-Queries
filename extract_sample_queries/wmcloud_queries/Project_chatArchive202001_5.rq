@@ -1,0 +1,48 @@
+select distinct ?item ?itemLabel (group_concat(?elseLabel;separator="; ") as ?elsie)  ?instanceLabel  with {
+  select distinct ?item ?else 
+where { 
+  {?item wdt:P131 ?else . ?else wdt:P31 wd:Q15060255 . }
+  UNION
+  {  ?item wdt:P131 wd:Q22 . bind(wd:Q22 as ?else)}
+  filter not exists {?item wdt:P625 [] . }
+  } } as %ipaqsqw
+where
+{
+  include %ipaqsqw
+  OPTIONAL {?item wdt:P31 ?instance .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                           ?else rdfs:label ?elseLabel . 
+                           ?item rdfs:label ?itemLabel .
+                           ?instance rdfs:label ?instanceLabel .
+                         } 
+  FILTER NOT EXISTS {?item wdt:P279 [] .}
+   filter not exists {?item wdt:P31/wdt:P279* ?thing .
+                     VALUES ?thing {
+                       wd:Q5124673 # civil parish
+                       wd:Q192611 # constituency
+                       wd:Q15060255  # council
+                       wd:Q1350181 # shire
+                       wd:Q7309443 # reg county
+                       wd:Q67376938 # hist county
+                       wd:Q633294 # region
+                       wd:Q1620908 # historic region
+                       wd:Q7925010 # vice county
+                       wd:Q178561 # battle
+                       wd:Q43229 # organisation
+                       wd:Q4830453 # business
+                       wd:Q27020041 # sports season
+                       wd:Q1190554 # occurrence
+                       wd:Q34770 # language
+                       wd:Q11446 # ship
+                       wd:Q13406463 # list
+                       wd:Q1790144 # unit of time
+                       wd:Q208361 # harry potter
+                       wd:Q824979 # geogroup
+                       wd:Q3455524 # admin group
+                       wd:Q736917 # formation
+                       wd:Q78366914 # parish fragment (council)
+                       wd:Q78923961 # parish fragment (district)
+                       wd:Q4164871 # position
+                       }
+                     }
+} group by ?item ?itemLabel ?instanceLabel order by ?elsie ?itemLabel

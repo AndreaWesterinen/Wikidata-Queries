@@ -1,0 +1,8 @@
+#title: Unknown molecular model or crystal lattice model
+# Complex constraint from [[Property talk:P8224]]
+# Molecular model or crystal lattice model that is not subclass of [[d:Q2196961|molecular model <small>(Q2196961)</small>]]
+SELECT ?item WHERE {
+  ?item p:P8224 ?statement .
+  ?statement pq:P180 ?modeltype.
+  MINUS { ?modeltype wdt:P279 wd:Q2196961. }
+} LIMIT 1000

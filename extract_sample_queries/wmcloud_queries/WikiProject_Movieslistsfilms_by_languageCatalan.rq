@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?itemDescription ?st ?sl ?d
+{
+	?item wdt:P364 wd:Q7026 . 
+	?item wdt:P31/wdt:P279* wd:Q11424 .   
+	OPTIONAL { ?item wdt:P577 ?d }
+	OPTIONAL { ?item wikibase:sitelinks ?sl; wikibase:statements ?st }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ca" }
+}
+ORDER BY DESC(?d) ?item
+LIMIT 2000

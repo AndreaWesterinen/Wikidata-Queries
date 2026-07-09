@@ -1,0 +1,9 @@
+#title: statements shouldn't have preferred rank
+# Complex constraint from [[Property talk:P8701]]
+# TODO check and adjust rank(s) if needed
+SELECT ?item ?value  
+WHERE 
+{
+  ?item p:P8701 ?st.
+  ?st ps:P8701 ?value; wikibase:rank wikibase:PreferredRank
+}

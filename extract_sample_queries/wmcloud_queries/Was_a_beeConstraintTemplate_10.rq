@@ -1,0 +1,8 @@
+#Unique value constraint report for Was a bee/ConstraintTemplate: report listing each item
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value
+{
+	?item1 wdt:Was a bee/ConstraintTemplate ?value .
+	?item2 wdt:Was a bee/ConstraintTemplate ?value .
+	FILTER(?item1 != ?item2  && str(?item1)<str(?item2)) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+} LIMIT 500

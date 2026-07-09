@@ -1,0 +1,4 @@
+embed.html#select ?cat ?catLabel ?country ?countryLabel {
+  ?cat p:P4224 ?s . ?s ps:P4224 wd:Q5; pq:P106/wdt:P279* wd:Q10873124; pq:P1532 ?country
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+}

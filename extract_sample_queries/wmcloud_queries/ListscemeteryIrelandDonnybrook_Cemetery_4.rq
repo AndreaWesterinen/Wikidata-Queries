@@ -1,0 +1,12 @@
+embed.html#SELECT ?item ?itemLabel ?dod ?itemDescription ?plot ?familynameLabel
+WHERE 
+{ 
+    ?item wdt:P119 / wdt:P276 * wd:Q5296764
+    OPTIONAL { ?item wdt:P1442 ?img } 
+    FILTER(!BOUND(?img))
+    OPTIONAL { ?item p:P1197 / pq:P965 ?plot }   
+    OPTIONAL { ?item wdt:P570 ?dod }
+    OPTIONAL { ?item wdt:P734 ?familyname } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+}
+ORDER BY ?dod ?familynameLabel ?item

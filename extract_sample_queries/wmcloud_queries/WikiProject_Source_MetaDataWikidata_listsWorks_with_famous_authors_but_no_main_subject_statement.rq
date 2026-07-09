@@ -1,0 +1,16 @@
+select DISTINCT ?item ?author
+with { # select all the numbers of sitelinks
+  select ?number (count(*) as ?total) { # we don't use ?total but without it the query times out, so we'll just ignore it
+    [] wikibase:sitelinks ?number .
+  } group by ?number
+} as %numbers
+where {
+  include %numbers .
+  filter (?number > 25) .
+  ?author wikibase:sitelinks ?number .
+  ?author wdt:P31 wd:Q5.
+  ?item wdt:P50 ?author .
+  ?citing_work wdt:P2860 ?item .
+  MINUS {?item wdt:P921 ?topic. }
+} order by desc(?number)
+LIMIT 1000

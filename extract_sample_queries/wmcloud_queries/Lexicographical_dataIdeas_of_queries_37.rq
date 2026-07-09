@@ -1,0 +1,28 @@
+SELECT DISTINCT ?lang ?langLabel ?lexeme ?singularFormString ?pluralFormString (bound(?singularForm) as ?singularExists) WHERE {
+  
+  # We want lexemes, that are in a language, and have a ‘plural’ form:
+  ?lexeme a ontolex:LexicalEntry ; dct:language ?lang ; ontolex:lexicalForm ?pluralForm .
+  
+  # We want the language to be German or a sub(sub(…))class thereof:
+  ?lang wdt:P279* wd:Q188 .
+  
+  # We want, if it exists, the lexeme to have a ‘singular’ form …
+  OPTIONAL { 
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    # … and to get the representation of the singular form, and features of the singular form to be “singular” and “nominative case”:
+    ?singularForm ontolex:representation ?singularFormString ; wikibase:grammaticalFeature wd:Q110786 ; wikibase:grammaticalFeature wd:Q131105
+  } .
+  
+  # We want to get the representation of the plural form, and features of the plural form to be “plural” and “nominative case”:
+  # (Up to here, the ‘plural’ form is not actually a plural form yet, but any form. When we said ‘‘plural’ form’ above,
+  #  we just knew what we were going to do down here.)
+  ?pluralForm ontolex:representation ?pluralFormString ; wikibase:grammaticalFeature wd:Q146786 ; wikibase:grammaticalFeature wd:Q131105 .
+  
+  # We want the representation of the form (that is have the feature “plural”) to end with “n”, but not “en”:
+  FILTER regex (?pluralFormString, "[^e]n$") .
+  
+  # In cases where a singular form exists, we don’t want the word if the singular and plural forms are identical and just happen to end with “n” (cf. “Pokemon”):
+  FILTER (!bound(?singularForm) || (?singularFormString != ?pluralFormString)) .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } .
+}

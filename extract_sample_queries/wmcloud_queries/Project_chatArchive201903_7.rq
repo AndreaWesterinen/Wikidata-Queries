@@ -1,0 +1,9 @@
+embed.html#SELECT ?item ?itemLabel ?orgLabel ?rollLabel ?orcid WHERE {
+  ?item wdt:P1416 wd:Q57971890.
+  ?item wdt:P1416 ?org.
+  ?item p:P1416 ?orgProp.
+   { ?orgProp pq:P2868 ?roll}
+  OPTIONAL {?item wdt:P496 ?orcid}
+           
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

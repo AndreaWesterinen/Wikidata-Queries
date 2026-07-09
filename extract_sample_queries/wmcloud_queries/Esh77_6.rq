@@ -1,0 +1,5 @@
+SELECT ?item (COUNT(?painting) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 ?item . ?item wdt:P21 wd:Q6581072 . 
+  } GROUP BY ?item
+HAVING (?count > 4)

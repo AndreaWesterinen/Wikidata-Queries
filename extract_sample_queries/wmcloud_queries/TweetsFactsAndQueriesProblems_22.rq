@@ -1,0 +1,13 @@
+# people born on e. g. “February 10” (february of year 10 AD) which should probably be “february 10th of unknown year” in P3150
+SELECT ?person ?personLabel ?dob WHERE {
+  ?person p:P569/psv:P569 [
+    wikibase:timeValue ?dob;
+    wikibase:timePrecision 10
+  ].
+  BIND(YEAR(?dob) AS ?year).
+  FILTER(1 <= ?year && ?year <= 31).
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?person rdfs:label ?personLabel.
+  }
+}

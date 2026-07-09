@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?article_title 
+WHERE {
+  hint:Query hint:optimizer "None".
+  {SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "\"phase 1\" trial haswbstatement:P31=Q13442814".
+    ?title wikibase:apiOutput mwapi:title.
+  }}
+UNION {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "\"phase i\" trial haswbstatement:P31=Q13442814".
+    ?title wikibase:apiOutput mwapi:title.
+  }
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  FILTER NOT EXISTS { ?item wdt:P921 wd:Q42824069. }
+  ?item wdt:P1476 ?article_title .
+}
+# LIMIT 10000

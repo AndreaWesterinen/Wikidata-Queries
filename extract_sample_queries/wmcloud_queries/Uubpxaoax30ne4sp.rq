@@ -1,0 +1,7 @@
+embed.html#SELECT ?q ?qLabel ?img ?loc ?coord WHERE {
+  ?q wdt:P17 wd:Q142 ; wdt:P31/wdt:P279* wd:Q1282870 .
+  OPTIONAL { ?q wdt:P131 ?loc }
+  OPTIONAL { ?q wdt:P18 ?img }
+  OPTIONAL { ?q wdt:P625 ?coord }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

@@ -1,0 +1,7 @@
+select ?prop where {
+ ?prop wdt:P1896 ?fsd .
+ ?prop wikibase:propertyType ?type .
+ filter not exists {?prop wdt:P1793 ?regex} .
+         # values ?prop {wd:P3010 }
+  values ?type { wikibase:ExternalId}
+}

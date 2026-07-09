@@ -1,0 +1,14 @@
+#defaultView:Map
+SELECT ?persLabel ?ambLabel ?placeLabel ?coord
+WHERE
+{
+  ?amb (wdt:P279*|wdt:P31*) wd:Q28070952 . 		    #subclass of 'Ambassador of Germany'
+  
+  ?pers wdt:P39 ?amb . 							
+  ?pers wdt:P19 ?place.
+  ?place wdt:P625 ?coord.
+                           
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "de" .
+    }  
+}

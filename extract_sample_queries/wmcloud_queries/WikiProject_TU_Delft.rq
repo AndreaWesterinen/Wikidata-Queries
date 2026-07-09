@@ -1,0 +1,6 @@
+SELECT ?faculty ?facultyLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?faculty wdt:P31 wd:Q180958.
+  ?faculty wdt:P361 wd:Q752663.
+}
+LIMIT 100

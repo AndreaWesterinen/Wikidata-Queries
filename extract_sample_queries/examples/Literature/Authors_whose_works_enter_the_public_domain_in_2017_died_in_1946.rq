@@ -1,3 +1,4 @@
+#title: Authors whose works enter the public domain in 2017 (died in 1946)
 SELECT DISTINCT ?item WHERE
 {
   ?item wdt:P31 wd:Q5 ;

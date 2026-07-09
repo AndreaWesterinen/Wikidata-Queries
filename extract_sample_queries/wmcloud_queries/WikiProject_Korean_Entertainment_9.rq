@@ -1,0 +1,5 @@
+SELECT ?chart_voting_application ?chart_voting_applicationLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?chart_voting_application wdt:P31 wd:Q97001446.
+}
+LIMIT 100

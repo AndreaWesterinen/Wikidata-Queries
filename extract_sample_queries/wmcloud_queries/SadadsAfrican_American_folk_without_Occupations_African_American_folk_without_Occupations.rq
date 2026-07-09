@@ -1,0 +1,9 @@
+SELECT ?item
+Where{
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P172 wd:Q49085 #with ethnicity African American
+ MINUS { ?item wdt:P106  [] } .
+ }
+
+
+limit 400

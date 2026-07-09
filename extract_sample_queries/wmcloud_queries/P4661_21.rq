@@ -1,0 +1,12 @@
+#title: Might replace others
+# Complex constraint from [[Property talk:P4661]]
+# This property might be used to replace other currently used properties. List of samples only, due to timeout problems.
+SELECT ?item ?p ?value WHERE
+{
+    ?item wdt:P31 wd:Q12323 .
+    ?value wdt:P31 wd:Q131681 .
+    ?item ?wdt ?value .
+    ?p wikibase:directClaim ?wdt .
+    FILTER(?wdt != wdt:P4661 && ?wdt != wdt:P138 )
+}
+LIMIT 3

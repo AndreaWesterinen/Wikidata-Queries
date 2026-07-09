@@ -1,0 +1,9 @@
+#Populated places in France
+SELECT ?place ?placeLabel ?location
+WHERE
+{
+  ?place wdt:P31/wdt:P279* wd:Q486972; # human settlement or subclass therof
+         wdt:P17 wd:Q142 . # in France
+  OPTIONAL { ?place wdt:P625 ?location. } # optionally has coordinates
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

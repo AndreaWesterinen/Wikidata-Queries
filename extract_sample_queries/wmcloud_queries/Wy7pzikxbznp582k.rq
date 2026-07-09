@@ -1,0 +1,41 @@
+embed.html##title: Carte du métro de Canton
+#defaultView:Map{"hide":["?coords", "?line","?rgb"]}
+SELECT ?station ?stationLabel ?subwayLine ?coords ?line ?line_number ?layer ?rgb WHERE {
+  VALUES ?search {       wd:Q660751 wd:Q11062152    #critère de recherche de système de tramway
+  }
+  ?search wdt:P527|wdt:P121 ?lignes.#quelles sont les lignes de ce tramway
+  ?lignes wdt:P559 ?termini.#quels sont les terminus de ce tramway
+  ?station wdt:P31/wdt:P279* wd:Q548662;  #de type poteau d'arrêt ou plus précis 
+   wdt:P5817 wd:Q55654238;#Qui fonctionnent
+   wdt:P361|wdt:P16 ?search;#Qui font partie du réseau recherché
+   wdt:P625 ?coords;
+   wdt:P81|wdt:P1192 ?subwayLine;
+   wdt:P197 ?pred.
+  ?pred wdt:P625 ?coords_pred;wdt:P5817 wd:Q55654238;#Voisines qui fonctionnent
+   wdt:P81|wdt:P1192 ?subwayLine_pred.
+  ?station p:P197 _:b1.
+  _:b1 ps:P197 ?pred ;
+    pq:P5051 ?towards;
+    pq:P81|pq:P1192 ?line_pq.
+?subwayLine wdt:P5817 wd:Q55654238.#Lignes qui fonctionnent
+optional{?subwayLine wdt:P1671 ?line_number.}
+FILTER(?subwayLine_pred = ?lignes)#on ne prend les LIGNES que si la correspondance est sur la même ligne
+FILTER(?subwayLine = ?lignes) 
+FILTER(?subwayLine = ?line_pq)#On ne prend les lignes que si la station voisine est sur la même ligne que la station
+FILTER(?towards = ?termini) 
+ ?pred  p:P625 ?node_pred .
+  ?node_pred psv:P625/wikibase:geoLatitude ?lat1 ;psv:P625/wikibase:geoLongitude ?lon1 .
+  ?node_pred a wikibase:BestRank.
+  ?station p:P625 ?node_station.
+ ?node_station psv:P625/wikibase:geoLatitude ?lat2 ;psv:P625/wikibase:geoLongitude ?lon2.
+ ?node_station a wikibase:BestRank.
+  BIND(CONCAT("LINESTRING(", STR(?lon1), " ", STR(?lat1),  ",", STR(?lon2), " ", STR(?lat2), ")") AS ?str)
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line)
+  ?subwayLine wdt:P465 ?rgb.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+    ?subwayLine rdfs:label ?layer.
+    ?pred rdfs:label ?predLabel.
+    ?station rdfs:label ?stationLabel .
+  } } GROUP BY ?station ?stationLabel ?subwayLine ?rgb ?predLabel ?layer ?coords ?line ?line_number
+ORDER BY xsd:integer(?line_number) ?line_number ?subwayLine

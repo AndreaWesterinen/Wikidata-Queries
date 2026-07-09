@@ -1,0 +1,1 @@
+SELECT (count(?q) AS ?cnt) { ?q wdt:P1708 [] }

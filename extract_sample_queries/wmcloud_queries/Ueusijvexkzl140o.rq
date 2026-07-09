@@ -1,0 +1,10 @@
+#defaultView:Timeline
+select DISTINCT ?sLabel ?s ?legendLabel ?date ?image WHERE {
+  ?s wdt:P361|wdt:P397/wdt:P361 wd:Q544 . #Solar System }
+  ?s wdt:P575 ?date ; #discovery
+     wdt:P18 ?image .
+  ?s p:P18 ?imgstatement .
+  OPTIONAL {?imgstatement pq:P642 ?legend .}
+  SERVICE wikibase:label 
+                 { bd:serviceParam wikibase:language "en, fr, de, it". }
+}

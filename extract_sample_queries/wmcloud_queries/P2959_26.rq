@@ -1,0 +1,15 @@
+#title: Items with P31 = [[d:Q21286738|Wikimedia permanent duplicate item <small>(Q21286738)</small>]] and P2959 should only have links to sites that the other item has as well
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: Move sitelink to the other item or remove P31=Q21286738 if needed.
+SELECT DISTINCT ?item #?itemLabel ?itemDescription ?value ?valueLabel ?valueDescription ?site
+{
+	?item wdt:P31 wd:Q21286738 ; wdt:P2959 ?value;
+		^schema:about/schema:isPartOf ?site .
+	OPTIONAL {
+		?value ^schema:about/schema:isPartOf ?site1 .
+		FILTER( SAMETERM( ?site, ?site1 ) ) .
+	} .
+	FILTER( !BOUND( ?site1 ) ) .
+	#SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+}
+ORDER BY ASC(xsd:integer(STRAFTER(str(?item), "Q")))

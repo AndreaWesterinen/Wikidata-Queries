@@ -1,0 +1,9 @@
+#defaultView:Timeline
+select ?language ?languageLabel ?time ?image WHERE 
+{
+ ?language wdt:P31 wd:Q9143 ;
+           wdt:P571 ?time .
+  OPTIONAL {?language wdt:P154 ?image .}
+  OPTIONAL {?language wdt:P18 ?image .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, pl". }
+}

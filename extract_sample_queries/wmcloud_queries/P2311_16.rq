@@ -1,0 +1,8 @@
+#title: Minimum date value of a "range constraint" must be less than the maximum date value of the range
+# Complex constraint from [[Property talk:P2311]]
+# For a [[d:Q21510860|range constraint <small>(Q21510860)</small>]], the value of the [[Property:P2310|minimum date (property constraint)&#32;<small dir="ltr">(P2310)</small>]] qualifier must be less than the value of the [[Property:P2311|maximum date (property constraint)&#32;<small dir="ltr">(P2311)</small>]] qualifier.
+SELECT ?item ?itemLabel ?min ?max WHERE {
+  ?item p:P2302 [ps:P2302 wd:Q21510860; pq:P2310 ?min; pq:P2311 ?max].
+  FILTER (?min >= ?max).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

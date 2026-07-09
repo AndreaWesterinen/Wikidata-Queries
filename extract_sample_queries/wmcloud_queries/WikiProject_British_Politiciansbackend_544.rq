@@ -1,0 +1,29 @@
+SELECT distinct ?mp ?mpLabel (coalesce(?termcount,0) as ?distinct_terms) 
+(coalesce(?datecount,0) as ?with_dates) 
+(coalesce(?seatcount,0) as ?with_seats) 
+(coalesce(?partycount,0) as ?with_parties)
+((?distinct_terms - ?with_dates) as ?missing_dates)
+((?distinct_terms - ?with_seats) as ?missing_seats)
+((?distinct_terms - ?with_parties) as ?missing_party)
+# (coalesce(?endcount,0) as ?unknown_end_dates) 
+?firstdate
+?lastdate
+
+where {
+  ?mp wdt:P4471 ?id . 
+  optional { SELECT distinct ?mp (count(distinct ?ps) as ?termcount)
+    WHERE { ?mp p:P39 ?ps. ?ps ps:P39 ?term . ?term wdt:P279 wd:Q16707842. ?mp wdt:P4471 ?id . } group by ?mp }
+  optional { SELECT distinct ?mp (count(distinct ?ps2) as ?seatcount) (min(year(?start2)) as ?firstdate) (max(year(?end2)) as ?lastdate) 
+    WHERE { ?mp p:P39 ?ps2. ?ps2 ps:P39 ?term2 . ?term2 wdt:P279 wd:Q16707842. 
+            ?ps2 pq:P580 ?start2. ?ps2 pq:P768 ?seat2 . ?mp wdt:P4471 ?id2 . optional { ?ps2 pq:P582 ?end2 } } group by ?mp }
+  optional { SELECT distinct ?mp (count(distinct ?ps3) as ?partycount)
+    WHERE { ?mp p:P39 ?ps3. ?ps3 ps:P39 ?term3 . ?term3 wdt:P279 wd:Q16707842. 
+            ?ps3 pq:P580 ?start3. ?ps3 pq:P768 ?seat3 . ?ps3 pq:P4100 ?party3 . ?mp wdt:P4471 ?id3 . } group by ?mp }
+  optional { SELECT distinct ?mp (count(distinct ?ps4) as ?datecount)
+    WHERE { ?mp p:P39 ?ps4. ?ps4 ps:P39 ?term4 . ?term4 wdt:P279 wd:Q16707842. ?mp wdt:P4471 ?id4 . 
+            ?ps4 pq:P580 ?start4 . filter(year(?start4)>1800) . } group by ?mp }
+  optional { SELECT distinct ?mp (count(distinct ?ps5) as ?endcount)
+    WHERE { ?mp p:P39 ?ps5. ?ps5 ps:P39 ?term5 . ?term5 wdt:P279 wd:Q16707842. ?mp wdt:P4471 ?id5 . 
+            ?ps5 pq:P582 ?start5 . FILTER wikibase:isSomeValue(?start5) . } group by ?mp }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

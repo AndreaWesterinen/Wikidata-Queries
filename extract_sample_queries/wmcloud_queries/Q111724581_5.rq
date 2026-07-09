@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P166 wd:Q111724581 . 
+  MINUS { ?entity wdt:P31 []; p:P166 ?statement. ?statement ps:P166 wd:Q111724581; pq:P585 []; wdt:P166 wd:Q111724581  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

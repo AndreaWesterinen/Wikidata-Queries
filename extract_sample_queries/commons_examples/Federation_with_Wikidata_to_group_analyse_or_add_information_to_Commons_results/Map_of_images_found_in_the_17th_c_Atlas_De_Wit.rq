@@ -1,0 +1,13 @@
+#defaultView:Map
+select ?file ?image ?depictionLabel ?coord where {
+  ?file wdt:P6243 wd:Q2520345 .
+  ?file wdt:P180 ?depiction .
+  ?file schema:url ?image .
+  service <https://query.wikidata.org/sparql> {
+    ?depiction wdt:P625 ?coord.
+    service wikibase:label {
+        bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+        ?depiction rdfs:label ?depictionLabel .
+    }
+  }
+}

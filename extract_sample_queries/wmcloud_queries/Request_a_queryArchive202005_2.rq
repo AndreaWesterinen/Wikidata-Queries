@@ -1,0 +1,10 @@
+sparql?query=construct{
+  ?subclass  ?rpredicate  ?entity.
+  ?entity ?predicate ?subclass
+}
+WHERE {
+  ?subclass (wdt:P279*) wd:Q2095.
+  { ?entity ?predicate ?subclass. [] wikibase:directClaim ?predicate }
+  UNION
+  { ?subclass ?rpredicate ?entity. [] wikibase:directClaim ?rpredicate }
+}

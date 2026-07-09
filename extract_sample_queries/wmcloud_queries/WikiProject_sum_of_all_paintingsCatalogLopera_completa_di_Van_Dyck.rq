@@ -1,0 +1,6 @@
+SELECT ?item ?catcode ?catnum ?catletter WHERE { 
+?item p:P528 [ pq:P972 wd:Q87995592 ; ps:P528 ?catcode]. 
+BIND( xsd:decimal(REPLACE(?catcode, "[^0-9]*", "")) AS ?catnum) 
+BIND(REPLACE(?catcode, "^A?[0-9]*", "") AS ?catletter) 
+BIND(REGEX(?catcode, "^A") AS ?isAppendix) 
+} ORDER BY ?isAppendix ?catnum ?catletter

@@ -1,0 +1,8 @@
+#expedities to the colony Surinam and the country Suriname
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  {?item (wdt:P31/wdt:P279*) wd:Q2401485 .} UNION {?item (wdt:P31/wdt:P279*) wd:Q366301 .}
+  {?item wdt:P17 wd:Q188161 .} UNION {?item wdt:P17 wd:Q941881 .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

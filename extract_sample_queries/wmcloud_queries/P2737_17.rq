@@ -1,0 +1,3 @@
+ASK WHERE {
+  wd:Q2348 wdt:P279* wd:Q18706315 .
+}

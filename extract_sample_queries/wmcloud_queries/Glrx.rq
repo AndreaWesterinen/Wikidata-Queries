@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?atomnumber ?val ?unit ?unitLabel
+{ 
+  ?item wdt:P31 wd:Q11344 ;
+        wdt:P1086 ?atomnumber ;
+        p:P2067 ?stmt .
+  ?stmt psv:P2067 ?val .
+  ?val wikibase:quantityUnit ?unit .
+  
+  SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .}
+} ORDER BY ?atomnumber

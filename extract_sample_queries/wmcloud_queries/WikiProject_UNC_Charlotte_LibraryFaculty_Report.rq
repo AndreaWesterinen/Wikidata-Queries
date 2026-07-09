@@ -1,0 +1,5 @@
+SELECT ?item WHERE
+{
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P108 wd:Q1783178.
+  FILTER ( EXISTS {?item wdt:P5008 wd:Q100153988 }

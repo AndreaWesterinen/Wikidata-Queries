@@ -1,0 +1,29 @@
+# Most populous first-level country subdivisions without legislatures 
+# from [[d:Property_talk:P194#Most_populous_first-level_subdivisions_without_legislature]]
+# Based on "Largest first-level country subdivisions" at https://twitter.com/PoulpyWP/status/994669235296133129
+
+SELECT DISTINCT ?item ?itemLabel ?countryLabel ?area ?population 
+WHERE
+{
+  ?item wdt:P31/wdt:P279* wd:Q10864048 ; # first-level subdivision
+        wdt:P17 ?country ;               # country
+        p:P2046/psv:P2046 [              # area
+          wikibase:quantityAmount ?baseArea;
+          wikibase:quantityUnit [
+            p:P2370/psv:P2370 [
+              wikibase:quantityAmount ?unitArea;
+              wikibase:quantityUnit wd:Q25343
+            ]
+          ]
+        ] ;
+        wdt:P1082 ?population .          # population
+
+  BIND(ROUND(?baseArea * ?unitArea / 1000000) AS ?area) .
+
+  FILTER NOT EXISTS { ?item wdt:P194 [] }  # without legislature
+  FILTER NOT EXISTS { ?item wdt:P576 [] }    # filter dissolved subdivisions
+  FILTER NOT EXISTS { ?country wdt:P576 [] } # filter dissolved countries
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?population)
+LIMIT 500

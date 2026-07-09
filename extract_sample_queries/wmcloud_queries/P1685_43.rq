@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?property ?propertyLabel ?value ?valueLabel
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?property ?value {
+			?item wdt:P1685 [] .
+			VALUES ?value { wd:Q864 wd:Q239937 wd:Q1079748 } .
+			?item wdt:P4584 ?value .
+			BIND( wd:P4584 AS ?property ) .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

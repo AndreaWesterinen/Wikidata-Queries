@@ -1,0 +1,12 @@
+#title: Label language (1)
+# Complex constraint from [[Property talk:Define label language constraint]]
+# items with this property would generally have a label in the language(s) defined at [[Property:P5176#P1552]] with [[d:Q102746314|complex constraint label language <small>(Q102746314)</small>]]
+SELECT DISTINCT ?item ?lang
+{
+	hint:Query hint:optimizer "None".
+	wd:P5176 p:P1552 [ ps:P1552 wd:Q102746314 ; pq:P407 / wdt:P424 ?lang ] .
+	?item wdt:P5176 [] .
+	OPTIONAL { ?item rdfs:label ?l . FILTER( lang(?l)= ?lang ) }
+	FILTER ( !BOUND(?l) )
+}
+LIMIT 1000

@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?p) as ?count) (COUNT(DISTINCT ?p0) as ?with)  (?count - ?with as ?todo) ( ROUND(?with / ?count * 100 ) as ?percentage) 
+{
+  VALUES ?item { wd:Q41 wd:Q229 } 
+  ?p wdt:P27 ?item .
+  ?p wdt:P31 wd:Q5 .
+  OPTIONAL { ?p p:P735 [] . BIND( ?p as ?p0) }
+}
+GROUP BY ?item 
+ORDER BY DESC(?count)

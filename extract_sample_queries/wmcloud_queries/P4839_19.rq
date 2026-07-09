@@ -1,0 +1,15 @@
+#title: First part should be a value of Wolfram Language entity type (P7497)
+# Complex constraint from [[Property talk:P4839]]
+# type is currently not a value of [[Property:P7497|Wolfram Language entity type&#32;<small dir="ltr">(P7497)</small>]]
+SELECT *
+{
+  {  SELECT ?type (COUNT(*) as ?count) (SAMPLE(?value) as ?samplevalue) (SAMPLE(?item) as ?item) 
+      {
+	     ?item wdt:P4839 ?value .
+         BIND(strafter(strbefore(?value, "\","),"Entity[\"") as ?type)
+      }
+      GROUP BY ?type
+  }
+  MINUS { [] wdt:P7497 ?type }
+}
+ORDER BY DESC(?count)

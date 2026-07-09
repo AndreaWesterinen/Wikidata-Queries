@@ -1,0 +1,13 @@
+SELECT (CONCAT('"', ?language, '":') as ?lang) (CONCAT("{",GROUP_CONCAT(?a; separator=", "),"},") as ?occupations)
+{
+	{ 	SELECT (lang(?label) as ?language) ( CONCAT( '"', ?label, '": ', strafter(str(?occup),"y/")) as ?a)
+		{
+			VALUES ?occup { wd:Q82955 wd:Q937857 wd:Q33999 wd:Q36180 wd:Q1028181 wd:Q1930187 wd:Q1622272 wd:Q177220 wd:Q40348 wd:Q36834 wd:Q49757 wd:Q2526255 wd:Q201788 wd:Q42973 wd:Q10871364 wd:Q28389 wd:Q16533 wd:Q11513337 wd:Q639669 wd:Q11774891 wd:Q12299841 wd:Q482980 wd:Q628099 wd:Q3665646 wd:Q193391 wd:Q81096 wd:Q19204627 wd:Q47064 wd:Q188094 wd:Q10798782 wd:Q10800557 wd:Q1281618 wd:Q2309784 wd:Q2259451 wd:Q189290 wd:Q6625963 wd:Q39631 wd:Q42603 wd:Q4610556 wd:Q43845 wd:Q250867 wd:Q486748 wd:Q333634 wd:Q33231 wd:Q13414980 wd:Q14089670 wd:Q2374149 wd:Q185351 wd:Q158852 wd:Q1234713 wd:Q170790 wd:Q483501 wd:Q4964182 wd:Q3282637 wd:Q15117302 wd:Q11338576 wd:Q37226 wd:Q947873 wd:Q488205 wd:Q131524 wd:Q169470 wd:Q3055126 wd:Q214917 wd:Q10843402 wd:Q15981151 wd:Q855091 wd:Q593644 wd:Q2865819 wd:Q14467526 wd:Q10833314 wd:Q622807 wd:Q14373094 wd:Q16145150 wd:Q15627169 wd:Q4263842 wd:Q806798 wd:Q1231865 wd:Q13382576 wd:Q644687 wd:Q3621491 wd:Q212980 wd:Q13141064 wd:Q13365117 wd:Q14915627 wd:Q121594 wd:Q2722764 wd:Q19595175 wd:Q131512 wd:Q4773904 wd:Q191633 wd:Q753110 wd:Q2405480 wd:Q82594 wd:Q1792450 wd:Q2306091 wd:Q1371925 wd:Q10873124 wd:Q183945 wd:Q2066131 wd:Q11063 }
+  			{ ?occup rdfs:label ?label }
+      		UNION { ?occup wdt:P2521 ?label }           
+		}
+     	ORDER BY DESC(strlen(?label))
+  	}
+    FILTER ( ?language in ('en', 'fr', 'de', 'ru', 'simple', 'pl', 'es', 'it', 'ja', 'fi', 'tr', 'sv', 'pt', 'zh', 'uk', 'cs', 'hu', 'hu', 'ar', 'no', 'la', 'et', 'da', 'ko', 'id', 'eo', 'bg', 'ro', 'eu', 'eu', 'sk', 'sl', 'sco', 'el', 'az', 'az', 'az', 'az', 'lb', 'gl', 'cy', 'ta', 'sr', 'vi', 'nn', 'hy', 'sh', 'mk', 'kk', 'ca', 'ms', 'ur', 'be', 'zh-min-nan', 'ka' ) )
+}
+GROUP BY ?language

@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel WHERE {
+  VALUES ?type {wd:Q2085381 wd:Q2608849 wd:Q1320047 wd:Q1114515}
+  ?item wdt:P31 ?type.
+  ?item wdt:P5008 wd:Q100363299.
+}

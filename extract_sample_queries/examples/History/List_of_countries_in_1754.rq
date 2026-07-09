@@ -1,3 +1,4 @@
+#title: List of countries in 1754
 #updated 2020-12-06
 SELECT DISTINCT ?h ?hLabel ?inception ?dissolved ?coor
 WHERE

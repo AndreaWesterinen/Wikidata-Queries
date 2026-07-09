@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?itemDescription ?d ?pop 
+{
+	VALUES ?type { wd:Q3518810 wd:Q3327873 } 
+    ?item wdt:P31 / wdt:P279* ?type . 
+    ?item p:P1082 ?st . 
+    ?st pq:P459 wd:Q29051383 ; pq:P585 ?d ; ps:P1082 ?pop .
+    FILTER( YEAR(?d) = 2020 ) 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

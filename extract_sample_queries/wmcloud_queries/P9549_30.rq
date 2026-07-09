@@ -1,0 +1,27 @@
+#Target required claim report for P9549: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?snak
+		WHERE
+		{
+			{
+				?item p:P9549/ps:P9549 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P9549 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P9549 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS { ?value p:P495 [] } .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

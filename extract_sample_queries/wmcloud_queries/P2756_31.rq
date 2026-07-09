@@ -1,0 +1,7 @@
+#title: Check qualifier
+# Complex constraint from [[Property talk:P2756]]
+# P2676 qualifier must meet regex "<tt>^(S\-)?1?[1-5]\d{3,4}$</tt>"
+SELECT ?item ?ID {
+  ?item p:P2756 [ pq:P2676 ?ID ] .
+  FILTER( ! REGEX(  ?ID , "^((S\\-)?1?[1-5]\\d{3,4}|)$" ) )
+}

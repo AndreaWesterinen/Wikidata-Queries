@@ -1,0 +1,23 @@
+#Public libraries that are above or below sealevel, incicated and layered by color
+#defaultView:Map
+SELECT DISTINCT ?dpl ?dplLabel ?dplElev ?dplLoc ?rgb ?layer WHERE {
+  #Is Dutch public library dpl
+  ?dpl wdt:P31 wd:Q28564. #public library
+  ?dpl wdt:P31 wd:Q11396180. #library branch 
+  ?dpl wdt:P17 wd:Q55. #in the Netherlands
+  ?dpl wdt:P625 ?dplLoc. #Location of the dpl
+  ?dpl wdt:P2044 ?dplElev. #Elevation of the dpl
+
+  BIND( 
+    IF(?dplElev < 0, "FF0000",   
+    IF(?dplElev > 0, "008000", 
+    "000000"))  AS ?rgb). 
+  
+    BIND( 
+    IF(?dplElev < 0, "Below sealevel", 
+    IF(?dplElev > 0, "Above sealevel",   
+    "At sealevel or Unknown")) AS ?layer). 
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+} 
+ORDER BY ?dplElev

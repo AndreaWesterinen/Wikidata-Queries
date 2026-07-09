@@ -1,0 +1,111 @@
+#Midden Nederland, provincies Overijssel - Gelderland - Flevoland - Utrecht - Noord-Holland
+#defaultView:Map
+SELECT ?Qvestiging ?QvestigingLabel ?coor ?partof ?partofLabel ?image ?layer WHERE {
+#SELECT ?s ?sLabel ?coor ?image ?layer WHERE { 
+  
+       ?Qvestiging (p:P31/ps:P31) wd:Q28564;wdt:P17 wd:Q55;
+          wdt:P625 ?coor ;
+          wdt:P361 ?partof ;
+          OPTIONAL {?Qvestiging wdt:P18 ?image .}
+  
+VALUES ?partof {
+#Overijssel  
+wd:Q59961892 #St. OB Almelo
+wd:Q59961993 #St. Bieb Hengelo
+wd:Q59962018 #H.B. OB Enschede
+wd:Q59961944 #St. OB Borne
+wd:Q59962201 #St. OB Ommen
+wd:Q59962197 #St. OB Oldenzaal
+wd:Q59962068 #St. Kulturhus Haaksbergen
+wd:Q59962070 #St.OB Hardenberg
+wd:Q59962149 #St. Bieb Losser
+wd:Q59962279 #St. OB Staphorst
+wd:Q59962232 #St. Bieb Rijssen-Holten
+wd:Q59962395 #St.OB Wierden
+wd:Q59962228 #St.OB Sallnd
+wd:Q59962190 # ZINiN Hellendoorn-Nijverdal
+wd:Q59962282 # Kop v Overijssel
+
+#Gelderland
+wd:Q59962366 #St. OB Wageningen
+wd:Q59961903 #CODA Bieb Apeldoorn
+wd:Q59962187 #St. OB Gelderland Zuid 
+wd:Q59962244 #St. OB Scherpenzeel
+wd:Q59771462 #St. OB Rivierenland
+wd:Q59961906 #St.Arnhemse OB / Gelderse WB
+wd:Q59961982 #St. Bieb Montferlnd
+wd:Q59962021 #St. Basisbieb Noord-Veluwe
+wd:Q59961909 #St OB Barneveld
+#Flevoland
+wd:Q59961895 #St. OB Almere
+wd:Q59962143 #St. FlevoMeer Bieb
+# Utrecht  
+wd:Q59962322 #St. de Bieb Utrecht
+wd:Q59962182 #St. Bieb Nieuwegein
+wd:Q24040756 #St.Bibliotheken Eemland
+wd:Q59962328 #St. OB Veenendaal
+# Noord-Holland 
+wd:Q2105660 #St. OBs Amsterdam
+wd:Q59961890 #St. Bieb Zuid-Kennemerlnd
+wd:Q59962072 #St. OB Heiloo
+wd:Q59961947 #St. Westfriese Biebs
+wd:Q57591817 #St.OB Haarlemmermeer
+wd:Q59962110 #St.OB Huizen-Laren-Blaricum
+wd:Q59962125 #St.OB Langedijk
+wd:Q59961935 #St OB IJmond Noord
+wd:Q59962113 #St. Bieb Velsen
+wd:Q59961887 # St. OB Kennemerwaard
+wd:Q59961900 #St.Amstellnd Bieb
+                 }
+BIND(
+#Overijssel
+IF(?partof = wd:Q59961892, "Almelo", 
+IF(?partof = wd:Q59961993, "Hengelo",
+IF(?partof = wd:Q59962018, "Enschede",
+IF(?partof = wd:Q59961944, "Borne",
+IF(?partof = wd:Q59962201, "Ommen",
+IF(?partof = wd:Q59962070, "Hardenberg",
+IF(?partof = wd:Q59962197, "Oldenzaal",
+IF(?partof = wd:Q59962068, "Haaksbergen",
+IF(?partof = wd:Q59962149, "Losser",
+IF(?partof = wd:Q59962232, "Rijssen en Holten",
+IF(?partof = wd:Q59962279, "Staphorst",
+IF(?partof = wd:Q59962395, "Wierden",
+IF(?partof = wd:Q59962228, "Raalte en Olst-Wijhe",
+IF(?partof = wd:Q59962190, "Hellendoorn-Nijverdal",
+IF(?partof = wd:Q59962282, "Steenwijkerland",
+#Gelderland   
+IF(?partof = wd:Q59962366, "Wageningen",
+IF(?partof = wd:Q59961903, "Apeldoorn",
+IF(?partof = wd:Q59962187, "Nijmegen en omstreken", 
+IF(?partof = wd:Q59962244, "Scherpenzeel",
+IF(?partof = wd:Q59771462, "Culemborg, Geldermalsen, Tiel, Zaltbommel e.o",   
+IF(?partof = wd:Q59961906, "Arnhem", 
+IF(?partof = wd:Q59961982, "Montferland", 
+IF(?partof = wd:Q59962021, "Elburg, Epe, Hattem, Heerde en Oldebroek",
+IF(?partof = wd:Q59961909, "Barneveld",
+#Flevoland
+IF(?partof = wd:Q59961895, "Almere",
+IF(?partof = wd:Q59962143, "Dronten, Lelystad, Noordoostpolder, Urk en Zeewolde",
+# Utrecht  
+IF(?partof = wd:Q59962322, "Utrecht",
+IF(?partof = wd:Q59962182, "Nieuwegein",
+IF(?partof = wd:Q59962328, "Veenendaal",
+IF(?partof = wd:Q24040756, "Amersfoort, Baarn, Leusden, Bunschoten en Woudenberg",
+# Noord-Holland 
+IF(?partof = wd:Q2105660,  "Amsterdam",
+IF(?partof = wd:Q59961890, "Haarlem, Heemstede, Bloemendaal, Hillegom en Zandvoort",   
+IF(?partof = wd:Q59961900, "Amstelveen, Aalsmeer en Uithoorn",    
+IF(?partof = wd:Q57591817, "Haarlemmermeer",
+IF(?partof = wd:Q59962110, "Huizen, Laren en Blaricum", 
+IF(?partof = wd:Q59962113, "Velsen",
+IF(?partof = wd:Q59961887, "Alkmaar, Bergen, Castricum en Heerhugowaard",
+IF(?partof = wd:Q59961935, "Beverwijk, Wijk aan Zee en Heemskerk",   
+IF(?partof = wd:Q59961947, "Enkhuizen, Medemblik, e.o.",    
+IF(?partof = wd:Q59962125, "Langedijk",    
+IF(?partof = wd:Q59962072, "Heiloo",
+             ""))))))))))))))))))))))))))))))))))))))))) AS ?layer).  
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" }
+}
+ORDER BY ?layer ?partofLabel ?QvestigingLabel

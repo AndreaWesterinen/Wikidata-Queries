@@ -1,0 +1,9 @@
+SELECT 
+?subject ?subjectLabel 
+?nta
+
+WHERE {
+  ?subject wdt:P1006 ?nta.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} LIMIT 1000

@@ -1,0 +1,10 @@
+#title: Check P106
+# Complex constraint from [[Property talk:P4421]]
+#
+SELECT ?item {
+	?item p:P4421 [].
+	FILTER NOT EXISTS {
+      VALUES ?values { wd:Q2066131 wd:Q202648 wd:Q41583 }.
+      ?item wdt:P106/wdt:P279* ?values
+    }
+}

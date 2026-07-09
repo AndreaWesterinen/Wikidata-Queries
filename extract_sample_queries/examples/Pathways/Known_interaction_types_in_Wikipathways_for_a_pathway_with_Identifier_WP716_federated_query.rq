@@ -1,3 +1,4 @@
+#title: Known interaction types in Wikipathways for a pathway with Identifier WP716 (federated query)
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 SELECT DISTINCT ?interaction_type WHERE {

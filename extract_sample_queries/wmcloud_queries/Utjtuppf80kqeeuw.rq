@@ -1,0 +1,4 @@
+embed.html##defaultView:Map
+SELECT * WHERE {
+  ?place wdt:P131 wd:Q764294 ; wdt:P625 ?coord .
+}

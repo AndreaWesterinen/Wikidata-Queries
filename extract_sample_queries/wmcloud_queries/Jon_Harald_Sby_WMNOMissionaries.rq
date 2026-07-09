@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?age
+WHERE
+{
+  ?item wdt:P106 wd:Q219477 .
+  ?item wdt:P27 wd:Q20 .
+  ?item wdt:P569 ?dob . 
+  ?item wdt:P570 ?dod . 
+  BIND(YEAR(?dod)-YEAR(?dob) as ?age)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb,nn,en,fi"  }  
+} ORDER BY ?age

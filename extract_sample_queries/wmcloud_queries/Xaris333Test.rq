@@ -1,0 +1,8 @@
+SELECT ?item ?population 
+WHERE {
+  ?item wdt:P4812 [] .
+  optional {?item p:P1082 ?statement.
+  ?statement ps:P1082 ?population.
+  ?statement pq:P585 ?date. 
+  filter (year(?date)=1973)}
+}

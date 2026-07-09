@@ -1,0 +1,11 @@
+SELECT (SAMPLE(?work) AS ?item) (COUNT(DISTINCT ?work) AS ?count) WHERE {
+  ?work wdt:P50 ?author.
+      { ?author wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?author wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?author wdt:P1416 / wdt:P361* wd:Q213439 .}
+
+  MINUS {?work wdt:P2093 []}
+}
+GROUP BY ?item ?count

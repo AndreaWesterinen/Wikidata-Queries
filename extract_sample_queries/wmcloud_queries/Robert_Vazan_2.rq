@@ -1,0 +1,6 @@
+SELECT ?category ?categoryLabel ?count WHERE {
+  {SELECT ?category (COUNT(?form) AS ?count) WHERE {
+      ?lexeme dct:language wd:Q9058; ontolex:lexicalForm ?form; wikibase:lexicalCategory ?category.
+  } GROUP BY ?category}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+} ORDER BY DESC(?count)

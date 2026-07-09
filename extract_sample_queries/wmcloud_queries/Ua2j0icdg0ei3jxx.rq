@@ -1,0 +1,6 @@
+SELECT ?ville ?villeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }
+  ?ville wdt:P31 wd:Q515.
+  ?ville wdt:P17 wd:Q142.
+}
+LIMIT 100

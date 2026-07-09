@@ -1,0 +1,31 @@
+embed.html##characters with female supervising animators
+
+SELECT ?characterLabel ?filmLabel ?animatorLabel ?sitelink
+WHERE
+{
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511.
+
+  #getting the characters
+  ?character p:P767 ?st;
+             wdt:P1441 ?film.
+  
+  #getting the animators
+  ?st ps:P767 ?animator;
+      (pq:P794 | pq:P3831) wd:Q28007056.
+  
+  #getting the women
+  ?animator wdt:P21 wd:Q6581072.
+  
+  #getting the sitelinks
+  OPTIONAL
+  {
+    ?sitelink schema:about ?animator;
+              schema:isPartOf <https://en.wikipedia.org/> ;
+              schema:inLanguage "en".
+  } 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?animatorLabel

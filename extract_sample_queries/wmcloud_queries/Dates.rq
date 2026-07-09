@@ -1,0 +1,6 @@
+SELECT ?rank (COUNT(*) as ?count)
+{
+  ?item p:P569 [ wikibase:rank ?rank; psv:P569 [ wikibase:timeValue ?date; wikibase:timePrecision 11 ]] . 
+  FILTER( MONTH(?date) = 1 && DAY(?date) = 1 ) 
+}
+GROUP BY ?rank

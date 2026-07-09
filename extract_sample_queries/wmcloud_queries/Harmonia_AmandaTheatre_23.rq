@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?disambig ?itemLabel ?disambigLabel
+WHERE {{
+  SELECT ?item ?disambig
+               WHERE {
+  ?item p:P1889 ?statement ;
+        wdt:P31/wdt:P279* wd:Q101352 ;
+        wdt:P31 ?nature .
+  ?statement ps:P1889 ?disambig .
+  ?disambig wdt:P31 wd:Q4167410 ;
+            wdt:P31 ?nature2 .
+  FILTER NOT EXISTS { ?statement pq:P1013 wd:Q27924673 . }
+} GROUP BY ?item ?itemLabel ?disambig ?disambigLabel
+HAVING((COUNT(?nature) = 1) && (COUNT(?nature2) = 1))
+LIMIT 10000 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,13 @@
+SELECT ?prop ?propLabel ?count WHERE {
+    {
+        SELECT ?prop (COUNT(?ref) AS ?count) WHERE {
+
+           ?prop wikibase:reference ?pr_pred .     # the reference-specific form of a property
+           ?ref ?pr_pred ?pr_obj .                 # to be found in any triple (any such triples will apply to references)    
+        }  GROUP BY ?pr_pred ?prop
+    }              
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "pl","en"
+    }
+
+} ORDER BY DESC (?count)

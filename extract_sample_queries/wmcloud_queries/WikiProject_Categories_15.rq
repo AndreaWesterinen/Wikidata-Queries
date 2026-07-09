@@ -1,0 +1,11 @@
+SELECT ?cat ?catLabel ?ct
+WHERE {
+    { SELECT ?cat (count(*) as ?ct)
+    WHERE
+     { ?item wdt:P31 ?cat . ?cat (wdt:P279)* wd:Q23894233 }
+    GROUP BY ?cat
+    ORDER BY DESC(?ct)
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?ct) ASC(?cat)

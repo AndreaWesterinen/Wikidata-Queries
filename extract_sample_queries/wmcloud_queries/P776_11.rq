@@ -1,0 +1,10 @@
+#title: P1448 required with exception for those installed 2015.
+# Complex constraint from [[Property talk:P776]]
+# A property P1448-constraint with an advanced exception.
+SELECT DISTINCT ?item ?n
+{
+	?item wdt:P776 ?value .
+	FILTER NOT EXISTS { ?item wdt:P1448 [] } .
+  	OPTIONAL { ?item p:P31 [ ps:P31 wd:Q14839548; pq:P580 ?n ] }
+  	FILTER ( !BOUND(?n) \u007C\u007C ?n < "2015-12-31T00:00:00Z"^^xsd:dateTime )
+}

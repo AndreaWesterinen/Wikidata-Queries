@@ -1,0 +1,8 @@
+SELECT ?item ?st ?ids ?sl
+WHERE
+{
+  SERVICE bd:sample { ?item wdt:P31 wd:Q11424. bd:serviceParam bd:sample.limit 5000 }
+  ?item wikibase:statements ?st ; wikibase:identifiers ?ids ; wikibase:sitelinks ?sl .
+  FILTER(?st < 3)
+}
+LIMIT 20

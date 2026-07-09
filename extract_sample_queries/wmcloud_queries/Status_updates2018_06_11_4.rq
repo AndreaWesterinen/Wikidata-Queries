@@ -1,0 +1,16 @@
+# references with only “quote” but no other claims
+SELECT ?statement ?reference ?quote
+WITH {
+  SELECT ?reference WHERE {
+    ?statement prov:wasDerivedFrom ?reference.
+    ?reference pr:P1683 ?quote;
+               ?pr [].
+  }
+  GROUP BY ?reference
+  HAVING(COUNT(DISTINCT ?pr) = 1)
+} AS %references
+WHERE {
+  INCLUDE %references.
+  ?statement prov:wasDerivedFrom ?reference.
+  ?reference pr:P1683 ?quote.
+}

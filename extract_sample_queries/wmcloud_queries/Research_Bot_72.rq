@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?title
+WHERE {
+  SERVICE bd:sample { ?item wdt:P1476 ?title . bd:serviceParam bd:sample.limit 1000000 }
+  FILTER CONTAINS(?title, "[Not Available]").
+}
+LIMIT 50

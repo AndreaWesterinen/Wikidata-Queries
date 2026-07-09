@@ -1,0 +1,8 @@
+#count number of people with a given identifier
+SELECT ?subject ?subjectLabel ?id 
+WHERE
+{
+    ?subject wdt:P434 ?id .
+    ?subject wdt:P31 wd:Q5 . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

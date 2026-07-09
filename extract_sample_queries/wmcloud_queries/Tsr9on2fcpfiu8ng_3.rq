@@ -1,0 +1,7 @@
+#defaultView:BubbleChart
+SELECT ?app ?appLabel (COUNT(?format) AS ?count) WHERE {
+  ?app wdt:P1072 ?format.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?app ?appLabel
+ORDER BY DESC(?count)

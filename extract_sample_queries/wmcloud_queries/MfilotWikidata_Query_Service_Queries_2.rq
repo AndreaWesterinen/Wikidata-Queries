@@ -1,0 +1,11 @@
+#Schweizer Stausseen und ihr Volumen
+SELECT ?item ?itemLabel ?volumen ?volumeneinheitLabel
+WHERE
+{
+  ?item wdt:P31 wd:Q131681.
+  ?item wdt:P17 wd:Q39.
+  optional {?item p:P2234/psn:P2234 [ wikibase:quantityAmount ?volumen ;
+                                       wikibase:quantityUnit ?volumeneinheit ].}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}
+ORDER BY DESC(?volumen)

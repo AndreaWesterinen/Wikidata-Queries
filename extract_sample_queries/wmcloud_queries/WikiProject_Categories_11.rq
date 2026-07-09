@@ -1,0 +1,12 @@
+SELECT ?cat 
+
+WITH { 
+  SELECT ?cat WHERE {
+      ?cat wdt:P31 wd:Q4167836 
+  } OFFSET 1000000 LIMIT 500000
+} AS %cats
+
+WHERE {
+    INCLUDE %cats
+    MINUS {?cat p:P971/pq:P3831 []}
+}

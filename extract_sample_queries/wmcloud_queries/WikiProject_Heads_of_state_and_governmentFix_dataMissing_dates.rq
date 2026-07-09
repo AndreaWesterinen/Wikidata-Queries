@@ -1,0 +1,13 @@
+SELECT ?item ?position ?country
+WITH { 
+  SELECT DISTINCT ?position ?country WHERE {
+    ?country wdt:P31 wd:Q3624078 ; wdt:P1313 ?position .
+  }
+} AS %positions
+WHERE {
+  INCLUDE %positions .
+  ?item wdt:P31 wd:Q5 ; p:P39 ?p .
+  ?p ps:P39 ?position .
+  MINUS { ?p pq:P580 [] }
+  MINUS { ?p pq:P582 [] }
+}

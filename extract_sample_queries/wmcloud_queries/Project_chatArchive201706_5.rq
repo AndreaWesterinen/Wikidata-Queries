@@ -1,0 +1,9 @@
+SELECT ?item ?date WHERE {  
+ ?item wdt:P31 wd:Q13442814 .
+  
+ ?item wdt:P577 ?date .
+  
+MINUS{?item schema:description ?desc . FILTER(LANG(?desc)= "ar") } .
+#MINUS{?item schema:description ?desc . FILTER(LANG(?desc)= "it,de") } .  
+  
+  }  LIMIT 1000

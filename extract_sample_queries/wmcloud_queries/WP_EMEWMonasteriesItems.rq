@@ -1,0 +1,71 @@
+SELECT ?item ?nation ?nationLabel ?region ?regionLabel ?county ?countyLabel ?adm ?en_wiki (GROUP_CONCAT(DISTINCT(?listing); SEPARATOR = ' / ') AS ?listed) ?itemLabel (GROUP_CONCAT(DISTINCT(?class_label); SEPARATOR = ' / ') AS ?also)   ?start ?end ?os1900 ?geohack
+
+WITH {
+  SELECT ?item WHERE {
+    ?item wdt:P31/wdt:P279* wd:Q44613 . 
+    ?item wdt:P17 wd:Q145 . 
+    OPTIONAL {?item wdt:P571 ?incept} . FILTER (!(bound(?incept) && (year(?incept) > 1700))) . 
+  }
+} AS %items
+
+
+WITH {
+  SELECT ?item  (SAMPLE(?coord_stmt) AS ?coord_stmt1) WHERE {
+    INCLUDE %items .
+    ?item p:P625 ?coord_stmt . ?coord_stmt a wikibase:BestRank .
+  } GROUP BY ?item
+} AS %coords
+
+WHERE {
+  INCLUDE %items .
+  OPTIONAL {?item wdt:P571 ?start} .
+  FILTER (!(bound(?start) && year(?start) > 1650)) .
+  OPTIONAL {?item wdt:P576 ?end} .
+  OPTIONAL {
+    ?item wdt:P131 ?adm .
+    OPTIONAL {
+      ?adm wdt:P131* ?region .
+      ?region wdt:P31 wd:Q48091 .
+    }
+    OPTIONAL {
+      ?adm wdt:P131* ?nation .
+      ?nation wdt:P31 wd:Q3336843 .
+    }
+  }
+  OPTIONAL {
+    ?item wdt:P7959 ?county .
+    OPTIONAL {
+      ?county (wdt:P131 | wdt:P361)+ ?nation .  
+      ?nation wdt:P31 wd:Q3336843 .
+    }
+    OPTIONAL {
+      ?county wdt:P131* ?region .
+      ?region wdt:P31 wd:Q48091 .
+    }
+  } . 
+  OPTIONAL {
+    INCLUDE %coords .
+    ?coord_stmt1 psv:P625/wikibase:geoLatitude ?lat .
+    ?coord_stmt1 psv:P625/wikibase:geoLongitude ?lon . 
+    BIND(CONCAT('[https://maps.nls.uk/geo/explore/#zoom=16&lat=', str(?lat), '&lon=', str(?lon), '&layers=6&b=1&marker=',str(?lat),',',str(?lon),' OS1900]') AS ?os1900) .      
+    BIND(CONCAT('[https://geohack.toolforge.org/en/', str(?lat), ';', str(?lon),'_type:landmark?pagename=wd GeoHack]') AS ?geohack) .
+  }
+  OPTIONAL {?item wdt:P1216 ?listing} .
+  FILTER (!(bound(?nation) && ((?nation = wd:Q22) || (?nation = wd:Q26)) )) . 
+
+  OPTIONAL {
+    ?article schema:about ?item .
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+    ?article schema:name ?art_name .
+    BIND(CONCAT('[[:en:' , str(?art_name) , '|' , str(?art_name) , ']]') AS ?en_wiki) .
+  }
+  
+  OPTIONAL {
+    ?item wdt:P31 ?class .
+    FILTER (?class != wd:Q2116450) .
+    ?class rdfs:label ?class_label FILTER(lang(?class_label) = 'en') .
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel ?county ?countyLabel ?nation ?nationLabel ?region ?regionLabel ?start ?end ?adm ?admLabel ?os1900 ?geohack ?en_wiki
+ORDER BY ?nationLabel ?regionLabel ?countyLabel ?itemLabel

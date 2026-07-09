@@ -1,0 +1,3 @@
+SELECT ?item ?label ?_image WHERE {
+  ?item wdt:P39 wd:Q3243690.
+}

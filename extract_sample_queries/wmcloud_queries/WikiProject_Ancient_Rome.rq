@@ -1,0 +1,12 @@
+# Labels on items for Romans
+# by Jura1, 2016-08-05
+SELECT ?lang (COUNT(DISTINCT ?item1) as ?ct)
+{
+	VALUES ?R { wd:Q17167 wd:Q2277 }
+	?item1 wdt:P2348 ?R ; wdt:P31 wd:Q5 .
+	?item1 rdfs:label ?item1Label .
+	BIND(LANG(?item1Label) as ?lang) 
+}
+GROUP BY ?lang
+HAVING (?ct > 99)
+ORDER BY DESC(?ct)

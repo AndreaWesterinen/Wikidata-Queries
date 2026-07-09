@@ -1,0 +1,8 @@
+#Txoriak: 1120 txori mota (Passerae)
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?_audio ?_image WHERE {
+  ?item wdt:P171* wd:Q7142618.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu". }
+  OPTIONAL { ?item wdt:P51 ?_audio. }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+}

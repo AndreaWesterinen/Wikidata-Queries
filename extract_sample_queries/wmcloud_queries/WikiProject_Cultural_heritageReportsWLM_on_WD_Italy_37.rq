@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?end WHERE {
+  ?item wdt:P131* wd:Q38. 
+  ?item p:P2186 [ pq:P582 ?end ] .
+  FILTER(?end < "2012-01-01T00:00:00+00:00"^^xsd:dateTime || ?end > "2020-12-31T23:59:59+00:00"^^xsd:dateTime )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". }
+}

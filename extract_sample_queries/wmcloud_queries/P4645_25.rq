@@ -1,0 +1,9 @@
+#title: Id comparison with ISIL
+# Complex constraint from [[Property talk:P4645]]
+# RCR id for France should be the same as ISIL id (without the FR- prefix) [[Property:P791|ISIL&#32;<small dir="ltr">(P791)</small>]]
+SELECT * WHERE {
+  ?item wdt:P4645 ?RCR;
+    wdt:P791 ?ISIL.
+  BIND(SUBSTR(?ISIL, 4 , 9 ) AS ?substr)
+  FILTER(?RCR != ?substr)
+}

@@ -1,0 +1,11 @@
+SELECT ?Property_ ?Property_Label ?Property_Description ?namespace_ ?constraint_status_ ?constraint_status_Label
+WHERE {
+  
+	?Property_ p:P2302 ?Commons_link_statement .
+	?Commons_link_statement ps:P2302 wd:Q21510852 .
+	OPTIONAL {?Commons_link_statement pq:P2307 ?namespace_ .}
+	OPTIONAL {?Commons_link_statement pq:P2316 ?constraint_status_ .}
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 

@@ -1,0 +1,20 @@
+SELECT ?item ?value ?painting WHERE {
+  ?item wdt:P31 wd:Q21199;
+    wdt:P1181 ?value.
+  FILTER((?value >= 22 ) && (?value <= 63 ) # Voor 1400
+         || (?value >= 66 ) && (?value <= 129 ) # 1400-1500          
+         || (?value >= 132 ) && (?value <= 205 ) # 1500-1600
+         || (?value >= 208 ) && (?value <= 287 ) # 1600-1700
+         || (?value >= 290 ) && (?value <= 349 ) # 1700-1800
+         || (?value >= 352 ) && (?value <= 563 ) # 1800-1900 
+         || (?value >= 566 ) && (?value <= 911 ) # 1900-2000
+         || (?value >= 914 ) && (?value <= 941 ) # Na 2000
+        ) .
+  BIND(STR(?value) AS ?page)
+  MINUS { # Change to OPTIONAL if you want to see what we already have
+    ?described ps:P1343 wd:Q66362718;
+      pq:P304 ?page.
+    ?painting p:P1343 ?described.
+  }
+}
+ORDER BY (?value)

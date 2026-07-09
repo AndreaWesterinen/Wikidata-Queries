@@ -1,0 +1,6 @@
+SELECT ?country ?item
+WHERE {
+  ?country wdt:P31 wd:Q6256 ; wdt:P194 ?item .
+  FILTER NOT EXISTS { ?item wdt:P1001 ?jurisdiction }
+}
+ORDER BY ?countryLabel

@@ -1,0 +1,9 @@
+SELECT distinct ?country ?countryLabel ?language ?languageLabel ?part ?partLabel 
+WHERE {
+    ?country  wdt:P31 wd:Q3624078
+    FILTER NOT EXISTS {?country wdt:P31 wd:Q3024240}.
+    ?country p:P37 ?languageStatement.
+    ?languageStatement ps:P37 ?language.
+    optional {?languageStatement pq:P518 ?part}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} order by desc(?part) 

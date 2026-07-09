@@ -1,0 +1,8 @@
+#defaultView:BubbleChart
+SELECT ?country ?countryLabel (COUNT(?city) AS ?count)
+WHERE {
+  ?city wdt:P31 wd:Q484170 ; wdt:P190/wdt:P17 ?country .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?count)

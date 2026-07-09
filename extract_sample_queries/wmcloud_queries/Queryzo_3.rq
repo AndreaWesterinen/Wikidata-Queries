@@ -1,0 +1,12 @@
+#Unique value constraint report for P345: report listing each item
+
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value 
+{
+  ?item1 wdt:P31 wd:Q5 .
+  ?item2 wdt:P31 wd:Q5 .
+  ?item2 wdt:P2639 [] .
+	?item1 wdt:P345 ?value .
+	?item2 wdt:P345 ?value .
+	FILTER( ?item1 != ?item2 && STR( ?item1 ) < STR( ?item2 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" } .
+}

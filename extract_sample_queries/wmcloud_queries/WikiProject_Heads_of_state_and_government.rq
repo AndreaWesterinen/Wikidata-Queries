@@ -1,0 +1,3 @@
+SELECT (COUNT (DISTINCT ?person) AS ?count) WHERE {
+       ?person wdt:P39 wd:Q30185 .
+} 

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?lal
+{
+	VALUES ?R { wd:Q486761 wd:Q428995 }
+	?item wdt:P2348 ?R ; wdt:P31 wd:Q5 .
+  	OPTIONAL { ?item rdfs:label ?lal . FILTER(lang(?lal)="la") }
+}
+ORDER BY DESC(xsd:integer(STRAFTER(str(?item), "Q")))
+LIMIT 4999

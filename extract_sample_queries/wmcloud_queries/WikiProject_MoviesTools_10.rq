@@ -1,0 +1,9 @@
+# Films with description "فيلم"
+# 1715 films on 2016-11-23
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+{
+	?item	schema:description "فيلم"@ar
+    ;		wdt:P31 wd:Q11424 .      	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ar"}
+}
+LIMIT 50000

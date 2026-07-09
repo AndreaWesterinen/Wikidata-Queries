@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel  ?QLDBiota_ID ?taxon_name ?article WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    ?item wdt:P8468 ?QLDBiota_ID.
+    ?item wdt:P225 ?taxon_name.
+  ?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+  }
+
+ORDER BY ?itemLabel ?taxon_name ?article

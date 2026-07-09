@@ -1,0 +1,39 @@
+SELECT ?item ?itemLabel 
+  ?ct (ROUND( 100 * ?ct / ?all ) as ?pc_all)  ?all 
+  ?ct1 (ROUND( 100 * ?ct1 / ?allunique ) as ?pc_allunique) ?allunique
+WITH
+{  SELECT (COUNT( DISTINCT ?a ) as ?all) { ?a wdt:P31 wd:Q39715 } } as %inc
+WITH
+{  SELECT (COUNT( DISTINCT ?a1 ) as ?allunique) { ?a1 wdt:P31 wd:Q39715 ; wikibase:sitelinks 1 } } as %inc2
+WHERE
+{
+    INCLUDE %inc 
+    INCLUDE %inc2            
+    {
+    {
+        SELECT ?wiki (COUNT(DISTINCT ?lh) as ?ct)
+        WHERE
+        {
+    	  ?lh wdt:P31 wd:Q39715 .
+    	  [] schema:about ?lh ; schema:isPartOf ?wiki
+        }
+	    GROUP BY ?wiki
+        HAVING(?ct > 14 )
+	}    
+	OPTIONAL {
+        SELECT ?wiki (COUNT(DISTINCT ?lh) as ?ct1)
+        WHERE
+        {
+    	  ?lh wdt:P31 wd:Q39715 .
+          ?lh wikibase:sitelinks 1 .
+    	  [] schema:about ?lh ; schema:isPartOf ?wiki
+        }
+	    GROUP BY ?wiki
+        HAVING(?ct1 > 0 )
+	}
+	?item wdt:P856 ?wiki .
+    } UNION { SELECT (wd:Q31747418 as ?item) (COUNT( DISTINCT ?b ) as ?ct) (?ct as ?ct1) { ?b wdt:P31 wd:Q39715 ; wikibase:sitelinks 0 } } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC (?ct)
+LIMIT 100

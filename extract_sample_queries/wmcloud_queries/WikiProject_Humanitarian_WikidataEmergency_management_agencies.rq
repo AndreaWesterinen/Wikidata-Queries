@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  VALUES ?fow {
+    wd:Q1460420
+    wd:Q4583103
+  }
+  ?item wdt:P101 ?fow.
+  MINUS { ?item wdt:P31 wd:Q5. }
+}
+LIMIT 2000

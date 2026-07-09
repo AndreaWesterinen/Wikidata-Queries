@@ -1,0 +1,9 @@
+#defaultView:Graph
+select ?int ?parent ?intLabel ?parentLabel {
+  bind ( wd:Q5 as ?subclass)
+  bind ( wd:Q16686448 as ?superclass)
+  ?subclass wdt:P279* ?int .
+  #?int wdt:P279+ ?superclass .
+  ?int wdt:P279 ?parent #filter exists { ?parent wdt:P279* ?superclass }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

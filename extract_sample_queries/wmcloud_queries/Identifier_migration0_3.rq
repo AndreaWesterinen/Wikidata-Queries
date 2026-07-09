@@ -1,0 +1,3 @@
+SELECT ?v (count(distinct(?item)) as ?cnt) {
+  ?item wdt:P835 ?v
+  } group by ?v having (?cnt>1)

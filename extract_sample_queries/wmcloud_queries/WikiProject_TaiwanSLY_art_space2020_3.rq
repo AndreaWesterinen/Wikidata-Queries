@@ -1,0 +1,9 @@
+#Timeline of mayors of Amsterdam, the Netherlands
+#defaultView:Timeline
+select ?item ?itemLabel ?start ?end where {
+  ?item wdt:P31 wd:Q464980;
+        wdt:P276 wd:Q63270898;
+        wdt:P580 ?start;
+        wdt:P582 ?end.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],zh". }
+}

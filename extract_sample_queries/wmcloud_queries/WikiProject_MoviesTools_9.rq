@@ -1,0 +1,13 @@
+# Films with description including year, but not film director
+# 6216 films on 2016-10-31
+# Note multiple lines if there are several directors
+SELECT DISTINCT ?item ?itemLabel ?desc ?director ?directorLabel
+{
+	?item	wdt:P31 wd:Q11424 .      	
+  	?item   schema:description ?desc . 
+  	FILTER (lang(?desc) = "en" && regex(?desc, "^\\d{4} film$") )
+  	?item 	wdt:P57 ?director
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+ORDER BY ?desc
+LIMIT 10000

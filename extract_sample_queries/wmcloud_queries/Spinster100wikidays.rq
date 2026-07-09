@@ -1,0 +1,9 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?coordinate_location ?creator ?image ?inception ?creatorLabel WHERE {
+  ?item wdt:P195 wd:Q2084947.
+  OPTIONAL { ?item wdt:P625 ?coordinate_location. }
+  OPTIONAL { ?item wdt:P170 ?creator. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P571 ?inception. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en,de,fr". }
+}

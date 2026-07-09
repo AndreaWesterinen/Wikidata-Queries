@@ -1,0 +1,10 @@
+SELECT ?item ?linkcount ?museurl 
+WHERE
+{
+  ?item wdt:P7851 ?id .
+  ?item wikibase:sitelinks ?linkcount .
+  BIND ((CONCAT ("[https://collections.si.edu/search/detail/edanmdm:", ?id, " ", ?id, "]")) as ?museurl) .
+  FILTER (?linkcount > 0)
+}
+GROUP BY ?item ?linkcount ?museurl 
+ORDER BY DESC(?linkcount)

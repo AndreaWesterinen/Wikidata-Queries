@@ -1,0 +1,8 @@
+SELECT ?sitelink ?item
+WHERE
+{
+  	?sitelink schema:about wd:Q19610561 .
+    bind (strafter(str(?sitelink), "https://") as ?sitelink2) .
+    bind (strbefore(?sitelink2, ".wikipedia") as ?language) .
+   	?item wdt:P31 wd:Q10876391; wdt:P424 ?language
+}

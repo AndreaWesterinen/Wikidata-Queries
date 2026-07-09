@@ -1,0 +1,8 @@
+#title: EPA catalans sense IPAPC
+# Complex constraint from [[Property talk:P5957]]
+# elements amb estatus patrimonial Espai de Protecció Arqueològica localitzats a Catalunya sense codi IPAPC
+SELECT ?item WHERE {
+  ?item wdt:P1435 wd:Q11920611 .
+  ?item wdt:P131+ wd:Q5705 .
+  MINUS { ?item wdt:P5957 [] }
+}

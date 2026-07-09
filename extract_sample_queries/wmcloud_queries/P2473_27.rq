@@ -1,0 +1,7 @@
+#title: No localitzat a un municipi valencià
+# Complex constraint from [[Property talk:P2473]]
+# element amb codi IGPCV però no localitzat a un municipi del País Valencià (o una subdivisió seva, o una subdivisió d'una subdivisió seva)
+select ?item where {
+  ?item wdt:P2473 [] .
+  minus { ?item wdt:P131?/wdt:P131?/wdt:P131/wdt:P131/wdt:P131/wdt:P131 wd:Q5720 }
+}

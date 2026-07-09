@@ -1,0 +1,24 @@
+SELECT ?item ?count ?ct_ct
+WITH
+{ 
+  SELECT ?v1 (COUNT(*) as ?count) WHERE
+  {
+    ?p wdt:P40 ?v1
+  } GROUP BY ?v1
+} as %all
+WITH
+{ 
+  SELECT ?count (COUNT(*) as ?ct_ct) WHERE
+  { 
+    INCLUDE %all
+    FILTER (! isBlank(?v1))
+    # ?v1 schema:dateModified []  
+  } GROUP BY ?count
+} as %m
+WHERE
+{
+  INCLUDE %m
+  BIND(str(?count) as ?i)           
+  ?item wdt:P5176 ?i           
+}
+ORDER BY ?count

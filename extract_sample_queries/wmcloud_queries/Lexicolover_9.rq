@@ -1,0 +1,9 @@
+SELECT ?hyphenation WHERE {
+  ?lexeme a ontolex:LexicalEntry ; dct:language ?language ;
+            ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?word ;
+            wdt:P5279 ?hyphenation .
+  ?language wdt:P218 'cs' .
+}
+GROUP BY ?hyphenation
+ORDER BY ASC(lcase(?hyphenation))

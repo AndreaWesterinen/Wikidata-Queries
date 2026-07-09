@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?itemDescription ?coordinates WHERE {
+  ?item wdt:P131* wd:Q38 . 
+  ?item wdt:P2186 ?wlmid .
+  ?item wdt:P625 ?coordinates .
+  MINUS { ?item p:P2186 [ pq:P582 ?end ] .
+  FILTER ( ?end <= "2019-09-01T00:00:00+00:00"^^xsd:dateTime ) } .
+  MINUS { ?item p:P2186 [ pq:P585 ?date ] .
+  FILTER ( ?date <= "2020-01-01T00:00:00+00:00"^^xsd:dateTime ) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it" }
+}

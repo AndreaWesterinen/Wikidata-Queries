@@ -1,0 +1,4 @@
+SELECT ?item ?alias ?itemLabel WHERE { VALUES ?val {wd:Q4213 wd:Q35273 wd:Q35221 wd:Q148578 wd:Q184356 wd:Q216778 wd:Q349772 wd:Q3370723 wd:Q4851844 wd:Q17004698 wd:Q33093130 wd:Q1349167} ?item wdt:P31 ?val . OPTIONAL { ?item skos:altLabel ?alias FILTER (LANG (?alias) = "en") }   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,pt" .
+  }
+} ORDER BY ?itemLabel

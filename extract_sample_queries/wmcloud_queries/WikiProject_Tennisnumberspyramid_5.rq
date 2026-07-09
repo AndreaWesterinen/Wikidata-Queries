@@ -1,0 +1,9 @@
+SELECT 
+   (wd:Q47459169 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   (wd:Q47459169 as ?type)
+("4" as ?level)
+("tennis match" as ?descr)
+WHERE
+   { ?a wdt:P31 wd:Q47459169  }

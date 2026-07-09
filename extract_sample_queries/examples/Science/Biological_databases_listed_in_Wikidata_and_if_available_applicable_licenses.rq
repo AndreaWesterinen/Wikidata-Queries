@@ -1,3 +1,4 @@
+#title: Biological databases listed in Wikidata and, if available, applicable licenses
 SELECT ?item ?itemLabel ?url ?licence ?licenceLabel
 WHERE {
   ?item wdt:P31 wd:Q4117139.

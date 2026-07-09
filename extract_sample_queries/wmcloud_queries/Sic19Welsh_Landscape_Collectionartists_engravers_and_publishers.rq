@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item 
+WHERE
+{
+	?print wdt:P361 wd:Q21542493 .
+    {?print wdt:P123 ?item .}
+    UNION
+    {?print wdt:P170 ?item .}
+    UNION
+    {?print wdt:P1877 ?item .}
+    ?item wdt:P31 wd:Q5 .
+    }

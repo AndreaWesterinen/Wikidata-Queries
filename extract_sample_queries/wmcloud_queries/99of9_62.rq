@@ -1,0 +1,7 @@
+SELECT ?compound ?compoundLabel ?mass ?bp
+WHERE
+{
+  ?compound wdt:P2067 ?mass.
+  ?compound wdt:P2102 ?bp.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}

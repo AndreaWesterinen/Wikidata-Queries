@@ -1,0 +1,10 @@
+#Nobel laureates with an ORCID iD 
+
+select ?person ?personLabel ?personDescription ?orcid ?nobel 
+WHERE
+{
+  ?person wdt:P31 wd:Q5. # instance of human
+  ?person wdt:P496 ?orcid . # ORCID iD
+  ?person wdt:P3188 ?nobel . # Nobel ID
+  service wikibase:label { bd:serviceParam wikibase:language "en". } # used to display English label
+}

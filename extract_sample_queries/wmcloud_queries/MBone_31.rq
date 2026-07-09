@@ -1,0 +1,15 @@
+SELECT ?value ?valueLabel ?count WHERE {
+  {
+    SELECT ?value (COUNT(DISTINCT ?a) AS ?count) WHERE {
+       ?a ?prop ?value . 
+       ?a wdt:P31 ?class .
+       BIND (wdt:P458 AS ?prop) .
+       BIND (wd:Q11446 AS ?class) .
+    } GROUP BY ?value 
+  } FILTER (?count > 1) . 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+ORDER BY DESC(?count) ?valueLabel
+LIMIT 2000

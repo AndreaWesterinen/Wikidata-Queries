@@ -1,0 +1,7 @@
+SELECT ?item ?sl ?st (IF(?st>11,"12+ statements","<12 statements") as ?sec)
+{
+  ?item wikibase:sitelinks ?sl; wikibase:statements ?st
+  FILTER (?sl > 180)
+}
+ORDER BY DESC(?sl)
+LIMIT 1000

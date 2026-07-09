@@ -1,0 +1,6 @@
+#Items where author statements keep the original author string statements
+select DISTINCT ?work ?statedas ?author where {
+  ?author pq:P1932 ?statedas .
+  ?work p:P50 ?author .
+  ?work wdt:P31 wd:Q13442814 .
+}

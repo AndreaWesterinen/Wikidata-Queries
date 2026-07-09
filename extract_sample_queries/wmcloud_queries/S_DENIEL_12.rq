@@ -1,0 +1,13 @@
+#collection du musée national de la Marine
+SELECT ?item ?itemLabel ?collection ?collectionLabel ?location ?locationLabel ?numero ?MnM
+WHERE 
+{
+  ?item wdt:P195 wd:Q64206413. # collection : collection du musée national de la Marine
+  ?item wdt:P276 ?location .
+  ?item wdt:P217 ?numero .
+  ?item wdt:P9403 ?MnM .  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    OPTIONAL{?item wdt:P195 ?collection .}       # P195  : collection
+    OPTIONAL{?itemLabel wdt:P195 ?collectionLabel .}       # P195 : Label de la collection
+    OPTIONAL{?itemLabel wdt:P9403 ?MnM .}       # P195 : identifiant MnM
+}

@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?itemDescription ?ref ?cc ?coor ?img ?start ?end ?detail
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    BIND ( wd:Q311 as ?cem ) 
+    ?item wdt:P119 ?cem . 
+
+    ?item p:P119 ?st . 
+    ?st ps:P119 ?cem .
+    OPTIONAL { ?st pq:P965 ?ref } 
+    OPTIONAL { ?st pq:P373 ?cc } 
+    OPTIONAL { ?st pq:P625 ?coor } 
+    OPTIONAL { ?item wdt:P1442 ?img }
+    OPTIONAL { ?st pq:P580 ?start }  
+    OPTIONAL { ?st pq:P582 ?end }  
+    OPTIONAL { ?st pq:P805 ?detail }  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr". }
+}

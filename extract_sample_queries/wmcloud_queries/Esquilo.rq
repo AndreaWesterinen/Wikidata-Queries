@@ -1,0 +1,25 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?terrLabel ?waterLabel ?coor ?img ?adm2 ?adm2Label ?layer 
+{
+    ?item wdt:P31 wd:Q39715 ; wdt:P17 wd:Q34 .
+    OPTIONAL { ?item wdt:P131 ?adm2 . ?adm2 wdt:P31 wd:Q127448 }
+    OPTIONAL { ?item wdt:P206 ?water . ?water wdt:P31 wd:Q23397 . BIND("lakes" as ?group)  } # all lakes
+    OPTIONAL { ?item wdt:P706 ?terr }
+
+    OPTIONAL { { BIND("west" as ?coast) VALUES ?adm2 { wd:Q511228 wd:Q501424 wd:Q501420 wd:Q503173 wd:Q501442 wd:Q338752 wd:Q501448 wd:Q511438 wd:Q511394 wd:Q293928 wd:Q52502 wd:Q499380 wd:Q179180 wd:Q508168 wd:Q504692 wd:Q487502 wd:Q499464}
+              } UNION { BIND("south" as ?coast) VALUES ?adm2 { wd:Q255206 wd:Q505013 wd:Q487648 wd:Q502298 wd:Q513370 wd:Q427991 wd:Q186662 wd:Q503361 wd:Q511338 wd:Q504219 wd:Q515266 wd:Q505102 wd:Q504626 wd:Q498857 wd:Q514830 wd:Q515409 wd:Q510223 wd:Q515373 wd:Q1128384 }
+              } UNION { BIND("Baltic" as ?coast) VALUES ?adm2 { wd:Q515551 wd:Q508153 wd:Q514756 wd:Q515250 wd:Q509546 wd:Q505006 wd:Q515477 wd:Q509997 wd:Q515680 wd:Q504676 wd:Q500267 wd:Q505246 wd:Q505064
+    wd:Q516336 #(south of 59.19°) 
+    wd:Q113718 #(south of 59.19°) 
+    wd:Q946647 #(except Q39415691) 
+    wd:Q506250 #(east of 18.08°) 
+              wd:Q113692 wd:Q113730 wd:Q505090 wd:Q3120654 wd:Q113679 wd:Q493066 wd:Q117728 wd:Q500090 wd:Q493841 wd:Q214048 }
+              } UNION { BIND("south Bothnian" as ?coast) VALUES ?adm2 { wd:Q59093 wd:Q510198 wd:Q59858 wd:Q510010 wd:Q145835 wd:Q29963 wd:Q514805 wd:Q504994 wd:Q504983 wd:Q209634 wd:Q514815 wd:Q298003 wd:Q514722 wd:Q507709 wd:Q511253 }
+              } UNION { BIND("north Bothnian" as ?coast)     VALUES ?adm2 { wd:Q507670 wd:Q430780 wd:Q507656 wd:Q177019 wd:Q117091 wd:Q510310 }    }  }
+    OPTIONAL { VALUES ?adm2 { wd:Q374794 }  BIND("Gotland" as ?group2) }
+    BIND( COALESCE( ?group, ?coast, ?group2, "TBD" ) as ?layer ) 
+    OPTIONAL { ?item wdt:P18  ?img }
+    OPTIONAL { ?item wdt:P625 ?coor }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,sv" }
+}
+ORDER BY DESC(?layer = "TBD") DESC(?layer = "lakes") ?layer ?adm2Label ?itemLabel

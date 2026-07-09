@@ -1,0 +1,20 @@
+SELECT ?o ?oLabel ?itemdesc ?plLabel ?du ?ds ?fuLabel WHERE {
+  ?o wdt:P8130 ?id;
+    wdt:P21 ?pl.
+  OPTIONAL { ?o wdt:P569 ?du. }
+  OPTIONAL { ?o wdt:P570 ?ds. }
+  OPTIONAL { ?o wdt:P39 ?fu. }
+  OPTIONAL { ?o wdt:P22 ?oj. }
+  OPTIONAL { ?o wdt:P40 ?dz. }
+  OPTIONAL { ?o wdt:P26 ?mz. }
+  OPTIONAL { ?o wdt:P106 ?za. }
+  FILTER(!(BOUND(?oj)))
+  FILTER(!(BOUND(?dz)))
+  FILTER(!(BOUND(?mz)))
+  FILTER(!(BOUND(?fu)))
+  FILTER(!(BOUND(?za)))
+  ?o schema:description ?itemdesc.
+  FILTER((LANG(?itemdesc)) = "pl")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?plLabel) (?du) (?ds)

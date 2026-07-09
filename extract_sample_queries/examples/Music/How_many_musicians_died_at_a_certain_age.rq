@@ -1,5 +1,5 @@
-# ----
-   # Query to find all musicians who have already died
+#title: How many musicians died at a certain age
+# Query to find all musicians who have already died
    # calculate their age (full years) at death
    # count how many of them died at each age
 

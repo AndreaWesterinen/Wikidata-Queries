@@ -1,0 +1,5 @@
+SELECT ?refURL WHERE {
+  ?ref pr:P854 ?refURL.
+  FILTER (CONTAINS(str(?refURL),'tools.wmflabs.org')) . 
+}
+LIMIT 200

@@ -1,0 +1,8 @@
+#Katzen
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q868557.
+  ?item wdt:P5164 ?value
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

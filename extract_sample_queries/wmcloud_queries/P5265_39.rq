@@ -1,0 +1,10 @@
+#title: Missing inventory number in collection
+# Complex constraint from [[Property talk:P5265]]
+# Works that are supposed to be in a collection, but miss an inventory number in that collection. Often duplicates or previous collections where current collection(s) haven't been set to preferred.
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?othercollection ?othercollectionLabel  WHERE {
+  ?item wdt:P195 wd:Q2874177 ;
+        wdt:P195 ?othercollection .
+  MINUS { ?item p:P217/pq:P195 ?othercollection }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" } .
+}
+LIMIT 1000

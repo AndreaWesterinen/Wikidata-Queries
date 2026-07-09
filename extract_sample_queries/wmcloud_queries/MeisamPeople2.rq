@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?article WHERE {
+  ?item wdt:P31 wd:Q5 .     
+  ?article schema:about ?item .
+  ?item wikibase:sitelinks ?linkcount .
+  FILTER (?linkcount = 1) 
+  ?article schema:isPartOf <https://az.wikipedia.org/>.
+  FILTER(NOT EXISTS {
+  ?item wdt:P27 ?id
+  })
+} 
+LIMIT 100

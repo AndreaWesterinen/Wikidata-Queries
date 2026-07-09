@@ -1,0 +1,40 @@
+ # Enlist all Wikidata items identified as lenses. Also contains a currently deactivated MINUS statement that enables removing certain items from the attained result.
+ #   This query construct is very versatile. One usage is to reveal items LACKING a valid entry for a Wikidata property.
+ # Query makes use of MINUS operator in combination with a subquery.
+ # Last revision : 2021-12-15.
+ # Table columns: ?WDitem ?WDitemLabel ?instanceOfLabel ?subclassOfLabel (WD=Wikidata)
+ # NOTE: The sort order applied to the column "WDitemLabel" rearranges entries containing foreign characters, such as "umlauts" or Greek characters, e.g. "Sony α7R IV", AFTER entries containing the regular set of characters. 
+ 
+ SELECT DISTINCT ?WDitem ?WDitemLabel ?instanceOfLabel ?subclassOfLabel
+ WHERE
+ {
+   # This tiple UNION between four statements intends to extract all and every Wikidata item which can identified as a lens.
+   {?WDitem wdt:P279* wd:Q3880557 . }                 # subclass(es) of (P279*):  objective (Q3880557)  # RESULT => 2021-12-15: 469 items when only columns ?lens and ?lensLabel are shown; 648 items when the columns ?instanceOfLabel ?subclassOfLabel are also displayed.
+   UNION
+   {?WDitem wdt:P31 wd:Q631962 . }                    # instance of (P31):  prime lens (Q631962)          # RESULT => 2021-12-15: 651 items
+   UNION
+   {?WDitem wdt:P31 wd:Q516461 . }                    # instance of (P31):  telephoto lens (Q516461)        # RESULT => 2021-12-15: 651 items 
+   UNION
+   {?WDitem wdt:P31 wd:Q192234 . }                    # instance of (P31):  camera lens (Q192234)           # RESULT => 2021-12-15: 670 items 
+   
+   OPTIONAL {?WDitem wdt:P31 ?instanceOf . }          # instance of (P31)
+   OPTIONAL {?WDitem wdt:P279 ?subclassOf . }         # subclass of (P279)   # NOTE: Adding this term to the query raises RESULT from 28 to 31 items due to 3 entries having two subclass entries, which are dutily displayed as separate items.
+ 
+   # MINUS statement enables removing certain items from the above attained result. In this case it is shown in combination with an embedded SELECT statement.
+ #  MINUS            # NOTE: deactivating this line (by inserting a preceding "#") will display ONLY those entries with a valid 'subclass of' entry.
+   {
+     SELECT ?WDitem
+     WHERE
+     {
+ #      {?WDitem wdt:P176 wd:Q282186 . }   # manufacturer (P176): Carl Zeiss AG (Q282186)     # Activate both this line and the MINUS statement to remove all items with manufacturer 'Carl Zeiss AG'.
+ #      {?WDitem wdt:P31 ?instanceOf . }   # instance of (P31)      # Activate both this line and the MINUS statement to remove all items that contain a valid 'instance of' value.
+ #      {?WDitem wdt:P279 ?subclassOf . }  # subclass of (P279)     # Activate both this line and the MINUS statement to remove all items that contain a valid 'subclass of' value.  
+     }
+   }
+ 
+   SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+ }
+ 
+ ORDER BY ASC(UCASE(?WDitemLabel))
+ 
+ # LIMIT 50

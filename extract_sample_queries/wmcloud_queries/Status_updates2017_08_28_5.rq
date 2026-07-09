@@ -1,0 +1,8 @@
+# Lengths of Steven Spielberg's Films
+#defaultView:BarChart
+
+SELECT DISTINCT ?movieLabel ?duration   WHERE {
+  ?movie wdt:P57 wd:Q8877 ; # film directed by Steven Spielberg
+         wdt:P2047 ?duration . # the duration of the film
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?hyLabel ?enLabel ?property ?cikk
+WHERE {
+  ?item wdt:P31 wd:Q5; wdt:P27 wd:Q399; rdfs:label ?hyLabel
+  FILTER( lang(?hyLabel) = "hy" )
+  MINUS{ ?item rdfs:label ?huLabel FILTER( lang(?huLabel) = "hu" ) }
+  OPTIONAL{ ?item rdfs:label ?enLabel FILTER( lang(?enLabel) = "en" ) }
+  [] schema:about [ ?direct ?item ]; schema:isPartOf <https://hu.wikipedia.org/>; schema:name ?title  .
+  OPTIONAL{ ?property wikibase:directClaim ?direct }
+  BIND(CONCAT("[[:hu:",?title,"]]") AS ?cikk )
+}

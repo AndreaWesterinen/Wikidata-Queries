@@ -1,0 +1,34 @@
+# by-elections in the 2010-15 Parliament
+# this query finds all MPs who had another MP sit for the same seat in the same Parliament
+# if they started after the first one's term ended, it guesses they were matched
+# it then puts them in the correct order, counts the gap in days
+# and checks for a couple of false-positive risks (split terms and suspensions)
+SELECT DISTINCT ?firstMPLabel ?constituencyLabel ?end ?causeLabel ?days ?electionLabel ?start ?secondMPLabel
+ {
+ ?firstMP p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q35494253 . 
+ ?positionStatement pq:P768 ?constituency .
+ ?positionStatement pq:P582 ?end . 
+ OPTIONAL { ?positionStatement pq:P1534 ?cause . } # in case cause not stated
+ 
+ ?secondMP p:P39 ?positionStatement2 .
+ ?positionStatement2 ps:P39 wd:Q35494253 . 
+ ?positionStatement2 pq:P768 ?constituency . # restricts it to the same seat  
+ ?positionStatement2 pq:P2715 ?election .
+ ?positionStatement2 pq:P580 ?start .
+  
+    FILTER (?start > ?end) . # make sure they're in the right order!
+    bind((?start-?end) as ?days) . # find how long the gap was
+  
+    filter not exists {
+      ?firstMP p:P39 ?positionStatement3 . ?positionStatement3 ps:P39 wd:Q35494253 . 
+      ?positionStatement3 pq:P768 ?constituency . ?positionStatement3 pq:P580 ?end . }
+   # check there does not exist another term for the first MP, starting on the same day the previous one ended
+   # this would indixate a change of affiliation
+      filter not exists { ?positionStatement pq:P1534 wd:Q7649223 . }
+   # check the first MP was not merely suspended
+   # this would lead to a short gap in service not followed by a by-election
+   
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?end

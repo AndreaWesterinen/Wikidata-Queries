@@ -1,0 +1,117 @@
+SELECT DISTINCT ?item 
+WHERE {
+ {
+   SELECT ?item WHERE {
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "ar.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:current" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:current" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikinews.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:current" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "zh.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:current" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "eu.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Eguneratu" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "es.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate: \"Evento actual\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "ru.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate: \"Текущие события\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "fr.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate: \"Événement en cours\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "de.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:\"Laufendes Ereignis\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "el.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:\"Τρέχον γεγονός\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+  } LIMIT 1000
+ }
+ hint:Prior hint:runFirst "true".
+} LIMIT 1000

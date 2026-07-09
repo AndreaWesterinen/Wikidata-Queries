@@ -1,0 +1,25 @@
+SELECT ?item (count(?q) as ?count) (sum(?p27) as ?s27) (sum(?p569) as ?s569) (sum(?p570) as ?s570) (sum(?p1415) as ?s1415) (sum(?p1614) as ?s1614) (sum(?p1996) as ?s1996) (sum(?p2015) as ?s2015) (sum(?p2170) as ?s2170) (sum(?p2172) as ?s2172) (sum(?p3029) as ?s3029) (sum(?p4471) as ?s4471) (sum(?p4638) as ?s4638) (sum(?p2600) as ?s2600) (sum(?p2949) as ?s2949) (sum(?p1819) as ?s1819){
+  ?q wdt:P39 ?item.
+  {
+  VALUES ?item {wd:Q18018860 wd:Q1711695 wd:Q18015642 wd:Q16707842 wd:Q18952564}.
+  }
+  UNION
+  {
+  ?item wdt:P279 wd:Q16707842.
+  }
+  BIND(IF(EXISTS{?q wdt:P27 []},1,0) AS ?p27)
+  BIND(IF(EXISTS{?q wdt:P569 []},1,0) AS ?p569)
+  BIND(IF(EXISTS{?q wdt:P570 []},1,0) AS ?p570)
+  BIND(IF(EXISTS{?q wdt:P1415 []},1,0) AS ?p1415)
+  BIND(IF(EXISTS{?q wdt:P1614 []},1,0) AS ?p1614)
+  BIND(IF(EXISTS{?q wdt:P1996 []},1,0) AS ?p1996)
+  BIND(IF(EXISTS{?q wdt:P2015 []},1,0) AS ?p2015)
+  BIND(IF(EXISTS{?q wdt:P2170 []},1,0) AS ?p2170)
+  BIND(IF(EXISTS{?q wdt:P2172 []},1,0) AS ?p2172)
+  BIND(IF(EXISTS{?q wdt:P3029 []},1,0) AS ?p3029)
+  BIND(IF(EXISTS{?q wdt:P4471 []},1,0) AS ?p4471)
+  BIND(IF(EXISTS{?q wdt:P4638 []},1,0) AS ?p4638)
+  BIND(IF(EXISTS{?q wdt:P2600 []},1,0) AS ?p2600)
+  BIND(IF(EXISTS{?q wdt:P2949 []},1,0) AS ?p2949)
+  BIND(IF(EXISTS{?q wdt:P1819 []},1,0) AS ?p1819)
+} GROUP BY ?item

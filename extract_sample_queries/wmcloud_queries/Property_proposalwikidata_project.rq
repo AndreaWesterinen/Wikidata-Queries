@@ -1,0 +1,5 @@
+sparql?query=SELECT (count(?item) as ?count)
+WHERE
+{
+  ?item wdt:P31/wdt:P279* wd:Q14204246
+}

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?label ?coord 
+WHERE
+{
+  ?item wdt:P17 wd:Q142 .
+  ?item wdt:P625 ?coord .
+  ?item rdfs:label ?labelWithLanguage.
+FILTER(STRSTARTS(?labelWithLanguage, "Ker") || STRSTARTS(?labelWithLanguage, "Plo"))
+  FILTER(LANG(?labelWithLanguage) = "fr")
+  BIND(STR(?labelWithLanguage) AS ?label)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

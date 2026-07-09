@@ -1,0 +1,14 @@
+# accused Scottish witches: number of statements
+SELECT DISTINCT  ?witch ?witchLabel ?sigperson ?st ?article WHERE {
+  {?witch wdt:P4478 ?personID; wikibase:statements ?st}
+  optional {?witch wdt:P3342 ?sigperson.}
+  OPTIONAL {
+     ?article schema:about ?witch. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+
+ORDER BY DESC (?sigperson) ?witch
+
+#LIMIT 500

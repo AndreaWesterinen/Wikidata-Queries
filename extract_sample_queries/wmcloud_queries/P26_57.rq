@@ -1,0 +1,2 @@
+#title:Change the qualifier P276 to P2842
+SELECT DISTINCT ?item WHERE { ?item p:P26/pq:P276 [] }

@@ -1,0 +1,14 @@
+SELECT ?item ?interv ?st ?sl ?ids ?ws
+WHERE
+{
+	?item wdt:P3912 [] ; wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids
+	OPTIONAL
+	{
+		?unit rdfs:label ?unitLabel . FILTER(lang(?unitLabel)="en")
+		?item p:P2896/psv:P2896 [ wikibase:quantityAmount ?s ; wikibase:quantityUnit ?unit ] .
+		OPTIONAL { ?unit p:P558 [ ps:P558 ?s; pq:P282 wd:Q8229 ] . }
+		BIND(  CONCAT('align=right  data-sort-value="',str(?unitLabel),"-",str(?s),'" | ', str(?s) , '&nbsp;' ,str(?unitLabel) ) as ?interv )
+  	}
+  	OPTIONAL { ?item wdt:P856 [] . BIND("✓" as ?ws) }
+}
+LIMIT 5000

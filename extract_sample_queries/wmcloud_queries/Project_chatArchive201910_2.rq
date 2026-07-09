@@ -1,0 +1,7 @@
+SELECT *  
+WHERE
+{
+    ?item wdt:P136 wd:Q637866 ; wdt:P31 wd:Q13442814 ; wdt:P1476 ?title. 
+    FILTER(CONTAINS(lcase(?title), "review"))  
+}
+LIMIT 500

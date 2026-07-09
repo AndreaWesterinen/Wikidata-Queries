@@ -1,0 +1,11 @@
+SELECT ?item ?item2 ?inv WHERE {
+  ?item p:P195/ps:P195 wd:Q28045665 .
+  MINUS { ?item p:P195/ps:P195 wd:Q18600731 } .
+  ?item p:P217 ?invstatement .
+  ?invstatement pq:P195 wd:Q28045665 .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement2 ps:P217 ?inv .
+  ?invstatement2 pq:P195 wd:Q18600731 .
+  ?item2 p:P217 ?invstatement2 .
+  ?item2 p:P195/ps:P195 wd:Q18600731 .
+  } LIMIT 100

@@ -1,0 +1,14 @@
+embed.html#SELECT
+  ?director ?directorLabel ?directorDescription 
+  (COUNT(?item) as ?count_episodes) 
+  (SAMPLE(?item) as ?sample_episode)
+  (SAMPLE(?original_title) as ?sample_title)
+WHERE
+{
+  ?item wdt:P31 wd:Q21191270  ; wdt:P179 wd:Q2632294 .
+  ?item wdt:P57 ?director .
+  OPTIONAL { ?item wdt:P1476 ?original_title }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?director ?directorLabel ?directorDescription 
+ORDER BY DESC(?count_episodes) ?directorLabel

@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{VALUES ?item 
+{
+wd:Q6868183
+wd:Q5059528
+wd:Q16948255
+wd:Q18159081
+wd:Q17123448
+wd:Q5150662
+}
+  OPTIONAL {?item wdt:P31 ?instance .}
+  OPTIONAL {?item wdt:P571 ?inception}
+  OPTIONAL {?item wdt:P856 ?website}
+  OPTIONAL {?item wdt:P244 ?lcn}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,10 @@
+#memorable trees without code
+SELECT DISTINCT ?item ?itemLabel ?sitelink
+WHERE
+{
+	?item wdt:P31 wd:Q811534 .
+	OPTIONAL { ?item wdt:P677 ?itemDescription  }
+	FILTER (!BOUND(?itemDescription))
+    OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "cs" } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "cs"}
+}

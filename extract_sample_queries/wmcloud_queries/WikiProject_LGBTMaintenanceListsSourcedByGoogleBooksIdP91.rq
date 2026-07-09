@@ -1,0 +1,5 @@
+SELECT ?item ?ref WHERE {
+  ?item p:P91 ?orientation .
+  ?orientation prov:wasDerivedFrom ?refnode .
+  ?refnode pr:P675 ?ref .
+}

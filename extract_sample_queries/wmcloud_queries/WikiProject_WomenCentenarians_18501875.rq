@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item (COUNT(DISTINCT ?sitelink) AS ?linkcount) WHERE {   
+ ?item wdt:P21 wd:Q6581072 .
+ ?item wdt:P569 ?dob.
+ ?sitelink schema:about ?item. 
+  ?item wdt:P31 wd:Q5.
+OPTIONAL { ?item wdt:P570 ?dod. }
+FILTER (?dob <= "1875-01-01T00:00:00Z"^^xsd:dateTime  ) 
+FILTER (?dob >= "1850-01-01T00:00:00Z"^^xsd:dateTime  ) 
+FILTER (!bound(?dod ))
+} GROUP BY ?item HAVING (?linkcount >= 2)

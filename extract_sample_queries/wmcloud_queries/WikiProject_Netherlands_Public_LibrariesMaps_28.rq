@@ -1,0 +1,28 @@
+embed.html##Maps of public library branches The Netherlands, layered by postal codes area] (1000-1999, 2000-2999 etc)
+#defaultView:Map{"hide":["?dplLoc","?pcdigits","?group"],"layer":"?group"}
+
+SELECT DISTINCT ?dpl ?dplLabel ?dplImage ?dplLoc ?postcode ?pcdigits ?group
+
+WHERE {
+  ?dpl p:P31/ps:P31 wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. #public library branch in The Netherlands 
+  ?dpl wdt:P625 ?dplLoc. #Geo location of the dpl
+  OPTIONAL{?dpl wdt:P18 ?dplImage} #Image of the dpl} 
+  
+  ?dpl (p:P281/ps:P281) ?postcode.
+  BIND(SUBSTR(str(?postcode), 1, 4)  as ?pcdigits). #get4 first digits of postal code
+  BIND(
+    IF(?pcdigits > "1000" && ?pcdigits <= "1999", "1000-1999",
+    IF(?pcdigits > "2000" && ?pcdigits <= "2999", "2000-2999",
+    IF(?pcdigits > "3000" && ?pcdigits <= "3999", "3000-3999",
+    IF(?pcdigits > "4000" && ?pcdigits <= "4999", "4000-4999",
+    IF(?pcdigits > "5000" && ?pcdigits <= "5999", "5000-5999",
+    IF(?pcdigits > "6000" && ?pcdigits <= "6999", "6000-6999",
+    IF(?pcdigits > "7000" && ?pcdigits <= "7999", "7000-7999",
+    IF(?pcdigits > "8000" && ?pcdigits <= "8999", "8000-8999",
+    IF(?pcdigits > "9000" && ?pcdigits <= "9999", "9000-9999",
+    "REST")))))))))
+    AS ?group).
+    
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}  
+}
+ORDER BY ?group

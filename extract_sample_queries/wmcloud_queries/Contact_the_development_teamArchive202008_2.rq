@@ -1,0 +1,7 @@
+SELECT DISTINCT ?cityLabel ?population ?coord ?city  WHERE {
+  ?city (wdt:P31*) wd:Q5119;
+    wdt:P1082 ?population;
+    wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ASC (?shortCountry)

@@ -1,0 +1,84 @@
+#animated films with cast
+SELECT DISTINCT ?item #?itemLabel #("P725" AS ?P725) ?actor ?actorLabel
+                #("P453" AS ?P453) ?role ?roleLabel 
+                #("P3831" AS ?P3831) ?objHasRole ?objHasRoleLabel ("P518" AS ?P518) ?appliesTo ?appliesToLabel 
+                #("P1810" AS ?P1810) ?namedAs ("P1932" AS ?P1932) ?statedAs 
+                #("P1545" AS ?P1545) ?ordinal ("P642" AS ?P642) ?of ?ofLabel 
+                #("P4633" AS ?P4633) ?nameOfRole
+                #("Q725" AS ?Q725) ?voiceActor
+                #("S2561" AS ?S2561) ?name 
+                #("S143" AS ?S143) ?importedFrom ?importedFromLabel 
+                #("S248" AS ?S248) ?statedIn ?statedInLabel 
+                #("S854" AS ?S854) ?refUrl
+                #("S4656" AS ?S4656) ?wikiUrl
+                #("S958" AS ?S958) ?section ("S345" AS ?S345) ?IMDb 
+                #("S1804" AS ?S1804) ?DNF ("S304" AS ?S304) ?pages ("S1932" AS ?S1932) ?statedAsRef 
+                #("S407" AS ?S407) ?refLanguage
+                #("S813" AS ?S813) ?date
+WHERE 
+{
+  #getting films with P31 or P136 animated film and actors
+  {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; p:P161 ?st} UNION
+  #getting items with P31 or P136 animated series or episodes of them
+  {?item wdt:P179?/(wdt:P31|wdt:P136)/wdt:P279* wd:Q581714; p:P161 ?st} UNION
+  #getting items with P31 or P136 animated film series or films part of them
+  {?item wdt:P179?/(wdt:P31|wdt:P136)/wdt:P279* wd:Q56884562; p:P161 ?st}
+  
+  #without live-action/animated films
+  MINUS {?item (wdt:P31|wdt:P136) wd:Q25110269}
+  #without films being mainly rotoscoped
+  MINUS {?item wdt:P2079 wd:Q1046057}
+  #without films with motion capture
+  MINUS {?item wdt:P2079 wd:Q676252}
+  #without pixilation films
+  MINUS {?item wdt:P2079 wd:Q200751}
+  
+  #whitelist
+  FILTER(?item NOT IN 
+                       #films which have or could have actors
+                      (wd:Q135234, wd:Q135259, wd:Q20729328, wd:Q20755929, wd:Q20757460, wd:Q21129829, wd:Q28477539, wd:Q1263016, wd:Q754736,
+                      wd:Q1151167, wd:Q1196627, wd:Q1368693, wd:Q339394, wd:Q665817, wd:Q699321, wd:Q877292, wd:Q49715296,
+                      wd:Q17113814, wd:Q7773724, wd:Q2496167, wd:Q7764491
+                       #animated films with deprecated P161-statements
+                       ,wd:Q20757452, wd:Q3227301
+                      #somehow messed-up items
+                      ,wd:Q7973142, wd:Q21015198, wd:Q56641176, wd:Q57500726, wd:Q57506438, wd:Q57506639, wd:Q57508783, wd:Q1017038
+                       ,wd:Q1070567, wd:Q1185494, wd:Q1300619, wd:Q1360690, wd:Q1580513, wd:Q2062345, wd:Q2290460, wd:Q5226993, wd:Q970006
+                       ,wd:Q972852, wd:Q25091, wd:Q1075090
+
+
+
+))
+  
+  ?st ps:P161 ?actor.
+  MINUS{?st wikibase:rank wikibase:DeprecatedRank}
+  MINUS{?st pq:P5102 wd:Q96102813}
+  #some further exceptions
+  MINUS{?item wdt:P279* wd:Q104905; wdt:P161 wd:Q449521}
+  OPTIONAL {?st pq:P453 ?role}
+  OPTIONAL {?st pq:P518 ?appliesTo}
+  OPTIONAL {?st pq:P1810 ?namedAs}
+  OPTIONAL {?st pq:P1932 ?statedAs}
+  OPTIONAL {?st pq:P3831 ?objHasRole}
+  OPTIONAL {?st pq:P1545 ?ordinal}
+  OPTIONAL {?st pq:P642 ?of}
+  OPTIONAL {?st pq:P4633 ?nameOfRole}
+  OPTIONAL {?st pq:P725 ?voiceActor}
+  OPTIONAL {?st prov:wasDerivedFrom ?ref.
+            OPTIONAL {?ref pr:P2561 ?name}
+            OPTIONAL {?ref pr:P143 ?importedFrom}
+            OPTIONAL {?ref pr:P248 ?statedIn}
+            OPTIONAL {?ref pr:P854 ?referenceUrl. BIND(CONCAT("\"",STR(?referenceUrl),"\"") AS ?refUrl)}
+            OPTIONAL {?ref pr:P4656 ?wikimediaUrl. BIND(CONCAT("\"",STR(?wikimediaUrl),"\"") AS ?wikiUrl)}
+            OPTIONAL {?ref pr:P958 ?section}
+            OPTIONAL {?ref pr:P345 ?IMDb}
+            OPTIONAL {?ref pr:P1804 ?DNF}
+            OPTIONAL {?ref pr:P304 ?pages}
+            OPTIONAL {?ref pr:P1932 ?statedAsRef}
+            OPTIONAL {?ref pr:P407 ?refLanguage}
+            OPTIONAL {?ref pr:P813 ?retrieved. BIND(CONCAT("+",STR(?retrieved),"/11") AS ?date)}
+  }        
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en, de, cs, ru,". }
+}
+ORDER BY ?item
+LIMIT 50

@@ -1,0 +1,8 @@
+SELECT ?item {
+  ?item p:P27 [ps:P27 ?pays; pq:P828 wd:Q841440].
+  FILTER NOT EXISTS {
+    ?item p:P27/ps:P27 ?autrePays.
+    FILTER (?autrePays != ?pays)
+  }
+}
+LIMIT 100

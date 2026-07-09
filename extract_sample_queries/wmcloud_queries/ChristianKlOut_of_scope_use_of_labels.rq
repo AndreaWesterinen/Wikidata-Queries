@@ -1,0 +1,34 @@
+SELECT ?item ?entityLabel ?property ?propertyLabel ?qualifier ?qualifierLabel
+       ?referenceproperty ?referencepropertyLabel ?instance ?instanceLabel
+WHERE
+{
+  ?instance wdt:P31 wd:Q65932995.
+  {
+    # Uses of ?instance as statement value
+    ?statement ?value ?instance.
+    ?property wikibase:statementProperty ?value.
+    ?property wikibase:claim ?claim.
+    ?item ?claim ?statement.
+    FILTER (?property != wd:P7087)
+  }
+  UNION
+  {
+    # Uses of ?instance as qualifier value
+    ?statement ?qualifiervalue ?instance.
+    ?qualifier wikibase:qualifier ?qualifiervalue.
+    ?property wikibase:claim ?claim.
+    ?item ?claim ?statement.
+    FILTER (?qualifier != wd:P7087)
+  }
+  UNION
+  {
+    # Uses of ?instance as reference value
+    ?reference ?referencevalue ?instance.
+    ?referenceproperty wikibase:reference ?referencevalue.
+    ?statement  prov:wasDerivedFrom ?reference.
+    ?property wikibase:claim ?claim.
+    ?item ?claim ?statement.
+    FILTER (?referenceproperty != wd:P7087)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

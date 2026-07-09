@@ -1,0 +1,8 @@
+SELECT  ?item  (COUNT(?gelderlandId) AS $amount) WHERE {
+#  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q13636575.
+  ?item p:P9152 ?gelderlandId.
+  ?gelderlandId pq:P195 wd:Q13636575.        
+}
+group by ?item
+HAVING (?amount > 1)

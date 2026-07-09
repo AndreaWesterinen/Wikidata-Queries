@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabel ?adminLabel ?length ?osm ?naturkartan ?point_in_time ?_image WHERE {
+  ?item wdt:P31 wd:Q2143825;
+        wdt:P17 wd:Q34;
+        #wdt:P131 wd:Q99;
+  # Exclude the items already having an osm id
+  optional{?item wdt:P131 ?admin}  
+  optional{?item wdt:P2043 ?length}
+  # Give the point in time on the no value statement if any
+  optional{
+  ?item p:P402 ?osm_statement.
+  ?osm_statement rdf:type wdno:P402;
+                 pq:P585 ?point_in_time.
+  }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+  optional{?item wdt:P10467 ?naturkartan}
+  minus{?osm_statement ps:P402 [].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". } # Hjälper dig hämta etiketten på ditt språk, om inte annat på engelska 
+}
+LIMIT 100
+#order by desc(?length) 

@@ -1,0 +1,5 @@
+SELECT ?municipio_de_España ?municipio_de_EspañaLabel ?código_INE WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?municipio_de_España wdt:P31 wd:Q2074737.
+  OPTIONAL { ?municipio_de_España wdt:P772 ?código_INE. }
+}

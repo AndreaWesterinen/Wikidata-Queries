@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P1447 ?sportsrefid.
+  MINUS { ?item wdt:P4062 ?covid }
+  # pocházející z...
+  ?item wdt:P27 ?nationality.
+  # Česka nebo Československa
+  FILTER ( ?nationality = wd:Q213

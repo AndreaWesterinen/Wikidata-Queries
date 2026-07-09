@@ -1,0 +1,15 @@
+SELECT ?teacher ?teacherLabel ?count
+WHERE
+{
+  {
+    SELECT ?teacher (COUNT(DISTINCT ?student) AS ?count)
+    WHERE
+    {
+      ?teacher wdt:P802|^wdt:P1066 ?student.
+    }
+    GROUP BY ?teacher
+    HAVING(?count > 1)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?count)

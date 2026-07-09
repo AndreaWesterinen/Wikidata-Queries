@@ -1,0 +1,6 @@
+SELECT ?item ?sitelink
+WHERE
+{    ?item wdt:P31/wdt:P279* wd:Q12136 .
+   	{ ?sitelink schema:about ?item . ?sitelink schema:inLanguage "el" }
+}
+LIMIT 5000

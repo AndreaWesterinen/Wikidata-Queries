@@ -1,0 +1,15 @@
+SELECT ?cnt ?prs (COUNT(?prs) AS ?cntcnt) WITH {
+  SELECT ?ref WHERE {
+    ?ref pr:P143 wd:Q54919 .
+  }
+} AS %t WITH {
+  SELECT ?ref (COUNT(?pr) AS ?cnt) (GROUP_CONCAT(STRAFTER(STR(?pr), 'reference/'); separator=', ') AS ?prs) WHERE {
+    INCLUDE %t .
+    ?ref ?pr [] .
+    ?pr ^wikibase:reference [] .
+  } GROUP BY ?ref
+} AS %s WHERE {
+  INCLUDE %s .
+  ?statement prov:wasDerivedFrom ?ref .
+  ?item ?any ?statement .
+} GROUP BY ?cnt ?prs ORDER BY DESC(?cnt) 

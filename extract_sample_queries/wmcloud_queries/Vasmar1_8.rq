@@ -1,0 +1,17 @@
+#Skipsregistreringer etter land
+
+#defaultView:BubbleChart
+SELECT ?land ?landLabel ?count ?bruttoregistertonn ?bruttoregistertonntotal
+WHERE
+{
+  {
+    SELECT ?land (SUM(?bruttoregistertonn) AS ?bruttoregistertonntotal) WHERE {
+      ?city wdt:P8047 ?land .
+      ?city wdt:P1093 ?bruttoregistertonn .
+    }
+    GROUP BY ?land
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}
+ORDER BY DESC(?bruttoregistertonntotal)
+LIMIT 50

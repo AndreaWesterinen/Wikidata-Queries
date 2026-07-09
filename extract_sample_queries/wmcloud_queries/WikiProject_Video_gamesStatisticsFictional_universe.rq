@@ -1,0 +1,8 @@
+SELECT ?item ?type (COUNT(?game) as ?count) WHERE {
+  ?game (wdt:P31/wdt:P279*) wd:Q7889.
+  OPTIONAL { 
+    ?game wdt:P1434 ?item. 
+    ?item wdt:P31 ?type
+  }
+} GROUP BY ?item ?type
+ORDER BY DESC(?count)

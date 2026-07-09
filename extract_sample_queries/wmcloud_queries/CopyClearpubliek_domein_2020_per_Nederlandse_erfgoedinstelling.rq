@@ -1,0 +1,9 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?item ?itemLabel ?vervaardiger ?vervaardigerLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?vervaardiger (wdt:P485|wdt:P6379) ?item.
+  ?vervaardiger wdt:P570 ?death.
+  ?item wdt:P17 wd:Q55
+  FILTER(?death >= "1949-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?death < "1950-01-01T00:00:00Z"^^xsd:dateTime)
+}

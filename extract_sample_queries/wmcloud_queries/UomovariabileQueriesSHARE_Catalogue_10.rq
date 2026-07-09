@@ -1,0 +1,9 @@
+SELECT DISTINCT ?author ?authorLabel ?shareID ?orcid ?dob
+WHERE
+{
+  ?author wdt:P3987 ?shareID;
+          wdt:P496 ?orcid;
+          wdt:P569 ?dob.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY DESC(?dob) 

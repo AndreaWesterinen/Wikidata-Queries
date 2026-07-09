@@ -1,0 +1,6 @@
+SELECT ?item WHERE {
+   ?item wdt:P31 wd:Q5 .
+   ?item wdt:P27 wd:Q884 .
+   ?item wdt:P213 ?isni . 
+  }
+LIMIT 2000

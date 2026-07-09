@@ -1,0 +1,13 @@
+SELECT ?item ?dobyear ?dodyear ?sl
+       {
+          {?item ?property wd:Q194445.} UNION { ?item ?property2 [wdt:P361 wd:Q194445].} 
+          ?item wdt:P31 wd:Q5.
+          ?item wikibase:statements ?st.
+          ?item wikibase:sitelinks ?sl.
+          optional {?item wdt:P569 ?dob.}
+          bind(year(?dob) as ?dobyear)
+          optional {?item wdt:P570 ?dod.}
+          bind(year(?dod) as ?dodyear)
+       }
+       ORDER BY ASC(?st) ?item 
+       LIMIT 4000

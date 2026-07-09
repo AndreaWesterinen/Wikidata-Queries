@@ -1,0 +1,22 @@
+# network of brands of some big food/drink companies
+#defaultView:Graph
+SELECT ?brand ?brandLabel (SAMPLE(?image) AS ?image) ?linkTo WHERE {
+  VALUES ?company {
+    wd:Q3295867
+    wd:Q334800
+    wd:Q695087
+  }
+  {
+    ?brand (wdt:P749|wdt:P127)+ ?company.
+    ?brand wdt:P749|wdt:P127 ?linkTo.
+    OPTIONAL { ?brand wdt:P18|wdt:P154 ?image. }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  } UNION {
+    BIND(?company AS ?brand).
+    BIND(?brand AS ?linkTo).
+    ?company rdfs:label ?brandLabel.
+    FILTER(LANG(?brandLabel) = "en").
+    OPTIONAL { ?company wdt:P18|wdt:P154 ?image. }
+  }
+}
+GROUP BY ?brand ?brandLabel ?linkTo

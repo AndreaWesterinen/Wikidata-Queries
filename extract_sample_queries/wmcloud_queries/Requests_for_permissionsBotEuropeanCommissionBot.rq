@@ -1,0 +1,3 @@
+SELECT * WHERE {
+?s wdt:P11012 ?o 
+}

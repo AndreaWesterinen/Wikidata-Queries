@@ -1,0 +1,11 @@
+SELECT ?category ?categoryLabel ?list ?listLabel
+WHERE
+{
+	?category wdt:P31 wd:Q56428020 ;
+              wdt:P1753 ?list ;
+              rdfs:label ?categoryLabel
+              FILTER (lang(?categoryLabel) = "en") .
+    ?list rdfs:label ?listLabel
+          FILTER (lang(?listLabel) = "en") .
+    FILTER NOT EXISTS { ?list wdt:P31/wdt:P279* wd:Q33532284 . }
+}

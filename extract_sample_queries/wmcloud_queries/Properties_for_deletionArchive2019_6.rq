@@ -1,0 +1,18 @@
+embed.html#PREFIX nobel: <http://data.nobelprize.org/terms/>
+
+SELECT ?P3188 (sample(?name) AS ?name) (sample(?text) as ?text) ?id ?wid ?laureate_nobel_uri 
+WHERE {
+  SERVICE <http://data.nobelprize.org/sparql> {
+    ?laureate_nobel_uri nobel:laureateAward ?Nobelid.
+    BIND(REPLACE(str(?laureate_nobel_uri),"http://data.nobelprize.org/resource/laureate/","") AS ?id)
+
+    OPTIONAL{?laureate_nobel_uri nobel:laureateAward / nobel:year ?Year}
+    OPTIONAL{?Nobelid rdfs:label ?text}
+    OPTIONAL{?Nobelid nobel:laureate/foaf:name ?name}
+    OPTIONAL{?Nobelid nobel:laureate/foaf:birthday ?birthdate}
+  }
+  OPTIONAL { ?wid wdt:P2888 ?laureate_nobel_uri}
+  OPTIONAL { ?wid wdt:P3188 ?P3188}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} group by ?id ?wid ?laureate_nobel_uri ?P3188
+order by xsd:integer(?id)

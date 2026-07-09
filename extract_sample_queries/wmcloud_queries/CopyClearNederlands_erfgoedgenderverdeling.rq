@@ -1,0 +1,53 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("400" as ?width) 
+  ("200" as ?height) 
+  ("Genderverdeling vervaardigers Nederlandse erfgoedinstellingen" as ?legend) 
+  ("gender" as ?xAxisTitle) 
+  ("aantal vervaardigers" as ?yAxisTitle)
+  (GROUP_CONCAT(?status;separator=",") as ?x)
+  (GROUP_CONCAT(?color;separator=",") as ?colors)
+  ("fontsize:15,offset:-15" as ?showValues)
+  ("40" as ?innerRadius)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+SELECT ?color ?status ?count WHERE
+{{ 
+    SELECT (COUNT(?item) as ?count) ("blue" AS ?color) ("man" AS ?status) 
+    WHERE {
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P6379 ?collectie.
+    ?collectie wdt:P17 wd:Q55. 
+    ?item wdt:P21 wd:Q6581097.#mannelijk
+    
+    }       
+} UNION {
+    SELECT (COUNT(?item) as ?count) ("purple" AS ?color) ("vrouw" AS ?status) 
+    WHERE {
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P6379 ?collectie.
+    ?collectie wdt:P17 wd:Q55. 
+    ?item wdt:P21 wd:Q6581072.#vrouwelijk
+    }        
+} UNION {
+    SELECT (COUNT(?item) as ?count) ("green" AS ?color) ("anders" AS ?status) 
+    WHERE {
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P6379 ?collectie.
+    ?collectie wdt:P17 wd:Q55. 
+    ?item wdt:P21 ?geslacht.#geslacht, maar
+    FILTER NOT EXISTS {?item wdt:P21 wd:Q6581072.}
+    FILTER NOT EXISTS {?item wdt:P21 wd:Q6581097.}
+    }        
+} UNION {
+    SELECT (COUNT(?item) as ?count) ("grey" AS ?color)("onbekend" AS ?status) 
+    WHERE {
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P6379 ?collectie.
+    ?collectie wdt:P17 wd:Q55. 
+      FILTER NOT EXISTS {?item wdt:P21 ?geslacht.}
+    }       
+
+}}}

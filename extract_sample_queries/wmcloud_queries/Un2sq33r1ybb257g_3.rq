@@ -1,0 +1,14 @@
+PREFIX schema: <http://schema.org/>
+
+#defaultView:ImageGrid
+#Female authors speaking French who died 70 years ago
+SELECT ?author ?authorLabel ?signature WHERE {
+  ?author wdt:P21 wd:Q6581072.
+  ?author wdt:P106 wd:Q36180.
+  ?author wdt:P1412 wd:Q150.
+  ?author wdt:P570 ?died.
+  ?author wdt:P109 ?signature.
+  OPTIONAL { ?wikisourcePage schema:about ?author. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}
+GROUP BY ?author ?authorLabel ?signature

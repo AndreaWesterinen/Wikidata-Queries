@@ -1,0 +1,6 @@
+SELECT ?attribute ?attributeLabel ?usesLabel WHERE {
+  ?attribute (wdt:P279*) wd:Q105958742.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?attribute wdt:P2283 ?uses. }
+}
+ORDER BY (?attributeLabel)

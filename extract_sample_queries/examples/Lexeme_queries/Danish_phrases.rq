@@ -1,7 +1,5 @@
-# ----
 #title: Danish phrases
-# Author: So9q
-# Date: 2024-01-03
+# author: So9q, 2024-01-03
 SELECT ?l ?lemma WHERE {
   ?l dct:language wd:Q9035; # Change language here
      wikibase:lemma ?lemma;

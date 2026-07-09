@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?cl; separator=', ') AS ?citizenships) (GROUP_CONCAT(DISTINCT ?occl; separator=', ') AS ?occupations) WHERE {
+  ?item wdt:P106/wdt:P279* wd:Q26270618; ^schema:about/schema:isPartOf <https://pl.wikipedia.org/> .
+  OPTIONAL { ?item schema:description ?desc . FILTER(LANG(?desc) = 'pl') }
+  FILTER(!BOUND(?desc)) .
+  OPTIONAL { ?item wdt:P27/rdfs:label ?cl . FILTER(LANG(?cl) = 'en') }
+  OPTIONAL { ?item wdt:P106/rdfs:label ?occl . FILTER(LANG(?occl) = 'en') }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?item ?itemLabel

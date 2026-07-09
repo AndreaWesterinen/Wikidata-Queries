@@ -1,0 +1,9 @@
+SELECT ?item ?label ?number WHERE {
+  ?item wdt:P628 ?number
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "pl,en" . 
+    ?item rdfs:label ?label
+  }  
+}
+ORDER BY ?number
+LIMIT 1000

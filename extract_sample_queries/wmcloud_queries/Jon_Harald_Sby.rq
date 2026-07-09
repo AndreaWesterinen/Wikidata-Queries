@@ -1,0 +1,5 @@
+SELECT ?Femme ?FemmeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Femme wdt:P735 wd:Q30225612.
+}
+LIMIT 100

@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?countryLabel ?height ?width ?ratio ?image WHERE {
+  ?item wdt:P31 wd:Q186516 .
+  ?item wdt:P1001 ?country .
+  ?country wdt:P31 wd:Q3624078 .
+  FILTER NOT EXISTS { ?country wdt:P576 ?x }
+  ?item wdt:P18 ?image .
+  ?item p:P2048 ?statement .
+  ?statement ps:P2048 ?height .
+  { ?statement pq:P2049 ?width . } UNION { FILTER NOT EXISTS { ?statement pq:P2049 ?y } . ?item wdt:P2049 ?width . }
+  BIND (?width / ?height AS ?ratio)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?ratio ?countryLabel ?itemLabel

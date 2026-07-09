@@ -1,0 +1,7 @@
+select distinct (count(?property) AS ?propertyCount) ?property
+where{
+  ?item ?property ?value .
+  ?value pq:P854 ?qualifierValue .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY (?propertyCount) ?property

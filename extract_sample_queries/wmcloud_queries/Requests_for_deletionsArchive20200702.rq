@@ -1,0 +1,5 @@
+SELECT ?item ?identifiers ?sitelinks ?statements (COUNT(?any) AS ?cnt) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q21073937; wikibase:identifiers ?identifiers; wikibase:sitelinks ?sitelinks; wikibase:statements ?statements .
+  ?item wdt:P4635 [] .
+  OPTIONAL { [] ?any ?item }
+} GROUP BY ?item ?identifiers ?sitelinks ?statements

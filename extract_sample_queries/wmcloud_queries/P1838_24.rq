@@ -1,0 +1,10 @@
+#title: Inconsistency between the identifier and the location in Belgium
+# Complex constraint from [[Property talk:P1838]]
+# Check [[Property:P1567|NIS/INS code&#32;<small dir="ltr">(P1567)</small>]] of [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]]
+SELECT ?item ?PSS ?INS ?substr {
+  ?item wdt:P1838 ?PSS;
+        wdt:P131/wdt:P1567 ?INS.
+  BIND (SUBSTR(?INS, 1, 5) AS ?INSnormalized)
+  BIND (substr(?PSS, 4, 5) AS ?substr)
+  FILTER (?substr != ?INSnormalized)
+}

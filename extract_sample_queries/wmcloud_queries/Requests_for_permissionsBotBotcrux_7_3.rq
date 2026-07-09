@@ -1,0 +1,5 @@
+SELECT DISTINCT ?xLabel ?x
+WHERE {
+  ?x wdt:P31 wd:Q29051545 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ }

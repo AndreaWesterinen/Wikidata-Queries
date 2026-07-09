@@ -1,0 +1,10 @@
+# MPAA/FSK/NMHH/BBFC/Filmiroda/EIRIN ratings without rating certificate IDs
+SELECT ?item ?itemLabel ?property
+WHERE {
+  ?item ?property ?value .
+  ?item p:P1657|p:P1981|p:P2363|p:P2629|p:P2747|p:P2756 ?value .
+  MINUS { ?value pq:P2676 ?id . }
+    SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en,de,hu" .
+     }
+  }

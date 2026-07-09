@@ -1,0 +1,6 @@
+SELECT ?item {
+  SERVICE bd:sample {
+    ?item wikibase:sitelinks [].
+    bd:serviceParam bd:sample.limit "2000".
+   }
+ }

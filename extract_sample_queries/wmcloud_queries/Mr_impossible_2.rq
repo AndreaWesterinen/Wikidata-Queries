@@ -1,0 +1,8 @@
+sparql?format=JSON&query=SELECT ?item ?itemLabel ?TNAid
+WHERE
+{
+	?item wdt:P3029 "F43945".
+    ?item wdt:P3029 ?TNAid
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

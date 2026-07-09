@@ -1,0 +1,22 @@
+SELECT 	
+	(SAMPLE(?subjectitem) as ?item) 
+	(strafter(str(?property),"/entity/") as ?p) 
+	?propertyLabel ?total
+	(COUNT(DISTINCT ?s) as ?ct)  
+	(ROUND(?ct / ?total*100) as ?percentage)
+{
+	?property wikibase:claim ?wdt .
+  	OPTIONAL { ?property wdt:P1629 ?subjectitem }
+  	?s ?wdt ?value .
+  	?s wdt:P1889 [] .
+  	?s wdt:P31 wd:Q5 .
+  	?s p:P1889/pq:P1013 wd:Q20978290 .
+  	MINUS { ?s wdt:P31 wd:Q159979 }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+	{ SELECT (COUNT(DISTINCT ?twin) as ?total) {   ?twin wdt:P1889 [] ; wdt:P31 wd:Q5 ; p:P1889/pq:P1013 wd:Q20978290 . MINUS { ?twin wdt:P31 wd:Q159979 } } }
+  	MINUS { ?property wdt:P1552 wd:Q26921380 }
+}
+GROUP BY ?property ?propertyLabel ?total
+HAVING (?percentage > 4)
+ORDER BY DESC(?ct)
+LIMIT 200

@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(?item) AS ?count) WHERE {
+  ?article schema:about ?entity;
+    schema:isPartOf <https://fr.wikisource.org/>.
+  ?entity wdt:P31 ?item.
+}
+GROUP BY ?item

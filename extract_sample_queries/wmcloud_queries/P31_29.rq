@@ -1,0 +1,9 @@
+#title: P31=samevalue and P279=samevalue (indirect P279)
+# Complex constraint from [[Property talk:P31]]
+# in most cases this is an oversight or item that needs update after child item(s) were added
+select ?item (count(*) as ?count) WHERE {
+    ?class wdt:P31 ?item FILTER(?item NOT IN (wd:Q7187, wd:Q8054)).
+    ?class wdt:P279/wdt:P279 ?item.
+}
+group by ?metaclass 
+order by DESC(?count)

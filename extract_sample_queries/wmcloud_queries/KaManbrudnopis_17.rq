@@ -1,0 +1,5 @@
+SELECT ?itemLabel (count(?l) as ?count)  WHERE {
+      ?l a ontolex:LexicalEntry ; wikibase:lexicalCategory ?item ; dct:language ?language.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  ?language wdt:P218 'pl'.
+} group by ?itemLabel order by desc(?count)

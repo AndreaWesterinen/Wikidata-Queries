@@ -1,0 +1,18 @@
+#title: Property missing
+# Complex constraint from [[Property talk:P5654]]
+#
+SELECT DISTINCT ?item {
+	?item wdt:P5654 ?value.
+    ?item wdt:P31 wd:Q5.
+    MINUS { ?item wdt:P106 ?occupation.
+            ?occupation wdt:P31/wdt:P279* wd:Q66715801.
+          }.
+    MINUS { ?item wdt:P106 ?occupation.
+            ?occupation wdt:P279* wd:Q483501.
+    }.
+    MINUS { ?item wdt:P106 wd:Q3406651 }.
+    MINUS { ?item wdt:P106 wd:Q1930187 }.
+    MINUS { ?item wdt:P1303 ?instrument }.
+    MINUS { ?item wdt:P108 wd:Q19909 }.
+    MINUS { ?item wdt:P69 ?scolarite }.   
+}

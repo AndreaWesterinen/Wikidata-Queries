@@ -1,0 +1,9 @@
+#title: Spouse dies before person is born
+# Complex constraint from [[Property talk:P26]]
+#
+SELECT ?item ?spouse WHERE { 
+  ?item wdt:P26 ?spouse . 
+  ?item p:P569/psv:P569/wikibase:timeValue ?birth . 
+  ?spouse p:P570/psv:P570/wikibase:timeValue ?death_of_spouse . 
+  FILTER (?birth > ?death_of_spouse)
+}

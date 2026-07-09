@@ -1,0 +1,8 @@
+embed.html##title: lexemes with lemma language code "aa"
+SELECT *
+WHERE
+{
+    ?lexeme wikibase:lemma ?lemma .
+    FILTER( lang(?lemma)="aa" )
+}
+LIMIT 100

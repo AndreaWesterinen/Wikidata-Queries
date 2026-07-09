@@ -1,0 +1,5 @@
+select (count (?item) as ?itemCount)
+where
+{
+  ?item wdt:P138 ?foo .
+}

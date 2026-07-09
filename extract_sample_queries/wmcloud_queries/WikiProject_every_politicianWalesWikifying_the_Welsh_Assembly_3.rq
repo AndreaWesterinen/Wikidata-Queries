@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?constituencyLabel ?constcoord ?birthplaceLabel ?birthcoord ?distNum  {
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 [wdt:P279 wd:Q3406079 ] .       # find all AMs
+ ?positionStatement pq:P768 ?constituency .                # and their constituency
+ ?constituency wdt:P625 ?constcoord .                      # constituency coordinates (note regions don't have them just now)
+ ?item wdt:P19 ?birthplace .                               # birthplace
+ ?birthplace wdt:P625 ?birthcoord .                        # and its coordinates
+      BIND(geof:distance(?constcoord, ?birthcoord) AS ?distNum).
+ FILTER NOT EXISTS { ?birthplace wdt:P31 wd:Q6256 . }      # but it's not a country (since those coords get weird)
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?distNum

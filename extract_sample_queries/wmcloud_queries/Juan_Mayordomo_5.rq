@@ -1,0 +1,2 @@
+#defaultView:ImageGrid
+SELECT ?imagen ?castillo ?ubicaci_n ?ubicaci_nLabel ?situado_en_la_entidad_territorial_administrativa ?situado_en_la_entidad_territorial_administrativaLabel ?castilloLabe

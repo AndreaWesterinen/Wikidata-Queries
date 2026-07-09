@@ -1,0 +1,12 @@
+#title: Only one of the two items can have P31 = [[d:Q21286738|Wikimedia permanent duplicate item <small>(Q21286738)</small>]]
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: Remove P31=Q21286738 from one of the items or remove P2959
+SELECT DISTINCT ?item #?itemLabel ?itemDescription ?value ?valueLabel ?valueDescription
+{
+	?item wdt:P2959 ?value .
+  	?item wdt:P31 wd:Q21286738 .
+  	?value wdt:P31 wd:Q21286738 .
+  	FILTER ( ?value != ?item ) .
+  	#SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+}
+ORDER BY ASC(xsd:integer(STRAFTER(str(?value), "Q")))

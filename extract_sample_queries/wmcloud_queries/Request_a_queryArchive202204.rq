@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?sitelinks ?random WHERE {
+  
+  #Filters tried to avoid Timeout
+  #?item wdt:P31 wd:Q146. #Cat, it works
+  #?item wdt:P31 wd:Q11762356 . #Valley Glacier, it works
+  #?item wdt:P31 wd:Q5 . #Humans, it gives a timeout!
+  
+  #Minimum sitelinks
+  ?item wikibase:sitelinks ?sitelinks .
+  FILTER (?sitelinks > 20).
+  
+  #Random stuff
+  BIND(SHA512(CONCAT(STR(RAND()), STR(?item))) AS ?random) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE], en" . }
+  
+} ORDER BY ?random
+LIMIT 100
+# jsadhflkjsd, change this before each run to bypass WDQS cache

@@ -1,0 +1,12 @@
+SELECT ?language ?languageLabel ?root ?rootLabel ?nspeakers WHERE {
+  ?language wdt:P31 wd:Q34770  .
+  ?language wdt:P279 ?root.
+  ?language wdt:P1098 ?nspeakers.
+  
+           
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+   }
+  
+  
+}  ORDER BY ?nspeakers

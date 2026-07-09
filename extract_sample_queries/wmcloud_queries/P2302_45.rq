@@ -1,0 +1,10 @@
+#title: "Commons link constraint" must only be used on properties with a CommonsMedia, GeoShape, TabularData or String datatype
+# Complex constraint from [[Property talk:P2302]]
+# Only properties with a [[d:Q29934260|CommonsMedia <small>(Q29934260)</small>]], [[d:Q42742911|GeoShape <small>(Q42742911)</small>]], [[d:Q42743260|TabularData <small>(Q42743260)</small>]] or [[d:Q29934246|Wikibase string datatype <small>(Q29934246)</small>]] datatype should have [[d:Q21510852|Commons link constraint <small>(Q21510852)</small>]] applied.
+SELECT ?item ?itemLabel ?datatype WHERE {
+  VALUES ?constraints { wd:Q21510852 }.
+  ?item wdt:P2302 ?constraints.
+  ?item wikibase:propertyType ?datatype.
+  FILTER (?datatype NOT IN (wikibase:CommonsMedia, wikibase:GeoShape, wikibase:TabularData, wikibase:String)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

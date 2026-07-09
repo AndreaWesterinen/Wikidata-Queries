@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?edit16ID ?SHARECatID
+WHERE
+{
+  ?item wdt:P5492 ?edit16ID. 
+  OPTIONAL {?item wdt:P3987 ?SHARECatID. }
+  FILTER(!bound(?SHARECatID))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY ?itemLabel

@@ -1,0 +1,10 @@
+SELECT ?after ?count WHERE {
+  { SELECT ?after (COUNT(*) AS ?count) WHERE {
+    ?item wdt:P31 wd:Q79007; wdt:P17 wd:Q55; rdfs:label ?label .
+    MINUS { ?item wdt:P138 [] } .
+    FILTER(LANG(?label) = "nl" && STRENDS(STR(?label), "straat") && CONTAINS(STR(?label), " ")) .
+    BIND(STRBEFORE(STR(?label), "straat") AS ?after) .
+  } GROUP BY ?after } .
+}
+ORDER BY DESC(?count)
+LIMIT 100

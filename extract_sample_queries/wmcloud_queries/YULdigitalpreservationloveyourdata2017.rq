@@ -1,0 +1,12 @@
+SELECT   ?person ?personLabel ?archivesatLabel
+
+WHERE {
+  
+  
+  ?person wdt:P485 ?archivesat .
+  ?person wdt:P135 wd:Q829895 .
+
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  
+}

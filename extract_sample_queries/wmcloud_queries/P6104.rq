@@ -1,0 +1,1 @@
+SELECT ?entity ?url WHERE { ?entity wdt:P4570 ?url }

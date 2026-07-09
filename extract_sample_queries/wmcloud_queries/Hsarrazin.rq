@@ -1,0 +1,16 @@
+prefix schema: <http://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?entity ?article WHERE {
+  ?entity p:P570 ?statement .
+  ?statement ps:P570 ?value .
+  FILTER ( ?value >= "2014-01-01T00:00:00Z"^^xsd:dateTime && ?value <= "2015-01-01T00:00:00Z"^^xsd:dateTime )
+  OPTIONAL {
+    ?statement prov:wasDerivedFrom ?ref
+  }
+  FILTER (!bound(?ref))
+  ?article schema:about ?entity .
+  ?article schema:inLanguage "fr" .
+} LIMIT 100

@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?value ?valueLabel
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value {
+			?item p:P1889/ps:P1889 ?value .
+			MINUS { 
+				?value p:P1889/ps:P1889 ?item .
+			} .
+		}
+		LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

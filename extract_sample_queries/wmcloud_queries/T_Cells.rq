@@ -1,0 +1,10 @@
+SELECT ?item  ?itemLabel 
+WHERE 
+{ {
+?item   wdt:P31 wd:Q486972  
+  } minus  { ?item wdt:P131 ?c }
+ minus {?item wdt:P17 ?a } 
+ minus {  ?sitelink schema:about ?item. }
+ FILTER(xsd:integer(SUBSTR(str(?item),33)) > 108615267)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+} ORDER BY ?itemLabel 

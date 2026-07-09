@@ -1,0 +1,10 @@
+#title: Divisions sense codi
+# Complex constraint from [[Property talk:P4335]]
+# Comarques, municipis o entitats municipals decentralitzades sense codi IDESCAT
+SELECT ?item where {
+  VALUES (?divisio) { ( wd:Q937876 ) ( wd:Q33146843 ) ( wd:Q6554043 ) }
+  ?item  p:P31 ?stat .
+  ?stat ps:P31 ?divisio .
+  MINUS { ?stat  pq:P582 [] } 
+  MINUS { ?item wdt:P4335 [] }
+}

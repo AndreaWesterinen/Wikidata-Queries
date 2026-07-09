@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?coordinate_location ?Commons_category ?image ?instance_of ?instance_ofLabel WHERE {
+  ?item wdt:P4244 ?value.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+  OPTIONAL { ?item wdt:P625 ?coordinate_location. }
+  OPTIONAL { ?item wdt:P373 ?Commons_category. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P31 ?instance_of. }
+}
+LIMIT 10

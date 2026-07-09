@@ -1,0 +1,6 @@
+SELECT ?grammaticalFeature ?grammaticalFeatureLabel ?count WHERE {
+  {SELECT ?grammaticalFeature (COUNT(?lexeme) AS ?count) WHERE {
+      ?lexeme wikibase:grammaticalFeature ?grammaticalFeature.
+  } GROUP BY ?grammaticalFeature}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+} ORDER BY DESC(?count)

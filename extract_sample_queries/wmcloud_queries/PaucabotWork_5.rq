@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?item ?article WHERE {
+  ?article rdf:type schema:Article.
+  ?article schema:about ?item.
+  ?article schema:inLanguage "ca".
+  FILTER(NOT EXISTS {
+    ?item schema:description ?description.
+    FILTER((LANG(?description)) = "ca")
+  })
+}
+LIMIT 100

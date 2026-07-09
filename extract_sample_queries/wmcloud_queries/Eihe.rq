@@ -1,0 +1,12 @@
+#list of marvel movies
+SELECT ?movieLabel ?released_dateLabel (GROUP_CONCAT(DISTINCT ?directorLabel;separator=", ") AS ?directors) ?screenwriterLabel
+WHERE
+{
+  ?movie wdt:P31 wd:Q11424.
+  ?movie wdt:P179 wd:Q642878.
+  ?movie wdt:P577 ?released_date.
+  ?movie wdt:P57 ?director.
+  ?movie wdt:P58 ?screenwriter.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?movieLabel ?released_dateLabel ?screenwriterLabel

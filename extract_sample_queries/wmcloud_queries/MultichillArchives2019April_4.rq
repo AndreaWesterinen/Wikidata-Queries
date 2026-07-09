@@ -1,0 +1,9 @@
+SELECT ?item ?label ?title WHERE {
+  ?item wdt:P195 wd:Q1568434 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item rdfs:label ?label .
+  ?item wdt:P1476 ?title .
+  BIND(REPLACE(LCASE(STR(?label)), '\\s|\\u00A0', ' ') AS ?label2)
+  BIND(REPLACE(LCASE(STR(?title)), '\\s|\\u00A0', ' ') AS ?title2)
+  FILTER(LANG(?label)='en' && LANG(?title)='en' && STRLEN(?label) != STRLEN(?title) && REGEX(?title2, CONCAT(?label2, 's+')))
+  } LIMIT 1000

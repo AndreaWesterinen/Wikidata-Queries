@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P31 wd:Q3331189. ?sitelink schema:about ?entity; schema:isPartOf <https://fr.wikisource.org/> . 
+  MINUS { ?entity wdt:P407 []; wdt:P31 wd:Q3331189. ?sitelink schema:about ?entity; schema:isPartOf <https://fr.wikisource.org/>  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

@@ -1,4 +1,4 @@
-# ----
+#title: Scholarly articles with "Zika" in the item label
 # NOTE - This scholarly query is written for use in WDQS-Scholarly UI only  (query-scholarly.wikidata.org).
 
 SELECT ?item ?itemLabel ?DOI ?PMID

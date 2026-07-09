@@ -1,0 +1,7 @@
+#title: Items with identifier without catalog code
+# Complex constraint from [[Property talk:P6489]]
+# Items with the identifier property and without a catalog code of a catalog that is part of [[d:Q108774407|Joan Miró: Catalogue raisonné <small>(Q108774407)</small>]]
+select ?item where {
+  ?item wdt:P6489 [] .
+  minus { ?item p:P528/pq:P972/wdt:P361 wd:Q108774407 }
+}

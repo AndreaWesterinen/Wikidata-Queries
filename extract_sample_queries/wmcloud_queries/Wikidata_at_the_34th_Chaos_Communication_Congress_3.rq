@@ -1,0 +1,8 @@
+embed.html#SELECT DISTINCT ?place (STR(?label) AS ?placeLabel) WHERE {
+  hint:Query hint:optimizer 'None' .
+  BIND(wd:Q2 AS ?earth) .
+  ?earth rdfs:label ?label .
+  ?place rdfs:label ?label .
+  FILTER (?earth != ?place) .
+  ?place wdt:P31/wdt:P279* wd:Q17334923 .
+}

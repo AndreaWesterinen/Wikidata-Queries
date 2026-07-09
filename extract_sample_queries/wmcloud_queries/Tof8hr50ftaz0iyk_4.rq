@@ -1,0 +1,9 @@
+#defaultView:Timeline
+SELECT ?marathon ?marathonLabel ?edition ?date
+WHERE {
+  ?marathon wdt:P31 wd:Q1071285 .
+  ?marathon wdt:P585 ?date .
+  ?marathon wdt:P393 ?edition .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY ?date

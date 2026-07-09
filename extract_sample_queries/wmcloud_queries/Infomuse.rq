@@ -1,0 +1,7 @@
+#Witches
+SELECT ?person ?personLabel ?id
+WHERE 
+{
+  ?person wdt:P4478 ?id.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

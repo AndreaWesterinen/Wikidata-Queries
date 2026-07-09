@@ -1,0 +1,23 @@
+#defaultView:Map
+#title: Principal Areas of Wales, coloured from blue to red by population density
+SELECT ?district ?geo ?layer ?area ?pop ?pop_density ?seq ?rgb WHERE {
+
+  ?district wdt:P31/wdt:P279* wd:Q15979307 ;
+            wdt:P17 wd:Q145 .
+    OPTIONAL {?district wdt:P3896 ?geo} .
+    OPTIONAL {?district rdfs:label ?labels .  FILTER(LANG(?labels) = "en") }
+    OPTIONAL {?district rdfs:label ?labels .  FILTER(LANG(?labels) = "mul") }
+    BIND (?labels AS ?layer)
+
+    ?district wdt:P2046 ?area .
+    ?district wdt:P1082 ?pop .
+    BIND((?pop / ?area) AS ?pop_density) .
+    BIND(str(1 + FLOOR(?pop_density / 100)) AS ?seq) .  # map to string in range 1..31
+
+    OPTIONAL {
+      VALUES ?sequence {wd:Q105849312} .     # blue to red colour progression
+      ?sequence p:P527 ?stmt . ?stmt pq:P1545 ?seq . ?stmt pq:P465 ?rgb .
+    }
+
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY xsd:integer(?seq)

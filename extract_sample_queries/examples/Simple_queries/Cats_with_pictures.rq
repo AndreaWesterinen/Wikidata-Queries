@@ -1,4 +1,3 @@
-# ----
 #title: Cats, with pictures
 #defaultView:ImageGrid
 SELECT ?item ?itemLabel ?pic WHERE {

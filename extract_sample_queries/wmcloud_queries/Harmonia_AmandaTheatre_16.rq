@@ -1,0 +1,12 @@
+SELECT ?human ?humanLabel ?date
+WHERE
+{
+  ?human wdt:P31 wd:Q5 .
+  ?human wdt:P570 ?date .
+  FILTER(BOUND(?date) && DATATYPE(?date) = xsd:dateTime).
+  BIND(NOW() - ?date AS ?distance).
+  FILTER(0 <= ?distance && ?distance < 7).
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+}
+  } ORDER BY DESC (?date)

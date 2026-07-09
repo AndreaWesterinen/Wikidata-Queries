@@ -1,0 +1,19 @@
+#Country (P17) 
+# Every Dutch public library branch (plb) must have a P17/Q55 statement, as all Dutch libraries are located in the country (P17) of The Netherlands (Q55).
+# Does not (yet) include the Carribean parts of the Kingdom of the Netherlands
+# Count the number of public library branches that are in Nederland (Q55)
+
+SELECT DISTINCT 
+?country ?countryLabel
+(COUNT(?plb) as ?NumberOfPublicLibraryBranches)
+
+WHERE
+  {
+  ?plb p:P31/ps:P31 wd:Q28564,wd:Q11396180.  #all PLBs world wide
+  ?plb wdt:P17 ?country.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                         }  
+}
+GROUP BY ?country ?countryLabel  
+ORDER BY DESC ( ?NumberOfPublicLibraryBranches)

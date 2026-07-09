@@ -1,0 +1,26 @@
+SELECT ?item ?code ?stardate WHERE {
+  { ?item wdt:P31 wd:Q61220733. } UNION { ?item wdt:P31 wd:Q61283808 }
+  MINUS { ?item wdt:P31 wd:Q21664088. }
+  {
+    OPTIONAL {
+      ?item wdt:P179 ?series.
+      ?series wdt:P1813 ?abbr.
+      ?item wdt:P4908 ?season.
+      ?season p:P179 [ pq:P1545 ?seasonOrd ].
+      ?item p:P4908 [ pq:P1545 ?episodeOrd ].
+      bind(CONCAT(?abbr, ':', ?seasonOrd, '×', if(strlen(?episodeOrd)=1,concat("0",?episodeOrd), ?episodeOrd)) as ?code)
+    }
+  } UNION {
+    ?item wdt:P1813 ?code.
+  }
+  OPTIONAL { ?item p:P840 [ pq:P4895 ?stardate ]. }
+  OPTIONAL {
+    {
+      ?item wdt:P361 ?partof.
+      ?partof wdt:P31 wd:Q21664088.
+    } UNION {
+      ?item wdt:P361 ?partof.
+      ?partof wdt:P31 wd:Q50062923.
+    }
+  }
+}

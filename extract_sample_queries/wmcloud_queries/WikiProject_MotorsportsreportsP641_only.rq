@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?sl ?year
+{
+	?item wdt:P641 wd:Q5367 ; wikibase:statements 1 ; wikibase:sitelinks ?sl ; rdfs:label ?l
+    BIND(xsd:integer(REPLACE(str(?l),"^.*((20[01]

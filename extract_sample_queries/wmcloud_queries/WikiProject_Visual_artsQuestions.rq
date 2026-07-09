@@ -1,0 +1,5 @@
+SELECT ?sculptural_group ?sculptural_groupLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  ?sculptural_group wdt:P31 wd:Q2334148.
+}

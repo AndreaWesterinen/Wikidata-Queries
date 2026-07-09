@@ -1,0 +1,9 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q15303838 ;
+     wdt:P17 wd:Q38 ;
+     wdt:P1376 ?city1 ;
+     wdt:P131 ?city2 .
+  FILTER NOT EXISTS { ?x wdt:P131 ?city1. }
+  FILTER NOT EXISTS { ?x wdt:P1376 ?city2. }
+}

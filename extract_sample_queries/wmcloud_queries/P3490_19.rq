@@ -1,0 +1,17 @@
+PREFIX wdtp: <http://www.wikidata.org/prop/direct/P3490>
+#title: most linked wikis on values of property
+SELECT ?wiki (COUNT( DISTINCT ?value ) as ?count_values) (SUM(?uses_of_value) as ?count_statements) (SAMPLE(?i2) as ?sample_use) (SAMPLE(?value) as ?sample_value)
+WITH
+{
+    SELECT ?value (count(*) as ?uses_of_value) (SAMPLE(?i) as ?i2)
+    {      ?i wdtp: ?value    }
+    GROUP BY ?value
+} as %allvalues
+WHERE
+{
+      INCLUDE %allvalues    
+      [] schema:about ?value ; schema:isPartOf ?wiki . 
+}
+GROUP BY ?wiki
+ORDER BY DESC(?count_values) ?wiki
+LIMIT 50

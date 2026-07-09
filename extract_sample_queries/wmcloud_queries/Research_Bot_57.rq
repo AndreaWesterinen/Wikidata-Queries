@@ -1,0 +1,11 @@
+#Titles containing HTML escape sequences
+#added before 2016-10
+
+SELECT ?item ?title
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P1476 ?title .
+  FILTER CONTAINS(?title, "&amp").
+}
+LIMIT 100

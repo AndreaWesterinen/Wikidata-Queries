@@ -1,0 +1,15 @@
+#defaultView:Map
+# Birthplace of RADA alumni
+SELECT DISTINCT ?coords ?birthplaceLabel ?person ?personLabel ?picture {
+  ?person wdt:P31 wd:Q5 .
+  ?person wdt:P69 wd:Q523926 . 
+             
+  ?person wdt:P19 ?birthplace .
+  ?birthplace wdt:P625 ?coords.
+  
+  OPTIONAL { ?person wdt:P18 ?picture . }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+} 

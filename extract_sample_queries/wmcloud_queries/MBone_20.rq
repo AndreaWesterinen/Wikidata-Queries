@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+  ?item (wdt:P131/wdt:P131*) wd:Q64.
+  ?item wdt:P1435 _:b10.
+  MINUS { ?item wdt:P2424 _:b11. }
+}

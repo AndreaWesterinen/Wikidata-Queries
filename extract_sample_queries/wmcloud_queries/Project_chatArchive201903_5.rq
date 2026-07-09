@@ -1,0 +1,8 @@
+select distinct ?quality ?qualityLabel (count(?item) as ?count) where
+{
+  ?item p:P2002 ?accountStatement . 
+  ?accountStatement ps:P2002 ?account .
+  ?accountStatement pq:P1552 ?quality .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  } group by ?quality ?qualityLabel
+order by desc(?count)

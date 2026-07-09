@@ -1,3 +1,4 @@
+#title: Fictional universes with most fictional planets
 SELECT ?universe (SAMPLE(?label) AS ?label) (COUNT(?planet) AS ?count)
 WHERE
 {

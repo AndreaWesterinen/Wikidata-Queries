@@ -1,0 +1,4 @@
+SELECT ?item ?gallery WHERE {
+  ?item wdt:P1875 ?gallery.
+  ?gallery wdt:P31  wd:Q1007870.
+}

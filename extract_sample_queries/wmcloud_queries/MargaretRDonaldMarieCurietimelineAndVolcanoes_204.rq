@@ -1,0 +1,9 @@
+# Any genera from Chrysomelidae
+SELECT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P171* wd:Q193407.
+  ?item wdt:P105 wd:Q34740. # genus
+
+}
+ORDER BY ?itemLabel
+#LIMIT 200Has

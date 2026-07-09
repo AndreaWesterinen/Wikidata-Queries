@@ -1,0 +1,8 @@
+SELECT ?item ?ilksa ?ilksd WHERE {
+  ?item wdt:P31 wd:Q55488.
+  { ?item wdt:P131+ wd:Q66278313 }
+  UNION
+  { ?item wdt:P131+ wd:Q200667 }
+  OPTIONAL { ?item rdfs:label ?ilksa. FILTER(LANG(?ilksa)="ks-arab") }
+  OPTIONAL { ?item rdfs:label ?ilksd. FILTER(LANG(?ilksd)="ks-deva") }
+}

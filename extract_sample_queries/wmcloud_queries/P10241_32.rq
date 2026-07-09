@@ -1,0 +1,10 @@
+#title: Check old
+# Complex constraint from [[Property talk:P10241]]
+#
+SELECT ?item ?taxon ?born ?died ?diff {
+  ?item wdt:P10241 ?taxon;
+        wdt:P569 ?born;
+        wdt:P570 ?died.
+  BIND ((YEAR(?died) - YEAR(?born)) AS ?diff).
+  FILTER (?diff > 507). # Q13080849
+}

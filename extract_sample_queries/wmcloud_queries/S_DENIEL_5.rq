@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?pic
+WHERE
+{
+?item wdt:P31 wd:Q3305213.
+?item wdt:P195 wd:Q3330192.
+?item wdt:P18 ?pic
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

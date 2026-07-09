@@ -1,0 +1,11 @@
+embed.html#SELECT (SAMPLE(?auth_string) AS ?auth_string) (COUNT(DISTINCT ?paper) AS ?count) WHERE {
+  ?paper wdt:P31 wd:Q13442814.
+  ?paper p:P953 ?full_text.
+  ?full_text pq:P3274 ?wrro.
+  {?paper wdt:P50 ?author .} UNION {?paper wdt:P2093 ?auth_string .} 
+   ?paper wdt:P953 ?wrro_url .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?auth_string
+ORDER BY DESC(?count)
+LIMIT 30000

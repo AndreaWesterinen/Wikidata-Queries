@@ -1,0 +1,23 @@
+# average duration of movies by genre and year
+#defaultView:LineChart
+SELECT ?year (AVG(?durationInMinutes) AS ?avgDurationInMinutes) ?genreLabel WHERE {
+  {
+    SELECT ?genre WHERE {
+      ?film wdt:P31/wdt:P279* wd:Q11424;
+            wdt:P136 ?genre.
+    }
+    GROUP BY ?genre
+    ORDER BY DESC(COUNT(DISTINCT ?film))
+    LIMIT 25
+  }
+  ?film wdt:P31/wdt:P279* wd:Q11424;
+        wdt:P577 ?date;
+        p:P2047/psn:P2047/wikibase:quantityAmount ?durationInSeconds;
+        wdt:P136 ?genre.
+  FILTER(?durationInMinutes < 60*24) # I take the editorial liberty to exclude these films (some stupidly long documentaries), because they just absurdly skew the averages
+  BIND(STR(YEAR(?date)) AS ?year)
+  BIND(?durationInSeconds/60 AS ?durationInMinutes)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?year ?genreLabel
+HAVING(COUNT(DISTINCT ?film) >= 10)

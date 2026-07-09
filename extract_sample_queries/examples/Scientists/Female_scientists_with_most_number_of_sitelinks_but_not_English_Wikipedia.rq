@@ -1,5 +1,5 @@
-# ----
-#Female scientists with most number of sitelinks (but not English Wikipedia)
+#title: Female scientists with most number of sitelinks (but not English Wikipedia)
+
 #PREFIX schema: <http://schema.org/>
 
 SELECT ?item ?itemLabel ?linkcount WHERE {

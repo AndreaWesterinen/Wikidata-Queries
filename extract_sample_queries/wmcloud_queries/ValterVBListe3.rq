@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?NazLabel ?itemDescription WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q215380.
+  ?item wdt:P495 ?Naz.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it" }
+  
+  OPTIONAL { ?item schema:description ?itemDescription  }
+	FILTER (!BOUND(?itemDescription))
+}

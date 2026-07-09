@@ -1,0 +1,11 @@
+SELECT ?browser ?browserLabel 
+
+WHERE {
+  
+  ?browser wdt:P31 wd:Q6368 .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

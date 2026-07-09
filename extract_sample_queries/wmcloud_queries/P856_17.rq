@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P856/ps:P856 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://(www\\.)?yerelnet\\.org\\.tr/koyler/koy\\.php\\?koyid=([2-9]\\d{5}))$") )
+}

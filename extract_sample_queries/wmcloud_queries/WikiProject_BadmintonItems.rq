@@ -1,0 +1,34 @@
+SELECT ?item (COUNT(?sitelink) AS $slcnt) WHERE {
+  ?item wdt:P641 wd:Q7291 .
+  ?item wdt:P5008 wd:Q66098665 .
+  ?item wdt:P585 ?time 
+  FILTER (?time <= "2021-01-01T00:00:00Z"^^xsd:dateTime) .
+  FILTER EXISTS { ?item wdt:P585 ?dummy0 }
+  FILTER NOT EXISTS { ?item wdt:P2094 wd:Q63874701 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q63874701 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q18608583 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q44726365 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q45319806 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q53572691 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q53572582 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q53572574 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q655951 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q149882 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q20807089 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q773829 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q13506679 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q57947373 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q2593517 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q40504484 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q20807089 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q20807092 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q73989685 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q66207654 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q797176 }
+  FILTER NOT EXISTS { ?item wdt:P361 wd:Q2593520 }
+  FILTER NOT EXISTS { ?item wdt:P361 wd:Q2423124 }
+  FILTER NOT EXISTS { ?item wdt:P17 ?dummy0 }
+  FILTER NOT EXISTS { ?item wdt:P3085 ?dummy0 }
+  OPTIONAL { ?sitelink schema:about ?item . }
+} 
+GROUP BY(?item) ORDER BY DESC(?slcnt) LIMIT 8000

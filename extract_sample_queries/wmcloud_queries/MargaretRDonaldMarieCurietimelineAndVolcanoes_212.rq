@@ -1,0 +1,10 @@
+# taxa with an article, with an AFD_id and which is a genus
+SELECT ?item  ?taxonName ?article WHERE {
+  ?item wdt:P225 ?taxonName . 
+  ?item wdt:P6039 ?AFD_id.
+  ?item wdt:P171* wd:Q25309.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+
+}
+ORDER BY ?taxonName ?item

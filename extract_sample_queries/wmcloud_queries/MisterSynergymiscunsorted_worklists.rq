@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?gnd ?pq ?separator WHERE {
+  ?item p:P227 [ ps:P227 ?gnd; ?pq ?separator ] .
+  FILTER(?pq IN (pq:P21, pq:P101, pq:P106, pq:P131, pq:P136, pq:P518, pq:P571, pq:P580, pq:P582, pq:P585, pq:P742, pq:P805, pq:P1269, pq:P1476, pq:P1552, pq:P1810, pq:P1932, pq:P4970)) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}  

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel (year(?date) as ?year)
+WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P166 ?award .
+  ?award ps:P166 wd:Q1131356 ;
+         pq:P585 ?date .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}

@@ -1,0 +1,17 @@
+SELECT DISTINCT ?subject ?value WHERE {
+  ?subject wdt:P467 ?value .
+  OPTIONAL { ?subject p:P569/psv:P569 [ wikibase:timeValue ?subject_birth ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P569/psv:P569 [ wikibase:timeValue ?value_birth ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?subject p:P571/psv:P571 [ wikibase:timeValue ?subject_inception ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P571/psv:P571 [ wikibase:timeValue ?value_inception ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?subject p:P580/psv:P580 [ wikibase:timeValue ?subject_start ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P580/psv:P580 [ wikibase:timeValue ?value_start ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?subject p:P570/psv:P570 [ wikibase:timeValue ?subject_death ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P570/psv:P570 [ wikibase:timeValue ?value_death ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?subject p:P576/psv:P576 [ wikibase:timeValue ?subject_dissolution ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P576/psv:P576 [ wikibase:timeValue ?value_dissolution ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?subject p:P582/psv:P582 [ wikibase:timeValue ?subject_end ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  OPTIONAL { ?value p:P582/psv:P582 [ wikibase:timeValue ?value_end ; wikibase:timePrecision "11"^^xsd:integer ] . }
+  FILTER ((!BOUND(?subject_birth) || ((!BOUND(?value_death) || ?subject_birth>?value_death) && (!BOUND(?value_dissolution) || ?subject_birth>?value_dissolution) && (!BOUND(?value_end) || ?subject_birth>?value_end))) && (!BOUND(?value_birth) || ((!BOUND(?subject_death) || ?value_birth>?subject_death) && (!BOUND(?subject_dissolution) || ?value_birth>?subject_dissolution) && (!BOUND(?subject_end) || ?value_birth>?subject_end))) && (!BOUND(?subject_inception) || ((!BOUND(?value_death) || ?subject_inception>?value_death) && (!BOUND(?value_dissolution) || ?subject_inception>?value_dissolution) && (!BOUND(?value_end) || ?subject_inception>?value_end))) && (!BOUND(?value_inception) || ((!BOUND(?subject_death) || ?value_inception>?subject_death) && (!BOUND(?subject_dissolution) || ?value_inception>?subject_dissolution) && (!BOUND(?subject_end) || ?value_inception>?subject_end))) && (!BOUND(?subject_start) || ((!BOUND(?value_death) || ?subject_start>?value_death) && (!BOUND(?value_dissolution) || ?subject_start>?value_dissolution) && (!BOUND(?value_end) || ?subject_start>?value_end))) && (!BOUND(?value_start) || ((!BOUND(?subject_death) || ?value_start>?subject_death) && (!BOUND(?subject_dissolution) || ?value_start>?subject_dissolution) && (!BOUND(?subject_end) || ?value_start>?subject_end))) && ((BOUND(?subject_birth) && (BOUND(?value_death) || BOUND(?value_dissolution) || BOUND(?value_end))) || (BOUND(?value_birth) && (BOUND(?subject_death) || BOUND(?subject_dissolution) || BOUND(?subject_end))) || (BOUND(?subject_inception) && (BOUND(?value_death) || BOUND(?value_dissolution) || BOUND(?value_end))) || (BOUND(?value_inception) && (BOUND(?subject_death) || BOUND(?subject_dissolution) || BOUND(?subject_end))) || (BOUND(?subject_start) && (BOUND(?value_death) || BOUND(?value_dissolution) || BOUND(?value_end))) || (BOUND(?value_start) && (BOUND(?subject_death) || BOUND(?subject_dissolution) || BOUND(?subject_end)))))
+}
+LIMIT 200

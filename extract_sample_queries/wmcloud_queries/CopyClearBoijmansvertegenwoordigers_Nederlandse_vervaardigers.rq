@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  	# werken in collectie = Boijmans
+  ?item wdt:P6379 wd:Q679527.
+  	# with copyrightholder
+  ?item wdt:P6275 ?copyrightholder .
+  	# nationality = Kingdom of the Netherlands
+  {?item wdt:P27 wd:Q29999}
+   	# OR place of birth within Netherlands
+	UNION  {?item wdt:P19 ?pob .
+  ?pob wdt:P17 wd:Q55}
+   	# OR work location within Netherlands
+	UNION  {?item wdt:P937 ?pow .
+  ?pow wdt:P17 wd:Q55}
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 ?por .
+  ?por wdt:P17 wd:Q55}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P20 ?pod .
+  ?pod wdt:P17 wd:Q55}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

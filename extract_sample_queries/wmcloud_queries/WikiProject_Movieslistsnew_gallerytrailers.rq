@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?s ?img
+WHERE
+{
+  ?item p:P10 [pq:P3831 wd:Q622550; ps:P10 ?img ] .
+  ?item wdt:P31/wdt:P279* wd:Q11424.
+  ?item wikibase:sitelinks ?sl ; wikibase:statements ?st ; wikibase:identifiers ?ids . 
+  BIND( 
+    CONCAT(
+      "sl: ",str(?sl)," - st: ",str(?st), " - ids: ", str(?ids), " - ", 
+      REPLACE(str(?img),"http://commons.wikimedia.org/wiki/Special:FilePath/","[[c:File:"),"|","c:]]"
+          )
+  as ?s)
+}
+ORDER BY DESC(xsd:integer(strafter(str(?item),"Q")))
+LIMIT 8

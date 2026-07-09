@@ -1,0 +1,8 @@
+SELECT ?pid
+WHERE {
+	?pid wdt:P106 wd:Q1930187 .
+	?pid wdt:P31 wd:Q5185279 .#Q7725634
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "ro" .
+	}
+}

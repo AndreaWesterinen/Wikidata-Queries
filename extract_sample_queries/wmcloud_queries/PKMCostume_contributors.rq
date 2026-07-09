@@ -1,0 +1,6 @@
+SELECT ?item 
+WHERE 
+{
+  ?article wdt:P1433 wd:Q35387261. # article was published in costume
+  ?article wdt:P50 ?item . # here's an author
+}

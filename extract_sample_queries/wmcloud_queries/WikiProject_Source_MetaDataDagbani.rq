@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item p:P5008 ?statement0.
+      ?statement0 (ps:P5008/(wdt:P279*)) wd:Q110167110.
+    }
+  }
+}

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P195 wd:Q1568434 .
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P571 [] . ?item wdt:P170 ?creator} . 
+  MINUS { ?item wdt:P170 ?creator . ?creator wdt:P569 ?dob . BIND((year(?dob)) as ?year) . FILTER((1 <= ?year && ?year < 2100)) }  
+} LIMIT 2500

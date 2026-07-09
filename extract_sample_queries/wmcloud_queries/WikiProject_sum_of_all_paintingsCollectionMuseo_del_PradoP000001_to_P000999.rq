@@ -1,0 +1,12 @@
+SELECT ?item ?inv (year(?collectiondate) as ?collectionyear) WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q160112 .
+  ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 wd:Q160112 .
+  FILTER regex(?inv, "^P\\d+$") 
+  OPTIONAL { ?collectionstatement pq:P580 ?collectiondate }  .
+  BIND(xsd:integer(REPLACE(?inv, "^P(\\d+)$", "$1")) AS ?invinteger)
+  FILTER(0 < ?invinteger && ?invinteger < 999)
+  } ORDER BY ?invinteger ?inv
+LIMIT 2000

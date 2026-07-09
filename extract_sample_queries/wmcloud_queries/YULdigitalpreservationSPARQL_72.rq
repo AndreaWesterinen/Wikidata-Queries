@@ -1,0 +1,13 @@
+SELECT DISTINCT ?softwareLabel ?developerLabel ?year
+
+WHERE {
+  
+  ?software wdt:P31 wd:Q341 .
+  ?software wdt:P178 ?developer .
+  ?developer wdt:P569 ?year .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

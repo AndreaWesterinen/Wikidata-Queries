@@ -1,0 +1,20 @@
+# Public libraries <25km from KB
+#defaultView:Map
+SELECT DISTINCT ?dpl ?dplLabel ?dplLoc ?dist WHERE {
+  #Is Dutch public library dpl
+  ?dpl wdt:P31 wd:Q28564.#public library
+  ?dpl wdt:P31 wd:Q11396180.#library branch 
+  ?dpl wdt:P17 wd:Q55. #fm the Netherlands  
+  
+  #KB coordinates
+  wd:Q1526131 wdt:P625 ?KBLoc . 
+  
+  SERVICE wikibase:around { 
+    ?dpl wdt:P625 ?dplLoc.   
+    bd:serviceParam wikibase:center ?KBLoc . 
+    bd:serviceParam wikibase:radius "25" . 
+    bd:serviceParam wikibase:distance ?dist.
+  } 
+
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+} ORDER BY ASC(?dist)

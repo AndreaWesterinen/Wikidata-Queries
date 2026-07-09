@@ -1,0 +1,18 @@
+#title: unit violations when used as qualifier: count
+# Complex constraint from [[Property talk:P3744]]
+# count by unit used
+SELECT ?unit ?unitLabel ?count ?sample ?sampleitem ?sampleitemLabel ?prop ?propLabel
+{
+  {  SELECT ?unit (COUNT(*) as ?count) (SAMPLE(?st) as ?sample) 
+     { 
+        ?st pqv:P3744/wikibase:quantityUnit ?unit .
+        FILTER( ?unit != wd:Q199 )
+      }
+      GROUP BY ?unit
+  }
+  hint:Query hint:optimizer "None".
+  ?sampleitem ?p ?sample .
+  ?prop wikibase:claim ?p .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  
+ORDER BY DESC(?count)

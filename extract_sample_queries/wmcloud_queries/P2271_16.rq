@@ -1,0 +1,18 @@
+#title: Non-existent examples
+# Complex constraint from [[Property talk:P2271]]
+# Properties with examples that do not exist at the target properties
+SELECT ?item WHERE { 
+  ?item p:P2271 ?example . 
+  ?example ps:P2271 ?targetitem . 
+  ?example ?pq ?value . 
+  ?prop wikibase:qualifier ?pq . 
+  ?prop wikibase:propertyType ?dt . 
+  ?item wikibase:propertyType ?dt . 
+  FILTER NOT EXISTS {
+    { ?prop wikibase:claim ?p } UNION { ?item wikibase:claim ?p } .
+    ?ip wikibase:claim ?p .
+    ?targetitem ?p ?statement . 
+    ?ip wikibase:statementProperty ?ps .
+    ?statement ?ps ?value . 
+  } . 
+}

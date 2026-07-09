@@ -1,0 +1,5 @@
+SELECT ?WikiData_property_ ?WikiData_property_Label ?WikiData_property_Description ?WikiData_property_AltLabel 
+WHERE {
+	?WikiData_property_ wdt:P2302 wd:Q21502410 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

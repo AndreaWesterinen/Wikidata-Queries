@@ -1,0 +1,9 @@
+#defaultView:Graph
+SELECT ?city ?cityLabel ?image ?cityB
+WHERE {
+  ?cityB wdt:P31 wd:Q1637706 .
+  ?city wdt:P31 wd:Q1637706 ;
+        wdt:P190 ?cityB ;
+        wdt:P18 ?image
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

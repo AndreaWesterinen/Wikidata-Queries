@@ -1,0 +1,6 @@
+SELECT ?circo ?circoLabel
+WHERE
+{
+	?circo wdt:P31 wd:Q2713747 .
+	?circo rdfs:label ?circoLabel FILTER (lang(?circoLabel) = "fr") .
+}

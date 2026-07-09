@@ -1,0 +1,86 @@
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+#defaultView:Graph
+# parts of a gene and their subclasses
+SELECT DISTINCT ?down ?downLabel ?up ?upLabel ("#ff0000" AS ?rgb) WHERE {
+  {
+    {
+      SELECT ?down ?up WHERE { # subclass of untranslated region
+        SERVICE gas:service {
+          gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS".
+          gas:program gas:in wd:Q424345.
+          gas:program gas:traversalDirection "Reverse".
+          gas:program gas:out ?down.
+          gas:program gas:out1 ?depth.
+          gas:program gas:out2 ?up.
+          gas:program gas:linkType wdt:P279.
+        }
+      }
+    }
+  }
+  UNION
+  {
+    {
+      SELECT ?down ?up WHERE { # subclass of regulatory sequence
+        SERVICE gas:service {
+          gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS".
+          gas:program gas:in wd:Q3238407.
+          gas:program gas:traversalDirection "Reverse".
+          gas:program gas:out ?down.
+          gas:program gas:out1 ?depth.
+          gas:program gas:out2 ?up.
+          gas:program gas:linkType wdt:P279.
+        }
+      }
+    }
+  }
+  UNION
+  {
+    {
+      SELECT ?down ?up WHERE { # part of coding region
+        SERVICE gas:service {
+          gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS".
+          gas:program gas:in wd:Q3780824.
+          gas:program gas:traversalDirection "Reverse".
+          gas:program gas:out ?down.
+          gas:program gas:out1 ?depth.
+          gas:program gas:out2 ?up.
+          gas:program gas:linkType wdt:P361.
+        }
+      }
+    }
+  }
+  UNION
+  {
+    {
+      SELECT ?down ?up WHERE { # instance of regulatory sequence
+        SERVICE gas:service {
+          gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS".
+          gas:program gas:in wd:Q424345.
+          gas:program gas:traversalDirection "Reverse".
+          gas:program gas:out ?down.
+          gas:program gas:out1 ?depth.
+          gas:program gas:out2 ?up.
+          gas:program gas:linkType wdt:P31.
+        }
+      }
+    }
+  }
+   UNION
+  {
+    {
+      SELECT ?down ?up WHERE { # part of gene
+        SERVICE gas:service {
+          gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS".
+          gas:program gas:in wd:Q7187. # gene
+          gas:program gas:traversalDirection "Reverse".
+          gas:program gas:out ?down.
+          gas:program gas:out1 ?depth.
+          gas:program gas:out2 ?up.
+          gas:program gas:linkType wdt:P361.
+        }
+      }
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,da,sv,jp,zh,ru,fr,de". }
+}

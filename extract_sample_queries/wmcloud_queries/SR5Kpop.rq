@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P136 wd:Q213665.
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q5. })
+  }
+LIMIT 5000

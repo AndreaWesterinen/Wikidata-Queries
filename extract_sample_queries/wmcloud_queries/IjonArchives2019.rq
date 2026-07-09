@@ -1,0 +1,23 @@
+# Commons categories for a set of books, that have categories for people other than
+# those 'explained' by statements on Wikidata for author, contributor, etc.
+
+SELECT DISTINCT ?book ?commonsCategoryBook ?commonsCategoryAuth
+WITH {
+  SELECT ?book ?auth WHERE {
+    ?book wdt:P195 wd:Q53764729 .
+    ?book wdt:P50|wdt:P767 ?auth .
+  }
+} AS %pairs
+WITH {
+  SELECT ?auth ?commonsCategoryAuth WHERE {
+    hint:SubQuery hint:optimizer "None". # we have to disable the optimizer for this subquery because it gets confused by the ?commonsCategoryStatementEn part
+    INCLUDE %pairs.
+    OPTIONAL {
+      ?auth wdt:P373 ?commonsCategoryStatement.
+      BIND(STRLANG(CONCAT("Category:", ?commonsCategoryStatement), "en") AS ?commonsCategoryStatementEn)
+      ?commonsCategoryFromStatement schema:name ?commonsCategoryStatementEn;
+                                    schema:isPartOf <https://commons.wikimedia.org/>.
+    }
+    OPTIONAL {
+      ?commonsCategoryFromSitelink schema:about ?auth;
+                                   schema:isPartOf <https://commons.wikimedia.org/

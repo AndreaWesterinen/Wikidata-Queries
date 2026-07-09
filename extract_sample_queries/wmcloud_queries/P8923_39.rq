@@ -1,0 +1,10 @@
+#title: Works in SMB collections without ID
+# Complex constraint from [[Property talk:P8923]]
+# Works that are in one of [[d:Q700216|Berlin State Museums <small>(Q700216)</small>]] collections, but don't have a [[Property:P8923|SMB-digital ID&#32;<small dir="ltr">(P8923)</small>]]
+SELECT DISTINCT ?item WHERE {
+  { ?item p:P195/ps:P195 wd:Q700216 } UNION 
+  { ?item p:P195/ps:P195/wdt:P361 wd:Q700216 } UNION
+  { ?item p:P217/pq:P195 wd:Q700216 } UNION 
+  { ?item p:P217/pq:P195/wdt:P361 wd:Q700216 } .
+  MINUS { ?item wdt:P8923 [] } .
+  } LIMIT 1000

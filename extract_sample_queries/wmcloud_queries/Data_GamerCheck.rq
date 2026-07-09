@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?population ?pit ?area ?rank
+WHERE
+{ 
+  ?item wdt:P131 wd:Q59153 .
+  {?item wdt:P31 wd:Q29414133 .}
+  UNION
+  {?item wdt:P31 wd:Q16739079 . }
+  optional {?item p:P1082 [ps:P1082 ?pop; pq:P585 ?pointintime; wikibase:rank ?rank]. filter (?rank=wikibase:PreferredRank).}
+  optional {?item p:P1082 [ps:P1082 ?population2; pq:P585 ?pit2; wikibase:rank ?rank2]. filter (?pointintime!=?pit) filter (?rank2=wikibase:PreferredRank).}
+  bind(if(bound(?rank2),"",?pop) as ?population)
+  bind(if(bound(?rank2),"",?pointintime) as ?pit)
+  optional {?item wdt:P2046 ?a .}
+  BIND(REPLACE(STR(?a),"\\.",",") AS ?area) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "el". }
+}

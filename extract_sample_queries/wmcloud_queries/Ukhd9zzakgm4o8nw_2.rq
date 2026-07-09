@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?logo (COUNT(?platform) AS ?count)
+WHERE 
+{
+  ?item wdt:P31 wd:Q7889.
+  ?item wdt:P400 ?platform.
+  OPTIONAL {?item wdt:P154 ?logo}.
+ 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+GROUP BY ?item ?itemLabel ?logo
+HAVING(COUNT(?platform) > 9)
+ORDER BY DESC(?count)

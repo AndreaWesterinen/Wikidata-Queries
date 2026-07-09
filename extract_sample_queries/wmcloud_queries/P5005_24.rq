@@ -1,0 +1,8 @@
+#title: Validate publication date
+# Complex constraint from [[Property talk:P5005]]
+#
+SELECT ?item ?id ?date {
+  ?item wdt:P5005 ?id.
+  ?item wdt:P577 ?date.
+  FILTER (xsd:integer(SUBSTR(?id, 1, 4)) != YEAR(?date))	
+}

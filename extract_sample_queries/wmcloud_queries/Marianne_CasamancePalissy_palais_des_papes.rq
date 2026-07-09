@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?id WHERE {
+  { ?item wdt:P276 wd:Q143463;
+          wdt:P481 ?id .
+  } UNION
+  { ?item wdt:P361 ?group .
+    ?group wdt:P276 wd:Q143463;
+           wdt:P481 ?id .
+  }
+}

@@ -1,0 +1,10 @@
+SELECT ?Stolperstein ?StolpersteinLabel ?geographische_Koordinaten ?Bild
+WHERE {
+  ?Stolperstein wdt:P31 wd:Q26703203;
+                wdt:P276 wd:Q1715;
+                wdt:P625 ?geographische_Koordinaten;
+                wdt:P18 ?Bild.
+  MINUS {?Stolperstein wdt:P1893 ?PlaquesID}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en"  }
+  }
+ORDER BY ?StolpersteinLabel

@@ -1,3 +1,4 @@
+#title: Timeline of albums by Manu Chao and Mano Negra
 #defaultView:Timeline
 SELECT ?album ?performerLabel ?albumLabel ?publication_date WHERE {
   VALUES ?performer {

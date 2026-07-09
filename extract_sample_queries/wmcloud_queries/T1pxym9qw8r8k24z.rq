@@ -1,0 +1,14 @@
+SELECT ?cid ?value ?count WHERE {
+  {
+    SELECT ?cid (count(*) as ?count) WHERE {
+      ?pid wdt:P793 ?cid .
+    }
+    GROUP BY ?cid
+  } .
+
+  OPTIONAL {
+    ?cid rdfs:label ?value filter (lang(?value) = "ru") .
+  }
+}
+ORDER BY DESC(?count) ASC(?value)
+LIMIT 1000

@@ -1,0 +1,16 @@
+SELECT ?item ?Len ?KDM WHERE { 
+
+ ?item wdt:P170 wd:Q381238 .  
+ MINUS{ ?item wdt:P31 wd:Q3658341 .}
+ MINUS{ ?item wdt:P31 wd:Q125191.}
+ optional{ ?item p:P528 [ pq:P972 wd:Q106425660; ps:P528 ?KDM] . }
+
+ filter ( bound(?KDM) && ?KDM!="I 0000")
+  #{?item p:P528 [ ps:P528 ?id; pq:P972 wd:Q106425660; ] }
+  #UNION { ?item p:P528 [ rdf:type wdno:P528; pq:P972 wd:Q106425660; ] . BIND("no value" as ?id)}
+  #filter (?id != "I 0000")
+  OPTIONAL {
+   ?item rdfs:label ?Len 
+   FILTER((LANG(?Len)) = "en")
+  }
+} order by ?KDM

@@ -1,0 +1,6 @@
+SELECT (COUNT(DISTINCT ?item) as ?ct)
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P276*/wdt:P131* wd:Q1273 .
+  ?item wdt:P31/wdt:P279* wd:Q33506 .
+}

@@ -1,0 +1,14 @@
+#defaultView:Timeline
+#most ancient persons in the IBDb (Internet Broadway Database)
+SELECT DISTINCT ?person ?personLabel ?personDescription (SAMPLE(?birthDate) AS ?date) (SAMPLE(?photo) AS ?pic) {
+  ?person wdt:P31 wd:Q5 .
+  ?person wdt:P1220 ?IBDB . 
+             
+  ?person wdt:P569 ?birthDate .
+
+  OPTIONAL { ?person wdt:P18 ?photo . }
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+} GROUP BY ?person ?personLabel ?personDescription ORDER BY ?date LIMIT 200

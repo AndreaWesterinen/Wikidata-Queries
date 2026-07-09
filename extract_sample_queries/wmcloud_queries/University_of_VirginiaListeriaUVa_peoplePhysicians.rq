@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item 
+WHERE {
+  ?item wdt:P31 wd:Q5 . #person is instance of human
+  ?item wdt:P106 wd:Q39631 . # person has occupation physician
+  {?item ?property1 wd:Q213439 } UNION {?item ?property2 [wdt:P361 wd:Q213439] }. #person has some relationship to UVa
+}

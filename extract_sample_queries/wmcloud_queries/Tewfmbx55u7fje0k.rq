@@ -1,0 +1,7 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel ?map WHERE {
+  { ?item wdt:P31 wd:Q5107 . } UNION { ?item wdt:P31 wd:Q55833 .}
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q2284298 }
+  OPTIONAL { ?item wdt:P242 ?map . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

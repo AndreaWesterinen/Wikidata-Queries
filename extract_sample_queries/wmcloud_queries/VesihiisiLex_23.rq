@@ -1,0 +1,12 @@
+# Swedish lexemes that are parts of compounds
+SELECT ?combines ?combinesLemma (COUNT(?combines) AS ?count) WHERE {
+  ?l rdf:type ontolex:LexicalEntry;
+    dct:language ?language;
+    wikibase:lemma ?lemma.
+  ?language wdt:P218 "sv".
+  # ?l wdt:P5831 ?example.
+  ?l wdt:P5238 ?combines.
+  ?combines wikibase:lemma ?combinesLemma.
+}
+GROUP BY ?combines ?combinesLemma
+ORDER BY DESC(?count)

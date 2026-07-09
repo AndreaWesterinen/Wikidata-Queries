@@ -1,0 +1,5 @@
+select ?country ?countryname (count(*) as ?total) {
+  ?item wdt:P1667 ?tgn ;
+        wdt:P17 ?country .
+  optional { ?country rdfs:label ?countryname filter (lang(?countryname) = "en") }
+} group by ?country ?countryname order by desc(?total) ?countryname

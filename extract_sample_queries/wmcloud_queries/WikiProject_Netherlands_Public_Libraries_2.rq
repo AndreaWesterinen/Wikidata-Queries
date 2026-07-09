@@ -1,0 +1,11 @@
+embed.html##defaultView:ImageGrid
+SELECT ?item ?itemLabel ?itemDescription ?image
+WHERE 
+{
+  ?item wdt:P31 wd:Q28564.
+  ?item wdt:P31 wd:Q11396180.
+  ?item wdt:P17 wd:Q55.
+  #?item wdt:P159 ?hq #headquarters location
+  OPTIONAL {?item wdt:P18 ?image .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

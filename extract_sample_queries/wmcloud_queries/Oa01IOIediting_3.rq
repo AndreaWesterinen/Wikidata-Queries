@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?source_code_repository ?itemDescription
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q506883.
+  OPTIONAL { ?item wdt:P1324 ?source_code_repository. }
+}
+LIMIT 1000

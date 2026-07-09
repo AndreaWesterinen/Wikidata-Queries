@@ -1,3 +1,4 @@
+#title: Country populations together with total city populations
 SELECT ?country ?countryLabel ?population ?totalCityPopulation (?population / ?totalCityPopulation AS ?ratio) {
   ?country wdt:P1082 ?population .
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en" }

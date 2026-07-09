@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription ?img 
+{
+	?item wdt:P31 wd:Q3305213 ; wdt:P18 ?img .
+    { ?item wikibase:statements 2 }
+    UNION  { ?item wikibase:statements 3 }
+    UNION  { ?item wikibase:statements 4 }  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,44 @@
+embed.html##Gender ratio in Disney's traditionally animated films
+#defaultView:BarChart
+SELECT ?gender (COUNT(DISTINCT ?character) AS ?number) 
+WHERE
+{
+  #Characters
+  {
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+         wdt:P527* ?film1.
+  
+  #getting characters and their gender
+  ?character wdt:P1441 ?film1.
+  ?character wdt:P31/wdt:P279* wd:Q95074
+  OPTIONAL
+  {
+  ?character wdt:P21 ?gen.
+  ?gen rdfs:label ?gLabel.
+  FILTER(LANG(?gLabel) = "en")
+  }
+  
+  }
+  UNION
+  
+  #Unisex character groups
+  {
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+        wdt:P527* ?film1.
+  
+  #getting characters and their gender
+  ?character wdt:P1441 ?film1.
+  ?character wdt:P31/wdt:P279* wd:Q24577840;
+             p:P2670 ?st.
+  ?st pq:P21 ?gen.
+  ?gen rdfs:label ?gLabel.
+  FILTER(LANG(?gLabel) = "en")
+  }
+  
+  BIND(IF(!BOUND(?gen), "unknown/none", ?gLabel) AS ?gender)
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?gender

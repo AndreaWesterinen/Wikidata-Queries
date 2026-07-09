@@ -1,0 +1,16 @@
+embed.html##US presidents and spouses
+#defaultView:Graph
+SELECT ?p ?pLabel ?ppicture ?w ?wLabel ?wpicture
+WHERE 
+{
+	wd:Q30 p:P6/ps:P6 ?p .
+	?p wdt:P26 ?w .
+   OPTIONAL{
+    ?p wdt:P18 ?ppicture .
+    ?w wdt:P18 ?wpicture .
+    }
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}
+LIMIT 10

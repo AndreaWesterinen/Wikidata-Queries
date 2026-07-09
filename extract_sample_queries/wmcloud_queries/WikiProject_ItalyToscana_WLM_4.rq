@@ -1,0 +1,5 @@
+SELECT ?SanMiniato ?SanMiniatoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?SanMiniato wdt:P131 wd:Q103244.
+}
+LIMIT 100

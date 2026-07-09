@@ -1,0 +1,4 @@
+#title: Qualifier of P793 only
+# Complex constraint from [[Property talk:P6354]]
+# Is defined as a qualifier of [[Property:P793|significant event&#32;<small dir="ltr">(P793)</small>]], not other properties
+SELECT ?item ?p WHERE { ?st pq:P6354 [] . MINUS { ?item p:P793 ?st } MINUS { ?item p:P1855 ?st } ?item ?p ?st }

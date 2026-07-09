@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel ?jurisdictionLabel ?image WHERE {
+  { ?item wdt:P31/wdt:279* wd:Q208324 . } UNION
+  { ?item wdt:P136 wd:Q208324 . }
+  OPTIONAL { ?item wdt:P1001 ?jurisdiction }
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?jurisdictionLabel ?itemLabel

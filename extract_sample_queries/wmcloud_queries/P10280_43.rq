@@ -1,0 +1,32 @@
+SELECT ?item ?article ?cat ?category ?wiki ?hc 
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?place wdt:P10280 ?cat .
+    [] schema:about ?cat ; schema:isPartOf ?part ; schema:name ?catname ; schema:inLanguage "et" .
+    BIND( strbefore(strafter(str(?part), "//"),"/") as ?wiki)
+    BIND( str(?catname) as ?category)  
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:endpoint ?wiki;
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?category ;
+                     mwapi:gcmprop "title";
+                     mwapi:gcmlimit "max".
+     ?article wikibase:apiOutput mwapi:title.
+     ?item wikibase:apiOutputItem mwapi:item.
+    } 
+  FILTER(bound(?item))
+  ?item wdt:P31 wd:Q5 .
+  # see note below
+  OPTIONAL { ?cat wdt:P301 ?hc }
+  FILTER NOT EXISTS { ?item p:P166/ps:P166/wdt:P279? wd:Q987080 }
+  FILTER NOT EXISTS { ?item wdt:P166 / wdt:P279? wd:Q987080 }
+  FILTER NOT EXISTS { ?item wdt:P166 / wdt:P279? wd:Q110713305 }  
+  FILTER NOT EXISTS { ?item wdt:P166 / wdt:P279? wd:Q110713301 }    
+  FILTER NOT EXISTS { ?item wdt:P166 / wdt:P279? wd:Q110696291 }      
+  FILTER NOT EXISTS { ?item wdt:P166 / wdt:P279? wd:Q16687686 }        
+  # the above excludes items with any honorary citizenship. To check for ?hc only, use:
+  # ?cat wdt:P301 ?hc . FILTER NOT EXISTS { ?item p:P166/ps:P166 ?hc }
+}
+LIMIT 100

@@ -1,0 +1,3 @@
+SELECT ?item WHERE {
+  ?item p:P356/ps:P356  "10.2307/3326922" .
+}

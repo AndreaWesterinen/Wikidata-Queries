@@ -1,0 +1,11 @@
+SELECT ?Stolperstein ?StolpersteinLabel ?datum
+WHERE {
+  ?Stolperstein wdt:P31 wd:Q26703203;
+                wdt:P276 wd:Q1715;
+                p:P793 ?Einweihung.
+  ?Einweihung ps:P793 wd:Q3010369;
+              pq:P585 ?datum.
+  FILTER("2017-01-01"^^xsd:dateTime <= ?datum && ?datum < "2018-01-01"^^xsd:dateTime).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en"  }
+  }
+ORDER BY ?StolpersteinLabel

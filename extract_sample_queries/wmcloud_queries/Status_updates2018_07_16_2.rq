@@ -1,0 +1,19 @@
+# people born furthest from their place of education
+SELECT ?person ?personLabel ?personDescription ?placeOfBirthLabel ?educatedAtLabel (MAX(?distance) AS ?distance) WITH {
+  SELECT ?person ?placeOfBirth ?educatedAt ?distance WHERE {
+    ?person wdt:P31 wd:Q5;
+            wdt:P569 ?dateOfBirth;
+            wdt:P19 ?placeOfBirth;
+            wdt:P69 ?educatedAt.
+    ?placeOfBirth wdt:P625 ?placeOfBirthCoordinates.
+    ?educatedAt wdt:P625 ?educatedAtCoordinates.
+    BIND(geof:distance(?placeOfBirthCoordinates, ?educatedAtCoordinates) AS ?distance).
+  }
+  ORDER BY DESC(?distance)
+  LIMIT 50
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?person ?personLabel ?personDescription ?placeOfBirthLabel ?educatedAtLabel
+ORDER BY DESC(?distance)

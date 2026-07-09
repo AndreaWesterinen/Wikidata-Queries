@@ -1,0 +1,7 @@
+SELECT ?feminino ?sexo_ou_g_nero ?sexo_ou_g_neroLabel ?femininoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?feminino (wdt:P21/wdt:P279*) wd:Q6581072.
+  OPTIONAL { ?feminino wdt:P21 ?sexo_ou_g_nero. }
+  ?feminino wdt:P106 wd:Q2526255.
+  ?feminino wdt:P27 wd:Q30.
+}

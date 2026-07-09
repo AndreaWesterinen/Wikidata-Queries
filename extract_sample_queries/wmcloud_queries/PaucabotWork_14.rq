@@ -1,0 +1,15 @@
+# Platges de les IB amb unitats de longitud
+SELECT ?item ?itemLabel ?length ?unitLabel 
+WHERE
+{
+  ?item wdt:P31 wd:Q28060923.    # platges
+  ?item wdt:P131* wd:Q5765.      # IB
+  ?item          p:P2043                     ?stmnode.    # length
+  ?stmnode       psv:P2043                   ?valuenode.
+  ?valuenode     wikibase:quantityAmount     ?length.
+  ?valuenode     wikibase:quantityUnit       ?unit.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca". }
+} 
+ORDER BY DESC(?length)
+LIMIT 10

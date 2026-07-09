@@ -1,0 +1,6 @@
+SELECT ?enslaved_person ?enslaved_personLabel ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?enslaved_person wdt:P3716 wd:Q12773225.
+  OPTIONAL { ?enslaved_person wdt:P18 ?image. }
+}
+LIMIT 1000

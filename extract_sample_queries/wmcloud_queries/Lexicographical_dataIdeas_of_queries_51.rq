@@ -1,0 +1,10 @@
+SELECT DISTINCT ?lexeme ?lemma ?langLabel WHERE {
+  ?lexeme a ontolex:LexicalEntry ;
+            dct:language ?lang;
+            wikibase:lemma ?lemma ;
+            p:P5831 ?example .
+  minus { ?example pq:P5830 [].
+          ?example pq:P6072 [].}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+order by lcase(?langLabel)

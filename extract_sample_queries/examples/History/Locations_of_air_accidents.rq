@@ -1,3 +1,4 @@
+#title: Locations of air accidents
 SELECT ?label ?coord ?place
 WHERE
 {

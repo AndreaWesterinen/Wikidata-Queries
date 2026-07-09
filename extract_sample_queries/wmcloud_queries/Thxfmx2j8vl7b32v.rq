@@ -1,0 +1,8 @@
+SELECT ?person ?personLabel ?positionLabel ?erdos_number WHERE {
+  ?person wdt:P31 wd:Q5 ;
+          wdt:P39 ?position ;
+          wdt:P2021 ?erdos_number .
+  { ?position wdt:P279* wd:Q48352 . } UNION
+  { ?position wdt:P279* wd:Q2285706 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ASC(?erdos_number) ?personLabel

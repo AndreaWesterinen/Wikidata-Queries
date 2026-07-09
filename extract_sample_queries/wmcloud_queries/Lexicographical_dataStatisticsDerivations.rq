@@ -1,0 +1,29 @@
+SELECT ?item ?lexcount
+       ?p5191count (ROUND(10000*(?p5191count / ?lexcount))/10000 as ?p5191ratio)
+       ?p5238count (ROUND(10000*(?p5238count / ?lexcount))/10000 as ?p5238ratio)
+       ?totalcount (ROUND(10000*(?totalcount / ?lexcount))/10000 as ?totalratio)
+WITH { 
+  SELECT ?item (COUNT(?a) as ?lexcount) {
+    ?a dct:language ?item.
+  } GROUP BY ?item
+} AS %lexcounts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?a) as ?p5191count) {
+    ?a dct:language ?item; wdt:P5191 [].
+  } GROUP BY ?item
+} AS %p5191counts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?a) as ?p5238count) {
+    ?a dct:language ?item; wdt:P5238 [] .
+  } GROUP BY ?item
+} AS %p5238counts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?a) as ?totalcount) {
+    ?a dct:language ?item; (wdt:P5191|wdt:P5238) [] .
+  } GROUP BY ?item
+} AS %totalcounts
+WHERE {
+  INCLUDE %lexcounts. INCLUDE %p5191counts. INCLUDE %p5238counts. INCLUDE %totalcounts.
+  FILTER(?lexcount > 100)
+}
+ORDER BY DESC(?totalcount) ASC(?p5137ratio) ASC(?p5238ratio)

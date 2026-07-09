@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(DISTINCT(?film)) AS ?ct) (SAMPLE(?film) as ?episodesample) (SAMPLE(?series) as ?seriessample) 
+WHERE
+{    
+ VALUES ?filmtype {wd:Q21191270 } .  ?film wdt:P31 ?filmtype .  ?film wdt:P58 ?item . ?film wdt:P179 ?series . 
+} 
+GROUP BY ?item 
+ORDER BY DESC(?ct) 
+LIMIT 75

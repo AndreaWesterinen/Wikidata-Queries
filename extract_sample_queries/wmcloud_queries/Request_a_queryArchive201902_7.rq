@@ -1,0 +1,17 @@
+PREFIX dbc: <http://dbpedia.org/resource/Category:>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/property/>
+
+SELECT ?wsubjectLabel ?licenseName WHERE {
+  SERVICE <http://dbpedia.org/sparql> {
+    ?subject dct:subject dbc:Linux_media_players.
+    ?subject owl:sameAs ?wsubject.
+    ?subject dbo:license ?license.
+    ?license dbp:name ?licenseName.
+    FILTER(STRSTARTS(STR(?wsubject), "http://www.wikidata.org"))
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,35 @@
+# tool: scholia
+#title: Habitats that co-occur with the target taxon in the literature
+PREFIX target: <http://www.wikidata.org/entity/Q22671> 
+
+SELECT ?count (CONCAT("/topics/",SUBSTR(STR(target:), 32), ",", SUBSTR(STR(?habitat), 32)) AS ?countUrl)
+       ?habitat ?habitatLabel (CONCAT("/taxon/", SUBSTR(STR(?habitat), 32)) AS ?habitatUrl)
+       ?example_work ?example_workLabel (CONCAT("/work/", SUBSTR(STR(?example_work), 32)) AS ?example_workUrl)
+WITH {
+  SELECT (COUNT(?work) AS ?count) ?habitat (SAMPLE(?work) AS ?example_work) WHERE {
+    # Find works for the specific queried topic
+	?work wdt:P921 target: .
+    
+    # Find co-occuring topics
+    ?work wdt:P921 ?habitat .
+    
+    # Filter for taxa
+    { ?habitat wdt:P31 wd:Q52105 .}
+    UNION
+    { ?habitat wdt:P31 wd:Q111535406 .}
+    UNION
+    { ?habitat ^wdt:P2974 [] .}
+    
+    # Avoid listing the queried topic itself
+    FILTER (target: != ?habitat)
+    FILTER NOT EXISTS { ?habitat wdt:P625 ?geo }
+  }
+  GROUP BY ?habitat
+} AS %result
+WHERE {
+  # Label the results
+  INCLUDE %result
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . } 
+}
+ORDER BY DESC(?count)
+LIMIT 200

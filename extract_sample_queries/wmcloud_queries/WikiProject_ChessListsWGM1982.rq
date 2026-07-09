@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?start_time
+WHERE 
+{ ?item p:P2962 ?statement.                            
+  ?statement ps:P2962 wd:Q3417060; pq:P580 ?start_time.
+  FILTER (?start_time >= "1982-01-01T00:00:00Z"^^xsd:dateTime) .
+  FILTER (?start_time < "1983-01-01T00:00:00Z"^^xsd:dateTime) . 
+}

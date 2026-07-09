@@ -1,3 +1,4 @@
+#title: List of torture devices
 SELECT ?thing ?thingLabel ?image
 WHERE
 {

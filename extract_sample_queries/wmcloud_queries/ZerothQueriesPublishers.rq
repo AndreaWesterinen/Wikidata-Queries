@@ -1,0 +1,16 @@
+#Libros publicados por Trilce
+#defaultView:Graph
+SELECT ?editorial ?editorialLabel ?editorialPicture ?autor ?autorLabel ?autorPicture
+WHERE 
+{
+  ?item wdt:P31 wd:Q3331189.
+    values ?editorial { wd:Q60224323}.
+
+  ?item wdt:P123 ?editorial.
+  OPTIONAL {?editorial wdt:P154 ?editorialPicture}.
+  ?item wdt:P50 ?autor.
+  ?autor wdt:P27 ?pais.
+  ?pais wdt:P41 ?autorPicture .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+
+}

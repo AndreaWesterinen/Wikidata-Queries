@@ -1,0 +1,14 @@
+SELECT ?item ?wlmid ?start ?end ?date ?auth ?part WHERE {
+  ?item wdt:P131* ?region .
+  wd:Q4345530 wdt:P150 ?region .
+  ?item p:P2186 ?wlmst .
+  ?wlmst ps:P2186 ?wlmid .
+  OPTIONAL { ?wlmst pq:P580 ?start . }
+  OPTIONAL { ?wlmst pq:P582 ?end . }
+  OPTIONAL { ?wlmst pq:P585 ?date . }
+  OPTIONAL { ?wlmst pq:P790 ?auth . }
+  OPTIONAL { ?wlmst pq:P518 ?part . }
+  # esclude gli elementi relativi a comuni dalla lista
+  MINUS {?item wdt:P31 wd:Q747074.}
+  MINUS {?item wdt:P31 wd:Q954172.}
+}

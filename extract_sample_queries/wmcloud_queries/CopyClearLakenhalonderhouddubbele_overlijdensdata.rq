@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?overlijdensdatum) AS ?datumCount) {
+  ?item wdt:P6379 wd:Q2098586.
+  OPTIONAL {
+   ?item wdt:P570 ?overlijdensdatum.
+  }
+}
+GROUP BY ?item
+HAVING (?datumCount > 1)

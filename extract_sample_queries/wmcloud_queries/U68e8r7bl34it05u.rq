@@ -1,0 +1,9 @@
+#defaultView:Map
+select ?books ?booksLabel ?date ?coord ?image WHERE
+{
+?books wdt:P31  wd:Q210112   ;
+        wdt:P625 ?coord .
+  OPTIONAL {?books wdt:P571 ?date .}
+  OPTIONAL {?books wdt:P18|wdt:P154 ?image}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de". }
+}

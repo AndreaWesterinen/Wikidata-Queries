@@ -1,0 +1,11 @@
+SELECT ?item ?area ?unit ?resultSI  WHERE {
+  ?item wdt:P31 wd:Q23397 .
+  ?item wdt:P17 wd:Q211 .
+  ?item p:P2046 ?area_statement .
+  ?area_statement psv:P2046 ?area_node .
+  ?area_node wikibase:quantityAmount ?area .  
+  ?area_node wikibase:quantityUnit ?unit .
+  ?unit wdt:P2370 ?conversionSI . 
+  BIND(?area*?conversionSI AS ?resultSI)
+}
+ORDER BY DESC(?resultSI)

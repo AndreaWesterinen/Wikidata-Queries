@@ -1,0 +1,27 @@
+#title: Validate danish organization numbers
+# Complex constraint from [[Property talk:P1059]]
+# Report organizations with incorrect organization numbers, found by validating the checksum
+SELECT ?item #?itemLabel ?cvrnr ?checksum ?checksum2 ?checksum3 ?quot ?rem
+WITH {
+  SELECT DISTINCT *
+  WHERE {
+    ?item wdt:P1059 ?cvrnr . FILTER(strlen(?cvrnr) = 8)
+    BIND(xsd:integer(substr(?cvrnr, 1, 1))*2 +
+         xsd:integer(substr(?cvrnr, 2, 1))*7 +
+         xsd:integer(substr(?cvrnr, 3, 1))*6 +
+         xsd:integer(substr(?cvrnr, 4, 1))*5 +
+         xsd:integer(substr(?cvrnr, 5, 1))*4 +
+         xsd:integer(substr(?cvrnr, 6, 1))*3 +
+         xsd:integer(substr(?cvrnr, 7, 1))*2 AS ?checksum)
+    #BIND(floor(?checksum/11) AS ?quot)
+    #BIND(?checksum - 11*?quot AS ?rem)
+    BIND(11 - ?checksum + 11*floor(?checksum/11) AS ?checksum2)
+    BIND(IF(?checksum2 = 11, "0", IF(?checksum2 = 10, "-", STR(?checksum2))) AS ?checksum3)
+    FILTER(?checksum2 = 10 || substr(?cvrnr, 8, 1) != ?checksum3)
+  }
+  #LIMIT 1000
+} AS %i
+WHERE {
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

@@ -1,0 +1,4 @@
+SELECT (COUNT(*) AS ?ct) {
+  ?item wikibase:statements 0; wikibase:sitelinks [] .
+  FILTER( xsd:integer( STRAFTER( STR( ?item ), STR( wd:Q ) ) ) < 15500000 ) .
+}

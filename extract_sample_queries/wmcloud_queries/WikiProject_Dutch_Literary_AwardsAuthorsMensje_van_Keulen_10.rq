@@ -1,0 +1,16 @@
+#Full texts (URLs) of works by given ?author
+SELECT distinct ?work ?workLabel ?workDescription
+?authorLabel 
+?fulltext
+
+WHERE
+{
+  BIND(wd:Q4362745 as ?author) .
+  BIND(wd:Q4362745 as ?translator) .
+  {?work wdt:P50 ?author} UNION {?work wdt:P655 ?translator}.
+  OPTIONAL {?work wdt:P953 ?fulltext.}
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl". 
+  }
+} ORDER BY DESC (?fulltext)

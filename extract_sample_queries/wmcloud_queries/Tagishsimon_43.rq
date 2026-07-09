@@ -1,0 +1,18 @@
+#Get osm id for mandal(sub district) and its admin_centre
+PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>
+PREFIX osmm: <https://www.openstreetmap.org/meta/>
+SELECT DISTINCT ?item ?itemLabel ?osmid ?lat ?OSMLINK WHERE {
+ 
+  ?item wdt:P31 wd:Q8502;
+    wdt:P17 wd:Q145.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { SERVICE <https://sophox.org/sparql> {
+  ?osmid  osmt:wikidata ?item.
+  }
+}
+  OPTIONAL { ?item p:P625/psv:P625/wikibase:geoLatitude ?lat ;
+                   p:P625/psv:P625/wikibase:geoLongitude ?long. 
+           BIND(IRI(CONCAT("https://www.openstreetmap.org/?mlat=",str(?lat),"&mlon=",str(?long),"&zoom=11")) as ?OSMLINK)
+  }
+}
+ORDER BY ?item

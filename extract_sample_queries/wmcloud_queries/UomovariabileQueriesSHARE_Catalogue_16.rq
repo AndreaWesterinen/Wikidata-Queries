@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?dateofdeath ?SHARECatID ?OLID ?immagine WHERE {
+  ?item wdt:P106 wd:Q2374149.
+  ?item wdt:P27 wd:Q145.
+  ?item wdt:P3987 ?SHARECatID.
+  ?item wdt:P648 ?OLID.
+  ?item wdt:P570 ?dateofdeath. 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P18 ?immagine. }
+}
+ORDER BY ?dateofdeath
+LIMIT 20

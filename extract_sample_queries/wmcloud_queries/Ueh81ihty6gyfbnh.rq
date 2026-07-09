@@ -1,0 +1,6 @@
+embed.html#SELECT ?entityLabel ?inseeCode ?entity
+WHERE  {
+	?entity wdt:P380 ?id .
+	FILTER ( ?id in ("PA00090755"))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

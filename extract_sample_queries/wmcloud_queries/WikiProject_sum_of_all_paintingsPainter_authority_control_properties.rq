@@ -1,0 +1,39 @@
+SELECT ?property ?shortprop ?directproperty ?constraintreport ?item ?country ?issuer ?maintainer ?subjectitem ?mixnmatch ?records ?formatconstraint ?distinctconstraint ?singleconstraint ?typeconstraint ?genderconstraint ?dobconstraint ?pobconstraint ?occupationconstraint ?countryconstraint ?givennameconstraint WHERE {
+  ?property wdt:P31 wd:Q55653847 .
+  ?property wikibase:directClaim ?directproperty .
+  BIND(xsd:integer(REPLACE(STR(?property), "http://www.wikidata.org/entity/P", "")) AS ?propid)
+  # Trick Listeria into working on properties
+  BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(?propid + 1000000000))) AS ?item ) .
+  BIND(CONCAT("[[Property:P", STR(?propid), "|P", STR(?PROPID), "&#32;<small dir="ltr">(P", STR(?propid), ")</small>]]") AS ?shortprop ) .
+  BIND(CONCAT("[[Wikidata:Database reports/Constraint violations/P", STR(?propid), "|Constraints]]:") AS ?constraintreport)
+  FILTER EXISTS { ?painter ?directproperty [] . ?painter wdt:P106 wd:Q1028181 } .
+  OPTIONAL { ?property wdt:P17 ?country }
+  OPTIONAL { ?property wdt:P2378 ?issuer }
+  OPTIONAL { ?property wdt:P126 ?maintainer }
+  OPTIONAL { ?property wdt:P1629 ?subjectitem }
+  OPTIONAL{ ?property wdt:P2264 ?mixnmatchid . BIND(CONCAT("[https://tools.wmflabs.org/mix-n-match/#/catalog/", ?mixnmatchid, " ", ?mixnmatchid, "]") AS ?mixnmatch) }
+  OPTIONAL{ ?property wdt:P4876 ?records }
+  OPTIONAL{ ?property p:P2302 ?formatcstatement . ?formatcstatement ps:P2302 wd:Q21502404 . ?formatcstatement pq:P1793 ?formatraw . BIND(CONCAT("") AS ?formatconstraint) } .
+  OPTIONAL{ ?property wdt:P2302 wd:Q21502410 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?distinctconstraint) } .
+  OPTIONAL{ ?property wdt:P2302 wd:Q19474404 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?singleconstraint) } .
+  OPTIONAL{ ?property wdt:P2302 wd:Q21503250 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?typeconstraint) } .     
+ # Gender constraint         
+  OPTIONAL{ ?property p:P2302 ?gendercstatement . ?gendercstatement ps:P2302 wd:Q21503247 . ?gendercstatement pq:P2306 wd:P21 . ?gendercstatement pq:P2316 wd:Q21502408 . BIND(CONCAT("[[File:Red check.svg|15px|link=|✓✓]]") AS ?genderconstraint) }
+  OPTIONAL{ ?property p:P2302 ?gendercstatement . ?gendercstatement ps:P2302 wd:Q21503247 . ?gendercstatement pq:P2306 wd:P21 . ?gendercstatement pq:P2316 wd:Q62026391 . BIND(CONCAT("[[File:Flag icon green 3.svg|15px|link=|~]]") AS ?genderconstraint) }
+  OPTIONAL{ ?property p:P2302 ?gendercstatement . ?gendercstatement ps:P2302 wd:Q21503247 . ?gendercstatement pq:P2306 wd:P21 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?genderconstraint) } . 
+  # Date of birth constraint
+  OPTIONAL{ ?property p:P2302 ?dobcstatement . ?dobcstatement ps:P2302 wd:Q21503247 . ?dobcstatement pq:P2306 wd:P569 . ?dobcstatement pq:P2316 wd:Q21502408 . BIND(CONCAT("[[File:Red check.svg|15px|link=|✓✓]]") AS ?dobconstraint) } .
+  OPTIONAL{ ?property p:P2302 ?dobcstatement . ?dobcstatement ps:P2302 wd:Q21503247 . ?dobcstatement pq:P2306 wd:P569 . ?dobcstatement pq:P2316 wd:Q62026391 . BIND(CONCAT("[[File:Flag icon green 3.svg|15px|link=|~]]") AS ?dobconstraint) } .
+  OPTIONAL{ ?property p:P2302 ?dobcstatement . ?dobcstatement ps:P2302 wd:Q21503247 . ?dobcstatement pq:P2306 wd:P569 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?dobconstraint) } .
+  # Place of birth constraint
+  OPTIONAL{ ?property p:P2302 ?pobcstatement . ?pobcstatement ps:P2302 wd:Q21503247 . ?pobcstatement pq:P2306 wd:P19 . ?pobcstatement pq:P2316 wd:Q21502408 . BIND(CONCAT("[[File:Red check.svg|15px|link=|✓✓]]") AS ?pobconstraint) } .
+  OPTIONAL{ ?property p:P2302 ?pobcstatement . ?pobcstatement ps:P2302 wd:Q21503247 . ?pobcstatement pq:P2306 wd:P19 . ?pobcstatement pq:P2316 wd:Q62026391 . BIND(CONCAT("[[File:Flag icon green 3.svg|15px|link=|~]]") AS ?pobconstraint) } .
+  OPTIONAL{ ?property p:P2302 ?pobcstatement . ?pobcstatement ps:P2302 wd:Q21503247 . ?pobcstatement pq:P2306 wd:P19 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?pobconstraint) } .
+  # Occupation constraint
+  OPTIONAL{ ?property p:P2302 ?occupationcstatement . ?occupationcstatement ps:P2302 wd:Q21503247 . ?occupationcstatement pq:P2306 wd:P106 . ?occupationcstatement pq:P2316 wd:Q21502408 . BIND(CONCAT("[[File:Red check.svg|15px|link=|✓✓]]") AS ?occupationconstraint) } . 
+  OPTIONAL{ ?property p:P2302 ?occupationcstatement . ?occupationcstatement ps:P2302 wd:Q21503247 . ?occupationcstatement pq:P2306 wd:P106 . ?occupationcstatement pq:P2316 wd:Q62026391 . BIND(CONCAT("[[File:Flag icon green 3.svg|15px|link=|~]]") AS ?occupationconstraint) } . 
+  OPTIONAL{ ?property p:P2302 ?occupationcstatement . ?occupationcstatement ps:P2302 wd:Q21503247 . ?occupationcstatement pq:P2306 wd:P106 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?occupationconstraint) } . 
+
+  OPTIONAL{ ?property p:P2302 ?countrycstatement . ?countrycstatement ps:P2302 wd:Q21503247 . ?countrycstatement pq:P2306 wd:P27 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?countryconstraint) } . 
+  OPTIONAL{ ?property p:P2302 ?givennamecstatement . ?givennamecstatement ps:P2302 wd:Q21503247 . ?givennamecstatement pq:P2306 wd:P735 . BIND(CONCAT("[[File:Yes check.svg|15px|link=|✓]]") AS ?givennameconstraint) } . 
+  } ORDER BY ?propid

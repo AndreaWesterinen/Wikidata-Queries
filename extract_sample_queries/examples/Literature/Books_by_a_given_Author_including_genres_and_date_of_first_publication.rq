@@ -1,4 +1,5 @@
-SELECT DISTINCT ?book ?bookLabel ?authorLabel (GROUP_CONCAT(?genre_label) as ?genres) (MIN(?publicationDate) as ?firstPublication)
+#title: Books by a given Author including genres and date of first publication
+ SELECT DISTINCT ?book ?bookLabel ?authorLabel (GROUP_CONCAT(?genre_label) as ?genres) (MIN(?publicationDate) as ?firstPublication)
 WHERE
 {
   ?author rdfs:label "Ernest Hemingway"@en .

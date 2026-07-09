@@ -1,4 +1,4 @@
-# ----
+#title: Map of hospitals
 #added 2017-08
 #defaultView:Map
 SELECT DISTINCT * WHERE {

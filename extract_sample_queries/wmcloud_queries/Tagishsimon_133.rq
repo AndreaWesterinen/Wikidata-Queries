@@ -1,0 +1,15 @@
+SELECT ?item ?enwiki WHERE 
+{
+ SERVICE bd:slice {
+  ?item wikibase:statements "3"^^xsd:integer  .
+    bd:serviceParam bd:slice.offset 100000 . # Start at item number (not to be confused with QID)
+    bd:serviceParam bd:slice.limit 200000 . # List this many items
+  }
+            ?item wdt:P31 wd:Q5 . 
+
+  filter not exists {?item wdt:P21 [].}
+  ?article schema:about ?item ;
+           schema:isPartOf <https://en.wikipedia.org/>  .
+
+
+} limit 500

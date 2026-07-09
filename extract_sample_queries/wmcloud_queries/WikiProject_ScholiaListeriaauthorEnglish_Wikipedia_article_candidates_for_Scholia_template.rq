@@ -1,0 +1,37 @@
+SELECT 
+  DISTINCT ?item 
+  ?article 
+WHERE {
+  ?item wdt:P496 [].
+  ?item wikibase:sitelinks ?linkcount .
+    FILTER (?linkcount >2)
+   {
+      ?article schema:about ?item .
+      ?article schema:inLanguage "en" .
+      FILTER (SUBSTR(str(?article), 1, 25) = "https://en.wikipedia.org/")
+  }
+    ?item wdt:P21 [] ;
+            wdt:P69 [] ;
+            wdt:P184 [].
+    { ?item wdt:P108 [] .} UNION { ?item wdt:P1416 [].}
+    ?work1 wdt:P50 ?item .
+    
+ OPTIONAL {   
+   SELECT ?item ?pageid 
+                ?ns WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Scholia" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+      ?pageid wikibase:apiOutput "@pageid" .
+      ?ns wikibase:apiOutput "@ns" .
+    }
+  } LIMIT 10000
+ }
+
+  BIND( IF(BOUND(?article),   IF(BOUND(?ns), "ArticleWithScholia" , "ArticleNoScholia" )  ,  "NoArticle"   )  AS ?condition).  
+  FILTER (?condition = "ArticleNoScholia")
+}

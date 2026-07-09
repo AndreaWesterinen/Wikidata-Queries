@@ -1,0 +1,7 @@
+SELECT ?organization ?organizationLabel ?Twitter_username WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?organization wdt:P31 wd:Q43229;
+    wdt:P17 wd:Q96.
+  OPTIONAL { ?organization wdt:P2002 ?Twitter_username. }
+}
+LIMIT 1000

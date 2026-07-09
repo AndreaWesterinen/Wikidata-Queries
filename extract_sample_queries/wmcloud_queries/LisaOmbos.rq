@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+      ?item p:P31 ?statement0.
+      ?statement0 (ps:P31/(wdt:P279*)) wd:Q55488.
+      MINUS {         ?item p:P17 ?statement1.
+        ?statement1 ps:P17 _:anyValueP17. }
+    }

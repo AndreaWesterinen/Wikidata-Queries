@@ -1,0 +1,14 @@
+#Find senses which match a string
+select ?sense ?gloss
+?catLabel  WHERE {
+  ?lexemeId dct:language wd:Q1860;
+            wikibase:lemma ?lemma;
+            ontolex:sense ?sense;
+            ontolex:sense/skos:definition ?gloss;
+            wikibase:lexicalCategory ?cat.
+  filter (lang(?gloss) = 'en')
+  #?sense ontolex:representation ?gloss.
+  # only those lemmas that begin with "pota", i.e. "potato"
+  FILTER (regex(?lemma, 'hello'))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

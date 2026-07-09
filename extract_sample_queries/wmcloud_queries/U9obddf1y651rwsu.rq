@@ -1,0 +1,3 @@
+SELECT ?item ?commonscat ?sitelink ?name WHERE {
+  ?item wdt:P373 ?commonscat.
+  ?sitelink schema:about ?item; schema:isPartOf <https://commons.wikimedia.org

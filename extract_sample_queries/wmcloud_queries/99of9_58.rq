@@ -1,0 +1,31 @@
+SELECT ?president ?presidentLabel ?count ?mindist ?pobLabel ?cidLabel
+WHERE
+{
+	{
+		SELECT ?president (MIN(?dist) as ?mindist) (SAMPLE(?pob) as ?pob) (SAMPLE(?cid) as ?cid)
+		WHERE
+		{
+         ?element wdt:P31 wd:Q11344 . 
+          ?cid wdt:P138 ?element .
+          #?element wdt:P138 ?cid .
+          ?cid wdt:P625 ?elementloc . 
+          wd:Q42738046 wdt:P488 ?president .
+          ?president wdt:P19 ?pob .
+  
+          SERVICE wikibase:around {
+              ?pob wdt:P625 ?pobloc .
+              bd:serviceParam wikibase:center ?elementloc .
+              bd:serviceParam wikibase:radius "2000.0" .     
+          } 
+
+          BIND(geof:distance(?pobloc, ?elementloc) as ?dist)     
+		}
+		GROUP BY ?president
+		ORDER BY ASC(?dist)
+		LIMIT 10000
+	}
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ASC(?mindist)
+LIMIT 100

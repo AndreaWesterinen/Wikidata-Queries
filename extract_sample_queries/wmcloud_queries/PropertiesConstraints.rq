@@ -1,0 +1,7 @@
+#title: Properties should not be (sub)classes
+# Complex constraint from [[Property talk:Properties/Constraints]]
+# Properties are instances ([[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]]) but not subclasses ([[Property:P279|subclass of&#32;<small dir="ltr">(P279)</small>]]) of something
+SELECT ?property WHERE {
+  ?property wikibase:propertyType ?type .
+  ?property wdt:P279 ?class .
+}

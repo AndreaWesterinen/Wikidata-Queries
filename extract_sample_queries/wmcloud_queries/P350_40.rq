@@ -1,0 +1,10 @@
+#title: Items with creator not linked to RKDartists
+# Complex constraint from [[Property talk:P350]]
+# Items that have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]], but that item doesn't have [[Property:P650|RKDartists ID&#32;<small dir="ltr">(P650)</small>]] and also not [[Property:P460|said to be the same as&#32;<small dir="ltr">(P460)</small>]]. Missing link can probably be added
+SELECT DISTINCT ?item ?creator {
+	?item wdt:P350 ?value ;
+          wdt:P170 ?creator .
+    MINUS { ?creator wdt:P650 [] } .
+    MINUS { ?creator wdt:P460 [] } .
+  ?creator wdt:P31 [] .
+} ORDER BY DESC(?count) LIMIT 500

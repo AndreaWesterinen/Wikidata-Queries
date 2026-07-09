@@ -1,0 +1,18 @@
+embed.html##defaultView:Graph
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+SELECT ?item ?itemLabel ?linkTo
+WHERE
+{
+  SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q29370 ;
+                gas:traversalDirection "Forward" ;
+                gas:out ?item ;
+                gas:out1 ?depth ;
+                gas:maxIterations 5 ;
+                gas:linkType wdt:P197 .
+  }
+  OPTIONAL { ?item wdt:P197 ?linkTo }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "de" }
+}

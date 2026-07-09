@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE {
+  BIND (wd:Q24444087 AS ?item) .
+  ?item ?p ?o .
+  FILTER NOT EXISTS {
+    ?item wdt:P361 wd:Q24175569 .
+  }
+}

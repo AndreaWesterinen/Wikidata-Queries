@@ -1,0 +1,5 @@
+SELECT ?algorithm ?algorithmLabel  ?probLabel
+{
+	?algorithm wdt:P2159 ?prob .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}

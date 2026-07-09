@@ -1,0 +1,33 @@
+#Target required claim report for P406: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P406/ps:P406 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P406 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P406 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q1062702 wd:Q492264 wd:Q107022182 wd:Q61340552 wd:Q107736421 wd:Q7777494 wd:Q608862 wd:Q6942022 wd:Q544440 } .
+			MINUS {
+				?value p:P136/ps:P136 ?values .
+			} .
+			OPTIONAL {
+				?value p:P136/ps:P136 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

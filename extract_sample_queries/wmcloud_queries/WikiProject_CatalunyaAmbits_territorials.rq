@@ -1,0 +1,6 @@
+select ?item ?desc where { 
+    ?item wdt:P31 wd:Q162620.
+    ?item wdt:P131 wdt:Q5705.
+    ?item schema:description ?desc. 
+    filter(lang(?desc) = "ca" && ?desc != "província de Catalunya"@ca) 
+  }

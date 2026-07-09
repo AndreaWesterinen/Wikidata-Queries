@@ -1,0 +1,7 @@
+SELECT DISTINCT ?paradigmLabel
+WHERE {
+  ?paradigm wdt:P279* wd:Q188267;
+            rdfs:label ?paradigmLabel.
+  FILTER(LANG(?paradigmLabel)="en")
+}
+ORDER by ?paradigmLabel

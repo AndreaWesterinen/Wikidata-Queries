@@ -1,0 +1,7 @@
+SELECT ?item ?st
+{
+	{ ?item wdt:P20 wd:Q2143798 . ?item wdt:P570 ?dod	FILTER ( ?dod = "2016-11-28T00:00:00Z"^^xsd:dateTime)  } 
+	UNION
+	{ ?item wdt:P793 wd:Q27925924 }
+	OPTIONAL { ?item wikibase:sitelinks ?st }
+}

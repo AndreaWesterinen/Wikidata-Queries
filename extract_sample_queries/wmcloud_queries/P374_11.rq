@@ -1,0 +1,19 @@
+#title: Unique value
+# Complex constraint from [[Property talk:P374]]
+# A value must not be used by multiple entities at the same point in time
+SELECT DISTINCT ?item1 ?item2 ?value
+  WHERE {
+    ?item1 wdt:P374 ?value .
+    ?item2 wdt:P374 ?value .
+    FILTER( ?item1 != ?item2 && STR(?item1) < STR(?item2) ) .
+    MINUS {
+      ?item1 p:P374 ?st1 . ?st1 ps:P374 ?value; pq:P582 ?end .
+      ?item2 p:P374 ?st2 . ?st2 ps:P374 ?value; pq:P580 ?start .
+      FILTER( ?end < ?start )
+    }
+    MINUS {
+      ?item1 p:P374 ?st1 . ?st1 ps:P374 ?value; pq:P580 ?start .
+      ?item2 p:P374 ?st2 . ?st2 ps:P374 ?value; pq:P582 ?end .
+      FILTER( ?end < ?start )
+    }
+  }

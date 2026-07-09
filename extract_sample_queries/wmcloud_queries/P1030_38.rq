@@ -1,0 +1,11 @@
+#title: item for pattern available
+# Complex constraint from [[Property talk:P1030]]
+# lighthouse has a pattern for which an item is available, but the qualifier [[Property:P805|statement is subject of&#32;<small dir="ltr">(P805)</small>]] isn't used to link it
+SELECT ?item ?ltho ?value 
+{
+  ?ltho wdt:P1030 ?value . 
+  hint:Prior hint:rangeSafe true .    
+  FILTER NOT EXISTS { ?ltho p:P1030 / pq:P805 [] }  
+  ?item wdt:P31 wd:Q1738955 ; p:P1030/ps:P1030 ?value .  
+  ?ltho wdt:P31 wd:Q39715 . 
+}

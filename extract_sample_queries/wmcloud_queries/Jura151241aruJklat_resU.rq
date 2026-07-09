@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription (GROUP_CONCAT(DISTINCT ?oaname; separator=", ") as ?oa)
+{
+    ?season wdt:P3450 ?item .
+    ?item wdt:P17 wd:Q145 .
+    OPTIONAL { ?item wdt:P2541 ?oa . ?oa rdfs:label ?oaname. FILTER(lang(?oaname)="en") }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  
+GROUP BY ?item ?itemLabel ?itemDescription

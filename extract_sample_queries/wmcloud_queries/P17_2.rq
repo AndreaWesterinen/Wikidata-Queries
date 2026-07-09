@@ -1,0 +1,9 @@
+SELECT ?place ?placeLabel ?location WHERE {
+  ?place wdt:P30 wd:Q51 .
+  SERVICE wikibase:box {
+    ?place wdt:P625 ?location .
+    bd:serviceParam wikibase:cornerSouthWest "Point(-180 -59.9999999)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerNorthEast "Point(180 -40)"^^geo:wktLiteral .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

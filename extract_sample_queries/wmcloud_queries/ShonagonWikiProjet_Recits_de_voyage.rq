@@ -1,0 +1,48 @@
+# Livres ou éditions de récits de voyage
+# avec texte en français accessible
+# en option auteur et date de publication
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT DISTINCT ?item ?itemLabel ?auteurLabel (year(?date) as ?datepubli)
+where {
+   {?item wdt:P136 wd:Q1164267 .
+   ?item  wdt:P31/wdt:P279* wd:Q571 .
+   }
+  UNION{
+    ?livre wdt:P136 wd:Q1164267 .
+   ?item wdt:P629 ?livre .
+    
+  }
+   
+  {SELECT ?item (SAMPLE(?url) AS ?url) (SAMPLE(?facSimile) AS ?facSimile) (SAMPLE(?InternetArchive) AS ?InternetArchive) (SAMPLE(?RSL) AS ?RSL) (SAMPLE(?HathiTrust) AS ?HathiTrust)
+    WHERE{
+      {?item wdt:P953 ?url . }                     # P953  : URL du texte intégral disponible
+      UNION { ?item wdt:P996 ?facSimile . }        # P996  : Fac-similé
+      UNION { ?item wdt:P724 ?InternetArchive .}   # P724  : Identifiant Internet Archive
+      UNION { ?item wdt:P1815 ?RSL .}              # P1815 : Identifiant de livres RSL (Bibliothèque d'État de Russie) 
+      UNION { ?item wdt:P1844 ?HathiTrust .}       # P1844 : Identifiant HathiTrust
+    }GROUP BY ?item
+  }
+
+  FILTER  EXISTS {
+    {?item wdt:P407 wd:Q150 .  }
+    UNION 
+    {?item wdt:P364 wd:Q150 .  }
+  }
+  
+   OPTIONAL{
+    ?item wdt:P50 ?auteur   .                      # Option, P50 : auteur
+  }
+  OPTIONAL{
+    ?item wdt:P577 ?date   .                       # Option, P577 : une date de publication   
+  }
+
+  SERVICE wikibase:label { #BabelRainbow
+    bd:serviceParam wikibase:language "fr,ar,be,bg,bn,ca,cs,da,de,el,en,es,et,fa,fi,he,hi,hu,hy,id,it,ja,jv,ko,nb,nl,eo,pa,pl,pt,ro,ru,sh,sk,sr,sv,sw,te,th,tr,uk,yue,vec,vi,zh" 
+  } 
+} ORDER BY ?datepubli

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?instc
+WHERE 
+{
+  ?item wdt:P31 wd:Q2944640.      
+  ?item wdt:P2109 ?instc. 
+  OPTIONAL { ?item wdt:P625 ?coor } . 
+}
+ORDER BY DESC(?instc)
+LIMIT 20

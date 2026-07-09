@@ -1,0 +1,14 @@
+#title: compare mass born and mass adult
+# Complex constraint from [[Property talk:P2067]]
+#
+SELECT DISTINCT ?item ?massAdult ?massBorn {
+     ?item p:P2067 [psn:P2067 ?nodeMassAdult;
+                   pq:P642 wd:Q78101716;
+                  ].
+     ?item p:P2067 [psn:P2067 ?nodeMassBorn;
+                   pq:P642 wd:Q4128476;
+                  ].
+     ?nodeMassAdult     wikibase:quantityAmount ?massAdult.
+     ?nodeMassBorn      wikibase:quantityAmount ?massBorn.
+     FILTER (?massAdult < (?massBorn * 1.2))
+}

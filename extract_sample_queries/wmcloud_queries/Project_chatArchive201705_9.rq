@@ -1,0 +1,10 @@
+SELECT ?gameLabel ?devLabel ?publisherLabel ?dateLabel WHERE {
+	?game wdt:P31 wd:Q7889;
+	wdt:P136 wd:Q744038.
+  	OPTIONAL {
+      ?game wdt:P178 ?dev.
+      ?game wdt:P123 ?publisher.
+      ?game wdt:P577 ?date.
+    }
+ 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

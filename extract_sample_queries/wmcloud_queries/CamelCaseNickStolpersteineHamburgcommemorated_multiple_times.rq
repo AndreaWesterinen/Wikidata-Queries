@@ -1,0 +1,27 @@
+#by CamelCaseNick
+select distinct (?stolperstein as ?item) (str(coalesce(?statedAs, replace(?label, "^Stolperstein für (?!den|die|das)", ""))) as ?name) (?fullAddress as ?address) ?inscription ?stpst_hh where {
+  ?stolperstein wdt:P31 wd:Q26703203;
+                wdt:P547 ?person.
+
+  ?anotherStolperstein wdt:P31 wd:Q26703203;
+                       wdt:P131+ wd:Q1055;
+                       wdt:P547 ?person.
+  ?yetAnotherStolperstein wdt:P31 wd:Q26703203;
+                          wdt:P547 ?person.
+  filter(?yetAnotherStolperstein != ?stolperstein)
+
+  minus { ?stolperstein wdt:P1366|wdt:P576 []. }
+  minus { ?anotherStolperstein wdt:P1366|wdt:P576 []. }
+  minus { ?yetAnotherStolperstein wdt:P1366|wdt:P576 []. }
+  
+  optional { ?stolperstein wdt:P6375 ?fullAddress. }
+  optional { ?stolperstein wdt:P1684 ?inscription. }
+  optional { ?stolperstein wdt:P8804 ?stpst_hh. }
+  optional { ?stolperstein p:P547/pq:P1932 ?statedAs. }
+
+  service wikibase:label {
+    bd:serviceParam wikibase:language "de,en".
+    ?stolperstein rdfs:label ?label.
+  }
+}
+order by replace(?name, ".+ ", "") replace(?address, ".+,( \\d+)? ", "") ?address

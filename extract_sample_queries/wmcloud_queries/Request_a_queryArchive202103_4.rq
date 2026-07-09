@@ -1,0 +1,1 @@
+SELECT * { ?item wdt:P31 wd:Q5 } OFFSET 100000 LIMIT 10

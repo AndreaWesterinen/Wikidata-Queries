@@ -1,0 +1,9 @@
+SELECT ?parent ?item ?itemLabel WHERE
+{
+  ?item wdt:P31 wd:Q634099 .
+  OPTIONAL { ?item wdt:P131 ?parent }
+  MINUS { ?item wdt:P764 [] }
+  MINUS { ?item wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+ORDER BY ?parent

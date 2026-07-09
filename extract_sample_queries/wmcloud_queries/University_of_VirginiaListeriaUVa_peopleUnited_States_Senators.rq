@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item  WHERE {
+  ?item wdt:P39 wd:Q13217683.
+  { ?item ?property wd:Q213439. }
+  UNION
+  {
+    ?item ?property2 _:b9.
+    _:b9 wdt:P361 wd:Q213439.
+  }
+}

@@ -1,0 +1,13 @@
+#title: 2-d position on something that isn't a 2-d visual artwork
+# Complex constraint from [[Property talk:P2677]]
+# This qualifier should only be used with depicts to indicate the location on a 2-d object or image that has a natural co-ordinate system.
+SELECT ?item WHERE {
+  ?item p:P180 ?s .
+  ?s pq:P2677  ?v
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q110304307 }
+  FILTER NOT EXISTS { ?s pq:P518 ?part }
+  FILTER(STRSTARTS(STR(?v), "pct:"))
+  SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+   }
+} GROUP BY ?item

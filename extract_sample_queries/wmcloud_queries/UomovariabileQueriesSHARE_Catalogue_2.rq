@@ -1,0 +1,19 @@
+#defaultView:Timeline
+#opere di autori nati in Campania
+#morti fra 1700 e 1899
+#presenti in Wikisource in francese
+#con SHARECatID
+SELECT ?book ?bookLabel ?author ?authorLabel ?DoD ?SHARECATid ?placeLabel ?page 
+WHERE {
+  ?book wdt:P50 ?author.
+  ?author wdt:P19 ?place.
+  ?place wdt:P131+ wd:Q1438.
+  ?author wdt:P3987 ?SHARECATid.
+  ?author wdt:P570 ?DoD.
+  ?page schema:about ?book.
+  ?page schema:isPartOf <https://it.wikisource.org/>.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  FILTER((?DoD >= "1800-01-01T00:00:00Z"^^xsd:dateTime) && (?DoD <= "1947-01-01T00:00:00Z"^^xsd:dateTime))
+  
+}
+ORDER BY ?DoD

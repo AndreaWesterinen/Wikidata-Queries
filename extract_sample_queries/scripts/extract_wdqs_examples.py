@@ -18,7 +18,7 @@ from pathlib import Path
 
 
 DEFAULT_PAGE_TITLE = "Wikidata:SPARQL_query_service/queries/examples"
-MEDIAWIKI_PARSE_API = "https://www.wikidata.org/w/api.php"
+DEFAULT_API_URL = "https://www.wikidata.org/w/api.php"
 HEADING_TAGS = {"h2", "h3", "h4", "h5", "h6", "h7"}
 MAX_NAME_LENGTH = 120
 
@@ -152,7 +152,7 @@ def dedupe_path_name(name: str, seen: Counter[str]) -> tuple[str, bool]:
     return f"{name}_{seen[name]}", True
 
 
-def build_parse_url(page_title: str) -> str:
+def build_parse_url(page_title: str, api_url: str = DEFAULT_API_URL) -> str:
     params = {
         "action": "parse",
         "page": page_title,
@@ -167,11 +167,11 @@ def build_parse_url(page_title: str) -> str:
         "formatversion": "2",
         "origin": "*",
     }
-    return f"{MEDIAWIKI_PARSE_API}?{urllib.parse.urlencode(params)}"
+    return f"{api_url}?{urllib.parse.urlencode(params)}"
 
 
-def fetch_examples_html(page_title: str) -> str:
-    url = build_parse_url(page_title)
+def fetch_examples_html(page_title: str, api_url: str = DEFAULT_API_URL) -> str:
+    url = build_parse_url(page_title, api_url)
     try:
         result = subprocess.run(
             [
@@ -207,8 +207,8 @@ def fetch_examples_html(page_title: str) -> str:
     return html
 
 
-def load_examples(page_title: str) -> list[Example]:
-    html = fetch_examples_html(page_title)
+def load_examples(page_title: str, api_url: str = DEFAULT_API_URL) -> list[Example]:
+    html = fetch_examples_html(page_title, api_url)
     parser = ExamplesHTMLParser()
     parser.feed(html)
     parser.close()
@@ -251,12 +251,6 @@ def write_examples_atomically(output_dir: Path, examples: list[Example]) -> Writ
         if duplicated:
             duplicate_file_names += 1
         (category_dir / f"{file_name}.rq").write_text(example.query + "\n", encoding="utf-8")
-    combined_path = staging_dir / "all_examples.txt"
-    chunks = []
-    for example in examples:
-        category_title = example.category or "Uncategorized"
-        chunks.append(f"[{category_title}] {example.title}\n{example.query}\n")
-    combined_path.write_text("\n".join(chunks), encoding="utf-8")
     if output_dir.exists():
         shutil.rmtree(output_dir)
     staging_dir.replace(output_dir)
@@ -274,12 +268,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         default="examples",
-        help="Directory to populate with category folders, .rq files, and all_examples.txt",
+        help="Directory to populate with category folders and .rq files",
     )
     parser.add_argument(
         "--page-title",
         default=DEFAULT_PAGE_TITLE,
         help="MediaWiki page title containing the English WDQS examples.",
+    )
+    parser.add_argument(
+        "--api-url",
+        default=DEFAULT_API_URL,
+        help="MediaWiki API endpoint for the wiki containing the examples page.",
     )
     return parser.parse_args()
 
@@ -287,13 +286,12 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     output_dir = Path(args.output_dir).resolve()
-    examples = load_examples(args.page_title)
+    examples = load_examples(args.page_title, args.api_url)
     stats = write_examples_atomically(output_dir, examples)
     print(
         f"Wrote {stats.example_count} queries into {stats.category_count} "
         f"category directories under {output_dir}"
     )
-    print(f"Combined export: {output_dir / 'all_examples.txt'}")
     print(
         "Collision summary: "
         f"{stats.duplicate_category_names} duplicate category names, "

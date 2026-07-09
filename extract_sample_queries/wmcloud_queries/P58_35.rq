@@ -1,0 +1,33 @@
+#Target required claim report for P58: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P58/ps:P58 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P58 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P58 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q28389 wd:Q10650082 wd:Q715301 wd:Q3476620 wd:Q1414443 wd:Q36180 wd:Q20002503 wd:Q11892507 wd:Q482980 wd:Q49757 wd:Q4853732 wd:Q73306227 wd:Q69423232 wd:Q214917 wd:Q109459317 } .
+			MINUS {
+				?value p:P106/ps:P106 ?values .
+			} .
+			OPTIONAL {
+				?value p:P106/ps:P106 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

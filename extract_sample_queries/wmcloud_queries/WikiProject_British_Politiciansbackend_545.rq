@@ -1,0 +1,16 @@
+#MPs with start date or end date "unknown" (not just missing) - usually an election petition or resignation that needs to be traced
+SELECT distinct ?item ?itemLabel ?start ?end ?positionLabel ?seatLabel ?causeLabel WHERE {
+ ?position wdt:P279 wd:Q16707842 . # position is a UK MP
+ { ?item p:P39 ?statement. # person holds a position
+ ?statement ps:P39 ?position; pq:P580 ?start . # with a start date
+ FILTER wikibase:isSomeValue(?start) } # which is blank
+ UNION
+ { ?item p:P39 ?statement. # person holds a position
+ ?statement ps:P39 ?position; pq:P582 ?end . # with an end date
+ FILTER wikibase:isSomeValue(?end) } # which is blank
+ optional { ?statement pq:P768 ?seat . } # optionally a seat 
+ optional { ?statement pq:P1534 ?cause . } # optionally a cause 
+ optional { ?statement pq:P580 ?start }
+ optional { ?statement pq:P582 ?end } 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?start  

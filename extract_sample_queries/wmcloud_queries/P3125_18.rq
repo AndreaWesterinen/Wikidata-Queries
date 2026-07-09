@@ -1,0 +1,23 @@
+#title: Partial validation of checksum
+# Complex constraint from [[Property talk:P3125]]
+# documentation : http://1cinfo.com.ua/Articles/Proverka_koda_po_EDRPOU.aspx
+SELECT ?item ?value ?int {
+  { ?item wdt:P3125 ?value } UNION 
+  { ?statement pq:P3125 ?value . ?item ?p ?statement . ?prop wikibase:claim ?p } UNION 
+  { ?ref pr:P3125 ?value . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . ?prop wikibase:claim ?p } .
+  FILTER(STRLEN(?value) = 8) .
+  BIND(xsd:integer(?value) AS ?int) .
+  BIND(?int > 30000000 AS ?isBig) .
+  BIND(
+    xsd:integer(SUBSTR(?nohyphen, 1, 1)) * 7 +
+    xsd:integer(SUBSTR(?nohyphen, 2, 1)) * 1 + 
+    xsd:integer(SUBSTR(?nohyphen, 3, 1)) * 2 +
+    xsd:integer(SUBSTR(?nohyphen, 4, 1)) * 3 + 
+    xsd:integer(SUBSTR(?nohyphen, 5, 1)) * 4 +
+    xsd:integer(SUBSTR(?nohyphen, 6, 1)) * 5 +
+    xsd:integer(SUBSTR(?nohyphen, 7, 1)) * 6
+  AS ?checksum).
+  BIND(FLOOR(?checksum / 11) * 11 AS ?rest).
+  FILTER (?rest = xsd:integer(SUBSTR(?nohyphen, 1, 8))).
+  FILTER (?isBig).
+}

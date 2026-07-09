@@ -1,0 +1,4 @@
+SELECT ?item (STRAFTER(STR(?item), STR(wd:)) AS ?id) ?number ?start ?end WHERE { 
+  ?item p:P31 ?statement .
+  ?statement ps:P31 wd:Q21115902 .
+  OPTIONAL { ?item wdt:P571

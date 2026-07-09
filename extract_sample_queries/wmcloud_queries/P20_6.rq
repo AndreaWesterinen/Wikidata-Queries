@@ -1,0 +1,6 @@
+#title: Items with P20 = "no value" (P31=Q5)
+# Complex constraint from [[Property talk:P20]]
+# People die somewhere
+SELECT ?item WHERE {
+	?item p:P20/a wdno:P20 ; wdt:P31 wd:Q5
+} LIMIT 100

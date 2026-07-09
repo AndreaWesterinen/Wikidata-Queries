@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?via ?comuneLabel ?provinciaLabel ?regioneLabel ?immagine ?immagineComune ?immagineProvincia WHERE {
+  ?item wdt:P131* wd:Q38 . 
+  ?item wdt:P2186 ?wlmid .
+  MINUS { ?item p:P2186 [ pq:P582 ?end ] .
+  FILTER ( ?end <= "2018-09-01T00:00:00+00:00"^^xsd:dateTime ) } .
+  ?item wdt:P131 ?comune .
+  ?comune wdt:P131 ?provincia .
+  MINUS { ?comune p:P131 [ ps:P131 ?provincia ; pq:P582 ?end ] } .
+  ?provincia wdt:P131 ?regione .
+  OPTIONAL { ?item wdt:P18 ?immagine } .
+  OPTIONAL { ?comune wdt:P18 ?immagineComune } .
+  OPTIONAL { ?provincia wdt:P18 ?immagineProvincia } .
+  OPTIONAL { ?item wdt:P969 ?via } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". }
+}

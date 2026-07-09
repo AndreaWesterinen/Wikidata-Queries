@@ -1,0 +1,8 @@
+SELECT ?resolution ?resolutionLabel
+
+WHERE {
+	?resolution wdt:P31 wd:Q877358 .
+    
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "es" }
+}
+ORDER BY DESC(?resolutionLabel)

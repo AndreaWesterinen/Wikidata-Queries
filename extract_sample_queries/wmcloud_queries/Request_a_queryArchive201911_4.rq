@@ -1,0 +1,11 @@
+sparql?query=SELECT ?item ?itemLabel ?sitelink ?article
+WHERE 
+{
+  # ?item wdt:P31 wd:Q35120 .
+  ?sitelink ^schema:name ?article .
+  ?article schema:about ?item ;
+           schema:isPartOf <https://es.wikipedia.org/> .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es" }
+}
+
+LIMIT 100

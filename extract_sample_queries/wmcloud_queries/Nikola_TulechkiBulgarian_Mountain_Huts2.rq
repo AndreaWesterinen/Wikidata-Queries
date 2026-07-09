@@ -1,0 +1,6 @@
+SELECT ?wp ?item WHERE {
+ ?item wdt:P31 wd:Q182676 .
+ ?item wdt:P17 wd:Q219 .
+ optional{ ?wp schema:about ?item ; 
+schema:inLanguage "bg" }
+ } LIMIT 20

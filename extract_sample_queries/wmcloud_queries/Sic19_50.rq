@@ -1,0 +1,19 @@
+embed.html#SELECT ?item ?itemLabel ?ORCID ?edu ?eduLabel ?eduStatement ?startTime ?endTime ?duration WHERE {
+  {
+    SELECT ?item ?ORCID ?edu ?eduStatement ?startTime ?endTime ?duration WHERE {
+       ?item wdt:P496 ?ORCID ;
+        p:P69 ?eduStatement .
+  ?eduStatement ps:P69 ?edu ;
+                pq:P580 ?startTime ;
+                pq:P582 ?endTime .
+  BIND(?endTime - ?startTime AS ?x)
+  BIND(?x/365.2425 AS ?years).
+  BIND(FLOOR(?years) AS ?duration).    
+    } GROUP BY ?eduStatement ?item ?edu ?ORCID ?startTime ?endTime ?duration
+    HAVING (?duration > 10)
+  } . 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+ORDER BY DESC(?count) ?edu

@@ -1,0 +1,5 @@
+SELECT ?count ?magnus ?magnusLabel ?magnusDescription {
+  { SELECT (COUNT(*) AS ?count) ?magnus { ?magnus wdt:P735 wd:Q18109457 ; ^wdt:P50 / ^wdt:P2860 [] } GROUP BY ?magnus }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

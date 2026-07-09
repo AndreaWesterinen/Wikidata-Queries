@@ -1,5 +1,5 @@
-# ----
-#Children of librarians with the most number of sitelinks (as a proxy for fame)
+#title: Most famous child of a librarian
+# Children of librarians with the most number of sitelinks (as a proxy for fame)
 SELECT ?person ?personLabel ?parentLabel ?linkcount WHERE {
     ?parent wdt:P106 wd:Q182436 .
     ?parent wdt:P40 ?person .

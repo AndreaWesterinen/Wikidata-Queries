@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+	?item wdt:P31 wd:Q28640.
+    ?item rdfs:label ?label.
+    FILTER(LANG(?label) = "en").
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY ?itemLabel

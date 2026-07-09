@@ -1,0 +1,12 @@
+SELECT DISTINCT(wikibase:decodeUri(substr(str(?sitelink), 31, 250)) AS ?title) WHERE {
+  ?item wdt:P131* wd:Q38 . 
+  ?item wdt:P2186 ?wlmid .
+  ?item wdt:P131 ?municipality .
+  { ?sitelink schema:isPartOf <https://it.wikipedia.org/>;
+     schema:about ?municipality; }
+  UNION { ?sitelink schema:isPartOf <https://it.wikipedia.org/>;
+     schema:about ?item; }
+  MINUS { ?item p:P2186 [ pq:P582 ?end ] .
+  FILTER ( ?end <= "2018-09-01T00:00:00+00:00"^^xsd:dateTime ) }
+}
+ORDER BY ?title

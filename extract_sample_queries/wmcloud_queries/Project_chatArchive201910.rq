@@ -1,0 +1,9 @@
+#defaultView:Graph
+#All species in the Ape (Hominoidea, Q102470) family with an image (if available)
+SELECT ?item ?itemLabel ?image ?genusLabel ?genus  WHERE {
+  ?item wdt:P31 wd:Q16521.
+  ?item wdt:P171* wd:Q102470.
+  ?item wdt:P171 ?genus.
+  OPTIONAL {?item wdt:P18 ?image.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

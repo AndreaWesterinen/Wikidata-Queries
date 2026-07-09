@@ -1,0 +1,5 @@
+SELECT ?item ?ilgu WHERE {
+  ?item wdt:P31 wd:Q55488.
+  ?item wdt:P131* wd:Q1061.
+  OPTIONAL { ?item rdfs:label ?ilgu. FILTER(LANG(?ilgu)="gu") }
+}

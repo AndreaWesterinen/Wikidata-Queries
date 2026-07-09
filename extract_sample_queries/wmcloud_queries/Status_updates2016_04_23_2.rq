@@ -1,0 +1,11 @@
+SELECT ?dedicatee (SAMPLE(?dedicateeLabel) AS ?label) (COUNT(?work) AS ?count)
+WHERE
+{
+  ?work wdt:P31/wdt:P279* wd:Q838948.
+  ?work wdt:P825 ?dedicatee.
+  ?dedicatee rdfs:label ?dedicateeLabel.
+  FILTER(LANG(?dedicateeLabel) = "en").
+}
+GROUP BY ?dedicatee
+ORDER BY DESC(?count)
+LIMIT 20

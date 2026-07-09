@@ -1,0 +1,9 @@
+#title: Statements without qualifiers
+# Complex constraint from [[Property talk:P6216]]
+# All statements require qualifiers to more precisly specify copyright status.
+SELECT DISTINCT ?item {
+  ?item p:P6216 ?statement.
+  ?statement ?p ?q.
+  FILTER (strstarts(str(?p),"http://www.wikidata.org/prop/qualifier/") = false)
+}
+LIMIT 1000

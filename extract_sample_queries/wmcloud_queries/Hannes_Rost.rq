@@ -1,0 +1,8 @@
+SELECT ?c ?lang (COUNT(?item) as ?count) (SAMPLE(?item) as ?sample)
+{
+	?item wdt:P31 wd:Q70208 . 
+    ?item wdt:P1448 ?l . 
+	BIND(lang(?l) as ?lang) 
+    ?item wdt:P131* ?ca . ?ca wdt:P31 wd:Q23058 ; wdt:P395 ?c . 
+}
+GROUP BY ?c ?lang

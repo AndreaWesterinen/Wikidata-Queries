@@ -1,0 +1,28 @@
+#title: European GHS data without any of the 4 mandatory qualifiers
+# Complex constraint from [[Property talk:P4952]]
+# GHS data based on European Union's CLP Regulation should always have all 4 qualifiers ([[Property:P5040|GHS hazard pictogram&#32;<small dir="ltr">(P5040)</small>]]/[[Property:P1033|GHS signal word&#32;<small dir="ltr">(P1033)</small>]]/[[Property:P5041|GHS hazard statement&#32;<small dir="ltr">(P5041)</small>]]/[[Property:P5042|GHS precautionary statement&#32;<small dir="ltr">(P5042)</small>]]), even if some of them have ''no value''
+SELECT DISTINCT ?item
+  # we are looking for P4952=Q2005334 which are missing any of four PQs
+  # a PQ of 'no value' is a valid PQ.
+WHERE { 
+       ?item p:P4952 ?statement.
+       ?statement ps:P4952 wd:Q2005334.
+       MINUS {
+       OPTIONAL { ?statement pq:P5040 ?v5040 }
+       FILTER(BOUND(?v5040) || EXISTS{?statement a wdno:P5040.})  #treat the value "no value" as valid
+       OPTIONAL { ?statement pq:P1033 ?v1030 }
+       FILTER(BOUND(?v1030) || EXISTS{?statement a wdno:P1033.})
+       OPTIONAL { ?statement pq:P5041 ?v5041 }
+       FILTER(BOUND(?v5041) || EXISTS{?statement a wdno:P5041.}) 
+       OPTIONAL { ?statement pq:P5042 ?v5042 }
+       FILTER(BOUND(?v5042) || EXISTS{?statement a wdno:P5042.}) 
+       }
+
+  # Out of the above emerges a list of P4952=Q2005334 where there is one or more missing PQs.
+  # ALSO the filter treats a PQ value of 'no value' as the PRESENCE of a PQ.
+  # So an item having the 4 PQs, but with one or more of 'no value', will NOT appear in the results.
+  
+  # Please note that also a PQ of 'unknown value' is treated as a valid PQ
+  
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+      }

@@ -1,0 +1,6 @@
+SELECT ?Buergermeister ?BuergermeisterLabel WHERE {
+  wd:Q1718 p:P6 ?statements .
+  ?statements ps:P6 ?Buergermeister .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  }

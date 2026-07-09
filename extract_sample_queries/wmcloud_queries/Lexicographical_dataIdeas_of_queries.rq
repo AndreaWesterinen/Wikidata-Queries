@@ -1,0 +1,4 @@
+SELECT DISTINCT ?lexeme ?ipa WHERE {
+  ?lexeme a ontolex:LexicalEntry;
+              wdt:P898 ?ipa.
+}

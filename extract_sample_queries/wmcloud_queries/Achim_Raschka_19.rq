@@ -1,0 +1,15 @@
+#Brettspiele
+SELECT ?item ?itemLabel ?SerieLabel ?TitelLabel ?EntwicklerLabel ?AutorLabel ?DesignerLabel ?VerlagLabel ?IDBGG ?IDLuding
+WHERE 
+{
+  ?item wdt:P178 wd:Q61088;
+        OPTIONAL {?item wdt:P361 ?Serie. }
+        OPTIONAL {?item wdt:P1476 ?Titel. }
+        OPTIONAL {?item wdt:P178 ?Entwickler. }
+        OPTIONAL {?item wdt:P50 ?Autor. }
+        OPTIONAL {?item wdt:P287 ?Designer. }
+        OPTIONAL {?item wdt:P123 ?Verlag. }
+        OPTIONAL {?item wdt:P2339 ?IDBGG. }
+        OPTIONAL {?item wdt:P3528 ?IDLuding. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

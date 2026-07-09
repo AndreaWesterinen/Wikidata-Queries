@@ -1,0 +1,14 @@
+# articles authored by Benedictus Hubertus Danser (with publication dates)
+# the query also finds their article
+
+
+SELECT DISTINCT ?date ?item ?itemLabel ?journal ?journalLabel WHERE {
+  ?item wdt:P31 wd:Q13442814 ;          # is a scholarly article
+   
+    wdt:P50  wd:Q56782243;                # author  Laura A. Katz 
+    wdt:P1433 ?journal;    
+    wdt:P577  ?date .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  DESC (?date) ?itemLabel ?journalLabel
+ LIMIT 4000    

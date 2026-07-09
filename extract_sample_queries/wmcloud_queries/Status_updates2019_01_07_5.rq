@@ -1,0 +1,5 @@
+SELECT ?item ?name WHERE {
+  ?item wdt:P1448 ?name.
+  FILTER(LANG(?name) = "mul")
+  FILTER(CONTAINS(?name, "/"))
+}

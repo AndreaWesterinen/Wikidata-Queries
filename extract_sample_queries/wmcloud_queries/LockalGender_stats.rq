@@ -1,0 +1,53 @@
+SELECT ?item ?label ?count WHERE {
+  {
+    BIND(wd:Q1 AS ?item)
+    BIND("no gender" AS ?label)
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "www.wikidata.org";
+                      wikibase:api "Search"; wikibase:limit "once" ;
+                      mwapi:srsearch "haswbstatement:P31=Q5 -haswbstatement:P21" ;
+                      mwapi:srlimit "1" ; mwapi:srprop "" ; mwapi:srsort "none" ; mwapi:srnamespace "0" .
+      ?count wikibase:apiOutput '//searchinfo[1]/@totalhits'.
+    }
+  } UNION {
+    BIND(wd:Q2 AS ?item)
+    BIND("male" AS ?label)
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "www.wikidata.org";
+                      wikibase:api "Search"; wikibase:limit "once" ;
+                      mwapi:srsearch "haswbstatement:P31=Q5 haswbstatement:P21=Q6581097" ;
+                      mwapi:srlimit "1" ; mwapi:srprop "" ; mwapi:srsort "none" ; mwapi:srnamespace "0" .
+      ?count wikibase:apiOutput '//searchinfo[1]/@totalhits'.
+    }
+  } UNION {
+    BIND(wd:Q3 AS ?item)
+    BIND("female" AS ?label)
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "www.wikidata.org";
+                      wikibase:api "Search"; wikibase:limit "once" ;
+                      mwapi:srsearch "haswbstatement:P31=Q5 haswbstatement:P21=Q6581072" ;
+                      mwapi:srlimit "1" ; mwapi:srprop "" ; mwapi:srsort "none" ; mwapi:srnamespace "0" .
+      ?count wikibase:apiOutput '//searchinfo[1]/@totalhits'.
+    }
+  } UNION {
+    BIND(wd:Q4 AS ?item)
+    BIND("both" AS ?label)
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "www.wikidata.org";
+                      wikibase:api "Search"; wikibase:limit "once" ;
+                      mwapi:srsearch "haswbstatement:P31=Q5 haswbstatement:P21=Q6581072 haswbstatement:P21=Q6581097" ;
+                      mwapi:srlimit "1" ; mwapi:srprop "" ; mwapi:srsort "none" ; mwapi:srnamespace "0" .
+      ?count wikibase:apiOutput '//searchinfo[1]/@totalhits'.
+    }
+  } UNION {
+    BIND(wd:Q5 AS ?item)
+    BIND("other" AS ?label)
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "www.wikidata.org";
+                      wikibase:api "Search"; wikibase:limit "once" ;
+                      mwapi:srsearch "haswbstatement:P31=Q5 haswbstatement:P21 -haswbstatement:P21=Q6581097 -haswbstatement:P21=Q6581072" ;
+                      mwapi:srlimit "1" ; mwapi:srprop "" ; mwapi:srsort "none" ; mwapi:srnamespace "0" .
+      ?count wikibase:apiOutput '//searchinfo[1]/@totalhits'.
+    }
+  }
+}

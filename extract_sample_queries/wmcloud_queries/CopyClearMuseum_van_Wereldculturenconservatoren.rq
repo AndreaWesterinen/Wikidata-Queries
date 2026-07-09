@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?value ?valueLabel 
+#sample variables defined below (but commented out)
+?dob ?dod ?country
+WHERE
+{
+	?item wdt:P7831 ?value .
+	?item wdt:P106 wd:Q674426 . 
+#	OPTIONAL {?item wdt:P570 ?dod } . 
+#	?item wdt:P17 ?country . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en"  }    
+}

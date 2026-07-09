@@ -1,0 +1,8 @@
+embed.html##defaultView:BubbleChart
+select ?positionHeldLabel (count(?subj) as ?nr) 
+{
+   {?subj wdt:P3217 ?SBLID} # Beskrivna i SBL
+    {?subj wdt:P39 ?positionHeld}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en","sv","no","da","de","pl"}
+ }
+Group by ?positionHeldLabel

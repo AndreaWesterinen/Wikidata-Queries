@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?label2 ?typeLabel
+WHERE 
+{
+  ?item wdt:P17 wd:Q145 .
+  FILTER NOT EXISTS {?item rdfs:label ?label . filter(lang(?label)="en") }
+  ?item rdfs:label ?label3.
+  BIND(STR(?label3) as ?label2)
+  ?item wdt:P31 ?type. ?type  rdfs:label ?typeLabel . filter(lang(?typeLabel)="en")
+} order by ?itemLabel

@@ -1,0 +1,12 @@
+SELECT ?item ?p1 ?pDescription
+{
+  ?p p:P2302 ?st0 .
+  ?st0 ps:P2302 wd:Q53869507 .
+  ?st0 pq:P5314 wd:Q54828449 .
+  MINUS {?st0 pq:P5314 wd:Q54828448 .}
+  MINUS {?st0 pq:P5314 wd:Q54828450 .}
+  FILTER NOT EXISTS { ?p wdt:P31/wdt:P279* wd:Q15720608 }
+  BIND (concat("\u007B\u007BP\u007C",strafter(str(?p),"y/"),"\u007D\u007D") as ?p1) 
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?p), 33))) AS ?item) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}

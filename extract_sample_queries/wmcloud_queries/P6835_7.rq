@@ -1,0 +1,14 @@
+#title: Article titles with "$" might use this
+# Complex constraint from [[Property talk:P6835]]
+# To exclude book reviews, add [[Property:P136|genre&#32;<small dir="ltr">(P136)</small>]]=[[d:Q637866|book review <small>(Q637866)</small>]]
+SELECT ?item ?value
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P1476 ?value .
+  FILTER( !REGEX( STR( ?value ), "^[^$]*(\\$[^$]*)?$" )   )
+  MINUS { ?item p:P1476 / pq:P6835 [] }
+  MINUS { ?item p:P1476 / pq:P6833 [] }  
+  MINUS { ?item wdt:P136 wd:Q637866 }  
+  ?item wdt:P31 wd:Q13442814
+} 
+LIMIT 10

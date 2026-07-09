@@ -1,0 +1,8 @@
+embed.html## Museen, die nicht die Bezeichnung „Museum“ im Namen tragen
+SELECT ?museum ?museumLabel WHERE {
+  ?museum wdt:P31/wdt:P279* wd:Q33506;
+          wdt:P17 wd:Q183;
+          rdfs:label ?museumLabel.
+  FILTER(LANG(?museumLabel) = "de")
+  FILTER(!CONTAINS(LCASE(?museumLabel), "museum"))
+}

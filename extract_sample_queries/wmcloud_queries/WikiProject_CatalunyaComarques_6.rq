@@ -1,0 +1,5 @@
+select ?item ?comarca where {
+    ?item wdt:P31 wd:Q937876.
+    ?item wdt:P47 ?comarca.
+    minus { ?comarca wdt:P47 ?item. }
+  }

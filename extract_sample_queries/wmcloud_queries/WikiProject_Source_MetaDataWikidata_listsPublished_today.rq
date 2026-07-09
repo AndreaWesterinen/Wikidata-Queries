@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?title ?pubdate
+WHERE
+{
+	?item wdt:P921 wd:Q202864 ; wdt:P577 ?pubdate .
+    BIND (now() - ?pubdate as ?date_range)
+    FILTER (?date_range < 1)
+}
+ORDER BY DESC(?pubdate)
+LIMIT 100

@@ -1,0 +1,10 @@
+#title: Detect some mistakes # 2
+# Complex constraint from [[Property talk:P1083]]
+#
+SELECT ?item ?capacity ?nbStatements ?ratio {
+  ?item wdt:P31/wdt:P279* wd:Q483110;
+        wdt:P1083 ?capacity;
+        wikibase:statements ?nbStatements.
+  BIND (?capacity / ?nbStatements AS ?ratio)
+  FILTER (?ratio < 10)
+}

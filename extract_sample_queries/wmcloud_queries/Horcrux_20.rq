@@ -1,0 +1,6 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q1134686 .
+  FILTER NOT EXISTS { ?x wdt:P625 ?coord . }
+}
+LIMIT 100000

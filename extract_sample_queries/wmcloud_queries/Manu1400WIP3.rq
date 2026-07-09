@@ -1,0 +1,21 @@
+SELECT ?item ?starttime ?endtime ?fonction ?item0 {
+  # ?item wdt:P39 wd:Q382617. # maire
+  ?item p:P39 [ps:P39/wdt:P279* wd:Q382617;
+                   pq:P580 ?starttime;
+                   pq:P582 ?endtime;
+                   ps:P39 ?fonction;
+              ].
+  ?item0 p:P39 [
+                   pq:P580 ?starttime;
+                   pq:P582 ?endtime;
+                   ps:P39 ?fonction;
+              ].
+  FILTER (?item != ?item0)
+  FILTER (?item != wd:Q27031457)
+  FILTER (?fonction != wd:Q382617) # very quick fix : avoid 'maire' (lieu pas précisé)
+  FILTER (?fonction != wd:Q62084660) # "maires concurremment"
+  FILTER (?item != wd:Q84494664)
+  FILTER (?item0 != wd:Q84494664)
+  # FILTER (?item NOT IN (wd:Q2976717, wd:Q3168248)) # meme dates mais lieux différents
+}
+LIMIT 100

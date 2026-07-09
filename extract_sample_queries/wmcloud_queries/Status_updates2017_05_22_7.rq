@@ -1,0 +1,23 @@
+#defaultView:Map
+SELECT ?person ?personLabel ?dob ?precision ?coords ?Gender ?Occupation ?Place_of_Birth ?image
+(COUNT(distinct ?article) as ?count)
+WHERE { 
+ ?person wdt:P106 wd:Q36180 .
+ ?person wdt:P31 wd:Q5 .
+ ?person wdt:P21 wd:Q6581072 .
+ ?person p:P569/psv:P569 ?dobNode .
+ ?dobNode wikibase:timeValue ?dob .
+ ?dobNode wikibase:timePrecision ?precision .
+ ?person wdt:P19 ?birthPlace .
+ ?birthPlace wdt:P625 ?coords .
+ OPTIONAL { ?person wdt:P18 ?image }
+ OPTIONAL { ?article schema:about ?person }
+SERVICE wikibase:label {
+ bd:serviceParam wikibase:language 'en' .
+ ?person rdfs:label ?personLabel .
+ ?birthPlace rdfs:label ?Place_of_Birth .
+ ?occupation rdfs:label ?Occupation .
+ ?gender rdfs:label ?Gender .
+}
+} GROUP BY ?person ?personLabel ?dob ?precision ?coords ?Gender ?Occupation ?Place_of_Birth ?image
+ORDER BY DESC (?count)

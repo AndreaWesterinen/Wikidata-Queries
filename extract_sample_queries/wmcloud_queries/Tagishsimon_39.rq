@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "numismatic haswbstatement:P31=Q13442814".
+    ?item wikibase:apiOutputItem mwapi:title .
+  }
+  FILTER NOT EXISTS { ?item wdt:P921 wd:Q202864. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+# LIMIT 10000

@@ -1,0 +1,10 @@
+#title: Missing P1174 on a Q570116
+# Complex constraint from [[Property talk:P1174]]
+# Missing [[Property:P1174|visitors per year&#32;<small dir="ltr">(P1174)</small>]] on a [[d:Q570116|tourist attraction <small>(Q570116)</small>]]
+SELECT ?item 
+WHERE 
+{
+  ?item wdt:P31 wd:Q570116.
+  FILTER NOT EXISTS { ?item wdt:P1174 [] }.
+}
+ORDER BY ?item

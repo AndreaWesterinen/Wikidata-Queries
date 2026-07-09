@@ -1,3 +1,4 @@
+#title: Distances between municipalities in an area, grouped by dist range, color-coded
 #defaultView:BarChart
 PREFIX var_muntype: <http://www.wikidata.org/entity/Q15284>
 PREFIX var_area: <http://www.wikidata.org/entity/Q6308>

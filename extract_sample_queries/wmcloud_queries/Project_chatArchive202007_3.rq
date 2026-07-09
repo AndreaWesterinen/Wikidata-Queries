@@ -1,0 +1,2 @@
+SELECT (COUNT(*) as ?count) {hint:Query hint:optimizer "None".
+  []wdt:P496[];wikibase:identifiers 1}

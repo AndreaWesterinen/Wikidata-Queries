@@ -1,0 +1,26 @@
+SELECT DISTINCT ?item ?itemLabel ?date
+WHERE
+{
+	# find items of some type
+    ?item wdt:P31 ?type .
+    
+    # where the type is a subclass of disaster, conflict or crime
+    { ?type wdt:P279* wd:Q3839081 . }
+    UNION
+    { ?type wdt:P279* wd:Q180684 . }
+    UNION
+    { ?type wdt:P279* wd:Q83267 . }
+
+    # with a point in time or start date
+	 { ?item wdt:P585 ?date .} UNION { ?item wdt:P580 ?date. }
+	# not more than 1 day in the future
+    # (allowing for time zone differences)
+    # and not more than 90 days ago
+	BIND(NOW() - ?date AS ?distance).
+	FILTER(-1 <= ?distance && ?distance < 90).
+  	# and get a label as well
+	OPTIONAL {
+		?item rdfs:label ?itemLabel.
+		FILTER(LANG(?itemLabel) = "ca").
+	}
+}

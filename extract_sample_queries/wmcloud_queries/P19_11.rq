@@ -1,0 +1,7 @@
+#title: Born in a cemetery
+# Complex constraint from [[Property talk:P19]]
+# Born in a [[d:Q39614|cemetery <small>(Q39614)</small>]]
+SELECT ?item
+  WHERE {
+    ?item wdt:P19/wdt:P31/wdt:P279* wd:Q39614.
+  }

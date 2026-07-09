@@ -1,0 +1,28 @@
+SELECT ?item ?paint ?surface (COUNT(?item) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213;
+            p:P186 ?paintstatement ;
+            p:P186 ?surfacestatement .
+  ?paintstatement ps:P186 ?paint .
+  ?paint wdt:P279+ wd:Q174219 .
+  ?surfacestatement ps:P186 ?surface ;
+                    pq:P518 wd:Q861259 .
+  BIND(
+   IRI(
+      CONCAT(
+        "http://www.wikidata.org/entity/Q", STR(
+          xsd:integer(
+            SUBSTR(
+              STR(?paint), STRLEN("http://www.wikidata.org/entity/Q")+1
+            )
+          )*10000000 + xsd:integer(
+            SUBSTR(
+              STR(?surface),STRLEN("http://www.wikidata.org/entity/Q")+1)
+          )
+        )
+        )
+        ) AS ?item 
+      )
+}
+GROUP BY ?item ?paint ?surface
+ORDER BY DESC (?count)
+LIMIT 50

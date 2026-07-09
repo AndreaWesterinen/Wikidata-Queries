@@ -1,0 +1,35 @@
+# This query takes a list of article in Wikipedia, analyse the gender of all entities cited in the article and count the share of males, females and non binary.
+# The goal is to measure gender diversity inside wikipedia articles
+# Feedback and comments are welcome on my talk page User:PAC2
+SELECT 
+?article
+(SUM(?male) AS ?count_males)
+(SUM(?female) AS ?count_females) 
+(SUM(?nonbinary) AS ?count_nonbinary) 
+(COUNT(*) AS ?count) 
+(ROUND(100 * ?count_females / (?count_females + ?count_males + ?count_nonbinary)) AS  ?share_females) 
+(ROUND(100 * ?count_nonbinary / (?count_females + ?count_males + ?count_nonbinary)) AS  ?share_nonbinary) 
+(ROUND(100 * ?count_males / (?count_females + ?count_males + ?count_nonbinary)) AS  ?share_males) 
+{
+  VALUES ?article {
+  "Anthropology"
+  "Philosophy"
+  "Economics"
+  "Sociology"
+  "Demography"
+  }
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:endpoint "en.wikipedia.org";
+                     wikibase:api "Generator";
+                     mwapi:generator "links";
+                     mwapi:titles ?article;.
+     ?item wikibase:apiOutputItem mwapi:item.
+  } 
+  FILTER BOUND (?item)
+  ?item wdt:P31 wd:Q5 . 
+  ?item wdt:P21 ?gender . 
+  BIND(IF(?gender IN(wd:Q6581097, wd:Q2449503), 1, 0) AS ?male ) 
+  BIND(IF(?gender IN(wd:Q6581072, wd:Q1052281), 1, 0 ) AS ?female)
+  BIND(IF(?gender = wd:Q48270, 1, 0) AS ?nonbinary) 
+}
+GROUP BY ?article

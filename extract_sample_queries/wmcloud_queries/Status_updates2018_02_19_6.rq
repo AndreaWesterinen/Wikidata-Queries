@@ -1,0 +1,6 @@
+#defaultView:Map
+SELECT ?topic ?geoloc ?paper WHERE {
+  ?paper wdt:P921 ?topic; 
+         wdt:P31 wd:Q13442814 .
+  ?topic wdt:P625 ?geoloc.
+} GROUP BY ?topic ?geoloc ?paper

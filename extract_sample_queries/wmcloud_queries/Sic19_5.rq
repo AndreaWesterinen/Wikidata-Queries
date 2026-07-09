@@ -1,0 +1,23 @@
+embed.html##defaultView:Map
+SELECT DISTINCT ?s ?sLabel (SAMPLE(?place) AS ?place) (SAMPLE(?address) AS ?address) (SAMPLE(?postcode) AS ?postcode) (SAMPLE(?gridref) AS ?gridref) (SAMPLE(?operatorLabel) AS ?operatorLabel) 
+                           (SAMPLE(?email) AS ?email) (SAMPLE(?phone) AS ?phone) (SAMPLE(?website) AS ?website) (SAMPLE(?coor) AS ?coor) (SAMPLE(?image) AS ?image) (SAMPLE(?commons) AS ?commons)  
+                            WHERE {
+ { ?s wdt:P31/wdt:P279* wd:Q856584 .}
+  UNION
+ { ?s wdt:P31/wdt:P279* wd:Q7075 }
+    ?s wdt:P17 wd:Q145 .
+             OPTIONAL { ?s wdt:P625 ?coor . }
+             OPTIONAL { ?s wdt:P18 ?image . }
+             OPTIONAL { ?s wdt:P131 ?place . }
+             OPTIONAL { ?s wdt:P969 ?address .}
+             OPTIONAL { ?s wdt:P281 ?postcode .}
+             OPTIONAL { ?s wdt:P613 ?gridref .}
+             OPTIONAL { ?s wdt:P137 ?operator . }
+             OPTIONAL { ?s wdt:P968 ?email . }
+             OPTIONAL { ?s wdt:P1329 ?phone .}
+             OPTIONAL { ?s wdt:P856 ?website .}
+             OPTIONAL { ?s wdt:P373 ?commons . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?s ?sLabel
+ORDER BY ?sLabel

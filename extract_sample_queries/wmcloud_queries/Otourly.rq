@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+    ?item schema:description "conjugation table for French verb"@en . 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr,nl,it,fi". }
+} 

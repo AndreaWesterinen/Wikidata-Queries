@@ -1,0 +1,4 @@
+#title: Rijksmonument complex without ID
+# Complex constraint from [[Property talk:P7135]]
+# Items that do have [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]]: [[d:Q13423591|Rijksmonument complex <small>(Q13423591)</small>]], but not this property
+SELECT DISTINCT ?item WHERE { ?item wdt:P1435 wd:Q13423591 . MINUS { ?item wdt:P7135 [] } }

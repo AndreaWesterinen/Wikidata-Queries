@@ -1,0 +1,17 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?placeOfBirth ?placeOfBirthLabel ?placeOfDeath ?placeOfDeathLabel ?image ?coord ?layer  WHERE {
+  ?item wdt:P19 ?placeOfBirth ;
+        wdt:P20 ?placeOfDeath .
+  ?placeOfDeath wdt:P625 ?coord .
+  
+  ?placeOfBirth (wdt:P131|wdt:P706|wdt:P276)* wd:Q327 .
+  ?placeOfBirth (wdt:P131|wdt:P706|wdt:P276)* ?departement .
+  ?departement wdt:P31 wd:Q6465 .
+  
+  ?departement rdfs:label ?layer .
+  FILTER(LANG(?layer) = "fr") .  
+  
+  OPTIONAL { ?item wdt:P18 ?image . }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" . }
+}

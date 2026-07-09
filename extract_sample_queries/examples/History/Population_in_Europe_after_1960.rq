@@ -1,3 +1,4 @@
+#title: Population in Europe after 1960
 SELECT ?objectLabel (YEAR(?date) as ?year)
        ?population (?objectLabel as ?Location)
 WHERE

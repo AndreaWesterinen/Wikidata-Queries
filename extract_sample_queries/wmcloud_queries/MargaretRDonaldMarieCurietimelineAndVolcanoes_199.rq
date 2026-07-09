@@ -1,0 +1,12 @@
+# Westeren Australian Loranthaceae
+SELECT ?item ?taxon_name ?parent ?parentLabel ?FloraBase_id ?APNI_id WHERE {
+  ?item wdt:P5984 ?APNI_id.
+  ?item wdt:P225 ?taxon_name . 
+  ?item wdt:P171  ?parent . 
+  #?item wdt:P171* wd:Q327639.
+  ?item wdt:P5984 ?APNI_id.
+  OPTIONAL {?item wdt:P3101 ?FloraBase_id.}
+  ?item wdt:P171* wd:Q156691 .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
+ORDER BY ?taxon_name ?item

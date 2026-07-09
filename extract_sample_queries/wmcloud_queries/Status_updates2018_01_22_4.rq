@@ -1,0 +1,25 @@
+# male actors who starred in a trilogy of movies when they were in their 20s and then no fewer than 40 years later played the same character again
+# source: https://medium.com/@hitRECordJoe/a-new-old-skywalker-253efda3809c, 13th paragraph
+# (“young”, “protagonist” and “as an older man” are elided; “actor” is taken to be implied by a “cast member” statement on a movie without requiring an “occupation” statement on the actor)
+SELECT DISTINCT ?actor ?actorLabel ?characterLabel WHERE {
+  ?actor wdt:P31 wd:Q5;
+         wdt:P21 wd:Q6581097;
+         wdt:P569 ?dob.
+  ?movie1 wdt:P31/wdt:P279* wd:Q11424;
+          wdt:P179 ?trilogy;
+          p:P161 [
+            ps:P161 ?actor;
+            pq:P453 ?character
+          ];
+          wdt:P577 ?movie1Publication.
+  ?trilogy wdt:P31/wdt:P279* wd:Q13593818.
+  FILTER(?dob + "P20Y"^^xsd:duration <= ?movie1Publication && ?movie1Publication < ?dob + "P30Y"^^xsd:duration)
+  ?movie2 wdt:P31/wdt:P279* wd:Q11424;
+          p:P161 [
+            ps:P161 ?actor;
+            pq:P453 ?character
+          ];
+          wdt:P577 ?movie2Publication.
+  FILTER(?movie1Publication + "P40Y"^^xsd:duration < ?movie2Publication)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

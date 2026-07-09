@@ -1,0 +1,13 @@
+#Qualifiers for member of Lok Sabha
+SELECT ?qual ?qualLabel ?count WHERE {
+  {
+    SELECT ?qual (COUNT(DISTINCT ?statement) AS ?count) WHERE {
+      ?person p:P39 ?statement .
+      ?statement ps:P39/wdt:P279* wd:Q16556694 ; ?pq_qual ?pq_obj .
+      ?qual wikibase:qualifier ?pq_qual . 
+    }
+    GROUP BY ?qual
+  }           
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . } 
+}
+ORDER BY DESC (?count)

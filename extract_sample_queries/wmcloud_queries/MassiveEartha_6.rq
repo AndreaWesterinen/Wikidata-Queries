@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?Legacies_of_British_Slave_ownership_person_ID ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P3023 ?Legacies_of_British_Slave_ownership_person_ID. }
+  OPTIONAL {  }
+  OPTIONAL { ?item wdt:P18 ?image. }
+}

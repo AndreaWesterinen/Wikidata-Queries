@@ -1,0 +1,50 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+ #  Query to find classes and top-level subclasses
+ #  for items with P31/P279+ Q17334923  # location
+ #  and have P17 Q145                   # UK
+
+ 
+      SELECT ?item (SAMPLE(?item_label) AS ?item_label)  (SAMPLE(?commonscat) AS ?commonscat)
+                (GROUP_CONCAT(DISTINCT(?class_label); separator = "; ") AS ?class_list)
+                (SAMPLE(?adm) AS ?adm) (SAMPLE(?adm_label) AS ?adm_label) 
+      WHERE {
+          ?item wdt:P1435 ?status                .
+          ?item wdt:P17 wd:Q145 .
+          ?item rdfs:label ?item_label filter (lang(?item_label) = "en")
+          VALUES ?status { wd:Q10729125 } .
+
+         OPTIONAL {
+           ?item wdt:P373 ?commonscat .
+         }
+
+         OPTIONAL {
+           ?item wdt:P31 ?class .
+           ?class rdfs:label ?class_label filter (lang(?class_label) = "en")
+         }
+     
+         OPTIONAL {
+           ?item wdt:P131 ?adm .
+           ?adm rdfs:label ?adm_label filter (lang(?adm_label) = "en")
+         } .
+         OPTIONAL {
+           BIND ('missing' AS ?adm) 
+           BIND ('---' AS ?adm_label) 
+         } .
+          
+#         OPTIONAL {?place wdt:P836 ?gss} .
+#         OPTIONAL {BIND ('missing' AS ?gss)} 
+ 
+         SERVICE wikibase:label {
+              bd:serviceParam wikibase:language "en" .
+         }
+     } GROUP BY ?item ORDER BY ?item_label
+     LIMIT 1000

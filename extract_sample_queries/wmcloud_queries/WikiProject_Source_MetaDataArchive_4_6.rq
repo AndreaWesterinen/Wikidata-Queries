@@ -1,0 +1,3 @@
+SELECT ?item ?doi  WHERE {  
+  ?item wdt:P356 "10.2307/3326922"  .  
+}

@@ -1,0 +1,23 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P31 ?grouping.
+BIND(wd:Q833 AS ?country)
+{
+VALUES ?type {
+wd:Q111177861 # Malaysian government agency(agensi kerajaan Malaysia) (?))
+wd:Q111179627 # government-ownded enterprise (?)
+wd:Q111179247 # federal level ministries (27)
+}
+?entity wdt:P31 ?type; wdt:P17 ?country .
+}
+UNION
+{
+VALUES ?type {
+wd:Q111179721 # delegations (3)
+wd:Q111179796 # general consulates (22)
+wd:Q3917681 # embassies (63)
+wd:Q18414273 # high commission (17)
+}
+?entity wdt:P31 ?type; wdt:P137 ?country .
+}  
+MINUS { ?entity wdt:P576 [] }
+MINUS { ?entity wdt:P1366 [] }
+MINUS { ?entity wdt:P3999 [] }. ?entity wdt:P31 ?grouping .} GROUP BY ?grouping HAVING (?count >= 1) ORDER BY DESC(?count) LIMIT 1000

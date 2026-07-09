@@ -1,0 +1,10 @@
+embed.html## average age of members of the 19th German Bundestag 
+SELECT (AVG(?age) AS ?avgAge) WHERE {
+  ?mdb wdt:P31 wd:Q5;
+       p:P39 [
+         ps:P39 wd:Q1939555;
+         pq:P2937 wd:Q30579723
+       ];
+       wdt:P569 ?dob.
+  BIND(FLOOR((NOW() - ?dob)/365.2425) AS ?age)
+}

@@ -1,0 +1,8 @@
+#title: Items with anonymous creator and no inception
+# Complex constraint from [[Property talk:P4765]]
+# These items have an unknown creator and no inception so no way to know the work is in the public domain due to age.
+SELECT ?item WHERE {
+  ?item wdt:P4765 ?url .
+  ?item wdt:P170 wd:Q4233718  .
+  MINUS { ?item wdt:P571 ?inception } .
+  } LIMIT 1000

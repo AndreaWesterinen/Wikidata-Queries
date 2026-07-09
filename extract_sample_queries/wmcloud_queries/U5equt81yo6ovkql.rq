@@ -1,0 +1,5 @@
+SELECT ?q ?ra  {
+  ?q wdt:P31 wd:Q5 .
+  ?q wdt:P4553 ?ra .
+  MINUS { ?q wdt:P463 wd:Q270920 }
+  }

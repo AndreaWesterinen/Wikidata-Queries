@@ -1,0 +1,12 @@
+#title: USSR is used as born place qualifier value for people born before 1922-12-30
+# Complex constraint from [[Property talk:Q15180]]
+# Items with [[Property:P17|country&#32;<small dir="ltr">(P17)</small>]] qualifier of [[Property:P19|place of birth&#32;<small dir="ltr">(P19)</small>]] equal to [[d:Q15180|Soviet Union <small>(Q15180)</small>]] and [[Property:P569|date of birth&#32;<small dir="ltr">(P569)</small>]] before 1922-12-30
+SELECT DISTINCT ?item WHERE {
+    ?item p:P569/psv:P569 ?node .
+    ?node wikibase:timeValue ?born .
+    ?node wikibase:timePrecision ?precision .
+    ?item wdt:P19 ?bornPlace .
+    ?bornPlace pq:P17 wd:Q15180 .
+    FILTER (?born < "1922-12-30T00:00:00Z"^^xsd:dateTime)
+    FILTER (?precision >= "9"^^xsd:integer)
+  }

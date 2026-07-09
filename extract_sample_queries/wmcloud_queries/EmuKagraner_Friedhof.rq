@@ -1,0 +1,10 @@
+SELECT ?item ?of ?cat (CONCAT("[[:w:de:",?lemma,"|",?lemma,"]]") AS ?wikipedia) WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P119 wd:Q1241475.
+  ?item p:P119 ?statement.
+  OPTIONAL { ?statement pq:P965 ?of. }
+  OPTIONAL { ?statement pq:P1552 ?cat.}
+  OPTIONAL {?sitelink schema:about ?item;
+    schema:isPartOf <https://de.wikipedia.org/>;
+    schema:name ?lemma.  }
+}

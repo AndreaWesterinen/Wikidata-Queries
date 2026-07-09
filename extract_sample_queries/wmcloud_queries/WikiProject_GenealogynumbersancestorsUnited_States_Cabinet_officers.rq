@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?ancestor) as ?ct) ?position
+{
+    ?item wdt:P31 wd:Q5; wdt:P39 ?position.
+    ?position wdt:P361 wd:Q639738. FILTER(?position!=wd:Q11699)
+    ?item (wdt:P22|wdt:P25)+ ?ancestor .
+    ?item wdt:P569 ?dob.
+} 
+GROUP BY ?item ?position
+ORDER BY ?position ?dob

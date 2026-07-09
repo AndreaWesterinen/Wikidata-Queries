@@ -1,0 +1,19 @@
+#title: Ordinal qualifier would generally be unique within season
+# Complex constraint from [[Property talk:P4908]]
+# define exceptions when needed
+SELECT ?item ?itemLabel ?season ?seasonLabel ?ordinal
+WITH
+{  SELECT ?season ?ordinal (COUNT(DISTINCT ?ep) as ?ct)
+  {
+	?ep p:P4908 [ ps:P4908 ?season ; pq:P1545 ?ordinal ] ; wdt:P31 wd:Q21191270
+  }
+  GROUP BY ?season ?ordinal 
+  HAVING ( ?ct > 1)
+} as %find
+WHERE
+{
+  INCLUDE %find 
+  ?item  p:P4908 [ ps:P4908 ?season  ; pq:P1545 ?ordinal ]         
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it". }
+}
+ORDER BY ?season xsd:integer(?ordinal)

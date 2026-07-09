@@ -1,0 +1,2 @@
+#title:Add new claim P27:Q33
+SELECT DISTINCT ?item WHERE { ?item wdt:P2181 [] . MINUS { ?item p:P27/ps:P27 wd:Q33 } }

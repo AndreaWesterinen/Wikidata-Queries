@@ -1,0 +1,12 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?team ?teamLabel (SAMPLE(?countryName) AS ?country) (COUNT(?player) AS ?playerCount) (GROUP_CONCAT(DISTINCT(?playerName);separator=", ") AS ?players) WHERE {
+  ?team wdt:P31 wd:Q24199684 .
+  OPTIONAL{?team wdt:P31 ?nationalTeam . ?nationalTeam wdt:P31 wd:Q6979593 . ?nationalTeam wdt:P1532 ?country . ?country rdfs:label ?countryName . FILTER(lang(?countryName) = "en")}
+  OPTIONAL{?team wdt:P710 ?player . ?player rdfs:label ?playerName . FILTER(lang(?playerName) = "en")}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+}
+GROUP BY ?team ?teamLabel
+ORDER BY ?playerCount

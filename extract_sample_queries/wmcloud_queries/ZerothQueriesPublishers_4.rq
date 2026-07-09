@@ -1,0 +1,20 @@
+#defaultView:BubbleChart
+SELECT ?editorialLabel ?afundacion ?adisolucion (COUNT(?libros) AS ?publicaciones)
+WHERE
+{
+	?libros wdt:P31 wd:Q3331189.
+	?libros wdt:P123 ?editorial.
+    ?editorial wdt:P17 wd:Q77.
+  
+  OPTIONAL {?editorial wdt:P571 ?fundacion}.
+  ?editorial p:P31 ?statement.
+  OPTIONAL {?statement pq:P580 ?fundacion}.
+  BIND(str(YEAR(?fundacion)) AS ?afundacion).
+  OPTIONAL {?editorial wdt:P576 ?disolucion}.
+  ?editorial p:P31 ?statement.
+  OPTIONAL {?statement pq:P582 ?disolucion}.
+  BIND(str(YEAR(?disolucion)) AS ?adisolucion).
+  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+}
+GROUP BY ?editorialLabel ?afundacion ?adisolucion

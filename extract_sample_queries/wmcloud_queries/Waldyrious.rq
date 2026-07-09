@@ -1,0 +1,26 @@
+SELECT DISTINCT ?article ?authorLabel ?articleLabel ?articleDescription WHERE
+{
+  ?article wdt:P31 wd:Q13442814.   # scientific articles
+  ?article wdt:P50 ?author.        # with at least one author
+  ?author wdt:P31 wd:Q5.             # ...who is a human
+  ?author wdt:P27 wd:Q45.            # ...from the: USA (Q30), Portugal (Q45), ... (this is just to make the results list shorter and avoid a timeout)
+  #?article wdt:P577 ?pubdate.      # with a publication date
+  MINUS { ?article wdt:P2093 [] }. # with no "author name string" property
+  #FILTER NOT EXISTS { ?article wdt:P2093 ?author_name_string } # (alternative to the MINUS statement above)
+  
+  #?article rdfs:label "Generalized Lorentz invariance with an invariant energy scale"@en.
+  #?article rdfs:label ?articleLabel.
+  #FILTER LANG(?articleLabel = "en"). # doesn't work??
+  #FILTER REGEX(?articleLabel, "^Generalized.+scale$").
+  #FILTER CONTAINS(?articleLabel, "Lorentz").
+  #FILTER STRSTARTS(?articleLabel, "Generalized").
+          
+  #?article schema:description "scientific article"@en.
+  ?article schema:description ?articleDescription.
+  #FILTER LANG(?articleDescription = "en"). # doesn't work?
+  FILTER REGEX(?articleDescription, "^(scientific )?article$").
+  #FILTER CONTAINS(?articleDescription, "scientific").
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 20

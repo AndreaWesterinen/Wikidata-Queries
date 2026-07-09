@@ -1,0 +1,118 @@
+PREFIX schema: <http://schema.org/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?cid 
+ ?en
+?fr 
+ ?bs
+?ca
+ ?da
+ ?de
+ ?el
+ ?es
+ ?et
+ ?eu
+ ?fi
+ ?ga
+ ?gl
+ ?hr
+ ?hu
+ ?is
+ ?it
+ ?lb
+ ?lv
+?mk
+ ?mwl
+ ?nl
+ ?oc
+ ?pl
+?pt
+ ?rm
+ ?ro
+ ?ru
+ ?sk
+ ?sq
+ ?sv
+ ?tr
+  WHERE {
+  VALUES(?cid)
+{
+ (wd:Q222)
+ (wd:Q40)  
+ (wd:Q31)
+ (wd:Q225)
+ (wd:Q219)
+ (wd:Q224)
+ (wd:Q229)
+ (wd:Q35)
+ (wd:Q191)
+ (wd:Q33)
+ (wd:Q142)
+ (wd:Q183)
+ (wd:Q41)
+ (wd:Q28)
+ (wd:Q189)
+ (wd:Q27)
+ (wd:Q38)
+ (wd:Q211)
+ (wd:Q32)
+ (wd:Q221)
+ (wd:Q217)
+ (wd:Q55)
+ (wd:Q36)
+ (wd:Q45)
+ (wd:Q218)
+ (wd:Q159)
+ (wd:Q403)
+ (wd:Q214)
+ (wd:Q29)
+ (wd:Q34)
+ (wd:Q39)
+ (wd:Q145) 
+} .  
+    OPTIONAL { ?cid rdfs:label ?en filter (lang(?en) = "en") .}
+      OPTIONAL { ?cid rdfs:label ?fr filter (lang(?fr) = "fr") .}
+      OPTIONAL { ?cid rdfs:label ?bs filter (lang(?bs) = "bs") .}
+     OPTIONAL {  ?cid rdfs:label ?ca filter (lang(?ca) = "ca") .}
+ OPTIONAL {?cid rdfs:label ?da filter (lang(?da) = "da").}
+ OPTIONAL {?cid rdfs:label ?de filter (lang(?de) = "de").}
+ OPTIONAL {?cid rdfs:label ?el filter (lang(?el) = "el").}
+ OPTIONAL {?cid rdfs:label ?es filter (lang(?es) = "es").}
+ OPTIONAL {?cid rdfs:label ?et filter (lang(?et) = "et").}
+ OPTIONAL {?cid rdfs:label ?eu filter (lang(?eu) = "eu") .}
+ OPTIONAL {?cid rdfs:label ?fi filter (lang(?fi) = "fi").}
+ OPTIONAL {?cid rdfs:label ?ga filter (lang(?ga) = "ga") .}
+ OPTIONAL {?cid rdfs:label ?gl filter (lang(?gl) = "gl").}
+ OPTIONAL {?cid rdfs:label ?hr filter (lang(?hr) = "hr").}
+ OPTIONAL {?cid rdfs:label ?hu filter (lang(?hu) = "hu").}
+ OPTIONAL {?cid rdfs:label ?is filter (lang(?is) = "is").}
+    OPTIONAL {
+     ?cid rdfs:label ?it filter (lang(?it) = "it").}
+     OPTIONAL {
+?cid rdfs:label ?lb filter (lang(?lb) = "lb").}
+     OPTIONAL {
+?cid rdfs:label ?lv filter (lang(?lv) = "lv").}
+     OPTIONAL {
+?cid rdfs:label ?lv filter (lang(?lv) = "lv").}
+     OPTIONAL {
+?cid rdfs:label ?mk filter (lang(?mk) = "mk").}
+     OPTIONAL {
+?cid rdfs:label ?mwl filter (lang(?mwl) = "mwl").}
+     OPTIONAL {
+?cid rdfs:label ?nl filter (lang(?nl) = "nl").}
+     OPTIONAL {
+?cid rdfs:label ?oc filter (lang(?oc) = "oc").}
+     OPTIONAL {
+?cid rdfs:label ?pl filter (lang(?pl) = "pl").}
+  OPTIONAL{ ?cid rdfs:label ?pt filter (lang(?pt) = "pt").}
+OPTIONAL{?cid rdfs:label ?rm filter (lang(?rm) = "rm").}
+OPTIONAL{?cid rdfs:label ?ro filter (lang(?ro) = "ro").}
+    OPTIONAL{   ?cid rdfs:label ?ru filter (lang(?ru) = "ru").}
+OPTIONAL{?cid rdfs:label ?sk filter (lang(?sk) = "sk").}
+OPTIONAL{?cid rdfs:label ?sq filter (lang(?sq) = "sq").}
+    OPTIONAL{?cid rdfs:label ?sv filter (lang(?sv) = "sv").}
+    OPTIONAL{?cid rdfs:label ?tr filter (lang(?tr) = "tr").}
+
+} 

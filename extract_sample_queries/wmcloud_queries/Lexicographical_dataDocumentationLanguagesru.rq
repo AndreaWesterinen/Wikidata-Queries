@@ -1,0 +1,7 @@
+select ?i ?lemma ?langLabel ?sense1 ?sense2 ?gloss {
+  ?i dct:language ?lang ; wikibase:lemma ?lemma ; ontolex:sense ?sense1, ?sense2 .
+  ?gloss ^skos:definition ?sense1, ?sense2 .
+  FILTER(STR(?sense1) < STR(?sense2))
+  VALUES ?lang {wd:Q7737} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

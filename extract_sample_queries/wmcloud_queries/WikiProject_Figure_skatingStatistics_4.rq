@@ -1,0 +1,14 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P641 ?sport ;
+        wdt:P31 ?competition.
+  FILTER (?sport IN (wd:Q1682809, wd:Q926191, wd:Q4179462, wd:Q4305887, wd:Q1482312, wd:Q38108))
+  FILTER (?competition IN (wd:Q57305027, wd:Q2990963)) . 
+  MINUS { ?entity wdt:P3450 []; wdt:P641 ?sport ;
+        wdt:P31 ?competition.
+  FILTER (?sport IN (wd:Q1682809, wd:Q926191, wd:Q4179462, wd:Q4305887, wd:Q1482312, wd:Q38108))
+  FILTER (?competition IN (wd:Q57305027, wd:Q2990963))  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

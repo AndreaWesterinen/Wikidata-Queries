@@ -1,0 +1,7 @@
+SELECT ?item ?st ?sl (GROUP_CONCAT( DISTINCT (CONCAT("[[:",?l,":",?title,"|",?l,"]]"))) as ?wps)
+{
+	?item wdt:P31 wd:Q29791211 . 
+    OPTIONAL { ?article schema:about ?item ; schema:inLanguage ?l ; schema:name ?title ; schema:isPartOf [ wikibase:wikiGroup 'wikipedia' ]  }
+    ?item wikibase:statements ?st ; wikibase:sitelinks ?sl 
+}
+GROUP BY ?item ?st ?sl

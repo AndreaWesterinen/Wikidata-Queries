@@ -1,0 +1,9 @@
+SELECT ?item
+       {
+          ?item wdt:P108 wd:Q41506 ; 
+
+                 wdt:P31 wd:Q5;
+                 wikibase:statements ?st
+       }
+       ORDER BY ASC(?st) ?item       
+       LIMIT 200

@@ -1,0 +1,8 @@
+#People who have the same parent and child
+SELECT ?person1 ?person1Label ?person2 ?person2Label
+WHERE
+{
+ { ?person1 wdt:P22 ?person2 ; wdt:P31 wd:Q5 } UNION { ?person1 wdt:P25 ?person2 ; wdt:P31 wd:Q5 } 
+   ?person1 wdt:P40 ?person2 ; wdt:P31 wd:Q5 .  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

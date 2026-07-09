@@ -1,0 +1,4 @@
+#title: Value would generally exists in main property
+# Complex constraint from [[Property talk:P8360]]
+# Check items with [[Property:P1149|Library of Congress Classification&#32;<small dir="ltr">(P1149)</small>]]
+SELECT ?item ?value { ?item wdt:P8360 ?value . FILTER NOT EXISTS { [] wdt:P1149 ?value }  } LIMIT 100

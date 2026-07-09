@@ -1,0 +1,18 @@
+SELECT ?object ?objectLabel (MAX(?mass) AS ?mass)
+WHERE
+{
+  ?object p:P2067/psv:P2067 [
+    wikibase:quantityAmount ?baseMass;
+    wikibase:quantityUnit [
+      p:P2370/psv:P2370 [
+        wikibase:quantityAmount ?unitMass;
+        wikibase:quantityUnit wd:Q11570
+      ]
+    ]
+  ].
+  BIND(?baseMass * ?unitMass AS ?mass).
+  MINUS { ?object wdt:P31 wd:Q3647172. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?object ?objectLabel
+ORDER BY DESC(?mass)

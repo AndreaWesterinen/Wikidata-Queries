@@ -1,0 +1,1 @@
+SELECT (wd:Q5003624 as ?item) ?statcount WHERE {SELECT (COUNT(DISTINCT ?v) as ?statcount) { [] wdt:P8954 ?v } }

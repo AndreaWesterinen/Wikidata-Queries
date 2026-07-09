@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?title
+WHERE {
+  hint:Query hint:optimizer "None".
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "\"Formula: see text\" haswbstatement:P31=Q13442814".
+    ?page_title wikibase:apiOutput mwapi:title.
+  }}
+  
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+  
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P1476 ?title.
+  FILTER CONTAINS(LCASE(?title), "formula: see text").
+}
+# LIMIT 10000

@@ -1,0 +1,7 @@
+SELECT ?item ?creator ?othercreator WHERE { 
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P571 [] } .
+  ?item wdt:P170 ?creator .
+  ?creator wdt:P1889 ?othercreator .
+  ?othercreator wdt:P106 wd:Q1028181 
+  } LIMIT 1000

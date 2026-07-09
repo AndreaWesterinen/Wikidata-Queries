@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?instance_of ?instance_ofLabel ?collection ?collectionLabel WHERE {
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item p:P5008 ?statement0.
+      ?statement0 (ps:P5008/(wdt:P279*)) wd:Q109648455.
+    }
+  }
+  OPTIONAL { ?item wdt:P31 ?instance_of. }
+  OPTIONAL { ?item wdt:P195 ?collection. }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,en"  }  
+}

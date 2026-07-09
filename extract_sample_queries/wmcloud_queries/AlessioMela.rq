@@ -1,0 +1,5 @@
+SELECT ?item ?number WHERE {
+  VALUES ?p { wdt:P2900 wdt:P1329 }
+  ?item ?p ?number .
+  FILTER(STRSTARTS(?number, "+39-39") && STRLEN(?number) = STRLEN("+39-390425668523"))
+}

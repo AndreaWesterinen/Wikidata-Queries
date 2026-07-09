@@ -1,0 +1,1 @@
+SELECT * { ?item wikibase:statements 0 ; wikibase:sitelinks ?sl . MINUS { ?item rdf:type [] } } LIMIT 200

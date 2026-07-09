@@ -1,0 +1,7 @@
+embed.html#SELECT DISTINCT ?paper ?paperLabel WHERE {
+  ?paper wdt:P31 wd:Q13442814.
+  ?paper wdt:P50 ?author.
+  ?author wdt:P108 / wdt:P17 wd:Q145 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?paper ?paperLabel

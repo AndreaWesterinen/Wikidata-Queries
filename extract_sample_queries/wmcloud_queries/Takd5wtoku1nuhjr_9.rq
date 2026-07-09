@@ -1,0 +1,10 @@
+embed.html##Map of all subway stations in Berlin with color
+#defaultView:Map
+SELECT ?stationLabel ?coord ?layer
+WHERE {
+	?station wdt:P81/wdt:P361 wd:Q68646 .
+	?station wdt:P625 ?coord.
+    ?station wdt:P81 ?line. 
+  	?line rdfs:label ?layer. filter(lang(?layer) = 'de')
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+}

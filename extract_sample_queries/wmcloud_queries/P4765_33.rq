@@ -1,0 +1,10 @@
+#title: Items with creator who died after 1923 and no inception
+# Complex constraint from [[Property talk:P4765]]
+# After 1923 copyright starts getting more complicated. We need to know the inception to figure out if it's in the public domain.
+SELECT ?item {
+  ?item p:P4765 [].
+  ?item wdt:P170 ?creator .
+  ?creator wdt:P570 ?dod . BIND(YEAR(?dod) AS ?deathyear)
+  FILTER(?deathyear >= 1923) .
+  MINUS { ?item wdt:P571 [] } . 
+  } LIMIT 1000

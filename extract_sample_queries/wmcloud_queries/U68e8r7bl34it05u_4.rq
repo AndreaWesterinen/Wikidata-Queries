@@ -1,0 +1,13 @@
+SELECT ?band ?bandLabel (AVG(?age) AS ?avgAge) WHERE {
+  ?band wdt:P31/wdt:P279* wd:Q215380 .
+  ?band (p:P740/ps:P740/p:P17/ps:P17)|(p:P495/ps:P495) wd:Q145 . # country of inception / country of origin; Q145 is UK
+  ?band p:P527 ?ms .
+  ?ms ps:P527 ?member .
+  FILTER NOT EXISTS { ?ms pq:P582 [] } .
+  ?member p:P569/ps:P569 ?dob .
+  BIND (YEAR(NOW()) - YEAR(?dob) AS ?age)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+GROUP BY ?band ?bandLabel
+HAVING (AVG(?age) >= 70 && COUNT(?age) > 1)
+ORDER BY DESC(?avgAge)

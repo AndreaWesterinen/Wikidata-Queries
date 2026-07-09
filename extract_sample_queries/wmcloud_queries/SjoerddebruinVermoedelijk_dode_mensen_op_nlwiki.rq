@@ -1,0 +1,12 @@
+SELECT ?item ?numberofstatements WHERE {
+  ?article schema:about ?item;
+           schema:isPartOf <https://nl.wikipedia.org/>.
+  ?item wdt:P31 wd:Q5;
+        wdt:P569 ?dateOfBirth.
+  ?item
+        wikibase:statements ?numberofstatements.
+  MINUS { ?item wdt:P570 ?dateOfDeath. }
+  MINUS { ?item wdt:P2032 ?workperiodEnd. }
+  MINUS { ?item wdt:P1317 ?floruit. }
+  FILTER(?dateOfBirth >= "0001-01-01T00:00:00Z"^^xsd:dateTime && ?dateOfBirth <= "1923-01-01T00:00:00Z"^^xsd:dateTime)
+}

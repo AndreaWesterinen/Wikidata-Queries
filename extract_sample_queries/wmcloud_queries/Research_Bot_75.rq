@@ -1,0 +1,28 @@
+SELECT
+  DISTINCT 
+    ?item
+    (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+    ("P106" AS ?property)
+    ("Q482980" AS ?Author)
+    ("S248" AS ?StatedIn)
+    (REPLACE(STR(?worksample), ".*Q", "Q") AS ?workid) 
+WITH {
+  SELECT DISTINCT ?item WHERE  {
+    SERVICE bd:sample { ?item wdt:P31 wd:Q5 . bd:serviceParam bd:sample.limit 500000 }   
+    ?item wikibase:statements ?statements .
+    FILTER (?statements = 1)
+  }
+}
+AS %authors
+WITH {
+  SELECT ?item (SAMPLE(?work) AS ?worksample) WHERE {
+    INCLUDE %authors
+    ?work wdt:P50 ?item .
+  }
+  GROUP BY ?item
+}
+AS %works
+WHERE {
+  INCLUDE %authors
+  INCLUDE %works
+}

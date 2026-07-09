@@ -1,0 +1,11 @@
+# Title: Canadian artists in the National Gallery missing link
+# Complex constraint from [[Property talk:P5239]]
+# Canadian artists ([[Property:P27|country of citizenship&#32;<small>(P27)</small>]] -> [[Q16|Canada <small>(Q16)</small>]]) with [[Property:P5368|National Gallery of Canada artist ID&#32;<small>(P5368)</small>]], but no [[Property:P5239|Artists in Canada record number&#32;<small>(P5239)</small>]] link
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P5368 [] .
+  ?item wdt:P27 wd:Q16 .
+  MINUS { ?item wdt:P5239 [] . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?itemLabel
+LIMIT 2000

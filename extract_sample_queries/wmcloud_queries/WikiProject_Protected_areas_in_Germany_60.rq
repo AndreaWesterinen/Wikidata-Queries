@@ -1,0 +1,5 @@
+SELECT ?Hamburg ?HamburgLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Hamburg wdt:P131* wd:Q1205.
+  ?Hamburg wdt:P31 wd:Q21503788.
+}

@@ -1,0 +1,18 @@
+SELECT 	?item ?itemLabel ?prop (CONCAT("[[Property:",strafter(str(?p), "prop/"),"]]") as ?propid) ?propLabel ?id 
+{ 
+	hint:Query hint:optimizer "None" . 
+	?prop wikibase:propertyType wikibase:Monolingualtext . 
+	?prop wikibase:claim ?p . 
+	?item ?p ?monolingualstatement . 
+	?prop wikibase:statementProperty ?sp . 
+	?monolingualstatement ?sp ?id . 
+	FILTER(lang(?id)="mul") 
+	MINUS { ?item wdt:P31 wd:Q12308941 }
+	MINUS { ?item wdt:P31 wd:Q11879590 }
+	MINUS { ?item wdt:P31 wd:Q202444 }
+	MINUS { ?item wdt:P31 wd:Q3409032 }
+	MINUS { ?item wdt:P31 wd:Q101352 }  
+	FILTER(?item != wd:Q20923490) 
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} 
+}
+LIMIT 5000

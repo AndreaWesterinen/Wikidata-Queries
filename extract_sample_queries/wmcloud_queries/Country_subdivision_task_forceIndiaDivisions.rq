@@ -1,0 +1,7 @@
+SELECT ?item ?state
+WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q1230708 .
+  ?item wdt:P131 ?state.
+  ?state wdt:P31 wd:Q13390680.
+}
+ORDER BY ?state

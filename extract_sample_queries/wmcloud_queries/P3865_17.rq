@@ -1,0 +1,7 @@
+SELECT (count(*) as ?c) ?reference ?reflabel
+WHERE {
+  
+  ?item ?x [ prov:wasDerivedFrom [ pr:P3865 ?reference ] ] .
+  ?reference rdfs:label ?reflabel .
+  FILTER(LANG(?reflabel) = "en")
+} GROUP BY ?reference ?reflabel ORDER BY DESC(count(*))

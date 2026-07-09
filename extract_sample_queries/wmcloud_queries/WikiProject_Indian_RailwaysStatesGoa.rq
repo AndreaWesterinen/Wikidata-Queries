@@ -1,0 +1,6 @@
+SELECT ?item ?ilgomd ?ilgoml WHERE {
+  ?item wdt:P31 wd:Q55488.
+  ?item wdt:P131* wd:Q1171.
+  OPTIONAL { ?item rdfs:label ?ilgomd. FILTER(LANG(?ilgomd)="gom-deva") }
+  OPTIONAL { ?item rdfs:label ?ilgoml. FILTER(LANG(?ilgoml)="gom-latn") }
+}

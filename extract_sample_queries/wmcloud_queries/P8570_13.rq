@@ -1,0 +1,9 @@
+#title: possible missing values (one-of constraint)
+# Complex constraint from [[Property talk:P8570]]
+# add to constraint if applicable
+SELECT ?item
+{
+    wd:Q61782498 wdt:P527 ?item . 
+    MINUS { wd:P8570 p:P2302 [ ps:P2302 wd:Q21510859 ; pq:P2305 ?item ] }
+    FILTER ( ?item != wd:Q24033349 )
+}

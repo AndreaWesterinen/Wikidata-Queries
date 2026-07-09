@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?sl
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P1343 wd:Q602358; wdt:P21 wd:Q6581072; wdt:P31 wd:Q5; wikibase:sitelinks ?sl .
+                # wdt:P1343 wd:Q602358; wdt:P21 wd:Q6581097; wdt:P31 wd:Q5; wikibase:sitelinks ?sl .
+                # wdt:P1343 wd:Q602358; wdt:P27 wd:Q34266; wikibase:sitelinks ?sl .
+                # wdt:P1343 wd:Q602358; wdt:P106 wd:Q1028181 ; wikibase:sitelinks ?sl .
+          FILTER NOT EXISTS { [] schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> }
+          MINUS { ?item wdt:P27 wd:Q34266 . }
+       }
+  }
+  FILTER ( ?sl = 2 ).
+  FILTER ( ?item not in ( wd:Q49600691, wd:Q106879317, wd:Q87760050, wd:Q75244603 ) ) #exclude Russian knyaginyas
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+}

@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item (COUNT(DISTINCT ?author) as ?count) WHERE
+{
+  ?author wdt:P184 ?supervisor ;
+          wdt:P185 ?student ;
+          wdt:P166 ?award ;
+          wdt:P21 ?gender .
+?work wdt:P50 ?author .
+  { ?author wdt:P108 ?item . } UNION { ?author wdt:P1416 ?item }          
+          
+}
+GROUP BY ?item
+HAVING(?count > 5)
+LIMIT 100

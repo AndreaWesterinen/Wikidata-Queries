@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?itemLabel ?publication_date ?DOI 
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "lyme haswbstatement:P31=Q13442814".
+    ?title wikibase:apiOutput mwapi:title.
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P577 ?publication_date. }
+  OPTIONAL { ?item wdt:P356 ?DOID. }
+  BIND(URI(CONCAT(STR("https://dx.doi.org/"), ?DOID)) AS ?DOI)
+}
+ORDER BY DESC(?publication_date) 

@@ -1,0 +1,24 @@
+SELECT DISTINCT 
+    ?item ?itemLabel 
+{
+    ?item wdt:P31 wd:Q6979593 .
+MINUS { ?item wdt:P2094 wd:Q35554451 }
+MINUS { ?item wdt:P2094 wd:Q606060 }
+MINUS { ?item wdt:P2094 wd:Q44418853 }
+MINUS { ?item wdt:P2094 wd:Q44418672 }
+MINUS { ?item wdt:P2094 wd:Q44418451 }
+MINUS { ?item wdt:P2094 wd:Q44418152 }
+MINUS { ?item wdt:P2094 wd:Q44408003 }
+MINUS { ?item wdt:P2094 wd:Q44417973 }
+MINUS { ?item wdt:P2094 wd:Q44417630 }
+MINUS { ?item wdt:P2094 wd:Q44417376 }
+MINUS { ?item wdt:P2094 wd:QQ44419278 }
+MINUS { ?item wdt:P2094 wd:QQ44419274 }
+MINUS { ?item wdt:P2094 wd:QQ44419268 }
+MINUS { ?item wdt:P2094 wd:QQ44419261 }
+MINUS { ?item wdt:P2094 wd:Q44408576 }
+MINUS { ?item wdt:P2094 wd:QQ44418568 }
+MINUS { ?item wdt:P2094 wd:QQ44419248 }
+MINUS { ?item wdt:P2094 wd:QQ44419241 }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

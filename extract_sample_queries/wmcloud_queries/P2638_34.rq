@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-removeLast>
+SELECT DISTINCT ?item WHERE { ?item wdt:P2638 ?value . FILTER( REGEX(STR(?value), '^((shows|movies|people)/[a-z\d][a-z\d-/]*[a-z\d-]/)$') = true )}

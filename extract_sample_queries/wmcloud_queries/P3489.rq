@@ -1,0 +1,24 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak ?rank ?statement
+WHERE
+{
+  {
+    SELECT ?item ?value ?result ?snak ?rank ?statement WHERE {
+      {
+        ?item p:P3489 ?statement .
+        ?statement ps:P3489 ?value; wikibase:rank ?rank .
+        BIND("mainsnak" AS ?snak) .
+      } UNION {
+        ?statement pq:P3489 ?value; wikibase:rank ?rank .
+        ?item ?p1 ?statement .
+        BIND("qualifier" AS ?snak) .
+      } UNION {
+        ?ref pr:P3489 ?value .
+        ?statement prov:wasDerivedFrom ?ref; wikibase:rank ?rank .
+        ?item ?p2 ?statement .
+        BIND("reference" AS ?snak) .
+      } .
+      FILTER( ?value NOT IN ( wd:Q28123615, wd:Q28123619, wd:Q28123616, wd:Q28123617, wd:Q28123621, wd:Q28123806, wd:Q28123618, wd:Q28123804, wd:Q28123805, wd:Q28123811, wd:Q28123808, wd:Q28123809, wd:Q28123815, wd:Q28123812, wd:Q28123813, wd:Q28123816, wd:Q28123817, wd:Q3679561, wd:Q3679274, wd:Q3679261, wd:Q3679234, wd:Q3679233, wd:Q3679232, wd:Q3679189 ) ) .
+    } LIMIT 100
+  } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

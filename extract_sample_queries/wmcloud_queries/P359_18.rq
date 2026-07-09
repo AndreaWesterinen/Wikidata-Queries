@@ -1,0 +1,16 @@
+#title: Commons sitelink should be moved
+# Complex constraint from [[Property talk:P359]]
+# Items that have [[Property:P373|Commons category&#32;<small dir="ltr">(P373)</small>]] and a sitelink to Commons, but are part of another item with the same [[Property:P373|Commons category&#32;<small dir="ltr">(P373)</small>]], but without the sitelink
+SELECT ?item ?itemLabel ?otheritem ?otheritemLabel ?commonscat WHERE {
+  ?item wdt:P359 [] .
+  ?item wdt:P361 ?otheritem .
+  ?item wdt:P373 ?commonscat .
+  ?otheritem wdt:P373 ?commonscat .
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://commons.wikimedia.org/> .
+  FILTER NOT EXISTS {
+    ?article schema:about ?otheritem .
+    ?article schema:isPartOf <https://commons.wikimedia.org/>
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+  } LIMIT 1000

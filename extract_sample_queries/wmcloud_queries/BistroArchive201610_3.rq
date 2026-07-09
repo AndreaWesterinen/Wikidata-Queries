@@ -1,0 +1,10 @@
+#Langues mortes
+
+#added before 2016-10
+
+#defaultView:Table
+SELECT DISTINCT ?language ?languageLabel ?locutors ?date
+WHERE 
+{
+	?language wdt:P31/wdt:P279* wd:Q34770 .  # find instances of subclasses of language
+	?language p:P1098 

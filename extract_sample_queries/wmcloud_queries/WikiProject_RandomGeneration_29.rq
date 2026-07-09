@@ -1,0 +1,22 @@
+embed.html#SELECT ?prop ?propLabel ?in_this_item (COUNT (DISTINCT ?s) as ?count) ?proptype (URI(CONCAT(str(SAMPLE(COALESCE(?s0,?s))),"#",strafter(str(?prop),str(wd:)))) as ?actual_use_or_sample)
+WITH
+{
+  SELECT *
+  WHERE 
+  {
+    ?s ?wdt ?o .
+    ?prop wikibase:directClaim ?wdt .
+    ?s wdt:P31/wdt:P279* wd:Q5 .
+  } 
+  LIMIT 120000
+} as %test
+WHERE
+{
+  INCLUDE %test
+  OPTIONAL { wd:Q1415507 ?wdt [] . BIND("present" as ?in_this_item) . BIND(wd:Q1415507 as ?s0) }   
+  ?prop wikibase:propertyType ?proptype
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }          
+}
+GROUP BY ?prop ?propLabel ?proptype ?in_this_item
+ORDER BY DESC(?count)
+LIMIT 50

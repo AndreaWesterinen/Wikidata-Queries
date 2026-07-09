@@ -1,0 +1,4 @@
+SELECT ?item ?elo ?fide_url WHERE {
+  ?item wdt:P31 wd:Q5; p:P1087 [ ps:P1087 ?elo; pqv:P585/wikibase:timeValue ?time ] .
+  FILTER (YEAR(?time) = 2023 && MONTH(?time) = 2) .
+} ORDER BY DESC(?elo) LIMIT 100

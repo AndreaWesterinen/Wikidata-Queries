@@ -1,0 +1,54 @@
+embed.html##  Query to find classes and top-level subclasses
+ #  for items with P31/P279+ Q17334923  # location
+ #  and have P17 Q145                   # UK
+
+      SELECT ?place (SAMPLE(?place_label) AS ?place_label) 
+                (SAMPLE(?en_wiki) AS ?en_wiki) 
+                (SAMPLE(?commonscat) AS ?commonscat) 
+                (SAMPLE(?gss) AS ?gss)  
+                (GROUP_CONCAT(DISTINCT(?class_label); separator = "; ") AS ?class_list)
+                (SAMPLE(?incept_date) AS ?created)
+                (SAMPLE(?abolition) AS ?abol)
+                (SAMPLE(?adm) AS ?adm) (SAMPLE(?adm_label) AS ?adm_label) 
+      WHERE {
+          ?place wdt:P31 ?class1 .
+          ?place wdt:P31 ?class .
+          ?place wdt:P17 wd:Q145 .
+          ?place rdfs:label ?place_label filter (lang(?place_label) = "en")
+          ?class rdfs:label ?class_label filter (lang(?class_label) = "en")
+          VALUES ?class1 { wd:Q3957 } .
+          # English non-metropolitan county, English unitary authority, English metropolitan county 
+          
+          OPTIONAL {
+            ?place wdt:P571 ?incept_date 
+          }
+        
+          OPTIONAL {
+            ?place wdt:P576 ?abolition
+          }
+          
+          OPTIONAL {
+            ?article schema:about ?place .
+            ?article schema:isPartOf <https://en.wikipedia.org/>.
+            BIND(REPLACE(REPLACE(str(?article), 'https://en.wikipedia.org/wiki/', ''),'%20',' ') AS ?en_wiki)
+          }
+
+         OPTIONAL {
+           ?place wdt:P373 ?commonscat.
+         }
+         OPTIONAL {
+           ?place wdt:P131 ?adm .
+           ?adm rdfs:label ?adm_label filter (lang(?adm_label) = "en")
+         } .
+         OPTIONAL {
+           BIND ('missing' AS ?adm) 
+           BIND ('---' AS ?adm_label) 
+         } .
+          
+         OPTIONAL {?place wdt:P836 ?gss} .
+         OPTIONAL {BIND ('missing' AS ?gss)} 
+ 
+         SERVICE wikibase:label {
+              bd:serviceParam wikibase:language "en" .
+         }
+     } GROUP BY ?place ORDER BY ?place_label

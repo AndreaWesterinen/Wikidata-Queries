@@ -1,0 +1,11 @@
+#title: Italian nouns/proper nouns should have this
+# Complex constraint from [[Property talk:P5185]]
+# TODO: add appropriate value
+SELECT ?item ?lemma
+WHERE
+{
+  VALUES ?lcat { wd:Q1084 wd:Q147276 }
+  ?item <http://purl.org/dc/terms/language> wd:Q652 ; wikibase:lemma ?lemma ; wikibase:lexicalCategory ?lcat .
+  FILTER NOT EXISTS { ?item wdt:P5185 [] }
+}
+ORDER BY ASC(xsd:integer(strafter(str(?item),"/L"))) LIMIT 200

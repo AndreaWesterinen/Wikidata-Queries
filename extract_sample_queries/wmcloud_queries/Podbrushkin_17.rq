@@ -1,0 +1,9 @@
+SELECT ?value ?valueLabel (COUNT(?item) AS ?count) WHERE {
+  
+  ?item wdt:P2360 ?value .
+  #?item wdt:P31 ?instanceOf .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } }
+GROUP BY ?value ?valueLabel
+ORDER BY DESC(?count)
+LIMIT 100

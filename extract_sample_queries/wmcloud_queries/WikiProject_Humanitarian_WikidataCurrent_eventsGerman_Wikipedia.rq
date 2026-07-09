@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item 
+WHERE {
+ {
+   SELECT ?item WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "de.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:\"Laufendes Ereignis\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+  } LIMIT 100
+ }
+ hint:Prior hint:runFirst "true".
+} LIMIT 100

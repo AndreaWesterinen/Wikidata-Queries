@@ -1,0 +1,12 @@
+#timeline of library buildings in New South Wales
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?inception (YEAR(?inception) as ?year) # ?image ?url
+WHERE {
+  ?item wdt:P31 wd:Q856584; 
+        wdt:P131 [ wdt:P131 wd:Q3224 ];
+        wdt:P571 ?inception.
+  OPTIONAL {?item wdt:P18 ?image;
+                  wdt:P856 ?url.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}
+}

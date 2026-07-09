@@ -1,0 +1,23 @@
+SELECT ?item ?itemLabel ?kindOf WHERE {
+  {
+    ?item wdt:P31 wd:Q17276482 . # nomen rejiciendum
+    BIND("nomen rejiciendum" AS ?kindOf) .
+  } 
+  UNION {
+    ?item wdt:P31 wd:Q23038368. # nomen rejiciendum propositum
+    BIND("nomen rejiciendum propositum" AS ?kindOf) .
+  }
+  UNION {
+    ?item wdt:P31 wd:Q15149791 . # nomen utique rejiciendum
+    BIND("nomen utique rejiciendum" AS ?kindOf) .
+  }
+  UNION {
+    ?item wdt:P31 wd:Q15708837. # nomen utique rejiciendum propositum
+    BIND("nomen utique rejiciendum propositum" AS ?kindOf) .
+  }
+  SERVICE wikibase:label {
+  bd:serviceParam wikibase:language "en" .
+  ?item rdfs:label ?itemLabel .
+  }
+}
+ORDER BY ?kindOf

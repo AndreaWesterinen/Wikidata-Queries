@@ -1,0 +1,8 @@
+SELECT ?item ?article
+WHERE
+{
+	?article schema:about ?item ; schema:inLanguage "zh" .
+  	?item wdt:P31 wd:Q5 .
+	OPTIONAL { ?item rdfs:label ?labelen . FILTER(lang(?labelen)="en")  } FILTER (!BOUND(?labelen))
+}
+LIMIT 10000

@@ -1,0 +1,17 @@
+SELECT DISTINCT (uri(concat(str(?p), "#P1412")) as ?person) ?label (year(?date) as ?year)
+{
+  BIND("1100"^^xsd:dateTime as ?dateLimit)
+  
+  ?p wdt:P1412 wd:Q652 ;
+     ?timeProp ?date .
+  VALUES ?timeProp { wdt:P569 wdt:P570 wdt:P1317 wdt:P2031 wdt:P2032 }
+  FILTER (?date < ?dateLimit)
+  OPTIONAL { ?p rdfs:label ?label FILTER(lang(?label)="it") }
+  
+  FILTER NOT EXISTS {
+    ?p ?timeProp2 ?date2 .
+    VALUES ?timeProp2 { wdt:P569 wdt:P570 wdt:P1317 wdt:P2031 wdt:P2032 }
+    FILTER (?date2 > ?dateLimit)
+  }
+}
+ORDER BY ?date

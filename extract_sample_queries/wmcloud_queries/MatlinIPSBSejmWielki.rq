@@ -1,0 +1,6 @@
+SELECT ?item ?ipsb ?descr  WHERE {
+    ?item wdt:P8130 ?ipsb;
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "pl". }
+}
+       ORDER BY ASC(?st) ?item 
+       LIMIT 8000

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?url WHERE {
+  wd:P5823 wdt:P1630 ?formatterurl .
+  ?item p:P195 ?collectionstatement . 
+  ?collectionstatement ps:P195 wd:Q303139 .
+  ?item wdt:P31 wd:Q3305213 .   
+  OPTIONAL { ?item wdt:P5823 ?id }.
+  BIND(REPLACE(?id, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?url)  . 
+  } 
+ LIMIT 4000

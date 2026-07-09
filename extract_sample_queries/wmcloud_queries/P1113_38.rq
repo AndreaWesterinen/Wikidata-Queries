@@ -1,0 +1,2 @@
+#title:Remove units
+SELECT DISTINCT ?item WHERE{ ?item p:P1113/psv:P1113/wikibase:quantityUnit ?unit . FILTER(?unit = wd:Q1983062)}

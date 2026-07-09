@@ -1,0 +1,16 @@
+SELECT ?item ?property ?wikilink ?cnt ?cnt2 ?cnt3 WHERE {
+  {
+    SELECT ?property ?cnt ?cnt2 ?cnt3 WHERE {
+      {
+        SELECT ?property (COUNT(?p) AS ?cnt) WHERE {
+          wd:Q44601380 ^wdt:P8274 ?property .
+          ?property wikibase:claim ?p .
+          [] ?p [] .
+        } GROUP BY ?property 
+      }
+    }
+  }
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  BIND(CONCAT('\u007B\u007BP\u007C', SUBSTR(STR(?property), 32), '\u007D\u007D') AS ?wikilink) .
+}
+ORDER BY ?property

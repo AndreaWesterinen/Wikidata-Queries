@@ -1,0 +1,9 @@
+SELECT ?item ?description WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+        p:P170 ?creatorstatement . 
+  ?creatorstatement ps:P170 wd:Q4233718 .
+  ?item schema:description ?description .
+  MINUS { ?creatorstatement pq:P5102 wd:Q230768 } 
+  FILTER(LANG(?description)="en" && REGEX(STR(?description), "attributed", "i"))      
+} ORDER By (?description) 
+LIMIT 1000

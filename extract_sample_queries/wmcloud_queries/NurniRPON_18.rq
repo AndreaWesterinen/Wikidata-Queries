@@ -1,0 +1,32 @@
+SELECT (COUNT(*) AS ?_cnt) ?elem ?rel ?p ?pLabel WHERE {
+  {
+    ?o wdt:P17 wd:Q172107;
+      wdt:P31 ?p.
+    BIND("państwo" AS ?elem)
+    BIND("jest to" AS ?rel)
+  }
+  UNION
+  {
+    ?o wdt:P17 wd:Q172107;
+      wdt:P279 ?p.
+    BIND("państwo" AS ?elem)
+    BIND("podklasa" AS ?rel)
+  }
+  UNION
+  {
+    ?o wdt:P1001 wd:Q172107;
+      wdt:P31 ?p.
+    BIND("obszar jurysdykcji" AS ?elem)
+    BIND("jest to" AS ?rel)
+  }
+  UNION
+  {
+    ?o wdt:P1001 wd:Q172107;
+      wdt:P279 ?p.
+    BIND("obszar jurysdykcji" AS ?elem)
+    BIND("podklasa" AS ?rel)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?p ?pLabel ?rel ?elem
+ORDER BY DESC (?_cnt)

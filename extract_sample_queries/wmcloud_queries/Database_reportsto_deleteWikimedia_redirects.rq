@@ -1,0 +1,6 @@
+SELECT ?item (CONCAT("{","{rfd links2\u007C",strafter(str(?item), "entity/"),"\u007Cfrom [[Wikidata:Database reports/to delete/Wikimedia redirects]]}","}") as ?del)
+{
+	?item wdt:P31 wd:Q21528878 . 
+	?item wikibase:sitelinks 1 .
+}
+LIMIT 1000

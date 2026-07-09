@@ -1,0 +1,12 @@
+SELECT ?item (REPLACE(?cattitle, "Category:", "") as ?c)
+WITH
+{
+    SELECT ?item 
+    {
+        ?link schema:about wd:Q12362196; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?title .
+          SERVICE wikibase:mwapi {
+	       bd:serviceParam wikibase:api "Generator" .
+            bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+           bd:serviceParam mwapi:gcmtitle ?title .
+           bd:serviceParam mwapi:generator "categorymembers" .
+           bd:serviceParam mwapi:gcmprop "ids

@@ -1,3 +1,4 @@
+#title: Most popular tonality
 SELECT ?tonalityLabel (COUNT(?tonalityLabel) as ?count)
 WHERE
 {

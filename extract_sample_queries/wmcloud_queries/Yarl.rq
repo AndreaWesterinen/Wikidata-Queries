@@ -1,0 +1,9 @@
+#Cats
+SELECT ?item ?itemLabel ?adminLabel
+WHERE
+{
+	?item wdt:P31 wd:Q532 .
+  	?item wdt:P131* wd:Q36 .
+  	?item wdt:P131 ?admin
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "pl" }
+}

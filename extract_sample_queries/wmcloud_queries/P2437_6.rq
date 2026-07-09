@@ -1,0 +1,10 @@
+#title: Check value
+# Complex constraint from [[Property talk:P2437]]
+#
+SELECT ?item ?nbSaison ?a ?order {
+  ?item wdt:P2437 ?nbSaison.
+  ?a p:P179 ?statement.
+     ?statement ps:P179 ?item.
+     ?statement pq:P1545 ?order.
+  FILTER (?order < ?nbSaison)
+}

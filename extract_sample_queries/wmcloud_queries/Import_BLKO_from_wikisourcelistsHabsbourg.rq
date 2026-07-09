@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?itemDescription ?ord ?img ?dob ?dod ?f ?m ?spou ?item2 ?item2Label
+{
+    ?item p:P361 [ ps:P361 wd:Q88724376 ; pq:P1545 ?ord ] .
+    ?item wdt:P921 ?p ; wdt:P1433 wd:Q665807 .         
+    OPTIONAL { ?p wdt:P18 ?img }
+    OPTIONAL { ?p wdt:P569 ?dob }
+    OPTIONAL { ?p wdt:P570 ?dod }
+    OPTIONAL { ?p wdt:P22 ?f }
+    OPTIONAL { ?p wdt:P25 ?m }
+    OPTIONAL { ?p wdt:P26 ?spou }
+    OPTIONAL { ?item2 wdt:P921 ?p ; wdt:P1433 wd:Q665807 . 
+               FILTER(?item2 != ?item )
+               FILTER NOT EXISTS { ?item2 wdt:P31 wd:Q1302249 }
+              }              
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY xsd:integer(REPLACE(?ord,"a","")) ?ord

@@ -1,0 +1,5 @@
+SELECT (COUNT(*) AS ?count) WHERE {
+    hint:Query hint:optimizer "Runtime" . 
+  hint:Query hint:maxParallel 50 .   
+  ?item wdt:P214 [] ; wikibase:identifiers 1 
+}

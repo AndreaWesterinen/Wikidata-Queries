@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?topicLabel
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q34770 . 
+  ?item p:P51 ?audio.
+  ?audio pq:P921 ?topic.
+  FILTER(NOT EXISTS { ?item wdt:P576 ?yearEnd. })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

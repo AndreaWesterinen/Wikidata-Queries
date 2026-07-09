@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription
+WHERE
+{
+  ?item wdt:P31 wd:Q26817508 
+        ; wdt:P571 ?inc . 
+  FILTER( YEAR(?inc) < 1906 ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

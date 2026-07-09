@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  ?item wdt:P17 wd:Q27 . 
+  ?item wdt:P2186 ?wlmid .
+  FILTER(STRSTARTS(?wlmid, 'IE-CN')) .
+}

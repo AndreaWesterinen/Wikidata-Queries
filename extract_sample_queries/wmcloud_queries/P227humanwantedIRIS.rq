@@ -1,0 +1,14 @@
+SELECT DISTINCT ?sl ?extids ?item ?itemLabel ?itemDescription ?viaf ?isni
+WHERE {
+ ?item ?irisst ?irisid .
+ ?iris wikibase:directClaim ?irisst .
+ ?iris wdt:P1629 [ wdt:P408 wd:Q107492957 ] .
+ MINUS { ?item wdt:P227 ?gnd } .
+ OPTIONAL {?item wdt:P21 ?sex_or_gender.}
+  {?item wdt:P214 ?viaf.}
+ OPTIONAL {?item wdt:P213 ?isni.}
+ ?item wikibase:sitelinks ?sl . FILTER (?sl >= 1) . # only include items having X or more sitelinks
+ ?item wikibase:identifiers ?extids. FILTER (?extids >= 1) . # only include items having X or more external ids
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+ORDER BY DESC(?sl) DESC(?extids) DESC(?viaf) DESC(?isni)

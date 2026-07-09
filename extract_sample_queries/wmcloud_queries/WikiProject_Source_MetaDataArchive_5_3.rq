@@ -1,0 +1,5 @@
+SELECT ?publisher ?publisherLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?publisher wdt:P31 wd:Q65770389.
+}
+LIMIT 10000

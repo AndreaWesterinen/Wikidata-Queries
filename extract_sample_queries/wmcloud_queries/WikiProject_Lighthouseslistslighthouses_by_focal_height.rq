@@ -1,0 +1,3 @@
+SELECT ?item ?m ?st ?sl
+      ( IF( ?rawunit != wd:Q11573, CONCAT('&nbsp;<','ref>' , str(?rawrange), " ", ?rawunitLabel, "</","ref>"),"")as ?conv2)
+      (CONCAT('align=right data-sort-value="',str(?sirange),'"

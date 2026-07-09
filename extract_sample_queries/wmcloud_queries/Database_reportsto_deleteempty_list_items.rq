@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel
+(CONCAT("\u007C {","{rfd links\u007C",strafter(str(?item), "entity/"),"\u007Cfrom [[Wikidata:Database reports/to delete/empty list items]]}","}") as ?del)
+{
+	?item wdt:P31 wd:Q13406463 .
+	MINUS { ?sitelink schema:about ?item }
+        MINUS { [] ?any ?item }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es,fr,sv,nl,pl,de,ru" }
+}
+ORDER BY ?item

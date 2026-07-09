@@ -1,0 +1,1 @@
+embed.html#SELECT (count(?prop) as ?nr) {  ?prop wdt:P31* wd:Q19595382.} 

@@ -1,0 +1,16 @@
+# Items in the NGA with or without the artists who created them
+SELECT ?artwork ?artworkLabel ?creator ?creatorLabel ?date with { select distinct ?artwork WHERE 
+ {
+   ?artwork wdt:P31 ?type. 
+   VALUES ?type {wd:Q3305213 wd:Q11060274 wd:Q93184 wd:Q860861 wd:Q42314818 wd:Q125191}    # type of artwork
+ 
+ } } as %i where
+
+{
+  include %i
+     ?artwork wdt:P195 wd:Q795228.     # Art work is in NGA  
+     OPTIONAL {?artwork wdt:P170 ?creator.} 
+     OPTIONAL {?artwork wdt:P571 ?date.} 
+	 SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY DESC (?creatorLabel)

@@ -1,0 +1,8 @@
+#title: Religious paintings without genre
+# Complex constraint from [[Property talk:P1257]]
+# Paintings that have a religious Iconclass code, but missing [[Property:P136|genre&#32;<small dir="ltr">(P136)</small>]] -> [[d:Q2864737|religious art <small>(Q2864737)</small>]]
+SELECT ?item ?iconclass WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P136 [] } .
+  ?item wdt:P1257 ?iconclass . 
+  FILTER REGEX(STR(?iconclass), "^(7

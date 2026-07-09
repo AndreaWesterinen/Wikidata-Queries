@@ -1,0 +1,22 @@
+SELECT
+  ?item ?d 
+  (GROUP_CONCAT(DISTINCT CONCAT("[[",strafter(str(?h),"y/"),"|",str(?hLabel),COALESCE(?ph,""),"]]"); separator=" <br/>") as ?periodic_events)
+  (GROUP_CONCAT(?ph;separator="") as ?ph_country)
+WHERE
+{ 
+SELECT
+  ?item ?d ?h ?hLabel 
+  (str(GROUP_CONCAT(DISTINCT str(?icon); separator="")) as ?ph) 
+WHERE
+{ 
+    ?item wdt:P31 wd:Q47150325 ; wdt:P585 ?d . 
+    FILTER(YEAR(?d)=2019)
+    OPTIONAL { ?item wdt:P31 ?i . filter(?i != wd:Q47150325) ?h wdt:P837 ?i 
+             OPTIONAL { ?country wdt:P832 ?h ; p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?icon ] } 
+             }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es,fr,it,pt,ru". ?h rdfs:label ?hLabel  }                              
+}
+GROUP BY ?item ?d ?h ?hLabel
+}
+GROUP BY ?item ?d
+ORDER BY ?d

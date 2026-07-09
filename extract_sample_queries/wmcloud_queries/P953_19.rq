@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P953/ps:P953 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://(?:(?:www|sp)\\.)?nicovideo\\.jp/watch/((ca|cw|nl|nm|sm|so)\\d+))$") )
+}

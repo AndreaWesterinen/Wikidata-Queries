@@ -1,0 +1,13 @@
+#defaultView:ImageGrid
+SELECT  ?personLabel  ?image
+
+WHERE {
+  
+  ?person wdt:P485 wd:Q49204 .
+  ?person wdt:P18 ?image
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE {
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P301/wdt:P31/wdt:P279* wd:Q7889. }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q59541917 . }
+}

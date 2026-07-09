@@ -1,0 +1,4 @@
+SELECT ?Puerto_Rico ?Puerto_RicoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Puerto_Rico wdt:P27 wd:Q1183.
+}

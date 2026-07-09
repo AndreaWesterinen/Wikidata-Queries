@@ -1,3 +1,4 @@
+#title: Animals that were executed
 SELECT ?animal ?animalLabel ?died ?mannerOfDeathLabel ?image
 WHERE
 {

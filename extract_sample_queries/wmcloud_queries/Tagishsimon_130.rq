@@ -1,0 +1,18 @@
+#title:possible UK museums, not found in the museum class tree
+SELECT DISTINCT ?item ?itemLabel ?P31Label
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "haswbstatement:P17=Q145 museum".
+    ?item wikibase:apiOutputItem mwapi:title .
+  }
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q33506 . hint:Prior hint:gearing "forward" . } # has a 'museum' P31
+  MINUS { ?item wdt:P10873 [] . } # has an MMID
+  MINUS { ?item wdt:P31 wd:Q13406463 . } # list article
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q88667167 . hint:Prior hint:gearing "forward" . } # museum network
+  OPTIONAL {?item wdt:P31 ?P31 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+# LIMIT 10000

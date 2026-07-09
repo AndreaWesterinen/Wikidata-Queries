@@ -1,0 +1,10 @@
+SELECT DISTINCT ?entity ?entityLabel ?valueLabel WHERE {
+  ?entity wdt:P31 wd:Q3331189;
+    wdt:P5587 _:b3;
+    wdt:P407 wd:Q9027;
+    p:P2093 ?prop.
+  MINUS {?entity wdt:P179 wd:Q7604015}
+  OPTIONAL { ?prop ps:P2093 ?value. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}
+ORDER BY ?valueLabel

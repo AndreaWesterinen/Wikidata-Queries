@@ -1,0 +1,16 @@
+#defaultView:Map
+SELECT ?i ?iLabel ?location
+
+WHERE {
+  ?item wdt:P1282 ?prop.
+FILTER (?prop = "Tag:amenity=university") 
+  ?i wdt:P31/wdt:P279* ?item.
+  ?i wdt:P625 ?location
+  
+  	# Optionally, find English labels for:
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+  }
+
+#LIMIT 15

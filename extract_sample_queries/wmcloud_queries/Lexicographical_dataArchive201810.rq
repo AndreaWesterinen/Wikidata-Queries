@@ -1,0 +1,1 @@
+SELECT ?lexeme ?img WHERE { ?lexeme a ontolex:LexicalEntry ; wdt:P18 ?img.}

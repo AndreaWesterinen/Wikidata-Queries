@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?videogame ?videogameLabel WHERE {
+  ?item wdt:P31 wd:Q11424.
+  ?item wdt:P144 ?videogame.
+  ?videogame (wdt:P31/wdt:P279*) wd:Q7889.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

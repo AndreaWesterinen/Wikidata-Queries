@@ -1,5 +1,4 @@
-# ----
-# Top 100 podcasts by number of statements
+#title: Top 100 podcasts by number of statements
 SELECT ?item ?itemLabel ?statements WHERE
 {
   ?item wdt:P31 wd:Q24634210. # Instance of: podcast

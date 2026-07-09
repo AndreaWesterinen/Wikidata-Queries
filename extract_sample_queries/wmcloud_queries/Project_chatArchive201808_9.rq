@@ -1,0 +1,11 @@
+# Wikidata holiday calendar for 2018
+# by Jura1, 2018-08-26
+SELECT ?d ?occ ?occLabel ?holiday ?holidayLabel ?holidayDescription 
+{
+	?item wdt:P31 wd:Q47150325 ; wdt:P585 ?d .
+    FILTER( YEAR(?d) = 2018 )
+    ?item wdt:P31 ?occ . 
+    ?holiday wdt:P837 ?occ . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?d)

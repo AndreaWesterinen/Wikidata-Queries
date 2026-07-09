@@ -1,0 +1,6 @@
+select distinct ?item where {
+
+  ?item wdt:P159 [] .
+  ?item p:P159/pq:P625 [] .
+  
+}

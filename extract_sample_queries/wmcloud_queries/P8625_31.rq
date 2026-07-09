@@ -1,0 +1,11 @@
+#title: candidates
+# Complex constraint from [[Property talk:P8625]]
+#
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q1631107 . 
+	FILTER NOT EXISTS { [] wdt:P8625 ?item }
+	FILTER NOT EXISTS { [] wdt:P1455 ?item }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+LIMIT 100

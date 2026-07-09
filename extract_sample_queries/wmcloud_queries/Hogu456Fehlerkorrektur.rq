@@ -1,0 +1,15 @@
+#Missing description for a target language
+#Search for missing descriptions in a target language.
+#Can be input for Q29032512
+SELECT ?item ?occupationLabel ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q5;
+    wdt:P27 wd:Q33.
+  OPTIONAL { ?item wdt:P106 ?occupation. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  ?item wdt:P21 wd:Q6581097.
+  FILTER(EXISTS {
+    ?item schema:description ?itemdesc.
+    FILTER((LANG(?itemdesc)) = "de")
+  })
+}
+ORDER BY (?itemLabel)       

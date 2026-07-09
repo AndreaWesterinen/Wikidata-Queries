@@ -1,0 +1,3 @@
+embed.html#SELECT (COUNT(?P31) AS ?silentAsInstanceOf) (COUNT(?P136) AS ?silentAsGenre) {
+  { ?P31 wdt:P31 wd:Q226730 } UNION { ?P136 wdt:P136 wd:Q226730 } 
+}

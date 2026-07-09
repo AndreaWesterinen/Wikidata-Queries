@@ -1,0 +1,11 @@
+#title: Paintings missing Lucas Cranach creator
+# Complex constraint from [[Property talk:P5783]]
+# List of works that have [[Property:P5783|Cranach Digital Archive artwork ID&#32;<small dir="ltr">(P5783)</small>]], but no [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]] or uncertain creator set to [[d:Q191748|Lucas Cranach the Elder <small>(Q191748)</small>]] or [[d:Q170339|Lucas Cranach the Younger <small>(Q170339)</small>]]
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P5783 [] .
+  MINUS { 
+  ?item p:P170 ?creatorstatement .
+  { ?creatorstatement ?property wd:Q191748 } UNION
+  { ?creatorstatement ?property wd:Q170339 }.
+} 
+}

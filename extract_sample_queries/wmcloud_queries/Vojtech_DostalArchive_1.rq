@@ -1,0 +1,8 @@
+select ?obec ?obecLabel ?okres ?okresLabel where {
+  
+?obec wdt:P31 wd:Q5153359 .
+?obec wdt:P131* ?okres . 
+?okres wdt:P31 wd:Q548611 .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "cs". }
+  
+}

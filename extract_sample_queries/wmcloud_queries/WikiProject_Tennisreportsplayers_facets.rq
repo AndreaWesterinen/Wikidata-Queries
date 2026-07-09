@@ -1,0 +1,8 @@
+SELECT ?item ?player ?st ?sl ?d
+WHERE
+{
+    ?item wdt:P1269 ?player . ?player wdt:P106 wd:Q10833314 ; wdt:P31 wd:Q5 
+    OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl }
+    OPTIONAL { ?item wdt:P585 ?d }
+}
+ORDER BY ?player ?d ?item

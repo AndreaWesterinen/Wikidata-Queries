@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?map) AS ?map_count)  WHERE {
+           
+           hint:Query hint:optimizer "None" .
+  #         ?item wdt:P31/wdt:P279* wd:Q4006 .
+           wd:Q4006 ^wdt:P279* ?item .
+           ?item ^wdt:P31 ?map .
+           MINUS {?map wdt:P31 wd:Q17146139}
+       }  GROUP BY ?item
+       ORDER BY DESC(?map_count)

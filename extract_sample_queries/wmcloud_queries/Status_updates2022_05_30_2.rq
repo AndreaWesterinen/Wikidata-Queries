@@ -1,0 +1,41 @@
+#defaultView:BarChart
+#Percentage of films passing the "reverse Bechdel Test" by genre. Including films that pass dubiously, rarely or contentiously
+#Some items have more than one test result (e.g. in contentious cases)
+#To pass the reverse Bechdel test a film must fulfill all of three criteria: 1) feature two men 2) who talk to each other 3) about something else than a woman
+SELECT ?genreLabel (COUNT(DISTINCT ?item)/ ?item_count AS ?share) (xsd:string(?item_count) AS ?number_of_films_with_test_data) 
+WITH {
+SELECT ?genre ?item ?r_bechdel_result WHERE{
+    VALUES ?genre {wd:Q1762165 
+                   wd:Q21802675 
+                   wd:Q40831 
+                   wd:Q5937792 
+                   wd:Q21010853  
+                   wd:Q132311 
+                   wd:Q1196408 
+                   wd:Q16575965 
+                   wd:Q842256 
+                   wd:Q6585139 
+                   wd:Q19765983 
+                   wd:Q24925
+                   wd:Q182015
+                   wd:Q111956902
+                   wd:Q21590660}
+    
+    ?st ps:P5021 wd:Q105776216; pq:P9259 ?r_bechdel_result.
+    ?item p:P5021 ?st; wdt:P136/wdt:P279* ?genre; wdt:P31/wdt:P279* wd:Q11424.
+     }
+                             
+} AS %bechdel_by_genre
+WITH {
+SELECT ?genre (COUNT(DISTINCT ?item) AS ?item_count) WHERE{
+    INCLUDE %bechdel_by_genre
+     }
+    GROUP BY ?genre
+} AS %item_count_by_genre
+WHERE {
+INCLUDE %bechdel_by_genre
+INCLUDE %item_count_by_genre
+        FILTER(?r_bechdel_result IN (wd:Q105773168))
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?genreLabel ?item_count

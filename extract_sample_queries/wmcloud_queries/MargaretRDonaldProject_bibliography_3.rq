@@ -1,0 +1,6 @@
+# taxa with an article, with an AFD_pub_id and which is a genus
+SELECT ?item  ?itemLabel ?AFD_id ?afd_URL WHERE {
+  ?item wdt:P6982 ?AFD_id.
+  BIND(CONCAT("https://biodiversity.org.au/afd/publication/",STR(?AFD_id)) AS ?afd_URL)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }

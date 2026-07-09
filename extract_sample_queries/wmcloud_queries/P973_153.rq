@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P973/ps:P973 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://(?:www\\.)?viaf\\.org/viaf/([1-9]\\d{1,8})(/.*)?)$") )
+}

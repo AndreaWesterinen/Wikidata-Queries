@@ -1,0 +1,4 @@
+#title: Television series would have this (series with end date)
+# Complex constraint from [[Property talk:P1113]]
+# check limited to series that ended ( [[Property:P582|end time&#32;<small dir="ltr">(P582)</small>]] )
+SELECT * { ?item wdt:P31 wd:Q5398426 ; wdt:P582 [] . MINUS { ?item wdt:P1113 [] }   }

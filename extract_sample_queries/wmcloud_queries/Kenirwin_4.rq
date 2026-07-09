@@ -1,0 +1,11 @@
+SELECT ?item ?lang_label ?itemDescription
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P106/wdt:P279* wd:Q15980158 .
+  FILTER NOT EXISTS { ?item rdfs:label ?lang_label0. FILTER((LANG(?lang_label0)) = "en") }
+  ?item rdfs:label ?lang_label . 
+  FILTER( LANG(?lang_label) = "es")
+  ?item wdt:P31 wd:Q5 .
+}
+LIMIT 10

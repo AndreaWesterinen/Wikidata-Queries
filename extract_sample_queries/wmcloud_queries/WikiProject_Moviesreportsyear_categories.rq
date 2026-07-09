@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?itemDescription (YEAR(?y) as ?year) (CONCAT("[[",strafter(str(?item),"y/"),"]]") as ?ylink)
+{
+	?item wdt:P971 wd:Q38078930 . 
+    ?item wdt:P971 ?yr . 
+    ?yr wdt:P31 wd:Q577 .
+    ?yr wdt:P585 ?y .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?year)

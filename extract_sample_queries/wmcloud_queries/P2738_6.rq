@@ -1,0 +1,7 @@
+#title: Missing subclass link
+# Complex constraint from [[Property talk:P2738]]
+# Disjoint union of classes which are not listed as subclasses of the item
+SELECT distinct ?item ?sub WHERE {
+  ?item p:P2738 / pq:P642 ?sub .
+  FILTER NOT EXISTS { ?sub wdt:P279 / wdt:P279? / wdt:P279? ?item . }
+}

@@ -1,0 +1,16 @@
+SELECT ?instance ?instanceLabel ?ct 
+{
+    {
+        SELECT ?instance (COUNT(DISTINCT ?item) as ?ct)
+		{
+			?item wdt:P345 ?imdb  .
+           	FILTER (SUBSTR(?imdb,1,2)='tt') .
+          	?item wdt:P31 ?instance .
+        }	
+		GROUP BY ?instance
+		# ORDER BY DESC(?ct)
+        # LIMIT 500
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?ct)

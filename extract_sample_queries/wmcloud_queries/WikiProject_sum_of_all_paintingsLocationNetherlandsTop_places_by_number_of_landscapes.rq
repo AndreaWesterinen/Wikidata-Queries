@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .  
+  ?painting wdt:P180 ?item . 
+  ?item  wdt:P17 wd:Q55.
+} GROUP BY ?item 
+ORDER BY DESC(?count)

@@ -1,0 +1,1 @@
+embed.html#SELECT ?orcid (count(DISTINCT ?q) AS ?cnt) (group_concat(?q) AS ?authors) { ?q wdt:P496 ?orcid } GROUP BY ?orcid HAVING (?cnt>1)

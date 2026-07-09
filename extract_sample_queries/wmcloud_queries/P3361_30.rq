@@ -1,0 +1,5 @@
+#title: No visual artists
+# Complex constraint from [[Property talk:P3361]]
+# People without a visual art profession
+SELECT DISTINCT ?item WHERE { ?item wdt:P3361 [] . ?item wdt:P31 wd:Q5 . FILTER NOT EXISTS {?item wdt:P106/wdt:P279* wd:Q3391743} 
+                             FILTER NOT EXISTS {?item wdt:P106/wdt:P279* wd:Q5322166} } ORDER BY ?itemLabel LIMIT 1000

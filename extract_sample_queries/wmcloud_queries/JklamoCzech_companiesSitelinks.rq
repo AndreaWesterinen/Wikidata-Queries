@@ -1,0 +1,12 @@
+SELECT ?item ?en (COUNT(distinct ?sitelink) as ?count)
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?sitelink <http://schema.org/about> ?item .
+    optional { ?wen schema:about ?item . ?wen schema:name ?article_en . ?wen schema:isPartOf <https://en.wikipedia.org/>}
+    bind(if(bound(?article_en),"Yes","") as ?en) 
+}
+GROUP BY ?item ?en HAVING (?count>10) 
+ORDER BY DESC(?count)

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?class ?classLabel ?reason ?reasonLabel WHERE {
+  ?class p:P5869 ?statement.
+  ?statement ps:P5869 ?item;
+            wikibase:rank wikibase:DeprecatedRank.
+  OPTIONAL {?statement pq:P2241 ?reason}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}ORDER BY ?class ?item

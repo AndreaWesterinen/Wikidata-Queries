@@ -1,0 +1,21 @@
+SELECT ?item ?ord ?en ?de ?fr ?es ?ru ?ar ?ja ?zh WHERE {
+  VALUES ?item { wd:P17 wd:P27 wd:P31 wd:P39 wd:P101 wd:P106 wd:P108 wd:P276 wd:P279 wd:P360 wd:P361 wd:P366 wd:P518 wd:P527 wd:P531 wd:P642 wd:P749 wd:P793 wd:P825 wd:P921 wd:P1001 wd:P1013 wd:P1268 wd:P1269 wd:P1416 wd:P1542 wd:P1545 wd:P1552 wd:P1875 wd:P2012 wd:P2348 wd:P2596 wd:P2737 wd:P2738 wd:P2868 wd:P3712 wd:P3831 wd:P4224 wd:P7084 wd:P8225 wd:P10751 wd:P10752 wd:P11260 wd:P11279 }
+  OPTIONAL {?item rdfs:label ?en .
+            FILTER (LANG(?en) = "en")}
+  OPTIONAL {?item rdfs:label ?de .
+            FILTER (LANG(?de) = "de")}
+  OPTIONAL {?item rdfs:label ?fr .
+            FILTER (LANG(?fr) = "fr")}
+  OPTIONAL {?item rdfs:label ?es .
+            FILTER (LANG(?es) = "es")}
+  OPTIONAL {?item rdfs:label ?ru .
+            FILTER (LANG(?ru) = "ru")}
+  OPTIONAL {?item rdfs:label ?ar .
+            FILTER (LANG(?ar) = "ar")}
+  OPTIONAL {?item rdfs:label ?ja .
+            FILTER (LANG(?ja) = "ja")}
+  OPTIONAL {?item rdfs:label ?zh .
+            FILTER (LANG(?zh) = "zh")}
+  BIND(STRAFTER(STR(?item),"/P") AS ?pnum)
+  BIND(SUBSTR(CONCAT("0000", ?pnum), STRLEN(?pnum)) AS ?ord)
+}ORDER BY ?ord

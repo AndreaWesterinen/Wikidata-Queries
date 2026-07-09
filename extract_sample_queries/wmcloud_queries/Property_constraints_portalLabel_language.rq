@@ -1,0 +1,11 @@
+embed.html#SELECT
+  ?lang ?itemLabel 
+  ?prop ?propLabel ?propDescription
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?prop p:P1552 [ ps:P1552 wd:Q102746314 ; pq:P407 ?item] .
+  ?item wdt:P424 ?lang .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?prop ?lang

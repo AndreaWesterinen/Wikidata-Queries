@@ -1,5 +1,4 @@
-# ----
-#The number of times a cas registry number is shared by distinct Wikidata items
+#title: The number of Chemical compounds in Wikidata sharing the same CAS registry number
 SELECT ?cas ?items
 WHERE
 {

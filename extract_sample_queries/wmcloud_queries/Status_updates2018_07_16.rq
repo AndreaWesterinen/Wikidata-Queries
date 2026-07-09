@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?itemLabel ?pobLabel ?teamLabel ?coord 
+WHERE {
+  ?item wdt:P1344 wd:Q170645.
+  ?item wdt:P54 ?team.
+  ?team wdt:P31 wd:Q6979593.
+  ?item wdt:P19 ?pob.
+  ?pob wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

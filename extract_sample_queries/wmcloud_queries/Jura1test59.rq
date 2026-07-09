@@ -1,0 +1,8 @@
+SELECT ?item ?st ?sl ?id
+WHERE
+{
+   ?item wdt:P31 wd:Q47443726 .
+   OPTIONAL { ?item wikibase:statements ?st ; wikibase:identifiers ?id ; wikibase:sitelinks ?sl }
+}
+ORDER BY ?item
+LIMIT 4000

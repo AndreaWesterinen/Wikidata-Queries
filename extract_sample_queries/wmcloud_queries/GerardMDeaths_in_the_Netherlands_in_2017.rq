@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item 
+WHERE
+{
+	?item wdt:P570 ?time0 .
+	FILTER ( ?time0 >= "2017-01-01T00:00:00Z"^^xsd:dateTime && ?time0 < "2018-01-01T00:00:00Z"^^xsd:dateTime )
+	{	?item wdt:P27 wd:Q29999 } UNION
+  	{   ?item wdt:P20 wd:Q55 } UNION
+  	{   ?item wdt:P20/wdt:P17 wd:Q55 }	
+  	?item wdt:P31 wd:Q5 .
+}

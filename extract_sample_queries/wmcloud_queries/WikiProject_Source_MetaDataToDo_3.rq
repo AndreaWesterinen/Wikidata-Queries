@@ -1,0 +1,7 @@
+#Items where author and author string statements have the same series ordinal
+select ?item ?seriesordinal ?authoritem where {
+  ?item p:P2093 ?authorstring .
+  ?item p:P50 ?authoritem .
+  ?authoritem pq:P1545 ?seriesordinal .
+  ?authorstring pq:P1545 ?seriesordinal .
+}

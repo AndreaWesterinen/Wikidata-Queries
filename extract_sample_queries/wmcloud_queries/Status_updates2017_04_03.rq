@@ -1,0 +1,11 @@
+embed.html##defaultView:Map
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?layer
+WHERE
+{
+	?item wdt:P31/wdt:P279* wd:Q164240 ; wdt:P31 ?instance ; wdt:P625 ?coord .
+	?instance wdt:P279* wd:Q164240 .
+	?instance rdfs:label ?layer .
+	FILTER(LANG(?layer) = "fr") .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" }
+}

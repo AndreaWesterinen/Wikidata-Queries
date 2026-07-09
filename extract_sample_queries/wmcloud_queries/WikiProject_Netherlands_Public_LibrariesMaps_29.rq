@@ -1,0 +1,40 @@
+embed.html###Maps of public library branches The Netherlands, layered by street type (*straat, *plein, *laan, *weg, *dreef, *gracht, and others)
+#defaultView:Map{"hide":["?dplLoc","?group"],"layer":"?group"}
+
+SELECT DISTINCT ?dpl ?dplLabel ?dplImage ?dplLoc ?dplFullAddress ?streetLabel ?group
+
+WHERE {
+
+  ?dpl p:P31/ps:P31 wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. #public library branch in The Netherlands 
+  ?dpl wdt:P625 ?dplLoc. #Geo location of the dpl
+  ?dpl rdfs:label ?dplLabel
+  FILTER (lang(?dplLabel) = 'nl')      
+  OPTIONAL{?dpl wdt:P18 ?dplImage} #Image of the dpl} 
+  OPTIONAL{?dpl wdt:P6375 ?dplFullAddress.} 
+
+  
+  OPTIONAL{?dpl wdt:P669 ?street. #located on street (P669)
+  ?street rdfs:label ?streetLabel
+  FILTER (lang(?streetLabel) = 'nl') }       
+
+  BIND(
+     IF(CONTAINS(LCASE(?streetLabel), "weg"), "weg",
+     IF(CONTAINS(LCASE(?streetLabel), "straat"), "straat",
+     IF(CONTAINS(LCASE(?streetLabel), "plein"), "plein",
+     IF(CONTAINS(LCASE(?streetLabel), "laan"), "laan",
+     IF(CONTAINS(LCASE(?streetLabel), "gracht"), "gracht",
+     IF(CONTAINS(LCASE(?streetLabel), "markt"), "markt",
+     IF(CONTAINS(LCASE(?streetLabel), "park"), "park",
+     IF(CONTAINS(LCASE(?streetLabel), "hof"), "hof",
+     IF(CONTAINS(LCASE(?streetLabel), "pad"), "pad",
+     IF(CONTAINS(LCASE(?streetLabel), "singel"), "singel",
+     IF(CONTAINS(LCASE(?streetLabel), "veld"), "veld",
+     IF(CONTAINS(LCASE(?streetLabel), "dreef"), "dreef",
+     IF(CONTAINS(LCASE(?streetLabel), "kade"), "kade",
+     IF(CONTAINS(LCASE(?streetLabel), "berg"), "berg",
+     IF(CONTAINS(LCASE(?streetLabel), "steeg"), "steeg",  
+        "z_overig")))))))))))))))
+        AS ?group).
+}
+#GROUP BY ?dpl ?dplLabel ?dplImage ?dplLoc ?streetLabel ?lstreetLabel ?group
+ORDER BY ?group

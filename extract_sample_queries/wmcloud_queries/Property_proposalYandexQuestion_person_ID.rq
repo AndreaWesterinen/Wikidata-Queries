@@ -1,0 +1,16 @@
+#Values used by property P553
+SELECT ?value ?valueLabel ?ct ?sampleitem ?sampleitemLabel
+WHERE
+{
+  {
+    SELECT ?value (count(*) as ?ct) (SAMPLE(?item) as ?sampleitem)
+    WHERE
+    {
+      ?item wdt:P553 ?value
+    }
+    GROUP BY ?value
+    ORDER BY DESC(?ct)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY DESC(?ct) ASC(?value)

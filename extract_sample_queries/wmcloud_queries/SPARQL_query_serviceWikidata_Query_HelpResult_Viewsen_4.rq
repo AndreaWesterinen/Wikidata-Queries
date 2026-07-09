@@ -1,0 +1,16 @@
+embed.html##Overall causes of death ranking
+#added before 2016-10
+
+#defaultView:BubbleChart
+SELECT ?cid ?cause (count(*) as ?count)
+WHERE
+{
+	?pid wdt:P31 wd:Q5 .
+	?pid wdt:P509 ?cid .
+	OPTIONAL {
+		?cid rdfs:label ?cause 
+		filter (lang(?cause) = "en")
+	}
+}
+GROUP BY ?cid ?cause
+ORDER BY DESC(?count) ASC(?cause)

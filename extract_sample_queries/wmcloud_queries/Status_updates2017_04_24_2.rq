@@ -1,0 +1,18 @@
+# oldest given names
+SELECT ?name ?nameLabel ?minDob WITH {
+  SELECT ?name (MIN(?dob) AS ?minDob) WHERE {
+    ?person wdt:P31 wd:Q5;
+            wdt:P569 ?dob;
+            wdt:P735 ?name.
+    FILTER(!ISBLANK(?dob) && !ISBLANK(?name)).
+    FILTER(DATATYPE(?dob) = xsd:dateTime). #T94064?
+  }
+  GROUP BY ?name
+  HAVING(COUNT(DISTINCT ?person) > 1)
+  ORDER BY ASC(?minDob)
+  LIMIT 100
+} AS %names WHERE {
+  INCLUDE %names.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ASC(?minDob)

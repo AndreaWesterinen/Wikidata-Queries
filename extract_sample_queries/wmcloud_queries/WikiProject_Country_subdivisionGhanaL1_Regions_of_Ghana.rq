@@ -1,0 +1,10 @@
+#title: L1 (the 16 Regions of Ghana)
+SELECT ?item ?dagDescription WHERE {
+  ?item wdt:P31 wd:Q1052743.
+  ?item wdt:P131 wd:Q117.
+  ?item wdt:P17 wd:Q117.
+  OPTIONAL {
+    ?item schema:description ?dagDescription.
+    FILTER(LANG(?dagDescription) = "dag")
+  }
+}

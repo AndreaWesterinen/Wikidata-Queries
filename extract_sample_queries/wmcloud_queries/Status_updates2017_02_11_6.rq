@@ -1,0 +1,22 @@
+# Grade I listed buildings in Bedfordshire
+SELECT DISTINCT ?item ?itemLabel ?class ?commonscat ?img ?layer (SAMPLE(?coord) AS ?coord) WHERE {
+    hint:Query hint:optimizer "None" .
+    ?item wdt:P131+ wd:Q23143 ; wdt:P1435 wd:Q15700818 ; wdt:P31?/wdt:P279* wd:Q41176     
+          
+     OPTIONAL {
+       	?item wdt:P373 ?commonscat
+     }
+     OPTIONAL {
+        ?item wdt:P279 [] .
+        BIND('class' AS ?class) .
+     }
+     OPTIONAL {
+          ?item wdt:P625 ?coord
+   	 }
+     OPTIONAL {
+        ?item wdt:P18 ?img .
+     }
+     BIND(IF(bound(?img),'image','no image') AS ?layer) .
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} GROUP BY ?item ?itemLabel ?class ?commonscat ?img ?layer 
+ORDER BY DESC(?class) ?itemLabel

@@ -1,0 +1,9 @@
+SELECT ?item ?image ?loc WHERE {
+  { ?item wdt:P276 wd:Q3148. }
+  UNION
+  { ?item wdt:P131 wd:Q3148. }
+  FILTER(NOT EXISTS { ?item wdt:P4173 _:b14. })
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P625 ?loc. }
+}
+LIMIT 1000

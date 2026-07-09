@@ -1,0 +1,24 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P4663 [] ; wdt:P31 wd:Q5 .
+    ?item rdfs:label ?l . 
+    FILTER( lang(?l) = "en" &&
+           ( 
+             CONTAINS(?l, "Scrl") || 
+             CONTAINS(?l, "Agence") || 
+             CONTAINS(?l, "Photo") ||              
+             CONTAINS(?l, " et ") || 
+             CONTAINS(?l, " & ") ||              
+             STRENDS(?l, " Nv") ||    
+             STRENDS(?l, " Bvba") ||                 
+             STRENDS(?l, " Cv") ||                 
+             STRENDS(?l, " S.A.") ||    
+             STRENDS(?l, " S.C.") ||                 
+             STRENDS(?l, " N.V.") ||                 
+             STRENDS(?l, " Sc") ||               
+             STRENDS(?l, " Scs") ||             
+             STRENDS(?l, " C.V.")                         
+           )
+          )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

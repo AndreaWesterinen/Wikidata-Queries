@@ -1,0 +1,6 @@
+SELECT ?item 
+WHERE 
+{ 
+ ?item wdt:P31 wd:Q2085381 ; wdt:P17 ?country ; wdt:P571 ?date ; wdt:P856 ?site .
+}
+LIMIT 1000

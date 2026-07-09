@@ -1,0 +1,8 @@
+SELECT ?item ?taxonName ?id WHERE {
+  ?item wdt:P225 ?taxonName .
+  ?item wdt:P105 wd:Q7432 .
+  ?item wdt:P9076 ?id .
+  OPTIONAL {?item wdt:P171 ?powoUrn}
+  FILTER(!bound(?powoUrn))
+}
+ORDER BY ASC(?taxonName)

@@ -1,0 +1,7 @@
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?subclassOf WHERE {
+  ?item wdt:P279* wd:Q241317 .
+  OPTIONAL { ?item wdt:P279 ?subclassOf } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?itemLabel

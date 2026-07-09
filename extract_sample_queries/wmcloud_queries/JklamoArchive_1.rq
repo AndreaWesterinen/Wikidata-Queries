@@ -1,0 +1,14 @@
+# world heritage sites (main sites only) with start and end year
+SELECT ?whs ?whsLabel ?whsId ?start
+WHERE {
+  ?whs p:P1435 ?pDesignation.
+  ?pDesignation ps:P1435 wd:Q9259.
+  optional {?pDesignation pq:P580 ?st.}
+  bind(year(?st) AS ?start)
+  optional {?pDesignation pq:P582 ?et.}
+  bind(year(?et) AS ?end)
+  optional {?whs wdt:P757 ?whsId.}
+  filter(!regex(?whsId, "[-]","i")) 
+  filter(!bound(?end))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,[AUTO_LANGUAGE]". }
+} order by asc(xsd:integer(?whsId))

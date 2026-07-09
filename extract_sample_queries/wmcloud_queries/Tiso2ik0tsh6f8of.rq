@@ -1,0 +1,10 @@
+#Born place of Academy Award winners
+#defaultView:Map
+SELECT DISTINCT ?personLabel ?koord WHERE {
+  ?person wdt:P166/wdt:P31* wd:Q19020 .
+  ?person wdt:P19 ?jaiolekua.
+  ?jaiolekua wdt:P625 ?koord.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

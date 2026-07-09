@@ -1,0 +1,13 @@
+# articles authored by James Scott Bowerbank
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?journal ?journalLabel ?publicationDate WHERE {
+  ?item wdt:P31 wd:Q13442814 ;         # is a scholarly article
+    wdt:P50  wd:Q1216165;              # authored by James Scott Bowerbank
+    wdt:P1433 ?journal;
+    wdt:P577 ?publicationDate.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?publicationDate ?itemLabel ?journalLabel
+ LIMIT 4000    

@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity SELECT ?item ?itemLabel ?wlmid ?coordinate_geografiche ?indirizzo_stradale WHERE { ?item (wdt:P131*) wd:Q55036; wdt:P2186 ?wlmid. SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". } OPTIONAL { ?item wdt:P625 ?coordinate_geografiche. } OPTIONAL { ?item wdt:P6375 ?indirizzo_stradale. } } ORDER BY (?wlmid) . 
+  MINUS { ?entity wdt:P131 []; SELECT ?item ?itemLabel ?wlmid ?coordinate_geografiche ?indirizzo_stradale WHERE { ?item (wdt:P131*) wd:Q55036; wdt:P2186 ?wlmid. SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". } OPTIONAL { ?item wdt:P625 ?coordinate_geografiche. } OPTIONAL { ?item wdt:P6375 ?indirizzo_stradale. } } ORDER BY (?wlmid)  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

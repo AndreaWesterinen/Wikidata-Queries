@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?itemLabel ?revenue (CONCAT("[https://www.boxofficemojo.com/movies/?id=", ?bomojo, ".htm ", ?bomojo, "]") as ?boxofficemojo) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q11424;
+        wdt:P1237 ?bomojo;
+        p:P2142 ?revenueStatement.     
+  ?revenueStatement psv:P2142 [
+    wikibase:quantityAmount ?revenue;
+    wikibase:quantityUnit wd:Q4917
+  ].
+  MINUS { 
+    ?revenueStatement prov:wasDerivedFrom ?refnode.
+    ?refnode   pr:P248 wd:Q17072251.
+  }
+  FILTER(?revenue > 200000000)
+  MINUS {
+    ?revenueStatement pq:P3005 ?revenuePlace.
+    FILTER(?revenuePlace != wd:Q13780930)
+  }
+  MINUS {
+    ?revenueStatement pq:P459 wd:Q791801
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}
+ORDER BY DESC(?revenue)

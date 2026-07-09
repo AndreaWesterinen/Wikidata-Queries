@@ -1,0 +1,4 @@
+SELECT ?item (COUNT(?val) AS ?count) {
+  ?item wdt:P625 ?val .
+  ?item wdt:P31 wd:Q4022 .
+} GROUP BY ?item HAVING ( ?count > 3 )

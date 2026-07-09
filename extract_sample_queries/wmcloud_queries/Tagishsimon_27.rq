@@ -1,0 +1,14 @@
+#Cats
+SELECT ?item ?CBDB ?countryLabel with {select  ?item ?CBDB  ?country
+WHERE 
+{
+  hint:Query hint:optimizer "None" .
+  ?item wdt:P497 ?CBDB.
+  ?item wdt:P27 ?country.
+  ?item wdt:P31 wd:Q5. } limit 60000 } as %i
+where
+{include %i
+  minus {?item schema:description ?itemLabel . filter(lang(?itemLabel)="en") }
+  minus {?article schema:about ?item .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

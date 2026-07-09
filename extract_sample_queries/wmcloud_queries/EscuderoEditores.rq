@@ -1,0 +1,8 @@
+SELECT ?edition (str(year(?date)) as ?year ) WHERE { 
+	?book wdt:P31 wd:Q571 .
+  	?edition wdt:P629 ?book .
+  	?book wdt:P50 ?author .
+  	?edition wdt:P123 wd:Q15126130. #publisher
+   	?edition wdt:P577 ?date .
+  	?edition wdt:P1104 ?pageNumber .
+}

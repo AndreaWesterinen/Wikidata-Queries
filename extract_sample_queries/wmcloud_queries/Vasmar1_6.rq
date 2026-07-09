@@ -1,0 +1,14 @@
+#Skipsregistreringer etter land
+#defaultView:BubbleChart
+SELECT ?land ?landLabel ?count WHERE {
+  {
+    SELECT ?land (COUNT(?skip) AS ?count) WHERE {
+      ?skip wdt:P31 wd:Q11446;
+        wdt:P8047 ?land.
+    }
+    GROUP BY ?land
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}
+ORDER BY DESC (?count)
+LIMIT 50

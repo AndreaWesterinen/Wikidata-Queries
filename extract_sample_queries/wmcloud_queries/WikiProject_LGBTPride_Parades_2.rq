@@ -1,0 +1,14 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("rect" as ?type)
+  ("1100" as ?width) 
+  ("400" as ?height) 
+  ("Number of distinct Pride parades" as ?legend) 
+  ("country" as ?xAxisTitle) 
+  ("Pride parades" as ?yAxisTitle)
+  (GROUP_CONCAT(?country;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+  { 
+SELECT  ?country (count(DISTINCT?item) as ?count) { ?item (wdt:P31

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P5485/ps:P5485 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(IT\\\\ICCU\\\\(\\D{2}[A-Z0-3])\\\\([E\\d]\\d{6}))$") )
+}

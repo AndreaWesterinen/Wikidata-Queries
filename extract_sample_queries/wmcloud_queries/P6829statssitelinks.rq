@@ -1,0 +1,19 @@
+SELECT ?item ?wikiP ?count WITH {
+          
+           SELECT ?wiki (COUNT(DISTINCT ?item) AS ?count) WHERE {   
+               hint:Query hint:optimizer "None".
+               ?item wdt:P6829 [] .     # identifier
+               ?article schema:about ?item .
+               ?article schema:isPartOf ?wiki .
+               ?wiki wikibase:wikiGroup "wikipedia" .
+           } GROUP BY ?wiki 
+        } AS %wiki_counts 
+
+        WHERE {
+           INCLUDE %wiki_counts .
+          
+           ?item wdt:P31 wd:Q10876391 .
+           ?item wdt:P856 ?wiki .
+           ?item wdt:P1800 ?wikiP .
+       
+        }  ORDER BY DESC (?count)

@@ -1,0 +1,14 @@
+#title: No suitable occupation
+# Complex constraint from [[Property talk:P1472]]
+# People with [[Property:P1472|Commons Creator page&#32;<small dir="ltr">(P1472)</small>]] and [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] but without a occupation that would create suitable works for Commons. The occupations are [[d:Q483501|artist <small>(Q483501)</small>]], [[d:Q482980|author <small>(Q482980)</small>]], [[d:Q2374149|botanist <small>(Q2374149)</small>]], [[d:Q350979|zoologist <small>(Q350979)</small>]], [[d:Q1734662|cartographer <small>(Q1734662)</small>]], [[d:Q901|scientist <small>(Q901)</small>]] and subclasses of these.
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P1472 [] . 
+  ?item wdt:P106 [] . 
+  ?item wdt:P31 wd:Q5 . 
+  MINUS {?item wdt:P106/wdt:P279* wd:Q483501} .
+  MINUS {?item wdt:P106/wdt:P279* wd:Q482980} .
+  MINUS {?item wdt:P106/wdt:P279* wd:Q2374149} .
+  MINUS {?item wdt:P106/wdt:P279* wd:Q350979} .
+  MINUS {?item wdt:P106/wdt:P279* wd:Q1734662} .
+  MINUS {?item wdt:P106/wdt:P279* wd:Q901} .
+} LIMIT 1000

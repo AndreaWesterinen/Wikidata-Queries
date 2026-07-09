@@ -1,0 +1,9 @@
+# Films with description "film"
+# 11427 films on 2016-10-31
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+{
+	?item	schema:description "film"@en
+    ;		wdt:P31 wd:Q11424 .      	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+LIMIT 50000

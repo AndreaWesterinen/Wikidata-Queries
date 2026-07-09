@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?article 
+  WHERE 
+  {
+    ?article schema:about ?item ;
+             schema:isPartOf <https://pt.wikipedia.org/> .
+     ?item wdt:P31 wd:Q16521 .
+    ?item wdt:P5984 ?apni .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],pt". }
+   }

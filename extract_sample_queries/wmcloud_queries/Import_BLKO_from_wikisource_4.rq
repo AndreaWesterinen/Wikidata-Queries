@@ -1,0 +1,14 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P1433 wd:Q665807 . 
+	?item wdt:P31 wd:Q19389637 . 
+    ?item rdfs:label ?l . 
+    FILTER( lang(?l) = "en" )
+    FILTER(
+      CONTAINS( ?l, "Nachträge") 
+      || CONTAINS( ?l, "Berichtigungen") 
+      || CONTAINS( ?l, "Ergänzungen") 
+      || CONTAINS( ?l, "Zusätze") 
+          )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

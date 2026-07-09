@@ -1,0 +1,11 @@
+# This is based on the equivalent query for MSPs
+SELECT DISTINCT ?person ?personLabel ?born ?bornLabel ?coord {
+  ?position wdt:P279* wd:Q3406079 .
+  ?person wdt:P39 ?position .
+  ?person wdt:P31 wd:Q5 .
+  ?person wdt:P19 ?born .
+  MINUS { ?born wdt:P131* wd:Q25 . }
+  OPTIONAL { ?born wdt:P625 ?coord . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+#defaultView:Map

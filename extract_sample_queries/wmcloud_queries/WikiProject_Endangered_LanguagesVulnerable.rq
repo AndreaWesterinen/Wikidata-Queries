@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item WHERE {
+   ?item wdt:P31/wdt:P279* wd:Q83365345 .
+  }

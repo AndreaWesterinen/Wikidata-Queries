@@ -1,0 +1,12 @@
+SELECT ?scientist ?scientistLabel WHERE {
+  ?scientist wdt:P31 wd:Q5.   # is human
+  ?scientist wdt:P21 wd:Q467. # is a woman
+  {?scientist wdt:P69 wd:Q1144750.} UNION {?scientist wdt:P108 wd:Q1144750.} #educated at QUT or employed at QUT
+  #OPTIONAL {
+  #   ?article schema:about ?scientist. # and have an article about them
+  #   ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  #  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+#ORDER BY ?scientistLabel ?scientist
+LIMIT 500

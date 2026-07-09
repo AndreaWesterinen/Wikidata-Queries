@@ -1,0 +1,19 @@
+SELECT ?item ?itemLabel ?user
+WHERE
+{
+  SERVICE wikibase:mwapi
+  {
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+    bd:serviceParam mwapi:generator "recentchanges" .
+    bd:serviceParam mwapi:grcprop "title|user" .
+    bd:serviceParam mwapi:grctype "new" .
+    bd:serviceParam mwapi:grcnamespace "0" .
+    bd:serviceParam mwapi:grclimit "max" .
+    ?item wikibase:apiOutputItem mwapi:title . 
+    ?user wikibase:apiOutput "@user" .
+  }
+  ?item wdt:P31 wd:Q5 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . } 
+}
+ORDER BY DESC(?item)

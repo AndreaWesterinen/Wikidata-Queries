@@ -1,0 +1,7 @@
+SELECT ?item ?inception
+WHERE 
+{
+    ?item p:P31 ?ps . ?ps ps:P31 wd:Q589282 ; pq:P642 wd:Q55465119
+    OPTIONAL { ?item wdt:P571 ?inception }
+    FILTER(?inception <= "1980-05-01"^^xsd:dateTime).
+}

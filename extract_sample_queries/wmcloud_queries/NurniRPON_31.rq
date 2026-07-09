@@ -1,0 +1,69 @@
+SELECT DISTINCT ?_row
+WHERE {
+  {BIND("qid,Lpl,P279,S143,P17,S143,P910,S143" AS ?_row)}
+  UNION
+  {
+  hint:Query hint:optimizer "None".
+    {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Urz%C4%99dnicy_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 9 .
+  }}}
+    UNION
+    {
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Urz%C4%99dnicy_staropolscy> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 9 .
+  }}}
+  
+    ?out schema:name ?nk.
+    ?out schema:about ?kat.
+   
+   OPTIONAL{?kat wdt:P301 ?gt1.}
+   OPTIONAL{?gt2 wdt:P910 ?kat.}
+   FILTER(!BOUND(?gt1))
+   FILTER(!BOUND(?gt2))
+   FILTER(REGEX(?nk, CONCAT("(", ?ss ," )(?!(.*województwo)|(.*Korona)|(.*Księstwo)|(.*Zjednoczone)|(.*ziemscy$)|(.*Ludwiki)|(.*Prusy)|(.*królowych)|(.*I Rzeczypospolitej$))")))
+   FILTER(?kat != wd:Q9639085)
+   
+   VALUES (?ss ?ss1 ?sq1) {
+     ("Chorążowie" "chorąży" wd:Q10816384)
+     ("Ciwuni" "ciwun" wd:Q2632621)
+     ("Cześnicy" "cześnik" wd:Q2994873)
+     ("Horodniczowie" "horodniczy" wd:Q28152213)
+     ("Klucznicy" "klucznik" wd:Q18426255)
+     ("Koniuszowie" "koniuszy" wd:Q3921039)
+     ("Komornicy graniczni" "komornik graniczny" wd:Q11741887)
+     ("Krajczowie" "krajczy" wd:Q66008850)
+     ("Łowczowie" "łowczy" wd:Q2657192)
+     ("Miecznicy" "miecznik" wd:Q65575078)
+     ("Mostowniczowie" "mostowniczy" wd:Q11786003)
+     ("Pisarze grodzcy" "pisarz grodzki" wd:Q11818472)
+     ("Pisarze ziemscy" "pisarz ziemski" wd:Q11818479)
+     ("Podczaszowie" "podczaszy" wd:Q17045177)
+     ("Podkomorzowie" "podkomorzy" wd:Q2663677)
+     ("Podstarościowie" "podstarosta" wd:Q5767439)
+     ("Podstolowie" "podstoli" wd:Q3502098)
+     ("Podsędkowie" "posędek" wd:Q3917276)
+     ("Podwojewodziowie" "podwojewodzi" wd:Q11820752)
+     ("Sędziowie grodzcy" "sędzia grodzki" wd:Q9352961)
+     ("Sędziowie ziemscy" "sędzia ziemski" wd:Q9352965)
+     ("Skarbnicy" "skarbnik" wd:Q63208271)
+     ("Stolnicy" "stolnik" wd:Q2278370)
+     ("Strażnicy" "strażnik ziemski" wd:Q17095991)
+     ("Wojscy" "wojski" wd:Q2666623)
+     ("Żupnicy" "żupnik" wd:Q9397599)
+   }
+    
+    BIND(CONCAT(",", 
+                CONCAT(?ss1, " ", REPLACE(REPLACE(REPLACE(STRAFTER(?nk, CONCAT("Kategoria:", ?ss, " ")), "więksi ", "większy "), "mniejsi", "mniejszy"), "cy$", "ki"), ","),
+                STRAFTER(STR(?sq1), '/entity/'), ",Q1551807,",
+                "Q172107,Q1551807,", 
+                STRAFTER(STR(?kat), '/entity/'), ",Q1551807"
+               ) AS ?_row)
+  }
+ } ORDER BY ASC(?kat)

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE {
+  ?item p:P496 ?statement.
+  ?statement wikibase:rank wikibase:DeprecatedRank;
+    ps:P496 ?value.
+}
+LIMIT 100

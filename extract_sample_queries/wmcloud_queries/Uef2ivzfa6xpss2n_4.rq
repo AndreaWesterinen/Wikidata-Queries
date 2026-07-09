@@ -1,0 +1,16 @@
+#defaultView:ImageGrid
+#Les écrivains 
+SELECT DISTINCT ?ecrivain ?ecrivainLabel ?nationaliteLabel ?dateNaissance ?dateMort ?lieuNaissanceLabel ?lieuDecesLabel ?signature  WHERE {
+  
+?ecrivain wdt:P106 wd:Q36180.
+  OPTIONAL
+    { 
+      ?ecrivain wdt:P27 ?nationalite.  
+      ?ecrivain wdt:P569 ?dateNaissance.
+      ?ecrivain wdt:P570 ?dateMort.
+      ?ecrivain wdt:P19 ?lieuNaissance.
+      ?ecrivain wdt:P20 ?lieuDeces.
+    }
+  ?ecrivain wdt:P109 ?signature.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

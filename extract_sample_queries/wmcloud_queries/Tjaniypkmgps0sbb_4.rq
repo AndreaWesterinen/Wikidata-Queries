@@ -1,0 +1,14 @@
+PREFIX wikibaseβ: <http://wikiba.se/ontology-beta#>
+#defaultView:ScatterChart
+# river watershed area in km² plotted over length in km, using new normalized units support
+# (rivers shorter than 500 km excluded to avoid crashing the browser when trying to render too many results)
+SELECT ?river (SAMPLE(?length) AS ?length) (SAMPLE(?area) AS ?area) ?riverLabel WHERE {
+  ?river wdt:P31/wdt:P279* wd:Q355304;
+         p:P2043/psn:P2043/(wikibase:quantityAmount|wikibaseβ:quantityAmount) ?lengthInMetres;
+         p:P2053/psn:P2053/(wikibase:quantityAmount|wikibaseβ:quantityAmount) ?areaInSquareMetres.
+  BIND(?lengthInMetres / 1000 AS ?length).
+  BIND(?areaInSquareMetres / 1000000 AS ?area).
+  FILTER(?length > 500).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?river ?riverLabel

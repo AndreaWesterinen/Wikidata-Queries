@@ -1,0 +1,12 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+SELECT DISTINCT ?character ?characterLabel ?imdbid WHERE {
+  ?character wdt:P31/wdt:P279* wd:Q2431196 . # audiovisual work + subclasses
+  ?character wdt:P345 ?imdbid .				 # +imdb id
+  FILTER regex(str(?imdbid), "nm")			 # id starts by nm, => not a work but a person
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

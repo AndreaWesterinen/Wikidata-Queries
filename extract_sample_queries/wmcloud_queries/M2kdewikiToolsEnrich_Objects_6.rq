@@ -1,0 +1,13 @@
+SELECT ?item ?commonscat ?sitelink  WHERE {
+  { ?item wdt:P17 wd:Q183 . } UNION { ?item wdt:P17 wd:Q39 . } UNION { ?item wdt:P17 wd:Q40 . } UNION
+  { ?item wdt:P27 wd:Q183 . } UNION { ?item wdt:P27 wd:Q39 . } UNION { ?item wdt:P27 wd:Q40 . } 
+
+  ?sitelink schema:about ?item .
+  ?sitelink schema:isPartOf <https://commons.wikimedia.org/> .
+  FILTER(STRSTARTS(STR(?sitelink), "https://commons.wikimedia.org/wiki/Category:"))
+  OPTIONAL {?item wdt:P373 ?commonscat }  
+  FILTER (!bound(?commonscat))   # nur jene OHNE commonscat-Property (P373)
+  # FILTER (bound(?commonscat))   # nur jene MIT commonscat-Property (P373)
+
+  MINUS {  ?item wdt:P31 wd:Q4167836.  }  #ohne Kategorie-Objekte
+}

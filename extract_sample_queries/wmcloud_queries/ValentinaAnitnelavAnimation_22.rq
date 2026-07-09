@@ -1,0 +1,36 @@
+#Disney's traditionally animated features and their number of concept artists
+SELECT ?filmLabel ?year (COUNT(DISTINCT ?crew) AS ?all) (COUNT(DISTINCT ?credited) AS ?allCredited) (COUNT(DISTINCT ?notAdditional) AS ?allCreditedWithoutAdditionals)
+WHERE
+{
+  
+  ?film wdt:P179 wd:Q56070713;
+         wdt:P136 wd:Q28968511;
+         wdt:P577 ?year;
+         wdt:P527* ?film1.
+   
+  ?film1 p:P3092 ?st.  
+  
+  ?st ps:P3092 ?crew;
+      pq:P3831/wdt:P279* wd:Q28107590.
+  
+  #making sure the statements were derived from the credits
+  OPTIONAL{
+  ?st ps:P3092 ?crew; prov:wasDerivedFrom ?ref.                                                                            
+  ?ref pr:P248/wdt:P361* ?film
+  BIND(?crew AS ?credited)
+       #getting rid of additional crew members
+       OPTIONAL{
+       ?st ps:P3092 ?crew; prov:wasDerivedFrom ?ref.
+       MINUS{       
+         ?st pq:P1932 ?stat
+         FILTER(CONTAINS(LCASE(?stat), "additional"))    
+       }
+       BIND(?crew AS ?notAdditional)
+       }
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  
+}
+GROUP BY ?filmLabel ?year
+ORDER BY DESC(?all)

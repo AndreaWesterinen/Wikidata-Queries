@@ -1,0 +1,4 @@
+select ?body ?label (count(*) as ?count) where {
+	?item wdt:P376 ?body .
+	?item rdfs:label ?label filter (lang(?label) = "en") .
+} group by ?body ?label having (count(*) > 1) order by ?label

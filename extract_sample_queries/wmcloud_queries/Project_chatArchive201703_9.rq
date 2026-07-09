@@ -1,0 +1,9 @@
+SELECT ?post ?postLabel ?person ?personLabel ?start_time WHERE {   
+  BIND(wd:Q2366737 AS ?cabinet)
+  ?post wdt:P361 ?cabinet .
+  ?person p:P39 ?position_statement .
+  ?position_statement ps:P39 ?post .
+  ?position_statement pq:P580 ?start_time .
+  FILTER NOT EXISTS { ?position_statement pq:P582 ?end_date } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }  
+}

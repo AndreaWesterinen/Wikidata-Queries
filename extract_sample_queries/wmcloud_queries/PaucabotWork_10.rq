@@ -1,0 +1,12 @@
+#Largest terrorist attacks
+SELECT DISTINCT ?event ?eventLabel ?deaths 
+WHERE 
+{
+	?event wdt:P31/wdt:P279* wd:Q5710433 .
+	?event wdt:P1120 ?deaths .
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}
+ORDER BY DESC(?deaths)
+LIMIT 200

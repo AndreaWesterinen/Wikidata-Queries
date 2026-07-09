@@ -1,0 +1,18 @@
+#title: XXX8### codes should be [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]]: [[d:Q3258|Australian Capital Territory <small>(Q3258)</small>]].
+# Complex constraint from [[Property talk:P10112]]
+#
+SELECT ?item ?itemLabel ?admin ?adminLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?admin ?value {
+			?item wdt:P10112 ?value .
+			MINUS {
+				?item wdt:P131|wdt:P131/wdt:P131 wd:Q3258 .
+			} .
+			?item wdt:P131 ?admin .
+            FILTER(STRSTARTS(?value, "LGA8") || STRSTARTS(?value, "SED8") || STRSTARTS(?value, "CED8") || STRSTARTS(?value, "SAL8") ).
+		} LIMIT 1000
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

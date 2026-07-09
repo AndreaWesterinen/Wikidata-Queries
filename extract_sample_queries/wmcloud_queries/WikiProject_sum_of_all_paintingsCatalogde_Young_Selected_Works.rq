@@ -1,0 +1,6 @@
+SELECT ?item ?refPage WHERE { 
+  ?item wdt:P1343 wd:Q78420660. 
+  ?item p:P1343 ?statement.
+  ?statement prov:wasDerivedFrom ?reference.
+  ?reference pr:P304 ?refPage.
+} ORDER BY xsd:integer(?refPage)

@@ -1,0 +1,5 @@
+SELECT ?item ?prize (YEAR(?year) as ?y) (COUNT(DISTINCT ?ancestor) as ?ct)
+{
+    ?item wdt:P31 wd:Q5; p:P166 ?s.
+    ?s ps:P166 ?prize; pq:P585 ?year. ?prize wdt:P279 wd:Q7191.
+    ?item (wdt:P22

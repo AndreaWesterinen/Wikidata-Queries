@@ -1,3 +1,4 @@
+#title: Translations of the Disease Ontology term DOID:399 (Tuberculosis)
 SELECT ?English ?language ?label WHERE {
   ?disease wdt:P699 "DOID:399";
              rdfs:label ?English;

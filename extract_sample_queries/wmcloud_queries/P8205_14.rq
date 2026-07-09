@@ -1,0 +1,17 @@
+#title: Related to web/Internet
+# Complex constraint from [[Property talk:P8205]]
+# Items need to be describe on a RFC, or having a tag on Stack Exchange website, ...
+SELECT ?item ?value {
+	?item wdt:P8205 ?value.
+    FILTER NOT EXISTS {
+      VALUES ?values { wd:Q19862850 wd:Q180160 wd:Q1328899 wd:Q56751006 wd:Q132364 }
+      ?item wdt:P31/wdt:P279* ?values.
+    }
+    FILTER NOT EXISTS { ?item wdt:P361 wd:Q466 } # ie: Q20202982
+    FILTER NOT EXISTS { ?item wdt:P361 wd:Q8811 }
+    FILTER NOT EXISTS { ?item wdt:P178 wd:Q37033 }
+    FILTER NOT EXISTS { ?item wdt:P31/wdt:P8205 ?a } # ie: Q24589642
+    FILTER NOT EXISTS { ?item wdt:P361 wd:Q4344724 }
+    MINUS { ?item p:P1482 ?tagStack }
+    MINUS { ?item wdt:P1343/wdt:P31 wd:Q212971 }
+}

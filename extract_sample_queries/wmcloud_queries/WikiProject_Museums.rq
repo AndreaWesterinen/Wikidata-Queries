@@ -1,0 +1,19 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?museum ?museumLabel ?typeLabel ?coord
+WHERE {
+  ?museum wdt:P17 wd:Q34 .
+  ?museum wdt:P31 ?type .
+  ?type (wdt:P279)* wd:Q33506 .
+  MINUS {?museum wdt:P625 ?coord . }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

@@ -1,0 +1,10 @@
+# last meals of people
+SELECT ?person ?personLabel (GROUP_CONCAT(?mealLabel; separator = ", ") AS ?meal) WHERE {
+  ?person wdt:P3902 ?meal.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?person rdfs:label ?personLabel.
+    ?meal rdfs:label ?mealLabel.
+  }
+}
+GROUP BY ?person ?personLabel

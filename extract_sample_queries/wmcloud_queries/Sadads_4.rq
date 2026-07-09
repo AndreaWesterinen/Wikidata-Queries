@@ -1,0 +1,18 @@
+#Values used by property P5008
+SELECT ?value ?valueLabel ?ct ?sampleitem ?sampleitemLabel
+WHERE
+{
+  {
+    SELECT ?value (count(*) as ?ct) (SAMPLE(?item) as ?sampleitem)
+    WHERE
+    {
+      ?item wdt:P5008 wd:Q13382529.
+      ?item wdt:P31 ?value
+    }
+    GROUP BY ?value
+    ORDER BY DESC(?ct)
+    LIMIT 1000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY DESC(?ct) ASC(?value)

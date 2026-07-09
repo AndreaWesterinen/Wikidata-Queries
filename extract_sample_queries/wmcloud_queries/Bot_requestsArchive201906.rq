@@ -1,0 +1,9 @@
+SELECT ?itemLabel (COUNT(?date) as ?count) 
+WHERE
+{
+   { ?item wdt:P31/wdt:P279* wd:Q23019040 }  
+   ?item wdt:P571 ?date
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}
+GROUP BY ?itemLabel
+HAVING (?count > 1)

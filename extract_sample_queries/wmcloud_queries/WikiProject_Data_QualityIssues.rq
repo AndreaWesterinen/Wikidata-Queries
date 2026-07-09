@@ -1,0 +1,7 @@
+#Items with "instance of" wd
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item p:P2302 ?statement1.
+  ?statement1 ps:P2302 wd:Q21510856.
+  ?statement1 pq:P2306 wd:P642.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription ?start ?end ?order ?predecessor ?successor
+{
+  ?item p:P39 ?fc_stmt .
+  ?fc_stmt ps:P39 wd:Q25309937 ; pq:P580 ?start  .
+  optional { ?fc_stmt pq:P582 ?end } 
+  optional { ?fc_stmt pq:P1545 ?order }
+  optional { ?fc_stmt  pq:P1365 ?predecessor }
+  optional { ?fc_stmt  pq:P1366 ?successor}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?start)

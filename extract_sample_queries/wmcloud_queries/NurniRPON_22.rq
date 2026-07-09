@@ -1,0 +1,34 @@
+SELECT DISTINCT (STRAFTER(STR(?k), "/entity/") AS ?kk) ?rel (STRAFTER(STR(?p), "/entity/") AS ?pp) ("S3452" AS ?s143) (STRAFTER(STR(?p), "/entity/") AS ?src) WHERE {
+  { ?p wdt:P31 wd:Q27062351. }
+  UNION
+  { ?p wdt:P31 wd:Q13417114. }
+  UNION
+  { ?p (wdt:P279*) wd:Q2662430. }
+  UNION
+  { ?p wdt:P17 wd:Q172107. }
+  UNION
+  {
+    ?p wdt:P31 wd:Q4167836;
+      wdt:P301 ?kn.
+    { ?kn wdt:P31 wd:Q27062351. }
+    UNION
+    { ?kn (wdt:P279*) wd:Q2662430. }
+    UNION
+    { ?kn wdt:P17 wd:Q172107. }
+  }
+  {
+    ?p wdt:P910 ?k.
+    OPTIONAL { ?k wdt:P301 ?l. }    
+    FILTER(!(BOUND(?l)))
+    BIND("P301" AS ?rel)
+  }
+  UNION
+  {
+    ?p wdt:P301 ?k.
+    OPTIONAL { ?k wdt:P910 ?l. }
+    FILTER(!(BOUND(?l)))
+    BIND("P910" AS ?rel)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?kLabel)

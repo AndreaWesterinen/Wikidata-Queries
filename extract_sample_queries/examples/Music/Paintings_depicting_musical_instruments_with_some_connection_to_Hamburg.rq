@@ -1,3 +1,4 @@
+#title: Paintings depicting musical instruments with some connection to Hamburg
 #defaultView:ImageGrid
 SELECT DISTINCT ?item ?image {
   hint:Query hint:optimizer "None" .

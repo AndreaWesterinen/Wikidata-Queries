@@ -1,0 +1,9 @@
+SELECT ?software ?softwareLabel 
+
+WHERE {
+  ?software wdt:P31
+            wd:Q131669.
+  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

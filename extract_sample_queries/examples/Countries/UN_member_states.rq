@@ -1,4 +1,3 @@
-# ----
 #title: UN member states
 
 SELECT DISTINCT ?state ?stateLabel WHERE {

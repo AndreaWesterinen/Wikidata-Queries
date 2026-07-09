@@ -1,0 +1,8 @@
+SELECT ?item 
+WHERE {
+    VALUES ?topics {wd:Q183368 wd:Q42985020}
+    { ?item wdt:P921 ?topics ;here
+          wdt:P577 [].}
+    union { ?item wdt:P921/wdt:P361+ ?topics . }
+    union { ?item wdt:P921/wdt:P1269+ ?topics . }
+}

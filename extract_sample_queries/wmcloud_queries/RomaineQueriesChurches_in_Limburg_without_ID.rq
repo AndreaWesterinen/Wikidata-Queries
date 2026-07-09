@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel WHERE 
+{
+  ?item wdt:P131/wdt:P131* wd:Q1093 .
+  ?item wdt:P31/wdt:P279* wd:Q16970 . # and are some kind of church
+  MINUS { ?item wdt:P8449 ?whatever. }
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,[AUTO_LANGUAGE],en". }
+}
+order by desc(?itemLabel)

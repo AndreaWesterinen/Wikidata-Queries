@@ -1,0 +1,9 @@
+#title: Probably incorrect collection ranks
+# Complex constraint from [[Property talk:P10039]]
+# List of items where probably only one instead all current collections have been set to rank preferred
+SELECT ?item ?id WHERE {
+  ?item wdt:P10039 ?id ;
+        p:P195/ps:P195 wd:Q19013512 ;
+        p:P195/ps:P195 wd:Q3044768 .
+  MINUS { ?item wdt:P195 wd:Q19013512 ; wdt:P195 wd:Q3044768 }
+  } LIMIT 500

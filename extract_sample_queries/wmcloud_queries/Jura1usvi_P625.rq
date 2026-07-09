@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P131 wd:Q11703 . OPTIONAL { ?item wdt:P625 ?dummy0 } FILTER(!bound(?dummy0)) }  LIMIT 4000

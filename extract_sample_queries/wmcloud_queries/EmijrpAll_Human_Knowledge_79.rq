@@ -1,0 +1,5 @@
+SELECT (COUNT(?item) AS ?count) # ?itemLabel
+WHERE {
+  ?item wdt:P1435 wd:Q15700834.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

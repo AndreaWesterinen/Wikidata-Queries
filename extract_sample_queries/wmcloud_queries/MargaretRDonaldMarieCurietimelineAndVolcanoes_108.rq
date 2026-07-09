@@ -1,0 +1,9 @@
+SELECT DISTINCT ?role ?roleLabel (COUNT(?roleLabel) AS ?countOfRoleLabel) WHERE {
+  ?item p:P225/ps:P225 ?taxonName .
+  ?item p:P225 ?taxonNameStatement .
+  ?taxonNameStatement prov:wasDerivedFrom ?ref .
+  ?ref pr:P6184 ?role 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE], en". }
+}
+GROUP BY ?role ?roleLabel ?countOfRoleLabel
+ORDER BY DESC(?countOfRoleLabel)

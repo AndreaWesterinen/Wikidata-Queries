@@ -1,0 +1,14 @@
+select ?P31 ?P31Label ?count WITH {
+  select ?P31 (count(?item) as ?count) where {
+    SERVICE bd:slice {
+      ?item wdt:P17 wd:Q30 .
+      bd:serviceParam bd:slice.offset 0 . # Start at item number (not to be confused with QID)
+      bd:serviceParam bd:slice.limit 100000 . # List this many items
+    }
+    optional {?item wdt:P31 ?P31 .} 
+ } group by ?P31 } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} ORDER BY DESC(?count)

@@ -1,0 +1,7 @@
+SELECT ?item
+       {
+          {?item ?property wd:Q319239.} UNION { ?item ?property2 [wdt:P361 wd:Q319239].} 
+          ?item wdt:P31 wd:Q5; wikibase:statements ?st
+       }
+       ORDER BY ASC(?st) ?item 
+       LIMIT 3000

@@ -1,0 +1,22 @@
+SELECT distinct ?item ?itemLabel ?sitelinks ?coord  ?mouthLabel ?histLabel ?OS WITH { SELECT ?item ?mouth ?OS
+WHERE 
+{
+  ?item wdt:P131/wdt:P131 wd:Q22 . #} hint:Prior hint:runFirst true.
+  {?item wdt:P31 wd:Q55659167.}
+  UNION
+  {?item wdt:P31 wd:Q4022 . }
+  UNION
+  {?item wdt:P31 wd:Q47521 . }
+  
+  OPTIONAL {?item wdt:P403 ?mouth .}
+    OPTIONAL {?item wdt:P1343 wd:Q111733012 .
+    BIND("OS" as ?OS) }
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item wikibase:sitelinks ?sitelinks.
+  ?item wdt:P625 ?coord .
+  ?item wdt:P7959 ?hist .
+} order by desc(?sitelinks) ?itemLabel

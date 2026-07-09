@@ -1,0 +1,5 @@
+SELECT (count(?item) as ?count)
+{
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P18 [] . 
+}

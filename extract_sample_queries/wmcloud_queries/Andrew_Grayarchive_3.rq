@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?place ?placeLabel ?location WHERE {
+  SERVICE wikibase:box {
+    ?place wdt:P625 ?location .
+    bd:serviceParam wikibase:cornerSouthWest "Point(2.7 4.2)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerNorthEast "Point(14.7 13.9)"^^geo:wktLiteral .
+  }
+	OPTIONAL {?place wdt:P17 ?country } 
+	FILTER (!bound(?country))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

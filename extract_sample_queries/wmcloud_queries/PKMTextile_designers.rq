@@ -1,0 +1,13 @@
+SELECT ?item ?linkcount WHERE {
+  ?item wdt:P106 ?occ .
+  VALUES ?occ {
+    wd:Q18611810
+    }
+  FILTER NOT EXISTS {                              # has no en.wikipedia sitelink
+    ?wen schema:about ?item .
+    ?wen schema:isPartOf <https://en.wikipedia.org/> .
+  }
+  ?item wdt:P21 wd:Q6581072 .                      # gender: female
+  ?item wdt:P31 wd:Q5 .                            # human
+  OPTIONAL {?item wikibase:sitelinks ?linkcount .} # count of sitelinks  
+}

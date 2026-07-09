@@ -1,0 +1,15 @@
+#title: Value shouldn't be an organization
+# Complex constraint from [[Property talk:P9073]]
+# TODO: check how to fix values that amalgamate concepts
+SELECT DISTINCT
+  ?item ?value ?instance 
+  # ?itemLabel ?valueLabel ?instanceLabel
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P9073 ?value .
+  ?value (wdt:P31/(wdt:P279*)) wd:Q43229 .
+  ?value wdt:P31 ?instance .
+  ?instance (wdt:P31*/(wdt:P279*)) wd:Q43229
+  # SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

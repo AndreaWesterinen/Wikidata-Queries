@@ -1,0 +1,29 @@
+#title: missing honorary citizenships (country: Hungary, categories: huwiki, model B only)
+# Complex constraint from [[Property talk:P10280]]
+# see [[Property talk:P10280#Putting categories to use]]; for model B, see [[Property_talk:P10280#Model_for_Q5]]. Check for existing statements may be incomplete
+SELECT ?item ?article ?cat ?category ?wiki ?place
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?place wdt:P10280 ?cat ; wdt:P17 wd:Q28 .
+    [] schema:about ?cat ; schema:isPartOf ?part ; schema:name ?catname ; schema:inLanguage "hu" .
+    BIND( strbefore(strafter(str(?part), "//"),"/") as ?wiki)
+    BIND( str(?catname) as ?category)  
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:endpoint ?wiki;
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?category ;
+                     mwapi:gcmprop "title";
+                     mwapi:gcmlimit "max".
+     ?article wikibase:apiOutput mwapi:title.
+     ?item wikibase:apiOutputItem mwapi:item.
+    } 
+  FILTER(bound(?item))
+  ?item wdt:P31 wd:Q5 .
+  FILTER NOT EXISTS { ?cat wdt:P301 ?hc }
+  FILTER NOT EXISTS { [ ]  wdt:P2517 ?cat }  
+  FILTER NOT EXISTS { ?item p:P166 [ps:P166 wd:Q987080 ; pq:P642 ?place ] }
+  FILTER NOT EXISTS { ?item p:P166 [ps:P166 wd:Q987080 ; pq:P1027 ?place ] }
+}
+LIMIT 100

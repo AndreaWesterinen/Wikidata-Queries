@@ -1,0 +1,16 @@
+#title: Check main value of voice type
+# Complex constraint from [[Property talk:P4407]]
+#
+SELECT DISTINCT ?item ?value ?voiceType {
+    ?item wdt:P4407 ?value .
+    ?item wdt:P412 ?voiceType.
+    BIND(STRBEFORE(?value, "/") as ?before).
+    FILTER regex(?value, "^.+\\/+.")
+    FILTER(! (?before = 'sopranos' && (?voiceType = wd:Q30903 || ?voiceType = wd:Q58192) ))
+    FILTER(! (?before = 'baritones' && ?voiceType = wd:Q31687))
+    FILTER(! (?before = 'tenors' && (?voiceType = wd:Q27914 || ?voiceType = wd:Q6141658 || ?voiceType = wd:Q3983766 || ?voiceType = wd:Q1471878) ))
+    FILTER(! (?before = 'countertenors' && ?voiceType = wd:Q223166))
+    FILTER(! (?before = 'basses' && ?voiceType = wd:Q27911))
+    FILTER(! (?before = 'mezzo-sopranos' && ?voiceType = wd:Q186506))
+    FILTER(! (?before = 'contraltos' && ?voiceType = wd:Q37137))   
+} ORDER BY ?item

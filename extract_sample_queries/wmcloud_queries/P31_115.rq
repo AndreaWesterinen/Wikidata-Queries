@@ -1,0 +1,7 @@
+#title: Redundant instance of statement
+# Complex constraint from [[Property talk:P31]]
+# should not be instance of a superclass and one of its subclass. When an item have 2 P31 statements of a class together with a statement to one of its direct subclass
+select ?item ?a ?b {
+  ?item wdt:P31 ?a, ?b .
+  ?a wdt:P279 ?b .
+} limit 3000

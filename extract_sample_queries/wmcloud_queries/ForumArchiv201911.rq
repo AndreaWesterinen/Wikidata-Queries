@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?typeLabel; SEPARATOR=", ") AS ?Museumstyp) (GROUP_CONCAT(DISTINCT ?isil; SEPARATOR=", ") AS ?Isil) (sample(?image) as ?Bild) (sample(?website) as ?Website) (sample(?adresse) as ?Adresse) (GROUP_CONCAT(DISTINCT ?placeLabel; SEPARATOR=", ") AS ?Ort) (sample(?commonscat) as ?commonscat) (sample(?sitelink) as ?Wikipedia) WHERE { {
+SELECT ?item ?itemLabel ?typeLabel ?image ?isil ?website ?adresse ?placeLabel ?commonscat ?sitelink
+  WHERE  {
+    ?item wdt:P31/wdt:P279* wd:Q33506;
+          wdt:P17 wd:Q183;
+    OPTIONAL{ ?item wdt:P31 ?type. FILTER(?type != wd:Q33506) }
+    OPTIONAL{ ?item wdt:P18 ?image }
+    OPTIONAL{ ?item wdt:P791 ?isil }
+    OPTIONAL{ ?item wdt:P856 ?website }
+    OPTIONAL{ ?item wdt:P6375 ?adresse }
+    OPTIONAL{ ?item wdt:P131+ ?place . FILTER EXISTS {?place wdt:P31/wdt:P279* wd:Q262166 }}
+    OPTIONAL{ ?item wdt:P373 ?commonscat }
+    OPTIONAL {?sitelink schema:about ?item . ?sitelink schema:inLanguage "de" }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "de". } 
+  }
+}                                                                                                 
+} GROUP BY ?item ?itemLabel                 

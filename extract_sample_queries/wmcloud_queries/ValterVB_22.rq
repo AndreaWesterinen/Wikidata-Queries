@@ -1,0 +1,26 @@
+SELECT distinct ?item ?itemLabel ?caricaLabel ?ruoloLabel ?governoLabel ?inizio ?fine
+WHERE 
+{
+  {
+  ?item p:P39 ?statement .
+  ?statement ps:P39 ?carica. 
+  ?carica wdt:P279* wd:Q3858501.
+  OPTIONAL{?statement pq:P5054 ?governo. }
+  OPTIONAL{?statement pq:P580 ?inizio .}
+  OPTIONAL{?statement pq:P582 ?fine .}
+  OPTIONAL{?statement pq:P2868 ?ruolo .}
+    
+  }
+UNION
+ {
+  ?item p:P39 ?statement .
+  ?statement ps:P39 ?carica.
+  ?statement ps:P39 wd:Q796897.
+  OPTIONAL{?statement pq:P5054 ?governo. }
+  OPTIONAL{?statement pq:P580 ?inizio .}
+  OPTIONAL{?statement pq:P582 ?fine .}
+  OPTIONAL{?statement pq:P2868 ?ruolo .}
+ }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "it,fc". }
+}
+ORDER BY ?caricaLabel ?inizio ?fine

@@ -1,0 +1,12 @@
+SELECT ?item ?item2 ?l ?mayor ?mayorLabel ?start1 ?start2 
+{
+	?mayor wdt:P279 wd:Q382617 .
+    ?item wdt:P39 ?mayor . 
+    ?item rdfs:label ?l . FILTER(lang(?l) = "fr") 
+    ?item2 wdt:P39 ?mayor . 
+    ?item2 rdfs:label ?l .  
+    FILTER( str(?item) < str(?item2) )
+    OPTIONAL { ?item p:P39 [ ps:P39 ?mayor ; pq:P580 ?start1 ] }
+    OPTIONAL { ?item2 p:P39 [ ps:P39 ?mayor ; pq:P580 ?start2 ] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

@@ -1,0 +1,4 @@
+#title: FIX ALLCAPS DESCRIPTIONS
+# Complex constraint from [[Property talk:P7534]]
+# see [[Help:Descriptions]]
+SELECT ?item ?l WHERE { ?item wdt:P7534 []; schema:description ?l. FILTER( lang(?l) ="en" && REGEX(?l,"[A-Z]{4,}") )  }  LIMIT 10

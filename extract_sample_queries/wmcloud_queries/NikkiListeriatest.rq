@@ -1,0 +1,26 @@
+select distinct ?item ?monolingualtext ?language ?isocode ?languagename ?nativelabel ?refvalue where {
+	?prop wikibase:propertyType wikibase:Monolingualtext .
+	?prop wikibase:claim ?p .
+	?item ?p ?statement .
+
+	?prop wikibase:statementProperty ?sp .
+	?statement ?sp ?monolingualtext filter (lang(?monolingualtext) = "mis") .
+
+	optional {
+		?statement prov:wasDerivedFrom ?ref .
+		?ref pr:P854 ?refvalue .
+	}
+
+	optional {
+		optional { ?statement pq:P2439 ?language . }
+
+		optional { ?language wdt:P220 ?isocode . }
+
+		optional {
+			?language p:P1705 ?statement2 .
+			?statement2 ps:P1705 ?nativelabel .
+		}
+
+		optional { ?language rdfs:label ?languagename filter (lang(?languagename) = "en") . }
+	}
+} limit 500

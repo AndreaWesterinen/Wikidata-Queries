@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?awardLabel ?qualifierLabel WHERE {
+  ?item p:P166 ?statement.
+  ?statement ps:P166 ?award;
+             pq:P2241 wd:Q24629887.
+  OPTIONAL {
+    ?statement ?pq [].
+    FILTER(?pq != pq:P2241)
+    ?qualifier wikibase:qualifier ?pq.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

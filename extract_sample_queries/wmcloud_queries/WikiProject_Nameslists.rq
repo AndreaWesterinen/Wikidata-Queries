@@ -1,0 +1,25 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+SELECT ?object ?objectLabel ?count WHERE {
+  {
+    SELECT ?object (COUNT(DISTINCT ?a) AS ?count) WHERE {
+    #SELECT ?country ?countryLabel (COUNT(DISTINCT ?a) AS ?count) WHERE {
+       ?a wdt:P31 wd:Q5 .
+       ?a wdt:P735 ?object . 
+    } GROUP BY ?object
+    HAVING (?count > 50)
+  } . 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+ORDER BY DESC(?count) ?objectLabel
+LIMIT 500

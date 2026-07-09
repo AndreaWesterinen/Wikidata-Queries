@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?count WHERE {
+  {
+    SELECT ?item (COUNT(DISTINCT ?width) AS ?count) WHERE {
+      ?item wdt:P31* wd:Q11446;
+        wdt:P2049 ?width.
+    }
+    GROUP BY ?item
+  }
+  FILTER(?count > 1 )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC (?count) (?itemL)

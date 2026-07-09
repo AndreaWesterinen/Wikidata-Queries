@@ -1,0 +1,4 @@
+select distinct ?item {
+  ?item ?p ?st .
+  ?st pq:P459 wd:Q1395509
+}      

@@ -1,0 +1,4 @@
+SELECT ?entity ?lem WHERE {
+  VALUES ?entity { wd:L32290 }
+  ?entity wikibase:lemma ?lem
+}

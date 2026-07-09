@@ -1,0 +1,16 @@
+select (?pitem as ?item) ?property ?propertyLabel (count(?property) as ?count){
+  ?sens wdt:P5137 ?pratic ;
+        wdt:P9970 ?action .
+  ?lexeme ontolex:sense ?sens ;
+          dct:language ?lang ;
+          wikibase:lemma ?lemma .
+  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+    {?pratic ?pred ?action . } union {?action ?pred ?pratic }
+  
+  ?property wikibase:directClaim ?pred
+  optional {
+    ?property wdt:P1629 ?pitem .
+  }
+} group by ?property ?pitem ?propertyLabel order by desc(?count)

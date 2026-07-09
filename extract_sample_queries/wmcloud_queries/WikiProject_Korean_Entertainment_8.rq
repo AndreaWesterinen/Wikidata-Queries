@@ -1,0 +1,6 @@
+SELECT ?video_game_developer ?video_game_developerLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?video_game_developer wdt:P31 wd:Q210167.
+  ?video_game_developer wdt:P17 wd:Q884.
+}
+LIMIT 2048

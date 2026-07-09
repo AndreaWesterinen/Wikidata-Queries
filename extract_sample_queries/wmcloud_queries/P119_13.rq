@@ -1,0 +1,6 @@
+#title: Mistake: Human
+# Complex constraint from [[Property talk:P119]]
+# [[d:Q5|human <small>(Q5)</small>]]
+SELECT ?item {
+  ?item wdt:P119/wdt:P31 wd:Q5 .
+}

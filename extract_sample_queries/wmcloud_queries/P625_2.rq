@@ -1,0 +1,4 @@
+select * where{
+  ?item wdt:P31/wdt:P279* wd:Q1229765 .
+  ?item wdt:P625 ?coord
+}

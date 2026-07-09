@@ -1,0 +1,10 @@
+SELECT DISTINCT  ?item ?itemLabel ?genderLabel WHERE {
+  ?item wdt:P31 wd:Q5.  # instance of human
+  ?item wdt:P39 wd:Q107345508 # position held
+optional{ ?item wdt:P21 ?gender.}
+optional{ ?item wdt:P106 ?occupation.}
+optional{ ?item wdt:P69 ?education.}
+ ?item wdt:P39 ?positionheld.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ 
+}

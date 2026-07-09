@@ -1,0 +1,27 @@
+#Target required claim report for P5248: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?snak
+		WHERE
+		{
+			{
+				?item p:P5248/ps:P5248 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P5248 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P5248 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS { ?value p:P625 [] } .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?legislature ?ordinal WHERE {
+  ?flacs wdt:P31/wdt:P279* wd:Q10864048 ; 
+          wdt:P17 wd:Q96.
+  ?flacs wdt:P194 ?legs .
+  ?statement ps:P31 wd:Q15238777 ;
+             pq:P642 ?legs .
+  ?item p:P31 ?statement .
+  OPTIONAL { ?statement pq:P642 ?legislature }
+  OPTIONAL { ?statement pq:P1545 ?ordinal }
+  OPTIONAL { ?item wdt:P156 ?followedby }
+  OPTIONAL { ?item wdt:P155 ?follows }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (xsd:integer(?ordinal))

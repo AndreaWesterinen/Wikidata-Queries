@@ -1,0 +1,12 @@
+#title: Prefer over P1038
+# Complex constraint from [[Property talk:P3373]]
+# Items with at least one statement also in P1038. FIXME: remove redundant P1038 or fix P3373
+SELECT ?item ?value ?qualifierP1039value
+WHERE
+{
+  	?item p:P1038 ?claim . 
+	?claim ps:P1038 ?value .
+  	?item wdt:P3373 ?value .
+    OPTIONAL { ?claim pq:P1039 ?qualifierP1039value }
+}
+LIMIT 200

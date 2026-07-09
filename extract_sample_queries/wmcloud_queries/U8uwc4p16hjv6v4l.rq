@@ -1,0 +1,3 @@
+select * {
+  ?s pqv:P625/wikibase:geoGlobe wd:Q123 .
+} 

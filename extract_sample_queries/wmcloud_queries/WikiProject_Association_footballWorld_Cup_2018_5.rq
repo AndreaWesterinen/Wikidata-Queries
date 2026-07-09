@@ -1,0 +1,3 @@
+embed.html#SELECT * WHERE {
+  ?item wdt:P1344 wd:Q170645 .
+}

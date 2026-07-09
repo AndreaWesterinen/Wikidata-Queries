@@ -1,0 +1,14 @@
+SELECT ?official_languageLabel (round(100*SUM(?label_exists)/SUM(1)) AS ?percentage_of_labels) ?langcode WHERE {
+values ?item {wd:Q177626 wd:Q131288 wd:Q187668 wd:Q1932461 wd:Q12547146 wd:Q706601 wd:Q473741 wd:Q15320003 wd:Q280958 wd:Q2608153 wd:Q6013750 wd:Q4354288 wd:Q7317170 wd:Q837556 wd:Q379693 wd:Q133004 wd:Q705818 wd:Q181784 wd:Q8463 wd:Q7167 wd:Q11376059 wd:Q59816 wd:Q11409 wd:Q41397 wd:Q230533 wd:Q154278 wd:Q166005 wd:Q8461 wd:Q8458 wd:Q79913 wd:Q1338878 wd:Q192989 wd:Q1368367 wd:Q16513600 wd:Q36192 wd:Q18344718 wd:Q912512 wd:Q8434 wd:Q7181 wd:Q1397926 wd:Q131572 wd:Q2382319 wd:Q283509 wd:Q12765670 wd:Q564811 wd:Q128393 wd:Q133346 wd:Q185598 wd:Q4006 wd:Q170404 wd:Q1351807 wd:Q196756 wd:Q1522225 wd:Q43812 wd:Q2918584 wd:Q61509 wd:Q5843 wd:Q865054 wd:Q200814 wd:Q3172759 wd:Q367293}
+  
+wd:Q458 wdt:P37 ?official_language .     # get all official languages of the EU
+?official_language wdt:P424 ?langcode .  # and their Wikimedia language codes
+OPTIONAL {
+  ?item rdfs:label ?item_label .         # and match the item label language...
+  FILTER(?langcode=lang(?item_label))    # ...with the language
+  BIND(IF(BOUND(?item_label),1,0) AS ?label_exists) # count the number of existing labels
+}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }  # change "en" to your preferred language
+}
+GROUP BY ?langcode ?official_languageLabel 
+ORDER BY DESC(?percentage_of_labels)

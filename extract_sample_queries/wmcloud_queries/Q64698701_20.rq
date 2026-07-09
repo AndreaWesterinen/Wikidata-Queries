@@ -1,0 +1,25 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q64698701>
+SELECT
+  ?prop ?propLabel (SAMPLE(?for_type) as ?for_type_) ?statusLabel (SAMPLE(?in_this_item) as ?in_this_item_) (SAMPLE(?proptype) as ?proptype_)  (SAMPLE(?st) as ?property_for_type_statement)
+WITH
+{
+  SELECT ?wdt ?prop (SAMPLE(?for_typ) as ?for_type)
+  {
+    {  wd:Q202444 wdt:P1963 ?prop . ?prop wikibase:directClaim ?wdt . BIND( "yes" as ?for_typ) }
+    UNION
+    {  wdname: ?wdt [] . ?prop wikibase:directClaim ?wdt }
+  }
+  GROUP BY ?wdt ?prop                              
+} as %all
+WHERE
+{
+  INCLUDE %all
+  hint:Prior hint:runFirst true .
+  OPTIONAL { wdname: ?wdt []. BIND("present" as ?in_this_item)   }   
+  wd:Q202444 p:P1963 ?st . ?st ps:P1963 ?prop 
+  OPTIONAL { ?st pq:P1552 ?status  }
+  ?prop wikibase:propertyType ?proptype
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" ;}          
+}
+GROUP BY ?prop ?propLabel ?statusLabel
+ORDER BY DESC(?for_type_) DESC(?statusLabel) ( ?proptype_ = wikibase:ExternalId )

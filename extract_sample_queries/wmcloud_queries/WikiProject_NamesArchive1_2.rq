@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?aliaz
+{
+	VALUES ?instanceof { wd:Q12308941 wd:Q11879590 wd:Q202444 wd:Q3409032 }
+	?item wdt:P31 ?instanceof .
+  	MINUS { ?item wdt:P31 wd:Q4167410 } MINUS { ?item wdt:P31 wd:Q101352 } MINUS { ?item wdt:P31 wd:Q82799 } # exclude some problems
+	?item rdfs:label ?itemLabel . FILTER(lang(?itemLabel) = "de")
+   	OPTIONAL { ?item skos:altLabel ?alias . FILTER(lang(?alias) = "de")  }
+    FILTER( (CONCAT(str(?itemLabel), " (Vorname)") != str(?alias) ) || !BOUND(?alias) )
+}
+ORDER BY ?item
+LIMIT 1000

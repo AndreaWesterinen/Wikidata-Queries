@@ -1,0 +1,21 @@
+embed.html##Locations artworks depicted by people
+#defaultView:ImageGrid
+#SELECT ?person ?subj ?personLabel ?Label ?subjDescription  ?pic  ?MoreInfo ?Litt ?SKBL WHERE {{
+SELECT ?personLabel ?subjLabel ?person ?subj ?pic ?Litt ?SKBL  WHERE {{
+   ?person wdt:P119 wd:Q19781340. #Place of burial
+   OPTIONAL {?person wdt:P5101 ?LittID} . 
+   OPTIONAL {?person wdt:P3217 ?SBLID} . 
+   ?subj wdt:P180 ?person . 
+  BIND (URI(CONCAT("https://www.skbl.se/sv/artikel/",?SKBLID)) AS ?SKBL)
+  BIND (URI(CONCAT("https://litteraturbanken.se/forfattare/",?LittID)) AS ?Litt)
+  BIND (URI(CONCAT("https://sok.riksarkivet.se/sbl/Presentation.aspx?id=",?SBLID)) AS ?SBL)
+  OPTIONAL {?subj wdt:P276 ?loc .
+    ?loc wdt:P625 ?coord .
+	} .
+  {?subj wdt:P18 ?pic} .
+  OPTIONAL{?subj wdt:P973 ?MoreInfo} .
+}
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}
+ Group by ?personLabel ?person ?subj  ?pic ?Litt ?subjLabel ?SKBL
+# Group by ?personLabel ?Label ?subjDescription  ?pic ?locLabel ?locDescription  ?MoreInfo ?SBL ?Litt 

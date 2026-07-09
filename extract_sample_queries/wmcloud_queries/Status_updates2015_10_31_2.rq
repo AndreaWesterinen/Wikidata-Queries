@@ -1,0 +1,9 @@
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix entity: <http://www.wikidata.org/entity/>
+SELECT ?item WHERE {
+  ?item wdt:P31 entity:Q3305213 .
+  OPTIONAL { ?item wdt:P2049 ?dummy0 }
+  FILTER(!bound(?dummy0))
+  OPTIONAL { ?item wdt:P2048 ?dummy1 }
+  FILTER(!bound(?dummy1))
+}

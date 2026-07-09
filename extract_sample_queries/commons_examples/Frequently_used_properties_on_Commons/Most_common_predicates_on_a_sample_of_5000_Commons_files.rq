@@ -1,0 +1,48 @@
+#most common predictates on a sample of 5,000 Commons files
+SELECT (COUNT(DISTINCT ?file) AS ?file_count) (COUNT(DISTINCT(CONCAT(str(?file),str(?val)))) AS ?stmt_count) 
+   ?prop ?prop_label (SAMPLE(?file) AS ?sample_file)  (SAMPLE(?val) AS ?sample_val) 
+
+WITH {
+  SELECT ?file WHERE {
+     service bd:sample {
+       ?file a wikibase:Mediainfo .
+        bd:serviceParam bd:sample.limit 5000 .
+        bd:serviceParam bd:sample.sampleType "RANDOM" .
+     }
+  }  
+} AS %files
+
+WITH {
+  SELECT ?file ?prop ?val WHERE {
+    INCLUDE %files .
+    ?file ?prop ?val .
+  } 
+} AS %triples
+
+WITH {
+  SELECT DISTINCT ?prop WHERE {
+     INCLUDE %triples .
+  }
+} AS %props
+
+WITH {
+   SELECT ?prop ?prop_label WHERE {
+     INCLUDE %props .
+     service <https://query.wikidata.org/sparql> {
+        OPTIONAL {
+           ?prop ^wikibase:directClaim ?prop_item .
+           ?prop_item rdfs:label ?prop_label FILTER (lang(?prop_label) = 'en') .
+        }
+        OPTIONAL {
+           ?prop ^wikibase:claim ?prop_item .
+           ?prop_item rdfs:label ?prop_label FILTER (lang(?prop_label) = 'en') .
+        }
+     }
+  }
+} AS %prop_labels
+     
+WHERE {
+  INCLUDE %triples .
+  INCLUDE %prop_labels .
+} GROUP BY ?prop ?prop_label
+ORDER BY DESC(?stmt_count)

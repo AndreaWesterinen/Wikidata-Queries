@@ -1,0 +1,10 @@
+SELECT ?item ?itemsLabel ?itemsDescription ?coord
+WHERE
+{
+  ?item wdt:P31/wdt:P279* wd:Q16917 ;
+               wdt:P17 wd:Q96 ;
+               wdt:P625 ?coord .
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "es" .
+}
+}

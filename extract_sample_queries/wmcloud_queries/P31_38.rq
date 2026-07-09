@@ -1,0 +1,8 @@
+#title: Can't be instance of both human and position
+# Complex constraint from [[Property talk:P31]]
+# Should not be an [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] both a [[d:Q5|human <small>(Q5)</small>]] and an [[d:Q4164871|position <small>(Q4164871)</small>]]. Consider using [[Property:P39|position held&#32;<small dir="ltr">(P39)</small>]].
+SELECT ?item WHERE { 
+  ?position wdt:P279*/wdt:P31+ wd:Q4164871.
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P31 ?position . 
+} GROUP BY ?item

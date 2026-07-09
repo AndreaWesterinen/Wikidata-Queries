@@ -1,0 +1,39 @@
+#title: Operate a railway line, complex query
+# Complex constraint from [[Property talk:P137]]
+# Work in progress query
+SELECT ?item ?operator {
+  ?item wdt:P31 wd:Q728937.
+  ?item wdt:P137 ?operator.
+  ?operator p:P31 []. # avoid 5 results
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q17377208 }
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q249556 }
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q740752 } # popular but can use the next line
+  FILTER NOT EXISTS { ?operator wdt:P452 wd:Q3565868 }
+  FILTER NOT EXISTS { ?operator wdt:P452 wd:Q249556 }
+  FILTER NOT EXISTS { ?operator wdt:P452 wd:Q178512 }
+  FILTER NOT EXISTS { ?operator wdt:P452 wd:Q7590 }
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q521458 }
+  FILTER NOT EXISTS { ?operator wdt:P31/wdt:P279* wd:Q249556 }
+  FILTER NOT EXISTS { ?operator p:P1471 ?reportingMark }
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q7835189 }
+  FILTER NOT EXISTS { ?operator wdt:P463 wd:Q388314 } # avoid ... Q1677108
+  FILTER NOT EXISTS { ?operator wdt:P101 wd:Q3565868 } # domain
+  FILTER NOT EXISTS { ?operator wdt:P452 wd:Q22667 }
+  FILTER NOT EXISTS { ?operator wdt:P749 ?mother. ?mother wdt:P31 wd:Q249556 } # to avoid Q5966130
+  FILTER NOT EXISTS { ?operator wdt:P749 ?mother. ?mother wdt:P31 wd:Q740752 } # to avoid Q1765011
+  FILTER NOT EXISTS { ?operator wdt:P749 wd:Q664399 } # mother: Keolis
+  # FILTER NOT EXISTS { ?operator p:P2541 ?zone. ?operator wdt:P31 wd:Q327333 } # to avoid Q5034704 operator only
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q327333 } # avoid Q15908531 too
+  FILTER NOT EXISTS { ?operator wdt:P31/wdt:P279* wd:Q327333 } # avoid Q2250917
+  FILTER NOT EXISTS { ?operator wdt:P17 wd:Q17 } # Japan
+  FILTER NOT EXISTS { ?operator wdt:P17 wd:Q1206012 }
+  FILTER NOT EXISTS { ?operator wdt:P17 wd:Q668 } # India
+  FILTER NOT EXISTS { ?operator wdt:P1056 wd:Q3407658 } # to avoid Q369524
+  FILTER NOT EXISTS { ?operator wdt:P452 wd:Q862571 } # to avoid Q5153816 exception
+  FILTER (?operator NOT IN (wd:Q497244, wd:Q3726202, wd:Q4974586, wd:Q2872768, wd:Q15138907, wd:Q1926929, wd:Q2215905, 
+                            wd:Q1407994, wd:Q1616278, wd:Q28670302, wd:Q3855714, wd:Q13634023, wd:Q15615204, wd:Q538101, wd:Q20010045, 
+                            wd:Q24813254, wd:Q21043221, wd:Q1663784, wd:Q28868775, wd:Q3963830, wd:Q3369995, wd:Q16607060, wd:Q16599279, 
+                            wd:Q3060836, wd:Q3743281, wd:Q3998389, wd:Q7566134, wd:Q6840763, wd:Q17636721, wd:Q18325550, wd:Q3952222, wd:Q11111997,
+                            wd:Q11411921, wd:Q11414812, wd:Q11465832, wd:Q11666892, wd:Q3963332, wd:Q13563305)) # Q538101 : agence pub
+  FILTER (?item NOT IN (wd:Q1327589))
+}

@@ -1,0 +1,30 @@
+#title: Check P31 or P279
+# Complex constraint from [[Property talk:P6262]]
+# Quick and dirty query, with two item exceptions ([[d:Q1428753|technobabble <small>(Q1428753)</small>]] and [[d:Q3954928|Selus <small>(Q3954928)</small>]])
+SELECT ?item ?value {
+    ?item wdt:P6262 ?value.
+    BIND (STRBEFORE(?value, ":") AS ?prefix)
+    FILTER (?prefix NOT IN ("routes", "lego", "nintendo", "fictional-radio", "thecrew", "religion", "familypedia")).
+    FILTER NOT EXISTS {
+      VALUES ?v {wd:Q15773317 wd:Q21191270 wd:Q15831598 wd:Q47461344 wd:Q95074 wd:Q5446565 wd:Q55566151 wd:Q5 wd:Q1045481 wd:Q16017119 wd:Q61002 wd:Q3331189
+                 wd:Q2188189 wd:Q1921834 wd:Q3464665 wd:Q34442 wd:Q170285 wd:Q5398426 wd:Q17444171 wd:Q43229 wd:Q11424 }.
+      ?item wdt:P31/wdt:P279* ?v.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P1080 [].
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P1441 [].
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P1434 [].
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P31 ?instance.
+      ?instance wdt:P1074 [].
+    }
+    #FILTER NOT EXISTS { ?item wdt:P279 wd:Q170285 }
+    FILTER NOT EXISTS { ?item wdt:P279 wd:Q23090938 }
+    FILTER (?item NOT IN (wd:Q1428753, wd:Q3954928))
+}
+ORDER BY ?value

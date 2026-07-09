@@ -1,0 +1,21 @@
+SELECT ?item ?itemLabel ?named_after ?named_afterLabel ?article ?img 
+
+WITH {
+    SELECT DISTINCT ?item WHERE {
+        ?item wdt:P31/wdt:P279*/wdt:P31/wdt:P279* wd:Q55084935 .
+        hint:Prior hint:gearing "reverse" .
+    } 
+} AS %minerals 
+
+WHERE {
+    INCLUDE %minerals .
+    ?item wdt:P138 ?named_after .
+    ?named_after wdt:P21 wd:Q6581072 .
+    OPTIONAL {?item wdt:P18 ?img} .
+    OPTIONAL {
+      ?article schema:about ?named_after .
+      ?article schema:isPartOf <https://en.wikipedia.org/> .
+    }
+     
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?itemLabel

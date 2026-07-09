@@ -1,0 +1,7 @@
+SELECT (COUNT(DISTINCT ?item) as ?ct)
+{
+    ?item wdt:P27 wd:Q142 .
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P19 / wdt:P17 wd:Q142 .
+    FILTER NOT EXISTS { ?item wdt:P1559 [] }
+}

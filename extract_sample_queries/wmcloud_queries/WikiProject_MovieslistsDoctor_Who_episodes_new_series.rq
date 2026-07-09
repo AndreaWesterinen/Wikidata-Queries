@@ -1,0 +1,47 @@
+SELECT DISTINCT
+  ?item ?itemLabel ?itemDescription 
+  ?d 
+  ?type ?typeLabel
+  ?series ?seriesLabel ?NBinSeries
+  ?season ?seasonLabel ?NBseason ?NBinSeason 
+  (CONCAT("[[:it:",str(COALESCE(?episodearticle_it,?twopartepisodearticle_it,CONCAT(COALESCE(?specialepisodes_it,?seasonarticle_it),"#",COALESCE(?it_label,"")))),"\u007C",COALESCE(?it_label,"??"),"]]") as ?itwiki)
+  ?arts
+WITH
+{
+  SELECT DISTINCT ?item { ?item wdt:P4908/wdt:P361 wd:Q39243484 .  hint:Prior hint:rangeSafe true .  ?item wdt:P31 wd:Q21191270. }
+} as %a
+WITH
+{
+  SELECT ?item (GROUP_CONCAT(DISTINCT CONCAT("[[:",?langn,":",?n,"\u007C",REPLACE(?langn,"en","'''en'''"),"]]")) as ?arts)  
+  {  
+    SELECT DISTINCT ?item ?n ?langn { INCLUDE %a [] schema:about / ^ wdt:P361? ?item ; schema:name ?n; schema:inLanguage ?langn; schema:isPartOf/wikibase:wikiGroup "wikipedia" } ORDER BY ?langn
+  }
+  GROUP BY ?item
+}  as %b
+WHERE 
+{
+  INCLUDE %a
+  BIND( wd:Q34316 as ?series)
+  optional { ?item wdt:P577 ?d }
+  FILTER NOT EXISTS { ?item wdt:P577 ?d2 . FILTER( ?d2 < ?d) }
+  optional { ?item wdt:P179 ?series }
+  OPTIONAL { ?item wdt:P31 ?type . FILTER( ?type != wd:Q21191270 ) }
+  optional { ?item p:P179 [ps:P179 ?series ; pq:P1545 ?NBinSeries ] }
+  ?item wdt:P4908 ?season .
+  optional { ?season p:P179 [ ps:P179 ?series ; pq:P1545 ?NBseason ] }
+  optional { ?item p:P4908 [ps:P4908 ?season ; pq:P1545 ?NBinSeason ] }
+  optional { ?item p:P361 [ps:P361 ?serial  ; pq:P1545 ?NBinSerial ] . ?serial wdt:P31 wd:Q28225717 }
+
+  OPTIONAL { ?item rdfs:label ?it_label . FILTER(lang(?it_label) = "it") }
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://it.wikipedia.org/> ; schema:name ?episodearticle_it }
+  OPTIONAL { ?item wdt:P361 ?2part . ?2part wdt:P31 wd:Q21664088 .                             
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://it.wikipedia.org/> ; schema:name ?twopartepisodearticle_it }
+           }
+  OPTIONAL { [] schema:about ?season ; schema:isPartOf <https://it.wikipedia.org/>; schema:name ?seasonarticle_it }
+  OPTIONAL { ?item wdt:P31 wd:Q1261214 . BIND("[[Q19650507\u007C<sup>S<sup>]]" as ?spec) 
+            [] schema:about wd:Q3730643 ; schema:isPartOf <https://it.wikipedia.org/>; schema:name ?specialepisodes_it .
+           }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { INCLUDE %b }
+}
+ORDER BY ?d

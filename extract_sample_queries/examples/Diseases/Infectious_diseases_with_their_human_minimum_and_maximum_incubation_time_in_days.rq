@@ -1,3 +1,5 @@
+#title: Infectious diseases with their human minimum and maximum incubation time (in days)
+
 SELECT ?DiseaseLabel ((?min / 86400) AS ?Minimal_Incubation_Time) ((?max / 86400) AS ?Maximum_Incubation_Time)
 WHERE {
   ?Disease wdt:P31/wdt:P279* wd:Q18123741 .

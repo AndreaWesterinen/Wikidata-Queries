@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?termLabel ?constituencyLabel ?mainhop ?refhop ?qualifierLabel {
+ ?item p:P39 ?positionStatement . 
+ ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+ OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+ OPTIONAL { ?positionStatement pq:P5102 ?qualifier . }
+ optional { ?positionStatement prov:wasDerivedFrom ?ref . ?ref pr:P1614 ?refhop .
+            ?ref pr:P248 wd:Q7739799 . filter (?refhop = ?mainhop ) . }
+ ?item wdt:P1614 ?mainhop . FILTER(STRSTARTS(?mainhop, "1386")).
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} ORDER BY ?start

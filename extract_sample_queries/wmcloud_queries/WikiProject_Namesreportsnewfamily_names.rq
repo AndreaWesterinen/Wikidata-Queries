@@ -1,0 +1,18 @@
+SELECT ?item ?l1 (BOUND(?l5) as ?hasen) ?st ?ls ?sl (REGEX(str(?l1),".* .*") as ?space) (strlen(?l1) as ?len)
+WITH
+{
+  SELECT ?item { ?item wdt:P31 wd:Q101352 } ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),33)))   LIMIT 1000
+}  AS %a
+WITH
+{
+  SELECT ?item (COUNT(?l) as ?ls) (SAMPLE(?l) as ?l1)  {  
+  INCLUDE %a
+    ?item rdfs:label ?l } GROUP BY ?item
+}  as %b 
+WHERE
+{ 
+  INCLUDE %b
+  OPTIONAL { ?item rdfs:label ?l5 . FILTER(lang(?l5)="en") }           
+  ?item wikibase:statements ?st ; wikibase:sitelinks ?sl 
+} 
+ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),33)))

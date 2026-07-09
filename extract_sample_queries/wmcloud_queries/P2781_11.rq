@@ -1,0 +1,4 @@
+#title: Units in qualifiers
+# Complex constraint from [[Property talk:P2781]]
+# The regular constraints check for units does not work with qualifier uses; this provides an alternative check which lists all qualifier uses where the unit used is not an instance of [[d:Q1790144|unit of time <small>(Q1790144)</small>]] or a subclass thereof.
+SELECT ?item ?anyclaim ?value ?qualifierValue ?qualifierUnit WHERE { [] wikibase:claim ?anyclaim; wikibase:statementProperty ?anyvalue . ?item ?anyclaim [ ?anyvalue ?value; pqv:P2781 [ wikibase:quantityAmount ?qualifierValue; wikibase:quantityUnit ?qualifierUnit ] ] . MINUS { ?qualifierUnit wdt:P31/wdt:P279* wd:Q1790144 . } }

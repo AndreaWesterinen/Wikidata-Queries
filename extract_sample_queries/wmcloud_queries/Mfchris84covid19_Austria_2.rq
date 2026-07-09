@@ -1,0 +1,16 @@
+SELECT (wd:Q86847911 AS ?item) ("rect" AS ?type) ("1400" AS ?width) ("600" AS ?height) ("COVID-19 in Austria" AS ?legend) ("Day" AS ?xAxisTitle) ("Anzahl infizierter Personen" AS ?yAxisTitle) 
+(GROUP_CONCAT(?day; SEPARATOR = ",") AS ?x) (GROUP_CONCAT(?noC; SEPARATOR = ",") AS ?y) 
+WHERE {
+  {
+SELECT (DAY(?pointintime) AS ?day) ?noC WHERE {
+      wd:Q86847911 p:P1603 ?noCStmt.
+      ?noCStmt ps:P1603 ?noC;
+        pq:P585 ?pointintime;
+        prov:wasDerivedFrom ?refNodeCase.
+      ?refNodeCase pr:P123 wd:Q1006381.
+  FILTER(?pointintime >= "2020-05-01T00:00:00"^^xsd:dateTime)
+    FILTER(?pointintime < "2020-06-01T00:00:00"^^xsd:dateTime)
+    }
+    ORDER BY ASC (?pointintime)
+  }
+}

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?name ?nameLabel ?orig ?native
+WHERE {
+  ?item wdt:P734 ?name .
+  ?name wdt:P31 wd:Q4167410 ;
+        wdt:P1889 ?dummy .
+  ?dummy wdt:P31/wdt:P279* wd:Q101352 .
+  OPTIONAL { ?dummy wdt:P1705 ?orig .}
+  OPTIONAL { ?item wdt:P1559 ?native .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" .}
+  }

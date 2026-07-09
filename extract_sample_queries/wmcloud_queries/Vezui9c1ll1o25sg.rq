@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?itemLabel ?count ?sample1  ?sample2  ?exception
+WHERE
+{
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2) {
+			?item wdt:P2580 ?val .
+			OPTIONAL { wd:P2580 wdt:P1630 ?formatter } .
+			BIND( IF( BOUND( ?formatter ), URI( REPLACE( ?formatter, '\\$1', ?val ) ), ?val ) AS ?value ) .
+		} GROUP BY ?item HAVING ( ?count > 1 ) LIMIT 100
+	} .
+	OPTIONAL {
+		wd:P2580 p:P2302 [ ps:P2302 wd:Q19474404; pq:P2303 ?exc ] .
+		FILTER( ?exc = ?item ) .
+	} .
+	BIND( BOUND( ?exc ) AS ?exception ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+ORDER BY DESC(?count)

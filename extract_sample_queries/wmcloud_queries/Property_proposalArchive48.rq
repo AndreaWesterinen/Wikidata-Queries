@@ -1,0 +1,7 @@
+select ?itemLabel ?partLabel where {
+  ?part wdt:P279 ?item .
+  ?item wdt:P361 ?part .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr" .
+  }
+}

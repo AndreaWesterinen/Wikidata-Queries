@@ -1,0 +1,4 @@
+#title: Value shouldn't be the same as for "inverse property" (P1696)
+# Complex constraint from [[Property talk:P8882]]
+# TODO: correct one of the two statements
+SELECT ?item ?value { ?item wdt:P8882 ?value ; wdt:P1696 ?value }

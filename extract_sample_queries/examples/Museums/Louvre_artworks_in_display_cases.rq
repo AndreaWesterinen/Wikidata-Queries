@@ -1,3 +1,4 @@
+#title: Louvre artworks in display cases
 #defaultView:ImageGrid
 SELECT ?item ?itemLabel ?itemDescription ?image WHERE {
   # part1: objects in cases

@@ -1,0 +1,10 @@
+SELECT ?Property_ ?Property_Label ?Property_Description ?separator_ ?separator_Label
+WHERE {
+  
+	?Property_ p:P2302 ?single_value_statement .
+	?single_value_statement ps:P2302 wd:Q19474404 .
+	OPTIONAL {?single_value_statement pq:P4155 ?separator_ .}
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 

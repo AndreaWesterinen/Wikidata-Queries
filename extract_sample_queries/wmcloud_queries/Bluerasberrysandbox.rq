@@ -1,0 +1,13 @@
+SELECT ?species ?taxonname ?speciesLabel ?gestationBasePeriod ?gestationUnitPeriod ( ?gestationBasePeriod * ?gestationUnitPeriod / 86400 AS ?days) WHERE {
+    ?species p:P3063/psv:P3063 [
+      wikibase:quantityAmount ?gestationBasePeriod;
+      wikibase:quantityUnit [
+        p:P2370/psv:P2370 [
+          wikibase:quantityAmount ?gestationUnitPeriod;
+          wikibase:quantityUnit wd:Q11574
+        ]
+      ]
+    ].
+  ?species wdt:P225 ?taxonname .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

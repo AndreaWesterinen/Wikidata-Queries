@@ -1,0 +1,9 @@
+SELECT ?item ?itemDescription WHERE {
+  ?item wdt:P17 wd:Q211 .
+  ?item wdt:P31 wd:Q532 .
+  optional {
+    ?item schema:description ?itemDescription .
+  	FILTER(lang(?itemDescription)="lv") } .
+    FILTER( !BOUND(?itemDescription) || ! REGEX(STR(?itemDescription), '^ciems .+ novad(a .+ pagast)?ā, Latvijā$') )
+  
+}

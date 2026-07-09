@@ -1,0 +1,16 @@
+embed.html##defaultView:Map{"hide":["?layer","?location"]}
+SELECT DISTINCT ?glam ?glamLabel (SAMPLE(?year_) as ?year) (SAMPLE(?image) as ?img) (SAMPLE(?location) as ?loc) (SAMPLE(?layer) as ?layer) 
+ WHERE {
+ {?glam wdt:P31/wdt:P279* wd:Q7075 ; wdt:P625 ?location. bind("library" as ?layer)}   
+   UNION  
+  {?glam wdt:P31/wdt:P279* wd:Q166118  ; wdt:P625 ?location. bind("archives" as ?layer)}  
+    UNION  
+  {?glam wdt:P31/wdt:P279* wd:Q33506  ; wdt:P625 ?location. bind("museum" as ?layer)}
+    UNION  
+  {?glam wdt:P31/wdt:P279* wd:Q20897549  ; wdt:P625 ?location. bind("gallery" as ?layer)}
+          OPTIONAL {?glam wdt:P18 ?image}
+    OPTIONAL {?glam wdt:P571 ?date}
+  BIND (YEAR(?date) AS ?year_)
+              SERVICE wikibase:label { bd:serviceParam wikibase:language "en,la,de" }
+}
+GROUP BY ?glam ?glamLabel

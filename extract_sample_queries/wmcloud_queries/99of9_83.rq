@@ -1,0 +1,24 @@
+SELECT DISTINCT ?item ?itemLabel ?id ?coords ?pageid ?ns WHERE {
+ ?item wdt:P5454 ?id .
+ ?item wdt:P495|wdt:P17 wd:Q30 .
+ ?item wdt:P291 ?place .
+ ?place wdt:P625 ?coords.
+ OPTIONAL {   
+   SELECT ?item ?pageid ?ns WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "insource:\"infobox newspaper\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+      ?pageid wikibase:apiOutput "@pageid" .
+      ?ns wikibase:apiOutput "@ns" .
+    }
+  } LIMIT 10000
+ }
+ #hint:Prior hint:runFirst "true".
+ #OPTIONAL{ ?item wdt:P5454 ?id . }
+  
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} 

@@ -1,0 +1,7 @@
+SELECT ?timezone ?timezoneLabel ?offset ?equal ?equalLabel ?linkedTimezone ?linkedTimezoneLabel {
+	?timezone wdt:P31/wdt:P279* wd:Q12143 .
+  	OPTIONAL{?timezone wdt:P2907 ?offset} .
+ 	 OPTIONAL{?timezone wdt:P460 ?equal} .
+  OPTIONAL{?timezone wdt:P421 ?linkedTimezone} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  } 
+}

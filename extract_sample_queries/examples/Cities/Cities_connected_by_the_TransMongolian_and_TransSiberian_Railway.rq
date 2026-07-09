@@ -1,3 +1,4 @@
+#title: Cities connected by the Trans-Mongolian and Trans-Siberian Railway
 #defaultView:Map
 SELECT ?city ?cityLabel ?coordinates
 WHERE

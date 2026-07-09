@@ -1,0 +1,2 @@
+#title:Move statement to qualifier of P18
+SELECT DISTINCT ?item WHERE { ?item wdt:P18 []; wdt:P2096 []}

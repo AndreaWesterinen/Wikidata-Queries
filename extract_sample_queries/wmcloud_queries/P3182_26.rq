@@ -1,0 +1,12 @@
+#title: Type inconsistency
+# Complex constraint from [[Property talk:P3182]]
+# When there is multiple value, the Rivoli codes (last four digit before the final control key) should be the same.
+SELECT * WHERE {
+  ?q wdt:P3182 ?id1 .
+  ?q wdt:P3182 ?id2 .
+  FILTER ( ?id1 != ?id2 )
+  BIND ( SUBSTR(?id1,7,4) AS ?rivoli1 )
+  BIND ( SUBSTR(?id2,7,4) AS ?rivoli2 )
+  FILTER ( ?rivoli1 != ?rivoli2 )
+  MINUS { ?q wdt:P131+ wd:Q90 }
+}

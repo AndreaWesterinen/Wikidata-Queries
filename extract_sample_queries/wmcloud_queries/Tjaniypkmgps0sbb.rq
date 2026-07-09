@@ -1,0 +1,5 @@
+#defaultView:ImageGrid
+SELECT ?item ?image {
+	?item wdt:P31 wd:Q5 ; wdt:P18 ?image .
+    MINUS { ?item wdt:P21 ?gender }
+} LIMIT 100

@@ -1,0 +1,4 @@
+#title: Qualifier should be used with P735
+# Complex constraint from [[Property talk:P7338]]
+#
+SELECT ?item ?p WHERE { ?st pq:P7338 [] . MINUS { ?item p:P735 ?st } MINUS { ?item p:P1855 ?st } ?item ?p ?st }

@@ -1,0 +1,8 @@
+SELECT ?item ?edition ?st ?sl
+{
+  	?item wdt:P31 wd:Q220505 .
+  	OPTIONAL { ?item wdt:P17 ?dummy1 } FILTER(!bound(?dummy1))
+  	OPTIONAL { ?item wdt:P576 ?dummy0 } FILTER(!bound(?dummy0))
+  	OPTIONAL { ?item wikibase:statements ?st }
+  	OPTIONAL { ?item wikibase:sitelinks ?sl }
+}

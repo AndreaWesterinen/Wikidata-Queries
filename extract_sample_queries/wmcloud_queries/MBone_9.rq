@@ -1,0 +1,7 @@
+SELECT ?Buergermeister ?BuergermeisterLabel ?Start ?Ende WHERE {
+  wd:Q1718 p:P6 ?Aussage.
+  ?Aussage ps:P6 ?Buergermeister.
+  OPTIONAL { ?Aussage pq:P580 ?Start. } # Qualifier für Startdatum abfragen
+  OPTIONAL { ?Aussage pq:P582 ?Ende. } # Qualifier für Endzeitpunkt abfragen
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

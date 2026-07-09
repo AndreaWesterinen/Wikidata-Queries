@@ -1,0 +1,31 @@
+PREFIX schema: <http://schema.org/>
+SELECT DISTINCT ?item ?itemLabel ?sex ?sexLabel ?job ?jobLabel ?jobFemale ?country ?countryLabel ?birth ?dead WHERE {  {
+
+  SELECT DISTINCT ?item ?sex ?job ?country ?birth ?dead ?jobFemale WHERE {
+  VALUES ?job { wd:Q33999 }
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL {
+    ?item schema:description ?itemDescription.
+    FILTER((LANG(?itemDescription)) = "nl")
+  }
+  ?item wdt:P21 ?sex ;
+  wdt:P106 ?job .
+    OPTIONAL {
+    ?job wdt:P2521 ?jobFemale .
+      FILTER (LANG(?jobFemale)="nl")
+      }
+ ?item wdt:P27 ?country. 
+  OPTIONAL { ?item p:P569/psv:P569 [
+                wikibase:timePrecision ?birthPrec ; # precision of at least day
+                wikibase:timeValue ?birth ;
+              ] FILTER(?birthPrec >= 9)}
+  OPTIONAL { ?item p:P570/psv:P570 [
+                wikibase:timePrecision ?deadPrec ; # precision of at least day
+                wikibase:timeValue ?dead ;
+              ] FILTER(?deadPrec >= 9) }
+  FILTER(!BOUND(?itemDescription))
+}
+LIMIT 4000
+      }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+                                                                                                          }

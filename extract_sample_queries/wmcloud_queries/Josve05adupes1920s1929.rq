@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?item2 ?d1 ?l
+{
+  ?item wdt:P569 ?d1 .
+  FILTER( ?d1 > "1929-01-01T00:00:00Z"^^xsd:dateTime && ?d1 < "1930-01-01T00:00:00Z"^^xsd:dateTime ) .
+  MINUS { ?item wdt:P570 [] } .
+  ?item2 wdt:P569 ?d1 .
+  MINUS { ?item2 wdt:P570 [] } .
+  ?item rdfs:label ?l .
+  ?item2 rdfs:label ?l .
+  ?item wdt:P31 wd:Q5 .
+  ?item2 wdt:P31 wd:Q5 .
+  ?item wdt:P21 ?g .
+  ?item2 wdt:P21 ?g .
+  FILTER( STR( ?item ) < STR( ?item2 ) ) .
+  MINUS { ?item wdt:P3373 ?item2 } .
+  MINUS { ?item wdt:P1889 ?item2 } .
+  MINUS { ?item wdt:P460 ?item2 } .
+}

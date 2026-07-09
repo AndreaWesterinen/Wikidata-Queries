@@ -1,0 +1,15 @@
+SELECT ?givenName ?givenNameLabel ?firstDate WITH {
+  SELECT ?givenName (MIN(?date) AS ?firstDate) WHERE {
+    { ?mpStatement ps:P39/wdt:P279? wd:Q16707842. } UNION
+    { ?mpStatement ps:P39/wdt:P279? wd:Q18015642. } UNION
+    { ?mpStatement ps:P39/wdt:P279? wd:Q18018860. }
+    ?mpStatement pq:P580 ?date.
+    ?mp p:P39 ?mpStatement;
+        wdt:P735 ?givenName.
+  }
+  GROUP BY ?givenName
+} AS %givenNames WHERE {
+  INCLUDE %givenNames.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?firstDate ?givenNameLabel

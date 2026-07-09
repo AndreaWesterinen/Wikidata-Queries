@@ -1,0 +1,16 @@
+SELECT * {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "links" .
+    bd:serviceParam mwapi:titles "User:Multichill/CC0 data sources" .
+    #bd:serviceParam mwapi:gsrlimit "max" .
+    #?item wikibase:apiOutputItem mwapi:item .
+    #?pageid wikibase:apiOutput "@pageid" .
+    #?ns wikibase:apiOutput "@ns" .
+    ?title wikibase:apiOutput"@title" . 
+     
+  }
+  BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) AS ?item)
+
+} LIMIT 100

@@ -1,0 +1,7 @@
+select (sample(?x) as ?item) ?code (count(?code) as ?count) 
+{
+  { 
+    select ?x (replace(?value, "^(?:[a-z-]+\\.)?([^:]+):.+$","$1") AS ?code) { ?x wdt:P6623 ?value }
+  }
+}
+group by ?code order by desc(?count) limit 7000

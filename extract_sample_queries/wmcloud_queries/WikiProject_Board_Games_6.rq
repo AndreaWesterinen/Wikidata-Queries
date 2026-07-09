@@ -1,0 +1,5 @@
+SELECT ?role_playing_game ?role_playing_gameLabel ?RPGGeek_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?role_playing_game wdt:P31 wd:Q1643932.
+  OPTIONAL { ?role_playing_game wdt:P7226 ?RPGGeek_ID. }
+}

@@ -1,0 +1,12 @@
+# (Direct) Triple Count of Indonesian National Heroes
+SELECT ?itemID ?itemIDLabel (COUNT(?directProp) AS ?tripleCount)
+WHERE {
+    ?itemID wdt:P166 wd:Q1369309 .  # Indonesian national hero
+    {                               # focus on direct properties
+      ?itemID ?directProp ?directPropValue .
+      _:bnode wikibase:directClaim ?directProp .
+      ?itemID rdfs:label ?itemIDLabel
+      FILTER(LANG(?itemIDLabel)="en")
+    }
+}
+GROUP BY ?itemID ?itemIDLabel ORDER BY DESC(?tripleCount)

@@ -1,3 +1,4 @@
+#title: Show all Dutch municipalities that share a border with Alphen aan den Rijn (Q213246), ignoring rank
 SELECT ?muni ?muniLabel where {
   ?muni p:P31 [ps:P31 wd:Q2039348];
         wdt:P47 wd:Q213246.

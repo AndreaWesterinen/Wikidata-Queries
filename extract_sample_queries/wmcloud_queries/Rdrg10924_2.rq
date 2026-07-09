@@ -1,0 +1,5 @@
+SELECT ?item ?title {
+  ?item wdt:P50 wd:Q736566;
+        wdt:P1476 ?title.
+  FILTER(LANG(?title) = "es").
+}

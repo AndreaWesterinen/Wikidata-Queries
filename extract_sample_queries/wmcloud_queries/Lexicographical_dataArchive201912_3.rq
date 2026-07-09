@@ -1,0 +1,58 @@
+# English picture dictionary for young children
+# NB: when 2 or more pictures occur for the same lemma a preferred rank is missing on the Q-item. 
+# Please fix that if you know how.
+# If any inapproriate terms show up it is probably because the sense is missing a correct P5137
+# by So9q
+#defaultView:ImageGrid
+select distinct ?lexemeId ?lemma ?q_concept ?q_conceptDescription ?picture WITH {
+  SELECT * WHERE {
+    ?lexemeId dct:language wd:Q1860; # change language here
+            wikibase:lemma ?lemma;
+            ontolex:sense ?sense.
+  ?sense wdt:P5137 ?q_concept.
+  {?q_concept wdt:P18 ?picture.} UNION
+  {?q_concept wdt:P2910 ?picture.} UNION
+  {?q_concept wdt:P5555 ?picture.}
+  }} AS %i
+WHERE {
+  INCLUDE %i
+  ############
+  # Exclusions
+  ############
+  # Exclude out of scope concepts
+  MINUS {?q_concept wdt:P31 wd:Q3624078.}. # countries
+  MINUS {?q_concept wdt:P31 wd:Q608.}      # sex
+  MINUS {?q_concept wdt:P31 wd:Q8386.}     # drugs
+  MINUS {?q_concept wdt:P31 wd:Q15142889}  # weapon family
+  MINUS {?q_concept wdt:P279 wd:Q44106}    # tobacco products
+  
+  # Exclude non suitable concepts
+  VALUES ?minus {
+  wd:Q47092  # rape
+  wd:Q198    # war
+  wd:Q124490 # violence
+  wd:Q170382 # revolver
+  #wd:Q1576   # cigarr
+  #wd:Q8398   # anal sex
+  #wd:Q5873   # sex
+  wd:Q22649  # antisemitism
+  #... add yours here
+  }.
+  MINUS {?sense wdt:P5137 ?minus.}.
+  
+  #?q_concept rdfs:label ?label.
+  #FILTER(regex(?label, ".* sex .*"))
+  
+  # Exclude senses not suitable for young children:
+  VALUES ?filter {
+  wd:Q8102
+  wd:Q545779
+  wd:Q1521634
+  wd:Q184439
+  wd:Q76500861}.
+  FILTER NOT EXISTS {?sense wdt:P6191 ?filter.}.
+  # if you wish to only browse certain items you can insert a FILTER 
+  # regular expression here, like in the example above.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+order by lcase(?lemma) # order a-z

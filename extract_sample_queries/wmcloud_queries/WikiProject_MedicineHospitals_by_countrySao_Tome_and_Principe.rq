@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?status
+WHERE 
+{ ?item wdt:P31/wdt:P279* wd:Q16917; wdt:P17 wd:Q1039
+OPTIONAL { ?item (wdt:P730 \u007C wdt:P576 \u007C wdt:P3999 ) ?dummy . 
+BIND("former" as ?status1) } BIND(COALESCE(?status1,"current") as ?status) 
+}

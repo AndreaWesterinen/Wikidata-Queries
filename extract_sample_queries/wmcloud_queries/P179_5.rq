@@ -1,0 +1,17 @@
+#title: Use follows and followed by consistently
+# Complex constraint from [[Property talk:P179]]
+# Use of P155 or P156 pointing to an item that does not use the opposite qualifier pointing back
+SELECT ?item WHERE {
+  ?item p:P179 ?statement .
+  {
+    ?statement ps:P179 ?a; pq:P155 ?y .
+    FILTER NOT EXISTS {
+      ?y p:P179 [ ps:P179 ?a; pq:P156 ?item ].
+    }
+  } UNION {
+    ?statement ps:P179 ?a; pq:P156 ?y .
+    FILTER NOT EXISTS {
+      ?y p:P179 [ ps:P179 ?a; pq:P155 ?item ].
+    }
+  }
+}

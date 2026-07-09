@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE {
+  { ?item wdt:P31 wd:Q2039348 } UNION 
+  { ?item wdt:P31 wd:Q7265977 } UNION 
+  { ?item wdt:P382 ?cbsid } UNION
+  { ?item wdt:P6434 ?amsterdamcode }
+} 
+LIMIT 2500

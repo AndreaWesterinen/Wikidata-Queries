@@ -1,0 +1,14 @@
+SELECT ?item ?label ?location
+
+WHERE { 
+  
+  ?item wdt:P1435 wd:Q9259 . 
+  MINUS {?item wdt:P625 ?location}
+  
+        OPTIONAL {
+          ?item rdfs:label ?label filter (lang(?label) ="en") .
+                 }
+       
+}
+
+ORDER BY (?item)

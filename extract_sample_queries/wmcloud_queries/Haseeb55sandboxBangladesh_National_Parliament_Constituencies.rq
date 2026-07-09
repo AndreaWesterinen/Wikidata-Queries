@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?ordinal WHERE {
+  ?statement ps:P31 wd:Q47468610. 
+  ?item p:P31 ?statement .
+  OPTIONAL { ?statement pq:P1545 ?ordinal }
+  MINUS { ?item wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (xsd:integer(?ordinal))

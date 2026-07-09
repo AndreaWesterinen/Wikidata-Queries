@@ -1,0 +1,24 @@
+SELECT
+  ?item ?ppLabel ?count 
+  (CONCAT("[[",REPLACE(str(?sample),".*?([Qq])(\\d+)-(.+)","Q$2#$1$2\\$$3"),"|","sample]]") as ?sample1)
+  (CONCAT("<span style='display: none'>@P",?pid,":",str(?count),"ç</span>") as ?log)
+WHERE
+{
+  {  SELECT ?p (COUNT(*) as ?count) (SAMPLE(?st) as ?sample)
+    {
+      ?ref pr:P248 / wdt:P1433 wd:Q16055052 .
+      hint:Prior hint:rangeSafe true .
+      ?st prov:wasDerivedFrom ?ref.
+      ?entity ?p ?st . 
+      ?entity wdt:P31 wd:Q5 
+    }
+    GROUP BY ?p   
+    HAVING (?count > 19)               
+  }
+  ?pp wikibase:claim ?p .
+  BIND(strafter(str(?pp),"P") as ?pid) 
+  FILTER( ?pid != "21" )
+  ?item wdt:P5176 ?pid .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?pp rdfs:label ?ppLabel } 
+}
+ORDER BY DESC(?count)

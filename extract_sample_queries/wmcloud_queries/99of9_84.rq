@@ -1,0 +1,9 @@
+SELECT ?item ?label ?AustLII WHERE {
+  ?item wdt:P1891 wd:Q408.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?label
+  }
+  
+OPTIONAL { ?item wdt:P5799 ?AustLII . }
+}

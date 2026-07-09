@@ -1,0 +1,22 @@
+SELECT
+  ?item ?ppLabel ?count 
+  (CONCAT("[[",REPLACE(str(?sample),"http://www.wikidata.org/entity/statement/([Qq])(\\d+)-(.+)","Q$2#$1$2\\$$3"),"|","sample]]") as ?sample1)
+  (CONCAT("<span style='display: none'>@P",?pid,":",str(?count),"ç</span>") as ?log)
+WHERE
+{
+  {  SELECT ?p (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?st) as ?sample)
+    {
+      ?st prov:wasDerivedFrom / pr:P248 / wdt:P1433 wd:Q665807 .
+      ?entity ?p ?st . 
+      ?entity wdt:P31 wd:Q5 
+    }
+    GROUP BY ?p
+    HAVING (?count > 49)             
+  }
+  ?pp wikibase:claim ?p .
+  BIND(strafter(str(?pp),"P") as ?pid) 
+  FILTER( ?pid != "21" )
+  ?item wdt:P5176 ?pid .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}
+ORDER BY DESC(?count)

@@ -1,0 +1,23 @@
+#Women born in Latin America without a Spanish Wikipedia article
+#Note: This query depends on the place of birth having a 'country (P17)' statement AND the country having 'part of (P361)' = 'Latin America'
+
+SELECT ?person ?personLabel ?countryLabel ?linkCount
+
+WHERE {
+  ?person wdt:P31 wd:Q5 .
+  ?person wdt:P21 wd:Q6581072 .
+  ?person wikibase:sitelinks ?linkCount .
+  
+  ?person wdt:P19 ?birthPlace .   # born in a place...
+  ?birthPlace wdt:P17 ?country .  # which is in a country that is...
+  ?country wdt:P361 wd:Q12585 .   # part of Latin America
+  
+  MINUS {  # remove results with a Spanish wikipedia article
+    ?article schema:about ?person .
+    ?article schema:isPartOf <https://es.wikipedia.org/> .
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+ORDER BY DESC (?linkCount)

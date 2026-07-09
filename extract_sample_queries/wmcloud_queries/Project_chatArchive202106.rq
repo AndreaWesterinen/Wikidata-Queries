@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?lemma
+where
+{
+  ?item wdt:P17 wd:Q40.
+  ?item wdt:P31 wd:Q13406463.
+  ?sitelink schema:about ?item .
+    ?article schema:about ?item .
+    ?article schema:name ?lemma.
+    ?article schema:isPartOf <https://de.wikipedia.org/> . #Targeting Wikipedia language where subjects has no article.
+      ?item rdfs:label ?itemLiteral .
+      FILTER(LANG(?itemLiteral) = 'de') .
+  Filter (?lemma != ?itemLiteral)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'de' }
+}
+
+GROUP BY ?item ?itemLabel ?lemma

@@ -1,0 +1,15 @@
+#title: Check P106 when exists
+# Complex constraint from [[Property talk:P5661]]
+#
+SELECT ?item ?occupation {
+  ?item p:P5661 [].
+  ?item wdt:P106 ?occupation.
+  FILTER (?occupation NOT IN (wd:Q2374149, wd:Q81096, wd:Q1234713, wd:Q201788, wd:Q40348))
+  FILTER NOT EXISTS { ?occupation wdt:P279* wd:Q901 }
+  FILTER NOT EXISTS { ?occupation wdt:P279* wd:Q11974939 } # to exclude Q105186
+  FILTER NOT EXISTS { ?occupation wdt:P279* wd:Q16727193 } # to exclude Q201788
+  FILTER NOT EXISTS { ?occupation wdt:P279* wd:Q482980 }
+  FILTER NOT EXISTS { ?occupation wdt:P279* wd:Q201788 } # to exclude Q1792450
+  FILTER NOT EXISTS { ?item p:P268 [] }
+  FILTER NOT EXISTS { ?item p:P496 [] }
+}

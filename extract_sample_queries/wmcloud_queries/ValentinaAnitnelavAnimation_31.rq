@@ -1,0 +1,41 @@
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#number of animated films by year
+#defaultView:BarChart
+SELECT (STR(?minDate) AS ?year) (COUNT(DISTINCT ?item) AS ?itemCount) ?filmType WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  {
+    SELECT DISTINCT ?item (MIN(YEAR(?date)) AS ?minDate) ?filmType WHERE {
+        {
+          ?item ((wdt:P31|wdt:P136)/wdt:P279*) wd:Q202866; (wdt:P577|wdt:P2754) ?date.
+        } UNION {
+          ?item ((wdt:P31|wdt:P136)/wdt:P279*) wd:Q1107; (wdt:P577|wdt:P2754) ?date.
+        } 
+        MINUS { ?item (wdt:P31/wdt:P279*) wd:Q24856. }
+        MINUS { ?item (wdt:P31/wdt:P279*) wd:Q5398426. }
+        OPTIONAL {
+          {?item (wdt:P31/wdt:P279*) wd:Q24869. } UNION {
+          ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+          FILTER(?duration >= 2700)
+        }
+          BIND("feature" AS ?filmT)
+        }
+        OPTIONAL {
+          {?item (wdt:P31/wdt:P279*) wd:Q24862. } UNION {
+          ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+          FILTER(?duration < 2700)
+        }
+          BIND("short" AS ?filmT)
+        }
+      BIND(IF(!BOUND(?filmT),"unknown",?filmT) AS ?filmType)
+    }
+    GROUP BY ?item ?filmType
+  }
+  FILTER(BOUND(?minDate))
+}
+GROUP BY ?minDate ?filmType

@@ -1,0 +1,1 @@
+SELECT*{?place wdt:P31 wd:Q2074737;wdt:P6 ?mayor}

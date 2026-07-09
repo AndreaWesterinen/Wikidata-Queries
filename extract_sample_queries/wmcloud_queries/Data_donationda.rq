@@ -1,0 +1,13 @@
+embed.html##defaultView:Map
+SELECT distinct ?site ?siteLabel  ?location
+
+WHERE { 
+  
+  ?site wdt:P1435 wd:Q9259 . 
+  ?site wdt:P625 ?location .
+  
+  
+SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}

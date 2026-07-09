@@ -1,0 +1,4 @@
+SELECT ?lexemeId ?usage_example WHERE {
+  ?lexemeId <http://purl.org/dc/terms/language> wd:Q9056;
+    wdt:P5831 ?usage_example.
+}

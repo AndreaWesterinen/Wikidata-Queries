@@ -1,0 +1,23 @@
+SELECT 
+	?series
+	?seriesLabel
+	?ep_ct_actual 
+	?ep_ct_should
+	( ROUND( ?ep_ct_actual / ?ep_ct_should * 100 ) as ?pc)
+WHERE
+{
+	{
+  		SELECT 
+			?series ?ep_ct_should 
+			(COUNT(?episode) AS ?ep_ct_actual)
+		WHERE
+		{
+  			?episode wdt:P31 wd:Q21191270 .
+  			?episode wdt:P179 ?series . 
+	  		?series wdt:P1113 ?ep_ct_should . 
+		}
+		GROUP BY ?series ?ep_ct_should
+	}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC(?pc)

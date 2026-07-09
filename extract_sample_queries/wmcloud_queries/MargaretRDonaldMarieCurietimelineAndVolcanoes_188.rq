@@ -1,0 +1,9 @@
+# AusLichen taxa without taxon authors or ex taxon authors
+SELECT ?item ?itemLabel ?taxon_name ?ausLichen  WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P9093 ?ausLichen.
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  MINUS {{?stat pq:P405 ?taxon_author.} UNION {?stat pq:P697 ?extaxon.}}
+}
+ORDER BY ?taxon_name

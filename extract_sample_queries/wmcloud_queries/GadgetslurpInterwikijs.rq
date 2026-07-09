@@ -1,0 +1,12 @@
+select *
+
+with {
+  select * {
+    [] schema:name ?pagename .
+  } limit 3000000
+} as %subset
+
+where {
+  include %subset
+  filter (regex(str(?pagename), ":[^ ].*\\(.*\\)")) .
+} order by str(?pagename)

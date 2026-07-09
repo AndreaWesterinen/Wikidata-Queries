@@ -1,0 +1,19 @@
+#Makers with works in collection of museums whose work is represented by Pictoright who have died less than 70 years ago or are still alive
+SELECT ?maker ?makerLabel ?born ?died WHERE {
+  ?maker wdt:P31 wd:Q5 .              # human
+  ?maker wdt:P6379 wd:Q679527 .       # has works in collection: Boijmans van Beuningen
+  ?maker wdt:P6275 wd:Q71528227 .     # copyright representative = CISAC
+OPTIONAL {
+  ?maker wdt:P569 ?born .             # date of birth
+  }
+
+BIND(NOW() AS ?date)
+FILTER (?born >= "1800-01-01T00:00:00Z"^^xsd:dateTime)
+OPTIONAL { ?maker wdt:P570 ?died. }
+FILTER(!BOUND(?died) || ?date < ?died || ?died >= "1949-01-01T00:00:00Z"^^xsd:dateTime) # alive or dead less than 70 years ago
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl,en".} 
+}
+
+GROUP BY ?maker ?makerLabel ?born ?died ?copyrightrep
+ORDER BY ASC(?born)

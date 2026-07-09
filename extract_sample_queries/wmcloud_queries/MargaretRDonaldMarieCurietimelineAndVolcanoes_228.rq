@@ -1,0 +1,14 @@
+# American writers with institution count
+
+SELECT ?writer ?writerLabel ?sex ?sexLabel ?birthdate WHERE
+{  
+   ?writer wdt:P27 wd:Q30.
+   ?writer wdt:P106 ?occ.
+   VALUES ?occ {wd:Q36180 wd:Q6625963 wd:Q49757 wd:Q214917}    # occupations
+   ?writer wdt:P21 ?sex.              # their sex
+   ?writer wdt:P569 ?birthdate.       # birthdate
+  
+       
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?writer ?writerLabel ?sexLabel

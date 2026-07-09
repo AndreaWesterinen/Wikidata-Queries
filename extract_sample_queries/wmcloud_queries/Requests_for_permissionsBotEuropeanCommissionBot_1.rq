@@ -1,0 +1,7 @@
+SELECT * WHERE {
+ ?s wdt:P31 wd:Q3914 .
+ ?s wdt:P11012 ?o .
+ SERVICE <https://query.linkedopendata.eu/sparql> {
+      ?project <https://linkedopendata.eu/prop/direct/P889> ?o
+    }
+}

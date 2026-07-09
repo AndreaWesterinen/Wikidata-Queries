@@ -1,3 +1,4 @@
+#title: The number of statements by DOI
 SELECT ?doi (COUNT (?entry) as ?entries)
 {
   ?entry ?p ?statement .

@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item WHERE { ?item wdt:P2889 []; wikibase:identifiers 1; wikibase:sitelinks 0 }

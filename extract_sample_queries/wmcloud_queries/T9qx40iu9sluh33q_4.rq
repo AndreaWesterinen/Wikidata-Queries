@@ -1,0 +1,16 @@
+# If you remove the VALUES block (line 8) and remove the # before the HAVING clause (line 15),
+# you get a query that would find all classes on Wikidata where the corresponding fictional class has more instances than the real class.
+# However, that query would take *ages* to complete – certainly longer than the 30 s timeout on WDQS.
+# With the VALUES clause, you can try out classes manually, and see how many real and fictional instances they have.
+SELECT ?realClass ?fictionalClass ?realClassLabel (COUNT(DISTINCT ?realItem) AS ?realCount) (COUNT(DISTINCT ?fictionalItem) AS ?fictionalCount)
+WHERE
+{
+  VALUES ?realClass { wd:Q146 }
+  ?fictionalClass wdt:P1074 ?realClass.
+  ?realItem wdt:P31/(wdt:P279|wdt:P171)* ?realClass.
+  ?fictionalItem wdt:P31/(wdt:P279|wdt:P171)* ?fictionalClass.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?realClass ?fictionalClass ?realClassLabel
+#HAVING(?fictionalCount > ?realCount)
+ORDER BY DESC(?fictionalCount)

@@ -1,0 +1,7 @@
+SELECT ?group (COUNT(?item) as ?ct) 
+{
+	?item wdt:P7859 ?value .
+    bind( REPLACE ( ?value, "^(lccn|viaf|np)-.+$", "$1") as ?group ) 
+}
+GROUP BY ?group
+ORDER BY ?ct

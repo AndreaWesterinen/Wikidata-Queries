@@ -1,0 +1,17 @@
+# Canton du Québec
+SELECT ?item ?itemLabel ?dtFondation 
+WHERE {
+    { ?item wdt:P31/wdt:P279* wd:Q23019040 }  
+    OPTIONAL {?item wdt:P571 ?dtFondation} .
+    BIND( year(?dtFondation) as ?year ).
+    BIND( month(?dtFondation) as ?month ).
+    BIND( day(?dtFondation) as ?day ).
+    FILTER( ?year != 1842) .
+    FILTER( ?month = 1) .
+    FILTER( ?day = 1) .
+    SERVICE wikibase:label {
+	    bd:serviceParam wikibase:language "fr" .
+	}
+} 
+ORDER BY (?regionLabel) 
+LIMIT 1100

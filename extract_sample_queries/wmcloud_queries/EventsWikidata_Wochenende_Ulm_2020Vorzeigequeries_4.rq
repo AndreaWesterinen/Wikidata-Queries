@@ -1,0 +1,19 @@
+embed.html#SELECT ?uninteresting WHERE {
+  # natural number
+  ?item p:P31 ?statement.
+  ?statement ps:P31 wd:Q21199.
+  # not said to be the same as another (e. g. 0.999…)
+  MINUS { ?item wdt:P460 ?duplicate. }
+  # with a numeric value
+  ?item wdt:P1181 ?value.
+  # that’s not unknown (e. g. Graham’s number)
+  FILTER(!wikibase:isSomeValue(?value))
+  # its successor
+  BIND(?value + 1 AS ?uninteresting)
+  # is neither linked in the P31 statement
+  MINUS { ?statement pq:P156 ?successor. }
+  # nor otherwise existing
+  MINUS { ?otherItem wdt:P1181 ?uninteresting. }
+}
+ORDER BY ASC(?value)
+LIMIT 1

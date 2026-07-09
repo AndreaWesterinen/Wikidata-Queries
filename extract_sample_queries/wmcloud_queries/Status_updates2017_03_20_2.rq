@@ -1,0 +1,14 @@
+#Scholarly articles with Wikimedia sitelinks
+SELECT ?publication ?publicationLabel ?sitelinks WITH {
+  SELECT ?publication (COUNT(?sitelink) as ?sitelinks) WHERE
+  {
+    ?publication wdt:P31 wd:Q13442814 . #scientific articles
+    {?sitelink schema:about ?publication . } #sitelinks
+  }
+  GROUP BY ?publication
+} AS %results WHERE {
+  INCLUDE %results.
+  FILTER (?sitelinks > 1)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?sitelinks)

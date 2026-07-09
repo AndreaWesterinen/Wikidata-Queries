@@ -1,0 +1,8 @@
+#title: Number of genus membership in Wikidata for amphipods
+SELECT ?item ?itemLabel
+WHERE {
+  ?item wdt:P105 wd:Q7432.
+  ?item wdt:P138 wd:Q114711027.
+   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

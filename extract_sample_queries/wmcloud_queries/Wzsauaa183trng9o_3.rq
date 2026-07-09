@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel WHERE {
+  
+  ?item p:P971 ?s1, ?s2 filter(?s1 != ?s2) .
+  ?s1 ps:P971 ?tema .
+  ?s2 ps:P971 ?tema .
+  
+}

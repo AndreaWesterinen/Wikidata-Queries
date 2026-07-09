@@ -1,0 +1,5 @@
+SELECT ?item
+{
+  ?item wdt:P31 ?a.
+}
+LIMIT 100

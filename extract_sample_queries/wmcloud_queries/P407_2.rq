@@ -1,0 +1,4 @@
+#title: conflict with company
+# Complex constraint from [[Property talk:P407]]
+# instances of [[d:Q783794|company <small>(Q783794)</small>]] should not use this property. Generally, companies don't have a language.
+SELECT DISTINCT ?item WHERE { ?item wdt:P407 []; wdt:P31/wdt:P279* wd:Q783794 }

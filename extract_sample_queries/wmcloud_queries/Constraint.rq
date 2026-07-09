@@ -1,0 +1,14 @@
+SELECT ?property ?propertyLabel ?constraintTypeLabel (GROUP_CONCAT(?exceptionLabel; separator = "; ") AS ?exceptionLabels) WHERE {
+  ?property p:P2302 ?constraint.
+  ?constraint ps:P2302 ?constraintType;
+              pq:P2316 wd:Q21502408;
+              pq:P2303 ?exception.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?property rdfs:label ?propertyLabel.
+    ?constraintType rdfs:label ?constraintTypeLabel.
+    ?exception rdfs:label ?exceptionLabel.
+  }
+}
+GROUP BY ?property ?propertyLabel ?constraint ?constraintTypeLabel
+ORDER BY ?property ?constraintTypeLabel

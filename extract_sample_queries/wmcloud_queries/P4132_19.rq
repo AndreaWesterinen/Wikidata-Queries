@@ -1,0 +1,8 @@
+#title: Use instead of P31/P279
+# Complex constraint from [[Property talk:P4132]]
+# values used with this property shouldn't be in P31/P279
+SELECT ?item ?value 
+{
+	?item wdt:P4132 ?value ; ( wdt:P31 \u007C wdt:P279 )  ?value . 
+}
+LIMIT 100

@@ -1,0 +1,18 @@
+SELECT ?alcaldessa ?alcaldessaLabel ?carrec ?carrecLabel ?municipiLabel ?comarcaLabel ?inici ?fi
+    WHERE {
+      ?alcaldessa wdt:P31 wd:Q5.
+      ?alcaldessa wdt:P21 wd:Q6581072.
+      ?alcaldessa wdt:P39 ?carrec.
+      ?carrec wdt:P279 wd:Q5663900.
+      ?carrec wdt:P1001 ?municipi.
+      ?municipi wdt:P31 wd:Q33146843.
+      ?municipi wdt:P131 ?comarca.
+      VALUES ?comarquesiaran {wd:Q937876 wd:Q19920968}
+      ?comarca wdt:P31 ?comarquesiaran.
+      OPTIONAL {?carrec pq:P580 ?inici.}
+      OPTIONAL {?carrec pq:P582 ?fi.}
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ca,en" .
+    }
+    }
+ORDER BY ?comarcaLabel ?municipiLabel

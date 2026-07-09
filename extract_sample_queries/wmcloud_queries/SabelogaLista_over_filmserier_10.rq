@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?utgivningsdatum WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,". }
+  ?item wdt:P179 wd:Q3516380.
+  OPTIONAL { ?item wdt:P577 ?utgivningsdatum. }
+}
+ORDER BY (?utgivningsdatum)

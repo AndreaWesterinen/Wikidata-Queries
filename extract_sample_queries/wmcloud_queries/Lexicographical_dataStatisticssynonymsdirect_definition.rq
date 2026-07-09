@@ -1,0 +1,19 @@
+SELECT ?item ?v (GROUP_CONCAT( replace(str(?a),"^http://www.wikidata.org/entity/(.*)$",CONCAT("[[Lexeme:$1","|",?lemmata,"]] <sup>(",?lgs,")</sup>"))) as ?lemmas) (COUNT(?a) as ?ct_l)
+{
+  {
+    SELECT ?a (GROUP_CONCAT(DISTINCT ?lemma; SEPARATOR="/") as ?lemmata) (COUNT(DISTINCT ?tr) as ?ct) (GROUP_CONCAT(DISTINCT ?lg; SEPARATOR="/") as ?lgs) {
+      ?a wikibase:lemma ?lemma ; ontolex:sense / wdt:P5973 ?tr .
+      OPTIONAL { ?a dct:language/wdt:P305 ?lg_ }
+      BIND(IF(BOUND(?lg_),?lg_,LANG(?lemma)) as ?lg)
+      FILTER NOT EXISTS { ?a wikibase:lexicalCategory wd:Q102786 }
+      FILTER ( ?a NOT IN ( wd:L123, wd:L1234) )
+    } GROUP BY ?a HAVING(?ct>2) ORDER BY DESC(?ct) LIMIT 100
+  }
+  { 
+    SELECT ?item ?v {
+      ?item wdt:P31 wd:Q21199; wdt:P1181 ?v .
+      FILTER (?v<1000)
+    }
+  }
+  FILTER(str(?ct) = str(?v))
+} GROUP BY ?item ?v ORDER BY DESC(?v)

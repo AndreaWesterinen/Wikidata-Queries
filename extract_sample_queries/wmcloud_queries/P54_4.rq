@@ -1,0 +1,11 @@
+#title: College player with no education details
+# Complex constraint from [[Property talk:P54]]
+# Anyone who was a member of a team which is part of a [[d:Q2367225|university and college sports club <small>(Q2367225)</small>]] should also have an [[Property:P69|educated at&#32;<small dir="ltr">(P69)</small>]] statement.
+SELECT ?item WHERE 
+{
+  ?item wdt:P54 ?team.
+  ?team wdt:P831 ?club.
+  ?club wdt:P31 wd:Q2367225.
+  OPTIONAL { ?item wdt:P69 ?college. }
+  FILTER(!BOUND(?college))
+}

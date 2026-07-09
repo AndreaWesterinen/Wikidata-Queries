@@ -1,0 +1,11 @@
+#defaultView:Graph
+#Co-author network of journal articles on Zika virus or Zika fever
+select ?author1 ?author1Label ?image ?author2 where {
+  ?item wdt:P31 wd:Q13442814 .
+{ ?item wdt:P921 wd:Q202864 . } UNION { ?item wdt:P921 wd:Q8071861 . }
+  ?item wdt:P50 ?author1 ;
+        wdt:P50 ?author2 .
+  optional { ?author1 wdt:P18 ?image . }
+  filter not exists { filter (?author1 = ?author2) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

@@ -1,0 +1,6 @@
+SELECT ?item  ?article ?itemLabel WHERE {
+  ?item ^schema:about ?article .
+  ?article schema:isPartOf <https://ar.wikipedia.org/> .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "ar" }
+}
+limit 1000 offset 250000

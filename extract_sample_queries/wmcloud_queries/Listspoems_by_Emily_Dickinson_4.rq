@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?itemDescription ?number ?firstline ?ws ?wp ?st ?sl ?manuscript ?scan
+{
+	?item wdt:P50 wd:Q4441 .   
+	?item wdt:P31 wd:Q5185279 . 
+	OPTIONAL { ?sta pq:P972 wd:Q75717597 . ?sta ps:P528 ?number . ?item p:P528 ?sta }
+	OPTIONAL { ?item wdt:P1922 ?firstline }
+	OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikisource.org/> ; schema:name ?name1 . BIND(CONCAT("[[s:",?name1,"|","ws]]") as ?ws) }
+	OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?name2 . BIND(CONCAT("[[w:",?name2,"|","wp]]") as ?wp) }
+	OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl }
+    OPTIONAL { ?item p:P18 [ pq:P3831 wd:Q87167 ; ps:P18 ?manuscript ] } 
+    OPTIONAL { ?item p:P996 ?sst . ?sst ps:P996 ?scanimage . OPTIONAL { ?sst pq:P1106 ?pnb } OPTIONAL { ?sst pq:P7668 ?pnb2 } OPTIONAL { ?sst pq:P4714 ?pnb3 } . BIND(COALESCE(?pnb, ?pnb2, ?pnb3,  1) as ?scanp) . 
+              BIND( CONCAT("[[",REPLACE(str(?scanimage),"http://commons.wikimedia.org/wiki/Special:FilePath/","File:"),"\u007C","page=",str(?scanp),"\u007C","18px","\u007C","center]]") as ?scan) }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY DESC(BOUND(?number)) xsd:integer(?number) ?itemLabel

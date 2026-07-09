@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?idurl WHERE {
+  wd:P4704 wdt:P1630 ?formatterurl .
+  ?item wdt:P195 wd:Q1192305 .
+  ?item wdt:P31 wd:Q3305213 .
+  { ?item wdt:P571 ?inception .
+   BIND(year(?inception) as ?inceptionyear) .
+   } UNION {
+    MINUS { ?item wdt:P571 [] } . 
+    ?item wdt:P170 ?creator . 
+    ?creator wdt:P569 ?dob .
+    ?creator wdt:P570 ?dod . 
+    BIND(((year(?dod) - year(?dob))/2 + year(?dob)) as ?inceptionyear) .
+    } UNION {
+    MINUS { ?item wdt:P571 [] } . 
+    ?item wdt:P170 ?creator . 
+    MINUS { ?creator wdt:P570 [] }
+    ?creator wdt:P569 ?dob .
+    BIND((year(?dob) + 50) as ?inceptionyear) .
+    }
+  OPTIONAL { ?item wdt:P4704 ?id }.
+  BIND(REPLACE(?id, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?idurl)  .
+  FILTER((2000 <= ?inceptionyear && ?inceptionyear < 2100))
+} LIMIT 4000

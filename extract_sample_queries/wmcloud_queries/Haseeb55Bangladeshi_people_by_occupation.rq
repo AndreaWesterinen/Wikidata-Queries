@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item 
+{
+	{ ?item wdt:P106 wd:Q177220 } UNION { ?item wdt:P106 wd:Q753110 } UNION { ?item wdt:P106 wd:Q2643890 } UNION { ?item wdt:P106 wd:Q1294626 } UNION { ?item wdt:P106 wd:Q639669 } UNION { ?item wdt:P106 wd:Q822146 } UNION { ?item wdt:P106 wd:Q36834 } UNION { ?item wdt:P106 wd:Q1755412 }
+	?item wdt:P27 wd:Q902 .
+	FILTER NOT EXISTS { ?item wdt:P106 wd:Q33999 }
+    FILTER NOT EXISTS { ?item wdt:P106 wd:Q10798782 }
+    FILTER NOT EXISTS { ?item wdt:P106 wd:Q10800557 }
+    FILTER NOT EXISTS { ?item wdt:P106 wd:Q2259451 }
+    FILTER NOT EXISTS { ?item wdt:P106 wd:Q49757 }
+    FILTER NOT EXISTS { ?item wdt:P106 wd:Q1930187 }
+}
+LIMIT 5000

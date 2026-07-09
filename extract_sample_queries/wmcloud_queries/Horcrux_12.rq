@@ -1,0 +1,6 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P508 ?bncf_id .
+  FILTER NOT EXISTS {?x rdfs:label ?label FILTER (lang(?label) = "it") . }
+ }
+LIMIT 100000

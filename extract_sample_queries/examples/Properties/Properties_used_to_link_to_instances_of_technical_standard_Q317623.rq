@@ -1,5 +1,4 @@
-# ----
-# Properties used to link to instances of technical standard
+#title: Properties used to link to instances of technical standard
 SELECT DISTINCT ?propertyRel ?propertyItem ?propertyItemLabel WHERE
 {
    ?item ?propertyRel ?standard.

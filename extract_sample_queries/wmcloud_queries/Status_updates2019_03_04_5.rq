@@ -1,0 +1,5 @@
+SELECT ?personLabel ?pronoun
+WHERE {
+  ?person wdt:P6553 [wikibase:lemma ?pronoun].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

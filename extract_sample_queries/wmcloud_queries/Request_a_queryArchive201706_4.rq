@@ -1,0 +1,76 @@
+SELECT
+      (min(?dateYear) AS     ?dateYears)
+#      (group_concat(distinct     ?dateYear ; separator = ", ") AS     ?dateYears)
+      (group_concat(distinct  ?gameENLabel ; separator = ", ") AS  ?gameENLabels)
+      (group_concat(distinct  ?gameJALabel ; separator = ", ") AS  ?gameJALabels)
+      (group_concat(distinct  ?hepbJALabel ; separator = ", ") AS  ?hepbJALabels)
+      (group_concat(distinct   ?genreLabel ; separator = ", ") AS   ?genreLabels)
+      (group_concat(distinct     ?devLabel ; separator = ", ") AS     ?devLabels)
+      (group_concat(distinct     ?pubLabel ; separator = ", ") AS     ?pubLabels)
+      (group_concat(distinct    ?platLabel ; separator = ", ") AS    ?platLabels)
+      (group_concat(distinct     ?dataLink ; separator = ", ") AS     ?dataLinks)
+      #(?game AS ?dataPages)
+      (group_concat(distinct     ?wikiLink ; separator = ", ") AS     ?wikiLinks)
+      (group_concat(distinct     ?wikiName ; separator = ", ") AS     ?wikiNames)
+      (group_concat(distinct     ?cooLabel ; separator = ", ") AS     ?cooLabels)
+      WHERE {
+        # test values
+#        VALUES ?game {
+#          wd:Q4850488
+#          wd:Q4931588
+#          wd:Q5315330
+#          wd:Q5250229
+#          wd:Q1462499
+#        }
+        ?game wdt:P31 wd:Q7889.             # instance of video game
+              {?game wdt:P136 wd:Q744038}   # RPG
+        UNION {?game wdt:P136 wd:Q1529437}  # tactical RPG
+        UNION {?game wdt:P136 wd:Q1422746}  # action RPG
+        UNION {?game wdt:P136 wd:Q1143132}  # roguelikes
+        ?game rdfs:label ?gameENLabel.
+        FILTER(LANG(?gameENLabel) = "en").  # we want English labels
+        BIND(CONCAT("=hyperlink(\"",replace(replace(STR(?game), "entity", "wiki"), "http", "https"),"\")") AS ?dataLink).    # changes the target of the URL and creates a MS Excel compatible hyperlink
+#        BIND(STR(?game) AS ?dataLink)    # shorter substitute
+        OPTIONAL {
+          ?game rdfs:label ?gameJALabel.
+          FILTER(LANG(?gameJALabel) = "ja").  # we want Japanese labels
+        }
+        OPTIONAL {
+          ?wikiURL schema:about ?game.
+          ?wikiURL schema:isPartOf <https://en.wikipedia.org/>.
+          ?wikiURL schema:name ?wikiName.
+          BIND(CONCAT("=hyperlink(\"",STR(?wikiURL),"\")") AS ?wikiLink).    # creates a MS Excel compatible hyperlink
+#          BIND(STR(?wikiURL) AS ?wikiLink)    # shorter substitute
+        }
+        OPTIONAL {
+          ?game wdt:P136 ?genre.
+          ?genre rdfs:label ?genreString.
+          FILTER(?genre != wd:Q744038).
+          FILTER(LANG(?genreString) = "en").
+          BIND(CONCAT(UCASE(SUBSTR(?genreString, 1, 1)), SUBSTR(?genreString, 2)) AS ?genreLabel).    # makes the first character in the string upper case
+#          BIND(STR(?genreString) AS ?genreLabel)    # shorter substitute
+        }
+        OPTIONAL {
+          ?game wdt:P495 ?country.      # country of origin
+          ?country wdt:P297 ?cooLabel.  # abbreviation
+        }
+        OPTIONAL {?game wdt:P178  ?developer}
+        OPTIONAL {?game wdt:P123  ?publisher}
+        OPTIONAL {?game wdt:P400   ?platform}
+        OPTIONAL {?game wdt:P2125   ?hepburn}
+        OPTIONAL {?game wdt:P577       ?date}
+        ?game ?boogie ?whaat.    # too slow
+        OPTIONAL {?whaat rdf:type ?typeOfStatementNode}    # too slow
+        BIND(IF(?typeOfStatementNode = IRI("http://www.wikidata.org/prop/novalue/P577"), "no value", YEAR(?date)) as ?dateYear).    # too slow
+#        BIND(YEAR(?date) AS ?dateYear)    # shorter substitute
+        SERVICE wikibase:label {
+          bd:serviceParam wikibase:language "en".
+          ?developer rdfs:label     ?devLabel.
+          ?publisher rdfs:label     ?pubLabel.
+           ?platform rdfs:label    ?platLabel.
+            ?hepburn rdfs:label  ?hepbJALabel.
+        }
+      }
+    GROUP BY $game
+    ORDER BY asc (?dateYears) ASC (?gameENLabels)
+#    limit 100

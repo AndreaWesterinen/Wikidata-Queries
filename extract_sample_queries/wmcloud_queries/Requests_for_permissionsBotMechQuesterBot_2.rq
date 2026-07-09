@@ -1,0 +1,5 @@
+#defaultView:Map
+SELECT ?item ?coord {
+  ?item wdt:P421 wd:Q6985;
+        wdt:P625 ?coord .
+}

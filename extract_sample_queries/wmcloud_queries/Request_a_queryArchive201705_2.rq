@@ -1,0 +1,8 @@
+SELECT DISTINCT ?country ?countryLabel ?office ?officeLabel 
+WHERE {    
+  ?country wdt:P31 wd:Q6256 .            # for all countries
+  ?office wdt:P279* wd:Q2285706 ;        #   find any subclass of "head of government"
+          wdt:P1001 ?country .           #   with that jurisdiction  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY ?countryLabel ?officeLabel

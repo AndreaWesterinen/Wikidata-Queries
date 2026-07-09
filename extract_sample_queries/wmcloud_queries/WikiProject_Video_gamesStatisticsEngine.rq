@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel (CONCAT('[[Wikidata:WikiProject Video games/Reports/Engine/', ?itemLabel,']]') as ?link) (COUNT(?game) as ?count) WHERE {
+  ?game (wdt:P31/wdt:P279*) wd:Q7889.
+  OPTIONAL { ?game wdt:P408 ?item. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel
+ORDER BY DESC(?count)

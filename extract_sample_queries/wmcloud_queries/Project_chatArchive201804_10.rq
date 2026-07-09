@@ -1,0 +1,7 @@
+SELECT ?item ?taxonName WHERE {
+  ?item p:P225 ?taxon .
+  ?taxon ps:P225 ?taxonName .
+  ?taxon prov:wasDerivedFrom ?ref .
+  ?ref pr:P248 wd:Q51526638 .
+}
+ORDER BY ASC(?taxonName)

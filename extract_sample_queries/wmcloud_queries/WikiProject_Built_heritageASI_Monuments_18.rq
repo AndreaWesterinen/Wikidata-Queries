@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?img ?asi WHERE {
+  ?item wdt:P1435 wd:Q17047615.
+  ?item wdt:P17 wd:Q668.
+  OPTIONAL { ?item wdt:P625 ?coord. }
+  OPTIONAL { ?item wdt:P18 ?img. }
+  OPTIONAL { ?item wdt:P1371 ?asi. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

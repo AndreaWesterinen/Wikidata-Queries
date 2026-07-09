@@ -1,0 +1,2 @@
+#title:Add new claim P21:Q6581097
+SELECT DISTINCT ?item WHERE { ?item wdt:P31 wd:Q8441}

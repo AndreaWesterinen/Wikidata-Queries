@@ -1,0 +1,25 @@
+#Embassies and consulates
+#defaultView:Table
+SELECT DISTINCT
+	(SAMPLE(?country_label) as ?country)   (SAMPLE(?city_label) as ?city)   (SAMPLE(?address) as ?address) (SAMPLE(?coordinates) as ?coordinates)
+	(SAMPLE(?operator_label) as ?operator) (SAMPLE(?type_label) as ?type)   (SAMPLE(?phone) as ?phone)     (SAMPLE(?email) as ?email)
+	(SAMPLE(?website) as ?website)         (SAMPLE(?image) as ?image)       ?wikidata
+	(SAMPLE(?facebook) as ?facebook) (SAMPLE(?twitter) as ?twitter) (SAMPLE(?youtube) as ?youtube) (SAMPLE(?inception) as ?inception) (SAMPLE(?dissolvedOrAbolished) as ?dissolvedOrAbolished)
+WHERE {
+	{ ?wikidata p:P31/ps:P31/wdt:P279* wd:Q3917681. } UNION { ?wikidata wdt:P31 wd:Q7843791. } # Embassy or consulate
+	?wikidata p:P31/ps:P31 ?typeId. ?typeId rdfs:label ?type_label. filter (lang(?type_label) = "en").
+	OPTIONAL {?wikidata wdt:P131*/wdt:P17 ?countryId. ?countryId rdfs:label ?country_label. filter (lang(?country_label) = "en").}
+	OPTIONAL {?wikidata wdt:P131 ?cityId. ?cityId rdfs:label ?city_label. filter (lang(?city_label) = "en").}
+	OPTIONAL {?wikidata wdt:P969 ?address.}
+	OPTIONAL {?wikidata wdt:P625 ?coordinates.}
+	OPTIONAL {?wikidata wdt:P137 ?operatorId. ?operatorId rdfs:label ?operator_label. filter (lang(?operator_label) = "en").}
+	OPTIONAL {?wikidata wdt:P1329 ?phone.}
+	OPTIONAL {?wikidata wdt:P968 ?email.}
+	OPTIONAL {?wikidata wdt:P856 ?website.}
+	OPTIONAL {?wikidata wdt:P2013 ?facebook.}
+	OPTIONAL {?wikidata wdt:P2002 ?twitter.}
+	OPTIONAL {?wikidata wdt:P2397 ?youtube.}
+	OPTIONAL {?wikidata wdt:P18 ?image.}
+  	OPTIONAL {?wikidata wdt:P571 ?inception.}
+	OPTIONAL {?wikidata wdt:P576 ?dissolvedOrAbolished.}
+} GROUP BY ?wikidata ORDER BY ASC(?country) ASC(?city) ASC(?operator) DESC(?type)

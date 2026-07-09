@@ -1,0 +1,2 @@
+#title:Change values:
+SELECT DISTINCT ?item WHERE { ?item wdt:P21 wd:Q6581097; wdt:P106 wd:Q322170 }

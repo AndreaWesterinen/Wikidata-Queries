@@ -1,0 +1,5 @@
+SELECT ?item WHERE { 
+  ?item wdt:P170 wd:Q44032 .
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P31 wd:Q15727816 } .
+  } LIMIT 2000

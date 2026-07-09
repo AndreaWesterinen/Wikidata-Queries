@@ -1,0 +1,5 @@
+SELECT ?item
+WHERE
+{
+  	{ ?item wdt:P31 wd:Q93455943 }
+} order by ?start

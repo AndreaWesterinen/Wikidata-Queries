@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?country ?office 
+WHERE { 
+  ?country wdt:P31 wd:Q3624078 ; wdt:P1313 ?office . 
+  ?office wdt:P1308 ?item . 
+  ?item wdt:P21 wd:Q6581072 .
+}

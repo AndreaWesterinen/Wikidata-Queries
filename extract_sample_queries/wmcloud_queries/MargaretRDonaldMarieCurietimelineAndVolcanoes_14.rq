@@ -1,0 +1,11 @@
+#defaultView:Graph
+#SELECT ?item1 ?item1Label ?item2 ?item2Label ?paper WHERE {
+SELECT ?item1 ?item1Label ?item2 ?item2Label WHERE {
+  ?e wdt:P361* wd:Q487556.
+  ?item1 wdt:P108 ?e.
+  ?item2 wdt:P108 ?e.
+  ?paper wdt:P50 ?item1 .
+  ?paper wdt:P50 ?item2 .
+FILTER( ?item1 != ?item2 ) .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

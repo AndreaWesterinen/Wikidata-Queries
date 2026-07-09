@@ -1,4 +1,4 @@
-# ----
+#title: ATMs around Munich belonging to the Bankcard-Servicenetz interbank network (federated query)
 #defaultView:Map{"hide":["?atm","?geometry"], "layer": "?bankLabel"}
 
 PREFIX lgdo: <http://linkedgeodata.org/ontology/>

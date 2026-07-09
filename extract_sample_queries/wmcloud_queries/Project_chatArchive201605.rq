@@ -1,0 +1,6 @@
+SELECT ?item ?itemlabel ?part_of ?subclass_of WHERE {
+  ?item wdt:P31 wd:Q2465832.
+  OPTIONAL { ?item wdt:P361 ?part_of. }
+  OPTIONAL { ?item wdt:P279 ?subclass_of. }
+  OPTIONAL { ?item rdfs:label ?itemlabel filter (lang(?itemlabel) = "en") .}
+}

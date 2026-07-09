@@ -1,0 +1,28 @@
+embed.html##defaultView:Map{"hide":["?location", "?century", "?layer"]}
+SELECT DISTINCT ?church ?churchLabel (SAMPLE(?location) AS ?location) (SAMPLE(?image) AS ?image) (SAMPLE(?year) AS ?year) (SAMPLE(?century) AS ?century) (SAMPLE(?layer) AS ?layer)
+WHERE {
+ {?church wdt:P31/wdt:P279* wd:Q16970 ; wdt:P625 ?location}   
+   UNION  
+  {?church wdt:P31/wdt:P279* wd:Q44613  ; wdt:P625 ?location}
+?church wdt:P571 ?date
+          OPTIONAL {?church wdt:P18 ?image}
+  BIND (YEAR(?date) AS ?year)
+  BIND( CEIL(?year/100) as ?century )
+  FILTER (?year > 400 && ?year < 1500).
+   BIND(
+    IF(?century <6, "5th",
+    IF(?century <7, "6th",
+    IF(?century <8, "7th",
+    IF(?century <9, "8th",
+    IF(?century <10, "9th",
+    IF(?century <11, "10th",
+    IF(?century <12, "11th",
+    IF(?century <13, "12th",
+    IF(?century <14, "13th",
+    IF(?century <15, "14th",
+    IF(?century <16, "15th",
+        " ")))))))))))
+    AS ?layer).
+             SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?church ?churchLabel

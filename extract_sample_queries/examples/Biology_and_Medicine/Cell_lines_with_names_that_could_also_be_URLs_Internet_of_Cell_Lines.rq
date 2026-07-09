@@ -1,3 +1,4 @@
+#title: Cell lines with names that could also be URLs (Internet of Cell Lines).
 SELECT * WHERE {
   {
     SELECT ?cell_line ?cell_line_name WHERE {

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q486972 ;
+     wdt:P31 wd:Q1134686 .
+}

@@ -1,0 +1,6 @@
+SELECT ?l ?lemma ?wsjp WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ; ontolex:sense ?sense.
+  ?language wdt:P218 'pl'.
+  ?sense wdt:P6084 wd:Q268
+} ORDER BY ?lemma

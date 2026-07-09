@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?title ?link
+WHERE 
+{
+  ?item wdt:P735 wd:Q58827213.
+  ?article schema:about ?item; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?title
+  (CONCAT('[[', STR(?title), ']]') AS ?link)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

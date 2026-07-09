@@ -1,0 +1,1 @@
+SELECT ?item ?p571 ?subj WHERE {  { ?item wdt:P180 wd:Q39715 } UNION { ?item wdt:P180 ?subj . ?subj wdt:P31 wd:Q39715 } OPTIONAL { ?item wdt:P571 ?p571 }  }  ORDER BY ?p571

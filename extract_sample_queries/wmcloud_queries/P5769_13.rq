@@ -1,0 +1,10 @@
+#title: Properties
+# Complex constraint from [[Property talk:P5769]]
+#
+SELECT ?item ?value {
+	?item wdt:P5769 ?value.
+	FILTER NOT EXISTS { ?value p:P106 [] }
+	FILTER NOT EXISTS { ?value p:P39 [] }
+	FILTER NOT EXISTS { ?value p:P214 [] } 
+  FILTER (ISBLANK(?value) = false)
+}

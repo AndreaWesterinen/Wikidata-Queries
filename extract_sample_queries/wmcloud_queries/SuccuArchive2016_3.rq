@@ -1,0 +1,11 @@
+SELECT ?item ?taxonName ?commonName ?itemLabel WHERE {
+  ?item wdt:P225 ?taxonName .
+  ?item wdt:P1843 ?commonName .
+  FILTER(LANG(?commonName) = 'cy' )
+  SERVICE wikibase:label {
+  bd:serviceParam wikibase:language "cy" .
+  ?item rdfs:label ?itemLabel .
+  }
+  FILTER(!REGEX(SUBSTR(?itemLabel,1, 2), "\\p{Lu}"))
+} 
+ORDER BY ASC(?taxonName)

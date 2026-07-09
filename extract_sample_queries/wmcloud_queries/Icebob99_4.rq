@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription ?website ?image WHERE {
+  ?item wdt:P138 wd:Q762.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+  OPTIONAL { ?item wdt:P856 ?website }
+  OPTIONAL { ?item wdt:P18 ?image }
+}

@@ -1,0 +1,10 @@
+SELECT ?day (COUNT(DISTINCT ?person) AS ?count)
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          wdt:P27 wd:Q30;
+          p:P569/psv:P569 [ wikibase:timeValue ?day; wikibase:timePrecision 11 ].
+}
+GROUP BY ?day
+ORDER BY DESC(?count)
+LIMIT 10

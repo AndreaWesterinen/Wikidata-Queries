@@ -1,0 +1,9 @@
+#All places (with coordinates) that gave its name to something
+#defaultView:Map
+SELECT ?place ?placeLabel ?item ?itemLabel ?coord
+WHERE
+{
+	?item wdt:P138 ?place .
+	?place wdt:P625 ?coord .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

@@ -1,0 +1,9 @@
+SELECT ?q ?born ?died {
+  ?q p:P569 ?s_born .
+  ?q p:P570 ?s_died .
+  ?s_born ps:P569 ?born .
+  ?s_died ps:P570 ?died .
+  ?s_born prov:wasDerivedFrom/pr:P248 wd:Q17299517 .
+  ?s_died prov:wasDerivedFrom/pr:P248 wd:Q17299517 .
+  FILTER ( YEAR(?born)=YEAR(?died) )
+  }

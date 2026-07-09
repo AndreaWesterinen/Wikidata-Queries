@@ -1,0 +1,8 @@
+SELECT ?flag ?depicted ?flagLabel ?depictedLabel ?image WHERE {
+  ?flag wdt:P31/wdt:P279* wd:Q186516;
+        wdt:P180 ?depicted.
+  VALUES ?astronomical { wd:Q8928 wd:Q523 } ?depicted wdt:P31?/wdt:P279* ?astronomical.
+  OPTIONAL { ?flag wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?flagLabel

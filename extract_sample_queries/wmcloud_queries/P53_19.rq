@@ -1,0 +1,8 @@
+#title: Value shouldn't be an item for a family name
+# Complex constraint from [[Property talk:P53]]
+# TODO: split the items, use another value/move statement to P734
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P753 ?fn . ?fn wdt:P31 wd:Q101352 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

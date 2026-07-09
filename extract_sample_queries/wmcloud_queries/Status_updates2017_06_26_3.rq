@@ -1,0 +1,10 @@
+# Most prolific authors of scientific articles, who are still alive, without ORCID
+SELECT ?author ?authorLabel (count(?paper) AS ?papers) {
+  ?paper wdt:P31 wd:Q13442814 . 
+  ?paper wdt:P50 ?author .
+  ?author wdt:P31 wd:Q5 .
+  MINUS { ?author wdt:P496 [] } .
+  MINUS { ?author wdt:P570 [] } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?author ?authorLabel ORDER BY DESC(?papers)

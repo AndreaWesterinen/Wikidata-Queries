@@ -1,0 +1,11 @@
+SELECT 
+  ?item     ?itemLabel 
+  ?kinship  ?kinshipLabel 
+  ?gp       ?gpLabel
+  ?father   ?mother 
+WHERE 
+{
+    {
+      VALUES ?kinship { wd:Q167918  } 
+      ?item p:P1038 [ ps:P1038 ?gp; pq:P1039 ?kinship ]
+      FILTER NOT EXISTS { ?item (wdt:P22

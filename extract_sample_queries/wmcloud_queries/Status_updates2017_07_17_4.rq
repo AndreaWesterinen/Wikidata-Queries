@@ -1,0 +1,24 @@
+#defaultView:Map
+
+PREFIX lgdo: <http://linkedgeodata.org/ontology/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX geom: <http://geovocab.org/geometry#>
+PREFIX bif: <bif:>
+
+SELECT ?railwayThing ?geometry (SAMPLE(?label) AS ?label) ?layer WHERE {
+  SERVICE <http://linkedgeodata.org/sparql> {
+    ?railwayThing a lgdo:RailwayThing;
+                  geom:geometry [ geo:asWKT ?geometry ].
+    FILTER(bif:st_intersects(?geometry, bif:st_point(13.383333, 52.516667), 0.1))
+    OPTIONAL { ?railwayThing rdfs:label ?label. }
+    OPTIONAL { ?railwayThing a lgdo:Subway. BIND("subway"@en AS ?subway) }
+    OPTIONAL { ?railwayThing a lgdo:Rail. BIND("rail"@en AS ?rail) }
+    OPTIONAL { ?railwayThing a lgdo:LightRail. BIND("light rail"@en AS ?lightrail) }
+    OPTIONAL { ?railwayThing a lgdo:Tramway. BIND("tramway"@en AS ?tramway) }
+    OPTIONAL { ?railwayThing a lgdo:Platform. BIND("platform"@en AS ?platform) }
+    OPTIONAL { ?railwayThing a lgdo:AbandonedRailway. BIND("abandoned railway"@en AS ?abandoned) }
+    OPTIONAL { ?railwayThing a lgdo:HistoricThing. BIND("historic"@en AS ?historic) }
+  }
+  BIND(COALESCE(?subway, ?lightrail, ?rail, ?tramway, ?platform, ?abandoned, ?historic, "other"@en) AS ?layer)
+}
+GROUP BY ?railwayThing ?geometry ?layer

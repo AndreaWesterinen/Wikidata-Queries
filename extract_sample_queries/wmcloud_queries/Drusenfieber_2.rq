@@ -1,0 +1,40 @@
+SELECT ?item ?itemLabel ?fb_url ?fb_follower ?twitter_url ?twitter_follower ?researchGate_url ?web_url ?linkedIn_url ?insta_url WHERE {
+  ?item wdt:P101 wd:Q1026962. # field of work is digital humanities
+  FILTER EXISTS{?item wdt:P31 ?anything.} # is an instance of something
+  FILTER NOT EXISTS{
+    ?item wdt:P31 wd:Q5.}     # is not a human
+  OPTIONAL{?item wdt:P856 ?web_url.} # official website
+  OPTIONAL{
+    ?item p:P2002 ?twitter_statement.
+    # ?twitter = Twitter username
+    ?twitter_statement ps:P2002 ?twitter;
+                       pq:P3744 ?twitter_follower.
+    # ?twitter_format = String to create a url out of a username "https://twitter.com/$1"
+    wd:P2002 wdt:P1630 ?twitter_format. 
+    # ?twitter_url = ?twitter_format, replaced $1 with ?twitter
+    BIND(IRI(REPLACE(?twitter_format, '\\$1', ?twitter)) AS ?twitter_url) . 
+  }
+  OPTIONAL{                   # Facebook profile
+    ?item p:P2013 ?fb_statement.
+    ?fb_statement ps:P2013 ?fb.
+    OPTIONAL {?fb_statement pq:P3744 ?fb_follower.}
+    wd:P2013 wdt:P1630 ?fb_format.
+    BIND(IRI(REPLACE(?fb_format, '\\$1', ?fb)) AS ?fb_url) .
+  }
+  OPTIONAL{
+    ?item wdt:P2740 ?researchGate.
+    wd:P2740 wdt:P1630 ?researchGate_format.
+    BIND(IRI(REPLACE(?researchGate_format, '\\$1', ?researchGate)) AS ?researchGate_url) .
+  }
+  OPTIONAL{
+    ?item wdt:P4264 ?linkedIn.
+    wd:P4264 wdt:P1630 ?linkedIn_format.
+    BIND(IRI(REPLACE(?linkedIn_format, '\\$1', ?linkedIn)) AS ?linkedIn_url) .
+  }
+  OPTIONAL{ # Instagram
+    ?item wdt:P2003 ?insta.
+    wd:P2003 wdt:P1630 ?insta_format.
+    BIND(IRI(REPLACE(?insta_format, '\\$1', ?insta)) AS ?insta_url) .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+}

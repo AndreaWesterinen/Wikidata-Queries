@@ -1,0 +1,9 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?coord WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P131 wd:Q15963338.
+  OPTIONAL {  }
+  ?item wdt:P31 wd:Q19658107.
+  OPTIONAL { ?item wdt:P625 ?coord. }
+}
+LIMIT 100

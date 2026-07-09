@@ -1,0 +1,8 @@
+SELECT ?item ?downloadurl WHERE {
+  ?item p:P4765/ps:P4765 ?downloadurl ;
+        wdt:P170 wd:Q4233718 ;
+        wdt:P571 ?inception . 
+  BIND(YEAR(?inception) AS ?inceptionyear)
+  FILTER(?inceptionyear < 1890) .
+  } 
+  LIMIT 15000

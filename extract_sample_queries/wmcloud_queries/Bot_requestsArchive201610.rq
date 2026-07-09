@@ -1,0 +1,9 @@
+SELECT ?film ?filmLabel ?qty ?item ?itemLabel
+{ 
+  	VALUES ?item { wd:Q199  } . 
+	?film wdt:P31 wd:Q11424 . 
+	?film p:P2047/psv:P2047 ?runningtime_det . 
+    ?runningtime_det wikibase:quantityUnit ?item . 
+    ?runningtime_det wikibase:quantityAmount ?qty . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

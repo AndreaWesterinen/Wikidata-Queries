@@ -1,0 +1,17 @@
+SELECT
+	?item ?itemLabel ?itemDescription 
+	?part1 ?part1Label ?st1 
+	?part2 ?part2Label ?st2
+{
+	?item wdt:P31/wdt:P279* wd:Q10648343 . 
+  	?item wdt:P527 ?part1 .
+  	?item wdt:P527 ?part2 . 
+  	FILTER(str(?part1) < str(?part2) )
+	FILTER NOT EXISTS { ?item wdt:P31 wd:Q2301325 }
+  	?part1 wdt:P31 wd:Q5 .
+	?part2 wdt:P31 wd:Q5 .   
+	?part1 wikibase:statements ?st1 .
+	?part2 wikibase:statements ?st2 .  
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}	ORDER BY ASC(?st1) 
+LIMIT 1000

@@ -1,0 +1,10 @@
+#title: categories with "category's main topic" (P301)-value that lacks "country" (P17)
+# Complex constraint from [[Property talk:P10280]]
+# todo: TBD
+SELECT DISTINCT ?item ?hc ?country
+WHERE
+{
+  ?place wdt:P10280 ?item ; wdt:P17 ?country.
+  ?item wdt:P301 ?hc.
+  MINUS { ?hc wdt:P17 ?country }
+}

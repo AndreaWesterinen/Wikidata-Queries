@@ -1,0 +1,3 @@
+SELECT ?item ?links {
+  ?item wdt:P31 wd:Q11266439; wikibase:sitelinks ?links .
+} ORDER BY DESC(?links) LIMIT 10

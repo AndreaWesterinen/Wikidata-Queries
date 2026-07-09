@@ -1,0 +1,11 @@
+SELECT 
+  (wd:Q5 as ?item)
+  ("Q167918" as ?in)
+  ("Q7566" as ?out)
+  (COUNT(DISTINCT ?item) as ?all)
+  (0 as ?with)
+WHERE 
+{
+    {
+      VALUES ?kinship { wd:Q167918  } ?item p:P1038 [ ps:P1038 ?gp; pq:P1039 ?kinship ]
+      FILTER NOT EXISTS { ?item (wdt:P22

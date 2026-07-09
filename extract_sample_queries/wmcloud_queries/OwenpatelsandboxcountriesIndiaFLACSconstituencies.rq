@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?council WHERE { 
+  {?item wdt:P31/wdt:P279* wd:Q11774263 }
+  UNION
+  {?item wdt:P31/wdt:P279* wd:Q22692216 ;
+         wdt:P17 wd:Q668 }
+  ?item wdt:P31 ?type .
+  ?type p:P279 ?statement .
+  OPTIONAL {?statement pq:P642 ?council}
+  MINUS { ?item wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

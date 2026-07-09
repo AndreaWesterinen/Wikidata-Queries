@@ -1,0 +1,5 @@
+SELECT ?ordklasse ?ordklasseLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?ordklasse wdt:P31 wd:Q82042.
+}
+LIMIT 100

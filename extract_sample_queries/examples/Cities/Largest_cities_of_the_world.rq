@@ -1,3 +1,4 @@
+#title: Largest cities of the world
 #defaultView:BubbleChart
 SELECT ?cityLabel ?population ?gps
 WITH {

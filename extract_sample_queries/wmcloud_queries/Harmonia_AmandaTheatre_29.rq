@@ -1,0 +1,16 @@
+SELECT DISTINCT ?name ?name_label ?originalname ?original_lang ?original_search ?search
+WHERE {
+  ?name wdt:P31/wdt:P279* wd:Q101352 ;
+        wdt:P31 ?nature ;
+        wdt:P1705 ?originalname .
+  FILTER NOT EXISTS { ?item wdt:P734 ?name . }
+  
+  BIND(LANG(?originalname) AS ?original_lang) .
+
+  ?name rdfs:label ?name_label . FILTER(LANG(?name_label) = "en") .
+  BIND (URI(CONCAT("https://www.wikidata.org/w/index.php?title=Special%3ASearch&search=", STR(?originalname))) AS ?original_search) .
+  BIND (URI(CONCAT("https://www.wikidata.org/w/index.php?title=Special%3ASearch&search=", STR(?name_label))) AS ?search) .
+}
+GROUP BY ?name ?name_label ?originalname ?original_lang ?original_search ?search
+HAVING((COUNT(?nature) = 1) && (COUNT(?originalname) = 1))
+ORDER BY ?original_lang ?name_label

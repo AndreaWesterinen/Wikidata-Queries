@@ -1,0 +1,15 @@
+#title: Northernmost should be North of southernmost
+# Complex constraint from [[Property talk:P1332]]
+# correct where needed. FIXME: allow for exceptions based on "applies to part" qualifier. Compare with [[Wikidata:Database reports/Complex constraint violations/P1334#Easternmost should be east of westernmost|Easternmost should be east of westernmost]]
+SELECT DISTINCT ?item ?itemLabel ?summary
+WHERE
+{
+  ?item p:P1332 ?st .
+  ?st psv:P1332 [ wikibase:geoLatitude ?lat ; wikibase:geoLongitude ?lon ] .
+  ?item p:P1333 ?st2 .
+  ?st2 psv:P1333 [ wikibase:geoLatitude ?lat2 ; wikibase:geoLongitude ?lon2 ] .
+  FILTER ( ?lat < ?lat2 )
+  BIND ( CONCAT(str(?lat), " < ", str(?lat2) )  as ?summary)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 50

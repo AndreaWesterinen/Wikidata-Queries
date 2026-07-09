@@ -1,0 +1,23 @@
+# Bridges named after women
+# Adapted from https://www.wikidata.org/wiki/Wikidata:Request_a_query#bridges_named_after_women by MisterSynergy , Jura1 2016-12-03
+#defaultView:Map
+SELECT DISTINCT 
+	?bridge ?bridgeLabel 
+	?woman ?womanLabel 
+	?coor 
+	?country ?countryLabel 
+	?waterbody ?waterbodyLabel 
+	(BOUND(?enArticle) AS ?hasEn) (BOUND(?frArticle) AS ?hasFr) 
+WHERE
+{
+  ?bridge wdt:P31/wdt:P279* wd:Q12280;
+          wdt:P138 ?woman .
+  ?woman wdt:P21 wd:Q6581072 .
+  OPTIONAL {    ?bridge wdt:P17 ?country . }
+  OPTIONAL {	?bridge wdt:P177 ?waterbody . }
+  OPTIONAL {    ?enArticle a schema:Article;               schema:about ?woman;               schema:isPartOf <https://en.wikipedia.org/>. }
+  OPTIONAL {    ?frArticle a schema:Article;               schema:about ?woman;               schema:isPartOf <https://fr.wikipedia.org/>. }
+  OPTIONAL { ?bridge wdt:P625 ?coor }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr". }
+} 
+ORDER BY ?country

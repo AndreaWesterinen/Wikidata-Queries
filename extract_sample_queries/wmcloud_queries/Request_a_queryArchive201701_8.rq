@@ -1,0 +1,1 @@
+SELECT DISTINCT ?rank { [] wikibase:rank ?rank }

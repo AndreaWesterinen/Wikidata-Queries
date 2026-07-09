@@ -1,0 +1,7 @@
+#title: Cultural heritage monuments not [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] [[d:Q2065736|cultural property <small>(Q2065736)</small>]]
+# Complex constraint from [[Property talk:P2951]]
+# cultural heritage where is a Kulturgut was either not set or removed'' - this is nothing to fix, just to remember the query''
+SELECT ?monument ?monumentLabel WHERE {
+ ?monument wdt:P1435 wd:Q1188447;
+ FILTER NOT EXISTS { ?monument wdt:P31 wd:Q2065736 }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }

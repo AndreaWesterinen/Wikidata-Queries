@@ -1,0 +1,32 @@
+#List dates of creation
+SELECT DISTINCT ?entity ?entityLabel ?entityDescription ?title
+(GROUP_CONCAT(DISTINCT ?contribNr ; separator = " -- ") as ?ContributionNr)
+?dateGregorian ?dateGregorianLabel ?precision ?year ?month ?day 
+?locationOfCreationLabel
+?ppn ?KBcatURL
+
+WHERE {?entity wdt:P31 wd:Q81564326;wdt:P361 wd:Q72752496 .  
+      
+       OPTIONAL{?entity p:P1476/ps:P1476 ?title.}
+       
+       #https://www.wikidata.org/wiki/Property_talk:P569#Wrong_uses_as_birthday
+       #https://en.wikibooks.org/wiki/SPARQL/WIKIDATA_Precision,_Units_and_Coordinates#Time
+       OPTIONAL{?entity p:P571/psv:P571 [wikibase:timeValue ?dateGregorian; wikibase:timePrecision ?precision].}
+       
+       OPTIONAL{?entity p:P1343 [ps:P1343 wd:Q82260552; pq:P958 ?contribNr].}
+       
+       BIND(xsd:integer(YEAR(?dateGregorian)) as ?year).
+       # If ?precision <= 9 // accuracy = year, decade (or lower)
+       # then : MM =0, DD=0
+       BIND(IF(?precision<=9,0,xsd:integer(MONTH(?dateGregorian))) AS ?month).
+       # If ?precision <= 10 // accuracy = month, year of lower
+       # then : DD=0       
+       BIND(IF(?precision<=10,0,xsd:integer(DAY(?dateGregorian))) AS ?day).
+
+       OPTIONAL{?entity p:P1071/ps:P1071 ?locationOfCreation.}
+       OPTIONAL{?entity p:P528/ps:P528 ?ppn; p:P973/ps:P973 ?KBcatURL.}
+                #FILTER(STRSTARTS(?KBcatURL, "https://opc-kb.oclc.org")).
+       
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
+GROUP BY  ?entity ?entityLabel ?entityDescription ?title ?dateGregorian ?dateGregorianLabel ?precision ?year ?month ?day ?locationOfCreationLabel ?ppn ?KBcatURL
+order by ?ContributionNr

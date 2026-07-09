@@ -1,0 +1,13 @@
+SELECT distinct ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P1938 ?GId .          # has a Gutenberg ID
+  ?item wdt:P21 wd:Q6581072 .     # is female
+  ?item wdt:P27 ?UK               # UK citizenship
+  VALUES ?UK {wd:Q174193 wd:Q145} # in the broadest sense
+  ?work wdt:P50 ?item .           # author of a work
+  ?work wdt:P577 ?date.           # which has a publication date
+  FILTER("1836-00-00"^^xsd:dateTime <= ?date &&
+         ?date < "1902-00-00"^^xsd:dateTime)  # between these two dates
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

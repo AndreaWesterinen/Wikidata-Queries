@@ -1,3 +1,4 @@
+#title: Rock bands that start with "M"
 SELECT ?band ?bandLabel
 WHERE
 {

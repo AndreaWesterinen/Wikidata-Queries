@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item ?name ?q ?q1 {
+
+  {SELECT (GROUP_CONCAT(?expr ; separator="

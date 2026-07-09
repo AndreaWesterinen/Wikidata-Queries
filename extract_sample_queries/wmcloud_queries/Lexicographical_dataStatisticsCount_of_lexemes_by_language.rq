@@ -1,0 +1,10 @@
+PREFIX llemma:   <http://wikiba.se/ontology#lemma>
+
+SELECT ?item (count(?l) as ?count) (SAMPLE(lang(?lem)) as ?lang)
+WHERE
+{
+   ?l a ontolex:LexicalEntry ; dct:language ?item .
+   ?l llemma: ?lem .                                   
+} 
+group by ?item 
+order by desc(?count)

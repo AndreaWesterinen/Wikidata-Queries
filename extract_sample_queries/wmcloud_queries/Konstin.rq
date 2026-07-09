@@ -1,0 +1,32 @@
+# This query finds all github projects that have mutliple release dates for one version
+
+PREFIX schema: <http://schema.org/>
+
+SELECT ?projectLabel ?project ?version ?count ?repo ?article WHERE {
+  {
+    SELECT ?project ?version ?repo ?article (COUNT (?date) AS ?count) WHERE {
+      # Free Software projects
+      ?project p:P31/ps:P31 wd:Q341.
+
+      ?project wdt:P1324 ?repo.
+
+      # Get Version and the corresponding date
+      ?project p:P348 [
+        pq:P577 ?date;
+        ps:P348 ?version
+      ].
+
+      # Exclude projects not hosted on github
+      FILTER(STRSTARTS(STR(?repo), "https://github.com")).
+
+      # Get the corresponding wikipedia page
+      ?article schema:about ?project .
+      ?article schema:inLanguage "en" .
+      ?article schema:isPartOf <https://en.wikipedia.org/>
+    }
+    GROUP BY ?project ?version ?repo ?article
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  FILTER (?count > 1).
+}
+ORDER BY DESC(?count)

@@ -1,0 +1,15 @@
+embed.html##defaultView:BubbleChart
+SELECT ?occupation ?occupationLabel ?count WITH {
+  SELECT ?occupation (COUNT(DISTINCT ?person1) AS ?count) WHERE {
+    wd:Q5 ^wdt:P31 ?person1, ?person2, ?person3, ?person4, ?person5.
+    ?person1 wdt:P22|wdt:P25 ?person2.
+    ?person2 wdt:P22|wdt:P25 ?person3.
+    ?person3 wdt:P22|wdt:P25 ?person4.
+    ?person4 wdt:P22|wdt:P25 ?person5.
+    ?occupation ^wdt:P106 ?person1, ?person2, ?person3, ?person4, ?person5.
+  }
+  GROUP BY ?occupation ?occupationLabel
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,67 @@
+#defaultView:Timeline
+SELECT DISTINCT ?t ?value  ?valueLabel ?rrLabel  ?rr (SAMPLE(?image) as ?img)
+WHERE
+{
+  VALUES ?person {wd:Q76480}
+  {?person wdt:P570 ?death . 
+   ?person ?prop ?t FILTER (datatype(?t)=xsd:dateTime) FILTER (?t <= ?death) .
+   ?value wikibase:directClaim ?prop. }
+  UNION
+  {
+   ?person ?q ?statement  FILTER regex (STR(?q),"prop/P") . #exclude P:describedBy
+   ?person wdt:P570 ?death . 
+   ?statement ?p ?t FILTER regex (STR(?p), "prop/qualifier/P") FILTER (datatype(?t)=xsd:dateTime) FILTER (?t <= ?death).
+   ?statement ?r ?value FILTER regex (STR(?r),"prop/statement/") .
+   BIND(IRI(CONCAT(CONCAT(SUBSTR(STR(?r),1,29),"direct/"),SUBSTR(STR(?r),40))) as ?rprop) 
+   ?rr wikibase:directClaim ?rprop .
+   OPTIONAL {?value wdt:P18 ?image}
+  }
+  UNION { # author of / creator of
+   ?value wdt:P50|wdt:P98|wdt:P655|wdt:P1773|wdt:P170|wdt:P178|wdt:P57|wdt:P161 ?person .
+   ?person wdt:P570 ?death .
+   ?person wdt:P569 ?birth .
+   ?value wdt:P571|wdt:P577|wdt:P580 ?t . 
+         #FILTER ((?t <= ?death) &&(?t >= ?birth))
+          FILTER NOT EXISTS {?value wdt:P136 wd:Q7553 .}
+   #FILTER NOT EXISTS {?value wdt:P629 ?x } 
+   #FILTER NOT EXISTS {?person wdt:P800 ?value } .
+   OPTIONAL {?value wdt:P1433 ?rr .} 
+   OPTIONAL {?value wdt:P18 ?image .}
+  }
+#  UNION #Notable Works
+#  {
+#   ?person wdt:P800 ?rr ;
+#           wdt:P570 ?death ;
+#           wdt:P569 ?birth .
+#   ?rr  wdt:P577|wdt:P571|wdt:P1191 ?t FILTER ((?t <= ?death)&&(?t >= ?birth)).
+#   OPTIONAL {?rr wdt:P18 ?image .}
+#  }
+    UNION #discoverer or inventor
+  {
+   ?rr wdt:P61|wdt:P138 ?person .
+   ?person wdt:P570 ?death ;
+           wdt:P569 ?birth .
+   ?rr wdt:P575|wdt:P571|wdt:P585 ?t FILTER ((?t <= ?death)&&(?t >= ?birth)).
+   OPTIONAL {?rr wdt:P18 ?image .}
+  }
+   UNION #architect
+  {
+   ?rr wdt:P84 ?person .
+   ?person wdt:P570 ?death ;
+           wdt:P569 ?birth .
+   ?rr wdt:P571|wdt:P1619 ?t FILTER ((?t <= ?death)&&(?t >= ?birth)).
+   OPTIONAL {?rr wdt:P18 ?image .}
+  }
+  UNION #composer
+  {
+   ?rr wdt:P86|wdt:P138 ?person .
+   ?person wdt:P570 ?death ;
+           wdt:P569 ?birth .
+   ?rr wdt:P571|wdt:P1191|wdt:P577 ?t 
+       FILTER ((?t <= ?death)&&(?t >= ?birth)).
+   OPTIONAL {?rr wdt:P18 ?image .}
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, de, fr, de, ru". }
+} GROUP BY ?t ?value ?rr ?rrLabel ?valueLabel
+ORDER BY ?t

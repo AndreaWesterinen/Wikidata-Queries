@@ -1,0 +1,7 @@
+SELECT ?nature ?natureLabel (COUNT(?nature) AS ?count) WHERE {
+  ?item wdt:P31 ?nature ;
+        wdt:P641 wd:Q38108 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }
+GROUP BY ?nature ?natureLabel
+ORDER BY DESC (?count)

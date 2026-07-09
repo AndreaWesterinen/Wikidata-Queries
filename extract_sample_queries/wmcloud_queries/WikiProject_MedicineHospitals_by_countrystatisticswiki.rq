@@ -1,0 +1,43 @@
+SELECT DISTINCT ?item ?itemLabel 
+  ?ct (ROUND( 100 * ?ct / ?all ) as ?pc_all)  ?all 
+  ?ct1 (ROUND( 100 * ?ct1 / ?allunique ) as ?pc_allunique) ?allunique ?sample (CONCAT("[[:",?lang,":",?ib,"|",strafter(?ib,":"),"]]") as ?ib1) 
+WITH
+{  SELECT (COUNT( DISTINCT ?a ) as ?all) { ?a wdt:P31/wdt:P279* wd:Q16917 } } as %inc
+WITH
+{  SELECT (COUNT( DISTINCT ?a1 ) as ?allunique) {   ?a1 wdt:P31/wdt:P279* wd:Q16917 . { ?a1 wikibase:sitelinks 0} UNION {?a1 wikibase:sitelinks 1} } } as %inc2
+WITH
+{  SELECT ?ib ?lang ?wiki {  [] schema:about wd:Q5618337 ; schema:isPartOf  ?wiki ; schema:name ?ib  ; schema:inLanguage ?lang } } as %ib  
+WHERE
+{
+    INCLUDE %inc 
+    INCLUDE %inc2            
+    {
+    {
+        SELECT ?wiki (COUNT(DISTINCT ?lh) as ?ct)
+        WHERE
+        {
+    	  ?lh wdt:P31/wdt:P279* wd:Q16917 .
+    	  [] schema:about ?lh ; schema:isPartOf ?wiki
+        }
+	    GROUP BY ?wiki
+        HAVING(?ct > 9 )
+	}    
+	OPTIONAL {
+        SELECT ?wiki (COUNT(DISTINCT ?lh) as ?ct1) (SAMPLE(?lh) as ?sample)
+        WHERE
+        {
+    	  ?lh wdt:P31/wdt:P279* wd:Q16917 .
+          ?lh wikibase:sitelinks 1 .
+    	  [] schema:about ?lh ; schema:isPartOf ?wiki
+        }
+	    GROUP BY ?wiki
+        HAVING(?ct1 > 0 )
+	}
+	?item wdt:P856 ?wiki .
+    OPTIONAL { include %ib } 
+    } UNION { SELECT (wd:Q31747418 as ?item) (COUNT( DISTINCT ?b ) as ?ct) (?ct as ?ct1) (SAMPLE(?b) as ?sample) { ?b wdt:P31/wdt:P279* wd:Q16917 ; wikibase:sitelinks 0 } } 
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC (?ct)
+LIMIT 100

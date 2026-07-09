@@ -1,0 +1,14 @@
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+SELECT ?depute ?deputeLabel ?deces ?causeLabel
+WHERE {
+  ?depute wdt:P31 wd:Q5 .
+  ?depute p:P39 ?mandat .
+  ?depute wdt:P570 ?deces .
+  OPTIONAL { ?depute wdt:P509 ?cause . }
+  ?mandat v:P39 wd:Q3044918 .
+  ?mandat q:P582 ?fin .
+  FILTER (?fin = ?deces)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}
+ORDER BY DESC(?deces)

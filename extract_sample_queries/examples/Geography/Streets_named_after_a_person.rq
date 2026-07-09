@@ -1,3 +1,4 @@
+#title: Streets named after a person
 SELECT ?street ?streetLabel ?cityLabel ?personLabel
 WHERE
 {

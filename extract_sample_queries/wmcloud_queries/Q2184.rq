@@ -1,0 +1,12 @@
+#title: RSFSR is used as death place qualifier value for people dead before 1922-12-30
+# Complex constraint from [[Property talk:Q2184]]
+# Items with [[Property:P17|country&#32;<small dir="ltr">(P17)</small>]] qualifier of [[Property:P20|place of death&#32;<small dir="ltr">(P20)</small>]] equal to [[d:Q2184|Russian Soviet Federative Socialist Republic <small>(Q2184)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] before 1922-12-30
+SELECT DISTINCT ?item WHERE {
+    ?item p:P570/psv:P570 ?node .
+    ?node wikibase:timeValue ?dead .
+    ?node wikibase:timePrecision ?precision .
+    ?item wdt:P19 ?deathPlace .
+    ?deathPlace pq:P17 wd:QQ2184 .
+    FILTER (?dead < "1922-12-30T00:00:00Z"^^xsd:dateTime)
+    FILTER (?precision >= "9"^^xsd:integer)
+  }

@@ -1,0 +1,6 @@
+embed.html##defaultView:Map
+SELECT ?Stolperstein ?StolpersteinLabel ?geographische_Koordinaten WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Stolperstein wdt:P31 wd:Q26703203.
+  OPTIONAL { ?Stolperstein wdt:P625 ?geographische_Koordinaten. }
+}

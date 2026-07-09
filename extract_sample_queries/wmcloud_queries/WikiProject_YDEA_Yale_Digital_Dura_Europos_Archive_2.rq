@@ -1,0 +1,6 @@
+SELECT ?object ?objectLabel ?place ?coordinate WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?object wdt:P189 wd:Q464266, ?place.
+  ?place wdt:P625 ?coordinate.
+}
+LIMIT 20000

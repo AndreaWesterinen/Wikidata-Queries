@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemAltLabel ?itemDescription ?ord ?P31ord
+{
+	?item wdt:P31/wdt:P279* wd:Q10291405 . 
+    OPTIONAL { ?item wdt:P1545 ?ord }
+    OPTIONAL { ?item p:P31/pq:P1545 ?P31ord }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,es" }
+}
+ORDER BY DESC(BOUND(?ord)) xsd:integer(?ord) xsd:integer(?P31ord)

@@ -1,0 +1,5 @@
+#IMO number
+SELECT ?item ?itemLabel ?imo WHERE {
+  ?item wdt:P5006 ?imo.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}

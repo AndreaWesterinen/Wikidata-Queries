@@ -1,0 +1,15 @@
+SELECT (GROUP_CONCAT(CONCAT("|",?dist,"=",str(?count))) as ?all)
+WITH
+{  
+  SELECT ?dist (COUNT(?item) as ?count)
+  {
+	?item wdt:P964 ?value .
+    BIND(IF(substr(?value,1, 1) = "9", "900", substr(?value,1, 3)) as ?dist)
+  }
+  GROUP BY ?dist
+  ORDER BY DESC(?dist)          
+} as %a
+WHERE
+{
+  INCLUDE %a
+}          

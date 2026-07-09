@@ -1,0 +1,6 @@
+#title: Identifiants incorrects
+# Complex constraint from [[Property talk:P1644]]
+# Identifiant correspondant à une église située dans un autre département
+SELECT ?item ?ID ?cp WHERE {
+?item wdt:P1644 ?ID . ?item wdt:P131 ?commune . ?commune wdt:P281 ?cp
+FILTER (SUBSTR(?ID, 0, 2) != SUBSTR(?cp, 0, 2))  }

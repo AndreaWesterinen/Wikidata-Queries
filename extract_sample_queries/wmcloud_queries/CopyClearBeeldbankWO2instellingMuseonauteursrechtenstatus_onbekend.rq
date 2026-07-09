@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?titel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q1954331.
+  FILTER NOT EXISTS {?item wdt:P7763 []}.
+   ?item p:P6379 [ ps:P6379 wd:Q1954331;
+                    prov:wasDerivedFrom 
+                    [ pr:P1476 ?titel;
+                    ]
+                  ].
+
+}

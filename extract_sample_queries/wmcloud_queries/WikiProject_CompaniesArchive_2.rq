@@ -1,0 +1,7 @@
+SELECT ?cooperative_bank ?cooperative_bankLabel ?common_equity_tier_1_capital_ratio__CETI_ WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?cooperative_bank wdt:P31 wd:Q3277997.
+  ?cooperative_bank wdt:P17 wd:Q183.
+  ?cooperative_bank wdt:P2663 ?common_equity_tier_1_capital_ratio__CETI_. 
+}
+LIMIT 100

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P3365/ps:P3365 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(([a-z0-9º]+(-[a-z0-9º]+)*)(_\\(Enciclopedia-Italiana\\)))$") )
+}

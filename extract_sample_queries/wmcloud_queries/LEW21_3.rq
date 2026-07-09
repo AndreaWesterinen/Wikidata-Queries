@@ -1,0 +1,3 @@
+SELECT ?subclass WHERE {
+  ?subclass ps:P279 wd:Q132241
+ }

@@ -1,0 +1,3 @@
+select * where {
+	?p wdt:P352 ?up .
+}

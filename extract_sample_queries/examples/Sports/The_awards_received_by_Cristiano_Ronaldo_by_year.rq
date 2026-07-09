@@ -1,3 +1,4 @@
+#title: The awards received by Cristiano Ronaldo by year
 SELECT ?entity ?desc (year(?date) as ?year) {
   wd:Q11571 p:P166 [ps:P166 ?entity ; pq:P585 ?date ]
   OPTIONAL { ?entity rdfs:label ?desc FILTER((LANG(?desc)) = "en") }

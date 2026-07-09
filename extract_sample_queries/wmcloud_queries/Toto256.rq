@@ -1,0 +1,7 @@
+SELECT ?logiciel ?logicielLabel ?date_de_publication WHERE {
+  ?logiciel (wdt:P31/wdt:P279*) wd:Q7397.
+  ?logiciel wdt:P400 wd:Q3356274.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?logiciel wdt:P577 ?date_de_publication. }
+} ORDER BY ?date_de_publication
+LIMIT 100

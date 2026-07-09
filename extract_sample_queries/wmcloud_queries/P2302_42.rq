@@ -1,0 +1,17 @@
+#title: "single-value constraint", "single-best-value constraint" and "multi-value constraint" are incompatible
+# Complex constraint from [[Property talk:P2302]]
+# Only one of the following constraints must be defined for a property: [[d:Q19474404|single-value constraint <small>(Q19474404)</small>]], [[d:Q52060874|single-best-value constraint <small>(Q52060874)</small>]] or [[d:Q21510857|multi-value constraint <small>(Q21510857)</small>]].
+SELECT ?item ?itemLabel WHERE {
+  {
+    SELECT ?item (COUNT(?item) AS ?count) WHERE {
+      VALUES ?constraints {
+        wd:Q19474404
+        wd:Q52060874
+        wd:Q21510857
+      }
+      ?item wdt:P2302 ?constraints
+    } GROUP BY ?item
+  }
+  FILTER (?count > 1).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

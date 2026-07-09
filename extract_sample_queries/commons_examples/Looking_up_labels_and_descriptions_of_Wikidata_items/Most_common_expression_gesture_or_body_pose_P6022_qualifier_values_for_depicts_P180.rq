@@ -1,0 +1,20 @@
+# Most common "expression, gesture or body pose" (P6022) qualifier values for "depicts" (P180)
+SELECT ?count ?value ?value_label ?example
+
+WITH { 
+  SELECT (COUNT(DISTINCT(?file)) AS ?count) ?value (SAMPLE(?file) AS ?example) WHERE {
+     ?file p:P180/pq:P6022 ?value . 
+  } GROUP BY ?value
+  ORDER BY DESC(?count)
+  LIMIT 2000           
+} AS %values
+ 
+WHERE {
+  INCLUDE %values .
+  service <https://query.wikidata.org/sparql> {
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". 
+                             ?value rdfs:label ?value_label.
+                           } 
+  }
+}
+ORDER BY DESC(?count) ?value_label

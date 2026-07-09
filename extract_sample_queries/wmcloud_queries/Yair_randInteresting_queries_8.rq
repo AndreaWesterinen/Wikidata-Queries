@@ -1,0 +1,6 @@
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?birth ?death WHERE {
+  ?item p:P569 [ ps:P569 ?birth; prov:wasDerivedFrom / pr:P248 wd:Q27893345 ];
+        p:P570 [ ps:P570 ?death; prov:wasDerivedFrom / pr:P248 wd:Q27893345 ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "he". }
+}

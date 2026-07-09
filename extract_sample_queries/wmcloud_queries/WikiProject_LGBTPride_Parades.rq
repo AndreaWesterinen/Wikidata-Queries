@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item { ?item (wdt:P31

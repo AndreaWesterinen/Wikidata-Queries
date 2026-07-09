@@ -1,0 +1,12 @@
+#title:"place of burial" (P119) of people with property "Saxon Academy of Sciences member ID" (P3411) statements
+#defaultView:Map{"hide":["?coordinates"]}
+SELECT DISTINCT ?person ?personLabel ?personDescription ?coordinates ?image ?value
+WHERE 
+{
+  ?person wdt:P3411 ?value ; wdt:P119/wdt:P625 ?coordinates.
+  hint:Query hint:optimizer "None".
+  OPTIONAL { ?person wdt:P18 ?image }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

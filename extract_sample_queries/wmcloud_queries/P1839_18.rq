@@ -1,0 +1,8 @@
+#title: Need country of citizenship or country
+# Complex constraint from [[Property talk:P1839]]
+#
+SELECT ?item ?value {
+	?item wdt:P1839 ?value.
+  FILTER NOT EXISTS { ?item wdt:P17 ?a }
+  FILTER NOT EXISTS { ?item wdt:P27 ?b }  
+}

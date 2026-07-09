@@ -1,0 +1,10 @@
+#defaultView:Graph
+#species named after US presidents
+SELECT ?item ?itemLabel ?pres ?presLabel ?image WHERE {
+  ?item wdt:P225 ?taxonName.
+  ?item wdt:P105 wd:Q7432.
+  ?item wdt:P138 ?pres.
+  ?pres wdt:P39 wd:Q11696.
+  ?pres wdt:P18 ?image.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

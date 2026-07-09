@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?inspire ?commons ?miejsceLabel WHERE {
+  ?item wdt:P3424 ?value .
+  ?item wdt:P17 wd:Q36 .
+  ?item wdt:P373 ?commons .
+  ?item wdt:P131 ?miejsce .
+  # zabytek = ma właściwośc "status dobra kultury"
+  ?item wdt:P1435 ?statusDobraKultury .    
+    # oraz ma INSPIRE ID
+#  ?item wdt:P4115 ?inspire . 
+  
+	FILTER NOT EXISTS { ?item   p:P18 [] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "pl,en" } .
+  }

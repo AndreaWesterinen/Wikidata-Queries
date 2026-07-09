@@ -1,0 +1,7 @@
+# Platges de Menorca
+SELECT ?item ?itemLabel ?longitudLabel ?itemDescription WHERE {
+  ?item wdt:P31*/wdt:P279* wd:Q40080.
+  ?item wdt:P131* wd:Q52636.
+  OPTIONAL { ?item wdt:P2043 ?longitud. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca". }
+}

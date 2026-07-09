@@ -1,0 +1,27 @@
+#All branches, except library buses, must have one pair of geo-coordinates P625
+#Branche must have one Open Street Map URL as reference for the coordinate location
+#Branche can have one optional value for elevation P2044
+
+SELECT DISTINCT 
+?item
+?itemLabel
+(GROUP_CONCAT(DISTINCT ?coor ; separator = " --- ") as ?Coordinates) 
+(GROUP_CONCAT(DISTINCT ?osm_url ; separator = " --- ") as ?OSM_URL)
+?osm_type #'node' or 'way'
+(GROUP_CONCAT(DISTINCT ?elevation ; separator = " --- ") as ?Elevation) 
+
+WHERE 
+{
+
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL {?item wdt:P625 ?coor.}  #coordinate location (P625)
+  OPTIONAL {?item p:P625 [prov:wasDerivedFrom [pr:P854 ?osm_url]] .}  #retrieve OSM url,  reference URL (P854)
+  BIND(STRBEFORE(STRAFTER(STR(?osm_url),"https://www.openstreetmap.org/"),"/") as ?osm_type)
+  OPTIONAL {?item wdt:P2044 ?elevation .} #elevation above sea level (P2044)
+  
+  SERVICE wikibase:label 
+  { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+}
+GROUP BY ?item ?itemLabel ?osm_type
+ORDER BY ASC(?OSM_URL)

@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item (CONCAT("[https://tools.wmflabs.org/scholia/author/", ENCODE_FOR_URI(?qid), "/missing ", "curate]") AS ?disambiguator) ?sitelinks WHERE {
+  {
+    SELECT DISTINCT ?item (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) ?sitelinks WHERE {
+      ?work wdt:P50 ?item.
+      ?work wdt:P2093 ?coauthor.
+      ?item wdt:P31 wd:Q5.
+      ?item wikibase:sitelinks ?sitelinks .
+    }
+    LIMIT 1000
+  }
+}
+ORDER BY DESC(?sitelinks)
+LIMIT 1000

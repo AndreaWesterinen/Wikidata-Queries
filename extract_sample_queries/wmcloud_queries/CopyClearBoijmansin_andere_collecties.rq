@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?collecties WHERE {
+  ?item wdt:P6379 wd:Q679527.
+  ?item wdt:P6379 ?collecties.
+  FILTER (?collecties NOT IN (wd:Q679527))
+#  ?item wdt:P6379 ?object1, ?object2 .
+#  FILTER ( ?object1 != ?object2 )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}
+ORDER BY ?item

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel
+{
+	?item wdt:Register nehnuteľných NKP ?value .
+	MINUS { ?item wdt:P1435 wd:Q960335 } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}

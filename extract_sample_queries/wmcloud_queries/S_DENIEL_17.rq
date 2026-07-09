@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?inv ?creator ?creatorLabel ?inception ?image WHERE {
+  ?item wdt:P131 wd:Q12193 .
+  ?item wdt:P31 wd:Q16970  .
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl,fr,es" .}
+  }

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel
+WHERE
+{
+  ?item schema:description "colour"@en.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

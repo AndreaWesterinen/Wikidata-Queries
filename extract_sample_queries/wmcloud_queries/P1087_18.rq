@@ -1,0 +1,8 @@
+#title: Elo ratings without proper source
+# Complex constraint from [[Property talk:P1087]]
+# Elo ratings that do not have either a link to ratings.fide.com or olimpbase.org. Particularly, "imported from" is not a proper source.
+SELECT ?item ?elo WHERE {
+  ?item p:P1087 ?s .
+  FILTER NOT EXISTS { ?s prov:wasDerivedFrom/(pr:P248|pr:P854) ?refHandle }
+  ?s ps:P1087 ?elo .
+}

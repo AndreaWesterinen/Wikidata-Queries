@@ -1,0 +1,13 @@
+bigdata/namespace/wdq/sparql?explain&query=PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?pres ?presLabel ?spouse ?spouseLabel WHERE {
+   ?pres wdt:P31 wd:Q5 .
+   ?pres wdt:P39 wd:Q11696 .
+   ?pres wdt:P26 ?spouse .
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }

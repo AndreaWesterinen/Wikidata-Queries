@@ -1,0 +1,44 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P21 wd:Q6581072 .
+  OPTIONAL { ?item wdt:P106 ?dummy0 }
+  FILTER(!bound(?dummy0))
+  OPTIONAL { ?item wdt:P569 ?dummy1 }
+  FILTER(!bound(?dummy1))
+  OPTIONAL { ?item wdt:P570 ?dummy2 }
+  FILTER(!bound(?dummy2))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es,pt,fr,de,it,zh,ja,ar,he" }
+{
+    ?item wdt:P1367 [] .
+} UNION {
+    ?item wdt:P245 [] .
+} UNION {
+    ?item wdt:P3544 [] .
+} UNION {
+    ?item wdt:P2741 [] .
+} UNION {
+    ?item wdt:P781 [] .
+} UNION {
+    ?item wdt:P1422 [] .
+} UNION {
+    ?item wdt:P1795 [] .
+} UNION {
+    ?item wdt:P650 [] .
+} UNION {
+    ?item wdt:P2268 [] .
+} UNION {
+    ?item wdt:P2538 [] .
+} UNION {
+    ?item wdt:P2252 [] .
+} UNION {
+    ?item wdt:P1248 [] .
+} UNION {
+    ?item wdt:P2174 [] .
+} UNION {
+    ?item wdt:P2432 [] .
+} UNION {
+    ?item wdt:P1615 [] .
+} UNION {
+    ?item wdt:P2843 [] .
+}
+}

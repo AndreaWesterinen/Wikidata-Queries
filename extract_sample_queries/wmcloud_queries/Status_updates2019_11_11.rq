@@ -1,0 +1,25 @@
+embed.html##defaultView:Map
+# minimum temperatures on Earth 
+# from https://www.wikidata.org/wiki/Property_talk:P7422
+SELECT ?degrees_Celsius ?degrees_Fahrenheit ?item ?itemLabel ?location ?locationLabel ?date ?coor ?layer
+WHERE
+{
+	?item p:P7422 ?st . 
+    {
+        ?st psv:P7422  [ wikibase:quantityAmount ?degrees_Celsius ;  wikibase:quantityUnit wd:Q25267 ] 
+        BIND ( ROUND ( ?degrees_Celsius * 1.8 + 32 ) as ?degrees_Fahrenheit )
+    }
+    UNION
+	{ 
+        ?st psv:P7422  [ wikibase:quantityAmount ?degrees_Fahrenheit ;  wikibase:quantityUnit wd:Q42289 ]
+        BIND( ROUND( ( ?degrees_Fahrenheit - 32 ) / 1.8 * 10)/10 as ?degrees_Celsius )
+    }
+    OPTIONAL { ?st pq:P276 ?location OPTIONAL { ?location wdt:P625 ?coor0 } } 
+    OPTIONAL { ?st pq:P585 ?date } 
+    OPTIONAL { ?item wdt:P625 ?coor1 }
+    BIND( COALESCE(?coor0, ?coor1) as ?coor)
+    BIND( CONCAT(str(Floor(?degrees_Celsius / 10)),"0s °C") as ?layer)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+ORDER BY ASC(?degrees_Celsius)
+LIMIT 1000

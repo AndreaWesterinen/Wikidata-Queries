@@ -1,0 +1,6 @@
+SELECT ?Sage_Open ?Sage_OpenLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Sage_Open wdt:P1050 wd:Q38404.
+  ?Sage_Open wdt:P106 wd:Q17125263.
+}
+LIMIT 100

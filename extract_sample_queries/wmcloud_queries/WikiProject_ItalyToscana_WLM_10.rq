@@ -1,0 +1,5 @@
+SELECT ?Piombino ?PiombinoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Piombino wdt:P131 wd:Q157824.
+}
+LIMIT 100

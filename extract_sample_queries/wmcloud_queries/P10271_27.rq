@@ -1,0 +1,103 @@
+#defaultView:Map{"hide":["?line", "?coords"],"layer":"?elr"}
+SELECT DISTINCT ?coords ?line ?item ?itemLabel ?section ?url ?sectionLabel ?elr ?lin
+
+WITH {
+  SELECT ?item WHERE { 
+    VALUES ?centre {wd:Q631448}  
+    {
+      ?centre wdt:P625 ?centreLoc .
+      SERVICE wikibase:around {
+        ?item wdt:P625 ?location .
+        bd:serviceParam wikibase:center ?centreLoc .
+        bd:serviceParam wikibase:radius "10" .
+      }
+    } UNION {
+      ?item wdt:null? ?centre .
+    }
+  } 
+} AS %near_items 
+
+WITH {
+  SELECT ?item ?section ?elr ?stmt (AVG(?lin0) AS ?lin) (SAMPLE(?coords_stmt) AS ?coords_stmt) WHERE {
+#    VALUES ?section {wd:Q113708356 wd:Q113645961 wd:Q113885838} .
+    
+    INCLUDE %near_items .
+    ?item p:P795 ?stmt .
+    ?stmt a wikibase:BestRank .
+    ?stmt ps:P795 ?section . 
+    ?section wdt:P10271 ?elr .  
+    ?stmt pq:P6710 ?lin0 .
+    ?item p:P625 ?coords_stmt .
+    ?coords_stmt a wikibase:BestRank .
+
+#    ?item wdt:P131/wdt:P131 wd:Q22 .
+  } GROUP BY ?item ?section ?elr ?stmt
+} AS %items
+
+
+WITH {
+  SELECT ( COUNT(DISTINCT(?stmt2)) AS ?seq) ?item ?section ?elr ?lin ?coords_stmt WHERE {
+    INCLUDE %items .
+    {
+      SELECT (?stmt as ?stmt2) ?elr (?lin AS ?lin2) WHERE {
+         INCLUDE %items .
+      } 
+    }
+    FILTER (?lin2 <= ?lin) .
+   
+  } GROUP BY ?item ?section ?elr ?lin ?coords_stmt
+} AS %items2
+
+
+WITH {
+  SELECT ?line ?section ?elr  ?coords_stmt_1 ?coords_stmt_2  WHERE {
+    {
+      SELECT (?seq AS ?seq1) ?section ?elr (?coords_stmt AS ?coords_stmt_1) WHERE {
+        INCLUDE %items2 .
+      }
+    } .
+    {
+      SELECT ((?seq-1) AS ?seq1) ?section ?elr (?coords_stmt AS ?coords_stmt_2) WHERE {
+        INCLUDE %items2 .
+      }
+    }
+  }
+} AS %line_stmts
+
+WITH {
+  SELECT ?line ?section ?elr  WHERE {
+    INCLUDE %line_stmts .
+    ?coords_stmt_1 psv:P625 / wikibase:geoLatitude ?lat1 .
+    ?coords_stmt_1 psv:P625 / wikibase:geoLongitude ?lon1 .
+    ?coords_stmt_2 psv:P625 / wikibase:geoLatitude ?lat2 .
+    ?coords_stmt_2 psv:P625 / wikibase:geoLongitude ?lon2 .
+    BIND(CONCAT('LINESTRING (', STR(?lon1), ' ', STR(?lat1), ',', STR(?lon2), ' ', STR(?lat2), ')') AS ?str) .
+    BIND(STRDT(?str, geo:wktLiteral) AS ?line) . 
+  }
+} AS %lines 
+
+
+WHERE {
+  { 
+    INCLUDE %items . 
+    ?coords_stmt ps:P625 ?coords .
+    OPTIONAL {?section p:P1343/pq:P2699 ?url} .
+  } UNION { 
+    INCLUDE %lines .
+    OPTIONAL {?section p:P1343/pq:P2699 ?url} .       
+  } UNION  {
+    INCLUDE %near_items .
+    ?item wdt:P31/wdt:P279* wd:Q55488 .
+    ?item wdt:P625 ?coords .
+    MINUS {?item wdt:P795 [] } .
+    BIND ('00_unmatched' AS ?elr) .
+  } UNION  {
+    INCLUDE %near_items .
+    ?item wdt:P31/wdt:P279* wd:Q336764 .
+    ?item wdt:P625 ?coords . 
+    MINUS {?item wdt:P795 [] } .
+    BIND ('00_unmatched_jnct' AS ?elr) . 
+  } 
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} ORDER BY ?elr ?lin

@@ -1,0 +1,10 @@
+#by Jura1, 2016-01-24
+
+SELECT ?extension (COUNT(DISTINCT(?filename)) AS ?count) WHERE
+{
+  ?item wdt:P8505 ?filename .
+    BIND(fn:lower-case(REPLACE(str(?filename), '(.+?).(\u005B^.\u005D*$)', "$2")) AS ?extension)
+}
+GROUP BY ?extension
+ORDER BY DESC(?count)
+LIMIT 10

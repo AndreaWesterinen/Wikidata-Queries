@@ -1,0 +1,24 @@
+SELECT ?o ?oLabel ?za ?nazwisko ?r1 ?r1Label WHERE {
+  {
+    SELECT ?o (GROUP_CONCAT(?zl; SEPARATOR = ", ") AS ?za) (REPLACE(?fl, "^.* ", "") AS ?nazwisko) WHERE {
+      ?o wdt:P27 wd:Q172107.
+      OPTIONAL { ?o wdt:P53 ?r. }
+      OPTIONAL {
+        ?o wdt:P106 ?z.
+        ?z rdfs:label ?zl.
+        FILTER((LANG(?zl)) = "pl")
+      }
+      FILTER(!(BOUND(?r)))
+      ?o rdfs:label ?fl.
+      FILTER((LANG(?fl)) = "pl")
+    }
+    GROUP BY ?o ?fl
+  }
+  OPTIONAL {
+    ?o wdt:P734 ?n.
+    ?r1 wdt:P31 wd:Q13417114;
+      wdt:P734 ?n.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?nazwisko)

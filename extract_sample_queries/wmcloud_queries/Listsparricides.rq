@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?killer ?killerLabel ?type ?typeLabel ?role
+{
+   ?item wdt:P157 ?killer
+   OPTIONAL { ?item p:P157 [ pq:P3831 ?role ; ps:P157 ?killer ] }         
+   OPTIONAL { ?item (wdt:P25

@@ -1,0 +1,6 @@
+embed.html#SELECT ?work ?workLabel (GROUP_CONCAT(DISTINCT ?xLabel ; separator=", ") as ?parts) WHERE {
+  ?work wdt:P31 wd:Q571 ; wdt:P527 ?x .
+  ?x wdt:P655 [] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". ?work rdfs:label ?workLabel . ?x rdfs:label ?xLabel . }
+}
+GROUP BY ?work ?workLabel

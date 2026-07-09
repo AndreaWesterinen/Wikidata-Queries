@@ -1,0 +1,11 @@
+SELECT ?item ?country ?cat ?cat2
+{
+  	?item wdt:P360 wd:Q39715 ; wdt:P17 [] .
+  	?a schema:about ?item ; schema:isPartOf <https://www.wikidata.org/> .
+	OPTIONAL
+  		{ 
+      	?item wdt:P17 ?country .
+      	?item wdt:P1754 ?cat .
+        BIND( CONCAT("<strong class="error"><span class="scribunto-error" id="mw-scribunto-error-0">Script error: You must specify a function to call.</span></strong>") as ?cat2 )
+		}
+}

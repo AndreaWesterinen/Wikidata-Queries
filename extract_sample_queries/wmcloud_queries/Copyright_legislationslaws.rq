@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?jurisdictie ?jurisdictieLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q63718677.
+  OPTIONAL { ?item wdt:P1001 ?jurisdictie. }
+}
+LIMIT 100

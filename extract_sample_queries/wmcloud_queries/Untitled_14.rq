@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel (sum(?st) as ?st2)
+WHERE {
+VALUES ?species {wd:Q182473 wd:Q223366}
+  ?item wdt:P31 wd:Q5;
+           p:P6509 ?statement.
+  ?statement ps:P6509 ?st.
+  ?statement pq:P642 ?species.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+group by ?item ?itemLabel
+ORDER BY DESC(?st2)
+LIMIT 1000

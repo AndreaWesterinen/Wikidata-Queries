@@ -1,0 +1,12 @@
+select ?item ?itemLabel ?IN ?IN_collection ?IN_reference_url ?IN_stated_in ?IN_retrieved
+where {
+  ?item p:P195 ?st .
+  ?st  ps:P195 wd:Q1526131 .
+  ?st pq:P2868 wd:Q29188408
+  OPTIONAL {?item wdt:P217 ?IN.}  
+  OPTIONAL {?item p:P217 [prov:wasDerivedFrom [pr:P854 ?IN_reference_url]] .} 
+  OPTIONAL {?item p:P217 [pq:P195 ?IN_collection].} 
+  OPTIONAL {?item p:P217 [prov:wasDerivedFrom [pr:P248 ?IN_stated_in]] .} 
+  OPTIONAL {?item p:P217 [prov:wasDerivedFrom [pr:P813 ?IN_retrieved]] .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+} ORDER BY ?itemLabel

@@ -1,0 +1,12 @@
+embed.html#
+SELECT ?item1 ?image ?item1Label ?item2 ?image2 ?item2Label ?edgeLabel WHERE {
+
+VALUES ?item1 {wd:Q2075464 wd:Q2289818 wd:Q1770842 wd:Q3190025 wd:Q3514489 wd:Q3198589 wd:Q3198589 wd:Q3241357 wd:Q21426191 wd:Q969695 wd:Q92119778 wd:Q7687014 wd:Q2240357 wd:Q3273576 wd:Q3326164 wd:Q3241357 wd:Q3563394 wd:Q3198589 wd:Q891963 wd:Q3119203 wd:Q3337365 wd:Q3233313 }
+VALUES ?item2 {wd:Q2075464 wd:Q2289818 wd:Q1770842 wd:Q3190025 wd:Q3514489 wd:Q3198589 wd:Q3198589 wd:Q3241357 wd:Q21426191 wd:Q969695 wd:Q92119778 wd:Q7687014 wd:Q2240357 wd:Q3273576 wd:Q3326164 wd:Q3241357 wd:Q3563394 wd:Q3198589 wd:Q891963 wd:Q3119203 wd:Q3337365 wd:Q3233313 }
+?item1 ?prop ?item2.
+?edge ?dummy ?prop ; rdf:type wikibase:Property
+ 
+OPTIONAL {?item1 wdt:P18 ?image}
+OPTIONAL {?item2 wdt:P18 ?image2}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

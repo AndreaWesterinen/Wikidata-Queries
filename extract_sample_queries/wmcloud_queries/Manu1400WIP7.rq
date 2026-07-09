@@ -1,0 +1,27 @@
+SELECT ?item ?itemDescription ?_died {
+  ?item wdt:P119 wd:Q216344;
+        wdt:P31 wd:Q5. # -2
+  
+  # TODO : à déplacer ? 
+  # TODO : simplifier avec des slashs '/'
+  MINUS {
+     ?item p:P119 ?statement.
+     ?statement prov:wasDerivedFrom ?refnode.
+     ?refnode   pr:P854 []. # url de la ref
+  }
+  
+  MINUS {
+    VALUES ?compagny { wd:Q37230 wd:Q148554 wd:Q658626 }. # job at CIA
+    ?item wdt:P108 ?compagny.
+  }
+  
+  # conflit/guerre avec au moins un participant connu
+  # TODO: "de toutes les guerres américaines depuis la Révolution américaine"
+  MINUS { ?item wdt:P607/wdt:P710 wd:Q30 }
+  MINUS { ?item wdt:P607 wd:Q362 } # World War II
+  MINUS { ?item wdt:P607 wd:Q361 } # World War I
+  
+  # grade militaire
+  MINUS { ?item wdt:P410 [] } # peu utile -6
+  
+  MINUS { ?item (wdt:P22

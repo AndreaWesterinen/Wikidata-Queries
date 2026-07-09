@@ -1,0 +1,22 @@
+# Find World wide whisky distilleries using the Wikidata Query service
+# taken from
+# http://wiki.bitplan.com/index.php/SPARQL#Whisky_Distilleries_worldwide
+# Created 2018-01 by Wolfgang Fahl BITPlan GmbH
+# 
+# display the results as a map
+#defaultView:Map
+#
+# select the distillery and its coordinates
+SELECT ?distillery ?coord 
+WHERE 
+{
+  # any subject
+  # which is an instance of
+  # https://www.wikidata.org/wiki/Property:P31
+  # Whisky distillery
+  # https://www.wikidata.org/wiki/Q10373548
+  ?distillery wdt:P31 wd:Q10373548.
+  # get the coordinate location value for any found distillery
+  # https://www.wikidata.org/wiki/Property:P625
+  ?distillery wdt:P625 ?coord.
+}

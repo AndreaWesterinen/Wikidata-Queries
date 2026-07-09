@@ -1,0 +1,6 @@
+select distinct ?item  (replace(group_concat(concat(str(?from),"->",str(?to));separator=";"),"http://www.wikidata.org/entity/","") as ?links)
+{
+ ?from wdt:P31/wdt:P279* wd:Q427626; wdt:P361 ?to.
+ ?to wdt:P31/wdt:P279* wd:Q427626.
+ bind (wd:Q427626 as ?item).
+} group by ?item

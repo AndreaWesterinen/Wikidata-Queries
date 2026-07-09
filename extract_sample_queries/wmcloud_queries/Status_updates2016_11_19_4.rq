@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?countryLabel ?coords WHERE {
+  ?item wdt:P1435/wdt:P279* wd:Q19558910 .
+  ?item wdt:P17 ?country .
+  FILTER NOT EXISTS { ?item wdt:P17 wd:Q30 }
+  ?item wdt:P625 ?coords .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?countryLabel ?itemLabel

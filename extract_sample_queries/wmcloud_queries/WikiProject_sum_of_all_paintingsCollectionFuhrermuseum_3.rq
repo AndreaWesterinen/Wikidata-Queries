@@ -1,0 +1,8 @@
+SELECT ?item ?invF ?invMCCP WHERE {
+  ?item wdt:P195 wd:Q475667 .
+  ?item p:P217 [ ps:P217 ?invF; pq:P195  wd:Q475667 ]
+  OPTIONAL { ?item p:P217 [ ps:P217 ?invMCCP; pq:P195  wd:Q1053735 ] }
+  BIND(xsd:integer(?invF) AS ?invnum)
+  FILTER(?invnum > 2000 )
+  } ORDER BY ?invnum
+LIMIT 1000

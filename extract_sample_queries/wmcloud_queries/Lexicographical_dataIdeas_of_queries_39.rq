@@ -1,0 +1,7 @@
+SELECT ?l ?lemma ?sense WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ;
+        ontolex:sense/skos:definition ?sense.
+  ?language wdt:P218 'sv'.
+  filter(regex(?sense, ".*heraldisk.*") || regex(?sense, ".*heraldik.*"))
+}

@@ -1,0 +1,6 @@
+SELECT ?item (SAMPLE(?motion) AS ?mot) (COUNT( DISTINCT ?motion ) AS ?count) WHERE {
+  ?motion wdt:P31/wdt:P279* wd:Q452237 ; # Change type here for other documents 
+          wdt:P8433 [] .
+  ?link ?p ?motion .
+  ?item wikibase:directClaim ?p .
+} GROUP BY ?item ORDER BY DESC(?count)

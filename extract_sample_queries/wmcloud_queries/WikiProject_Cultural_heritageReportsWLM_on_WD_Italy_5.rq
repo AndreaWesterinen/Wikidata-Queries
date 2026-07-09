@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?wlmid
+WHERE 
+{
+  ?item wdt:P2186 ?wlmid .
+  ?item wdt:P131 ?comune
+  FILTER( ?comune IN ( wd:Q13660, wd:Q42340, wd:Q53878, wd:Q10786, wd:Q53894, wd:Q53915, wd:Q91272 ) )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

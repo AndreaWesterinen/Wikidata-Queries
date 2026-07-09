@@ -1,0 +1,8 @@
+# LexData languages by number of usage examples
+SELECT ?languageLabel (COUNT(?example) AS ?count ) WHERE {
+  ?l a ontolex:LexicalEntry; dct:language ?language.
+  ?l wdt:P5831 ?example.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?languageLabel
+ORDER BY DESC(?count)

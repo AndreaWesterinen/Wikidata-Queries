@@ -1,0 +1,8 @@
+SELECT ?property ?propertyLabel ?topic ?topic_label {
+  ?property wikibase:propertyType ?type .
+  FILTER( ?type NOT IN ( wikibase:ExternalId, wikibase:String ) ) .
+  MINUS { ?property rdfs:label ?label FILTER( LANG( ?label ) = 'cs' ) } .
+  MINUS { ?property wdt:P31 wd:Q18720640 } .
+  OPTIONAL { ?property wdt:P1629 ?topic . ?topic rdfs:label ?topic_label FILTER( LANG( ?topic_label ) = 'cs' ) } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+} ORDER BY xsd:integer(STRAFTER(STR(?property), STR(wd:P)))

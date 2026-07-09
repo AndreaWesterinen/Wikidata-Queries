@@ -1,0 +1,24 @@
+SELECT ?item ?link ?count ?titles WHERE {
+  {
+    SELECT ?item ?bhl (COUNT(DISTINCT(?stmt)) AS ?count) (COUNT(DISTINCT(?title)) AS ?titles) WHERE {
+           
+      hint:Query hint:optimizer "None" .
+      ?item wdt:P4081 ?bhl .
+      ?item wdt:P31 wd:Q5 .
+      ?item ?p ?stmt .
+      ?prop wikibase:claim ?p .
+       OPTIONAL {
+         ?title wdt:P50 ?item .
+         ?title wdt:P4327 [] .
+      }
+  
+  
+    } GROUP BY ?item ?bhl 
+    ORDER BY DESC (?count)
+    LIMIT 250  
+  }
+                   
+  wd:P4081 wdt:P1630 ?fmt .
+  BIND(REPLACE(?fmt, '\\$1'  , ?bhl) AS ?url) .
+  BIND(CONCAT('[', ?url, ' ', ?bhl, ']') AS ?link) .
+} ORDER BY DESC(?count)

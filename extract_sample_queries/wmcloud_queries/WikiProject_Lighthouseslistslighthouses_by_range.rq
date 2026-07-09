@@ -1,0 +1,17 @@
+SELECT ?item ?nm ?st ?sl
+      ( IF( ?rawunit != wd:Q93318, CONCAT('&nbsp;<','ref>' , str(?rawrange), " ", ?rawunitLabel, "</","ref>"),"")as ?conv2)
+      (CONCAT('align=right data-sort-value="',str(?sirange),'" \u007C ', str(?nm) , ?conv2 ) as ?nmrange )
+{
+    ?item wdt:P31 wd:Q39715 ; wdt:P2929 ?rawrange .
+    FILTER NOT EXISTS { ?item wdt:P2929 ?rawrange2 . FILTER( ?rawrange2 > ?rawrange ) }
+    ?item p:P2929 ?p . ?p a wikibase:BestRank .
+    ?p psn:P2929 [ wikibase:quantityAmount ?sirange ; wikibase:quantityUnit	?siunit ]  .
+    ?p psv:P2929 [ wikibase:quantityAmount ?rawrange ; wikibase:quantityUnit ?rawunit ] . 
+    wd:Q93318 p:P2370/psv:P2370 [ wikibase:quantityAmount ?convqt ; wikibase:quantityUnit ?siunit ]  
+    BIND(ROUND(?sirange / ?convqt*10)/10 as ?nm ) .
+	FILTER (?item != wd:Q15397819 )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?rawunit rdfs:label ?rawunitLabel }
+  	OPTIONAL {?item wikibase:statements ?st ; wikibase:sitelinks ?sl }.
+}  
+ORDER BY DESC(?nm)
+LIMIT 80

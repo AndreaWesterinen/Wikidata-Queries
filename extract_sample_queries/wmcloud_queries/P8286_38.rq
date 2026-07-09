@@ -1,0 +1,4 @@
+#title: Human without occupation (P106)
+# Complex constraint from [[Property talk:P8286]]
+# Human items with an [[Property:P8286|Olympedia people ID&#32;<small dir="ltr">(P8286)</small>]] identifier should have a [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] claim
+SELECT DISTINCT ?item WHERE { ?item wdt:P8286 ?id; wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 [] } } ORDER BY ASC(xsd:integer(STRAFTER(STR(?item), 'Q')))

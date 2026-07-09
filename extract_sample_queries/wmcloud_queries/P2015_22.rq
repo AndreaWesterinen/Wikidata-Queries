@@ -1,0 +1,4 @@
+#title: P39 is an MP, Lord or subclass thereof
+# Complex constraint from [[Property talk:P2015]]
+# Item is an MP, Lord or subclass thereof
+SELECT ?item WHERE { ?item wdt:P39/wdt:P279* ?position. VALUES ?position {wd:Q16707842 wd:Q18952564 . } }

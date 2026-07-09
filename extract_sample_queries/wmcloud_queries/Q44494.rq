@@ -1,0 +1,7 @@
+embed.html##Karte mit Mühlen
+#added 2017-08
+#defaultView:Map{"markercluster": {}}
+SELECT * WHERE {
+  ?item wdt:P31*/wdt:P279* wd:Q44494;
+        wdt:P625 ?geo .
+}

@@ -1,0 +1,5 @@
+Select ?item where {
+  ?item wdt:P31/wdt:P279* wd:Q838948.
+  ?item wdt:P180 wd:Q146.
+  }
+LIMIT 100

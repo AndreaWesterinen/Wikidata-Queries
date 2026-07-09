@@ -1,0 +1,16 @@
+SELECT ?compound ?compoundLabel ?mp ?mpunit ?mpunitLabel ?bp ?bpunit ?bpunitLabel
+WHERE
+{
+  ?compound p:P2101 ?mpstmnode.
+  ?mpstmnode       psv:P2101                   ?mpvaluenode.
+  ?mpvaluenode     wikibase:quantityAmount     ?mp.
+  ?mpvaluenode     wikibase:quantityUnit       wd:Q25267.
+
+  ?compound p:P2102 ?bpstmnode.
+  ?bpstmnode       psv:P2102                   ?bpvaluenode.
+  ?bpvaluenode     wikibase:quantityAmount     ?bp.
+  ?bpvaluenode     wikibase:quantityUnit       wd:Q25267.
+
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}

@@ -1,0 +1,12 @@
+SELECT ?item ?label ?id WHERE {
+  ?item wdt:P31 wd:Q3914.
+  ?item wdt:P17 wd:Q408.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?label
+  }
+  
+OPTIONAL { ?item wdt:P5245 ?id. }
+  FILTER(!BOUND(?id))
+}
+LIMIT 10000

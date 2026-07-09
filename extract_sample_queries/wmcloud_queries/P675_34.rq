@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-removeSuffix>
+SELECT DISTINCT ?item WHERE { ?item wdt:P675 ?value . FILTER( REGEX(STR(?value), '^([0-9a-zA-Z_\\-]{12})$') = false )}

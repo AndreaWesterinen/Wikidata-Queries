@@ -1,0 +1,7 @@
+#title: Inconsistency between the identifier and the location
+# Complex constraint from [[Property talk:P1838]]
+# Place with identifier prefix indicating a departement but located in another departement.
+select distinct ?item  {
+  ?item wdt:P1838 ?id ; wdt:P131/wdt:P374 ?inseeCom .
+  OPTIONAL { ?item wdt:P131/(wdt:P131)?/wdt:P374 ?inseeCom2 .  FILTER (substr(?id, 4,5) = ?inseeCom2 ) }
+  FILTER (!BOUND(?inseeCom2)) . }

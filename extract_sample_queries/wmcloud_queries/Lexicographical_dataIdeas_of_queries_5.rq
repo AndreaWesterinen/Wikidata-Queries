@@ -1,0 +1,5 @@
+SELECT ?form ?word WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language wd:Q1860 ; wikibase:lexicalCategory wd:Q1084 ; ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?word .
+  FILTER NOT EXISTS {?form wikibase:grammaticalFeature ?item }
+}

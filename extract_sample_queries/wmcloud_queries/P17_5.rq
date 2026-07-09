@@ -1,0 +1,4 @@
+embed.html#SELECT * WHERE {
+  ?q wdt:P17 ?value .
+  ?value wdt:P31/wdt:P279* wd:Q3024240 .
+}

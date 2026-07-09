@@ -1,0 +1,5 @@
+SELECT ?nomination_decline ?nomination_declineLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?nomination_decline wdt:P793 wd:Q26252351.
+}
+LIMIT 100

@@ -1,0 +1,10 @@
+#title: Property should be used on items with a sitelink to Wikisource
+# Complex constraint from [[Property talk:P6695]]
+#
+SELECT ?item 
+WHERE
+{
+	?item wdt:P6695 [] .
+    FILTER NOT EXISTS { ?item ^ schema:about / schema:isPartOf / wikibase:wikiGroup "wikisource" } 
+}
+LIMIT 100

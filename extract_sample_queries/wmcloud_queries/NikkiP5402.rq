@@ -1,0 +1,4 @@
+select (?l as ?item) (concat(replace(str(?l),str(wd:),"{{L|"),"}}") as ?l_) ?lang ?lexcat {
+  ?l wdt:P5402 ?l2; wikibase:lexicalCategory ?lexcat; dct:language ?lang.
+  ?l2 dct:language ?lang2 filter (?lang != ?lang2).
+} order by ?l

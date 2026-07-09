@@ -1,0 +1,2 @@
+SELECT ?item ?value WHERE { ?item wdt:P6152 ?value. }
+LIMIT 2500

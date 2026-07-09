@@ -1,0 +1,54 @@
+# cocktail recipes on Wikidata
+SELECT ?cocktail ?cocktailLabel (GROUP_CONCAT(?ingredient; separator=", ") AS ?ingredients) # concatenate all ingredients together, separated by comma
+WHERE
+{
+  # find a cocktail
+  ?cocktail wdt:P31/wdt:P279* wd:Q134768;
+            # get its material statement
+            p:P186 ?materialStat.
+  # get the statement value from the statement
+  ?materialStat ps:P186 ?material.
+  # get the material’s English label
+  ?material rdfs:label ?materialLabel.
+  FILTER(LANG(?materialLabel) = "en").
+  # assign label to solo ingredient variable
+  BIND(?materialLabel AS ?ingredientSolo).
+  OPTIONAL {
+    # for some reason, we have to get the material and materialLabel again – copy+pasted from above
+    ?materialStat ps:P186 ?material.
+    ?material rdfs:label ?materialLabel.
+    FILTER(LANG(?materialLabel) = "en").
+    # get the quantity value from the statement (if present)
+    ?materialStat pqv:P1114 ?quantityValue.
+    # get the actual quantity from the quantity value
+    ?quantityValue wikibase:quantityAmount ?quantity.
+    # assign quantity and material to ingredient with quantity variable
+    BIND(CONCAT(STR(?quantity), " ", ?materialLabel) AS ?ingredientWithQuantity).
+    OPTIONAL {
+      # same here for material and quantity
+      ?materialStat ps:P186 ?material.
+      ?material rdfs:label ?materialLabel.
+      FILTER(LANG(?materialLabel) = "en").
+      ?materialStat pqv:P1114 ?quantityValue.
+      ?quantityValue wikibase:quantityAmount ?quantity.
+      # get the unit from the quantity value
+      ?quantityValue wikibase:quantityUnit ?unit.
+      # throw out the unit “1” (no unit)
+      FILTER(?unit != wd:Q199).
+      # get the unit’s English label
+      ?unit rdfs:label ?unitLabel.
+      FILTER(LANG(?unitLabel) = "en").
+      # assign quantity, unit, and material to ingredient with unit variable  (note: we’re not bothering with pluralization here, so it may sound a bit weird)
+      BIND(CONCAT(STR(?quantity), " ", ?unitLabel, " ", ?materialLabel) AS ?ingredientWithUnit).
+    }
+  }
+  # assign ingredient with unit, else ingredient with quantity, else just solo ingredient to ingredient variable
+  BIND(COALESCE(?ingredientWithUnit, ?ingredientWithQuantity, ?ingredientSolo) AS ?ingredient).
+  # get the cocktail’s English label
+  ?cocktail rdfs:label ?cocktailLabel.
+  FILTER(LANG(?cocktailLabel) = "en").
+}
+# group by cocktail
+GROUP BY ?cocktail ?cocktailLabel
+# show most “complicated” cocktails first
+ORDER BY DESC(COUNT(?ingredient))

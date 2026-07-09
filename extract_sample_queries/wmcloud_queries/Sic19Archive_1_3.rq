@@ -1,0 +1,9 @@
+# Book/version mashups with multiple Open Library IDs.
+
+SELECT ?x ?xLabel ?olid1 ?olid2 WHERE {
+  ?x  wdt:P123 wd:Q7896557;   # publisher: University of Wales Press
+      wdt:P648 ?olid1;        # Open Library ID: ?olid1
+      wdt:P648 ?olid2.        # Open Library ID: ?olid2
+  FILTER(?olid1 < ?olid2).    # With multiple IDs
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

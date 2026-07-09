@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?linkcount
+  WHERE {
+    ?item wdt:P21 [] ;
+            wdt:P69 [] ;
+            wdt:P496 [] ;
+            wdt:P184 [].
+    { ?item wdt:P108 [] .} UNION { ?item wdt:P1416 [].}
+  ?item wikibase:sitelinks ?linkcount .
+    ?cited_work wdt:P50 ?item ;
+                wdt:P921 [].
+    ?work wdt:P2860 ?cited_work .
+    FILTER (?linkcount >2)
+  }
+ORDER BY DESC(?linkcount)
+LIMIT 1000

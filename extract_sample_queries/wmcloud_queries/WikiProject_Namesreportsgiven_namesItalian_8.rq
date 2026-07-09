@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?sitelink
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P971 wd:Q202444 , wd:Q652 .
+  ?sitelink schema:about ?item ; schema:isPartOf <https://it.wikipedia.org/> . 
+}
+ORDER BY ?sitelink

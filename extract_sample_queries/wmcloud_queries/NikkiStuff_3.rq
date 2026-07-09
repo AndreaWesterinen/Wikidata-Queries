@@ -1,0 +1,5 @@
+select * where {
+?item wdt:P2824 ?id .
+optional { ?item rdfs:label ?itemlabel filter(lang(?itemlabel) = "en") . }
+filter (!bound(?itemlabel)) .
+}

@@ -1,0 +1,16 @@
+# photographers born before the inception of the earliest photograph on Wikidata
+# (curiously enough, the earliest photograph on Wikidata, Q22077610, is a good deal older than what’s generally knows as the earliest photograph, Q616159)
+SELECT ?person ?personLabel ?dob WITH {
+  SELECT ?photograph ?inception WHERE {
+    ?photograph wdt:P31/wdt:P279* wd:Q125191;
+                wdt:P571 ?inception.
+  }
+  ORDER BY ?inception
+  LIMIT 1
+} AS %earliestPhotograph WHERE {
+  ?person wdt:P106/wdt:P279* wd:Q33231;
+          wdt:P569 ?dob.
+  INCLUDE %earliestPhotograph.
+  FILTER(?dob < ?inception)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

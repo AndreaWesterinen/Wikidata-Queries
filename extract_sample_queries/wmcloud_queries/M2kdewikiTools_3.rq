@@ -1,0 +1,8 @@
+SELECT ?item ?sitelink ?zentrales_thema WHERE {
+  ?item wdt:P31 wd:Q19389637.
+  ?item wdt:P1433 wd:Q665807.  
+  OPTIONAL {?item wdt:P921 ?zentrales_thema }
+  FILTER (bound(?zentrales_thema))
+  ?sitelink 	schema:about ?item ;
+  schema:isPartOf <https://de.wikisource.org/> .
+}

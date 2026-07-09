@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?time WHERE {
+  ?statementNode ps:P166 wd:Q97668025 .
+  OPTIONAL { ?statementNode pq:P585 ?time }
+  ?item p:P166 ?statementNode .
+}

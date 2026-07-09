@@ -1,0 +1,14 @@
+SELECT ?property ?label ?cnt_claims ?cnt_items
+WITH { SELECT * { ?property wikibase:claim ?prop } } AS %propmap
+{
+  {
+    SELECT ?property (COUNT(DISTINCT ?dummy1) AS ?cnt_claims) (COUNT(DISTINCT ?item) AS ?cnt_items)
+    {
+      hint:Query hint:optimizer "None" .
+      ?item wdt:P841 ?dummy0 ; ?prop ?dummy1 .
+      INCLUDE %propmap .
+    } GROUP BY ?property
+  }
+  ?property rdfs:label ?label .
+  FILTER(LANG(?label) = "en") .
+} ORDER BY DESC(?cnt_items)

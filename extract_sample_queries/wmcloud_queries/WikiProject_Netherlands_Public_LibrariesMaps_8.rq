@@ -1,0 +1,20 @@
+#Public libraries between the cities of Breda and Nijmegen (lat-lon bounding box) 
+#defaultView:Map
+
+SELECT DISTINCT ?dpl ?dplLabel ?dplLoc WHERE {
+#Is Dutch public library dpl
+?dpl wdt:P31 wd:Q28564. #public library
+?dpl wdt:P31 wd:Q11396180. #library branch 
+?dpl wdt:P17 wd:Q55. #in the Netherlands
+  
+wd:Q40844 wdt:P625 ?BredaLoc .
+wd:Q33467482 wdt:P625 ?NijmegenLoc .
+  
+SERVICE wikibase:box {
+    ?dpl wdt:P625 ?dplLoc. #Location of the dpl
+    bd:serviceParam wikibase:cornerWest ?BredaLoc .
+    bd:serviceParam wikibase:cornerEast ?NijmegenLoc .
+  }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+}
+ORDER BY ?dplLabel

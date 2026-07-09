@@ -1,0 +1,8 @@
+SELECT ?item 
+WHERE {
+  ?item p:P31 ?statement .
+  ?statement ps:P31 wd:Q101352 .
+  ?statement prov:wasDerivedFrom ?ref .
+  ?ref pr:P854 <https://www2.census.gov/topics/genealogy/2010surnames/names.zip>.
+  MINUS { ?item schema:description ?itemDescription }
+}LIMIT 201

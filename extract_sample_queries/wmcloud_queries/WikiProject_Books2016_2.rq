@@ -1,0 +1,28 @@
+# Traductions en français de l'Iliade et de l'Odyssée
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT DISTINCT ?item ?titre ?traducteur (year(?date) as ?AnneePubli) ?IdentifiantBnF ?ISBN ?TexteIntegral
+WHERE {
+ {?item wdt:P629 wd:Q8275 }         # édition (P629) de l'Iliade (Q8275)
+ UNION {?item wdt:P629 wd:Q35160 }  # édition (P629) de l'Odyssée (Q35160)
+ ?item wdt:P407 wd:Q150 .           # avec pour langue de l'œuvre (P407) le français (Q150) 
+ ?item rdfs:label ?titre filter (lang(?titre) = "fr") . # titre en français
+ ?item wdt:P655 ?Qtraducteur .      # avec un traducteur ou une traductrice (P655)
+ ?Qtraducteur rdfs:label ?traducteur filter (lang(?traducteur) = "fr") . # Libellé en français du traducteur ou de la traductrice
+ ?item wdt:P577 ?date .             # avec date de publication (P577)
+ 
+ OPTIONAL { ?item wdt:P268 ?IdentifiantBnF . } # en option, texte intégral disponible (P953) 
+ 
+ {SELECT ?item (SAMPLE(?isbn) AS ?ISBN)
+ WHERE { {?item wdt:P629 wd:Q35160 }
+ UNION {?item wdt:P629 wd:Q8275 .} OPTIONAL { ?item wdt:P957 ?isbn .}  OPTIONAL {?item wdt:P212 ?isbn .} # en option, code ISBN-10 (P957) ou code ISBN-13 (P212) 
+ }GROUP BY ?item}
+ 
+ {SELECT ?item (SAMPLE(?texte) AS ?TexteIntegral)
+ WHERE { {?item wdt:P629 wd:Q35160 }
+ UNION {?item wdt:P629 wd:Q8275 .} OPTIONAL { ?item wdt:P953 ?texte . }  # en option, texte intégral disponible (P953)
+ }GROUP BY ?item}
+ 
+}
+ORDER BY ?AnneePubli #tri par date de publication

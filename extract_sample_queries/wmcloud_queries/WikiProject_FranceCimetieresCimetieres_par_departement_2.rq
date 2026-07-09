@@ -1,0 +1,12 @@
+embed.html#PREFIX hint: <http://www.bigdata.com/queryHints#>
+
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?coord ?image ?layer WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P131+ wd:Q142.
+  ?item (wdt:P31/wdt:P279*) wd:Q39614.
+  ?item wdt:P625 ?coord.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  BIND(IF(BOUND(?image), "Avec image", "Sans image") AS ?layer)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

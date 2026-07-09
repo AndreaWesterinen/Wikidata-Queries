@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?p31 ?p31Label WHERE {
+	VALUES ?p31 {
+		wd:Q21125433
+		wd:Q111223304
+		wd:Q1121542
+		wd:Q116634
+		wd:Q848991
+		wd:Q4393107
+		wd:Q65963104
+	}
+	?item wdt:P31 ?p31.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

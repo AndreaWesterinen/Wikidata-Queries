@@ -1,3 +1,4 @@
+#title: Winners of the 2024 Summer Olympics
 SELECT DISTINCT ?eventLabel ?goldCountryLabel ?silverCountryLabel ?bronzeCountryLabel WHERE {
   ?event wdt:P31 wd:Q18536594; # individual event
          wdt:P361+ wd:Q995653; # part of 2024 summer olympics

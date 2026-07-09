@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?committeeLabel WHERE { 
+  ?item wdt:P31 wd:Q74673301 .
+ MINUS {
+  ?item wdt:P7727 ?committee .
+  ?committee wdt:P31 wd:Q12592037 . 
+ }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

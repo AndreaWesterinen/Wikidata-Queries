@@ -1,0 +1,8 @@
+SELECT ?kommune ?kommuneLabel WHERE {
+  ?kommune wdt:P31 wd:Q755707 .
+  OPTIONAL { ?kommune wdt:P571 ?start } .
+  OPTIONAL { ?kommune wdt:P576 ?slutt } .
+  FILTER(!BOUND(?start) || xsd:dateTime(?start) < NOW())
+  FILTER(!BOUND(?slutt))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?kommuneLabel

@@ -1,0 +1,22 @@
+#title: Regex
+# Complex constraint from [[Property talk:P6432]]
+# Adapt regex for math expressions
+SELECT * {
+  {
+       SELECT ?item ?result ?id {
+			{
+				?item p:P6432 [ ps:P6432 ?value ].
+			} UNION {
+				?statement1 pq:P6432 ?value.
+				?item ?p1 ?statement1 .
+			} UNION {
+				?ref pr:P6432 ?value .
+				?statement2 prov:wasDerivedFrom ?ref.
+				?item ?p2 ?statement2 .
+			} .
+            BIND( STR( ?value ) AS ?str ) .
+          	BIND( STRAFTER(?str, "\\displaystyle ") AS ?part ).
+            BIND( STRBEFORE(?part, "}\">") AS ?id ).
+		}
+    }
+  			BIND( REGEX(STR(?id), "^([0-9]+([0-9]

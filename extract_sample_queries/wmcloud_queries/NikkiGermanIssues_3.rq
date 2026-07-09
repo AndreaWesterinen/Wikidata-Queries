@@ -1,0 +1,32 @@
+select distinct (?l as ?item) (concat(replace(str(?l),str(wd:),"{{L|"),"}}") as ?l_) ?lexcat {
+  ?l dct:language wd:Q188;
+     wikibase:lemma ?lemma;
+     wikibase:lexicalCategory ?lexcat.
+  filter (?lexcat not in (
+    wd:Q1084, # noun
+    wd:Q34698, # adjective
+    wd:Q380057, # adverb
+    wd:Q36484, # conjunction
+    wd:Q4833830, # preposition
+    wd:Q147276, # proper noun
+    wd:Q24905, # verb
+
+    wd:Q34793275, # demonstrative pronoun
+    wd:Q956030, # indefinite pronoun
+    wd:Q54310231, # interrogative pronoun
+    wd:Q468801, # personal pronoun
+    wd:Q1502460, # possessive pronoun
+    wd:Q1050744, # relative pronoun
+
+    wd:Q2865743, # definite article
+    wd:Q3813849, # indefinite article
+
+    wd:Q126473, # contraction
+    wd:Q184511, # idiom
+    wd:Q134830, # prefix
+    wd:Q83034, # interjection
+    wd:Q63116, # numeral
+    wd:Q184943, # particle
+    wd:Q102047 # suffix
+  )).
+} order by ?lemma

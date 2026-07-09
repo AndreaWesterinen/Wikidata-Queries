@@ -1,0 +1,4 @@
+#title: No units specified
+# Complex constraint from [[Property talk:P2237]]
+# All quantity properties should have [[Property:P2237|P2237&#32;<small dir="ltr">(P2237)</small>]] or [[Property:P2876|type of unit for this property&#32;<small dir="ltr">(P2876)</small>]]
+SELECT ?item WHERE { ?item wikibase:propertyType wikibase:Quantity . MINUS { ?item p:P2237 [] } . MINUS { ?item p:P2876 [] } }

@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?inventarisnummer ?ref WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item p:P485 ?archiefstatement.
+  ?archiefstatement ps:P485 wd:Q200899.
+  OPTIONAL {?archiefstatement pq:P217 ?inventarisnummer.}
+  OPTIONAL{ ?archiefstatement prov:wasDerivedFrom ?refnode.
+              ?refnode   pr:P854 ?ref.
+             }
+}

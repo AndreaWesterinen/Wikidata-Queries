@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?mayorLabel WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q15284.
+  ?item wdt:P17 wd:Q142.
+  ?item wdt:P6 ?mayor.
+  ?mayor wdt:P21 wd:Q6581072.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

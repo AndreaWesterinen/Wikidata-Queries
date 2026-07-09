@@ -1,0 +1,6 @@
+#nom de la ville de Genève en Russe
+SELECT ?nom WHERE {
+  wd:Q71 rdfs:label ?nom .
+  FILTER ( lang(?nom) = "ru" )
+}
+LIMIT 10

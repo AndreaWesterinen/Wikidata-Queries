@@ -1,0 +1,7 @@
+SELECT DISTINCT ?winner ?winnerLabel ?twitter WHERE {
+  { ?winner wdt:P166 wd:Q7191. }
+  UNION
+  { ?winner wdt:P166 [ wdt:P279 wd:Q7191 ] }
+  ?winner wdt:P2002 ?twitter .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY ASC(?winnerLabel)

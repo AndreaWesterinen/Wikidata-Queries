@@ -1,3 +1,4 @@
+#title: Inventors killed by their own invention
 SELECT ?inventor ?inventorLabel ?gadget ?gadgetLabel WHERE {
   ?inventor wdt:P157 ?gadget.
   ?gadget wdt:P61 ?inventor.

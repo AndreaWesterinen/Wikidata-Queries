@@ -1,0 +1,1 @@
+SELECT DISTINCT ?q ?qLabel { ?q rdf:type wikibase:Property ; wdt:P2264 ?mnm SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"}}

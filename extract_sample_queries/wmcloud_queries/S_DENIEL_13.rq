@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?creator ?creatorLabel ?image ?id WHERE {
+  ?item wdt:P195 wd:Q64206413. # collection : collection du musée national de la Marine
+  OPTIONAL { ?item wdt:P170 ?creator }
+  OPTIONAL { ?item wdt:P18 ?image }
+  OPTIONAL { ?item wdt:P9403 ?id }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl,fr,es" .}
+  }

@@ -1,0 +1,8 @@
+SELECT ?item ?inception ?earliestinception ?latestinception WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P571 ?inceptionstatement .
+  ?inceptionstatement ps:P571 ?inception .
+  ?inceptionstatement pq:P580 ?earliestinception .
+  ?inceptionstatement pq:P582 ?latestinception .
+  } ORDER BY ?inception
+  LIMIT 5000

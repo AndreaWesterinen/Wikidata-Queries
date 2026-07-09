@@ -1,0 +1,1 @@
+SELECT ?item ?st WHERE { ?item wdt:P31 wd:Q17362920; wikibase:statements ?st } LIMIT 5000 OFFSET 10000

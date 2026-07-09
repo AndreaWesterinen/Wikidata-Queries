@@ -1,0 +1,16 @@
+#Map of hospitals
+#added 2017-08
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?geo ?img ?post ?admin ?adres ?phone ?mail ?url WHERE {
+  ?item wdt:P31 wd:Q27686.
+  ?item wdt:P17 wd:Q142.
+  OPTIONAL {?item wdt:P625 ?geo.}
+  OPTIONAL {?item wdt:P18 ?img.}
+  OPTIONAL {?item wdt:P281 ?post.}
+  OPTIONAL {?item wdt:P131 ?admin.}
+  OPTIONAL {?item wdt:P6375 ?adres.}
+  OPTIONAL {?item wdt:P1329 ?phone.}
+  OPTIONAL {?item wdt:P968 ?mail.}
+  OPTIONAL {?item wdt:P856 ?url.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+}

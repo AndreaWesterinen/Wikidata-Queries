@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5;
+    wdt:P735 wd:Q1569727.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,fr, en,de,it,es,no,pt". }
+  FILTER(NOT EXISTS {
+    ?item rdfs:label ?lang_label.
+    FILTER((LANG(?lang_label)) = "aln")
+  })
+}
+ORDER BY (?itemLabel)

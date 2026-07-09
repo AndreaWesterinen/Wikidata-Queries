@@ -1,0 +1,12 @@
+SELECT * 
+WITH
+{  SELECT  ?item ?performer 
+  (COUNT(DISTINCT ?act) as ?ct_act)  (COUNT(DISTINCT ?va) as ?ct_va)
+  (COUNT(DISTINCT ?dir) as ?ct_dir)  (COUNT(DISTINCT ?prod) as ?ct_prod)
+  (COUNT(DISTINCT ?ed) as ?ct_ed)  (COUNT(DISTINCT ?photogr) as ?ct_photogr)
+  (COUNT(DISTINCT ?writer) as ?ct_writer)  (COUNT(DISTINCT ?execprod) as ?ct_execprod)
+  (COUNT(DISTINCT ?othercrew) as ?ct_othercrew) 
+  WHERE
+  {  	?item wdt:P31 wd:Q1371849 .
+    ?article schema:about ?item ; schema:isPartOf <https://www.wikidata.org/> .
+    ?item ( wdt:P175

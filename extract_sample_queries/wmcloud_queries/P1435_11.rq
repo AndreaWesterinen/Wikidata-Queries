@@ -1,0 +1,6 @@
+#title: Without other statement
+# Complex constraint from [[Property talk:P1435]]
+#
+SELECT ?item {
+  ?item wdt:P1435 []; wikibase:statements 1.
+}

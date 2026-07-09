@@ -1,0 +1,1 @@
+SELECT ?item ?st ?sl WHERE { ?item wdt:P31/wdt:P279* wd:Q16917 . ?item wdt:P17 wd:Q668 ; wikibase:statements ?st ; wikibase:sitelinks ?sl } LIMIT 4000

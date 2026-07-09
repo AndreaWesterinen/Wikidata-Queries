@@ -1,5 +1,4 @@
-# ----
-#Types of relationships that link painters to anonymous paintings
+#title: Types of relationships that link painters to anonymous paintings
 #defaultView:BubbleChart
 SELECT ?qualifierpropertyLabel (COUNT(?creatorqualifier) AS ?count) WHERE {
   ?item wdt:P31 wd:Q3305213 .

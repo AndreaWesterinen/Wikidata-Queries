@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?img ?st ?sl ?ids ?comuna ?comunaLabel WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q486972 .
+  ?item wdt:P17 wd:Q298 .
+  MINUS { ?item wdt:P31 wd:Q1840161 . }
+  MINUS { ?item (wdt:P31/wdt:P279*) wd:Q123705 . }
+  MINUS { ?item wdt:P31 wd:Q8343784 . }
+  OPTIONAL {    ?item wikibase:statements ?st.    ?item wikibase:sitelinks ?sl.    ?item wikibase:identifiers ?ids.  }
+  OPTIONAL {    ?item wdt:P131 ?comuna.  }
+  OPTIONAL {    ?item wdt:P18 [] . BIND("✓" as ?img)    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+}
+ORDER BY ?itemLabel ?comunaLabel

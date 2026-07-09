@@ -1,0 +1,3 @@
+select ?text (lang(?text) as ?code) {
+  wd:Q2833748 wdt:P1559 ?text 
+}

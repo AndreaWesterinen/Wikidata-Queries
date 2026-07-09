@@ -1,0 +1,1 @@
+SELECT (count(distinct ?item) as ?count) WHERE { ?item wdt:P31 wd:Q5; (wdt:P735 | wdt:P2358) [] }

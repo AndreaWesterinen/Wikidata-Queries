@@ -1,0 +1,14 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?district ?districtLabel ?coords ?FindaGrave WHERE {
+  ?item wdt:P31 wd:Q39614.
+  ?item wdt:P17 wd:Q664 .
+  ?item wdt:P131 ?district.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .
+                         ?item rdfs:label ?itemLabel . 
+                         ?district rdfs:label ?districtLabel .}
+  optional {?item wdt:P625 ?coords.}
+  optional {?item wdt:P2025 ?FindaGrave.}
+  filter(!strstarts(?itemLabel,"Burial"))
+  filter(!strstarts(?itemLabel,"Midden"))
+  filter (?item NOT IN (wd:Q79309412, wd:Q79309112, wd:Q79309436, wd:Q79311062, wd:Q23073922))
+} order by ?districtLabel ?itemLabel

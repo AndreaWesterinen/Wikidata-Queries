@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?prop ?propLabel ?value ?valueLabel
+{
+  hint:Query hint:optimizer 'None' .
+  ?item p:Was a bee/ConstraintTemplate ?statement .
+  ?statement ?pq ?value .
+  ?prop wikibase:qualifier ?pq .
+  FILTER({{{list}}}1)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}

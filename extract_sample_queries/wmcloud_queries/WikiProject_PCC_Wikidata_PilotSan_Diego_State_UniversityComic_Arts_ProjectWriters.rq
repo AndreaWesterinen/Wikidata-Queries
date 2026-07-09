@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+ VALUES ?type {wd:Q715301 wd:Q11892507 wd:Q1114448 wd:Q1153051 wd:Q17098559 wd:Q191633 wd:Q107436166 wd:Q482980 wd:Q36180} 
+  ?item wdt:P106 ?type. 
+  ?item wdt:P5008 wd:Q100363299.
+ }

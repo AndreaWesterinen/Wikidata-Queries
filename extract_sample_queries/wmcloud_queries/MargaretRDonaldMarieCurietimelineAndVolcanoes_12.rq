@@ -1,0 +1,19 @@
+#defaultView:LineChart
+SELECT ?age (COUNT(?gender) as ?count) (SAMPLE(?genderLabel) AS ?genderLabel ) WHERE {
+  ?film wdt:P31 wd:Q13442814 .
+  ?film wdt:P577 ?date .
+  ?film wdt:P50 ?cast .
+  #?cast wdt:P27 wd:Q30 .
+  ?cast wdt:P569 ?dob .
+  ?cast wdt:P21 ?gender .
+  ?gender rdfs:label ?genderLabel .
+  FILTER((LANG(?genderLabel)) = "en")
+  bind( 1000+year(?date)-year(?dob) as ?age_num )
+  bind( SUBSTR(str(?age_num),1,4) as ?age )
+  FILTER(year(?date)>=2000)
+  FILTER(BOUND(?age_num))
+  FILTER(?age_num<=1100)
+  FILTER(?age_num>=1000)
+}
+GROUP BY ?genderLabel ?age
+#ORDER BY ?genderLabel ?age

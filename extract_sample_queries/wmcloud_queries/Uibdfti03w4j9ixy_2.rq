@@ -1,0 +1,7 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?software ?softwareLabel ("00FFFF" AS ?rgb) WHERE {
+  ?item wdt:P31 wd:Q163740.
+  ?software wdt:P178 ?item.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

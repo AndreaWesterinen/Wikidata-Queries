@@ -1,0 +1,6 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?coordinates WHERE {
+  { ?item wdt:P31 wd:Q146591 } UNION { ?item wdt:P31 wd:Q32099 }
+  OPTIONAL { ?item wdt:P625 ?coordinates . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

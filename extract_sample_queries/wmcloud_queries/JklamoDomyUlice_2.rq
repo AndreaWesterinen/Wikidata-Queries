@@ -1,0 +1,7 @@
+select ?item ?itemLabel ?cp where {
+?item p:P669 ?street .
+?street ps:P669 wd:Q43052070 .
+OPTIONAL {?street pq:P670 ?streetno } . 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,en". }
+} 
+ORDER BY xsd:integer(?streetno)

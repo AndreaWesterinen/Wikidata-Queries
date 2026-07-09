@@ -1,0 +1,14 @@
+SELECT ?item ?count WHERE {
+{SELECT ?item (COUNT(DISTINCT ?coll) as ?count) WHERE {
+  hint:Query hint:optimizer "None".
+  ?painting wdt:P31 wd:Q3305213 .  
+  ?painting wdt:P170 ?item . 
+  ?item wdt:P21 wd:Q6581072 .
+  ?painting wdt:P195 ?coll . 
+  MINUS { ?painting wdt:P170 wd:Q4233718 } .
+  FILTER(!wikibase:isSomeValue(?coll)) .
+} GROUP BY ?item ?name
+HAVING (?count > 3)
+} ?item rdfs:label ?name . FILTER (lang(?name)="en") .
+} ORDER BY DESC(?count) 
+LIMIT 400

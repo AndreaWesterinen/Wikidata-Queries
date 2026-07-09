@@ -1,0 +1,19 @@
+SELECT 
+  ?item 
+  (SAMPLE(?legend1) as ?legend1)
+  ?item2 (SAMPLE(?country2) as ?country2)
+  (SAMPLE(?legend2) as ?legend2)
+WHERE
+{
+  ?item wdt:P31 wd:Q39715 .
+  ?item wdt:P18 ?img .
+  ?item p:P18 ?i . ?i ps:P18 ?img . OPTIONAL { ?i pq:P2096 ?legend1 }
+  ?item2 wdt:P18 ?img .
+  ?item2 wdt:P31 wd:Q39715 .
+  ?item2 p:P18 ?i2 . ?i2 ps:P18 ?img . OPTIONAL { ?i2 pq:P2096 ?legend2 }
+  FILTER( ?item != ?item2 && str(?item) > str(?item2)  )
+  OPTIONAL { ?item2 wdt:P17 ?country2 }
+}
+GROUP BY ?item ?item2
+ORDER BY ?item
+limit 1000

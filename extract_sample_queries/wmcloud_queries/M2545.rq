@@ -1,0 +1,10 @@
+#Cats
+SELECT ?party ?partyLabel ?area_of_operationLabel ?located_in_adminLabel ?jurisdictionLabel ?locationLabel WHERE {
+  ?party wdt:P31 wd:Q7278;
+    (wdt:P2541|wdt:P131|wdt:P276|wdt:P1001) ?something.
+  OPTIONAL { ?party wdt:P2541 ?area_of_operation. }
+  OPTIONAL { ?party wdt:P131 ?located_in_admin. }
+  OPTIONAL { ?party wdt:P276 ?location. }
+  OPTIONAL { ?party wdt:P1001 ?jurisdiction. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

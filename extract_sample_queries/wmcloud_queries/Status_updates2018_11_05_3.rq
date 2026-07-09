@@ -1,0 +1,12 @@
+SELECT ?person ?personLabel ?dayOfDeath ?awardLabel WHERE {
+  ?person p:P570/psv:P570 ?dod ;
+          p:P166 ?aw .
+  ?aw pqv:P585 ?doa ;
+      ps:P166 ?award .
+  ?dod wikibase:timeValue ?dayOfDeath ;
+       wikibase:timePrecision ?prec .
+  ?doa wikibase:timeValue ?dayOfDeath ;
+       wikibase:timePrecision ?precA .
+  FILTER (?prec >= 11 && ?precA >= 11)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

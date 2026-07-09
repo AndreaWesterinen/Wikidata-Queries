@@ -1,0 +1,8 @@
+SELECT (SAMPLE(?p) as ?item) ?scale (COUNT(DISTINCT ?p) as ?count) (MIN(?pop) as ?min)  (MAX(?pop) as ?max) 
+{
+    ?p wdt:P882 [] ; wdt:P17 wd:Q30 .
+    ?p wdt:P1082 ?pop .
+    BIND(strlen(str(?pop)) as ?scale) 
+}
+GROUP BY ?scale 
+ORDER BY ?scale

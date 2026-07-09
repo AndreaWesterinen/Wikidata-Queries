@@ -1,0 +1,8 @@
+embed.html##defaultView:Map{"hide":["?coor"]}
+SELECT ?vestiging ?vestigingLabel ?vestigingDescription ?coor ?image 
+WHERE {
+  ?vestiging wdt:P361 wd:Q2105660 .
+  ?vestiging wdt:P625 ?coor .
+  OPTIONAL {?vestiging wdt:P18 ?image .}
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" }
+}

@@ -1,0 +1,13 @@
+# statements with “reason for deprecation” qualifier that are not Deprecated Rank
+SELECT ?subject ?subjectLabel ?predicateLabel ?objectLabel ?reasonLabel (SUBSTR(STR(?rank), 27) AS ?rankLabel) WHERE {
+  ?subject ?p [
+    ?ps ?object;
+    pq:P2241 ?reason;
+    wikibase:rank ?rank
+  ].
+  FILTER(?rank != wikibase:DeprecatedRank).
+  ?predicate wikibase:claim ?p;
+             wikibase:statementProperty ?ps.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?rank

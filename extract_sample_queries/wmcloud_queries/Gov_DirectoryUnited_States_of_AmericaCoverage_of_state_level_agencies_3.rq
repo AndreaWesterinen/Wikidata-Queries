@@ -1,0 +1,12 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P31 ?grouping.
+BIND(wd:Q30 AS ?country)
+{
+VALUES ?type {
+wd:Q20857065 
+wd:Q1752939
+}
+?entity wdt:P31 ?type; wdt:P17 ?country .
+} 
+MINUS { ?entity wdt:P576 [] }
+MINUS { ?entity wdt:P1366 [] }
+MINUS { ?entity wdt:P3999 [] }. ?entity wdt:P31 ?grouping .} GROUP BY ?grouping HAVING (?count >= 1) ORDER BY DESC(?count) LIMIT 1000

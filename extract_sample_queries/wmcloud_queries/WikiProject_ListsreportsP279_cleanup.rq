@@ -1,0 +1,1 @@
+SELECT ?item {  {?item wdt:P31 wd:Q13406463; wdt:P279 []} UNION { BIND(wd:Q884375 as ?item) } } LIMIT 2000

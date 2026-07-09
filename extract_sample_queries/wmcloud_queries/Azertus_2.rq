@@ -1,0 +1,4 @@
+SELECT * WHERE {
+  ?person wdt:P31 wd:Q190928;
+          wdt:P31 wd:Q5.
+}

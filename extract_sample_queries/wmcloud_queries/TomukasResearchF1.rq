@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel ?itemimage ?c ?itemsexorgender WHERE {
+  ?item p:P31 ?item_s_0Statement.
+  ?item_s_0Statement ps:P31 wd:Q5.
+  ?item p:P39 ?item_s_1Statement.
+  ?item_s_1Statement ps:P39 wd:Q27157707;
+    pq:P2937 wd:Q83178608.
+  OPTIONAL { ?item wdt:P18 ?itemimage. }
+  OPTIONAL { ?item wdt:P373 ?itemCommonscategory. }
+  OPTIONAL { ?item wdt:P21 ?itemsexorgender. }
+  OPTIONAL { ?item_s_0Statement wdt:P569 ?Geburtsdatum. }
+  OPTIONAL { ?item_s_0Statement wdt:P19 ?Geburtsort. }
+  OPTIONAL { ?item_s_0Statement wdt:P570 ?Sterbedatum. }
+  OPTIONAL { ?item_s_0Statement wdt:P20 ?Sterbeort. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

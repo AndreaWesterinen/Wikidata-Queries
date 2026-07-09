@@ -1,0 +1,10 @@
+SELECT ?item ?typeofproperty ?notwikipedia WHERE {
+  ?reference pr:P143 ?notwikipedia .
+  ?statement prov:wasDerivedFrom ?reference . 
+  ?item ?typeofproperty ?statement .
+  FILTER NOT EXISTS {?reference pr:P143 wd:Q52} # Wikipedia, is incorrect and should be fixed -> FIX
+  FILTER NOT EXISTS {?reference pr:P143 wd:Q465} # DBpedia is derived from Wikipedia so imported from is the right one to use
+  FILTER NOT EXISTS {?reference pr:P143 wd:Q565} # Wikimedia Commons is correct
+  FILTER NOT EXISTS {?reference pr:P143 wd:Q936} # OpenStreetMap -> FIX
+  MINUS { ?notwikipedia wdt:P31 wd:Q10876391 } # For all the language Wikipedia's
+} LIMIT 100000

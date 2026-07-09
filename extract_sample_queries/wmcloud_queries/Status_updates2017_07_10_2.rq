@@ -1,0 +1,6 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?banner WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q484170 .
+  ?item wdt:P948 ?banner .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+} ORDER BY ?itemLabel

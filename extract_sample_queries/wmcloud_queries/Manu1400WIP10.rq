@@ -1,0 +1,16 @@
+SELECT ?item ?lieu ?born {
+  ?item p:P9058 [];
+        wdt:P19 ?born;
+        wdt:P20 ?lieu.
+  MINUS { ?lieu wdt:P131/wdt:P17 wd:Q142 }
+  MINUS { ?lieu wdt:P131/wdt:P131 wd:Q142 }. # mort en France
+  MINUS { ?lieu wdt:P131/wdt:P131/wdt:P131 wd:Q142 }
+  MINUS { ?lieu wdt:P131/wdt:P131/wdt:P131/wdt:P131 wd:Q142 }
+  MINUS { ?lieu wdt:P131/wdt:P131/wdt:P131/wdt:P131/wdt:P131 wd:Q142 }
+  MINUS { ?born wdt:P131 wd:Q142 }
+  MINUS { ?born wdt:P131/wdt:P131 wd:Q142 }
+  MINUS { ?born wdt:P131/wdt:P131/wdt:P131 wd:Q142 }
+  MINUS { ?born wdt:P131/wdt:P131/wdt:P131/wdt:P131 wd:Q142 }
+  MINUS { ?born wdt:P131/wdt:P131/wdt:P131/wdt:P131/wdt:P131 wd:Q142 }
+}
+LIMIT 200

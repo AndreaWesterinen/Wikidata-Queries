@@ -1,0 +1,11 @@
+# All danish forms missing an audio pronounciation
+# affixes excluded
+SELECT distinct ?l ?lemma ?audio WHERE {
+  ?l dct:language wd:Q9035;
+    wikibase:lemma ?lemma; 
+    ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?lemma .
+  minus {?form wdt:P443 ?audio.}
+  # Exclude affixes
+  minus {?l wikibase:lexicalCategory wd:Q62155.}
+}

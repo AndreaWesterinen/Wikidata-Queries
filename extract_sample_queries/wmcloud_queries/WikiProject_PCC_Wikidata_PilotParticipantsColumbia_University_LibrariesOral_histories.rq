@@ -1,0 +1,12 @@
+SELECT ?item ?type ?nafuri  
+WHERE {
+
+  ?item wdt:P5008 wd:Q100325511.
+  ?item wdt:P31 ?type.
+  
+   OPTIONAL{
+  ?item wdt:P244 ?nafdid .
+    wd:P244 wdt:P1921 ?formatterurl .
+     BIND(IRI(REPLACE(?nafdid, '^(.+)$', ?formatterurl)) AS ?nafuri).
+    # it filter out wrong names / subjects uris
+    filter(regex(str(?nafuri), "names/n

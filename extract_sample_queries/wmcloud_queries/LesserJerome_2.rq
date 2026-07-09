@@ -1,0 +1,8 @@
+SELECT ?player ?playerLabel ?goals
+WHERE 
+{
+  ?player wdt:P31 wd:Q5 .
+  ?player wdt:P118 wd:Q1215892.
+  MINUS { ?player p:P6509 [  ] .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

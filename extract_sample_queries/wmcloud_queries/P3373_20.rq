@@ -1,0 +1,16 @@
+#title: People with same parents should be siblings
+# Complex constraint from [[Property talk:P3373]]
+# Two people who share the same parents, should be siblings by definition. For half-siblings, we could do a similar report.
+SELECT DISTINCT ?item ?item2 WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item2 wdt:P31 wd:Q5.
+  ?item wdt:P25/^wdt:P25 ?item2.
+  ?item wdt:P22/^wdt:P22 ?item2.
+   
+  FILTER(?item != ?item2)  
+  
+  MINUS { ?item wdt:P3373 ?item2. }
+  MINUS { ?item2 wdt:P3373 ?item. }
+  MINUS { ?item wdt:P460 ?item2. }
+}
+LIMIT 10000

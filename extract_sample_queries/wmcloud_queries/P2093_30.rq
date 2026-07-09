@@ -1,0 +1,8 @@
+#title: Duplicate between author and short author name at a given position in an authoring list
+# Complex constraint from [[Property talk:P2093]]
+# Identical P1545 for both a P50 and a P2093 statement
+select ?item ?interval where {
+  ?item p:P2093/pq:P1545 ?interval ;
+        p:P50/pq:P1545 ?interval .
+  }
+  LIMIT 1000

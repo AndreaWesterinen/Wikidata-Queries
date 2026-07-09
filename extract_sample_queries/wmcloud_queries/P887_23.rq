@@ -1,0 +1,2 @@
+#title:Move qualifier to source
+SELECT DISTINCT ?item WHERE { ?item ?st ?statement . ?statement pq:P887 ?value . wd:P887 p:P2302 [ ps:P2302 wd:Q21510859; pq:P2305 ?value ] } LIMIT 100

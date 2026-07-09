@@ -1,0 +1,5 @@
+#defaultView:ImageGrid
+SELECT ?item ?image WHERE {
+  ?item wdt:P180 wd:Q1545193 .
+  ?item wdt:P18 ?image 
+} LIMIT 51

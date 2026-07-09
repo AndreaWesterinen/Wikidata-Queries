@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q1345234.
+  OPTIONAL {?item wdt:P17 ?pais.}
+  FILTER(?pais != wd:Q29).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+}
+LIMIT 200

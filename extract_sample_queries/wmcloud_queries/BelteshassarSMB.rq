@@ -1,0 +1,6 @@
+SELECT ?item ?SMB_code ?TSB_code ?sort_key WHERE {
+  ?item p:P528 [ ps:P528 ?SMB_code ; pq:P972 wd:Q7652207] .               # get all items with SMB code
+  OPTIONAL { ?item p:P528 [ ps:P528 ?TSB_code ; pq:P972 wd:Q4577527] . }  # get TSB code
+  BIND (xsd:integer(SUBSTR(?SMB_code, 5, 3)) AS ?sortkey)
+}
+ORDER BY ?sortkey

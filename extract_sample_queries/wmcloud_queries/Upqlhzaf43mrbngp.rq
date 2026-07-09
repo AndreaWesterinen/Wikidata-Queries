@@ -1,0 +1,8 @@
+#defaultView:Timeline
+SELECT distinct ?event ?eventLabel ?date ?location ?image WHERE {
+    ?event wdt:P136 wd:Q172980 ;
+           wdt:P577 ?date FILTER (YEAR(?date) <1925) .
+           
+    OPTIONAL {?event wdt:P18 ?image .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, it, es". }
+}

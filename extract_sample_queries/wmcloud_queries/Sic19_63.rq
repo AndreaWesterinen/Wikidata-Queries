@@ -1,0 +1,39 @@
+embed.html##defaultView:Map{"hide":["?geoshape","?rgb","?RORs"], "layer": "?RORs"}
+SELECT ?geoshape ?countryLabel ?count ?rgb ?RORs WHERE {
+{select ?country (COUNT(DISTINCT ?x) AS ?count) where {
+  ?x wdt:P6782 ?ror ;
+     wdt:P17 ?country .
+  }
+GROUP BY ?country
+  }
+   ?country wdt:P3896 ?geoshape .
+
+  BIND(
+    IF(?count < 11,"1-10",
+      IF(?count < 26,"11-25",
+       IF(?count < 51,"26-50",
+          IF(?count < 101,"51-100", 
+             IF(?count < 251,"101-250", 
+                IF(?count < 501,"251-500",
+                   IF(?count < 1001,"501-1000",
+                      IF(?count < 2501,"1001-2500",
+                         IF(?count < 5001,"2501-5000",
+                            IF(?count > 5000,"5000+",
+       "")))))))))) AS ?RORs) .
+  
+  BIND(
+    IF(?count < 11,"ffe6e6",
+      IF(?count < 26,"ffcccc",
+       IF(?count < 51,"ffb3b3",
+          IF(?count < 101,"ff9999", 
+             IF(?count < 251,"ff8080", 
+                IF(?count < 501,"ff6666",
+                   IF(?count < 1001,"ff4d4d",
+                      IF(?count < 2501,"ff3333",
+                         IF(?count < 5001,"e60000",
+                            IF(?count > 5000,"b30000",
+       "")))))))))) AS ?rgb) .
+
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?geoshape ?countryLabel ?count ?rgb ?RORs

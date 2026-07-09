@@ -1,0 +1,10 @@
+#title: 20th-century writers without nationality
+# Complex constraint from [[Property talk:P2533]]
+# People with [[Property:P2533|WomenWriters ID&#32;<small dir="ltr">(P2533)</small>]] born after 1900, but no [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]]
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P2533 [] .
+  ?item p:P569 ?birthclaim .
+  MINUS { ?item p:P27 [] }
+  ?birthclaim ps:P569 ?birth .
+  FILTER(?birth > "+1900-00-00T00:00:00Z"^^xsd:dateTime) .
+}  ORDER BY ?birth LIMIT 1000

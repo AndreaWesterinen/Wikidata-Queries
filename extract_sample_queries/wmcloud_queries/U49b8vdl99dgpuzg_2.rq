@@ -1,0 +1,7 @@
+SELECT ?item ?value WHERE {
+  ?ref pr:P4656 ?value .
+  ?statement prov:wasDerivedFrom ?ref.
+  ?item ?p ?statement .
+  BIND( REGEX( STR( ?value ), "https?://[a-z]{2,3}\\.wikipedia\\.org" ) AS ?regexresult ) .
+  FILTER( ?regexresult = false ) .
+} 

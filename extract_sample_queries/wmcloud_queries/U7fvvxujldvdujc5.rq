@@ -1,0 +1,10 @@
+#Eglise
+SELECT ?item ?labelFr ?labelEn WHERE {
+  ?item wdt:P31 wd:Q16970.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item rdfs:label ?labelFr.
+  FILTER(LANG(?labelFr) = "fr") #with French label
+  ?item rdfs:label ?labelEn.
+  FILTER(LANG(?labelEn) = "en") #with English label
+}
+ORDER BY ?labelFr

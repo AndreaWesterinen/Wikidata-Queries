@@ -1,0 +1,16 @@
+embed.html## sitting presidents who were executed
+SELECT DISTINCT ?president ?presidentLabel WHERE {
+  # cause of death: some kind of capital punishment
+  ?president wdt:P509/(wdt:P31|wdt:P279)* wd:Q8454;
+             wdt:P570 ?died;
+             p:P39 ?positionStat.
+  # position held: some kind of president
+  ?positionStat ps:P39/wdt:P279* wd:Q30461.
+  # start time qualifier
+  ?positionStat pq:P580 ?positionStart.
+  # end time qualifier (or no end time)
+  OPTIONAL { ?positionStat pq:P582 ?positionEnd. }
+  # did not become president after death, and died before presidency ended
+  FILTER(?positionStart <= ?died && (!BOUND(?positionEnd) || ?positionEnd >= ?died)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

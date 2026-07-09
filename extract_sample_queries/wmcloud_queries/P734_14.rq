@@ -1,0 +1,11 @@
+#title: Value shouldn't be an item for disambiguation pages
+# Complex constraint from [[Property talk:P734]]
+# fixme
+SELECT ?item ?p ?pl2 ?dabl
+{ 
+  ?p wdt:P734 ?item . ?item wdt:P31 wd:Q4167410 
+  OPTIONAL { ?p rdfs:label ?pl . FILTER(lang(?pl)="ru")  }
+  OPTIONAL { ?item rdfs:label ?dabl . FILTER(lang(?dabl)="ru")  }
+  BIND(REPLACE(str(?pl), str(?dabl), CONCAT("<b>",str(?dabl),"</b>")) as ?pl2)
+}
+ORDER BY ?pl2 ?dabl (xsd:integer(SUBSTR(STR(?p),33)))

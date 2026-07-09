@@ -1,0 +1,14 @@
+SELECT ?item1 ?item1Label ?distance ?item2Label ?item2 ?ref 
+WHERE 
+{
+  ?item1 wdt:P1216 ?ref.
+  ?item2 wdt:P1216 ?ref.
+  bind(strafter(str(?item1),"Q") as ?item1no)
+  bind(strafter(str(?item2),"Q") as ?item2no)
+  filter(?item1no < ?item2no)
+  ?item1 wdt:P625 ?geo1.
+  ?item2 wdt:P625 ?geo2.
+  bind(geof:distance(?geo1,?geo2) as ?distance)
+  filter (?ref not in ("1019123"))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],en' }
+ } order by ?ref

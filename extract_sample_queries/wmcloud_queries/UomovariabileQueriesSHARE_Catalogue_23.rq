@@ -1,0 +1,12 @@
+#defaultView:BubbleChart
+SELECT ?placeLabel (COUNT(?place) AS ?count)
+WHERE
+{
+	?person wdt:P19 ?place.
+  ?place wdt:P131+ wd:Q38.
+    ?person wdt:P3987 ?ID_autore_SHARE_Catalogue
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+}
+GROUP BY ?placeLabel
+ORDER BY DESC (?count)
+LIMIT 20

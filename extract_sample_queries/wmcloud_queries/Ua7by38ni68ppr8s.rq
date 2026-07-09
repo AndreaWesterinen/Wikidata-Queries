@@ -1,0 +1,32 @@
+select distinct ?page ?item ?typeLabel ?check (?prop as ?infobox_prop) {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:api "Generator" .
+     bd:serviceParam wikibase:endpoint "fr.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle "Category:Graphe remarquable" .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmtype "page" .
+     bd:serviceParam mwapi:prop "pageprops|revisions" .
+     bd:serviceParam mwapi:ppprop "wikibase_item|sortkey" .
+     bd:serviceParam mwapi:rvprop "content" .
+     ?page wikibase:apiOutput mwapi:title  .
+     ?itemQ wikibase:apiOutput "pageprops/@wikibase_item" .
+     ?sortkey wikibase:apiOutput "pageprops/@sortkey" .
+     ?cnt wikibase:apiOutput "revisions/rev/text()" .
+  }
+  BIND(REPLACE(STRBEFORE(STRAFTER(?cnt,CONCAT("{","{Infobox Graphe")),CONCAT("}","}")), ".*\\|\\s*propriétés\\s*=\\s*([^=]*).*", "$1", "s") as ?prop) .
+  BIND(IRI(CONCAT(STR(wd:), ?itemQ)) as ?item) .
+  {
+    ?item wdt:P31/wdt:P279* wd:Q141488 .
+    OPTIONAL { 
+      ?item  p:P31 ?stmt .
+      ?stmt ps:P31 ?type .
+      ?stmt prov:wasDerivedFrom ?provenance .
+      ?provenance pr:P143 wd:Q8447. 
+      ?type rdfs:label ?typeLabel .
+      FILTER(lang(?typeLabel)="fr") .
+    }
+  }
+  BIND(IF(REGEX(lcase(?prop),lcase(?typeLabel)),"OK","not found") as ?check) .
+  FILTER(BOUND(?type)) .
+} ORDER BY ?typeLabel ?sortkey

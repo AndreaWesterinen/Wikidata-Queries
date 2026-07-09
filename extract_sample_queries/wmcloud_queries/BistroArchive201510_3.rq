@@ -1,0 +1,27 @@
+prefix schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?paysLabel (COUNT(DISTINCT ?enfant) AS ?nombre)
+WHERE {
+  ?enfant wdt:P31 wd:Q5 . # On cherche des humains (pas des personnages de fiction)
+  ?enfant wdt:P39/wdt:P279* wd:Q83307 . #qui exercent ou ont exercé une fonction de ministre (ou dont la fonction est une sous-classe de ministre)
+  {  
+     ?enfant wdt:P22 ?parent . 
+     ?parent wdt:P39/wdt:P279* wd:Q83307 . #et dont c'est aussi le cas pour le père.
+  } UNION { 
+     ?enfant wdt:P25 ?parent . 
+     ?parent wdt:P39/wdt:P279* wd:Q83307 . #et dont c'est aussi le cas pour la mère.
+  }
+  
+  ?enfant wdt:P27 ?pays .
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,en,el" .
+  } 
+} GROUP BY ?paysLabel ORDER BY DESC(?nombre)

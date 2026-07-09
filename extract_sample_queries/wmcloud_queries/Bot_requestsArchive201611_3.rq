@@ -1,0 +1,6 @@
+SELECT (count(?category) AS ?cnt) WHERE {
+    ?category wdt:P31 wd:Q4167836 .
+    ?category wdt:P301 ?article .
+    ?category wdt:P373 ?commonscategory .  
+    ?article wdt:P373 ?commonscategory .
+}

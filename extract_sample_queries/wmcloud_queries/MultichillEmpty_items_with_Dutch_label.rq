@@ -1,0 +1,12 @@
+SELECT ?item  WHERE {
+    {?item wikibase:statements 0 .
+    ?item wikibase:sitelinks 0 .
+    ?item rdfs:label ?label.
+    FILTER(LANG(?label) = "nl").
+    MINUS { ?someitem ?someproperty ?item } } UNION 
+    {?item wikibase:statements 1 .
+    ?item wikibase:sitelinks 0 .
+    ?item rdfs:label ?label.
+    FILTER(LANG(?label) = "nl").
+    MINUS { ?someitem ?someproperty ?item } }
+} ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))) LIMIT 250

@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel (COUNT(*) AS ?count)
+WHERE { ?item p:P990 [] 
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+      } 
+GROUP BY ?item ?itemLabel HAVING(?count > 1) ORDER BY DESC(?count)

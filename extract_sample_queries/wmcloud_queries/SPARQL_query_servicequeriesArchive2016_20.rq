@@ -1,0 +1,20 @@
+SELECT distinct ?item ?itemLabel  ?imdb  ?mojo ?rotten ?allmovie ?metacritic (COUNT(distinct ?sitelink) as ?count) WHERE {
+  ?item wdt:P31 wd:Q11424 .
+  ?item wdt:P577 ?time0 .
+  FILTER ( ?time0 >= "2013-01-01T00:00:00Z"^^xsd:dateTime ) .
+  OPTIONAL { ?item wdt:P345 ?imdb . }
+  OPTIONAL { ?item wdt:P1237 ?mojo . }
+  OPTIONAL { ?item wdt:P1258 ?rotten . }
+  OPTIONAL { ?item wdt:P1562 ?allmovie . }
+  OPTIONAL { ?item wdt:P1712 ?metacritic .  }
+	?sitelink schema:about ?item .
+	#FILTER EXISTS { ?wlv schema:about ?item . ?wlv schema:inLanguage "lv" }
+    
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "lv,en" .
+   }
+ }
+GROUP BY ?item ?itemLabel ?imdb ?mojo ?rotten ?allmovie ?metacritic
+#having (?count<2)
+ORDER BY DESC(?count)
+limit 100

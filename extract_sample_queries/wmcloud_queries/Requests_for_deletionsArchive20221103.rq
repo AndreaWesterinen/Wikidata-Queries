@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item
+WHERE
+{
+  ?item ?ref wd:Q65640233.
+  ?ref ^wikibase:directClaim [].
+}

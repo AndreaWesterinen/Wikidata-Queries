@@ -1,0 +1,25 @@
+# Every person in Wikidata with HoP-specific volume IDs
+# note it has one known oddity - Frederick Robinson has two 1820-1832 pages
+SELECT distinct ?person ?personLabel ?hop1 ?hop2 ?hop3 ?hop4 ?hop5 ?hop6 ?hop7 ?hop8 ?hop9 ?hop10 ?odnb ?rush
+WHERE 
+{ ?person wdt:P1614 [] . 
+  # first, find all people who are in HoP with any values
+  
+  optional { ?person wdt:P1614 ?hop1 . FILTER(STRSTARTS(?hop1, "1386")). }   # 
+  optional { ?person wdt:P1614 ?hop2 . FILTER(STRSTARTS(?hop2, "1509")). }   #
+  optional { ?person wdt:P1614 ?hop3 . FILTER(STRSTARTS(?hop3, "1558")). }   # Then for each period,
+  optional { ?person wdt:P1614 ?hop4 . FILTER(STRSTARTS(?hop4, "1604")). }   # pick out any page
+  optional { ?person wdt:P1614 ?hop5 . FILTER(STRSTARTS(?hop5, "1660")). }   # that matches the
+  optional { ?person wdt:P1614 ?hop6 . FILTER(STRSTARTS(?hop6, "1690")). }   # relevant URL pattern
+  optional { ?person wdt:P1614 ?hop7 . FILTER(STRSTARTS(?hop7, "1715")). }   # & report it
+  optional { ?person wdt:P1614 ?hop8 . FILTER(STRSTARTS(?hop8, "1754")). }   #
+  optional { ?person wdt:P1614 ?hop9 . FILTER(STRSTARTS(?hop9, "1790")). }   #
+  optional { ?person wdt:P1614 ?hop10 . FILTER(STRSTARTS(?hop10, "1820")). } # 
+  
+  optional { ?person wdt:P4471 ?rush . }   
+  # IDs in the Rush Parliamentary Archive
+  optional { ?person wdt:P1415 ?odnb . }   
+  # lastly, get the ODNB entries - prefix ID with https://doi.org/10.1093/ref:odnb/...
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

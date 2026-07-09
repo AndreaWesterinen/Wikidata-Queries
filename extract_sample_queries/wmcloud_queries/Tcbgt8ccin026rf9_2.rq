@@ -1,0 +1,29 @@
+#defaultView:Graph
+select ?child ?childLabel ?parent ?parentLabel {
+  {
+    ?parent wdt:P225 "Sciuridae" .
+    ?child wdt:P171* ?parent .
+    ?child wdt:P31 wd:Q16521 .
+    ?child wdt:P105 wd:Q2455704 .
+  } UNION {
+    ?top wdt:P225 "Sciuridae" .
+    ?parent wdt:P171* ?top .
+    ?parent wdt:P31 wd:Q16521 .
+    ?parent wdt:P105 wd:Q2455704 .
+    ?child wdt:P171* ?parent .
+    ?child wdt:P31 wd:Q16521 .
+    ?child wdt:P105 wd:Q34740 .
+  } UNION {
+    ?top wdt:P225 "Sciuridae" .
+    ?parent wdt:P171* ?top .
+    ?sf wdt:P31 wd:Q16521 .
+    ?sf wdt:P105 wd:Q2455704 .
+    ?parent wdt:P171* ?sf .
+    ?parent wdt:P31 wd:Q16521 .
+    ?parent wdt:P105 wd:Q34740 .
+    ?child wdt:P171* ?parent .
+    ?child wdt:P31 wd:Q16521 .
+    ?child wdt:P105 wd:Q7432 .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

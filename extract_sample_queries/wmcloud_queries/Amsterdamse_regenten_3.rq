@@ -1,0 +1,15 @@
+SELECT ?m ?mLabel ?geb ?sterf ?start ?eind
+WHERE 
+{
+   ?m wdt:P39 wd:Q13423495 .
+   OPTIONAL {
+     ?m p:P39 ?ambt .
+     ?ambt ps:P39 wd:Q13423495 . 
+     ?ambt pq:P580 ?start . 
+     ?ambt pq:P582 ?eind . 
+   }
+ OPTIONAL { ?m wdt:P569 ?geb . }
+ OPTIONAL { ?m wdt:P570 ?sterf . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+ORDER BY ?start ?mLabel

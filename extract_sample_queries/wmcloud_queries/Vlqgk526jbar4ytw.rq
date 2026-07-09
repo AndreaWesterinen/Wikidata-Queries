@@ -1,0 +1,43 @@
+#With pictures
+
+#died in Treblinka Q152010 (none)
+#died in Sobibor Q152658 (none)
+#died in Auschwitz-Birkenau Q7341
+#died in Theresienstadt 
+
+SELECT DISTINCT ?item ?itemLabel ?pic ?datedied ?placediedLabel ?placedied ?child ?childLabel ?ownedby ?ownedbyLabel ?depicts ?depictsLabel ?depictedby ?depictedbyLabel ?countryLabel ?ownerof ?ownerofLabel ?spouse ?employer ?employerLabel ?spouseLabel ?mother ?motherLabel ?father ?fatherLabel ?sibling ?siblingLabel ?investby ?investbyLabel ?sigperson ?sigpersonLabel ?party ?partyLabel ?partner ?partnerLabel WHERE {
+{ ?item wdt:P106 wd:Q1792450.} UNION { ?item wdt:P31 wd:Q1007870. } UNION { ?item wdt:P106 wd:Q173950.} UNION { ?item wdt:P921 wd:Q328376.} UNION { ?item wdt:P106 wd:Q10732476.} UNION { ?item wdt:P106 wd:Q446966.} UNION { ?item wdt:P106 wd:Q22132694.} UNION { ?item wdt:P106 wd:Q674426.}
+
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+{?item wdt:P20 wd:Q7341.} UNION {?item wdt:P20 wd:Q160175.}
+  ?item wdt:P18 ?pic.
+OPTIONAL { ?item wdt:P127 ?ownedby. }
+OPTIONAL { ?item wdt:P570 ?datedied. }
+OPTIONAL { ?item wdt:P20 ?placedied. }
+OPTIONAL { ?item wdt:P180 ?depicts. }
+OPTIONAL { ?item wdt:P921 ?plunder. }
+OPTIONAL { ?item wdt:P1830 ?ownerof. }
+OPTIONAL { ?item wdt:P108 ?employer. }
+OPTIONAL { ?item wdt:P569 ?birth. }
+OPTIONAL { ?item wdt:P40 ?child. }
+OPTIONAL { ?item wdt:P214 ?VIAF_ID. }
+OPTIONAL { ?item wdt:P19 ?place_birth. }
+OPTIONAL { ?item wdt:P244 ?Library_of_Congress_authority_ID. }
+OPTIONAL { ?item wdt:P227 ?GND_ID. }
+OPTIONAL { ?item wdt:P245 ?ULAN_ID. }
+OPTIONAL { ?item wdt:P26 ?spouse. }
+OPTIONAL { ?item wdt:P27 ?country. }
+OPTIONAL { ?item wdt:P3342 ?sigperson. }
+OPTIONAL { ?item wdt:P102 ?party. }
+OPTIONAL { ?item wdt:P1327 ?partner. }
+OPTIONAL { ?item wdt:P1840 ?investby. }
+OPTIONAL { ?item wdt:P25 ?mother. }
+OPTIONAL { ?item wdt:P22 ?father. }
+OPTIONAL { ?item wdt:P3373 ?sibling. }
+OPTIONAL { ?item wdt:P1299 ?depictedby. }
+OPTIONAL { ?item wdt:P39 ?position. }
+# FILTER (YEAR(?birth) = 1860 &amp;&amp; YEAR(?birth) &lt;= 1990)
+FILTER (YEAR(?datedied) >= 1933 )
+}
+LIMIT 20000

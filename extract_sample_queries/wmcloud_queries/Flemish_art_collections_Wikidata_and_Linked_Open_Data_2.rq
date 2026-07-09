@@ -1,0 +1,4 @@
+SELECT ?item ?_inventory_number WHERE {
+  ?item wdt:P195 wd:Q1540707.
+  OPTIONAL { ?item wdt:P217 ?_inventory_number. }
+}

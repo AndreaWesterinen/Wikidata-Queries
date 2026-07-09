@@ -1,0 +1,6 @@
+SELECT ?instance_of ?publication_date WHERE {
+  ?instance_of wdt:P31 wd:Q26973022.
+  ?instance_of wdt:P50 wd:Q44942293.
+  OPTIONAL { ?instance_of wdt:P577 ?publication_date. }
+}
+LIMIT 50

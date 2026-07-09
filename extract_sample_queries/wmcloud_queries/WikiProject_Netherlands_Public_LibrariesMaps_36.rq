@@ -1,0 +1,48 @@
+#Provincie Overijssel
+#defaultView:Map
+SELECT ?Qvestiging ?QvestigingLabel ?coor ?partof ?partofLabel ?image ?layer WHERE {
+#SELECT ?s ?sLabel ?coor ?image ?layer WHERE { 
+  
+       ?Qvestiging (p:P31/ps:P31) wd:Q28564;wdt:P17 wd:Q55;
+          wdt:P625 ?coor ;
+          wdt:P361 ?partof ;
+          OPTIONAL {?Qvestiging wdt:P18 ?image .}
+  
+VALUES ?partof {
+wd:Q59961892 #St. OB Almelo
+wd:Q59961993 #St. Bieb Hengelo
+wd:Q59962018 #H.B. OB Enschede
+wd:Q59961944 #St. OB Borne
+wd:Q59962201 #St. OB Ommen
+wd:Q59962197 #St. OB Oldenzaal
+wd:Q59962068 #St. Kulturhus Haaksbergen
+wd:Q59962070 #St.OB Hardenberg
+wd:Q59962149 #St. Bieb Losser
+wd:Q59962279 #St. OB Staphorst
+wd:Q59962232 #St. Bieb Rijssen-Holten
+wd:Q59962395 #St.OB Wierden
+wd:Q59962228 #St.OB Sallnd
+wd:Q59962190 # ZINiN Hellendoorn-Nijverdal
+wd:Q59962282 # Kop v Overijssel
+                 }
+BIND( 
+IF(?partof = wd:Q59961892, "Almelo", 
+IF(?partof = wd:Q59961993, "Hengelo",
+IF(?partof = wd:Q59962018, "Enschede",
+IF(?partof = wd:Q59961944, "Borne",
+IF(?partof = wd:Q59962201, "Ommen",
+IF(?partof = wd:Q59962070, "Hardenberg",
+IF(?partof = wd:Q59962197, "Oldenzaal",
+IF(?partof = wd:Q59962068, "Haaksbergen",
+IF(?partof = wd:Q59962149, "Losser",
+IF(?partof = wd:Q59962232, "Rijssen en Holten",
+IF(?partof = wd:Q59962279, "Staphorst",
+IF(?partof = wd:Q59962395, "Wierden",
+IF(?partof = wd:Q59962228, "Raalte en Olst-Wijhe",
+IF(?partof = wd:Q59962190, "Hellendoorn-Nijverdal",
+IF(?partof = wd:Q59962282, "Steenwijkerland",
+             ""))))))))))))))) AS ?layer).  
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" }
+}
+ORDER BY ?layer ?partofLabel ?QvestigingLabel

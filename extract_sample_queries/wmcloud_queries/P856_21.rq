@@ -1,0 +1,5 @@
+select ?site ?site2 ?url {
+  ?site wdt:P856 ?url. 
+  ?site2 wdt:P856 ?url filter (str(?site2) < str(?site))
+  
+}limit 10000

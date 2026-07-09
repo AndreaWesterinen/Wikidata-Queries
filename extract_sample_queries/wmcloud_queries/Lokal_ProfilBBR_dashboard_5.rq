@@ -1,0 +1,1 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P1260 ?id. FILTER(REGEX(?id, "^raa/bbr(a|b|)/")). ?entity wdt:P131 ?grouping .} GROUP BY ?grouping HAVING (?count < 20) ORDER BY DESC(?count) LIMIT 1000

@@ -1,0 +1,4 @@
+SELECT ?item ?value WHERE {
+  ?item wdt:P1015 ?value .
+  FILTER ( REGEX(?value, "[0-9]$") = false ) .
+} 

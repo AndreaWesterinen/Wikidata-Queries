@@ -1,0 +1,21 @@
+PREFIX schema: <http://schema.org/>
+
+#Missing description for a target language
+#Search for missing descriptions in a target language.
+#Can be input for Q29032512
+SELECT ?item ?itemDescription ?Ver_ffentlichungsdatum WITH {
+  SELECT ?item ?country ?ist_ein_e_ ?ist_ein_e_Label WHERE {
+    VALUES ?country { wd:Q7256370 wd:Q1634280 wd:Q7256367 wd:Q4744250 wd:Q4955782 }
+    ?item wdt:P1433 ?country.
+    ?item wdt:P31 wd:Q13442814
+    FILTER(NOT EXISTS {
+      ?item schema:description ?itemdesc.
+      FILTER((LANG(?itemdesc)) = "de")
+    })
+  }
+} AS %results WHERE {
+  INCLUDE %results.
+  OPTIONAL { ?item wdt:P577 ?Ver_ffentlichungsdatum. }
+}
+ORDER BY ?itemLabel  
+Limit 100000

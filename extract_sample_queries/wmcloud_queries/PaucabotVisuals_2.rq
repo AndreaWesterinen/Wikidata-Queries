@@ -1,0 +1,13 @@
+#Professions dels mallorquins
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+    ?person wdt:P19 ?place .
+    ?place wdt:P131*/wdt:P706* wd:Q8828.
+	?person wdt:P106 ?name .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

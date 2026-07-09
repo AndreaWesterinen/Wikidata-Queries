@@ -1,0 +1,10 @@
+SELECT DISTINCT ?werkveld ?werkveldLabel ?beroepLabel WHERE {
+  ?item wdt:P108 ?university.
+  ?item p:P108 ?werkgever.
+  ?werkgever pq:P101 ?werkveld.
+  OPTIONAL {?werkveld wdt:P3095 ?beroep.}
+
+  ?university wdt:P463 wd:Q3212092.
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}
+ORDER BY ?werkveldLabel

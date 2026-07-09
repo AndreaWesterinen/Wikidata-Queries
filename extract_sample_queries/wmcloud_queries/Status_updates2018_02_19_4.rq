@@ -1,0 +1,15 @@
+# alive actors and actresses without an image, ordered by number of films they appear in
+SELECT ?actor ?actorLabel ?actorDescription ?count WITH {
+  SELECT ?actor (COUNT(DISTINCT ?film) AS ?count) WHERE {
+    ?film wdt:P31 wd:Q11424;
+          wdt:P161 ?actor.
+    MINUS { ?actor wdt:P18 ?image. }
+    MINUS { ?actor wdt:P570 ?dateOfDeath. }
+  }
+  GROUP BY ?actor
+  HAVING(?count >= 50)
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

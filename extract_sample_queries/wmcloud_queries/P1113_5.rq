@@ -1,0 +1,10 @@
+#title: Television series would have this (series with episode items)
+# Complex constraint from [[Property talk:P1113]]
+# check limited to series with more than 10 episode items
+SELECT * 
+{
+    ?item wdt:P31 wd:Q5398426  . 
+    MINUS { ?item wdt:P1113 [] }
+     { SELECT ?item (COUNT(?ep) as ?ct) { ?ep wdt:P31 wd:Q21191270 ; wdt:P179 ?item }  GROUP BY ?item HAVING (?ct>10) }
+}
+ORDER BY DESC(?ct) }

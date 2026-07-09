@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P10918/ps:P10918 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((ageofempires|apexlegends|arenafps|arenaofvalor|artifact|autochess|battalion|battlerite|brawlhalla|brawlstars|callofduty|clashroyale|counterstrike|criticalops|crossfire|dota2|fifa|fighters|fortnite|freefire|halo|hearthstone|heroes|leagueoflegends|magic|mobilelegends|naraka|overwatch|paladins|pokemon|pubg|pubgmobile|rainbowsix|rocketleague|runeterra|sideswipe|simracing|smash|splitgate|squadrons|starcraft|starcraft2|teamfortress|tft|underlords|valorant|warcraft|wildrift|worldofwarcraft)\\:([\\p{L}\\d]+(?:(?:\\_|\\-|\\.|\\/)[\\p{L}\\d]+)*))$") )
+}

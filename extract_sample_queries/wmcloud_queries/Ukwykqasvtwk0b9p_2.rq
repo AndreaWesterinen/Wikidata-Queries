@@ -1,0 +1,13 @@
+#defaultView:Map
+SELECT ?locationLabel ?coord ?date ?page
+WHERE {
+wd:Q56458770 p:P276 ?statement.
+  ?statement ps:P276 ?location.
+?location wdt:P625 ?coord.
+  ?statement pq:P585 ?date.
+  OPTIONAL {
+  ?statement pq:P856 ?page.
+
+}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

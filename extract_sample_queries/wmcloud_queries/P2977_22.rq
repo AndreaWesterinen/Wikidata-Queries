@@ -1,0 +1,11 @@
+#title: Check correspondence between the year in the identifier and the year of death
+# Complex constraint from [[Property talk:P2977]]
+# Check when the ID contain the year of death
+SELECT ?item {
+  ?item wdt:P2977 ?value.
+  ?item wdt:P570 ?died.
+  BIND (YEAR(?died) AS ?diedYear).
+  BIND (STRLEN(?value) AS ?stringlength).
+  BIND (SUBSTR(?value, ?stringlength - 3, 4) AS ?substr).
+  FILTER (?diedYear != ?substr)
+  FILTER REGEX(STR(?value), "^([A-Z][A-Za-zí]+((1\\d

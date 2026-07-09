@@ -1,3 +1,4 @@
+#title: Paintings by Gustav Klimt
 #defaultView:ImageGrid
 SELECT *
 WHERE

@@ -1,0 +1,9 @@
+#title: Main value same as qualifier
+# Complex constraint from [[Property talk:P6552]]
+# todo: delete P6552 statement (not the P6552 qualifier)
+SELECT ?item ?id ?statement
+{
+  ?item p:P2002 / pq:P6552 ?id .
+  ?item p:P6552 ?statement . 
+  ?statement ps:P6552 ?id .
+}

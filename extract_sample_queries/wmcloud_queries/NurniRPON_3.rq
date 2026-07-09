@@ -1,0 +1,22 @@
+SELECT DISTINCT ?p ?pLabel (GROUP_CONCAT(?k_label; SEPARATOR = ", ") AS ?kc) ?dau ?dar WHERE {
+  ?p wdt:P31 ?k.
+  OPTIONAL { ?p wdt:P571 ?du. }
+  OPTIONAL { ?p wdt:P576 ?dr. }
+  VALUES ?p {
+    wd:Q11710624
+    wd:Q171348
+    wd:Q9391434
+    wd:Q11784930
+    wd:Q172107
+    wd:Q1649871
+    wd:Q577867
+    wd:Q5124786 
+  }
+  BIND(YEAR(?du) AS ?dau)
+  BIND(YEAR(?dr) AS ?dar)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?k rdfs:label ?k_label.
+  FILTER ( lang(?k_label) = "pl")
+}
+GROUP BY ?p ?pLabel ?dau ?dar
+ORDER BY (?dau)

@@ -1,0 +1,28 @@
+embed.html#SELECT ?item ?itemLabel ?class ?classLabel ?aat_higher ?aat_higherLabel ?indirect WITH {
+   SELECT ?item WHERE {
+    #  ?item (p:P1014/pq:P361)* wd:Q1065579 .     very very slow
+       wd:Q1065579 (^pq:P361/^p:P1014)* ?item  .   # much quicker
+   } 
+} AS %costume_tree
+
+WHERE {
+   INCLUDE %costume_tree . 
+   ?item p:P1014/pq:P361 ?aat_higher .
+
+   OPTIONAL {
+       ?item wdt:P279+ ?aat_higher .
+       hint:Prior hint:gearing "reverse" .
+       BIND(1 AS ?subclassed) .   
+   }
+   FILTER (!bound(?subclassed)) .
+
+   OPTIONAL {
+       ?item wdt:P279 ?class .
+   }
+   OPTIONAL {
+       ?item p:P1014/pq:P1480 wd:Q50095342 .
+       BIND ("Y" AS ?indirect) .
+   }
+  
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?aat_higherLabel ?indirect ?itemLabel

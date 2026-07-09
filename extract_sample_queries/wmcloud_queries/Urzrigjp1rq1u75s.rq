@@ -1,0 +1,9 @@
+embed.html##defaultView:Map
+SELECT DISTINCT ?person ?coord ?layer
+WHERE
+{
+  wd:Q3044 wdt:P40* ?person.
+  ?person wdt:P20 ?PoB ; wdt:P570 ?DoB .
+  ?PoB wdt:P625 ?coord .
+  BIND( ROUND(year(?DoB)/100) AS ?layer).
+}

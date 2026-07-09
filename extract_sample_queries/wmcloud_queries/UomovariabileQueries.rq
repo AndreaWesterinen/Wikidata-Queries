@@ -1,0 +1,22 @@
+PREFIX schema: <http://schema.org/>
+
+#occupation=economista
+#paese di cittadinanza = Italia
+#VIAF ID
+# get DOB for ordering.
+# look for articles (sitelinks) in italiano ("it")
+# but select items with no such article
+SELECT ?item ?itemLabel ?dob WHERE {
+  ?item wdt:P106 wd:Q188094.
+  ?item wdt:P27 wd:Q38.
+  ?item wdt:P214 ?VIAF_ID.
+  OPTIONAL { ?item wdt:P569 ?dob. }
+  OPTIONAL {
+    ?sitelink schema:about ?item.
+    ?sitelink schema:inLanguage "it".
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+  FILTER(!BOUND(?sitelink))
+}
+ORDER BY ?dob
+LIMIT 4999

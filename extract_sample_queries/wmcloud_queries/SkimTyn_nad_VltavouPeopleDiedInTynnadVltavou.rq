@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?given_nameLabel ?family_nameLabel WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q5.
+  ?item wdt:P20 wd:Q815541.
+  OPTIONAL { ?item wdt:P735 ?given_name. }.
+  OPTIONAL { ?item wdt:P734 ?family_name. }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,en". }
+} ORDER BY ASC(?family_nameLabel) ASC(?given_nameLabel)

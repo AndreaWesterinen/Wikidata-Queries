@@ -1,3 +1,4 @@
+#title: What is the relation between Terrell Buckley and Miami Dolphins?
 SELECT ?l
 WHERE {
   wd:Q5571382 ?p wd:Q223243 .

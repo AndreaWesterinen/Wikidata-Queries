@@ -1,0 +1,14 @@
+#Hermitage located objects
+SELECT ?type ?labelEn ?labelRu (COUNT(*) AS ?count) WHERE {
+  ?pic wdt:P276 wd:Q132783.
+ ?pic wdt:P31 ?type.
+  OPTIONAL {
+    ?type rdfs:label ?labelEn.
+    FILTER((LANG(?labelEn)) = "en")
+    ?type rdfs:label ?labelRu.
+    FILTER((LANG(?labelRu)) = "ru")
+  } .
+}
+GROUP BY ?type ?labelEn ?labelRu
+ORDER BY DESC(?labelEn) ?labelRu
+LIMIT 50

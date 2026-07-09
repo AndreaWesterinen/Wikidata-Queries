@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel  ?dummy1Label WHERE {
+  ?item wdt:P1367 ?dummy0 .
+  OPTIONAL { ?item wdt:P1415 ?dummy1 }
+  ?item wdt:P245 ?dummy2 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

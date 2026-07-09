@@ -1,0 +1,9 @@
+SELECT ?item
+WHERE {
+  ?item wdt:P21 wd:Q6581097 . # male
+  ?item wdt:P735 ?given
+  VALUES ?given {
+    wd:Q20155725 # Marian (female)
+  }
+}
+LIMIT 20

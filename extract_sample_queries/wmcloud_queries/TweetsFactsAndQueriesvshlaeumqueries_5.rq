@@ -1,0 +1,44 @@
+embed.html## Average gestation period of genera, color-coded by order
+#defaultView:BubbleChart
+SELECT ?genus (AVG(?period) AS ?period) (SAMPLE(?label) AS ?genusLabel) (SAMPLE(?rgb) AS ?rgb)
+WHERE
+{
+  {
+    BIND("[AUTO_LANGUAGE]" AS ?language)
+    # find species with gestation period normalized to seconds
+    ?species p:P3063/psn:P3063/wikibase:quantityAmount ?periodSeconds.
+    # convert to days
+    BIND(?periodSeconds/(60*60*24) AS ?period)
+    # find genus
+    ?species wdt:P171* ?genus.
+    ?genus wdt:P105 wd:Q34740.
+    # find a good label – trivial name, else label, else “<no name>”
+    OPTIONAL {
+      ?genus wdt:P1843 ?trivialName.
+      FILTER(LANG(?trivialName) = ?language)
+    }
+    OPTIONAL {
+      ?genus rdfs:label ?genusLabel.
+      FILTER(LANG(?genusLabel) = ?language)
+    }
+    BIND(COALESCE(?trivialName, ?genusLabel, "<kein Name>"@de) AS ?label)
+    # find order
+    ?genus wdt:P171* ?order.
+    ?order wdt:P105 wd:Q36602.
+    # choose “random but deterministic” color per order; you can play around with "-" (can be any string) to find a pleasing resulting color distribution
+    BIND(UCASE(SUBSTR(SHA256(CONCAT("-", STR(?order))), 1, 6)) AS ?rgb)
+  }
+  UNION
+  {
+    # add scale
+    VALUES (?genus ?period ?label) {
+      (wd:Q23387 7 "Woche"@de)
+      (wd:Q5151 30.436875 "Monat"@de)
+      (wd:Q1643308 91.310625 "3 Monate"@de)
+      (wd:Q2269240 182.62125 "6 Monate"@de)
+      (wd:Q577 365.2425 "Jahr"@de)
+    }
+    BIND("CCCCCC" AS ?rgb)
+  }
+}
+GROUP BY ?genus

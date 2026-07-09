@@ -1,0 +1,20 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?item ?itemLabel ?adjacent ?adjacentL ?coords WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q928830 .
+  ?item wdt:P81 wd:Q13224 .
+  ?item wdt:P625 ?coords .
+  OPTIONAL {
+    ?item p:P197 ?adjacent_statement .
+    ?adjacent_statement v:P197 ?adjacent .
+    ?adjacent_statement pq:P560 wd:Q585752 .
+    ?adjacent rdfs:label ?adjacentL filter (lang(?adjacentL) = "en")
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

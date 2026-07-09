@@ -1,0 +1,17 @@
+SELECT ?item ?governorofLabel ?jLabel (MIN(?begin) as ?begin) (MIN(?ord) as ?ord)
+WHERE
+{ 
+  	?item wdt:P39 ?governorof .
+	?item p:P39 ?s .
+	?s ps:P39 ?governorof .
+  	?governorof wdt:P17 wd:Q30 . 
+	?governorof wdt:P279* wd:Q132050 .  
+	?governorof wdt:P31 wd:Q4164871 .
+	?governorof wdt:P1001 ?j . 
+	?item wdt:P31 wd:Q5 .
+  	OPTIONAL { ?s pq:P580 ?begin }
+  	OPTIONAL { ?s pq:P1545 ?ord }
+	# FILTER NOT EXISTS { ?statement pq:P582 [] }  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}
+}
+GROUP BY ?item ?governorofLabel ?jLabel

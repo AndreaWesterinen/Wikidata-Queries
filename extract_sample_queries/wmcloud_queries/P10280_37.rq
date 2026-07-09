@@ -1,0 +1,10 @@
+#title: categories lacking "category's main topic" (P301), but are values of "category for recipients of this award" (P2517)
+# Complex constraint from [[Property talk:P10280]]
+# todo: TBD
+SELECT DISTINCT ?item ?hc 
+WHERE 
+{
+  _:b2 ps:P10280 ?item.
+  ?hc wdt:P2517 ?item.
+  MINUS { ?item wdt:P301 ?hc. }
+}

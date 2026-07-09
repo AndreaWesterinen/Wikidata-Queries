@@ -1,0 +1,10 @@
+SELECT ?item ?release ?nr_e (GROUP_CONCAT(DISTINCT(?enlabel)) as ?enlabels) WHERE 
+{  
+  ?item wdt:P31 wd:Q21191270 .
+  ?item wdt:P179 wd:Q1002254 .  
+  ?item p:P179 ?episode_statement .
+  ?episode_statement pq:P1545 ?nr_e  .
+  ?item wdt:P577 ?release . 
+  ?item rdfs:label ?enlabel . 
+  FILTER(lang(?enlabel)="en") 
+} GROUP BY ?item ?release ?nr_e ORDER BY xsd:integer(?nr_e) ?release

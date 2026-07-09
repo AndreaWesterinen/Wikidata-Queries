@@ -1,0 +1,8 @@
+SELECT ?cities ?item ?exec ?executive  WHERE { 
+  VALUES ?authority_types { wd:Q211690 wd:Q1136601 wd:Q15060255 wd:Q15979307 wd:Q1002812 wd:Q17364572 wd:Q180673 }
+  ?cities wdt:P31 ?authority_types .
+  ?cities wdt:P1313 ?item .
+  OPTIONAL { ?cities wdt:P208 ?exec }
+  OPTIONAL { ?item wdt:P361 ?executive }
+  MINUS { ?item wdt:P576 [] } 
+}

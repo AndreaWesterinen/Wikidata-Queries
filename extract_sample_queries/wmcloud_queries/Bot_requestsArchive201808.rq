@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?value 
+{
+  ?item wdt:P434 ?value .
+  optional {?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="en")}
+}

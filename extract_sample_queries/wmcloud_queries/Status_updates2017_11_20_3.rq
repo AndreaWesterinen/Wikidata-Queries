@@ -1,0 +1,8 @@
+SELECT ?sexo_ou_g_neroLabel (COUNT(?ser_humano) AS ?count) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?ser_humano wdt:P31 wd:Q5.
+  ?ser_humano wdt:P4431 ?Google_Doodle.
+  OPTIONAL {  }
+  OPTIONAL { ?ser_humano wdt:P21 ?sexo_ou_g_nero. }
+}
+GROUP BY ?sexo_ou_g_neroLabel

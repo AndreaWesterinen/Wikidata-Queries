@@ -1,0 +1,22 @@
+#title: P31=samevalue and P279=samevalue
+# Complex constraint from [[Property talk:P31]]
+# in most cases this is an oversight or item that needs update after child item(s) were added
+SELECT ?item # ?itemLabel ?class ?classLabel 
+WHERE { 
+	?item   wdt:P31   ?class ;
+            wdt:P279  ?class .
+  
+    MINUS { ?class wdt:P31?/wdt:P279* wd:Q17442446 } # any internal stuff
+    
+    FILTER (?class != wd:Q11173)
+
+    FILTER (?class != wd:Q7187)
+    FILTER (?class != wd:Q8054)
+    FILTER (?class != wd:Q201448)
+    FILTER (?class != wd:Q215980)
+    FILTER (?class != wd:Q277338)
+    FILTER (?class != wd:Q284416)
+    FILTER (?class != wd:Q427087)
+    
+#   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

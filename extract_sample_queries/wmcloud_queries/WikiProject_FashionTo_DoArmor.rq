@@ -1,0 +1,4 @@
+SELECT ?item 
+ WHERE { 
+ [[:Template:?item wdt:P279* wd:Q20793164]] UNION {?item wdt:P279* wd:Q3579211} .
+ }

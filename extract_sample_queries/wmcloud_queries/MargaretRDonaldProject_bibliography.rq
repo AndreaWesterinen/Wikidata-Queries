@@ -1,0 +1,9 @@
+# species with an AFD id and parent taxon is Psalidothrips
+SELECT ?item  ?taxon_name ?afd_id WHERE {
+  ?item wdt:P171* wd:Q10641388.
+  ?item wdt:P225 ?taxon_name.
+  ?item wdt:P6039 ?afd_id.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+
+ORDER BY ?taxon_name ?item ?afd_id

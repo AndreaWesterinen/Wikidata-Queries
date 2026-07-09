@@ -1,0 +1,17 @@
+#National park in Thailand
+SELECT DISTINCT ?entity ?locationLabel ?area ?inception ?coord ?lat ?lon ?image ?entityLabel
+WHERE
+{
+  ?entity wdt:P31 wd:Q1969240.
+  ?entity wdt:P17 wd:Q869.
+  ?entity wdt:P571 ?inception.
+  ?entity wdt:P625 ?coord.
+  ?entity p:P625 ?coordinate.
+  ?coordinate psv:P625 ?coordinate_node.
+  ?coordinate_node wikibase:geoLatitude ?lat.
+  ?coordinate_node wikibase:geoLongitude ?lon.
+  OPTIONAL { ?entity wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?id
+LIMIT 1000

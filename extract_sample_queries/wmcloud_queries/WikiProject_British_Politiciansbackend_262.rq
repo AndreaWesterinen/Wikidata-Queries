@@ -1,0 +1,9 @@
+#People who died too early for their HoP entries
+SELECT ?person ?date ?hop 
+WHERE 
+{     
+    ?person wdt:P1614 ?hop .
+    FILTER(STRSTARTS(?hop, "1604")).
+	?person wdt:P570 ?died .
+	FILTER (?died < "1604-01-01T00:00:00Z"^^xsd:dateTime)
+}

@@ -1,0 +1,5 @@
+SELECT ?competitionClass ?competitionClassLabel (COUNT(*) AS ?cnt) WHERE {
+  ?competitionClass wdt:P31 wd:Q22936940; wdt:P641/wdt:P279* wd:Q847 .
+  ?tennisEvent wdt:P31 wd:Q46190676; wdt:P2094 ?competitionClass .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],en' }
+} GROUP BY ?competitionClass ?competitionClassLabel ORDER BY DESC(?cnt)

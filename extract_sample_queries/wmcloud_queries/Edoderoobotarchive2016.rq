@@ -1,0 +1,17 @@
+SELECT ?statement WHERE {
+	?item wdt:P31 wd:Q8502 ;
+		p:P31 ?statement .
+	?statement ps:P31 wd:Q8502 ;
+		prov:wasDerivedFrom ?ref .
+	?ref pr:P143 wd:Q169514 .
+	FILTER NOT EXISTS {
+		?item wdt:P1566 ?bar
+	}
+	FILTER NOT EXISTS {
+		?item wdt:P625 ?bar
+	}
+	FILTER NOT EXISTS {
+		?article schema:about ?item .
+		FILTER (SUBSTR(str(?article), 1, 30) = "https://sv.wikipedia.org/wiki/") .
+	}
+}

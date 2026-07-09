@@ -1,0 +1,10 @@
+SELECT ?item ?superclass WHERE {
+  VALUES ?top { wd:Q35120 }
+  {
+    ?item wdt:P279 ?top .
+    BIND( ?top AS ?superclass ) .
+  } UNION {
+    ?item wdt:P279 ?superclass .
+    ?superclass wdt:P279 ?top .
+  }
+} ORDER BY ( ?superclass != ?top ) DESC( ?superclass ) ASC( ?item )

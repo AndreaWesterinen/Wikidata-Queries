@@ -1,3 +1,4 @@
+#title: Monuments historiques in Loire-Atlantique
 SELECT DISTINCT
   ?item
   ?itemLabel

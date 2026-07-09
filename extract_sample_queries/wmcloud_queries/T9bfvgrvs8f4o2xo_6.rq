@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?reason ?distinctionLabel (year(?date) as ?year)
+WHERE {
+  ?item ?prop ?statement .
+  ?statement pq:P805 ?ceremony .
+  ?ceremony wdt:P31 wd:Q24569309 .
+  ?statement ?propS ?distinction .
+  
+  VALUES (?prop ?propS ?reason) {
+    (p:P1411 ps:P1411 "nominated for") 
+    (p:P166 ps:P166 "award received")
+  }
+  OPTIONAL { ?statement pq:P585 ?date . }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+
+} ORDER BY ?distinctionLabel

@@ -1,0 +1,7 @@
+select ?sense ?text ?languageLabel {
+  ?sense wdt:P5137 wd:Q108 .
+  ?lemma <http://www.w3.org/ns/lemon/ontolex#sense> ?sense .
+  ?lemma wikibase:lemma ?text .
+  ?lemma <http://purl.org/dc/terms/language> ?language .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

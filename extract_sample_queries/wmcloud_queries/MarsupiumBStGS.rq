@@ -1,0 +1,32 @@
+# items with collection or location BStGS or a part of BStGS without BStGS inventory number
+SELECT
+  ?item ?itemLabel
+WHERE {
+  ?item (p:P195|p:P276)/wdt:P361* ?institutionSt.
+  ?institutionSt (ps:P195|ps:P276)/wdt:P361* wd:Q812285 . # TODO: make "?"?
+  OPTIONAL { ?institutionSt pq:P582 ?endTime. }
+  FILTER(!BOUND(?endTime))
+  # remove those not in the institution any more
+  # The current inventory numbers are assigned since 1856 (cf. https://www.sammlung.pinakothek.de/en/about).
+  # However I currently have no source for inventory numbers of artworks that aren't currently in the collection.
+  # So these get filtered … (example: https://www.wikidata.org/wiki/Q29963149)
+  OPTIONAL {
+    ?item p:P217 ?invnostatement .
+    ?invnostatement ps:P217 ?invno .
+    ?invnostatement pq:P195 wd:Q812285 .
+  }
+  FILTER(!BOUND(?invnostatement))
+  # only those without invno statement with collection BStGS qualifier
+  
+  MINUS { ?item wdt:P31 wd:Q15206795 } # no exhibition rooms
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q464980 } # no exhibitions
+  MINUS { ?item wdt:P31 wd:Q26945165 } # no architectural museums
+  MINUS { ?item wdt:P31 wd:Q7328910 } # no art collections  
+  
+  # no works with parts with BStGS inv nos
+  MINUS { ?item wdt:P527 ?part.
+          ?part p:P217 ?partinvnostatement.
+          ?partinvnostatement pq:P195 wd:Q812285. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,fr,it,es,pt,ca,la". }
+}
+ORDER BY ?item

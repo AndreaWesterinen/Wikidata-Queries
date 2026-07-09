@@ -1,0 +1,12 @@
+embed.html##defaultView:Map{"hide": "?coor"}
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?coor (SAMPLE(?img) as ?image) (GROUP_CONCAT(DISTINCT ?title; separator="; ") as ?episodetitles)
+{
+    BIND( wd:Q2632294 as ?series )
+    { ?series wdt:P915 ?item }
+    UNION
+    { ?ep wdt:P179 ?series ; wdt:P915 ?item ; wdt:P1476 ?title }
+    ?item wdt:P625 ?coor.
+    OPTIONAL { ?item wdt:P18 ?img }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY  ?item ?itemLabel ?itemDescription ?coor

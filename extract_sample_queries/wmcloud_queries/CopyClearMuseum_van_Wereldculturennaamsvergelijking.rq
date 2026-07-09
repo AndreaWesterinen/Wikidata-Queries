@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item  ?naam ?itemLabel  ?gelijk ?value 
+{
+	?item wdt:P6379 wd:Q17153751 .
+    ?item rdfs:label ?label.
+   ?item p:P6379 [ ps:P6379 ?repr;
+                    prov:wasDerivedFrom 
+                    [ pr:P1810 ?naam; 
+                    ]
+                  ].
+    BIND (CONTAINS(?naam, ?label) AS ?gelijk)
+    FILTER((LANG(?label)) = "nl")
+    FILTER (?gelijk = FALSE)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" } .
+}

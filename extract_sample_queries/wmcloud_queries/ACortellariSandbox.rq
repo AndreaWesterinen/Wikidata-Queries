@@ -1,0 +1,4 @@
+SELECT ?ministro_della_Famiglia ?ministro_della_FamigliaLabel WHERE {
+  ?ministro_della_Famiglia (wdt:P39/wdt:P279) wd:Q59344315.
+  ?ministro_della_Famiglia wdt:P27 wd:Q43.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }

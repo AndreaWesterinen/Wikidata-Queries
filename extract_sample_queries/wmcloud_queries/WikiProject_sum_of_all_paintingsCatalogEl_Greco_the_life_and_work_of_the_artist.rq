@@ -1,0 +1,5 @@
+SELECT ?item ?catcode ?Wethey WHERE { 
+?item p:P528 [ pq:P972 wd:Q104778393 ; ps:P528 ?catcode].
+?item p:P528 [ pq:P972 wd:Q66243506  ; ps:P528 ?Wethey]. 
+  
+} ORDER BY xsd:integer(?catcode)

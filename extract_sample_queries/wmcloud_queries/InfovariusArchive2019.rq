@@ -1,0 +1,6 @@
+SELECT DISTINCT ?x ?xLabel                             # restituisci l'elemento, il titolo e l'etichetta
+WHERE {
+  ?x wdt:P282 wd:Q4085712 .   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". } 
+ }
+LIMIT 100000                                                            # restituisci 100000 risultati

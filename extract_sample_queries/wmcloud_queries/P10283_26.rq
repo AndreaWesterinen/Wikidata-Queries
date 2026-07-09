@@ -1,0 +1,10 @@
+#title: check A for people
+# Complex constraint from [[Property talk:P10283]]
+# Initial A (author) would generally be people
+SELECT ?item ?value
+{
+  ?item wdt:P10283 ?value .
+  FILTER( REGEX( ?value, '^A') )
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q5 }
+}
+LIMIT 10

@@ -1,0 +1,14 @@
+embed.html##All public library branches of the Netherlands
+#defaultView:Map
+
+SELECT DISTINCT ?dpl ?dplLabel ?dplDescription ?dplImage ?dplLoc WHERE {
+#Is Dutch public library dpl
+?dpl wdt:P31 wd:Q28564. #public library
+?dpl wdt:P31 wd:Q11396180. #library branch 
+?dpl wdt:P17 wd:Q55. #in the Netherlands
+?dpl wdt:P625 ?dplLoc. #Location of the dpl
+OPTIONAL{?dpl wdt:P18 ?dplImage} #Image of the dpl
+     
+SERVICE wikibase:label {bd:serviceParam wikibase:language "nl" .}
+}
+ORDER BY ?dplDescription ?dplLabel

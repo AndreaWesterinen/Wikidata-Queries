@@ -1,0 +1,15 @@
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?rgb ?amendedby ?amendedbyLabel 
+{
+  ?item wdt:P2461 ?value .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "zh". }
+  
+  
+  {?item wdt:P2567 ?amendedby .}
+  UNION
+  {?item wdt:P2568 ?amendedby .}
+
+  ?item wdt:P126 ?dept .
+  BIND( "33AACC" AS ?rgb).  
+}

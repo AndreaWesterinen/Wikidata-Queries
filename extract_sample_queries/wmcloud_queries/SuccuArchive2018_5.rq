@@ -1,0 +1,3 @@
+SELECT DISTINCT (COUNT(?birdLifeId) AS ?count) WHERE {  
+     ?item wdt:P5257 ?birdLifeId .
+}

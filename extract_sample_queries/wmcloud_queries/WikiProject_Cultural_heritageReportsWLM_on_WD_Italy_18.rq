@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P17 wd:Q38 .
+  ?item wdt:P2186 ?wlmid .
+  MINUS { ?item wdt:P18 ?image } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". }
+}

@@ -1,0 +1,5 @@
+SELECT ?item ?linkcount WHERE {
+   ?item p:P108/ps:P108/wdt:P361* wd:Q11942.
+   ?item wikibase:sitelinks ?linkcount .
+   filter not exists {?item wdt:P18 [] . }
+  }

@@ -1,0 +1,7 @@
+#Cats
+SELECT ?item ?itemLabel ?date WHERE {
+  ?item wdt:P31 wd:Q625298.
+  ?item wdt:P585 ?date.
+  FILTER (?date > "1900"^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

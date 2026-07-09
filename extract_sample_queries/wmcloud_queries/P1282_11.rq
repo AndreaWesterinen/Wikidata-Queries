@@ -1,0 +1,21 @@
+SELECT 
+  (GROUP_CONCAT(DISTINCT(?allkeys); separator="; ") as ?allkeys) 
+  ?isproperty ?hasitemdatatype
+  ?key 
+  (COUNT(DISTINCT ?entity) as ?ct) 
+  (GROUP_CONCAT(?value; separator="; ") as ?values) 
+  (SAMPLE(?osm) as ?sample_osm) 
+  (SAMPLE(?entity) as ?sample_entity)
+WHERE
+{
+	?entity p:P1282/ps:P1282 ?osm .
+	OPTIONAL { ?entity wikibase:propertyType [] . BIND("Y" as ?isproperty) } 
+	OPTIONAL { ?entity wikibase:propertyType wikibase:WikibaseItem . BIND("Y" as ?hasitemdatatype) } 
+    FILTER(CONTAINS(str(?osm), "Key:"))
+    BIND(strafter(str(?osm), "Key:") as ?keyvalue)
+    BIND(strbefore(concat(?keyvalue,":"),":") as ?allkeys)
+    BIND(strbefore(?keyvalue,":") as ?key)
+    BIND(strafter(?keyvalue,":") as ?value)
+}
+GROUP BY ?key ?isproperty ?hasitemdatatype
+ORDER BY DESC(?ct)

@@ -1,0 +1,25 @@
+#List of Dutch municipalities and their provinces per 1-1-2019, and the number of lat-lon values in P625
+
+#Zie ook: 
+#https://almanak.overheid.nl/organisaties/Gemeenten/ - 355 in aantal
+#https://nl.wikipedia.org/wiki/Lijst_van_Nederlandse_gemeenten - 355 in aantal
+
+SELECT 
+?item ?itemLabel ?itemDescription ?provinceLabel (COUNT(?itemLoc) AS ?NumberOfLatLonValues) 
+
+WHERE {
+  ?item wdt:P31 wd:Q2039348. #current munic of NL
+  OPTIONAL{?item wdt:P131 ?province.}
+  OPTIONAL{?item schema:description ?itemDescription. FILTER(LANG(?itemDescription) = "nl") }    
+  OPTIONAL {?item wdt:P625 ?itemLoc. }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl".
+    ?item rdfs:label ?itemLabel.
+    ?province rdfs:label ?provinceLabel.
+  }
+  MINUS {?item wdt:P31 wd:Q7265977.} #filter out former muncipalities
+  
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?provinceLabel ?NumberOfLatLonValues
+ORDER BY ?itemLabel

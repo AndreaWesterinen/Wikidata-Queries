@@ -1,0 +1,18 @@
+# People at University of Virginia who have an ORCID
+SELECT DISTINCT ?orcid ?item ?item_label ?sl
+WHERE {
+  { ?item ?property wd:Q213439. }
+  UNION
+  {
+    ?item ?property2 _:b9.
+    _:b9 wdt:P361 wd:Q213439. 
+  }
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P496 ?orcid .
+  ?item wikibase:statements ?st.
+  ?item wikibase:sitelinks ?sl.
+  ?item rdfs:label ?item_label.
+  FILTER((LANG(?item_label)) = "en")
+}
+ORDER BY DESC(?sl) 
+LIMIT 4000

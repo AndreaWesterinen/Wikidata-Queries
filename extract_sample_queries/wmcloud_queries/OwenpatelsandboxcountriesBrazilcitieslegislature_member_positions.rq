@@ -1,0 +1,8 @@
+SELECT DISTINCT ?cities ?item WHERE { 
+  ?cities wdt:P31/wdt:P279* wd:Q3184121 .
+  ?cities wdt:P17 wd:Q155 .
+  MINUS {?cities wdt:P31/wdt:P279* wd:Q10864048 }
+  ?cities wdt:P194 ?council .
+  ?council wdt:P527 ?item
+  MINUS { ?item wdt:P576 [] }
+}

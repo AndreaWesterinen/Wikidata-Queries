@@ -1,0 +1,11 @@
+#title: name in native language should be label or alias
+# Complex constraint from [[Property talk:P2358]]
+#
+SELECT DISTINCT ?item ?nl
+{
+	hint:Query hint:optimizer "None".
+	?item wdt:P2358 [] ; wdt:P1559 ?nl .
+    FILTER( lang(?nl) = "la" ) 
+    FILTER NOT EXISTS { ?item rdfs:label ?nl }
+    FILTER NOT EXISTS { ?item skos:altLabel ?nl }
+}

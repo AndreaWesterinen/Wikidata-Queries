@@ -1,0 +1,5 @@
+SELECT ?property ?propertyLabel ?subjectItem ?subjectItemLabel WHERE {  
+    ?property wikibase:propertyType wikibase:ExternalId .
+    ?property wdt:P1629 ?subjectItem .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

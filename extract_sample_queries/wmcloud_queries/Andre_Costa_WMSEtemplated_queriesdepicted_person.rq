@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?image ?person ?personLabel WHERE {
+  ?item wdt:P195 wd:{{{1}}};
+        wdt:P18 ?image.
+  FILTER(NOT EXISTS {
+    ?item wdt:P180 ?depicted.
+    ?depicted wdt:P31 wd:Q5.
+  })
+  ?person wdt:P18 ?image;
+          wdt:P31 wd:Q5.
+  SERVICE wikibase:label {bd:serviceParam  wikibase:language "en,sv".}
+}

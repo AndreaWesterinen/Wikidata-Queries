@@ -1,0 +1,13 @@
+SELECT ?item ?newurl ?inv ?url WHERE {
+  ?item wdt:P195 wd:Q95569 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P973 ?url . 
+  FILTER REGEX(STR(?url), "^http:\\/\\/bilddatenbank\\.khm\\.at\\/viewArtefact\\?id\\=(\\d+)$") .
+  BIND(IRI(REPLACE(STR(?url), "http:\\/\\/bilddatenbank\\.khm\\.at\\/viewArtefact\\?id\\=(\\d+)", "https://www.khm.at/objektdb/detail/$1")) AS ?newurl)  .
+  OPTIONAL {
+    ?item p:P217 ?invstatement .
+    ?invstatement ps:P217 ?inv .
+    ?invstatement pq:P195 wd:Q95569 .
+    }
+  } ORDER BY xsd:integer(REPLACE(?inv, "^(GG_)(\\d+)([^\\d].*)?$", "$2"))
+LIMIT 4000

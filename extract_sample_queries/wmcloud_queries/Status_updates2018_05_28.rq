@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?murLabel ?coordinates ?foto
+WHERE
+{
+ ?item wdt:P106 wd:Q937857;
+       wdt:P54 wd:Q1130849 ;
+       wdt:P19 ?mur.
+  ?mur wdt:P625 ?coordinates.
+  OPTIONAL {?item wdt:P18 ?foto.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "pl, en". }
+}

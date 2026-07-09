@@ -1,0 +1,13 @@
+# Find reptiles with AFD ids and reptile DB id, but no enwiki article
+SELECT ?item ?itemLabel
+  WHERE
+  {
+    ?item wdt:P6039 ?afd_id .
+    ?item wdt:P5473 ?reptileDB_id.
+  MINUS      {
+     ?article schema:about ?item. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    
+  }

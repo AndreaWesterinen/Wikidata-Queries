@@ -1,0 +1,4 @@
+select  ?class (count(?work) as ?count ) {
+  ?work p:P161 ?acteur ;
+        wdt:P31 ?class .
+} group by ?class 

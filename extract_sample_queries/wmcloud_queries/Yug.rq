@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?latNaissance ?lonNaissance ?latMort ?lonMort WHERE {
+  ?item wdt:P39 wd:Q62122528;
+    wdt:P19 ?locNaissance.
+  ?locNaissance p:P625 _:b9.
+  _:b9 psv:P625 _:b8.
+  _:b8 wikibase:geoLatitude ?latNaissance;
+    wikibase:geoLongitude ?lonNaissance.
+  ?item wdt:P20 ?locMort.
+  ?locMort p:P625 _:b11.
+  _:b11 psv:P625 _:b10.
+  _:b10 wikibase:geoLatitude ?latMort;
+    wikibase:geoLongitude ?lonMort.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

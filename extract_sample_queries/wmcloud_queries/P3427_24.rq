@@ -1,0 +1,4 @@
+#title: Not a sportsperson
+# Complex constraint from [[Property talk:P3427]]
+# Person has no defined sport nor occupation related to sports
+SELECT DISTINCT ?item ?itemLabel { ?item wdt:P3427 ?value . MINUS { ?item wdt:P641 [] } . MINUS { ?item wdt:P106 ?occ . ?occ wdt:P279* wd:Q2066131 } SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es" } }

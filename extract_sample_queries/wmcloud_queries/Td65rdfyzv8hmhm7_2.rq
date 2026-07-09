@@ -1,0 +1,23 @@
+# Countries (or instances of subclasses of) without a continent
+SELECT DISTINCT ?item ?itemLabel 
+(SAMPLE(?endDate) AS ?endDate)
+(GROUP_CONCAT(DISTINCT ?successorContinent ; separator="/") AS ?successorContinent)
+WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q6256 .
+  
+  FILTER NOT EXISTS { ?item wdt:P30 ?continent . }
+  
+  OPTIONAL {
+    ?item wdt:P582 ?endDate .
+  }
+  
+  OPTIONAL {
+    ?item wdt:P1366* ?successorCountry .
+    ?successorCountry wdt:P31/wdt:P279 wd:Q6256 .
+    ?successorCountry wdt:P30 ?successorContinentItem .
+    ?successorContinentItem rdfs:label ?successorContinent .
+    FILTER (LANG(?successorContinent) = "en") .
+  }    
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} GROUP BY ?item ?itemLabel

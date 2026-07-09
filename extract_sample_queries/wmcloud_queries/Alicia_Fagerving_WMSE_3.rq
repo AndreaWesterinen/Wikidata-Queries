@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?coords
+WHERE
+{
+?item wdt:P1435 wd:Q24284073; p:P625 [ ps:P625 ?coords; prov:wasDerivedFrom/pr:P143 wd:Q169514 ] .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "sv" }
+}

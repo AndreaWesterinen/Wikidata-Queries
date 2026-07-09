@@ -1,0 +1,27 @@
+#Target required claim report for P3300: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?snak
+		WHERE
+		{
+			{
+				?item p:P3300/ps:P3300 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P3300 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P3300 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS { ?value p:P106 [] } .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?output WHERE {
+  ?item skos:altLabel ?label .
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q99349995.
+    FILTER NOT EXISTS {?item wdt:P53 []}#adelijke families
+    FILTER NOT EXISTS {?item wdt:P735 []}#voornaam
+  BIND(replace(?label,"([A-Z][a-z\u0080-\uFFFF]+)[ -](?:([A-Z][a-z\u0080-\uFFFF]+)[ -])?(?:([A-Z][a-z\u0080-\uFFFF]+)[ -])?(?:([A-Z][a-z\u0080-\uFFFF]+)(-[A-Z][a-z\u0080-\uFFFF]+)?[ -])?(.*)(?:(Le

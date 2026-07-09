@@ -1,0 +1,26 @@
+embed.html##defaultView:ImageGrid
+SELECT ?img ?d ?dLabel ?dDescription 
+WHERE 
+{
+  BIND(wd:Q29022144 as ?cem ) 
+  [] schema:about ?cem ; schema:isPartOf <https://commons.wikimedia.org/> ; schema:name ?ccat . 
+  BIND( CONCAT("incategory:\"", strafter(?ccat, ":"), "\"") as ?search) 
+  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "commons.wikimedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch ?search .
+      bd:serviceParam mwapi:gsrlimit "max" .    
+      bd:serviceParam mwapi:gsrnamespace "6" .    
+          ?article wikibase:apiOutput mwapi:title  .
+          ?ns wikibase:apiOutput "@ns" .    
+       # bd:serviceParam mwapi:gcmlimit "max" .
+      } 
+  BIND(URI(REPLACE(ENCODE_FOR_URI(?article),"^File%3A","http://commons.wikimedia.org/wiki/Special:FilePath/")) as ?img )
+  # OPTIONAL { ?d1 p:P18 / ps:P18 ?img  OPTIONAL { ?d1 rdfs:label ?l1 . FILTER(lang(?l1)="en") }  }
+  # OPTIONAL { ?d2 p:P1442 / ps:P1442 ?img  OPTIONAL { ?d2 rdfs:label ?l2 . FILTER(lang(?l2)="en") }  }
+  OPTIONAL { ?d1 p:P18 / ps:P18 ?img    }
+  OPTIONAL { ?d2 wdt:P1442 ?img   }
+  BIND(COALESCE(?d1,?d2) as ?d)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

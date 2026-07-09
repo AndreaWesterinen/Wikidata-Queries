@@ -1,0 +1,3 @@
+SELECT ?item ?value {
+  ?item wdt:P3231 ?value MINUS {?item wdt:P7886 []}
+}

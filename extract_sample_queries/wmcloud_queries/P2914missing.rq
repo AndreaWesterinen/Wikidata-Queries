@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?dob ?dod ?mixurl WHERE {
+  ?item wdt:P106 wd:Q1281618 .
+  { 
+    {?item wdt:P27 wd:Q145 }
+    UNION
+    {?item wdt:P20 ?dplace . ?dplace wdt:P17 wd:Q145 }
+    UNION
+    {?item wdt:P19 ?bplace . ?bplace wdt:P17 wd:Q145 }
+  }
+  MINUS {?item wdt:P2914 []} .
+  OPTIONAL {?item wdt:P569 ?dob} .
+  OPTIONAL {?item wdt:P570 ?dod} .
+  FILTER (!bound(?dob)

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item
+WHERE {
+        ?item wdt:P279 wd:Q13219666                 # Subclase de torneo de tenis
+        MINUS { ?item wdt:P664 wd:Q948442 }         # Excepto organizados por la WTA
+        FILTER(NOT EXISTS { ?item wdt:P3456 [] })  # Sin la propiedad de código de torneo ATP
+}

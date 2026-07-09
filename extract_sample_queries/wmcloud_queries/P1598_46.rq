@@ -1,0 +1,33 @@
+#Target required claim report for P1598: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P1598/ps:P1598 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P1598 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P1598 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q29182 wd:Q49476 wd:Q45722 wd:Q611644 wd:Q75178 wd:Q48629921 wd:Q63385538 wd:Q189854 wd:Q171692 wd:Q19546 wd:Q50362553 wd:Q9171997 } .
+			MINUS {
+				?value p:P39/ps:P39 ?values .
+			} .
+			OPTIONAL {
+				?value p:P39/ps:P39 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

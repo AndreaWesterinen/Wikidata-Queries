@@ -1,0 +1,10 @@
+embed.html#SELECT ?itemDescription ?itemImage ?subclass_of ?subclass_ofLabel WHERE {
+  VALUES ?item {
+    wd:Q187729
+    wd:Q2234824
+    wd:Q115497930
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sr". }
+  OPTIONAL { ?item wdt:P279 ?subclass_of. }
+}

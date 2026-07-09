@@ -1,0 +1,8 @@
+#title: Check French postal identifiers of main cities in France
+# Complex constraint from [[Property talk:P281]]
+# Check last digit of main cities ([[Q956214]]) postal identifiers in France
+SELECT DISTINCT ?item ?zipCode WHERE {
+  ?item wdt:P17 wd:Q142; wdt:P281 ?zipCode; wdt:P1376 ?localCapital.
+  ?localCapital wdt:P31 wd:Q6465
+  FILTER(SUBSTR(STR(?zipCode), 5, 8) != "0" && ?item NOT IN (wd:Q648, wd:Q456, wd:Q265372))
+}

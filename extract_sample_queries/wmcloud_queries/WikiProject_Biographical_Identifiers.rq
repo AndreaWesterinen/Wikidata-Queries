@@ -1,0 +1,7 @@
+#Number of people in Wikidata
+
+SELECT (COUNT(?person) AS ?personCount)
+		WHERE
+      {
+        ?person wdt:P31 wd:Q5 .
+      }

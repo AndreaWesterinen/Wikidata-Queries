@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?itemDescription ?coord
+{
+	?item wdt:P31 wd:Q39614 . 
+    ?item wdt:P17 wd:Q142 . 
+    ?item wdt:P131/wdt:P131* wd:Q3083. hint:Prior hint:gearing "forward".
+	?item wdt:P625 ?coord . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

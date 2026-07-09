@@ -1,0 +1,14 @@
+SELECT ?item (COUNT(?sitelink) AS $slcnt) WHERE {
+  ?item wdt:P5008 wd:Q66098665 .
+  ?item wdt:P585 ?time 
+  FILTER (?time <= "2020-03-01T00:00:00Z"^^xsd:dateTime) .
+  FILTER EXISTS { ?item wdt:P17 ?dummy0 }
+  FILTER EXISTS { ?item wdt:P585 ?dummy0 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q18608583 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q57733494 }
+  FILTER NOT EXISTS { ?item wdt:P2094 wd:Q57750246 }
+  FILTER NOT EXISTS { ?item wdt:P276 ?dummy0 }
+  FILTER NOT EXISTS { ?item wdt:P3085 ?dummy0 }
+  OPTIONAL { ?sitelink schema:about ?item . }
+} 
+GROUP BY(?item) ORDER BY DESC(?slcnt) LIMIT 8000

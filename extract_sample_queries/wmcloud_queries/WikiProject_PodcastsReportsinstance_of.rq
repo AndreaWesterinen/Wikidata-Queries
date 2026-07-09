@@ -1,0 +1,8 @@
+SELECT ?item WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31/wdt:P279* wd:Q24634210.
+  OPTIONAL { ?item wdt:P31 ?instance_of. }
+  OPTIONAL { ?item wdt:P407 ?language_of_work_or_name. }
+  OPTIONAL { ?item wdt:P437 ?distribution. }
+}
+LIMIT 100

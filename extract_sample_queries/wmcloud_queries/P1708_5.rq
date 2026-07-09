@@ -1,0 +1,28 @@
+embed.html#PREFIX schema: <http://schema.org/>
+#-------------------------------------------------------------------------------
+# LfDS Objekte ohne Bild (nur Bilder auf Commons sind erlaubt)
+# Dank an https://www.wikidata.org/wiki/User:Stefan_K%C3%BChn
+#-------------------------------------------------------------------------------
+#defaultView:Table;Map
+#defaultView:Map{"markercluster": {}}
+SELECT DISTINCT ?value ?item ?itemLabel ?itemDescription ?article ?coordinates ?commons  WHERE {
+  ?item wdt:P1708 ?value .
+  optional {                                                 # Artikellink
+    ?article schema:about ?item.
+    ?article schema:isPartOf <https://de.wikipedia.org/>.
+  }
+   
+  optional {                                                 # Commons-Link
+    ?commons schema:about ?item.
+    ?commons schema:isPartOf <https://commons.wikimedia.org/>.
+  } 
+  optional {?item wdt:P31 ?instanceof  }                
+  Filter (?instanceof != wd:Q13406463).                      # ist keine Wikimedia-Liste
+  
+  optional { ?item wdt:P18 ?image. }
+  FILTER(!BOUND(?image)) 
+  optional { ?item wdt:P625 ?coordinates. }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}
+order by ?itemLabel

@@ -1,0 +1,14 @@
+#title: People born on January 1
+# Complex constraint from [[Property talk:P5491]]
+#
+SELECT ?item ?b ?rank (COALESCE(?url, "") as ?refurl)
+WHERE 
+{ 
+    ?item wdt:P5491 [] .
+    OPTIONAL { ?st prov:wasDerivedFrom / pr:P854 ?url }.
+    ?item p:P569 ?st .
+    ?st psv:P569 [ wikibase:timeValue ?b; wikibase:timePrecision 11 ] . 
+    ?st wikibase:rank ?rank .
+    FILTER( MONTH(?b) = 1 && DAY(?b) = 1 ) 
+    FILTER( wikibase:DeprecatedRank != ?rank )
+}

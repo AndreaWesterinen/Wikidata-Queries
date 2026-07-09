@@ -1,0 +1,9 @@
+SELECT * WHERE {
+  ?x wdt:P1602 ?venue .
+  ?x rdfs:label ?label.
+  FILTER(LANG(?label) = "en").
+  OPTIONAL { ?x wdt:P31 ?dummy0 . }
+  FILTER(!bound(?dummy0)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+LIMIT 1000

@@ -1,0 +1,7 @@
+SELECT ?qid ("P1435" AS ?pid) ("Q358" AS ?value) ("S854" AS ?Source) (CONCAT('"http://www.infopatrimonio.org/?p=', ?id ,'"') AS ?URL) ("P813" AS ?retrieved) ("+2018-02-11T00:00:00Z/11" AS ?date) WHERE {
+  ?item wdt:P4372 ?id.
+  MINUS {?item wdt:P1435 ?CHMid. }
+  MINUS {?item wdt:P3259 ?imch. }
+  MINUS {?item wdt:P31 wd:Q5. }
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+          }

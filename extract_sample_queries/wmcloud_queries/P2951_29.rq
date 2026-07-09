@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P2951]]
+# Items that do have [[d:Q1188447|Denkmalgeschütztes Objekt <small>(Q1188447)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but neither [[Property:P2951|Cultural heritage database in Austria ObjektID&#32;<small dir="ltr">(P2951)</small>]] nor [[Property:P9154|Heritage Information System ID in the database of cultural heritage in Austria&#32;<small dir="ltr">(P9154)</small>]]
+SELECT ?item WHERE { ?item wdt:P1435 wd:Q1188447 . OPTIONAL { ?item wdt:P2951 ?dummy0 } OPTIONAL { ?item wdt:P9154 ?dummy1 } FILTER(!bound(?dummy0) && !bound(?dummy1)) } ORDER BY ?item

@@ -1,0 +1,18 @@
+#title: Modified single value constraint
+# Complex constraint from [[Property talk:P492]]
+# Lists items having more than one value, except if one of the statements has a [[Property:P4390|mapping relation type&#32;<small dir="ltr">(P4390)</small>]] qualifier, see discusion below. Please don't switch on the normal single value0 constraint, use this instead.
+SELECT DISTINCT ?item ?itemLabel ?count ?sample1  ?sample2  ?exception
+WHERE
+{
+	{
+	SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2) {
+			?item wdt:P492 ?value .
+            MINUS { 
+              ?item p:P492 ?stmt.
+              ?stmt pq:P4390 []
+            }
+		} GROUP BY ?item HAVING ( ?count > 1 )
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+ORDER BY DESC(?count)

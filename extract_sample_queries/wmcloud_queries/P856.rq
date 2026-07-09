@@ -1,0 +1,6 @@
+SELECT *
+{
+  	?sitelink schema:about wd:Q19610561 .
+  	?sitelink schema:isPartOf ?siteurl .
+   	?site wdt:P856 ?siteurl
+}

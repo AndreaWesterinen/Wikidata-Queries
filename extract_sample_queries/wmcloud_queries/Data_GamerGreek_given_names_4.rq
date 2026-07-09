@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?text WHERE {
+  VALUES ?class { wd:Q12308941 wd:Q11879590 wd:Q202444 wd:Q3409032 } .
+  ?item wdt:P31 ?class;
+        wdt:P1705 ?text;
+        wdt:P282 wd:Q8216;
+        wdt:P407 wd:Q9129 .
+  FILTER( LANG(?text) = 'el' ) .
+}
+LIMIT 5000

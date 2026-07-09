@@ -1,0 +1,15 @@
+# All items that have p1587 set and some other optional information. Also works as a map
+#defaultView:Map
+SELECT ?item ?itemLabel ?ESD ?coord ?image ?layer
+WHERE
+{
+    ?item wdt:P1587 ?ESD .
+    OPTIONAL { ?item wdt:P625 ?coord }
+    OPTIONAL { ?item wdt:P18 ?image }
+    OPTIONAL { ?item wdt:P1435 ?type }
+    SERVICE wikibase:label { 
+      bd:serviceParam wikibase:language "en" .
+      ?item rdfs:label ?itemLabel .
+      ?type rdfs:label ?layer .
+    }
+}

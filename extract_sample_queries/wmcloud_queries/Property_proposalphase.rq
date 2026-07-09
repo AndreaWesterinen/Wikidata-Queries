@@ -1,0 +1,6 @@
+SELECT ?excavation ?excavationLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL {  }
+  ?excavation wdt:P31 wd:Q959782.
+}
+LIMIT 100

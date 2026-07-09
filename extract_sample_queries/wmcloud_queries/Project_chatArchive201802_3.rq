@@ -1,0 +1,5 @@
+embed.html#SELECT ?nationality ?nationalityLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?nationality wdt:P31 wd:Q231002.
+}
+LIMIT 100

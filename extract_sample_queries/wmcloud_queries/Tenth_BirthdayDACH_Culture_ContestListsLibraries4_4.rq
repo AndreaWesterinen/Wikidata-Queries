@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P108 [(wdt:P31/(wdt:P279*)) wd:Q33506; wdt:P17 ?country];  wdt:P21 ?gender FILTER (?gender IN (wd:Q6581072, wd:Q6581097, wd:Q1097630, wd:Q1052281, wd:Q2449503, wd:Q48270)). VALUES ?country {wd:Q40 wd:Q39 wd:Q183 } . 
+  MINUS { ?entity wdt:P21 []; wdt:P108 [(wdt:P31/(wdt:P279*)) wd:Q33506; wdt:P17 ?country];  wdt:P21 ?gender FILTER (?gender IN (wd:Q6581072, wd:Q6581097, wd:Q1097630, wd:Q1052281, wd:Q2449503, wd:Q48270)). VALUES ?country {wd:Q40 wd:Q39 wd:Q183 }  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

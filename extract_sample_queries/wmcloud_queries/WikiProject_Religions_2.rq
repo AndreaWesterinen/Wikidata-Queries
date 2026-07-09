@@ -1,0 +1,5 @@
+SELECT DISTINCT ?person
+{
+  ?person wdt:P39/wdt:P279* wd:Q29182 .
+  FILTER NOT EXISTS { ?person wdt:P106 ?occupation }
+}

@@ -1,0 +1,21 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT  ?cause ?cid  (count(*) as ?count)
+WHERE {
+   ?pid wdt:P31 wd:Q5 .
+   ?pid wdt:P509 ?cid .
+   OPTIONAL {?pid wdt:P1196 ?mid} 
+   FILTER (!bound(?mid))
+   OPTIONAL {?cid rdfs:label ?cause filter (lang(?cause) = "en") 
+}   
+}
+GROUP BY ?cid  ?cause
+HAVING (count(*)>14)
+ORDER BY DESC(?count)
+#ORDER BY DESC(count(*))

@@ -1,0 +1,19 @@
+#defaultView:Graph
+SELECT ?country1 ?country1Label ?rgb ?country2 ?country2Label WHERE {
+  {
+    SELECT ?landlocked1 ?coastal ?landlocked2 WHERE {
+      ?landlocked1 wdt:P31 wd:Q3624078, wd:Q123480;
+                   wdt:P47 ?coastal.
+      ?coastal wdt:P31 wd:Q3624078.
+      MINUS { ?coastal wdt:P31 wd:Q123480. }
+      ?coastal wdt:P47 ?landlocked2.
+      FILTER(?landlocked2 != ?landlocked1)
+      ?landlocked2 wdt:P31 wd:Q3624078, wd:Q123480.
+    }
+  }
+  VALUES ?switch { true false }
+  BIND(IF(?switch, ?landlocked1, ?coastal) AS ?country1)
+  BIND(IF(?switch, ?coastal, ?landlocked2) AS ?country2)
+  BIND(IF(?switch, "FFBB33", "0033CC") AS ?rgb)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

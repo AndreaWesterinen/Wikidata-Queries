@@ -1,0 +1,11 @@
+index.html##title:location of P9284 'GB1900 ID' statements
+#defaultView:Map{"hide":["?coordinates"]}
+SELECT ?site ?siteLabel ?coordinates ?layer
+WHERE 
+{
+  ?site p:P9284/pq:P625 ?coordinates.
+  ?site wdt:P31 ?type 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                         ?type rdfs:label ?layer .
+                         ?site rdfs:label ?siteLabel}
+} order by ?layer

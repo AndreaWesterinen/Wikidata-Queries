@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?shareID ?edit16ID
+WHERE
+{
+  ?item wdt:P3987 ?shareID;
+        wdt:P5492 ?edit16ID.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+
+ORDER BY ?itemLabel

@@ -1,0 +1,11 @@
+SELECT ?lexeme ?lemma ?gloss WHERE {
+  ?lexeme a ontolex:LexicalEntry;
+       wikibase:lemma ?lemma;
+       dct:language wd:Q36846;
+       wikibase:lexicalCategory wd:Q24905;
+       ontolex:sense ?sense.
+  ?sense skos:definition ?gloss.
+  filter(lang(?gloss) = 'en')
+  filter(strstarts(?gloss, 'to '))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?lemma

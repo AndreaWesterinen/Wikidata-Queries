@@ -1,0 +1,14 @@
+#title: Items with statements where property P2904 uses the novalue special value
+SELECT ?item ?itemLabel (GROUP_CONCAT(?instanceLabel; separator=", ") as ?instanceLabels)
+{
+  ?item p:P2904 [a wdno:P2904; a wikibase:BestRank] .
+
+  OPTIONAL {?item wdt:P31 ?instance}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,en,ru,ja,zh" .
+    ?item rdfs:label ?itemLabel .
+    ?instance rdfs:label ?instanceLabel
+  }
+}
+GROUP BY ?item ?itemLabel
+LIMIT 100

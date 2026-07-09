@@ -1,0 +1,25 @@
+SELECT DISTINCT
+  ?item ?pp (CONCAT("[",str(?url)," ws]") as ?ws)
+  (YEAR(?dob) as ?yob)
+  (YEAR(?dod) as ?yod)
+  (YEAR(?dod)-YEAR(?publ) as ?y)
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?entry wdt:P1433 wd:Q665807 .
+  ?entry wdt:P921 ?item .
+  ?entry wdt:P478 ?vol .
+  
+  ?volitem wdt:P179 wd:Q665807 . 
+  ?volitem wdt:P478 ?vol .
+  ?volitem wdt:P577 ?publ .
+
+  ?item wdt:P570 ?dod . 
+  FILTER( ?dod > ?publ ) 
+  ?item wdt:P31 wd:Q5 .
+
+  ?entry wdt:P31 wd:Q19389637 . 
+  ?entry wdt:P304 ?p . BIND(CONCAT(str(YEAR(?publ)), ": vol. ",?vol,", p. ",?p) as ?pp)
+  ?url schema:about ?entry ; schema:isPartOf <https://de.wikisource.org/> .
+  OPTIONAL { ?item wdt:P569 ?dob }
+}

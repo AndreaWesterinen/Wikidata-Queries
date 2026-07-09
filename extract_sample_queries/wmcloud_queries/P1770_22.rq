@@ -1,0 +1,13 @@
+#title: Check ID
+# Complex constraint from [[Property talk:P1770]]
+# See [[Property:P300|ISO 3166-2 code&#32;<small dir="ltr">(P300)</small>]]
+SELECT ?item ?prefix ?iso ?isoPart {
+	?item p:P1770 [ps:P1770 ?value].
+    BIND (SUBSTR(?value, 1, 2) AS ?prefix).
+    FILTER (?prefix NOT IN ("B-"))
+    ?item wdt:P131 ?loc.
+    ?loc wdt:P300 ?iso.
+    BIND (SUBSTR(?iso, 4, 2) AS ?isoPart).
+    FILTER (?isoPart != ?prefix)
+}
+LIMIT 3

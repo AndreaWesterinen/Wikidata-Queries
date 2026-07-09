@@ -1,0 +1,13 @@
+#defaultView:Map{"layer":"?place"}
+SELECT DISTINCT ?person ?personLabel ?place ?placeLabel ?coord 
+WITH {
+  SELECT ?person ?place ?coord WHERE {
+  ?person wdt:P19 ?place ;
+          wdt:P496 ?orcid .
+  ?place wdt:P625 ?coord .
+ }  
+} AS %results
+WHERE {
+  INCLUDE %results 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

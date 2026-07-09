@@ -1,0 +1,25 @@
+embed.html##Public library branch Q-items *must* be instances of (P31) both public library (Q28564) and library branch (Q113961). 
+#Q28564 +  Q113961 are both compulsory in the P31 statement
+#Library building (Q856584), building (Q41176) and other Q-values are optional. 
+#All Q-values in the P31 statement must have normal ranks. 
+
+SELECT DISTINCT 
+?item
+?itemLabelNL
+(GROUP_CONCAT(DISTINCT ?isLabel ; separator = " --- ") as ?DitIsEen) 
+(GROUP_CONCAT(DISTINCT ?rank ; separator = " --- ") as ?Ranks) 
+
+WHERE 
+{
+  #Public library and library branch, and from the Netherlands.
+  #The (p:P31/ps:P31) finds also ?items with Preferred and Deprecated ranks for any Q-value in the P31-field; 
+  #(you could even try (p:P31/ps:P31|wdt:P279) to look for subclasses ?? )
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  ?item p:P31 [ps:P31 ?is; wikibase:rank ?rank].
+      
+  OPTIONAL{?item rdfs:label ?itemLabelNL FILTER(LANG(?itemLabelNL)='nl').}
+  OPTIONAL{?is rdfs:label ?isLabel FILTER(LANG(?isLabel)='nl').}
+
+}
+GROUP BY ?item ?itemLabelNL 
+ORDER BY DESC(?item)

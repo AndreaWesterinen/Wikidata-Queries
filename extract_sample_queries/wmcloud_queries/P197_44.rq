@@ -1,0 +1,2 @@
+#title:Change the qualifier P560 to P5051
+SELECT DISTINCT ?item WHERE { ?item p:P197/pq:P560/wdt:P31/wdt:P279* wd:Q719456 . MINUS { ?item p:P197/pq:P560/wdt:P31/wdt:P279* wd:Q2151613 } }

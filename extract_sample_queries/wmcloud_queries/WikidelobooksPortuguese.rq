@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?year WHERE {
+?item wdt:P31/wdt:P279* wd:Q571.
+?item wdt:P31 ?what.
+FILTER ( ?what != wd:Q3331189 )
+{ ?item wdt:P212 ?isbn13 . } UNION { ?item wdt:P957 ?isbn10 . }
+?item wdt:P50 ?author.
+BIND (wd:Q5146 as ?lang )
+{ ?item wdt:P407 ?lang }
+UNION  { ?item wdt:P407 ?dial . ?dial wdt:P279* ?lang }
+OPTIONAL { ?item wdt:P571 ?date . BIND(YEAR(?date) as ?year)}
+}

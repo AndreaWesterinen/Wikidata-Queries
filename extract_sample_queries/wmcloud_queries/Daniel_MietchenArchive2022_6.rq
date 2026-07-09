@@ -1,0 +1,32 @@
+SELECT 
+  DISTINCT
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  ("P1476" AS ?newproperty)
+  (CONCAT("en:\"", ?title_no_sub_single_spaces2, "\"") AS ?newtitle)
+  ("P6833" AS ?qualifier)
+  (CONCAT("en:\"",  ?title, "\"\n", ?qid) AS ?HTMLtitle)
+  ("Len" AS ?labellanguage)
+  (CONCAT("\"", ?title_no_sub_single_spaces2, "\"\n-", ?qid) AS ?labeltext)
+  ("P1476" AS ?oldproperty)
+  (CONCAT("en:\"", ?title, "\"") AS ?oldtitle)
+
+WHERE {
+  hint:Query hint:optimizer "None".
+  
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "sub haswbstatement:P31=Q13442814".
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+  
+  ?item wdt:P1476 ?title.
+  FILTER REGEX(LCASE(?title), "<sub>").
+  
+  BIND(REPLACE(STR(?title), "<sub>", " ") AS ?title_no_sub) 
+  BIND(REPLACE(STR(?title_no_sub), "</sub>", " ") AS ?title_no_subs) 
+  BIND(REPLACE(STR(?title_no_subs), "  ", " ") AS ?title_no_sub_single_spaces1) 
+  BIND(REPLACE(STR(?title_no_sub_single_spaces1), "  ", " ") AS ?title_no_sub_single_spaces2) 
+}

@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?subject ?African_Journals_Online_journal_ID WHERE {
+  ?item wdt:P31 wd:Q737498.
+  ?item wdt:P6183 ?African_Journals_Online_journal_ID
+
+}

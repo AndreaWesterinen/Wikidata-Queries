@@ -1,0 +1,11 @@
+embed.html##Number of out of school children by continent since 1999
+#defaultView:BarChart
+SELECT (STR(YEAR(?date)) AS ?year) ?number_of_out_of_school_chidren ?continent ?continentLabel WHERE {
+  ?continent wdt:P31 wd:Q5107 .
+  ?continent p:P2573 [
+    ps:P2573 ?number_of_out_of_school_chidren ;
+    pq:P585 ?date ;
+  ]
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+}

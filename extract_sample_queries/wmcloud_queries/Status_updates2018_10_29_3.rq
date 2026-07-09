@@ -1,0 +1,22 @@
+#defaultView:ImageGrid
+SELECT ?person ?personLabel ?LibrisXL (?article as ?Wikipedia) ?SBL ?Trans ?img (count(?links) as ?linkcount)
+{
+  ?person wdt:P5147 ?Transid.
+  OPTIONAL {?person wdt:P3217 ?SBLid}
+  BIND(URI(CONCAT("https://litteraturbanken.se/%C3%B6vers%C3%A4ttarlexikon/artiklar/",?Transid)) AS ?Trans)
+  BIND(URI(CONCAT("https://sok.riksarkivet.se/sbl/Presentation.aspx?id=",?SBLid)) AS ?SBL)
+  minus {?person wdt:P5587 ?Librisid}
+  BIND(URI(CONCAT("https://libris.kb.se/katalogisering/search/libris?_limit=100&q=",?Librisid)) AS ?LibrisXL)
+  ?person wdt:P31 wd:Q5.
+  OPTIONAL {?person wdt:P569 ?birthDate}
+  {?person wdt:P570 ?diedDate}
+  {?person wdt:P18 ?img}
+  ?links schema:about ?person.
+  OPTIONAL {?article schema:about ?person;
+           schema:isPartOf <https://sv.wikipedia.org/>}
+  OPTIONAL {?article schema:about ?person;
+           schema:isPartOf <https://en.wikipedia.org/>}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}
+group by ?person ?personLabel ?LibrisXL ?article ?SBL ?Trans ?img
+order by desc(?linkcount)

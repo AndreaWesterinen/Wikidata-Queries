@@ -1,0 +1,20 @@
+embed.html#SELECT ?p ?pLabel ?pDescription 
+  (SAMPLE(?item) as ?item0) (SAMPLE( ?itemLabel) as ?itemLabel0) 
+  (SAMPLE(?sample) as ?sample0) (SAMPLE(?sampleLabel) as ?sampleLabel0) 
+  (COUNT(DISTINCT ?ccvl1) as ?count_1)
+  (COUNT(DISTINCT ?ccvl2) as ?count_2)
+WHERE
+{
+	?p wikibase:propertyType wikibase:WikibaseItem .
+    ?p wdt:P2302 wd:Q21502410 .
+    ?p wikibase:qualifier ?pq . 
+    OPTIONAL { ?p (p:P1855|p:P2271) [ (ps:P1855|ps:P2271) ?item;  ?pq ?sample ] }
+    OPTIONAL { ?p p:P1552 [ pq:P8770 ?ccvl1 ; ps:P1552 wd:Q100884525 ] }
+    OPTIONAL { ?p p:P1552 [ pq:P8770 ?ccvl2 ; ps:P1552 wd:Q100883797 ] }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+                           ?p rdfs:label ?pLabel . ?sample rdfs:label ?sampleLabel .
+                           ?item rdfs:label ?itemLabel . ?p schema:description ?pDescription
+                           }
+   FILTER ( ?p != wd:P369 )
+}
+GROUP BY ?p ?pLabel ?pDescription

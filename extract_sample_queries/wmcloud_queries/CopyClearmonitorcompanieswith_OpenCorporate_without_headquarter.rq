@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?opencorporate {
+  ?item wdt:P1320 ?opencorporate.
+  ?item wdt:P3220 [].  
+  FILTER NOT EXISTS { ?item wdt:P159 [].}
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q5.}
+}

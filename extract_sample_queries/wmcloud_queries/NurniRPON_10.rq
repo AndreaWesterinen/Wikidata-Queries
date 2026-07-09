@@ -1,0 +1,25 @@
+SELECT DISTINCT ?j ?jLabel ?jDescription ?_p ?_pLabel ?_jn ?_jnLabel ?_s ?_sLabel ?k ?kLabel WHERE {
+  {
+    SELECT ?j (SAMPLE(?jn) AS ?_jn) ?k (SAMPLE(?p) AS ?_p) (SAMPLE(?s) AS ?_s) WHERE {
+      { ?j wdt:P31 wd:Q19563262. }
+      UNION
+      { ?j wdt:P31 wd:Q29113513. }
+      UNION
+      { ?j wdt:P31 wd:Q2560367. }
+      UNION
+      {
+        ?j wdt:P31 wd:Q150093;
+          wdt:P17 ?p1.
+        FILTER(?p1 IN(wd:Q172107, wd:Q171348))
+      }
+      OPTIONAL { ?j wdt:P131 ?jn. }
+      OPTIONAL { ?j wdt:P910 ?k. }
+      OPTIONAL { ?j wdt:P17 ?p. }
+      OPTIONAL { ?j wdt:P36 ?s. }
+      FILTER((?p NOT IN(wd:Q577867)) || (!(BOUND(?p))))
+    }
+    GROUP BY ?j ?k
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?_jnLabel) (?jLabel)

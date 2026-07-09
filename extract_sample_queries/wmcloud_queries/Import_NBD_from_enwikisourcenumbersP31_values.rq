@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(?entry) as ?count) (SAMPLE(?entry) as ?sample)
+{
+	?entry wdt:P31 ?item .
+  	?entry wdt:P1433 wd:Q16055052 .
+}
+GROUP BY ?item
+ORDER BY DESC(?count)

@@ -1,0 +1,29 @@
+SELECT DISTINCT (STRAFTER(STR(?e), '/entity/') as ?qe) ?rel (IF(?rel = "P27", "Q172107", IF(?rel = "P39", "Q30041909", STRAFTER(STR(?we), '/entity/'))) as ?qwe ) ("S143" AS ?s143) ("Q1551807" AS ?q1551807)
+WHERE {
+  ?k wdt:P31 wd:Q4167836.
+  ?k wdt:P971 wd:Q30041909.
+  ?k wdt:P971 ?we.
+  ?we wdt:P31 wd:Q1156016.
+  
+  ?link schema:about ?k;
+    schema:isPartOf <https://pl.wikipedia.org/>;
+    schema:name ?t.
+  
+   SERVICE wikibase:mwapi {
+
+     bd:serviceParam wikibase:api "Generator" .     
+     bd:serviceParam wikibase:endpoint "pl.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle ?t .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+     bd:serviceParam mwapi:gcmtype "page" .
+
+   ?e wikibase:apiOutputItem mwapi:item .
+  }
+  
+  FILTER(NOT EXISTS{?e wdt:P1344 ?we.})
+  
+  VALUES (?rel) {("P1344") ("P27") ("P39")}
+}
+ORDER BY ?qe

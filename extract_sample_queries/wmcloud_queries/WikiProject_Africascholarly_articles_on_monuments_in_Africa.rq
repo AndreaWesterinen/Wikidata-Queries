@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?subject WHERE {
+  ?item wdt:P31 wd:Q13442814.
+  ?item wdt:P921 wd:Q4989906. 
+  ?item wdt:P921 ?country.
+  ?country wdt:P30 wd:Q15. 
+}

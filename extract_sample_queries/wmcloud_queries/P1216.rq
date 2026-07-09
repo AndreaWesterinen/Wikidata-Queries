@@ -1,0 +1,1 @@
+SELECT ?item ?p WHERE { ?item ?p [ prov:wasDerivedFrom/pr:P143 wd:Q936287 ] }

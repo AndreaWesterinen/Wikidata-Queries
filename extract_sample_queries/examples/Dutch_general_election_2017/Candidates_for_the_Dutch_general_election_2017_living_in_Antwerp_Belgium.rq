@@ -1,4 +1,5 @@
-SELECT ?item ?itemLabel ?twitter ?LinkedIN ?politieke_partij ?politieke_partijLabel ?positie_op_lijst WHERE {
+#title: Candidates for the Dutch general election 2017 living in Antwerp, Belgium
+ SELECT ?item ?itemLabel ?twitter ?LinkedIN ?politieke_partij ?politieke_partijLabel ?positie_op_lijst WHERE {
   ?item p:P3602 ?node.
   ?item wdt:P551 wd:Q12892.
   OPTIONAL { ?item wdt:P2002 ?twitter. }

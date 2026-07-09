@@ -1,0 +1,5 @@
+select ?x ?xLabel ?ulan {
+  ?x wdt:P245 ?ulan
+  filter not exists {?x wdt:P214 []}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

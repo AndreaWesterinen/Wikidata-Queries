@@ -1,0 +1,7 @@
+SELECT ?compound WHERE {
+  ?compound wdt:P31 wd:Q11173 ;
+            wdt:P234 ?inchi;
+            wdt:P683 ?chebi ;
+  OPTIONAL {?compound wdt:P235 ?d }
+  FILTER (!bound(?d))
+}

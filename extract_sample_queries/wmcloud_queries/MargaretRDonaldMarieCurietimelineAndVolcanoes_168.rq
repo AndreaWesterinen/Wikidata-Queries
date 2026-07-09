@@ -1,0 +1,13 @@
+# articles in Muelleria
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?volume  WHERE {
+  ?item wdt:P31 wd:Q13442814 ;         # is a scholarly article
+    wdt:P478  ?volume;                 # volume
+    wdt:P1433 wd:Q6947226.      # in Muelleria
+   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?volume ?itemLabel
+ LIMIT 4000    

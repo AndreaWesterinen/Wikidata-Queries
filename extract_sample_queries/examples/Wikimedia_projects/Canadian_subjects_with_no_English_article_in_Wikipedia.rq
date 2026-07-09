@@ -1,6 +1,6 @@
+#title: Canadian subjects with no English article in Wikipedia
 # --
 # added before 2019-02
-#
 SELECT ?item ?itemLabel ?cnt WHERE {
 {
   SELECT ?item (COUNT(?sitelink) AS ?cnt) WHERE {

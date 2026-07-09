@@ -1,0 +1,11 @@
+#title:Items with property P2044 and most statements
+SELECT ?item ?itemLabel ?value ?st {
+  {
+    SELECT * {
+      ?item wdt:"..entity.id.." ?value ; wikibase:statements ?st
+    }
+    ORDER BY DESC(?st)
+    LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

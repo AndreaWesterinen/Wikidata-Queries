@@ -1,0 +1,6 @@
+#title: Check French postal identifiers of municipal arrondissement in France
+# Complex constraint from [[Property talk:P281]]
+# Check two first digits of municipal arrondissement ([[Q702842]]) postal identifiers in France
+SELECT DISTINCT ?item ?zipCode WHERE {
+  ?item wdt:P17 wd:Q142; wdt:P31 wd:Q702842 ; wdt:P281 ?zipCode
+  FILTER(REGEX(STR(?zipCode), "^((69

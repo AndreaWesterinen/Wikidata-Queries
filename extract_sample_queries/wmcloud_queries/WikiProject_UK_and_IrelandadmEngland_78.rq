@@ -1,0 +1,1084 @@
+SELECT ?item ?itemLabel (group_concat(distinct ?instanceLabel;separator="; ") as ?type) WHERE {
+ VALUES ?itemLabel {
+"Academy for Justice Commissioning"@en
+"Academy for Social Justice Commissioning"@en
+"Accelerated Access Review"@en
+"Administration of Radioactive Substances Advisory Committee"@en
+"Administrative Justice and Tribunals Council"@en
+"Administrative Justice and Tribunals Council Welsh Committee"@en
+"Adult Learning Inspectorate"@en
+"Advantage West Midlands"@en
+"Advisory Committee on Animal Feedingstuffs"@en
+"Advisory Committee on Business Appointments"@en
+"Advisory Committee on Clinical Excellence Awards"@en
+"Advisory Committee on Conscientious Objectors"@en
+"Advisory Committee on Novel Foods and Processes"@en
+"Advisory Committee on Pesticides"@en
+"Advisory Committee on Releases to the Environment"@en
+"Advisory Committee on the Microbiological Safety of Food"@en
+"Advisory Committees on Justices of the Peace"@en
+"Advisory Council on the Misuse of Drugs"@en
+"Advisory Group on Military Medicine"@en
+"Advisory Panel on Public Sector Information"@en
+"Advisory, Conciliation and Arbitration Service"@en
+"Agri-Food and Biosciences Institute (Northern Ireland)"@en
+"Agricultural Dwelling House Advisory Committees (x16)"@en
+"Agricultural Wages Committee"@en
+"Agriculture and Horticulture Development Board"@en
+"Air Accidents Investigation Branch"@en
+"Airports Commission"@en
+"Alcohol Education and Research Council"@en
+"Ancient Monuments Board for Scotland"@en
+"Animal and Plant Health Agency"@en
+"Animal Health"@en
+"Animal Health and Veterinary Laboratories Agency"@en
+"Animal Procedures Committee"@en
+"Animals in Science Committee"@en
+"Appeals Service Agency"@en
+"Architects Registration Board"@en
+"Armagh Observatory and Planetarium"@en
+"Armed Forces Personnel Administration Agency"@en
+"Armed Forces' Pay Review Body"@en
+"Army Base Repair Organisation"@en
+"Arts and Humanities Research Council"@en
+"Arts Council England"@en
+"Arts Council of Northern Ireland"@en
+"Arts Council of Wales"@en
+"Ashington Education Action Zone"@en
+"Asset Protection Agency"@en
+"Assets Recovery Agency"@en
+"Attorney General's Office"@en
+"Audit Commission"@en
+"Azelle Rodney Inquiry"@en
+"Baha Mousa Inquiry"@en
+"Bank of England"@en
+"Barker Review of Land Use Planning"@en
+"Barrow Education Action Zone"@en
+"BBC"@en
+"BBC World Service"@en
+"Bedford Education Action Zone"@en
+"Behavioural Insights Team"@en
+"Better Regulation Delivery Office"@en
+"Big Lottery Fund"@en
+"Billy Wright Inquiry"@en
+"Biometrics Commissioner"@en
+"Biotechnology and Biological Sciences Research Council"@en
+"Blackpool Borough Council"@en
+"Bloody Sunday Inquiry"@en
+"Board of Banking Supervision"@en
+"Board of Inland Revenue"@en
+"Board of Trustees of the Royal Botanic Gardens Kew"@en
+"Bolton Education Action Zone"@en
+"Bona Vacantia"@en
+"Border Force"@en
+"Borough of Poole"@en
+"Boundary Commission for England"@en
+"Boundary Commission for Northern Ireland"@en
+"Boundary Commission for Scotland"@en
+"Boundary Commission for Wales"@en
+"Bournemouth, Christchurch and Poole Council"@en
+"BRB (Residuary) Ltd"@en
+"Bridgwater Education Action Zone"@en
+"Bristol City Council"@en
+"Bristol Education Action Zone"@en
+"British Business Bank"@en
+"British Cattle Movement Service"@en
+"British Council"@en
+"British Educational Communications and Technology Agency"@en
+"British Film Institute"@en
+"British Forces Post Office"@en
+"British Hallmarking Council"@en
+"British Library"@en
+"British Museum"@en
+"British Pharmacopoeia Commission"@en
+"British Potato Council"@en
+"British Transport Police Authority"@en
+"Broadcasting Standards Commission"@en
+"Broadmoor Hospital investigation"@en
+"Broads Authority"@en
+"Building Regulations Advisory Committee"@en
+"Building Research Establishment"@en
+"Business Development Service"@en
+"Buying Solutions"@en
+"Cabinet Office"@en
+"Cabinet Office Board"@en
+"Camborne, Pool and Redruth Education Action Zone"@en
+"Cambridge City Council"@en
+"Cambridgeshire and Peterborough Combined Authority"@en
+"Cambridgeshire County Council"@en
+"Capacitybuilders"@en
+"Capital for Enterprise Limited"@en
+"Care Quality Commission"@en
+"Careers Wales"@en
+"Central Advisory Committee on Compensation"@en
+"Central Advisory Committee on Pensions and Compensation"@en
+"Central Arbitration Committee"@en
+"Central Office of Information"@en
+"Central Police Training and Development Authority"@en
+"Central Science Laboratory"@en
+"Centre for Defence Enterprise"@en
+"Centre for Environment, Fisheries and Aquaculture Science"@en
+"Centre for the Protection of National Infrastructure"@en
+"Certification Officer"@en
+"CESG"@en
+"Channel 4"@en
+"Cheltenham Borough Council"@en
+"Chemical and Biological Defence Establishment"@en
+"Chesterfield Borough Council"@en
+"Chevening Scholarship Programme"@en
+"Chief Fire and Rescue Adviser"@en
+"Child Maintenance and Enforcement Commission"@en
+"Children's Workforce Development Council"@en
+"Christchurch Borough Council"@en
+"City of Lincoln Council"@en
+"City of Wolverhampton Council"@en
+"Civil Aviation Authority"@en
+"Civil Justice Council"@en
+"Civil Nuclear Constabulary"@en
+"Civil Nuclear Police Authority"@en
+"Civil Procedure Rule Committee"@en
+"Civil Service"@en
+"Civil Service Board"@en
+"Civil Service Commission"@en
+"Civil Service Fast Stream"@en
+"Civil Service Fast Track Apprenticeship"@en
+"Civil Service Reform"@en
+"Civil Service Resourcing"@en
+"Clacton and Harwich Education Action Zone"@en
+"CO2Sense"@en
+"Coal Authority"@en
+"Commercial Court"@en
+"Commission for Architecture and the Built Environment (CABE)"@en
+"Commission for Countering Extremism"@en
+"Commission for Health Improvement"@en
+"Commission for Patient and Public Involvement in Health"@en
+"Commission for Racial Equality"@en
+"Commission for Rural Communities"@en
+"Commission for Social Care Inspection"@en
+"Commission for the Compact"@en
+"Commission on Human Medicines"@en
+"Commissioner for Public Appointments"@en
+"Committee on Climate Change"@en
+"Committee on Fuel Poverty"@en
+"Committee on Mutagenicity of Chemicals in Food, Consumer Products and the Environment"@en
+"Committee on Radioactive Waste Management"@en
+"Committee on Standards in Public Life"@en
+"Committee on Toxicity of Chemicals in Food, Consumer Products and the Environment"@en
+"Commonwealth Scholarship Commission in the UK"@en
+"Community Development Foundation"@en
+"Community Fund"@en
+"Companies House"@en
+"Company Names Tribunal"@en
+"Compensation Agency"@en
+"Competition and Markets Authority"@en
+"Competition Appeal Tribunal"@en
+"Competition Commission"@en
+"Competition Service"@en
+"Construction Industry Training Board"@en
+"Consumer Council for Postal Services"@en
+"Consumer Council for Water"@en
+"Consumer Futures"@en
+"Cooksey Review"@en
+"Copyright Tribunal"@en
+"Corby Borough Council"@en
+"Corby Education Action Zone"@en
+"Cornwall Council"@en
+"Council for Catholic Maintained Schools"@en
+"Council for Healthcare Regulatory Excellence"@en
+"Council for Science and Technology"@en
+"Council for the Central Laboratory of the Research Councils"@en
+"Council of the Isles of Scilly"@en
+"Council on Tribunals"@en
+"Counter Fraud and Security Management Service"@en
+"Countryside Agency"@en
+"Court of Judicature of Northern Ireland"@en
+"Covent Garden Market Authority"@en
+"Coventry City Council"@en
+"Coventry Education Action Zone"@en
+"Crawley Borough Council"@en
+"Creative Scotland"@en
+"Criminal Cases Review Commission"@en
+"Criminal Injuries Compensation Appeals Panel"@en
+"Criminal Injuries Compensation Appeals Panel for Northern Ireland"@en
+"Criminal Injuries Compensation Authority"@en
+"Criminal Justice Inspection Northern Ireland"@en
+"Criminal Procedure Rule Committee"@en
+"Criminal Records Bureau"@en
+"Crown Agents Holding and Realisation Board"@en
+"Crown Commercial Service"@en
+"Crown Prosecution Service"@en
+"Dacorum Borough Council"@en
+"Dartmoor National Park Authority"@en
+"Deepcut Review"@en
+"Defence Academy of the United Kingdom"@en
+"Defence Analytical Services Agency"@en
+"Defence and Security Accelerator"@en
+"Defence and Security Media Advisory Committee"@en
+"Defence Aviation Repair Agency"@en
+"Defence Bills Agency"@en
+"Defence Communication Services Agency"@en
+"Defence Electronics and Components Agency"@en
+"Defence Equipment and Support"@en
+"Defence Estates"@en
+"Defence Infrastructure Organisation"@en
+"Defence Intelligence and Security Centre"@en
+"Defence Medical Education and Training Agency"@en
+"Defence Nuclear Safety Committee"@en
+"Defence Procurement Agency"@en
+"Defence Safety Authority"@en
+"Defence Science and Technology Laboratory"@en
+"Defence Scientific Advisory Council"@en
+"Defence Sixth Form College"@en
+"Defence Storage and Distribution Agency"@en
+"Defence Support Group"@en
+"Defence Transport and Movements Agency"@en
+"Defence Vetting Agency"@en
+"Defence, Press and Broadcasting Advisory Committee"@en
+"Dental Practice Board"@en
+"Dental Vocational Training Authority"@en
+"Department for Business, Energy & Industrial Strategy"@en
+"Department for Business, Enterprise and Regulatory Reform"@en
+"Department for Business, Innovation & Skills"@en
+"Department for Children, Schools and Families"@en
+"Department for Communities (Northern Ireland)"@en
+"Department for Constitutional Affairs"@en
+"Department for Digital, Culture, Media and Sport"@en
+"Department for Education"@en
+"Department for Education and Skills"@en
+"Department for Employment and Learning"@en
+"Department for Environment, Food & Rural Affairs"@en
+"Department for Exiting the European Union"@en
+"Department for Infrastructure (Northern Ireland)"@en
+"Department for Innovation, Universities and Skills"@en
+"Department for International Development"@en
+"Department for International Trade"@en
+"Department for International Trade Defence & Security Organisation"@en
+"Department for Regional Development"@en
+"Department for Social Development"@en
+"Department for the Economy (Northern Ireland)"@en
+"Department for Transport"@en
+"Department for Work and Pensions"@en
+"Department of Agriculture and Rural Development"@en
+"Department of Agriculture, Environment and Rural Affairs (Northern Ireland)"@en
+"Department of Constitutional Affairs"@en
+"Department of Culture, Arts and Leisure"@en
+"Department of Culture, Arts and Leisure Northern Ireland"@en
+"Department of Education (Northern Ireland)"@en
+"Department of Energy & Climate Change"@en
+"Department of Enterprise, Trade and Investment"@en
+"Department of Finance (Northern Ireland)"@en
+"Department of Finance and Personnel for Northern Ireland"@en
+"Department of Health (Northern Ireland)"@en
+"Department of Health and Social Care"@en
+"Department of Health, Social Services and Public Safety"@en
+"Department of Inland Revenue"@en
+"Department of Justice (Northern Ireland)"@en
+"Department of National Heritage"@en
+"Department of Social Security"@en
+"Department of the Environment (Northern Ireland)"@en
+"Department of the Environment, Transport and the Regions"@en
+"Department of Trade and Industry"@en
+"Deputy Prime Minister's Office"@en
+"Derby City Council"@en
+"Derby North East Education Action Zone"@en
+"Derbyshire County Council"@en
+"Design Council"@en
+"Devon County Council"@en
+"Digital, data and technology professions"@en
+"Dingle Granby Toxteth Education Action Zone"@en
+"Directly Operated Railways Limited"@en
+"Disability and Carers Service"@en
+"Disability Rights Commission"@en
+"Disabled People’s Employment Corporation"@en
+"Disabled Persons Transport Advisory Committee"@en
+"Disclosure and Barring Service"@en
+"Disposal Services Agency"@en
+"District Valuer Services (DVS)"@en
+"Dorset Council"@en
+"Dorset County Council"@en
+"Downham and Bellingham Education Action Zone"@en
+"Drinking Water Inspectorate"@en
+"Driver and Vehicle Licensing Agency"@en
+"Driver and Vehicle Standards Agency"@en
+"Driver and Vehicle Testing Agency"@en
+"Driving Standards Agency"@en
+"Dudley Education Action Zone"@en
+"Dudley Metropolitan Borough Council"@en
+"Durham County Council"@en
+"Easington and Seaham Education Action Zone"@en
+"East Cleveland Education Action Zone"@en
+"East Hertfordshire District Council"@en
+"East Manchester Education Action Zone"@en
+"East Midlands Development Agency (emda)"@en
+"East of England Development Agency"@en
+"East Riding of Yorkshire Council"@en
+"East Suffolk Council"@en
+"East Sussex County Council"@en
+"Eastbourne Borough Council"@en
+"Eastern Health and Social Services Board"@en
+"Ebbsfleet Development Corporation"@en
+"Economic and Social Research Council"@en
+"Education and Skills Funding Agency"@en
+"Education Funding Agency"@en
+"Efficiency and Reform Group"@en
+"Eliasch Review"@en
+"Ellesmere Port Education Action Zone"@en
+"Employment Agency Standards Inspectorate"@en
+"Engineering and Physical Sciences Research Council"@en
+"Engineering Construction Industry Training Board"@en
+"English Heritage"@en
+"English Institute of Sport"@en
+"English Nature"@en
+"English Partnerships"@en
+"English Sports Council"@en
+"Enterprise Ulster"@en
+"Environment Agency"@en
+"Environment and Heritage Service"@en
+"Equal Opportunities Commission"@en
+"Equality 2025"@en
+"Equality and Human Rights Commission"@en
+"Equality Commission for Northern Ireland"@en
+"Equitable Life Inquiry"@en
+"Essex County Council"@en
+"Estyn"@en
+"Examination team on child care procedures and practice in North Wales"@en
+"Exchequer and Audit Department"@en
+"Exeter City Council"@en
+"Exmoor National Park Authority"@en
+"Export Control Joint Unit"@en
+"Export Guarantees Advisory Council"@en
+"Family Health Services Appeal Authority"@en
+"Family Justice Council"@en
+"Family Procedure Rule Committee"@en
+"FCO Services"@en
+"Financial Conduct Authority"@en
+"Financial Services Organisation"@en
+"Financial Services Trade and Investment Board"@en
+"Fire Authority for Northern Ireland"@en
+"Fire Service College"@en
+"Firearms Consultative Committee"@en
+"Firebuy"@en
+"Fisheries Conservancy Board for Northern Ireland"@en
+"Fleet Air Arm Museum"@en
+"Food from Britain"@en
+"Food Safety Promotion Board"@en
+"Food Standards Agency"@en
+"Football Licensing Authority"@en
+"Foreign & Commonwealth Office"@en
+"Foreign Compensation Commission"@en
+"Forensic Science Northern Ireland"@en
+"Forensic Science Regulator"@en
+"Forensic Science Service"@en
+"Forest Enterprise (England)"@en
+"Forest Research"@en
+"Forest Service"@en
+"Forestry Commission"@en
+"Fuel Poverty Advisory Group"@en
+"Further and Higher Education Funding Councils for Wales"@en
+"Gambling Commission"@en
+"Gaming Board for Great Britain"@en
+"Gangmasters and Labour Abuse Authority"@en
+"Gas and Electricity Consumer Council (Energywatch)"@en
+"Gateshead Metropolitan Borough Council"@en
+"Geffrye Museum"@en
+"General Advisory Committee on Science"@en
+"General Consumer Council for Northern Ireland"@en
+"General Social Care Council"@en
+"General Teaching Council for England"@en
+"Gloucester City Council"@en
+"Gloucester Education Action Zone"@en
+"Gloucestershire County Council"@en
+"Gosport Borough Council"@en
+"Government Actuary's Department"@en
+"Government Car and Despatch Agency"@en
+"Government Chemist"@en
+"Government Commercial Function"@en
+"Government Communication Service"@en
+"Government Communications Headquarters"@en
+"Government Corporate Finance Profession"@en
+"Government Digital Service"@en
+"Government Economic Service"@en
+"Government Equalities Office"@en
+"Government Estates Management"@en
+"Government Finance Profession"@en
+"Government Internal Audit Agency"@en
+"Government IT Profession"@en
+"Government Knowledge & Information Management Profession"@en
+"Government Legal Department"@en
+"Government Legal Service"@en
+"Government Occupational Psychology Profession"@en
+"Government Office for Science"@en
+"Government Operational Research Service"@en
+"Government Planning Inspectors"@en
+"Government Planning Profession"@en
+"Government Procurement Service"@en
+"Government Property Agency"@en
+"Government Property Profession"@en
+"Government Science & Engineering Profession"@en
+"Government Security Profession"@en
+"Government Social Research Profession"@en
+"Government Statistical Service"@en
+"Government Tax Profession"@en
+"Government Veterinary Services"@en
+"Gowers Review of Intellectual Property"@en
+"Great Britain-China Centre"@en
+"Great Yarmouth Education Action Zone"@en
+"Greater London Authority"@en
+"Greater Manchester Combined Authority"@en
+"Greenwich Education Action Zone"@en
+"Groceries Code Adjudicator"@en
+"H.M. Customs and Excise"@en
+"H.M. Inspectorate of Court Administration"@en
+"H.M. Inspectorate of Explosives for Northern Ireland"@en
+"Hackney Education Action Zone"@en
+"Hamilton Oxford Education Action Zone"@en
+"Hampshire County Council"@en
+"Harlow District Council"@en
+"Hastings and St Leonards Education Action Zone"@en
+"Hastings Borough Council"@en
+"Havant Borough Council"@en
+"Health and Safety Executive"@en
+"Health and Social Care Information Centre"@en
+"Health Education England"@en
+"Health Protection Agency"@en
+"Health Research Authority"@en
+"Healthcare Commission"@en
+"Healthcare UK"@en
+"Hearing Aid Council"@en
+"Heart of Slough Education Action Zone"@en
+"Her Majesty's Government Communications Centre"@en
+"Her Majesty's Magistrates Courts Service Inspectorate"@en
+"Her Majesty’s Prison and Probation Service"@en
+"Heritage Lottery Fund (administered by the NHMF)"@en
+"High Speed Two (HS2) Limited"@en
+"Higher Education Funding Council for England"@en
+"Higher Education Statistics Agency"@en
+"Highways Agency"@en
+"Highways England"@en
+"Hillsborough Independent Panel"@en
+"Historic England"@en
+"Historic Royal Palaces"@en
+"HM Courts & Tribunals Service"@en
+"HM Courts Service"@en
+"HM Crown Prosecution Service Inspectorate"@en
+"HM Inspectorate of Constabulary and Fire & Rescue Services"@en
+"HM Inspectorate of Prisons"@en
+"HM Inspectorate of Probation"@en
+"HM Land Registry"@en
+"HM Nautical Almanac Office"@en
+"HM Passport Office"@en
+"HM Prison Service"@en
+"HM Revenue & Customs"@en
+"HM Treasury"@en
+"Home Office"@en
+"Home-Grown Cereals Authority"@en
+"Homes and Communities Agency"@en
+"Horniman Public Museum and Public Park Trust"@en
+"Horserace Betting Levy Board"@en
+"Horticultural Development Council"@en
+"House of Lords Appointments Commission"@en
+"Housing Corporation"@en
+"Housing Ombudsman"@en
+"Hull City Council"@en
+"Human Fertilisation and Embryology Authority"@en
+"Human Resources Profession"@en
+"Human Tissue Authority"@en
+"Hybu Cig Cymru - Meat Promotion Wales"@en
+"ICL Inquiry"@en
+"Identity and Passport Service"@en
+"Immigration Enforcement"@en
+"Imperial War Museum"@en
+"Independent Advisory Panel on Deaths in Custody"@en
+"Independent Agricultural Appeals Panel"@en
+"Independent Anti-slavery Commissioner"@en
+"Independent Case Examiner"@en
+"Independent Chief Inspector of Borders and Immigration"@en
+"Independent Commission for Aid Impact"@en
+"Independent Commission on Freedom of Information"@en
+"Independent Complaints Reviewer"@en
+"Independent Dormant Assets Commission"@en
+"Independent Family Returns Panel"@en
+"Independent Living Fund"@en
+"Independent Medical Expert Group"@en
+"Independent Monitoring Boards of Prisons, Immigration, Removal Centres and Short Term Holding Rooms"@en
+"Independent Monitoring Commission"@en
+"Independent Police Complaints Commission"@en
+"Independent Reconfiguration Panel"@en
+"Independent Review of Police Officer and Staff Remuneration and Conditions"@en
+"Independent Review of the UK Postal Services Sector"@en
+"Independent Reviewer of Terrorism Legislation"@en
+"Independent Safeguarding Authority"@en
+"Independent Television Commission"@en
+"Industrial Development Advisory Board"@en
+"Industrial Injuries Advisory Council"@en
+"Information Commissioner's Office"@en
+"Information Services Division (Scotland)"@en
+"Infrastructure and Projects Authority"@en
+"Infrastructure Planning Commission"@en
+"Infrastructure UK"@en
+"Innovate UK"@en
+"Inquiry into the supervision of the Bank of Credit and Commerce International"@en
+"Insolvency Practitioners Tribunal"@en
+"Insolvency Rules Committee"@en
+"Institute for Apprenticeships"@en
+"Intellectual Property Office"@en
+"Intelligence Analysis"@en
+"Intelligence Services Commissioner"@en
+"Interception of Communications Commissioner"@en
+"Internal Audit Profession"@en
+"Investigatory Powers Tribunal"@en
+"Investors in People UK"@en
+"Ipswich Borough Council"@en
+"Iraq Inquiry"@en
+"Joint Forces Command"@en
+"Joint Nature Conservation Committee"@en
+"Judicial Appointments and Conduct Ombudsman"@en
+"Judicial Appointments Commission"@en
+"Judicial Office"@en
+"Kent and Somerset Education Action Zone"@en
+"Kent County Council"@en
+"Kerr / Haslam Inquiry"@en
+"Kitts Green and Shard End Education Action Zone"@en
+"Labour Relations Agency"@en
+"Lake District National Park Authority"@en
+"Lammy Review"@en
+"Lancashire County Council"@en
+"Land Registers of Northern Ireland"@en
+"Land Registration Rule Committee"@en
+"Law Commission"@en
+"Learning and Skills Council"@en
+"Leasehold Advisory Service"@en
+"Legal Aid Agency"@en
+"Legal Aid Board"@en
+"Legal Services Board"@en
+"Legal Services Commission"@en
+"Leicester City Council"@en
+"Leicestershire County Council"@en
+"Leigh Park Education Action Zone"@en
+"Leitch Review of Skills"@en
+"Leveson Inquiry"@en
+"Life Sentence Review Commissioners"@en
+"Lincolnshire County Council"@en
+"Liverpool City Council"@en
+"Liverpool City Region"@en
+"Livestock and Meat Commission for Northern Ireland"@en
+"Local Better Regulation Office"@en
+"Local Government Ombudsman"@en
+"London and Continental Railways Ltd"@en
+"London Thames Gateway Development Corporation"@en
+"Lord Chancellor's Department"@en
+"Loughs Agency"@en
+"Low Pay Commission"@en
+"Luton Borough Council"@en
+"Lyons Inquiry into Local Government"@en
+"Macur Review"@en
+"Manchester City Council"@en
+"Marine Accident Investigation Branch"@en
+"Marine Fisheries Agency"@en
+"Marine Management Organisation"@en
+"Maritime and Coastguard Agency"@en
+"Marshall Aid Commemoration Commission"@en
+"Meat and Livestock Commission"@en
+"Meat Hygiene Service"@en
+"Medical Profession"@en
+"Medical Research Council"@en
+"Medical Supplies Agency"@en
+"Medicines and Healthcare products Regulatory Agency"@en
+"Mental Health Act Commission"@en
+"Met Office"@en
+"Mid Staffordshire NHS Foundation Trust Public Inquiry 2010"@en
+"Mid Staffordshire NHS Foundation Trust Public Inquiry 2013"@en
+"Middlesbrough Borough Council"@en
+"Migration Advisory Committee"@en
+"Military Aviation Authority"@en
+"Milk Development Council"@en
+"Millennium Commission"@en
+"Ministry of Defence"@en
+"Ministry of Defence Police and Guarding Agency"@en
+"Ministry of Justice"@en
+"Monitor"@en
+"Monopolies and Mergers Commission"@en
+"Morecambe Bay Investigation"@en
+"Mull of Kintyre Review"@en
+"Museums, Libraries and Archives Council"@en
+"National Army Museum"@en
+"National Biological Standards Board"@en
+"National Blood Authority"@en
+"National Care Standards Commission"@en
+"National College for School Leadership"@en
+"National College for Teaching and Leadership"@en
+"National Counter Terrorism Security Office"@en
+"National Crime Agency"@en
+"National Crime Agency Remuneration Review Body"@en
+"National Crime Squad"@en
+"National Criminal Intelligence Service"@en
+"National Cyber Security Centre"@en
+"National Data Guardian"@en
+"National DNA Database Ethics Group"@en
+"National Employer Advisory Board"@en
+"National Employment Savings Trust (NEST) Corporation"@en
+"National Endowment for Science, Technology and the Arts"@en
+"National Forest Company"@en
+"National Fraud Authority"@en
+"National Gallery"@en
+"National Heritage Memorial Fund"@en
+"National Information Board"@en
+"National Infrastructure Commission"@en
+"National Institute for Health and Care Excellence"@en
+"National Measurement and Regulation Office"@en
+"National Measurement Office"@en
+"National Museum of the Royal Navy"@en
+"National Museums and Galleries of Northern Ireland"@en
+"National Museums Liverpool"@en
+"National Museums of Scotland"@en
+"National Offender Management Service"@en
+"National Patient Safety Agency"@en
+"National Policing Improvement Agency"@en
+"National Portrait Gallery"@en
+"National Probation Service"@en
+"National Radiological Protection Board"@en
+"National Records of Scotland"@en
+"National School of Government"@en
+"National security and intelligence"@en
+"National Treatment Agency for Substance Misuse"@en
+"National Weights and Measures Laboratory"@en
+"Natural England"@en
+"Natural Environment Research Council"@en
+"Natural History Museum"@en
+"Natural Resources Institute"@en
+"Natural Resources Wales"@en
+"Nature Conservancy Council"@en
+"New Forest National Park Authority"@en
+"New Opportunities Fund"@en
+"Newcastle City Council"@en
+"NHS Appointments Commission"@en
+"NHS Blood and Transplant"@en
+"NHS Business Services Authority"@en
+"NHS Digital"@en
+"NHS Direct National Health Service Trust"@en
+"NHS England"@en
+"NHS Estates"@en
+"NHS Improvement"@en
+"NHS Information Centre"@en
+"NHS Institute for Innovation and Improvement"@en
+"NHS Logistics Authority"@en
+"NHS Pay Review Body"@en
+"NHS Pensions Agency"@en
+"NHS Professionals"@en
+"NHS Purchasing and Supply Agency"@en
+"NHS Resolution"@en
+"NHS Trust Development Authority"@en
+"NHS Wales Informatics Service"@en
+"Nimrod Review"@en
+"North East Derbyshire Coalfields Education Action Zone"@en
+"North East Education and Library Board"@en
+"North Gillingham Education Action Zone"@en
+"North Islington Education Action Zone"@en
+"North Stockton Education Action Zone"@en
+"North West Development Agency"@en
+"North West Shropshire Education Action Zone"@en
+"North York Moors National Park Authority"@en
+"North Yorkshire County Council"@en
+"Northampton Borough Council"@en
+"Northern Health and Social Services Board"@en
+"Northern Ireland Audit Office"@en
+"Northern Ireland Authority for Energy Regulation"@en
+"Northern Ireland Child Support Agency"@en
+"Northern Ireland Commissioner for Children and Young People"@en
+"Northern Ireland Council for the Curriculum, Examinations and Assessment"@en
+"Northern Ireland Court Service"@en
+"Northern Ireland Executive"@en
+"Northern Ireland Health and Social Services Estates Agency"@en
+"Northern Ireland Housing Executive"@en
+"Northern Ireland Human Rights Commission"@en
+"Northern Ireland Judicial Appointments Commission"@en
+"Northern Ireland Judicial Appointments Ombudsman"@en
+"Northern Ireland Law Commission"@en
+"Northern Ireland Legal Services Commission"@en
+"Northern Ireland Local Government Officers' Superannuation Committee"@en
+"Northern Ireland Office"@en
+"Northern Ireland Ombudsman"@en
+"Northern Ireland Police Fund"@en
+"Northern Ireland Policing Board"@en
+"Northern Ireland Practice and Education Council"@en
+"Northern Ireland Prison Service"@en
+"Northern Ireland Social Care Council"@en
+"Northern Ireland Social Security Agency"@en
+"Northern Ireland Statistics and Research Agency"@en
+"Northern Ireland Tourist Board"@en
+"Northern Lighthouse Board"@en
+"Northumberland County Council"@en
+"Northumberland National Park Authority"@en
+"Northwest Business Link"@en
+"Northwest Regional Development Agency"@en
+"Norwich City Council"@en
+"Nottingham City Council"@en
+"Nottinghamshire County Council"@en
+"NS&I"@en
+"Nuclear Decommissioning Authority"@en
+"Nuclear Liabilities Financing Assurance Board"@en
+"Nuclear Research Advisory Council"@en
+"Ofcom"@en
+"Office for Budget Responsibility"@en
+"Office for Civil Society"@en
+"Office for Criminal Justice Reform"@en
+"Office for Disability Issues"@en
+"Office for Fair Access"@en
+"Office for Life Sciences"@en
+"Office for Low Emission Vehicles"@en
+"Office for National Statistics"@en
+"Office for Nuclear Regulation"@en
+"Office for Product Safety and Standards"@en
+"Office for Tenants and Social Landlords"@en
+"Office of Fair Trading"@en
+"Office of Financial Sanctions Implementation"@en
+"Office of HM Paymaster General"@en
+"Office of Manpower Economics"@en
+"Office of Rail and Road"@en
+"Office of Rail Regulation"@en
+"Office of Surveillance Commissioners"@en
+"Office of Tax Simplification"@en
+"Office of Telecommunications"@en
+"Office of the Advocate General for Scotland"@en
+"Office of the Chief Electoral Officer for Northern Ireland"@en
+"Office of the Children's Commissioner"@en
+"Office of the Commissioner for Protection Against Unlawful Industrial Action"@en
+"Office of the Commissioner for the Rights of Trade Union Members"@en
+"Office of the Data Protection Registrar"@en
+"Office of the First Minister and Deputy First Minister"@en
+"Office of the Health Professions Adjudicator"@en
+"Office of the Identity Commissioner"@en
+"Office of the Immigration Services Commissioner"@en
+"Office of the Lay Observer"@en
+"Office of the Leader of the House of Commons"@en
+"Office of the Leader of the House of Lords"@en
+"Office of the Legal Services Complaints Commissioner"@en
+"Office of the Legal Services Ombudsman"@en
+"Office of the Oversight Commissioner"@en
+"Office of the Parliamentary Counsel"@en
+"Office of the Police Ombudsman for Northern Ireland"@en
+"Office of the Public Guardian"@en
+"Office of the Registrar of Consultant Lobbyists"@en
+"Office of the Regulator of Community Interest Companies"@en
+"Office of the Schools Adjudicator"@en
+"Office of the Secretary of State for Scotland"@en
+"Office of the Secretary of State for Wales"@en
+"Official Solicitor and Public Trustee"@en
+"Ofgem"@en
+"Ofqual"@en
+"Ofsted"@en
+"Oftel"@en
+"OGCbuyingsolutions"@en
+"Oil and Gas Authority"@en
+"Olympic Delivery Authority"@en
+"One North East"@en
+"Open Public Services"@en
+"Operational Delivery Profession"@en
+"Ordnance Survey"@en
+"Ordnance Survey of Northern Ireland"@en
+"Oxford City Council"@en
+"Parades Commission for Northern Ireland"@en
+"Parliamentary Contributory Pension Fund"@en
+"Parole Board"@en
+"Parole Commissioners for Northern Ireland"@en
+"Particle Physics and Astronomy Research Council"@en
+"Passenger Focus"@en
+"Patrick Finucane Review"@en
+"Payment Systems Regulator"@en
+"Peak District National Park Authority"@en
+"Pension Protection Fund"@en
+"Pension Protection Fund Ombudsman"@en
+"Pension Service"@en
+"Pension, Disability and Carers Service"@en
+"Pensions Ombudsman"@en
+"People, Pay and Pensions Agency"@en
+"Personal Accounts Delivery Authority"@en
+"Pesticides Safety Directorate"@en
+"Peterlee Education Action Zone"@en
+"Phoenix Sports"@en
+"Planning Service"@en
+"Plant Varieties and Seeds Tribunal"@en
+"Plymouth City Council"@en
+"Plymouth Education Action Zone"@en
+"Police Advisory Board for England and Wales"@en
+"Police Arbitration Tribunal"@en
+"Police Complaints Authority"@en
+"Police Discipline Appeals Tribunal"@en
+"Police Information Technology Organisation"@en
+"Police Negotiating Board"@en
+"Police Remuneration Review Body"@en
+"Police Service of Northern Ireland"@en
+"Policy Profession"@en
+"Polytechnics and Colleges Funding Council"@en
+"Porton Biopharma Limited"@en
+"Portsmouth City Council"@en
+"Postal Services Commission"@en
+"Postgraduate Medical Education and Training Board"@en
+"Prescription Pricing Authority"@en
+"Preventing Sexual Violence Initiative"@en
+"Prime Minister's Office, 10 Downing Street"@en
+"Prison Service Pay Review Body"@en
+"Prisons and Probation Ombudsman"@en
+"Privy Council Office"@en
+"Probation Board for Northern Ireland"@en
+"Procurement profession"@en
+"Professional Oversight Board"@en
+"Professional Standards Authority for Health and Social Care"@en
+"Project Delivery Profession"@en
+"Public Accounts Commission"@en
+"Public Health England"@en
+"Public Health Laboratory Service Board"@en
+"Public Health Wales"@en
+"Public Lending Right Office"@en
+"Public Prosecution Service for Northern Ireland"@en
+"Pubs Code Adjudicator"@en
+"Qualifications and Curriculum Authority"@en
+"Qualifications and Curriculum Development Agency"@en
+"Queen Elizabeth II Conference Centre"@en
+"Queen's Harbour Master"@en
+"Race Disparity Unit"@en
+"Radioactive Waste Management"@en
+"Rail Accident Investigation Branch"@en
+"Rail Safety and Standards Board"@en
+"Railway Heritage Committee"@en
+"Reading Borough Council"@en
+"Redditch Borough Council"@en
+"Redfern Inquiry"@en
+"Regeneration Investment Organisation"@en
+"Regulator of Social Housing"@en
+"Regulatory Delivery"@en
+"Regulatory Policy Committee"@en
+"Remploy Ltd"@en
+"Renewable Fuels Agency"@en
+"Rent Service"@en
+"Reserve Forces' and Cadets' Associations"@en
+"Revenue and Customs Prosecutions Office"@en
+"Review Board for Government Contracts"@en
+"Review Body for Nursing and Other Health Professions"@en
+"Review Body on Doctors' and Dentists' Remuneration"@en
+"Rivers Agency"@en
+"Roads Service"@en
+"Rosemary Nelson Inquiry"@en
+"Royal Air Force Museum"@en
+"Royal Armouries Museum"@en
+"Royal Commission on Criminal Justice"@en
+"Royal Commission on Environmental Pollution"@en
+"Royal Liverpool Childrens Inquiry"@en
+"Royal Mail"@en
+"Royal Marines Museum"@en
+"Royal Mint"@en
+"Royal Mint Advisory Committee"@en
+"Royal Museums Greenwich"@en
+"Royal Navy Submarine Museum"@en
+"Royal Parks"@en
+"Royal Trustees' Office"@en
+"Rural Development Programme for England Network"@en
+"Rural Payments Agency"@en
+"S4C"@en
+"School Food Trust"@en
+"School Teachers' Review Body"@en
+"Schools Commissioners Group"@en
+"Science Advisory Council"@en
+"Science and Technology Facilities Council"@en
+"Science Museum Group"@en
+"Scientific Advisory Committee on the Medical Implications of Less-Lethal Weapons"@en
+"Scottish Arts Council"@en
+"Scottish Government"@en
+"Scottish Hospital Trust"@en
+"Scottish Law Commission"@en
+"Scottish Office"@en
+"Scottish Screen"@en
+"Scottish Sports Council"@en
+"Sea Fish Industry Authority"@en
+"Secret Intelligence Service"@en
+"Security Industry Authority"@en
+"Security Vetting Appeals Panel"@en
+"Senior Salaries Review Body"@en
+"Sentence Review Commissioners"@en
+"Sentencing Council for England and Wales"@en
+"Serious Fraud Office"@en
+"Serious Organised Crime Agency"@en
+"Service Children's Education"@en
+"Service Complaints Commissioner"@en
+"Service Complaints Ombudsman"@en
+"Service Personnel and Veterans Agency"@en
+"Service Prosecuting Authority"@en
+"Sheffield City Council"@en
+"Sheffield City Region"@en
+"Shipman Inquiry"@en
+"Shropshire Council"@en
+"Single Financial Guidance Body"@en
+"Single Source Regulations Office"@en
+"Sir John Soane's Museum"@en
+"SITPRO"@en
+"Skills Funding Agency"@en
+"Slough Borough Council"@en
+"Social Mobility and Child Poverty Commission"@en
+"Social Mobility Commission"@en
+"Social Science Research Committee"@en
+"Social Security Advisory Committee"@en
+"Social Security Agency"@en
+"Somerset County Council"@en
+"Somerset West and Taunton Council"@en
+"South Bradford Education Action Zone"@en
+"South Downs National Park Authority"@en
+"South East England Development Agency"@en
+"South East England Virtual Education Action Zone"@en
+"South East Sheffield Education Action Zone"@en
+"South Eastern Education and Library Board"@en
+"South West of England Regional Development Agency"@en
+"Southampton City Council"@en
+"Southend Education Action Zone"@en
+"Southend-on-Sea Borough Council"@en
+"Southern Health and Social Services Board"@en
+"Special EU Programmes Body"@en
+"Speke Garston Education Action Zone"@en
+"Sport England"@en
+"Sports Council for Northern Ireland"@en
+"Sports Council for Wales"@en
+"Sports Grounds Safety Authority"@en
+"St Albans City and District Council"@en
+"Stabilisation Unit"@en
+"Staff Commission for Education and Library Boards"@en
+"Staffordshire County Council"@en
+"Standards and Testing Agency"@en
+"Standards Board for England"@en
+"State Veterinary Service"@en
+"Statistics Commission"@en
+"Stevenage Borough Council"@en
+"Stoke Education Action Zone"@en
+"Stoke-on-Trent City Council"@en
+"Strategic Rail Authority"@en
+"Student Loans Company"@en
+"Sunderland Education Action Zone"@en
+"Supreme Court of the United Kingdom"@en
+"Surveillance Camera Commissioner"@en
+"Sutherland Inquiry"@en
+"Tamworth Borough Council"@en
+"Tate"@en
+"Teaching Regulation Agency"@en
+"Technical Advisory Board"@en
+"Technology Strategy Board"@en
+"Tees Valley Combined Authority"@en
+"Telford and Wrekin Education Action Zone"@en
+"Tenant Services Authority"@en
+"The Adjudicator’s Office"@en
+"The Advisory Council on National Records and Archives"@en
+"The Charity Commission"@en
+"The Children and Family Court Advisory and Support Service"@en
+"The Crown Estate"@en
+"The Electoral Commission"@en
+"The Executive Office (Northern Ireland)"@en
+"The Food and Environment Research Agency"@en
+"The Insolvency Service"@en
+"The Jeffrey Review"@en
+"The Legal Ombudsman"@en
+"The McKay Commission"@en
+"The National Archives"@en
+"The Oil and Pipelines Agency"@en
+"The Parliamentary and Health Service Ombudsman"@en
+"The Pensions Advisory Service"@en
+"The Pensions Regulator"@en
+"The Reviewing Committee on the Export of Works of Art and Objects of Cultural Interest"@en
+"The Security Service"@en
+"The Shareholder Executive"@en
+"The Theatres Trust"@en
+"The Water Services Regulation Authority"@en
+"Third Party Campaigning Review"@en
+"Thurrock Thames Gateway Development Corporation"@en
+"Traffic Commissioners for Great Britain"@en
+"Training and Development Agency for Schools"@en
+"Transport Focus"@en
+"Treasure Valuation Committee"@en
+"Treasury Solicitor’s Department"@en
+"Tribunal Procedure Committee"@en
+"Trinity House"@en
+"Trust ports"@en
+"UK Anti-Doping"@en
+"UK Atomic Energy Authority"@en
+"UK Border Agency"@en
+"UK Co-ordinating Body"@en
+"UK Commission for Employment and Skills"@en
+"UK Council for Internet Safety"@en
+"UK Debt Management Office"@en
+"UK Export Finance"@en
+"UK Film Council"@en
+"UK Financial Investments Limited"@en
+"UK Government Decontamination Service"@en
+"UK Government Investments"@en
+"UK Green Investment Bank"@en
+"UK Holocaust Memorial Foundation"@en
+"UK Hydrographic Office"@en
+"UK Passport Service"@en
+"UK Space Agency"@en
+"UK Sport"@en
+"UK Statistics Authority"@en
+"UK Trade & Investment"@en
+"UK Transplant"@en
+"UK Visas and Immigration"@en
+"UKTI Education"@en
+"UKTI Life Sciences Organisation"@en
+"United Kingdom Blood Transfusion Services"@en
+"United Kingdom Reserve Forces Association"@en
+"Valuation and Lands Agency"@en
+"Valuation Office Agency"@en
+"Valuation Tribunal for England"@en
+"Valuation Tribunal Service"@en
+"Varney Review"@en
+"Vehicle and Operator Services Agency"@en
+"Vehicle Certification Agency"@en
+"Veterans Advisory and Pensions Committees"@en
+"Veterans UK"@en
+"Veterinary Laboratories Agency"@en
+"Veterinary Medicines Directorate"@en
+"Veterinary Products Committee"@en
+"Veterinary Residues Committee"@en
+"Victims' Advisory Panel"@en
+"Victims' Commissioner"@en
+"Victoria and Albert Museum"@en
+"Victoria Climbié Inquiry"@en
+"VisitBritain"@en
+"VisitEngland"@en
+"Wakefield Education Action Zone"@en
+"Wales Audit Office"@en
+"Wallace Collection"@en
+"Warrington Borough Council"@en
+"Warship Support Agency"@en
+"Water Service (Northern Ireland)"@en
+"Waterways Ireland"@en
+"Watford Borough Council"@en
+"Wave Hub"@en
+"Wednesbury Education Action Zone"@en
+"Welsh Development Agency"@en
+"Welsh Government"@en
+"Welsh Language Commissioner"@en
+"Welsh Office"@en
+"Welwyn Hatfield Borough Council"@en
+"West Midlands Combined Authority"@en
+"West Northamptonshire Development Corporation"@en
+"West of England Combined Authority"@en
+"West Suffolk Council"@en
+"Western Education and Library Board"@en
+"Western Health and Social Services Board"@en
+"Westminster Education Action Zone"@en
+"Westminster Foundation for Democracy"@en
+"Wilton Park"@en
+"Wiltshire Council"@en
+"Withernsea and Southern Holderness Education Action Zone"@en
+"Wolverhampton Education Action Zone"@en
+"Worcester City Council"@en
+"Working Ventures UK"@en
+"Wythenshawe Education Action Zone"@en
+"Yorkshire Dales National Park Authority"@en
+"Yorkshire Forward"@en
+"Young People's Learning Agency"@en
+"Youth Justice Agency of Northern Ireland"@en
+"Youth Justice Board for England and Wales"@en
+"Zahid Mubarek Inquiry"@en
+}
+  ?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="en")
+  ?item wdt:P17 wd:Q145 .
+  optional { ?item wdt:P31 ?instance .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+                           ?instance rdfs:label ?instanceLabel . }
+ } group by ?item ?itemLabel

@@ -1,0 +1,12 @@
+SELECT ?property ?propertyLabel ?formatter ?format WHERE {
+  ?property wikibase:propertyType wikibase:ExternalId .
+  ?property wdt:P1630 ?formatter .
+  FILTER NOT EXISTS {?property wdt:P8966 ?match_pattern}
+
+  ?property p:P2302 ?constraint_st .
+  ?constraint_st ps:P2302 wd:Q21502404 .
+  ?constraint_st pq:P1793 ?format .
+  FILTER NOT EXISTS {?constraint_st wikibase:rank wikibase:DeprecatedRank }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

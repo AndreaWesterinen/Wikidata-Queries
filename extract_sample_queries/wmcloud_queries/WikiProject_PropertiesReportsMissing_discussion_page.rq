@@ -1,0 +1,8 @@
+SELECT ?item ?p ?propertyDescription WHERE {
+  ?property a wikibase:Property . # all properties
+  MINUS { ?property rdf:type wdno:P3254 } # remove those with "property proposal discussion: no value"
+  MINUS { ?property wdt:P3254 ?discussion } # remove those with any other "property proposal discussion" claim
+  BIND (concat("\u007B\u007BP\u007C",strafter(str(?property),"y/"),"\u007D\u007D") as ?p) 
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],en' }
+}

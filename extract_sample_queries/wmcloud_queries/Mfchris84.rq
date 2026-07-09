@@ -1,0 +1,4 @@
+  SELECT DISTINCT ?item ?itemLabel ?itemDescription WHERE {
+    ?item wdt:P4552* wd:Q668259 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language '[de-at]' }
+  }

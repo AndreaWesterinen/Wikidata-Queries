@@ -1,0 +1,5 @@
+SELECT ?item WHERE{
+  ?item wdt:P473 ?dialingcode;
+        wdt:P17/wdt:P3238 ?prefix .
+  FILTER(!STRSTARTS(?dialingcode,?prefix))
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?inv WHERE {
+  VALUES ?collection {wd:Q842858  }
+  ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 ?collection . 
+  MINUS { ?item wdt:P195 ?collection } 
+
+  } LIMIT 15000

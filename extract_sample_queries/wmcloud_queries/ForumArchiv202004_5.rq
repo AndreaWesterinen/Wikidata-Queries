@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?blfdid WHERE {
+  VALUES ?status { wd:Q17297633 wd:Q22969563 }
+  ?item wdt:P4244 ?blfdid .
+  MINUS { ?item wdt:P1435 [] }
+}

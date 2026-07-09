@@ -1,0 +1,11 @@
+SELECT * WHERE {
+  ?item wdt:P1433 wd:Q665807;
+    wdt:P921 ?p.
+  ?p wdt:P31 wd:Q5.
+  OPTIONAL { ?p wdt:P569 ?DOB. }
+  OPTIONAL { ?p wdt:P570 ?DOD. }
+  OPTIONAL { ?p wdt:P19 ?POB. }
+  OPTIONAL { ?p wdt:P20 ?POD. }
+  FILTER((((!(BOUND(?DOB))) || (!(BOUND(?DOD)))) || (!(BOUND(?POD)))) || (!(BOUND(?POB))))
+  ?item wdt:P1922 ?fl.
+}

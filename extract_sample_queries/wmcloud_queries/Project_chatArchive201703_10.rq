@@ -1,0 +1,10 @@
+SELECT ?author ?authorLabel WITH {
+  SELECT DISTINCT ?author WHERE {
+    ?author wdt:P31 wd:Q5;
+            wdt:P106/wdt:P279* wd:Q482980.
+    MINUS { ?author wdt:P214 []. }
+  }
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

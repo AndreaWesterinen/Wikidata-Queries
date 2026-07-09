@@ -1,0 +1,1 @@
+SELECT (wd:Q665807 as ?item) (COUNT(*) as ?count) WHERE { ?p wdt:P1433 wd:Q665807 ; wdt:P2860 [] }

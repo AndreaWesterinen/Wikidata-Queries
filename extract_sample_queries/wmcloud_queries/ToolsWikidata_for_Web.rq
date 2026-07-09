@@ -1,0 +1,10 @@
+SELECT ?i ?prop  ?idStr ?prop2 ?t WHERE {
+    ?item  p:P10688   ?s  .
+    ?s  ps:P10688  ?id .
+    ?s  pq:P407 ?l  .
+    BIND (REPLACE(STR(?item), 'http://www.wikidata.org/entity/', '-')	AS ?i ).
+    BIND (REPLACE(STR(?l), 'http://www.wikidata.org/entity/', '')	AS ?t ).
+    BIND ("P10688" as ?prop)
+    BIND ("P407" as ?prop2)
+    BIND (CONCAT('"', ?id, '"') as ?idStr)
+ }

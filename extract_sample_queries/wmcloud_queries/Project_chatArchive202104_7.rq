@@ -1,0 +1,1 @@
+SELECT (COUNT(*) as ?count) { ?loc wdt:P421 wd:Q6985 }

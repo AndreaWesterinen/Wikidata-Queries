@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P361 wd:Q101067856.
+}

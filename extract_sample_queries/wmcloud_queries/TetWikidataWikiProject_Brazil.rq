@@ -1,0 +1,14 @@
+embed.html##defaultView:Map
+SELECT ?item ?inst ?itemLabel ?sitelink ?coords WHERE {
+  VALUES ?vals {wd:Q4989906 wd:Q179700 wd:Q376693 wd:Q11634 wd:Q860861 wd:Q483453}
+  ?item wdt:P31 ?vals.
+  ?item wdt:P131 wd:Q174 .  
+  ?item wdt:P625 ?coords .
+  ?item wdt:P31 ?inst     
+  OPTIONAL {?sitelink schema:about ?item .
+  ?sitelink schema:inLanguage "en" .  
+  ?sitelink schema:isPartOf <https://commons.wikimedia.org/> .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,pt" .
+  }
+  } } ORDER BY ?itemLabel/

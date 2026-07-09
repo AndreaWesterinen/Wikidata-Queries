@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item (GROUP_CONCAT( DISTINCT CONCAT("[[d:Special:EntityPage/",STRAFTER(STR(?LEGISLATURE),"Y/"),"|",STRAFTER(STR(?LEGISLATURE),"Y/"),"]]"); separator=", ") as ?houses) WHERE {
+  {
+    SELECT DISTINCT ?item ?itemLabel ?legislature ?legislatureLabel ?isa ?isaLabel WHERE { 
+      ?item wdt:P31 wd:Q3624078 .
+      OPTIONAL { 
+        VALUES ?type { wd:Q10553309 wd:Q37002670 }
+        ?legislature wdt:P31/wdt:P279* ?type ; wdt:P1001 ?item ; wdt:P31 ?isa .
+        FILTER NOT EXISTS { ?legislature wdt:P576 [] } . 
+      }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    }
+    ORDER BY ?itemLabel ?isaLabel
+  }
+}           
+GROUP BY ?item

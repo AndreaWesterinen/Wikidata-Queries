@@ -1,3 +1,4 @@
+#title: Periods of Japanese history and what they were named after
 SELECT ?era ?eraLabel (YEAR(?start_time) AS ?start) (YEAR(?end_time) AS ?end) ?namedLabel ?namedDescription WHERE {
 ?era wdt:P31 wd:Q11514315; wdt:P361 wd:Q130436; # eras of the history of Japan
   wdt:P580 ?start_time.

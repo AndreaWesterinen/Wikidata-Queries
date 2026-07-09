@@ -1,0 +1,5 @@
+SELECT ?administrativ_territoriell_enhet_av_Albanien ?administrativ_territoriell_enhet_av_AlbanienLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?administrativ_territoriell_enhet_av_Albanien wdt:P279 wd:Q1814009.
+}
+LIMIT 100

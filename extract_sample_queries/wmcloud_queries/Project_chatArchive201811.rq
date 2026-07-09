@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(DISTINCT ?sitelink) AS ?count) WHERE { ?item wdt:P31 wd:Q11266439. ?sitelink schema:about ?item.} GROUP BY ?item HAVING (?count = 1)

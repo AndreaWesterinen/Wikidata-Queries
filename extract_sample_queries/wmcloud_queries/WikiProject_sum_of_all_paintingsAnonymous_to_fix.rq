@@ -1,0 +1,8 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+        p:P170 ?creatorstatement .
+  ?creatorstatement ps:P170 ?creator .
+  FILTER wikibase:isSomeValue(?creator) .
+  MINUS { ?creatorstatement pq:P3831 wd:Q4233718 }
+  } 
+LIMIT 2000

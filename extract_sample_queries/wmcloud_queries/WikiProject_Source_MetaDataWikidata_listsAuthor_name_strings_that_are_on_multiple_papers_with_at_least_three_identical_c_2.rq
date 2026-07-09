@@ -1,0 +1,37 @@
+SELECT DISTINCT ?item 
+(CONCAT("[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=", ENCODE_FOR_URI(?namedAuthor), "&filter=wdt%3AP2093+%22", ENCODE_FOR_URI(?namedAuthor), "%22+%3B+wdt%3AP50+wd%3A", ?qid1, "+%3B+wdt%3AP50+wd%3A", ?qid2, "+%3B+wdt%3AP50+wd%3A", ?qid3, " Curate works with the author name string '''''", ?namedAuthor, "''''' and co-authors from this paper]") AS ?string_matcher_fine) 
+(CONCAT("[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=", ENCODE_FOR_URI(?namedAuthor), " More papers for '''''", ?namedAuthor, "''''' and similar strings]") AS ?string_matcher_rough) 
+WHERE {
+  {
+    SELECT 
+      DISTINCT ?namedAuthor 
+               ?item 
+               (REPLACE(STR(?author1), ".*Q", "Q") AS ?qid1) 
+               (REPLACE(STR(?author2), ".*Q", "Q") AS ?qid2) 
+               (REPLACE(STR(?author3), ".*Q", "Q") AS ?qid3) 
+    WHERE {
+      ?paper1 wdt:P50 ?author1.
+      ?paper1 wdt:P50 ?author2.
+      FILTER(?author1 != ?author2)
+      ?paper1 wdt:P50 ?author3.
+      FILTER(?author1 != ?author3)
+      FILTER(?author2 != ?author3)
+      ?paper1 wdt:P2093 ?namedAuthor.
+
+      ?paper2 wdt:P2093 ?namedAuthor.
+      FILTER(?paper1 != ?paper2)
+      ?paper2 wdt:P50 ?author1.
+      ?paper2 wdt:P50 ?author2.
+      ?paper2 wdt:P50 ?author3.
+
+      ?item wdt:P2093 ?namedAuthor.
+      FILTER(?paper1 != ?item)
+      FILTER(?paper2 != ?item)
+      ?item wdt:P50 ?author1.
+      ?item wdt:P50 ?author2.
+      ?item wdt:P50 ?author3.
+    }
+    LIMIT 2000
+  } 
+}
+LIMIT 200

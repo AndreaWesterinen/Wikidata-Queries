@@ -1,0 +1,10 @@
+#defaultView:Graph
+SELECT DISTINCT ?researcher ?work ?item ?researcherLabel ?workLabel ?itemLabel WHERE {
+    ?researcher wdt:P108 | wdt:P463 | wdt:P1416/wdt:P361* wd:Q503424 .
+    ?work wdt:P50 ?researcher .
+    ?researcher wdt:P1416 ?item .
+    ?item wdt:P361* wd:Q503424 
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+GROUP BY ?work ?workLabel ?researcher ?researcherLabel ?item ?itemLabel
+Limit 5000

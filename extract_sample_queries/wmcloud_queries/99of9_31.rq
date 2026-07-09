@@ -1,0 +1,27 @@
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX mwapi: <http://wikiba.se/ontology#api#>
+
+SELECT ?itemLabel ?subcat WHERE {
+  ?item wdt:P31 wd:Q179049 .
+  ?item wdt:P131 wd:Q374794 .
+  ?item wdt:P373 ?category .
+  BIND(CONCAT("Category:", STR(?category)) AS ?generatorCat) .
+  SERVICE wikibase:mwapi {
+	 bd:serviceParam wikibase:api "Generator" .
+     bd:serviceParam wikibase:endpoint "commons.wikimedia.org" .
+     bd:serviceParam mwapi:gcmtitle ?generatorCat .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+    # out
+    ?subcat wikibase:apiOutput mwapi:title  .
+    ?ns wikibase:apiOutput "@ns" .
+    ?item wikibase:apiOutputItem mwapi:item .
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "sv" . 
+  }
+}

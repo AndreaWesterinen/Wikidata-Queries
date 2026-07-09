@@ -1,0 +1,7 @@
+embed.html#SELECT * WHERE {
+
+  ?item wdt:P1433 wd:Q665807;
+        rdfs:label ?label. 
+  FILTER(LANG(?label)="de")
+ FILTER(STRSTARTS(?label,"!")) 
+}

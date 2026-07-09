@@ -1,4 +1,4 @@
-# All popes with number of children
+#title: Popes with children
 SELECT (SAMPLE(?father) as ?father) ?fatherLabel (SAMPLE(?picture) as ?picture) (COUNT(?father) as ?children)
 WHERE
 {

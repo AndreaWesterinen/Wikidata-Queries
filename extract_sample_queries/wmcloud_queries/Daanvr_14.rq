@@ -1,0 +1,14 @@
+#title:Chateau's in France with no image
+#defaultView:Map
+SELECT ?item ?label ?_image ?geo WHERE {
+  ?item wdt:P31 wd:Q751876;
+    wdt:P17 wd:Q142;
+    wdt:P625 ?geo.
+  FILTER(NOT EXISTS { ?item wdt:P18 _:b14. })
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?label.
+  }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+}
+LIMIT 10000 

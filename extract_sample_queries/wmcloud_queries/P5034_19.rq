@@ -1,0 +1,8 @@
+#title: Check year in ID
+# Complex constraint from [[Property talk:P5034]]
+#
+SELECT ?item ?id ?year {
+	?item wdt:P5034 ?id.
+    BIND (SUBSTR(?id, 4, 4) AS ?year)
+    FILTER (xsd:integer(?year) > YEAR(NOW()))
+}

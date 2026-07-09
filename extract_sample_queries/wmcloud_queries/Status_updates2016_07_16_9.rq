@@ -1,0 +1,8 @@
+#defaultView:Timeline
+SELECT ?date ?winnerLabel WHERE {
+  ?election wdt:P31 wd:Q22266583 .   
+  ?election wdt:P585 ?date .
+  ?election wdt:P991 ?winner .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

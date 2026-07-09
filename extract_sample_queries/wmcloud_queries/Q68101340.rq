@@ -1,0 +1,6 @@
+SELECT ?item ?nv (CONCAT("<","hiero",">",?n,"</","hiero",">") as ?numeral) ?n
+{
+    ?item wdt:P1181 ?nv .
+    ?item p:P3295 [ pq:P3294 wd:Q68101340 ; ps:P3295 ?n ] .
+}
+ORDER BY ?nv

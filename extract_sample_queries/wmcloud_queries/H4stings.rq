@@ -1,0 +1,34 @@
+SELECT ?item ?itemLabel ?team2Label ?yeb ?yin ?mj ?buts
+WHERE {  	
+    {
+        SELECT ?item ?team
+        WHERE {  	
+            ?item p:P54 ?teams .
+            ?teams ps:P54 ?team .
+            ?team wdt:P31 wd:Q6979593 .
+        } 
+        GROUP BY ?item ?team
+        HAVING (count(*) >= 2)
+	}
+    ?item p:P54 ?teams2 .
+    ?teams2 ps:P54 ?team2 .
+    ?team2 wdt:P31 wd:Q6979593 .
+    OPTIONAL {
+      ?teams2 pq:P580 ?deb .
+    }
+    OPTIONAL {
+      ?teams2 pq:P582 ?fin .
+    }
+    OPTIONAL {
+      ?teams2 pq:P1350 ?mj .
+    }
+    OPTIONAL {
+      ?teams2 pq:P1351 ?buts .
+    }
+    BIND(YEAR(?deb) AS ?yeb).
+    BIND(YEAR(?fin) AS ?yin).
+  	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "fr,en" .
+	}
+}
+ORDER BY ?item

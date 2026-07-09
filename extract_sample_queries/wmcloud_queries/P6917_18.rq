@@ -1,0 +1,12 @@
+#title: Need a quick link to Europe
+# Complex constraint from [[Property talk:P6917]]
+# Humains needs a quick link to Europe
+SELECT ?item {
+  ?item wdt:P6917 [].
+  ?item wdt:P31 wd:Q5.
+  FILTER NOT EXISTS { ?item wdt:P463 [] }
+  FILTER NOT EXISTS { ?item wdt:P39 [] }
+  FILTER NOT EXISTS { ?item wdt:P106 [] }
+  FILTER NOT EXISTS { ?item wdt:P69 wd:Q859363 }
+  FILTER NOT EXISTS { ?fundation wdt:P112 ?item }
+}

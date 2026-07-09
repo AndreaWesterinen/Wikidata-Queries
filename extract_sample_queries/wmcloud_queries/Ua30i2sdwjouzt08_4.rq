@@ -1,0 +1,9 @@
+SELECT DISTINCT ?eponym ?eponymLabel (count(?item) AS ?count) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q6465 ;
+        wdt:P138 ?eponym .
+  FILTER NOT EXISTS { ?item wdt:P576 ?x }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+GROUP BY ?eponym ?eponymLabel
+HAVING (?count >= 2)
+ORDER BY DESC(?count) ?eponymLabel

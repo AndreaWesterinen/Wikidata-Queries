@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel WHERE
+{
+  ?item wdt:P31 wd:Q101352 .
+  ?item wdt:P1705 ?nativeLabel .
+  FILTER strStarts(?nativeLabel, "af ")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

@@ -1,0 +1,17 @@
+#Public libraries that are east of the Dom Tower in Utrecht
+#defaultView:Map
+SELECT DISTINCT ?dpl ?dplLabel ?dplLon ?dplLoc WHERE {
+  #Is Dutch public library dpl
+  ?dpl wdt:P31 wd:Q28564. #public library
+  ?dpl wdt:P31 wd:Q11396180. #library branch 
+  ?dpl wdt:P17 wd:Q55. #in the Netherlands
+  ?dpl wdt:P625 ?dplLoc. #Location of the dpl
+  
+  wd:Q3368242 wdt:P625 ?DomLoc. #Dom tower coordinates
+    
+  BIND(geof:longitude(?dplLoc) AS ?dplLon) #Longitude of the library
+  BIND(geof:longitude(?DomLoc) AS ?DomLon) #Longitude of the Dom Tower 
+  FILTER(?dplLon > ?DomLon).  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+} 
+ORDER BY ASC(?dplLon)

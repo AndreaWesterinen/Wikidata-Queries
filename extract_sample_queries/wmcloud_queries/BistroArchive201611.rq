@@ -1,0 +1,9 @@
+SELECT ?item ?label ?_official_name WHERE {
+  ?item wdt:P31 wd:Q985488.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "zh-cn" . 
+    ?item rdfs:label ?label
+  }
+  
+OPTIONAL { ?item wdt:P1448 ?_official_name. }
+}

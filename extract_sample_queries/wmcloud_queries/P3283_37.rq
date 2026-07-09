@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P3283/ps:P3283 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https?://)?([a-z0-9]+)\\.bandcamp\\.com.*)$") )
+}

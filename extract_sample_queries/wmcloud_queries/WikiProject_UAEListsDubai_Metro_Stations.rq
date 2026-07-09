@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel WHERE { ?item wdt:P31 wd:Q928830.?item wdt:P17 wd:Q878. SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }

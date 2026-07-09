@@ -1,0 +1,15 @@
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+
+SELECT ?prop ?propLabel ?count WHERE {
+  {
+    SELECT ?prop (COUNT(DISTINCT ?item) AS ?count) WHERE {
+      hint:Query hint:optimizer "None".
+      ?item wdt:P31 wd:Q4830453.
+      ?item ?p ?id.
+      ?prop wikibase:directClaim ?p.
+    }
+    GROUP BY ?prop
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?count)

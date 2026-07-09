@@ -1,0 +1,6 @@
+select ?item ?enlabel ?geonamesid where {
+?item wdt:P1566 ?geonamesid .
+optional { ?item wdt:P17 ?country . }
+filter (!bound(?country)) .
+optional { ?item rdfs:label ?enlabel filter (lang(?enlabel) = "en") . }
+} limit 50

@@ -1,0 +1,7 @@
+#title: P21 missing
+# Complex constraint from [[Property talk:P1220]]
+#
+SELECT DISTINCT ?item {
+  ?item wdt:P166 wd:Q627778.
+  MINUS { ?item wdt:P21 ?sex. }.
+}

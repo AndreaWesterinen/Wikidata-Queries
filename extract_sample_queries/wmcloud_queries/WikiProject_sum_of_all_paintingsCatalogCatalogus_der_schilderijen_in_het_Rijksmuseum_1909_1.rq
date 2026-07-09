@@ -1,0 +1,9 @@
+SELECT ?item ?catcode ?catnum WHERE {
+  ?item p:P528 ?catstmt.
+  ?catstmt pq:P972 wd:Q106831415;
+    ps:P528 ?catcode.
+  BIND(xsd:integer(?catcode) AS ?catnum)
+  FILTER(?catnum < 1000 )
+}
+ORDER BY (?catnum)
+LIMIT 1000

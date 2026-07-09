@@ -1,0 +1,10 @@
+#title: Artworks in the MOMA collection without a link
+# Complex constraint from [[Property talk:P2014]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q188740|Museum of Modern Art <small>(Q188740)</small>]] (without the ones with an [[Property:P582|end time&#32;<small dir="ltr">(P582)</small>]]), but that item doesn't have [[Property:P2014|Museum of Modern Art work ID&#32;<small dir="ltr">(P2014)</small>]]. Missing link can probably be added
+SELECT ?item WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q188740 .
+  MINUS { ?collectionstatement pq:P582 [] } 
+  FILTER NOT EXISTS {?item wdt:P2014 ?value . }
+}
+LIMIT 1000

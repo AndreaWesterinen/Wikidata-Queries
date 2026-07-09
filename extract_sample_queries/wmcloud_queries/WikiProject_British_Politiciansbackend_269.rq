@@ -1,0 +1,19 @@
+# MPs who did not survive until dissolution but were not replaced in that term
+SELECT DISTINCT ?item ?itemLabel ?positionLabel ?constituencyLabel ?end  ?days ?dissolution  WHERE {
+ ?position wdt:P279 wd:Q16707842 . # position is a UK MP
+ ?item p:P39 ?statement. # person holds a position
+ ?statement ps:P39 ?position ; pq:P582 ?end ; pq:P768 ?constituency . # with an end date and constituency
+ ?position wdt:P576 ?dissolution . # position has a dissolution date
+   
+ filter not exists { ?statement pq:P1534 wd:Q741182 . }  # end cause, if it exists, was not "dissolution"
+  
+ filter not exists { ?item2 p:P39 ?statement2 . ?statement2 ps:P39 ?position ; pq:P580 ?start2 ; pq:P768 ?constituency . FILTER (?start2 >= ?end) .  }  
+  # there does not exist another item, in the same term, with the same constituency and a start date later than the end of this one
+  
+  filter not exists { FILTER isBLANK(?end) } .
+  filter not exists { FILTER isBLANK(?start2) } . # omit any undefined dates
+  filter not exists { ?position wdt:P576 ?end } . # omit any terms that ended at dissolution but aren't already marked as such
+  
+  bind((?dissolution-?end) as ?days) . # find how long the gap was
+
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } } 

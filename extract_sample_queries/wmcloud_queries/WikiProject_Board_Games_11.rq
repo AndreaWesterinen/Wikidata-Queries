@@ -1,0 +1,9 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?cited_works ?cited_worksLabel 
+WHERE
+{
+    ?item  wdt:P31 wd:Q1643932 .   # instance = ttrpg
+    ?item  wdt:P2860    ?cited_works  .   # which cites works
+    ?cited_works wdt:P31 wd:Q1643932      .   # that are TTRPG  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

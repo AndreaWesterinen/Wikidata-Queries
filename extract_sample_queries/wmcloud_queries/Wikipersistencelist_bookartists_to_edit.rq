@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?occupationLabel ?ulan ?lcn ?ed
+WHERE 
+{VALUES ?item 
+{
+wd:Q19802594 
+wd:Q18347825
+wd:Q38668425
+wd:Q29167532
+}
+  OPTIONAL {?item wdt:P106 ?occupation .}
+  OPTIONAL {?item wdt:P245 ?ulan}
+  OPTIONAL {?item wdt:P244 ?lcn}
+  OPTIONAL {?item wdt:P6379 ?worksloc}
+  OPTIONAL {?item wdt:P69 ?ed}
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

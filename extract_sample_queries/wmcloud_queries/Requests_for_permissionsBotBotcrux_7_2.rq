@@ -1,0 +1,5 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P1627 ?y .
+  FILTER NOT EXISTS { ?x wdt:P3823 ?z . }
+ }

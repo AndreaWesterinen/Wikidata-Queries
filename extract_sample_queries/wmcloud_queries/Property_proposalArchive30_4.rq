@@ -1,0 +1,18 @@
+# Unique value constraint report for Property proposal/Archive/30: report by value
+SELECT
+    ?value (SAMPLE(?valueLabel) AS ?valueLabel) (SAMPLE(?ct) AS ?ct)
+    (GROUP_CONCAT(DISTINCT(strafter(str(?item), "/entity/"));separator=", ") as ?items)
+    (GROUP_CONCAT(DISTINCT(?itemLabel);separator=", ") as ?itemLabels) {
+  { SELECT ?value (COUNT(DISTINCT ?item) as ?ct) { ?item wdt:Property proposal/Archive/30 ?value }
+    GROUP BY ?value HAVING (?ct>1) ORDER BY DESC(?ct) LIMIT 500 }
+  
+  ?item wdt:Property proposal/Archive/30 ?value
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,en" . 
+    ?item rdfs:label ?itemLabel .
+    ?value rdfs:label ?valueLabel
+  }
+}
+GROUP BY ?value
+ORDER BY DESC(?ct)

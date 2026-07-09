@@ -1,0 +1,16 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?p ?pLabel ?pos ?posLabel ?tv ?tvLabel WHERE {
+   {?inst wdt:P31* wd:Q15816787} UNION {?inst wdt:P31* wd:Q382118} .
+   ?pos wdt:P361* ?inst .
+   ?p wdt:P39 ?pos .
+   ?tv wdt:P161 ?p .
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }

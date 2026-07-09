@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?biblioteca ?bibliotecaLabel ?coord ?coordenadas WHERE {
+  ?biblioteca (wdt:P31/(wdt:P279*)) wd:Q7075.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  ?biblioteca wdt:P17 wd:Q38.
+  OPTIONAL { ?biblioteca wdt:P625 ?coord. }
+  OPTIONAL {
+    ?biblioteca p:P159 ?ubicaci_n_de_la_sede.
+    ?ubicaci_n_de_la_sede wdt:P625 ?coordenadas.
+  }
+}

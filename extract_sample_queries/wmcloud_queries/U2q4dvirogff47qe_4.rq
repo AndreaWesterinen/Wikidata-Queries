@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?library ?libraryLabel ?coordinate_location WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?library wdt:P31 wd:Q7075.
+  ?library wdt:P17 wd:Q668.
+  OPTIONAL { ?library wdt:P625 ?coordinate_location. }
+}

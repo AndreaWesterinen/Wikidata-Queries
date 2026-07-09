@@ -1,0 +1,9 @@
+#Embassies
+SELECT ?item ?itemLabel ?countryLabel
+WHERE
+{
+	?item wdt:P31 wd:Q7843791 .
+    ?item wdt:P131 ?city .
+    ?city wdt:P17 ?country .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

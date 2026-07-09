@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?location ?locationLabel 
+{
+  	?item wdt:P31 wd:Q125191 . 
+  	?item wdt:P1071 ?location . 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ca,es" . }
+}

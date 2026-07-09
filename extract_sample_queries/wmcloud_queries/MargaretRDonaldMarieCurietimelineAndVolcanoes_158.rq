@@ -1,0 +1,28 @@
+# women without a {{scholia}} template
+SELECT ?item ?itemLabel ?image ?article ?sitelink
+WHERE 
+{
+  {
+    ?item wdt:P31 wd:Q5; wdt:P21 wd:Q467.
+    FILTER (CONTAINS(STR(?article),"wiki/"))  
+    ?sitelink ^schema:name ?article .
+    ?article schema:about ?item ;
+             schema:isPartOf <https://en.wikipedia.org/> .  
+    
+  }
+  MINUS
+  {
+    SERVICE wikibase:mwapi
+    {
+      bd:serviceParam wikibase:api "Search" .
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam mwapi:srnamespace "0" .
+      bd:serviceParam mwapi:srlimit "max" .
+      bd:serviceParam mwapi:srwhat "text" .
+      bd:serviceParam mwapi:srsearch 'insource:"scholia"' .
+      ?title wikibase:apiOutput mwapi:title .
+    }
+    BIND (STRLANG(?title, "en") as ?sitelink)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,1 @@
+SELECT ?item ?p WHERE { ?p wdt:P161 ?item .  ?p wdt:P361 wd:Q378838 .  } ORDER BY ?p ?item

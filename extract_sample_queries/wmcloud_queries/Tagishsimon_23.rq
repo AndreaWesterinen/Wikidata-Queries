@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (sample(?demonym) as ?d)  (sample(year(?dob)) as ?dob)  (sample(year(?dod)) as ?dod) where
+{
+  ?item wdt:P106 wd:Q19204627.
+  optional {?item rdfs:label ?itemLabel. filter(lang(?itemLabel)="en")}
+  filter not exists {?item schema:description ?Lde. filter(lang(?Lde)="en")}
+  optional {?item wdt:P27 ?country.  
+            ?country wdt:P1549 ?demonym. filter(lang(?demonym )="en")}
+  optional {?item wdt:P569 ?dob .}
+  optional {?item wdt:P570 ?dod .}
+  
+  } group by  ?item ?itemLabel 

@@ -1,0 +1,12 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX schema: <http://schema.org/>
+
+select ?ulan ?wd ?db {
+  {SELECT distinct ?y {service <http://data.americanartcollaborative.org/sparql> {?x skos:exactMatch ?ulan}}}
+    ?wd <http://www.wikidata.org/prop/direct-normalized/P245> ?ulan.
+    ?wp schema:about ?wd
+    filter(regex(str(?wp),"https?://en.wikipedia.org/wiki/"))
+    bind(uri(replace(str(?wp),"https?://en.wikipedia.org/wiki/","http://dbpedia.org/resource/")) as ?db)
+} 

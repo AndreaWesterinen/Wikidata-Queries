@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?value ?lower ?upper ?diff WHERE {
+	?item p:P2406/psv:P2406 [
+		wikibase:quantityAmount ?value;
+		wikibase:quantityLowerBound ?lower;
+		wikibase:quantityUpperBound ?upper
+	] .
+	BIND( ( ?upper - ?lower ) / 2 AS ?diff ) .
+	FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

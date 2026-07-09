@@ -1,0 +1,9 @@
+#title: Items with P569 = "no value" (P31=Q5)
+# Complex constraint from [[Property talk:P569]]
+# People are all born at some point in time
+SELECT ?item ?itemLabel
+  WHERE {
+    ?item p:P569/a wdno:P569 ; wdt:P31 wd:Q5
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  }
+  LIMIT 100

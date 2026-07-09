@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?instance ?instanceLabel
+{
+	{
+		SELECT DISTINCT ?item ?instance {
+			?item wdt:Property proposal/Archive/21 [] .
+			MINUS {
+				?item wdt:P31/wdt:P279* wd:Q2221906 .
+			} .
+			OPTIONAL {
+				?item wdt:P31 ?instance .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}

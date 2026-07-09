@@ -1,0 +1,20 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#Find seasons with missing series property (P179) (step 2)
+#by Jura1 Dec 31, 2015
+
+SELECT ?season ?seasonLabel ?series ?partof
+WHERE 
+{
+    ?season wdt:P31 wd:Q3464665 
+    OPTIONAL {?season wdt:P179 ?series} . FILTER(!BOUND(?series))
+    OPTIONAL {?season wdt:P361 ?partof}
+  
+  	SERVICE wikibase:label {
+    	bd:serviceParam wikibase:language "en,fr,es,it,nl,de,pl,ru" .
+    	?season rdfs:label ?seasonLabel .
+  	}
+}
+ORDER BY ?seasonLabel

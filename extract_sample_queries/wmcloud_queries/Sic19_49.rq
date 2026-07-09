@@ -1,0 +1,24 @@
+embed.html##defaultView:Map
+SELECT ?countryLabel ?geoshape ?layer WHERE {
+  BIND(
+    IF(?labelcount < 200, "150-200",
+    IF(?labelcount < 225, "201-225",
+    IF(?labelcount < 250, "226-250",
+    IF(?labelcount < 275, "251-275",
+    IF(?labelcount < 300, "276-300",
+    "300+")))))
+    AS ?layer).  
+{
+  SELECT ?countryLabel (COUNT(DISTINCT ?lang) AS ?labelcount) ?geoshape WHERE {
+  ?country wdt:P31/wdt:P279* wd:Q6256;
+           wdt:P3896 ?geoshape;
+            rdfs:label ?label.
+  BIND(LANG(?label) AS ?lang).
+ #   FILTER (lang(?label)="en") .
+    }
+  GROUP BY ?countryLabel ?geoshape
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?countryLabel ?geoshape ?layer
+ORDER BY DESC(?layer)

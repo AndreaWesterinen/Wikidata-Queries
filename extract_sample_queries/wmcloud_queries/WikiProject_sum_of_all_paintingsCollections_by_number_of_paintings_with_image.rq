@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 ;  
+            wdt:P195 ?item ;
+            wdt:P18 ?image .
+} GROUP BY ?item
+HAVING (?count > 25)
+ORDER BY DESC(?count) 
+LIMIT 200

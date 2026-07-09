@@ -1,0 +1,14 @@
+#defaultView:Timeline
+#timeline of RADA students by year of graduation
+SELECT DISTINCT ?person ?personLabel ?personDescription (SAMPLE(?GraduationDate) AS ?date) (SAMPLE(?photo) AS ?pic) {
+  ?person wdt:P31 wd:Q5 .
+  ?person p:P69 ?statement .
+  ?statement ps:P69 wd:Q523926 .
+  ?statement pq:P582 ?GraduationDate .            
+
+  OPTIONAL { ?person wdt:P18 ?photo . }
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+} GROUP BY ?person ?personLabel ?personDescription ORDER BY ?date

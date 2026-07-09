@@ -1,0 +1,17 @@
+embed.html##defaultView:Map
+SELECT DISTINCT ?departement ?departementLabel ?form {
+  { ?departement wdt:P31 wd:Q6465 } UNION
+  { ?departement wdt:P31 wd:Q22923920 }
+  ?departement wdt:P1082 ?population ;
+               wdt:P3896 ?form ;
+               wdt:P47 ?x .
+  FILTER NOT EXISTS {
+    ?departement wdt:P47 ?voisin .
+    { ?voisin wdt:P31 wd:Q6465 } UNION
+    { ?voisin wdt:P31 wd:Q22923920 }
+    ?voisin wdt:P1082 ?population_voisin .
+    FILTER (?population_voisin > ?population) .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}
+ORDER BY ?departementLabel

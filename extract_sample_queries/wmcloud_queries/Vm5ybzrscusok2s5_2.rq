@@ -1,0 +1,7 @@
+SELECT (COUNT (?item) as ?items)
+where
+{
+  ?item wdt:P31 wd:Q8502.
+  ?item wdt:P17 wd:Q40.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],de,en' }
+}

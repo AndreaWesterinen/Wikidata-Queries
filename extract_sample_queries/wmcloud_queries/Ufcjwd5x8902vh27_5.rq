@@ -1,0 +1,46 @@
+# Museums in Italy
+# Colors represent the number of wiki articles for each item
+# Query by Andrea Mignone @i_m_andrea, original idea by Synapta @synapta
+#defaultView:Map{"layer":"?linksBin", "rgb":"?rgb"}
+SELECT *
+WHERE {
+  
+    BIND(
+        IF(?links = 0, "a) 0 wiki",
+            IF(?links = 1, "b) 1 wiki",
+                IF(?links <= 3, "c) [2;4) wikis",
+                    "d) 4+ wikis")))
+    AS ?linksBin)
+
+    BIND(
+        IF(?links = 0, "000000",
+            IF(?links = 1, "ff0700",
+                IF(?links <= 3, "ffa500",
+                    "007f00")))
+    AS ?rgb)
+  
+    {
+        SELECT ?item ?itemLabel ?c ?image (count(?sitelink) as ?links)
+
+        WHERE {
+            SELECT ?item ?itemLabel ?sitelink (min(?coord) as ?c) (min(?img) as ?image) 
+            WHERE {
+                ?item wdt:P31 ?type ;
+                        wdt:P17 wd:Q38 ;
+                        wdt:P625 ?coord .
+                ?type wdt:P279* wd:Q33506 .
+                OPTIONAL {?item wdt:P18 ?img}
+                OPTIONAL {?sitelink schema:about ?item .
+                        FILTER REGEX(STR(?sitelink), ".wikipedia.org/wiki/") .
+                        }
+                
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            }
+        GROUP BY ?item ?itemLabel ?sitelink
+               
+        }
+        GROUP BY ?item ?itemLabel ?c ?image
+
+    }
+}
+ORDER BY asc(?links)

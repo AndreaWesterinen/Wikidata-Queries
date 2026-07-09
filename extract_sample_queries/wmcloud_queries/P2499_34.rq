@@ -1,0 +1,2 @@
+#title:Add inverse statements from P2500
+SELECT DISTINCT ?item WHERE { ?item wdt:P2499 ?value . MINUS { ?value p:P2500/ps:P2500/owl:sameAs? ?item } }

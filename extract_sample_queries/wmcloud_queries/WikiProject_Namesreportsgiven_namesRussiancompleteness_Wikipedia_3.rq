@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?itemLabel ?name ?sitelink (CONCAT("[[:","ru",":",?name,"]]") as ?art) ?cat
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?cat wdt:P971 wd:Q202444 , wd:Q7737 .
+  [] schema:about ?cat ; schema:isPartOf <https://ru.wikipedia.org/> ; schema:name ?sitelink . 
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:endpoint "ru.wikipedia.org";
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?sitelink ;         
+                     mwapi:gcmlimit "max".
+     ?name wikibase:apiOutput mwapi:title.             
+     ?item wikibase:apiOutputItem mwapi:item
+    }
+  FILTER NOT EXISTS { ?item wdt:P407 wd:Q7737 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167410}
+  MINUS {?item wdt:P279 [].}
+  # SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,it" }
+}
+ORDER BY ?sitelink ?name

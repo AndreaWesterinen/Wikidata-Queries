@@ -1,0 +1,37 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P1435 ?heritage .
+  ?item wdt:P17 wd:Q33 .
+  {
+  { ?item wdt:P131* wd:Q3059221. }
+  UNION
+  { ?item wdt:P131* wd:Q283205. }
+    UNION
+  { ?item wdt:P131* wd:Q3195560. }
+  UNION
+  { ?item wdt:P131* wd:Q3393235. }
+ UNION
+  { ?item wdt:P131* wd:Q3198326. }
+ UNION
+  { ?item wdt:P131* wd:Q3191613. }
+ UNION
+  { ?item wdt:P131* wd:Q3156018. }
+ UNION
+  { ?item wdt:P131* wd:Q3593696. }
+  UNION
+  { ?item wdt:P276/wdt:P131* wd:Q3059221. }
+  UNION
+  { ?item wdt:P276/wdt:P131* wd:Q283205. }
+  UNION
+  { ?item wdt:P276/wdt:P131* wd:Q3195560. }
+  UNION
+  { ?item wdt:P276/wdt:P131* wd:Q3393235. }
+ UNION
+  { ?item wdt:P276/wdt:P131* wd:Q3198326. }
+ UNION
+  { ?item wdt:P276/wdt:P131* wd:Q3191613. }
+ UNION
+  { ?item wdt:P276/wdt:P131* wd:Q3156018. }
+ UNION
+  { ?item wdt:P276/wdt:P131* wd:Q3593696. }  
+  }
+}

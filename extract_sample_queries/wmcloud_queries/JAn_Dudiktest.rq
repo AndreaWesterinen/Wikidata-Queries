@@ -1,0 +1,9 @@
+SELECT ?item ?comm ?p373 ?cat WHERE {
+  ?item wdt:P17 wd:Q213 .                               # ... v obci...
+  optional {?comm schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> .}
+  BIND(replace(wikibase:decodeUri(SUBSTR(STR(?comm), 45)),"_"," ") AS ?comm_decode)
+  optional {?item wdt:P373 ?p373 .}
+  bind(COALESCE(?comm_decode, ?p373) as ?cat) .
+  VALUES ?trida {  wd:Q200334}     # kaple, drobná památka, památník, zvonička, memorial monument, technická památka
+  ?item wdt:P31/wdt:P279 ?trida.                  # drobná památka
+  }

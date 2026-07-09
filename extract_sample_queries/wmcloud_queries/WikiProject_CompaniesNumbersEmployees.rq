@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?emp ?date
+WHERE
+{
+    ?item wdt:P31/wdt:P279* wd:Q4830453 .
+    ?item p:P1128 ?empSt .
+    ?empSt a wikibase:BestRank; ps:P1128 ?emp .
+    OPTIONAL { ?empSt pq:P585 ?date } . 
+    FILTER( ?item not in (wd:Q244457,wd:Q1636892,wd:Q20716,wd:Q331715,wd:Q668687,wd:Q819425,wd:Q489815,wd:Q503182))
+}
+ORDER BY DESC(?emp) 
+LIMIT 20

@@ -1,0 +1,31 @@
+SELECT distinct ?term ?termLabel ?start ?end ?members ?members_sourced ?distinct_constituencies where
+{
+  { SELECT distinct ?term ?start ?end where 
+   {
+      ?term wdt:P279 wd:Q18018860 . ?term wdt:P571 ?start . ?term wdt:P576 ?end .
+      filter(year(?start) >= 1485 ) . filter(year(?start) <= 1680 ) . 
+  } # find all terms and their date (for sorting)
+ } 
+ optional  { SELECT ?term (count(distinct ?item) as ?members) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 .
+      ?positionStatement pq:P768 ?const .
+    } group by ?term
+  } # number of people in this term
+    # this code finds anyone who served at any point in the parliamentary term & have a known seat
+  
+ optional { SELECT ?term (count(distinct ?item) as ?members_sourced) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 .
+      ?positionStatement pq:P768 ?const .
+      ?positionStatement prov:wasDerivedFrom ?ref . ?ref pr:P1614 ?refhop .
+    } group by ?term
+  } # number of people in this term who are not sourced to HoP
+
+ optional { SELECT ?term (count(distinct ?const) as ?distinct_constituencies ) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 .
+      ?positionStatement pq:P768 ?const .
+      ?positionStatement prov:wasDerivedFrom ?ref . ?ref pr:P1614 ?refhop .
+    } group by ?term
+  } # as above, count only with a known constituency
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by ?start

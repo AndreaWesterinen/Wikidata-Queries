@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P8249]]
+# Items in [[d:Q1494|Mississippi <small>(Q1494)</small>]] that do have [[d:Q19558910|National Register of Historic Places listed place <small>(Q19558910)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P8249|MDAH&#39;s HRI ID&#32;<small dir="ltr">(P8249)</small>]]
+SELECT ?item WHERE {  ?item wdt:P131* wd:Q1494 .  { ?item wdt:P1435 wd:Q19558910 . } UNION { ?item wdt:P1435 wd:Q1129142 . } MINUS { ?item wdt:P31 wd:Q15243209 . } MINUS { ?item wdt:P8249 [] . } } LIMIT 1000

@@ -1,0 +1,7 @@
+SELECT ?city ?cityLabel (MAX(?inhabitants) AS ?inhabitants) WHERE {
+ ?city (p:P31/ps:P31)/wdt:P279* wd:Q1637706.
+ MINUS { ?inhabitant ps:P19|ps:P551|ps:P20 ?city. }
+ OPTIONAL { ?city wdt:P1082 ?inhabitants. }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?city ?cityLabel

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?event ?eventLabel WHERE {
+	?item wdt:P361 ?event .
+  	?event wdt:P361 wd:Q8613 .
+  	?event wdt:P31 wd:Q18536594 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

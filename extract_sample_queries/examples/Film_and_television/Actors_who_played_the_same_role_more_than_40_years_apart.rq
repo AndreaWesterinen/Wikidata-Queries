@@ -1,3 +1,4 @@
+#title: Actors who played the same role more than 40 years apart
 SELECT DISTINCT ?actor ?actorLabel ?characterLabel ?movie1Label ?movie2Label WHERE {
   ?movie1 p:P161 [
             ps:P161 ?actor;

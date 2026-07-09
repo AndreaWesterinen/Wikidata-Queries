@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?count WHERE {
+{SELECT ?item ?name (COUNT(DISTINCT ?creator) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P195 ?item .
+  ?painting wdt:P170 ?creator . 
+  } GROUP BY ?item ?name
+} SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+} ORDER BY DESC(?count)
+LIMIT 200

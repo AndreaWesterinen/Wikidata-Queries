@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P6379 ?collectie.
+#  ?item wdt:P31 wd:Q5.
+#  ?item wdt:P106 wd:Q1028181.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  FILTER (NOT EXISTS {
+    ?item rdfs:label ?label.
+   FILTER regex(?label, "^[\\x{0000}-\\x{024f}]") .
+  })
+}

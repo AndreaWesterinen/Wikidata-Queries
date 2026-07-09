@@ -1,0 +1,17 @@
+# Public libraries >40km away from the Dom Tower in the centre of Utrecht
+#defaultView:Map
+SELECT DISTINCT ?dpl ?dplLabel ?dplLoc ?dist WHERE {
+  #Is Dutch public library dpl
+  ?dpl wdt:P31 wd:Q28564. #public library
+  ?dpl wdt:P31 wd:Q11396180. #library branch 
+  ?dpl wdt:P17 wd:Q55. #in the Netherlands
+  ?dpl wdt:P625 ?dplLoc. #Location of the dpl 
+  
+  #Dom tower coordinates
+  wd:Q3368242 wdt:P625 ?DomLoc .
+  
+  BIND(geof:distance(?DomLoc, ?dplLoc) AS ?dist)
+  FILTER(?dist > 40). #Distance between dpl and DomTower is greater than xx km 
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+} 
+ORDER BY ASC(?dist)

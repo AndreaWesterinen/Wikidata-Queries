@@ -1,0 +1,13 @@
+#title: Rijksmonument not part of complex
+# Complex constraint from [[Property talk:P359]]
+# Items that are part of a complex, but don't have a [[Property:P361|part of&#32;<small dir="ltr">(P361)</small>]] to the complex
+SELECT ?item ?itemLabel ?itemDescription ?complex ?complexLabel WHERE {
+  ?complex wdt:P7135 ?value;
+    wdt:P527 ?item.
+  MINUS {
+    ?item wdt:P361 ?complex;
+      wdt:P359 _:b9.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+} ORDER BY ?value 
+LIMIT 1000

@@ -1,0 +1,32 @@
+#Sample of scientific articles missing description in any language
+SELECT distinct ?item ?itemLabel
+WHERE 
+{
+  SERVICE bd:sample {
+    ?item wdt:P31 wd:Q13442814.
+    bd:serviceParam bd:sample.limit 250000
+  }
+  ?item rdfs:label ?label.
+  minus {
+    ?item schema:description [].
+  }
+  filter(regex(lcase(str(?label)), "correction*") || 
+         regex(lcase(str(?label)), "*breif*") ||
+         regex(lcase(str(?label)), "obitu*") ||
+         regex(lcase(str(?label)), "*letter*") ||
+         regex(lcase(str(?label)), "england*") ||
+         regex(lcase(str(?label)), "wales*") ||
+         regex(lcase(str(?label)), "note*") ||
+         regex(lcase(str(?label)), "review*") ||
+         regex(lcase(str(?label)), "corresp*") ||
+         regex(lcase(str(?label)), "book*") ||
+         regex(lcase(str(?label)), "digest*") ||
+         regex(lcase(str(?label)), "notic*") ||
+         regex(lcase(str(?label)), "digest*") ||
+         regex(lcase(str(?label)), "comme*") ||
+         regex(lcase(str(?label)), "news*")). 
+  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+limit 1000

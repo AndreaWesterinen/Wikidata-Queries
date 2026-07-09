@@ -1,0 +1,7 @@
+SELECT ?prefix (COUNT(?item) as ?ct)
+{
+	?item wdt:P3995 ?value .
+    BIND(strbefore(?value, "/") as ?prefix)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }    
+}
+GROUP BY ?prefix

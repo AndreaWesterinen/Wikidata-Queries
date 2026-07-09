@@ -1,0 +1,8 @@
+SELECT ?item ?tema1 ?tema2 WHERE {
+  
+  ?item p:P971 ?s1, ?s2 filter(?s1 != ?s2) .
+  ?s1 ps:P971 ?tema1 .
+  ?s2 ps:P971 ?tema2 .
+  ?tema1 wdt:P279* ?tema2 .
+  
+} limit 100

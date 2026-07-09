@@ -1,5 +1,4 @@
-# ----
-#Painters related in some way to any anonymous painting
+#title: Painters related in some way to any anonymous painting
 #defaultView:BubbleChart
 SELECT ?creatorqualifierLabel (COUNT(?creatorqualifier) AS ?count) WHERE {
   ?item wdt:P31 wd:Q3305213 .

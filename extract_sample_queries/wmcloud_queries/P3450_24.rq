@@ -1,0 +1,10 @@
+#title: Labels of items would generally have a year in it
+# Complex constraint from [[Property talk:P3450]]
+# TODO: correct English label, remove statement or define exceptions
+SELECT ?item ?value WHERE {
+	?item wdt:P3450 ?value .
+	?item rdfs:label ?l . FILTER(lang( ?l) = "en" && !REGEX(?l, "(1[89]\u007C20)\\d\\d") ) 
+    FILTER ( ?item != wd:Q2453542 )
+    FILTER ( ?value != wd:Q1779706 )  
+}
+LIMIT 100

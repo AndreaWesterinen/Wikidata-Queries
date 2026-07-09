@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?gminaLabel ?wojLabel WHERE {
+  # get instance of any gmina wiejska, miejsko-wiejska
+  {?item wdt:P31 wd:Q3504085 .} UNION { ?item wdt:P31 wd:Q3491915 . }
+  ?item wdt:P31 ?gmina .
+  ?item wdt:P131 ?powiat . ?powiat wdt:P131 ?woj .
+  # from Poland
+  ?item wdt:P131* wd:Q36 .
+  # where instance of has no end time
+  MINUS { ?item p:P31 [ pq:P580 ?end_time ] } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "pl". }
+}
+ORDER BY ?itemLabel

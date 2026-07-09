@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?house ?date 
+WHERE
+{
+    ?item wdt:P31 wd:Q61089180 .
+    ?item p:P4080 ?houseSt .
+    ?houseSt pq:P585 ?date .
+    ?houseSt ps:P4080 ?house . 
+    FILTER((?date >= "1960-01-01T00:00:00Z"^^xsd:dateTime) && (?date <= "1962-12-31T00:00:00Z"^^xsd:dateTime))
+    FILTER(?house<1)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "cs". } 
+}
+ORDER BY ASC(?house)
+LIMIT 6400

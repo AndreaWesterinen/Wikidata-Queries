@@ -1,0 +1,16 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel ?itemDescription ?start ?end ?ord ?dob ?age_start ?age_end ?years_after ?dod ?sts ?sls ?ids 
+{
+    ?st ps:P39 wd:Q114436040 .
+    ?item p:P39 ?st . ?item wdt:P31 wd:Q5 .
+    OPTIONAL { ?st pq:P580 ?start }
+    OPTIONAL { ?st pq:P582 ?end }
+    OPTIONAL { ?st pq:P1545 ?ord }
+    OPTIONAL { ?item wdt:P569 ?dob }
+    OPTIONAL { ?item wdt:P570 ?dod }
+    OPTIONAL { ?item wikibase:statements ?sts ; wikibase:sitelinks ?sls ; wikibase:identifiers ?ids }
+    BIND( YEAR(?start) - YEAR(?dob) as ?age_start)
+    BIND( YEAR(?end) - YEAR(?dob) as ?age_end)
+    BIND( - YEAR(?end) + YEAR(?dod) as ?years_after)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  
+ORDER BY ?start xsd:integer(?ord)

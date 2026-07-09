@@ -1,0 +1,6 @@
+embed.html#SELECT ?ord (COUNT(DISTINCT ?item) as ?count) 
+{
+	?item p:P735 / pq:P7338 ?ord . 
+}
+GROUP BY ?ord
+ORDER BY DESC(?count)

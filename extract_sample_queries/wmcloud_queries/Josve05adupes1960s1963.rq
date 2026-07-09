@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?item2 ?d1 ?l
+{
+  	?item wdt:P569 ?d1 .
+  	FILTER (?d1 > "1963-01-01T00:00:00Z"^^xsd:dateTime && ?d1 < "1964-01-01T00:00:00Z"^^xsd:dateTime) .
+  	OPTIONAL { ?item wdt:P570 ?dummy1 } FILTER ( !bound(?dummy1) ) .
+  	?item2 wdt:P569 ?d1 .
+  	OPTIONAL { ?item2 wdt:P570 ?dummy2 } FILTER ( !bound(?dummy2) ) . 
+  	?item rdfs:label ?l .
+  	?item2 rdfs:label ?l .
+  	?item wdt:P31 wd:Q5 .
+  	?item2 wdt:P31 wd:Q5 .
+  	?item wdt:P21 ?g .
+  	?item2 wdt:P21 ?g .
+  	FILTER ( str(?item) < str(?item2)  )
+  	MINUS { ?item wdt:P7 ?item2 }		MINUS { ?item wdt:P9 ?item2 }		# twins
+  	MINUS { ?item wdt:P1889 ?item2 }	MINUS { ?item wdt:P460 ?item2 }	# identified issues
+}
+LIMIT 500

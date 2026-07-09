@@ -1,0 +1,9 @@
+SELECT ?Gem_lde ?Gem_ldeLabel ?Katalognummer ?Ort ?OrtLabel ?Bild ?Koordinate WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Gem_lde wdt:P31 wd:Q3305213.
+  ?Gem_lde wdt:P170 wd:Q157610.
+  ?Gem_lde wdt:P276 ?Ort.
+  ?Ort wdt:P625 ?Koordinate.
+  OPTIONAL { ?Gem_lde wdt:P18 ?Bild. }
+  OPTIONAL { ?Gem_lde wdt:P528 ?Katalognummer. }
+}

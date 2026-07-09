@@ -1,0 +1,10 @@
+#title: Files should be pdf or djvu
+# Complex constraint from [[Property talk:P7668]]
+# change to [[Property:P304|page(s)&#32;<small dir="ltr">(P304)</small>]] or remove
+SELECT ?item ?itemLabel ?value ?fp 
+{
+	?item p:P996 [ ps:P996 ?value ; pq:P7668 ?fp ]
+	FILTER ( !strends( str(?value), ".djvu") ) 
+	FILTER ( !strends( str(?value), ".pdf") ) 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

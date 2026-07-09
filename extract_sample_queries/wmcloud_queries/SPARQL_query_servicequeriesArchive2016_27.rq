@@ -1,0 +1,7 @@
+SELECT ?person ?personLabel (SAMPLE(?id) as ?id)
+WHERE {
+   VALUES ?person {wd:Q18818079 wd:Q18817402 wd:Q21279236 } .
+  optional {?person wdt:P2694 ?id} .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?person ?personLabel ?id

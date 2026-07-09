@@ -1,0 +1,17 @@
+#defaultView:Map
+#Toponyms of Celtic origin in Italy
+SELECT DISTINCT ?item ?label ?coord ?rgb WHERE {
+  ?item wdt:P17 wd:Q38.
+  ?item wdt:P31 wd:Q747074.
+  ?item wdt:P625 ?coord.
+  ?item rdfs:label ?labelWithLanguage.
+  BIND(STR(?labelWithLanguage) AS ?label)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+  FILTER(STRENDS(?labelWithLanguage, "ago") || STRENDS(?labelWithLanguage, "ate") || STRENDS(?labelWithLanguage, "asco"))
+  FILTER((LANG(?labelWithLanguage)) = "it") 
+  BIND(
+    IF(STRENDS(?labelWithLanguage, "ago"), "CC3333",
+    IF(STRENDS(?labelWithLanguage, "ate"), "33AACC",
+    IF(STRENDS(?labelWithLanguage, "asco"), "AA33CC",
+    ""))) AS ?rgb).
+}

@@ -1,0 +1,4 @@
+SELECT ?l ?lemma WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language wd:Q1860 ; wikibase:lemma ?lemma .
+  FILTER NOT EXISTS {?l ontolex:lexicalForm/ontolex:representation ?lemma }
+}

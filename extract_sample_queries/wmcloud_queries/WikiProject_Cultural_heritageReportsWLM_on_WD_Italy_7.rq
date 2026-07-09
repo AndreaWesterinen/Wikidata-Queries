@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?wlmid WHERE {
+  ?item wdt:P131* wd:Q91096 . 
+  ?item wdt:P2186 ?wlmid .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it".
+  }
+}
+ORDER BY ?wlmid

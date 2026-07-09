@@ -1,0 +1,30 @@
+SELECT
+  (SAMPLE(?c) as ?item) 
+  ?l (GROUP_CONCAT( DISTINCT ?la;separator=", ") as ?las) 
+  (COUNT(DISTINCT ?c) as ?ct)
+  (COUNT(DISTINCT ?hasnamed ) as ?ct_named) 
+  (?ct = ?ct_named as ?all)  
+  (GROUP_CONCAT( DISTINCT ?namedct ; separator = ", ") as ?nn) 
+  (GROUP_CONCAT( DISTINCT ?todo; separator = " ") as ?todos) 
+WITH
+{
+SELECT ?na ?named (COUNT(?c) as ?ct) (CONCAT(?named, "<sup>(", str(?ct), ")</sup>") as ?namedct)
+{
+    ?c wdt:P882 [] ; wdt:P138 ?na .
+    OPTIONAL { ?na rdfs:label ?nal . FILTER(lang(?nal)= "en") }
+    BIND( CONCAT( "[[", strafter(str(?na),"y/"), "|", COALESCE(?nal, "<..>") , "]]") as ?named) 
+}
+GROUP BY ?na ?named
+} as %a
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?c wdt:P882 [] ; rdfs:label ?l0 . FILTER(lang(?l0) = "en" ) 
+    BIND( REPLACE(REPLACE(REPLACE(REPLACE(?l0, " County" ,""), " Census Area", ""), " Parish", ""), " Borough", "") as ?l) 
+    BIND( REPLACE(REPLACE(REPLACE(REPLACE(?l0, ".+ (County)$" ,"$1"), ".+ (Census Area)$", "$1"), ".+ (Parish)$", "$1"), ".+ (Borough)$", "$1") as ?la) 
+    OPTIONAL { ?c wdt:P138 ?na . BIND(?c as ?hasnamed) INCLUDE %a  }
+    BIND( IF( !BOUND( ?hasnamed), CONCAT( "[[", strafter(str(?c),"y/"),"]]") , "") as ?todo)
+}
+GROUP BY ?l
+HAVING ( ?ct > 3) 
+ORDER BY ?all DESC(?ct)

@@ -1,0 +1,6 @@
+SELECT ?wdproperty ?wdpropertyLabel
+WHERE
+{
+	?wdproperty wdt:P31 wd:Q18647515 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

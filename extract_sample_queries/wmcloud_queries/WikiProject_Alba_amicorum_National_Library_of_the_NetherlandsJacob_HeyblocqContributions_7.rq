@@ -1,0 +1,130 @@
+#Overview of properties of contributions in the AAJH
+SELECT DISTINCT ?contribution ?contributionLabel
+(GROUP_CONCAT(DISTINCT ?p31Label   ; separator = " -- ") as ?isA)
+(GROUP_CONCAT(DISTINCT ?p361Label  ; separator = " -- ") as ?PartOf)
+
+(GROUP_CONCAT(DISTINCT ?p1476Label ; separator = " -- ") as ?Title)
+(GROUP_CONCAT(DISTINCT ?p50Label   ; separator = " -- ") as ?Author)
+(GROUP_CONCAT(DISTINCT ?p170Label  ; separator = " -- ") as ?Creator)
+(GROUP_CONCAT(DISTINCT ?p767Label  ; separator = " -- ") as ?Contributor)
+(GROUP_CONCAT(DISTINCT ?p825Label  ; separator = " -- ") as ?DedicatedTo)
+
+(GROUP_CONCAT(DISTINCT ?p571Label  ; separator = " -- ") as ?Inception)
+(GROUP_CONCAT(DISTINCT ?p1071Label ; separator = " -- ") as ?LocationOfCreation)
+(GROUP_CONCAT(DISTINCT ?p495Label  ; separator = " -- ") as ?CountryOfOrigin)
+(GROUP_CONCAT(DISTINCT ?p407Label  ; separator = " -- ") as ?LanguageOfWork)
+(GROUP_CONCAT(DISTINCT ?p180Label  ; separator = " -- ") as ?Depicts)
+(GROUP_CONCAT(DISTINCT ?p1684Label ; separator = " -- ") as ?Inscription)  
+
+(GROUP_CONCAT(DISTINCT ?p2670Label ; separator = " -- ") as ?HasPartsOfTheClass) 
+(GROUP_CONCAT(DISTINCT ?p2079Label ; separator = " -- ") as ?FabricationMethod) 
+(GROUP_CONCAT(DISTINCT ?p186Label  ; separator = " -- ") as ?MadeFromMaterial) 
+(GROUP_CONCAT(DISTINCT ?p2049Label ; separator = " -- ") as ?Width) 
+(GROUP_CONCAT(DISTINCT ?p2048Label ; separator = " -- ") as ?Height) 
+  
+(GROUP_CONCAT(DISTINCT ?p18Label   ; separator = " -- ") as ?Image) 
+(GROUP_CONCAT(DISTINCT ?p4765Label ; separator = " -- ") as ?CommonsCompatibleImageURL) 
+
+(GROUP_CONCAT(DISTINCT ?p973Label  ; separator = " -- ") as ?DescribedAtURL) 
+(GROUP_CONCAT(DISTINCT ?p1343Label ; separator = " -- ") as ?DescribedBySource) 
+(GROUP_CONCAT(DISTINCT ?p953Label  ; separator = " -- ") as ?FullWorkAvailableAtURL) 
+  
+(GROUP_CONCAT(DISTINCT ?p195Label  ; separator = " -- ") as ?Collection) 
+(GROUP_CONCAT(DISTINCT ?p276Label  ; separator = " -- ") as ?Location) 
+(GROUP_CONCAT(DISTINCT ?p528Label  ; separator = " -- ") as ?CatalogCode)  
+(GROUP_CONCAT(DISTINCT ?p217Label  ; separator = " -- ") as ?InventoryNumber) 
+(GROUP_CONCAT(DISTINCT ?p243Label  ; separator = " -- ") as ?OCLControlNumber) 
+
+(GROUP_CONCAT(DISTINCT ?p8791Label ; separator = " -- ") as ?DigitisedBy) 
+(GROUP_CONCAT(DISTINCT ?p126Label  ; separator = " -- ") as ?MaintainedBy) 
+(GROUP_CONCAT(DISTINCT ?p5008Label ; separator = " -- ") as ?OnFocuslistOfWMproject) 
+(GROUP_CONCAT(DISTINCT ?p6216Label ; separator = " -- ") as ?CopyrightStatus) 
+
+WHERE { 
+  BIND(wd:Q72752496 as ?album)
+  ?album wdt:P527 ?contribution.
+  OPTIONAL{?contribution wdt:P31 ?p31.}     #instance of
+  OPTIONAL{?contribution wdt:P361 ?p361.}   #part of
+  
+  OPTIONAL{?contribution wdt:P1476 ?p1476.} #title  
+  OPTIONAL{?contribution wdt:P50 ?p50.}     #author
+  OPTIONAL{?contribution wdt:P170 ?p170.}   #creator
+  OPTIONAL{?contribution wdt:P767 ?p767.}   #contributor to the creative work or subject
+  OPTIONAL{?contribution wdt:P825 ?p825.}   #dedicated to
+  
+  OPTIONAL{?contribution wdt:P571 ?p571.}   #inception
+  OPTIONAL{?contribution wdt:P1071 ?p1071.} #location of creation
+  OPTIONAL{?contribution wdt:P495 ?p495.}   #country of origin
+  OPTIONAL{?contribution wdt:P407 ?p407.}   #language of work or name
+  OPTIONAL{?contribution wdt:P180 ?p180.}   #depicts
+  OPTIONAL{?contribution wdt:P1684 ?p1684.} #inscription  
+  
+  OPTIONAL{?contribution wdt:P2670 ?p2670.} #has parts of the class
+  OPTIONAL{?contribution wdt:P2079 ?p2079.} #fabrication method  
+  OPTIONAL{?contribution wdt:P186 ?p186.}   #made from material  
+  OPTIONAL{?contribution wdt:P2049 ?p2049.} #width
+  OPTIONAL{?contribution wdt:P2048 ?p2048.} #height
+  
+  OPTIONAL{?contribution wdt:P18 ?p18.}     #image
+  OPTIONAL{?contribution wdt:P4765 ?p4765.} #Commons compatible image available at URL
+
+  OPTIONAL{?contribution wdt:P973 ?p973.}   #described at URL
+  OPTIONAL{?contribution wdt:P1343 ?p1343.} #described by source
+  OPTIONAL{?contribution wdt:P953 ?p953.}   #full work available at URL
+  
+  OPTIONAL{?contribution wdt:P195 ?p195.}   #collection
+  OPTIONAL{?contribution wdt:P276 ?p276.}   #location
+  OPTIONAL{?contribution wdt:P528 ?p528.}   #catalog code  
+  OPTIONAL{?contribution wdt:P217 ?p217.}   #inventory number
+  OPTIONAL{?contribution wdt:P243 ?p243.}   #OCLC control number  
+
+  OPTIONAL{?contribution wdt:P8791 ?p8791.} #digitised by
+  OPTIONAL{?contribution wdt:P126 ?p126.}   #maintained by
+  OPTIONAL{?contribution wdt:P5008 ?p5008.} #on focus list of Wikimedia project
+  OPTIONAL{?contribution wdt:P6216 ?p6216.} #copyright status  
+ 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+   ?contribution rdfs:label ?contributionLabel.
+   ?p31   rdfs:label  ?p31Label.  #instance of
+   ?p361  rdfs:label ?p361Label.  #part of 
+                      
+   ?p1476 rdfs:label ?p1476Label. #title
+   ?p50   rdfs:label ?p50Label.   #author
+   ?p170  rdfs:label ?p170Label.  #creator
+   ?p767  rdfs:label ?p767Label.  #contributor to the creative work or subject
+   ?p825  rdfs:label ?p825Label.  #dedicated to
+                        
+   ?p571  rdfs:label ?p571Label.  #inception
+   ?p1071 rdfs:label ?p1071Label. #location of creation
+   ?p495  rdfs:label ?p495Label.  #country of origin
+   ?407   rdfs:label ?p407Label.  #language of work or name
+   ?p180  rdfs:label ?p180Label.  #depicts
+   ?p1684 rdfs:label ?p1684Label. #inscription  
+                        
+   ?p2670 rdfs:label ?p2670Label. #has parts of the class 
+   ?p2079 rdfs:label ?p2079Label. #fabrication method
+   ?p186 rdfs:label  ?p186Label.  #made from material
+   ?p2049 rdfs:label ?p2049Label. #width
+   ?p2048 rdfs:label ?p2048Label. #height 
+  
+   ?p18 rdfs:label   ?p18Label.   #image 
+   ?p4765 rdfs:label ?p4765Label. #Commons compatible image available at URL 
+
+   ?p973 rdfs:label  ?p973Label.  #described at URL 
+   ?p1343 rdfs:label ?p1343Label. #described by source 
+   ?p953 rdfs:label  ?p953Label.  #full work available at URL 
+  
+   ?p195 rdfs:label  ?p195Label.  #collection 
+   ?p276 rdfs:label  ?p276Label.  #location 
+   ?p528 rdfs:label  ?p528Label.  #catalog code 
+   ?p217 rdfs:label  ?p217Label.  #inventory number 
+   ?p243 rdfs:label  ?p243Label.  #OCLC control number 
+
+   ?p8791 rdfs:label ?p8791Label. #digitised by 
+   ?p126 rdfs:label  ?p126Label.  #maintained by 
+   ?p5008 rdfs:label ?p5008Label. #on focus list of Wikimedia project 
+   ?p6216 rdfs:label ?p6216Label. #copyright status 
+                                      }
+} 
+GROUP BY ?contribution ?contributionLabel
+ORDER BY ?contribution 

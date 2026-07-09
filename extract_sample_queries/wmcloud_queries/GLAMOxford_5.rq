@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel ?typeLabel WHERE {
+?item wdt:P170 wd:Q79012; wdt:P953 ?url FILTER(CONTAINS(STR(?url), ".ox.ac.uk"))
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER by ?itemLabel

@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT ?countryLabel ?image WHERE {
+  ?item wdt:P31 wd:Q186516 ;
+        wdt:P180* wd:Q525 ;
+        wdt:P1001 ?country ;
+        wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?countryLabel

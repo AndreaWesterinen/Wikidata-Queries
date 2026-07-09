@@ -1,0 +1,35 @@
+SELECT
+    ?item
+	(concat("\u007B\u007BP\u007C",strafter(str(?property),"y/"),"\u007D\u007D") as ?p)
+    ?property
+	?propertyLabel 
+	?total
+	(strafter(str(?ptype0),"#") as ?ptype)
+    ?sample
+    ?ct
+WITH
+{
+  SELECT 	
+    ?property
+    (SAMPLE(?subjectitem) as ?item) 
+	(COUNT(DISTINCT ?s) as ?ct)  
+	(SAMPLE(?s) as ?sample)
+  {
+	?s wdt:P31/wdt:P279* wd:Q16917 .
+	?property wikibase:claim ?wdt .
+  	?s ?wdt [] .
+  	OPTIONAL { ?property wdt:P1629 ?subjectitem }
+	FILTER (?s != wd:Q15397819 )
+  }
+  GROUP BY ?property
+  ORDER BY DESC(?ct)
+  LIMIT 200
+} as %count
+WHERE
+{
+  INCLUDE %count 
+  ?property wikibase:propertyType ?ptype0         
+  { SELECT (COUNT(DISTINCT ?i) as ?total) { ?i wdt:P31/wdt:P279* wd:Q16917 } }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}
+ORDER BY DESC(?ct)

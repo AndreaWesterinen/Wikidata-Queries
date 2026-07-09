@@ -1,0 +1,4 @@
+SELECT ?year (COUNT(*) AS ?cnt) WHERE {
+  ?item p:P2962 [ ps:P2962 wd:Q752119; pq:P580 ?start ] .
+  BIND(YEAR(?start) AS ?year) .
+} GROUP BY ?year ORDER BY ASC(?year)

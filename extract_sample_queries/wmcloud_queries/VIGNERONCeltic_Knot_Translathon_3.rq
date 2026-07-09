@@ -1,0 +1,12 @@
+SELECT DISTINCT ?x ?xLabel ?xDescription WHERE {
+ ?x wdt:P31 wd:Q5 ; 
+       {?x (wdt:P19* | wdt:P20* | wdt:P937* | wdt:P27) wd:Q25 .}
+      UNION
+       {?x (wdt:P1412 | wdt:P103) wd:Q9309.} 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en,de,it,es". }
+ FILTER(NOT EXISTS {
+   ?x rdfs:label ?lang_label.
+   FILTER(LANG(?lang_label) = "cy") 
+ })
+}
+ORDER BY ?xLabel

@@ -1,0 +1,20 @@
+embed.html#SELECT ?smallerCityLabel ?smallerPopulation ?mayorLabel ?largerCityLabel ?largerPopulation
+WITH {
+  SELECT DISTINCT ?smallerCity ?smallerPopulation ?mayor ?largerCity ?largerPopulation WHERE {
+    ?smallerCity wdt:P31/wdt:P279* wd:Q515;
+                 wdt:P1082 ?smallerPopulation;
+                 wdt:P6 ?mayor.
+    ?mayor wdt:P31 wd:Q5;
+           wdt:P735 ?givenName.
+    ?givenName rdfs:label ?label.
+    ?largerCity rdfs:label ?label;
+                wdt:P31/wdt:P279* wd:Q515;
+                wdt:P1082 ?largerPopulation.
+    FILTER(?largerPopulation > ?smallerPopulation)
+  }
+} AS %results
+WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?smallerPopulation)

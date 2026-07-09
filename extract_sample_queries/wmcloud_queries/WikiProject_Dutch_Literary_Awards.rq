@@ -1,0 +1,94 @@
+#AKO/GeneraleBank/AKO/ECI/Bookspot
+#Abbreviations: ?a = ?award, ?abcdL = abcdLabel, ...yr =....year
+
+#TODO
+#country Q55 en Q29999 --> Qnummers expliciet weergeven ivm Nederland vs Koninrijk Nederland
+#groupconcat maken, want kan mer dan 1 warde hebben
+
+#referentties toevengen± litprijzen.nl, leesplein, tia
+
+SELECT
+(SAMPLE(?a) as ?AwardID)
+(SAMPLE(?aL) as ?BoxLabel) #**label** of the award in the 'top box'
+(SAMPLE(?description) as ?BoxDescription) #**Description** of the award in the 'top box'
+(SAMPLE(?nameL) as ?Name) #**name** of the award as stored in P2561-field
+(GROUP_CONCAT(DISTINCT ?altnameL ; separator = ", ") as ?AlternativeNames) 
+(SAMPLE(?namedafterL) as ?NamedAfter)
+(SAMPLE(?founderL) as ?Founder)
+(YEAR(?yrfounded) as ?FoundedInYear)
+(GROUP_CONCAT(DISTINCT ?instanceofL ; separator = ", ") as ?InstanceOf) 
+(GROUP_CONCAT(DISTINCT ?subclassofL ; separator = ", ") as ?SubclassOf)
+(GROUP_CONCAT(DISTINCT ?scopeL ; separator = ", ") as ?Scope)
+(GROUP_CONCAT(DISTINCT ?facetofL ; separator = ", ") as ?IsFacetOf)
+(GROUP_CONCAT(DISTINCT ?countryL ; separator = ", ") as ?Country)
+(SAMPLE(?countryregionL) AS ?CountryRegion) 
+(SAMPLE(?rationale) as ?Goal)
+(YEAR(?firstyr) AS ?FirstYear)
+(YEAR(?lastyr) AS ?LastYear)
+(YEAR(?mostrecentyr) AS ?MostRecentYear)  
+?AwardPeriodYears #Number of yrs the award has active/alife
+(SAMPLE(?followsL) as ?IsFollowerOf)
+(SAMPLE(?followedbyL) as ?IsFollowedBy)
+(SAMPLE(?conferredbyL) as ?Organisation)
+(SAMPLE(?sponsorL) as ?Sponsor)
+(YEAR(?sponsorfirstyr) AS ?SponsorFirstYear)
+(YEAR(?sponsorlastyr) AS ?SponsorLastYear)
+(YEAR(?sponsormostrecentyr) AS ?SponsorMostRecentYear)
+(SAMPLE(?logo) as ?Logo)
+(SAMPLE(?website) as ?OfficialWebsite)
+
+WHERE 
+{
+wd:Q57316805 wdt:P5460 ?a.
+OPTIONAL{?a schema:description ?description. FILTER(lang(?description)="nl")} 
+OPTIONAL{?a wdt:P2561 ?name.} 
+OPTIONAL{?a p:P2561 [pq:P4970 ?altname].}   
+OPTIONAL{?a wdt:P138 ?namedafter.} 
+OPTIONAL{?a wdt:P112 ?founder.} 
+OPTIONAL{?a p:P112 [pq:P585 ?yrfounded].} 
+OPTIONAL{?a wdt:P1027 ?conferredby.}
+OPTIONAL{?a p:P1027 [pq:P6208 ?rationale].}  
+OPTIONAL{?a wdt:P31 ?instanceof .}
+OPTIONAL{?a wdt:P279 ?subclassof .}
+OPTIONAL{?a p:P279 [pq:P642 ?scope].}  
+OPTIONAL{?a wdt:P1269 ?facetof .}
+OPTIONAL{?a wdt:P18 ?logo .}
+OPTIONAL{?a wdt:P17 ?country}
+OPTIONAL{?a p:P17 [pq:P518 ?countryregion].}
+OPTIONAL{?a wdt:P580 ?firstyr.}
+
+OPTIONAL{?a wdt:P582 ?lastyr.}
+BIND(IF(BOUND(?lastyr), "aaa", NOW()) AS ?mostrecentyr) #If no end time P582 is provided, assume award still active/running
+
+BIND(IF(BOUND(?lastyr), YEAR(?lastyr) - YEAR(?firstyr)+1 , YEAR(?mostrecentyr) - YEAR(?firstyr)+1) as ?AwardPeriodYears) 
+#Number of yrs the award was/is active/alife 
+
+OPTIONAL{?a wdt:P155 ?follows.} #this awards is the followup of (P155)
+OPTIONAL{?a wdt:P156 ?followedby.} #this award is follow by (P156)
+OPTIONAL{?a wdt:P859 ?sponsor.} #award sponsor P859
+OPTIONAL{?a p:P859 [pq:P580 ?sponsorfirstyr].}
+OPTIONAL{?a p:P859 [pq:P582 ?sponsorlastyr].}  
+BIND(IF(BOUND(?sponsorlastyr), "aaa", NOW())  AS ?sponsormostrecentyr) 
+OPTIONAL{?a wdt:P856 ?website.}
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+?a rdfs:label ?aL.  
+?name rdfs:label ?nameL. 
+?instanceof rdfs:label ?instanceofL.
+?subclassof rdfs:label ?subclassofL.
+?scope rdfs:label ?scopeL.
+?facetof rdfs:label ?facetofL.
+?sponsor rdfs:label ?sponsorL .
+?namedafter rdfs:label ?namedafterL.
+?conferredby rdfs:label ?conferredbyL.
+?founder rdfs:label ?founderL.
+?follows rdfs:label ?followsL.
+?followedby rdfs:label ?followedbyL.
+?altname rdfs:label ?altnameL.
+?country rdfs:label ?countryL.
+?countryregion rdfs:label ?countryregionL.}
+  
+}
+GROUP BY ?firstyr ?lastyr ?mostrecentyr 
+?sponsorfirstyr ?sponsorlastyr ?sponsormostrecentyr ?AwardPeriodYears ?yrfounded
+ORDER BY ?FirstYear

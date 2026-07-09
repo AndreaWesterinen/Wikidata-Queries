@@ -1,0 +1,1 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P31 wd:Q3305213; wdt:P170 wd:Q296. ?entity wdt:P195 ?grouping .} GROUP BY ?grouping HAVING (?count >= 5) ORDER BY DESC(?count) LIMIT 1000

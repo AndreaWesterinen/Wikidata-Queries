@@ -1,0 +1,33 @@
+#Target required claim report for P371: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P371/ps:P371 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P371 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P371 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q13590141 wd:Q947873 wd:Q2722764 wd:Q10730252 wd:Q15077007 wd:Q1930187 wd:Q55960555 wd:Q20669622 wd:Q270389 wd:Q4110598 wd:Q24702769 wd:Q17125263 wd:Q95074 wd:Q1154500 wd:Q44508716 wd:Q33999 wd:Q50279140 wd:Q337084 wd:Q488205 wd:Q2252262 wd:Q3400985 wd:Q22662561 wd:Q10798782 wd:Q1371925 wd:Q2986228 } .
+			MINUS {
+				?value p:P106/ps:P106 ?values .
+			} .
+			OPTIONAL {
+				?value p:P106/ps:P106 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

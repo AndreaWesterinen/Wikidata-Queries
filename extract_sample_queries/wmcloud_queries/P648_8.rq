@@ -1,0 +1,4 @@
+#title: Unsuitable OL identifier W
+# Complex constraint from [[Property talk:P648]]
+# OL identifier ending with W should only be used with works.
+SELECT ?item ?val{ ?item wdt:P648 ?val . FILTER(SUBSTR(?val, STRLEN(?val), 1) = 'W') MINUS { ?item wdt:P31/wdt:P279* wd:Q47461344 } }

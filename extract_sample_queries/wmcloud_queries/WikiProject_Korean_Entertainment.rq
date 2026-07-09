@@ -1,0 +1,9 @@
+SELECT ?instance_of ?instance_ofLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  OPTIONAL {  }
+  ?instance_of wdt:P31 wd:Q773944.
+  
+  OPTIONAL {  }
+  ?instance_of wdt:P1269 wd:Q213665.
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P243/ps:P243 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((((https?://(www\\.)?worldcat\\.org/)?identities/)?lccn\\-)?(n|nb|nr|no|ns|sh)([4-9][0-9]|00|20[0-1][0-9])\\-?([0-9]{5})/?)$") )
+}

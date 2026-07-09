@@ -1,0 +1,28 @@
+SELECT ?item ?itemLabel ?label ?item2 ?mainsubject ?addlink ?count
+WITH {
+  SELECT DISTINCT ?item ?label WHERE {
+  ?item wdt:P31 wd:Q3305213 .  
+  ?item wdt:P136 wd:Q2864737 . # Remove when we run out of suggestions
+  MINUS { ?item wdt:P136 ?genre . FILTER ( ?genre!=wd:Q2864737 ) } .
+  MINUS { ?item wdt:P921 [] } .
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q1278452 } . 
+  ?item rdfs:label ?label .
+  }
+} AS %missingmainsubject
+WITH {
+  SELECT DISTINCT ?label ?mainsubject (COUNT(CONCAT(LANG(?label),STR(?label), STR(?mainsubject))) AS ?count) (SAMPLE(?item2) AS ?item2) WHERE {
+  ?item2 wdt:P136 wd:Q2864737 .
+  ?item2 wdt:P921 ?mainsubject .
+  ?item2 wdt:P31 wd:Q3305213 . 
+  ?item2 rdfs:label ?label .
+  FILTER NOT EXISTS { ?item2 wdt:P31/wdt:P279* wd:Q1278452 } . 
+  } GROUP BY ?label ?mainsubject
+ORDER BY DESC(?count)
+} AS %mainsubjects
+WHERE {
+  INCLUDE %missingmainsubject.
+  INCLUDE %mainsubjects.
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P921&entityid=", REPLACE(STR(?mainsubject), "http://www.wikidata.org/entity/", ""), " Add]") AS ?addlink)
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY DESC(?count)
+LIMIT 500

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?Kpop WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P463 ?Kpop.
+  ?item wdt:P136 wd:Q213665.
+  ?Kpop wdt:P31 wd:Q641066 .
+  OPTIONAL { ?item wdt:P570 ?dummy0. }
+  FILTER(!BOUND(?dummy0))
+  }

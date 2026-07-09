@@ -1,0 +1,9 @@
+SELECT ?item ?inv WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q160112 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P217 ?invstatement .
+  ?invstatement pq:P195 wd:Q160112 .
+  ?invstatement ps:P217 ?inv . 
+  FILTER(!REGEX(?inv,"^P\\d{6,6}$"))
+  }

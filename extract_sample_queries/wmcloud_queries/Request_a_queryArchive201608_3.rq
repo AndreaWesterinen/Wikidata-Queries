@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (COUNT(?iedvien) AS ?iedv)
+WHERE {
+  ?item p:P131 ?iedvien .
+  ?item wdt:P17 wd:Q211 .
+  ?item wdt:P31 wd:Q532 .
+
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel
+HAVING (?iedv > 1)
+ORDER BY DESC(?iedv) ?itemLabel

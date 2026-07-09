@@ -1,0 +1,19 @@
+# Wikidata entries for British ambassadors and high commissioners
+# all people who held at least one such position
+
+select distinct ?educatedLabel ?count
+where
+{
+  { ?position wdt:P31 wd:Q18115939 . } union { ?position wdt:P31 wd:Q56760832 } . # position is UK ambassador or high commissioner
+    
+    ?person p:P39 ?positionStatement . ?positionStatement ps:P39 ?position . # find positions they held
+ { select ?educated (count(?person) as ?count)
+   where {
+     { ?position wdt:P31 wd:Q18115939 . } union { ?position wdt:P31 wd:Q56760832 } . 
+    ?person p:P39 ?positionStatement . ?positionStatement ps:P39 ?position . 
+   ?person wdt:P69 ?educated . # where were they educated
+   } group by ?educated }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+#defaultView:BubbleChart

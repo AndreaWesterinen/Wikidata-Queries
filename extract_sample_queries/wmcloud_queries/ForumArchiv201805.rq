@@ -1,0 +1,12 @@
+SELECT ?item ?image ?itemLabel ?lat ?lon ?geolink WHERE {
+  ?item wdt:P131* wd:Q5907.
+  ?item (wdt:P31/wdt:P279*) wd:Q44494.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  ?item p:P625 ?coordinate.
+  ?coordinate ps:P625 ?coord.
+  ?coordinate psv:P625 ?coordinate_node.
+  ?coordinate_node wikibase:geoLatitude ?lat.
+  ?coordinate_node wikibase:geoLongitude ?lon.
+  BIND(URI(CONCAT("http://geo.hlipp.de/browse.php?ll=",STR(?lat),",",STR(?lon))) AS ?geolink)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

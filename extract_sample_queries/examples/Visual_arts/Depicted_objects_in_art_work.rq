@@ -1,3 +1,4 @@
+#title: Depicted objects in art work
 SELECT DISTINCT ?depicts (SAMPLE(?dL) AS ?depictsLabel) (COUNT(DISTINCT ?item) AS ?count)
 WHERE
 {

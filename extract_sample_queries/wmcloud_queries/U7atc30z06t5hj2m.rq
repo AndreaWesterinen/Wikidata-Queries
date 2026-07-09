@@ -1,0 +1,4 @@
+select distinct ?prop ?propLabel {
+  ?item ?prop [pq:P805 []] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

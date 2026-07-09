@@ -1,0 +1,14 @@
+SELECT ?place ?placeLabel ?subj ?label ?coord ?birthyear WHERE {
+	?subj wdt:P31 wd:Q5 . #who are human
+    ?page schema:about ?subj.
+	?page schema:isPartOf <https://pt.wikisource.org/> . #who are on pt.wikisource.org  
+   ?subj wdt:P19 ?place . #lugar de nascimento
+   ?place wdt:P625 ?coord . #coordenadas
+   ?subj rdfs:label ?label filter (lang(?label) = "pt")
+   OPTIONAL { ?subj wdt:P569 ?dob .}. #data de nascimento
+	BIND(YEAR(?dob) as ?birthyear). #exibe ano de nascimento
+         
+ SERVICE wikibase:label {
+  bd:serviceParam wikibase:language "pt" .
+ }
+}

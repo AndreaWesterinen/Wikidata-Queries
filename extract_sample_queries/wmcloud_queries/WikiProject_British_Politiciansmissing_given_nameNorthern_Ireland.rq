@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item WHERE { ?item p:P39 [ ps:P39/wdt:P279 wd:Q3272410 ] . FILTER NOT EXISTS { ?item wdt:P735 [] } }

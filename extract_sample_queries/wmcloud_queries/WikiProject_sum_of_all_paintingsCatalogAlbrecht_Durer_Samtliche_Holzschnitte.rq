@@ -1,0 +1,7 @@
+SELECT ?item  ?Fisher?bartsch ?CD ?Kurth ?sitelink_label WHERE { 
+  ?item p:P528 [ pq:P972 wd:Q100320351; ps:P528 ?Fisher] .
+  optional{ ?item p:P528 [ pq:P972 wd:Q18327311; ps:P528 ?bartsch] . }
+  optional{ ?item p:P528 [ pq:P972 wd:Q101181018; ps:P528 ?CD] . }
+  optional{ ?item p:P528 [ pq:P972 wd:Q101542418; ps:P528 ?Kurth] . }
+  optional{   ?commonsSitelink schema:about ?item; schema:isPartOf <https://commons.wikimedia.org/>; schema:name ?sitelink_label . }
+} order by ?Fisher

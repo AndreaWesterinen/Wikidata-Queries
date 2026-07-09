@@ -1,0 +1,9 @@
+#title: Items with creators without date of death
+# Complex constraint from [[Property talk:P4765]]
+# These items have a known creator, but we don't know when the creator died so no way to know the work is in the public domain due to age.
+SELECT DISTINCT ?item WHERE {
+  ?work wdt:P4765 ?url .
+  ?work wdt:P170 ?item .
+  MINUS { ?item wdt:P570 ?dod }.
+  MINUS { ?work wdt:P170 wd:Q4233718 } .
+  } LIMIT 1000

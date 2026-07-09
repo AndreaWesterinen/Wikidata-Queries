@@ -1,4 +1,3 @@
-# ----
 #title: Descendants of L. L. Zamenhof that speak or write Esperanto
 SELECT ?item ?itemLabel ?itemDescription WHERE {
   wd:Q11758 wdt:P40+ ?item. # L. L. Zamenhof (Q11758) has descendant (P40+) ?item

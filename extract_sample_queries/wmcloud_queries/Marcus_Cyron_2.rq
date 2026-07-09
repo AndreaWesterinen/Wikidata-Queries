@@ -1,0 +1,13 @@
+embed.html##defaultView:Timeline
+select distinct ?item ?itemLabel ?dob where {
+   ?item wdt:P31 wd:Q5;  # Any istance of a human.
+   wdt:P1344/wdt:P31* wd:Q84476898; #YOG2020
+   wdt:P106/wdt:P279* wd:Q12840545
+   OPTIONAL { ?item wdt:P569 ?dob }
+   BIND(YEAR(?dob) as ?yob)
+   BIND(MONTH(?dob) as ?mob)
+   BIND(DAY(?dob) as ?dayob)
+   FILTER(?yob>1998)
+SERVICE wikibase:label {  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en" }
+}
+ORDER BY ASC(?dob)

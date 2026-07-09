@@ -1,0 +1,9 @@
+#defaultView:Timeline
+SELECT ?winner ?winnerLabel ?when WHERE {
+  ?winner ?p ?wds.
+  ?wds ?v wd:Q44585.
+  ?wdP wikibase:statementProperty ?v.
+  ?wdP wikibase:claim ?p.
+  ?wds pq:P585 ?when .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

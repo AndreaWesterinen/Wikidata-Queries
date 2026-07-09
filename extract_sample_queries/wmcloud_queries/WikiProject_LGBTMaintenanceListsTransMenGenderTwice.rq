@@ -1,0 +1,6 @@
+SELECT ?item
+{ 
+  ?item wdt:P21 wd:Q2449503 ;
+        wdt:P21 wd:Q6581097 ;
+        wdt:P31 wd:Q5 .
+}

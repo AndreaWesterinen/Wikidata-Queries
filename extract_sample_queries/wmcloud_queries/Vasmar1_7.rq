@@ -1,0 +1,6 @@
+#IMO number
+SELECT ?item ?itemLabel ?imo ?cmns WHERE {
+  ?item wdt:P458 ?imo.
+          MINUS { ?item wdt:P176 [] } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}

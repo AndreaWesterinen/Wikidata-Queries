@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item 
+WHERE
+{
+    ?item wdt:P496 [].
+	OPTIONAL { ?item schema:description ?itemDescription  }
+	FILTER (!BOUND(?itemDescription))
+	?item wdt:P31 wd:Q5 .
+}

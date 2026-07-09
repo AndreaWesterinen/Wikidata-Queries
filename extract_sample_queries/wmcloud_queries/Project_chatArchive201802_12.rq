@@ -1,0 +1,3 @@
+select ?item {
+  ?item wdt:P31/wdt:P31/wdt:P279* wd:Q223557 .
+}limit 100 

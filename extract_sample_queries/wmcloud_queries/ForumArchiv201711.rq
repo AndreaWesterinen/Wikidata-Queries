@@ -1,0 +1,4 @@
+SELECT ?type ?typeLabel (COUNT(*) AS ?cnt) WHERE {
+  ?item p:P348 [ pq:P548 ?type ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?type ?typeLabel ORDER BY DESC(?cnt)

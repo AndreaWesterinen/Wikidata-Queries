@@ -1,0 +1,4 @@
+SELECT DISTINCT ?lexeme ?image WHERE {
+  ?lexeme a ontolex:LexicalEntry;
+              wdt:P18 ?image.
+}

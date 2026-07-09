@@ -1,3 +1,4 @@
+#title: List of theatre plays
 SELECT ?play ?playLabel
 WHERE
 {

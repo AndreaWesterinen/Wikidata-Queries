@@ -1,0 +1,6 @@
+SELECT ?item ?date
+WHERE {
+ ?item wdt:P31 wd:Q62018250 .
+ ?item wdt:P571 ?date
+}
+ORDER BY ?date

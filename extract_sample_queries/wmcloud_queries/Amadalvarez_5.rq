@@ -1,0 +1,8 @@
+#Gats
+SELECT ?item ?itemLabel ?vents_m_xims_sostinguts ?inst_ncia_de ?inst_ncia_deLabel WHERE {
+  ?item (wdt:P31/(wdt:P279*)) wd:Q79602.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P2895 ?vents_m_xims_sostinguts. }
+  OPTIONAL { ?item wdt:P31 ?inst_ncia_de. }
+}
+LIMIT 3000

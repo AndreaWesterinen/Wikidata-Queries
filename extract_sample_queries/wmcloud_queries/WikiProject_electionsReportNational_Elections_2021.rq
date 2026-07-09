@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q40231 ; wdt:P1001 ?country ; wdt:P585 ?date .
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q669262 }  # skip primaries
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q1057954 } # skip by-elections
+  MINUS { ?item wdt:P8196/wdt:P279* wd:Q877353 # skip indirect elections
+      FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q5452198 } # … unless they're First Order elections
+  }
+  ?country p:P31 ?cs .
+    # election is for a country, dependent territory, or state with limited recognition
+    VALUES ?want { wd:Q6256 wd:Q161243 wd:Q15634554 } .
+    ?cs ps:P31/wdt:P279* ?want .
+    FILTER NOT EXISTS { ?cs pq:P582 [] } # don't include former territories
+  FILTER ( YEAR(?date) = 2021 )
+}

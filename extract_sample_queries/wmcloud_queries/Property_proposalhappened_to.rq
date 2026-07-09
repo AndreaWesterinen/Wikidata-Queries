@@ -1,0 +1,4 @@
+SELECT ?event ?eventLabel ?actor ?actorLabel WHERE {
+  ?event ^ wdt:P793 ?actor
+           . SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} limit 200

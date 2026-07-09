@@ -1,0 +1,4 @@
+SELECT ?item ?is_reason_for_deprecation (COUNT(?s) AS ?cnt) WHERE {
+  ?s pq:P2241 ?item .
+  BIND(EXISTS{ ?item wdt:P31/wdt:P279* wd:Q27949697 } AS ?is_reason_for_deprecation) .
+} GROUP BY ?item ?is_reason_for_deprecation ORDER BY DESC(?cnt)

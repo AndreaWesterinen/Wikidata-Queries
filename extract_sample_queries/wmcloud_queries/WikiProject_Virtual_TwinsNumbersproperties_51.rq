@@ -1,0 +1,12 @@
+SELECT DISTINCT	?s ?sLabel ?sDescription ?dob ?dod
+{
+  	?s wdt:P1889 [] .
+  	?s wdt:P31 wd:Q5 .
+  	?s p:P1889/pq:P1013 wd:Q20978290 .
+  	MINUS { ?s wdt:P31 wd:Q159979 }
+  	OPTIONAL  { ?s wdt:P101 ?p } FILTER (!BOUND(?p)) 
+  	OPTIONAL  { ?s wdt:P569 ?dob }
+  	OPTIONAL  { ?s wdt:P570 ?dod }  
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}
+LIMIT 500

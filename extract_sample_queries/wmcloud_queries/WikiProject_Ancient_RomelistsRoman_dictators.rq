@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?lal
+{
+	?item wdt:P39 wd:Q236885 ; wdt:P31 wd:Q5 .
+  	OPTIONAL { ?item rdfs:label ?lal . FILTER(lang(?lal)="la") }
+}

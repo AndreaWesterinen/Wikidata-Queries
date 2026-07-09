@@ -1,0 +1,18 @@
+#title: Modified unique value constraint
+# Complex constraint from [[Property talk:P235]]
+# Lists items having the same value, except if both statements have mutual [[Property:P6185|tautomer of&#32;<small dir="ltr">(P6185)</small>]] statements, see discussion below. Please don't switch on the normal unique value constraint, use this instead.
+SELECT DISTINCT ?item ?item2 ?value 
+{
+	?item wdt:P235 ?value .
+	?item2 wdt:P235 ?value .
+    MINUS {
+      ?item wdt:P6185 ?item2.
+      ?item2 wdt:P6185 ?item
+    }
+    MINUS {
+      ?item wdt:P31 wd:Q757764.
+    }
+	FILTER( ?item != ?item2 && STR( ?item ) < STR( ?item2 ) ) .
+    FILTER( ?item NOT IN ( wd:Q106010164, wd:Q106010167, wd:Q106010168, wd:Q106010169, wd:Q106010170, wd:Q106010171, wd:Q106010172, wd:Q106010173 )).
+}
+LIMIT 1000

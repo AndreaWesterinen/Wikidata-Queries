@@ -1,0 +1,11 @@
+#Female scientists
+# Female scientists
+
+SELECT ?item ?itemLabel ?itemDescription WHERE {
+    ?item wdt:P179 wd:Q16538.
+	?item wdt:P31 wd:Q21191270 .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}
+
+order by ?itemDescription

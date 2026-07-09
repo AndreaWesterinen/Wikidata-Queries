@@ -1,0 +1,11 @@
+# Classement des peintres selon le nombre d'articles Wikipédia (~) sur leurs œuvres
+SELECT ?Peintre ?PeintreLabel (SUM(?NbArticles) as ?TotalArticles)
+WHERE {
+	?item wdt:P31/wdt:P279* wd:Q3305213. 
+    ?item wdt:P170 ?Peintre.
+    MINUS {?item wdt:P170 wd:Q4233718}
+    ?item wikibase:sitelinks ?NbArticles .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" }
+} GROUP BY ?Peintre ?PeintreLabel 
+ORDER BY DESC(?TotalArticles)
+LIMIT 100

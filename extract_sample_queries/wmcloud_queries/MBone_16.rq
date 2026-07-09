@@ -1,0 +1,9 @@
+SELECT ?qid ("P1454" AS ?pid) ?value ("/* add legal form as P1454 */" AS ?comment) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 ?legal.
+  ?legal wdt:P31/wdt:P279* wd:Q1269299.
+  MINUS { ?item wdt:P1454 ?some. }
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+  BIND(SUBSTR(STR(?legal), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?value)
+}
+LIMIT 1000

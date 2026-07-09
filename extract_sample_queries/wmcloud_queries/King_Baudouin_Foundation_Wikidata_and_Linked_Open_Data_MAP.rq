@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?Koning_Boudewijnstichting ?Koning_BoudewijnstichtingLabel ?locatie ?locatieLabel ?coo WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Koning_Boudewijnstichting wdt:P195 wd:Q2780100.
+  OPTIONAL { ?Koning_Boudewijnstichting wdt:P276 ?locatie.
+             ?locatie wdt:P625 ?coo}
+}

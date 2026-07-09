@@ -1,0 +1,4 @@
+SELECT ?item  {
+  ?item schema:description "Wikimedia category"@en . 
+  minus{?item wdt:P31 wd:Q4167836.}
+} limit 100

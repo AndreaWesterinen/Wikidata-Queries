@@ -1,0 +1,19 @@
+# Thanks Harmonia_Amanda for es
+# Thanks Rémi Mathis for la
+SELECT DISTINCT ?item ?title ?lang ?text ?image WHERE {
+  ?item wdt:P1922 ?_incipit ; wdt:P31 wd:Q571 .
+  BIND(LANG(?_incipit) as ?lang) .
+  FILTER(?lang IN ('de', 'en', 'es', 'fr', 'la')) .
+  
+  VALUES (?lang ?compl) {
+    ('en' " And then the murders began.")
+    ('es' " Entonces comenzaron los asesinatos.")
+    ('de' " Und dann begannen die Morde.")
+    ('fr' " Et puis les meurtres ont commencé.")
+    ('la' " Tunc caedes inceperunt.")
+  }
+  BIND(CONCAT(?_incipit, ?compl) AS ?text) .
+  
+  ?item rdfs:label ?title . FILTER(LANG(?title) = ?lang) .
+  OPTIONAL { ?item wdt:P18 ?image . }
+}

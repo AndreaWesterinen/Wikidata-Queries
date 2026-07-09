@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?instelling ?portaal
+WHERE 
+{
+  ?portaal wdt:P31/wdt:P279* wd:Q186165.
+  ?portaal wdt:P17 wd:Q55.
+  ?portaal wdt:P767 ?instelling.
+   ?instelling wdt:P2283 ?item.
+   ?item wdt:P31/wdt:P279* wd:Q7397.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl".}
+}

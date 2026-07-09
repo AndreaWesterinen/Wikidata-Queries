@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?Type ?Municipality ?Canton ?Country WHERE {
+{?item wdt:P31 wd:Q33506} UNION {?item wdt:P31 wd:Q166118} UNION {?item wdt:P31 wd:Q7075} UNION {?item wdt:P31 wd:Q22806} UNION {?item wdt:P31 wd:Q678405}.
+  ?item wdt:P17 wd:Q39 .
+  OPTIONAL { ?item wdt:P31 ?Type. }
+  OPTIONAL { ?item wdt:P131 ?Municipality . FILTER EXISTS {?Municipality wdt:P31 wd:Q70208}}
+  OPTIONAL { ?item wdt:P131 ?Canton . FILTER EXISTS {?Canton wdt:P31 wd:Q23058}}
+  OPTIONAL { ?item wdt:P17 ?Country. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

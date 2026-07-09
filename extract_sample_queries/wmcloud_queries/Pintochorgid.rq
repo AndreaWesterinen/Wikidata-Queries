@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?url ?prop ?uses WHERE {
+  ?item wdt:P4824 ?orgid.
+  OPTIONAL { { ?item wdt:P1687 ?prop } UNION { ?prop wdt:P2378 ?item }.
+           ?prop wdt:P31/wdt:P279* wd:Q18616576. }
+  BIND (uri(concat("http://org-id.guide/list/", ?orgid)) as ?url)
+  BIND (concat("[[:Template:Property uses\u007C",substr(str(?prop),33),"]]") as ?uses)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?orgid

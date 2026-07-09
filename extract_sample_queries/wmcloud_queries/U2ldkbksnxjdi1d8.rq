@@ -1,0 +1,5 @@
+SELECT ?item ?URL
+WHERE
+{
+  ?item wdt:P4570 ?URL
+}

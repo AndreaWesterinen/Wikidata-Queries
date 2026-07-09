@@ -1,3 +1,4 @@
+#title: Where in the world is Antwerp
 #defaultView:Map
 SELECT DISTINCT ?settlement ?name ?coor
 WHERE

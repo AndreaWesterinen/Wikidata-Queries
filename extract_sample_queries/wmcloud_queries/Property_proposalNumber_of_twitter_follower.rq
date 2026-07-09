@@ -1,0 +1,21 @@
+#Uses of P2002:	as property (any rank/best rank/normal rank/preferred rank/deprecated rank)
+#				as qualifier
+#				in references
+#by Jura1, rev 2016-03-03
+SELECT	?use ?rank ?items_with_property	?uses_of_property
+WHERE{	{		SELECT 	(wikibase:statementProperty as ?use)	(COUNT(DISTINCT(?item)) as ?items_with_property)	(COUNT(?value) as ?uses_of_property)
+				WHERE	{?item p:P2002 ?value}}
+UNION	{		SELECT 	(wikibase:statementProperty as ?use)	(wikibase:BestRank as ?rank)	(COUNT(DISTINCT(?item))	as ?items_with_property)	(COUNT(?bestvalue) as ?uses_of_property)
+     			WHERE 	{?item wdt:P2002 ?bestvalue } }
+UNION 	{		SELECT  (wikibase:statementProperty as ?use)	?rank	(COUNT(DISTINCT(?item)) as ?items_with_property)	(COUNT((?statement)) as ?uses_of_property) 
+				WHERE	{?item p:P2002 ?statement .  
+                         ?statement wikibase:rank ?rank }
+						GROUP BY ?rank }
+UNION	{		SELECT 	(wikibase:reference as ?use)			(COUNT(DISTINCT(?item)) as ?items_with_property)	(COUNT(?value) as ?uses_of_property)
+     			WHERE 	{?item pr:P2002 ?value }}
+UNION	{		SELECT 	(wikibase:qualifier as ?use)			(COUNT(DISTINCT(?item)) as ?items_with_property)	(COUNT(?value) as ?uses_of_property)
+     			WHERE 	{?item pq:P2002 ?value }}
+}
+ORDER BY DESC(?use) DESC(?items_with_property) ?rank
+
+#PLEASE NOTE: Deleted items appear in counts for some ranks, but not in others.

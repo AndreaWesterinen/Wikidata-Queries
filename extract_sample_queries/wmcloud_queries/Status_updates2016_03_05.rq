@@ -1,0 +1,23 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT DISTINCT ?item ?itemLabel ?positionLabel ?as ?start ?end ?days WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P39 ?position_statement .
+  ?position_statement v:P39 ?position .
+  ?position wdt:P279* wd:Q15135541 .
+  ?position_statement pq:P580 ?start FILTER (?start >= "1815-01-01T00:00:00Z"^^xsd:dateTime) .
+  OPTIONAL { ?position_statement pq:P582 ?x }
+  OPTIONAL {
+    ?position_statement pq:P794 ?ast .
+    ?ast rdfs:label ?as filter (lang(?as) = "en") .
+  }
+  bind(if(bound(?x), ?x, NOW()) as ?end )
+  BIND(FLOOR(?end - ?start) as ?days)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY DESC(?days) ?itemLabel

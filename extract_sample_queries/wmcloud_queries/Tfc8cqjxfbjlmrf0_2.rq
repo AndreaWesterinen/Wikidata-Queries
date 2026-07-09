@@ -1,0 +1,13 @@
+#defaultView:Timeline
+SELECT  ?image ?partyLabel ?justiceLabel ?birthdate
+WHERE
+{
+	?justice p:P39 ?statement .
+    { ?statement ps:P39 wd:Q11144 } UNION { ?statement ps:P39 wd:Q11147 }
+    ?statement pq:P580 ?appointed .
+	FILTER NOT EXISTS { ?statement pq:P582 ?x }
+    ?justice wdt:P569 ?birthdate .
+    ?justice wdt:P102 ?party .
+    ?justice wdt:P18 ?image .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

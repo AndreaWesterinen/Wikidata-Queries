@@ -1,0 +1,9 @@
+SELECT ?item {
+ ?item wdt:P569 ?date ; wdt:P570 ?ddate ; wdt:P31 wd:Q5 .
+ FILTER (YEAR(?date) = YEAR(?ddate)) .
+ MINUS { VALUES ?events { wd:Q2345820 wd:Q21560280 wd:Q22004151 } . ?item wdt:P793 ?events . }
+ MINUS {?item p:P569/psv:P569 [ wikibase:timePrecision "7"^^xsd:integer ]}
+ MINUS {?item p:P569/psv:P569 [ wikibase:timePrecision "6"^^xsd:integer ]}
+ MINUS {?item p:P570/psv:P570 [ wikibase:timePrecision "7"^^xsd:integer ]}
+ MINUS {?item p:P570/psv:P570 [ wikibase:timePrecision "6"^^xsd:integer ]}
+} LIMIT 100

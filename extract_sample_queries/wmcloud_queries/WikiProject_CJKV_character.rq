@@ -1,0 +1,6 @@
+SELECT ?radical ?radicalLabel 
+WHERE 
+{
+  ?radical wdt:P31 wd:Q849778.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,3 @@
+SELECT * WHERE {
+  ?q wdt:P17 wd:Q928 ; wdt:P31 wd:Q24764 ; wdt:P1448 ?name .
+}

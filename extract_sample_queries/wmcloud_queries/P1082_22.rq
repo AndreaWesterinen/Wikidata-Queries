@@ -1,0 +1,11 @@
+#title: Population > 1000000 on a village
+# Complex constraint from [[Property talk:P1082]]
+# see [[d:Q532|village <small>(Q532)</small>]]
+SELECT ?item ?population {
+  ?item wdt:P31 wd:Q532.
+  ?item wdt:P1082 ?population.
+  FILTER NOT EXISTS { ?item wdt:P17 wd:Q668 }.
+  FILTER (?population > 1000000)
+}
+ORDER BY DESC(?population)
+LIMIT 100

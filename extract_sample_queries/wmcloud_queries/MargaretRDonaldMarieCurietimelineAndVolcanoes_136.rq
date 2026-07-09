@@ -1,0 +1,12 @@
+# articles authored by Kevin Thiele
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?journal ?journalLabel WHERE {
+  ?item wdt:P31 wd:Q13442814 ;         # is a scholarly article
+    wdt:P50  wd:Q547084 ;              # authored by Kevin Thiele
+    wdt:P1433 ?journal.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?itemLabel ?journalLabel
+ LIMIT 4000    

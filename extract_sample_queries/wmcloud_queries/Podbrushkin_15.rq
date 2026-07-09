@@ -1,0 +1,10 @@
+#defaultView:Graph
+SELECT  ?subtype ?subtypeLabel ?type ?typeLabel
+WHERE {
+  
+    ?type wdt:P279* wd:Q699 .
+  
+    OPTIONAL {?subtype wdt:P279 ?type .}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?typeLabel ?subtypeLabel

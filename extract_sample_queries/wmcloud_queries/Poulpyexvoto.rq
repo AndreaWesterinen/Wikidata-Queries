@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?place ?department ?id WHERE {
+  { ?item wdt:P31/wdt:P279* wd:Q683010 ;
+        wdt:P131 ?place .
+   OPTIONAL { ?item wdt:P481 ?id. } } UNION
+  { ?item wdt:P31/wdt:P279* wd:Q683010 ;
+          wdt:P361 ?group .
+    ?group wdt:P131 ?place .
+   OPTIONAL { ?group wdt:P481 ?id. } }
+  ?place wdt:P31/wdt:279* wd:Q484170 .
+  ?place wdt:P131 ?department .
+  ?department wdt:P31 wd:Q6465 .
+}

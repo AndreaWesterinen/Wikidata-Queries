@@ -1,0 +1,12 @@
+SELECT DISTINCT ?type ?typeLabel (COUNT(?item) AS ?count) WHERE {
+  { ?item wdt:P481 ?palissy ;
+          wdt:P131 ?commune . } UNION
+  { ?item wdt:P361 ?group .
+    ?group wdt:P481 ?palissy ;
+           wdt:P131 ?commune . }
+  ?item wdt:P31 ?type .
+  ?commune wdt:P131 wd:Q3068 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?type ?typeLabel
+ORDER BY DESC(?count)

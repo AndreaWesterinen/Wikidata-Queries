@@ -1,3 +1,4 @@
+#title: Items with the most birth dates
 SELECT ?person (COUNT(?date) AS ?dateC) {
   ?person wdt:P569 ?date
 }

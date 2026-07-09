@@ -1,0 +1,18 @@
+# MPs whose terms began before their constituency was created
+
+SELECT DISTINCT ?constituency ?constituencyLabel ?conststart ?constend ?members ?item ?itemLabel ?termstart ?difference
+{
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 ?mpterm . 
+ ?mpterm wdt:P279* wd:Q16707842 . 
+ ?positionStatement pq:P580 ?begin . bind(year(?begin) as ?termstart ) .
+ ?positionStatement pq:P768 ?constituency . 
+ ?constituency wdt:P571 ?start . bind(year(?start) as ?conststart) .
+ optional { ?constituency wdt:P576 ?end . bind(year(?end) as ?constend) . }
+ filter (?termstart < ?conststart ) . bind((?conststart-?termstart) as ?difference)
+ optional { ?constituency wdt:P1410 ?members . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+ # filter not exists  { ?saidtobe wdt:P460 ?constituency . } 
+ # if uncommented this finds any which don't have inbound said-to-be links
+ # ie they are likely to need a preceding one created or matched
+} order by ?start

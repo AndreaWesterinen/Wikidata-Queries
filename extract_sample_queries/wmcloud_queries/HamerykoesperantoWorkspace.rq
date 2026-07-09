@@ -1,0 +1,10 @@
+select ?form ?formName ?lemma
+WHERE {
+  ?lexemeId dct:language wd:Q143;
+            wikibase:lemma ?lemma;
+            ontolex:lexicalForm ?form.
+  ?form ontolex:representation ?formName
+  MINUS {
+  ?form p:P5279 ?statement.
+  }
+}

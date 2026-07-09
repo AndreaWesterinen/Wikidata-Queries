@@ -1,0 +1,24 @@
+SELECT DISTINCT ?item ?itemLabel ?division ?divisionLabel ?state_or_ut ?state_or_utLabel WHERE {
+  ?item wdt:P31 wd:Q1149652.
+  { ?item wdt:P131 ?state_or_ut.
+    ?state_or_ut wdt:P31 wd:Q467745. }
+  UNION
+  { ?item wdt:P131 ?state_or_ut.
+    ?state_or_ut wdt:P31 wd:Q12443800. }
+  UNION
+  { ?item wdt:P131 ?division.
+    ?division wdt:P31/wdt:P279* wd:Q1230708.
+    ?division wdt:P131 ?state_or_ut.
+   FILTER EXISTS {?state_or_ut wdt:P31 wd:Q12443800.} 
+   }
+  UNION
+  { ?item wdt:P131 ?division.
+    ?division wdt:P31/wdt:P279* wd:Q1230708.
+    ?division wdt:P131 ?state_or_ut.
+   FILTER EXISTS {?state_or_ut wdt:P31 wd:Q467745.} 
+   }
+  FILTER NOT EXISTS {?item wdt:P576 ?formerdistrict.}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}

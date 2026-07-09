@@ -1,0 +1,1 @@
+select ?item where { ?item wdt:P2739 ?typeface  }

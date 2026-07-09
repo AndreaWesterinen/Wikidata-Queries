@@ -1,0 +1,16 @@
+SELECT ?qual ?qualLabel ?count ?sample ?sampleLabel
+WHERE
+{
+  {
+      SELECT ?qual (COUNT(DISTINCT ?item) AS ?count) (SAMPLE(?item) as ?sample)
+      WHERE
+      {
+         hint:Query hint:optimizer "None" .
+         ?item p:P1082 ?statement .
+         ?statement pq:P518 ?qual .
+      }
+      GROUP BY ?qual
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY DESC(?count)

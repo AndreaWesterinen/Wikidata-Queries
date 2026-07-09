@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?postage
+WITH {
+  SELECT DISTINCT ?item ?floruit ?death WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 ?collectie.
+  ?item wdt:P1317 ?floruit .
+  ?item wdt:P570 ?death .
+}
+} AS %items
+WHERE {
+  INCLUDE %items.
+  bind( year(?floruit) - year(?death)  as ?postage )
+  FILTER (?postage > 1).  
+  ?item p:P1317/psv:P1317 ?floruit_date_node .
+   ?floruit_date_node wikibase:timePrecision ?floruitPrecision .
+   ?item p:P570/psv:P570 ?death_date_node .
+   ?death_date_node wikibase:timePrecision ?deathPrecision .
+  filter(?floruitPrecision>8)
+  filter(?deathPrecision>8)
+}

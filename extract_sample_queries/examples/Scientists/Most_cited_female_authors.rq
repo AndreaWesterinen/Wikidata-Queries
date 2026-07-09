@@ -1,5 +1,6 @@
+#title: Most cited female authors
 #added 2016-12
-##defaultView:BubbleChart
+#defaultView:BubbleChart
 SELECT ?author ?authorLabel (COUNT(?publication) AS ?count)
 WHERE
 {

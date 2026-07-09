@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item rdf:type wikibase:Property;
+    wdt:P6104 wd:Q8485882.
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+ORDER BY DESC(xsd:integer(STRAFTER(str(?item), "P")))
+LIMIT 15

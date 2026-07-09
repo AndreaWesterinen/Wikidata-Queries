@@ -1,0 +1,10 @@
+SELECT ?sitter (SAMPLE(?item) AS ?painting)  (COUNT(?sitter) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P136 wd:Q134307 .  
+  ?item wdt:P921 ?sitter .
+  ?item wdt:P180 ?sitter .
+  ?sitter wdt:P31 wd:Q5 .
+  MINUS { ?sitter wdt:P1299 [] }  . 
+  } 
+GROUP BY ?sitter 
+HAVING (?count=1)

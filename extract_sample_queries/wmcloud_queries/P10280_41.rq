@@ -1,0 +1,12 @@
+#title: potential values (from category combines topic = honorary citizenship) with coordinates, version 2
+# Complex constraint from [[Property talk:P10280]]
+# todo: check if category can be added to place with P10280
+SELECT DISTINCT ?item ?place
+WHERE 
+{
+  ?item wdt:P971 wd:Q987080.
+  MINUS { _:b6 ps:P10280 ?item. }
+  ?item wdt:P971 ?place.
+  ?place wdt:P625 ?loc.
+  FILTER NOT EXISTS { ?item wdt:P971/wdt:P31 wd:Q24571886 } 
+}

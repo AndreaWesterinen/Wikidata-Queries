@@ -1,0 +1,4 @@
+select ?constrainttype ?constrainttypeLabel ?constrainttypeDescription {
+  ?constrainttype wdt:P279* wd:Q21502402 filter not exists { ?sub wdt:P279 ?constrainttype }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?constrainttypeLabel

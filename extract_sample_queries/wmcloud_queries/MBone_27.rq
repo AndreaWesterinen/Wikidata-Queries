@@ -1,0 +1,13 @@
+SELECT ?qid ("P276" AS ?pid) ?value ("/* add P276 statement based on incorrect P131 value */" AS ?comment) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P131 ?admin.
+  ?admin wdt:P31 wd:Q35034452.
+  MINUS {?admin wdt:P31 wd:Q821435.}
+  MINUS {?item wdt:P582 ?end.}
+  MINUS {?item wdt:P3999 ?close.}
+  MINUS {?item wdt:P276 ?loc.}
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+  BIND(SUBSTR(STR(?admin), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?value)
+
+}
+LIMIT 1000

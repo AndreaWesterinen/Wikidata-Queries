@@ -1,0 +1,14 @@
+#Monuments in Bangkok Noi
+#defaultView:Map
+SELECT DISTINCT ?monument ?monumentLabel ?locationLabel ?coord (xsd:decimal(?latitude) AS ?lat) (xsd:decimal(?longitude) AS ?lon) WHERE {
+  ?monument wdt:P1435 wd:Q16438244 .  # registered Thai monuments
+  ?monument wdt:P131 ?location .      # which have a location
+  ?location wdt:P131* wd:Q806486 .    # which is in Bangkok Noi
+  ?monument wdt:P625 ?coord .
+  ?monument p:P625 ?coordinate .
+  ?coordinate psv:P625 ?coordinate_node .
+  ?coordinate_node wikibase:geoLatitude ?latitude .
+  ?coordinate_node wikibase:geoLongitude ?longitude .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?monumentLabel

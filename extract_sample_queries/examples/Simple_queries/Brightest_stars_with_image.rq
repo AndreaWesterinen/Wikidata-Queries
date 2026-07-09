@@ -1,4 +1,4 @@
-# ----
+#title: Brightest stars, with image
 #defaultView:ImageGrid
 # Brightest celestial bodies
 SELECT ?star ?starLabel ?images ?apparent_magnitude

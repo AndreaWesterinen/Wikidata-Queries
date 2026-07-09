@@ -1,0 +1,13 @@
+SELECT ?volume ?issue ?startpage (COUNT(*) AS ?c) (GROUP_CONCAT(?qId;SEPARATOR = ", ") AS ?qIds) WHERE {  
+  ?item wdt:P1433 wd:Q220370 .
+  ?item wdt:P478 ?volume .
+  ?item wdt:P433 ?issue .
+  ?item wdt:P304 ?pages0 . 
+  BIND(replace(?pages0, "-", "–") AS ?pages)
+  BIND(if(contains(?pages,  "–"), strbefore(?pages, "–"), ?pages) as ?startpage)
+  BIND(str(?item) as ?url)
+  BIND(strafter(?url, "http://www.wikidata.org/entity/") as ?qId)  
+}
+GROUP BY ?volume ?issue ?startpage 
+HAVING(?c > 1)
+ORDER BY ASC(xsd:integer(?volume)) ASC(xsd:integer(?issue)) ASC(xsd:integer(?startpage))

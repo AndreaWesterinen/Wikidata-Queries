@@ -1,0 +1,28 @@
+SELECT DISTINCT ?item ?itemLabel (YEAR(?date) as ?year) ?typeLabel
+WHERE 
+{
+       values ?type {
+         wd:Q4677783   # Act of Parliament of the United Kingdom
+         wd:Q105774620 # Public Act of Parliament of the United Kingdom
+         wd:Q100165600 # Local Act of Parliament of the United Kingdom 
+
+         wd:Q18009431  # Act of the Parliament of Great Britain
+         wd:Q18009569  # act of the Parliament of Scotland
+         wd:Q18009587  # act of the Parliament of England 
+         wd:Q18009650  # Act of the Parliament of Ireland 
+
+         wd:Q18009506  # Act of the Scottish Parliament
+         wd:Q4676706   # Act of the National Assembly for Wales
+         wd:Q100271152 # Act of the Northern Ireland Assembly
+         wd:Q100324105 # Act of the Northern Ireland Parliament 
+
+         wd:Q7604686   # UKSI
+         wd:Q7437991   # SSI
+         wd:Q7604693   # NISR Statutory Rules of NI 
+         wd:Q7604692   # Statutory Rules and Orders
+         wd:Q6804197   # Measure of the National Assembly for Wales
+       }
+       ?item wdt:P31 ?type.
+  OPTIONAL { ?item wdt:P577 ?date . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

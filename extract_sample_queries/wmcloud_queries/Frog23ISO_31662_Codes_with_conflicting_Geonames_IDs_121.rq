@@ -1,0 +1,12 @@
+SELECT ?region ?regionLabel ?isoCode ?geonamesID
+WHERE 
+{
+  ?region wdt:P1566 "7521937" .
+  ?region wdt:P1566 ?geonamesID 
+  OPTIONAL{
+    ?region wdt:P300 ?isoCode .
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

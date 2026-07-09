@@ -1,0 +1,32 @@
+SELECT ?item ?flacs ?headofgov (GROUP_CONCAT(?headofgovinstanceof; SEPARATOR = "<br />")  AS ?hoginstancelist) ?council  ?member (GROUP_CONCAT(?memberinstanceof; SEPARATOR = "<br />")  AS ?memberinstancelist) ?numberconstituencies (COUNT(?constituency) AS ?countconstituencies) (GROUP_CONCAT(?constituencyLab; SEPARATOR = "<br />") AS ?constituencyList) ?constype WHERE { 
+  VALUES ?flacs {wd:Q2225003 wd:Q83020 wd:Q706447} #three types of FLACS in Taiwan, but only one of these subclassed from Q10864048
+  ?item wdt:P31/wdt:P279* ?flacs ; 
+          wdt:P17 wd:Q865.
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P582 [] }
+  MINUS {?item p:P31 ?node .
+        ?node ps:P31 ?flacs ;
+              pq:P582 []}
+  OPTIONAL {?item wdt:P1313 ?headofgov .
+            ?headofgov wdt:P31 ?headofgovinstanceof
+            MINUS { ?headofgov wdt:P576 [] }
+            }
+  OPTIONAL {?council wdt:P1001 ?item ;
+                     wdt:P31 wd:Q3308596 .
+              MINUS { ?council wdt:P576 [] }
+    OPTIONAL { ?council  wdt:P4253 ?numberconstituencies }
+    OPTIONAL {?member wdt:P361 ?council .
+              ?member wdt:P279 wd:Q708492 .
+              ?member wdt:P31 ?memberinstanceof
+              MINUS {?member wdt:P576 [] }
+              }
+  }
+  OPTIONAL {
+      ?constituency wdt:P131 ?item .
+      ?constituency wdt:P31 wd:Q49924492 .
+      ?constituency rdfs:label ?constituencyLab.
+      FILTER(lang(?constituencyLab) = 'zh-tw')
+      MINUS { ?constituency wdt:P576 [] }
+    }
+}
+GROUP BY ?item ?flacs ?headofgov ?headofgovinstanceof ?council ?member ?memberinstanceof ?numberconstituencies ?constype

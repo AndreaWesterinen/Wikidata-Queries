@@ -1,4 +1,4 @@
-# ----
+#title: Properties likely missing type constraints
 # All properties whose values are items and which lack a type constraint and property scope constraint.
 # Some of these may be actually general properties, while others just don't have their relevant type constraint defined yet.
 #

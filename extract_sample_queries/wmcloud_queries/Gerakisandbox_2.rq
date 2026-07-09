@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?wlmid ?coord
+WHERE {
+  ?item wdt:P2186 ?wlmid. 
+  ?item wdt:P17 wd:Q41. # in Greece
+  MINUS { ?item wdt:P31 [] } .
+  OPTIONAL {?item wdt:P625 ?coord .} # geographic coord
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "el,en". }
+}
+ORDER BY ?itemLabel

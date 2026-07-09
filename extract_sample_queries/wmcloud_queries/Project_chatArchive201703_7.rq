@@ -1,0 +1,5 @@
+SELECT (COUNT(DISTINCT(?person)) AS ?people) WHERE {    
+  ?person p:P39 ?position_statement .
+  ?position_statement ps:P39 wd:Q17592486 .
+  ?position_statement pq:P768 ?constituency .
+}

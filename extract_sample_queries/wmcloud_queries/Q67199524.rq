@@ -1,0 +1,10 @@
+SELECT *
+{
+    ?item wdt:P1181 ?nv .
+    ?item p:P487 [ pq:P3831 wd:Q67199524 ; ps:P487 ?superscript ] .
+    ?item p:P487 [ pq:P3831 wd:Q67199529 ; ps:P487 ?subscript ] .  
+    BIND( ?superscript = ?subscript as ?eq) 
+    BIND( CONCAT(?superscript,str(?nv),?subscript) as ?test)   
+    BIND( CONCAT("<","math",">",str(?nv),"^{",str(?nv),"}","</","math",">") as ?math)
+}
+ORDER BY ?nv

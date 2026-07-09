@@ -1,0 +1,10 @@
+#defaultView:Graph
+SELECT ?eventos ?eventosLabel ?eventosImagen ?participantes ?participantesLabel ?participantesImagen
+WHERE 
+{
+  wd:Q826406 wdt:P793 ?eventos.
+  ?eventos wdt:P710 ?participantes.
+           OPTIONAL {?eventos wdt:P18 ?eventosImagen}.
+           OPTIONAL {?participantes wdt:P18 ?participantesImagen}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+}

@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabel ?article
+	(strafter( str(?item),"y/") as ?a)
+	("P2860" as ?b)
+	("Q97502292" as ?c)
+WHERE
+{ 
+  BIND( '"Das ständisch-polytechnische Institut zu Prag. Programm zur fünfzigjährigen Erinnerungsfeier an die Eröffnung des Institutes"~ BLKO' as ?search)
+  SERVICE wikibase:mwapi { 
+      bd:serviceParam wikibase:endpoint "de.wikisource.org" ;  wikibase:api "Generator" ;
+                      mwapi:generator "search" ;              mwapi:gsrsearch ?search ;
+                      mwapi:gsrlimit "max" ;                  mwapi:gsrnamespace "0" .    
+      ?title wikibase:apiOutput mwapi:title .
+      ?item wikibase:apiOutputItem mwapi:item . 
+  }
+  hint:Prior hint:runFirst true.
+  BIND(URI(CONCAT("https://de.wikisource.org/wiki/",?title) )  as ?article)   
+  ?item wdt:P1433 wd:Q665807 .
+  FILTER NOT EXISTS { ?item wdt:P2860 wd:Q97502292 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de" . }
+}

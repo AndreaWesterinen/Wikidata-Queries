@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value WHERE {
+  ?item wdt:P244 ?value.
+  ?item wdt:P31 ?type.
+  FILTER (?type != wd:Q5)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 500

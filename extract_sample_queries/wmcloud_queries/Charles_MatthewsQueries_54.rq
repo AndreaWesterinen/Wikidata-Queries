@@ -1,0 +1,8 @@
+embed.html##defaultView:Timeline
+select ?pic ?picLabel ?time ?image WHERE 
+{
+ ?pic wdt:P170 wd:Q191748 ;
+           wdt:P571 ?time .
+  ?pic wdt:P18 ?image FILTER ((?pic != <http://www.wikidata.org/entity/Q20776436>)&&(?pic != <http://www.wikidata.org/entity/Q18688068>)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, pl". }
+}

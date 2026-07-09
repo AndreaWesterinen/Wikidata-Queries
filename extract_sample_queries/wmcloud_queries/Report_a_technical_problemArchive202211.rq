@@ -1,0 +1,6 @@
+embed.html#SELECT ?date ?inhabitants {
+  wd:Q317349 p:P1082 ?p .
+  ?p pq:P585 ?date ;
+     ps:P1082 ?inhabitants .
+}
+ORDER BY ?date

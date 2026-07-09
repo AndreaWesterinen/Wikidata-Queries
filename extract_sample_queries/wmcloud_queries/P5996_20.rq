@@ -1,0 +1,10 @@
+#title: categories for films by language should be values of a statement with this property
+# Complex constraint from [[Property talk:P5996]]
+# TODO add P5996 to language item
+SELECT ?item ?itemLabel ?lg ?catLabel
+{ 
+    ?cat wdt:P971 wd:Q11424 ; wdt:P971 ?item . 
+    ?item wdt:P305 ?lg .
+    FILTER NOT EXISTS { ?item wdt:P5996 ?cat } 	
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

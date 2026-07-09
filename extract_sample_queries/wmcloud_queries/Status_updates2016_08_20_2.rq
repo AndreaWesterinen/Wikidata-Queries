@@ -1,0 +1,14 @@
+SELECT ?occupation ?occupationLabel (COUNT(DISTINCT ?head) AS ?count)
+WHERE
+{
+  OPTIONAL { ?country (p:P6/ps:P6)|(p:P35/ps:P35) ?head. }
+  OPTIONAL { ?head p:P39/ps:P39/^(wdt:P1313|wdt:P1906) ?country. }
+  FILTER(BOUND(?head)).
+  ?head wdt:P31 wd:Q5;
+        wdt:P106 ?occupation.
+  MINUS { ?occupation wdt:P279* wd:Q82955. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?occupation ?occupationLabel
+HAVING(?count >= 10)
+ORDER BY DESC(?count)

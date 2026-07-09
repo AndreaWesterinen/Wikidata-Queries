@@ -1,0 +1,10 @@
+SELECT ?item ?downloadurl WHERE {
+  ?item p:P4765/ps:P4765 ?downloadurl ;
+        wdt:P170 ?creator ; 
+        wdt:P571 ?inception . 
+  ?creator wdt:P570 ?dod . BIND(YEAR(?dod) AS ?deathyear)
+  FILTER(?deathyear >= (YEAR(NOW())-95) && ?deathyear < (YEAR(NOW())-70)) .
+  ?creator wdt:P569 ?dob .
+  FILTER(YEAR(?inception) < (YEAR(NOW())-95) && ?dob < ?inception ) .
+  } 
+  LIMIT 15000

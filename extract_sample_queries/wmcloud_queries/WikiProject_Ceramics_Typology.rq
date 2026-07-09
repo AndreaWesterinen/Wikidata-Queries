@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item ?itemLabel ?collection ?creator ?lastUpdate ?versionNo WHERE { ?item wdt:P31 wd:Q109532996; wdt:P361 wd:Q110712568; wdt:P195 ?collection; wdt:P170 ?creator; schema:dateModified ?lastUpdate; schema:version ?versionNo. SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } } ORDER BY DESC (?itemLabel)

@@ -1,0 +1,18 @@
+SELECT 
+	?item 
+	?itemLabel 
+	(SAMPLE(?coord) as ?coordinates)
+	(SAMPLE(?image) as ?images)
+	(GROUP_CONCAT(?instanceLabel; separator=", ") as ?instances)
+WHERE
+{
+	VALUES ?item { wd:Q20882105 wd:Q20882109 wd:Q30 wd:Q20 wd:Q699724 }
+	OPTIONAL {?item wdt:P625 ?coord } .  
+	OPTIONAL {?item wdt:P31 ?instance } .   
+  	OPTIONAL {?item wdt:P18 ?image } .   
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" 
+                           . ?item rdfs:label ?itemLabel
+                           . ?instance rdfs:label ?instanceLabel }  
+}
+GROUP BY ?item ?itemLabel
+# Below (on the right side) at "Display" select the link "Map"

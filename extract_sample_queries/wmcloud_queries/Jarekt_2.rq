@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  FILTER NOT EXISTS { ?item wdt:P6216 [] } .
+  ?item wdt:P170/wdt:P570 ?dod .
+  FILTER(YEAR(?dod) < 1850)
+  }

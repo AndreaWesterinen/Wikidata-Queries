@@ -1,0 +1,15 @@
+SELECT ?qualifier ?qualifierLabel 
+WHERE 
+{
+  {
+    SELECT DISTINCT ?qualifier
+    WHERE
+    {
+      ?qualifier wikibase:qualifier ?prop.
+      ?item p:P31 ?claim.
+      ?claim ps:P31 wd:Q1318274;
+             ?prop [].
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

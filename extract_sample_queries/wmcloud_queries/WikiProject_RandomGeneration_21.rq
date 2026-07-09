@@ -1,0 +1,22 @@
+embed.html#SELECT ?prop ?propLabel ?linking_to_this_item (COUNT (DISTINCT ?o) as ?count) (URI(CONCAT(str(SAMPLE(COALESCE(?s0,?s))),"#",strafter(str(?prop),str(wd:)))) as ?actual_use_or_sample)
+WITH
+{
+  SELECT *
+  WHERE 
+  {
+    ?o wdt:P31 wd:Q5 .
+    ?s ?wdt ?o .
+    ?prop wikibase:directClaim ?wdt .
+  } 
+  LIMIT 120000
+} as %test
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  INCLUDE %test
+  OPTIONAL { ?s0 ?wdt wd:Q18750599 . BIND("present" as ?linking_to_this_item) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }          
+}
+GROUP BY ?prop ?propLabel ?linking_to_this_item
+ORDER BY DESC(?count)
+LIMIT 50

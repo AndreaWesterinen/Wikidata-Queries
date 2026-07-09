@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P279 wd:Q192611 .
+  ?item wdt:P17 wd:Q843
+  MINUS { ?item wdt:P576 [] }
+}

@@ -1,0 +1,38 @@
+#Disney's traditionally animated features and the number of crew members (all/credited/without additionals)
+#including
+#composers, producers, directors, executive producers, film editors, 
+#production designers, art directors, film crew members, storyboard artists
+SELECT ?filmLabel ?year (COUNT(DISTINCT ?crew) AS ?all) (COUNT(DISTINCT ?credited) AS ?allCredited) (COUNT(DISTINCT ?notAdditional) AS ?allCreditedWithoutAdditionals)
+WHERE
+{
+  
+  ?film wdt:P179 wd:Q56070713;
+         wdt:P136 wd:Q28968511;
+         wdt:P577 ?year;
+         wdt:P527* ?film1.
+   
+  ?film1 (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275|p:P1040|p:P676) ?st.  
+  
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275|ps:P1040|ps:P676) ?crew.
+  
+  #making sure the statements were derived from the credits
+  OPTIONAL{
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275|ps:P1040|ps:P676) ?crew; prov:wasDerivedFrom ?ref.                                                                            
+  ?ref pr:P248/wdt:P361* ?film
+  BIND(?crew AS ?credited)
+       #getting rid of additional crew members
+       OPTIONAL{
+       ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275|ps:P1040|ps:P676) ?crew; prov:wasDerivedFrom ?ref.
+       MINUS{       
+         ?st pq:P1932 ?stat
+         FILTER(CONTAINS(LCASE(?stat), "additional"))    
+       }
+       BIND(?crew AS ?notAdditional)
+       }
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  
+}
+GROUP BY ?filmLabel ?year
+ORDER BY DESC(?all)

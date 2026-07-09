@@ -1,0 +1,11 @@
+SELECT ?item ?linkcount ?museurl 
+WHERE
+{
+  ?item wdt:P4704 ?id .
+  ?item wdt:P217 ?inv .
+  ?item wikibase:sitelinks ?linkcount .
+  BIND ((CONCAT ("[https://americanart.si.edu/collections/search/artwork/?id=", ?id, " ", ?inv, "]")) as ?museurl) .
+  FILTER (?linkcount > 0)
+}
+GROUP BY ?item ?linkcount ?museurl 
+ORDER BY DESC(?linkcount)

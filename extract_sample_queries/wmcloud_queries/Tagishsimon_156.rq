@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel (count(?thing) as ?count)
+WITH { SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q17444909. 
+  filter( ?item not in(wd:Q5871, wd:Q523, wd:Q318, wd:Q1931185))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+                         ?item rdfs:label ?itemLabel.} 
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  ?thing wdt:P31 ?item.
+} group by ?item ?itemLabel order by desc(?count)

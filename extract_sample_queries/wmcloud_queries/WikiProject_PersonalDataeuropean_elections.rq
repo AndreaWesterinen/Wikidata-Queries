@@ -1,0 +1,16 @@
+SELECT ?item ?label ?itemLabel ?group ?groupLabel ?country ?countryLabel WHERE {
+  ?item wdt:P31 wd:Q7278.
+  ?item wdt:P463 ?group.
+  ?item wdt:P17 ?country.
+  ?group wdt:P463 wd:Q60310569.
+  ?country wdt:P463 wd:Q458.
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?label.
+    ?group rdfs:label ?groupLabel.
+    ?country rdfs:label ?countryLabel.
+  }
+  OPTIONAL {  }
+  }
+LIMIT 1000

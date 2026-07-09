@@ -1,0 +1,5 @@
+SELECT ?item ?property ?propertyType ?wdt ?gnd WHERE {
+  BIND(wd:P227 AS ?property) .
+  ?property wikibase:directClaim ?wdt; wikibase:propertyType ?propertyType .
+  ?item ?wdt ?gnd .
+} LIMIT 1

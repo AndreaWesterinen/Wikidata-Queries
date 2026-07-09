@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?standing WHERE {
+  ?item p:P31 ?stat .
+  ?stat ps:P31 wd:Q1172903.
+  ?item wdt:P17 wd:Q145.
+  FILTER NOT EXISTS  {?item p:P31 ?stat2. filter(str(?stat) != str(?stat2))  }
+  OPTIONAL {?item wdt:P10051 ?standing . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  }

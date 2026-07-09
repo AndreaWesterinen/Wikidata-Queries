@@ -1,0 +1,14 @@
+#title: Qualifier for property constraint (P2302)
+# Complex constraint from [[Property talk:P6824]]
+# This qualifier is generally used only on [[Property:P2302|property constraint&#32;<small dir="ltr">(P2302)</small>]] and [[Property:P2271|Wikidata property example for properties&#32;<small dir="ltr">(P2271)</small>]]. TODO: double-check
+SELECT ?item ?property ?qualifierP6824value
+{
+    ?prop pq:P6824 ?qualifierP6824value .
+    hint:Query hint:optimizer "None" .
+    ?item ?p ?prop .
+    ?property wikibase:claim ?p .
+    ?property wikibase:statementProperty ?ps .
+    ?prop ?ps ?value .
+    FILTER( ?property != wd:P2302 ) 
+    FILTER( ?property != wd:P2271 ) 
+}

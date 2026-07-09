@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?itemDescription ?ct ?samplep ?samplepLabel ?sts
+WHERE
+{
+  {
+    SELECT ?item (count(DISTINCT ?p) as ?ct) (SAMPLE(?p) as ?samplep)
+    WHERE
+    {
+      ?p wdt:P5096 ?item ; wdt:P1343 wd:Q16055052
+    }
+    GROUP BY ?item
+    ORDER BY DESC(?ct)
+  }
+  hint:Query hint:optimizer "None".
+  ?item wikibase:statements ?sts .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY DESC(?ct) ASC(?itemLabel)

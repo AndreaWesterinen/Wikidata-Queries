@@ -1,0 +1,9 @@
+#defaultView:ImageGrid
+SELECT ?stacija ?stacijaLabel ?coord ?img
+WHERE
+{
+  wd:Q7403701 wdt:P197+ ?stacija .
+  ?stacija wdt:P625 ?coord .
+  ?stacija wdt:P18 ?img
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

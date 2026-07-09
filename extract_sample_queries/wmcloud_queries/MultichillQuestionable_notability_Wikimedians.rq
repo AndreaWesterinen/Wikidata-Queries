@@ -1,0 +1,9 @@
+SELECT ?item ?ids (COUNT(?article) AS ?count) WHERE {
+  ?item wdt:P4174 ?id .
+  ?item wikibase:identifiers ?ids . 
+  MINUS {  ?sitelink schema:about ?item .
+  FILTER REGEX(STR(?sitelink), ".wikipedia.org/wiki/") } .
+  OPTIONAL { ?article ?wdt ?item . ?property wikibase:directClaim ?wdt } .
+  } GROUP BY ?item ?ids
+ORDER BY ASC(?count) ASC(?ids)
+LIMIT 750

@@ -1,3 +1,4 @@
+#title: Distribution map of taxon
 #defaultView:Map
 SELECT * WHERE {
   VALUES ?parent {

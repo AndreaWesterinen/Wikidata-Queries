@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P1435 wd:Q11691318; wdt:P131* wd:Q1715; FILTER NOT EXISTS{ ?entity wdt:P5816 wd:Q63065035 } . 
+  MINUS { ?entity wdt:P131 []; wdt:P1435 wd:Q11691318; wdt:P131* wd:Q1715; FILTER NOT EXISTS{ ?entity wdt:P5816 wd:Q63065035 }  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

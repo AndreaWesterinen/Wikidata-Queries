@@ -1,0 +1,71 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?level ?rgb ?class ?classLabel WHERE {
+{ {SELECT DISTINCT ?item ?level ?rgb ?class WHERE {
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?item wdt:P9622 []. 
+                                            ?item wdt:P31 ?class . } } BIND("work" AS ?level) BIND("ff0000" AS ?rgb) } UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?publisher wdt:P9624 []. ?item wdt:P123 ?publisher ; wdt:P527 ?p_series . 
+                                            ?item wdt:P31 ?class .} } BIND("work" AS ?level) BIND("330000" AS ?rgb) } UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?publisher wdt:P9624 []. ?periodical wdt:P123 ?publisher ; wdt:P527 ?item . 
+                                            ?item wdt:P31 ?class .} } BIND("work" AS ?level) BIND("330000" AS ?rgb) } UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. 
+                                            {?work ( wdt:P4969 | wdt:P144 | wdt:P179 | wdt:P527 | wdt:P361 | wdt:P9745 | wdt:P155 | wdt:P156 | wdt:P1433 ) / 
+                                             ( wdt:P4969 | wdt:P144 | wdt:P179 | wdt:P527 | wdt:P361 | wdt:P9745 | wdt:P155 | wdt:P156 | wdt:P1433 ) ?item}
+                                            UNION
+                                            {?item ( wdt:P4969 | wdt:P144 | wdt:P179 | wdt:P527 | wdt:P361 | wdt:P9745 | wdt:P155 | wdt:P156 ) ?work}
+                                            ?item wdt:P31 ?class .} } BIND("work" AS ?level) BIND("ffcccc" AS ?rgb) } 
+  } } }
+  UNION
+  { {SELECT DISTINCT ?item ?level ?rgb ?class WHERE {
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. {?item wdt:P6524 ?work}.
+                                            ?item wdt:P31 ?class .} } BIND("expression" AS ?level) BIND("008000" AS ?rgb) } UNION 
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. {?expression wdt:P6524 ?work}.
+                                            {?item ( wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) / ( wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 )* ?expression . }
+                                            UNION
+                                            {?expression ( wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) ?item . }
+                                            ?item wdt:P31 ?class . } } BIND("expression" AS ?level) BIND("ccffcc" AS ?rgb) } 
+  } } }
+  UNION
+  { {SELECT DISTINCT ?item ?level ?rgb ?class WHERE {
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?publisher wdt:P9624 []. ?periodical wdt:P123 ?publisher ; wdt:P527 ?p_series . 
+                                            {?item wdt:P1433 ?periodical} UNION {?item wdt:P179 ?p_series} . 
+                                            ?item wdt:P31 ?class .} } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb) }
+  UNION 
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. {?work ( wdt:P747 ) ?item . } UNION { ?item ( wdt:P629 | wdt:P2550 ) ?work . } 
+                                            ?item wdt:P31 ?class . } } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb) } 
+  UNION 
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. {?work ( wdt:P747 ) ?manifestation . } UNION { ?manifestation ( wdt:P629 | wdt:P2550 ) ?work . }
+                                           {?manifestation ( wdt:P747 | wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) / ( wdt:P747 | wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 )* ?item . } 
+                                            UNION 
+                                            { ?item ( wdt:P629 | wdt:P2550 | wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) ?manifestation . }
+                                            ?item wdt:P31 ?class . } } BIND("manifestation" AS ?level) BIND("ccccff" AS ?rgb) }
+  UNION 
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. {?expression wdt:P6524 ?work}. 
+                                            {?expression ( wdt:P747 ) ?item} UNION {?item ( wdt:P629 | wdt:P2550 ) ?expression} 
+                                            ?item wdt:P31 ?class . } } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb) }
+  UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. {?expression wdt:P6524 ?work}. 
+                                            {?expression ( wdt:P747 ) ?manifestation . } UNION { ?manifestation ( wdt:P629 | wdt:P2550 ) ?expression . }
+                                            {?manifestation ( wdt:P747 | wdt:P5059 | wdt:P9745 | wd:P4969 | wdt:P144 ) / ( wdt:P747 | wdt:P5059 | wdt:P9745 | wd:P4969 | wdt:P144 )* ?item . }  
+                                            UNION 
+                                            { ?item ( wdt:P629 | wdt:P2550 | wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) ?manifestation . }                                            
+                                            ?item wdt:P31 ?class . } } BIND("manifestation" AS ?level) BIND("ccccff" AS ?rgb) }
+  UNION  
+  { {SELECT ?item ?level ?class ?rgb WHERE {?work wdt:P9622 []. {?expression wdt:P6524 ?work}.
+                                            {?adaptation ( wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) ?expression . }
+                                            UNION
+                                            {?expression ( wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) ?adaptation . }
+                                            {?adaptation ( wdt:P747 ) ?item} UNION {?item ( wdt:P629 ) ?adaptation . } 
+                                            ?item wdt:P31 ?class . } } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb) }
+  UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE {?work wdt:P9622 []. {?expression wdt:P6524 ?work}.
+                                            {?adaptation ( wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) ?expression . }
+                                            UNION
+                                            {?expression ( wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) ?adaptation . }
+                                            {?adaptation ( wdt:P747 ) ?manifestation} UNION {?manifestation ( wdt:P629 ) ?adaptation . } 
+                                            {?manifestation ( wdt:P747 | wdt:P5059 | wdt:P9745 | wdt:P4969 | wdt:P144 ) / ( wdt:P747 | wdt:P5059 | wdt:P9745 | wd:P4969 | wdt:P144 )* ?item . }  
+                                            UNION 
+                                            { ?item ( wdt:P629 | wdt:P2550 | wdt:P5059 | wdt:P9745 | wd:P4969 | wdt:P144 ) ?manifestation . }                                            
+                                            ?item wdt:P31 ?class . } } BIND("manifestation" AS ?level) BIND("ccccff" AS ?rgb) }
+    } } }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

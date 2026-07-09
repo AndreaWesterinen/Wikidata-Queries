@@ -1,0 +1,7 @@
+SELECT ?item ?number ?Lpl WHERE { 
+  ?item p:P1433 [ ps:P1433 wd:Q107494508; pq:P1545 ?number ] .
+  OPTIONAL {
+   ?item rdfs:label ?Lpl 
+   FILTER((LANG(?Lpl)) = "pl")
+  }
+} order by ?number

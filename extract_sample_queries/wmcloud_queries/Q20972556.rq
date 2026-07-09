@@ -1,0 +1,1 @@
+SELECT(COUNT(DISTINCT?item)as?count)WHERE{?item wdt:P569[];wdt:P570[];wdt:P31 wd:Q5}

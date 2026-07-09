@@ -1,0 +1,7 @@
+#title: No localitzat a un municipi de Catalunya
+# Complex constraint from [[Property talk:P5957]]
+# element amb identificador IPAPC però no localitzat a un municipi de Catalunya (o una subdivisió seva, o una subdivisió d'una subdivisió seva)
+select ?item where {
+  ?item wdt:P5957 [] .
+  minus { ?item wdt:P131?/wdt:P131?/wdt:P131?/wdt:P31 wd:Q33146843 }
+}

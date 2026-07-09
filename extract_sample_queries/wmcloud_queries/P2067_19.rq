@@ -1,0 +1,10 @@
+#title: taxon max value
+# Complex constraint from [[Property talk:P2067]]
+#
+SELECT ?item ?mass {
+     ?item wdt:P31 wd:Q16521.
+     ?item p:P2067 [psn:P2067 ?nodeMass;
+                  ].
+     ?nodeMass     wikibase:quantityAmount ?mass.
+     FILTER (?mass > 136000).
+}

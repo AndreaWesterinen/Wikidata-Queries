@@ -1,0 +1,8 @@
+# Articles in wikidata, with/without an AFD_pub_id with Heinrich Hugo Karny as author
+SELECT ?item  ?itemLabel ?year ?AFD_pub_id WHERE {
+  ?item wdt:P50 wd:Q5700163.
+  ?item wdt:P577 ?year
+  OPTIONAL{?item wdt:P6982 ?AFD_pub_id.}  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+ORDER BY ?year ?item ?itemLabel ?AFD_pub_id

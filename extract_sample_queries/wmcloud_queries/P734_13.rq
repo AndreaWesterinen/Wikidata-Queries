@@ -1,0 +1,21 @@
+#title: Frequently used values generally have a Commons category
+# Complex constraint from [[Property talk:P734]]
+# TODO: add Commons category and/or Commons sitelink to item
+SELECT ?item ?ct ?sampleitem ?title
+WHERE
+{
+  {
+    SELECT ?item (count(*) as ?ct) (SAMPLE(?p) as ?sampleitem)
+    WHERE
+    {
+      ?p wdt:P734 ?item
+    }
+    GROUP BY ?item
+    ORDER BY DESC(?ct)
+    LIMIT 4999
+  }
+  MINUS { ?item wdt:P373 [] }
+  ?item wdt:P282 wd:Q8229 
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> ; schema:name ?title  }          
+}
+ORDER BY DESC(?ct) ASC(?item)

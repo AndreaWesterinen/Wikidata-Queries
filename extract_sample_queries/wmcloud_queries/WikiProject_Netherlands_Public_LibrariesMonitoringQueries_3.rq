@@ -1,0 +1,14 @@
+#Check that every public library branch has: Labels and descriptions in NL and EN + Native name in NL
+SELECT DISTINCT ?item ?native_label ?itemLabelNL ?itemLabelEN ?itemDescriptionNL ?itemDescriptionEN  
+
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+
+  OPTIONAL{?item wdt:P1705 ?native_label.} #native label P1705
+  OPTIONAL{?item rdfs:label ?itemLabelNL FILTER(LANG(?itemLabelNL)='nl').}
+  OPTIONAL{?item rdfs:label ?itemLabelEN FILTER(LANG(?itemLabelEN)='en').}
+  OPTIONAL{?item schema:description ?itemDescriptionNL FILTER(LANG(?itemDescriptionNL) = "nl"). }  
+  OPTIONAL{?item schema:description ?itemDescriptionEN FILTER(LANG(?itemDescriptionEN) = "en"). }       
+}
+ORDER BY ?item

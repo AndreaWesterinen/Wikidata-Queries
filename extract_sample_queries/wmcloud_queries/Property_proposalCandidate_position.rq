@@ -1,0 +1,6 @@
+SELECT ?c (COUNT(*) AS ?count) 
+WHERE 
+{ ?a pq:P4243 ?c }
+GROUP BY ?c
+ORDER BY DESC (?count)
+LIMIT 10

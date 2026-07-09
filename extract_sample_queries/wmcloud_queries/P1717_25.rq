@@ -1,0 +1,12 @@
+#title: Number of countries crossed greater than or equal to three
+# Complex constraint from [[Property talk:P1717]]
+# This query use a blacklist for 5 items.
+SELECT ?item (COUNT(DISTINCT ?country) as ?countryCount)
+WHERE { 
+  ?item wdt:P1717 [].
+  ?item wdt:P17 ?country .
+  FILTER (?item NOT IN (wd:Q584, wd:Q1667, wd:Q37620, wd:Q41986, wd:Q635969)).
+} 
+GROUP BY ?item ?itemLabel
+HAVING (?countryCount > 2) 
+ORDER BY ?item

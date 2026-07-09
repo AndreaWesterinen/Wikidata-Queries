@@ -1,0 +1,26 @@
+SELECT DISTINCT
+  (SAMPLE(COALESCE(?en_label, ?item_label)) as ?name)
+  #(SAMPLE(COALESCE(?place_en_label, ?place_label)) as ?place)
+  (SAMPLE(?country_label) as ?origin)
+  (SAMPLE(?milk_label) as ?milk)
+  (SAMPLE(?image) as ?picture)
+  (SAMPLE(?color_label) as ?color)
+  (SAMPLE(?production) as ?production_tons)
+  (SAMPLE(?area) as ?area_hectares)
+  (SAMPLE(?inception) as ?inception)
+  (SAMPLE(?item) as ?wikidata)
+WHERE {
+  ?item wdt:P279* wd:Q10943.
+  OPTIONAL {
+    {?item wdt:P17 ?country.} UNION {?item wdt:P495 ?country.}
+    ?country rdfs:label ?country_label. FILTER(LANG(?country_label) = "en")
+  }
+  OPTIONAL {?item rdfs:label ?en_label. FILTER(LANG(?en_label) = "en")} OPTIONAL {?item rdfs:label ?item_label}
+  #OPTIONAL {?item wdt:P1071 ?place.} OPTIONAL { ?place rdfs:label ?place_en_label. FILTER(LANG(?place_en_label) = "en")} OPTIONAL {?place rdfs:label ?place_label}
+  OPTIONAL {?item wdt:P18 ?image.}
+  OPTIONAL {?item wdt:P1092 ?production.}
+  OPTIONAL {?item wdt:P2046 ?area.}
+  OPTIONAL {?item wdt:P571 ?inception.}
+  OPTIONAL {?item wdt:P462 ?color. ?color rdfs:label ?color_label . FILTER(LANG(?color_label) = "en")}
+  OPTIONAL {?item wdt:P186 ?milk. ?milk wdt:P279* wd:Q8495. ?milk rdfs:label ?milk_label . FILTER(LANG(?milk_label) = "en")}
+} GROUP BY ?item ORDER BY ASC(?label)

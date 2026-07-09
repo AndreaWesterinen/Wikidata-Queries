@@ -1,0 +1,8 @@
+select ?item
+where {
+   ?item wdt:P31 wd:Q5
+  .?item wdt:P21 wd:Q6581072
+  .?item wdt:P2369 ?soccerway
+  .OPTIONAL {?item wdt:P413  ?positie}
+  filter (!bound(?positie))
+}

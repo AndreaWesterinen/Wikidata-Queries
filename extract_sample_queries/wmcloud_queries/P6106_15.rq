@@ -1,0 +1,13 @@
+#title: Month names with capitals
+# Complex constraint from [[Property talk:P6106]]
+# e.g. in English ("January"). Uses [[d:Q47018901|calendar month <small>(Q47018901)</small>]] on values of [[Property:P5137|item for this sense&#32;<small dir="ltr">(P5137)</small>]]
+SELECT ?item ?lang ?lexeme ?lemma ?form (substr(str(?form),1,1) as ?test)
+{
+    BIND(wd:Q47018901 as ?item )
+    ?lang wdt:P6106 ?item . 
+    ?lexeme <http://www.w3.org/ns/lemon/ontolex#sense> / wdt:P5137 / wdt:P31 ?item .
+    ?lexeme wikibase:lemma ?lemma .
+    ?lexeme <http://purl.org/dc/terms/language> ?lang .
+    ?lexeme <http://www.w3.org/ns/lemon/ontolex#lexicalForm> / <http://www.w3.org/ns/lemon/ontolex#representation> ?form .
+    FILTER( substr(str(?form),1,1) != ucase(substr(str(?form),1,1)) )
+}

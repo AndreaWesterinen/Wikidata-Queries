@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE {
+{?item wdt:P31 wd:Q4830453}
+UNION
+{?item wdt:P31 wd:Q571}  
+UNION  
+{?item wdt:P553 ?website} 
+UNION 
+{?item wdt:P2013 ?facebook}
+UNION
+{?item wdt:P2002 ?twitter}
+UNION
+{?item wdt:P2003 ?instagram}  
+FILTER NOT EXISTS {?b schema:about ?item}
+FILTER NOT EXISTS {?b schema:about ?a. ?a ?prop ?item}
+FILTER NOT EXISTS {?item wdt:P2611 ?tedtalkid}
+FILTER NOT EXISTS {?item wdt:P214 ?VIAF}
+FILTER NOT EXISTS {?item wdt:P1800 ?wikidatabaseid}  
+SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en" .
+}  
+} LIMIT 8000

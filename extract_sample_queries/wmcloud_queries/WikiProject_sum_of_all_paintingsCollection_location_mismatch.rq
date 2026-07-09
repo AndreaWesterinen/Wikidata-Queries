@@ -1,0 +1,13 @@
+SELECT ?item ?location ?collection WHERE {
+  { 
+    SELECT DISTINCT ?location ?collection WHERE {
+      ?painting wdt:P31 wd:Q3305213 .
+      ?painting wdt:P195 ?collection .
+      ?painting wdt:P276 ?location .
+      ?location wdt:P361 ?collection . 
+    }
+  } .  
+  ?item wdt:P195 ?location .
+  ?item wdt:P31 wd:Q3305213 .
+  FILTER NOT EXISTS { ?item wdt:P195 ?collection }
+}

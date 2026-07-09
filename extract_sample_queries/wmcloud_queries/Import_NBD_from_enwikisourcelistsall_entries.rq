@@ -1,0 +1,31 @@
+SELECT ?item ?title ?name ?stitle
+  (CONCAT("[[s:",str(?wstitle), "|","ws]]") as ?warticle)
+  ?scanp ?pn 
+  ?scan
+  ?scan2
+  ?mslitem
+WITH
+{
+  SELECT ?item ?wstitle {
+  ?item	wdt:P1433 wd:Q16055052;	wdt:P31 wd:Q19389637 .
+  [] schema:about ?item ; schema:isPartOf <https://en.wikisource.org/> ; schema:name ?wstitle
+  }
+} as %a  
+WHERE
+{
+  INCLUDE %a
+  OPTIONAL { ?item p:P996 ?st . ?st pq:P7668 ?scanp 
+    BIND(CONCAT("[[s:Page:A Naval Biographical Dictionary.djvu/",str(?scanp), "|" , str(?scanp), "]]") as ?scan)                                
+    OPTIONAL { ?st pq:P1104 ?pn }
+    BIND(IF(?pn >= 2, CONCAT("[[s:Page:A Naval Biographical Dictionary.djvu/", str(?scanp+1), "|" , str(?scanp+1), "]]") ,"") as ?scan2)             
+  }
+  OPTIONAL { ?item wdt:P1476 ?title }
+  OPTIONAL { ?item wdt:P1680 ?stitle }
+  OPTIONAL { ?item p:P2561 [ ps:P2561 ?name ; pq:P3831 wd:Q89592285 ]  }
+  OPTIONAL { ?item wdt:P921 ?ms . 
+            ?ms rdfs:label ?msl . 
+            FILTER(lang(?msl)="en") . 
+            BIND(CONCAT("[[",strafter(str(?ms),"y/"),"\u007C",?msl,"]]") as ?mslitem) 
+           }
+}
+ORDER BY ?scanp ?pn ?title ?item

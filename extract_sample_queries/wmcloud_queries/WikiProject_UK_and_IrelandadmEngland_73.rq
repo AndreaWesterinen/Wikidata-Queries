@@ -1,0 +1,21 @@
+embed.html## Query to show the occurrence of the most common properties 
+  # on items in a particular class
+ 
+SELECT ?prop ?propLabel ?count ?sample ?sampleLabel ?value WHERE {
+    {
+        SELECT ?prop (COUNT(DISTINCT ?item) AS ?count) (SAMPLE(?item) AS ?sample) (SAMPLE(?value) AS ?value) WHERE {
+
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P31 wd:Q21561328 .
+           ?item ?p ?value .
+           ?prop wikibase:directClaim ?p .
+           
+          
+        }  GROUP BY ?prop
+    }
+           
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+
+} ORDER BY DESC (?count)

@@ -1,0 +1,14 @@
+# 
+SELECT DISTINCT ?item ?itemLabel ?termLabel ?constituencyLabel ?start ?end ?causeLabel ?noteLabel ?qualifierLabel
+where {
+  ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+  { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 } 
+  OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+  OPTIONAL { ?positionStatement pq:P4100 ?party . }
+  OPTIONAL { ?positionStatement pq:P2715 ?election . }
+  OPTIONAL { ?positionStatement pq:P1534 ?cause . }
+  OPTIONAL { ?positionStatement pq:P580 ?start . }
+  OPTIONAL { ?positionStatement pq:P582 ?end . }
+  { ?positionStatement pq:P793 ?note . } union  { ?positionStatement pq:P5102 ?qualifier . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by desc(?start) ?end

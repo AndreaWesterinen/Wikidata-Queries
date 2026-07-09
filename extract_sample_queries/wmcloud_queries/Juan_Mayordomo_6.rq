@@ -1,0 +1,20 @@
+#Países de nacionalidad comunes
+#defaultView:BubbleChart
+SELECT DISTINCT ?pais_nacionalidad ?pais_nacionalidadLabel ?enlace_pais ?count
+WHERE
+{
+  {
+    SELECT ?pais_nacionalidad (COUNT(?persona) AS ?count) WHERE {
+      ?persona wdt:P27 ?pais_nacionalidad.
+      ?enlace_persona schema:about ?persona. #La persona debe existir en la Wikipedia en español
+      ?enlace_persona schema:isPartOf <https://es.wikipedia.org/>.
+
+    }
+    GROUP BY ?pais_nacionalidad ORDER BY DESC(?count) LIMIT 400                      
+  }
+  ?pais_nacionalidad wdt:P31/wdt:P279* wd:Q6256. #elimino los países que no son realmente países
+  ?enlace_pais schema:about ?pais_nacionalidad.
+  ?enlace_pais schema:isPartOf <https://es.wikipedia.org/>.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+} 
+ORDER BY DESC(?count)

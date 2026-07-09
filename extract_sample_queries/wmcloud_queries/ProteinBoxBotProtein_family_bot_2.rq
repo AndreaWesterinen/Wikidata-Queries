@@ -1,0 +1,12 @@
+#counts of interpro items by type
+SELECT * WHERE {
+  SELECT (COUNT(?pf) AS ?protein_family) (COUNT(?pd) AS ?protein_domain) (COUNT(?as) AS ?active_site) (COUNT(?bs) AS ?binding_site) (COUNT(?cs) AS ?conserved_site) (COUNT(?ptm) AS ?PTM) (COUNT(?repeat) AS ?repeat)WHERE {
+  { ?pf	wdt:P31	wd:Q417841 }
+  UNION { ?pd	wdt:P31	wd:Q898273 }
+  UNION { ?as	wdt:P31	wd:Q423026 }
+  UNION { ?bs	wdt:P31	wd:Q616005 }
+  UNION { ?cs	wdt:P31	wd:Q7644128 }
+  UNION { ?ptm	wdt:P31	wd:Q898362 }
+  UNION { ?repeat	wdt:P31	wd:Q3273544 }
+    }
+}

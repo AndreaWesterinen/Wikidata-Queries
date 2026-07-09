@@ -1,0 +1,15 @@
+#title: P569 with dateprecision 9 or 10
+# Complex constraint from [[Property talk:P3150]]
+# Items with this property generally wouldn't have P569 with year of birth (and references of the same quality)
+SELECT ?item ?birthday ?date ?precision
+{
+	?item wdt:P3150 ?birthday .
+  	?item p:P569 ?d . 
+	?d psv:P569 ?datevalue .
+	?datevalue wikibase:timeValue ?date .
+	?datevalue wikibase:timePrecision ?precision .
+	FILTER (?precision in (9, 10))
+	?d wikibase:rank ?rank .FILTER(?rank != wikibase:DeprecatedRank)
+  	FILTER ( ?item not in ( wd:Q4115189,wd:Q13406268,wd:Q15397819 ) )
+}
+LIMIT 500

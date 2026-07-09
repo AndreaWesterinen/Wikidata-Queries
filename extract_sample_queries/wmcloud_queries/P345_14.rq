@@ -1,0 +1,13 @@
+#title: TV series episode without IMDB and without link to other episode
+# Complex constraint from [[Property talk:P345]]
+# [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] -> [[d:Q21191270|television series episode <small>(Q21191270)</small>]], but no [[Property:P345|IMDb ID&#32;<small dir="ltr">(P345)</small>]] and no link to a previous or next episode
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P31 wd:Q21191270 . 
+  MINUS {?item p:P345 [] } .
+  MINUS {?item wdt:P155 [] } .
+  MINUS {?item wdt:P156 [] } .
+  MINUS {
+    ?item wdt:P179 ?series .
+    ?series pq:P155 []
+    }
+} ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1)) LIMIT 1000

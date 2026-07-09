@@ -1,0 +1,9 @@
+ SELECT ?itemId ?taxonName ?hasRole ?hasRoleSynonymOf ?instanceSynonymOf WHERE {
+   ?itemId wdt:P31 wd:Q1040689 .
+   ?itemId wdt:P225 ?taxonName .
+   ?itemId wdt:P2868 ?hasRole .
+   ?itemId p:P2868/pq:P642/wdt:P225 ?hasRoleSynonymOf .
+   ?itemId p:P31/pq:P642/wdt:P225 ?instanceSynonymOf .
+   FILTER(?hasRoleSynonymOf = ?instanceSynonymOf)
+}
+ORDER BY ASC(?taxonName)

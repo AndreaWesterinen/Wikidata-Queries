@@ -1,0 +1,4 @@
+#title: Check postal codes in South Australia
+# Complex constraint from [[Property talk:P281]]
+#
+SELECT DISTINCT ?item ?zipCode WHERE { ?item wdt:P17 wd:Q408; wdt:P131 wd:Q35715; wdt:P281 ?zipCode. FILTER( REGEX( STR( ?zipCode ), "^(5\\d{3})$" ) = false ) . } ORDER BY ?item

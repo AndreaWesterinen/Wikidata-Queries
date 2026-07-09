@@ -1,0 +1,7 @@
+SELECT ?item ?spouse ?pq ?date ?dod {
+  VALUES ?pq { pq:P580 pq:P582 } 
+  ?item p:P26 [ ps:P26 ?spouse; ?pq ?date  ] .
+  ?item wdt:P570 ?dod .
+  FILTER( ?date > ?dod ) 
+  BIND ((?date - ?dod) AS ?delta)
+} ORDER BY DESC(?delta)

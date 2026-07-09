@@ -1,0 +1,14 @@
+# People sharing the same name .. somehow, by Jura1, 2016-08-01
+SELECT 
+	?gnLabel ?gn2Label 
+	?item ?itemLabel ?itemDescription 
+	?item2 ?item2Label ?item2Description 
+{
+  	?item wdt:P735 ?gn 	; wdt:P734 ?fn .   	
+  	?gn wdt:P1533 ?fn2 .
+  	?item2 wdt:P734 ?fn2 ; wdt:P735 ?gn2 .	
+  	?gn2 wdt:P1533 ?fn
+	FILTER ( str(?item) < str(?item2) )         
+  	SERVICE wikibase:label {  bd:serviceParam wikibase:language "en" .}
+}
+ORDER BY ?gnLabel ?gn2Label

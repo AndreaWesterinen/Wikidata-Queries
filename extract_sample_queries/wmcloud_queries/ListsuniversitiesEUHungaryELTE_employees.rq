@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?dobyear ?dodyear ?sl WHERE {
+  ?item wdt:P108/wdt:P361? wd:Q390287; wdt:P31 wd:Q5; wikibase:sitelinks ?sl .
+  OPTIONAL {
+    ?item wdt:P569 ?dob .
+    BIND(YEAR(?dob) AS ?dobyear) .
+  }
+  OPTIONAL {
+    ?item wdt:P570 ?dod .
+    BIND(YEAR(?dod) AS ?dodyear) .
+  }
+}

@@ -1,0 +1,7 @@
+#title: Check qualifier
+# Complex constraint from [[Property talk:P8889]]
+# P2676 qualifier must meet regex "<tt></tt>"
+SELECT ?item ?ID {
+  ?item p:P8889 [ pq:P2676 ?ID ] .
+  FILTER( ! REGEX(  ?ID , "^(P\\-(MP|SR|RF|TV|OM)\\-20[12]\\d\\-\\d{6}|)$" ) )
+}

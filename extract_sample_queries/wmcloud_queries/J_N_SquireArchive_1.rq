@@ -1,0 +1,16 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX value: <http://www.wikidata.org/prop/statement/value/>
+
+SELECT ?item ?itemLabel ?p ?pLabel WHERE {
+VALUES ?p {wd:Q111 wd:Q405 wd:Q313 wd:Q308 wd:Q3169 wd:Q3134 wd:Q3123 wd:Q3143 wd:Q2565}   # mars, moon, venus, mercury, ganymede, callisto, io, europa, titan
+?item wdt:P376 ?p .
+?item p:P625 ?coordStatement .
+?coordStatement value:P625 ?coordValue .
+?coordValue wikibase:geoGlobe wd:Q2 .
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+}

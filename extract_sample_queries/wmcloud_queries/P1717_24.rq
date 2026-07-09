@@ -1,0 +1,11 @@
+#title: Check countries
+# Complex constraint from [[Property talk:P1717]]
+#
+SELECT ?item WHERE { 
+  ?item wdt:P1717 [].
+  ?item wdt:P17 ?country .
+  FILTER (?item NOT IN (wd:Q584, wd:Q1369002)).
+  FILTER (?country NOT IN (wd:Q142, wd:Q55)).
+  FILTER (?country NOT IN (wd:Q29, wd:Q31, wd:Q32, wd:Q38, wd:Q39, wd:Q155, wd:Q183, wd:Q228, wd:Q235, wd:Q717, wd:Q730, wd:Q13116, wd:Q25227,
+          wd:Q29999, wd:Q138837, wd:Q153943, wd:Q2290328)).
+} ORDER BY ?item

@@ -1,0 +1,8 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31 ?type .
+VALUES ?type { wd:Q106078286 wd:Q29946056 wd:Q106079704 wd:Q24764 }
+  MINUS { ?entity wdt:P576 [] }
+  MINUS { ?entity wdt:P1366 [] }
+  MINUS { ?entity p:P31 ?p.
+            ?p ps:P31 wd:Q24764; pq:P580 ?start .
+            FILTER NOT EXISTS { ?p pq:P582 []}
+    }.}

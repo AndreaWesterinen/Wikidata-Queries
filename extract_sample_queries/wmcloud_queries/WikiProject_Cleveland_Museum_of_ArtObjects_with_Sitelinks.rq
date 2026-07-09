@@ -1,0 +1,9 @@
+SELECT ?item ?linkcount
+WHERE
+{
+  ?item wdt:P195 wd:Q657415 .
+  ?item wikibase:sitelinks ?linkcount .
+  FILTER (?linkcount > 0)
+}
+GROUP BY ?item ?linkcount
+ORDER BY DESC(?linkcount)

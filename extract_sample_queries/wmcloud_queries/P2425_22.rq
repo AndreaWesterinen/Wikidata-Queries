@@ -1,0 +1,10 @@
+#title: Missing person who having this service ribbon
+# Complex constraint from [[Property talk:P2425]]
+#
+SELECT ?item ?number {
+	?item wdt:P2425 [].
+	?item wdt:P1114 ?number.
+    FILTER NOT EXISTS {
+      ?humain wdt:P166 ?item.
+    }
+}

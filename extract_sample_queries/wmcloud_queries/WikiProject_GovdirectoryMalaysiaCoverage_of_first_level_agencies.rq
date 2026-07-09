@@ -1,0 +1,10 @@
+SELECT ?entity ?entityLabel ?entityDescription ?st ?sl ?ids
+WHERE
+{
+  ?entity wdt:P31 ?type .
+VALUES ?type { wd:Q15063586 wd:Q1008803 }
+  ?entity wdt:P31 ?type. 
+  # MINUS { ?entity wdt:   [] }
+  OPTIONAL { ?entity wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } 
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?height ?width WHERE {
+  ?item wdt:P195 wd:Q3044768 ;
+        wdt:P2048 ?height ;
+        wdt:P2049 ?width .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?ratio  

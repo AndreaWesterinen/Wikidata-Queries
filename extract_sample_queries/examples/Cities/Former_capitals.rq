@@ -1,3 +1,4 @@
+#title: Former capitals
 #defaultView:Map
 SELECT DISTINCT ?country ?countryLabel ?capital ?capitalLabel ?coordinates ?ended
 WHERE

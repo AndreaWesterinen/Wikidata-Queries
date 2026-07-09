@@ -1,0 +1,9 @@
+#title: Check IDs in Illinois
+# Complex constraint from [[Property talk:P7801]]
+#
+SELECT ?item ?id ?prefix ?loc {
+	?item wdt:P7801 ?id.
+  BIND (SUBSTR(?id, 1, 2) AS ?prefix).
+  FILTER (?prefix = "14")
+  FILTER NOT EXISTS { ?item wdt:P131* wd:Q1204 }
+}

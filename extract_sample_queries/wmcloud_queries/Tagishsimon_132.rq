@@ -1,0 +1,5 @@
+SELECT ?statements (count(*) as ?countz)
+WHERE 
+{
+?item wikibase:statements ?statements
+  } group by ?statements order by desc(?countz)

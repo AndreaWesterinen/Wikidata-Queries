@@ -1,0 +1,2 @@
+#title:Add new claim P360:Q11424
+SELECT DISTINCT ?item WHERE { ?person wdt:P1283 ?item . ?item wdt:P31 wd:Q1371849 . MINUS { ?item wdt:P360 wd:Q11424 } }

@@ -1,0 +1,8 @@
+SELECT ?id ?idLabel ?published
+WHERE
+{
+  ?id wdt:P136 wd:Q83440;
+       wdt:P577 ?published.
+  FILTER(YEAR(?published) = 1971).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}

@@ -1,0 +1,10 @@
+#title: Check start date qualifier with baptism date
+# Complex constraint from [[Property talk:P138]]
+#
+SELECT ?item {
+  ?item p:P138 [ps:P138 ?named;
+                pq:P580 ?starttime;
+               ].
+  ?named wdt:P1636 ?baptismDate.
+  FILTER (?starttime < ?baptismDate).
+}

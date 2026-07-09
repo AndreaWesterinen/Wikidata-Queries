@@ -1,0 +1,5 @@
+SELECT ?a ?aLabel (count(distinct ?item) as ?count)
+WHERE {
+  ?a wdt:P279* wd:Q2401485 . ?item wdt:P31 ?a .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+ } group by ?a ?aLabel order by desc(?count)

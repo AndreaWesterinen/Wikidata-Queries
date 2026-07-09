@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?mun ?prov ?munLabel ?provLabel ?id WHERE {
+  ?item wdt:P772 ?id .
+  ?item wdt:P131 ?mun .
+  ?mun wdt:P131 ?prov .
+  FILTER(STRLEN(?id) = 11) .
+  FILTER(SUBSTR(?id,10,2)="00")        # 10th-11th digits must be 00
+  FILTER(SUBSTR(?id,8,1)!="0"

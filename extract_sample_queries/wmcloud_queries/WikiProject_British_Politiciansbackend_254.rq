@@ -1,0 +1,10 @@
+# Terms marked as ending on dissolution, but on the wrong day
+SELECT DISTINCT ?item ?itemLabel ?positionLabel ?dissolution ?end  WHERE {
+ ?position wdt:P279 wd:Q16707842 . # position is a UK MP
+ ?item p:P39 ?statement. # person holds a position
+ ?statement ps:P39 ?position ; pq:P582 ?end . # with an end date
+ ?statement pq:P1534 wd:Q741182 . # end cause is dissolution
+ ?position wdt:P576 ?dissolution . # that end date is the dissolution date
+ filter ( ?end != ?dissolution ) . # but they're not the same
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

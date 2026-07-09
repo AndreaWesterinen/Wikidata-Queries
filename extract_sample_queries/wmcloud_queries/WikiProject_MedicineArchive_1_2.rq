@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+  { ?item wdt:P31*/wdt:P279* wd:Q11190 }
+  UNION  {
+    ?item wdt:P31*/wdt:P279* wd:Q12136 .
+  }
+  UNION {
+    ?item wdt:P31*/wdt:P279* wd:Q796194 .
+  }
+  UNION {
+    ?item wdt:P31*/wdt:P279* wd:Q12140 .
+  }
+  FILTER NOT exists { ?item rdfs:label ?label filter (lang(?label) = "fr") } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

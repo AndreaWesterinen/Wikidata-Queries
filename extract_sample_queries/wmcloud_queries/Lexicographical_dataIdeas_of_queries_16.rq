@@ -1,0 +1,4 @@
+SELECT ?languageCode (COUNT(?form) AS ?count) WHERE {
+  ?form ontolex:representation ?representation .
+  BIND(LANG(?representation) AS ?languageCode)
+} GROUP BY ?languageCode ORDER BY DESC(COUNT(?form))

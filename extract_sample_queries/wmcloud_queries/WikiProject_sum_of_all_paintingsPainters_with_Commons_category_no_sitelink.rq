@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item (CONCAT("[[:Commons:Category:", ?commonscategory, "|Category:", ?commonscategory, "]]") AS ?commonslink) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 ?item . 
+  ?item wdt:P106 wd:Q1028181 .
+  ?item wdt:P373 ?commonscategory .
+  MINUS { ?commonslink schema:about ?item . ?commonslink schema:isPartOf <https://commons.wikimedia.org/> . } 
+  MINUS { ?item wdt:P910 [] } 
+  FILTER NOT EXISTS { ?item2 wdt:P373 ?commonscategory . FILTER(?item!=?item2) }
+  } LIMIT 2500

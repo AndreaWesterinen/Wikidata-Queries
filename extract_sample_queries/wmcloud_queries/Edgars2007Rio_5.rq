@@ -1,0 +1,10 @@
+select ?item ?itemLabel where {
+  values ?item {wd:Q11867265 wd:Q18193712 wd:Q11894661 wd:Q17759500 wd:Q11884985 wd:Q19706972 wd:Q11889336 wd:Q11899349 wd:Q18020555
+                wd:Q15284197 wd:Q8316719 wd:Q11865693 wd:Q5580624 wd:Q11901844 wd:Q11874157 wd:Q11867321 wd:Q11884970 wd:Q11894270
+                wd:Q7378331 wd:Q7400384 wd:Q18020584 wd:Q8022145
+                wd:Q11896072 wd:Q5392247 wd:Q19710306 wd:Q5377427 wd:Q18416810 wd:Q18395722 wd:Q16523790 wd:Q18564445 wd:Q11886402 }
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+  
+  }

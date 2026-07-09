@@ -1,0 +1,5 @@
+SELECT (COUNT(DISTINCT(?item)) AS ?cnt) {  
+  ?type wdt:P279* wd:Q7302866 .
+  ?item wdt:P31 ?type .
+  ?item wdt:P2550/wdt:P407 wd:Q22282939
+}

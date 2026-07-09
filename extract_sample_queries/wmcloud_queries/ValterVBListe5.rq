@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q4830453.
+  ?item rdfs:label ?EngLab . FILTER(LANG(?EngLab) = "en").
+  OPTIONAL {?item rdfs:label ?lab2 . FILTER(LANG(?lab2) = "it").}
+  FILTER(!BOUND(?lab2))
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+  } LIMIT 1500

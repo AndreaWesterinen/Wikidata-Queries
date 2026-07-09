@@ -1,0 +1,15 @@
+#defaultView:Map{"hide":["?location"]}
+SELECT DISTINCT ?uboat ?uboatLabel (SAMPLE(?location) AS ?location) (SAMPLE(?date) AS ?date) ?layer
+WHERE
+{
+  ?uboat wdt:P31 wd:Q428661 ; # ist ein Weltkriegs-U-Boot
+         wdt:P137 wd:Q151701 ; # Betreiber ist Kriegsmarine
+         p:P793 ?event . # hat ein Schlüsselereignis…
+  ?event ps:P793 wd:Q30880545 ; # …vom Typ Versenkung…
+         pq:P585 ?date ; # …mit dem Zeitpunkt…
+         pq:P625 ?location . # …und den Koordinaten
+  FILTER("1939-09-01"^^xsd:dateTime <= ?date && ?date < "1945-05-08"^^xsd:dateTime). # Zeitraum festlegen
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". }
+}
+GROUP BY ?uboat ?uboatLabel ?date ?layer

@@ -1,0 +1,20 @@
+SELECT 
+?item ?itemLabel (GROUP_CONCAT(DISTINCT ?title; separator=", ") AS ?titles) (MIN(YEAR(?date)) AS ?year)
+(GROUP_CONCAT(DISTINCT ?director_label; separator=", ") AS ?directors)
+ (GROUP_CONCAT(DISTINCT ?writer_label; separator=", ") AS ?writers)
+    (GROUP_CONCAT(DISTINCT ?producer_label; separator=", ") AS ?producers)
+     (GROUP_CONCAT(DISTINCT ?actor_label; separator=", ") AS ?actors)
+                                                                    
+WHERE {
+    VALUES ?list {wd:Q105406968 wd:Q95415779 wd:Q77855044}
+    ?item wdt:P1343 ?list; wdt:P31/wdt:P279* wd:Q2431196.
+    OPTIONAL{?item wdt:P1476 ?title}
+    OPTIONAL{{?item wdt:P577 ?date} UNION {?item wdt:P580 ?date}}
+    OPTIONAL{?item wdt:P57 ?director. ?director rdfs:label ?director_label. FILTER(LANG(?director_label)="en")}
+    OPTIONAL{?item wdt:P58 ?writer. ?writer rdfs:label ?writer_label. FILTER(LANG(?writer_label)="en")}
+    OPTIONAL{?item wdt:P162 ?producer. ?producer rdfs:label ?producer_label. FILTER(LANG(?producer_label)="en")}
+    OPTIONAL{{?item wdt:P161 ?actor} UNION {?item wdt:P725 ?actor}. ?actor rdfs:label ?actor_label. FILTER(LANG(?actor_label)="en")}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY ?year

@@ -1,0 +1,12 @@
+SELECT ?item  ?id_NPCA ?NPS ?National_Park_Foundation_ID ?National_Natural_Landmarks ?National_Forest_Foundation_ID ?eParks?Recreation_gov_area_ID ?identificador_Rivers_gov ?identificador_NPS WHERE {
+  ?item wdt:P3515 ?id_NPCA.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca,en". }
+  OPTIONAL { ?item wdt:P4182 ?National_Natural_Landmarks. }
+  OPTIONAL { ?item wdt:P4154 ?National_Forest_Foundation_ID. }
+  OPTIONAL { ?item wdt:P4170 ?eParks. }
+  OPTIONAL { ?item wdt:P3516 ?National_Park_Foundation_ID. }
+  OPTIONAL { ?item wdt:P3609 ?Recreation_gov_area_ID. }
+  OPTIONAL { ?item wdt:P4190 ?identificador_Rivers_gov. }
+  OPTIONAL { ?item wdt:P4083 ?NPS. }
+}
+LIMIT 30000

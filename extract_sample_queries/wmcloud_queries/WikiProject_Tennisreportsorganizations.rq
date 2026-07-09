@@ -1,0 +1,10 @@
+SELECT ?item ?instanceofLabel ?itemLabel ?st ?sl ?id
+{
+    ?item wdt:P641 wd:Q847 .
+    ?item wdt:P31/wdt:P279* wd:Q43229 .
+    OPTIONAL { ?item wikibase:statements ?st; wikibase:sitelinks ?sl; wikibase:identifiers ?id }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it,fr". }
+    OPTIONAL { ?item wdt:P31 ?instanceof }
+}
+ORDER BY ?instanceofLabel ?itemLabel ?item 
+LIMIT 2500

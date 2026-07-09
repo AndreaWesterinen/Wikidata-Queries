@@ -1,0 +1,8 @@
+embed.html#SELECT ?ETartist ?ETartistLabel ?workLocation ?workLocationLabel ?coordinates
+WHERE {
+  #item property value.
+  ?ETartist wdt:P5008 wd:Q104822025. #on focus list of Wikimedia project - WikiProject PCC Wikidata Pilot/National Gallery of Art Library 
+  ?ETartist wdt:P937 ?workLocation.
+  ?workLocation wdt:P625 ?coordinates.
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

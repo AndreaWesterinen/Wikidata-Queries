@@ -1,0 +1,13 @@
+#Organizations of the Balearic Islands by type
+#defaultView:BubbleChart
+SELECT DISTINCT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+    ?org wdt:P131* wd:Q5765.
+    ?org wdt:P31*/wdt:P279* wd:Q43229.
+	?org wdt:P31 ?name .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

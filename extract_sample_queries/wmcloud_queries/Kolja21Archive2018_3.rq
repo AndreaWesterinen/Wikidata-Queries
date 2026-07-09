@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?gnd ?separator ?separatorValue WHERE {
+  BIND(wd:P106 AS ?separator) .
+  ?separator wikibase:qualifier ?pq .
+  ?item p:P227 [ ps:P227 ?gnd; ?pq ?separatorValue ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en,de' }
+} ORDER BY ?itemLabel

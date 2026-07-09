@@ -1,0 +1,8 @@
+SELECT ?item ?value ( wikibase:decodeUri(?value) as ?new )
+{
+  hint:Query hint:optimizer "None" .
+  ?st ps:P3782 ?value.
+  FILTER( regex(?value, "%")  )
+  ?item p:P3782 ?st 
+  FILTER( wikibase:decodeUri(?value) != ?value ) 
+}

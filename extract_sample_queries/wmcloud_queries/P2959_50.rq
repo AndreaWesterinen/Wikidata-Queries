@@ -1,0 +1,2 @@
+#title:Add inverse statements from P2959
+SELECT DISTINCT ?item { ?item wdt:P2959 ?value . MINUS { ?value wdt:P2959 [] } . ?value wdt:P31 wd:Q21286738 . MINUS { ?item p:P31/ps:P31 wd:Q21286738 } . }

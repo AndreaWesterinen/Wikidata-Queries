@@ -1,0 +1,71 @@
+#Sample of scientific articles missing description in any language
+SELECT distinct ?item ?itemLabel
+WHERE 
+{
+  SERVICE bd:sample {
+    ?item wdt:P31 wd:Q13442814.
+    bd:serviceParam bd:sample.limit 90000
+  }
+  ?item rdfs:label ?label.
+  minus {
+    ?item schema:description [].
+  }
+  filter(!regex(lcase(str(?label)), "correction*")). 
+  filter(!regex(lcase(str(?label)), "author*")). 
+  filter(!regex(lcase(str(?label)), "obitu*")). 
+  filter(!regex(lcase(str(?label)), "editor*")). 
+  filter(!regex(lcase(str(?label)), "review*")). 
+  filter(!regex(lcase(str(?label)), "abstract*")). 
+  filter(!regex(lcase(str(?label)), "journal*")).
+  filter(!regex(lcase(str(?label)), "review*")).
+  filter(!regex(lcase(str(?label)), "question*")).
+  filter(!regex(lcase(str(?label)), "bibliography*")).
+  filter(!regex(lcase(str(?label)), "notice*")).
+  filter(!regex(lcase(str(?label)), "corrig*")).
+  filter(!regex(lcase(str(?label)), "corresp*")).
+  filter(!regex(lcase(str(?label)), "discussion*")).
+  filter(!regex(lcase(str(?label)), "engl*")).
+  filter(!regex(lcase(str(?label)), "wales*")).
+  filter(!regex(lcase(str(?label)), "book*")).
+  filter(!regex(lcase(str(?label)), "digest*")).
+  filter(!regex(lcase(str(?label)), "notice*")).
+  filter(!regex(lcase(str(?label)), "issue*")).
+  filter(!regex(lcase(str(?label)), "erra*")).
+  filter(!regex(lcase(str(?label)), "comme*")).
+  filter(!regex(lcase(str(?label)), "respo*")).
+  filter(!regex(lcase(str(?label)), "note*")).
+  filter(!regex(lcase(str(?label)), "repl*")).
+  filter(!regex(lcase(str(?label)), "report*")).
+  filter(!regex(lcase(str(?label)), "letter*")).
+  filter(!regex(lcase(str(?label)), "news*")).
+  filter(!regex(lcase(str(?label)), "science*")).
+  filter(!regex(lcase(str(?label)), "medical*")).
+  filter(!regex(lcase(str(?label)), "association*")).
+  filter(!regex(lcase(str(?label)), "topic*")).
+  filter(!regex(lcase(str(?label)), "memoriam*")).
+  filter(!regex(lcase(str(?label)), "introdu*")).
+  filter(!regex(lcase(str(?label)), "alumn*")).
+  filter(!regex(lcase(str(?label)), "ireland*")).
+  filter(!regex(lcase(str(?label)), "scotland*")).
+  filter(!regex(lcase(str(?label)), "india*")).
+  filter(!regex(lcase(str(?label)), "article*")).
+  filter(!regex(lcase(str(?label)), "medico*")).
+  filter(!regex(lcase(str(?label)), "university*")).
+  filter(!regex(lcase(str(?label)), "editor*")).
+  filter(!regex(lcase(str(?label)), "minerva*")).
+  filter(!regex(lcase(str(?label)), "preface*")).
+  filter(!regex(lcase(str(?label)), "deaths*")).
+  filter(!regex(lcase(str(?label)), "personal view*")).
+  filter(!regex(lcase(str(?label)), "foreword*")).
+  filter(!regex(lcase(str(?label)), "contents page*")).
+  filter(!regex(lcase(str(?label)), "brief*")).
+  filter(!regex(lcase(str(?label)), "services*")).
+  filter(!regex(lcase(str(?label)), "announc*")).
+  filter(!regex(lcase(str(?label)), "answers*")).
+  filter(!regex(lcase(str(?label)), "asia*")).
+  
+  filter(!contains(str(?label), "[")). 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+limit 1000

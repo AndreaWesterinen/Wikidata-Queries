@@ -1,0 +1,7 @@
+#title: Missing P27 with value Russia
+# Complex constraint from [[Property talk:P27]]
+#
+SELECT DISTINCT ?item {
+  ?item wdt:P166 wd:Q2011676.
+  FILTER NOT EXISTS { ?item wdt:P27 wd:Q159 }.
+}

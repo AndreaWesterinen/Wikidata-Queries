@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?NATURA2000 ?Common_Database_on_Designated_Areas_ID WHERE {
+  ?item wdt:P3425 ?NATURA2000.
+  ?item wdt:P17 wd:Q28.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P4762 ?Common_Database_on_Designated_Areas_ID. }
+}
+ORDER BY ?WDPA

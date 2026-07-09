@@ -1,0 +1,11 @@
+SELECT ?item (COUNT(?collectie) AS ?collectieCount) {
+  ?item wdt:P6379 ?collectie.
+  ?item wdt:P31 wd:Q5.
+  ?collectie wdt:P17 wd:Q55.
+  FILTER NOT EXISTS {
+    ?item wdt:P7763 [].
+  }
+}
+GROUP BY ?item
+HAVING (?collectieCount > 5)
+ORDER BY DESC (?collectieCount)

@@ -1,3 +1,4 @@
+#title: Works of art where the name might be a rhyme
 SELECT ?work ?title
 WHERE
 {

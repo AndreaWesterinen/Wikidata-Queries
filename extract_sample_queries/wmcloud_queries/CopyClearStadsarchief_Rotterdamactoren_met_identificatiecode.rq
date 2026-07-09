@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?andereCollecties ?RKD_url ?id_url WHERE {
+  ?item wdt:P7425 ?stadsId.
+  OPTIONAL { ?item wdt:P650 ?RKDid. }
+   BIND(IRI(CONCAT('https://rkd.nl/nl/explore/artists/',?RKDid)) AS ?RKD_url)
+  BIND(IRI(CONCAT('https://collecties.stadsarchief.rotterdam.nl/detail.php?id=',?stadsId)) AS ?id_url)
+  OPTIONAL { ?item wdt:P6379 ?collecties}
+  BIND(?collecties =  wd:Q3912134 AS ?eigencollectie).
+  BIND(IF(?eigencollectie,"", ?collecties) AS ?andereCollecties).
+}

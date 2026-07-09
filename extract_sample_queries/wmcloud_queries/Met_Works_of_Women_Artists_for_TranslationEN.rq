@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item (CONCAT("\u007b\u007bWikidata translate|", STR(?itemId), "|lang=en\u007d\u007d") as ?translate) ?artist WHERE { 
+  ?item wdt:P170 ?artist ; wdt:P195 wd:Q160236.
+  ?artist wdt:P21 wd:Q6581072.
+  ?article schema:about ?item. FILTER CONTAINS(STR(?article), ".wikipedia.org/wiki/")
+  MINUS { ?wen schema:about ?item. ?wen schema:inLanguage "en". ?wen schema:isPartOf <https://en.wikipedia.org/>. }
+  BIND(CONCAT("[http://www.metmuseum.org/art/collection/search/", ?METobjID, " ", ?num, "]") as ?METurl)
+  BIND(REPLACE(STR(?item), STR(wd:), "", "i") as ?itemId)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

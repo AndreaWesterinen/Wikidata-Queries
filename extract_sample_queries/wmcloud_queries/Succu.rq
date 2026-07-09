@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?id  {
+  #VALUES ?taxrefVersion {wd:Q79844869 wd:Q58035056 wd:Q45029998 wd:Q45029859 wd:Q26936509} . # V13.0 .. 9.0
+  ?item p:P3186/ps:P3186 ?id .
+  ?item p:P3186 ?idStatement .
+  ?idStatement prov:wasDerivedFrom/pr:P248 wd:Q79844869 .
+  #MINUS {?idStatement prov:wasDerivedFrom/pr:P248 wd:Q58035056} .
+}
+ORDER BY ASC(xsd:integer(?id))

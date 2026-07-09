@@ -1,0 +1,5 @@
+SELECT ?item ?ilhi ?ilta (CONCAT("<","score sound='1'>",?ar,"</score>") as ?arohana) (CONCAT("<","score sound='1'>",?av,"</score>") as ?avarohana) {
+  ?item wdt:P31/wdt:P279* wd:Q216926 ; wdt:P7598 ?ar ; wdt:P7599 ?av .
+  OPTIONAL { ?item rdfs:label ?ilhi. FILTER(LANG(?ilhi)="hi") }
+  OPTIONAL { ?item rdfs:label ?ilta. FILTER(LANG(?ilta)="ta") }
+}

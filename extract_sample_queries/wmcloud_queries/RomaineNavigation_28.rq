@@ -1,0 +1,11 @@
+SELECT ?author ?authorLabel ?country_of_citizenship ?country_of_citizenshipLabel WHERE {
+  ?author wdt:P31 wd:Q5;
+    wdt:P106 wd:Q482980;
+    wdt:P27 _:b1.
+  _:b1 wdt:P463 wd:Q458.
+  ?author wdt:P570 ?died.
+  FILTER((YEAR(?died)) = ((YEAR(NOW())) - 71 ))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?author wdt:P27 ?country_of_citizenship. }
+}
+ORDER BY (?authorLabel)

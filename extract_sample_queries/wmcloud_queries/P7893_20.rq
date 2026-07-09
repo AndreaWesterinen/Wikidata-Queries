@@ -1,0 +1,19 @@
+#title: Occupations not listed on the site "CIÊNCIAVITAE"
+# Complex constraint from [[Property talk:P7893]]
+# Scientist with a suitable [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]]
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P7893 [] .
+  ?item wdt:P106 [] .
+  ?item wdt:P31 wd:Q5 .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q5322166} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q42973} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q901} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q1650915} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q11974939} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q974144} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q36180} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q16727193} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q13582652} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q81096} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,pt" }
+} ORDER BY ?itemLabel

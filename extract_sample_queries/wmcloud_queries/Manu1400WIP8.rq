@@ -1,0 +1,22 @@
+SELECT ?item ?itemDescription {
+  ?item wdt:P119 wd:Q216344;
+        wdt:P21 wd:Q6581097;
+        wdt:P31 wd:Q5.
+  
+  MINUS {
+     ?item p:P119 ?statement.
+     ?statement prov:wasDerivedFrom ?refnode.
+     ?refnode   pr:P854 []. # URL de la ref
+  }
+  
+  MINUS {
+    VALUES ?compagny { wd:Q37230 wd:Q148554 wd:Q658626 wd:Q8333 wd:Q9212 }. # job at CIA
+    ?item wdt:P108 ?compagny.
+  }
+  
+  # TODO: check date de début "de toutes les guerres américaines depuis la Révolution américaine"
+  MINUS { ?item wdt:P607/wdt:P710 wd:Q30 }
+  MINUS { ?item wdt:P607 wd:Q362 } # World War II
+  MINUS { ?item wdt:P607 wd:Q361 } # World War I
+  
+  MINUS { ?item (wdt:P22

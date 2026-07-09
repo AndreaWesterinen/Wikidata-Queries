@@ -1,0 +1,34 @@
+#title: MEXT School Code
+# Complex constraint from [[Property talk:P11127]]
+# MEXT School Code that have wrong checksum [https://www.mext.go.jp/content/20210128-mxt_chousa01-000011635_01.pdf]
+SELECT ?item ?value
+  {       { ?item      wdt:P11127          ?value
+          }
+    UNION { ?statement pq:P11127           ?value
+          . ?item      ?p                  ?statement
+          . ?prop      wikibase:claim      ?p
+          }
+    UNION { ?ref       pr:P11127           ?value
+          . ?statement prov:wasDerivedFrom ?ref
+          . ?item      ?p                  ?statement
+          . ?prop      wikibase:claim      ?p
+          }
+  . FILTER( STRLEN(?value) = 13 )
+  . BIND(xsd:string(STRLEN(STRBEFORE("@ABCDEFGHIJKLMNOPQRSTUVWXYZ", SUBSTR(?value, 1 , 1 )))) AS ?digit1)
+  . BIND(
+      STRLEN(STRBEFORE("0516273849", SUBSTR(?digit1, STRLEN(?digit1), 1))) +
+      xsd:integer(SUBSTR(?value,  2, 1)) +
+      STRLEN(STRBEFORE("0516273849", SUBSTR(?value,  3, 1 ))) +
+      xsd:integer(SUBSTR(?value,  4, 1)) +
+      STRLEN(STRBEFORE("0516273849", SUBSTR(?value,  5, 1 ))) +
+      xsd:integer(SUBSTR(?value,  6, 1)) +
+      STRLEN(STRBEFORE("0516273849", SUBSTR(?value,  7, 1 ))) +
+      xsd:integer(SUBSTR(?value,  8, 1)) +
+      STRLEN(STRBEFORE("0516273849", SUBSTR(?value,  9, 1 ))) +
+      xsd:integer(SUBSTR(?value, 10, 1)) +
+      STRLEN(STRBEFORE("0516273849", SUBSTR(?value, 11, 1 ))) +
+      xsd:integer(SUBSTR(?value, 12, 1)) +
+      xsd:integer(SUBSTR(?value, 13, 1)) AS ?checksum)
+  . FILTER( FLOOR(?checksum / 10) != (?checksum / 10) )
+  }
+  ORDER BY ?value

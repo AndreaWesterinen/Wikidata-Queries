@@ -1,0 +1,11 @@
+#Skip med oppslag på en.wiki
+SELECT ?skip ?skipLabel ?imo ?article WHERE {
+
+    ?skip wdt:P31 wd:Q11446 . 
+    ?article schema:about ?skip .
+    ?article schema:isPartOf <https://en.wikipedia.org/>.
+
+    SERVICE wikibase:label {
+       bd:serviceParam wikibase:language "en"
+    }
+}

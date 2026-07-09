@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?inv ?creator ?creatorLabel ?date_de_mort (year(?date_de_mort)+70 as ?dm70)  ?inception ?image   WHERE {
+  ?item wdt:P195 wd:Q1952944.
+  ?item wdt:P31 wd:Q3305213.
+  ?item wdt:P170 ?creator.
+  OPTIONAL { ?item wdt:P217 ?inv. }
+  OPTIONAL { ?item wdt:P571 ?inception. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?creator wdt:P570 ?date_de_mort. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en,de". }
+  FILTER(!BOUND(?image))
+}
+ ORDER BY ASC(?dm70)

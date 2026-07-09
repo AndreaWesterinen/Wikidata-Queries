@@ -1,0 +1,34 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+#Step4: add new labels based on series name and ordinal of season (for English/adapt for other languages)
+#by Jura1 Dec 31, 2015
+
+
+SELECT ?season ?seasonLabel ?series ?seriesLabel ?ordinal (CONCAT('"', ?seriesLabel, " season ", ?ordinal,'"') As ?NewLabel) ?WParticle
+WHERE 
+{
+       #hint:Query hint:optimizer "None" . 
+	?season wdt:P31 wd:Q3464665 . 
+    ?sitelink <http://schema.org/about> ?season . 
+    ?season wdt:P31 ?instance
+  	FILTER(SUBSTR(str(?sitelink), 1, 30) = "https://en.wikipedia.org/wiki/")
+    BIND(REPLACE(Str(?sitelink), "https://en.wikipedia.org/wiki/", "") As ?WP)
+    BIND(REPLACE(?WP, "%20", " ") As ?WP1)
+    BIND(REPLACE(?WP1, "%28", " ") As ?WP2)
+    BIND(REPLACE(?WP2, "%29", " ") As ?WParticle)
+            
+    #?season wdt:P179 ?series
+
+    ?statement v:P179 ?series . ?season p:P179 ?statement .  ?statement ?pq_qual ?ordinal . wd:P1545 wikibase:qualifier ?pq_qual . 
+  	SERVICE wikibase:label {
+    	bd:serviceParam wikibase:language "en" .
+    	#?season rdfs:label ?seasonLabel .
+  	}
+}
+ORDER BY ?seasonLabel
+LIMIT 10000

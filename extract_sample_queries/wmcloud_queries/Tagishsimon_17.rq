@@ -1,0 +1,11 @@
+SELECT distinct ?item  ?itemLabel ?itemDescription ?dirLabel (min(year(?date)) as ?year) with {select distinct ?item WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q11424.
+  } } as %i
+where 
+{include %i
+ optional {?item wdt:P577 ?date .}
+ ?item rdfs:label ?itemLabel. filter(lang(?itemLabel)="en")
+ optional {?item schema:description ?itemDescription. filter(lang(?itemDescription)="en")}
+ optional {?item wdt:P57 ?dir .   optional {?dir rdfs:label ?dirLabel. filter(lang(?dirLabel)="en")}   }
+} group by ?item  ?itemLabel ?itemDescription ?dirLabel

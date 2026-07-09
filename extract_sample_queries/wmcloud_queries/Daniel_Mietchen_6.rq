@@ -1,0 +1,39 @@
+SELECT DISTINCT
+(CONCAT(
+ENCODE_FOR_URI(REPLACE(STR(?i), ".*Q", "Q")), "|P921|", ENCODE_FOR_URI(REPLACE(STR(?ta), ".*Q", "Q")), "|P1932|", (CONCAT("\"", ?n, "\"")), "|S887|Q69652283") AS ?QuickStatements)
+WITH {
+SELECT DISTINCT ?ta ?n ?g WHERE {
+  wd:Q101294857  wdt:P921 ?ta.
+  ?ta wdt:P225 ?t .
+  BIND(CONCAT(SUBSTR(?t, 1, 1), ". ", STRAFTER(?t, " ")) AS ?n)
+  BIND(STRBEFORE(?t, " ") AS ?g)
+}
+}
+AS %taxa
+WITH
+{ SELECT ?i ?n ?ta ?ti WHERE {
+INCLUDE %taxa
+SERVICE wikibase:mwapi
+{
+bd:serviceParam wikibase:endpoint "www.wikidata.org";
+wikibase:api "Generator";
+mwapi:generator "search";
+mwapi:gsrsearch ?g ;
+mwapi:gsrlimit "max".
+?i wikibase:apiOutputItem mwapi:title.
+}
+?i wdt:P1476 ?ti .
+MINUS {?i wdt:P921 ?ta }
+MINUS {?i wdt:P921 [wdt:P171* ?ta ] } 
+FILTER (REGEX(LCASE(?ti), LCASE(CONCAT( "\\", "b", ?n ,"\\", "b"))))
+FILTER (!REGEX(LCASE(?ti), LCASE(CONCAT( ?n ,"-"))))
+FILTER (!REGEX(LCASE(?ti), LCASE(CONCAT( ?n ,"(.)virus"))))
+# FILTER (!REGEX(LCASE(?ti), LCASE(CONCAT( "pseudo(.?)", ?n))))
+}
+}
+AS %items
+WHERE {
+INCLUDE %items
+INCLUDE %taxa
+# BIND (SUBSTR(?ti, STRLEN(STRBEFORE(REPLACE(?ti, ?n, "===HELP_STRING===", "i"), "===HELP_STRING===")) +1, STRLEN(?n)) AS ?a)
+} # ...

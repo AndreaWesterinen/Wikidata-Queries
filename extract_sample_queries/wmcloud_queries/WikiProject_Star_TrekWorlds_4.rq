@@ -1,0 +1,14 @@
+SELECT ?item ?ma ?mb WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q57083319.
+  OPTIONAL {
+    ?item wdt:P6262 ?maid.
+    FILTER(STRSTARTS(?maid, "memory-alpha:")).
+    BIND(IRI(REPLACE(?maid, "memory-alpha:","https://memory-alpha.fandom.com/wiki/" )) AS ?ma).
+  }
+  OPTIONAL {
+    ?item wdt:P6262 ?mbid.
+    FILTER(STRSTARTS(?mbid, "memory-beta:")).
+    BIND(IRI(REPLACE(?mbid, "memory-beta:","https://memory-beta.fandom.com/wiki/" )) AS ?mb).
+  }
+}

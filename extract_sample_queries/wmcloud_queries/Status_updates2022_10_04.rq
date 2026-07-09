@@ -1,0 +1,46 @@
+embed.html##defaultView:Graph
+#title: British Monarchs vs. Prime Ministers
+SELECT DISTINCT ?pm ?pmLabel ?pmImage ?monarch ?monarchLabel ?monarchImage WITH {
+  
+# not sure if there is a more straightforward way to access British monarchs (this query runs second)
+SELECT DISTINCT ?monarch ?monarch_start ?monarch_end WHERE {
+  INCLUDE %start_UK .
+  VALUES $MONARCH  { wd:Q110324075 wd:Q9134365 wd:Q111722535  }
+  ?monarch wdt:P31 wd:Q5 .
+  ?monarch p:P39 ?ph .
+  ?ph ps:P39 $MONARCH .
+  ?ph pq:P580 ?monarch_start .
+  OPTIONAL { ?ph pq:P582 ?monarch_end }
+  FILTER (?monarch_start >= ?start_UK || ?monarch_end >= ?start_UK)
+  BIND ( NOW() AS ?today )   
+  BIND(COALESCE(?monarch_end, ?today) as ?monarch_end) # handle missing end dates, hopefully it's just the current monarch
+} } AS %monarchs
+
+# Find the start date of the first Prime Minister so we can filter monarchs that reigned after this point (this query runs first) 
+WITH { SELECT ?start_UK WHERE {
+  ?pm p:P39 ?pmph_stmt .
+  ?pmph_stmt ps:P39 wd:Q14211 .
+  ?pmph_stmt pq:P580 ?start_UK .
+} 
+ORDER BY ?start_UK
+LIMIT 1 } AS %start_UK
+
+# this query runs last and uses the select in line 2; it produces the visualisation specified in line 1
+WHERE {
+  INCLUDE %monarchs
+  ?pm wdt:P31 wd:Q5 . 
+  ?pm p:P39 ?node .
+  ?node ps:P39 wd:Q14211 .
+  OPTIONAL { ?node pq:P580 ?pm_start }
+  OPTIONAL { ?node pq:P582 ?pm_end }
+  BIND ( NOW() AS ?today )
+  BIND(COALESCE(?pm_end, ?today) as ?pm_end) # handle missing end dates, hopefully it's just the current president
+  FILTER( (?monarch_start >= ?pm_start && ?monarch_start <= ?pm_end) || (?monarch_end >= ?pm_start && ?monarch_end <= ?pm_end ) ||
+          (?pm_start >= ?monarch_start && ?pm_start <= ?monarch_end) || (?pm_end >= ?monarch_start && ?pm_end <= ?monarch_end ))
+# get images, use a default image if none found
+  OPTIONAL { ?monarch wdt:P18 ?monarchImage }
+  BIND(COALESCE(?monarchImage, <http://commons.wikimedia.org/wiki/Special:FilePath/Image_needed,_please_upload_to_commons.wikimedia.org.jpg>) as ?monarchImage)
+  OPTIONAL { ?pm wdt:P18 ?pmImage }
+  BIND(COALESCE(?pmImage, <http://commons.wikimedia.org/wiki/Special:FilePath/Image_needed,_please_upload_to_commons.wikimedia.org.jpg>) as ?pmImaage)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

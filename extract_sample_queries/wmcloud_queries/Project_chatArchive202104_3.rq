@@ -1,0 +1,8 @@
+#Cats
+SELECT ?item ?itemLabel ?dod
+WHERE 
+{
+  ?item p:P26 [a wdno:P26]
+ optional {?item wdt:P570 ?dod . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

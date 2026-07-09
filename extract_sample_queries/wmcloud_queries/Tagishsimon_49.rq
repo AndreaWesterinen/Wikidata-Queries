@@ -1,0 +1,19 @@
+select ?item ?itemLabel ?P31 ?P31Label ?coords ?terrainLabel ?waterLabel where {
+  ?area wdt:P31 wd:Q15060255.  
+  hint:Prior hint:runFirst true .
+  ?item wdt:P131 ?area .   
+  optional {?item wdt:P31 ?P31 .} 
+  optional {?item wdt:P625 ?coords .} 
+  optional {?item wdt:P706 ?terrain .} 
+  optional {?item wdt:P206 ?water .} 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                           ?item rdfs:label ?itemLabel .
+                           ?P31 rdfs:label ?P31Label .
+                           ?terrain rdfs:label ?terrainLabel .
+                           ?water rdfs:label ?waterLabel .
+                         } 
+  filter(contains(?itemLabel , "Colonsay"))
+  filter not exists {?item wdt:P276 [] .}
+  filter not exists {?item wdt:P31/wdt:P279* wd:Q1229765 . hint:Prior hint:gearing "forward". }
+} order by ?P31Label

@@ -1,3 +1,4 @@
+#title: Streets in France without a city
 SELECT ?street ?streetLabel
 WHERE
 {

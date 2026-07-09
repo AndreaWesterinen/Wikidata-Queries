@@ -1,4 +1,3 @@
-# ----
 #title: Items about authors with a Wikispecies page
 SELECT ?author ?authorLabel ?count
 WITH {

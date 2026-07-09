@@ -1,0 +1,5 @@
+SELECT (COUNT(?item) as ?cnt) WHERE {
+	?item wdt:P31 wd:Q5 . 
+	?item wdt:P641 ?sports . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

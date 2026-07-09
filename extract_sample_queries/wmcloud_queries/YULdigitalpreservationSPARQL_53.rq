@@ -1,0 +1,11 @@
+#Items that have an ID from the Social Networks Archival Contex project
+SELECT ?itemLabel ?value
+WHERE 
+{
+	?item wdt:P3430 ?value .
+ 
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+}

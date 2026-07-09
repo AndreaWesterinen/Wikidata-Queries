@@ -1,0 +1,23 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX schema:<http://schema.org/>
+SELECT DISTINCT ?city ?cityLabel ?badgeLabel WHERE {
+  ?city wdt:P31/wdt:P279* wd:Q515 .  # find instances of subclasses of city
+
+  # Now select the population value of the ?city
+  # (the number is reached through a chain of three properties)
+  ?city wdt:P1082 ?population .
+  ?article schema:about ?city .
+  ?article schema:inLanguage "fr" .
+  ?article wikibase:badge ?badge .
+           
+  # Optionally, find English labels for city and mayor:
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+ } ORDER BY DESC(?population) LIMIT 10

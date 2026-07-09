@@ -1,0 +1,22 @@
+#title: Validate IMO-numbers
+# Complex constraint from [[Property talk:P458]]
+# Report ships or shipping lines with incorrect IMO-numbers, found by validating the checksum
+SELECT ?item # ?itemLabel ?imonr ?checksum ?checksum2
+WITH {
+  SELECT DISTINCT *
+  WHERE {
+    ?item wdt:P458 ?imonr . FILTER(strlen(?imonr) = 7)
+    BIND(xsd:integer(substr(?imonr, 1, 1))*7 +
+         xsd:integer(substr(?imonr, 2, 1))*6 +
+         xsd:integer(substr(?imonr, 3, 1))*5 +
+         xsd:integer(substr(?imonr, 4, 1))*4 +
+         xsd:integer(substr(?imonr, 5, 1))*3 +
+         xsd:integer(substr(?imonr, 6, 1))*2 AS ?checksum)
+    BIND(substr(str(?checksum), strlen(str(?checksum)), 1) AS ?checksum2)
+    FILTER(substr(?imonr, 7, 1) != ?checksum2)
+  }
+} AS %i
+WHERE {
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

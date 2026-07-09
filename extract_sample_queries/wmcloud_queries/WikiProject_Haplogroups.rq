@@ -1,0 +1,8 @@
+#mtDNA Haplogroups
+SELECT ?item ?itemLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q1356230.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

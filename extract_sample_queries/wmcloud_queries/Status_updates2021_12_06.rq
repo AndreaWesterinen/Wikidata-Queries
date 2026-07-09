@@ -1,0 +1,8 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription ?year WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item p:P166 ?statement.   
+  ?statement ps:P166 wd:Q59411480.  
+  ?statement pq:P585 ?date
+  BIND(YEAR(?date) AS ?year)
+}
+ORDER BY ?date

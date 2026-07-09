@@ -1,0 +1,32 @@
+SELECT 
+  DISTINCT 
+#  ?taxonstring ?item ?title 
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  ("P921" AS ?property)
+  (REPLACE(STR(?taxon), ".*Q", "Q") AS ?taxonqid) 
+  ("S887" AS ?heuristic)
+  ("Q69652283" AS ?deduced)
+WITH { 
+SELECT DISTINCT ?item ?title ?taxonstring ?taxon WHERE
+   {  
+      SERVICE bd:sample { ?item wdt:P921 wd:Q216635 . bd:serviceParam bd:sample.limit 3000 }     
+      ?item wdt:P1476 ?title .
+   } 
+} AS %publications
+WITH { 
+ SELECT ?item ?title ?taxon ?taxonstring  WHERE
+   {  
+     INCLUDE %publications
+      SERVICE bd:sample { ?taxon wdt:P961 ?ipni . bd:serviceParam bd:sample.limit 3000 }     
+     { ?taxon wdt:P225 ?taxonstring . }
+#     UNION    { ?taxon skos:altLabel ?taxonstring }     UNION     { ?taxon rdfs:label ?taxonstring }
+     FILTER (LANG(?taxonstring) = "en")
+     FILTER ((STRLEN(?taxonstring) > 5))
+      FILTER ( CONTAINS(LCASE(?title), LCASE(?taxonstring)))
+   } 
+  } AS %taxa
+WHERE { 
+     INCLUDE %taxa
+#      MINUS { ?item wdt:P921 ?taxon }
+}
+ORDER BY ASC(?qid)

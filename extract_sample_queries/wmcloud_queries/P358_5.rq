@@ -1,0 +1,4 @@
+#title: Candidates
+# Complex constraint from [[Property talk:P358]]
+# discographies not used as values
+SELECT ?item WHERE { ?item wdt:P31 wd:Q273057 . MINUS { ?item ^wdt:P358 [] } }

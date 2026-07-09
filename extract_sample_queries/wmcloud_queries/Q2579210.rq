@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?person ?personLabel ?start
+WHERE 
+{
+  ?item wdt:P361 wd:Q2579210.
+  OPTIONAL { 
+    ?person p:P39 ?mandate .
+    ?mandate ps:P39 ?item ; pq:P580 ?start .
+    MINUS { ?mandate pq:P582 ?end }
+    MINUS { ?item wdt:P576 [] }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

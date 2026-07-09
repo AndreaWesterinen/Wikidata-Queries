@@ -1,0 +1,10 @@
+#Contributors to alba amicorum of the KB
+SELECT ?item ?itemLabel ?AALabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P3919 ?AA .
+  ?AA wdt:P31 wd:Q457843 .
+  ?AA wdt:P195 wd:Q1526131 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

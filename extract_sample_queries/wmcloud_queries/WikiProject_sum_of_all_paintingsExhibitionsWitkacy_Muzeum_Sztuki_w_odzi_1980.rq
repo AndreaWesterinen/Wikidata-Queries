@@ -1,0 +1,5 @@
+SELECT ?item ?kdm ?id WHERE { 
+  ?item wdt:P608 wd:Q114567812;
+  optional{ ?item p:P528 [ ps:P528 ?kdm; pq:P972 wd:Q106425660; ] }
+  optional{ ?item p:P608 [ ps:P608 wd:Q114567812; pq:P1545 ?id ] }
+}

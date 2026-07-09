@@ -1,0 +1,7 @@
+#title: Can't be human and possibly fictional
+# Complex constraint from [[Property talk:P31]]
+# keep only one claim
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5 . # real
+  ?item wdt:P31/wdt:P279* wd:Q21070568 . # possibly fictional
+}

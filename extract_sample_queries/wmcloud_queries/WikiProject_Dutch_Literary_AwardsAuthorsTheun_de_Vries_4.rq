@@ -1,0 +1,16 @@
+#Awards won by a given Author, with year and winning work
+# Via https://opendata.stackexchange.com/questions/14123/wikidata-sparql-with-optional-qualifiers
+SELECT DISTINCT ?author ?authorLabel ?award ?awardLabel ?awardDescription ?year ?forwork ?forworkLabel ?forworkDescription
+WHERE
+{
+  VALUES (?author) {(wd:Q2143934)}
+  ?author p:P166 ?statement .
+  ?statement ps:P166 ?award 
+  OPTIONAL { ?statement pq:P585 ?year1
+  BIND(YEAR(?year1) AS ?year)}
+  OPTIONAL { ?statement pq:P1686 ?forwork }
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} ORDER BY ?year

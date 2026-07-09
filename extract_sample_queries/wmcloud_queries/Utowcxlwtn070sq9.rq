@@ -1,0 +1,4 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel ?value ?valueLabel WHERE {
+	?item p:P39 [ ps:P39 ?value ; pq:P2868 wd:Q4676846 ] .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" } .
+}

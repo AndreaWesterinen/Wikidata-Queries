@@ -1,0 +1,40 @@
+bigdata/namespace/wdq/sparql?explain&query=PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+SELECT ?q ?qLabel ?birth_date ?death_date ?count WHERE {
+  ?q wdt:P31 wd:Q5 .
+  ?q wdt:P27 wd:Q142 . 
+  ?q wdt:P569 ?birth_date .
+  ?q wdt:P570 ?death_date .   
+  {
+    SELECT ?birth_date ?death_date (COUNT(*) AS ?count) WHERE {
+       ?a wdt:P31 wd:Q5 .
+       ?a wdt:P27 wd:Q142 . 
+
+       ?a p:P569 ?birth_date_statement .
+       ?birth_date_statement psv:P569 ?birth_date_node .
+       ?birth_date_node wikibase:timeValue ?birth_date .
+       ?birth_date_node wikibase:timePrecision "11"^^xsd:integer .
+
+       ?a p:P570 ?death_date_statement .
+       ?death_date_statement psv:P570 ?death_date_node .
+       ?death_date_node wikibase:timeValue ?death_date.
+       ?death_date_node wikibase:timePrecision "11"^^xsd:integer .
+
+    } 
+    GROUP BY ?birth_date ?death_date
+    HAVING (?count > 1)
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+ORDER BY DESC(?count) ?birth_date ?death_date
+LIMIT 40

@@ -1,0 +1,19 @@
+#Distribution of names of human settlements ending in "-ford" in the British Isles
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?banhado_por ?rgb WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q486972.
+  ?item wdt:P17 ?country.
+  ?item rdfs:label ?itemLabel.
+  ?item wdt:P625 ?coord.
+  FILTER((?country = wd:Q145) || (?country = wd:Q27))
+  FILTER((LANG(?itemLabel)) = "en")
+  FILTER(REGEX(?itemLabel, "(ford|fords)") || REGEX(?itemLabel, "(ffordd)"))
+  OPTIONAL { ?item wdt:P206 ?banhado_por. }
+  BIND(
+    IF(?item = wd:Q991055 || ?item = wd:Q209126 || ?item=wd:Q183551, "0000FF",
+       IF(REGEX(?itemLabel, "(ford)$"),"FF0000",
+          If(REGEX(?itemLabel, "(ffordd)$"),"8b4513",
+             "000000"))) AS ?rgb).
+
+  MINUS{ ?item wdt:P31 wd:Q1708422. }
+}

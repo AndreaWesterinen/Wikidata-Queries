@@ -1,0 +1,15 @@
+SELECT ?site (count(?item) AS ?cnt) WHERE {
+
+  ?item wdt:P1433 wd:Q16014697 .
+  ?item wdt:P921 ?subject .
+  ?article 	schema:about ?subject ;
+			schema:isPartOf ?site .
+
+  OPTIONAL { ?article2 schema:about ?subject ; schema:isPartOf <https://en.wikipedia.org/> }
+  FILTER ( !bound(?article2) )
+  
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+
+} GROUP BY ?site ORDER BY desc(?cnt)

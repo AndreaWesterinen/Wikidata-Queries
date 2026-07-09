@@ -1,0 +1,6 @@
+select distinct ?item ?thesaurus ?id
+where {
+  { ?item wdt:P4527 ?thesaurus . optional { ?item wdt:P6213 ?id } }
+  union
+  { ?item wdt:P6213 ?id . optional { ?item wdt:P4527 ?thesaurus} }
+  }

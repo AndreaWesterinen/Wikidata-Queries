@@ -1,0 +1,125 @@
+#defaultView:Graph
+SELECT ?child ?childLabel ?parent ?parentLabel 
+WITH {
+  SELECT ?feature WHERE {
+    VALUES ?feature { 
+  
+    wd:Q1817208
+    wd:Q2054517
+    wd:Q102047
+    wd:Q6581072
+    wd:Q51929403
+    wd:Q108709
+    wd:Q324982
+    wd:Q21470140
+    wd:Q47088290
+    wd:Q51929290
+    wd:Q18012653
+    wd:Q47088293
+    wd:Q501405
+    wd:Q4348304
+    wd:Q51929049
+    wd:Q623734
+    wd:Q51927507
+    wd:Q110022
+    wd:Q54152717
+    wd:Q1230649
+    wd:Q1233197
+    wd:Q202142
+    wd:Q53608953
+    wd:Q16527322
+    wd:Q53999547
+    wd:Q131105
+    wd:Q24577575
+    wd:Q53997851
+    wd:Q156986
+    wd:Q319822
+    wd:Q192613
+    wd:Q2105891
+    wd:Q192997
+    wd:Q324305
+    wd:Q2898727
+    wd:Q146078
+    wd:Q694268
+    wd:Q655020
+    wd:Q1775461
+    wd:Q51929074
+    wd:Q15737187
+    wd:Q51929218
+    wd:Q146786
+    wd:Q179230
+    wd:Q1923028
+    wd:Q953129
+    wd:Q148465
+    wd:Q47088292
+    wd:Q51929154
+    wd:Q21714344
+    wd:Q52431955
+    wd:Q10509119
+    wd:Q51929131
+    wd:Q5483481
+    wd:Q53609593
+    wd:Q2888577
+    wd:Q24133704
+    wd:Q54176537
+    wd:Q51929517
+    wd:Q604984
+    wd:Q2114906
+    wd:Q332734
+    wd:Q3150154
+    wd:Q146233
+    wd:Q282031
+    wd:Q1450795
+    wd:Q474668
+    wd:Q110786
+    wd:Q14169499
+    wd:Q499327
+    wd:Q747019
+    wd:Q145599
+    wd:Q1763348
+    wd:Q51929369
+    wd:Q1182686
+    wd:Q3910936
+    wd:Q950170
+    wd:Q22716
+    wd:Q51927539
+    wd:Q838581
+    wd:Q442485
+    wd:Q47088295
+    wd:Q1994301
+    wd:Q53998049
+    wd:Q394253
+    wd:Q11078
+    wd:Q576271
+    wd:Q857325
+    wd:Q185077
+    wd:Q27918551
+    wd:Q1305037
+    wd:Q1562262
+    wd:Q281954
+    wd:Q53997857
+    wd:Q682111
+    wd:Q1317831
+    wd:Q1392475
+    wd:Q51929447
+    wd:Q1775415
+    }
+  }
+} AS %features
+WITH {
+  SELECT DISTINCT (?feature AS ?child) ?parent WHERE {
+    INCLUDE %features
+    ?feature wdt:P279 ?parent .
+  }
+} AS %results1
+WITH {
+  SELECT DISTINCT ?child ?parent WHERE {
+    INCLUDE %features
+    ?feature wdt:P279 ?child .
+    ?child wdt:P279 ?parent .
+  }
+} AS %results2   
+WHERE {
+  { INCLUDE %results1 } UNION { INCLUDE %results2 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

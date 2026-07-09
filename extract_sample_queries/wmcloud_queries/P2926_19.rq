@@ -1,0 +1,18 @@
+#title: Modified uniqueness constraint
+# Complex constraint from [[Property talk:P2926]]
+# Lists items having identical values, except if one of the items is a [[d:Q898273|protein domain <small>(Q898273)</small>]] and the other a [[d:Q81505329|protein family associated with domain <small>(Q81505329)</small>]], see discusion below. Please don't switch on the normal uniqueness constraint, use this instead.
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value 
+{
+	?item1 wdt:P2926 ?value .
+	?item2 wdt:P2926 ?value .
+	FILTER( ?item1 != ?item2 && STR( ?item1 ) < STR( ?item2 ) ) .
+    MINUS {
+      ?item1 wdt:P31 wd:Q898273.
+      ?item2 wdt:P31 wd:Q81505329.
+    }
+    MINUS {
+      ?item2 wdt:P31 wd:Q898273.
+      ?item1 wdt:P31 wd:Q81505329.
+    }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

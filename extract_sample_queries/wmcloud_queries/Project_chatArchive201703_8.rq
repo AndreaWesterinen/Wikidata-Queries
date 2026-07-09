@@ -1,0 +1,8 @@
+SELECT ?parent ?parentLabel (COUNT(?constituency) AS ?constituencies) WHERE {   
+  ?person p:P39 ?position_statement .
+  ?position_statement ps:P39 wd:Q17592486 .
+  ?position_statement pq:P768 ?constituency .
+  ?constituency wdt:P31 ?parent .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+GROUP BY ?parent ?parentLabel

@@ -1,0 +1,51 @@
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+#defaultView:Graph
+SELECT ?item ?itemLabel ?rgb ?researcher ?researcherLabel ?linkTo ?linkToLabel ?size  {
+  { SELECT ?item (count(distinct ?element) as ?size) {
+  { SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q503424 ;
+                gas:traversalDirection "Forward" ;
+                gas:out ?item ;
+                gas:out1 ?depth ;
+                gas:maxIterations 6 ;
+                gas:linkType wdt:P361 .
+  } } UNION { SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q503424 ;
+                gas:traversalDirection "Reverse" ;
+                gas:out ?item ;
+                gas:out1 ?depth ;
+                gas:maxIterations 6 ;
+                gas:linkType wdt:P361 .
+  } }
+  OPTIONAL { ?element wdt:P1416 ?item }
+  } GROUP BY ?item }
+  OPTIONAL { ?item wdt:P361 ?linkTo }
+  OPTIONAL { ?researcher wdt:P1416 ?item } 
+    BIND(
+      IF(?item = wd:Q503424, "4d4dff",
+    IF(?item = wd:Q24707683, "ff0000",
+      IF(?item = wd:Q4119673, "ff0000",
+       IF(?item = wd:Q26226451, "ff0000",  
+         IF(?item = wd:Q26226449, "ff0000",
+         IF(?item = wd:Q26226450, "ff0000",
+          IF(?item = wd:Q26226458, "ff0000",
+             IF(?item = wd:Q26226453, "ff0000",
+                IF(?item = wd:Q26226454, "ff0000",
+                   IF(?item = wd:Q26226455, "ff0000",
+                      IF(?item = wd:Q26226456, "ff0000",
+                         IF(?item = wd:Q26226457, "ff0000",
+                            IF(?item = wd:Q26226452, "ff0000",
+                               IF(?item = wd:Q26220634, "000fff", 
+                                  IF(?item = wd:Q26220554, "000fff",
+                                    IF(?item = wd:Q26209981, "000fff", 
+                                       IF(?item = wd:Q26210839, "000fff", 
+                                          IF(?item = wd:Q26220556, "000fff",
+                                             IF(?item = wd:Q26220561, "000fff",
+                                               IF(?item = wd:Q26220551, "000fff",
+                                                  IF(?item = wd:Q26220552, "000fff",
+       "000000"))))))))))))))))))))) AS ?rgb) .
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" }
+}
+Limit 2000

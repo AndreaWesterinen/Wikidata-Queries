@@ -1,0 +1,55 @@
+# For a given UK parliament, find
+# - how many MPs sat in it
+# - how many are matched to the Rush database (1832-2005)
+#
+
+SELECT ?start ?percent_in_rush 
+#defaultView:LineChart
+
+WITH {
+  # all MPs with their associated parliament
+  SELECT DISTINCT ?mp ?parliament WHERE {
+    ?mp wdt:P31 wd:Q5.
+      # using the new data model - so limits how far back it goes
+      ?mp p:P39/ps:P39 ?position . 
+      ?position wdt:P279 wd:Q16707842; p:P279/pq:P2937|wdt:P2937 ?parliament.
+
+    }
+} AS %MPsWithParliament 
+
+WITH {
+  # count of rush entries in each parliament
+  SELECT ?parliament (COUNT(DISTINCT ?mp) AS ?rush) WHERE {
+    INCLUDE %MPsWithParliament.
+    ?mp wdt:P4471 ?rush
+  }
+  GROUP BY ?parliament
+} AS %rush 
+
+WITH {
+  # count of members entries in each parliament
+  SELECT ?parliament (COUNT(DISTINCT ?mp) AS ?mps) WHERE {
+    ?mp wdt:P31 wd:Q5.
+      ?mp p:P39/ps:P39 ?position.
+      ?position wdt:P279 wd:Q16707842; p:P279/pq:P2937|wdt:P2937 ?parliament.
+  }
+  GROUP BY ?parliament
+} AS %mpcount 
+
+WHERE {
+  # get ?rush
+  INCLUDE %rush
+  INCLUDE %mpcount
+  BIND(?rush AS ?rushcount)
+  BIND(?mps AS ?mpcount)
+  BIND(ROUND(100*(?rushcount/?mpcount)) AS ?percent_in_rush) 
+
+  # get parliament dates
+  ?parliament wdt:P571|wdt:P580 ?start.
+  ?parliament wdt:P576|wdt:P582 ?end.
+  FILTER (?start >= "1832-01-01T00:00:00Z"^^xsd:dateTime) . # omit any pre-1832 Parliaments
+  FILTER (?start <= "2005-12-31T00:00:00Z"^^xsd:dateTime) . # omit any post-2005 Parliaments
+  # add labels
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?start

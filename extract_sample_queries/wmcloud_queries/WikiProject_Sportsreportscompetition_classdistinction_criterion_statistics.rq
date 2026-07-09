@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(DISTINCT ?cc) AS ?cnt) WHERE {
+  ?ccItem wdt:P31/wdt:P279* wd:Q1744559; p:P2094 ?cc .
+  OPTIONAL {
+    ?cc pq:P1013 ?item .
+  }
+} GROUP BY ?item

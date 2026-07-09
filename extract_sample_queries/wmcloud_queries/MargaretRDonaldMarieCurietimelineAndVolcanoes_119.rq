@@ -1,0 +1,29 @@
+#female botanists and botanical collectors born<1900, sorted by number of sitelinks, with some related info
+# without wikipedia (english) articles
+#
+SELECT ?item ?itemLabel (SAMPLE(?occname) AS ?occname) ?sitelinks ?WDstatements ?article (SAMPLE(?birth) AS ?birth) (SAMPLE(?death) AS ?death) (SAMPLE(?bloodhound) AS ?bloodhound) (SAMPLE(?harvard) AS ?harvard) WHERE {
+  #?occ wdt:P279|wdt:P279/wdt:P279* wd:Q2374149.
+  VALUES ?occ { wd:Q2374149 wd:Q2083925 }
+  ?item wdt:P106 ?occ .
+  OPTIONAL { ?item wdt:P108 ?emp . }
+  ?item wdt:P21 wd:Q6581072;
+    wikibase:statements ?WDstatements;
+    wikibase:sitelinks ?sitelinks.
+  MINUS {
+   ?article schema:about ?item;
+      schema:inLanguage "en";
+      schema:isPartOf <https://en.wikipedia.org/>.
+  }
+  ?occ rdfs:label ?occname .
+  OPTIONAL {?item wdt:P569 ?birth .}
+  OPTIONAL {?item wdt:P570 ?death .}
+  OPTIONAL {?item wdt:P6944 ?bloodhound .}
+  OPTIONAL {?item wdt:P6264 ?harvard .}
+  FILTER(LANG(?occname) = "en").
+  FILTER((?birth<"1900-01-01T00:00:00Z"^^xsd:dateTime)||(?death<"1920-01-01T00:00:00Z"^^xsd:dateTime)).
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+GROUP BY ?item ?itemLabel ?sitelinks ?WDstatements ?article
+ORDER BY DESC (?sitelinks)

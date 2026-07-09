@@ -1,0 +1,9 @@
+SELECT ?artist ?item (COUNT(DISTINCT ?artwork) AS ?count)  {
+  ?artwork wdt:P31 wd:Q3305213 . 
+  ?artwork p:P528 ?catalogstatement .
+  ?catalogstatement ps:P528 ?catalogid . 
+  ?catalogstatement pq:P972 ?item .
+  ?item wdt:P921 ?artist.
+  ?artist wdt:P106 wd:Q1028181.
+  } GROUP BY ?artist ?item
+ORDER BY ?artist

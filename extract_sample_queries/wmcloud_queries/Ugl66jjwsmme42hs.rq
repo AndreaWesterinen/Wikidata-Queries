@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q1132918 .
+  ?item wdt:P31 wd:Q3305213 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb" }.
+} LIMIT 10010

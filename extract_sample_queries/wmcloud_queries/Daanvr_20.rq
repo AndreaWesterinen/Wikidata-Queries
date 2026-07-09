@@ -1,0 +1,12 @@
+#title: Anything related to the Russian invasion of Ukraine in 2022
+#defaultView:Map
+SELECT ?item ?label ?_image ?_lonlat ?link WHERE {
+  ?item ?link wd:Q110999040.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?label
+  }
+  
+OPTIONAL { ?item wdt:P18 ?_image. }
+OPTIONAL { ?item wdt:P625 ?_lonlat. }
+}

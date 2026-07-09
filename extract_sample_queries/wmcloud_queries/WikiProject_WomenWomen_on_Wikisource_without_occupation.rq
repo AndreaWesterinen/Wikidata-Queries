@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE {
+    { ?article wdt:P31 wd:Q19389637. } UNION { ?article wdt:P31 wd:Q17329259. }
+  ?article wdt:P921 ?item . 
+  ?item wdt:P21 ?gender .
+  MINUS { ?item wdt:P21 wd:Q6581097 } .
+  OPTIONAL { ?item wdt:P106 ?occupation . }
+  FILTER(!bound(?occupation)) .
+}

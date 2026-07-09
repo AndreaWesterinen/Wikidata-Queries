@@ -1,0 +1,8 @@
+#number of songs named after a month
+#defaultView:BarChart
+SELECT ?monthLabel (COUNT(DISTINCT ?item) AS ?count) WHERE {
+  ?month wdt:P31 wd:Q47018901.
+  ?item wdt:P31/wdt:P279* wd:Q7366; wdt:P138 ?month.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?monthLabel

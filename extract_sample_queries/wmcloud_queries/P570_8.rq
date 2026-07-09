@@ -1,0 +1,10 @@
+#title: Died after 2100
+# Complex constraint from [[Property talk:P570]]
+#
+SELECT ?item ?date WHERE {
+  ?item wdt:P570 ?date.
+  FILTER ( ?date > "2100-04-20T00:00:00Z"^^xsd:dateTime )
+  FILTER NOT EXISTS { ?item p:P6262 [] }
+  FILTER NOT EXISTS { ?item p:P1441 [] }
+  FILTER NOT EXISTS { ?item p:P1080 [] }
+}

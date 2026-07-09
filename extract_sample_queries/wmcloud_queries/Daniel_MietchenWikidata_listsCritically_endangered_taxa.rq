@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P141 wd:Q219127 }

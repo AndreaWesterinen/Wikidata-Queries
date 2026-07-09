@@ -1,0 +1,13 @@
+#title: Single value per language
+# Complex constraint from [[Property talk:P3321]]
+# An item would generally have P2521 statement per language. TODO: define exceptions
+SELECT ?item ?lang (COUNT(?monolingualstring) as ?count)  (GROUP_CONCAT(?monolingualstring; separator=" // ") as ?list)
+{ 
+	?item wdt:P3321 ?monolingualstring . 
+	BIND(lang(?monolingualstring) as ?lang)
+	FILTER ( ?item not in ( wd:Q4115189,wd:Q13406268,wd:Q15397819,wd:Q957729,wd:Q11631,wd:Q2259532,wd:Q33999,wd:Q30185 ) )
+} 
+GROUP BY  ?item ?lang
+HAVING (?count > 1)
+ORDER BY DESC(?count)
+LIMIT 100

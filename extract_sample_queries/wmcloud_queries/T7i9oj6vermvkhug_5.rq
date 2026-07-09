@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?url
+WHERE
+{
+    ?item wdt:P31 wd:Q5 . #human
+	?item wdt:P21 wd:Q6581072 . #gender female
+    ?item wdt:P27 wd:Q38

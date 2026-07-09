@@ -1,0 +1,44 @@
+SELECT DISTINCT ?item ?l1y ?l2y ?senb ?status ?st ?sl ?ids ?epnb ?epct ?eplist ?c1 ?c2 ?c3 ?c4 ?c5 ?c6 
+WITH
+{  SELECT ?item ?epnb (COUNT(DISTINCT ?ep) as ?epct) 
+  {
+  	?item wdt:P31 wd:Q5398426 ; wdt:P1113 ?epnb .
+	?ep wdt:P31 wd:Q21191270 ; wdt:P179 ?item .
+  }
+  GROUP BY ?item ?epnb HAVING(?epnb <= ?epct)
+} as %inc5
+WHERE
+{
+	INCLUDE %inc5
+	OPTIONAL { ?item wdt:P580 ?l1 . BIND(YEAR(?l1) as ?l1y)  }
+	OPTIONAL { ?item wdt:P582 ?l2 . BIND(YEAR(?l2) as ?l2y) } 
+	OPTIONAL { ?item wdt:P2437 ?senb } 
+	BIND( IF( BOUND(?l2y), "ended", 
+        	IF( BOUND(?l1y) && (?l1y + xsd:integer(?senb) >= YEAR(now())) , "ongoing", 
+           	"check") ) as ?status)  
+	?item wikibase:identifiers ?ids ; wikibase:statements ?st; wikibase:sitelinks ?sl 
+
+	OPTIONAL { ?item wdt:P1811 ?eplist . } 
+
+    OPTIONAL { ?item wdt:P2437 ?seas_nb . { SELECT ?item (COUNT(?seas) as ?seas_ct) { ?item wdt:P527 ?seas . ?seas wdt:P31 wd:Q3464665 } GROUP BY ?item } FILTER ( ?seas_nb <= ?seas_ct ) . BIND("✓" as ?c1) } 
+
+    OPTIONAL { ?item wdt:P1113 ?ep1_nb { SELECT ?item (COUNT(DISTINCT ?ep1) as ?epfmt_ct) 
+    { ?ep1 wdt:P179 ?item ; wdt:P31 wd:Q21191270 ; schema:description ?d1 . FILTER(lang(?d1)="en" && REGEX(str(?d1), "\\(S\\d+ E\\d+\\)")  )  
+    } GROUP BY ?item } FILTER ( ?ep1_nb <= ?epfmt_ct ) . BIND("✓" as ?c2)  } 
+
+    OPTIONAL { ?item wdt:P1113 ?ep2_nb { SELECT ?item (COUNT(DISTINCT ?ep2) as ?epdir_ct) 
+    { ?ep2 wdt:P179 ?item ; wdt:P31 wd:Q21191270 ; wdt:P57 []
+    } GROUP BY ?item } FILTER ( ?ep2_nb <= ?epdir_ct ) . BIND("✓" as ?c3)  } 
+
+    OPTIONAL { ?item wdt:P1113 ?ep3_nb { SELECT ?item (COUNT(DISTINCT ?ep3) as ?epdt_ct) 
+    { ?ep3 wdt:P179 ?item ; wdt:P31 wd:Q21191270 ; wdt:P577 []
+    } GROUP BY ?item } FILTER ( ?ep3_nb <= ?epdt_ct ) . BIND("✓" as ?c4)  } 
+
+    OPTIONAL { ?item wdt:P674 [] { SELECT ?item (COUNT(DISTINCT ?char9) as ?char9_ct)
+    { ?item wdt:P674 ?char9 
+    } GROUP BY ?item } FILTER ( ?char9_ct > 6 ) . BIND("✓" as ?c6) }
+
+    OPTIONAL { ?item wdt:P840 [] . BIND("✓" as ?c5) }
+}
+ORDER BY DESC(?status="ongoing") DESC(?epct) ?item
+LIMIT 500

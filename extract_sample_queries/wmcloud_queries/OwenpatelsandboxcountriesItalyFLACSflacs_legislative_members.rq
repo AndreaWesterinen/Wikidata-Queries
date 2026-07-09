@@ -1,0 +1,27 @@
+SELECT ?item ?region ?position ?positiontype ?electoraldistrict ?edtype ?starttime ?endtime ?parliametarygroup ?fbid WHERE { 
+    ?region wdt:P31/wdt:P279* wd:Q10864048 ; 
+            wdt:P17 wd:Q38 ;
+            wdt:P1313 ?head .
+    ?council wdt:P1001 ?region ;
+            wdt:P31 wd:Q1077701 .
+    ?member wdt:P361 ?council ;
+            wdt:P279 wd:Q4175034 .
+    MINUS {?member wdt:P576 [] }
+    MINUS { ?region wdt:P576 [] }
+    MINUS { ?council wdt:P576 [] }
+    { ?node ps:P39 ?member ;
+          pq:P4100 ?parliametarygroup }
+    UNION {
+      ?node ps:P39 ?head ;
+          pq:P4100 ?parliametarygroup 
+    }
+    OPTIONAL { ?node pq:P580 ?starttime }
+    OPTIONAL { ?node pq:P768 ?electoraldistrict .
+               ?electoraldistrict wdt:P31 ?edtype }
+    OPTIONAL { ?node pq:P582 ?endtime }
+    ?node ps:P39 ?position .
+    ?position wdt:P31 ?positiontype .
+    ?item p:P39 ?node .
+    OPTIONAL { ?item wdt:P2013 ?fbid }
+}
+ORDER BY ?item

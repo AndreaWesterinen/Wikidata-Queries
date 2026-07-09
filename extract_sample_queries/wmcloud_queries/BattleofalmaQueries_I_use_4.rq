@@ -1,0 +1,10 @@
+#Men who are footballers, with British citizenship, with en wp articles
+SELECT DISTINCT ?man ?manDescription ?manLabel ?article WHERE {
+  ?man wdt:P31 wd:Q5.
+  ?man wdt:P21 wd:Q6581097.
+  ?man wdt:P27 wd:Q145.
+  ?man wdt:P106/wdt:P279* wd:Q937857.
+  ?article schema:about ?man .
+  ?article schema:isPartOf <https://en.wikipedia.org/>
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }  
+}

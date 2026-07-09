@@ -1,0 +1,7 @@
+#Most common titles of scholarly articles
+select ?title (count(?paper) as ?count) where {
+  ?paper wdt:P31 wd:Q13442814;
+        wdt:P1476 ?title.
+  }
+group by ?title
+order by desc(?count)

@@ -1,0 +1,37 @@
+#defaultView:ImageGrid
+SELECT ?img (concat(str(floor(?match*100/16)), "% similar") as ?similarity)
+WITH {
+  SELECT ?item ?hash {
+    # The file we want to look for similar items to.
+    ?item schema:contentUrl <https://upload.wikimedia.org/wikipedia/commons/c/cf/Digitoitu_alkuper%C3%A4isest%C3%A4_negatiivista._%28d2005_167_6_17%29_Suomen_valokuvataiteen_museo.jpg>.
+    ?item wdt:P9310 ?hash.
+    FILTER (strlen(?hash) = 16).
+  }
+} as %hash
+WHERE {
+  INCLUDE %hash
+  ?relatedImg wdt:P9310 ?hash2.
+  ?relatedImg schema:url ?img
+  FILTER ( ?relatedImg != ?item )
+  FILTER (strlen(?hash2) = 16).
+  # This is far from perfect as it should be bit-wise not nibble-wise
+  BIND( SUBSTR( ?hash, 1, 1 ) = SUBSTR( ?hash2, 1, 1 ) AS ?h1 ).
+  BIND( SUBSTR( ?hash, 2, 1 ) = SUBSTR( ?hash2, 2, 1 ) AS ?h2 ).
+  BIND( SUBSTR( ?hash, 3, 1 ) = SUBSTR( ?hash2, 3, 1 ) AS ?h3 ).
+  BIND( SUBSTR( ?hash, 4, 1 ) = SUBSTR( ?hash2, 4, 1 ) AS ?h4 ).
+  BIND( SUBSTR( ?hash, 5, 1 ) = SUBSTR( ?hash2, 5, 1 ) AS ?h5 ).
+  BIND( SUBSTR( ?hash, 6, 1 ) = SUBSTR( ?hash2, 6, 1 ) AS ?h6 ).
+  BIND( SUBSTR( ?hash, 7, 1 ) = SUBSTR( ?hash2, 7, 1 ) AS ?h7 ).
+  BIND( SUBSTR( ?hash, 8, 1 ) = SUBSTR( ?hash2, 8, 1 ) AS ?h8 ).
+  BIND( SUBSTR( ?hash, 9, 1 ) = SUBSTR( ?hash2, 9, 1 ) AS ?h9 ).
+  BIND( SUBSTR( ?hash, 10, 1 ) = SUBSTR( ?hash2, 10, 1 ) AS ?h10 ).
+  BIND( SUBSTR( ?hash, 11, 1 ) = SUBSTR( ?hash2, 11, 1 ) AS ?h11 ).
+  BIND( SUBSTR( ?hash, 12, 1 ) = SUBSTR( ?hash2, 12, 1 ) AS ?h12 ).
+  BIND( SUBSTR( ?hash, 13, 1 ) = SUBSTR( ?hash2, 13, 1 ) AS ?h13 ).
+  BIND( SUBSTR( ?hash, 14, 1 ) = SUBSTR( ?hash2, 14, 1 ) AS ?h14 ).
+  BIND( SUBSTR( ?hash, 15, 1 ) = SUBSTR( ?hash2, 15, 1 ) AS ?h15 ).
+  BIND( SUBSTR( ?hash, 16, 1 ) = SUBSTR( ?hash2, 16, 1 ) AS ?h16 ).
+
+  BIND( xsd:integer(?h1)+xsd:integer(?h2)+xsd:integer(?h3)+xsd:integer(?h4)+xsd:integer(?h5)+xsd:integer(?h6)+xsd:integer(?h7)+xsd:integer(?h8)+xsd:integer(?h9)+xsd:integer(?h10)+xsd:integer(?h11)+xsd:integer(?h12)+xsd:integer(?h13)+xsd:integer(?h14)+xsd:integer(?h15)+xsd:integer(?h16) as ?match )
+} ORDER BY DESC (?match)
+LIMIT 50

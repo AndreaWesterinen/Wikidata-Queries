@@ -1,0 +1,6 @@
+#defaultView:BarChart
+SELECT ?lang (COUNT(?glos) AS ?c) WHERE {
+  ?l skos:definition ?glos.
+  BIND ( lang(?glos) AS ?lang )
+}
+GROUP BY ?lang

@@ -1,0 +1,10 @@
+#title: Human having received a prize for the directors but not having a statement occupation (P106) director
+# Complex constraint from [[Property talk:P106]]
+#
+SELECT ?item WHERE {
+  VALUES ?awards { wd:Q1540553 wd:Q2111269 wd:Q4671429 wd:Q20002163 wd:Q1377755 wd:Q1390226 wd:Q16157289 wd:Q4806631 wd:Q18907804 wd:Q28836246 wd:Q5942229
+                 wd:Q12808473 wd:Q28861585 wd:Q696972 wd:Q3404979 wd:Q1387050 wd:Q5280710 wd:Q5280671 wd:Q775028 }.
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P166 ?awards.
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q2526255. }.
+} ORDER BY ?item

@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?title
+WHERE {
+  hint:Query hint:optimizer "None".
+  
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "zika haswbstatement:P31=Q13442814 -haswbstatement:P921=Q202864".
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+
+  FILTER ( ?item != wd:Q22330904 ) # actually about Spondweni virus, as per Q28733424 
+  FILTER ( ?item != wd:Q22330879 ) # actually about Zika B. Marković (Q93428722)
+  # Also check for items falsely tagged with the family name Zika (Q56245778) 
+  
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P1476 ?title.
+  FILTER CONTAINS(LCASE(?title), "zika").
+
+}
+# LIMIT 10000

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?creatorLabel ?image WHERE {
+  ?item wdt:P195 wd:Q3044768 ;
+        wdt:P170 ?creator .
+  ?creator wdt:P21 wd:Q6581072 .
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?creatorLabel ?itemLabel

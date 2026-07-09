@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+   ?item wdt:P166 wd:Q28925963 .
+   OPTIONAL{?item pq:P585 ?fecha . }
+}
+ORDER BY ASC(?fecha)

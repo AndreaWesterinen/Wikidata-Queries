@@ -1,0 +1,7 @@
+SELECT ?statements (count(?statements) as ?count)
+WHERE 
+{
+  ?item wdt:P5731 ?AID.
+  ?item wikibase:statements ?statements .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} group by ?statements order by ?statements

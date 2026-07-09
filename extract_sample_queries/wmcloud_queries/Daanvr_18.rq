@@ -1,0 +1,13 @@
+# Map of Dutch fortifications inspired by Map of Czech castles
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?img ?layerLabel
+WHERE
+{
+	?item wdt:P31/wdt:P279* wd:Q57821 .
+	?item wdt:P17 wd:Q55 .
+	?item wdt:P625 ?coord .
+	OPTIONAL { ?item wdt:P18 ?img } .
+	OPTIONAL { ?item wdt:P31 ?layer } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+
+}

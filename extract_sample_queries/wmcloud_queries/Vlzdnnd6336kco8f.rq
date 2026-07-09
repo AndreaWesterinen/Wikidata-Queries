@@ -1,0 +1,1 @@
+SELECT (COUNT(*) as ?count) {  ?item wikibase:statements 0 . [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> }

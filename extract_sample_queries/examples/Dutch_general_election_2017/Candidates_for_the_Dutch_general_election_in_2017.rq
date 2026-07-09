@@ -1,3 +1,4 @@
+#title: Candidates for the Dutch general election in 2017
 SELECT ?item ?itemLabel ?twitter ?LinkedIN ?politieke_partij ?politieke_partijLabel ?positie_op_lijst
 WHERE {
   ?item p:P3602 ?node .

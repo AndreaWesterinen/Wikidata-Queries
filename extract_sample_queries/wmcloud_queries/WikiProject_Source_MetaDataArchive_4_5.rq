@@ -1,0 +1,5 @@
+SELECT ?item ?taxonName WHERE {
+  ?item wdt:P356 ?taxonName .
+  ?item p:P356 ?statement .
+  ?statement wikibase:rank wikibase:DeprecatedRank .
+}

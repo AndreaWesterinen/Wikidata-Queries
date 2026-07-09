@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?district ?districtLabel ?geoshape WHERE {
+  ?district wdt:P31/wdt:P279* wd:Q171634 ;
+            wdt:P17 wd:Q145 ;
+            wdt:P3896 ?geoshape .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

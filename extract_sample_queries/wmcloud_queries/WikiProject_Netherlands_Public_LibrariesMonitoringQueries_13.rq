@@ -1,0 +1,35 @@
+#A PLB (or better: the main entrance of the PLB) can be only on one street, so P669 can have only one value
+#Public library branches - are they in the correct street and is that street in the correct location & municipality?
+#I.e. check that the street the PLB lies on (P669), is situated in the correct location (P276) and municipality (P131) (via the WD-descriptions of street , location and municipality) 
+
+SELECT DISTINCT 
+?item ?itemLabel
+#A PLB (or better: the main entrance of the PLB) can be only on one street, so P669 can have only one value
+(GROUP_CONCAT(DISTINCT ?streetLabel ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?Straat)
+(GROUP_CONCAT(DISTINCT ?streetDescription ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?StraatBeschrijving) 
+?locationLabel ?locationDescription
+?municipalityLabel ?municipalityDescription
+#?municipalityCheckLabel
+
+WHERE
+  {
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL {?item p:P669 [ps:P669 ?street].}    
+  OPTIONAL{?item wdt:P276 ?location.}
+  OPTIONAL{?item wdt:P131 ?municipality.}
+# ?location wdt:P131 ?municipalityCheck.  
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                          ?item rdfs:label ?itemLabel.
+                          ?street rdfs:label ?streetLabel.
+                          ?street schema:description ?streetDescription.
+                          ?location rdfs:label ?locationLabel.
+                          ?location schema:description ?locationDescription.
+                          ?municipality rdfs:label ?municipalityLabel.
+                          ?municipality schema:description ?municipalityDescription.
+                         }  
+}
+
+GROUP BY ?item ?itemLabel ?locationLabel ?locationDescription ?municipalityLabel ?municipalityDescription
+ORDER BY DESC(?item)
+#LIMIT 10

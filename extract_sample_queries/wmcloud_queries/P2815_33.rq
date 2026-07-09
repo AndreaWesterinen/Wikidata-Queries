@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?of ?ofLabel {
+  hint:Query hint:optimizer "None".
+  ?item p:P1630 ?p .
+  ?p pq:P642 ?of .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

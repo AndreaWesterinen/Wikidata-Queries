@@ -1,0 +1,5 @@
+embed.html#SELECT ?item ?itemLabel WHERE {
+  ?item (wdt:P279)+ wd:Q11862829 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr,en"  }  
+}
+LIMIT 10000

@@ -1,0 +1,13 @@
+#title:Swedish verbs that don't have a form marked infinitive
+SELECT DISTINCT ?l ?lemma WHERE {
+  ?l rdf:type ontolex:LexicalEntry;
+    dct:language ?language;
+    wikibase:lemma ?lemma;
+    wikibase:lexicalCategory wd:Q24905.
+  ?language wdt:P218 "sv".
+  MINUS {
+    ?l ontolex:lexicalForm ?form.
+    ?form wikibase:grammaticalFeature wd:Q179230.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

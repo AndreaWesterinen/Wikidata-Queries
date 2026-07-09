@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(DISTINCT ?item1) as ?count) (SUM(?ct) as ?total) (ROUND(SUM(?ct) / ?count * 100)/100 as ?perfilm)
+{
+  	?item1 wdt:P31/wdt:P279* wd:Q11424 . 
+  	OPTIONAL { ?item1 wikibase:statements ?ct .  }
+  	BIND(IF(BOUND(?ct), wd:Q27661530, wd:Q27661533 ) as ?item)
+}  
+GROUP BY ?item

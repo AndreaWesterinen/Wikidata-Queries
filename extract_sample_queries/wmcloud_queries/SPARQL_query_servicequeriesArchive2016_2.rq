@@ -1,0 +1,14 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+SELECT ?actor ?actorLabel {
+  { SERVICE gas:service {
+     gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+     gas:in wd:Q106418 ; gas:target wd:Q6504975 ; gas:out ?actor ; gas:out1 ?depth ; gas:linkType wdt:P161 ; gas:traversalDirection "Undirected" .
+    }
+  }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "fr,en,it" }              
+} 
+order by ?depth

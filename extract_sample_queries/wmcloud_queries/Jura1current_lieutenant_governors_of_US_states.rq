@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?governorof ?governorofLabel ?begin ?jLabel ?ord
+{
+	?item wdt:P39 ?governorof .
+	?item p:P39 ?statement .
+	?statement ps:P39 ?governorof .
+  	?statement pq:P580 ?begin
+  	OPTIONAL { ?statement pq:P1545 ?ord }
+	FILTER NOT EXISTS { ?statement pq:P582 [] }  
+	?governorof wdt:P31 wd:Q4164871 .
+	?governorof wdt:P279* wd:Q2529166 .
+  	?governorof wdt:P17 wd:Q30 . 
+	?governorof wdt:P1001 ?j .  	  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?begin)

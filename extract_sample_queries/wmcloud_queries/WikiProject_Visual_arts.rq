@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?image ?Iconclass_notation ?Commons_category WHERE {
+  ?item wdt:P31 wd:Q207174.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P1256 ?Iconclass_notation. }
+  OPTIONAL { ?item wdt:P373 ?Commons_category. }
+}
+LIMIT 100

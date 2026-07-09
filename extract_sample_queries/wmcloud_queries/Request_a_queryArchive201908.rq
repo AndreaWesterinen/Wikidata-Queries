@@ -1,0 +1,1 @@
+SELECT (?count/100 as ?pages) { SELECT (COUNT(*) as ?count) { ?item wdt:P2093 [] } }

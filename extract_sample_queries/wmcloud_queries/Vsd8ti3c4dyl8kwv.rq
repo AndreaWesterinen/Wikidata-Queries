@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?date ?morts WHERE {
+
+  ?item wdt:P31 wd:Q3199915.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL{?item wdt:P585 ?date.}
+  OPTIONAL{?item wdt:P1120 ?morts.}
+  
+}

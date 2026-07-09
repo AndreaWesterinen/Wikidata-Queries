@@ -1,0 +1,8 @@
+SELECT ?item ?abbr (CONCAT("[https://d-nb.info/",?dnb," ",?dnb,"]") AS ?dnbFormat) (CONCAT("[[:w:de:",?lemma,"]]") AS ?wikipedia) WHERE {
+  ?item p:P8703 ?statement.
+  ?statement pq:P1535 wd:Q107956344 ; ps:P8703 ?abbr.
+  OPTIONAL {?item p:P8703/prov:wasDerivedFrom/pr:P1292 ?dnb.}
+  OPTIONAL {?sitelink schema:about ?item;
+    schema:isPartOf <https://de.wikipedia.org/>;
+    schema:name ?lemma.  }
+  }

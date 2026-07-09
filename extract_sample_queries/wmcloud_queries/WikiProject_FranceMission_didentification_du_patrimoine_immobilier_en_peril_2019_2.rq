@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?commune ?dep ?id_merimee
+WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P1435 wd:Q62018102.
+  OPTIONAL {?item wdt:P131 ?commune.
+  ?item wdt:P131* ?dep . ?dep (wdt:P31/wdt:P279*) wd:Q6465 }
+  OPTIONAL {?item wdt:P380 ?id_merimee . FILTER REGEX(?id_merimee, "^PA") }
+}

@@ -1,0 +1,14 @@
+#title: Check location (with the prefix EXT)
+# Complex constraint from [[Property talk:P2584]]
+#
+SELECT ?item ?value ?loc {
+	?item wdt:P2584 ?value;
+          wdt:P131 ?loc.
+  FILTER (SUBSTR(?value, 1, 3) = "EXT")
+  FILTER NOT EXISTS {
+    ?loc p:P31 [ ps:P31 wd:Q11687019 ].
+  }
+  FILTER NOT EXISTS {
+    ?item wdt:P31 wd:Q11687019.
+  }
+}

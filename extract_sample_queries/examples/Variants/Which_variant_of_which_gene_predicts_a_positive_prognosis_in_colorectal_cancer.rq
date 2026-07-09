@@ -1,3 +1,4 @@
+#title: Which variant of which gene predicts a positive prognosis in colorectal cancer
 SELECT ?geneLabel ?variantLabel
 WHERE
 {

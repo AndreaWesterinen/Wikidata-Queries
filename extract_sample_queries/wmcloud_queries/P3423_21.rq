@@ -1,0 +1,8 @@
+#title: Inconsistency between arrondissement and departement
+# Complex constraint from [[Property talk:P3423]]
+# Place with identifier prefix indicating a departement but located in another departement.
+SELECT ?item ?codeArrt ?codeDept WHERE { 
+  ?item wdt:P3423 ?codeArrt.
+  ?item wdt:P131/wdt:P2586 ?codeDept . 
+  FILTER( !REGEX( str(?codeArrt), concat('^', str(?codeDept),'\\d$') ) ) 
+}

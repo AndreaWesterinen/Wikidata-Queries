@@ -1,0 +1,6 @@
+select ?item ?itemLabel ?cp where {
+?item wdt:P131 wd:Q748211 .
+?item wdt:P4856 ?cp .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,en". }
+} 
+order by asc(xsd:integer(?cp))

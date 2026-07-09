@@ -1,0 +1,16 @@
+SELECT ?item ?item2 (REPLACE(CONCAT('[', ?formatter, ' $1]'), '\\$1', ?viaf) AS ?url) WITH {
+  SELECT * {
+    ?item wdt:P214/^wdt:P214 ?item2 .
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P21 wd:Q6581072 .
+    FILTER( STR( ?item ) < STR( ?item2 ) ) .
+  }
+} AS %duplicates WITH {
+  SELECT * { wd:P214 wdt:P1630 ?formatter } LIMIT 1
+} AS %formatter WHERE {
+  INCLUDE %duplicates .
+  INCLUDE %formatter .
+  ?item wdt:P214 ?viaf .
+  ?item2 wdt:P214 ?viaf .
+} ORDER BY ?viaf
+LIMIT 500

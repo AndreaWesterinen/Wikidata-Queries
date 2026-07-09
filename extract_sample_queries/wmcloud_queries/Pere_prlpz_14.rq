@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?desemboca
+WHERE {
+  ?item wdt:P403* wd:Q4918.
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ca,en,es,an,eu,pl,sv,ceb" .
+?item rdfs:label ?itemLabel
+}
+OPTIONAL {?item wdt:P403 ?desemboca}
+}

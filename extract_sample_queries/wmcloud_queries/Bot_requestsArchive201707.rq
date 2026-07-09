@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?languageCode WHERE {
+	?item wdt:P282 wd:Q8229 .
+    ?item wdt:P424 ?languageCode .
+} 
+ORDER BY ASC(?languageCode)

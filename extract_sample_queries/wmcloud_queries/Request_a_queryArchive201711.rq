@@ -1,0 +1,15 @@
+# https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries/examples#Authority_control_properties_usage_for_paintings
+SELECT ?propertyLabel ?propertyDescription (COUNT(?propertyclaim) AS ?count)
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P497 [] .
+  ?property wikibase:propertyType wikibase:ExternalId .
+  ?property wikibase:claim ?propertyclaim .
+  
+  ?item ?propertyclaim [] .
+	SERVICE wikibase:label {            # ... include the labels
+		bd:serviceParam wikibase:language "en" .
+	}  
+} GROUP BY ?propertyLabel ?propertyDescription ORDER BY DESC (?count)
+LIMIT 100

@@ -1,0 +1,7 @@
+embed.html#SELECT DISTINCT ?director ?directorLabel (COUNT(*) AS ?count) WHERE {
+  ?item wdt:P161 wd:Q1684856;
+    wdt:P57 ?director.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?director ?directorLabel
+ORDER BY DESC(?count)

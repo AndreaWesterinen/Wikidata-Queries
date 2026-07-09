@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?itemvalLabel ?ofLabel
+WHERE
+{
+  ?item p:P921 ?stm .
+  ?stm ps:P921 ?itemval .
+  ?itemval wdt:P31 / wdt:P279* wd:Q11862829 .
+  ?stm pq:P642 ?of .
+  #?of wdt:P31 / wdt:P279* wd:Q43229 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+} LIMIT 100

@@ -1,0 +1,17 @@
+#Occupations of the accused witches in the Survey of Scottish witchcraft
+
+#defaultView:BubbleChart
+SELECT ?occupation ?occupationLabel ?count
+WHERE
+{
+  {
+    SELECT ?occupation (COUNT(?person) AS ?count) WHERE {
+      ?person wdt:P4478 ?accused .
+      ?person wdt:P106 ?occupation.
+    }
+    GROUP BY ?occupation
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)
+LIMIT 1000

@@ -1,0 +1,1 @@
+SELECT ?item ?id { VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?item wdt:P31 ?filmtype ; wikibase:identifiers ?id } ORDER BY DESC(?id) LIMIT 12

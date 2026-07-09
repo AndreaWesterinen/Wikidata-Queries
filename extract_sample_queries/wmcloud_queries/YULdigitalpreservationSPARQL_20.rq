@@ -1,0 +1,11 @@
+SELECT ?os ?osLabel 
+
+WHERE {
+  
+  ?os wdt:P31 wd:Q9135 .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

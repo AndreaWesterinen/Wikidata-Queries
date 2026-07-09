@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel (group_concat(distinct ?showLabel;separator=", ") as ?shows)
+WHERE 
+{
+  values ?show {wd:Q18652415 wd:Q52229055 wd:Q54861525 wd:Q19627512 wd:Q24698311 wd:Q41948223 wd:Q55038915 wd:Q61757497 wd:Q61988991 wd:Q75197495 wd:Q60995220 wd:Q12604983 wd:Q39323920 wd:Q61448040 wd:Q61981835 wd:Q488657 wd:Q22940692 wd:Q65258113 wd:Q63311224 wd:Q1191847 wd:Q101252455 wd:Q105226735 wd:Q106582931 wd:Q105674145 wd:Q58453943 wd:Q111541900 wd:Q108486931 wd:Q108067645 } # Add your shows here
+  ?show wdt:P161 ?item.
+  ?item wdt:P21 wd:Q6581072 .
+  optional {?show rdfs:label ?showLabel . filter(lang(?showLabel)="en")}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} group by ?item ?itemLabel

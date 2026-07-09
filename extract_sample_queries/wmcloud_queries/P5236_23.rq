@@ -1,0 +1,10 @@
+#title: Check value of factors
+# Complex constraint from [[Property talk:P5236]]
+# Doesn't work for very large numbers
+SELECT ?item ?value
+{
+      ?item wdt:P5236 ?factor ; wdt:P1181 ?value . ?factor wdt:P1181 ?factorvalue .
+      FILTER ( ?value < 9223372036854775807 )
+      FILTER( round ( ?value / ?factorvalue ) != ( ?value / ?factorvalue ) ) 
+}
+LIMIT 100

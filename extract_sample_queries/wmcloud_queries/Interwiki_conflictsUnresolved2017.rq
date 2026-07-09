@@ -1,0 +1,9 @@
+SELECT ?color1 ?color1Label ?color2 ?color2Label ?colorcode1 ?colorcode2 WHERE {
+  ?color1 wdt:P31 wd:Q1075.
+  ?color1 wdt:P465 ?colorcode1.
+  ?color2 wdt:P31 wd:Q1075.
+  ?color2 wdt:P465 ?colorcode2.
+  Filter(str(?color1) < str(?color2))
+  Filter(?colorcode1 = ?colorcode2)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

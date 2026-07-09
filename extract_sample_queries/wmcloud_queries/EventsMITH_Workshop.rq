@@ -1,0 +1,10 @@
+SELECT ?radiostation ?radiostationLabel ?id ?coord ?date ?countryLabel #query that calls the for Radiostations with Library of Congres Authority Control id's, in additional to their optional coordinates and start dates
+WHERE {
+?radiostation (wdt:P31)* wd:Q14350. #instance of a radiostation or some subclass there of 
+  ?radiostation wdt:P244 ?id. #has Library of Congress Authority Control number
+  OPTIONAL {?radiostation wdt:P571 ?date} #optionally the start date for the radiostation
+  OPTIONAL{?radiostation wdt:P625 ?coord.} #optionally has coordinates
+  OPTIONAL {?radiostation wdt:P17 ?country.} #optionally the country for the radiostation
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } #call label generator for Wikidata
+}
+#defaultView:Map 

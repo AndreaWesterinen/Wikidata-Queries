@@ -1,0 +1,9 @@
+#title: demographics items of countries should have this
+# Complex constraint from [[Property talk:P8701]]
+#
+SELECT ?item
+{
+	?item wdt:P31 wd:Q3624078 ; wdt:P297 [] .
+    MINUS { ?item wdt:P9241 / wdt:P8701 [] }
+    MINUS { ?item wdt:P576 [] }
+}

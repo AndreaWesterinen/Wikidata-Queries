@@ -1,0 +1,7 @@
+#Auschwitz concentration camps
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P361 wd:Q7341.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,9 @@
+select * {
+  ?item1 wikibase:sitelinks 1 ;
+        wdt:P1566 ?g .
+  ?item2 wdt:P1566 ?g ;
+         wikibase:sitelinks 0 .
+  filter (?item1 != ?item2) .
+  ?sitelink1 schema:about ?item1 ; schema:isPartOf <https://ceb.wikipedia.org/> ; schema:name ?pagename1 .
+  filter not exists { ?sitelink2 schema:about ?item2 }
+}

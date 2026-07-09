@@ -1,0 +1,132 @@
+#by CamelCaseNick
+prefix commons:<http://commons.wikimedia.org/wiki/Special:FilePath/>
+
+select (?stolperstein as ?item) ?nameImage ?addressImage ?quarterImage
+with {
+  select distinct ?stolperstein ?nameImage ?addressImage ?quarterImage where {
+    ?stolperstein wdt:P31 wd:Q26703203;
+                  wdt:P131+ wd:Q64;
+                  wdt:P18 ?image.
+
+    bind(wikibase:decodeUri(replace(str(?image), str(commons:), "")) as ?title)
+
+    values (?nameGroup ?addressGroup ?quarterGroup ?regex) {
+    ("$3" "$2" "$1" "^Stolperstein\\.([\\p{L} \\-]+?)\\.((?:(?:\\p{L}+[ \\-/])*\\p{L}+(?: ?\\d+(?: ?[a-zA-Z]|[\\-– ]\\d+)?)?))\\.((?:(?:\\p{L}+[ \\-/])*\\p{L}+(?: ?\\d+(?: ?[a-zA-Z]|[\\-–]\\d+)?)?))(\\.[\\d\\p{L}]+)?\\.jpg$")
+    ("$3" "$1" "$2" "^(?:Stolpersteine? )?((?:(?:\\p{L}+\\.?[ \\-/])*\\p{L}+\\.?(?: ?\\d+(?: ?[a-zA-Z]|[\\-–]\\d+)?)?))(?: \\(\\d\\))?[ -]\\( *((?:[\\p{L}\\d]+[\\-\\.,]? ?)*[\\p{L}\\d]+) *\\)(?: ?[Ii]n)? ([\\p{L}\\. \\-]+?)(?: ?\\((?:\\d+|neu)\\)| ?\\d+)?(?: ShiftN)?\\.(jpg|JPG|jpeg)$")
+    }
+
+    filter(regex(?title, ?regex))
+
+    bind(replace(?title, ?regex, ?nameGroup) as ?nameImage)
+    bind(replace(?title, ?regex, ?addressGroup) as ?addressImage)
+    bind(replace(?title, ?regex, ?quarterGroup) as ?quarterImage)
+  }
+} as %matches
+with {
+  select ?stolperstein ?nameImage ?addressImage ?quarterImage where {
+    include %matches.
+
+    filter(exists {
+      ?stolperstein skos:altLabel|rdfs:label ?alias.
+      filter(lang(?alias) = "de")
+      filter(regex(?alias, "^Stolperstein für (?!den|die|das)"))
+
+      filter(replace(replace(replace(replace(replace(replace(replace(replace(?alias, "ß", "ss"), "Ü", "Ue"), "Ö", "Oe"), "Ä", "Ae"), "ü", "ue"), "ö", "oe"), "ä", "ae"), "\\.", "")
+             = strlang(replace(replace(replace(replace(replace(replace(replace(replace(concat("Stolperstein für ", ?nameImage), "ß", "ss"), "Ü", "Ue"), "Ö", "Oe"), "Ä", "Ae"), "ü", "ue"), "ö", "oe"), "ä", "ae"), "\\.", ""), "de")
+            || replace(replace(replace(replace(replace(replace(replace(replace(?alias, "^.+ ([^ ]+)$", "$1"), "ß", "ss"), "Ü", "Ue"), "Ö", "Oe"), "Ä", "Ae"), "ü", "ue"), "ö", "oe"), "ä", "ae")
+             = strlang(replace(replace(replace(replace(replace(replace(replace(?nameImage, "ß", "ss"), "Ü", "Ue"), "Ö", "Oe"), "Ä", "Ae"), "ü", "ue"), "ö", "oe"), "ä", "ae"), "de"))
+    } || not exists {
+      ?stolperstein skos:altLabel|rdfs:label ?alias.
+      filter(lang(?alias) = "de")
+      filter(regex(?alias, "^Stolperstein für (?!den|die|das)"))
+    })
+
+    filter(exists {
+      ?stolperstein p:P6375/ps:P6375 ?address.
+      filter(regex(?address, "^([^,\\(]+)(\\([^\\)]+\\))?(,(a|[^a])+)?$"))
+
+      bind(replace(?address, "^([^,\\(]+)(\\([^\\)]+\\))?(,(a|[^a])+)?$", "$1") as ?addr)
+      filter(replace(replace(replace(replace(replace(replace(replace(replace(lcase(?addr), "ß", "ss"), "ü", "ue"), "ö", "oe"), "ä", "ae"), "\\s", ""), "str(asse|\\.)", "str"), "(ggue\\.?|gegenueber)", "ggue"), "[–\\- /]", "")
+             = strlang(replace(replace(replace(replace(replace(replace(replace(replace(lcase(?addressImage), "ß", "ss"), "ü", "ue"), "ö", "oe"), "ä", "ae"), "\\s", ""), "str(asse|\\.)", "str"), "(ggue\\.?|gegenueber)", "ggue"), "[–\\- /]", ""), "de"))
+    } || not exists {
+      ?stolperstein p:P6375/ps:P6375 ?address.
+      filter(!contains(?address, " Ecke "))
+    })
+
+    filter(exists {
+      filter(bound(?quarterImage) && ?quarterImage = ?quarterName)
+      values (?quarterName ?quarter) {
+        ("Adler" wd:Q599941)
+        ("Ahohs" wd:Q675118)
+        ("Altgl" wd:Q641472)
+        ("Alttr" wd:Q702517)
+        ("Baums" wd:Q644363)
+        ("Biesd" wd:Q666141)
+        ("Bohnd" wd:Q562450)
+        ("Britz" wd:Q428846)
+        ("Charl" wd:Q162049) ("Charlottenburg" wd:Q162049)
+        ("Dahle" wd:Q700541)
+        ("Fenpf" wd:Q566387)
+        ("Fried" wd:Q692390) ("Friedn" wd:Q692390)
+        ("Friedh" wd:Q317056) ("Friedr" wd:Q317056)
+        ("Frihg" wd:Q563528)
+        ("Frohn" wd:Q641467)
+        ("Gesbr" wd:Q644350)
+        ("Grune" wd:Q2874431)
+        ("Haken" wd:Q569895)
+        ("Halen" wd:Q651009) ("Halsee" wd:Q651009)
+        ("Hansa" wd:Q427582)
+        ("Heils" wd:Q513099)
+        ("Hermd" wd:Q565018)
+        ("Johth" wd:Q655012)
+        ("Karlh" wd:Q703218)
+        ("Kauld" wd:Q665953)
+        ("Köpen" wd:Q521521)
+        ("Kreuz" wd:Q308928) ("Kreuzb" wd:Q308928)
+        ("Lankw" wd:Q671474)
+        ("Liber" wd:Q9169094)
+        ("Lichf" wd:Q155211) ("LIchf" wd:Q155211) ("Lichtf" wd:Q155211) ("Lifel" wd:Q155211)
+        ("Lirad" wd:Q821101)
+        ("Lüba" wd:Q563664)
+        ("Mahld" wd:Q563837)
+        ("Mard" wd:Q602159)
+        ("Mitte" wd:Q2013767)
+        ("Moab" wd:Q699800) ("Moabi" wd:Q699800)
+        ("Neuk" wd:Q169492) ("Neukö" wd:Q169492)
+        ("Nieds" wd:Q512959)
+        ("Nikol" wd:Q576653)
+        ("Obers" wd:Q644448)
+        ("Panko" wd:Q4707648)
+        ("Prenz" wd:Q313186) ("Prenzl" wd:Q313186)
+        ("Rumbg" wd:Q561880)
+        ("Schma" wd:Q641689) ("Schmar" wd:Q641689) ("Schmd" wd:Q641689)
+        ("Schöb" wd:Q313189) ("Schön" wd:Q313189)
+        ("Siemens" wd:Q3510657)
+        ("Stegl" wd:Q700211)
+        ("Tegel" wd:Q700055)
+        ("Temph" wd:Q363830) ("Templ" wd:Q363830)
+        ("Tierg" wd:Q328672)
+        ("Wanns" wd:Q1949)
+        ("Weddi" wd:Q675187)
+        ("Weißs" wd:Q675164)
+        ("Weste" wd:Q649947)
+        ("Wilhe" wd:Q648000)
+        ("Willst" wd:Q563692)
+        ("Wilm" wd:Q693628) ("Wilmd" wd:Q693628)
+        ("Zehld" wd:Q324402)
+      }
+      ?stolperstein p:P276/ps:P276/wdt:P276* ?quarter.
+    } || exists {
+      ?stolperstein p:P276/ps:P276 ?quarter.
+      ?quarter wdt:P31 wd:Q35034452;
+               skos:altLabel|rdfs:label ?alias.
+      filter(lang(?alias) = "de")
+      filter(?alias = strlang(?quarterImage, "de"))
+    } || not exists {
+      ?stolperstein p:P276 [].
+    }) # TODO: fix abbr to quarter resolution 
+  }
+} as %perfect
+where {
+  include %matches. minus { include %perfect. }
+}

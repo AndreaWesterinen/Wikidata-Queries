@@ -1,0 +1,4 @@
+#title: Claims without source
+# Complex constraint from [[Property talk:P620]]
+# Each P620 claim needs to have at least one source
+SELECT ?item { ?item p:P620 ?claim. OPTIONAL { ?claim prov:wasDerivedFrom ?source . ?source ?p ?v . } FILTER(!bound(?source)) }

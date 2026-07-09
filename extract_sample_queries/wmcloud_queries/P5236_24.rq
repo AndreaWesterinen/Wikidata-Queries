@@ -1,0 +1,4 @@
+#title: Even numbers should have prime factor 2
+# Complex constraint from [[Property talk:P5236]]
+#
+SELECT ?item { ?item wdt:P31 wd:Q13366104 . MINUS { ?item wdt:P5236 wd:Q200 }  } LIMIT 500

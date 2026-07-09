@@ -1,0 +1,1 @@
+sparql?query=SELECT ?a WHERE {OPTIONAL {wd:QXXXX wdt:P570 ?a}}

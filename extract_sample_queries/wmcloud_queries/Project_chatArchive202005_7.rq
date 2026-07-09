@@ -1,0 +1,1 @@
+SELECT ?item ?nl { ?item wdt:P31 wd:Q101352 ; wdt:P282 wd:Q8229 ; wdt:P1705 ?nl } LIMIT 1

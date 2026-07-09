@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?elev ?coord
+WHERE
+{
+	?item wdt:P31 wd:Q105731 ;
+          wdt:P706 wd:Q842462 ;
+          wdt:P2044 ?elev ;
+          wdt:P625 ?coord .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

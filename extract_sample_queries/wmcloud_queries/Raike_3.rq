@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabelEn ?itemLabel ?sitelink_de ?CAS_Nummer ?Dana8 ?Strunz8 ?Strunz9 ?Strunz10 ?IMA_Nummer
+WHERE 
+{
+  VALUES ?class { wd:Q12089225 wd:Q1936581 wd:Q3965281 wd:Q24205147 wd:Q429795 wd:Q3977918 wd:Q3965272 wd:Q11344 }
+  ?item wdt:P31 ?class .
+  optional {?sitelink_de ^schema:name ?article_de .
+            ?article_de schema:about ?item ;
+                     schema:isPartOf <https://de.wikipedia.org/> .}
+  OPTIONAL { ?item wdt:P231 ?CAS_Nummer. }
+  OPTIONAL { ?item wdt:P714 ?Dana8. }
+  OPTIONAL { ?item wdt:P711 ?Strunz8. }
+  OPTIONAL { ?item wdt:P712 ?Strunz9. }
+  OPTIONAL { ?item wdt:P713 ?Strunz10. }
+  OPTIONAL { ?item wdt:P484 ?IMA_Nummer. }
+  OPTIONAL {
+    ?item rdfs:label ?itemLabelEn .
+    FILTER(LANG(?itemLabelEn) = 'en') .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

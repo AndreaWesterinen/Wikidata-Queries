@@ -1,3 +1,4 @@
+#title: Fictional subjects of the Marvel Universe
 SELECT ?char ?charName (GROUP_CONCAT(DISTINCT ?typeLabel;separator=", ") AS ?types) (GROUP_CONCAT(DISTINCT ?universeLabel;separator=", ") AS ?universes)
 WHERE {
   ?char wdt:P1080 wd:Q931597;

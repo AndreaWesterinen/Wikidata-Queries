@@ -1,0 +1,11 @@
+#defaultView:BarChart
+SELECT ?retrieved ?count WITH {
+  SELECT ?retrieved (COUNT(?reference) AS ?count) WHERE {
+    ?reference pr:P813 ?retrieved.
+  }
+  GROUP BY ?retrieved
+} AS %results WHERE {
+  INCLUDE %results.
+  wd:Q2013 wdt:P571 ?wikidataInception.
+  FILTER(?retrieved >= ?wikidataInception && ?retrieved <= NOW())
+}

@@ -1,0 +1,11 @@
+SELECT ?item ?employerLabel ?p580 ?p582 {
+  ?item p:P106 [
+    ps:P106 wd:Q3809586;
+    pq:P580 ?p580;
+    pq:P108 ?employer;
+    pq:P582 ?p582;
+  ].
+  FILTER(!isBlank(?p580) && !isBlank(?p582))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ASC(?p580)

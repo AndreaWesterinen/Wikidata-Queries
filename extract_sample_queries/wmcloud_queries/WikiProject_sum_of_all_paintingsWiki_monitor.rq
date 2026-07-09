@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item
+WHERE
+{
+	?item wdt:P31 wd:Q3305213 .
+    MINUS { ?item p:P170 [] .
+            ?item p:P195 [] }
+    ?article schema:about ?item .
+  ?article schema:isPartOf ?wiki .
+  FILTER regex (str(?wiki), ".+.wikipedia.org").
+}
+LIMIT 1000

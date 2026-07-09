@@ -1,0 +1,39 @@
+SELECT ?example_item ?example_itemLabel ("Inscription" AS ?prop) ?example_value ?qual ?qualLabel ?count ?stmt_count ?example_qual_value ?ex_qual_value_label WHERE {
+  {
+    SELECT ?qual ?pq_qual (COUNT(DISTINCT ?item) AS ?count) (COUNT(DISTINCT ?statement) AS ?stmt_count) (SAMPLE(?statement) AS ?samp_stmt) WHERE {
+         hint:Query hint:optimizer "None" .
+         ?item p:P1684 ?statement .
+         ?statement ?pq_qual ?pq_obj .
+         ?qual wikibase:qualifier ?pq_qual .
+    }  GROUP BY ?qual ?pq_qual
+  } .
+
+  OPTIONAL {
+    ?qual rdfs:label ?qualLabel filter (lang(?qualLabel) = "en") .
+  }
+  
+  ?example_item p:P1684 ?samp_stmt .
+  ?samp_stmt ps:P1684 ?ex_value . 
+  OPTIONAL {
+    ?samp_stmt ps:P1684 ?ex_value . 
+    FILTER(STRLEN(?ex_value) > 50) .
+    BIND(CONCAT(SUBSTR(?ex_value, 0, 50), '...') AS ?ex_value1) .
+  }
+  BIND(COALESCE(?ex_value1, ?ex_value) AS ?example_value) .
+  
+  ?samp_stmt ?pq_qual ?ex_qual_value .
+  OPTIONAL {
+    ?samp_stmt ?pq_qual ?ex_qual_value .
+    FILTER(ISLITERAL(?ex_qual_value)) .
+    FILTER(STRLEN(?ex_qual_value) > 50) .
+    BIND(CONCAT(SUBSTR(?ex_qual_value, 0, 50), '...') AS ?ex_qual_value1) .
+  }
+  BIND(COALESCE(?ex_qual_value1, ?ex_qual_value) AS ?example_qual_value) .
+  
+  OPTIONAL {
+     ?example_qual_value rdfs:label ?ex_qual_value_label . FILTER(lang(?ex_qual_value_label) = 'en') .
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count) ASC(?qualLabel)

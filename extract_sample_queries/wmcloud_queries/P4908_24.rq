@@ -1,0 +1,32 @@
+#title: Episode titles are generally unique
+# Complex constraint from [[Property talk:P4908]]
+# Currently checks English labels. Excludes a few series with repeating titles
+SELECT ?item ?l ?itemDescription ?item2 ?item2Description ?series ?seriesLabel
+WITH
+{  SELECT ?series ?l (COUNT(DISTINCT ?ep) as ?ct)
+  {
+	?ep wdt:P4908 [ ] ; wdt:P179 ?series ; wdt:P31 wd:Q21191270 ; rdfs:label ?l . FILTER( lang(?l) = "en" )  
+  }
+  GROUP BY ?series ?l 
+  HAVING ( ?ct > 1)
+} as %findmore
+WHERE
+{
+  INCLUDE %findmore 
+  FILTER( ?series NOT IN ( wd:Q326180 , wd:Q2316316 , wd:Q2610941 ) )          
+  hint:Query hint:optimizer "None".
+  ?item  wdt:P179 ?series ; rdfs:label ?l   ; wdt:P31 wd:Q21191270 .
+  ?item2  wdt:P179 ?series ; rdfs:label ?l   ; wdt:P31 wd:Q21191270 .
+  FILTER(str(?item) > str(?item2) )
+  MINUS { ?item wdt:P1889 ?item2 }
+  MINUS { ?item2 wdt:P1889 ?item }
+  MINUS { ?item wdt:P361 ?item2 }
+  MINUS { ?item2 wdt:P361 ?item }
+  FILTER NOT EXISTS { ?item wdt:P179 wd:Q1248101 }
+  FILTER NOT EXISTS { ?item wdt:P179 wd:Q29474217 } 
+  FILTER NOT EXISTS { ?item wdt:P179 wd:Q786306 }
+  FILTER NOT EXISTS { ?item wdt:P179 wd:Q16949801 ; rdfs:label "Justice Served"@en }   
+  FILTER NOT EXISTS { ?item wdt:P179 wd:Q2155230 ; rdfs:label "A Child Is Born"@en }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it". }
+}
+ORDER BY ?series ?l ?item

@@ -1,0 +1,21 @@
+SELECT DISTINCT ?edition_property_statement WHERE {
+  VALUES (?type_with_isbn) {
+    (wd:Q3331189)
+    (wd:Q187685)
+    (wd:Q732577)
+  }
+  FILTER NOT EXISTS { ?work wdt:P31 ?type_with_isbn . }
+  VALUES (?edition_property) {
+    (p:P212)
+    (p:P957)
+  }
+  ?work ?edition_property ?edition_property_statement .
+  {
+    ?work wdt:P747 ?edition .
+    FILTER NOT EXISTS { ?edition wdt:P747 ?subedition . }
+  } UNION {
+    ?edition wdt:P629 ?work .
+    FILTER NOT EXISTS { ?subedition wdt:P629 ?edition . }
+  }
+}
+|the

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P105 wd:Q35409. 
+  ?item wdt:P171/wdt:P171* wd:Q764.
+  hint:Prior hint:gearing "forward".
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+ }
+ORDER BY ?item

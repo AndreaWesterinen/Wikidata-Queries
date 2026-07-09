@@ -1,0 +1,16 @@
+embed.html## Distribution of values of a property
+SELECT distinct ?pers1 ?pers1Label ?pers2 ?pers2Label ?pers3 ?pers3Label ?pers4 ?pers4Label ?pers5 ?pers5Label ?pers6 ?pers6Label
+WHERE {
+  ?pers1 wdt:P157 ?pers2 .
+  FILTER ( ?pers1 != ?pers2 )
+  ?pers2 wdt:P157 ?pers3 .
+  FILTER ( ?pers1 != ?pers3 )
+  FILTER ( ?pers2 != ?pers3 )
+  ?pers3 wdt:P157 ?pers4 .
+  FILTER ( ?pers1 != ?pers4 )
+  FILTER ( ?pers2 != ?pers4 )
+  ?pers4 wdt:P157 ?pers5 .
+  FILTER ( ?pers1 != ?pers5 )
+  ?pers5 wdt:P157 ?pers6 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

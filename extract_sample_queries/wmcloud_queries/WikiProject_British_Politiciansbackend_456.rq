@@ -1,0 +1,17 @@
+# MPs whose terms began after their constituency was dissolved
+
+SELECT DISTINCT ?constituency ?constituencyLabel ?conststart ?constend ?members ?item ?itemLabel ?termstart ?difference
+{
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 ?mpterm . 
+ ?mpterm wdt:P279* wd:Q16707842 . 
+ ?positionStatement pq:P580 ?begin . bind(year(?begin) as ?termstart ) .
+ ?positionStatement pq:P768 ?constituency . 
+ 
+ optional { ?constituency wdt:P571 ?start . bind(year(?start) as ?conststart) . }
+ optional { ?constituency wdt:P1410 ?members . }
+ 
+ ?constituency wdt:P576 ?end . bind(year(?end) as ?constend) . filter (?termstart > ?constend ) . bind((?termstart-?constend) as ?difference)
+ 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by ?start

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P101 wd:Q1460420;
+    (p:P31/ps:P31/(wdt:P279*)) wd:Q327333.
+}
+LIMIT 2000

@@ -1,3 +1,4 @@
+#title: Return a bubble chart of mediatypes by count of file formats
 SELECT DISTINCT ?mediaType (COUNT (?ff) as ?count)
 WHERE
 {

@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?ltho) as ?count) (SAMPLE(?ltho) as ?sample)
+{
+	?item wdt:P31 wd:Q1738955 . 
+    ?item wdt:P1030 ?value .
+    ?ltho wdt:P1030 ?value ; wdt:P31 wd:Q39715 .
+}
+GROUP BY ?item
+ORDER BY DESC (?count)

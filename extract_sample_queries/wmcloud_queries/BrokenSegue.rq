@@ -1,0 +1,8 @@
+SELECT ?item ?article ?dt WHERE {
+  ?item wikibase:statements 0 .
+  ?item schema:dateModified ?dt.
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://en.wikipedia.org/>.
+  #?item wdt:P2671 ?fid.
+  FILTER(year(?dt) = 2021 && month(?dt) > 5).
+} LIMIT 500 offset 4500

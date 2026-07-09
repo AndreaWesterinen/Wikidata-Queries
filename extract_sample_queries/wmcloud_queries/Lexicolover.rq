@@ -1,0 +1,4 @@
+SELECT ?item (count(?l) as ?count)  WHERE {
+      ?l a ontolex:LexicalEntry ; wikibase:lexicalCategory ?item ; dct:language ?language .
+      ?language wdt:P218 'cs'
+} group by ?item order by desc(?count)

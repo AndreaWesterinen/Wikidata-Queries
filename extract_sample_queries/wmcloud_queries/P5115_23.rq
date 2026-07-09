@@ -1,0 +1,4 @@
+#title: Value not in P236
+# Complex constraint from [[Property talk:P5115]]
+#
+SELECT ?item ?value { ?item wdt:P5115 ?value . MINUS { ?item wdt:P236 ?value } . } LIMIT 1000

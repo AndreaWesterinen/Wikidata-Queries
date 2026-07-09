@@ -1,0 +1,9 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?tedtalkLabel ?image WHERE {
+  ?item wdt:P166 wd:Q18748039.
+  ?item wdt:P2611 ?ted.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  ?tedtalk wdt:P31 wd:Q23011722.
+  ?tedtalk wdt:P50 ?item.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

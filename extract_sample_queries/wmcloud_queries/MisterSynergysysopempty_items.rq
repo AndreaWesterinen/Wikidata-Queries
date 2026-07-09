@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wikibase:sitelinks 0; wikibase:statements 0 . MINUS { [] ?any ?item } MINUS { [] wikibase:claim ?p . ?item ?p [] } MINUS { [] schema:about ?item } MINUS { ?item owl:sameAs [] } FILTER(?item NOT IN (wd:Q16943273, wd:Q17566023)) } ORDER BY ASC(xsd:integer(STRAFTER(STR(?item), 'Q'))) LIMIT 5000

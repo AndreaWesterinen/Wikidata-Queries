@@ -1,0 +1,10 @@
+# 100 Art Gallery of South Australia works 
+
+SELECT ?artwork  ?creatorLabel ?collectionLabel WHERE {
+  ?artwork wdt:P6805 ?agsa.
+  ?artwork wdt:P31 wd:Q838948.  # work of art
+  OPTIONAL {?artwork wdt:P170 ?creator.}
+  OPTIONAL {?artwork wdt:P195 ?collection.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 100

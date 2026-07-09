@@ -1,0 +1,8 @@
+#title: Check registration number
+# Complex constraint from [[Property talk:P2632]]
+#
+SELECT ?item ?jail ?catalogue (STRLEN(?catalogue) AS ?strlen) {
+  ?item p:P2632 [ps:P2632 ?jail;
+                 pq:P528 ?catalogue;
+                ].
+  BIND( REGEX( STR( ?catalogue ), "^((AZ\\d+)

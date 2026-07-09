@@ -1,0 +1,17 @@
+select distinct ?item ?number ?en ?dob ?dod
+with { # select all the numbers of sitelinks
+  select ?number (count(*) as ?total) { # we don't use ?total but without it the query times out, so we'll just ignore it
+    [] wikibase:sitelinks ?number .
+  } group by ?number
+} as %numbers
+where {
+  include %numbers .
+  filter (?number > 200) .
+  ?item wikibase:sitelinks ?number .
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL { ?item wdt:P569 ?dob }
+  OPTIONAL { ?item wdt:P570 ?dod }  
+  ?sitelink <http://schema.org/about> ?item .
+  optional { ?wen schema:about ?item . ?wen schema:name ?article_en . ?wen schema:isPartOf <https://cs.wikipedia.org/>}
+  bind(if(bound(?article_en),"Yes","") as ?en)
+} order by desc(?number)

@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?date 
+{  
+    ?item (wdt:P26/wdt:P3373)

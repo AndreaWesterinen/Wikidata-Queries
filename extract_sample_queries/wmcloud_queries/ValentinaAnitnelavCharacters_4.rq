@@ -1,0 +1,44 @@
+SELECT DISTINCT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?appearances1; SEPARATOR = ", ") as ?antagonistic_appearances) (GROUP_CONCAT(DISTINCT ?appearances2; SEPARATOR = ", ") as ?protagonistic_appearances)
+WHERE 
+{ 
+  BIND(CONCAT(?role1, " (",?works1,")") AS ?appearances1)
+  BIND(CONCAT(?role2, " (",?works2,")") AS ?appearances2)
+{
+SELECT DISTINCT ?item ?role1 (GROUP_CONCAT(DISTINCT ?work1Label; SEPARATOR = ", ") as ?works1) ?role2 (GROUP_CONCAT(DISTINCT ?work2Label; SEPARATOR = ", ") as ?works2)
+WHERE
+{
+  {
+  ?item p:P5800 ?st1
+  {?st1 ps:P5800/wdt:P279* wd:Q290691. BIND ("villain" AS ?role1)} UNION
+  {?st1 ps:P5800/wdt:P279* wd:Q245204. BIND ("antagonist" AS ?role1)}
+  OPTIONAL{?st1 pq:P642/rdfs:label ?work1Label. FILTER(LANG(?work1Label)="en")}
+  } UNION
+  {
+  ?work1 p:P674 ?st1.
+  ?st1 ps:P674 ?item.
+  {?st1 pq:P5800/wdt:P279* wd:Q290691. BIND ("villain" AS ?role1)} UNION
+  {?st1 pq:P5800/wdt:P279* wd:Q245204. BIND ("antagonist" AS ?role1)}
+  OPTIONAL{?work1 rdfs:label ?work1Label. FILTER(LANG(?work1Label)="en")}
+  }
+  
+  {
+  ?item p:P5800 ?st2
+  {?st2 ps:P5800/wdt:P279* wd:Q162244. BIND ("hero" AS ?role2)} UNION
+  {?st2 ps:P5800/wdt:P279* wd:Q215972. BIND ("protagonist" AS ?role2)} UNION
+  {?st2 ps:P5800/wdt:P279* wd:Q15841935. BIND ("viewpoint character" AS ?role2)}
+  OPTIONAL{?st2 pq:P642/rdfs:label ?work2Label. FILTER(LANG(?work2Label)="en")}
+  } UNION
+  {
+  ?work2 p:P674 ?st2.
+  ?st2 ps:P674 ?item.
+  {?st2 pq:P5800/wdt:P279* wd:Q162244. BIND ("hero" AS ?role2)} UNION
+  {?st2 pq:P5800/wdt:P279* wd:Q215972. BIND ("protagonist" AS ?role2)} UNION
+  {?st2 pq:P5800/wdt:P279* wd:Q15841935. BIND ("viewpoint character" AS ?role2)}
+  OPTIONAL{?work2 rdfs:label ?work2Label. FILTER(LANG(?work2Label)="en")}
+  }
+}
+  GROUP BY ?item ?role1 ?role2
+}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,it,es,fr,nl,ru,cs,sk". }
+}
+GROUP BY ?item ?itemLabel

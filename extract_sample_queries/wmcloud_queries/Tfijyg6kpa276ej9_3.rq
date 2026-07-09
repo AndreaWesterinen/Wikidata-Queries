@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel {
+  ?item wdt:P279* ?class .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  .
+  VALUES ?class {wd:Q5 wd:Q16334295}
+  }

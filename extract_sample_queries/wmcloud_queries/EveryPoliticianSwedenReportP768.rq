@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?type WHERE {  
+    ?person p:P39 ?position_statement .
+    ?position_statement ps:P39 wd:Q10655178 .
+    ?position_statement pq:P768 ?item .
+    ?item wdt:P31 ?type .
+  }

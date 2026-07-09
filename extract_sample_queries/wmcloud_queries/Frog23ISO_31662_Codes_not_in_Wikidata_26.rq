@@ -1,0 +1,8 @@
+SELECT ?region ?regionLabel
+WHERE 
+{
+  ?region wdt:P300 "ES-O" .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

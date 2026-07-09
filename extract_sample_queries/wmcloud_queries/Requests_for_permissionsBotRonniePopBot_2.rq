@@ -1,0 +1,14 @@
+embed.html#SELECT  ?year  (MAX(?inhabitant) AS ?inhabitants)  (SAMPLE(?reference_URL) AS ?sample_reference_URL)
+ WHERE
+ {
+    wd:Q16 p:P1082 ?statement.
+    ?statement pqv:P585 ?timevalue;
+             ps:P1082 ?inhabitant.
+ ?timevalue wikibase:timeValue ?date.
+   OPTIONAL { ?statement pq:P518 ?applies. }
+   OPTIONAL { ?statement prov:wasDerivedFrom / (pr:P854|pr:P4656) ?reference_URL. }
+   MINUS { ?statement wikibase:rank wikibase:DeprecatedRank }
+  BIND (YEAR(?date) AS ?year)
+}
+GROUP BY ?year 
+ORDER BY DESC (?year)

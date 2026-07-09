@@ -1,0 +1,10 @@
+#title: Check units
+# Complex constraint from [[Property talk:P2610]]
+# Unit must to be a [[d:Q1978718|unit of length <small>(Q1978718)</small>]]
+SELECT ?item ?unit
+WHERE {
+  ?item p:P2610/psv:P2610/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P31 wd:Q1978718.
+  }.
+}

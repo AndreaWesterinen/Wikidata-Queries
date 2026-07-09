@@ -1,0 +1,31 @@
+SELECT (COUNT(?item) AS ?count) #?item ?title 
+?locationstring ?location
+WITH { 
+ SELECT ?location ?locationstring WHERE
+   {  
+     ?location wdt:P463 wd:Q1065 .
+     { ?location skos:altLabel ?locationstring }
+     UNION
+     { ?location rdfs:label ?locationstring }
+     FILTER (LANG(?locationstring) = "en")
+     FILTER ((STRLEN(?locationstring) > 3))
+     FILTER (?location != wd:Q160016 )
+   } 
+  } AS %locations
+WITH { 
+SELECT DISTINCT ?item ?title ?locationstring ?location WHERE
+   {  
+     INCLUDE %locations
+      SERVICE bd:sample { ?item wdt:P921 wd:Q853077 . bd:serviceParam bd:sample.limit 3000 }     
+      ?item wdt:P1476 ?title .
+      FILTER ( CONTAINS(LCASE(?title), LCASE(?locationstring)))
+      MINUS { ?item wdt:P921 ?location }
+   } 
+} AS %publications
+WHERE { 
+#     INCLUDE %locations
+     INCLUDE %publications
+} 
+GROUP BY ?count #?item ?title 
+?locationstring ?location
+ORDER BY DESC(?count)

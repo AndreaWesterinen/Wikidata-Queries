@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?value
+{
+  ?item wdt:P7057 ?value .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+LIMIT 1000

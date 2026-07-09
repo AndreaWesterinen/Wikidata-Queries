@@ -1,0 +1,5 @@
+#title: Get all rpoperties and values from an given item
+SELECT ?prop ?propLabel ?value ?valueLabel WHERE {
+  wd:Q10001 ?prop ?value.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

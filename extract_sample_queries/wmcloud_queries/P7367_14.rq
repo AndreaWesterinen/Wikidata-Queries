@@ -1,0 +1,9 @@
+#title: Rating and descriptor from different rating systems
+# Complex constraint from [[Property talk:P7367]]
+# The rating and the descriptor on it are of classes that are part of different rating systems.
+SELECT DISTINCT ?item
+WHERE {
+  [] wikibase:claim ?p; wikibase:statementProperty ?ps .
+  ?item ?p [ ?ps [wdt:P31/wdt:P361 ?ratingsystem]; pq:P7367 [wdt:P31/wdt:P361 ?descriptorsystem] ] .
+  FILTER ( ?ratingsystem != ?descriptorsystem )
+}

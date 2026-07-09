@@ -1,0 +1,13 @@
+SELECT 
+   (wd:Q847 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   (wd:Q46190676 as ?type)
+("{{{level}}}" as ?level)
+("{{{descr}}}" as ?descr)
+WHERE
+{
+ { ?tbd wdt:P279* wd:Q2312410; wdt:P641 wd:Q2426135 . ?a wdt:P31 ?tbd }
+ UNION
+ { ?a wdt:P31 wd:Q46190676 }
+}

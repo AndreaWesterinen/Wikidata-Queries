@@ -1,0 +1,10 @@
+# journals is Opuscula zoologica (Budapest)
+
+SELECT ?item ?itemLabel ?authorLabel ?authorNS ?date  WHERE {
+  ?item wdt:P1433 wd:Q21386066.      # define item
+  ?item wdt:P2093 ?authorNS.         # author name string
+  ?item wdt:P50 ?author.             # author
+  ?item wdt:P577 ?date.              # publication date
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?item ?author ?authorNS 

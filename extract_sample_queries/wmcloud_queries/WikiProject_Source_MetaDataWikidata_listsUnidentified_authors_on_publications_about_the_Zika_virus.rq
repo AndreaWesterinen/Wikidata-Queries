@@ -1,0 +1,14 @@
+SELECT ?item  (CONCAT(
+      '[https://tools.wmflabs.org/author-disambiguator/?name=',
+      ENCODE_FOR_URI(?author_name), ' ', ?author_name, ']') AS ?disambiguator)
+where {
+  ?item p:P50 ?author_statement .
+  ?item wdt:P921 wd:Q202864 .
+  ?author_statement ps:P50 ?author .
+  ?author_statement pq:P1545 ?position .
+  ?item p:P2093 ?author_name_statement .
+  ?author_name_statement ps:P2093 ?author_name .
+  ?author_name_statement pq:P1545 ?position .
+  ?author wikibase:sitelinks ?sitelinks .
+}
+LIMIT 1000

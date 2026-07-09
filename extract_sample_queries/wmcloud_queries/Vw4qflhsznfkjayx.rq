@@ -1,0 +1,62 @@
+SELECT ?decade ?genre ?genreLabel ?count ?decadeCount (100 * ?count / ?decadeCount AS ?percentage) WHERE {  
+  {
+    SELECT ?decade ?genre (count(?x) as ?count) WHERE {
+      {
+        # TOP 20 Genres
+        SELECT ?top20Genre ?count WHERE {
+          {
+            SELECT ?genre (count(?x) as ?count) WHERE {
+              ?x  wdt:P31 wd:Q11424.
+              ?x  wdt:P136 ?genre.
+              # Exclude silent film; doesn't make a ton of sense
+              # in this context, since it's more about the medium
+              # than the content
+              FILTER(?genre != wd:Q226730)
+            }
+            GROUP BY ?genre
+          }
+          BIND(?genre as ?top20Genre)
+        }
+        ORDER BY DESC(?count)
+        LIMIT 20
+      }
+      
+      {
+        SELECT ?x (min(?pubDate) as ?firstPubDate) WHERE {
+          ?x  wdt:P31 wd:Q11424.
+          ?x  wdt:P577 ?pubDate.
+        }
+        GROUP BY ?x
+      }
+      
+      ?x  wdt:P136 ?top20Genre.
+      BIND(?top20Genre as ?genre)
+      BIND(concat(str(floor(year(?firstPubDate) / 10)), "0s") as ?decade)
+      FILTER(!isBlank(?decade))
+    }
+    GROUP BY ?decade ?genre
+  }
+
+  {
+    # Movies per decade
+    SELECT ?decade (count(?x) as ?decadeCount) WHERE {
+      {
+        SELECT ?x (min(?pubDate) as ?firstPubDate) WHERE {
+          ?x  wdt:P31 wd:Q11424.
+          ?x  wdt:P577 ?pubDate.
+        }
+        GROUP BY ?x
+      }
+      BIND(concat(str(floor(year(?firstPubDate) / 10)), "0s") as ?decade)
+      # This filter is very important (in both subqueries)! Otherwise
+      # the results of the sub queries can't be properly aligned.
+      FILTER(!isBlank(?decade))
+    }
+    GROUP BY ?decade
+  }
+  
+  # See https://www.wikidata.org/wiki/Q22917333
+  FILTER(?decade != "2110s")
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

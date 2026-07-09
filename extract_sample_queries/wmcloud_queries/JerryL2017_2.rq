@@ -1,0 +1,14 @@
+SELECT ?Wildfowl___Wetlands_Trust ?Wildfowl___Wetlands_TrustLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  OPTIONAL {  }
+  
+  OPTIONAL {  }
+  OPTIONAL {  }
+  OPTIONAL {  }
+  
+  
+  OPTIONAL {  }
+  ?Wildfowl___Wetlands_Trust wdt:P137 wd:Q1423063.
+}
+LIMIT 100

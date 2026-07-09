@@ -1,0 +1,9 @@
+#defaultView:Map{"hide": "?coords"}
+SELECT DISTINCT ?museum ?museumLabel (SAMPLE(?coords) AS ?coords) (SAMPLE(?image) AS ?image) ?url ?layer WHERE {
+?museum wdt:P31 ?type .?type wdt:P279* wd:Q33506. ?museum wdt:P625 ?coords
+OPTIONAL {?museum wdt:P18 ?image}
+OPTIONAL {?museum wdt:P856 ?url}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+?museum rdfs:label ?museumLabel. ?type rdfs:label ?layer }
+} GROUP BY ?museum ?museumLabel ?url ?layer
+ORDER BY UCASE(?layer)

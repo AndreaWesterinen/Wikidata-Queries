@@ -1,0 +1,5 @@
+SELECT ?Calcinaia ?CalcinaiaLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Calcinaia wdt:P131 wd:Q103016.
+}
+LIMIT 100

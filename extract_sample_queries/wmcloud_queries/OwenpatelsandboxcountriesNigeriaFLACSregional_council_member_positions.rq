@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?council ?councilLabel ?region ?regionLabel WHERE { 
+    ?region wdt:P31/wdt:P279* wd:Q10864048 ; 
+            wdt:P17 wd:Q1033 .
+    OPTIONAL { ?council wdt:P1001 ?region ;
+            wdt:P31/wdt:P279* wd:Q11204 .
+    OPTIONAL { ?council wdt:P527 ?item }
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

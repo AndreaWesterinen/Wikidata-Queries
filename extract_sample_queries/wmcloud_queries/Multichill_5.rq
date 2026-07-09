@@ -1,0 +1,6 @@
+SELECT ?painter WHERE {
+	?painter  wdt:P106 wd:Q1028181 .
+    ?painter wdt:P27 wd:Q29999 .
+    MINUS { ?item wdt:P170 ?painter } .
+    MINUS { ?painter wdt:P650 [] }
+	}

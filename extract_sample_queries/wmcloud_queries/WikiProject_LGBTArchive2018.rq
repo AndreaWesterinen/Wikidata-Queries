@@ -1,0 +1,8 @@
+SELECT ?Marche_des_fiert_s_LGBT ?Marche_des_fiert_s_LGBTLabel ?nature_de_l__l_ment ?nature_de_l__l_mentLabel ?lieu ?lieuLabel ?localisation_administrative ?localisation_administrativeLabel ?partie_de ?partie_deLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Marche_des_fiert_s_LGBT wdt:P31 wd:Q51404.
+  OPTIONAL { ?Marche_des_fiert_s_LGBT wdt:P31 ?nature_de_l__l_ment. }
+  OPTIONAL { ?Marche_des_fiert_s_LGBT wdt:P276 ?lieu. }
+  OPTIONAL { ?Marche_des_fiert_s_LGBT wdt:P131 ?localisation_administrative. }
+  OPTIONAL { ?Marche_des_fiert_s_LGBT wdt:P361 ?partie_de. }
+}

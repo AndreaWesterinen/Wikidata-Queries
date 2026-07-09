@@ -1,0 +1,27 @@
+SELECT DISTINCT
+?item ?itemLabel
+?name ?nameLabel
+?male ?maleLabel
+WHERE {
+  {
+    SELECT ?item ?name ?male
+    WHERE {
+      ?item wdt:P31 wd:Q12308941 ;
+            wdt:P31 ?nature ;
+            wdt:P460 ?name ;
+            wdt:P460 ?male .
+      ?name wdt:P31 wd:Q12308941 ;
+            wdt:P31 ?nature2 ;
+            wdt:P460 ?item .
+      ?male wdt:P31 wd:Q12308941 ;
+            wdt:P31 ?nature3 ;
+            wdt:P460 ?item .
+      FILTER (?name != ?male)
+      FILTER NOT EXISTS { ?name wdt:P460 ?male .}
+    }
+    GROUP BY ?item ?name ?male
+    HAVING ((COUNT(?nature) = 1) && (COUNT(?nature2) = 1) && (COUNT(?nature3) = 1))
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

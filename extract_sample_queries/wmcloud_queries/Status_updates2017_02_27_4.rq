@@ -1,0 +1,6 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?coor WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q16970 ; wdt:P131 ?commune .
+  ?commune wdt:P131 wd:Q12709.
+  ?item wdt:P625 ?coor.
+}

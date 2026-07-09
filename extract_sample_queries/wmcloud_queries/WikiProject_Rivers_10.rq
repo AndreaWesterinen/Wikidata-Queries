@@ -1,0 +1,12 @@
+#defaultView:Graph
+SELECT DISTINCT
+  (SAMPLE(?item) as ?river)
+  (SAMPLE(COALESCE(?en_label, ?item_label)) as ?riverLabel)
+  (SAMPLE(?mouth) as ?mouth)
+WHERE {
+  ?item wdt:P17 wd:Q28. # Limit to rivers of Hungary, because otherwise 400k+ results.
+  ?type wdt:P279* wd:Q355304. # Watercourse
+  ?item p:P31/ps:P31 ?type.
+  ?item wdt:P403 ?mouth.
+  OPTIONAL {?item rdfs:label ?en_label. FILTER(LANG(?en_label) = "en")} OPTIONAL {?item rdfs:label ?item_label}
+} GROUP BY ?item

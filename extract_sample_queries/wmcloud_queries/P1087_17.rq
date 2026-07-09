@@ -1,0 +1,4 @@
+#title: Elo ratings with preferred rank
+# Complex constraint from [[Property talk:P1087]]
+# Elo ratings with preferred rank
+SELECT DISTINCT ?item WHERE { ?item p:P1087/wikibase:rank wikibase:PreferredRank }

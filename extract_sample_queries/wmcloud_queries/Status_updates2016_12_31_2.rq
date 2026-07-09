@@ -1,0 +1,21 @@
+# Ratio of famous people’s deaths against all deaths since 2000.
+# A person is (somewhat arbitrarily) considered to be famous if they have 25 or more sitelinks.
+#defaultView:LineChart
+SELECT
+(STR(?year) AS ?year_) # STR(): work around T150515
+# uncomment the below three lines for a more useful Table view
+#(SUM(?famous) AS ?famousCount)
+#(COUNT(person) AS ?totalCount)
+#(?famousCount/?totalCount AS ?ratio)
+# this line compresses the above three lines into one because otherwise the Line Chart would display ?famousCount whereas we want ?ratio
+(SUM(?famous)/COUNT(?person) AS ?ratio)
+WHERE {
+  ?person wdt:P31 wd:Q5;
+          wdt:P570 ?died;
+          wikibase:sitelinks ?sitelinks.
+  FILTER(?died >= "2000-01-01"^^xsd:dateTime).
+  BIND(YEAR(?died) AS ?year).
+  BIND(IF(?sitelinks >= 25, 1, 0) AS ?famous).
+}
+GROUP BY ?year
+ORDER BY ?year

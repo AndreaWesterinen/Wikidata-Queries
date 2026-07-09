@@ -1,0 +1,19 @@
+SELECT ?item
+WHERE {
+  BIND(wd:Q928 AS ?country)
+
+  VALUES ?type {
+    wd:Q111188397 # executive department (22)
+    wd:Q24698 # region (17)
+    wd:Q24746  # province (81)
+    wd:Q106078286 # component city (108)
+    wd:Q29946056 # highly urbanized city (33)
+    wd:Q106079704 # independent component city (5)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+}

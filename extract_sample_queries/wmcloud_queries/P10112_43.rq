@@ -1,0 +1,18 @@
+#title: XXX7### codes should be [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]]: [[d:Q3235|Northern Territory <small>(Q3235)</small>]].
+# Complex constraint from [[Property talk:P10112]]
+#
+SELECT ?item ?itemLabel ?admin ?adminLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?admin ?value {
+			?item wdt:P10112 ?value .
+			MINUS {
+				?item wdt:P131|wdt:P131/wdt:P131 wd:Q3235 .
+			} .
+			?item wdt:P131 ?admin .
+            FILTER(STRSTARTS(?value, "LGA7") || STRSTARTS(?value, "SED7") || STRSTARTS(?value, "CED7") || STRSTARTS(?value, "SAL7") ).
+		} LIMIT 1000
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

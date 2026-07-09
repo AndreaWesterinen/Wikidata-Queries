@@ -1,0 +1,11 @@
+#Humanitarian personality of the year by year
+#defaultView:Timeline
+SELECT DISTINCT ?item ?itemLabel ?when (YEAR(?when) as ?date) ?pic
+WHERE {
+  ?item p:P166 ?awardStat . # … with an awarded(P166) statement
+  ?awardStat ps:P166 wd:Q33232596 . 
+  ?awardStat pq:P585 ?when . 
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+OPTIONAL { ?item wdt:P18 ?pic }
+}

@@ -1,0 +1,11 @@
+SELECT ?p ?pLabel ?c ?citemLabel ?cpropertyLabel
+{
+  ?p p:P2302 ?st . ?st ps:P2302 wd:Q52558054 .
+  ?p wikibase:propertyType wikibase:WikibaseItem .
+  OPTIONAL { ?st pq:P2305 ?citem }
+  OPTIONAL { ?st pq:P2306 ?cproperty }
+  OPTIONAL { ?st pq:P6607 ?c }  
+  FILTER NOT EXISTS { ?st pq:P9729 [] }
+  FILTER NOT EXISTS { ?st pq:P6824 [] }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  

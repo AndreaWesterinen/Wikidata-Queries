@@ -1,0 +1,10 @@
+SELECT ?item WHERE {
+  ?item wdt:P1415 ?dummy0 .
+  OPTIONAL {
+    ?wiki0 <http://schema.org/about> ?item .
+    FILTER(SUBSTR(STR(?wiki0),1,24) = 'https://en.wikipedia.org') .
+  }
+  FILTER(!bound(?wiki0))
+  ?item wdt:P106 wd:Q177220 .
+  ?item wdt:P21 wd:Q6581072 .
+}

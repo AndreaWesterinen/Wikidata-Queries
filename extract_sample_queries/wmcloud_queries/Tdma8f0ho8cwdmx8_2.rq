@@ -1,0 +1,14 @@
+# Voies de Paris nommées d'après un médecin.
+
+#defaultView:Map
+SELECT DISTINCT ?voie ?voieLabel ?photo ?coord WHERE {
+  ?voie (wdt:P31/wdt:P279*) wd:Q83620.
+  ?voie wdt:P131 ?arrdt.
+  ?arrdt wdt:P31 wd:Q702842.
+  ?arrdt wdt:P131 wd:Q90.
+  ?voie wdt:P138 ?odonyme.
+  ?odonyme (wdt:P106/wdt:P279*) wd:Q39631.
+  ?voie wdt:P625 ?coord.
+  OPTIONAL { ?odonyme wdt:P18 ?photo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

@@ -1,0 +1,26 @@
+SELECT ?item ?itemLabel (COUNT(?ranking_sitelink) as ?rank)
+  WHERE {
+    
+  ?item wdt:P2520 ?biosphereURL . # get a list of all biospheres
+    
+    
+##### Next two lines are just used for ranking/ordering the list by counting number of sitelinks. You can delete both lines if you don't need the ranking (the list of results will be the same)
+ OPTIONAL { ?ranking_sitelink schema:about ?item .
+  FILTER contains(str(?ranking_sitelink), "wikipedia.org/wiki/") } # You can choose the project used for counting sitelinks here (shown in the "rank" column)
+    
+    
+  MINUS {?project_sitelink schema:about ?item . 
+
+##### The next 2 lines define what should be EXCLUDED from the results 
+         ?project_sitelink schema:inLanguage "en"  							# set the language on this line
+         FILTER contains(str(?project_sitelink), "wikipedia.org/wiki/")	# set the project on this line
+        }	
+    
+    
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" . # This is just for choosing the language of the label that is shown in the "itemLabel" column - it does not affect the contents of the list
+	}
+ }
+GROUP BY ?item ?itemLabel 
+ORDER BY DESC(?rank)

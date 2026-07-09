@@ -1,0 +1,15 @@
+SELECT 
+	?child ?childLabel
+	#(COUNT(DISTINCT ?sitelink) as ?linkcount)
+WHERE 
+{
+  ?child wdt:P22 ?father .
+  ?child rdfs:label ?childLabel . filter (lang(?childLabel) = "en") .
+  ?father rdfs:label ?fatherLabel . filter (lang(?fatherLabel) = "en") .
+  FILTER (?childLabel = ?fatherLabel) 
+  #?sitelink schema:about ?child .
+  ?child wdt:P31 wd:Q5
+}
+#GROUP BY ?child ?childLabel
+#ORDER BY DESC(?linkcount)
+LIMIT 200

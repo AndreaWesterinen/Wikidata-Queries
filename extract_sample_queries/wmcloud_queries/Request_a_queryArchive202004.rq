@@ -1,0 +1,19 @@
+SELECT ?kommun ?kommunLabel ?kommunDescription
+  (GROUP_CONCAT(DISTINCT ?p37label;SEPARATOR=", ") AS ?officiellaspråk) 
+  (GROUP_CONCAT(DISTINCT ?p131label;SEPARATOR=", ") AS ?administrativaområde) 
+  (GROUP_CONCAT(DISTINCT ?p17label;SEPARATOR=", ") AS ?land) 
+  (GROUP_CONCAT(DISTINCT ?p361label;SEPARATOR=", ") AS ?wikidata_delav) 
+  (GROUP_CONCAT(DISTINCT ?p31label;SEPARATOR=", ") AS ?wikidata_uttlanden) 
+
+WHERE {
+  ?kommun wdt:P37 wd:Q9027.
+  ?kommun wdt:P31 wd:Q856076.
+  OPTIONAL { ?kommun wdt:P31 ?p31 . ?p31 rdfs:label ?p31label . FILTER(lang(?p31label)='sv') }
+  OPTIONAL { ?kommun wdt:P37 ?p37 . ?p37 rdfs:label ?p37label . FILTER(lang(?p37label)='sv') }
+  OPTIONAL { ?kommun wdt:P131 ?p131 . ?p131 rdfs:label ?p131label . FILTER(lang(?p131label)='sv') }  
+  OPTIONAL { ?kommun wdt:P17 ?p17 . ?p17 rdfs:label ?p17label . FILTER(lang(?p17label)='sv') }
+  OPTIONAL { ?kommun wdt:P361 ?p361 . ?p361 rdfs:label ?p361label . FILTER(lang(?p361label)='sv') }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+}
+GROUP BY ?kommun ?kommunLabel ?kommunDescription
+ORDER BY ?område ?officiellaspråk

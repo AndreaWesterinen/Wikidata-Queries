@@ -1,0 +1,8 @@
+#title: No instance or subclass
+# Complex constraint from [[Property talk:P2163]]
+# Items with this property, but both [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] and [[Property:P279|subclass of&#32;<small dir="ltr">(P279)</small>]] are missing
+SELECT ?item {
+  ?item wdt:P2163 [] .
+  MINUS { ?item wdt:P31 [] }
+  MINUS { ?item wdt:P279 [] }
+} LIMIT 1000

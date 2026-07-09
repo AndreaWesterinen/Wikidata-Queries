@@ -1,0 +1,16 @@
+SELECT (?country as ?item) ?icon
+  ?country ?countryLabel 
+  ?org ?orgLabel ?reg ?url ?nl ?v
+  ?org1 ?org1Label 
+  ?org2 ?org2Label 
+WITH  {    SELECT DISTINCT ?org ?country ?reg ?url ?nl ?v { ?org wdt:P31 wd:Q2485448 ; wdt:P641 wd:Q847 .         { ?org  wdt:P2541 ?country } UNION { ?org  wdt:P1532 ?country } UNION { ?org  wdt:P17 ?country } 
+                                              OPTIONAL { ?org wdt:P463 ?ro . ?ro wdt:P31 wd:Q4120211 ; wdt:P1813 ?reg }
+                                              OPTIONAL { ?org wdt:P856 [] . BIND("✓" as ?url) }
+                                              OPTIONAL { ?org wdt:P1705 [] . BIND("✓" as ?nl) }
+                                              OPTIONAL { ?org  wdt:P214 [] . BIND("✓" as ?v) }
+                                              }    } as %i2
+WITH  {    SELECT DISTINCT ?org1 ?country { ?org1 wdt:P31 wd:Q1194951 ;  wdt:P1344 wd:Q132377 .  { ?org1 wdt:P1532 ?country } UNION { ?org1 wdt:P17 ?country }   }    } as %i3
+WITH  {    SELECT DISTINCT ?org2 ?country { ?org2 wdt:P31 wd:Q1194951 ;  wdt:P1344 wd:Q206984 .  { ?org2 wdt:P1532 ?country } UNION { ?org2 wdt:P17 ?country }   }    } as %i4
+WHERE
+{
+    { SELECT DISTINCT ?country { VALUES?p31{wd:Q1194951 wd:Q2485448} [] wdt:P31 ?p31; wdt:P641 wd:Q847; ( wdt:P17

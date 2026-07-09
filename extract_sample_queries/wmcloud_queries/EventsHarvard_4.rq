@@ -1,0 +1,14 @@
+# items with property P571 and the lowest number of statements
+# added by User:Jura1, 2017-07-31
+SELECT ?item ?itemLabel ?st WHERE {
+  {
+    SELECT * WHERE {
+      ?item ?property wd:Q13371.
+      ?item wikibase:statements ?st.
+    }
+    ORDER BY ?st ?item
+    LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?st ?item

@@ -1,0 +1,10 @@
+embed.html## häufige Vornamen in Karlsruhe
+#defaultView:BubbleChart
+SELECT ?givenName ?givenNameLabel (COUNT(DISTINCT ?person) AS ?count) WHERE {
+  ?person wdt:P31 wd:Q5;
+          wdt:P19/wdt:P131* wd:Q1040;
+          wdt:P735 ?givenName.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?givenName ?givenNameLabel
+ORDER BY DESC(?count) ?givenName

@@ -1,4 +1,4 @@
-# ----
+#title: Border cities of the world
 # To filter by country add FILTER (?country = wd:Qxx)
 #defaultView:Map
 # To show the cities of several countries use FILTER (?country IN (wd:Qxx, wd:Qyy))

@@ -1,0 +1,25 @@
+# Number of Met Museum artworks in Commons, sorted by department
+SELECT ?dept ?deptLabel ?count 
+WHERE {
+  {
+    # Use Wikidata federated query to generate curatorial departments of The Met
+    SELECT ?dept ?deptLabel WHERE {  
+      SERVICE <https://query.wikidata.org/sparql> {
+        ?dept wdt:P31 wd:Q61781831 .  # curatorial department
+        ?dept wdt:P749 wd:Q160236 .   # parent org being Met
+        SERVICE wikibase:label {
+          bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+          ?dept rdfs:label ?deptLabel .  # Department labels
+        }
+      }
+    }
+  }
+  {
+    # Find files of The Met
+    SELECT (COUNT(DISTINCT(?file)) AS ?count) ?dept WHERE {
+      ?file wdt:P3634 ?metid . # Files with Met ID
+      ?file wdt:P195 ?dept .   # Department
+    } GROUP BY ?dept
+  }
+}
+ORDER BY DESC(?count) ?dept

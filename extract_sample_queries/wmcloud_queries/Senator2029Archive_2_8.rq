@@ -1,0 +1,19 @@
+SELECT DISTINCT  ?article ?NobelArticle ?SELIBR ?VIAF WHERE {
+  ?laureate p:P166 ?awardStat.
+  ?nobelPrize wdt:P31 wd:Q7191 . # Nobelprize
+  ?awardStat ps:P166 ?nobelPrize . # … that has the value Nobel Prize )
+
+  minus {?laureate wdt:P906 ?librisID}
+  OPTIONAL {?laureate wdt:P214 ?VIAFID}
+  BIND (URI(CONCAT("https://viaf.org/viaf/",?VIAFID)) AS ?VIAF)
+
+  OPTIONAL {?article schema:about ?laureate .
+            ?article schema:isPartOf <https://sv.wikipedia.org/>}
+  OPTIONAL {?article schema:about ?laureate .
+            ?article schema:isPartOf <https://en.wikipedia.org/>}
+
+  OPTIONAL{?laureate wdt:P3188 ?Na}
+  BIND (URI(CONCAT("https://www.nobelprize.org/nobel_prizes/",?Na,"-facts.html")) AS ?NobelArticle)
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,da,nl". }
+} Group by ?place ?img  ?example ?motivation ?article ?NobelArticle ?coord22 ?SELIBR ?VIAF

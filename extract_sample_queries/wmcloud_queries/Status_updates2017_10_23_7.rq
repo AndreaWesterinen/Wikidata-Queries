@@ -1,0 +1,19 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?countryLabel (YEAR(?date) AS ?year) ?coords ?image WHERE {
+  {
+    SELECT (MIN(?date) AS ?date) ?country WHERE {
+      ?item p:P1435 ?statement ;
+            wdt:P17 ?country .
+      ?statement ps:P1435 wd:Q9259 ;
+                 pq:P580 ?date .
+    }
+    GROUP BY ?country
+  }
+  ?item p:P1435 ?statement ;
+        wdt:P17 ?country ;
+        wdt:P625 ?coords .
+  OPTIONAL { ?item wdt:P18 ?image }
+  ?statement ps:P1435 wd:Q9259 ;
+             pq:P580 ?date .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?countryLabel ?itemLabel

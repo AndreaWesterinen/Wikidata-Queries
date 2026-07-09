@@ -1,0 +1,11 @@
+SELECT ?item ?item2 ?st ?st2 {
+  ?main wdt:P31/wdt:P279? wd:Q16521; ^wdt:P301 ?item; ^wdt:P301 ?item2 FILTER( ?item != ?item2 ) .
+  MINUS {
+    ?item ^schema:about/schema:isPartOf ?partOf .
+    ?item2 ^schema:about/schema:isPartOf ?partOf2 .
+    FILTER( SAMETERM( ?partOf, ?partOf2 ) ) .
+  } .
+  ?item wikibase:sitelinks ?st .
+  ?item2 wikibase:sitelinks ?st2 .
+  FILTER( IF( ?st = ?st2, xsd:integer( STRAFTER( STR( ?item ), STR( wd:Q ) ) ) < xsd:integer( STRAFTER( STR( ?item2 ), STR( wd:Q ) ) ), ?st > ?st2 ) ) .
+}

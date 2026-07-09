@@ -1,0 +1,12 @@
+SELECT ?item ?taxonName ?parentTaxonName (GROUP_CONCAT(?lang; SEPARATOR = ", ") AS ?langs) WHERE {
+   ?item wdt:P225 ?taxonName .
+   ?item wdt:P105 wd:Q68947 . # subspecies
+   ?item wdt:P171/wdt:P105 wd:Q7432 . # species
+   ?item wdt:P171/wdt:P225 ?parentTaxonName .
+   #?item (wdt:P171)* wd:Q7377 . # mammals
+   OPTIONAL {?item schema:description ?itemDescription}
+   BIND(lang(?itemDescription) as ?lang)   
+  }
+GROUP BY ?item ?taxonName ?parentTaxonName
+HAVING (!Contains(?langs,  "de"))
+ORDER BY ASC(?taxonName)

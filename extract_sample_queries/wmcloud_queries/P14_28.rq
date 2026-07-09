@@ -1,0 +1,9 @@
+#title: AT roads
+# Complex constraint from [[Property talk:P14]]
+# [[d:Q40|Austria <small>(Q40)</small>]] roads
+SELECT ?item ?value ?country WHERE {
+  ?item wdt:P14 ?value.
+  ?item wdt:P17 ?country.
+  FILTER(REGEX(STR(?value), "\\-AT")) .
+  FILTER(?country != wd:Q40).
+}

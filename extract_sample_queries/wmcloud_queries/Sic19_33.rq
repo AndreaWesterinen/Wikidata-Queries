@@ -1,0 +1,28 @@
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+#defaultView:Graph
+SELECT ?item ?itemLabel ?researcher ?researcherLabel ?work ?workLabel ?linkTo ?size {
+  { SELECT ?item (count(distinct ?element) as ?size) {
+  { SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q503424 ;
+                gas:traversalDirection "Forward" ;
+                gas:out ?item ;
+                gas:out1 ?depth ;
+                gas:maxIterations 6 ;
+                gas:linkType wdt:P361 .
+  } } UNION { SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q503424 ;
+                gas:traversalDirection "Reverse" ;
+                gas:out ?item ;
+                gas:out1 ?depth ;
+                gas:maxIterations 6 ;
+                gas:linkType wdt:P361 .
+  } }
+  OPTIONAL { ?element wdt:P1416 ?item }
+  } GROUP BY ?item }
+  OPTIONAL { ?item wdt:P361 ?linkTo }
+  OPTIONAL { ?researcher wdt:P1416 ?item } 
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" }
+}
+Limit 2000

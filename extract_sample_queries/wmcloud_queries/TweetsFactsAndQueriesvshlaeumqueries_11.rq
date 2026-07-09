@@ -1,0 +1,39 @@
+embed.html## well-known (by number of sitelinks) historic (have date of death) German (by nationality or native language) women
+SELECT ?woman ?womanLabel ?womanDescription ?dewiki WHERE {
+  {
+    SELECT ?woman ?womanLabel ?womanDescription ?sitelinks WHERE {
+      {
+        SELECT DISTINCT ?woman ?sitelinks WHERE {
+          # historic woman
+          ?woman wdt:P31 wd:Q5;
+                 wdt:P21 wd:Q6581072;
+                 wdt:P570 ?died;
+                 wikibase:sitelinks ?sitelinks.
+          {
+            # German nationality
+            VALUES ?germany { wd:Q183 wd:Q16957 wd:Q713750 wd:Q7318 wd:Q41304 wd:Q43287 }
+            ?woman wdt:P27 ?germany.
+          } UNION {
+            # native language German (or some related dialect)
+            ?woman wdt:P103/wdt:P279* wd:Q52040.
+          }
+          # no Nazis or atrocity criminals
+          MINUS { ?woman p:P102/ps:P102 wd:Q7320. }
+          MINUS { ?woman p:P1399/ps:P1399/wdt:P279? wd:Q4817637. }
+        }
+        ORDER BY DESC(?sitelinks)
+        LIMIT 300
+      }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". } hint:Prior hint:runLast false.
+    }
+  }
+  # no secondary Nazis either
+  FILTER(!CONTAINS(?womanDescription, "Adolf Hitler"@de))
+  OPTIONAL {
+    ?dewiki a schema:Article;
+            schema:about ?woman;
+            schema:isPartOf <https://de.wikipedia.org/>.
+  }
+}
+ORDER BY DESC(?sitelinks)
+LIMIT 250

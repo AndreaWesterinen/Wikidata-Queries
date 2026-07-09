@@ -1,3 +1,4 @@
+#title: Get the Wikipathways citation corpus
 SELECT ?wpid ?item ?itemLabel ?referenceLabel
 WHERE
 {

@@ -1,0 +1,7 @@
+SELECT ?lexicalCategory (COUNT(?lexeme) AS ?count) WHERE {
+  ?lexeme wikibase:lexicalCategory ?lexicalCategory;
+          ontolex:sense ?sense.
+  ?sense wdt:P5137 ?item.
+}
+GROUP BY ?lexicalCategory
+ORDER BY DESC(?count)

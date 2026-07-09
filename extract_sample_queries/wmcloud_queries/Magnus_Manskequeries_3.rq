@@ -1,0 +1,10 @@
+SELECT ?q1 ?q1Label ?q2 ?q2Label {
+  ?q1 wdt:P3373 ?q2 .
+  ?q2 wdt:P3373 ?q1 
+  FILTER ( str(?q1) > str(?q2) )
+  MINUS { ?q1 wdt:P22 [] }
+  MINUS { ?q2 wdt:P22 [] }
+  MINUS { ?q1 wdt:P25 [] }
+  MINUS { ?q2 wdt:P25 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  } ORDER BY ( ?q1 )

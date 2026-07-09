@@ -1,0 +1,8 @@
+embed.html##defaultView:Timeline
+select ?moon ?moonLabel ?image ?time WHERE 
+{
+ ?moon wdt:P31 wd:Q2139 ;
+       wdt:P575 ?time .
+  OPTIONAL {?moon wdt:P18 ?image}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, pl". }
+}

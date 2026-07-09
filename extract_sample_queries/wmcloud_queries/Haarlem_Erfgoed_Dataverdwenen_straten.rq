@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?einddatum ?type ?vermeld_in WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q83620.
+  ?item wdt:P131 wd:Q9920.
+  ?item p:P582 ?eind_statement.
+  ?eind_statement ps:P582 ?einddatum.  
+  OPTIONAL {?eind_statement prov:wasDerivedFrom ?provenance .
+    ?provenance pr:P248 ?vermeld_in }
+}

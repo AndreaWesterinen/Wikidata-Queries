@@ -1,0 +1,16 @@
+SELECT ?item (COUNT(?i) as ?uniqcount)
+WITH {
+  SELECT ?i (COUNT(?item) as ?langs) {
+    ?lex dct:language ?item ; ontolex:sense/wdt:P5137 ?i.
+  }
+  GROUP BY ?i
+  HAVING(?langs = 1)
+}
+AS %items
+WHERE {
+  INCLUDE %items.
+  ?lex dct:language ?item ; ontolex:sense/wdt:P5137 ?i.
+}
+GROUP BY ?item
+HAVING(?uniqcount >= 25)
+ORDER BY DESC(?uniqcount)

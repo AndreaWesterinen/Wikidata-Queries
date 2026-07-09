@@ -1,0 +1,14 @@
+# Australian taxa from Apocynaceae with articles 
+SELECT ?item ?taxon_name ?articlee ?APNILink   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item p:P225 ?stat. 
+  ?stat ps:P225 ?taxon_name.
+  ?item wdt:P5984 ?apni_id.
+  ?item wdt:P171+ wd:Q173756.
+  bind(uri(concat("https://biodiversity.org.au/nsl/services/rest/name/apni/",?apni_id)) as ?APNILink)  
+  #MINUS {?stat pq:P405 ?taxon_author.}
+  ?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  bind(uri(concat("https://en.wikipedia.org/wiki/",?taxon_name)) as ?articlee)
+}

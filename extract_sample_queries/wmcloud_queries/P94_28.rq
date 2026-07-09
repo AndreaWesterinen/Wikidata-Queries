@@ -1,0 +1,8 @@
+#title: Too short filename
+# Complex constraint from [[Property talk:P94]]
+#
+SELECT DISTINCT ?item {
+  ?item wdt:P94 ?value.
+  BIND(STRLEN(STR(?value)) AS ?length).
+  FILTER (?length < 58)
+}

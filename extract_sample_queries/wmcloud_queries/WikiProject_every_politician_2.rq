@@ -1,0 +1,5 @@
+SELECT ?occupationLabel(count(distinct ?person) as ?count) WHERE {
+  ?person wdt:P2611 ?TEDspeaker .
+  ?person wdt:P106 ?occupation .   
+  service wikibase:label { bd:serviceParam wikibase:language "en" . }
+} group by ?occupationLabel

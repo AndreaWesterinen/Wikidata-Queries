@@ -1,0 +1,6 @@
+SELECT ?property ?propertyLabel ?formatterUrl WHERE {
+  ?property a wikibase:Property;
+            wdt:P1630 ?formatterUrl.
+  FILTER(CONTAINS(?formatterUrl, "$2"))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

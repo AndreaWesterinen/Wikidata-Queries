@@ -1,0 +1,6 @@
+SELECT ?item ?p31
+WHERE {
+    ?item wdt:P830 [] .
+    OPTIONAL { ?item wdt:P31 ?p31 filter (wd:Q16521 != ?p31).  } 
+
+} 

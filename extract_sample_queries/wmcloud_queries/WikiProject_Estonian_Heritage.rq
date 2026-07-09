@@ -1,0 +1,8 @@
+#Map of Estonian heritage objects
+#defaultView:Map
+SELECT ?itemLabel ?itemDescription ?image ?geo WHERE {
+  ?item wdt:P2948 [];
+        wdt:P625 ?geo .
+  OPTIONAL {?item wdt:P18 ?image.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en, et". }
+}

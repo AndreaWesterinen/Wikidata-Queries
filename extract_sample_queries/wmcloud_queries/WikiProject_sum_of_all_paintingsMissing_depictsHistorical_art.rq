@@ -1,0 +1,12 @@
+SELECT ?item ?sitelinks ?hasimage ?hasmainsubject ?modified WHERE {
+  ?item wdt:P31 wd:Q3305213 ; 
+            wdt:P136 wd:Q742333 .
+  MINUS { ?item wdt:P180 ?depicts } .
+  ?item wikibase:sitelinks ?sitelinks .
+  OPTIONAL { ?item wdt:P18 ?image . BIND(1 AS ?hasimage) }
+  OPTIONAL { BIND(0 AS ?hasimage) . }
+  OPTIONAL { ?item wdt:P921 ?mainsubject . BIND(1 AS ?hasmainsubject) }
+  OPTIONAL { BIND(0 AS ?hasmainsubject) } .
+  ?item schema:dateModified ?modified .
+  } ORDER BY DESC(?sitelinks) DESC(?hasimage) DESC(?mainsubject) DESC(?modified)
+LIMIT 1000

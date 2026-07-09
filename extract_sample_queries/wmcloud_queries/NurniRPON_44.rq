@@ -1,0 +1,12 @@
+SELECT ?o ?oLabel ?nazwisko ?r ?rLabel WHERE {
+  {
+    SELECT ?o (REPLACE(?fl, "^.* ", "") AS ?nazwisko) ?r WHERE {
+      ?o wdt:P27 wd:Q172107.
+      OPTIONAL { ?o wdt:P53 ?r. }
+      ?o rdfs:label ?fl.
+      FILTER((LANG(?fl)) = "pl")
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?nazwisko) (?rLabel)

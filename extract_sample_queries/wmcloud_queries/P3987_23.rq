@@ -1,0 +1,9 @@
+#title: people with property born on January 1 (best rank, day precision dates only)
+SELECT ?item ?itemLabel ?value ?dob
+{
+  ?item wdt:P3987 ?value .
+  ?item p:P569 [ a wikibase:BestRank; psv:P569 [ wikibase:timeValue ?dob; wikibase:timePrecision 11 ]] . 
+  FILTER( MONTH(?dob) = 1 && DAY(?dob) = 1 ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

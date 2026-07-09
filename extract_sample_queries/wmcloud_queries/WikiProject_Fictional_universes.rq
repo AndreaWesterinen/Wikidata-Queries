@@ -1,0 +1,9 @@
+#fictional universes that are also instances of something else
+SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?typeL; separator=", ") AS ?types) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q559618; wdt:P31 ?type.
+  MINUS{?type wdt:P279* wd:Q559618}
+  ?type rdfs:label ?typeL.
+  FILTER(LANG(?typeL)="en")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel

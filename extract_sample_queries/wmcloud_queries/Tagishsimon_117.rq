@@ -1,0 +1,22 @@
+#defaultView:Map
+SELECT distinct ?item ?itemLabel ?statements ?coord  ?rgb ?layer WITH { SELECT ?item 
+WHERE 
+{
+  ?item wdt:P131/wdt:P131 wd:Q22 . #} hint:Prior hint:runFirst true.
+  ?item wdt:P31/wdt:P279* wd:Q12280.
+  
+ # filter not exists {?item wdt:P177 [] .}
+  
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item wikibase:statements ?statements.
+  ?item wdt:P625 ?coord .
+  BIND(IF(?statements<5,"ff0000",
+          IF(?statements<10,"ff005e",
+             IF(?statements<15,"f200a6",
+                IF(?statements<20,"b145e0","006eff")))) as ?rgb )                
+       BIND(?statements as ?layer)
+} order by desc(?sitelinks) ?itemLabel

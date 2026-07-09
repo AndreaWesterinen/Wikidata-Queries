@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item (COUNT(DISTINCT ?statement) AS ?count)
+WHERE { 
+    ?statement prov:wasDerivedFrom/pr:P248 ?item .
+    VALUES ?topics { wd:Q202864 wd:Q10538943 } .
+    ?item wdt:P50 ?author ;
+          wdt:P932 [] ;
+          wdt:P921 ?topics.
+    ?author wdt:P21 wd:Q6581072 ;
+            wdt:P496 ?orcid .
+    [] wdt:P2860 ?item .
+    
+}
+GROUP BY ?item
+#HAVING (?count > 10)
+ORDER BY DESC(?count)

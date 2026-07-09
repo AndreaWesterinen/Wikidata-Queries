@@ -1,0 +1,4 @@
+SELECT (COUNT(?edition) AS ?count) WHERE {
+  ?edition wdt:P31 wd:Q3331189 .
+  FILTER NOT EXISTS { ?edition wdt:P629 ?work . }
+}

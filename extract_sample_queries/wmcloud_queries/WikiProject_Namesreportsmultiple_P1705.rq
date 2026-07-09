@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?nl; separator=", DELETE: ") as ?nativeLabel) (COUNT(DISTINCT ?nl) as ?ct)
+{
+	VALUES ?f { wd:Q12308941 wd:Q11879590 wd:Q202444 wd:Q3409032  }
+  	?item wdt:P31 ?f .
+	OPTIONAL { ?item wdt:P1705 ?nl }
+  	FILTER NOT EXISTS { ?item wdt:P31 wd:Q101352 }
+  	FILTER NOT EXISTS { ?item wdt:P407 wd:Q9176 }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel
+HAVING (?ct > 1)

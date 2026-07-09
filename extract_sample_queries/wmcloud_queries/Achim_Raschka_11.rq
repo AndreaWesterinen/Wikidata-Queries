@@ -1,0 +1,13 @@
+SELECT DISTINCT ?Stolperstein ?StolpersteinLabel ?Ort ?Koordinate WHERE {
+  {
+    SELECT DISTINCT ?Stolperstein ?Ort ?Koordinate WHERE {
+      hint:Query hint:optimizer "None".
+      ?Ort wdt:P131* wd:Q365.
+      ?Stolperstein wdt:P276? ?Ort.
+      ?Stolperstein wdt:P31 wd:Q26703203.
+      ?Ort wdt:P625 ?Koordinate.
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL {  }
+}

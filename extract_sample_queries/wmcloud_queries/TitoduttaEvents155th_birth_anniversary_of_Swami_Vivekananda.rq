@@ -1,0 +1,5 @@
+SELECT  ?Swami_VivekanandaLabel ?Swami_Vivekananda WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Swami_Vivekananda wdt:P50 wd:Q47478.
+}
+LIMIT 100

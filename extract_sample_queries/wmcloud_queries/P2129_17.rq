@@ -1,0 +1,10 @@
+#title: Check units
+# Complex constraint from [[Property talk:P2129]]
+# Unit must to be a [[d:Q60026969|unit of concentration <small>(Q60026969)</small>]]
+SELECT ?item ?unit
+WHERE {
+  ?item p:P2129/psv:P2129/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P31/wdt:P279* wd:Q60026969.
+  }.
+}

@@ -1,0 +1,42 @@
+SELECT DISTINCT ?item {
+  ?item wdt:P119 wd:Q216344;
+       # wdt:P21 wd:Q6581097; # men
+        wdt:P31 wd:Q5;
+        wdt:P39 ?fonction.
+  MINUS { ?item wdt:P8213 [] }
+  MINUS { ?item wdt:P2028 [] } # -0 ?
+  
+  FILTER ( ?fonction NOT IN (wd:Q13218630, wd:Q1434880, wd:Q19826104, wd:Q4416090, wd:Q3667787, wd:Q5097068, 
+                             wd:Q688856, wd:Q653215, wd:Q994779, wd:Q735015, wd:Q1072415, wd:Q18342844, wd:Q2368527, 
+                             wd:Q20948752, wd:Q14616716, wd:Q7314581, wd:Q19689183, wd:Q21266746, wd:Q23933716, wd:Q47457897, wd:Q7889267, wd:Q456951) )
+  MINUS { ?fonction wdt:P31 wd:Q15726790 }
+  MINUS { ?fonction wdt:P17 wd:Q30 } # todo...
+  MINUS { ?fonction wdt:P279* wd:Q1006696 }
+  MINUS { ?fonction wdt:P279* wd:Q7603658 }
+  MINUS { ?fonction wdt:P1001 wd:Q30 }
+  MINUS { ?fonction wdt:P1001 wd:Q2364118 }
+  MINUS { ?fonction wdt:P1001/wdt:P31 wd:Q1352230 }
+  
+  MINUS { ?fonction wdt:P748 wd:Q11696 }
+  
+  MINUS {
+     ?item p:P119 ?statement.
+     ?statement prov:wasDerivedFrom ?refnode.
+     ?refnode   pr:P854 []. # URL de la ref
+  }
+  MINUS {
+    VALUES ?d { wd:Q203535 wd:Q833376 wd:Q833465 wd:Q407132 wd:Q852071 wd:Q145752 }. # enwiki
+    ?item wdt:P166 ?d.
+  }
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q13218630 }
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q735015 }
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q456951 }
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q783785 }
+  
+  # exceptions
+  MINUS { ?item wdt:P734 wd:Q120401 } # famille P53
+  MINUS { ?item wdt:P27 wd:Q142 } # français -1
+  # MINUS { ?item wdt:P746 [] } # -0
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+}

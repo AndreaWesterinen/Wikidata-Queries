@@ -1,0 +1,19 @@
+#Dates before year 1 with precision >8: year, month, day
+#added 2016-08-07, Jura1
+SELECT ?item ?itemLabel (?date as ?GregorianDate) (CONCAT(str(1+YEAR(?date)*-1), " BC") as ?yearBC) ?dateprec ?dateprecisionLabel ?inputcalendarmodelLabel
+{
+  {  SELECT ?item ?date (xsd:decimal(?precision) as ?dateprec) ?inputcalendarmodel
+    {
+      ?item p:P622 ?d .
+            ?d psv:P622 ?datevalue .
+        ?datevalue wikibase:timeValue ?date .             FILTER(?date < "+1-00-00T00:00:00Z"^^xsd:dateTime)
+      ?datevalue wikibase:timePrecision ?precision .     FILTER(?precision > 8)
+      ?d wikibase:rank ?rank .              FILTER(?rank != wikibase:DeprecatedRank)
+      ?datevalue wikibase:timeCalendarModel ?inputcalendarmodel .
+    }
+        LIMIT 5000
+    }
+    ?dateprecision wdt:P2803 ?dateprec
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en,la" }
+}
+ORDER BY DESC(?date)

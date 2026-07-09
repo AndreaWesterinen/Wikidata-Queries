@@ -1,0 +1,11 @@
+SELECT ?item (SAMPLE(?dep) as ?1dep) (COUNT(DISTINCT ?dep) as ?ct) (GROUP_CONCAT(DISTINCT strafter(str(?dd),"y/")) as ?dd) 
+{
+    ?item wdt:P31 wd:Q484170 .
+    ?item wdt:P131* ?dep . ?dep wdt:P31 wd:Q6465 .
+    FILTER NOT EXISTS { ?item wdt:P576 [] }
+    FILTER NOT EXISTS { ?item p:P31 [ psv:P31 wd:Q484170 ; pq:P582 [] ] }
+    OPTIONAL { ?item wdt:P131 ?dd . ?dd wdt:P31 wd:Q6465 } 
+}
+GROUP BY ?item 
+HAVING (?ct > 1)
+ORDER BY DESC(?ct) ?item

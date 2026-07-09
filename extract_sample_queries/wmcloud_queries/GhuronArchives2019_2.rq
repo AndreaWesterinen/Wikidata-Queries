@@ -1,0 +1,17 @@
+PREFIX mw: <http://tools.wmflabs.org/mw2sparql/ontology#>
+SELECT ?person ?item ?cat (SAMPLE(?site) AS ?s) WITH {
+  SELECT * {?s pq:P106 ?item; ps:P4224 ?type . ?cat p:P4224 ?s} LIMIT 10 OFFSET 0
+} as %q {    
+  hint:Query hint:optimizer "None"
+  INCLUDE %q
+  ?catArticle schema:about ?cat
+  SERVICE <http://tools.wmflabs.org/mw2sparql/sparql> {
+    SELECT * {
+      ?article mw:inCategory ?catArticle
+    }
+  }
+  ?article schema:about ?person .
+  ?person wdt:P31 ?type FILTER NOT EXISTS {?person wdt:P106 ?item}
+  ?article schema:isPartOf ?url . ?site wdt:P856 ?url; wdt:P31/wdt:P279 wd:Q33120876
+  FILTER (?site != wd:Q20789766)
+} GROUP BY ?person ?item ?cat

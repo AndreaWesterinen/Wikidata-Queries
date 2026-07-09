@@ -1,0 +1,9 @@
+#defaultView:Timeline
+select ?books ?booksLabel ?date ?image WHERE 
+{
+ ?books wdt:P21 wd:Q6581072 ;
+        wdt:P106  wd:Q2095549 ;
+        wdt:P569 ?date FILTER (YEAR(?date)<1900) .
+  OPTIONAL {?books wdt:P18 ?image}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de". }
+} 

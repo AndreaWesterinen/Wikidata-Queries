@@ -1,0 +1,12 @@
+#title: ru alias to include P1705 value
+# Complex constraint from [[Property talk:P6597]]
+# Native label should be an alias in Russian
+SELECT ?item ?nl ?alt
+{
+	?item wdt:P6597 [] .
+    hint:Prior hint:rangeSafe true .  
+    ?item wdt:P1705 ?nl . 
+    BIND( strlang(str(?nl), "ru") as ?alt) 
+    FILTER NOT EXISTS { ?item skos:altLabel ?alt }          
+}
+LIMIT 200

@@ -1,0 +1,10 @@
+SELECT ?item ?l ?dob ?dod
+WHERE 
+{  
+  ?item wdt:P4638 [] ; rdfs:label ?l . 
+  FILTER( REGEX(?l, "Gr[aä]f") && lang(?l)="en" )
+  OPTIONAL { ?item wdt:P569 ?dob }
+  OPTIONAL { ?item wdt:P570 ?dod }  
+  MINUS { ?item wdt:P734 [] }
+}
+ORDER BY DESC(?dob)

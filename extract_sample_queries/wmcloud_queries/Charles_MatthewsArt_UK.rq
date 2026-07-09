@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?painting ?paintingLabel ?collection ?collectionLabel ?image ?coord
+WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 wd:Q5598 .
+  ?painting wdt:P195 ?collection .
+  
+  OPTIONAL { ?collection wdt:P625 ?coord }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,74 @@
+SELECT ?item
+{ 
+  {
+    OPTIONAL{?item wdt:P170 ?k1.} 
+    OPTIONAL{?item wdt:P195 ?k2.} 
+    OPTIONAL{?item wdt:P217 ?k3.} 
+    OPTIONAL{?item wdt:P136 ?k4.} 
+    OPTIONAL{?item wdt:P135 ?k5.} 
+    OPTIONAL{?item wdt:P186 ?k6.} 
+    OPTIONAL{?item wdt:P180 ?k7.} 
+
+    ?item wdt:P18 ?i. 
+
+    OPTIONAL{?item wdt:P279 ?c.}
+    OPTIONAL{?item wdt:P31 ?o.} 
+    FILTER(!bound(?o)).
+  }
+  UNION
+  {
+     # farba lub podklasa
+     ?item wdt:P31 ?f.
+     ?f wdt:P31/wdt:P279* wd:Q174219.
+     OPTIONAL{?item wdt:P279 ?c.}
+  } 
+  UNION
+  {
+     ?item wdt:P31 wd:Q11634.
+     OPTIONAL{?item wdt:P279 ?c.}
+  } 
+  UNION
+  {
+     ?item wdt:P31 wd:Q11629.
+     OPTIONAL{?item wdt:P279 ?c.}
+  } 
+  UNION
+  {
+     ?item wdt:P31 wd:Q2921001.
+     OPTIONAL{?item wdt:P279 ?c.}
+  } 
+  UNION
+  {
+     # obraz
+     ?item wdt:P31 wd:Q478798.
+     OPTIONAL{?item wdt:P279 ?c.}
+  } 
+  UNION
+  {
+     # technika sztuk wizualnych lub podklasa
+     ?item wdt:P31 ?t.
+     ?t wdt:P31/wdt:P279* wd:Q26904132.
+     FILTER (?t NOT IN (
+       #manga
+       wd:Q8274, 
+       #fotomontaż
+       wd:Q828107,
+       #fotokolaż
+       wd:Q3381561
+       #mozaika
+       #wd:Q133067
+     ))
+     OPTIONAL{?item wdt:P279 ?c.}
+  }
+  UNION 
+  { # gatunek malarski 
+     ?item wdt:P31 ?t. 
+     ?t wdt:P31/wdt:P279* wd:Q16743958. 
+     OPTIONAL{?item wdt:P279 ?c.} 
+  }
+  MINUS
+  {
+     #?item wdt:P31/wdt:P279* wd:Q2095.
+  }
+} 
+ORDER BY ASC(?c)

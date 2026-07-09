@@ -1,0 +1,30 @@
+SELECT DISTINCT ?item (CONCAT("{","{rfd links3\u007C",strafter(str(?item), "entity/"),"\u007CDoes not meet the [[Special:MyLanguage/Wikidata:Notability|notability policy]]}","}") as ?del) (CONCAT("{","{REVISIONTIMESTAMP: ", strafter(str(?item), "entity/"), " }","}") as ?data)
+{
+  ?item wikibase:sitelinks 0; wikibase:statements 0 . # no sitelinks, no statements; buggy!
+  MINUS { # not in use as value in another item
+    ?mainsnakProperty wikibase:propertyType wikibase:WikibaseItem; wikibase:claim ?claim; wikibase:statementProperty ?statementProperty .
+    [] ?claim [ ?statementProperty ?item ]
+  }
+  MINUS { # not in use as qualifier in another item
+    ?qualifierProperty wikibase:propertyType wikibase:WikibaseItem; wikibase:qualifier ?qualifier .
+    [] ?qualifier ?item
+  }
+  MINUS { # not in use as reference in another item
+    ?referenceProperty wikibase:propertyType wikibase:WikibaseItem; wikibase:reference ?reference .
+    [] ?reference ?item
+  }
+  MINUS { # 2nd check: no sitelinks
+    ?sitelink schema:about ?item
+  }
+  MINUS { # 2nd check: no statements
+    ?anyProperty a wikibase:Property; wikibase:claim ?anyClaim .
+    ?item ?anyClaim []
+  }
+
+  OPTIONAL{ ?backlink ?p1 ?item . }
+  FILTER(!bound(?backlink))
+
+  FILTER ( ?item not in ( wd:Q16943273,wd:Q17566023 ) ) #Exclude item of wikidata tour
+}
+LIMIT 250
+OFFSET 500

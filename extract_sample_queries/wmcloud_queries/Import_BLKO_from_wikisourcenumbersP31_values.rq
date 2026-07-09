@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?entry) as ?count) (SAMPLE(?entry) as ?sample) (CONCAT("[[Special:ConstraintReport/",strafter(str(SAMPLE(?entry)),"y/"),"|","CR]]") as ?cr)
+{
+  	?entry wdt:P1433 wd:Q665807 .
+  	OPTIONAL { ?entry wdt:P31 ?item0 }
+  	BIND(IF(BOUND(?item0), ?item0, wd:Q22260099 ) as ?item ) 
+}
+GROUP BY ?item
+ORDER BY DESC(?count)

@@ -1,0 +1,24 @@
+select DISTINCT ?item ?itemLabel (CONCAT('[[Wikidata:WikiProject Video games/Reports/Year/', ?itemLabel,']]') as ?link) ?count
+with {
+  SELECT ?year (COUNT(DISTINCT ?game) AS ?count) WHERE {
+    ?game (wdt:P31/wdt:P279*) wd:Q7889.
+    ?game wdt:P577 ?date.
+    BIND(YEAR(?date) as ?year)
+  } 
+  group by ?year
+} as %items
+where
+{
+  include %items
+  {
+    ?item wdt:P31 wd:Q577.
+  }
+  UNION {
+    ?item wdt:P31 wd:Q3186692.
+  }
+  ?item wdt:P585 ?date.
+  ?item wdt:P361* wd:Q12138.
+  FILTER (YEAR(?date) = ?year).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

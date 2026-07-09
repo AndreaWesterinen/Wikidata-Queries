@@ -1,0 +1,88 @@
+######################################################
+# World Heritage map for a given country
+######################################################
+
+#defaultView:Map
+SELECT ?site ?siteLabel ?place ?placeLabel ?coords ?image ?unescoUrl ?layer WHERE {
+  # Country
+  BIND ( wd:Q20 AS ?country )
+
+  # Get sites, protection and criteria
+  {
+    SELECT DISTINCT ?site ?protection (group_concat(DISTINCT ?siteType) AS ?siteType) WHERE {
+      ?site p:P1435 ?protectionStatement .
+      ?protectionStatement ps:P1435 ?protection .
+      FILTER NOT EXISTS { ?protectionStatement pq:P582 ?x }
+
+      # Protection : World heritage / Tentative list
+      VALUES (?protection) { (wd:Q9259) (wd:Q17278671) }
+
+      # Type of criterium: cultural or natural
+      OPTIONAL {
+        ?site wdt:P2614 ?criteria .
+        BIND (
+          IF (
+            (?criteria = wd:Q23038972 || ?criteria = wd:Q23038976 || ?criteria = wd:Q23038977 || ?criteria = wd:Q23038978 || ?criteria = wd:Q23038979 || ?criteria = wd:Q23038980)
+            , "Cultural"
+            , "Natural"
+           )
+          AS ?siteType
+        )
+      }
+    }
+    GROUP BY ?site ?protection
+  }
+
+  # id and url
+  {
+    # Word heritage
+    ?site wdt:P757 ?id .
+    wd:P757 p:P1630 ?formatterUrlStatement .
+  } UNION
+  {
+    # Tentative list
+    ?site wdt:P4171 ?id .
+    wd:P4171 p:P1630 ?formatterUrlStatement .
+  }
+  # url formatting
+  ?formatterUrlStatement ps:P1630 ?formatterurl ;
+                             pq:P407 wd:Q1860 .
+  BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterurl)) AS ?unescoUrl).
+
+  # Is the site a single place or a collection of places?
+  {
+    # Collection of places
+    ?site wdt:P527 ?place ;
+          wdt:P17 ?country .
+    ?place wdt:P17 ?country ;
+           wdt:P625 ?coords .
+    OPTIONAL { ?place wdt:P18 ?image }
+  } UNION {
+    # Single place
+    ?site wdt:P17 ?country ;
+          wdt:P625 ?coords .
+    FILTER NOT EXISTS { ?site wdt:P527 ?x }
+    OPTIONAL { ?site wdt:P18 ?image }
+  }
+
+  # World Heritage or Tentative list
+  BIND (
+    IF (?protection = wd:Q17278671
+      , "Tentative list"
+      , "World heritage"
+    )
+    AS ?siteProtection
+  )
+
+  # Layer binding
+  BIND (
+    IF (?siteType != ""
+      , CONCAT(?siteProtection, " - ", IF (?siteType = "Cultural Natural", "Mixed", ?siteType))
+      , ?siteProtection
+    )
+    AS ?layer
+  )
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+}
+ORDER BY DESC(?layer) ?siteLabel ?placeLabel

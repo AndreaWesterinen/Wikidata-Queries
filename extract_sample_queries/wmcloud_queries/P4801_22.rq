@@ -1,0 +1,9 @@
+#title: Check prefixes
+# Complex constraint from [[Property talk:P4801]]
+#
+SELECT ?item ?marc ?prefix {
+  ?item wdt:P4801 ?marc.
+  BIND (STRBEFORE(?marc, "/") AS ?prefix).
+  FILTER (?prefix NOT IN ("countries", "languages", "relators", "geographicAreas", 
+                          "subjectSchemes", "marcgt", "ethnographicTerms", "resourceTypes", "identifiers", "organizations"))
+}

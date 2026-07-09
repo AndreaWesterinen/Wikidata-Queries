@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel ?lichess_url ?titleLabel ?fide_url WHERE {
+  # Lichess URL
+    ?item wdt:P8976 ?lichess.
+    wd:P8976 wdt:P1630 ?lichess_format. 
+    BIND(IRI(REPLACE(?lichess_format, '\\$1', ?lichess)) AS ?lichess_url) . 
+  # Fide URL
+    ?item wdt:P1440 ?fide.
+    wd:P1440 wdt:P1630 ?fide_format. 
+    BIND(IRI(REPLACE(?fide_format, '\\$1', ?fide)) AS ?fide_url) . 
+  # Title
+    OPTIONAL {
+      ?item wdt:P2962 ?title.
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+} ORDER BY ?title

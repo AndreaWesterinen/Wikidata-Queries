@@ -1,0 +1,31 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("POD=Austria, POB≠Austria: by country of birth (top 15, present-day countries)" as ?legend) 
+  (GROUP_CONCAT(?cLabel;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+  ("pie" as ?type)
+  ("200" as ?height) 
+  ("300" as ?width) 
+WHERE
+{
+  { SELECT ?cLabel ?count 
+    {
+    { SELECT ?c ?cLabel (COUNT(DISTINCT ?item) as ?count)
+    {
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+    ?item wdt:P20 ?pod . ?pod wdt:P17 wd:Q40 .  
+    ?item wdt:P19 ?place .
+    ?place wdt:P17 ?c .  
+    FILTER (?c != wd:Q40 )     
+    ?item wdt:P31 wd:Q5 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+    GROUP BY ?c ?cLabel
+    ORDER BY DESC(?count)
+    LIMIT 15
+    }
+  hint:Query hint:optimizer "None".
+  }
+  ORDER BY DESC(?count)
+  }
+}

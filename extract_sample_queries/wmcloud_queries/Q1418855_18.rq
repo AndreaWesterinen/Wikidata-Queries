@@ -1,0 +1,26 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q1418855>
+SELECT
+  ?prop ?propLabel (SAMPLE(?for_type) as ?on_model_item_s) (SAMPLE(?in_this_item) as ?in_this_item_) (SAMPLE(?proptype) as ?proptype_)  
+  (URI(CONCAT(str(SAMPLE(COALESCE(?s0,?s2))),"#",strafter(str(?prop),str(wd:)))) as ?actual_use_or_model_item)
+WITH
+{
+  SELECT ?wdt ?prop (SAMPLE(?for_typ) as ?for_type) (SAMPLE(?s) as ?s2) 
+  {
+    {  wd:Q202444 wdt:P5869 ?s . ?s  ?wdt [] . ?prop wikibase:directClaim ?wdt .  BIND( "yes" as ?for_typ) } 
+    UNION
+    {  wdname: wdt:P31 ?type . ?type wdt:P5869 ?s . ?s  ?wdt [] . ?prop wikibase:directClaim ?wdt .  BIND( "yes" as ?for_typ) } 
+    UNION
+    {  wdname: ?wdt [] . ?prop wikibase:directClaim ?wdt }
+  }
+  GROUP BY ?wdt ?prop                              
+} as %all
+WHERE
+{
+  INCLUDE %all
+  hint:Prior hint:runFirst true .
+  OPTIONAL { wdname: ?wdt []. BIND("present" as ?in_this_item) .  BIND( wdname: as ?s0)  }   
+  ?prop wikibase:propertyType ?proptype 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" ;}          
+}
+GROUP BY ?prop ?propLabel ?statusLabel
+ORDER BY ( ?proptype_ = wikibase:ExternalId ) DESC(?in_this_item_) DESC(?on_model_item_s) 

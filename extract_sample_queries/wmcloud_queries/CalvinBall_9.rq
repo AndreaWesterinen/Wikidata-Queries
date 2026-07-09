@@ -1,0 +1,8 @@
+SELECT ?a ?aLabel ?loc ?img
+WHERE {
+  ?a wdt:P31/wdt:P279* wd:Q7075 .
+  ?a wdt:P17 wd:Q31 . 
+  OPTIONAL {?a wdt:P276 ?loc . }
+  OPTIONAL {?a wdt:P18 ?img .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+  }

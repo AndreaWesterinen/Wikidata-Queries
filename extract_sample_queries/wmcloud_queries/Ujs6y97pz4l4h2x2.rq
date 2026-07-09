@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT DISTINCT ?Bibliothek ?BibliothekLabel ?BibliothekDescription ?geographische_Koordinaten WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+  ?Bibliothek (wdt:P31/wdt:P279*) wd:Q7075.
+  ?Bibliothek wdt:P17 wd:Q38.
+  ?Bibliothek wdt:P131* ?Ort.
+  OPTIONAL { ?Bibliothek wdt:P625 ?geographische_Koordinaten. }
+}

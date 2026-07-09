@@ -1,0 +1,10 @@
+#title: "contemporary constraint" must only be used on properties with an Item datatype
+# Complex constraint from [[Property talk:P2302]]
+# Only properties with an [[d:Q29934200|Wikibase item <small>(Q29934200)</small>]] datatype should have [[d:Q25796498|contemporary constraint <small>(Q25796498)</small>]] applied.
+SELECT ?item ?itemLabel ?datatype WHERE {
+  VALUES ?constraints { wd:Q25796498 }.
+  ?item wdt:P2302 ?constraints.
+  ?item wikibase:propertyType ?datatype.
+  FILTER (?datatype != wikibase:WikibaseItem).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

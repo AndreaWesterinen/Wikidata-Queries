@@ -1,0 +1,9 @@
+SELECT ?akw ?akwLabel ?akwLoc
+WHERE 
+{
+	?akw p:P31/ps:P31 wd:Q134447 .
+  ?akw p:P625/ps:P625 ?akwLoc
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}

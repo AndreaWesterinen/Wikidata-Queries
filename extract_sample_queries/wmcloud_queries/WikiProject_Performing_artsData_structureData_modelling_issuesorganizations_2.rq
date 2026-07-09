@@ -1,0 +1,7 @@
+SELECT ?org ?item ?itemLabel ?item2 ?item2Label WHERE {
+  ?item wdt:P5164 ?org.
+  ?item rdfs:label ?itemLabel . filter(lang(?itemLabel)="en") 
+  ?item2 wdt:P5164 ?org.
+  ?item2 rdfs:label ?item2Label . filter(lang(?item2Label)="en") 
+  filter(str(?item) < str(?item2) )
+}

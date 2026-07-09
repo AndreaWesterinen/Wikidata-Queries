@@ -1,0 +1,10 @@
+#title: Commons sitelinks to be copied to P373 property
+# Complex constraint from [[Property talk:P373]]
+# Items with no P373, but with a category in the Commons sitelink. That category can be saved as P373.
+SELECT ?item ?sitelink WHERE {
+  ?item ^schema:about [ schema:isPartOf <https://commons.wikimedia.org/>; schema:name ?sitelink ] . 
+  MINUS { ?item wdt:P373 [] } .
+  MINUS { ?item wdt:P31 wd:Q4167836 } .
+  MINUS { ?item wdt:P31 wd:Q4167410 } .
+  FILTER( STRSTARTS( ?sitelink, 'Category:' ) ) .
+} LIMIT 500

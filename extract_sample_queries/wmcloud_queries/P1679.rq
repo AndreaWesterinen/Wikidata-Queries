@@ -1,0 +1,9 @@
+SELECT ?collection ?collectionLabel (COUNT(?item) AS ?count) ?artukcollection WHERE {
+  ?item wdt:P195 ?collection . 
+  ?collection wdt:P17 wd:Q145 . 
+  OPTIONAL {?collection wdt:P1751 ?artukcollection } .
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P1679 [] } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+  } GROUP BY ?collection ?collectionLabel ?artukcollection
+ORDER BY DESC (?count )

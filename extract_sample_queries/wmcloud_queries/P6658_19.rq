@@ -1,0 +1,9 @@
+#title: Wrong descriptor
+# Complex constraint from [[Property talk:P6658]]
+# [[d:Q77817069|for children <small>(Q77817069)</small>]] and [[d:Q77817071|not suitable for young children <small>(Q77817071)</small>]] can only be used with [[d:Q62365366|G <small>(Q62365366)</small>]] and [[d:Q62365366|G <small>(Q62365366)</small>]] cannot have other descriptors. Other ratings can only have descriptors from the pre-defined list.
+SELECT ?item
+WHERE {
+  { ?item p:P6658 [ ps:P6658 wd:Q62365366; pq:P7367 ?gdescriptor ] . FILTER ( ?gdescriptor NOT IN (wd:Q77817069, wd:Q77817071) ) } 
+  UNION
+  { ?item p:P6658 [ ps:P6658 ?rating; pq:P7367 ?descriptor ] . FILTER ( (?rating != wd:Q62365366) && ?descriptor NOT IN (wd:Q77817072, wd:Q77817078, wd:Q77817081, wd:Q77817085, wd:Q77817091) ) }
+}

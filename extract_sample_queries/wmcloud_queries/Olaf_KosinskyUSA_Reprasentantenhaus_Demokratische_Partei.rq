@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item
+WHERE
+{
+  ?item wdt:P106 wd:Q82955 .
+  ?item wdt:P102 wd:Q29468 .
+  ?item wdt:P21 wd:Q6581097 .
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P27 wd:Q30 .
+}
+LIMIT 5000

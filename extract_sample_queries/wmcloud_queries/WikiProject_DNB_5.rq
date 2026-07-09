@@ -1,0 +1,15 @@
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix entity: <http://www.wikidata.org/entity/>
+SELECT ?person ?personlabel ?dob WHERE {
+  ?person wdt:P1343 ?sub0 .  #items with "described by source"
+  ?person wdt:P31 entity:Q5 . #persons only
+   OPTIONAL {?person wdt:P569 ?dob }  #possibly with date of birth
+  {
+    ?sub0 wdt:P1433 entity:Q15987216 .  
+} UNION {
+    ?sub0 wdt:P1433 entity:Q16014700 .
+} UNION {
+    ?sub0 wdt:P1433 entity:Q16014697 .
+}
+ OPTIONAL {?person rdfs:label ?personlabel filter (lang(?personlabel) = "en") .}
+}

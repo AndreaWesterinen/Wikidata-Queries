@@ -1,4 +1,3 @@
-# ----
 # illustrates sitelink selection, ";" notation
 #title: Items with a Wikispecies sitelink
 SELECT ?item ?itemLabel ?article

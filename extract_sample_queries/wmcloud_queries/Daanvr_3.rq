@@ -1,0 +1,8 @@
+#Instagram location IDs, with optional pictures and location
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?img ?instaLocId ?LonLat WHERE {
+  ?item wdt:P4173 ?instaLocId.
+  OPTIONAL { ?item wdt:P18 ?img. }
+  OPTIONAL { ?item wdt:P625 ?LonLat. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

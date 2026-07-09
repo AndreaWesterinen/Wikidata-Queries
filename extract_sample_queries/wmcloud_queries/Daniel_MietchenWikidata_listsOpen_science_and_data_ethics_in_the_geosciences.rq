@@ -1,0 +1,40 @@
+SELECT
+# work on the topic
+?item
+
+# Author as a string
+?author
+
+# Number of works with the author
+?count
+
+# Build URL to the Author disambiguator tool
+(CONCAT(
+  '[https://author-disambiguator.toolforge.org/names_oauth.php?doit=Look+for+author&name=',
+  ENCODE_FOR_URI(?author), " 🙋]") AS ?resolver_url)
+WITH {
+  SELECT DISTINCT ?work WHERE {
+
+    VALUES ?topic {  wd:Q309823  wd:Q45933174  wd:Q5227350  wd:Q1132684  wd:Q858810  wd:Q309901  }
+
+    ?work wdt:P921 ?topic .
+  }
+} AS %works
+WITH {
+  SELECT
+  (COUNT(?work) AS ?count)
+  ?author
+  (SAMPLE(?work) AS ?item)
+  WHERE {
+    INCLUDE %works
+            ?work wdt:P2093 ?author .
+    ?work wdt:P1476 ?title .
+    FILTER (REGEX(LCASE(?title), "(earth|geo|soil|ocean|maritim|marine|atmosph|ecol|ecosys|terrest|climat|estuar|glacier|hurrican|disaster|quake|coast|tropic)"))
+  }
+  GROUP BY ?author
+} AS %result
+WHERE {
+  INCLUDE %result
+}
+ORDER BY DESC(?count)
+LIMIT 500

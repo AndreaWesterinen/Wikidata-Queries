@@ -1,0 +1,8 @@
+SELECT DISTINCT ?single ?song ?singleLabel ?songLabel
+WHERE {
+  ?single wdt:P31 wd:Q134556 .
+  ?single wdt:P527 ?song .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ }
+ORDER BY ?single
+LIMIT 50

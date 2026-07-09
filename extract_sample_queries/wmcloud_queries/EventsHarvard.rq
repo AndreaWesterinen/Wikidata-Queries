@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?propertyLabel ?property ?coord WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q43229.
+  ?item ?property wd:Q13371.
+  OPTIONAL { ?item wdt:P625 ?coord. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

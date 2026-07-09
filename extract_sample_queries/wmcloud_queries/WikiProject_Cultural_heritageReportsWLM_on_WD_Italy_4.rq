@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?wlmid 
+WHERE 
+{
+  ?item wdt:P17 wd:Q38 .
+  ?item wdt:P2186 ?wlmid .
+  FILTER( ?wlmid IN ('015168333', '015168334') ) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

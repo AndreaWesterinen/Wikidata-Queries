@@ -1,0 +1,9 @@
+embed.html##defaultView:Map{"hide":["?geo"],"markercluster":true, "layer":["?freedomLabel"] }
+SELECT DISTINCT ?geo ?xLabel ?x ?freedomLabel WHERE {
+  VALUES ?freedom { wd:Q3174312 wd:Q47185145 wd:Q47185282 } # "free country", "partly free country", "not-free country"
+  ?x wdt:P31/wdt:P279* wd:Q6256 ;
+  #   wdt:P30 wd:Q46 ;
+     wdt:P3896 ?geo ;
+     wdt:P1552 ?freedom .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

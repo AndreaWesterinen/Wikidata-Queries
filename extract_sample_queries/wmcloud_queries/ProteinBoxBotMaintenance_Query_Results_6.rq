@@ -1,0 +1,4 @@
+select ?protein ?pot_go where {
+  ?protein wdt:P680|wdt:P681|wdt:P682 ?pot_go .
+  FILTER NOT EXISTS {?pot_go wdt:P686 ?no_go} .
+}

@@ -1,0 +1,18 @@
+SELECT DISTINCT
+  (SAMPLE(COALESCE(?en_label, ?item_label)) as ?name)
+  (SAMPLE(?type_label) as ?type)
+  (SAMPLE(?named_after_label) as ?named_after)
+  (SAMPLE(?describes_label) as ?describes)
+  (SAMPLE(?formula) as ?formula)
+  (SAMPLE(?image) as ?image)
+  (SAMPLE(?item) as ?wikidata)
+WHERE {
+  ?type wdt:P279* wd:Q65943. # Theorem
+  ?item p:P31/ps:P31 ?type.
+  OPTIONAL {?item rdfs:label ?en_label. FILTER(LANG(?en_label) = "en")} OPTIONAL {?item rdfs:label ?item_label}
+  OPTIONAL {?type rdfs:label ?type_label. FILTER(LANG(?type_label) = "en")}
+  OPTIONAL {?item wdt:P18 ?image.}
+  OPTIONAL {?item wdt:P138 ?named_after. ?named_after rdfs:label ?named_after_label. FILTER(LANG(?named_after_label) = "en")}
+  OPTIONAL {?item wdt:P2384 ?describes. ?describes rdfs:label ?describes_label. FILTER(LANG(?describes_label) = "en")}
+  OPTIONAL {?item wdt:P2534 ?formula.}
+} GROUP BY ?item

@@ -1,0 +1,4 @@
+SELECT ?item ?url WHERE {
+  ?item wdt:P126 wd:Q333515 .
+  ?item wdt:P973 ?url
+  } LIMIT 800

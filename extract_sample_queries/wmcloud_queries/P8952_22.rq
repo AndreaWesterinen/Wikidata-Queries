@@ -1,0 +1,13 @@
+#title: inappropriate properties on biographical article items
+# Complex constraint from [[Property talk:P8952]]
+#
+SELECT ?item ?p
+{ 
+	hint:Query hint:optimizer "None".
+	VALUES ?type { wd:Q19389637 }
+	?type wdt:P8952 ?p . 
+	?p wikibase:directClaim ?wdt . 
+	?item wdt:P31 ?type .
+	?item ?wdt []
+}
+LIMIT 100

@@ -1,0 +1,15 @@
+# real works written by fictional authors
+SELECT ?author ?authorLabel (GROUP_CONCAT(DISTINCT ?title; separator = "; ") AS ?books) WHERE {
+ VALUES ?class { wd:Q7725634 wd:Q571 }
+ ?book wdt:P31/wdt:P279* ?class;
+ wdt:P50 ?author.
+ ?author wdt:P31/wdt:P279* wd:Q95074.
+ MINUS { ?author wdt:P31/wdt:P279* wd:Q18563354. }
+ OPTIONAL { ?book wdt:P1476 ?bookTitle. FILTER(LANG(?bookTitle) = "en"). }
+ OPTIONAL { ?book rdfs:label ?bookLabel. FILTER(LANG(?bookLabel) = "en"). }
+ FILTER(BOUND(?bookTitle) || BOUND(?bookLabel)).
+ BIND(COALESCE(?bookTitle, ?bookLabel) AS ?title).
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?author ?authorLabel
+ORDER BY ASC(COUNT(DISTINCT ?title))

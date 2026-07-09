@@ -1,0 +1,19 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?chancellorLabel ?spouseLabel WHERE {
+   ?chancellor wdt:P569 ?birthday .
+   ?chancellor wdt:P39 wd:Q4970706 .
+  
+   ?chancellor p:P26 ?spouse_statement .
+   ?spouse_statement v:P26 ?spouse .
+               
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "de" .
+   }
+} ORDER BY ?birthday ?spouse

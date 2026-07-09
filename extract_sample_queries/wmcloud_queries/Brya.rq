@@ -1,0 +1,10 @@
+SELECT ?item ?taxonName ?roleLabel {
+  ?item p:P225 ?statement .
+  ?statement ps:P225 ?taxonName .
+  ?statement prov:wasDerivedFrom ?refnode .
+  ?refnode pr:P6184 ?role
+  FILTER(sameTerm(?role, wd:Q14594740))
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+ORDER BY ASC(?taxonName)

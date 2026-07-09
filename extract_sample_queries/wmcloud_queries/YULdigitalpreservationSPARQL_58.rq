@@ -1,0 +1,11 @@
+SELECT   ?person ?personLabel ?occLabel
+
+WHERE {
+  
+  ?person wdt:P21 wd:Q6581072 .
+  ?person wdt:P485 wd:Q814779 .
+  ?person wdt:P106 ?occ .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  
+}

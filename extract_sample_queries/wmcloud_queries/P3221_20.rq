@@ -1,0 +1,8 @@
+#title: Check person
+# Complex constraint from [[Property talk:P3221]]
+# Rapid check
+SELECT ?item ?value {
+	?item wdt:P3221 ?value.
+    FILTER (REGEX(?value, "^(person.+)$"))
+	FILTER NOT EXISTS { ?item wdt:P31 ?e }    
+}

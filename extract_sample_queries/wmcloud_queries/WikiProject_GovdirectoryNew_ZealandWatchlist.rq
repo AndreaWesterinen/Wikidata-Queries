@@ -1,0 +1,20 @@
+SELECT ?item
+WHERE {
+  BIND(wd:Q664 AS ?country)
+
+    # agencies with country set to New Zealand
+    VALUES ?type {
+      wd:Q5283326 # district health board of New Zealand (20)
+      wd:Q8041036 # wānanga (3)
+      wd:Q1148315 # state-owned enterprise of New Zealand (12)
+      wd:Q65600637 # regional council of New Zealand (11)
+      wd:Q941036 # territorial authority of New Zealand (67)
+    }
+
+  ?item wdt:P31 ?type ;
+       wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+  MINUS { ?item wdt:P3999 [] }
+}

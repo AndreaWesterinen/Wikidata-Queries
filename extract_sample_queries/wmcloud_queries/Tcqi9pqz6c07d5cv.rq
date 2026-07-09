@@ -1,0 +1,4 @@
+select ?work ?workLabel ?property ?propertyLabel where {
+	?work wdt:P3176 ?property
+    service wikibase:label { bd:serviceParam wikibase:language "da" . } 
+}

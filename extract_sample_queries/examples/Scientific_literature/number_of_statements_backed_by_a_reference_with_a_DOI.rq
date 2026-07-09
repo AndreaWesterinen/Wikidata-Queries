@@ -1,3 +1,4 @@
+#title: number of statements backed by a reference with a DOI
 SELECT (COUNT (?statement) as ?statements)
 WHERE
 {

@@ -1,0 +1,4 @@
+select ?subclass ?subclassLabel where {
+?subclass wdt:P279 wd:Q571 .
+SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

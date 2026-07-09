@@ -1,0 +1,11 @@
+SELECT ?item #?itemLabel
+(CONCAT("\u007C {","{rfd links\u007C",strafter(str(?item), "entity/"),"\u007Cfrom [[Wikidata:Database reports/to delete/empty Wikimedia project page items]]}","}") as ?del)
+{
+  	VALUES ?instance { wd:Q14204246 } .
+	?item wdt:P31 ?instance .
+	OPTIONAL { ?sitelink schema:about ?item } .
+  	FILTER (!BOUND(?sitelink)) .
+	# SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?item
+LIMIT 5000

@@ -1,0 +1,9 @@
+#title: Item likely to be linked from this property
+# Complex constraint from [[Property talk:P3096]]
+# FIXME: add P3096 to the relevant item and link the item listed or define exceptions
+SELECT ?item 
+{
+	?item wdt:P31 wd:Q26267864
+	MINUS { [] wdt:P3096 ?item }
+	FILTER ( ?item not in ( wd:Q4115189,wd:Q13406268,wd:Q15397819 ) )
+}

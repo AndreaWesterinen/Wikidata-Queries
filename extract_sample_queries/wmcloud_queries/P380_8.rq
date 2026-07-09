@@ -1,0 +1,10 @@
+#title: <b class="error">LangSwitch Error: no default</b>[[Category:LangSwitch template without default version]]
+# Complex constraint from [[Property talk:P380]]
+# <b class="error">LangSwitch Error: no default</b>[[Category:LangSwitch template without default version]]
+SELECT DISTINCT ?item ?id1 ?id2 WHERE {
+  ?item wdt:P380 ?id1 ; wdt:P380 ?id2 .
+  FILTER (?id1 > ?id2). 
+  FILTER regex (?id1, "^IA").
+  FILTER regex (?id2, "^IA").
+  FILTER( ?item NOT IN ( wd:Q38503834, wd:Q41784520, wd:Q3582098, wd:Q3582307, wd:Q3582676, wd:Q3583199, wd:Q3583641, wd:Q3583633 ) ) .
+}

@@ -1,0 +1,14 @@
+#defaultView:BubbleChart
+SELECT ?type ?typeLabel (count(*) as ?count)
+WHERE
+{
+	?monument wdt:P131* wd:Q36 .
+	?monument wdt:P1435 ?heritage .
+	?monument wdt:P31 ?type .
+	OPTIONAL {
+		?type rdfs:label ?typeLabel 
+		filter (lang(?typeLabel) = "pl")
+	}
+}
+GROUP BY ?type ?typeLabel
+ORDER BY DESC(?count) ASC(?typeLabel)

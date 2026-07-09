@@ -1,0 +1,14 @@
+embed.html##most frequent frist given name for people with defined second given name " 
+#by Jura1, February 2020
+SELECT ?fn ?fnLabel (COUNT(DISTINCT ?item) as ?count) (SAMPLE(?item) as ?sample)
+WHERE
+{
+    ?item p:P735 [ ps:P735 wd:Q64698701 ; pq:P1545 "2" ] .
+   #  hint:Prior hint:runFirst true .
+    ?item p:P735 [ ps:P735 ?fn ; pq:P1545 "1" ] .
+    ?item wdt:P31 wd:Q5 .
+    ?fn wdt:P1705 ?fnLabel
+}
+GROUP BY ?fn ?fnLabel
+ORDER BY DESC(?count)
+LIMIT 100

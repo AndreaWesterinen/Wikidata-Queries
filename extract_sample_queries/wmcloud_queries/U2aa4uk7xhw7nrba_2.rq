@@ -1,0 +1,5 @@
+SELECT ?item ?value WHERE {
+  ?item p:P1352 [ ps:P1352 ?value; pq:P459 wd:Q180825 ] .
+  FILTER(?value < 17114 ) .
+  FILTER(?value > 209 ) .
+}

@@ -1,0 +1,13 @@
+#title: Related characters do not share fictional universes
+# Complex constraint from [[Property talk:P1080]]
+# Fictional character, with a P1080 statement, that has a relationship to another character that does not share any P1080 value.
+SELECT ?item ?otherPerson WHERE {
+  ?item wdt:P1080 [];
+        wdt:P40 | wdt:P22 | wdt:P25 |
+        wdt:P26 | wdt:P451 |
+        wdt:P802 | wdt:P1066
+        ?otherPerson .
+  FILTER NOT EXISTS {
+    [] ^wdt:P1080 ?item, ?otherPerson .
+  }
+}

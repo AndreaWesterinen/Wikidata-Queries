@@ -1,0 +1,16 @@
+SELECT
+  ?item ?itemLabel ?itemDescription 
+  (COUNT(?entry) as ?count_cites)
+  (COUNT(DISTINCT ?entry) as ?count_distinct_entry)
+  (COUNT(DISTINCT ?ref) as ?count_ref_works)
+  (SAMPLE(?entry) as ?sample_entry)
+  (SAMPLE(?ref) as ?sample_ref_work)
+WHERE
+{
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P2860 ?ref .
+    OPTIONAL { ?ref wdt:P407 ?item0 }
+    BIND( COALESCE( ?item0, wd:Q22910791 ) as ?item) 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+GROUP BY ?item ?itemLabel ?itemDescription
+ORDER BY ?itemLabel ?item

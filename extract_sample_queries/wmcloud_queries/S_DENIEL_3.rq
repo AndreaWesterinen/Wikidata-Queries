@@ -1,0 +1,1 @@
+SELECT (COUNT(?item) AS ?count) WHERE { ?item wdt:P195 wd:Q3330192 . ?item wdt:P31 wd:Q3305213 . } 

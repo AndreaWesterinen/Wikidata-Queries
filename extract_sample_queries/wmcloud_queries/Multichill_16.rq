@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item p:P39 ?positionstatement .
+  ?positionstatement ps:P39 wd:Q18887908 .
+   ?item wdt:P569 ?dob .
+  MINUS { ?positionstatement pq:P580 ?startdate } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+  } ORDER BY DESC(?dob) LIMIT 2000

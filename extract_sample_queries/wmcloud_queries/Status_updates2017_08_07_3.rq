@@ -1,0 +1,25 @@
+#defaultView:ImageGrid
+
+SELECT
+  ?person
+  ?personLabel
+  (GROUP_CONCAT(DISTINCT ?myRanklabel;separator=', ') as ?myRanklabel)
+  ?image
+  (COUNT(DISTINCT ?languageArticle) as ?languageArticleCount)
+WHERE {
+  ?person wdt:P463 wd:Q718644 .
+  OPTIONAL {
+     ?person wdt:P410 ?rank . 
+     ?rank rdfs:label ?myRanklabel
+           FILTER (lang(?myRanklabel) = 'en' )
+  }
+  OPTIONAL { ?person wdt:P18 ?image . }
+  
+  ?languageArticle schema:about ?person 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}     
+}
+GROUP BY
+  ?person ?personLabel ?rankLabel ?image
+ORDER BY
+  DESC(?languageArticleCount)

@@ -1,0 +1,20 @@
+# most frequent Wikimedia import sources (P143 values)
+# query by Jura1, 2019-06-24
+#defaultView:BubbleChart
+SELECT ?item ?itemLabel ?ct 
+WHERE
+{
+  {
+    SELECT ?item (count(*) as ?ct)
+    WHERE
+    {
+      ?stmt pr:P143 ?item
+    }
+    GROUP BY ?item
+    HAVING(?ct > 100)          
+    ORDER BY DESC(?ct)
+    LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?ct) ASC(?itemLabel)

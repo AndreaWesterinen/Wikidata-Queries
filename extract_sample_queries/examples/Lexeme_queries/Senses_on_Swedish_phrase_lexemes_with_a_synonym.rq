@@ -1,7 +1,5 @@
-# ----
 #title: Senses on Swedish phrase lexemes with a synonym
-# date: 2024-04-25
-# author: So9q
+# author: So9q, 2024-04-25
 # note: Thanks to Nikki and Ainali for help with selecting the synonym lexeme 
 SELECT ?l ?sense ?lemma ?synonym ?synonym_lemma WHERE {
   ?l   ontolex:sense ?sense ; # the sense

@@ -1,3 +1,4 @@
+#title: French heads of government by length of service
 SELECT DISTINCT ?item ?itemLabel ?positionLabel ?picture ?start ?end ?days WHERE
 {
   ?item wdt:P31 wd:Q5 ;

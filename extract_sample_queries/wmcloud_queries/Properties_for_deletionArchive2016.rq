@@ -1,0 +1,6 @@
+SELECT ?item ?count WHERE {
+   ?item p:P527 ?haspart_statement .
+   ?haspart_statement ps:P527 wd:Q3064117 .
+   wd:P1114 wikibase:qualifier ?quantity_qualifier .
+   ?haspart_statement ?quantity_qualifier ?count .
+ }

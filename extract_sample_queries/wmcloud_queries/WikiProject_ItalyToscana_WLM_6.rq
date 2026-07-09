@@ -1,0 +1,5 @@
+SELECT ?Vicopisano ?VicopisanoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Vicopisano wdt:P131 wd:Q82865.
+}
+LIMIT 100

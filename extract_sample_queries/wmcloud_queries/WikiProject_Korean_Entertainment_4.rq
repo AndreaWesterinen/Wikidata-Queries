@@ -1,0 +1,6 @@
+SELECT ?record_label ?record_labelLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?record_label wdt:P31 wd:Q18127.
+  ?record_label wdt:P17 wd:Q884.
+}
+LIMIT 600

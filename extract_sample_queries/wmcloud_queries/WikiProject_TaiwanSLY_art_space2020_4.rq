@@ -1,0 +1,12 @@
+#Items about authors with a Wikispecies page
+#defaultView:Bar chart
+SELECT ?item ?itemLabel (COUNT(?people) AS ?count)
+WHERE
+{
+    ?item wdt:P31 wd:Q464980;
+            wdt:P17 wd:Q865.
+    ?item wdt:P710 ?people .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?count)

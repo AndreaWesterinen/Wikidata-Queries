@@ -1,0 +1,7 @@
+select *
+{
+  values ?item { wd:Q220 }
+  ?item wdt:P625 ?coor . 
+  ?article schema:about ?item ; schema:name ?pagetitle ; schema:isPartOf ?wiki ; schema:inLanguage ?wikilang . 
+  ?wiki wikibase:wikiGroup ?group . 
+}  

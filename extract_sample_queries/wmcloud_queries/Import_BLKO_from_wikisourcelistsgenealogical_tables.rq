@@ -1,0 +1,35 @@
+SELECT
+  ?genea
+  ?item ?title
+  (CONCAT("[[",strafter(str(?item), "y/"),"|", ?title, "]]") as ?l) 
+  (CONCAT('<span title="',strafter(?wst,"BLKÖ:"),'">[',str(?ws),"#Seite_",strbefore(CONCAT(?pages,"-"), "-")," ws]</span>") as ?wsp)
+  ?subject ?vol ?pages ?page ?scan ?gen ?desc
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?item wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q9353932 . 
+    ?item wdt:P478 ?vol . 
+    ?item wdt:P304 ?pages . 
+    OPTIONAL { ?item wdt:P1476 ?title } . 
+    OPTIONAL { ?item wdt:P921 ?subject1 } . 
+    OPTIONAL { ?item wdt:P361 ?art0 . ?art0 wdt:P921 ?subject2 } . 
+    MINUS { ?item wdt:P31 wd:Q1302249 }
+    BIND( xsd:integer(strbefore(CONCAT(?pages,"-"), "-")) as ?page) 
+    OPTIONAL {  ?ws1 schema:about ?item ; schema:name ?wst1 ; schema:isPartOf <https://de.wikisource.org/> }
+    OPTIONAL {  ?item wdt:P361 ?art . 
+                ?ws2 schema:about ?art ; schema:name ?wst2 ; schema:isPartOf <https://de.wikisource.org/> }
+    BIND( COALESCE( ?ws1, ?ws2) as ?ws) 
+    BIND( COALESCE( ?wst1, ?wst2) as ?wst) 
+    BIND( COALESCE( ?subject1, ?subject2) as ?subject) 
+	OPTIONAL { ?item p:P996 ?sst . ?sst ps:P996 ?scanimage . 
+        OPTIONAL { ?sst pq:P7668 ?pnb } . 
+        BIND(COALESCE(?pnb, 1) as ?scanp) . 
+    }
+    BIND( CONCAT("[[",
+        REPLACE(str(?scanimage),"http://commons.wikimedia.org/wiki/Special:FilePath/","File:"),
+        "\u007C","page=",str(?scanp),"\u007C","200px","\u007C","center","\u007C",COALESCE(?title,""), "]]") as ?scan) 
+    OPTIONAL { ?item p:P2670 [ ps:P2670 wd:Q213381 ; pq:P1114 ?gen ] }
+    OPTIONAL { ?item p:P2670 [ ps:P2670 wd:Q183905 ; pq:P1114 ?desc ] }  
+    OPTIONAL { ?item wdt:P3342 ?kp . ?kp ?wdt [] . ?geneap wdt:P31 wd:Q56249073 ; wikibase:directClaim ?wdt . BIND("y" as ?genea) }
+}
+ORDER BY xsd:integer(?vol) ?page ?pages

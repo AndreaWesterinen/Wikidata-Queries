@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?value (COALESCE(?song,?st) as ?song_) ?song ?songLabel ?roleLabel ?adopted ?ended ?composer ?composerLabel
+{
+  ?item wdt:P5086 ?value .
+  OPTIONAL { 
+              ?item p:P85 ?st . 
+              OPTIONAL { ?st ps:P85 ?song 
+                          OPTIONAL { ?song wdt:P86 ?composer }
+                       }
+              OPTIONAL { ?st pq:P3831 ?role }
+              OPTIONAL { ?st pq:P580 ?adopted }
+              OPTIONAL { ?st pq:P582 ?ended }
+            }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+ORDER BY (!BOUND(?song)) ?itemLabel ?adopted

@@ -1,0 +1,4 @@
+select ?item  ?countryLabel ?article WHERE {
+  ?item wdt:P31 wd:Q7755 OPTIONAL {?item wdt:P17 ?country} OPTIONAL {?item wikibase:sitelinks ?article} 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+ . }

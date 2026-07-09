@@ -1,0 +1,9 @@
+SELECT ?item (COUNT (?sitelink) as ?ct)
+WHERE
+{
+  	?sitelink schema:about wd:Q762 .
+    bind (strafter(str(?sitelink), "https://") as ?sitelink2) .
+    bind (strbefore(?sitelink2, ".") as ?language) .
+   	?item wdt:P31 wd:Q10876391; wdt:P424 ?language
+}
+GROUP BY ?item

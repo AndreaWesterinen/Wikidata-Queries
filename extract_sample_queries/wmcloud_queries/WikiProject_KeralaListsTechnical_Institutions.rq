@@ -1,0 +1,10 @@
+SELECT ?item ?lml WHERE {
+   { ?item wdt:P31 wd:Q1663017. }
+  UNION
+  { ?item wdt:P31 wd:Q494230. }
+   UNION
+  { ?item wdt:P31 wd:Q845392. }
+  ?item wdt:P790 wd:Q3532608.
+  ?item wdt:P131* wd:Q1186.
+  OPTIONAL { ?item rdfs:label ?lml. FILTER(LANG(?lml)="ml") }
+}

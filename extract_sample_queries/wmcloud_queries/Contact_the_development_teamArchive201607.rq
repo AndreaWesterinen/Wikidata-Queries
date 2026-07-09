@@ -1,0 +1,18 @@
+SELECT ?marker ?markerLabel ?coord ?title ?image ?date ?inscription ?country ?countryLabel
+       ?admin0Label ?admin0Type ?admin1Label ?admin1Type ?admin2Label ?admin2Type ?admin3Label ?admin3Type WHERE {
+  ?marker wdt:P31 wd:Q21562164 ; wdt:P625 ?coord .
+  OPTIONAL { ?marker wdt:P1476 ?title . }
+  OPTIONAL { ?marker wdt:P18 ?image . }
+  OPTIONAL { ?marker wdt:P571 ?date . }
+  OPTIONAL { ?marker wdt:P1684 ?inscription . }
+  OPTIONAL { ?marker wdt:P17 ?country . }
+  OPTIONAL { ?marker wdt:P131 ?admin0 . }
+  OPTIONAL { ?admin0 wdt:P31  ?admin0Type . }
+  OPTIONAL { ?admin0 wdt:P131 ?admin1 . }
+  OPTIONAL { ?admin1 wdt:P31  ?admin1Type . }
+  OPTIONAL { ?admin1 wdt:P131 ?admin2 . }
+  OPTIONAL { ?admin2 wdt:P31  ?admin2Type . }
+  OPTIONAL { ?admin2 wdt:P131 ?admin3 . }
+  OPTIONAL { ?admin3 wdt:P31  ?admin3Type . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

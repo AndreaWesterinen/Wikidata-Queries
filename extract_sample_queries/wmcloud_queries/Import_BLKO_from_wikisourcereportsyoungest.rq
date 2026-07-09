@@ -1,0 +1,16 @@
+SELECT ?item ?d ?vol ?publ ?years_since_birth ?living
+{
+  hint:Query hint:optimizer "None".
+  { ?entry wdt:P1433 wd:Q665807 .
+  ?entry wdt:P921 ?item .
+  ?item wdt:P569 ?d .
+  FILTER( YEAR(?d) > 1810 ) }
+  ?entry wdt:P478 ?vol .
+  ?volitem wdt:P179 wd:Q665807 . 
+  ?volitem wdt:P478 ?vol .
+  ?volitem wdt:P577 ?publ .
+  BIND( YEAR(?publ) - YEAR(?d) as ?years_since_birth)
+  OPTIONAL { ?item wdt:P570 ?dod . FILTER( ?dod > ?publ ) BIND("y" as ?living) }
+}
+ORDER BY ?years_since_birth ?item
+LIMIT 100

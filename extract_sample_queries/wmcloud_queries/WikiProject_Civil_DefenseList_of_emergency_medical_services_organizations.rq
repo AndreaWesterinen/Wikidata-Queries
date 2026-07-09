@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item WHERE {
+  VALUES ?instances_of {
+    wd:Q860447
+  }
+  VALUES ?fields_of_work {
+    wd:Q2861470
+  }
+  { ?item wdt:P101 ?fields_of_work. }
+  UNION
+  { ?item (p:P31/ps:P31/(wdt:P279*)) ?instances_of. }
+  MINUS { ?item wdt:P31 wd:Q5. }
+}
+LIMIT 5000

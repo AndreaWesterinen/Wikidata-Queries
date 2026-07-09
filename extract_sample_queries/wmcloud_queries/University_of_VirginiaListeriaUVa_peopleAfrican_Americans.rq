@@ -1,0 +1,9 @@
+SELECT ?item
+       {
+          {?item ?property wd:Q213439.} UNION { ?item ?property2 [wdt:P361 wd:Q213439].}
+         #include only ethnicity = African American
+         ?item wdt:P172 wd:Q49085.
+          ?item wdt:P31 wd:Q5; wikibase:statements ?st
+       }
+       ORDER BY ASC(?st) ?item 
+       LIMIT 3000

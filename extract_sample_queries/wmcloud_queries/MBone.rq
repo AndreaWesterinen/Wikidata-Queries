@@ -1,0 +1,7 @@
+embed.html#SELECT (CONCAT('-', ?qid) AS ?str) ("P31" AS ?pid) ("Q13220204" AS ?value) WHERE {
+  ?item wdt:P31 wd:Q13220204.
+  ?item wdt:P17 wd:Q155.
+  ?item wdt:P31 wd:Q3184121.
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+}
+LIMIT 1000

@@ -1,0 +1,7 @@
+SELECT ?item ?url WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+  wd:P5269 wdt:P1630 ?formatterurl .
+  ?item p:P276 ?localisation .
+  ?localisation ps:P276 wd:Q428765 .
+  OPTIONAL { ?item wdt:P5269 ?id }.
+  }

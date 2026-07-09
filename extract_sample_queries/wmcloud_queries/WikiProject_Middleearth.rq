@@ -1,0 +1,8 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P1080 wd:Q81738;
+        ?p ?statement.
+  ?statement wikibase:rank ?rank;
+             ?predicate ?time.
+  FILTER(DATATYPE(?time) = xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

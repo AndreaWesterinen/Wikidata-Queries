@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?sportLabel ?age_classLabel ?genderLabel ?tennisDisciplineLabel WHERE {
+  ?item wdt:P31 wd:Q22936940; wdt:P641 ?sport .
+  ?sport wdt:P279* wd:Q847 .
+  ?item p:P2094 [ ps:P2094 ?age_class; pq:P1013 wd:Q185836 ] .
+  ?item p:P2094 [ ps:P2094 ?gender; pq:P1013 wd:Q48277 ] .
+  ?item p:P2094 [ ps:P2094 ?tennisDiscipline; pq:P1013 wd:Q1967745 ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

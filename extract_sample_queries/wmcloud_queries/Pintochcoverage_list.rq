@@ -1,0 +1,8 @@
+SELECT DISTINCT ?pid ?pidLabel ?uses ?nb ?cov WHERE {
+  ?pid wdt:P31/wdt:P279* wd:Q19847637 ;
+       wdt:P4876 ?nb.
+  BIND (concat("[[:Template:Property uses\u007C",substr(str(?pid),33),"]]") as ?uses)
+  BIND (concat("[[:User:Pintoch/coverage\u007C",substr(str(?pid),33),"]]") as ?cov)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?nb)

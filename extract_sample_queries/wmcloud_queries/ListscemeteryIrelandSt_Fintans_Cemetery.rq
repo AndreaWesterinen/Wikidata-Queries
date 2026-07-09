@@ -1,0 +1,19 @@
+SELECT ?item ?img ?section ?plot
+WHERE 
+{ 
+    BIND( wd:Q7587914 as ?cem ) 
+    {  
+        ?item wdt:P119 ?cem . 
+        OPTIONAL { ?item p:P119 [ ps:P119 ?cem ; pq:P965 ?plot ] }
+        OPTIONAL { ?item wdt:P1442 ?img } 
+        BIND(wd:Q12131650 as ?section )                 
+    }
+    UNION
+    {     
+        ?item wdt:P276* ?cem  
+        OPTIONAL { ?item wdt:P18 ?img } 
+        OPTIONAL { ?item p:P276 [ ps:P276 ?cem ; pq:P965 ?plot ] }
+        BIND(IF (?item = ?cem, wd:Q39614 , wd:Q17334923 ) as ?section )                 
+    }
+}
+ORDER BY ?section ?item

@@ -1,0 +1,22 @@
+SELECT 
+  ?cat ?catLabel
+  ?feature ?featureLabel
+  (COUNT(?form) as ?frequency) 
+  (SAMPLE(?lexeme) as ?sample_lexeme)
+  (SAMPLE(?form) as ?sample_form)
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?lexeme dct:language wd:Q5885.
+  ?lexeme wikibase:lemma ?lemma . 
+  ?lexeme wikibase:lexicalCategory ?cat .
+  ?lexeme ontolex:lexicalForm ?forms . 
+    ?forms ontolex:representation ?form .
+    ?forms wikibase:grammaticalFeature ?feature .
+  OPTIONAL { ?lexeme ontolex:sense/skos:definition ?gloss. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY 
+  ?cat ?catLabel
+  ?feature ?featureLabel
+ORDER BY ?catLabel DESC(?frequency)

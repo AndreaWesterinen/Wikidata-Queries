@@ -1,0 +1,25 @@
+SELECT DISTINCT ?item WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+            ?item p:P31 ?statement4.
+      ?statement4 (ps:P31/(wdt:P279*)) wd:Q21198342.
+      MINUS {
+        ?item p:P4087 ?statement0.
+        ?statement0 (ps:P4087) _:anyValueP4087.
+      }
+      MINUS {
+        ?item p:P8731 ?statement1.
+        ?statement1 (ps:P8731) _:anyValueP8731.
+      }
+      MINUS {
+        ?item p:P10589 ?statement2.
+        ?statement2 (ps:P10589) _:anyValueP10589.
+      }
+      MINUS {
+        ?item p:P11149 ?statement3.
+        ?statement3 (ps:P11149) _:anyValueP11149.
+      }
+    }
+  }
+}

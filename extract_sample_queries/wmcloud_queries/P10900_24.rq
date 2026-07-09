@@ -1,0 +1,11 @@
+#title: people with property and dates of birth/death on January 1 (best rank, day precision dates only)
+SELECT ?item ?itemLabel ?value ?dob ?dod
+{
+  ?item wdt:P10900 ?value.
+  ?item p:P569 [ a wikibase:BestRank; psv:P569 [ wikibase:timeValue ?dob; wikibase:timePrecision 11 ]].
+  FILTER( MONTH(?dob) = 1 && DAY(?dob) = 1 )
+  ?item p:P570 [ a wikibase:BestRank; psv:P570 [ wikibase:timeValue ?dod; wikibase:timePrecision 11 ]].
+  FILTER( MONTH(?dod) = 1 && DAY(?dod) = 1 )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

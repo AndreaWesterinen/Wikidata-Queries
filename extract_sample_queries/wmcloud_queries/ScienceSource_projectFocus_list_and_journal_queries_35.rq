@@ -1,0 +1,7 @@
+#Open-access journals included in the ScienceSource focus list, lacking DOAJ identifier
+SELECT DISTINCT ?journal
+  WHERE {?item wdt:P5008 wd:Q55439927;
+               wdt:P1433 ?journal.
+         ?journal wdt:P31 wd:Q773668.
+          MINUS { ?journal wdt:P5115 [ ]}
+         }

@@ -1,0 +1,5 @@
+SELECT ?item ?sitelink WHERE {
+  ?item wdt:P136 wd:Q557141.
+  ?item wdt:P131 wd:Q2680952.
+  OPTIONAL {?sitelink schema:about ?item.}
+}

@@ -1,0 +1,10 @@
+#All Paintings (except 'cave paintings') that have a Geo-coordinate) - and they probably shouldn't!
+
+SELECT ?painting ?paintingLabel ?image ?coordinate_location WHERE {
+  ?painting (wdt:P31/wdt:P276*) wd:Q3305213.
+  ?painting wdt:P31 ?type.
+  ?painting wdt:P625 ?coordinate_location.
+  OPTIONAL {?painting wdt:P18 ?image.}
+  MINUS { ?painting wdt:P136 wd:Q214334. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

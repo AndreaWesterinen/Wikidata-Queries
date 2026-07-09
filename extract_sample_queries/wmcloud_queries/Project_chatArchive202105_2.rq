@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?item2 ?item2Label ?CBDB
+WHERE 
+{
+  ?item wdt:P497 ?CBDB .
+  ?item2 wdt:P497 ?CBDB. 
+  filter(str(?item2) < str(?item))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

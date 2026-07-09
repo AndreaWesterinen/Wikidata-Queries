@@ -1,0 +1,8 @@
+SELECT DISTINCT ?award ?awardLabel (COUNT(?person) AS ?recipients) WHERE {
+  ?award wdt:P31 wd:Q378427.
+  OPTIONAL { ?person wdt:P166 ?award. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?award ?awardLabel
+HAVING (?recipients < 3)
+ORDER BY ?recipients

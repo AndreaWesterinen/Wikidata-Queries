@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?land WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q17153751.
+  OPTIONAL {
+    ?item wdt:P937 ?werk.
+    ?werk wdt:P17 ?land.
+   }
+  FILTER NOT EXISTS {?item wdt:P7763 []}.  
+  FILTER NOT EXISTS {?item wdt:P569 []}.  
+}

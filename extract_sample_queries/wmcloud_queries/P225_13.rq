@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P225/ps:P225 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(Clematis '(.+)')$") )
+}

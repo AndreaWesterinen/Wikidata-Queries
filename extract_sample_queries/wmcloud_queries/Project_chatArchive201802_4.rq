@@ -1,0 +1,12 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?person ?personLabel ?name ?born ?date_of_death WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?person wdt:P31 wd:Q5.
+  ?person wdt:P570 ?date_of_death.
+  OPTIONAL { ?person wdt:P2561 ?name. }
+  ?person wdt:P27 wd:Q408.
+  OPTIONAL { ?person wdt:P569 ?born. }
+  FILTER(?date_of_death <= "1901-01-01T00:00:00Z"^^xsd:dateTime)
+}
+LIMIT 2000

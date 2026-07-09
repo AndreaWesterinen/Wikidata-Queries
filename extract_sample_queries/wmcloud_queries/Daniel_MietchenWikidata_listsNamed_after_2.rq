@@ -1,0 +1,9 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?taxonname ?namesake ?namesakeLabel (SAMPLE(DISTINCT ?namesakeimage_) AS ?namesakeimage) WHERE {
+  ?item wdt:P138 ?namesake;
+        wdt:P225 ?taxonname .
+  ?namesake wdt:P18 ?namesakeimage_.
+  ?namesake rdfs:label ?namesakeLabel .
+  FILTER(LANG(?namesakeLabel) = "en")          
+}
+GROUP BY ?item ?taxonname ?namesake ?namesakeLabel ?namesakeimage

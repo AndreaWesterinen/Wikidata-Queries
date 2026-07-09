@@ -1,0 +1,42 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?itemDescription ?image (SAMPLE(?geo) AS ?1geo) (SAMPLE(?pic) AS ?1pic) (SAMPLE(?commons) AS ?1commons) (SAMPLE(?CommonsLink) AS ?1CommonsLink) (SAMPLE(?article) AS ?1article) WHERE {
+  { ?item wdt:P1936 ?DigitalAtlasoftheRomanEmpireID. }
+  UNION
+  { ?item wdt:P5633 ?AmphiTheatrumID. }
+  UNION
+  { ?item wdt:P1481 ?viciOrgID. }
+  UNION
+  { ?item wdt:P1584 ?PleiadesID. }
+  UNION
+  { ?item wdt:P5634 ?TheatrumID. }  
+  
+  ?item wdt:P31 wd:Q839954. # must be an archeological site
+ 
+  # wiki commons categorie by wikidata property
+  OPTIONAL { ?item wdt:P373 ?commons. }
+
+  # wiki commons categorie by wikidata link (like wikipedia links)
+  OPTIONAL {
+    ?CommonsLink schema:about ?item;
+      schema:isPartOf <https://commons.wikimedia.org/>. 
+  }
+  
+  # only keep item which have a "link" and/or "property" of Commons categorie. Thus filtering out items that have neither of them.
+  FILTER(!isBlank(?commons) || !isBlank(?CommonsLink)). 
+
+    
+  #MINUS { ?item wdt:P625 ?geo. }
+  OPTIONAL { ?item wdt:P625 ?geo. }
+  OPTIONAL { ?item wdt:P18 ?pic. }
+  OPTIONAL { ?item wdt:P373 ?picAlbum. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?itemLabel;
+      schema:description ?itemDescription.
+  }
+  OPTIONAL {
+    ?article schema:about ?item;
+      schema:isPartOf <https://en.wikipedia.org/>.
+  }
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?image

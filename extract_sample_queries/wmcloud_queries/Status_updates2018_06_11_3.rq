@@ -1,0 +1,14 @@
+# female ministers in African countries
+SELECT ?human ?humanLabel ?positionLabel ?countryLabel WITH {
+  SELECT DISTINCT ?human ?position ?country WHERE {
+    ?human wdt:P31 wd:Q5;
+           wdt:P21 wd:Q6581072;
+           wdt:P39 ?position.
+    ?position wdt:P279+ wd:Q83307;
+              wdt:P1001 ?country.
+    ?country wdt:P30 wd:Q15.
+  }
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

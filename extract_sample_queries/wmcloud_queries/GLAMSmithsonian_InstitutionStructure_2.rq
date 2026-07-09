@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE 
+{
+  BIND (wd:Q131626 AS ?institution)
+  ?item wdt:P8703 ?abbrev .
+  ?item wdt:P749* ?institution .
+}

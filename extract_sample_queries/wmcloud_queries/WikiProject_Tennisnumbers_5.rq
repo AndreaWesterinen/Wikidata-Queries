@@ -1,0 +1,9 @@
+SELECT 
+   (wd:Q847 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   (wd:Q7700500 as ?type)
+("0 A" as ?level)
+("tennis tour AKA tennis circuit" as ?descr)
+WHERE
+   { ?a (wdt:P31

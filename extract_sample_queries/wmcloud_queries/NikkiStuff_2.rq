@@ -1,0 +1,5 @@
+select * where {
+?item wdt:P2824 ?id .
+optional { ?item wdt:P376 ?body . }
+filter (!bound(?body) ) .
+}

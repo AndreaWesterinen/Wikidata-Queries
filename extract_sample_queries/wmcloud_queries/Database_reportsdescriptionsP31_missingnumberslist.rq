@@ -1,0 +1,8 @@
+SELECT ?description ?item (COUNT(?i) as ?ct) (SAMPLE(?i) as ?sample)
+{
+    BIND( wd:Q13406463 as ?item )
+    BIND( "Wikimedia list article"@en as ?description )
+    ?i schema:description ?description .
+    MINUS { ?i wdt:P31 ?item }
+} 
+GROUP BY ?description ?item

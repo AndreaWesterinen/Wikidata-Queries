@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?main ?mainLabel ?itemLabel
+WHERE
+{ 
+  ?item wdt:P279* / wdt:P31* wd:Q204686 . 
+  OPTIONAL {  VALUES ?main { wd:Q172226 wd:Q181388 wd:Q2000617 wd:Q108640 wd:Q16610604 wd:Q42889 }
+              ?item wdt:P279* / wdt:P31* / wdt:P2283 ?main 
+           }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?mainLabel ?itemLabel ?item

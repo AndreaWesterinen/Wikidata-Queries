@@ -1,0 +1,7 @@
+SELECT * WHERE {
+
+  ?term wdt:P5398 ?tdkiv.
+  ?term wikibase:statements ?statmnt.
+  FILTER (?statmnt < 2)
+}
+ORDER BY ?statmnt

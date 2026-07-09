@@ -1,0 +1,15 @@
+#title: Items with P31 = [[d:Q21286738|Wikimedia permanent duplicate item <small>(Q21286738)</small>]] and P2959 should only have sitelinks to multi-langoid or multiscript websites
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: Move sitelink, remove P2959/Q21286738, define Q21286561/Q21286559 or define exceptions
+SELECT
+	?item ?itemLabel ?itemDescription
+	?site ?wmfsiteLabel 
+	?value ?valueLabel ?valueDescription 
+{
+  	?item wdt:P31 wd:Q21286738 .
+	?item wdt:P2959 ?value .  	
+	[] schema:about ?item ;	schema:isPartOf	?site . ?wmfsite wdt:P856 ?site .
+	MINUS { ?wmfsite wdt:P31 wd:Q21286561 } .
+	MINUS { ?wmfsite wdt:P31 wd:Q21286559 } .
+  	#SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+}

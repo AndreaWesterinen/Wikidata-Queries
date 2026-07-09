@@ -1,0 +1,9 @@
+#defaultView:Timeline
+select distinct ?plane ?planeLabel ?producer ?producerLabel ?image ?date WHERE 
+{
+  ?plane wdt:P136 wd:Q226730 ;
+         wdt:P162 ?producer ;
+         wdt:P577 ?date FILTER (YEAR(?date)<1900) .
+  OPTIONAL {?plane wdt:P18 ?image .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, it, es, pl". }
+}

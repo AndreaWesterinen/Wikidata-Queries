@@ -1,0 +1,4 @@
+embed.html#select ?item where {
+  ?item wdt:P31 wd:Q5153359 .
+  ?item wdt:P527 wd:Q3947 .
+  }

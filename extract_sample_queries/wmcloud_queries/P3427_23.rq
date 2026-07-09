@@ -1,0 +1,4 @@
+#title: Incompatible date of birth
+# Complex constraint from [[Property talk:P3427]]
+# Person was born in a time that as.com doesn't record
+SELECT ?s WHERE { ?s wdt:P31 wd:Q5 . ?s wdt:P3427 ?id . ?s wdt:P569 ?born . FILTER (?born < "1970-01-01T00:00:00Z"^^xsd:dateTime) . }

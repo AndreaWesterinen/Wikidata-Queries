@@ -1,0 +1,19 @@
+SELECT DISTINCT ?item ?itemLabel ?date WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item ?date WHERE {
+      ?item p:P967 ?statement0.
+      ?statement0 ps:P967 wd:Q314416.
+      OPTIONAL {?statement0 pqv:P585 [
+                wikibase:timePrecision ?precision ;
+                wikibase:timeValue ?date_ ].
+                BIND(IF(strlen(str(month(?date_)))=2,str(month(?date_)),concat("0",str(month(?date_)))) as ?month) 
+                BIND(IF(strlen(str(day(?date_)))=2,str(day(?date_)),concat("0",str(day(?date_)))) as ?day) 
+                BIND(IF(?precision=9,year(?date_),
+                       IF(?precision=10,concat(str(year(?date_)),":",?month),
+                         IF(?precision=11,concat(str(year(?date_)),":",?month,":",?day),""))) as ?date)
+               }
+    }
+    LIMIT 100
+  }
+}

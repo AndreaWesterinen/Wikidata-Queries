@@ -1,0 +1,15 @@
+#title: Data missing
+# Complex constraint from [[Property talk:P411]]
+# Please add data about this person.
+SELECT ?item {
+  ?item wdt:P411 ?value.
+  FILTER NOT EXISTS { ?item wdt:P793 [] }.
+  FILTER NOT EXISTS { ?item wdt:P20 [] }.
+  FILTER NOT EXISTS { ?item wdt:P570 [] }.
+  FILTER NOT EXISTS { ?item wdt:P21 [] }.
+  FILTER NOT EXISTS { ?item wdt:P31 [] }.
+  FILTER NOT EXISTS { ?item wdt:P841 [] }.
+  FILTER NOT EXISTS { ?item wdt:P119 [] }.
+  FILTER NOT EXISTS { ?item wdt:P39 [] }.
+  FILTER NOT EXISTS { ?item wdt:P19 [] }.
+}

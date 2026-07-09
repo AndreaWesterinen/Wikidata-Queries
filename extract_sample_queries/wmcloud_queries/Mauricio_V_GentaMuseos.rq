@@ -1,0 +1,6 @@
+SELECT ?museo ?imagen ?tipo WHERE {
+  ?museo wdt:P31 wd:Q33506.
+  ?museo wdt:P17 wd:Q414.
+  OPTIONAL { ?item wdt:P131 ?lugar. }
+  OPTIONAL { ?item wdt:P18 ?imagen. }
+}

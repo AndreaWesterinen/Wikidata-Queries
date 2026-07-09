@@ -1,0 +1,23 @@
+#title: Check brickipedia (Lego) wiki
+# Complex constraint from [[Property talk:P6262]]
+#
+SELECT ?item ?value {
+	?item wdt:P6262 ?value.
+    FILTER (STRSTARTS(?value, "brickipedia:" ))
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q27043990 }
+  FILTER NOT EXISTS { ?item wdt:P279 wd:Q170484 }
+  FILTER NOT EXISTS { ?item wdt:P179 wd:Q1369181 } # serie: Lego Harry Potter
+  FILTER NOT EXISTS { ?item wdt:P179 wd:Q3820235 } # serie: Lego *
+  FILTER NOT EXISTS { ?item wdt:P6187 ?kitLego } # kit lego id
+  FILTER NOT EXISTS { ?item wdt:P750 wd:Q1063455 } # distribue par lego group
+  FILTER NOT EXISTS { ?item wdt:P178 wd:Q2568920 } # video games
+  FILTER (?item NOT IN (wd:Q4915188, wd:Q81610473, wd:Q61954108)) # OU (base sur : BIONICLE)
+  FILTER NOT EXISTS { ?item wdt:P144 wd:Q803917 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q253302 }
+  FILTER NOT EXISTS { ?item wdt:P856 ?website }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q7889 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q1075 }
+  FILTER NOT EXISTS { ?item wdt:P144 wd:Q170484 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q5 }
+  FILTER NOT EXISTS { ?item wdt:P176 wd:Q1063455 }   
+}

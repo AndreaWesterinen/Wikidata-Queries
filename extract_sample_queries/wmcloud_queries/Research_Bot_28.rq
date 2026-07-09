@@ -1,0 +1,6 @@
+embed.html##defaultView:ImageGrid
+SELECT ?item ?itemLabel ?value WHERE
+{
+	?item wdt:P4896 ?value . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es,fr,de,nl"  }    
+}

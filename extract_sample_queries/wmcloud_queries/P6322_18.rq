@@ -1,0 +1,11 @@
+#title: Year code (10th character) should match model year
+# Complex constraint from [[Property talk:P6322]]
+# TO DO: double check or add exceptions
+SELECT ?item ?yearcode_modelyear ?yearcode_VIN 
+{
+    ?item wdt:P6322 ?value .
+    ?item wdt:P5444 / wdt:P5461 ?yearcode_modelyear .
+    BIND( substr(?value, 10, 1) as ?yearcode_VIN)
+    FILTER( ?yearcode_modelyear != ?yearcode_VIN )
+    FILTER( ?item NOT IN ( wd:Q46845259 ) ) 
+}

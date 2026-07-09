@@ -1,0 +1,28 @@
+SELECT
+      (group_concat(distinct     ?dateYear ; separator = ", ") AS     ?dateYears)
+      (group_concat(distinct  ?gameENLabel ; separator = ", ") AS  ?gameENLabels)
+      (group_concat(distinct     ?typeOfStatementNode ; separator = ", ") AS     ?typeOfStatementNodes)
+      WHERE {
+        VALUES ?game {
+          wd:Q4850488
+        }
+        ?game rdfs:label ?gameENLabel.
+        FILTER(LANG(?gameENLabel) = "en").
+          ?game wdt:P577 ?date.
+        OPTIONAL {
+          BIND(YEAR(?date) AS ?dateYear).
+         ?date rdf:type ?typeOfStatementNode.
+        }
+        OPTIONAL {
+#          ?game wdt:P577 ?date.
+#         ?date rdf:type ?typeOfStatementNode.
+#          BIND(IRI("http://www.wikidata.org/prop/novalue/P577") as ?possibleWDNO).
+#          BIND(IF(isBlank(?date), "unknown value", IF(?typeOfStatementNode = ?possibleWDNO, "no value", ?value)) as ?dateYear).
+        }
+        SERVICE wikibase:label {
+          bd:serviceParam wikibase:language "en".
+       }
+      }
+    GROUP BY $game
+order by desc(?typeOfStatementNodes)
+#    limit 200

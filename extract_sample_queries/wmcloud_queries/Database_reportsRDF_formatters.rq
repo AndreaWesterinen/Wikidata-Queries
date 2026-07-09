@@ -1,0 +1,5 @@
+SELECT ?item ?rdf WHERE {
+  ?item a wikibase:Property .
+  ?item wdt:P1921 ?rdf.
+}
+ORDER BY ASC(xsd:integer(STRAFTER(STR(?item), 'P')))

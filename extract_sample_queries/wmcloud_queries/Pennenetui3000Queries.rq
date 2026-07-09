@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?kieskringLabel ?partyLabel ?rank ?votes
+WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+?item p:P3602 ?node.
+
+  ?node ps:P3602 wd:Q42733725
+  OPTIONAL { ?node pq:P768 ?kieskring }
+  OPTIONAL { ?node pq:P1268 ?party }
+  OPTIONAL { ?node pq:P4243 ?rank_node }
+  OPTIONAL { ?node pq:P1111 ?votes_node }
+  bind(xsd:integer(?rank_node) as ?rank)
+  bind(xsd:integer(?votes_node) as ?votes)
+
+}
+  ORDER BY ?partyLabel ?rank ?kieskring

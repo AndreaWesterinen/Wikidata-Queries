@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?property ?value {
+			?item wdt:P359 ?value .
+          MINUS { ?item schema:description ?description .
+                 FILTER( LANG(?description)="nl" ) }			
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

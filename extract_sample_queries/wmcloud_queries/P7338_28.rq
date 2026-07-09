@@ -1,0 +1,12 @@
+#title: items likely needing the qualifier (X)
+# Complex constraint from [[Property talk:P7338]]
+# add [[Property:P7338|regnal ordinal&#32;<small dir="ltr">(P7338)</small>]] if applicable
+SELECT DISTINCT ?item ?l (COALESCE(?nl," ") as ?nl2)
+{
+    ?item wdt:P39 / wdt:P279* / wdt:P31* wd:Q116 .
+    ?item rdfs:label ?l . FILTER( lang(?l) = "en" && CONTAINS ( ?l, " X")  && !REGEX( ?l, "X[a-z]")  )  
+    MINUS { ?item p:P735 / pq:P7338 [] }
+    OPTIONAL { ?item wdt:P1559 ?nl }
+}      
+ORDER BY ?l
+LIMIT 1000

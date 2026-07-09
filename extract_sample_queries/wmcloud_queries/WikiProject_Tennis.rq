@@ -1,0 +1,1 @@
+SELECT ?st (COUNT(*) as ?ct) (SAMPLE(?item) as ?sample) WHERE { ?item wdt:P31 wd:Q46190676 ; wikibase:statements ?st } GROUP BY ?st

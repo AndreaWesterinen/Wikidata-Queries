@@ -1,0 +1,22 @@
+SELECT 
+  ?item
+  ?count
+WITH
+{
+  select ?item (COUNT(*) as ?count) WHERE {
+    ?painting wdt:P31 wd:Q3305213 .  
+    ?painting wdt:P170 ?item . 
+    MINUS { ?painting wdt:P170 wd:Q4233718 } .
+  } GROUP BY ?item HAVING (?count > 150)
+} as %creators
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  include %creators .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,ru,zh" .
+    ?item rdfs:label ?name .
+  }
+} 
+ORDER BY DESC(?count) 
+LIMIT 200

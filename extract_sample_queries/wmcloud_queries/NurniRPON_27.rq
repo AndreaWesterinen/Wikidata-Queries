@@ -1,0 +1,48 @@
+SELECT DISTINCT (STRAFTER(STR(?p), "/entity/") AS ?kk) ("P21" AS ?st) ?q WHERE {
+  {
+    ?p wdt:P27 ?pn;
+      wdt:P40 ?d.
+    ?d wdt:P25 ?p.
+    BIND("Q6581072" AS ?q)
+    FILTER(?pn IN(wd:Q172107, wd:Q171348, wd:Q11710624, wd:Q49683))
+  }
+  UNION
+  {
+    ?p wdt:P27 ?pn;
+      wdt:P40 ?d.
+    ?d wdt:P22 ?p.
+    BIND("Q6581097" AS ?q)
+    FILTER(?pn IN(wd:Q172107, wd:Q171348, wd:Q11710624, wd:Q49683))
+  }
+  UNION
+  {
+    ?p wdt:P27 ?pn;
+      wdt:P26 ?m.
+    ?m wdt:P21 wd:Q6581097.
+    BIND("Q6581072" AS ?q)
+    FILTER(?pn IN(wd:Q172107, wd:Q171348, wd:Q11710624, wd:Q49683))
+  }
+  UNION
+  {
+    ?p wdt:P27 ?pn;
+      wdt:P26 ?m.
+    ?m wdt:P21 wd:Q6581072.
+    BIND("Q6581097" AS ?q)
+    FILTER(?pn IN(wd:Q172107, wd:Q171348, wd:Q11710624, wd:Q49683))
+  }
+  UNION
+  {
+    ?p wdt:P39 ?f1.
+    ?f1 (wdt:P279*) wd:Q2662430.
+    BIND("Q6581097" AS ?q)
+  }
+  UNION
+  {
+    ?p wdt:P39 wd:Q28934332.
+    BIND("Q6581097" AS ?q)
+  }
+  OPTIONAL { ?p wdt:P21 ?j. }
+  FILTER(!(BOUND(?j)))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?kk) (?st)

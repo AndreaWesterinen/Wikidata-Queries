@@ -1,0 +1,9 @@
+SELECT ?item (MAX(?date) AS ?when) WHERE { 
+  ?item wdt:P31/wdt:P279* wd:Q858439 ; wdt:P585 ?date .
+  FILTER (?date < NOW())
+  FILTER NOT EXISTS { ?item wdt:P17 wd:Q30 } # ignore USA, as sub-elections are complicated
+  FILTER NOT EXISTS { ?item wdt:P991 [] }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?when)
+LIMIT 200

@@ -1,3 +1,4 @@
+#title: City gates in the Dutch province of Zeeland
 SELECT ?town ?townLabel ?gate ?gateLabel where {
   # Municipalities within the province
   ?muni wdt:P31 wd:Q2039348;

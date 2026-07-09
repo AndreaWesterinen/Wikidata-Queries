@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT  ?imagen ?arquitecto ?arquitectoLabel ?edificio ?edificioLabel WHERE {    
+  ?edificio wdt:P131 wd:Q8818;   # situado en Valencia
+            wdt:P84 ?arquitecto; # con al menos un arquitecto  
+            wdt:P18 ?imagen.     # y al menos una imagen
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".}
+}
+ORDER BY ?arquitectoLabel ?edificioLabel

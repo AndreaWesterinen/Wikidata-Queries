@@ -1,0 +1,28 @@
+SELECT ?pres ?presLabel ?party ?partyLabel ?startdate ?enddate ?spouse ?spouseLabel WHERE {
+   ?pres wdt:P39 wd:Q319145 .
+
+  OPTIONAL {
+   ?pres p:P39 ?position_held_statement .
+   ?position_held_statement ps:P39 wd:Q319145 .
+    OPTIONAL {
+       ?position_held_statement pq:P580 ?start .
+       BIND(SUBSTR(str(?start), 1, 10) as ?startdate)
+    }
+    OPTIONAL {
+        ?position_held_statement pq:P582 ?end .
+        BIND(SUBSTR(str(?end), 1, 10) as ?enddate)
+    }
+  }
+  
+  OPTIONAL {
+   ?pres wdt:P26 ?spouse
+  }
+  OPTIONAL {
+   ?pres wdt:P102 ?party   # political party
+  }
+         
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en"
+   }
+
+ } ORDER BY ?start

@@ -1,0 +1,34 @@
+#defaultView:Map{"hide": [ "?geoLocation", "?layer", "?count" ], "markercluster": true}
+
+select distinct ?count ?countryLabel ?country (concat(str(?count), ' folders') as ?folderCount) ?pm20Category ?geoLocation ?layer
+where {
+  # get countries, folder counts and one coordinate value
+  { 
+    select ?country (count(?item) as ?count) (sample(?coords) as ?geoLocation)
+    where {
+      ?item wdt:P31 wd:Q91257459 ;
+            wdt:P1269 ?country .
+      
+      # set default coordinates for items like "world"
+      bind("Point(-25 0)"^^geo:wktLiteral as ?defaultCoords)
+      optional {
+        ?country wdt:P625 ?geoCoords .
+      }
+      bind(coalesce(?geoCoords, ?defaultCoords) as ?coords)
+    }
+    group by ?country
+  }
+  
+  # construct URI for country page access
+  ?country p:P8483 ?statement .
+  ?statement ps:P8483 ?geoCode ;
+             pq:P4390 wd:Q39893449 .
+  bind(uri(concat('https://pm20.zbw.eu/category/geo/s/', ?geoCode)) as ?pm20Category)
+  
+  # create map layer
+  bind(if(?count < 3, "1 - 2 folders",
+          if(?count < 51, "3 - 50 folders", "more than 50 folders")) as ?layer)
+                
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+order by ?layer

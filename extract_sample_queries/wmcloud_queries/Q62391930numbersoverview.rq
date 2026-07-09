@@ -1,0 +1,26 @@
+SELECT ?item ?type (COUNT(DISTINCT ?i) as ?count) (SAMPLE(?i) as ?sample)
+{
+    { VALUES ?item { wd:Q2658935 wd:Q62391930 wd:Q58863414 wd:Q6356595 }    BIND( wd:Q29934200 as ?type)    ?i wdt:P31 ?item     }
+    UNION
+    { VALUES ?item { wd:Q18581305 }     BIND( wd:Q29934200 as ?type)     ?i wdt:P106 ?item     }
+    UNION
+    { VALUES ?item { wd:Q478798 }     BIND( wd:Q2684591 as ?type)     ?i wdt:P106 wd:Q18581305 ; wdt:P18 []     }
+    UNION
+    { VALUES ?item { wd:Q18560095 }     BIND( wd:Q2684591 as ?type)      ?i wdt:P31 wd:Q62391930 ; wdt:P1346 []      }
+    UNION
+    { VALUES ?item { wd:Q56512863 }     BIND( wd:Q2684591 as ?type)      ?ed wdt:P31 wd:Q62391930 ; p:P710 ?i      }
+    UNION
+    { VALUES ?item { wd:Q6256 }     BIND( wd:Q2684591 as ?type)      ?i wdt:P31 wd:Q62391930 ; wdt:P17 []     }
+    UNION
+    { VALUES ?item { wd:Q50000 }     BIND( wd:Q2684591 as ?type)      ?i ps:P2522/wdt:P31 wd:Q58863414    }
+    UNION
+    { VALUES ?item { wd:Q63254613 }     BIND( wd:Q2684591 as ?type)      ?i wdt:P31 wd:Q62391930 ; wdt:P1132 []     }
+    UNION
+    { VALUES ?item { wd:Q186408 }     BIND( wd:Q2684591 as ?type)      ?i wdt:P31 wd:Q62391930 ; wdt:P585 []     }
+    UNION
+    { VALUES ?item { wd:Q170198 }     BIND( wd:Q2684591 as ?type)      ?i wdt:P31 wd:Q62391930 ; wdt:P179 []     }  
+    UNION
+    { VALUES ?item { wd:Q2122052 }     BIND( wd:Q2684591 as ?type)      ?i wdt:P31 wd:Q62391930 ; wdt:P3085 []      }
+}
+GROUP BY ?item ?type
+ORDER BY ?type  DESC(?count)

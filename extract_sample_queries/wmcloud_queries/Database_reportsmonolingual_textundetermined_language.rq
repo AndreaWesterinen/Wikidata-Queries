@@ -1,0 +1,3 @@
+SELECT ?item ?itemLabel ?prop (CONCAT("[[Property:",REPLACE(str(?p),"http://www.wikidata.org/prop/",""),"]]") as ?propid) ?propLabel ?id 
+WHERE { hint:Query hint:optimizer "None" . ?prop wikibase:propertyType wikibase:Monolingualtext . ?prop wikibase:claim ?p . ?item ?p ?monolingualstatement . ?prop wikibase:statementProperty ?sp . ?monolingualstatement ?sp ?id . FILTER(lang(?id)="und") FILTER(?item != wd:Q22282914) SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} } 
+ORDER BY DESC(?propLabel) ?id LIMIT 5000

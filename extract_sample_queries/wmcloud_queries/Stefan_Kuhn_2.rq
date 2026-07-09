@@ -1,0 +1,24 @@
+#---------------------------------------------------------------------------------------
+# Todesart und Todesursache der Menschen in Dresden
+#---------------------------------------------------------------------------------------
+
+select ?todesart ?tTxt ?todesursache ?todesursacheLabel ?person ?personLabel ?personDescription ?image (COUNT(?todesart) as ?count) 
+where {
+  ?item wdt:P20 wd:Q1731.
+  ?item wdt:P1196 ?todesart.
+  ?todesart rdfs:label ?_todesartLabel.
+  optional {
+     ?item wdt:P20 wd:Q1731.
+     ?item wdt:P1196 ?todesart.  
+     ?item wdt:P509 ?todesursache.
+      optional {
+       ?person wdt:P20 wd:Q1731.
+       ?person wdt:P509 ?todesursache.
+        OPTIONAL { ?person wdt:P18 ?image. }
+      }
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+  FILTER((LANG(?_todesartLabel)) = "de")
+  BIND(CONCAT(?_todesartLabel, " (",")") AS ?tTxt)
+} GROUP BY ?todesart ?tTxt ?todesursache ?todesursacheLabel ?person ?personLabel ?personDescription ?image

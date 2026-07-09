@@ -1,0 +1,6 @@
+SELECT ?item (GROUP_CONCAT(?preferredGnd; separator=', ') AS ?preferredGnds) WHERE {
+  ?item p:P227 [ wikibase:rank wikibase:PreferredRank; ps:P227 ?preferredGnd ] .
+  MINUS {
+    ?item p:P227/wikibase:rank wikibase:NormalRank .
+  }
+} GROUP BY ?item

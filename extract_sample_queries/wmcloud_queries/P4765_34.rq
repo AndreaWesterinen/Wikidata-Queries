@@ -1,0 +1,10 @@
+#title: Items with creator who died after 1923 and the creator has no country of citizenship
+# Complex constraint from [[Property talk:P4765]]
+# After 1923 copyright starts getting more complicated. We need to know the country of citizenship (P27) to figure out if it's in the public domain.
+SELECT ?item WHERE {
+  ?work p:P4765 ?image .
+  ?work wdt:P170 ?item .
+  ?item wdt:P570 ?dod . BIND(YEAR(?dod) AS ?deathyear)
+  FILTER(?deathyear >= 1923) .
+  MINUS { ?item wdt:P27 [] } . 
+  } LIMIT 1000

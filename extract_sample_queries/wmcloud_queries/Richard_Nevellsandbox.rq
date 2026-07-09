@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item  
+WHERE {
+#  VALUES ?target {wd:Q2941393}
+  ?work1 wdt:P921 wd:Q2941393 . 
+  ?work1 wdt:P2860 ?item .
+  FILTER NOT EXISTS {?item wdt:P921 wd:Q2941393 .}
+  ?item wdt:P2860 [ wdt:P921 wd:Q2941393 ].
+}
+LIMIT 500

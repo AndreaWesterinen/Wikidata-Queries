@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?value ?valueLabel
+{
+	{
+		SELECT ?item ?value {
+			?item p:Was a bee/ConstraintTemplate/ps:Was a bee/ConstraintTemplate ?value .
+			MINUS {
+				?value p:Was a bee/ConstraintTemplate/ps:Was a bee/ConstraintTemplate ?item .
+			} .
+		} LIMIT 500
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}

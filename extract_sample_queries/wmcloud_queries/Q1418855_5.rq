@@ -1,0 +1,10 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q1418855>
+SELECT ?item ?itemLabel ?itemDescription ?sl ?st ?ids ?enwiki
+{
+    { SELECT ?item ?sl { ?item wdt:P735 wdname: ; wikibase:sitelinks ?sl } ORDER BY DESC(?sl) LIMIT 25 }
+    hint:Prior hint:runFirst true.  
+    ?item wikibase:statements ?st ; wikibase:identifiers ?ids 
+    OPTIONAL { ?enwiki schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> }          
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  
+ORDER BY DESC(?sl)

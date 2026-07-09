@@ -1,0 +1,5 @@
+select * where {
+	values ?text { "Jones"@en "Richards"@en "Roberts"@en "Wheldon"@en "Williams"@en }
+	?name wdt:P31 wd:Q101352 .
+	?name rdfs:label ?text .
+}

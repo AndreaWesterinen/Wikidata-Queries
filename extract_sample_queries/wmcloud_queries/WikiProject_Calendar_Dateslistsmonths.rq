@@ -1,0 +1,9 @@
+select ?item ?date ?year {
+  ?item wdt:P31/wdt:P279* wd:Q18602249
+         ; wdt:P585 ?date 
+         ; wdt:P361 ?year
+         .
+  optional {
+    ?year wdt:P31/wdt:P279* wdt:Q577 .
+  }
+} order by ?date

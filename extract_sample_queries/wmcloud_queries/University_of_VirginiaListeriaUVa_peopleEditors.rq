@@ -1,0 +1,13 @@
+SELECT ?item ?publication ?license 
+where {
+    { ?item wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P1416 / wdt:P361* wd:Q213439 .}
+  
+  ?publication wdt:P98 ?item .
+  OPTIONAL { ?publication wdt:P275 ?license . }
+  
+}
+LIMIT 1000

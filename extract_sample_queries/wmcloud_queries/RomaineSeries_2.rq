@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel ?instanceOfLabel ?instanceOptionsLabel ?locationLabel WHERE {
+  ?item wdt:P31 wd:Q6456916 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

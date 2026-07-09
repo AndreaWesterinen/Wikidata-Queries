@@ -1,0 +1,4 @@
+#title: Population numbers should be less than 5 years old
+# Complex constraint from [[Property talk:P5086]]
+# Suggestion: add data with [[Property:P1082|population&#32;<small dir="ltr">(P1082)</small>]]
+SELECT ?item WHERE {?item wdt:P5086 [] MINUS {?item wdt:P5086 []; p:P1082/pq:P585 ?d . FILTER(YEAR(?d)>=(YEAR(now())-4))}   }

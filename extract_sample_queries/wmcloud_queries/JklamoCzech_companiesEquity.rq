@@ -1,0 +1,14 @@
+SELECT ?item ?assets ?hq ?date
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?item p:P2137 ?assetsSt .
+    ?assetsSt a wikibase:BestRank; ps:P2137 ?assets .
+    OPTIONAL { ?assetsSt pq:P585 ?date } .
+    FILTER( ?item not in (wd:Q12021167,wd:Q11177413,wd:Q12022160,wd:Q12021780,wd:Q15123994))
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "cs, en" }
+}
+ORDER BY DESC(?assets)
+LIMIT 42

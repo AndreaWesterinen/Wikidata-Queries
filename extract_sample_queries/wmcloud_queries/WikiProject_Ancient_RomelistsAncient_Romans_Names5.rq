@@ -1,0 +1,7 @@
+SELECT ?item WHERE {
+  VALUES ?time { wd:Q17167 wd:Q2839628 wd:Q6106068 wd:Q2815472 wd:Q2277 wd:Q787204 wd:Q2886278 }
+  VALUES ?typo { wd:Q5 wd:Q75855169 wd:Q21070568 wd:Q64520857 wd:Q64643615 }
+  ?item wdt:P2348 ?time;
+        wdt:P31 ?typo.
+  FILTER NOT EXISTS { ?item p:P27 [] }
+}

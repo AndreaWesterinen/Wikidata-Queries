@@ -1,0 +1,6 @@
+#title: Montparnasse Cemetery
+# Complex constraint from [[Property talk:P965]]
+# Division #23 not exist in [[d:Q272208|Montparnasse Cemetery <small>(Q272208)</small>]]. Source: frwiki
+SELECT ?item ?division {
+  ?item p:P119 [ps:P119 wd:Q272208; pq:P965 "23"; ].
+}

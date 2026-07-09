@@ -1,0 +1,5 @@
+SELECT ?country ?countryLabel ?gdp ?currencyLabel WHERE {
+  ?country p:P2131 [ psv:P2131 [ wikibase:quantityAmount ?gdp; wikibase:quantityUnit ?currency ]; pq:P585 ?time; prov:wasDerivedFrom/pr:P248 wd:Q21540096 ] .
+  FILTER(YEAR(?time) = 2017) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} ORDER BY DESC(?gdp)

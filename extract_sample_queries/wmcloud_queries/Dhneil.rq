@@ -1,0 +1,11 @@
+#Women educated at the University of Maryland, College Park
+#defaultView:Timeline
+SELECT ?person ?personLabel ?birthplace ?birthplaceLabel ?birthdate ?birthdateLabel
+WHERE 
+{
+  ?person wdt:P69 wd:Q503415 .
+  ?person wdt:P21 wd:Q6581072 .   
+  ?person wdt:P19 ?birthplace .
+  ?person wdt:P569 ?birthdate .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

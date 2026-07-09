@@ -1,0 +1,7 @@
+SELECT ?item ?url ?kulturnav
+WHERE
+{
+	?item wdt:P973 ?url.
+    ?item wdt:P1248 ?kulturnav.
+  	FILTER (CONTAINS(str(?url),'eestipiltnik')).
+}

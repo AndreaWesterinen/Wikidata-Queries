@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .  
+  ?painting wdt:P180 ?item.
+  ?painting wdt:P195 ?collection.
+  ?item wdt:P131 ?location. 
+  FILTER EXISTS { ?collection wdt:P17 wd:Q55. } 
+} GROUP BY ?item  
+ORDER BY DESC(?count)

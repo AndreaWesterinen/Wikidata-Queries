@@ -1,0 +1,13 @@
+#title: Label language: total missing by language (1)
+# Complex constraint from [[Property talk:Define label language constraint]]
+# number of items missing a label in the language(s) defined at [[Property:P5176#P1552]] with [[d:Q102746314|complex constraint label language <small>(Q102746314)</small>]]
+SELECT ?item ?lang (COUNT(?entity) as ?count)
+{
+  hint:Query hint:optimizer "None".
+  wd:P5176 p:P1552 [ ps:P1552 wd:Q102746314 ; pq:P407 ?item] .
+  ?item wdt:P424 ?lang .
+  ?entity wdt:P5176 [] .
+  OPTIONAL { ?entity rdfs:label ?l. FILTER( lang(?l)= ?lang ) }
+  FILTER ( !BOUND(?l) )
+}
+GROUP BY ?item ?lang

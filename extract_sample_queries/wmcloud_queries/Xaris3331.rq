@@ -1,0 +1,5 @@
+SELECT ?item ?locator_map_image
+WHERE
+{
+  	{ ?item wdt:P3450 wd:Q4243782 }
+}

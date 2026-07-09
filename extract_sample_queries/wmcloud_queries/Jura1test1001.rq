@@ -1,0 +1,4 @@
+SELECT (wd:Q5 as ?item) (CONCAT("<onlyinclude",">{","{","#switch:{","{","{c}","}","}\u007C", GROUP_CONCAT(CONCAT(?c,"=",str(?pop));separator=" \u007C"),"}","}</","onlyinclude>") as ?test)
+{
+  ?blah wdt:P297 ?c ; wdt:P1082 ?pop 
+}

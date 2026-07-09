@@ -1,0 +1,8 @@
+# Articles in wikidata, with an AFD_pub_id with Arthur Dendy as author
+SELECT ?item  ?itemLabel ?link WHERE {
+  ?item wdt:P6982 ?AFD_pub_id.
+  ?item wdt:P50 wd:Q1937783.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+    BIND (URI(CONCAT("https://biodiversity.org.au/afd/publication/",str(?AFD_pub_id))) as ?link)  
+    }
+ORDER BY ?item ?itemLabel ?AFD_pub_id

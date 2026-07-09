@@ -1,0 +1,9 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P650]]
+# List of works that have [[Property:P350|RKDimages ID&#32;<small dir="ltr">(P350)</small>]] set, but that creator doesn't have a [[Property:P650|RKDartists ID&#32;<small dir="ltr">(P650)</small>]] link
+SELECT ?item ?creator {
+	?item p:P350 [].
+    ?item wdt:P170/wdt:P31 wd:Q5 .
+	FILTER NOT EXISTS { ?item wdt:P170/wdt:P650 [] }
+}
+ORDER BY ?creator

@@ -1,0 +1,13 @@
+SELECT ?item ?yob ?yod WHERE {
+  ?item wdt:P411* wd:Q43115 .
+  ?item wdt:P411* wd:Q3464126 .
+  ?item wdt:P19 wd:Q25.
+  OPTIONAL {
+    ?item wdt:P569 ?dob.
+    BIND(YEAR(?dob) AS ?yob)
+  }
+  OPTIONAL {
+    ?item wdt:P570 ?dod.
+    BIND(YEAR(?dod) AS ?yod)
+  }
+}

@@ -1,0 +1,14 @@
+SELECT ?prop ?propLabel ?instances WHERE { 
+  {SELECT ?prop_ (COUNT(?item) AS ?instances) WHERE { 
+    ?item wdt:P31 wd:Q7725634 . # /wdt:P279*
+    ?item ?prop_ ?value . 
+    
+    }
+   GROUP BY ?prop_
+   #ORDER BY DESC(?instances)
+   #LIMIT 500
+  }
+  ?prop wikibase:directClaim ?prop_ .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,[AUTO_LANGUAGE]". } 
+  }
+ORDER BY DESC(?instances)

@@ -1,5 +1,6 @@
-# ----
+#title: The 100 most translated concepts in the Lexeme namespace
 # by So9q, 2019-11-21
+
 #defaultView:BubbleChart
 SELECT ?meaning ?meaningLabel ?count
 WITH {

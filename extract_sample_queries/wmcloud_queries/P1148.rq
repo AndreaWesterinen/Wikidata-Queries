@@ -1,0 +1,7 @@
+SELECT ?item ?value ?lower ?upper ?diff ?unit WHERE {
+  ?item p:P1148/psv:P1148 ?psv .
+  ?psv wikibase:quantityAmount ?value .
+  OPTIONAL { ?psv wikibase:quantityUnit ?unit } .
+  OPTIONAL { ?psv wikibase:quantityLowerBound ?lower; wikibase:quantityUpperBound ?upper }
+  BIND( (?upper - ?lower) / 2 AS ?diff) .
+} ORDER BY ASC(?diff)

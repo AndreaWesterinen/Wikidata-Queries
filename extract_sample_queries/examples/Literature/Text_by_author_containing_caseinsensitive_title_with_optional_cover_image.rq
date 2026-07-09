@@ -1,3 +1,4 @@
+#title: Text by author containing case-insensitive title with optional cover image
 SELECT DISTINCT ?item ?authorLabel ?itemLabel ?image where {
   ?item wdt:P31/wdt:P279* wd:Q234460.
 

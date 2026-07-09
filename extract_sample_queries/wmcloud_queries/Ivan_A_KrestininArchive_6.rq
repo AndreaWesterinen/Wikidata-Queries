@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?value
+
+WHERE
+{
+  ?item wdt:P31 ?value .
+  
+  FILTER (?value = wd:Q4022)
+
+  FILTER NOT EXISTS { ?item wdt:P17 ?x }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "be,uk,bg,sr,cs,en,de"  }    
+}

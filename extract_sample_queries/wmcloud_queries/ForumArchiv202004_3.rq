@@ -1,0 +1,30 @@
+SELECT
+  ?item
+  ?de_label
+  ?dewiki_lemma
+  ?blfdid
+  ?denkmaltyp 
+  (SAMPLE(?istein)  AS ?isteins)  
+  (SAMPLE(?coord)  AS ?coords) 
+  (SAMPLE(?commonscat)  AS ?commonscats) 
+  (SAMPLE(?bild)  AS ?bilder) 
+  (SAMPLE(?listenlemma)  AS ?listenlemmas) 
+WHERE {
+  ?item wdt:P4244 ?blfdid .
+  OPTIONAL { ?item wdt:P1435 ?denkmaltyp }
+  OPTIONAL { ?item wdt:P31 ?istein }
+  OPTIONAL { ?item wdt:P625 ?coord }
+  OPTIONAL { ?item wdt:P373 ?commonscat }
+  OPTIONAL { ?item wdt:P18 ?bild }
+  OPTIONAL { ?item wdt:P2817 ?listenlemma }
+
+  OPTIONAL {
+    ?item rdfs:label ?de_label .
+    FILTER(LANG(?de_label) = 'de') .
+  }
+  OPTIONAL {
+    ?sitelink schema:about ?item;
+              schema:isPartOf <https://de.wikipedia.org/>;
+              schema:name ?dewiki_lemma .
+  }
+} GROUP BY ?item ?de_label ?dewiki_lemma ?blfdid ?denkmaltyp 

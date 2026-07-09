@@ -1,0 +1,11 @@
+SELECT ?sep ?sepLabel
+
+WHERE {
+  
+  ?sep wdt:P31 wd:Q26261192 .
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

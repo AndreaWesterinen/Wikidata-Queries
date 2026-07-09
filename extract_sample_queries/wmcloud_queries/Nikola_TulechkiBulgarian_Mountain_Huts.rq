@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+ ?item wdt:P31 wd:Q182676 .
+ ?item wdt:P17 wd:Q219 .
+ }LIMIT20

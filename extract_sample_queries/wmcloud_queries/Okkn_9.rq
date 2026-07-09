@@ -1,0 +1,23 @@
+SELECT ?thisStation ?thisStationLabel ?line ?lineLabel ?for ?forLabel ?nextStation ?nextStationLabel ?backOfNextStation ?backOfNextStationLabel WHERE {
+  ?thisStation wdt:P31 wd:Q55488.
+  ?thisStation wdt:P137 wd:Q1531085.
+  OPTIONAL {
+    ?thisStation p:P197 ?statement.
+    ?statement ps:P197 ?nextStation.
+    ?statement pq:P81 ?line.
+    ?statement pq:P560 ?for.
+    ?line wdt:P137 wd:Q1531085.
+    OPTIONAL {
+      ?nextStation p:P197 ?statement2.
+      ?statement2 ps:P197 ?backOfNextStation.
+      ?statement2 pq:P81 ?line.
+      #?statement2 pq:P560 ?for2
+      FILTER (
+        !EXISTS{
+          ?statement2 pq:P560 ?for.
+        }
+      )
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?thisStation

@@ -1,3 +1,4 @@
+#title: Everything with a time property on a given date
 SELECT (GROUP_CONCAT(?classLabel; SEPARATOR = "; ") AS ?classes) ?propLabel ?i ?iLabel ?iDescription WHERE {
   {
     SELECT ?i ?prop ?class WHERE {

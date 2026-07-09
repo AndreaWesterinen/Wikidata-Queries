@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?geboortedatum) AS ?datumCount) {
+  ?item wdt:P6379 wd:Q2114028.
+  OPTIONAL {
+   ?item wdt:P569 ?geboortedatum.
+  }
+}
+GROUP BY ?item
+HAVING (?datumCount > 1)

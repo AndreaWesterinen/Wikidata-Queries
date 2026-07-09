@@ -1,0 +1,14 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coords ?statementCount WHERE {
+  BIND(wd:Q15260574 AS ?location). # WMDE office; insert your location here!
+  ?location wdt:P625 ?locationCoords.
+  SERVICE wikibase:around {
+    ?item wdt:P625 ?coords.
+    bd:serviceParam wikibase:center ?locationCoords;
+                    wikibase:radius 50.
+  }
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q1496967. } # territorial entities (cities, …) are boring
+  ?item ^schema:about?/wikibase:statements ?statementCount.
+  FILTER(?statementCount >= 20).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en", "de". }
+}

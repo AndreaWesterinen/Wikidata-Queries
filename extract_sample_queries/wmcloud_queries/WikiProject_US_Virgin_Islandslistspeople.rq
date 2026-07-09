@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item 
+WHERE
+{
+    { ?item wdt:P1532 wd:Q11703 } UNION 
+    { ?item wdt:P39 ?sub0 . ?sub0 wdt:P1001 wd:Q11703 } UNION
+    { ?item wdt:P19 ?sub1 . ?tree0 (wdt:P150)* ?sub1 . ?tree0 (wdt:P131)* wd:Q11703 . } UNION
+    { ?item wdt:P20 ?sub2 . ?tree1 (wdt:P150)* ?sub2 . ?tree1 (wdt:P131)* wd:Q11703 . } UNION
+    { ?item wdt:P551 ?sub3 . ?tree2 (wdt:P150)* ?sub3 . ?tree2 (wdt:P131)* wd:Q11703 . } UNION
+    { ?item wdt:P119 ?sub4 . ?tree3 (wdt:P150)* ?sub4 . ?tree3 (wdt:P131)* wd:Q11703 . } UNION
+    { ?item wdt:P69 ?sub5 .  ?tree4 (wdt:P150)* ?sub5 . ?tree4 (wdt:P131)* wd:Q11703 . }
+OPTIONAL { ?item wdt:P569 ?d1 }
+OPTIONAL { ?item wdt:P570 ?d2 }
+}
+ORDER BY DESC(?d1) DESC(?d2) ?item
+LIMIT 5000

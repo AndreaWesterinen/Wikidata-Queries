@@ -1,0 +1,4 @@
+SELECT ?item ?houses WHERE { 
+    VALUES ?houses {wd:Q230003 wd:Q244730}
+    ?houses wdt:P527 ?item
+}

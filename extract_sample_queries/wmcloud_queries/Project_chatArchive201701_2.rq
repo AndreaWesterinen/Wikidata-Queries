@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?precision
+WHERE
+{
+    ?item wdt:P31 wd:Q16970.
+	?item p:P625 ?coordStat .
+    ?coordStat psv:P625 [
+                wikibase:geoPrecision ?precision ; 
+    ]
+    filter (?precision>0)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

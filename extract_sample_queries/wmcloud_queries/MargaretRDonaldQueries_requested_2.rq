@@ -1,0 +1,224 @@
+# Ada Lovelace day 2022
+SELECT
+  ?User
+  (URI(CONCAT("https://en.wikipedia.org/wiki/Special:Contributions/", ?User)) AS ?UserContributions)
+  ?DateFirstEdit ?TotalEdits ?n_enwikiEdits ?n_CommonsEdits ?n_WikidataEdits
+  (URI(CONCAT("https://en.wikipedia.org/wiki/Special:CentralAuth/", ?User)) AS ?GlobalAccount)
+  ?DateLastEdit
+  (xsd:dateTime(?DateLastEdit) - xsd:dateTime(?DateFirstEdit) AS ?DaysEditing)
+WHERE
+{
+  VALUES ?User { 
+"Hjkraus"
+"Bwaandaan"
+"Dan arndt"
+"Piccolpassa"
+"Ishmael Carroll"
+"Sandeepparekh9"
+"Dovermanuk"
+"WorldCitizen007"
+"JJJ.jase"
+"Hterrin"
+"Zen5iuZ"
+"Auszen21"
+"Calistemon"
+"KMAssumption64"
+"TheOldHospital"
+"Wanderlust aus"
+"Stitchingbushwalker"
+"Findlaymo"
+"Nmulconray"
+"Teckez"
+"Poidabro"
+"Ovico"
+"Swedeshots"
+"Natsiegelbrown"
+"Themeganoob"
+"Wombatwiki77"
+"PotMart186"
+"Elintripido"
+"ChrisBrayPhotography"
+"Afisch80"
+"Beebee1983"
+"Plodg"
+"PierreRobbo"
+"Integrator2"
+"SKY-PuLeun"
+"Sharleenw44"
+"Loqiical"
+"Daphlyn"
+"AndrewofBornholm"
+"Maurice Mabiriizi"
+"SouthWestAngl3r"
+"Silverish Lily"
+"Ghreumaich"
+"Jellyhelmetfishing"
+"Noahbridger1"
+"Resource999"
+"WikiGrats"
+"Annbentley"
+"Pleiadesjump"
+"Cathcartw"
+"Craig2095"
+"Lidzbrown"
+"Lovemoore"
+"Maverick226"
+"BaldyWall"
+"Meura"
+"Buckyballooo"
+"Brodie1988"
+"Flavio Tex"
+"Nancy9689"
+"HikerJules"
+"OlorinFiresky"
+"Kwokka3"
+"Valmonty"
+"KarlDaFrog"
+"Glaucoptera"
+"Trewkat"
+"Leo Brophy"
+"Philwat"
+"-viklink21-"
+"3013lz"
+"JenniferMaryGab…"
+"Pbofperth"
+"Shubhammbhosale"
+"Houladan"
+"Ppmh21"
+"Mdk572"
+"Catcall27"
+"Pcrizzo4"
+"$tormifyed"
+"Sean Mckinnon"
+"Cfischer123456789"
+"Mountainwalk"
+"RichJM"
+"Aaimyep"
+"Rachplus3sons"
+"Young Ones 11"
+"Vczhang"
+"Dsg2806"
+"Hardlinerr"
+"Amos Reynolds05"
+"Ibmarina"
+"RogerPar"
+"Hijacinta"
+"Sutfuf"
+"Gravelizard"
+"Acacia paradoxa"
+"Nina Spiess"
+"PeterBur63"
+"Alphasauce"
+"Phrayd"
+"JD8001"
+"Folieablue17"
+"ArloISM"
+"Ozzyboy123"
+"Rubyyjd"
+"Iktoh"
+"Chantellesarah"
+"Mohsin Chaudhry"
+"Anneyla attirum…"
+"MarineParkLover"
+"AggieNie"
+"Burleigh23"
+"Kattastroffee1976"
+"4879Sheba4879"
+"Belledonnabrown"
+"Bobioso"
+"Cassiejacks89"
+"Flamingodoc"
+"Gingertuppence"
+"IgottaWiki76"
+"ImTheHedgehog"
+"Jamin5555"
+"Jeffingeorgejoseph"
+"Jessica Meeuwig"
+"Kehropaias"
+"Krakaaaa89"
+"Kylz22"
+"Lidobu"
+"Luridation"
+"MARSYDAWSON90"
+"Martinjohnbudden"
+"Naturlinareginea"
+"Nicocolll"
+"Paigesilvi"
+"Parlaynu"
+"Petekerans"
+"RWyvern"
+"Salonee-2021"
+"Swainsona"
+"Tiara 547"
+"Tina Creative"
+"Tomnolan36"
+"UrbanDruid"
+"Ydpau"
+"Anneyla attirum darra"
+
+}
+  SERVICE wikibase:mwapi
+  {
+    # Get edit counts from globaluserinfo API call.    
+
+    # Best supported service is Generator. We don't need or use the generator output,
+    # but can construct the API call to also include the meta=globaluserinfo info
+    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "random" . # This generator doesn't make much output, and doesn't require additional parameters
+
+    # What we really want here:
+    bd:serviceParam mwapi:meta "globaluserinfo" . 
+    bd:serviceParam mwapi:guiuser ?User .
+    bd:serviceParam mwapi:guiprop "merged|editcount" .
+
+    # XPath expressions to extract the results:
+    ?TotalEdits wikibase:apiOutput "/api/query/globaluserinfo/@editcount" .
+    ?n_enwikiEdits wikibase:apiOutput "/api/query/globaluserinfo/merged/account[@wiki='enwiki']/@editcount" .
+    ?n_CommonsEdits wikibase:apiOutput "/api/query/globaluserinfo/merged/account[@wiki='commonswiki']/@editcount" .
+    ?n_WikidataEdits wikibase:apiOutput "/api/query/globaluserinfo/merged/account[@wiki='wikidatawiki']/@editcount" .
+    bd:serviceParam wikibase:limit "once" .
+  }
+  SERVICE wikibase:mwapi
+  {
+    # Get dates for first edit at enwiki using the usercontribs API call.
+
+    # Best supported service is Generator. We don't need or use the generator output,
+    # but can construct the API call to also include the list=usercontribs info
+    bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "random" . # This generator doesn't make much output, and doesn't require additional parameters
+    
+    # What we really want here:
+    bd:serviceParam mwapi:list "usercontribs" . 
+    bd:serviceParam mwapi:ucuser ?User .    
+    bd:serviceParam mwapi:ucdir "newer" . # Start with oldest edit
+    bd:serviceParam mwapi:ucprop "timestamp" . # Get timestamp
+    bd:serviceParam mwapi:uclimit "1" .
+    
+    # XPath expressions to extract the result:
+    ?DateFirstEdit wikibase:apiOutput "/api/query/usercontribs/item/@timestamp" .
+    bd:serviceParam wikibase:limit "once" .
+  }
+  SERVICE wikibase:mwapi
+  {
+    # Get dates for last at enwiki using the usercontribs API call.
+
+    # Best supported service is Generator. We don't need or use the generator output,
+    # but can construct the API call to also include the list=usercontribs info
+    bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "random" . # This generator doesn't make much output, and doesn't require additional parameters
+    
+    # What we really want here:
+    bd:serviceParam mwapi:list "usercontribs" . 
+    bd:serviceParam mwapi:ucuser ?User .    
+    bd:serviceParam mwapi:ucdir "older" . # Start with newest edit
+    bd:serviceParam mwapi:ucprop "timestamp" . # Get timestamp
+    bd:serviceParam mwapi:uclimit "1" .
+    
+    # XPath expressions to extract the result:
+    ?DateLastEdit wikibase:apiOutput "/api/query/usercontribs/item/@timestamp" .
+    bd:serviceParam wikibase:limit "once" .
+  }
+}

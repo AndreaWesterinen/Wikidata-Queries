@@ -1,0 +1,17 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31 wd:Q7725634.
+  {
+    ?entity wdt:P50 ?author.
+    ?author wdt:P19 ?place.
+    ?place wdt:P17 ?country.
+  }
+  UNION
+  {
+    ?entity wdt:P50 ?author.
+    ?author wdt:P27 ?country.
+  }
+  UNION
+  {
+    ?entity wdt:P4647 ?firstperformance.
+    ?firstperformance wdt:P17 ?country.
+  }
+FILTER (?country IN (wd:Q40, wd:Q183, wd:Q39)).}

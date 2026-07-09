@@ -1,0 +1,7 @@
+#Skip uten verft angitt
+SELECT ?item ?itemLabel ?imo WHERE {
+  ?item (wdt:P31*) wd:Q11446.
+  MINUS { ?item wdt:P176 _:b7. }
+  OPTIONAL { ?item wdt:P458 ?imo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}

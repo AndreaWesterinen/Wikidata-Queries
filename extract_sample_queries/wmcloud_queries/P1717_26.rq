@@ -1,0 +1,10 @@
+#title: Too long river
+# Complex constraint from [[Property talk:P1717]]
+# TODO: check the unit
+SELECT ?item ?long WHERE { 
+  ?item wdt:P1717 [].
+  ?item wdt:P2043 ?long .
+  FILTER (?long > 1000).
+  FILTER (?item NOT IN (wd:Q584, wd:Q1469)).
+} 
+ORDER BY ?item

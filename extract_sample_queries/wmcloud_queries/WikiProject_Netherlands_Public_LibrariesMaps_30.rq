@@ -1,0 +1,32 @@
+#Map of Dutch municipalities, layered by number of public libraries
+#defaultView:Map{"hide":["?municipalityLoc","?layer"]}
+SELECT 
+?municipality 
+?municipalityLabel 
+?count 
+?municipalityLoc 
+?layer 
+WHERE {
+  
+ { #start subquery
+       
+    SELECT ?municipality ?municipalityLabel (COUNT(?municipality) AS ?count) WHERE {
+      ?item p:P31/ps:P31 wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55.
+      ?item wdt:P131 ?municipality.
+      ?municipality p:P31 [ps:P31 ?municipalityIsA]. #what is (P31) this item?
+      VALUES ?municipalityIsA {wd:Q2039348}. #filter only the value 'municipality of the Netherlands' Q2039348 
+      
+      SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "nl".
+        ?municipality rdfs:label ?municipalityLabel.}
+    }
+    GROUP BY ?municipality ?municipalityLabel
+  } #end subquery
+
+  BIND(IF(?count < 2, "0-1", IF(?count < 4, "2-4", IF(?count < 8, "4-8", IF(?count < 12, "8-12", IF(?count < 20, "12-20", ">20"))))) AS ?layer)
+  
+  OPTIONAL { ?municipality wdt:P625 ?municipalityLoc. }  
+  
+} #WHERE
+GROUP BY ?layer ?municipality ?municipalityLabel ?count ?municipalityLoc
+ORDER BY ?layer

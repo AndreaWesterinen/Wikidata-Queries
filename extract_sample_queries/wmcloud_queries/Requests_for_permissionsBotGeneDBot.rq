@@ -1,0 +1,1 @@
+SELECT ?q  ?genedb { ?q wdt:P3382 ?genedb }

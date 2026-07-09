@@ -1,0 +1,11 @@
+#title: Elo ratings with wrong date precision
+# Complex constraint from [[Property talk:P1087]]
+# Elo ratings with a date qualifier that has not month precision
+SELECT DISTINCT ?item ?date
+{
+  ?item p:P1087 ?p1087_statement .
+  ?p1087_statement pqv:P585 ?datenode .
+  ?datenode wikibase:timeValue ?date .
+  ?datenode wikibase:timePrecision ?precision .
+  FILTER( ?precision != "10"^^xsd:integer )
+}

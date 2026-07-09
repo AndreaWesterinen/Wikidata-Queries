@@ -1,0 +1,9 @@
+SELECT DISTINCT ?saint (COUNT(?item) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q484170 .
+  ?item rdfs:label ?itemL filter (lang(?itemL) = "fr") .
+  FILTER regex(?itemL, "^saint-", "i")
+  BIND (REPLACE(STRAFTER(?itemL, "Saint-"), "-.*$", "", "i") AS ?saint)
+}
+GROUP BY ?saint
+HAVING (?count >= 3)
+ORDER BY DESC(?count) ?saint

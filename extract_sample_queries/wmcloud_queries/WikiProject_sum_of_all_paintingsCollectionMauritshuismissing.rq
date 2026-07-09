@@ -1,0 +1,13 @@
+SELECT ?item ?inv WHERE {
+	?item  wdt:P31 wd:Q21199 .
+	?item  wdt:P1181 ?value .
+	FILTER (?value >= 1 && ?value <= 1250) .
+	BIND(STR(?value) as ?inv) .
+	FILTER NOT EXISTS {
+		?painting p:P195/ps:P195 wd:Q221092 ;
+                  p:P217 ?invstatement .
+      ?invstatement pq:P195 wd:Q221092;
+                    ps:P217 ?inv .
+	}
+}
+ORDER BY ?value

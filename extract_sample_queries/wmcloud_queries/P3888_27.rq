@@ -1,0 +1,9 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P3888]]
+# List of works that are in [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] [[d:Q679527|Museum Boijmans Van Beuningen <small>(Q679527)</small>]] and have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]] set, but that creator doesn't have a [[Property:P3888|Boijmans artist ID&#32;<small dir="ltr">(P3888)</small>]] link
+SELECT ?item ?creator
+{
+	?item wdt:P195 wd:Q679527 .
+    ?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P3888 [] } .
+}

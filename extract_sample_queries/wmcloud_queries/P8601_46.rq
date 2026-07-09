@@ -1,0 +1,7 @@
+#title: No localitzat a un barri de Barcelona
+# Complex constraint from [[Property talk:P8601]]
+# element amb identificador d'art públic de Barcelona però no localitzat a un barri de Barcelona
+select ?item where {
+  ?item wdt:P8601 [] .
+  minus { ?item wdt:P131/wdt:P31 wd:Q75135432 }
+}

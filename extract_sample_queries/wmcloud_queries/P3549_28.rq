@@ -1,0 +1,4 @@
+#title: ACNs must be a substring of OpenCorporate IDs
+# Complex constraint from [[Property talk:P3549]]
+#
+SELECT ?item {?item wdt:P3549 ?ACN . ?item wdt:P1320 ?OC . FILTER (CONTAINS(str(?OC),'au/')) FILTER (!CONTAINS(str(?OC),str(?ACN))) }

@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q15259995.
+  FILTER (NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q47443726. })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ?itemLabel

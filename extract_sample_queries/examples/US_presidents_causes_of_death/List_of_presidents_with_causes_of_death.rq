@@ -1,3 +1,4 @@
+#title: List of presidents with causes of death
 SELECT ?h ?hLabel ?cause ?causeLabel (YEAR(?date) AS ?year) WHERE {
 ?h wdt:P39 wd:Q11696;
    wdt:P509 ?cause;

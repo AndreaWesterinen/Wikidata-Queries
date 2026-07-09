@@ -1,0 +1,45 @@
+SELECT ?item ?lang ?itemLabel ?itemdesc ?pop ?legtype ?legtypeLabel ?headofgov ?headofgovLabel ?exec ?execLabel ?legislatureLabel ?website WHERE {
+  {
+    BIND("Spanish" AS ?lang)
+    ?item wdt:P31/wdt:P279* wd:Q10864048 ; 
+            wdt:P17 wd:Q739.
+    OPTIONAL {?item schema:description ?itemdesc.
+              FILTER(LANG(?itemdesc) = "es")}
+    OPTIONAL {?item wdt:P1082 ?pop }
+    OPTIONAL {?item wdt:P1313 ?headofgov .
+              MINUS { ?headofgov wdt:P576 [] }
+              OPTIONAL { ?headofgov wdt:P361 ?exec }
+              }
+    OPTIONAL {?legislature wdt:P1001 ?item ;
+                       wdt:P31/wdt:P279 wd:Q11204 
+      OPTIONAL { ?legislature  wdt:P31 ?legtype }
+      OPTIONAL { ?legislature  wdt:P4253 ?numberconstituencies }
+      OPTIONAL { ?legislature wdt:P856 ?website }
+      MINUS { ?legislature wdt:P576 [] }
+    }
+    MINUS { ?item wdt:P576 [] }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+  } UNION 
+  {
+      BIND("English" AS ?lang)
+     ?item wdt:P31/wdt:P279* wd:Q10864048 ; 
+            wdt:P17 wd:Q739.
+    OPTIONAL {?item schema:description ?itemdesc.
+              FILTER(LANG(?itemdesc) = "en")}
+    OPTIONAL {?item wdt:P1082 ?pop }
+    OPTIONAL {?item wdt:P1313 ?headofgov .
+              MINUS { ?headofgov wdt:P576 [] }
+              OPTIONAL { ?headofgov wdt:P361 ?exec }
+              }
+    OPTIONAL {?legislature wdt:P1001 ?item ;
+                       wdt:P31/wdt:P279 wd:Q11204 
+      OPTIONAL { ?legislature  wdt:P31 ?legtype }
+      OPTIONAL { ?legislature  wdt:P4253 ?numberconstituencies }
+      OPTIONAL { ?legislature wdt:P856 ?website }
+      MINUS { ?legislature wdt:P576 [] }
+    }
+    MINUS { ?item wdt:P576 [] }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }  
+}
+ORDER BY ?item DESC(?lang)

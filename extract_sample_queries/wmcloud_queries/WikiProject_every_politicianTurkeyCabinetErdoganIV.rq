@@ -1,0 +1,7 @@
+SELECT ?item ?party ?district ?start ?end ?cause WHERE {
+  ?item p:P39 ?statement.
+  ?statement ps:P31 wd:Q4164871;
+    pq:P5054 wd:Q55435983.
+  OPTIONAL { ?statement pq:P580 ?start. }
+  OPTIONAL { ?statement pq:P582 ?end. }
+  OPTIONAL { ?statement pq:P1534 ?cause. }

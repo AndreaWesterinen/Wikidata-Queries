@@ -1,0 +1,29 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("Birth in present-day Austria, by state" as ?legend) 
+  (GROUP_CONCAT(?cLabel;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+  ("pie" as ?type)
+  ("120" as ?height) 
+  ("120" as ?width) 
+WHERE
+{
+   { SELECT ?cLabel ?count { 
+  { SELECT ?c ?cLabel (COUNT(DISTINCT ?item) as ?count)
+  {
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+    ?item wdt:P19 ?place .
+    ?place wdt:P17 wd:Q40 .
+    ?place wdt:P131* ?c .
+    ?c wdt:P31 wd:Q261543 .
+    ?item wdt:P31 wd:Q5 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  } GROUP BY ?c ?cLabel
+  ORDER BY DESC(?count)
+  LIMIT 20
+  }
+  hint:Query hint:optimizer "None".     
+  }
+  ORDER BY DESC(?count)
+  }
+}

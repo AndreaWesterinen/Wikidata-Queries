@@ -1,0 +1,31 @@
+SELECT *  WITH
+{
+  SELECT ?vol
+    (COUNT(DISTINCT ?entry) as ?count) 
+    (COUNT(DISTINCT ?hasarticle) as ?articles) 
+    (COUNT(DISTINCT ?hasxref) as ?xref) 
+    (COUNT(DISTINCT ?hastable) as ?table) 
+    (SAMPLE(?hasarticle) as ?sample)
+  WHERE
+  {
+	?entry wdt:P31 ?type .
+  	?entry wdt:P1433 wd:Q665807 .
+    OPTIONAL  {   ?entry wdt:P478 ?vol0 . ?item0 wdt:P5176 ?vol0  }
+    OPTIONAL  {   ?entry wdt:P31 wd:Q19389637 . BIND(?entry as ?hasarticle) }
+    OPTIONAL  {   ?entry wdt:P31 wd:Q1302249 . BIND(?entry as ?hasxref) }
+    OPTIONAL  {   ?entry wdt:P31 wd:Q9353932 . BIND(?entry as ?hastable) }
+    BIND(IF(BOUND(?item0), ?item0, wd:Q22910791 ) as ?item) 
+    BIND(IF(BOUND(?vol0), ?vol0, "missing" ) as ?vol)   
+  }
+  GROUP BY ?item ?vol
+} as %i
+WHERE
+{
+    INCLUDE %i 
+    ?item wdt:P31 wd:Q1238720 ; wdt:P179 wd:Q665807 ; wdt:P478 ?vol .
+          OPTIONAL { ?item p:P2670 [  pq:P805 ?preface ; ps:P2670 wd:Q670787 ] }              
+          OPTIONAL { ?item p:P2670 [  pq:P1114 ?t ; ps:P2670 wd:Q9353932 ] }              
+          OPTIONAL { ?item p:P2670 [  pq:P805 ?persreg ; ps:P2670 wd:Q1114135 ] }              
+          OPTIONAL { ?item wdt:P577 ?dt . BIND(YEAR(?dt) as ?year) }              
+}
+ORDER BY xsd:integer(?vol)

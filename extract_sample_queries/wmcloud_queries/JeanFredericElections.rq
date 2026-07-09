@@ -1,0 +1,13 @@
+embed.html##defaultView:Timeline
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+SELECT ?depute ?deputeLabel ?birthdate
+WHERE {
+  ?depute wdt:P31 wd:Q5 .
+  ?depute p:P39 ?mandate .
+  ?mandate v:P39 wd:Q3044918 . # French depute
+  ?mandate q:P2937 wd:Q24939798 . # 15th legislature
+  ?depute wdt:P569 ?birthdate .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }
+}
+ORDER BY ?birthdate

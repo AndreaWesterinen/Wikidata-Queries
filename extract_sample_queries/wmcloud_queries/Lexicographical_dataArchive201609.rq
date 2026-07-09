@@ -1,0 +1,9 @@
+# https://twitter.com/tobias47n9e/status/772059985912160256
+# Languages and the grammatical cases they have in common
+#defaultView:Graph
+SELECT ?item ?itemLabel ?case ?caseLabel (concat("F3A2FF") as ?rgb)
+WHERE
+{
+	?item wdt:P2989 ?case .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

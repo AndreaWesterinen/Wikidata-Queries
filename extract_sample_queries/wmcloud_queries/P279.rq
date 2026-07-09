@@ -1,0 +1,16 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+SELECT DISTINCT ?type ?typeLabel ?type2 ?type2Label 
+WHERE {
+     ?obj wdt:P149 ?style. 
+     ?obj wdt:P31 ?type.
+     ?type wdt:P31 ?type2.   
+   FILTER NOT EXISTS {       
+     values ?type2 {            
+      wd:Q13406463 
+       wd:Q4167410 
+      wd:Q550637 }}   
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .}} 

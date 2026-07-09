@@ -1,0 +1,8 @@
+SELECT ?item ?Len ?Les 
+WHERE 
+{
+  ?item wdt:P27 wd:Q1747689.
+  ?item rdfs:label ?Len . filter(lang(?Len)="en")
+  ?item rdfs:label ?Les . filter(lang(?Les)="es")
+  filter (?Len = ?Les)
+}

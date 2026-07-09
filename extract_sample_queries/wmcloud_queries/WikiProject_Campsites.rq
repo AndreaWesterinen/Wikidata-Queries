@@ -1,0 +1,19 @@
+#Campsites and shelters in Sweden
+SELECT DISTINCT ?item ?itemLabel ?adminLabel ?coor ?pic
+WHERE 
+{
+  VALUES ?object {wd:Q1797440 #lean-to
+                 wd:Q65532949 #picnic
+                 wd:Q5784097  #hut
+                 wd:Q1149405  #rock-shelter
+                 wd:Q170544   #tent
+                 }
+  ?item wdt:P31 wd:Q832778; #campsite
+        wdt:P17 wd:Q34;
+        wdt:P625 ?coor;
+        wdt:P131 ?admin;
+  
+  OPTIONAL 
+  {?item wdt:P18 ?pic.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,sv". }
+}

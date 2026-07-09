@@ -1,0 +1,22 @@
+SELECT ?item ?nl ?count (SAMPLE(?p0) as ?sample_p) (SAMPLE(?same) as ?same0)
+WITH
+{
+  SELECT ?item ?nl
+  (COUNT(DISTINCT ?p) as ?count)
+{
+    ?item wdt:P407 wd:Q652 ;
+          wdt:P31 wd:Q11879590 ;
+          wdt:P1705 ?nl . 
+    FILTER( regex( str(?nl), "[^a]$") )
+    OPTIONAL { ?p wdt:P735 ?item }
+}
+GROUP BY ?item ?nl  
+} as %a
+WHERE
+{
+  INCLUDE %a 
+  OPTIONAL { ?p0 wdt:P735 ?item ; wdt:P569 [] ; wdt:P19/wdt:P17 wd:Q38 ; wdt:P27  ?c . VALUES ?c { wd:Q38 wd:Q172579 }  }
+  OPTIONAL { ?item wdt:P460 ?same . ?same wdt:P407 wd:Q652 }
+}
+GROUP BY ?item ?nl ?count
+ORDER BY DESC(?count) ?nl

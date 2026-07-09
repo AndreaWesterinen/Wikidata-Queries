@@ -1,0 +1,26 @@
+#defaultView:ScatterChart
+SELECT (MIN(?age) AS ?minAge) (COUNT(DISTINCT ?composition) AS ?count) ?composer ?composerLabel WHERE {
+  { # find only compositions with a single composer
+    SELECT ?composition WHERE {
+      ?composition wdt:P86 ?composer.
+    }
+    GROUP BY ?composition
+    HAVING(COUNT(?composer) = 1)
+  }
+  ?composition wdt:P86 ?composer;
+               p:P571/psv:P571 [
+                 wikibase:timeValue ?date;
+                 wikibase:timePrecision ?datePrecision
+               ].
+  FILTER(?datePrecision >= 9). # filter out sub-year precision
+  ?composer wdt:P31 wd:Q5;
+            p:P569/psv:P569 [
+              wikibase:timeValue ?born;
+              wikibase:timePrecision ?bornPrecision
+            ].
+  FILTER(?bornPrecision >= 9).
+  BIND(FLOOR((?date - ?born)/365.2425) AS ?age).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?composer ?composerLabel
+ORDER BY ?minAge

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?entity ?entityLabel ?prop ?ref ?link WHERE {
+  ?entity ?prop ?statement.
+  ?statement prov:wasDerivedFrom ?ref.
+  { ?ref pr:P245 []. } UNION { ?ref pr:P248 wd:Q2494649. }
+  BIND(URI(CONCAT(STR(?entity), "#", SUBSTR(STR(?prop), 30))) AS ?link)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

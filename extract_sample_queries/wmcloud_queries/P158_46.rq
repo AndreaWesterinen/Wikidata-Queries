@@ -1,0 +1,2 @@
+#title:Change the property P158 to P94
+SELECT DISTINCT ?item WHERE { ?item wdt:P158 ?value . FILTER(REGEX(STR(?value), 'C[Oo]A|[Cc]oat%20of%20[Aa]rms|[Ee]scudo|[Ee]scut|[Bb]la[zs]on|Wappen') = true ) }

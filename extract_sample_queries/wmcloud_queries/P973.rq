@@ -1,0 +1,12 @@
+SELECT ?p ?pLabel ?formatter ?regex (CONCAT("{{Autofix|pattern=<nowiki>",?from,"</nowiki>|replacement=\\1|move_to=", (strafter( str(?p), "y/")), "}}") as ?autofix_edit_manually_to_improve)
+WITH
+{
+  SELECT ?p ?formatter ?regex { ?p wikibase:propertyType wikibase:ExternalId ; wdt:P1630 ?formatter ; p:P2302 [ ps:P2302 wd:Q21502404 ; pq:P1793 ?regex ] } LIMIT 100
+}  as %properties
+WHERE
+{
+   # VALUES ?p { wd:P214 }
+   INCLUDE %properties
+   BIND( replace(REPLACE(REPLACE(?formatter,"\\.","\\\\."),"https?:","https?:"), "$1", CONCAT("(",?regex,")"), "q") as ?from)
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

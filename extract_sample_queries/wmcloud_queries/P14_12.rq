@@ -1,0 +1,10 @@
+#title: Bundesstraße in Germany
+# Complex constraint from [[Property talk:P14]]
+# German roads [[d:Q561431|Bundesstraße <small>(Q561431)</small>]] without [[d:Q561431|Bundesstraße <small>(Q561431)</small>]]
+SELECT ?item ?value WHERE {
+  ?item wdt:P14 ?value.
+  FILTER(REGEX(STR(?value), "Bundesstra%C3%9Fe")) .
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q561431}
+  ?item wdt:P17 ?country.
+  FILTER(?country = wd:Q183).
+}

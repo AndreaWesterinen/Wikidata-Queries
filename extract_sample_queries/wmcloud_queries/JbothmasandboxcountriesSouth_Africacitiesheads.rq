@@ -1,0 +1,24 @@
+SELECT ?item ?itemLabel ?headOfGovStatement ?positionHeldStatement ?positionHeldRank ?executive ?executiveLabel ?headPosition ?headPositionLabel ?person ?personLabel ?personInstanceOf ?personInstanceOfLabel WHERE {
+  { 
+    { ?item wdt:P31/wdt:P279* wd:Q1530824 }
+    UNION
+    { ?item wdt:P31/wdt:P279* wd:Q1500352 }
+  }
+  ?item wdt:P17 wd:Q258.
+  ?executive wdt:P1001 ?item .
+  ?executive wdt:P279* wd:Q640506.
+  OPTIONAL { ?headPosition wdt:P361 ?executive }
+  # If we find the person with the P39 (position held)
+  OPTIONAL {
+    ?person p:P39 ?positionHeldStatement.
+    ?positionHeldStatement ps:P39 ?headPosition
+    OPTIONAL { ?person wdt:P31 ?personInstanceOf }
+     ?positionHeldStatement wikibase:rank ?positionHeldRank.
+  }
+  # See if we find the person via P6 (head of government)
+  OPTIONAL {
+    ?item p:P6 ?headOfGovStatement .
+    ?headOfGovStatement ps:P6 ?person .
+  }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

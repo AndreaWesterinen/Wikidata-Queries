@@ -1,0 +1,12 @@
+SELECT ?item ?party ?represents ?district ?country ?start ?end
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q27169  ; pq:P2937 wd:Q16836722.
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P768 ?district }
+  OPTIONAL { ?district wdt:P17 ?country }
+  OPTIONAL { ?statement pq:P4100 ?party }
+  OPTIONAL { ?statement pq:P1268 ?represents }
+}

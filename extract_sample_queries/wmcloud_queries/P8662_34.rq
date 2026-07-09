@@ -1,0 +1,18 @@
+#title: Candidates for this property (with details)
+# Complex constraint from [[Property talk:P8662]]
+# add [[Property:P8662|Les Roses cultivées à L&#39;Haÿ en 1902 ID&#32;<small dir="ltr">(P8662)</small>]]; use "[[Help:Statements#Unknown_or_no_values|novalue]]" when not found
+SELECT ?item ?year ?rosa ?obtLabel
+WHERE
+{
+	?item wdt:P31 wd:Q26817508 ; wdt:P571 ?d
+	MINUS { ?item p:P8662 [] }
+	BIND(YEAR(?d) as ?year)
+	FILTER( ?year < 1902 )
+	OPTIONAL { ?item wdt:P170 ?obt }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . 
+	                   ?item rdfs:label ?itemLabel .
+	                   ?obt rdfs:label ?obtLabel }
+	BIND("^Rosa '(.+)'$" as ?re)
+	BIND(REPLACE( str(?itemLabel), ?re , "$1" ) as ?rosa)
+}
+ORDER BY ?rosa

@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item ?status WHERE { ?item wdt:P31/wdt:P279* wd:Q16917; wdt:P17 wd:Q833
+OPTIONAL { ?item (wdt:P730 \u007C wdt:P576 \u007C wdt:P3999 \u007C wdt:P582 ) ?dummy . 
+BIND("Former hospitals" as ?status1) } BIND(COALESCE(?status1,"Current hospitals") as ?status) }

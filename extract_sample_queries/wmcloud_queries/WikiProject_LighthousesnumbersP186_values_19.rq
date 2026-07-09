@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?img ?layerLabel ?coor
+{
+	?item wdt:P31 wd:Q39715 ; wdt:P625 ?coor .
+	?item wdt:P186 wd:Q663 .
+    OPTIONAL { ?item wdt:P18 ?img }
+    OPTIONAL { ?item wdt:P17 ?layer }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }  
+}

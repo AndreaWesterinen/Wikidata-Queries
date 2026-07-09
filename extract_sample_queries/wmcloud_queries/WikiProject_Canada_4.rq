@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q23397 ; wdt:P17 wd:Q16 .
+    ?item rdfs:label ?fr . 
+    FILTER( lang(?fr)="fr" && lcase(str(?fr))="lac à la croix")
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

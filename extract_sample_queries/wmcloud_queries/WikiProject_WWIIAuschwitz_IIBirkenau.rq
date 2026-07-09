@@ -1,0 +1,7 @@
+#Auschwitz I
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P361 wd:Q663764.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

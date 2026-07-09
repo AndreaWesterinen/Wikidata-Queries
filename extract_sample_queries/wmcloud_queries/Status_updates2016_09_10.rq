@@ -1,0 +1,25 @@
+# Posthumous marriages
+SELECT ?aliveSpouse ?aliveSpouseLabel ?deadSpouse ?deadSpouseLabel ?death ?marriage
+WHERE
+{
+  # ?aliveSpouse has spouse ?deadSpouse, with qualifier start time: ?marriage
+  ?aliveSpouse p:P26 [ ps:P26 ?deadSpouse;
+                       pqv:P580 [
+                         wikibase:timeValue ?marriage;
+                         wikibase:timePrecision ?marriagePrecision
+                       ]
+                     ].
+  # ?deadSpouse has date of death ?death
+  ?deadSpouse p:P570/psv:P570 [
+    wikibase:timeValue ?death;
+    wikibase:timePrecision ?deathPrecision
+  ].
+  # ?death prior to ?marriage
+  FILTER(?death < ?marriage).
+  # Optional: remove results with missing precision –
+  # only include matches over a year apart, or where both statements are precise to the day
+  #FILTER(YEAR(?marriage) - YEAR(?death) > 1 || 
+  #       ?marriagePrecision = 11 && ?deathPrecision = 11).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?marriage - ?death)

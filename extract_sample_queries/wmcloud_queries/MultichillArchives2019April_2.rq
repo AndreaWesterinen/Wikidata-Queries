@@ -1,0 +1,7 @@
+SELECT ?item ?label ?title WHERE {
+  ?item wdt:P195 wd:Q1568434 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item rdfs:label ?label .
+  ?item wdt:P1476 ?title .
+  FILTER(LANG(?label)='en' && LANG(?title)='en' && ?label!=?title && STRSTARTS(STR(?title), STR(?label)))
+  } LIMIT 1000

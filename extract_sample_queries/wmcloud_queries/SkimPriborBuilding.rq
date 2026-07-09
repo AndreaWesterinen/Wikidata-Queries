@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?streetLabel ?cp WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q41176.
+  ?item wdt:P131/wdt:P131* wd:Q654019.
+  OPTIONAL { ?item wdt:P669 ?street. }.
+  OPTIONAL { ?item wdt:P4856 ?cp. }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,en". }
+} ORDER BY ASC(?streetLabel) ASC(xsd:integer(?cp))

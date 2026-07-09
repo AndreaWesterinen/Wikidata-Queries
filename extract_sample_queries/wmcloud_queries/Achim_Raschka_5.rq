@@ -1,0 +1,17 @@
+SELECT ?species ?speciesLabel ?speciesDate ?parentTaxonLabel ?parentTaxonDate WITH {
+  SELECT ?species ?speciesDate ?parentTaxon ?parentTaxonDate WHERE {
+    ?species wdt:P105 wd:Q7432;
+             wdt:P171 ?parentTaxon;
+             p:P225 [
+               pq:P574 ?speciesDate;
+               pq:P31 wd:Q14594740
+             ].
+    ?parentTaxon p:P225 [
+      pq:P574 ?parentTaxonDate
+    ].
+    FILTER(?speciesDate < ?parentTaxonDate)
+  }
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item
+WHERE {
+        ?item wdt:P664 wd:Q948442 .        # Organizados por la WTA
+        FILTER(NOT EXISTS { ?item wdt:P393 [] })   # Sin edición
+        FILTER(NOT EXISTS { ?item wdt:P585 [] })   # Sin fecha
+        FILTER(NOT EXISTS { ?item wdt:P3469 [] })  # Sin la propiedad de código de torneo
+}

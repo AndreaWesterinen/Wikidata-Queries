@@ -1,0 +1,7 @@
+#title: Use specific office where available
+# Complex constraint from [[Property talk:P39]]
+# Value should be the office of the specific jurisdiction, if available.
+SELECT ?item ?position ?specificOffice ?jurisdiction WHERE {
+  ?item p:P39 [ ps:P39 ?position; ( pq:P1001 | pq:P642 ) ?jurisdiction ] .
+  ?specificOffice wdt:P1001 ?jurisdiction; wdt:P279 ?position
+}

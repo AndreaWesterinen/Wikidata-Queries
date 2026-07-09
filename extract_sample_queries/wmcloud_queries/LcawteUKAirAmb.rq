@@ -1,0 +1,9 @@
+SELECT ?item ?label ?itemDescription ?operating_area ?Charity_Commission_no ?official_website ?inception ?image WHERE {
+  ?item wdt:P31 wd:Q763256.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?label.
+  }
+  ?item wdt:P17 wd:Q145.
+  OPTIONAL { ?item wdt:P2541 ?operating_area. }
+  OPTIONAL { ?item wdt:P3057

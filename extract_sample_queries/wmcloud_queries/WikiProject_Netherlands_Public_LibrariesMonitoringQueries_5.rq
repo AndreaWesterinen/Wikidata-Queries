@@ -1,0 +1,38 @@
+#Public library branch items *must* be instances of (P31) ''both'' public library (Q28564) ''and'' library branch (Q11396180). 
+#If a Dutch PL branch item has only one of the values Q28564 or Q11396180 in the P31 field, it is not found, as we query for both Q28564 and Q11396 :
+#Query for all Dutch public libraries (P31:Q28564 + P17:Q55) We find 3 groups: 
+# 1) DPL organisations 
+# 2) DPL branches related to a PL-organisation  - normal branches & headquarter branches
+# 3) Other DPLs
+
+SELECT DISTINCT 
+?item
+?itemLabelNL
+(GROUP_CONCAT(DISTINCT ?isLabel ; separator = " --- ") as ?DitIsEen) 
+#(GROUP_CONCAT(DISTINCT ?rank ; separator = " --- ") as ?Ranks)
+?group
+
+WHERE 
+{
+  #Public library (branch, organisation or other) from the Netherlands.
+  #The (p:P31/ps:P31) finds also ?items with Preferred and Deprecated ranks for any Q-value in the P31-field; 
+  ?item (p:P31/ps:P31) wd:Q28564;wdt:P17 wd:Q55. 
+  ?item p:P31 [ps:P31 ?is; wikibase:rank ?rank].
+ 
+  OPTIONAL{?item rdfs:label ?itemLabelNL FILTER(LANG(?itemLabelNL)='nl').}
+  OPTIONAL{?is rdfs:label ?isLabel FILTER(LANG(?isLabel)='nl').}
+ 
+  #Filter to group results in 3 groups (branch, organisation or other)
+  
+  #DOUBLE AGGEGATION (?DitIsEen en ?group --> MAKE 2 SELECT clauses!! see http://tinyurlDOTcom/y7gldwdr
+  
+    BIND(
+    IF(CONTAINS(?DitIsEen, "bibliotheekvestiging"), "Vestiging",
+    IF(CONTAINS(?isLabel, "hoofdkwartier"), "Hoofdkkwartier",   
+    IF(CONTAINS(?isLabel, "bibliotheekorganisatie"), "Organisatie",
+    "xxx")))
+    AS ?group).
+  
+}
+GROUP BY ?item ?itemLabelNL ?group
+ORDER BY DESC(?item)

@@ -1,0 +1,4 @@
+select (count(?item) AS ?item_count)
+where{
+  ?item wdt:P178 ?value .
+}

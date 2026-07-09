@@ -1,0 +1,18 @@
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?item ?itemLabel ?regisseur ?regisseurLabel ?datum_van_uitgave ?itemDescription WHERE {{
+SELECT DISTINCT ?item ?regisseur ?datum_van_uitgave WHERE {
+  ?item wdt:P31 wd:Q11424
+  OPTIONAL {
+    ?item schema:description ?itemDescription.
+    FILTER((LANG(?itemDescription)) = "nl")
+  }
+  OPTIONAL {?item wdt:P57 ?regisseur. }
+   OPTIONAL {?item wdt:P577 ?datum_van_uitgave.  }
+  FILTER(!BOUND(?itemDescription))
+  FILTER (BOUND(?regisseur) || BOUND(?datum_van_uitgave))
+}
+LIMIT 4000
+  }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

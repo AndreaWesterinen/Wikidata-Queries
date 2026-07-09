@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(DISTINCT ?element) AS ?count) WHERE {
+  ?element wdt:P31/wdt:P279* wd:Q7889.
+  ?element wdt:P31 ?item.
+}
+GROUP BY ?item
+ORDER BY DESC (?count) ?item

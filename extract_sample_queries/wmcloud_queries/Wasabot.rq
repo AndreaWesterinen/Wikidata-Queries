@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value ?MeSH_ID
+{
+	?item wdt:P672 ?value .
+	OPTIONAL{?item wdt:P486 ?MeSH_ID .}    
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}
+LIMIT 1000

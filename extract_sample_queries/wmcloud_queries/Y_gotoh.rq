@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?rate ?untap ?adv {
+  ?item wdt:P31 wd:Q131734.
+  ?item wdt:P31 wd:Q2905030.
+  ?item wdt:P17 wd:Q17 .
+  OPTIONAL{?item wdt:P2905 ?r}.
+  OPTIONAL{?item wdt:P3002 ?u}.
+  OPTIONAL{?item wdt:P2904 ?a}.
+  OPTIONAL{wd:P2905 wdt:P1630 ?format1} .
+  OPTIONAL{wd:P3002 wdt:P1630 ?format2} .
+  OPTIONAL{wd:P2904 wdt:P1630 ?format3} .
+  BIND(IRI(REPLACE(?r, '^(.+)$', ?format1)) AS ?rate).
+  BIND(IRI(REPLACE(?u, '^(.+)$', ?format2)) AS ?untap).
+  BIND(IRI(REPLACE(?a, '^(.+)$', ?format3)) AS ?adv).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ja,en". }
+  }

@@ -1,0 +1,10 @@
+#title: values for items for Emperors of Japan should be instances of Japanese era names
+# Complex constraint from [[Property talk:P6902]]
+#
+SELECT ?item ?era
+{
+	?item wdt:P39 wd:Q208233 . 
+    ?item wdt:P6902 ?era . 
+    MINUS { ?era wdt:P31 wd:Q24706 }
+}
+LIMIT 50

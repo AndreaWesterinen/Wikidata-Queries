@@ -1,0 +1,7 @@
+SELECT ?paper ?paperLabel ?parentLabel ?childLabel WHERE {
+  ?paper wdt:P31 wd:Q13442814;
+        wdt:P50 ?parent;
+        wdt:P50 ?child.
+  { { ?parent wdt:P22 ?child } UNION { ?parent wdt:P25 ?child } }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

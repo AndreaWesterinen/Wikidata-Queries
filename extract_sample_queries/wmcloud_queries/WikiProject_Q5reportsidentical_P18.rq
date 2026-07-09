@@ -1,0 +1,12 @@
+SELECT (SAMPLE(?item) as ?item) (COUNT(DISTINCT ?item) as ?ct) ?img (SAMPLE(?item2) as ?item2)
+WHERE
+{
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P18 ?img .
+  ?item2 wdt:P18 ?img .
+  ?item2 wdt:P31 wd:Q5 .
+  FILTER( ?item != ?item2  )
+}
+GROUP BY ?img
+ORDER BY DESC(?ct)
+LIMIT 200

@@ -1,0 +1,20 @@
+SELECT ?person ?personLabel
+WHERE
+{
+	{
+	SELECT ?person
+	WHERE
+	{
+		?person wdt:P2767 ?occup .
+	}
+	LIMIT 1000
+	}
+  	OPTIONAL {?person rdfs:label ?name_label filter(lang(?name_label) = "en")}
+	FILTER(!BOUND(?name_label))
+  	#?person rdfs:label ?name_label_es filter(lang(?name_label_es) = "es")
+  
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "es" .
+    }
+}
+limit 1000

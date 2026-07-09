@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?itemDescription ?numberofstatements WHERE {
+  ?item wdt:P2016 ?dummy0 .
+  ?item wikibase:statements ?numberofstatements .
+  
+  SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "nl,en" .
+   }
+  
+} ORDER BY asc(?numberofstatements)

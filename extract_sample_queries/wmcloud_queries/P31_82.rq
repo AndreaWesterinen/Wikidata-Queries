@@ -1,0 +1,13 @@
+#title: should have P31=module
+# Complex constraint from [[Property talk:P31]]
+# TODO: add P31
+SELECT ?item ?n
+{
+  hint:Query hint:optimizer "None".
+  ?item wikibase:statements 0 . 
+  [] schema:about ?item ; schema:name ?n . 
+  FILTER( strstarts(?n , "Module:") ) 
+  FILTER( !strstarts(?n, "Module:zh/data") )
+  FILTER( !strstarts(?n, "Module:Zh/data") )  
+}  
+LIMIT 100

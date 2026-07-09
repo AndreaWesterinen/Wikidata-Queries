@@ -1,0 +1,10 @@
+select ?item ?s where {
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P172 ?s .
+  ?s prov:wasDerivedFrom/pr:P143 [] .
+  FILTER NOT EXISTS { ?s prov:wasDerivedFrom ?b . 
+                     ?b ?other [] . 
+                     FILTER( ?other != pr:P143 && ?other != prv:P143 ) }
+  { ?s wikibase:rank wikibase:PreferredRank } UNION { ?s wikibase:rank wikibase:NormalRank }
+
+} 

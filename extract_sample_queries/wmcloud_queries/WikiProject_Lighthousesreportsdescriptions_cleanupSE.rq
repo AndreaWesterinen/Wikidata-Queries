@@ -1,0 +1,71 @@
+SELECT DISTINCT ?item ?desc ?issue
+WITH
+{
+    SELECT DISTINCT ?dep ?depname  {
+    ?dep wdt:P31 wd:Q127448 .
+    ?dep rdfs:label ?depname . FILTER(lang(?depname)="en")
+    }
+} as %inc2
+WITH 
+{   SELECT ?adm2 ?coast  {
+  { 
+    BIND("west" as ?coast) 
+    VALUES ?adm2 { wd:Q511228 wd:Q501424 wd:Q501420 wd:Q503173 wd:Q501442 wd:Q338752 wd:Q501448 wd:Q511438 wd:Q511394 wd:Q293928 wd:Q52502 wd:Q499380 wd:Q179180 wd:Q508168 wd:Q504692 wd:Q487502 wd:Q499464}
+  } UNION {
+    BIND("south" as ?coast) 
+    VALUES ?adm2 { wd:Q255206 wd:Q505013 wd:Q487648 wd:Q502298 wd:Q513370 wd:Q427991 wd:Q186662 wd:Q503361 wd:Q511338 wd:Q504219 wd:Q515266 wd:Q505102 wd:Q504626 wd:Q498857 wd:Q514830 wd:Q515409 wd:Q510223 wd:Q515373 wd:Q1128384 }
+  } UNION {
+    BIND("Baltic" as ?coast) 
+    VALUES ?adm2 { wd:Q515551 wd:Q508153 wd:Q514756 wd:Q515250 wd:Q509546 wd:Q505006 wd:Q515477 wd:Q509997 wd:Q515680 wd:Q504676 wd:Q500267 wd:Q505246 wd:Q505064 wd:Q516336 #(south of 59.19°) 
+    wd:Q505090 wd:Q113718 #(south of 59.19°) 
+    wd:Q113692 wd:Q113730 wd:Q946647 #(except Q39415691) 
+    wd:Q506250 #(east of 18.08°) 
+    wd:Q3120654 wd:Q113679 wd:Q493066 wd:Q117728 wd:Q500090 wd:Q493841 wd:Q214048 }
+  } UNION {
+    BIND("south Bothnian" as ?coast) 
+    VALUES ?adm2 { wd:Q59093 wd:Q510198 wd:Q59858 wd:Q510010 wd:Q145835 wd:Q29963 wd:Q514805 wd:Q504994 wd:Q504983 wd:Q209634 wd:Q514815 wd:Q298003 wd:Q514722 wd:Q507709 }
+  } UNION {
+    BIND("north Bothnian" as ?coast) 
+    VALUES ?adm2 { wd:Q507670 wd:Q430780 wd:Q507656 wd:Q177019 wd:Q117091 wd:Q510310 }
+  }
+}
+} as %inc3
+WHERE
+{
+    {
+      ?item wdt:P31 wd:Q39715 ; wdt:P17 wd:Q34 .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, "Sweden" ) )  
+      BIND( "country missing" as ?issue)
+    }
+    UNION  {
+      INCLUDE %inc2
+      ?item wdt:P31 wd:Q39715 ; wdt:P17 wd:Q34 ; wdt:P131* ?dep .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(lcase(?desc), replace(lcase(?depname), " municipality","") ) )  
+      BIND( CONCAT("municipality missing (",?depname,")") as ?issue)            
+    }
+    UNION  {
+      INCLUDE %inc3
+      ?item wdt:P31 wd:Q39715 ; wdt:P17 wd:Q34 ; wdt:P131* ?adm2 .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, ?coast ) )  
+      BIND( CONCAT("coast missing (",?coast,")") as ?issue)    
+      FILTER NOT EXISTS { ?item wdt:P206 ?lake . VALUES ?lake { wd:Q184492 wd:Q173596 wd:Q188195 wd:Q211425 } }
+      FILTER NOT EXISTS { ?item wdt:P206 / wdt:P31 wd:Q23397  }
+    }
+    UNION 
+    {
+      ?item wdt:P31 wd:Q39715 ; wdt:P17 wd:Q34 .
+      OPTIONAL { ?item schema:description ?desc . FILTER(lang(?desc)="en") }
+      FILTER( !BOUND(?desc) )  
+      BIND( "description missing" as ?issue)
+    }
+    UNION  {
+      BIND(wd:Q884375 as ?item)
+      BIND("- ignore this line, should be the only one on the report - " as ?desc) 
+      BIND(". n/a" as ?issue)
+    }
+    FILTER (?item != wd:Q15397819 )
+}
+ORDER BY ?issue ?desc ?item

@@ -1,0 +1,14 @@
+SELECT ?Org ?OrgLabel ?StockExchange ?StockExchangeLabel ?Ceo ?CeoLabel ?Subsidiary ?SubsidiaryLabel ?SubsidiaryCEO ?SubsidiaryCEOLabel ?Ticker
+WHERE {
+  ?Org p:P414 ?SE . # look for an entity with a "stock exchange" statement
+  ?SE ps:P414 ?StockExchange . # of which we get the value
+  ?SE pq:P249 ?Ticker . # and the "ticker symbol" qualifier
+  # Add new fields
+  ?Org wdt:P169 ?Ceo .        # Entity has Ceo
+  ?Org wdt:P355 ?Subsidiary . # Entity has Subsidiary
+  ?Subsidiary wdt:P169 ?SubsidiaryCEO . # no OPTIONAL means that bit is mandatory
+  FILTER(?Ticker="BA") . #and we restrict the value of that qualifier to "FB"
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

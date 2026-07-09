@@ -1,0 +1,37 @@
+select * {
+  ?item wdt:P268 ?v .
+  bind (substr(?v, 9, 1) as ?cd) .
+  bind (( 31 + # = c*1 + b*2
+    xsd:integer(substr(?v, 1, 1))*3 +
+    xsd:integer(substr(?v, 2, 1))*4 +
+    xsd:integer(substr(?v, 3, 1))*5 +
+    xsd:integer(substr(?v, 4, 1))*6 +
+    xsd:integer(substr(?v, 5, 1))*7 +
+    xsd:integer(substr(?v, 6, 1))*8 +
+    xsd:integer(substr(?v, 7, 1))*9 +
+    xsd:integer(substr(?v, 8, 1))*10
+  ) as ?sum) .
+  bind ((?sum - floor(?sum/29)*29) as ?mod) .
+  filter (!(
+    (?mod <= 9 && xsd:string(?mod) = ?cd) ||
+    (?mod = 10 && ?cd = "b") ||
+    (?mod = 11 && ?cd = "c") ||
+    (?mod = 12 && ?cd = "d") ||
+    (?mod = 13 && ?cd = "f") ||
+    (?mod = 14 && ?cd = "g") ||
+    (?mod = 15 && ?cd = "h") ||
+    (?mod = 16 && ?cd = "j") ||
+    (?mod = 17 && ?cd = "k") ||
+    (?mod = 18 && ?cd = "m") ||
+    (?mod = 19 && ?cd = "n") ||
+    (?mod = 20 && ?cd = "p") ||
+    (?mod = 21 && ?cd = "q") ||
+    (?mod = 22 && ?cd = "r") ||
+    (?mod = 23 && ?cd = "s") ||
+    (?mod = 24 && ?cd = "t") ||
+    (?mod = 25 && ?cd = "v") ||
+    (?mod = 26 && ?cd = "w") ||
+    (?mod = 27 && ?cd = "x") ||
+    (?mod = 28 && ?cd = "z")
+  )) .
+}

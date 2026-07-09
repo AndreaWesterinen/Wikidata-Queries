@@ -1,0 +1,17 @@
+SELECT ?occupation ?occupationLabel ?cnt with {
+  select ?occ WHERE 
+         {       ?occ wdt:P279* wd:Q639669. } } as %i
+with {
+    SELECT ?occupation (COUNT(?occupation) AS ?cnt) WHERE {
+     include %i
+   
+      ?item wdt:P106 ?occ . 
+      ?item wdt:P21 wd:Q6581072 .
+      FILTER NOT EXISTS { ?wikilink schema:about ?item; schema:isPartOf <https://en.wikipedia.org/> . }
+      BIND(IF(!BOUND(?occ), wd:Q19798648, ?occ) AS ?occupation) .
+    } GROUP BY (?occupation) } as %j
+where 
+{ 
+  include %j
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY DESC(?cnt)

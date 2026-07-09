@@ -1,0 +1,6 @@
+embed.html##defaultView:ImageGrid
+SELECT ?qLabel ?peintreLabel ?image WHERE {
+  ?q wdt:P180 wd:Q326724 ; wdt:P18 ?image .
+  OPTIONAL { ?q wdt:P170 ?peintre }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

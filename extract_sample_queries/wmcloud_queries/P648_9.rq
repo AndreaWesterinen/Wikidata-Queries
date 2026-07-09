@@ -1,0 +1,4 @@
+#title: Unsuitable OL identifier A
+# Complex constraint from [[Property talk:P648]]
+# OL identifier ending with A should only be used with humans, pseudonyms or organizations.
+SELECT ?item ?val{ ?item wdt:P648 ?val . FILTER(SUBSTR(?val, STRLEN(?val), 1) = 'A') MINUS { ?item wdt:P31 wd:Q5 } MINUS { ?item wdt:P31/wdt:P279* wd:Q43229 } MINUS { ?item wdt:P31/wdt:P279* wd:Q61002 } }

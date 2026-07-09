@@ -1,0 +1,6 @@
+SELECT *
+{
+	?item wdt:P1986 ?value .
+    ?item skos:altLabel ?l . FILTER( lang(?l) = "it" && REGEX(str(?l), "^[A-Z]{5}") ) 
+}
+LIMIT 1000

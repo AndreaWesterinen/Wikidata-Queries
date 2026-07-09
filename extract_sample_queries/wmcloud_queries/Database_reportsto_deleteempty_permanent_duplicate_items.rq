@@ -1,0 +1,9 @@
+SELECT ?item (CONCAT("{","{rfd links2\u007C",strafter(str(?item), "entity/"),"\u007Cfrom [[Wikidata:Database reports/to delete/empty category items]]}","}") as ?del)
+WHERE 
+{
+	?item wdt:P31 wd:Q21286738 . 
+	?item wdt:P2959 [] .
+	?item wikibase:sitelinks 0 .
+	MINUS { [] schema:about ?item }
+}
+LIMIT 1000

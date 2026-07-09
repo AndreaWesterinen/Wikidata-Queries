@@ -1,0 +1,3 @@
+sparql?query=SELECT DISTINCT ?id WHERE {
+  ?item wdt:P2123 ?id
+}        

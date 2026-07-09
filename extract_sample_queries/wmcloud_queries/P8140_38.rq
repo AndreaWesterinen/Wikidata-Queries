@@ -1,0 +1,10 @@
+#title: Sport isn't a subclass of motorsport
+# Complex constraint from [[Property talk:P8140]]
+# Human (driver) with [[Property:P641|Sport&#32;<small>(P641)</small>]] isn't a subclass of  [[d:Q5367|motorsport <small>(Q5367)</small>]]
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P8140 [] .
+  ?item wdt:P641 [] .
+  ?item wdt:P31 wd:Q5 .
+  MINUS { ?item wdt:P641/wdt:P279* wd:Q5367} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" }
+} ORDER BY ?itemLabel

@@ -1,0 +1,7 @@
+embed.html#SELECT ?item ?value ?iso 
+WHERE
+{
+	?item wdt:P300 ?value .
+	?item wdt:P17 wd:Q408 . 
+    BIND(REPLACE(?value, 'AU-', '', 'i') AS ?iso)   
+}

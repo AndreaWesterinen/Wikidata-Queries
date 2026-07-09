@@ -1,0 +1,9 @@
+SELECT ?item ?sl ?st
+WHERE
+{
+  ?item wdt:P31/wdt:P279* wd:Q46190676 .
+  MINUS { ?item wdt:P2094 [] }
+  ?item wikibase:statements ?st; wikibase:sitelinks ?sl
+}
+ORDER BY DESC(xsd:integer(strafter(str(?item), "Q")))
+LIMIT 5000

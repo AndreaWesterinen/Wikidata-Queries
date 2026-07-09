@@ -1,0 +1,16 @@
+#title: Easternmost should be east of westernmost
+# Complex constraint from [[Property talk:P1334]]
+# correct where needed. FIXME: allow for exceptions if not same "applies to part" qualifier; handle Q159
+SELECT DISTINCT ?item ?itemLabel ?summary
+WHERE
+{
+  ?item p:P1334 ?st .
+  ?st psv:P1334 [ wikibase:geoLatitude ?lat ; wikibase:geoLongitude ?lon ] .
+  ?item p:P1335 ?st2 .
+  ?st2 psv:P1335 [ wikibase:geoLatitude ?lat2 ; wikibase:geoLongitude ?lon2 ] .
+  FILTER ( ?lon < ?lon2 )
+  BIND ( CONCAT(str(?lon), " < ", str(?lon2) )  as ?summary)
+  FILTER ( ?item not in ( wd:Q159  )  )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 50

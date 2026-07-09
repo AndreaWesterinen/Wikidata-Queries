@@ -1,0 +1,10 @@
+SELECT (wd:Q29934200 as ?item) (substr(GROUP_CONCAT(?l),1,2000000) as ?all)
+{
+  hint:Query hint:optimizer "None".
+  {
+    SELECT (CONCAT("[[",strafter(str(?i),"y/"),"|",?n,"]]") as ?l)
+    {
+      ?i wikibase:statements 0 . [ ] schema:about ?i ; schema:isPartOf <https://ee.wikipedia.org/>; schema:name ?n
+    }
+  }
+}

@@ -1,0 +1,11 @@
+embed.html##defaultView:BubbleChart
+SELECT ?country ?countryLabel (COUNT(?item) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P195 ?collection .
+  ?collection wdt:P17 ?country . 
+	OPTIONAL {
+		?country rdfs:label ?countryLabel 
+		filter (lang(?countryLabel) = "en")
+	}
+  } GROUP BY ?country ?countryLabel
+ORDER BY DESC(?count)

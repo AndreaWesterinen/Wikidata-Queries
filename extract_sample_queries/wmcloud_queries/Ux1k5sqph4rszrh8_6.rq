@@ -1,0 +1,8 @@
+#defaultView:Graph
+SELECT ?software ?softwareLabel ?field ?fieldLabel {
+  { ?software wdt:P31/wdt:P279* wd:Q5500964. }
+  UNION 
+  { ?software wdt:P275/wdt:P279* wd:Q1156659. }
+  ?software wdt:P101|wdt:P136|wdt:P366 ?field.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+}

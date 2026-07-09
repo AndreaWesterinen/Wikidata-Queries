@@ -1,0 +1,15 @@
+#Skipsregistreringer etter verft
+#defaultView:BubbleChart
+SELECT ?verft ?verftLabel ?bruttoregistertonntotal WHERE {
+  {
+    SELECT ?verft (SUM(?bruttoregistertonn) AS ?bruttoregistertonntotal) WHERE {
+      ?city wdt:P176 ?verft.
+      ?city wdt:P1093 ?bruttoregistertonn.
+    }
+    GROUP BY ?verft
+  }
+  OPTIONAL { ?verft wdt:P17 ?land. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}
+ORDER BY DESC(?bruttoregistertonntotal)
+LIMIT 100

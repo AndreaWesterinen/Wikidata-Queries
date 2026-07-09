@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P2526]]
+# Items that do have [[d:Q1568567|national historic site of Canada <small>(Q1568567)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P2526|National Historic Sites of Canada ID&#32;<small dir="ltr">(P2526)</small>]]
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q1568567 } . ?item wdt:P1435 ?value . MINUS { ?item wdt:P2526 [] } } LIMIT 1000

@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(?sitelink) AS $slcnt) WHERE {
+  ?item wdt:P5008 wd:Q66098665 .
+  FILTER NOT EXISTS { ?item wdt:P2094 ?dummy0 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q2312410 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q57733325 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q57733494 }
+  FILTER NOT EXISTS { ?item wdt:P1269  ?dummy0 }
+  OPTIONAL { ?sitelink schema:about ?item . }
+} 
+GROUP BY(?item) ORDER BY DESC(?slcnt) LIMIT 8000

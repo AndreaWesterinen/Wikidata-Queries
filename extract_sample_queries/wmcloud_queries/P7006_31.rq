@@ -1,0 +1,4 @@
+#title: BIC of the Canary Islands with a wrong administrative territorial entity location
+# Complex constraint from [[Property talk:P7006]]
+# BIC with [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]], but without a location in the Canary Islands
+SELECT ?item WHERE { ?item wdt:P1435 wd:Q23712 . ?item wdt:P131* wd:Q5813 }

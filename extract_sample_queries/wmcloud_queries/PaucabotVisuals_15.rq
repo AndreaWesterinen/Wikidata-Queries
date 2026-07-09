@@ -1,0 +1,10 @@
+#Polítics balears per partit
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (COUNT(*) AS ?count) WHERE {
+  ?balears (wdt:P19/wdt:P131*) wd:Q5765.
+  ?balears wdt:P102 ?name.
+  ?balears wdt:P106 wd:Q82955.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca". }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

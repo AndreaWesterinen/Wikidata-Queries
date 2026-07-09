@@ -1,0 +1,9 @@
+#title: Check format
+# Complex constraint from [[Property talk:P2364]]
+# (suggestion)
+SELECT ?item ?value ?serie {
+	?item wdt:P2364 ?value.
+    ?item wdt:P179 ?serie.
+    FILTER NOT EXISTS { ?item wdt:P179 wd:Q23043159 } # complex
+    FILTER NOT EXISTS { ?item wdt:P179 wd:Q23043149 } # O M G
+    FILTER(REGEX( STR( ?value ), "^(BFPDWLS

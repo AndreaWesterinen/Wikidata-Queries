@@ -1,3 +1,4 @@
+#title: Variant counts by predictor type
 #defaultView:BubbleChart
 SELECT ?propertyLabel (count(?prognostic_type) as ?counts)
 WHERE

@@ -1,0 +1,15 @@
+SELECT ?item ?sitelink ?wikipagina
+  WITH {
+   SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P6582 ?instrumentenmakerscode.
+  }
+} AS %results
+  WHERE {
+  INCLUDE %results.
+  OPTIONAL {
+  ?sitelink schema:about ?item .
+  ?sitelink schema:inLanguage ?lang .   
+  ?sitelink schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+  BIND(TRUE AS ?wikipagina)
+  }
+}

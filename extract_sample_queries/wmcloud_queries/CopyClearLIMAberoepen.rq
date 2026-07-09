@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?itemLabel ?articleEN ?articleNL WHERE {
+  {?item wdt:P279* wd:Q7016454.}
+  UNION
+  {  ?item wdt:P279* wd:Q22343406.}
+  UNION
+  {  ?item wdt:P279* wd:Q19850998.}
+  UNION
+  {  ?item wdt:P279* wd:Q2526255.}
+OPTIONAL {
+    ?articleNL schema:about ?item.
+    ?articleNL schema:isPartOf <https://nl.wikipedia.org/>.
+  }
+OPTIONAL {
+  ?articleEN schema:about ?item.
+   ?articleEN schema:isPartOf <https://en.wikipedia.org/>.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+}

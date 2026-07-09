@@ -1,0 +1,14 @@
+embed.html#SELECT DISTINCT ?month_int ?monthLabel (?day_int as ?d) ?world_dayLabel (?world_day as ?link) (GROUP_CONCAT(DISTINCT ?countryLabel; separator=", ") as ?countries) WHERE {
+{ SELECT ?month_int ?month ?day_int ?world_day ?country WHERE {
+?month wdt:P31 wd:Q47018901; wdt:P1545 ?month_ordinal.
+?day p:P361 [ps:P361 ?month; pq:P1545 ?day_ordinal ].
+ BIND(xsd:integer(?month_ordinal) AS ?month_int)
+ BIND(xsd:integer(?day_ordinal) AS ?day_int)
+VALUES ?type {wd:Q2558684 wd:Q422695} # World ___ day; Awareness day 
+?world_day wdt:P31 ?type; wdt:P837 ?day
+OPTIONAL {?world_day wdt:P17 ?country} 
+}  }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+      ?month rdfs:label ?monthLabel. ?world_day rdfs:label ?world_dayLabel. ?country rdfs:label ?countryLabel }
+} GROUP BY ?month_int ?monthLabel ?day_int ?world_dayLabel ?world_day
+ORDER BY ?month_int ?d

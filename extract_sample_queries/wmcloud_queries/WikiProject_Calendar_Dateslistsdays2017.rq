@@ -1,0 +1,1 @@
+SELECT ?item ?sl ?st { ?item wdt:P31 wd:Q47150325 ; wdt:P585 ?d . FILTER(YEAR(?d)=2017) . OPTIONAL { ?item wikibase:sitelinks ?sl ; wikibase:statements ?st }    }

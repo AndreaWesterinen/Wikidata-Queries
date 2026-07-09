@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?img ?date ?layerLabel ?coor
+{
+	?item wdt:P31 wd:Q39715 ; wdt:P625 ?coor .
+	?item p:P793 [ ps:P793 wd:Q3276328 ; pq:P585 ?date ]
+    OPTIONAL { ?item wdt:P18 ?img }
+    OPTIONAL { ?item wdt:P17 ?layer }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }  
+}
+ORDER BY ASC(?date)

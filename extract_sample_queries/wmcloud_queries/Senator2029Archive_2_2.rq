@@ -1,0 +1,11 @@
+#Biologists with example accounts
+SELECT DISTINCT ?personLabel (CONCAT("https://example.com/",?exampleName) AS ?examplelink) ?pic
+WHERE {
+  ?person wdt:P2002 ?exampleName ;
+    wdt:P106 ?occupation .
+  OPTIONAL { ?person wdt:P18 ?pic . }
+  ?occupation wdt:P279* wd:Q864503 . # all subclasses of biologists
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en"
+   }
+}

@@ -1,0 +1,51 @@
+SELECT DISTINCT (STRAFTER(STR(?osoby), '/entity/') as ?oo) 
+  (IF(?rel = "P27" && ?_od < 1569, "", ?rel) AS ?_rel) 
+  (IF(?rel = "P39", "Q28934332", IF(?_od >= 1569 && ?rel = "P27", "Q172107", IF(?rel = "P21", "Q6581097" ,""))) AS ?ff) 
+  (IF(?rel = "P39", "P2937", "") AS ?qual) 
+  (IF(?rel = "P39", STRAFTER(STR(?z), '/entity/'), "") as ?kad) ("S143" AS ?s143) ("Q1551807" AS ?source)
+{
+  {SELECT * {
+  hint:Query hint:optimizer "None".
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Pos%C5%82owie_na_Sejm_I_Rzeczypospolitej> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 5 .
+  }}
+  
+  ?out schema:name ?nk.
+  ?out schema:about ?kat.
+
+  ?kat wdt:P971 ?z.
+
+  ?z p:P31 ?jz.
+  ?jz ps:P31 wd:Q15238777;
+      pq:P642 wd:Q2660626.
+  ?z wdt:P580 ?od.
+  
+  ?link schema:about ?kat;
+    schema:isPartOf <https://pl.wikipedia.org/>;
+    schema:name ?t.
+ 
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:api "Generator" .     
+     bd:serviceParam wikibase:endpoint "pl.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle ?t .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+     bd:serviceParam mwapi:gcmtype "page" .
+     ?osoby wikibase:apiOutputItem mwapi:item.
+  }
+  
+  FILTER(NOT EXISTS{
+           ?osoby p:P39 ?fp.       
+           ?fp ps:P39 wd:Q28934332;
+              pq:P2937 ?z.
+  })
+  BIND(YEAR(?od) AS ?_od)
+  }}
+
+  VALUES (?rel) {("P27") ("P39") ("P21")}
+}

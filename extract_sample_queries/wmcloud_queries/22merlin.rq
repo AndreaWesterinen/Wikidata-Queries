@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+  ?item wikibase:statements 0; wikibase:sitelinks 1 .
+ 
+   FILTER EXISTS {
+    ?article schema:about ?item .
+    ?article schema:isPartOf <https://pl.wikipedia.org/>
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "pl" }
+}
+ORDER BY ?item
+limit 50

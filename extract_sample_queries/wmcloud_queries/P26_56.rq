@@ -1,0 +1,2 @@
+#title:Add inverse statements from P26
+SELECT DISTINCT ?item WHERE { ?item p:P26/ps:P26 ?item2 . MINUS { ?item2 p:P26/ps:P26/owl:sameAs? ?item } . ?item2 wdt:P40/^wdt:P40 ?item; wdt:P21/wdt:P461/^wdt:P21 ?item .}

@@ -1,0 +1,16 @@
+# URLs where works by given ?author are described
+SELECT distinct ?work ?workLabel ?workDescription
+?authorLabel 
+?describedAtURL
+
+WHERE
+{
+  BIND(wd:Q2677204 as ?author) . 
+  BIND(wd:Q2677204 as ?translator) . 
+  {?work wdt:P50 ?author} UNION {?work wdt:P655 ?translator}.
+  OPTIONAL {?work wdt:P973 ?describedAtURL.}
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl". 
+  }
+} ORDER BY ASC (?work )

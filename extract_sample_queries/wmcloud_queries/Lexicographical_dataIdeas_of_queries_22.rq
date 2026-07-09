@@ -1,0 +1,6 @@
+embed.html#SELECT ?l ?language ?languageLabel WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?language .
+  MINUS { ?language wdt:P31/wdt:P279* wd:Q17376908 }
+  MINUS { ?language wdt:P31/wdt:P279* wd:Q2001982 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

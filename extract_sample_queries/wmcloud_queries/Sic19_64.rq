@@ -1,0 +1,42 @@
+SELECT ?count ?description
+WHERE {
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P496 [].} } BIND("ORCID" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P6782 [].} } BIND("ROR" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P2427 [].} } BIND("GRID" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P3500 [].} } BIND("Ringgold" AS ?d)} UNION  
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P213 [].} } BIND("ISNI" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P356 [].} } BIND("DOI" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P236 []} } BIND("ISSN" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P957 []} } BIND("ISBN10" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P212 []} } BIND("ISBN13" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P698 []} } BIND("PubMed ID" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P818 []} } BIND("arXiv ID" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P932 []} } BIND("PubMed Central ID" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P106 wd:Q1650915.} } BIND("Researcher (occupation)" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P106 wd:Q3400985.} } BIND("Academic (occupation)" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P106 wd:Q1607826.} } BIND("Editor (occupation)" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P108 [].} } BIND("Employer" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P69 []} } BIND("Educated at" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P1416 []} } BIND("Affiliation" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P123 [].} } BIND("Published work (publisher)" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P577 [].} } BIND("Published work (publication date)" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P1026 [].} } BIND("Doctoral thesis" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P31 wd:Q13442814.} } BIND("Scholarly article" AS ?d)} UNION  
+#{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P31/wdt:P279* wd:Q13442814.} } BIND("Scholarly article (+ subclasses)" AS ?d)} UNION  
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P31 wd:Q3331189.} } BIND("Edition" AS ?d)} UNION 
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P31 wd:Q47461344.} } BIND("Work" AS ?d)} UNION   
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P800 [].} } BIND("Notable work" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P184 [].} } BIND("Supervisor" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P802 [].} } BIND("Student" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P1066 [].} } BIND("Teacher" AS ?d)} UNION  
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P50 [].} } BIND("Author" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P2093 []} } BIND("Author name string" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P98 [].} } BIND("Editor" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P2860 []} } BIND("Citation" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P859 []} } BIND("Sponsor (i.e. funder)" AS ?d)} UNION
+{ {SELECT (COUNT(*) AS ?c) WHERE {[] wdt:P1433 [].} } BIND("Published in" AS ?d)}
+ 
+BIND (?c AS ?count)
+BIND (?d AS ?description)
+}
+ORDER BY DESC(?c)

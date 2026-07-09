@@ -1,0 +1,13 @@
+#defaultView:ImageGrid
+SELECT ?painting ?paintingLabel ?paintingImage
+WHERE
+{
+	?painting wdt:P31/wdt:P279* wd:Q3305213 .
+	?painting wdt:P180 wd:Q1367 .
+    ?painting wdt:P18 ?paintingImage .
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "fi, en".
+        ?painting rdfs:label ?paintingLabel.
+	} 
+}
+LIMIT 100

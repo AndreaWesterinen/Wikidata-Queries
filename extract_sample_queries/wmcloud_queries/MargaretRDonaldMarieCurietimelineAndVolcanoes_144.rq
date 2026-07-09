@@ -1,0 +1,12 @@
+# articles in Nuytsia
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?volume WHERE {
+  ?item wdt:P31 wd:Q13442814 ;         # is a scholarly article
+    wdt:P478  ?volume;                 # volume
+    wdt:P1433 wd:Q2005798.             # in Nuytsia
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?volume
+ LIMIT 4000    

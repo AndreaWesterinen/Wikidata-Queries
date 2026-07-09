@@ -1,0 +1,2 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P69 ?edu . VALUES ?edu { wd:Q309350 wd:Q6806876 } .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }.}

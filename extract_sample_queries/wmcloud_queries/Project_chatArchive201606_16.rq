@@ -1,0 +1,11 @@
+SELECT ?championship ?championshipLabel ?start ?end ?participants ?matches ?goals ?winnerLabel WHERE {
+  ?championship wdt:P31 ?instance . VALUES ?instance {wd:Q178750} .
+  OPTIONAL {?championship wdt:P580 ?start}
+  OPTIONAL {?championship wdt:P582 ?end}
+  OPTIONAL {?championship wdt:P1132 ?participants}
+  OPTIONAL {?championship wdt:P1350 ?matches}
+  OPTIONAL {?championship wdt:P1351 ?goals}
+  OPTIONAL {?championship wdt:P1346 ?winner}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+}
+ORDER BY DESC(?instance) ?start

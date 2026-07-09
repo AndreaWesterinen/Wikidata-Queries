@@ -1,0 +1,23 @@
+SELECT DISTINCT ?section ?sectionLabel ?item ?itemLabel ?sl ?enwiki ?cywiki ?itemDescription ?p31Label ?namedLabel ?p131Label ?p17Label ?coor 
+{
+    BIND(  wd:Q179404 as ?dab) 
+    ?dab rdfs:label ?l . 
+    FILTER(lang(?l) = "en") 
+    { ?item rdfs:label ?l } UNION { ?item skos:altLabel ?l } . 
+    OPTIONAL { ?item wdt:P17 ?p17 } 
+    OPTIONAL { ?item wdt:P131 ?p131 } 
+    OPTIONAL { ?item wdt:P138 ?named } 
+    OPTIONAL { ?item wdt:P625 ?coor } 
+    OPTIONAL { ?item wdt:P31 ?p31 } 
+    BIND( IF ( ?p31 = wd:Q5, wd:Q5, 
+          IF( BOUND(?coor) , 
+          IF( BOUND(?p17) , ?p17 , wd:Q12753000) ,
+             wd:Q55107540 ) 
+             )
+         as ?section)
+    OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> .  BIND("y" as ?enwiki) }
+    OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://cy.wikipedia.org/> .  BIND("y" as ?cywiki) }
+    OPTIONAL { ?item wikibase:sitelinks ?sl  } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}  
+ORDER BY DESC(BOUND( ?section)) DESC(?section = wd:Q5) DESC(BOUND( ?p17))  ?sectionLabel DESC(?sl)

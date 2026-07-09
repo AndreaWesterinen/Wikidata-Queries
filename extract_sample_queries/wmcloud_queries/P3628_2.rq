@@ -1,0 +1,10 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel ?count ?sample
+{
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (SAMPLE(?value) AS ?sample) {
+			?item wdt:P3628 ?value .
+		} GROUP BY ?item
+	} .
+	FILTER(?count > 1) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+} ORDER BY DESC(?count) LIMIT 1000

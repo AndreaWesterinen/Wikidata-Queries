@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P195 ?collection .
+  ?collection wdt:P17 wd:Q55
+  MINUS { ?item p:P170 [] } .
+  #MINUS { ?item wdt:P195 wd:Q18600731 . MINUS {?item wdt:P195 wd:Q28045665 } } . # RCE is too big, but do want SNK
+  OPTIONAL { ?item schema:description ?description .  FILTER (LANG(?description) = "en") }
+  } ORDER BY ?description

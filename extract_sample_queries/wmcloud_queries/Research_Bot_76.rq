@@ -1,0 +1,24 @@
+PREFIX target: <http://www.wikidata.org/prop/direct/P1104>
+
+SELECT DISTINCT ?item
+#   (REPLACE(STR(?item), ".*Q", "-Q") AS ?qid) 
+#   ("P921" AS ?property)
+#   ("Q4115189" AS ?ReplaceWithYourTargetID)
+#   ?count
+WITH {
+  SELECT (COUNT(?o) AS ?count) ?item WHERE {
+    ?item target: ?o .
+    ?item wdt:P304 ?pages .
+    FILTER (!REGEX(?pages, "-"))
+    ?item wdt:P6104 wd:Q56241615 .
+  }
+  GROUP BY ?item
+#   HAVING (?count > 1)
+  ORDER BY DESC(?count)
+#   LIMIT 1000
+} AS %result
+WHERE {
+  INCLUDE %result
+  FILTER (?count > 1)
+}
+# ORDER BY DESC(?count)

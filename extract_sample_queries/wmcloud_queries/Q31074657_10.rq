@@ -1,0 +1,9 @@
+#title: Cims amb valors importats que ja estan referenciats
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?stat ?ref2 where {
+  ?stat prov:wasDerivedFrom ?ref1 .
+  ?stat prov:wasDerivedFrom ?ref2 .
+  ?ref1 pr:P248 wd:Q31074657 .
+  ?ref2 pr:P143 [] .
+}

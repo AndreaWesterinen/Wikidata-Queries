@@ -1,0 +1,8 @@
+SELECT ?item ?lang (CONCAT("{","{subst:Urltowiki\u007Curl=", str(?sitelink), "}","}") As ?wp) (strafter(str(?langitem1), "y/") as ?langitem)
+{
+	?sitelink schema:about wd:Q21686779 .
+	?sitelink schema:isPartOf ?wpurl .
+	?item wdt:P856 ?wpurl .
+	?item wdt:P407 ?langitem1 .
+	?sitelink schema:inLanguage ?lang .
+}

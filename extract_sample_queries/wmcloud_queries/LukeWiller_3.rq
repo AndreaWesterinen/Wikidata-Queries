@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?geonameID ?located_inLabel ?countryLabel where {
+  ?item wdt:P31 wd:Q22698.
+  ?article schema:about ?item ; schema:isPartOf <https://ceb.wikipedia.org/> .
+  ?item wdt:P1566 ?geonameID.
+  optional {?item wdt:P131 ?located_in.}
+  optional {?item wdt:P17 ?country.}    # show country if the item has one
+  ?item wdt:P17 wd:Q38.                 #item must have country=Italy - remove this line to see all items irrespective of country (or lack of country)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by ?geonameID

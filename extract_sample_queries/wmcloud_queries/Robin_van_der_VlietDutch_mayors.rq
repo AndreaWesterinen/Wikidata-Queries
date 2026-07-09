@@ -1,0 +1,8 @@
+SELECT ?item ?municipality ?mayor ?birthdate ?starttime ?endtime WHERE {
+  ?municipality wdt:P31 wd:Q2039348;
+    p:P6 ?statement.
+  ?statement ps:P6 ?item.
+  OPTIONAL { ?statement pq:P580 ?starttime. }
+  OPTIONAL { ?statement pq:P582 ?endtime. }
+}
+ORDER BY ?starttime

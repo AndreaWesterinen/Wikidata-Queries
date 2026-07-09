@@ -1,0 +1,8 @@
+#defaultView:BubbleChart
+SELECT ?countryLabel (COUNT(?item) AS ?count)
+WHERE
+{
+	?item wdt:P31/wdt:P279* wd:Q2088357 ; wdt:P136/wdt:P279* wd:Q38848 ; wdt:P495 ?country .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?countryLabel

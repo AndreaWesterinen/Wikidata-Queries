@@ -1,0 +1,7 @@
+SELECT ?item ?taxonName ?sitelink WHERE {
+	?item wdt:P225 ?taxonName .
+    ?item wdt:P105 wd:Q7432 . # species
+    ?sitelink schema:about ?item .
+    ?sitelink schema:inLanguage "am" .
+}
+ORDER BY ASC(?taxonName)

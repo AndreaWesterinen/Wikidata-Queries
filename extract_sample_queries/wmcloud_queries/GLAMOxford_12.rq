@@ -1,0 +1,4 @@
+SELECT (SUM(?count) as ?total) WHERE {
+?q wdt:P195 wd:Q1456119; wdt:P953 ?url.
+?q wikibase:statements ?count.
+}

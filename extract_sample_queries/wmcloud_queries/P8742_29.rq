@@ -1,0 +1,8 @@
+#title: Honorary citizenships in Hungary without ID
+# Complex constraint from [[Property talk:P8742]]
+# Todo: Add ID if available
+SELECT ?item
+{
+	?item wdt:P279 wd:Q987080 ; wdt:P17 wd:Q28 .
+    MINUS { ?item wdt:P8742 [] }
+}

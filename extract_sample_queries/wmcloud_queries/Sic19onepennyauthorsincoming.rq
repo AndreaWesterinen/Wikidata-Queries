@@ -1,0 +1,20 @@
+SELECT ?item ?prop ?propLink ?item_count ?from_count WHERE {
+    {
+        SELECT ?prop (COUNT(DISTINCT ?item) AS ?item_count) (COUNT(DISTINCT ?from) AS ?from_count) WHERE {
+           
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P9619 [] .
+           ?from ?p ?item .
+           ?prop wikibase:directClaim ?p .
+
+        }  GROUP BY ?prop
+    }
+
+           
+    ?prop rdfs:label ?prop_label . FILTER(lang(?prop_label) = 'en') .
+    BIND(STRAFTER(STR(?prop), 'P') AS ?propno) .
+    BIND(CONCAT('[[:d:Property:P', ?propno, '|', STR(?prop_label), ']]') AS ?propLink) .
+    BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?propno)) AS ?item) .  # dummy
+   
+
+} ORDER BY DESC (?item_count) DESC (?from_count) ?prop

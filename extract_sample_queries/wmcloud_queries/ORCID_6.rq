@@ -1,0 +1,8 @@
+#ORCID iD holders who have an article on German Wikipedia
+SELECT ?sitelink ?itemLabel ?orcid WHERE {
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P496 ?orcid.
+ ?sitelink schema:isPartOf <https://de.wikipedia.org/>;
+ schema:about ?item;
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+} ORDER BY ?itemLabel

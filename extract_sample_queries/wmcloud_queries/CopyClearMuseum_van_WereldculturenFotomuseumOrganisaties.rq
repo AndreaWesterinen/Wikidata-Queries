@@ -1,0 +1,8 @@
+#organisaties
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P7837 ?ID .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+  MINUS {  ?item wdt:P31 wd:Q5.}
+}

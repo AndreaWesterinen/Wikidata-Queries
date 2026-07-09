@@ -1,0 +1,11 @@
+SELECT ?class ?classLabel
+WHERE {
+  {
+    SELECT DISTINCT ?class
+    WHERE
+    {
+      wd:Q191701 wdt:P279*/wdt:P31/wdt:P279* ?class.
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,3 +1,4 @@
+#title: Longest river of each continent
 SELECT ?continent ?river ?continentLabel ?riverLabel ?maxlength
 WHERE
 {

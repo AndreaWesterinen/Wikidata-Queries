@@ -1,0 +1,6 @@
+SELECT ?application ?applicationLabel ?modeLabel WHERE {
+  ?application (wdt:P31/wdt:P279*) wd:Q7889.
+  ?application wdt:P1434 wd:Q3551295.
+  OPTIONAL {?application wdt:P404 ?mode}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

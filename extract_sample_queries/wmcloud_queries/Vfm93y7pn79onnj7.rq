@@ -1,0 +1,14 @@
+SELECT ?item ?l1 ?l5 ?ls 
+WITH
+{
+  SELECT ?item { ?item wdt:P31 wd:Q101352 } ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),33)))   LIMIT 30000
+}  AS <95>0AWITH
+{
+  SELECT ?item (COUNT(?l) as ?ls) (SAMPLE(?l) as ?l1)  {  
+  INCLUDE <95>0A    ?item schema:description ?l } GROUP BY ?item HAVING( ?ls < 10) 
+}  as <a5>20
+WHERE
+{ 
+  INCLUDE <a5>0A  OPTIONAL { ?item rdfs:label ?l5 . FILTER(lang(?l5)="en") }           
+} 
+ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),33)))

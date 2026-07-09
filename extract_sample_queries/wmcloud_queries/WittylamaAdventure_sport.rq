@@ -1,0 +1,9 @@
+#Ski resorts without a SkirResort.info ID Property yet
+SELECT ?linkcount ?item ?itemLabel ?countryLabel WHERE {
+  ?item wdt:P31 wd:Q130003.
+  OPTIONAL { ?item wdt:P17 ?country. }
+  MINUS { ?item wdt:P6389 ?skiresort. }
+  OPTIONAL { ?item wikibase:sitelinks ?linkcount. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?linkcount)

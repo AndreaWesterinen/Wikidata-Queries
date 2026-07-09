@@ -1,0 +1,1 @@
+SELECT ?item WHERE { { ?item wdt:P31 wd:Q43501 . } UNION { ?item wdt:P31 wd:Q2281788 . } }  LIMIT 4000

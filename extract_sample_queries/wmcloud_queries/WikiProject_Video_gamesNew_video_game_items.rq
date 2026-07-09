@@ -1,0 +1,75 @@
+SELECT ?item ?qid ?sitelinks ?identifiers
+WITH {
+  SELECT ?item ?qid WHERE {
+    VALUES ?gametype {
+      wd:Q7889
+      wd:Q16070115
+      wd:Q7058673
+      wd:Q209163
+      wd:Q16070115
+      wd:Q4393107
+      wd:Q1066707
+      wd:Q56196027
+      wd:Q865493
+      wd:Q7094106 
+      wd:Q55632755
+      wd:Q56191369
+      wd:Q56196027
+      wd:Q60997816
+      wd:1755420
+      wd:Q61448957
+      wd:Q61449115
+      wd:Q61475894
+      wd:Q61475894
+      wd:Q63035828
+      wd:Q848991
+      wd:Q62707668
+      wd:Q61456428
+      wd:Q63248180
+      wd:Q65963104 
+      wd:Q78788577
+      wd:Q96240590
+      wd:Q64170203
+    }
+    ?item wdt:P31 ?gametype.
+    BIND(xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid)
+  }
+  ORDER BY DESC(?qid)
+  LIMIT 200
+} AS %items
+WITH {
+  SELECT ?item (GROUP_CONCAT(?sitelink) as ?sitelinks) WHERE {
+    INCLUDE %items.
+    OPTIONAL { 
+      ?article a schema:Article;
+               schema:about ?item;
+               schema:inLanguage ?language. 
+      BIND(CONCAT("[", STR(?article), " ", ?language, "]") AS ?sitelink)
+    }
+  }
+  GROUP BY ?item
+} AS %itemsWithSitelinks
+WITH {
+  SELECT ?item (GROUP_CONCAT(?identifier) as ?identifiers) WHERE {
+    INCLUDE %items.
+    OPTIONAL {
+      ?property a wikibase:Property;
+                wdt:P31/wdt:P279* wd:Q28147643;
+                wikibase:propertyType wikibase:ExternalId;
+                wdt:P1630 ?formatterUrl;
+                wikibase:directClaim ?wdt;
+                rdfs:label ?propertyLabel.
+      FILTER(LANG(?propertyLabel) = "en")
+      MINUS { ?property wdt:P1629 wd:Q64521795 } .
+      ?item ?wdt ?id.
+      BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterUrl)) AS ?url)
+      BIND(CONCAT("[", STR(?url), " ", ?propertyLabel, "]") AS ?identifier)
+    }
+  }
+  GROUP BY ?item
+} AS %itemsWithExternalIdentifiers
+WHERE {
+  INCLUDE %items.
+  INCLUDE %itemsWithSitelinks.
+  INCLUDE %itemsWithExternalIdentifiers.
+} ORDER BY DESC(?qid)

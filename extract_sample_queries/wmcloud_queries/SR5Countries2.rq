@@ -1,0 +1,10 @@
+SELECT ?item ?P6 ?P1313 ?P1308 ?P39 ?image WHERE {
+  ?item wdt:P463 wd:Q1065.
+    ?item wdt:P6 ?P6.
+    ?item wdt:P1313 ?P1313.
+  OPTIONAL { ?P1313 wdt:P1308 ?P1308. }
+  OPTIONAL { ?P6 wdt:P39 ?P39. }
+  OPTIONAL { ?P6 wdt:P18 ?image. }
+}
+ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))
+LIMIT 500

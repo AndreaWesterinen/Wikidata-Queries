@@ -1,0 +1,16 @@
+#defaultView:Map
+SELECT ?placeInAmerica ?placeInEngland ?americaName ?englandName ?americaLocation
+WHERE
+{
+  ?placeInAmerica wdt:P31/wdt:P279* wd:Q1496967;
+                  wdt:P17 wd:Q30;
+                  wdt:P138 ?placeInEngland;
+                  wdt:P625 ?americaLocation.
+  ?placeInEngland wdt:P31/wdt:P279* wd:Q1496967;
+                  wdt:P17 wd:Q145.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?placeInAmerica rdfs:label ?americaName.
+    ?placeInEngland rdfs:label ?englandName.
+  }
+}

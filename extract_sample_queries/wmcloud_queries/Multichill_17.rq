@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?startdate ?enddate ?election ?electiondate ?electionLabel WHERE {
+  ?election wdt:P31 wd:Q14509381 .
+  ?election wdt:P585 ?electiondate .
+  ?election wdt:P156 ?nextelection .
+  ?nextelection wdt:P31 wd:Q14509381 .
+  ?nextelection wdt:P585 ?nextelectiondate .
+  ?item p:P39 ?positionstatement .
+     ?item wdt:P569 ?dob .
+  ?positionstatement ps:P39 wd:Q18887908 .
+  ?positionstatement pq:P580 ?startdate .
+  ?positionstatement pq:P582 ?enddate  .
+  MINUS { ?positionstatement pq:P2715 ?election } .
+  FILTER(?startdate < ?nextelectiondate && ?enddate > ?electiondate ) .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }     
+  } ORDER BY DESC(?dob) ?startdate ?electionLabel LIMIT 2000

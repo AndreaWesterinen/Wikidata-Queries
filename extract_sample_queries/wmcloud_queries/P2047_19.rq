@@ -1,0 +1,11 @@
+#title: Check units
+# Complex constraint from [[Property talk:P2047]]
+# Unit must to be a [[d:Q1790144|unit of time <small>(Q1790144)</small>]]
+SELECT ?item ?unit
+WHERE {
+  ?item p:P2047/psv:P2047/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P31 wd:Q1790144.
+  }.
+  FILTER (?unit NOT IN (wd:Q3240892)).
+}

@@ -1,0 +1,12 @@
+# Lexemes in English that match an expression with picture fetched from the concept Q-item
+#defaultView:ImageGrid
+select ?lexemeId ?lemma ?q_concept ?picture 
+WHERE {
+  ?lexemeId <http://purl.org/dc/terms/language> wd:Q1860;
+            wikibase:lemma ?lemma;
+            ontolex:sense ?sense.
+  ?sense wdt:P5137 ?q_concept.
+  ?q_concept wdt:P18 ?picture.
+  # only those lemmas that begin with "pota", i.e. "potato"
+  FILTER (regex(?lemma, '^pota.*'))
+}

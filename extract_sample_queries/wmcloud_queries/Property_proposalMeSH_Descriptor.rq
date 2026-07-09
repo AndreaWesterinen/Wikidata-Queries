@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value
+{
+	?item wdt:P486 ?value .
+  filter(strstarts(?value,"M"))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}
+LIMIT 100

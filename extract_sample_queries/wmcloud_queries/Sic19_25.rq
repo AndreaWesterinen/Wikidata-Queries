@@ -1,0 +1,9 @@
+embed.html##defaultView:Graph
+SELECT ?image ?x ?xLabel ?pub ?pubLabel ?place (concat("FF0000") as ?rgb) ?placeLabel ?ed ?edLabel ?coord WHERE {
+  { ?x wdt:P361 wd:Q2603503. }
+  UNION
+  { ?x wdt:P361 wd:Q16964319. }
+  OPTIONAL { ?x wdt:P123 ?pub. }
+  ?x wdt:P291 ?place.   ?place wdt:P625 ?coord .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

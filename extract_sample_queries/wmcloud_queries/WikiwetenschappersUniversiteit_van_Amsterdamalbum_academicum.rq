@@ -1,0 +1,3 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P6815 ?albumid
+}

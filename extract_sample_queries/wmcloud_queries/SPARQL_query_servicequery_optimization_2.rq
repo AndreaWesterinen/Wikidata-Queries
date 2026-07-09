@@ -1,0 +1,19 @@
+bigdata/namespace/wdq/sparql?explain&query=PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix prov: <http://www.w3.org/ns/prov#> prefix pr: <http://www.wikidata.org/prop/reference/>
+
+SELECT ?statement ?subject ?subjectLabel ?property ?propertyLabel ?object ?objectLabel ?refURL WHERE {
+  hint:Query hint:optimizer "Runtime" .
+  ?statement prov:wasDerivedFrom ?ref .
+  ?ref pr:P854 ?refURL 
+  FILTER (CONTAINS(str(?refURL),'lefigaro.fr')) .
+  ?subject ?p ?statement .
+  ?property wikibase:claim ?p .
+  ?property wikibase:statementProperty ?ps .
+  ?statement ?ps ?object
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

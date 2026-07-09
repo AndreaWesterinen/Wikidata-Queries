@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item 
+WHERE {
+      ?item p:P10674 ?statement0.
+      ?statement0 ps:P10674 _:anyValueP10674.
+    }
+
+  LIMIT 2500

@@ -1,0 +1,4 @@
+#title: Human without occupation (P106)
+# Complex constraint from [[Property talk:P1447]]
+# Q5 without occupation (P106)
+SELECT DISTINCT ?item WHERE { ?item wdt:P1447 ?id; wdt:P31 wd:Q5 FILTER NOT EXISTS { ?item wdt:P106 [] } } ORDER BY ASC(xsd:integer(STRAFTER(STR(?item), 'Q')))

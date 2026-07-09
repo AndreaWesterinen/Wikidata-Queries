@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?astronautLabel ?timeinspace ?coordinates WHERE {
+   ?astronaut wdt:P31 wd:Q5 ;
+              wdt:P19 ?birthPlace ;
+         wdt:P2873 ?timeinspace .
+  ?birthPlace wdt:P625 ?coordinates .
+  FILTER (?timeinspace >0) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

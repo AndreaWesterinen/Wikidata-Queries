@@ -1,0 +1,9 @@
+#title: Second claim and unspecific
+# Complex constraint from [[Property talk:P31]]
+# is most cases unspecific could be replaced with specific variant
+SELECT ?item WHERE {
+  ?item wdt:P31 ?claim1.
+  ?item wdt:P31 ?claim2.
+  FILTER(?claim1 = wd:Q95074)
+  FILTER(?claim1 != ?claim2)
+}

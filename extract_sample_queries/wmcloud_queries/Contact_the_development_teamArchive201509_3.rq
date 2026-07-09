@@ -1,0 +1,16 @@
+prefix wdno: <http://www.wikidata.org/prop/novalue/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+
+SELECT ?name ?governor ?residence
+ WHERE {
+   ?governor wdt:P279 wd:Q889821 .
+   ?governor a wdno:P263 .
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?governor rdfs:label ?name
+   }
+}

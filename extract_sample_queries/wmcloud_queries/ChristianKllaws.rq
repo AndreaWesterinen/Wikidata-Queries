@@ -1,0 +1,9 @@
+SELECT ?item ?pl ?date ?short ?itemLabel (CONCAT("Public Law ",?pl, ". ", STRBEFORE(?stat,"-"), " Stat ", STRAFTER(?stat,"-"),".") as ?text) 
+WHERE {
+  ?item wdt:P3825 ?stat .
+  ?item wdt:P3837 ?pl .
+  OPTIONAL { ?item wdt:P585 ?date . }
+  OPTIONAL { ?item wdt:P1813 ?short . }
+  FILTER (CONTAINS(?pl, '116-')) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}

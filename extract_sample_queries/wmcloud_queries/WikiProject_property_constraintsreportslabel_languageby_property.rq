@@ -1,0 +1,21 @@
+SELECT
+  ?item ?pid
+  (COUNT(DISTINCT ?lang) as ?count)
+  (GROUP_CONCAT(?lang) as ?langs)
+WITH {
+  SELECT DISTINCT ?item ?pred ?lang
+  WHERE {
+    ?cst a wikibase:BestRank ;
+      ps:P2302 wd:Q108139345 ;
+      pq:P424 ?lang .
+    ?item p:P2302 ?cst ;
+      wikibase:directClaim ?pred .
+  }
+} AS %i
+WHERE
+{
+  INCLUDE %i
+  BIND(substr(str(?item), 33) as ?pid)
+}
+GROUP BY ?item ?pid
+ORDER BY DESC(?count) ?lang

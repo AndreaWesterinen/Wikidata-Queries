@@ -1,0 +1,4 @@
+#title: People, who died before launching ORCID
+# Complex constraint from [[Property talk:P496]]
+# ORCID launched its registry services and started issuing user identifiers on 16 October 2012. ORCID identifiers for people, who died before 2012 are usually locked or invalid.
+SELECT REDUCED ?item { ?item wdt:P496 [] . ?item wdt:P570 ?ddate . hint:Prior hint:rangeSafe true . FILTER(?ddate < "2012-01-01T00:00:00Z"^^xsd:dateTime) }

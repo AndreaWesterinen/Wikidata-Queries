@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P31 wd:Q21562164 . 
+  MINUS { ?entity wdt:P131+ ?grouping . FILTER EXISTS { ?grouping wdt:P31 wd:Q24698 } ?dummy ^wdt:P988 []; wdt:P31 wd:Q21562164  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

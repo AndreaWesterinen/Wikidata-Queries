@@ -1,0 +1,5 @@
+SELECT ?fictional_spacecraft ?fictional_spacecraftLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?fictional_spacecraft wdt:P31 wd:Q14637321.
+  ?fictional_spacecraft wdt:P1080 wd:Q18043309.
+}

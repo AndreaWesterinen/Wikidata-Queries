@@ -1,0 +1,15 @@
+#title: List of lexemes in French about occupation items with gender
+SELECT DISTINCT ?item ?itemLabel ?sense ?lexeme ?lemma ?genre ?genreLabel WHERE {
+  ?lexeme rdf:type ontolex:LexicalEntry;
+    dct:language wd:Q150;
+    wikibase:lemma ?lemma;
+    ontolex:sense ?sense;
+    wdt:P5185 ?genre.
+  ?sense wdt:P5137 ?item.
+  ?item (wdt:P31/(wdt:P279*)) wd:Q12737077;
+    rdfs:label ?itemLabel.
+  FILTER((LANG(?itemLabel)) = "fr")
+  ?genre rdfs:label ?genreLabel.
+  FILTER((LANG(?genreLabel)) = "fr")
+}
+ORDER BY (?item) (?lemma) (?genre)

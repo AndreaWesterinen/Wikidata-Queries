@@ -1,0 +1,7 @@
+SELECT ?item (GROUP_CONCAT(DISTINCT ?lang; SEPARATOR=", ") as ?langs) ?sitelinks ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q3241045; wdt:P361* wd:Q84055514; wikibase:sitelinks ?sitelinks.
+  ?sitelink schema:about ?item ; schema:isPartOf/wikibase:wikiGroup "wikipedia"; schema:inLanguage ?lang.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?sitelinks ?itemLabel
+ORDER BY DESC(?sitelinks)

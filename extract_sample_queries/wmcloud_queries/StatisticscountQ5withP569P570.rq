@@ -1,0 +1,6 @@
+SELECT (wd:Q5 as ?item) (COUNT(DISTINCT ?item2) as ?statcount)
+{
+  hint:Query hint:optimizer "Runtime" . 
+  hint:Query hint:maxParallel 50 .   
+  ?item2 wdt:P569 []; wdt:P570 []; wdt:P31 wd:Q5
+}

@@ -1,0 +1,9 @@
+# taxa with an article, with an AFD_pub_id which has no authors
+SELECT ?date ?item  ?itemLabel ?link WHERE {
+  ?item wdt:P6982 ?AFD_id.
+  optional {?item wdt:P577 ?date}
+  minus {?item wdt:P50 ?author.}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+    BIND (URI(CONCAT("https://biodiversity.org.au/afd/publication/",str(?AFD_id))) as ?link)
+    }
+ORDER BY ?date ?item ?itemLabel ?link

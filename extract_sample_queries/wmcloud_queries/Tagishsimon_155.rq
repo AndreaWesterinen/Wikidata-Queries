@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?constellationLabel  WITH {
+  SELECT ?item 
+WHERE 
+{
+   SERVICE bd:slice {
+          ?item wdt:P31 wd:Q1931185 .
+    bd:serviceParam bd:slice.offset 0 . # Start at item number (not to be confused with QID)
+    bd:serviceParam bd:slice.limit 100000 . # List this many items
+  }
+  FILTER NOT EXISTS { ?item schema:description ?description . filter(lang(?description)="en") }
+ } } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  MINUS {?item wdt:P31 ?type . filter(?type != wd:Q1931185) }
+  ?item wdt:P59 ?constellation.
+}

@@ -1,0 +1,16 @@
+# Awards/years for which a given ? author was a member of the jury
+SELECT DISTINCT ?author ?authorLabel ?s ?role ?roleLabel ?year ?award ?awardLabel ?awardDescription 
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)}
+  ?author p:P2868 ?s .
+  ?s ps:P2868 ?role.
+    FILTER(?role = wd:Q52008309) #only role=jurymember
+  OPTIONAL {?s pq:P585 ?year1
+    BIND(YEAR(?year1) AS ?year)}.
+  OPTIONAL {?s pq:P642 ?award}.
+    
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} ORDER BY ?year

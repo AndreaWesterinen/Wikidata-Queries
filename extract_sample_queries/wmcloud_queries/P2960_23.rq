@@ -1,0 +1,4 @@
+#title: Only on qualifiers and references
+# Complex constraint from [[Property talk:P2960]]
+# use this property only on qualifiers and references
+SELECT ?item { ?item p:P2960/ps:P2960 ?value }

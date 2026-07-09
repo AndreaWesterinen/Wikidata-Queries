@@ -1,0 +1,16 @@
+#by Jura1, 2016-05-04
+SELECT ?count ?datetime_precision_label ?datetime_precision
+{
+  {
+    SELECT ?datetime_precision (count(DISTINCT(?node)) as ?count)
+    {
+        ?node psv:P2669/wikibase:timePrecision ?datetime_precision
+    }
+    GROUP BY ?datetime_precision
+  }
+  ?item wdt:P2803 ?value
+  FILTER (?datetime_precision = ?value)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" . ?item rdfs:label ?datetime_precision_label  }
+}
+ORDER BY DESC(?count)
+LIMIT 10

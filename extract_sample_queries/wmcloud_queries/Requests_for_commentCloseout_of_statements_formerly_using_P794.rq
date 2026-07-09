@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?property ?propertyLabel ?value ?valueLabel ?qualifier ?qualifierLabel
+WHERE
+{
+  ?property wikibase:claim ?p .
+  ?qualifier wikibase:qualifier ?q .
+  ?item ?p ?prop . 
+  ?prop ?q wd:Q10578722 .
+  ?property wikibase:statementProperty ?ps .
+  ?prop ?ps ?value .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "yue,zh,en"  }    
+}
+ORDER BY ASC(?qualifierLabel) 
+LIMIT 1000

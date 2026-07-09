@@ -1,0 +1,20 @@
+#title: Quick check 2
+# Complex constraint from [[Property talk:P6126]]
+#
+SELECT ?item {
+  ?item wdt:P6126 [];
+        wdt:P31 wd:Q5.
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q191808 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q4504549 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q2566598 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q6498826 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q1234713 }
+  MINUS { ?item wdt:P140 [] }
+  MINUS { ?item wdt:P411 [] }
+  MINUS { ?item wdt:P841 [] }
+  MINUS { ?item wdt:P4286 [] }
+  MINUS { ?item wdt:P8366 [] }
+  MINUS { ?item wdt:P611 [] }
+  MINUS { ?item wdt:P1416 [] }
+  MINUS { ?item wdt:P39 [] }
+}

@@ -1,0 +1,34 @@
+SELECT *
+WHERE
+  {
+    {SELECT ('number of films' AS ?indicator) (count(DISTINCT ?item) AS ?count)
+    WHERE
+    {VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?item wdt:P31 ?filmtype}
+    }
+  UNION
+    {SELECT ('number of lost films' AS ?indicator) (count(DISTINCT ?item) AS ?count)
+    WHERE
+    {VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?item wdt:P31 ?filmtype . ?item wdt:P793 wd:Q1268687}
+    }
+
+ UNION  
+    {SELECT ('number of films with [[Wikidata:WikiProject_Movies/Properties#Core_properties|core properties]] (cast of 5 or more)' AS ?indicator) (count(DISTINCT ?item) AS ?count)
+  	WHERE
+      {SELECT ?item
+      WHERE
+      {
+          VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?item wdt:P31 ?filmtype .
+            ?item wdt:P1476 ?p1 .
+            ?item wdt:P577 ?p2 .
+            ?item wdt:P364 ?p3 .
+            ?item wdt:P136 ?p4 .
+            ?item wdt:P57 ?p5 .
+            ?item wdt:P161 ?p6 .
+            ?item wdt:P344 ?p7 .
+            ?item wdt:P58 ?p8
+		}
+      GROUP BY ?item
+      HAVING (COUNT(DISTINCT ?p6) >= 5)
+      }
+    }
+  }

@@ -1,0 +1,15 @@
+PREFIX schema: <http://schema.org/>
+
+SELECT ?item ?itemLabel ?professionLabel ?born WHERE {
+  ?item wdt:P21 wd:Q6581072.
+  ?item wdt:P106 ?profession.
+  ?profession wdt:P279* wd:Q3391743.
+  ?item wdt:P569 ?born .
+  FILTER (?born > "1900-01-01T00:00:00Z"^^xsd:dateTime) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en,fr,de". }
+  OPTIONAL {
+    ?wiki0 schema:about ?item.
+    ?wiki0 schema:isPartOf <https://nl.wikipedia.org/>.
+  }
+FILTER(!BOUND(?wiki0))
+}

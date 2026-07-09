@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT ?creator ?creatorLabel ?spouseLabel ?pic
+WHERE 
+{
+  ?art wdt:P180 ?spouse.
+  ?art wdt:P170 ?creator.
+  ?spouse wdt:P31 wd:Q5.
+  ?creator wdt:P26 ?spouse.
+  OPTIONAL { ?art wdt:P18 ?pic }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

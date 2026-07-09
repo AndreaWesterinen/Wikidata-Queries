@@ -1,0 +1,55 @@
+#Location P276
+# Unique value (?)
+# Can be empty ! (e.g. for Q61764040, Bibliotheek Scherpenzeel)
+# Can be a city, town, village, settlement, place, neighbourhood, borough, building, cultural center etc. 
+# Can't be the same value as 'located in the administrative territorial entity' P131, which must be a municipality
+# Must lie in the municipality stated in the P131 field, but....
+# ....NOTE: A location (village etc) can lie in more that 1 municipality, eg. OBA Ouderkerk is located in the village of Ouderkerk aan de Amstel, which is located in the municipalities of Ouder-Amstel AND Amstelveen
+
+SELECT DISTINCT 
+?item ?itemLabel
+#--- location stuff ----
+?loc ?locLabel ?locDescription
+(GROUP_CONCAT(DISTINCT ?locIsALabel ; separator = " --- ") as ?locInstanceOf) 
+(GROUP_CONCAT(DISTINCT ?locRank ; separator = " --- ") as ?locRanks)
+#--- municipalities stuff----
+?muni ?muniLabel ?muniDescription
+(GROUP_CONCAT(DISTINCT ?muniIsALabel ; separator = " --- ") as ?muniInstanceOf) 
+(GROUP_CONCAT(DISTINCT ?muniRank ; separator = " --- ") as ?muniRanks)
+#-- municipality checking stuff---
+?locIsNotMuni
+(GROUP_CONCAT(DISTINCT ?muni2Label; separator = " XXXXXXXXXXXXX ") as ?muniCheck) #
+(GROUP_CONCAT(DISTINCT ?sameMunicipality; separator = " XXXXXXXXXXXXX ") as ?muniCheck2) 
+
+WHERE
+  {
+  ?item p:P31/ps:P31 wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  
+  OPTIONAL{
+  #--- location stuff ---- 
+  ?item wdt:P276 ?loc.
+  ?loc p:P31 [ps:P31 ?locIsA; wikibase:rank ?locRank].  
+  #--- municipalities stuff----
+  ?item wdt:P131 ?muni. #mun. derived from library item, has one single value 
+  ?muni p:P31 [ps:P31 ?muniIsA; wikibase:rank ?muniRank].
+  #--- municipality checking stuff---
+  #Check that location does not equal municipality
+  BIND(IF(?loc = ?muni,"FALSE", "TRUE") AS ?locIsNotMuni).
+  ?loc wdt:P131 ?muni2. #mun. derived from 'location' item, can have multiple values (eg. https://www.wikidata.org/wiki/Q282729)
+  #Check that "mun. derived from library item" = "mun. derived from 'location' item"  
+  BIND(IF(?muni = ?muni2,"TRUE", "FALSE") AS ?sameMunicipality)  
+  }
+    
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                          ?item rdfs:label ?itemLabel.
+                          ?loc rdfs:label ?locLabel.
+                          ?loc schema:description ?locDescription.
+                          ?locIsA rdfs:label ?locIsALabel.
+                          ?muni rdfs:label ?muniLabel.
+                          ?muni schema:description ?muniDescription.
+                          ?muniIsA rdfs:label ?muniIsALabel.
+                          ?muni2 rdfs:label ?muni2Label.
+                         }  
+}
+GROUP BY ?item ?itemLabel ?loc ?locLabel ?locDescription ?muni ?muniLabel ?muniDescription ?locIsNotMuni 
+ORDER BY DESC(?item)

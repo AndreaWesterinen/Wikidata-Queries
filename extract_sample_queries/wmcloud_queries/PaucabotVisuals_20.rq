@@ -1,0 +1,12 @@
+#Actors porno per sexe
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+    ?d wdt:P106 wd:Q488111.
+	?d wdt:P21 ?name 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

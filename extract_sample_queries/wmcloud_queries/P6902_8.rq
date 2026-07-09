@@ -1,0 +1,27 @@
+#Target required claim report for P6902: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?snak
+		WHERE
+		{
+			{
+				?item p:P6902/ps:P6902 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P6902 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P6902 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS { ?value p:P156 [] } .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

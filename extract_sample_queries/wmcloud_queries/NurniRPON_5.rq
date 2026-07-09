@@ -1,0 +1,57 @@
+SELECT DISTINCT ?p1 ?p1Label ?p2 ?p2Label ?s2 ?s2Label ?p3 ?p3Label ?s3 ?s3Label ?p4 ?p4Label WHERE {
+  {
+    SELECT ?p1 ?p2 ?s2 ?p3 ?s3 ?p4 WHERE {
+      {
+        ?p1 wdt:P31 ?j.
+        OPTIONAL { ?p1 wdt:P131 ?nadrzedna. }
+        FILTER(!(BOUND(?nadrzedna)))
+        VALUES ?j {
+          wd:Q19563262
+          wd:Q2560367
+          wd:Q2034632
+        }
+      }
+      UNION
+      {
+        { ?p1 wdt:P31 wd:Q1141653. }
+        UNION
+        {
+          VALUES ?p1 {
+            wd:Q49683
+          }
+        }
+        OPTIONAL { ?p2 wdt:P131 ?p1. }
+        OPTIONAL { ?p2 wdt:P36 ?s2. }
+        OPTIONAL {
+          ?p3 wdt:P131 ?p2.
+          OPTIONAL { ?p3 wdt:P36 ?s3. }
+          FILTER(NOT EXISTS {
+            ?p3 (wdt:P31/(wdt:P279*)) ?j.
+            VALUES ?j {
+              wd:Q486972
+              wd:Q4370308
+              wd:Q1620908
+              wd:Q18867465
+              wd:Q44613
+            }
+          })
+          OPTIONAL {
+            ?p4 wdt:P131 ?p3.
+            FILTER(NOT EXISTS {
+              ?p4 (wdt:P31/(wdt:P279*)) ?j.
+              VALUES ?j {
+                wd:Q486972
+                wd:Q4370308
+                wd:Q1620908
+                wd:Q18867465
+                wd:Q44613
+              }
+            })
+          }
+        }
+      }
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?p1Label) (?p2Label) (?p3Label) (?p4Label)

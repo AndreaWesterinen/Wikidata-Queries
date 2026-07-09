@@ -1,0 +1,6 @@
+SELECT ?parish_of_Asturias ?parish_of_AsturiasLabel ?GeoNames_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?parish_of_Asturias wdt:P31 wd:Q55102916.
+  OPTIONAL { ?parish_of_Asturias wdt:P1566 ?GeoNames_ID. }
+}
+LIMIT 1000

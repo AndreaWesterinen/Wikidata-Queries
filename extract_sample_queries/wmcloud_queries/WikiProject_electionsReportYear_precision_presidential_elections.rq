@@ -1,0 +1,11 @@
+SELECT ?item ?year WHERE { 
+  ?item wdt:P31/wdt:P279* wd:Q858439 ;
+        p:P585/psv:P585 [ wikibase:timePrecision "9"^^xsd:integer ; wikibase:timeValue ?year ] .
+  OPTIONAL { ?item wdt:P1001 ?juridiction }
+  FILTER NOT EXISTS { ?item wdt:P580 [] }
+  FILTER NOT EXISTS { ?item wdt:P582 [] }
+  FILTER (YEAR(?year) < YEAR(NOW()))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?year) ?jurisdictionLabel
+LIMIT 200

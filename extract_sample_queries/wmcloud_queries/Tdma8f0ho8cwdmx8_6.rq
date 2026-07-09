@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel ?birthLabel ?deathLabel ?distance WHERE {
+  {
+    SELECT ?item ?birth ?death ?distance WHERE {
+      ?item wdt:P31 wd:Q5 .
+      ?item wdt:P19 ?birth .
+      ?item wdt:P20 ?death .
+      ?birth wdt:P625 ?coordsb .
+      ?death wdt:P625 ?coordsd .
+      BIND(ROUND(geof:distance(?coordsb, ?coordsd)) AS ?distance) .
+      FILTER (?distance>19000)
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC(?distance) 

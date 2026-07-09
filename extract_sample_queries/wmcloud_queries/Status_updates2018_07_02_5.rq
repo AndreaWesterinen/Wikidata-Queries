@@ -1,0 +1,7 @@
+SELECT DISTINCT ?q1 ?q1Label ?q2 ?q2Label ?genderLabel {
+  ?q1 wdt:P31 wd:Q5 ; wdt:P21 ?gender .
+  ?q2 wdt:P31 wd:Q5 ; wdt:P21 ?gender .
+  { { ?q1 wdt:P26 ?q2 } UNION { ?q2 wdt:P26 ?q1 } }
+  FILTER (STR(?q1) < STR(?q2)) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

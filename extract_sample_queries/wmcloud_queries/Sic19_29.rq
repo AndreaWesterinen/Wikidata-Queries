@@ -1,0 +1,15 @@
+embed.html##defaultView:Map{"hide":["?coor","?operator"],"layer":"?districtLabel"}
+SELECT ?district ?districtLabel ?geoshape (COUNT(DISTINCT ?s) AS ?count) WHERE {  
+  
+       ?s wdt:P31 wd:Q28564 ;
+          wdt:P17 wd:Q145 ;
+          wdt:P625 ?coor ;
+          wdt:P137 ?operator ;
+          OPTIONAL {?s wdt:P18 ?image .}
+  ?operator wdt:P1001 ?district .
+  ?district wdt:P3896 ?geoshape .
+       
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?district ?districtLabel ?geoshape
+ORDER BY ?count

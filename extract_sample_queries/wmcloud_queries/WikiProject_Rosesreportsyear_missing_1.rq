@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?commons 
+{
+	?item wdt:P31 wd:Q26817508 .
+	{ ?item wdt:P1531 [] }
+	UNION {?item ^wdt:P1531 [] }
+	FILTER NOT EXISTS { ?item wdt:P571 [] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

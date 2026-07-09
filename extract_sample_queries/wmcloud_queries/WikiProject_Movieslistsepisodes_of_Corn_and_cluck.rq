@@ -1,0 +1,9 @@
+SELECT ?item ?nr_all (GROUP_CONCAT(DISTINCT ?hulabel) AS ?hulabels) WHERE {
+  ?item wdt:P31 wd:Q21191270 .
+  ?item p:P179 ?season_statement .
+  ?season_statement ps:P179 wd:Q1121718 .
+  ?season_statement pq:P1545 ?nr_all .
+  ?item rdfs:label ?hulabel . FILTER((LANG(?hulabel)) = "hu")
+}
+GROUP BY ?item ?nr_all
+ORDER BY xsd:integer(?nr_all)

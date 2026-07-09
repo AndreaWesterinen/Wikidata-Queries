@@ -1,0 +1,27 @@
+SELECT ?item (SAMPLE(?name_label) AS ?name_label)
+WHERE { 
+ SELECT DISTINCT ?item ?name_label (COUNT(?name_label) AS ?cnt) #BE CAUTIOUS: IF SEVERAL LABELS FOR AN ITEM, THEN THE ITEM IS THERE SEVERAL TIMES
+ WHERE{
+ ?item wdt:P31 wd:Q101352 . # Family name
+ ?item wikibase:sitelinks 0 . # No sitelinks
+ ?item wikibase:statements 1 . # No other statements than P31
+
+ FILTER NOT EXISTS { ?backlink ?p1 ?item } # No backlinks
+ OPTIONAL{ # No reference
+ ?item ?p2 [prov:wasDerivedFrom ?ref] .
+ ?ref ?pr [] .
+ }
+ FILTER(!bound(?ref))
+
+ OPTIONAL{ # No qualifiers
+ ?item ?claim ?dummy0 .
+ ?property wikibase:propertyType wikibase:ExternalId .
+ ?property wikibase:directClaim ?claim
+ }
+ FILTER(!bound(?dummy0))
+
+ ?item rdfs:label ?label . # We get the labels 
+ BIND(STR(?label) AS ?name_label)
+
+ } GROUP BY ?item ?name_label
+} GROUP BY ?item HAVING (COUNT(?name_label) = 1)

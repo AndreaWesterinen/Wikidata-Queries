@@ -1,0 +1,18 @@
+SELECT ?subject ?subjectLabel ?wdp ?wdpLabel ?object ?objectLabel WHERE {
+  { 
+    SELECT ?subject ?wdp ?object WHERE {
+      hint:Query hint:queryEngineChunkHandler "Managed" .
+      hint:Query hint:optimizer "Runtime" .
+      ?constraint pq:P2316 wd:Q21502408 . # mandatory constraint
+      ?statement wikibase:hasViolationForConstraint ?constraint.
+      ?subject ?p ?statement .
+      ?subject wdt:P31 wd:Q5 . # instance of human
+      ?statement ?ps ?object .
+      ?wdp wikibase:statementProperty ?ps .
+      ?wdp wikibase:claim ?p . 
+    } LIMIT 10 
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+  }
+} 

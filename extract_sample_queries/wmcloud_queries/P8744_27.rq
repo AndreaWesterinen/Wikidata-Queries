@@ -1,0 +1,10 @@
+#title: candidates (1: economy of region without P276)
+# Complex constraint from [[Property talk:P8744]]
+# possible values for this property
+SELECT ?item ?loc
+WHERE
+{
+    ?item wdt:P31 wd:Q100773131 . 
+    MINUS { ?item wdt:P276 ?loc }
+    MINUS { ?loc wdt:P8744 ?item }
+}

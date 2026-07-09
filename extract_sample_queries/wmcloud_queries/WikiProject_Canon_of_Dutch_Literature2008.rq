@@ -1,0 +1,7 @@
+#Dutch literary canon 2008
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P361 wd:Q2184967 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

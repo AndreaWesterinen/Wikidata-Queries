@@ -1,3 +1,5 @@
+#title: The number of Wikidata items on Diseases and the percentage of those with a pointer to the Disease Ontology
+
 SELECT (COUNT(?disease) AS ?total) (SUM(?ref) AS ?byDO) (100*?byDO/?total AS ?percent)
 WHERE
 {

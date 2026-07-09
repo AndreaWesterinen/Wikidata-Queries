@@ -1,0 +1,7 @@
+SELECT DISTINCT ?localitate ?localitateLabel ?judetLabel ?codpostal WHERE {
+  ?localitate wdt:P17 wd:Q218;      #find items having country "Romania"
+              wdt:P281 ?codpostal;  #having a postal code
+              wdt:P131* ?judet.     #also show the county
+  ?judet wdt:P31 wd:Q1776764.       #which is an instance of "județ"
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

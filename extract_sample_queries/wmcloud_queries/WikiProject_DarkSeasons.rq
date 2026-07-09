@@ -1,0 +1,4 @@
+SELECT ?item ?position {
+  ?item wdt:P31 wd:Q3464665 ; wdt:P179 wd:Q28443710 ; p:P179/pq:P1545 ?position .
+}
+ORDER BY xsd:integer(?position)

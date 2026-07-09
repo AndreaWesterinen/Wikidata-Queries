@@ -1,0 +1,10 @@
+#defaultView:Tree
+SELECT ?state ?stateLabel ?d ?dLabel ?e ?eLabel ?f ?fLabel ?g ?gLabel WHERE {
+  {
+    BIND(wd:Q1165 as ?state).
+    ?d wdt:P31 wd:Q1230708. ?e wdt:P31 wd:Q1149652. ?f wdt:P31 wd:Q7631016. ?g wdt:P31 wd:Q2775236.
+    ?d wdt:P131 ?state. ?e wdt:P131 ?d. ?f wdt:P131 ?e. ?g wdt:P131 ?f.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "hi,en". }
+}
+#

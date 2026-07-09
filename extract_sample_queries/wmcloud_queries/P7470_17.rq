@@ -1,0 +1,16 @@
+SELECT ?item 
+  (CONCAT("[[Property:P",?pid,"\u007C",?l,"]]") as ?ll) ?f 
+  (CONCAT("{","{property uses","\u007C",?pid,"}","}") as ?uses) 
+  ?status ?criterion 
+  (CONCAT("{","{TD URN samples","\u007C",?pid,"}","}") as ?samples)
+WHERE
+{
+    ?st ps:P7470 ?f .
+    ?p p:P7470 ?st .    
+    BIND(strafter(str(?p), "P") as ?pid) 
+    ?item wdt:P5176 ?pid .
+    ?p rdfs:label ?l . FILTER(lang(?l) = "en")
+    OPTIONAL { ?st pq:P5102 ?status } .
+    OPTIONAL { ?st pq:P1013 ?criterion } .
+}
+ORDER BY xsd:integer(?pid)

@@ -1,0 +1,1 @@
+select ?item where { ?item wdt:P608 wd:Q20980830 . ?item  wdt:P195 ?collection . ?collection wdt:P17 wd:Q35 .  }

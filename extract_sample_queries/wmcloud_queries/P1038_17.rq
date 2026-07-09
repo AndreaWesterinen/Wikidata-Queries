@@ -1,0 +1,13 @@
+#title: grandfather very old
+# Complex constraint from [[Property talk:P1038]]
+# grandfather at 120 years old
+SELECT ?item ?value ?bornItem ?bornValue ?diff {
+  ?item p:P1038 ?statement.
+  ?statement ps:P1038 ?value.
+  ?statement pq:P1039 wd:Q9238344.
+  ?item wdt:P569 ?bornItem.
+  ?value wdt:P569 ?bornValue.  
+  BIND( (?bornItem - ?bornValue)/365 AS ?diff ).
+  FILTER (?diff > 120)
+}
+ORDER BY DESC(?diff)

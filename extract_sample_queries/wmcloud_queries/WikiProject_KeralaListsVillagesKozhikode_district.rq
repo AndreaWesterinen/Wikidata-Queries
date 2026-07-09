@@ -1,0 +1,5 @@
+SELECT ?item ?ilml WHERE {
+  ?item wdt:P31 wd:Q56436498.
+  ?item wdt:P131* wd:Q1142979.
+   OPTIONAL { ?item rdfs:label ?ilml. FILTER(LANG(?ilml)="ml") }
+}

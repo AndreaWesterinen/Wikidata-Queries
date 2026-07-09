@@ -1,4 +1,3 @@
-# ----
 #title: Distinct billionaires
 SELECT ?locationLabel ?item ?itemLabel (MAX(?billion) as ?billions)
 WHERE

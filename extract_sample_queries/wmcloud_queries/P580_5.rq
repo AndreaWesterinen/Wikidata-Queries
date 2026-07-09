@@ -1,0 +1,4 @@
+#title: Claim ends before its start
+# Complex constraint from [[Property talk:P580]]
+# On the same claim, [[Property:P582|end time&#32;<small dir="ltr">(P582)</small>]] has earlier value than [[Property:P580|start time&#32;<small dir="ltr">(P580)</small>]]
+SELECT DISTINCT ?item { ?statement pqv:P580 ?start_node; pqv:P582 ?end_node . ?start_node wikibase:timePrecision 11; wikibase:timeValue ?start . ?end_node wikibase:timePrecision 11; wikibase:timeValue ?end . FILTER( ?end < ?start ) . ?item ?p ?statement }

@@ -1,0 +1,17 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord (COUNT(?item) AS ?countries) (IF(?countries = 1, SAMPLE(?country), ?countries) AS ?layer) {
+  VALUES ?country {wd:Q40 }#wd:Q34 wd:Q40 wd:Q39 wd:Q183 wd:Q215  wd:Q347 wd:Q213 wd:Q38 wd:Q28  wd:Q928}
+  #VALUES ?isa { wd:Q8502 }#wd:Q133056 wd:Q46831 wd:Q757292}
+  ?item wdt:P31 ?isa .
+  ?item wdt:P17 ?country .
+    ?item p:P625 [
+           psv:P625 [
+             wikibase:geoLatitude ?lat ;
+             wikibase:geoLongitude ?lon ;
+           ] ;
+           ps:P625 ?coord
+         ]
+  FILTER ( abs (round (?lon*60) - ?lon*60) < 0.01 && abs (round(?lat*60) - ?lat*60) < 0.01 )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?coord

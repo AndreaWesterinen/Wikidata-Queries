@@ -1,0 +1,19 @@
+#Cats
+SELECT ?item ?itemLabel ?website ?endpoint
+WHERE 
+{
+  values ?values {
+    wd:Q7075     # bibliotek
+    wd:Q68295960 # stats organisation
+    wd:Q127448   # kommun
+    wd:Q3455524  # region
+    wd:Q35749    # parliament
+    wd:Q27031827 # open data portal
+  }
+  ?item wdt:P31 ?values;
+        wdt:P17 wd:Q34.
+  minus {?item wdt:P576 []}
+  optional {?item wdt:P856 ?website.}
+  optional {?item wdt:P6269 ?endpoint.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,[AUTO_LANGUAGE]". }
+}

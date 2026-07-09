@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel (URI(REPLACE(?pattern, '\\$1', ?TTDB)) AS ?TTDB_URL) (SAMPLE(?img) AS ?img) 
+WHERE
+{
+	  wd:P4079 wdt:P1630 ?pattern .
+      ?item wdt:P4079 ?TTDB .
+      ?item wdt:P18 ?img .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } 
+}
+GROUP BY ?item ?itemLabel ?TTDB ?pattern ?TTDB_URL 
+LIMIT 1000

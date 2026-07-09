@@ -1,0 +1,15 @@
+SELECT ?item (MAX(?dist) as ?distmax) (GROUP_CONCAT(DISTINCT (CONCAT("[",str(?url)," ws]")) ) as ?ws) (SAMPLE(?c) as ?c1)
+{
+      ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+      ?item wdt:P31 wd:Q5 ; wikibase:identifiers ?d .
+      ?entry wdt:P31 wd:Q19389637 .
+      ?url schema:about ?entry .
+      ?item wdt:P19 ?loc .
+      ?loc wdt:P625 ?coor .
+      wd:Q1741 wdt:P625 ?zero .
+      ?loc wdt:P17 ?c .
+      BIND(ROUND(geof:distance(?zero, ?coor)) as ?dist)
+}
+GROUP BY ?item
+ORDER BY DESC(?distmax)
+LIMIT 200

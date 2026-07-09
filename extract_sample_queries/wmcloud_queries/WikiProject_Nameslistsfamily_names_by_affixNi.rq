@@ -1,0 +1,19 @@
+SELECT ?item ?nl ?st ?sl ?ids ?ct ?nl2 ?sample 
+WITH
+{
+    SELECT ?item (COUNT(?p) as ?ct) (SAMPLE(?p) as ?sample)
+    {
+	?item wdt:P31/wdt:P279* wd:Q101352 ; wdt:P1705 ?label  FILTER regex (?label, "^Ní ")
+        OPTIONAL { ?p wdt:P734 ?item ; wdt:P31 wd:Q5 }
+    }
+    GROUP BY ?item
+} as %a2
+WHERE
+{
+  INCLUDE %a2
+  OPTIONAL { ?item wdt:P1705 ?nl 
+                   BIND( REPLACE(str(?nl), "^Ní ([^ ].*)$" , "$1" ) as ?nl2 )   
+           }
+  OPTIONAL { ?item wikibase:statements ?st; wikibase:sitelinks ?sl; wikibase:identifiers ?ids }
+}
+ORDER BY (Lcase(?nl2)) ?nl LIMIT 5000

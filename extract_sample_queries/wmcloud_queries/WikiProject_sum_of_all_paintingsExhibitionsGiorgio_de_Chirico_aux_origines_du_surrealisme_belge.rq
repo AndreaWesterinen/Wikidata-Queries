@@ -1,0 +1,1 @@
+SELECT ?item ?num WHERE { ?item wdt:P608 wd:Q61978025 ; p:P608 [ ps:P608 wd:Q61978025 ; pq:P528 ?num ] . } order by asc(xsd:integer(?num))

@@ -1,0 +1,14 @@
+#Buildings in Bologna with WP articles in both English and Italian.
+SELECT ?item ?itemLabel ?article
+WHERE {
+  
+    ?item wdt:P31/wdt:P279* wd:Q41176 ;
+          wdt:P131 wd:Q1891.
+
+    ?article schema:about ?item ;
+             schema:isPartOf <https://en.wikipedia.org/>.
+    ?article2 schema:about ?item ;
+              schema:isPartOf <https://it.wikipedia.org/>.
+
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

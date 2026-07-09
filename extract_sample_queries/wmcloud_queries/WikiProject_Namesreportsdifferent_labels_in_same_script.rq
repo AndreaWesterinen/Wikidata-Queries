@@ -1,0 +1,23 @@
+SELECT ?item
+		(COUNT(DISTINCT str(?itemLabel)) as ?ct )
+		(COUNT(?itemLabel) as ?ctall )
+		(GROUP_CONCAT(DISTINCT str(?itemLabel); separator="; " ) as ?names)
+{
+	VALUES ?instanceof { wd:Q12308941 wd:Q11879590  }
+	# VALUES ?instanceof { wd:Q12308941 wd:Q11879590 wd:Q202444 wd:Q3409032 }
+  	?item wdt:P31 ?instanceof .	
+	?item rdfs:label ?itemLabel .
+	BIND(lang(?itemLabel) as ?lang)
+	FILTER (?lang not in ("ru", "sr", "ja", "mk", "el", "be", "hy", "uk", "ar", "zh", "fa", "ko", "th", "pnb", "sd", "ur", "grc", "bh",
+      	"be-tarask", "ckb", "zh-hans", "zh-hant", "zh-hk", "zh-cn", "bn", "iu", "yue", "zh-sg", "zh-tw", "zh-mo", "zh-my",
+      	"arz", "os", "gu", "mai", "yi", "chr", "yue", "ka", "arc", "am", "ky", "kn", "sah", "sa", "cv", "ce", "av",
+      	"sr-ec", "he", "ba", "bg", "tt", "as", "ml", "ne", "mr", "ta", "te", "hi", "new", "kk", "kk-arab", "kk-cyrl", "kk-cn", "kk-kz"
+	))
+	MINUS { ?item wdt:P31 wd:Q4167410 }
+	MINUS { ?item wdt:P31 wd:Q101352 }
+	FILTER (?item not in ( wd:Q307378, wd:Q317520, wd:860239, wd:Q860239, wd:Q477088, wd:Q19970288 ) )
+}
+GROUP BY ?item
+HAVING (?ct > 1)	
+ORDER BY DESC(?ct) ?item	
+LIMIT 1200

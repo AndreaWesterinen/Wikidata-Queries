@@ -1,0 +1,40 @@
+SELECT ?item ?p ?prop ?source ?ID ?MnM ?seq ?count ?example ?link ?listLink
+
+WITH {
+  SELECT ?prop ?source ?MnM ?wdt ?seq (COUNT(DISTINCT(?person)) AS ?count) (SAMPLE(?person) AS ?example) WHERE {
+    VALUES (?seq ?prop) {
+       (10 wd:P2949)(20 wd:P4638)(30 wd:P2600) # WikiTree, Geni.com
+       (40 wd:P4159)(50 wd:P1819)(60 wd:P3051)(70 wd:P2889) # WeRelate, Genealogics, Kindred Britain, Familysearch
+        
+    }
+    OPTIONAL {?prop wdt:P9073 ?item1 }.
+    OPTIONAL {?prop wdt:P1629 ?item2 }.
+#    FILTER(bound(?item1) || bound(?item2)) .
+    BIND(COALESCE(?item1, ?item2) AS ?source) .
+    OPTIONAL {?prop wdt:P2264 ?mnm .
+      wd:P2264 wdt:P1630 ?mnm_fmt .
+      BIND(IRI(REPLACE(?mnm, '(^.*)', ?mnm_fmt)) AS ?mnm_url) .
+      BIND(CONCAT('[', str(?mnm_url), ' MnM]') AS ?MnM) .
+    }
+    ?prop wikibase:directClaim ?wdt .
+    ?person ?wdt ?val .
+    ?person wdt:P31 wd:Q5 .
+    ?person wdt:P570|wdt:P4602 ?dod .
+    FILTER (year(?dod) < 1700)
+    FILTER (!(year(?dod) < 1500))
+  } GROUP BY ?source ?prop ?MnM ?seq ?wdt
+} AS %props
+
+WHERE {
+  INCLUDE %props .
+  ?example ?wdt ?value .
+  ?prop wdt:P1630 ?fmt . 
+  BIND(IRI(REPLACE(?value, '(^.*)', ?fmt)) AS ?url) .
+  BIND(CONCAT('[', str(?url), ' ', str(?value), ']') AS ?link) .
+  
+  BIND(STRAFTER(str(?prop),'entity/P') AS ?p) .
+  BIND(CONCAT('[[Property:P',?p,'|P', ?p, ']]') AS ?ID) .
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?p)) AS ?item) .  # dummy
+  BIND(CONCAT('{','{/get list{','{sub','st:!}','}','prop=P',STR(?p),'}','}') AS ?listLink) .
+
+} ORDER BY ?seq

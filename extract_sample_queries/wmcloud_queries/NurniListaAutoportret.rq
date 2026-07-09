@@ -1,0 +1,24 @@
+SELECT DISTINCT 
+	?item
+WHERE 
+{
+  {
+    SELECT ?item {
+  	    ?item wdt:P31/wdt:P279* wd:Q838948 .
+      	?item rdfs:label ?name.
+        wd:Q192110 rdfs:label ?nameA.
+      
+        # wykluczenie albumów
+        MINUS{?item wdt:P31 wd:Q482994}.
+        # wykluczenie filmów
+        MINUS{?item wdt:P31 wd:Q11424}.
+        # wykluczenie filmów krótkometrażowych
+        MINUS{?item wdt:P31 wd:Q24862}.
+        # wykluczenie naszyjników
+        MINUS{?item wdt:P31 wd:Q189299}. 
+
+        ?item wdt:P18 ?i
+
+        # self-portrait, selfportrait, autoportrait, zelf ...
+        FILTER(REGEX(?name, 
+                     CONCAT("^.*(self[- ]?portrait

@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?itemLabel ?position ?positiontype ?electoraldistrict ?electoraldistrictLabel ?parliamentaryterm ?parliametarygroup ?fbid WHERE { 
+    VALUES ?member {wd:Q21290864} .
+    ?node ps:P39 ?member .
+    ?item p:P39 ?node .
+    MINUS {?item wdt:P570 [] }
+    MINUS {?node pq:P582 [] }
+    OPTIONAL { ?node pq:P2937 ?parliamentaryterm} .
+    OPTIONAL { ?node pq:P4100 ?parliametarygroup }
+    OPTIONAL { ?node pq:P580 ?starttime }
+    OPTIONAL { ?node pq:P768 ?electoraldistrict .
+    }
+    OPTIONAL { ?node pq:P582 ?endtime }
+    ?node ps:P39 ?position .
+    ?position wdt:P31 ?positiontype .
+    OPTIONAL { ?item wdt:P2013 ?fbid }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

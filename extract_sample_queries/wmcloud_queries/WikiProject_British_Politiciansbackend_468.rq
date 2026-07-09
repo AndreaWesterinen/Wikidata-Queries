@@ -1,0 +1,13 @@
+# parties elected in the 1835-37 Parliament - 658 members.
+# Labour and Labour Co-Op are merged
+SELECT DISTINCT ?party1 ?party1Label (count(DISTINCT(?item)) as ?count) 
+{
+ ?item p:P39 ?positionStatement . ?positionStatement ps:P39 wd:Q41582548 .
+ ?positionStatement ps:P39 ?term . 
+ ?positionStatement pq:P768 ?constituency . 
+ ?positionStatement pq:P2715 ?election .     # relevant general election
+ ?positionStatement pq:P4100 ?party . 
+ wd:Q41582548 wdt:P2715 ?election .
+ BIND(IF(?party = wd:Q6467393, wd:Q9630 , ?party) AS ?party1) .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} group by ?party1 ?party1Label order by desc(?count)

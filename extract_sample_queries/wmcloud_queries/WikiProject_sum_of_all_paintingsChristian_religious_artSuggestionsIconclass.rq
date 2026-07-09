@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel (SAMPLE(?iconclass) AS ?iconclass) (SAMPLE(?item2) AS ?item2)  (SAMPLE(?mainsubject) AS ?mainsubject) (SAMPLE(?addlink) AS ?addlink) WHERE {
+  ?item wdt:P31 wd:Q3305213 .  
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q1278452 } . 
+  MINUS { ?item wdt:P921 [] } .
+  MINUS { ?item wdt:P136 ?genre . FILTER ( ?genre!=wd:Q2864737 ) } .
+  ?item wdt:P1257 ?iconclass .
+  ?item2 wdt:P1257 ?iconclass .
+  ?item2 wdt:P921 ?mainsubject .
+  ?item2 wdt:P136 wd:Q2864737 .
+  ?item2 wdt:P31 wd:Q3305213 . 
+  FILTER NOT EXISTS { ?item2 wdt:P31/wdt:P279* wd:Q1278452 } . 
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P921&entityid=", REPLACE(STR(?mainsubject), "http://www.wikidata.org/entity/", ""), " Add]") AS ?addlink)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  } GROUP BY ?item ?itemLabel LIMIT 2000

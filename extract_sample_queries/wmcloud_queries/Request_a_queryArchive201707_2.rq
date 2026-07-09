@@ -1,0 +1,6 @@
+SELECT ?item (count(?p31) as ?num)
+WHERE {
+    ?item wdt:P830 [] .
+    OPTIONAL { ?item wdt:P31 ?p31 filter (wd:Q16521 != ?p31).  } 
+} 
+group by ?item

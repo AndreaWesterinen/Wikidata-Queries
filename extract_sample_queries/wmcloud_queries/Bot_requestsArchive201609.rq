@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel
+WHERE
+{
+	?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?sidlo .
+    ?item wdt:P625 ?souradnice .
+    FILTER NOT EXISTS { ?item wdt:159 pq:P625 }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,5 @@
+#All PMIDs
+SELECT ?item ?itemLabel ?pmid WHERE {
+  ?item wdt:P698 ?pmid.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

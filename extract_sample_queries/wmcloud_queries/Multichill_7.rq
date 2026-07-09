@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?series ?seriesLabel ?previous ?previousLabel ?next ?nextLabel WHERE {
+  ?item wdt:P31 wd:Q21191270 .
+  ?item wdt:P155 ?previous . 
+  ?item wdt:P156 ?next . 
+  ?previous wdt:P31 [] .
+  ?next wdt:P31 [] .
+  MINUS { ?previous wdt:P156 ?item .
+          ?previous wdt:P31 wd:Q21191270 .
+          ?next wdt:P155 ?item . 
+          ?next wdt:P31 wd:Q21191270 .
+  }
+  ?item wdt:P179 ?series . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es" . }
+  } ORDER BY ?seriesLabel

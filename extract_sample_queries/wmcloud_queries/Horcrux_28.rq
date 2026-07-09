@@ -1,0 +1,20 @@
+SELECT DISTINCT ?x
+WHERE {
+  { ?x wdt:P31 wd:Q1134686 . } UNION
+  { ?x wdt:P31 wd:Q486972 ;
+       wdt:P17 wd:Q38 . }
+  
+  { ?city1 wdt:P31 wd:Q15089   . } UNION
+  { ?city1 wdt:P31 wd:Q15110   . } UNION
+  { ?city1 wdt:P31 wd:Q3924474 . }
+  
+  ?x p:P131 ?city1stmt ;
+     p:P131 ?city2stmt .
+  ?city1stmt ps:P131 ?city1 .
+  ?city2stmt ps:P131 ?city2 .
+  FILTER (?city1stmt != ?city2stmt) .
+  FILTER NOT EXISTS { ?city1stmt pq:P582 ?endDate . }
+  FILTER NOT EXISTS { ?city2stmt pq:P582 ?endDate . }
+  FILTER NOT EXISTS { ?city1stmt pq:P580 ?startDate . }
+  FILTER NOT EXISTS { ?city2stmt pq:P580 ?startDate . }
+}

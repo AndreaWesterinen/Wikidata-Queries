@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?st ?sl
+{
+	?item wdt:P136 wd:Q28026639 ; wdt:P31 wd:Q11424 . OPTIONAL { ?item wdt:P577 ?d }
+	OPTIONAL { ?item wikibase:sitelinks ?sl; wikibase:statements ?st }
+}
+ORDER BY DESC(?d) ?item 
+LIMIT 3000

@@ -1,0 +1,6 @@
+SELECT * WHERE {
+?item wdt:P1433 wd:Q665807;
+      wdt:P921 ?person. 
+  ?person wdt:P31 wd:Q5.
+  FILTER NOT EXISTS { ?person wdt:P569 ?gebdatum. }
+}

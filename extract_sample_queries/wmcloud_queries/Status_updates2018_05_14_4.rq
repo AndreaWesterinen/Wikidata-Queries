@@ -1,0 +1,44 @@
+# Italian cities with a population of 5k+ and 1+ kindergarten(s)
+# Colors represent the number of kindergartens per per 10,000 inhabitants (see layer legend)
+# Query by Andrea Mignone @i_m_andrea
+#defaultView:Map{"layer":"?ratioBin", "rgb":"?rgb"}
+SELECT ?city ?cityLabel ?coord ?ratioBin ?rgb
+WHERE
+{
+  BIND(
+    IF(?ratio < 2, "< 2",
+      IF(?ratio < 3, "[2;3)",
+        IF(?ratio < 4, "[3;4)",
+          IF(?ratio < 5, "[4;5)",
+            "5+"))))
+  AS ?ratioBin)
+  
+  BIND(
+    IF(?ratio < 2, "0072E5",
+       IF(?ratio < 3, "2F58AB",
+          IF(?ratio < 4, "5F3F72",
+             IF(?ratio < 5, "8F2539",
+              "BF0C00"))))
+  AS ?rgb)
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+  {
+    SELECT ?city ?coord (count(?item)*10000/?pop as ?ratio)
+    WHERE 
+    {
+      ?item wdt:P5114 ?id .
+      ?item wdt:P31 wd:Q126807 .
+      ?item wdt:P131 ?city .
+      ?city wdt:P1082 ?pop .
+      ?city wdt:P625 ?coord .
+      # ?city wdt:P1376 ?place.
+      # ?place wdt:P31 wd:Q15089.
+      
+    }
+    group by ?city ?pop ?coord 
+    having (?pop >= 5000)
+    # order by asc(?ratio)
+  }
+  
+}

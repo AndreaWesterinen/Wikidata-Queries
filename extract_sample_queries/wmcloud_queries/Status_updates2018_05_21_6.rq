@@ -1,0 +1,6 @@
+#poets whose fathers are lawyers
+SELECT * WHERE {
+  ?personA wdt:P106 wd:Q49757.
+  ?personB wdt:P106 wd:Q40348.
+  ?personA wdt:P22 ?personB.
+}

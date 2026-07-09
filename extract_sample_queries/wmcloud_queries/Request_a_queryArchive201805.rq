@@ -1,0 +1,5 @@
+SELECT ?org ?orgLabel WHERE {
+  ?org wdt:P31/wdt:P279* wd:Q5926733.
+  MINUS { ?org wdt:P571 ?inception. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

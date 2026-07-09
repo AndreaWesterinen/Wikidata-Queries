@@ -1,0 +1,12 @@
+# most common grammatical genders
+SELECT ?gender ?genderLabel ?count WITH {
+  SELECT ?gender (COUNT(?lexeme) AS ?count) WHERE {
+    ?lexeme a ontolex:LexicalEntry;
+              wdt:P5185 ?gender.
+  }
+  GROUP BY ?gender
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

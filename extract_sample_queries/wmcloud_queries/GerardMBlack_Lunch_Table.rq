@@ -1,0 +1,5 @@
+SELECT ?item ?location WHERE {
+  ?item p:P972 [
+    ps:P972 wd:Q28781198
+  ].
+}

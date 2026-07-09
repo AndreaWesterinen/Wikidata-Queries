@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?person ?lca ?les (ROUND(?height*100) as ?h_cm) (ROUND(?width*100) as ?w_cm) (ROUND(?height * 10 * ?width)/10 as ?size) ?ar ?available_img_res ?mat ?mat_sup ?dpi_w ?dpi_a4 ?or
+WHERE
+{
+  ?item wdt:P31 wd:Q3305213;
+    wdt:P170 wd:Q725681.
+  MINUS { ?item wdt:P31 wd:Q15727816. }
+  OPTIONAL {
+    ?item (wdt:P921

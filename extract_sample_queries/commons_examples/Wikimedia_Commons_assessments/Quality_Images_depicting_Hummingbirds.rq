@@ -1,0 +1,18 @@
+#shows files that depict Hummingbirds and with the Quality Image assessment 
+#defaultView:ImageGrid
+SELECT ?file ?image
+
+WITH {
+  SELECT ?item WHERE {
+    SERVICE <https://query.wikidata.org/sparql> {
+        ?item wdt:P171/wdt:P171* wd:Q43624.
+    } 
+  }
+} AS %get_items
+
+WHERE {
+  INCLUDE %get_items
+  ?file wdt:P180 ?item .
+  ?file wdt:P6731 wd:Q63348069 .  # Commons quality image
+  ?file schema:url ?image .
+}

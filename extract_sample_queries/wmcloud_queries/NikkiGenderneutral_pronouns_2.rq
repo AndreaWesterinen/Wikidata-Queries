@@ -1,0 +1,56 @@
+select (?l as ?item) (concat("[[Lexeme:", replace(str(?l), str(wd:), ""), "|", replace(str(?l), str(wd:), ""), "]]") as ?l_) ?lemma ?nom ?nomex ?obl ?oblex ?padj ?padjex ?ppro ?pproex ?refl ?reflex
+with {
+select
+  ?l
+  ?lemma
+  ?num
+  (group_concat(distinct ?form1; separator="/") as ?nom)
+  (group_concat(distinct ?form2; separator="/") as ?obl)
+  (group_concat(distinct ?form3; separator="/") as ?padj)
+  (group_concat(distinct ?form4; separator="/") as ?ppro)
+  (group_concat(distinct ?form5; separator="/") as ?refl)
+{
+  ?l dct:language wd:Q1860;
+     wikibase:lemma ?lemma .
+  {
+    ?l wdt:P31/wdt:P279* wd:Q1189745 .
+  } union  {
+    ?l ontolex:sense/wdt:P5137/wdt:P31+/wdt:P279* wd:Q1189745 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f1 .
+    ?f1 ontolex:representation ?form1 .
+    ?f1 wikibase:grammaticalFeature wd:Q131105 .
+    ?f1 wikibase:grammaticalFeature ?num .
+    ?num wdt:P31 wd:Q104083 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f2 .
+    ?f2 ontolex:representation ?form2 .
+    ?f2 wikibase:grammaticalFeature wd:Q1233197 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f3 .
+    ?f3 ontolex:representation ?form3 .
+    ?f3 wikibase:grammaticalFeature wd:Q5051 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f4 .
+    ?f4 ontolex:representation ?form4 .
+    ?f4 wikibase:grammaticalFeature wd:Q1502460 .
+  }
+  optional {
+    ?l ontolex:lexicalForm ?f5 .
+    ?f5 ontolex:representation ?form5 .
+    ?f5 wikibase:grammaticalFeature wd:Q953129 .
+  }
+} group by ?l ?lemma ?num
+} as %inner
+where {
+  include %inner .
+  bind(if(str(?nom)!="",concat("'''",?nom,"''' ",if(?num=wd:Q146786,"are","is")," here"),"") as ?nomex) .
+  bind(if(str(?obl)!="",concat("I see '''",?obl,"'''"),"") as ?oblex) .
+  bind(if(str(?padj)!="",concat("That is '''",?padj,"''' cat"),"") as ?padjex) .
+  bind(if(str(?ppro)!="",concat("That cat is '''",?ppro,"'''"),"") as ?pproex) .
+  bind(if((str(?refl)!=""&&str(?nom)!=""),concat(?nom,if(?num=wd:Q146786," see '''"," sees '''"),?refl,"'''"),"") as ?reflex) .
+} order by ?lemma

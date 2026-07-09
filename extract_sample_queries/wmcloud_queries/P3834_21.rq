@@ -1,0 +1,8 @@
+#title: Check AA, A, B
+# Complex constraint from [[Property talk:P3834]]
+#
+SELECT DISTINCT ?item {
+	?item wdt:P3834 ?value.
+  ?item wdt:P136/wdt:P279* wd:Q2143665.
+  FILTER (?value NOT IN (wd:Q28980099, wd:Q28980093, wd:Q28980109)) 
+}

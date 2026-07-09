@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel
+{
+	?item wdt:ConstraintTemplate ?value .
+	MINUS { ?item wdt:{{{property}}} [] } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}

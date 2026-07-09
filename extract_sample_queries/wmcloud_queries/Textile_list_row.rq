@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?subclass_of ?subclass_ofLabel WHERE {
+  ?item wdt:P279* wd:.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"  }
+  OPTIONAL { ?item wdt:P279 ?subclass_of. }  
+}
+LIMIT 10000

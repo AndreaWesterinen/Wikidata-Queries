@@ -1,0 +1,7 @@
+select ?item ?itemLabel ?quantity ?image where {
+  ?item p:P180 ?depicts.
+  ?depicts ps:P180 wd:Q5;
+           pq:P1114 ?quantity.
+  optional { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

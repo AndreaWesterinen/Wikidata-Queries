@@ -1,0 +1,16 @@
+SELECT
+?item
+?orig
+?start
+(group_concat(?crossingOf;separator=" × ") as ?crossing)
+WHERE {
+  ?item wdt:P31  wd:Q15731356 .
+  ?item wdt:P279 wd:Q89       .
+  ?item wdt:P366 wd:Q48803    .
+
+  OPTIONAL { ?item wdt:P495   ?orig       . }
+  OPTIONAL { ?item wdt:P580   ?start      . }
+  OPTIONAL { ?item wdt:P1531   ?crossingOf . }
+}
+GROUP BY ?item ?orig ?start
+ORDER BY DESC(?start)

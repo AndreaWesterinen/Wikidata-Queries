@@ -1,0 +1,6 @@
+SELECT ?q ?qLabel (count(distinct ?a) as ?count) 
+WHERE { ?a wdt:P553 ?q.
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+group by ?q ?qLabel
+order by desc(?count)

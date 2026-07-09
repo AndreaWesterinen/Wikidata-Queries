@@ -1,0 +1,9 @@
+SELECT ?item ?dacs ?mixURL WHERE {
+  ?item wdt:P4663 ?dacs .
+  FILTER (!regex(?dacs, '-')) .
+  OPTIONAL { 
+      ?item rdfs:label ?paintername . FILTER (lang(?paintername) = "en") . 
+      BIND(CONCAT("[https://tools.wmflabs.org/mix-n-match/#/search/", REPLACE(STR(?paintername), " ", "%20"), " search in Mix'n'match]") AS ?mixURL) . 
+  }
+ 
+}

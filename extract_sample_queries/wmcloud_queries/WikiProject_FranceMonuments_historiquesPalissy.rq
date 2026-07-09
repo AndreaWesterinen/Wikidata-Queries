@@ -1,0 +1,12 @@
+SELECT ?palissy ?grp ?grpLabel ?tableau ?tableauLabel
+{ {
+  SELECT ?palissy ?grp ?grpLabel ?tableau ?tableauLabel
+  {  	
+    ?grp wdt:P31 wd:Q17519152 .
+	?grp wdt:P481 ?palissy .
+	?grp wdt:P527 ?tableau . ?tableau wdt:P31 wd:Q20900710 .
+	?grp wdt:P527 ?cadre . ?cadre wdt:P31 wd:Q860792 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+  } }
+  FILTER ( REGEX ( str(?tableauLabel), "^tableau" )  ) .
+} ORDER by ?palissy

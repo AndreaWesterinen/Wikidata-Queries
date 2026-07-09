@@ -1,0 +1,4 @@
+SELECT ?languageCode (COUNT(?lexeme) AS ?count) WHERE {
+  ?lexeme wikibase:lemma ?lemma .
+  BIND(LANG(?lemma) AS ?languageCode)
+} GROUP BY ?languageCode ORDER BY DESC(COUNT(?lexeme))

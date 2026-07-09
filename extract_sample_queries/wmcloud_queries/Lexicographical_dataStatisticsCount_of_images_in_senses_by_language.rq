@@ -1,0 +1,5 @@
+SELECT ?item (count(?image) as ?count) WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?item ;
+        wikibase:lemma ?lemma ; ontolex:sense ?sense.
+  ?sense wdt:P18 ?image.
+} group by ?item order by desc(?count)

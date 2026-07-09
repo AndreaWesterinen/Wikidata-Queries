@@ -1,0 +1,10 @@
+#title: values of property P8464 with most identifiers
+SELECT ?item ?itemLabel ?itemDescription ?ids
+WHERE
+{
+	?p wdt:P8464 ?item . 
+    ?item wikibase:identifiers ?ids
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }      
+}
+ORDER BY DESC(?ids) ?item
+LIMIT 100

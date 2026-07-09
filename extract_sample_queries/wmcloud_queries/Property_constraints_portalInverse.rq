@@ -1,0 +1,36 @@
+SELECT ?property ?propertyLabel ?kind ?message WHERE {
+  {
+    ?property wdt:P1696 ?inverseProperty.
+    MINUS { ?property p:P2302 [ ps:P2302 wd:Q21510855; pq:P2306 ?inverseProperty ]. }
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "en".
+      ?property rdfs:label ?propertyLabel.
+      ?inverseProperty rdfs:label ?inversePropertyLabel.
+    } hint:Prior hint:runLast false.
+    BIND("missing constraint"@en AS ?kind)
+    BIND(STRLANG(CONCAT("“", ?propertyLabel, "” has inverse property “", ?inversePropertyLabel, "” but no inverse constraint for it."), "en") AS ?message)
+  } UNION {
+    ?property p:P2302 [ ps:P2302 wd:Q21510855; pq:P2306 ?inverseProperty ].
+    MINUS { ?property wdt:P1696 ?inverseProperty. }
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "en".
+      ?property rdfs:label ?propertyLabel.
+      ?inverseProperty rdfs:label ?inversePropertyLabel.
+    } hint:Prior hint:runLast false.
+    BIND("missing statement"@en AS ?kind)
+    BIND(STRLANG(CONCAT("“", ?propertyLabel, "” has inverse constraint with “", ?inversePropertyLabel, "” but no inverse property for it."), "en") AS ?message)
+  } UNION {
+    ?property p:P2302 [ ps:P2302 wd:Q21510855; pq:P2306 ?inverseProperty1 ];
+              wdt:P1696 ?inverseProperty2.
+    FILTER(?inverseProperty1 != ?inverseProperty2)
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "en".
+      ?property rdfs:label ?propertyLabel.
+      ?inverseProperty1 rdfs:label ?inverseProperty1Label.
+      ?inverseProperty2 rdfs:label ?inverseProperty2Label.
+    } hint:Prior hint:runLast false.
+    BIND("constraint-statement mismatch"@en AS ?kind)
+    BIND(STRLANG(CONCAT("“", ?propertyLabel, "” has inverse constraint with “", ?inverseProperty1Label, "” but inverse property “", ?inverseProperty2Label, ".”"), "en") AS ?message)
+  }
+}
+ORDER BY ?kind

@@ -1,0 +1,11 @@
+#Royal Society obituaries
+SELECT ?item ?itemLabel ?doi ?pmid ?subject ?subjectLabel ?odnb
+WHERE 
+{
+  { ?item wdt:P1433 wd:Q4914871 } UNION { ?item wdt:P1433 wd:Q29043655 } . # In Bio Memoirs RS or Obit Notices RS
+  OPTIONAL { ?item wdt:P921 ?subject . 
+            OPTIONAL { ?subject wdt:P1415 ?odnb } . } .                    # subject if known, optionally ODNB
+  OPTIONAL { ?item wdt:P356 ?doi } . 
+  OPTIONAL { ?item wdt:P698 ?pmid } . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?itemLabel ?doi

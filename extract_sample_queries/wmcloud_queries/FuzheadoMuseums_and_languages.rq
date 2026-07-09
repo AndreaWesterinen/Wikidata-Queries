@@ -1,0 +1,10 @@
+SELECT ?item (GROUP_CONCAT(?articlelink; SEPARATOR=", ") AS ?articles) WHERE {
+  VALUES ?item { wd:Q160236 wd:Q131626 wd:Q3073495 } 
+  ?article schema:about ?item ; 
+           schema:inLanguage ?lang; 
+           schema:name ?name ;
+           schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+  FILTER(?lang in ('en', 'uz', 'ru', 'ko')) .
+  FILTER (!CONTAINS(?name, ':')) .
+  BIND ((CONCAT ("[[:", ?lang, ":", ?name, "|", ?lang, "]]")) as ?articlelink) .
+} GROUP BY ?item

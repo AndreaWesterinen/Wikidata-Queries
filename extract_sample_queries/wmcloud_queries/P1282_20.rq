@@ -1,0 +1,20 @@
+#title: Tags using keys that have no entity
+# Complex constraint from [[Property talk:P1282]]
+# Extracts "key" from "Tag:key=value" if there is no "Key:key"
+SELECT (SAMPLE(?item) as ?item) ?key (COUNT(DISTINCT ?tag) as ?ct) (GROUP_CONCAT(DISTINCT ?tag; separator=" ; ") as ?tags)
+WITH
+{  SELECT * WHERE
+  {
+	?item p:P1282/ps:P1282 ?osm2 .
+    FILTER(CONTAINS(str(?osm2), "Tag:"))
+    BIND(strafter(str(?osm2), "Tag:") as ?tag)
+    BIND(CONCAT("Key:",strbefore(str(?tag), "=")) as ?key)
+  }
+} as %tags
+WHERE
+{ 
+   INCLUDE %tags
+   FILTER NOT EXISTS { [] wdt:P1282 ?key }         
+}
+GROUP BY ?key
+ORDER BY DESC(?ct)

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?sat ?satLabel ?planet ?planetLabel WHERE {
+  ?sat wdt:P397 ?planet .
+  ?planet wdt:P196/wdt:P279* wd:Q6592 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?planetLabel ?satLabel

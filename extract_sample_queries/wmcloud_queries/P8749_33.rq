@@ -1,0 +1,15 @@
+#title:Qualifiers for P8749
+SELECT DISTINCT ?qual ?qualLabel ?count ?sample ?isAllowed ?isRequired {
+  {
+    SELECT ?qual (COUNT(DISTINCT ?item) AS ?count) (SAMPLE(?statement) AS ?sample) {
+      hint:Query hint:optimizer "None" .
+      ?item p:P8749 ?statement .
+      ?statement ?pq_qual ?pq_obj .
+      ?qual wikibase:qualifier ?pq_qual .
+    } GROUP BY ?qual
+  } .
+  OPTIONAL { wd:P8749 p:P2302 [ pq:P2306 ?qual ; ps:P2302 wd:Q21510851 ] . BIND("y" as ?isAllowed) }
+  OPTIONAL { wd:P8749 p:P2302 [ pq:P2306 ?qual ; ps:P2302 wd:Q21510856 ] . BIND("y" as ?isRequired ) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count) ASC(?qualLabel)

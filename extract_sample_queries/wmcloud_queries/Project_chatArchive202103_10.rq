@@ -1,0 +1,25 @@
+# defaultView:ScatterChart
+SELECT ?dx ?dy ?item ?itemLabel (?dx * ?dx + ?dy * ?dy AS ?r2) ?map_url
+#SELECT ?dx ?dy (str(?item) AS ?qid)
+
+WITH {
+  SELECT ?item ?gb1900_stmt ?coord_stmt WHERE {
+    ?item p:P9284 ?gb1900_stmt .
+    ?item p:P625 ?coord_stmt .
+    MINUS {?item wdt:P31 wd:Q489357} .
+  }
+} AS %items 
+
+WHERE {
+  INCLUDE %items .  
+  ?coord_stmt psv:P625/wikibase:geoLatitude  ?wd_lat .
+  ?coord_stmt psv:P625/wikibase:geoLongitude ?wd_lon .
+                  
+  ?gb1900_stmt pqv:P625/wikibase:geoLatitude ?gb_lat .
+  ?gb1900_stmt pqv:P625/wikibase:geoLongitude ?gb_lon .
+  BIND ( 111.2 * (?gb_lat - ?wd_lat) AS ?dy) .   # one degree of latitude is about 111 km
+  BIND (  65.4 * (?gb_lon - ?wd_lon) AS ?dx) .   # one degree of longitude is about 65 km at 54 degrees North. (eg York)
+  BIND(IRI(CONCAT("https://maps.nls.uk/geo/explore/#zoom=16&lat=",str(?gb_lat),"&lon=",str(?gb_lon),"&layers=6&b=1&marker=",str(?wd_lat),",",str(?wd_lon))) AS ?map_url) .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?r2)

@@ -1,0 +1,15 @@
+# Gotta catch 'em all if they are prime
+SELECT ?pokemonLabel ?pokedexNumber WHERE {
+  hint:Query hint:optimizer "None" . 
+  { 
+    SELECT ?primeLabel WHERE {
+    	?prime wdt:P31 wd:Q49008 .
+		?prime rdfs:label ?primeLabel filter (lang(?primeLabel) = "en") .
+    }
+  }
+  ?pokemon wdt:P31 wd:Q3966183.
+  ?pokemon wdt:P1112 ?pokedexNumber.
+  FILTER (xsd:integer(?primeLabel) = xsd:integer(?pokedexNumber))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }.
+}
+ORDER BY ?pokedexNumber

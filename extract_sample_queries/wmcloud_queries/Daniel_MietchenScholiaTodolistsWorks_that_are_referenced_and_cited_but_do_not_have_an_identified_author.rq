@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?count
+WITH {
+  SELECT DISTINCT ?item (COUNT(DISTINCT ?statement) AS ?count ) WHERE {
+      SERVICE bd:sample { ?item wdt:P921 [] . bd:serviceParam bd:sample.limit 40000 }   
+    
+    ?statement prov:wasDerivedFrom/pr:P248 ?item .
+    ?item wdt:P356 [] .
+    FILTER NOT EXISTS { ?item wdt:P50 [] .}
+
+  } 
+  GROUP BY ?item
+  LIMIT 200
+
+}
+AS %statements
+WHERE { 
+  FILTER (?count > 5 )
+  INCLUDE %statements
+          [] wdt:P2860 ?item .
+  ?item wdt:P2860 [] .
+}
+GROUP BY ?item ?count

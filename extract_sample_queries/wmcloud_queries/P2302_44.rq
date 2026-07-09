@@ -1,0 +1,9 @@
+#title: "allowed qualifiers constraint" and "required qualifiers constraint" must only be used on properties that have a scope of "as main value"
+# Complex constraint from [[Property talk:P2302]]
+# Properties with a [[Property:P2302|property constraint&#32;<small dir="ltr">(P2302)</small>]] value of either [[d:Q21510851|allowed qualifiers constraint <small>(Q21510851)</small>]] or [[d:Q21510856|required qualifier constraint <small>(Q21510856)</small>]] must also have a [[Property:P2302|property constraint&#32;<small dir="ltr">(P2302)</small>]] value of [[d:Q53869507|property scope constraint <small>(Q53869507)</small>]] with qualifier [[Property:P5314|property scope&#32;<small dir="ltr">(P5314)</small>]] having the value [[d:Q54828448|as main value <small>(Q54828448)</small>]].
+SELECT ?item ?itemLabel ?constraint ?constraintLabel WHERE {
+  VALUES ?constraint { wd:Q21510851 wd:Q21510856 }.
+  ?item wdt:P2302 ?constraint.
+  FILTER NOT EXISTS { ?item p:P2302 [ ps:P2302 wd:Q53869507; pq:P5314 wd:Q54828448 ]. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

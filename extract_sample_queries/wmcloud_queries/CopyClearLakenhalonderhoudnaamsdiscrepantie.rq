@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item  ?origineleNaam
+{
+	?item wdt:P6379 wd:Q2098586 .
+    ?item wdt:P31 wd:Q5.
+    ?item rdfs:label ?label.
+   ?item p:P6379 [ ps:P6379 wd:Q2098586;
+                    prov:wasDerivedFrom 
+                    [ pr:P1810 ?origineleNaam; 
+                    ]
+                  ].
+    BIND (CONTAINS(?origineleNaam, ?label) AS ?gelijk)
+    FILTER(?gelijk != True)
+     FILTER((LANG(?label)) = "nl")
+}

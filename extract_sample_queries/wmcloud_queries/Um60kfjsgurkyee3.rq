@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel (GROUP_CONCAT(DISTINCT YEAR(?dob); separator=', ') AS ?birth_year) (GROUP_CONCAT(?occLabel; separator=', ') AS ?occupations) WHERE {
+  ?item wdt:P27 wd:Q16957; p:P1447 [] .
+  OPTIONAL {
+    ?item wdt:P106/rdfs:label ?occLabel .
+    FILTER(LANG(?occLabel) = 'en') .
+  }
+  OPTIONAL {
+    ?item wdt:P569 ?dob .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en,de,fr' }
+} GROUP BY ?item ?itemLabel ?dob

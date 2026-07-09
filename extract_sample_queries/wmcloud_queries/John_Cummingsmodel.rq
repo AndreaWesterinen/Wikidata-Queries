@@ -1,0 +1,6 @@
+embed.html#SELECT ?subject ?subjectLabel ?modelItem ?modelItemLabel WHERE {
+  
+  ?subject wdt:P5869 ?modelItem .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

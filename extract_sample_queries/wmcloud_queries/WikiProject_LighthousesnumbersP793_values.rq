@@ -1,0 +1,19 @@
+SELECT ?item ?itemLabel (COUNT(DISTINCT ?lighthouse) as ?ct)  (SAMPLE(?lighthouse) as ?sample)
+(CONCAT("[https://query.wikidata.org/#%23defaultView%3ATimeline%0ASELECT%20%3Fitem%20%3FitemLabel%20%3Fimg%20%3Fdate%20%3F",
+        "layerLabel%0A%7B%0A%09%3Fitem%20wdt%3AP31%20wd%3AQ39715%20.%20%0A%09%3Fitem%20p%3AP793%20%5B%20ps%3AP793%20wd%3A",
+        strafter(str(?item),"y/"),"%20%3B%20pq%3AP585%20%3Fdate%20%5D%0A%20%20%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP18%20%3Fimg%20%7D%0A",
+        "%20%20%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP17%20%3Flayer%20%7D%0A%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20",
+        "bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%20%7D%20%20%0A%7D%0AORDER%20BY%20ASC%28%3Fdate%29 timeline]") as ?timeline)
+(CONCAT("[https://query.wikidata.org/#%23defaultView%3AMap%0ASELECT%20%3Fitem%20%3FitemLabel%20%3Fimg%20%3Fdate%20%3F",
+        "layerLabel%20%3Fcoor%0A%7B%0A%09%3Fitem%20wdt%3AP31%20wd%3AQ39715%20%3B%20wdt%3AP625%20%3Fcoor%20.%0A%09%3Fitem%20p%3A",
+        "P793%20%5B%20ps%3AP793%20wd%3A",strafter(str(?item),"y/"),"%20%3B%20pq%3AP585%20%3Fdate%20%5D%0A%20%20%20%20OPTIONAL%20%7B%20%3Fitem%20wdt",
+        "%3AP18%20%3Fimg%20%7D%0A%20%20%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP17%20%3Flayer%20%7D%0A%20%20%20%20SERVICE%20",
+        "wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%20%7D%20%20%0A%7D%0AORDER%20BY%20ASC%28%3Fdate%29 map]") as ?map)
+WHERE
+{
+	?lighthouse wdt:P31 wd:Q39715 . 
+	?lighthouse wdt:P793 ?item .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }  
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?ct)

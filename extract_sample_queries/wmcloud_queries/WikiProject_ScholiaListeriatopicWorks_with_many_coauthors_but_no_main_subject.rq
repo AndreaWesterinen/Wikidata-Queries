@@ -1,0 +1,12 @@
+SELECT ?item ?sample_author ?count WHERE {
+  {
+  SELECT ?item (SAMPLE(?author) AS ?sample_author) (COUNT(?author)AS ?count) WHERE {
+    ?item wdt:P50 ?author .
+  }
+  GROUP BY ?item ?sample_author
+  HAVING (?count > 15)
+           LIMIT 2000
+                 }
+  FILTER NOT EXISTS {?item wdt:P921 []}
+}
+LIMIT 200

@@ -1,0 +1,5 @@
+SELECT ?item ?title ?position {
+  ?item wdt:P31 wd:Q21191270 ; wdt:P179 wd:Q28443710 ; p:P179/pq:P1545 ?position ; wdt:P1476 ?t .
+  BIND(STR(?t) AS ?title) .
+}
+ORDER BY xsd:integer(?position)

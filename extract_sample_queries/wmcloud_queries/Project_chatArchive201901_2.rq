@@ -1,0 +1,40 @@
+#UK MPs (ie 1800 onwards) present on Wikidata but not English Wikipedia
+#including their last date in office
+SELECT ?item ?itemLabel ?yob ?yod  ?lastseat ?last ?endcauseLabel (CONCAT("https://doi.org/10.1093/ref:odnb/",?odnb) AS ?odnbLink) (CONCAT("http://hansard.millbanksystems.com/people/",?hansard) AS ?hansardLink) (CONCAT("http://www.historyofparliamentonline.org/volume/",?hop) AS ?hopLink) (CONCAT("http://www.ukwhoswho.com/view/article/oupww/whowaswho/",?whoswho) AS ?whoswhoLink)  ?image
+WHERE
+{
+  ?membership wdt:P279 wd:Q16707842 . # this format means it only covers MPs with new-style term data
+  ?item wdt:P31 wd:Q5 ; p:P39 ?positionStatement . ?positionStatement ps:P39 ?membership . 
+  ?positionStatement pq:P582 ?last .  # note that this stops us having any current MPs - but WP ought to have all of them anyway
+  ?positionStatement pq:P768 ?seat.  
+  optional { ?positionStatement pq:P1534 ?endcause . }
+ FILTER NOT EXISTS {                  # this filter catches any cases where they came back to office later, to ensure we only report the final term
+ ?membership2 wdt:P279 wd:Q16707842 .
+ ?item p:P39 ?positionStatement2 . 
+ ?positionStatement2 ps:P39 ?membership2 . 
+ ?positionStatement2 pq:P580 ?start2 .
+ FILTER (?start2 >= ?last) . 
+ }
+  { ?seat wdt:P460 ?seat2 .
+  BIND( ?seat2 AS  ?lastseat ) . }
+  UNION
+  { FILTER NOT EXISTS { ?seat wdt:P460 ?seat2 } .
+  BIND( ?seat AS  ?lastseat ) . }                            # this bit finds the WP article for the corresponding seat
+    
+  # look for articles (sitelinks) in English ("en")
+  OPTIONAL {
+    ?article schema:about ?item .
+    ?article schema:inLanguage "en" .
+    ?article schema:isPartOf <https://en.wikipedia.org/>
+  }
+  # but select items with no such article
+  FILTER (!BOUND(?article))
+  OPTIONAL { ?item wdt:P1415 ?odnb } .
+  OPTIONAL { ?item wdt:P2015 ?hansard } .
+  OPTIONAL { ?item wdt:P4789 ?whoswho } .
+  OPTIONAL { ?item wdt:P1614 ?hop } .
+  OPTIONAL { ?item wdt:P18 ?image } .	
+  OPTIONAL { ?item wdt:P569 ?dob . BIND(YEAR(?dob) as ?yob) }
+  OPTIONAL { ?item wdt:P570 ?dod . BIND(YEAR(?dod) as ?yod) }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+}  order by desc(?last) ?itemLabel

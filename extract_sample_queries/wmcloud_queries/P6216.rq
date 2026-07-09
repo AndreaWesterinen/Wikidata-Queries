@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  { ?item wdt:P571 ?inception . FILTER(YEAR(?inception) < 1800) } UNION
+  { ?item wdt:P170 ?creator . ?creator wdt:P570 ?dod . FILTER(YEAR(?dod) < 1900) } 
+  }

@@ -1,0 +1,8 @@
+SELECT (SUM(IF (?numP131>1, 1, 0)) AS ?ambiguousP131) (COUNT(*) AS ?overallP131) {
+  {
+    SELECT (SUM (?p131) AS ?numP131) {
+      ?item wdt:P17 wd:Q142; p:P131 ?s OPTIONAL {?s pq:P580 ?b} OPTIONAL {?s pq:P582 ?e} 
+      BIND (IF (!BOUND(?f) && !BOUND(?e), 1, 0) AS ?p131) 
+    } GROUP BY ?item HAVING (?numP131>0)
+  }
+} 

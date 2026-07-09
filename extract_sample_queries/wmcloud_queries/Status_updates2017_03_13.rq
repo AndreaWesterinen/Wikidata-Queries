@@ -1,0 +1,11 @@
+#Female bioinformaticians/ computational biologists
+
+SELECT DISTINCT ?item ?itemLabel ?_image WHERE {
+  { ?item wdt:P106 wd:Q15709480.} # computational biologist
+  UNION
+  { ?item wdt:P106 wd:Q15956275.} # bioinformatician
+  ?item wdt:P21 wd:Q6581072.      # female
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  
+OPTIONAL { ?item wdt:P18 ?_image. }
+}

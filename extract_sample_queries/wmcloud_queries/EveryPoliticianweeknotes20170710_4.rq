@@ -1,0 +1,9 @@
+SELECT DISTINCT ?person ?personLabel ?office ?officeLabel ?start
+WHERE { 
+  ?country wdt:P31 wd:Q6256 ; wdt:P1313 ?office . 
+  ?person p:P39 ?posn ; wdt:P31 wd:Q5 ; wdt:P91 [ wdt:P279* wd:Q6636 ] . 
+  ?posn ps:P39 ?office .
+  OPTIONAL { ?posn pq:P580 ?start }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY ?start

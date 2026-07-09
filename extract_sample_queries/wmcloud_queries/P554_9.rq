@@ -1,0 +1,15 @@
+#What websites do humans have "website usernames" on?
+#title:What websites do humans have usernames on
+#illustrates bubblechart view, count
+
+#defaultView:BubbleChart
+SELECT ?webSiteLabel (COUNT(?human) AS ?count)
+WHERE
+{
+  ?human wdt:P31 wd:Q5.
+  ?human wdt:P553 ?webSite.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?webSiteLabel
+
+ORDER BY DESC(?count)

@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?human ?addlink WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+        wdt:P136 wd:Q134307 .
+  MINUS { ?item wdt:P921 [] } .
+  MINUS { ?item wdt:P136 ?genre. FILTER(?genre!=wd:Q134307) } .
+  ?item wdt:P180 ?human .
+  ?human wdt:P31 wd:Q5 ;
+         wdt:P569 ?dob ;
+         wikibase:sitelinks ?sitelinks .
+  FILTER(YEAR(?dob) > 1000 && YEAR(?dob) < 1850)
+  FILTER NOT EXISTS { ?human wdt:P31 wd:Q20643955 }
+  FILTER NOT EXISTS { ?human wdt:P411 [] } 
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P921&entityid=", REPLACE(STR(?human), "http://www.wikidata.org/entity/", ""), " Add]") AS ?addlink)
+  } ORDER BY DESC(?sitelinks) LIMIT 150

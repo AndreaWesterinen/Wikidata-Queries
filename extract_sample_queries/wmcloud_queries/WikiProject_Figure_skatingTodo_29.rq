@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+  ?item wdt:P641 ?sport ;
+        wdt:P31 ?nature .
+  ?nature wdt:P361 wd:Q2990963.
+  FILTER (?sport IN (wd:Q1682809, wd:Q926191, wd:Q4179462, wd:Q4305887, wd:Q38108))
+  MINUS { ?item wdt:P361 ?disciplineInCompetition .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }

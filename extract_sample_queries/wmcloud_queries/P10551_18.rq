@@ -1,0 +1,8 @@
+SELECT ?property ?propertyLabel (COUNT(?ref) AS ?references) (SAMPLE(?statement) AS ?sample)
+WHERE {
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO],en". }
+	?statement prov:wasDerivedFrom ?ref.
+	?ref pr:P10551 ?property.
+}
+GROUP BY ?property ?propertyLabel
+ORDER BY DESC(?references)

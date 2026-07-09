@@ -1,0 +1,12 @@
+# genera where taxon ancestor is Coleoptera
+SELECT ?item  ?taxon_name ?afd_id ?author ?authorLabel ?rankLabel WHERE {
+  ?item wdt:P171* wd:Q22671.
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+        ?item wdt:P105 wd:Q34740. 
+  OPTIONAL {
+      ?stat pq:P405 ?author. 
+      ?item wdt:P6039 ?afd_id. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+ORDER BY ?taxon_name ?item

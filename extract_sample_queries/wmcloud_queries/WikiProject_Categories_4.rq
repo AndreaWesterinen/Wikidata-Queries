@@ -1,0 +1,4 @@
+select (count(*) as ?count) {
+  ?cat wdt:P31 wd:Q4167836
+  MINUS { ?cat wdt:P31 wd:Q30432511 }     
+}

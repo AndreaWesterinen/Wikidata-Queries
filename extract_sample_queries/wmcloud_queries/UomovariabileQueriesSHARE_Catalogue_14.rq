@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?dob
+WHERE
+{
+#occupation=archeologo
+  { ?item wdt:P106 wd:Q3621491 }
+#paese di cittadinanza = Italia
+  { ?item wdt:P27 wd:Q38 }
+#che ha valore ID Autore SHARE Catalogue
+  { ?item wdt:P3987 ?ID_autore_SHARE_Catalogue. }
+
+# get DOB for ordering.
+	OPTIONAL { ?item wdt:P569 ?dob  }
+# look for articles (sitelinks) in italiano ("it")
+  	OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "it" }
+# but select items with no such article
+	FILTER (!BOUND(?sitelink))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en".}
+}
+ORDER BY ?dob
+LIMIT 4999

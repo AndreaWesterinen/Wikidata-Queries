@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?itemDescription ?coord
+{
+	?item wdt:P31 wd:Q39715 . 
+    ?item wdt:P17 wd:Q31 . 
+    
+	?item wdt:P625 ?coord . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

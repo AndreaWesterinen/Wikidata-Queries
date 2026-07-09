@@ -1,0 +1,1 @@
+SELECT ?item ?q WHERE { ?item wdt:P31 wd:Q5 . { { ?item wdt:P27 wd:Q20 . } UNION { ?item wdt:P27 wd:Q34 . } UNION { ?item wdt:P27 wd:Q35 . } UNION { ?item wdt:P27 wd:Q33 . } UNION { ?item wdt:P27 wd:Q191 . } } MINUS { ?item wdt:P734 ?etternavn . } . BIND (xsd:integer(SUBSTR(STR(?item), 33)) as ?q) } ORDER BY DESC(?q)

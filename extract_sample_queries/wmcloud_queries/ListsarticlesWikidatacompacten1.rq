@@ -1,0 +1,8 @@
+SELECT ?item ?year ?qid
+{
+	?item wdt:P921 wd:Q2013 ; wdt:P31 wd:Q13442814 .
+	OPTIONAL { ?item wdt:P577 ?d . BIND((1+YEAR(NOW())-YEAR(?d))*10000000+YEAR(?d) as ?year) }
+	BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid) 
+}
+ORDER BY ASC(?year) DESC(?qid)
+LIMIT 300

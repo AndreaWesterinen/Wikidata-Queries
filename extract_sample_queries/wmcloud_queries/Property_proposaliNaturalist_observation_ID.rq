@@ -1,0 +1,4 @@
+SELECT * WHERE {
+   ?item wdt:P31 wd:Q16521 ;
+         wdt:P18 ?image .
+}

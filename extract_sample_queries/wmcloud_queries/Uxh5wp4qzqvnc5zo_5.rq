@@ -1,0 +1,13 @@
+SELECT DISTINCT ?party1 ?party1Label ?rgb (count(DISTINCT(?item)) as ?count) 
+{
+ ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279* wd:Q16707842 .
+ ?positionStatement ps:P39 ?term . 
+ ?positionStatement pq:P768 ?constituency . 
+ ?positionStatement pq:P2715 wd:Q119524 .     # relevant general election
+ ?positionStatement pq:P4100 ?party . 
+ 
+ BIND(IF(?party = wd:Q6467393, wd:Q9630 , ?party) AS ?party1) .
+ optional { ?party1 wdt:P465 ?rgb } . # colour if known
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} group by ?party1 ?party1Label ?rgb order by desc(?count)
+#defaultView:BubbleChart

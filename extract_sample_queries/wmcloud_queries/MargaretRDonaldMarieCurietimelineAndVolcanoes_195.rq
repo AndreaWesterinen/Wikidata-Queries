@@ -1,0 +1,19 @@
+SELECT DISTINCT ?item ?itemLabel ?num ?itemDescription  WHERE {
+  VALUES ?occ {wd:Q639669}
+  ?item wdt:P31 wd:Q5 ;
+    wdt:P21 wd:Q6581072 ;
+   (wdt:P106/(wdt:P279*)) ?occ;
+    wdt:P106 ?occupation .    
+  ?item wikibase:sitelinks ?num.  
+  
+  ?item wdt:P27 ?nacionalidad .  
+  ?nacionalidad wdt:P17 ?country .  
+  ?country (wdt:P361/(wdt:P361*)) wd:Q12585 .
+  FILTER(?num >= 1)
+  MINUS {
+    ?art schema:about ?item.
+    ?art schema:isPartOf <https://es.wikipedia.org/>. 
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+}
+ORDER BY DESC(?num)

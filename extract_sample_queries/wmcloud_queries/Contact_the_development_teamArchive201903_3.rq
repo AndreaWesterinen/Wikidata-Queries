@@ -1,0 +1,4 @@
+SELECT ?unit (COUNT(*) AS ?count) (SAMPLE(?statement) AS ?value) WHERE {
+  ?statement ?value [ wikibase:quantityUnit ?unit ].
+  ?unit owl:sameAs [] .
+} GROUP BY ?unit

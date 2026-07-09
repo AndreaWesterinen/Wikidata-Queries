@@ -1,0 +1,5 @@
+SELECT ?Prato ?PratoLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Prato wdt:P131 wd:Q13377.
+}
+LIMIT 200

@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?articlecount
+WITH
+{
+  SELECT ?item
+  WHERE
+  {
+    ?item wdt:P570 ?deathdate .
+    hint:Prior hint:rangeSafe true .
+    FILTER ( ?deathdate < "1951-00-00"^^xsd:dateTime && ?deathdate >= "1950-00-00"^^xsd:dateTime )
+  }
+}
+AS %subquery
+WHERE
+{
+  INCLUDE %subquery
+  ?item wikibase:sitelinks ?articlecount .
+  ?item p:P106 ?occupationStatement .
+  ?occupationStatement ps:P106/wdt:P279* wd:Q2500638 .
+  hint:Prior hint:gearing "forward" .
+  MINUS { ?occupationStatement wikibase:rank wikibase:DeprecatedRank . }
+}
+ORDER BY DESC (?articlecount)

@@ -1,0 +1,2 @@
+#title:Normalize values
+SELECT DISTINCT ?item WHERE { ?item wdt:P3451 ?value . FILTER( REGEX(STR(?value), '_') = true)}

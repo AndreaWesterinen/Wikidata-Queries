@@ -1,0 +1,15 @@
+SELECT ?property ?propertyLabel (COUNT(?item) AS ?count)
+WHERE {
+  VALUES ?target {
+    wd:Q699
+  }
+  ?item ?p ?statement .
+  ?statement ?ps ?target .
+  ?property wikibase:claim ?p ;
+    wikibase:statementProperty ?ps .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+GROUP BY ?property ?propertyLabel
+ORDER BY DESC(?count)

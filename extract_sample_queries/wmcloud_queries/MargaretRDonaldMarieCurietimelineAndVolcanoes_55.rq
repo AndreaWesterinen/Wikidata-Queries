@@ -1,0 +1,18 @@
+#Australian paintings/drawing/print/sculpture by institution and female creator
+
+SELECT ?creatorLabel ?institutionLabel (COUNT(*) AS ?count) WHERE {
+  {?artwork wdt:P31 wd:Q3305213.}
+  UNION
+   {?artwork wdt:P31 wd:Q11060274.}
+  UNION 
+   {?artwork wdt:P31 wd:Q93184.}
+  UNION 
+   {?artwork wdt:P31 wd:Q860861.}
+  ?artwork wdt:P170 ?creator.
+  ?creator wdt:P21 wd:Q6581072.
+  ?institution wdt:P131 wd:Q3258.
+  ?artwork wdt:P195 ?institution.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?creatorLabel ?institutionLabel
+ORDER BY ?count ?creatorLabel

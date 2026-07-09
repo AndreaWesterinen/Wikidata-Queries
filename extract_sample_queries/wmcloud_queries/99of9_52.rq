@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?namedfor ?namedforLabel ?namedfor2 ?namedfor2Label ?namedfor3 ?namedfor3Label ?namedfor4 ?namedfor4Label ?namedfor5 ?namedfor5Label
+WHERE
+{
+   # ?item wdt:P17 wd:Q408 .
+    ?item wdt:P138 ?namedfor .
+    ?namedfor wdt:P138 ?namedfor2 .
+    ?namedfor2 wdt:P138 ?namedfor3 .
+    ?namedfor3 wdt:P138 ?namedfor4 .
+    ?namedfor4 wdt:P138 ?namedfor5 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

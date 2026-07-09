@@ -1,0 +1,14 @@
+#Eivissencs amb llinatge repetit
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+    ?person wdt:P19 ?place .
+    ?place wdt:P131*/wdt:P706* wd:Q52631.
+	?person wdt:P734 ?name .
+  	?person wdt:P1950 ?name .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,es,ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

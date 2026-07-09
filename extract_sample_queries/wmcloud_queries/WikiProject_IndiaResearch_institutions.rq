@@ -1,0 +1,24 @@
+SELECT
+  ?item
+  ?number_of_authors
+  ?number_of_works
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid)
+  (CONCAT("{{Scholia-inline|", ?qid, "}}") AS ?q)
+  (CONCAT( "[[toolforge:scholia/organization/", ?qid , "#Recent-publications|", ENCODE_FOR_URI(?number_of_works), "]] / ", "[[toolforge:scholia/organization/", ?qid , "/missing|📖]]") AS ?scholia)
+
+WITH {  
+  SELECT
+    ?item
+    (COUNT(DISTINCT ?author) AS ?number_of_authors)
+    (COUNT(DISTINCT ?work) AS ?number_of_works)
+  WHERE {
+    ?item wdt:P17 wd:Q668 .
+    ?author wdt:P108 | wdt:P463 | wdt:P1416/wdt:P361* ?item .
+    ?work wdt:P50 ?author .
+  }
+  GROUP BY ?item 
+} AS %results
+WHERE {
+  INCLUDE %results
+}
+ORDER BY DESC(?number_of_authors) DESC(?number_of_works) ?item ?qid ?scholia

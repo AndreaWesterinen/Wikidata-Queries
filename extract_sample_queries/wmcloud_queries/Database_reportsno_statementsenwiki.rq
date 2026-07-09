@@ -1,0 +1,7 @@
+SELECT * 
+{
+    ?item wikibase:statements 0 ; wikibase:sitelinks ?sl . 
+    MINUS { ?item rdf:type [] } 
+    [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> 
+}
+LIMIT 200

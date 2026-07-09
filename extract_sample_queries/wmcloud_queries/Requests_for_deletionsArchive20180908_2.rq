@@ -1,0 +1,7 @@
+#individual human organs
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31/wdt:P279 wd:Q25449120.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

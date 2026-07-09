@@ -1,0 +1,19 @@
+#Target required claim report for P85: report by values used
+#Limited to values in best rank (wdt), exceptions not filtered
+#Query added by Jura1, 2017-08-01; 2018-08-19
+
+SELECT ?value ?valueLabel ?valueDescription ?ct
+WHERE
+{
+	{
+		SELECT ?value (COUNT(DISTINCT ?item) as ?ct)
+		WHERE
+		{
+				?item wdt:P85 ?value .
+				MINUS { ?value p:P577 [] }
+		}
+		GROUP BY ?value ORDER BY DESC(?ct) ?value  LIMIT 1000
+	}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+ORDER BY DESC(?ct) ?value

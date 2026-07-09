@@ -1,0 +1,16 @@
+# Nobel Díjat kapott - nők - munkaterületenként.
+SELECT DISTINCT ?nobel_dijat_kapott_nok ?nobel_dijat_kapott_nokLabel ?teruletLabel
+WHERE {
+{{  SELECT DISTINCT ?nobel_dijat_kapott_nok (SAMPLE(?terulet ) AS ?terulet) 
+    WHERE{ ?nobel_dijat_kapott_nok wdt:P166/wdt:P31? wd:Q7191 .
+           ?nobel_dijat_kapott_nok wdt:P21  wd:Q6581072 .
+           OPTIONAL{?nobel_dijat_kapott_nok wdt:P101 ?terulet .}.
+    }
+    GROUP BY ?nobel_dijat_kapott_nok
+  }
+  FILTER NOT EXISTS { [] schema:about ?nobel_dijat_kapott_nok; schema:isPartOf <https://hu.wikipedia.org/> } .
+ }   
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "hu,en,de".}
+}
+ORDER BY ?nobel_dijat_kapott_nokLabel #
+#?fbclid=IwAR1vQw7WuI6dp2sGUVattsaoEwklx8vyGooe5QtktwG4VU0KY-MqAFONTWc

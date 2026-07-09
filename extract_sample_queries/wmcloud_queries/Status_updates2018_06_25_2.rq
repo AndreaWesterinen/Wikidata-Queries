@@ -1,0 +1,17 @@
+SELECT
+  ?count
+  ?surname ?surnameLabel
+WITH {
+  SELECT
+    (COUNT(*) AS ?count)
+    ?surname
+  WHERE {
+    [] wdt:P2860 / wdt:P50 / wdt:P734 ?surname .
+  }
+  GROUP BY ?surname
+} AS %results
+WHERE {
+  INCLUDE %results
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

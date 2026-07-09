@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?itemDescription ?seriesLabel
+WHERE {
+  {?item wdt:P31 wd:Q4677783.}
+  UNION
+  {?item wdt:P31 wd:Q105774620.}
+  ?item wdt:P577 ?date .
+  FILTER("1860-00-00"^^xsd:dateTime <= ?date &&
+         ?date < "1861-00-00"^^xsd:dateTime)
+  optional {?item wdt:P179 ?series . }
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" .   }
+  
+}

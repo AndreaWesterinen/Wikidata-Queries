@@ -1,0 +1,18 @@
+SELECT ?item
+WHERE {
+  BIND(wd:Q574 AS ?country)
+
+  VALUES ?type {
+    wd:Q110813527 # ministries (20)
+    wd:Q741821 # municipalities (13)
+    wd:Q111127635 # special administrative region (1)
+    wd:Q1512109 # administrative posts (67)
+    wd:Q22044663  # sucos (452)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+}

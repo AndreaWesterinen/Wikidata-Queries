@@ -1,0 +1,5 @@
+SELECT ?item ?sl ?st ?ids
+{
+?item wdt:P180 wd:Q43256358     
+OPTIONAL { ?item wikibase:sitelinks ?sl ; wikibase:statements ?st ; wikibase:identifiers ?ids }
+}

@@ -1,0 +1,18 @@
+SELECT ?d ?mem ?memLabel ?start ?end ?constituencyLabel WHERE
+{
+ { SELECT distinct ?d WHERE {
+ ?m p:P39 [ ps:P39
+ wd:Q35494253; # < The position.
+ ( pq:P580 | pq:P582 ) ?d ].
+ }}
+ FILTER (?d = "2013-06-01T00:00:00Z"^^xsd:dateTime) . # put target date here
+ ?mem p:P39 ?st .
+ ?st ps:P39
+ wd:Q35494253. # < Again.
+ ?st pq:P580 ?sd filter( ?sd < ?d ) .
+ ?st pq:P580 ?start .
+ ?st pq:P582 ?end .
+ ?st pq:P768 ?constituency .
+ optional { ?st pq:P582 ?ed . } filter( !bound( ?ed ) || ?ed >= ?d )
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

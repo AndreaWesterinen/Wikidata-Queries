@@ -1,0 +1,7 @@
+select ?x ?xLabel ?fmt ?re ?pat {
+  ?x wikibase:propertyType wikibase:ExternalId.
+  ?x wdt:P1630 ?fmt; p:P2302/pq:P1793 ?re
+  filter not exists {?x wdt:P8966 []}
+  filter(regex(?fmt, "wd")) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

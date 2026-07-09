@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?type ?typeLabel ?grantID
+{
+	?item wdt:P6854 ?grantID; wdt:P31 ?type
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+} 

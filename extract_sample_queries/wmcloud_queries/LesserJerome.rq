@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?st ?start ?end ?moment
+WHERE {
+  ?item wdt:P31 wd:Q5;
+           p:P6509 ?statement.
+  ?statement ps:P6509 ?st;
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P585 ?end }
+  OPTIONAL { ?statement pq:P585 ?start }
+  FILTER (?st = 1)           
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ASC(?end)
+LIMIT 1000

@@ -1,0 +1,6 @@
+SELECT ?item ?st ?sl ?wiki1 ?ids
+{ 
+wd:Q41967248 wdt:P710 ?item . ?item wdt:P31 wd:Q5 . 
+OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids }
+OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w1  BIND( CONCAT("[[:en:",str(?w1),"|en]]") as ?wiki1) } 
+}

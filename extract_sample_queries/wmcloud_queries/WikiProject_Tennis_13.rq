@@ -1,0 +1,9 @@
+SELECT ?item ?label
+{
+    ?item wdt:P31*/wdt:P279* wd:Q13219666 .
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q46190676 }
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q13219666 }
+    ?item rdfs:label ?label . FILTER(LANG(?label) = 'en') .
+    FILTER(REGEX(STR(?label), " – [Ss]ingles?$")) .  
+}          
+LIMIT 5000

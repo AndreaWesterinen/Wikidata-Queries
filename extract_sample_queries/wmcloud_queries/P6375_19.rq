@@ -1,0 +1,18 @@
+SELECT ?country ?countryLabel ?count ?sample ?sampleLabel 
+WHERE 
+{
+  {
+    SELECT ?country (COUNT(*) AS ?count) (SAMPLE(?a) AS ?sample) 
+    WHERE 
+    {
+      ?a wdt:P6375 ?p;
+        wdt:P31 wd:Q79007;
+        wdt:P17 ?country.
+    }
+    GROUP BY ?country
+    ORDER BY DESC (?count)
+    LIMIT 50
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC (?count) (?countryLabel)

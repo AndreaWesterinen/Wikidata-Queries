@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?description WHERE {
+   ?item wdt:P17 wd:Q40.
+   ?item schema:description ?description.
+   FILTER (lang(?description) = "de-at" )
+   FILTER regex(?description, " in Austria|lake |gap |mountain ","i").
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+} limit 700

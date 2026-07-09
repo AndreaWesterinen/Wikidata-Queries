@@ -1,0 +1,11 @@
+# Members of 117th United States Congress sorted by age
+SELECT ?item ?itemLabel ?positionLabel ?dob
+WHERE
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 ?position .
+  ?statement pq:P2937 wd:Q65089999 . # parliamentary term: 117th United States Congress
+  OPTIONAL { ?item wdt:P569 ?dob . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+ORDER BY ASC(?dob)

@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT DISTINCT ?street ?streetLabel ?town ?coords WHERE {
+  ?street wdt:P630 ?code .
+  ?street wdt:P138 ?town .
+  ?town wdt:P31 wd:Q484170 .
+  ?town wdt:P625 ?coords .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?itemLabel|

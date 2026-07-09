@@ -1,0 +1,3 @@
+SELECT ?predicate ?object {
+  wd:Q106476475 ?predicate ?object
+}

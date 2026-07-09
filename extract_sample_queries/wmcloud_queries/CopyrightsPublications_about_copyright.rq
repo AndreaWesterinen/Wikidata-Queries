@@ -1,0 +1,9 @@
+SELECT ?label ?coord ?item
+WHERE {
+   ?item wdt:P31/wdt:P279* wd:Q732577.  # instance or subclass of publication
+   ?item wdt:P921/wdt:P279* wd:Q38746 . # main topic copyright
+         
+
+         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                         ?item rdfs:label ?label}
+}

@@ -1,0 +1,10 @@
+# Swedish compounds with count of parts
+SELECT ?l ?lemma (COUNT(DISTINCT ?combines) AS ?combinescount) WHERE {
+  ?l rdf:type ontolex:LexicalEntry;
+    dct:language ?language;
+    wikibase:lemma ?lemma.
+  ?language wdt:P218 "sv".
+  ?l wdt:P5238 ?combines.
+}
+GROUP BY ?l ?lemma
+ORDER BY ?combinescount

@@ -1,0 +1,4 @@
+SELECT ?item  
+{
+  	?item wdt:P31 wd:Q15156455
+}

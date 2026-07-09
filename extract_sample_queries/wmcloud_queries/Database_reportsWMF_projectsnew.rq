@@ -1,0 +1,18 @@
+SELECT ?item ?d (COUNT(*) as ?ct) 
+WITH
+{
+	SELECT ?item ?d ?ws {
+    ?item wdt:P571 ?d ; wdt:P856 ?ws .
+	FILTER ( ?d > "2021-03-30T00:00:00Z"^^xsd:dateTime)
+	FILTER ( ?d > (now()-"P3M"^^xsd:duration) && ?d < now() )
+    }          
+} as %new
+WHERE
+{
+  INCLUDE %new .
+  hint:Prior hint:rangeSafe true .  
+  hint:Query hint:optimizer "None".  
+  ?p schema:isPartOf ?ws .
+}
+GROUP BY ?item ?d
+ORDER BY DESC(?d) ?item

@@ -1,0 +1,4 @@
+#title: Check on multiple values
+# Complex constraint from [[Property talk:P1705]]
+# Items with more than 3 values might not be using this property correctly
+SELECT ?item (COUNT(?nativeLabel) as ?count) (GROUP_CONCAT(DISTINCT(lang(?nativeLabel)); separator=" ") as ?langs) (GROUP_CONCAT(DISTINCT(str(?nativeLabel)); separator=";") as ?values) WHERE { ?item wdt:P1705 ?nativeLabel } GROUP BY ?item HAVING(?count > 3) ORDER BY DESC(?count) LIMIT 1000

@@ -1,0 +1,9 @@
+#defaultView:Table
+SELECT DISTINCT ?entity ?entityLabel ?inception WHERE {
+  ?entity wdt:P31 wd:Q759421.
+  FILTER(!EXISTS { ?entity wdt:P809 ?x. })
+  FILTER(!Exists { ?entity wdt:P576 ?y. })
+  Optional { ?entity wdt:P571 ?inception.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+}
+ORDER BY ?inception

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?output WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P650 ?rkd.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  FILTER((LANG(?label)) = "nl")
+  BIND(REPLACE(STR(?label),"(\\([^\\)]{1,}\\)) (.+)","$2 $1") AS ?output) .
+  FILTER(REGEX(?label, "\\([^\\)]{1,}\\) "))
+}

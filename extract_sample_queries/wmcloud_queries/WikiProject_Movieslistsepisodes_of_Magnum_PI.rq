@@ -1,0 +1,22 @@
+SELECT ?item 
+(SAMPLE(?nr_s) as ?nrs)
+(SAMPLE(?nr_e) as ?nre)
+(GROUP_CONCAT(DISTINCT(?itlabel)) as ?itlabels) 
+(GROUP_CONCAT(DISTINCT(?frlabel)) as ?frlabels) 
+(GROUP_CONCAT(DISTINCT(?delabel)) as ?delabels) 
+(GROUP_CONCAT(DISTINCT(?enlabel)) as ?enlabels) 
+WHERE 
+{  
+  ?item wdt:P31/wdt:P279* wd:Q21191270 .
+  ?item wdt:P179 wd:Q254689.   
+  OPTIONAL { ?item wdt:P4908 ?season .
+  ?season p:P179 ?season_statement .
+  ?season_statement pq:P1545 ?nr_s  }
+  OPTIONAL { ?item p:P179 ?episode_statement .
+  ?episode_statement pq:P1545 ?nr_e  }
+  OPTIONAL { ?item rdfs:label ?enlabel . FILTER(lang(?enlabel)="en")  } 
+  OPTIONAL { ?item rdfs:label ?delabel . FILTER(lang(?delabel)="de")  } 
+  OPTIONAL { ?item rdfs:label ?frlabel . FILTER(lang(?frlabel)="fr")  } 
+  OPTIONAL { ?item rdfs:label ?itlabel . FILTER(lang(?itlabel)="it")  }  
+} GROUP BY ?item ?qid
+ORDER BY ?nrs xsd:integer(?nre) ?enlabels

@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?itemLabel_ar?itemDesc_ar WHERE {?item wdt:P17 wd:Q878;wdt:P31 wd:Q486972. filter not exists {?item rdfs:label ?itemLabel_ar . filter(lang(?itemLabel_ar)="ar")} optional {?item schema:description ?itemDesc_ar . filter(lang(?itemDesc_ar)="ar")} SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".

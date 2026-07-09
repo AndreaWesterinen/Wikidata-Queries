@@ -1,0 +1,52 @@
+SELECT ?item ?year ?sitelinks ?identifiers
+WITH {
+  SELECT ?item (YEAR(MIN(?game_date)) AS ?year)  WHERE {
+    VALUES ?country {
+      wd:Q40
+      wd:Q39
+      wd:Q183
+    }
+    ?item wdt:P31 wd:Q7889;
+      wdt:P495 ?country;
+      wdt:P577 ?game_date.
+    FILTER(?game_date < "2000-01-01T00:00:00Z"^^xsd:dateTime)
+  }GROUP BY ?item 
+}AS %items
+WITH {
+  SELECT ?item (GROUP_CONCAT(?sitelink) as ?sitelinks) WHERE {
+    INCLUDE %items.
+    OPTIONAL { 
+      ?article a schema:Article;
+               schema:about ?item;
+               schema:inLanguage ?language. 
+      BIND(CONCAT("[", STR(?article), " ", ?language, "]") AS ?sitelink)
+    }
+  }
+  GROUP BY ?item
+} AS %itemsWithSitelinks
+WITH {
+  SELECT ?item (GROUP_CONCAT(?identifier) as ?identifiers) WHERE {
+    INCLUDE %items.
+    OPTIONAL {
+      ?property a wikibase:Property;
+                wdt:P31/wdt:P279* wd:Q28147643;
+                wikibase:propertyType wikibase:ExternalId;
+                wdt:P1630 ?formatterUrl;
+                wikibase:directClaim ?wdt;
+                rdfs:label ?propertyLabel.
+      FILTER(LANG(?propertyLabel) = "en")
+      MINUS { ?property wdt:P1629 wd:Q64521795 } .
+      MINUS { ?property wdt:P1629 wd:Q96096761 } .
+      MINUS { ?property wdt:P1629 wd:Q27631547 } .
+      ?item ?wdt ?id.
+      BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterUrl)) AS ?url)
+      BIND(CONCAT("[", STR(?url), " ", ?propertyLabel, "]") AS ?identifier)
+    }
+  }
+  GROUP BY ?item
+} AS %itemsWithExternalIdentifiers
+WHERE {
+  INCLUDE %items.
+  INCLUDE %itemsWithSitelinks.
+  INCLUDE %itemsWithExternalIdentifiers.
+}

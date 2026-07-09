@@ -1,0 +1,9 @@
+SELECT ?statement ?country ?countryLabel
+WHERE {
+     ?statement ps:P17 ?country .
+  ?statement prov:wasDerivedFrom ?ref .
+  ?ref pr:P143 wd:Q2742472 .
+     SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}

@@ -1,0 +1,14 @@
+SELECT ?item ?empl ?hq ?date
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?item p:P1128 ?emplSt .
+    ?emplSt a wikibase:BestRank; ps:P1128 ?empl .
+    OPTIONAL { ?emplSt pq:P585 ?date } .
+    FILTER( ?item not in (wd:Q5201737,wd:Q58623100,wd:Q12051564,wd:Q43912780,wd:Q3500121,wd:Q11089971,wd:Q11878927,wd:Q15123994))
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "cs, en" }
+}
+ORDER BY DESC(?empl)
+LIMIT 40

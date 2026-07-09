@@ -1,0 +1,10 @@
+# time zones that are more than 12 hours away from UTC
+SELECT DISTINCT ?tz ?tzLabel ?offset ?countryLabel ?coords WHERE {
+  ?tz wdt:P31/wdt:P279* wd:Q12143;
+      wdt:P2907 ?offset.
+  FILTER(ABS(?offset) > 12).
+  OPTIONAL { ?tz wdt:P17 ?country. }
+  OPTIONAL { ?tz wdt:P625 ?coords. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?offset

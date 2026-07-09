@@ -1,0 +1,17 @@
+#Values used by property P106
+SELECT ?value ?valueLabel ?ct ?sampleitem ?sampleitemLabel
+WHERE
+{
+  {
+    SELECT ?value (count(*) as ?ct) (SAMPLE(?item) as ?sampleitem)
+    WHERE
+    {
+      ?item wdt:P106 ?value
+    }
+    GROUP BY ?value
+    ORDER BY DESC(?ct)
+    LIMIT 1000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?ct) ASC(?value)

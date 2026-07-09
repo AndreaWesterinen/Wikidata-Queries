@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel (YEAR(?dod) as ?year_of_death)
+WHERE
+{
+  ?item wdt:P27 wd:Q801;
+        wdt:P570 ?dod.
+  FILTER(YEAR(?dod) = 1970)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

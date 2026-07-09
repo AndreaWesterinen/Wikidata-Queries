@@ -1,0 +1,17 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# limit to 10 results so we don't timeout
+SELECT ?event ?eventLabel ?date ?coordinate_location WHERE {
+  ?event (wdt:P31/wdt:P279*) wd:Q1656682.
+  OPTIONAL { ?event wdt:P585 ?date. }
+  OPTIONAL { ?event wdt:P580 ?date. }
+  BIND((NOW()) - ?date AS ?distance)
+  OPTIONAL {
+    ?event rdfs:label ?eventLabel.
+    FILTER((LANG(?eventLabel)) = "en")
+  }
+  FILTER((BOUND(?date)) && ((DATATYPE(?date)) = xsd:dateTime))
+  FILTER((0 <= ?distance) && (?distance < 365))
+   { ?event wdt:P625 ?coordinate_location. }
+}
+LIMIT 10

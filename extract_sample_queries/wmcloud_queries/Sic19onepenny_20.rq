@@ -1,0 +1,32 @@
+SELECT DISTINCT ?POP_workID ?penny ?title ?author ?authorLabel ?date1 ?date2 ?vol ?number ?firstline ?lastline WHERE {
+  ?penny wdt:P1433 wd:Q109839018 ;
+         wdt:P577 ?date ;
+         wdt:P433 ?issue ;
+         wdt:P1476 ?title_ .
+
+  OPTIONAL { ?penny wdt:P1680 ?subtitle }
+  OPTIONAL { ?penny wdt:P953 ?fulltext .}
+  OPTIONAL { ?penny p:P577 [ps:P577 ?date1 ; pq:P3831 wd:Q19269277] . ?penny p:P577 [ps:P577 ?date2 ; pq:P3831 wd:Q30013662] }
+  OPTIONAL { ?penny p:P433 [ps:P433 ?issue1 ; pq:P3831 wd:Q19269277] . ?penny p:P433 [ps:P433 ?issue2 ; pq:P3831 wd:Q30013662] }
+  OPTIONAL { ?penny p:P478 [ps:P478 ?vol1 ; pq:P3831 wd:Q19269277] . ?penny p:P478 [ps:P478 ?vol2 ; pq:P3831 wd:Q30013662] . BIND(CONCAT(?vol1,"-",?vol2) AS ?vol) . }
+  OPTIONAL { ?penny wdt:P478 ?vol . }
+#  OPTIONAL { {?penny p:P50 [ps:P50 ?author ; pq:P1545 ?ordinal] . } UNION {?penny p:P50 [ps:P50 ?author ; pq:P1545 ?ordinal ; pq:P1932 ?statedAs] . } UNION {?penny p:P2093 [ps:P2093 ?author ; pq:P1545 ?ordinal] } }
+  OPTIONAL { {?penny wdt:P50 ?author . } UNION {?penny wdt:P2093 ?author } }
+  OPTIONAL { ?penny wdt:P1922 ?firstline .}
+  OPTIONAL { ?penny wdt:P3132 ?lastline .}
+
+  BIND(IF(bound(?subtitle), CONCAT(?title_," ",?subtitle), ?title_) AS ?title)
+  BIND(IF(!bound(?date1), ?date, ?date3) AS ?date1)
+
+#   FILTER wikibase:isSomeValue(?issue2)
+  BIND(IF(!bound(?issue1), ?issue, ?issue3) AS ?number)
+  BIND(IF(wikibase:isSomeValue(?issue2),CONCAT(?issue1,"-"),CONCAT(?issue1,"-",?issue2)) AS ?number)
+  
+  ?penny ?prop ?statement .
+  ?statement rdf:type wikibase:BestRank .
+  ?statement (prov:wasDerivedFrom/pr:P9622) ?POP_workID.  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  }
+ORDER BY ASC(xsd:integer(?issue1))

@@ -1,0 +1,6 @@
+SELECT ?weapon ?weaponLabel
+WHERE
+{
+  ?weapon wdt:P31/wdt:P279* wd:Q728.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

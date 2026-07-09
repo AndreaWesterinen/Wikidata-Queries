@@ -1,0 +1,4 @@
+#title: Cannot be an instance of an individual human
+# Complex constraint from [[Property talk:P31]]
+# Can't be ?item wdt:P31/wdt:P31 wd:Q5.
+SELECT ?item WHERE { ?item wdt:P31/wdt:P31 wd:Q5. }

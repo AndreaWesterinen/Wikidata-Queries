@@ -1,0 +1,32 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?item ?itemLabel ?componist WHERE {
+  ?componist wdt:P31 wd:Q5.
+  {
+    ?componist wdt:P19 ?pob.
+    ?pob wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?componist wdt:P937 ?pow.
+    ?pow wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?componist wdt:P551 ?por.
+    ?por wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?componist wdt:P937 ?pod.
+    ?pod wdt:P17 wd:Q55.
+  }
+  ?componist wdt:P569 ?born.
+  ?componist wdt:P570 ?death.
+  ?componist wdt:P106 wd:Q36834.
+  ?item wdt:P86 ?componist.
+  
+  FILTER(?born > "1860-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?death < "1948-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?death > "1935-01-01T00:00:00Z"^^xsd:dateTime)
+}

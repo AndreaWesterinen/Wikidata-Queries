@@ -1,0 +1,19 @@
+#defaultView:Timeline
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dbc: <http://dbpedia.org/resource/Category:>
+
+SELECT DISTINCT  ?wditem ?wditemLabel ?date ?image ?work ?workLabel WHERE {  
+    SERVICE <http://dbpedia.org/sparql> {
+        ?item dct:subject|dct:subject/skos:broader|dct:subject/skos:broader/skos:broader dbc:Microscopists ;
+              owl:sameAs ?wditem FILTER regex (?wditem, "wikidata.org") .
+    }        
+    SERVICE <https://query.wikidata.org/sparql> {
+	  {?wditem wdt:P569 ?date .}
+#      UNION
+#      {?wditem wdt:P571|wdt:P577 ?date .}
+      OPTIONAL {?wditem wdt:P800 ?work. ?work rdfs:label ?workLabel FILTER (LANG(?workLabel)="en") .}
+      OPTIONAL {?wditem wdt:P18 ?image } .  
+      ?wditem rdfs:label ?wditemLabel FILTER (LANG(?wditemLabel)="en") .
+    }
+}

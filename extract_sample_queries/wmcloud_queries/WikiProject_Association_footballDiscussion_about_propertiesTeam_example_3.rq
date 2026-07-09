@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?club_pare ?club_pareLabel ?part_de ?part_deLabel WHERE {
+  ?item wdt:P31 wd:Q15944511.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P831 ?club_pare. }
+  OPTIONAL { ?item wdt:P361 ?part_de. }
+}

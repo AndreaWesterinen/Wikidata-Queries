@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?geografische_locatie ?postcode WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q83620.
+  ?item wdt:P131 wd:Q9920.
+  MINUS { ?item wdt:P625 _:b2. }
+  OPTIONAL { ?item wdt:P281 ?postcode. }
+  OPTIONAL { ?item wdt:P625 ?geografische_locatie. }
+}

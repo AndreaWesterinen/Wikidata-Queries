@@ -1,0 +1,8 @@
+SELECT ?item ?len ?lta ?den ?dta ?division ?district {
+  ?item wdt:P31 wd:Q7694920 ; wdt:P131* ?district . ?district wdt:P31 wd:Q1149652 ; wdt:P131/wdt:P131* wd:Q1445.
+  OPTIONAL { ?item wdt:P131 ?division. ?division wdt:P31 wd:Q24943410 }
+  OPTIONAL { ?item rdfs:label ?len. FILTER(LANG(?len)="en") }
+  OPTIONAL { ?item rdfs:label ?lta. FILTER(LANG(?lta)="ta") }
+  OPTIONAL { ?item schema:description ?den. FILTER(LANG(?den)="en") }
+  OPTIONAL { ?item schema:description ?dta. FILTER(LANG(?dta)="ta") }
+}

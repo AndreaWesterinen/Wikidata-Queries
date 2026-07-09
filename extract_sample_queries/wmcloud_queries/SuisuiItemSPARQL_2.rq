@@ -1,0 +1,2 @@
+embed.html#SELECT ?i?iLabel?iDescription
+WHERE{?i wdt:P31 wd:Q6256;SERVICE wikibase:label{bd:serviceParam wikibase:language "ja,en,fr".}}

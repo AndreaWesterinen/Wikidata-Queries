@@ -1,0 +1,12 @@
+SELECT ?player ?playerLabel ?countryLabel (COUNT(?item) AS ?goals)  WHERE {
+  ?item wdt:P31 wd:Q16466010 ;
+        wdt:P361+ wd:Q170645 ;
+        p:P1363 ?pStatement .
+  ?pStatement ps:P1363 ?player ;
+              pq:P54 ?team . 
+  FILTER NOT EXISTS { ?pStatement pq:P3831 wd:Q18533 }
+  ?team wdt:P17 ?country .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+GROUP BY ?player ?playerLabel ?countryLabel
+ORDER BY DESC(?goals) ?countryLabel ?playerLabel

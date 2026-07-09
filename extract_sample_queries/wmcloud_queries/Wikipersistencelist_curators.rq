@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{VALUES ?item 
+{
+wd:Q71333183
+wd:Q28740425
+wd:Q12053846
+wd:Q24207121
+wd:Q5232007
+}
+  OPTIONAL {?item wdt:P106 ?occupation .}
+  OPTIONAL {?item wdt:P101 ?field .}
+  OPTIONAL {?item wdt:P108 ?employ .}
+  OPTIONAL {?item wdt:P39 ?position .}
+  OPTIONAL {?item wdt:P800 ?work .}
+  OPTIONAL {?item wdt:P166 ?award .}
+  OPTIONAL {?item wdt:P5008 ?focus .}
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

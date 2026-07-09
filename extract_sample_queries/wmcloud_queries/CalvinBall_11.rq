@@ -1,0 +1,13 @@
+#defaultView:ImageGrid
+SELECT ?art ?artLabel (SAMPLE(?depictsLabel) as ?depictsLabel) (sample(?image) as ?image) WHERE {
+  ?art wdt:P31 wd:Q860861 .
+  ?art wdt:P180 ?depicts .
+  ?depicts wdt:P21 wd:Q6581072 .
+  OPTIONAL {?art wdt:P18 ?image .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                        ?depicts rdfs:label ?depictsLabel .
+                         ?art rdfs:label ?artLabel .
+                                   
+            }
+  } 
+GROUP BY ?art ?artLabel 

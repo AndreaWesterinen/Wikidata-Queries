@@ -1,0 +1,1 @@
+SELECT ?item ?gpn WHERE { ?item wdt:P376 wd:Q313 . ?item wdt:P2824 ?gpn }

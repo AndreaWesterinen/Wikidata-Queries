@@ -1,0 +1,8 @@
+#defaultView:Map
+select distinct ?author ?authorLabel ?image ?coord WHERE 
+{
+  ?author wdt:P31/wdt:P279* wd:Q46169 .
+  ?author wdt:P625 ?coord .
+  OPTIONAL {?author wdt:P18 ?image .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, it, es, pl". }
+}

@@ -1,0 +1,9 @@
+SELECT ?item ?num (COUNT(DISTINCT ?ancestor) as ?ct) ?president
+{
+    ?item wdt:P31 wd:Q5; p:P39 ?s.
+    ?s ps:P39 wd:Q11699; pq:P1545 ?num.
+    ?item (wdt:P22|wdt:P25)+ ?ancestor .
+    BIND(IF(EXISTS{?item wdt:P39 wd:Q11696}, "Yes", "No") as ?president)
+} 
+GROUP BY ?item ?num ?president
+ORDER BY xsd:integer(?num)

@@ -1,6 +1,4 @@
-# ----
-# Berlin's historical countries, with ranks
-#
+#title: Berlin's historical countries, with ranks
 SELECT ?country ?countryLabel ?rank
 WHERE
 {

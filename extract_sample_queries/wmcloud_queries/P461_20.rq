@@ -1,0 +1,17 @@
+#title: Single-value constraint with class exceptions
+# Complex constraint from [[Property talk:P461]]
+# Modification of the single-value constraint allowing multiple values on items belonging to class [[d:Q12558574|point of view <small>(Q12558574)</small>]], [[d:Q5390013|belief system <small>(Q5390013)</small>]], [[d:Q54989186|mental state <small>(Q54989186)</small>]], or [[d:Q49773|social movement <small>(Q49773)</small>]].
+SELECT DISTINCT ?item ?itemLabel ?count ?sample1 ?sample1Label ?sample2 ?sample2Label
+WHERE
+{
+	VALUES ?goodClass { wd:Q12558574 wd:Q5390013 wd:Q54989186 wd:Q49773 }.
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2) {
+			?item p:P461 [ ps:P461 ?value; wikibase:rank ?rank ] .
+			FILTER( NOT EXISTS {?item wdt:P31/wdt:P279* ?goodClass} ) .
+			FILTER( ?rank != wikibase:DeprecatedRank ) .
+		} GROUP BY ?item HAVING ( ?count > 1 )
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+ORDER BY DESC(?count)

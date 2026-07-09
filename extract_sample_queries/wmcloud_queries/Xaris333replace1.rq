@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?P4812
+WHERE 
+{
+  ?item p:P4812 ?stat. 
+  ?stat ps:P4812 ?P4812.
+  filter not exists {?stat pq:P582 [] . }
+  ?item wdt:P131 wd:Q59133 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel WHERE {
+  VALUES ?legTypes { wd:Q11204 wd:Q10553309 }
+  ?item wdt:P31/wdt:P279* ?legTypes ;
+        wdt:P17 wd:Q414 .
+  MINUS { ?item wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,14 @@
+SELECT (COUNT(DISTINCT ?item) as ?count) 
+{
+	?item wdt:P4638 ?value .
+    MINUS { ?item wdt:P22 [] }
+    MINUS { ?item wdt:P25 [] }  
+    MINUS { ?item wdt:P40 [] }  
+    MINUS { ?item wdt:P26 [] }  
+    MINUS { ?item wdt:P3373 [] }  
+    MINUS { ?item ^ wdt:P22 [] }
+    MINUS { ?item ^ wdt:P25 [] }  
+    MINUS { ?item ^ wdt:P40 [] }  
+    MINUS { ?item ^ wdt:P26 [] }  
+    MINUS { ?item ^ wdt:P3373 [] }  
+}

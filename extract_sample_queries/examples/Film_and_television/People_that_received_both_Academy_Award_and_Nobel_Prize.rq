@@ -1,3 +1,4 @@
+#title: People that received both Academy Award and Nobel Prize
 SELECT DISTINCT ?Person ?PersonLabel ?NobelPrizeLabel ?AcademyAwardLabel WHERE {
   ?NobelPrize wdt:P279?/wdt:P31? wd:Q7191 .    # subtypes of nobel prize
   ?AcademyAward wdt:P279?/wdt:P31? wd:Q19020 . # subtypes of academy award

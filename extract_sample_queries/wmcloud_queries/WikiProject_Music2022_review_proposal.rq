@@ -1,0 +1,43 @@
+#title: #P31 to be analize in "release" items (wd:Q482994  wd:Q169930  wd:Q134556  wd:Q10590726) 
+SELECT ?value ?valueLabel ?subcl ?subclLabel ?ct ?sampleitem ?sampleitemLabel
+  WITH
+{
+  SELECT DISTINCT ?item
+WHERE
+   {
+    VALUES ?llista
+    {
+#    valids as "release" >>  Àlbum, Extended Play, Senzill, Video album and subclasses
+      wd:Q482994  wd:Q169930  wd:Q134556  wd:Q10590726            
+   }
+
+    ?item wdt:P31/wdt:P279* ?llista.
+   }
+} AS %get_items
+WITH
+{
+    SELECT ?value ?subcl  (count(*) as ?ct) (SAMPLE(?item) as ?sampleitem)
+    WHERE
+    {
+    INCLUDE %get_items
+    ?item wdt:P31 ?value.
+    ?value wdt:P279 ?subcl.
+      BIND (REPLACE(STR(?value), "http://www.wikidata.org/entity/", "", "i") as ?valueId).
+      BIND (REPLACE(STR(?subcl), "http://www.wikidata.org/entity/", "", "i") as ?subclId).
+# don't select those items with P31 or P279 = "release" values
+   FILTER( STR(?subclId) != "Q482994" &&  STR(?subclId) != "Q169930"  &&  STR(?subclId) != "Q134556"   &&  STR(?subclId) != "Q10590726"
+        && STR(?valueId) != "Q482994" &&  STR(?valueId) != "Q169930"  &&  STR(?valueId) != "Q134556"   &&  STR(?valueId) != "Q10590726"
+# additionally, don't select those items with P31 = admissible as "Complementary P31"  
+       && STR(?valueId) != "Q394970" &&  STR(?valueId) != "Q1997853"  &&  STR(?valueId) != "Q17518461"         
+         ) .
+    }
+    GROUP BY ?value ?subcl 
+    ORDER BY DESC(?ct)
+} AS %get_result
+WHERE
+{
+  INCLUDE %get_result
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+    ORDER BY DESC(?ct)
+    LIMIT 1000

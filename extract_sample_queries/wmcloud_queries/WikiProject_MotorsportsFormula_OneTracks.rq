@@ -1,0 +1,4 @@
+SELECT distinct ?item WHERE {
+  ?Formula_One_race wdt:P31/wdt:P279* wd:Q65742449.
+  ?Formula_One_race wdt:P276 ?item.
+} order by ?item

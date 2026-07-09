@@ -1,0 +1,13 @@
+#title: Exoplanet name is not the name of the star
+# Complex constraint from [[Property talk:P397]]
+# Check the name of all [[d:Q44559|extrasolar planet <small>(Q44559)</small>]]
+SELECT * {
+  {
+  SELECT ?item ?itemLabel ?orbite ?orbiteLabel {
+    ?item wdt:P31 wd:Q44559.
+    ?item wdt:P397 ?orbite.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+}
+  FILTER (?itemLabel = ?orbiteLabel)
+}

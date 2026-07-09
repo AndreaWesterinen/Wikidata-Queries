@@ -1,0 +1,4 @@
+SELECT ?unit (count(?x) as ?count) WHERE {
+    ?x p:P1164/psv:P1164 [ wikibase:quantityUnit ?unit ]
+} GROUP BY ?unit
+ORDER BY DESC(?count)

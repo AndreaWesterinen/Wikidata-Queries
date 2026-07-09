@@ -1,0 +1,7 @@
+SELECT ?l ?lemma ?lang WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma.
+  ?language wdt:P218 ?lang.
+  ?l ontolex:sense ?sense.
+  ?sense wdt:P5831 ?example.
+} ORDER BY ?lemma

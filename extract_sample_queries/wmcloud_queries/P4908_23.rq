@@ -1,0 +1,19 @@
+#title: Ordinal qualifier on series statement would generally be unique within series
+# Complex constraint from [[Property talk:P4908]]
+# define exceptions when needed
+SELECT ?item ?itemLabel ?series ?seriesLabel ?ordinal
+WITH
+{  SELECT ?series ?ordinal (COUNT(DISTINCT ?ep) as ?ct)
+  {
+	?ep wdt:P4908 [] ; wdt:P31 wd:Q21191270; p:P179 [ps:P179 ?series ; pq:P1545 ?ordinal ]
+  }
+  GROUP BY ?series ?ordinal 
+  HAVING ( ?ct > 1)
+} as %find
+WHERE
+{
+  INCLUDE %find 
+  ?item  p:P179 [ ps:P179 ?series  ; pq:P1545 ?ordinal ] ; wdt:P31 wd:Q21191270     
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it". }
+}
+ORDER BY ?series xsd:integer(?ordinal) ?item

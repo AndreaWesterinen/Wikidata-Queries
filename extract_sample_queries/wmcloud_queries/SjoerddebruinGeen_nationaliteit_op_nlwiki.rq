@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?wiki0 <http://schema.org/about> ?item . ?wiki0 <http://schema.org/isPartOf> <https://nl.wikipedia.org/> . ?item wdt:P31 wd:Q5 . ?item wdt:P569 ?time0 . FILTER ( ?time0 >= "1900-00-00T00:00:00Z"^^xsd:dateTime ) OPTIONAL { ?item wdt:P27 ?dummy0 } FILTER(!bound(?dummy0)) } LIMIT 1000

@@ -1,0 +1,13 @@
+# countries with no rivers
+SELECT ?country ?countryLabel WITH {
+  SELECT DISTINCT ?country WHERE {
+    ?river wdt:P31/wdt:P279* wd:Q4022;
+           wdt:P17 ?country.
+  }
+} AS %countriesWithRivers WHERE {
+  ?country wdt:P31 wd:Q160016.
+  MINUS { INCLUDE %countriesWithRivers. }
+  MINUS { ?country wdt:P31/wdt:P279* wd:Q19953632. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?countryLabel

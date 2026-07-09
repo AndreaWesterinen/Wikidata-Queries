@@ -1,0 +1,10 @@
+SELECT 
+  (COUNT(*) as ?ct1) 
+  (COUNT(DISTINCT ?person) as ?ct2) 
+  (COUNT(DISTINCT ?relative) as ?ct3) 
+WHERE
+{  
+    $1 . 
+    ?person wdt:P31 wd:Q5 . 
+    ?relative wdt:P31 wd:Q5
+}

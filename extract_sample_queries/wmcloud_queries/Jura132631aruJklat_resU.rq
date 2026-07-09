@@ -1,0 +1,44 @@
+?##by Jura1 2016-05-16, following request by Llywelyn2000
+SELECT 
+	?item ?itemLabel ?taxonname ?Welshname 
+	?taxonrankLabel 
+	?conservationstatusLabel 
+	?commonscat ?image ?audio
+WHERE
+{
+	#select taxa
+  	?item wdt:P31 wd:Q16521 . 
+	#with direct (or indirect) parent taxon "aves"
+  	?item wdt:P171* wd:Q5113 .
+
+  	#require taxon name
+  	?item wdt:P225 ?taxonname
+
+	#select images
+    OPTIONAL { ?item wdt:P18 ?image }
+  	#require no image (comment out to display all)
+	FILTER(!BOUND(?image))
+
+	#select audio
+    OPTIONAL { ?item wdt:P51 ?audio }
+   	#uncomment to require audio (only about 200 from https://commons.wikimedia.org/wiki/Category:Xeno-canto are used with P51)
+	#for a list of available files see  https://petscan.wmflabs.org/?psid=42531          
+	#FILTER(BOUND(?audio))
+          
+	#add some fields if available 
+	OPTIONAL { ?item wdt:P373 ?commonscat }
+	OPTIONAL { ?item wdt:P105 ?taxonrank }
+	#Common name if in Welsh (cy)
+	OPTIONAL { ?item wdt:P1843 ?Welshname  FILTER(lang(?Welshname)="cy") }
+
+	#conservation status
+	OPTIONAL { ?item wdt:P141 ?conservationstatus }
+	#exclude extinct
+    MINUS { ?item wdt:P141 wd:Q237350 }      
+
+  	#exclude those with taxon synoyms ?
+  	MINUS { ?item wdt:P1420 ?v }.
+          
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?conservationstatusLabel)

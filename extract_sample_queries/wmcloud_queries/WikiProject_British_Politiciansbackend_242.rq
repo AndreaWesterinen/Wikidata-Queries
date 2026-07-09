@@ -1,0 +1,12 @@
+SELECT DISTINCT ?constituencyLabel ?typeLabel ?start ?end ?partofLabel {
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 [ wdt:P279 wd:Q1711695 ] . 
+ OPTIONAL { ?item wdt:P735 ?givenName . }
+ OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+ OPTIONAL { ?constituency wdt:P31 ?type .}
+ OPTIONAL { ?constituency wdt:P571 ?start .}
+ OPTIONAL { ?constituency wdt:P576 ?end .}
+ OPTIONAL { ?constituency wdt:P131 ?partof .}
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?start

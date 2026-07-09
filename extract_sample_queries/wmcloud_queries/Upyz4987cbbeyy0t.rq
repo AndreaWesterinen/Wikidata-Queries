@@ -1,0 +1,5 @@
+SELECT ?id (count(?q) AS ?cnt) (group_concat(?q) AS ?items) {
+  ?q wdt:P2580 ?id
+  }
+GROUP BY ?id
+HAVING (?cnt>1)

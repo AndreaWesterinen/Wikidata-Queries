@@ -1,0 +1,31 @@
+# SPARQL query die per bijdrage de bijdrgers en bijbehorende afbeeldingen weergeeft
+
+SELECT DISTINCT 
+?contribution ?contributionLabel 
+(GROUP_CONCAT(DISTINCT ?contributionNr ; separator = " ---- ") as ?contributionNrThomassen) #number of contribution acording to catalog Q82260552
+(GROUP_CONCAT(DISTINCT ?images; separator = " ---- ") as ?contributionImages) #images involved in this contribution
+?contributionCreator ?contributionCreatorLabel #creator/author involved in this contribution
+?dateOfCreation ?placeOfCreation ?placeOfCreationLabel
+
+ 
+WHERE {?contribution wdt:P31 wd:Q48755281;wdt:P361 wd:Q72752496 .  
+     ?contribution p:P1343 [ps:P1343 wd:Q82260552; pq:P958 ?contributionNr]. #number of contribution acording to catalog Q82260552
+     ?contribution wdt:P18 ?images. #images involved in this contribution
+     OPTIONAL{ {?contribution wdt:P50 ?contributionCreator.} UNION {?contribution wdt:P170 ?contributionCreator.}} #authors (P50) and creators (P170) of this contribution
+     OPTIONAL{?contribution wdt:P1071 ?placeOfCreation.}
+     OPTIONAL{?contribution wdt:P571 ?dateOfCreation.}
+  
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                         ?contributionCreator rdfs:label ?contributionCreatorLabel.
+                         ?contribution rdfs:label ?contributionLabel.
+                         ?placeOfCreation rdfs:label ?placeOfCreationLabel.    
+                         }
+}
+GROUP BY ?contribution ?contributionLabel 
+?contributionCreator
+?contributionCreatorLabel
+?dateOfCreation
+?placeOfCreation
+?placeOfCreationLabel
+
+ORDER BY ?contributionNrThomassen

@@ -1,0 +1,8 @@
+#Continents
+SELECT ?continentLabel (COUNT(?item) AS ?count)
+WHERE
+{
+  ?item wdt:P30 ?continent.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?continentLabel

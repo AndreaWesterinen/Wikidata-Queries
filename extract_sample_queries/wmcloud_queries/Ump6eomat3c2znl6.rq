@@ -1,0 +1,2 @@
+SELECT ?item ?Flanders_Arts_Institute_production_ID WHERE { ?item wdt:P5935 ?Flanders_Arts_Institute_production_ID. }
+ORDER BY ?item

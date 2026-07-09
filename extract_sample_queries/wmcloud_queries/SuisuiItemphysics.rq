@@ -1,0 +1,8 @@
+select ?no ?i ?iLabel ?prLabel ?nxLabel ?aisLabel where {
+  ?i wdt:P31 wd:Q11344.
+  ?i p:P31 [pq:P155 ?pr].
+  ?i p:P31 [pq:P156 ?nx]. 
+  ?i wdt:P1086 ?no
+ # OPTIONAL { ?i skos:altLabel ?ais . FILTER (lang(?ais) = "ja")}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ja" }
+}order by ?no

@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?countryLabel 
+WHERE
+{
+	?item wdt:P31 wd:Q8502 .
+	OPTIONAL{?item wdt:P625 ?gps }.
+    OPTIONAL {?item wdt:P17 ?country}.
+	filter NOT EXISTS {?item wdt:P31 wd:Q3895768} #Filter fictional locations
+	filter NOT EXISTS {?item wdt:P376 ?astronomicalbody} #Filter mountains on other astronomical bodies
+    filter (!bound (?gps))
+    filter (!bound (?country))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,de,nl,es,it,zh,ja,ru" }
+}

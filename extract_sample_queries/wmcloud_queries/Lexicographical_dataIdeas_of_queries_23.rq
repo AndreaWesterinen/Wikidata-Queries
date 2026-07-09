@@ -1,0 +1,9 @@
+# Nouns without gender in a language
+SELECT ?l ?lemma WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lexicalCategory wd:Q1084;
+        wikibase:lemma ?lemma .
+  ?language wdt:P218 'bg'
+  MINUS { ?l wdt:P5185 []. }
+}
+ORDER BY ?lemma

@@ -1,0 +1,90 @@
+#title: P31 tractades en infotaula
+#  OPTIONAL { ?value wdt:P31 ?instància_de. }
+# ORDER BY (?subclasse_de) (?item) (?format_per)
+SELECT ?item ?itemLabel ?instància_de ?instància_deLabel ?format_per ?format_perLabel 
+?derivada ?derivadaLabel  WHERE {
+  VALUES ?instància_de {
+    wd:Q1107
+    wd:Q11086742
+    wd:Q3464665
+    wd:Q63952888
+    wd:Q100269041
+    wd:Q21191019
+    wd:Q581714
+    wd:Q1261214
+    wd:Q854995
+    wd:Q8274
+    wd:Q21198342
+    wd:Q668711
+    wd:Q1047299
+    wd:Q220898
+    wd:Q11424
+    wd:Q202866
+    wd:Q28968258
+    wd:Q229390
+    wd:Q216749
+    wd:Q506240
+    wd:Q157443
+    wd:Q17517379
+    wd:Q10411948
+    wd:Q517386
+    wd:Q399811
+    wd:Q747381
+    wd:Q8261
+    wd:Q689445
+    wd:Q7889
+    wd:Q54767
+    wd:Q343568
+    wd:Q860750
+    wd:Q828322
+    wd:Q333967
+    wd:Q584105
+    wd:Q1422746
+    wd:Q868217
+    wd:Q23916
+    wd:Q867123
+    wd:Q270948
+    wd:Q1529437
+    wd:Q380266
+    wd:Q744038
+    wd:Q1199309
+    wd:Q1610017
+    wd:Q1198141
+    wd:Q2762504
+    wd:Q588289
+    wd:Q858523
+    wd:Q1892535
+    wd:Q1635956
+    wd:Q3775539
+    wd:Q1224999
+    wd:Q472055
+    wd:Q603555
+    wd:Q578868
+    wd:Q122207
+    wd:Q2454898
+    wd:Q7832342
+    wd:Q1323555
+    wd:Q1189206
+    wd:Q7888616
+    wd:Q603481
+    wd:Q1143118
+    wd:Q16681627
+    wd:Q6290007
+    wd:Q221181
+    wd:Q467880
+    wd:Q19683436
+    wd:Q1080071
+    wd:Q4304915
+    wd:Q19683335
+    wd:Q2127647
+    wd:Q30680823
+    wd:Q2635894
+    wd:Q244351
+  }
+  ?item wdt:P31 ?instància_de.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+#  OPTIONAL { ?item wdt:P279 ?subclasse_de. }
+  ?item wdt:P4969 ?derivada.
+  minus {?item wdt:P527 ?format_per.}
+}
+LIMIT 4000

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  # books
+  ?item wdt:P31 wd:Q571 .
+  # that are part of a series
+  ?item p:P179 ?serieStatement .
+  # and have series-related properties set as qualifiers
+  { ?serieStatement pq:P155 ?value . } UNION { ?serieStatement pq:P156 ?value . } UNION { ?serieStatement pq:P1545 ?value . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

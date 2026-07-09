@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?possiblecreator WHERE {
+  ?item wdt:P195 wd:Q2983474 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P170 ?creatorstatement .
+  OPTIONAL { ?creatorstatement ?qualifier ?possiblecreator .
+             ?qualifierproperty wikibase:qualifier ?qualifier }.
+  ?item schema:description ?itemdesc.
+  FILTER(regex(str(?itemdesc), "painting by Equipo Crónica" )) 
+  } LIMIT 110

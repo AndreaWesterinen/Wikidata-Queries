@@ -1,0 +1,7 @@
+# Properties of data type Monolingual text
+SELECT ?property ?propertyLabel
+WHERE {
+  ?property rdf:type               wikibase:Property.
+  ?property wikibase:propertyType  wikibase:Monolingualtext .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

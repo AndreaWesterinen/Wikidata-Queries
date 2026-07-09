@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?itemLabel ?image ?kbcat ?kburl ?bladerboek ?geheugenpage ?gallery
+WHERE {
+  ?item p:P195 ?st .
+  ?st ps:P195 wd:Q1526131 .
+  ?st pq:P2868 wd:Q29188408.
+  OPTIONAL{?item wdt:P18 ?image.}
+  OPTIONAL{?item wdt:P528 ?ppn.
+     BIND(CONCAT("[https://resolver.kb.nl/resolve?urn=PPN:",?ppn," ",?ppn,"]") AS ?kbcat).} 
+  OPTIONAL{?item wdt:P973 ?kburl.
+     FILTER(STRSTARTS(STR(?kburl), "https://www.kb.nl/")).}
+  OPTIONAL{?item wdt:P953 ?bladerboek.
+     FILTER(STRSTARTS(STR(?bladerboek), "https://galerij.kb.nl")).}
+  OPTIONAL{?item wdt:P953 ?geheugenpage.
+     FILTER(STRSTARTS(STR(?geheugenpage), "http://resolver.kb.nl/resolve?urn=urn:gvn:TOPSTUK")).}
+  OPTIONAL{?item wdt:P935 ?gal.
+     BIND(CONCAT("[https://commons.wikimedia.org/wiki/",REPLACE(?gal," ","_")," ",?gal,"]") AS ?gallery).}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+} ORDER BY ?itemLabel

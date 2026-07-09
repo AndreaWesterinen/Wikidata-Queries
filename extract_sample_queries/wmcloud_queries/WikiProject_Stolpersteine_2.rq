@@ -1,0 +1,5 @@
+embed.html#SELECT ?qid ("P361" AS ?pid) ("Q314003" AS ?value) WHERE {
+  ?item wdt:P31 wd:Q26703203.
+  MINUS { ?item wdt:P361 wd:Q314003. }
+  BIND(SUBSTR(STR(?item), STRLEN(STR(wd:)) + 1) AS ?qid)
+}

@@ -1,0 +1,18 @@
+SELECT  ?item ?text
+  WITH {
+    SELECT ?item ?mainLabel ?itemLabel (GROUP_CONCAT(DISTINCT(?altLabel); separator = " ") AS ?altLabel_list) WHERE {
+    ?item wdt:P6379 [] .
+  MINUS {  ?item wdt:P31 wd:Q5.}
+  MINUS {  ?item  wdt:P1454 ?rechtsvorm.}
+
+    OPTIONAL { ?item skos:altLabel ?altLabel . FILTER (lang(?altLabel) = "nl") }
+    OPTIONAL { ?item rdfs:label  ?mainLabel . FILTER (lang(?mainLabel) = "nl") }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" .}
+ }
+GROUP BY ?item ?mainLabel ?itemLabel ?itemDescription
+} AS %results
+WHERE {
+    INCLUDE %results.
+    ?item wdt:P31 ?iseen.
+  BIND(CONCAT (STR( ?mainLabel ), " ", ?altLabel_list )  AS ?text ) .
+  FILTER REGEX (?text, "(?<!\\w)([bnc]\\.?v\\.?

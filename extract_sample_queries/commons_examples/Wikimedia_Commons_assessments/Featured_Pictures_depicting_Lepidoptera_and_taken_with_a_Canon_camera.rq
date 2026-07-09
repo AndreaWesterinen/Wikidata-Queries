@@ -1,0 +1,23 @@
+#shows files that depict Lepidoptera, with the Featured Picture assessment, and taken with a Canon camera
+#defaultView:ImageGrid
+
+SELECT ?file ?image
+
+WITH {
+  SELECT ?item WHERE {
+    SERVICE <https://query.wikidata.org/sparql> {
+        ?item wdt:P171/wdt:P171* wd:Q28319.
+     } 
+  }
+} AS %get_items
+
+WHERE {
+  INCLUDE %get_items
+  ?file wdt:P180 ?item .
+  ?file schema:url ?image .
+  ?file wdt:P6731 wd:Q63348049 .
+  ?file wdt:P4082 ?camera.
+  SERVICE <https://query.wikidata.org/sparql> {
+     ?camera wdt:P1716 wd:Q63554165 .     # brand = Canon
+  } 
+}

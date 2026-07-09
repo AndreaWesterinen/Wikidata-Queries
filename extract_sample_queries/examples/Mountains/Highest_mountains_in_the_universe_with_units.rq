@@ -1,7 +1,5 @@
-# ----
-#Elevations over 8000
-#Displays units
-#Last updated 2021-04-25
+#title: Highest mountains in the universe (elevations over 8000, with units)
+#updated 2021-04-25
 
 SELECT ?elevation ?unit ?unitLabel ?item ?itemLabel ?itemDescription ?coord
 WHERE

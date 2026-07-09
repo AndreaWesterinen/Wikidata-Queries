@@ -1,0 +1,13 @@
+# Make a list of most populair TV series on Wikidata
+SELECT ?series ?seriesLabel (count(*) as ?count) 
+WHERE 
+{
+    { ?item wdt:P31 wd:Q1983062 } UNION { ?item wdt:P31 wd:Q21191270 }
+	?item wdt:P179 ?series .  
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+} 
+GROUP BY ?series ?seriesLabel 
+ORDER BY DESC(?count) 
+LIMIT 100

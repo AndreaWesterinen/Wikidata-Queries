@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?series ?seriesLabel ?part ?partLabel WHERE {
+  ?item wdt:P31 wd:Q1983062 .
+  MINUS {
+  ?item wdt:P179 ?series . 
+  ?series wdt:P31/wdt:P279* wd:Q5398426 } .
+  OPTIONAL { ?item wdt:P179 ?series } .
+  OPTIONAL { ?item wdt:P361 ?part } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  } ORDER BY ?seriesLabel

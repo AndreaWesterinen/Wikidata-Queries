@@ -1,0 +1,13 @@
+#title: alias to include one with country name
+# Complex constraint from [[Property talk:P10421]]
+# TODO: add an alias including the name of the country or jurisdiction. Sample: for [[Q53361238]] "association (Austria)" and/or "Verein (Austria)"
+SELECT ?item ?l
+{
+  ?item wdt:P10421 [].
+  ?item wdt:P1001 ?country.
+  ?country rdfs:label ?l . FILTER( lang(?l) = "en" )
+  FILTER NOT EXISTS { ?item skos:altLabel ?alt.
+                       FILTER(lang(?alt) = "en"
+                              && CONTAINS(?alt, ?l) )
+                    }
+}

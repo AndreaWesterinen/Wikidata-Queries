@@ -1,0 +1,4 @@
+SELECT ?i ?iLabel ?r WHERE {
+   { ?i ?r wd:Q27966336. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

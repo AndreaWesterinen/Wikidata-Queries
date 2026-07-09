@@ -1,0 +1,11 @@
+#Cats
+SELECT ?item ?itemLabel
+WHERE
+{
+	?item wdt:P31 wd:Q476028 .
+  	?item wdt:P17 wd:Q21 .
+    ?item wdt:P856 ?value .
+MINUS { ?item wdt:P576 ?value . }
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "el" }
+}

@@ -1,0 +1,9 @@
+#title: "one-of constraint" and "none-of constraint" are incompatible
+# Complex constraint from [[Property talk:P2302]]
+# If [[d:Q21510859|one-of constraint <small>(Q21510859)</small>]] is defined as a constraint, then [[d:Q52558054|none-of constraint <small>(Q52558054)</small>]] must not be defined.
+SELECT ?item ?itemLabel
+WHERE {
+  ?item wdt:P2302 wd:Q21510859.
+  ?item wdt:P2302 wd:Q52558054.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

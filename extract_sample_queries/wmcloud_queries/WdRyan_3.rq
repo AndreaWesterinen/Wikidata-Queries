@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?P279 ?P279Label WITH { SELECT ?item ?P279 WHERE
+  {
+    SERVICE bd:slice {
+    ?item wdt:P279 ?P279 .
+    bd:serviceParam bd:slice.offset 0 . # Start at item number (not to be confused with QID)
+    bd:serviceParam bd:slice.limit 100000 . # List this many items
+  }
+  filter not exists {?item wdt:P31 [] .} 
+  } } as %j
+WHERE
+{
+  INCLUDE %j
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

@@ -1,0 +1,15 @@
+SELECT ?item (SUBSTR(?published1, 1, 10) as ?published )?volume ?issue ?pages ?doi ?jstor ?title ?thema WHERE {  
+  ?item wdt:P1433 wd:Q1637051 .  # Taxon
+  OPTIONAL {?item wdt:P577 ?published1} .
+  OPTIONAL {?item wdt:P478 ?volume} .
+  OPTIONAL {?item wdt:P433 ?issue} .
+  OPTIONAL {?item wdt:P304 ?pages0} . 
+  OPTIONAL {?item wdt:P356 ?doi} .
+  OPTIONAL {?item wdt:P888 ?jstor} .  
+  OPTIONAL {?item wdt:P1476 ?title} . 
+  OPTIONAL {?item wdt:P921 ?thema} . 
+  BIND(REPLACE(?pages0, "-", "–") AS ?pages)
+  BIND(if(contains(?pages,  "–"), strbefore(?pages, "–"), ?pages) as ?startpage)
+  BIND(if(contains(?pages,  "–"), strafter(?pages, "–"), ?pages) as ?endpage)
+}
+ORDER BY ASC(?published) ASC(xsd:integer(?issue)) ASC(xsd:integer(?startpage))

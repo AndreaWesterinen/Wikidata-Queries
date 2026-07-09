@@ -1,0 +1,9 @@
+#title: mismatch pattern and pattern on value of P1030
+# Complex constraint from [[Property talk:P1030]]
+# may be correct
+SELECT ?item ?ltho ?value ?pattern
+{ 
+  ?ltho p:P1030 [pq:P805 ?item; ps:P1030 ?value] .
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q1738955 ; p:P1030/ps:P1030 ?value }
+  OPTIONAL { ?item wdt:P1030 ?pattern }
+}

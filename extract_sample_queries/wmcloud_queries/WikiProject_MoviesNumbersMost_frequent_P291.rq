@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(?film) as ?ct)
+WHERE
+{
+  VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q506240 wd:Q336144}
+  ?film wdt:P31 ?filmtype . 
+  ?film p:P577/pq:P291 ?item .
+} 
+GROUP BY ?item 
+ORDER BY DESC(?ct)
+LIMIT 12

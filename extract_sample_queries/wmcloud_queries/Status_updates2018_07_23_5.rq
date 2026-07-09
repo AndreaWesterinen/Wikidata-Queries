@@ -1,0 +1,8 @@
+#defaultView:Timeline
+SELECT distinct ?birthdate ?thumbnail ?author ?authorLabel  WHERE {
+    ?author wdt:P106 wd:Q484188 ; 
+            wdt:P570 ?birthdate 
+  OPTIONAL { ?author wdt:P18 ?thumbnail . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de" }
+}
+ORDER BY ?birthdate

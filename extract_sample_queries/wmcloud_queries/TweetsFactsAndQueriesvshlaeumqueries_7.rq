@@ -1,0 +1,26 @@
+embed.html## films starring more than one future US Governor
+SELECT ?film ?filmLabel ?filmDescription (COUNT(DISTINCT ?governor) AS ?count) (GROUP_CONCAT(DISTINCT CONCAT(?governorLabel, ", "@en, ?description); separator = "; ") AS ?governors)  WHERE {
+  ?film wdt:P31/wdt:P279* wd:Q11424;
+        wdt:P577 ?publicationDate;
+        p:P161 ?governorStatement.
+  ?governorStatement ps:P161 ?governor.
+  OPTIONAL { ?governorStatement pq:P453 ?character. ?character rdfs:label ?characterLabel. FILTER(LANG(?characterLabel) = "en") } # label service doesn’t work for this one for some reason – perhaps the query optimizer is being stupid and moving the label service before this optional block, so that ?character isn’t bound yet when the label service runs
+  ?governor wdt:P31 wd:Q5;
+            p:P39 [
+              ps:P39 ?position;
+              pq:P580 ?startTime
+            ].
+  ?position wdt:P279+ wd:Q889821.
+  FILTER(?startTime > ?publicationDate) # *future* governor
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?film rdfs:label ?filmLabel;
+          schema:description ?filmDescription.
+    ?governor rdfs:label ?governorLabel.
+    ?position rdfs:label ?positionLabel.
+  } hint:Prior hint:runLast false.
+  BIND(IF(BOUND(?characterLabel), CONCAT(?characterLabel, " / "@en, ?positionLabel), ?positionLabel) AS ?description)
+}
+GROUP BY ?film ?filmLabel ?filmDescription
+HAVING(?count > 1)
+ORDER BY DESC(?count) ASC(MIN(?publicationDate))

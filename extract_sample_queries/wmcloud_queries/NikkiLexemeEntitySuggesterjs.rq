@@ -1,0 +1,18 @@
+select ?l ?lem
+?lexcatLabel  {
+  values ?targetlemma { "sommarmånad" } # lemma of the current lexeme
+  ?l dct:language wd:Q9027;
+     wikibase:lemma ?lem.
+  # This line filters out lexemes with lemmas that appear in the target lemma.
+  filter contains(lcase(?targetlemma), lcase(?lem)).
+  #filter contains(lcase(?targetlemma), replace(lcase(?lem), "(^-|-$)", "")).
+  filter (?l != wd:L54470). # this filters out the current lexeme
+  ?l wikibase:lexicalCategory ?lexcat.
+  filter (?lexcat != wd:Q102786) # ta bort förkortningar
+  filter (?lexcat != wd:Q9788) # ta bort bokstäver 
+  optional { ?l wdt:P31 ?instance_of}
+  filter (?instance_of != wd:Q102786) # ta bort förkortningar
+  service wikibase:label { bd:serviceParam wikibase:language "sv" }
+} group by ?l ?lem ?lexcatLabel
+order by desc(strlen(?lem)) strstarts(?lem, "-") strends(?lem, "-") ?lem
+limit 20

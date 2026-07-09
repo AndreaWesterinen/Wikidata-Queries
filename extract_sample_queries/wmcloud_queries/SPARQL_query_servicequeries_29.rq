@@ -1,0 +1,11 @@
+SELECT ?lang ?langLabel ?influenced ?influencedLabel  (MIN(?langYear) as ?languageYear) (MIN(?influYear) as ?influencedYear)
+WHERE {
+  ?lang wdt:P31/wdt:P279* wd:Q9143;
+        wdt:P571 ?langDate.
+  BIND(YEAR(?langDate) AS ?langYear)
+  ?influenced wdt:P31/wdt:P279* wd:Q9143;
+              wdt:P571 ?influDate.
+  BIND(YEAR(?influDate) AS ?influYear)
+  ?influenced wdt:P737 ?lang.    
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

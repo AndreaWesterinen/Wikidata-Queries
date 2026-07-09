@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item WHERE {
+  ?paper wdt:P1433 ?item .
+  ?item wikibase:sitelinks ?linkcount. 
+  FILTER(?linkcount > 2)
+  ?paper wdt:P50 ?author .
+  ?author wdt:P21 wd:Q6581072 ;
+          wdt:P18 ?image ;
+          wdt:P496 ?orcid ;
+          wdt:P166 ?award .
+  ?paper wdt:P2860 ?cited_paper .
+  ?citing_paper wdt:P2860 ?paper .
+}
+LIMIT 100

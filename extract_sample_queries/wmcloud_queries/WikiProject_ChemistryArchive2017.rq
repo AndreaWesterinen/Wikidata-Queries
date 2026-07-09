@@ -1,0 +1,5 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT (substr(str(?compound),32) as ?wd) ?key ?dsstox WHERE {
+  ?compound wdt:P235 ?key .
+  ?compound wdt:P3117 ?dsstox .
+}

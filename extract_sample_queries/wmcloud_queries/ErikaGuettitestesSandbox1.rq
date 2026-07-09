@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item (COUNT(?P2860_) AS ?P2860) WHERE {
+  ?item wdt:P361 wd:Q18477654.
+  OPTIONAL{?item wdt:P2860 ?P2860_}
+} GROUP BY ?item

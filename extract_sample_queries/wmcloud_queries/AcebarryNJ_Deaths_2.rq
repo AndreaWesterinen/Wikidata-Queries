@@ -1,0 +1,1 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity (wdt:P20/(wdt:P131*)) wd:Q1408.}

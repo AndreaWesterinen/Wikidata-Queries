@@ -1,0 +1,7 @@
+#title: In the Museum without a link
+# Complex constraint from [[Property talk:P4684]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] -> [[d:Q1464509|National Gallery of Victoria <small>(Q1464509)</small>]], but that don't have a [[Property:P4684|National Gallery of Victoria artwork ID&#32;<small dir="ltr">(P4684)</small>]] link
+SELECT ?item  WHERE {
+  ?item wdt:P195 wd:Q1464509 .
+  MINUS { ?item wdt:P4684 [] } .
+}  LIMIT 500

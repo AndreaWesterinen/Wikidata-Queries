@@ -1,0 +1,33 @@
+SELECT ?item ?prop ?propLink ?items ?stmts ?listLink
+
+WITH {
+  SELECT DISTINCT ?item WHERE {
+    ?item wdt:P31/wdt:P279* wd:Q44613 .
+    ?item wdt:P17 wd:Q145 .
+    OPTIONAL {?item wdt:P571 ?incept} .
+    FILTER (!(bound(?incept) && (year(?incept) > 1700))) .
+  }
+} AS %items
+
+WITH {
+  SELECT ?prop (COUNT(DISTINCT ?item) AS ?items) (COUNT(DISTINCT ?stmt) AS ?stmts) (SAMPLE(?item) AS ?sample) (SAMPLE(?value) AS ?value) WHERE {
+    INCLUDE %items .
+    ?item ?p ?stmt .
+    ?prop wikibase:claim ?p .
+    ?prop wikibase:statementProperty ?ps .
+    ?stmt ?ps ?value .
+    {?prop wdt:P31/wdt:P279* wd:Q19847637}  # Wikidata property representing a unique identifier 
+       UNION
+    {?prop wdt:P31/wdt:P279* wd:Q18614948}  # Wikidata property for authority control
+  } GROUP BY ?prop
+} AS %props 
+
+WHERE {
+  INCLUDE %props
+  ?prop rdfs:label ?prop_label . FILTER(lang(?prop_label) = 'en') .
+  BIND(STRAFTER(STR(?prop), 'P') AS ?propno) .
+  BIND(CONCAT('[[:d:Property:P', ?propno, '|', STR(?prop_label), ']]') AS ?propLink) .
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?propno)) AS ?item) .  # dummy
+  BIND(CONCAT('{','{/get list{','{sub','st:!}','}','prop=P',STR(?propno),'}','}') AS ?listLink) .
+  
+} ORDER BY DESC(?items) DESC(?stmts)

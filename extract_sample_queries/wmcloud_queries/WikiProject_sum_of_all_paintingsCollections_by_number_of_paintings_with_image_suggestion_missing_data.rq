@@ -1,0 +1,15 @@
+SELECT ?item (CONCAT("[[Wikidata:WikiProject sum of all paintings/Collection/",?name, "|list]]") AS ?listlink) ?todo (COUNT(?painting) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .  
+  ?painting wdt:P195 ?item . 
+  ?painting wdt:P4765 ?image .
+  MINUS { ?painting wdt:P170 ?creator . ?creator wdt:P569 ?dob . ?creator wdt:P570 ?dod } .
+  MINUS { ?painting wdt:P170 ?creator . ?creator wdt:P569 ?dob . FILTER(YEAR(?dob) > 1900) } .
+  MINUS { ?painting wdt:P170 wd:Q4233718 . ?painting wdt:P571 ?inception } .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+  BIND(CONCAT("[https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3Finception%20%3Fcreator%20%3FcreatorLabel%20%3Fsourceurl%20%3Fimageurl%20WHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP195%20%3C", STR(?item), "%3E%20.%0A%20%20%3Fitem%20wdt%3AP31%20wd%3AQ3305213%20.%20%20%0A%20%20%3Fitem%20%20p%3AP4765%20%3Fimagesuggestion%20.%0A%20%20%3Fimagesuggestion%20ps%3AP4765%20%3Fimageurl%20.%0A%20%20OPTIONAL%20%7B%20%3Fimagesuggestion%20pq%3AP2699%20%3Fsourceurl%20%7D%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP170%20%3Fcreator%20%7D%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP571%20%3Finception%20%7D%20.%0A%20%20MINUS%20%7B%20%3Fitem%20wdt%3AP170%20%3Fminuscreator%20.%20%3Fminuscreator%20wdt%3AP569%20%3Fdob%20.%20%3Fminuscreator%20wdt%3AP570%20%3Fdod%20%7D%20.%0A%20%20MINUS%20%7B%20%3Fitem%20wdt%3AP170%20%3Fminuscreator%20.%20%3Fminuscreator%20wdt%3AP569%20%3Fdob%20.%20FILTER(YEAR(%3Fdob)%20%3E%201900)%20%7D%20.%0A%20%20MINUS%20%7B%20%3Fitem%20wdt%3AP170%20wd%3AQ4233718%20.%20%3Fitem%20wdt%3AP571%20%3Fminusinception%20%7D%20.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%20%0ALIMIT%202000 To do list]", "") AS ?todo) .
+} GROUP BY ?item ?name ?listlink ?todo
+ORDER BY DESC(?count) 
+LIMIT 250

@@ -1,0 +1,9 @@
+SELECT ?item ?mbid WHERE {
+ ?item wdt:P31 wd:Q215380.
+ ?item wdt:P740 ?mbid.
+ FILTER(NOT EXISTS {
+  ?item wdt:P495 ?id
+ })
+}
+
+LIMIT 100

@@ -1,0 +1,10 @@
+# aus fungiIDs without parent taxa 
+SELECT ?item ?taxon_name ?parent  WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P105 wd:Q7432.
+  ?item wdt:P9076 ?ausfungiID.
+  ?item wdt:P225 ?taxon_name. 
+  MINUS {?item wdt:P171 ?parent} 
+}
+ORDER BY ?taxon_name 
+LIMIT 500

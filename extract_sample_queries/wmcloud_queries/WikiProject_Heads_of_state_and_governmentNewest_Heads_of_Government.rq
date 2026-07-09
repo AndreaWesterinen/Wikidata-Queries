@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?country ?weeks
+WHERE {      
+  ?country wdt:P31 wd:Q3624078 ; wdt:P1313 ?office .
+  ?item wdt:P31 wd:Q5 ; p:P39 ?posn .
+  ?posn ps:P39 ?office ; pq:P580 ?start_date .
+  FILTER NOT EXISTS { ?posn pq:P582 ?end_date }
+  BIND(ROUND((NOW() - ?start_date)/7) AS ?weeks)
+}
+ORDER BY DESC(?start_date)
+LIMIT 30

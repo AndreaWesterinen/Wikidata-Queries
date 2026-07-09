@@ -1,0 +1,4 @@
+SELECT ?Pacific_Ocean ?Pacific_OceanLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Pacific_Ocean wdt:P119 wd:Q98.
+}

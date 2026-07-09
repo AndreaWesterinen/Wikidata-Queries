@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel
+ {
+    ?item wikibase:identifiers 0 .
+    ?item wdt:P31 wd:Q46190676 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+ }

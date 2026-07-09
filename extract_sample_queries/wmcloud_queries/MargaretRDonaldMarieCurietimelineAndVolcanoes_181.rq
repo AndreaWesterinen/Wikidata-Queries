@@ -1,0 +1,11 @@
+# Index fungorum gerner taxa with a parent 
+SELECT ?item ?itemLabel ?taxon_name ?IF ?parent ?parentLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P1391 ?IF.
+  ?item wdt:P105 wd:Q34740.
+  ?item wdt:P225 ?taxon_name.
+  {?item wdt:P171 ?parent}
+
+}
+ORDER BY ?taxon_name
+#LIMIT 200

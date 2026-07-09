@@ -1,5 +1,4 @@
-# ----
-#Lists emergency numbers and the total amount of people which can use them
+#title: Emergency numbers by total population using them
 #defaultView:BubbleChart
 SELECT ?emergencyNumber ?emergencyNumberLabel ?tel ?population ?countries
 WHERE

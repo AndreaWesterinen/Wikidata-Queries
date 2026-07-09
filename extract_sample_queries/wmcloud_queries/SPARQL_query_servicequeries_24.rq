@@ -1,0 +1,7 @@
+SELECT ?city ?cityLabel
+WHERE
+{
+  ?city wdt:P31 wd:Q1549591.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

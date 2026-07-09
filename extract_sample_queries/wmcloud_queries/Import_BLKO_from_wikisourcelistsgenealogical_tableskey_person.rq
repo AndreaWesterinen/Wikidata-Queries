@@ -1,0 +1,14 @@
+SELECT
+  ?item (GROUP_CONCAT(DISTINCT REPLACE(REPLACE(REPLACE(?p, " profile ID",""), " person ID",""), " ID",""); separator = ", ") as ?properties) (SAMPLE(?table) as ?table_1)
+ (COUNT(DISTINCT ?p) as ?count)
+WHERE
+{
+    { SELECT * {
+    hint:Query hint:optimizer "None".
+    ?table wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q9353932 . 
+    ?table wdt:P3342 ?item . ?item ?wdt [] . ?geneap wdt:P31 wd:Q56249073 ; wikibase:directClaim ?wdt .
+    ?geneap rdfs:label ?p . FILTER(lang(?p)="en") 
+    } ORDER BY ?item ?geneap }
+}
+GROUP BY ?item
+ORDER BY ?item

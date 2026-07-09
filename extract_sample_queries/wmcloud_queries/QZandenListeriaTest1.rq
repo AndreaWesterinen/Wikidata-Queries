@@ -1,0 +1,13 @@
+#Whose birthday is it today with a round number. e.g: 10, 20, 30 or 130 years
+SELECT ?birthdayboy ?birthdayboyLabel (YEAR(?date) AS ?year) ?date ?age WHERE {
+  BIND(MONTH(NOW()) AS ?nowMonth)
+  BIND(DAY(NOW()) AS ?nowDay)
+  ?birthdayboy wdt:P569 ?date.
+  BIND(YEAR(?date) AS ?year)
+  BIND(((YEAR(NOW())) - ?year) / 10 AS ?decade)
+  BIND(ROUND(((YEAR(NOW())) - ?year) / 10) AS ?decaderounded)
+  BIND(?decade * 10 AS ?age)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(?decade = ?decaderounded)
+  FILTER(((MONTH(?date)) = ?nowMonth) && ((DAY(?date)) = ?nowDay))
+}

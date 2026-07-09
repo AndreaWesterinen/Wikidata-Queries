@@ -1,0 +1,28 @@
+#title: First ship registrations were only possible in Britain circa 1660
+# Complex constraint from [[Property talk:P8047]]
+# Due to Britain passing ship registration laws in 1660 (see [[d:Q318785|Navigation Acts <small>(Q318785)</small>]] and [https://www.nationalarchives.gov.uk/help-with-your-research/research-guides/registration-merchant-ships/] and [https://www.archives.gov/research/maritime/vessel-documents.html]) it is not possible for ships destroyed or disused by 1660 to have ever been registered.
+SELECT ?item WHERE {
+  VALUES ?events_indicating_end_of_existence {
+    wd:Q1522772
+    wd:Q906512
+    wd:Q7497952
+    wd:Q12772819
+    wd:Q30880545
+    wd:Q2478058
+    wd:Q1786766
+    wd:Q2344557
+    wd:Q17781833
+    wd:Q49642078
+    wd:Q331483
+    wd:Q336332
+    wd:Q7497950
+    wd:Q38131096
+    wd:Q17113173
+    wd:Q3030513
+  }
+  ?item wdt:P31/wdt:P279* wd:Q11446;
+        wdt:P8047 ?registration_country;
+        p:P793 ?event.
+  ?event ps:P793 ?events_indicating_end_of_existence.
+  ?event pq:P585 ?point_in_time FILTER (?point_in_time < "1660-01-01"^^xsd:dateTime).
+}

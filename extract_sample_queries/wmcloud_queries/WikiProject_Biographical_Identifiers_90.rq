@@ -1,0 +1,18 @@
+#Authority control properties usage for a given identifier
+
+SELECT ?property ?propertyLabel ?propertyDescription ?count WHERE { 
+	{
+		select ?propertyclaim (COUNT(*) AS ?count) where {
+			?item wdt:P650 ?id . 
+			?item wdt:P31 wd:Q5 .
+			?item ?propertyclaim [] .
+		} group by ?propertyclaim 
+	}
+	?property wikibase:propertyType wikibase:ExternalId .
+	?property wdt:P31 wd:Q19595382 .
+	?property wikibase:claim ?propertyclaim .
+	SERVICE wikibase:label {            # ... include the labels
+		bd:serviceParam wikibase:language "en" .
+	}
+} ORDER BY DESC (?count)
+LIMIT 100

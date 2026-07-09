@@ -1,0 +1,10 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q486972 ;
+     wdt:P17 wd:Q38 .
+  FILTER NOT EXISTS {
+    ?x rdfs:label ?label 
+    FILTER (lang(?label) = "it")
+  }
+}
+LIMIT 100000

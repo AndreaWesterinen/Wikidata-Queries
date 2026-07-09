@@ -1,0 +1,15 @@
+SELECT DISTINCT ?itemLabel ?item ?dob ?dod ?item2 ?dob2 ?dod2 {
+  ?item wdt:P106 wd:Q16533 .
+  { ?item rdfs:label ?itemLabel } UNION { ?item skos:altLabel ?itemLabel } .
+  FILTER( LANG( ?itemLabel ) = 'en' ) .
+  ?item2 wdt:P106 wd:Q16533 .
+  { ?item2 rdfs:label ?itemLabel } UNION { ?item2 skos:altLabel ?itemLabel } .
+  FILTER( STR( ?item ) < STR( ?item2 ) ) .
+  MINUS { ?item wdt:P1889 ?item2 } .
+  MINUS { ?item wdt:P460 ?item2 } .
+  MINUS { ?item2 wdt:P1889 ?item } .
+  MINUS { ?item2 wdt:P460 ?item } .
+  ?item wdt:P569 ?dob; wdt:P570 ?dod .
+  ?item2 wdt:P569 ?dob2; wdt:P570 ?dod2 .
+  FILTER( YEAR( ?dob ) = YEAR( ?dob2 ) && YEAR( ?dod ) = YEAR( ?dod2 ) ) .
+}

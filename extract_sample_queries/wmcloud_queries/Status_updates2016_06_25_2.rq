@@ -1,0 +1,10 @@
+SELECT ?inventor ?inventorLabel ?gadet ?gadgetLabel
+WHERE {
+  ?inventor wdt:P157 ?gadget .
+  ?gadet wdt:P61 ?inventor .
+  SERVICE wikibase:label { 
+    bd:serviceParam wikibase:language "en" . 
+    ?inventor rdfs:label ?inventorLabel .
+    ?gadget rdfs:label ?gadgetLabel .
+  }
+}

@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?itemLabel (COUNT(?tms) AS ?tmsCount) (MIN(?origineleNaam) AS ?naam1)  (MAX(?origineleNaam) AS ?naam2)  (MIN(?tms) AS ?sample1)  (MAX(?tms) AS ?sample2) 
+{
+	?item wdt:P6379 wd:Q99349995 .
+   ?item p:P6379 [ ps:P6379 wd:Q99349995;
+                    prov:wasDerivedFrom 
+                    [ pr:P1810 ?origineleNaam; 
+                      pr:P528 ?tms;
+                    ]
+                  ].
+FILTER NOT EXISTS {
+    ?item wdt:P31 wd:Q5.
+}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl" . }
+}
+GROUP BY  ?item ?itemLabel
+HAVING (?tmsCount > 1)

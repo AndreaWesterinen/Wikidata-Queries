@@ -1,0 +1,10 @@
+sparql?query=SELECT (COUNT(*) AS ?count) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item p:P11296 ?statement0.
+      ?statement0 (ps:P11296) _:anyValueP11296.
+    }
+    LIMIT 100
+  }
+}

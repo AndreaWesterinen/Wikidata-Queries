@@ -1,0 +1,7 @@
+#title: EuroVelo without P14
+# Complex constraint from [[Property talk:P14]]
+#
+SELECT ?item {
+  ?item wdt:P361 wd:Q262160
+  MINUS { ?item p:P14 [] }
+}

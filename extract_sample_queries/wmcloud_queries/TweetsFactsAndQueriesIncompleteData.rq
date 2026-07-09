@@ -1,0 +1,11 @@
+SELECT DISTINCT ?award ?awardLabel
+WHERE
+{
+  [] p:P166 [ ps:P166 ?award; pq:P585 ?twentyFourteen ].
+  FILTER(YEAR(?twentyFourteen) = 2014).
+  MINUS {
+    [] p:P166 [ ps:P166 ?award; pq:P585 ?twentyFifteen ].
+    FILTER(YEAR(?twentyFifteen) = 2015).
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,14 @@
+# Show all files depicting roses, and subclasses thereof
+#defaultView:ImageGrid
+select distinct ?item ?itemLabel ?image with {
+  select ?item ?itemLabel where {
+    service <https://query.wikidata.org/sparql> {
+      ?item wdt:P31/wdt:P279* wd:Q34687. # subclasses of roses
+      service wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". ?item rdfs:label ?itemLabel . }
+    }
+  }
+} as %wikidataItems where {
+  include %wikidataItems .
+  ?file wdt:P180 ?item;
+        schema:url ?image.
+} limit 1000

@@ -1,0 +1,13 @@
+#title:complex constraint value label
+SELECT ?item ?lang ?l ?value ?v ?t
+WHERE
+{
+	BIND( "Катэгорыя:Ганаровыя грамадзяне .+"@be as ?t)
+	hint:Query hint:optimizer "None".
+	BIND( lang(?t) as ?lang)
+	?item wdt:P10280 ?value.
+	OPTIONAL { ?item rdfs:label ?l . FILTER(lang(?l) = ?lang) }
+	?value rdfs:label ?v . FILTER(lang(?v) = ?lang)
+	FILTER ( !REGEX(str(?v), str(?t) )  )
+}
+ORDER BY ?lang ?v

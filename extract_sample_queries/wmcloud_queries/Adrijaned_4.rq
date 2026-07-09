@@ -1,0 +1,17 @@
+# najdi tvary kde chybí IPA
+SELECT ?word ?fID WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?language ;
+          ontolex:lexicalForm ?fID .
+    ?fID ontolex:representation ?word2 .
+    ?language wdt:P218 'cs' .
+  {
+    SELECT ?word WHERE {
+      ?l a ontolex:LexicalEntry ; dct:language ?language ;
+            ontolex:lexicalForm ?form .
+      ?form ontolex:representation ?word .
+      ?language wdt:P218 'cs' .
+      FILTER (str(?word) = "šťastné")
+    } LIMIT 1
+  }
+  FILTER (?word2 = ?word)
+}

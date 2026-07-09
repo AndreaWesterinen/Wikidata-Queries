@@ -1,0 +1,10 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?film ?filmLabel ?release ?kinopolis ?cineplex WHERE {
+  #OPTIONAL{?film wdt:P2970 ?kinopolis}
+  OPTIONAL{?film wdt:P3077 ?cineplex}
+  values ?film {wd:Q18145311 }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "de"}
+}

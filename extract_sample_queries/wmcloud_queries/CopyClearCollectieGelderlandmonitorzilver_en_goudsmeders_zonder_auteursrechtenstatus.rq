@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  {?item wdt:P106 wd:Q2216340.} #zilversmid
+  UNION
+  {?item wdt:P106 wd:Q211423.} #goudsmid
+  ?item wdt:P9152 ?Gelderid.
+  FILTER NOT EXISTS {?item wdt:P7763 []}.
+}

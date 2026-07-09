@@ -1,0 +1,4 @@
+#title: Only warning present
+# Complex constraint from [[Property talk:P2758]]
+# [[d:Q23817739|warning <small>(Q23817739)</small>]] needs to be accompanied by a category
+SELECT ?item WHERE { ?item wdt:P2758 wd:Q23817739 . MINUS{ ?item wdt:P2758 ?value . FILTER ( ?value != wd:Q23817739 ) } }

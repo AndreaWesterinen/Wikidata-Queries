@@ -1,0 +1,13 @@
+#defaultView:Map
+SELECT ?item ?vernoemd_naarLabel ?typeLabel ?itemLabel ?afb  ?vernoemd_naar ?type ?vermeld_inLabel ?vermeld_in ?locatie WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q83620.
+  ?item wdt:P131 wd:Q26421.
+  ?item wdt:P625 ?locatie.
+  ?item p:P138 ?vernoemd_statement.
+  ?vernoemd_statement ps:P138 ?vernoemd_naar.  
+  OPTIONAL {?vernoemd_naar wdt:P18 ?afb .}
+  OPTIONAL {?vernoemd_statement prov:wasDerivedFrom ?provenance .
+    ?provenance pr:P248 ?vermeld_in }
+  OPTIONAL {?vernoemd_naar wdt:P31 ?type}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+}

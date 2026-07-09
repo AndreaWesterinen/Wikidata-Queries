@@ -1,0 +1,2 @@
+#title:Add inverse statements from P2959
+SELECT DISTINCT ?item WHERE { ?dupe wdt:P2959 ?item . ?item wdt:P31 wd:Q21286738 . MINUS { ?item p:P2959/ps:P2959 ?dupe } . }

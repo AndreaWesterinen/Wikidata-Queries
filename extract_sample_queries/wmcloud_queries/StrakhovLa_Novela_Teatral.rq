@@ -1,0 +1,5 @@
+SELECT ?item ?retratado ?retrato2 WHERE {
+   ?item wdt:P1433 wd:Q32860631 .
+    ?item wdt:P180 ?retratado . 
+    ?retratado wdt:P18 ?retrato2 . 
+}

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q40231 ; wdt:P585 ?when .
+  FILTER NOT EXISTS { ?item wdt:P17 [] }
+  MINUS { ?item rdf:type wdno:P17 }
+  FILTER (?when > NOW())
+}
+ORDER BY ?when
+LIMIT 500

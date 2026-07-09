@@ -1,0 +1,9 @@
+#title: Béns catalans sense IPAC ni IPAPC
+# Complex constraint from [[Property talk:P1600]]
+# elements amb estatus patrimonial BCIL o bé integrant del patrimoni cultural català que no tenen ni codi IPAC ni codi IPAPC
+SELECT ?item WHERE {
+  VALUES ( ?be ) { ( wd:Q11910250 ) ( wd:Q28034408 ) }
+  ?item wdt:P1435 ?be .
+  MINUS { ?item wdt:P1600 [] }
+  MINUS { ?item wdt:P5957 [] }
+}

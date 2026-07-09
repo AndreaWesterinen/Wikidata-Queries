@@ -1,0 +1,42 @@
+#Works by given ?author, and his pseudonymes, from Wikidata and data.bibliotheken.nl (federated search) 
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT 
+?author 
+?s ?nta ?nta_uri ?namedAs #
+?pub 
+#?publabel 
+#?pubtitle 
+#(GROUP_CONCAT(DISTINCT(?pubdescription ); separator="****") as ?pubBeschrijving)
+#?pubdescription 
+#?publang 
+#(GROUP_CONCAT(DISTINCT(?pubtype); separator="****") as ?pubIsEen)
+# ?pubtype
+#?pubauthor 
+WHERE {
+
+  VALUES (?author) {(wd:Q2677204)}.
+  ?author wdt:P1006 ?nta.
+  ?s ps:P1006 ?nta.
+  BIND(URI(CONCAT("http://data.bibliotheken.nl/id/thes/p",?nta)) AS ?nta_uri).   
+  OPTIONAL {?s pq:P1810 ?namedAs}.
+  
+  SERVICE <http://data.bibliotheken.nl/sparql>{
+  ?pub schema:author <http://data.bibliotheken.nl/id/thes/p068302770>.
+  #?pub schema:author ?nta_uri.
+  #?pub  rdfs:label  ?publabel.
+  #?pub schema:name ?pubtitle.
+  #?pub  schema:description  ?pubdescription.
+  #?pub schema:inLanguage ?publang.
+  #?pub rdf:type ?pubtype.
+  #?pub schema:author ?pubauthor.
+  #}
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            
+ # SERVICE wikibase:label {
+ #   bd:serviceParam wikibase:language "nl" .
+  }
+} 
+#GROUP BY ?author ?nta ?nta_uri ?namedAs  ?pub ?publabel ?pub ?pubtype ?pubauthor

@@ -1,0 +1,22 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# based on https://www.mediawiki.org/wiki/Wikibase/Indexing/SPARQL_Query_Examples#Rock_bands_that_start_with_.22M.22
+
+SELECT ?whichLincoln ?whichLincolnLabel ?place ?placeLabel ?cc WHERE {
+  ?place  wdt:P17 ?country . 
+  ?country wdt:P984 ?cc
+  FILTER(CONTAINS(?placeLabel, 'Lincoln')) .
+  FILTER(CONTAINS(?whichLincolnLabel, 'Lincoln')) .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?place rdfs:label ?placeLabel .
+  }
+  ?place wdt:P138 ?whichLincoln
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?whichLincoln rdfs:label ?whichLincolnLabel .
+  }
+
+} ORDER BY ?whichLincolnLabel

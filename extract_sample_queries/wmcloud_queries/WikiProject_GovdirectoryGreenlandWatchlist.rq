@@ -1,0 +1,15 @@
+SELECT ?item
+WHERE {
+  BIND(wd:Q223 AS ?country)
+
+  VALUES ?type {
+    wd:Q16511251 # Municipality of Greenland (5)
+  }
+
+  ?item wdt:P31 ?type ;
+       wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+  MINUS { ?item wdt:P3999 [] }
+}

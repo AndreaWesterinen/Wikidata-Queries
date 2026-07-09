@@ -1,0 +1,13 @@
+SELECT 
+  ?item ?label 
+  (GROUP_CONCAT(?lang) as ?langs)
+  (COUNT(?lang) as ?count_lang)
+WHERE
+{
+  wd:P2358 wdt:P1855 ?item .
+  ?item rdfs:label ?l .
+  BIND( str(?l) as ?label) 
+  BIND( lang(?l) as ?lang) 
+}
+GROUP BY ?item ?label 
+ORDER BY ?item ?label 

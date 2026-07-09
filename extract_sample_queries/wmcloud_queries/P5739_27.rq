@@ -1,0 +1,4 @@
+#title: labels with parentheses
+# Complex constraint from [[Property talk:P5739]]
+# see [[Help:Label]]: labels shouldn't generally include that. As appropriate, split text between label, description, alias
+SELECT ?item ?l { ?item wdt:P5739 ?value ; rdfs:label ?l . FILTER(lang(?l)="it" && CONTAINS(?l,"(") )  } LIMIT 50

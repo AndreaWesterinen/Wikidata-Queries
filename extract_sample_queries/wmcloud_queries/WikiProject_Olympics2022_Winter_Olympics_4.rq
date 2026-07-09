@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  {
+  ?item wdt:P793 wd:Q193074.
+  }
+  UNION
+  {
+  ?item wdt:P793 ?sport.
+  ?sport wdt:P31 wd:Q26132862. 
+  ?sport wdt:P361 wd:Q193074.
+  FILTER( ?item not in (wd:Q15793394,wd:Q27964194))
+  }
+  FILTER( ?item not in (wd:Q15793394,wd:Q27964194))
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

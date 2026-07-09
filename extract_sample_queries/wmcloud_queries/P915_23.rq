@@ -1,0 +1,21 @@
+#title: Having P17
+# Complex constraint from [[Property talk:P915]]
+#
+SELECT ?item ?value {
+	?item wdt:P915 ?value.
+    FILTER NOT EXISTS {
+      ?value wdt:P17 ?a
+    }.
+    FILTER NOT EXISTS {
+      ?value wdt:P6262 ?b
+    }
+    FILTER NOT EXISTS {
+      ?value wdt:P31 wd:Q5107
+    }
+    FILTER NOT EXISTS {
+      ?value wdt:P361 ?partOf
+    }
+    FILTER (?value NOT IN (wd:Q3509156, wd:Q6325334, wd:Q934, wd:Q84155695, wd:Q1898068, wd:Q2551906, wd:Q12297102, wd:Q498627, 
+                           wd:Q15902672, wd:Q4146965, wd:Q48214, wd:Q15907962, wd:Q3418777, wd:Q6953015, wd:Q1170481)).
+    FILTER (?item NOT IN (wd:Q3236075, wd:Q6697877, wd:Q5158514, wd:Q3790329)).
+}

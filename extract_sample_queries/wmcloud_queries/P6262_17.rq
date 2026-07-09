@@ -1,0 +1,10 @@
+#title: Check chapters of House of Cards
+# Complex constraint from [[Property talk:P6262]]
+# Check chapters of [[d:Q3330940|House of Cards <small>(Q3330940)</small>]]
+SELECT ?item {
+    ?item wdt:P6262 ?value.
+    FILTER(REGEX(?value, "^(house-of-cards:Chapter)"))
+    FILTER NOT EXISTS {
+      ?item wdt:P31 wd:Q21191270
+    }
+}

@@ -1,0 +1,9 @@
+SELECT ?item ?article WHERE {
+  {?item wdt:P31 wd:Q41298} UNION { ?item wdt:P31 wd:Q1002697}.
+  ?item wdt:P407 wd:Q143.
+    OPTIONAL {
+      ?article schema:about ?item .
+      ?article schema:inLanguage "eo" .
+      FILTER (SUBSTR(str(?article), 1, 25) = "https://eo.wikipedia.org/")
+    }
+}

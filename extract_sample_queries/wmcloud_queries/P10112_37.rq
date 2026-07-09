@@ -1,0 +1,18 @@
+#title: XXX1### codes should be [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]]: [[d:Q3224|New South Wales <small>(Q3224)</small>]].
+# Complex constraint from [[Property talk:P10112]]
+#
+SELECT ?item ?itemLabel ?admin ?adminLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?admin ?value {
+			?item wdt:P10112 ?value .
+			MINUS {
+				?item wdt:P131|wdt:P131/wdt:P131 wd:Q3224 .
+			} .
+			?item wdt:P131 ?admin .
+            FILTER(STRSTARTS(?value, "LGA1") || STRSTARTS(?value, "SED1") || STRSTARTS(?value, "CED1") || STRSTARTS(?value, "SAL1") ).
+		} LIMIT 1000
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

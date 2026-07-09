@@ -1,0 +1,8 @@
+SELECT ?item ?p ?propertyDescription
+{
+  ?property wikibase:propertyType ?type .
+  ?property wdt:P279 ?class .
+  BIND (concat("\u007B\u007BP'\u007C",strafter(str(?property),"y/"),"\u007D\u007D") as ?p) 
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}

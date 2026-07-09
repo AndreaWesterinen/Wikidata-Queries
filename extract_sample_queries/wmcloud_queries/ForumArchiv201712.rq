@@ -1,0 +1,5 @@
+SELECT ?item ?description ?sitelink WHERE {
+  ?item wdt:P1343 wd:Q1573212; schema:description ?description .
+  FILTER(LANG(?description) = 'de' && REGEX(?description, '[VI]+ [0-9]+\\-[0-9]+') = true) .
+  OPTIONAL { ?sitelink schema:about ?item; schema:isPartOf <https://de.wikipedia.org/> }
+}

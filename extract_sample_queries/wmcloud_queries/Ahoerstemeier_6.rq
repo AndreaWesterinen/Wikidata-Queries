@@ -1,0 +1,12 @@
+#LSG in NRW
+#defaultView:Table
+SELECT DISTINCT ?lsg ?lsgLabel ?cdda ?wdpa ?inception ?area WHERE {
+  ?lsg wdt:P31 wd:Q21503788.
+  ?lsg wdt:P131 ?location.
+  ?location wdt:P131* wd:Q1198.
+  OPTIONAL { ?lsg wdt:P4762 ?cdda. }
+  OPTIONAL { ?lsg wdt:P809 ?wdpa. }
+  OPTIONAL { ?lsg wdt:P571 ?inception. }
+  OPTIONAL { ?lsg wdt:P2046 ?area. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

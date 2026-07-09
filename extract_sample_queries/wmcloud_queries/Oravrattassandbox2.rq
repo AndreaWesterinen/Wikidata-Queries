@@ -1,0 +1,11 @@
+SELECT ?item ?total ?gender ?dob ?givenName ?familyName ?twitter ?facebook WHERE 
+{
+  BIND(wd:Q3406079 AS ?item)
+  { SELECT (COUNT(DISTINCT ?mp) AS ?total) WHERE { ?mp p:P39 [ ps:P39 [ wdt:P279* wd:Q3406079 ] ] } }
+  { SELECT (COUNT(DISTINCT ?mp) AS ?gender) WHERE { ?mp p:P39 [ ps:P39 [ wdt:P279* wd:Q3406079 ] ] ; wdt:P21 [] } }
+  { SELECT (COUNT(DISTINCT ?mp) AS ?dob) WHERE { ?mp p:P39 [ ps:P39 [ wdt:P279* wd:Q3406079 ] ] ; wdt:P569 [] } }
+  { SELECT (COUNT(DISTINCT ?mp) AS ?givenName) WHERE { ?mp p:P39 [ ps:P39 [ wdt:P279* wd:Q3406079 ] ] ; wdt:P735 [] } }
+  { SELECT (COUNT(DISTINCT ?mp) AS ?familyName) WHERE { ?mp p:P39 [ ps:P39 [ wdt:P279* wd:Q3406079 ] ] ; wdt:P734 [] } }
+  { SELECT (COUNT(DISTINCT ?mp) AS ?twitter) WHERE { ?mp p:P39 [ ps:P39 [ wdt:P279* wd:Q3406079 ] ] ; wdt:P2002 [] } }
+  { SELECT (COUNT(DISTINCT ?mp) AS ?facebook) WHERE { ?mp p:P39 [ ps:P39 [ wdt:P279* wd:Q3406079 ] ] ; wdt:P2013 [] } }
+}

@@ -1,0 +1,26 @@
+SELECT ?item ?ct ?wdlist ?e ?sample
+WITH
+{
+  	SELECT ?item (COUNT(DISTINCT ?lighthouse) as ?ct)  (SAMPLE(?lighthouse) as ?sample)
+	{
+		?lighthouse wdt:P31 wd:Q39715 . 
+		OPTIONAL { ?lighthouse wdt:P17 ?c }
+  		BIND(IF(!BOUND(?c), wd:Q22910791, ?c) as ?item)
+	}
+	GROUP BY ?item
+	ORDER BY DESC(?ct) LIMIT 1000
+  	}
+	AS %inner
+WHERE
+{
+	INCLUDE %inner
+	OPTIONAL
+	{
+    	?list wdt:P360 wd:Q39715 .
+		?list p:P360 [ pq:P17 ?item ; ps:P360 wd:Q39715 ] .
+		?wdlist1 schema:about ?list ; schema:isPartOf <https://www.wikidata.org/> ; schema:name ?list1 
+		BIND(CONCAT("[[",str(?list1),"\u007Clist]]") as ?wdlist)                 
+	}
+	OPTIONAL { ?item p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?e ] } 
+}
+ORDER BY DESC(?ct) ?item

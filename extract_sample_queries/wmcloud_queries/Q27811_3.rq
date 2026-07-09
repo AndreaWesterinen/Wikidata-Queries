@@ -1,0 +1,10 @@
+embed.html##title: in language (P407)
+SELECT ?item ?itemLabel ?itemDescription ?instanceof ?instanceofLabel ?subclassof ?subclassofLabel
+{
+    ?item wdt:P407 wd:Q27811.
+    OPTIONAL { ?item wdt:P31 ?instanceof }
+    OPTIONAL { ?item wdt:P279 ?subclassof }  
+    FILTER NOT EXISTS { ?item wdt:P31/wdt:P279 wd:Q33120876 }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

@@ -1,0 +1,7 @@
+SELECT ?item
+{
+  ?lgbtrelated wdt:P1269* wd:Q17884.
+  VALUES ?book {wd:Q8261 wd:Q3331189 wd:Q571}
+  ?item wdt:P31/wdt:P279* ?book;
+        wdt:P921 ?lgbtrelated.
+}

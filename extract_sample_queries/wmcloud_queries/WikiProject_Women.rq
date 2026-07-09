@@ -1,0 +1,1 @@
+SELECT ?prop { ?prop wdt:P31 wd:Q18614948 }

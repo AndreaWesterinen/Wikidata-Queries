@@ -1,0 +1,11 @@
+#NIOSH authors by frequency
+SELECT ?author (COUNT(?item) AS ?count)
+WHERE 
+{
+  ?item wdt:P5008 wd:Q104416361.
+  ?item wdt:P2093 ?author.
+  #filter contains(lcase(?author), 'name').
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?author

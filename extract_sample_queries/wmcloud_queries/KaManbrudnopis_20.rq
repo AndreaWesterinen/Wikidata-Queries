@@ -1,0 +1,8 @@
+SELECT ?l ?lemma ?example WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ; p:P5831 ?statement.
+  ?language wdt:P218 'pl'.
+  ?statement ps:P5831 ?example.
+  ?statement prov:wasDerivedFrom ?refnode.
+  FILTER NOT EXISTS {?refnode pr:P1065 ?archive }
+} ORDER BY ?lemma

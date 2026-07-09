@@ -1,0 +1,53 @@
+# persons that have been on spaceflights operated by at least two distinct 
+# sovereign states, and the number of seconds they have spent in space
+SELECT
+?person                                           # find persons …
+?personLabel                                      # … their label
+?secondsInSpace                                   # … seconds spent in space
+(GROUP_CONCAT(DISTINCT ?countryLabel;             # … and all operating countries
+              SEPARATOR=", ") AS ?countries)      
+WITH {
+  # this subquery finds all humans on spaceflights and their operators
+  SELECT ?person ?flight ?country WHERE {     
+         ?flight wdt:P31 wd:Q752783 ;             # human spaceflight …
+                 wdt:P620 [] ;                    # … has landed
+                 wdt:P619 [] ;                    # … has launched
+                 wdt:P137/wdt:P17 ?country ;      # … sovereign state of operator
+                 wdt:P1029 ?person .              # … with ?person as crew member
+  }
+} AS %spaceflight WITH {
+  # this subquery finds two distinct launch operators for humans on
+  # spaceflights. we order countries A and B by their URI, so that we
+  # can more easily filter out duplicates
+  SELECT DISTINCT ?person ?countryA ?countryB WHERE {
+    { SELECT ?person ?flightA ?countryA WHERE {   # find a spaceflight for ?person
+        INCLUDE %spaceflight .
+        BIND(?flight AS ?flightA)
+        BIND(?country AS ?countryA)   
+    }}
+    { SELECT ?person ?flightB ?countryB WHERE {   # find a second spaceflight for the ?person
+        INCLUDE %spaceflight .
+        BIND(?flight AS ?flightB)
+        BIND(?country AS ?countryB)   
+    }}
+    FILTER (STR(?flightA) < STR(?flightB))        # enforce that the launches are distinct
+    FILTER (STR(?countryA) < STR(?countryB))      # enforce that the operating countries are distinct
+  }} AS %flightCountries
+WHERE {
+  { SELECT ?person ?country WHERE {               # now get both results into the same column
+    { SELECT ?person ?country WHERE {             # find ?countryA for ?person
+      INCLUDE %flightCountries .
+      BIND(?countryA AS ?country)
+    }} UNION { SELECT ?person ?country WHERE {    # find ?countryB for ?person
+      INCLUDE %flightCountries .
+      BIND(?countryB AS ?country)
+    }}
+  }}
+  ?person wdt:P2873 ?secondsInSpace .             # also get the time spent in space
+  SERVICE wikibase:label {                        # finally, get the labels …
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . 
+    ?person rdfs:label ?personLabel .             # … for person
+    ?country rdfs:label ?countryLabel .           # … and for the country
+  }
+} GROUP BY ?person ?secondsInSpace ?personLabel   # group by ?person …
+ORDER BY DESC(?secondsInSpace) ASC(?personLabel)  # … and order by time in space and name

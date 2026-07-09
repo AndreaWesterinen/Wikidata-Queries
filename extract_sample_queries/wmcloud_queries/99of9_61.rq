@@ -1,0 +1,15 @@
+# items with property P662 and most statements
+# added by User:Jura1, 2017-07-30
+SELECT ?item ?itemLabel ?value ?st
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P31 wd:Q11173 ; wikibase:statements ?st
+       }
+       ORDER BY DESC(?st) 
+       LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?st) ?item

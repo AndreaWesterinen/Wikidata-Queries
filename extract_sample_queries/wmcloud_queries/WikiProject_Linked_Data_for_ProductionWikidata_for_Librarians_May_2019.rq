@@ -1,0 +1,15 @@
+SELECT DISTINCT ?property ?propertyLabel ?count
+WITH {
+  SELECT DISTINCT ?property (COUNT(*) AS ?count) WHERE {
+    ?item wdt:P31/wdt:P279* wd:Q7075 ;
+    ?p [ ] .
+    ?property a wikibase:Property;
+                wikibase:claim ?p.
+  }
+  GROUP BY ?property 
+  } AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?count)
+LIMIT 100

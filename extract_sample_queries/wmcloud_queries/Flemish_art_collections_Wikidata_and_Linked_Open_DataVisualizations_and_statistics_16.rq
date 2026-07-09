@@ -1,0 +1,7 @@
+#defaultView:BubbleChart
+SELECT ?depictedLabel (COUNT(DISTINCT ?artwork) AS ?count) WHERE {
+  ?artwork wdt:P195 wd:Q2542010.
+  ?artwork wdt:P180 ?depicted.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?depictedLabel

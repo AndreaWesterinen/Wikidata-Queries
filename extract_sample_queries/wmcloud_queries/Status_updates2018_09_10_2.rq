@@ -1,0 +1,49 @@
+SELECT ?item ?qid ?sitelinks ?identifiers
+WITH {
+  SELECT ?item ?qid WHERE {
+    VALUES ?gametype {
+      wd:Q7889
+      wd:Q16070115
+      wd:Q705867
+    }
+    ?item wdt:P31 ?gametype.
+    BIND(xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid)
+  }
+  ORDER BY DESC(?qid)
+  LIMIT 50
+} AS %items
+WITH {
+  SELECT ?item (GROUP_CONCAT(?sitelink) as ?sitelinks) WHERE {
+    INCLUDE %items.
+    OPTIONAL { 
+      ?article a schema:Article;
+               schema:about ?item;
+               schema:inLanguage ?language. 
+      BIND(CONCAT("[", STR(?article), " ", ?language, "]") AS ?sitelink)
+    }
+  }
+  GROUP BY ?item
+} AS %itemsWithSitelinks
+WITH {
+  SELECT ?item (GROUP_CONCAT(?identifier) as ?identifiers) WHERE {
+    INCLUDE %items.
+    OPTIONAL {
+      ?property a wikibase:Property;
+                wdt:P31/wdt:P279* wd:Q28147643;
+                wikibase:propertyType wikibase:ExternalId;
+                wdt:P1630 ?formatterUrl;
+                wikibase:directClaim ?wdt;
+                rdfs:label ?propertyLabel.
+      FILTER(LANG(?propertyLabel) = "en")
+      ?item ?wdt ?id.
+      BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterUrl)) AS ?url)
+      BIND(CONCAT("[", STR(?url), " ", ?propertyLabel, "]") AS ?identifier)
+    }
+  }
+  GROUP BY ?item
+} AS %itemsWithExternalIdentifiers
+WHERE {
+  INCLUDE %items.
+  INCLUDE %itemsWithSitelinks.
+  INCLUDE %itemsWithExternalIdentifiers.
+} ORDER BY DESC(?qid) LIMIT 200

@@ -1,0 +1,5 @@
+#Open Data Portals
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q27031827.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE] de,en". }
+}

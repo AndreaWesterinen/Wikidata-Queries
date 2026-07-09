@@ -1,0 +1,9 @@
+#title: Compare with Lake ID (Sweden)
+# Complex constraint from [[Property talk:P2856]]
+# see [[Property:P761|Lake ID (Sweden)&#32;<small dir="ltr">(P761)</small>]]
+SELECT ?item ?lacID ?otherID ?substr {
+  ?item wdt:P2856 ?lacID.
+  ?item wdt:P761 ?otherID.
+  BIND (SUBSTR(STR(?lacID), 3) AS ?substr).
+  FILTER (?substr != ?otherID)
+}

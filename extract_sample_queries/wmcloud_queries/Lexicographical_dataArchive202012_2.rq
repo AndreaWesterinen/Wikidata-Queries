@@ -1,0 +1,6 @@
+#defaultView:BarChart
+SELECT ?len (COUNT(?glos) AS ?c) WHERE {
+  ?l skos:definition ?glos.
+  BIND ( str(floor(strlen(?glos)/10)) AS ?len) 
+}
+GROUP BY ?len

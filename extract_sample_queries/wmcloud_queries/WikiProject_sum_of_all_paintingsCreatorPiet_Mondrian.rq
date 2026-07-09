@@ -1,0 +1,20 @@
+SELECT ?item ?catalogurl ?rkdurl WHERE { 
+  ?item wdt:P31 wd:Q3305213 . 
+  ?item p:P170/ps:P170 wd:Q151803 . 
+  MINUS { ?item wdt:P31 wd:Q15727816 } 
+  OPTIONAL {
+    ?item p:P528 ?catalogstatement .
+    ?catalogstatement ps:P528 ?catalogcode ;
+                      pq:P972 wd:Q50383647 ;
+                      prov:wasDerivedFrom ?reference.
+    ?reference pr:P854 ?referenceurl.
+    FILTER(REGEX(STR(?referenceurl), "http://pietmondrian.rkdmonographs.nl/.*"))
+    BIND(CONCAT('[', STR(?referenceurl), ' ', ?catalogcode, ']') AS ?catalogurl).
+    }    
+  OPTIONAL {
+  wd:P350 wdt:P1630 ?formatterurl .
+  ?item wdt:P350 ?rkdid .
+  BIND(CONCAT('[', REPLACE(?rkdid, '^(.+)$', ?formatterurl), ' ', ?rkdid, ']') AS ?rkdurl).
+  } 
+  OPTIONAL { ?item wdt:P571 ?inception }
+} ORDER BY (?inception)

@@ -1,0 +1,5 @@
+select (count(*) as ?total) {
+  ?item1 wdt:P1566 ?value .
+  ?item2 wdt:P1566 ?value .
+  filter (?item1 != ?item2 && str(?item1) < str(?item2)) .
+}

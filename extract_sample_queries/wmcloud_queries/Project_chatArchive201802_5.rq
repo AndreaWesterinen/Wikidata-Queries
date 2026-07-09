@@ -1,0 +1,12 @@
+SELECT ?person ?personLabel ?date_of_death  
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?person wdt:P31 wd:Q5.
+  ?person wdt:P570 ?date_of_death.
+  FILTER(?date_of_death <= "1901-01-01T00:00:00Z"^^xsd:dateTime)           
+  # died before 1901
+  ?person wdt:P27 wd:Q408 .     
+  FILTER NOT EXISTS { ?person p:P27 ?statement . ?statement prov:wasDerivedFrom ?derivedFrom .
+                      ?statement ps:P27 wd:Q408 . }
+  # filter out any where the P27:Q408 statement is sourced (to anything at all)
+}

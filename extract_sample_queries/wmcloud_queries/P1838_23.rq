@@ -1,0 +1,9 @@
+#title: Inconsistency between the identifier and the location in Switzerland
+# Complex constraint from [[Property talk:P1838]]
+# Check [[Property:P771|Swiss municipality code&#32;<small dir="ltr">(P771)</small>]] of [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]]
+SELECT ?item ?id ?OFS ?substr {
+  ?item wdt:P1838 ?PSS;
+        wdt:P131/wdt:P771 ?OFS.
+  BIND (substr(?PSS, 4, 4) AS ?substr)
+  FILTER (?substr != ?OFS)
+}

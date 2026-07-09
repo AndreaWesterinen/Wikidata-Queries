@@ -1,0 +1,8 @@
+#NIOSH no doi/ntis/link/author; yes repby
+SELECT ?item
+WHERE 
+{
+  ?item wdt:P2880 ?nid.
+  MINUS {?item p:P356 ?statement.} #P7791, P953, P2093, P50
+  #?item wdt:P1366 ?repby.
+}

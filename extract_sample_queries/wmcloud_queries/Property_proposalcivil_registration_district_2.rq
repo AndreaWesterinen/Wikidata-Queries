@@ -1,0 +1,20 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?img  ?coord ?NAD ?article ?SCB WHERE {
+  ?item wdt:P778 ?forsamlimgsKod
+  OPTIONAL {?item wdt:P5324 ?itemk} 
+  OPTIONAL {?item wdt:P18 ?img}
+  OPTIONAL {?item wdt:P625 ?coord}
+  BIND (CONCAT("NAD ",?itemk) as ?itemKod)
+  BIND (URI(CONCAT("https://sok.riksarkivet.se/?postid=ArkisRef",?itemk)) as ?NAD)
+  BIND (URI(CONCAT("http://geodata.scb.se/reginawebmap/main/webapp/?typ=forsamling&a=0000&f=",?forsamlimgsKod)) AS ?SCB)
+  OPTIONAL {
+      ?article schema:about ?item .
+      ?article schema:inLanguage "sv" .
+      ?article schema:isPartOf <https://sv.wikipedia.org/> .
+    }  
+  OPTIONAL {?item wdt:P131 ?admin}
+#  OPTIONAL {?admin rdfs:label ?layer;
+#            filter(lang(?layer)="sv")}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+}
+order by ?NAD

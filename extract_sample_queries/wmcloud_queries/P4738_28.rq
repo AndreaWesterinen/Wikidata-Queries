@@ -1,0 +1,8 @@
+#title: In the museum without a link
+# Complex constraint from [[Property talk:P4738]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] → [[d:Q6352575|Yale Center for British Art <small>(Q6352575)</small>]], but that don't have a [[Property:P4738|Yale Center for British Art artwork ID&#32;<small dir="ltr">(P4738)</small>]] link
+SELECT DISTINCT ?item ?url WHERE {
+  ?item wdt:P195 wd:Q6352575 .
+  OPTIONAL { ?item wdt:P973 ?url } . 
+  MINUS { ?item wdt:P4738 [] } .
+}  LIMIT 500

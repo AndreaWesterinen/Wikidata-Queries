@@ -1,0 +1,15 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?item ?itemLabel ?value ?valueLabel 
+?dob ?dod ?country
+WHERE
+{
+	?item wdt:P646 ?value . filter(strlen(?value)=34)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}
+LIMIT 10

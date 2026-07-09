@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?itemDescription ?count ?coor ?hascoor (CONCAT("{","{","cem","

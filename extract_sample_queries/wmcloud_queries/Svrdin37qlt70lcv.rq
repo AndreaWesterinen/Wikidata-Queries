@@ -1,0 +1,9 @@
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?author (COUNT(distinct ?sitelink) as ?count) WHERE {
+  ?work wdt:P50 ?author . 
+  ?sitelink schema:about ?author .
+  FILTER NOT EXISTS { ?author wdt:P214 ?viaf }
+ } GROUP BY ?author ORDER BY DESC(?count)

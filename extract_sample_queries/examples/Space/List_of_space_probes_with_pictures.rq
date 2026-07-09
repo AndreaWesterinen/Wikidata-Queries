@@ -1,3 +1,4 @@
+#title: List of space probes with pictures
 #defaultView:ImageGrid
 SELECT ?spaceProbeLabel ?date ?picture
 WHERE

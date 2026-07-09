@@ -1,0 +1,11 @@
+SELECT ?item ?countryLabel ?itemDescription
+WHERE {
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+    ?item wdt:P31 wd:Q41176 .
+    ?item wdt:P17 ?country.
+	FILTER NOT EXISTS { 
+      ?item schema:description ?itemDescription . 
+      FILTER (lang(?itemDescription) = "en") #rajouter « sakihikan Kanatak » à ceux manquant
+    }
+}
+LIMIT 10000

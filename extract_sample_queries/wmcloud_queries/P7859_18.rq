@@ -1,0 +1,16 @@
+#title: Value doesn't match P214
+# Complex constraint from [[Property talk:P7859]]
+# value starting with "viaf-" doesn't match [[Property:P214|VIAF ID&#32;<small dir="ltr">(P214)</small>]]-value.
+SELECT ?item ?value
+{
+    ?item wdt:P7859 ?value .
+    OPTIONAL
+    { 
+      ?item wdt:P214 ?viaf . 
+      BIND( concat("viaf-", ?viaf ) as ?viafvalue)
+    }
+    FILTER NOT EXISTS { ?item wdt:P7859 ?viafvalue }
+    FILTER NOT EXISTS { ?item p:P7859 / ps:P7859 ?viafvalue }
+    FILTER ( regex ( ?value, "^viaf-.*" ) )
+}
+LIMIT 500

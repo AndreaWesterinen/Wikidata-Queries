@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?genre ?genreLabel WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P136 ?genre .
+  ?genre wdt:P31 wd:Q968159 .
+  MINUS { ?genre wdt:P31 wd:Q1792379 } . 
+  MINUS { ?genre wdt:P31 wd:Q16743958 } . # Can maybe be removed later
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  } ORDER BY ?genreLabel LIMIT 2000

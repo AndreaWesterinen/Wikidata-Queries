@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?coord ?residenceLabel ?streetnrLabel ?cityLabel WHERE {
+  { ?item wdt:P31 wd:Q5. }
+  { ?item wdt:P463 wd:Q12347661. }
+  { ?item p:P551 ?street. 
+    ?street pq:P670 ?streetnr. 
+    ?item wdt:P551 ?residence. 
+    ?residence wdt:P131 ?city. 
+    ?residence wdt:P625 ?coord. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

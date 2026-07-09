@@ -1,0 +1,6 @@
+embed.html##defaultView:Map #code pour afficher sur une carte plutôt que le mode liste par défaut
+SELECT * WHERE {
+  ?col wdt:P31 wd:Q133056 . #sélection des cols
+  ?col wdt:P17 wd:Q142 . #qui sont situés en France
+  ?col wdt:P625 ?coord . #qui ont une coordonnées
+}

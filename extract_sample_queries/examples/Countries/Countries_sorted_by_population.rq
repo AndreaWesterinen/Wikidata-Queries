@@ -1,3 +1,4 @@
+#title: Countries sorted by population
 # defaultView:BubbleChart
 SELECT DISTINCT ?countryLabel ?population
 {

@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?dateofbirth ?dateofdeath ?image
+WHERE
+{
+  ?item wdt:P106 wd:Q13416354 .
+  ?item wdt:P3987 ?idSHARE .
+  ?item wdt:P569 ?dateofbirth .
+  OPTIONAL {?item wdt:P570 ?dateofdeath .}
+  OPTIONAL {?item wdt:P18 ?image .}
+  OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "it" }
+  FILTER (!BOUND(?sitelink))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY ?dateofbirth

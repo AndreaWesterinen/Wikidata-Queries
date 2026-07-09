@@ -1,0 +1,24 @@
+SELECT DISTINCT ?item ?itemLabel ?contactgegevens WHERE {
+  ?item wdt:P31 wd:Q5.
+  FILTER NOT EXISTS {?item wdt:P570 [].}#niet overleden
+  ?item wdt:P6379 wd:Q1886369.
+  ?item wdt:P7763 wd:Q73555012.
+  OPTIONAL {
+     ?item wdt:P6275 ?auteursrechtvertegenwoordiger.
+    BIND (
+     IF(?auteursrechtvertegenwoordiger = wd:Q71528227, wd:Q2377084, 1/0)
+     AS ?pictoright)
+  }
+  OPTIONAL {?item wdt:P2013 ?facebook.}
+  OPTIONAL {?item wdt:P6634 ?linkedin.}
+  OPTIONAL {?item wdt:P2002 ?twitter.}
+  OPTIONAL {?item wdt:P2003 ?instagram.}
+  OPTIONAL {?item wdt:P856 ?website.}
+  OPTIONAL {?item wdt:P1875 ?vertegenwoordiger.}
+  OPTIONAL {?item wdt:P3220 ?kvk.}
+  BIND (
+  COALESCE(
+    ?pictoright, ?website, ?vertegenwoordiger, ?instagram, ?facebook, ?linkedin, ?twitter, ?kvk
+  ) AS ?contactgegevens
+  )
+}

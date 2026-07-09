@@ -1,0 +1,25 @@
+SELECT (SAMPLE(?i) as ?item) ?people_with_surname (COUNT(*) AS ?freq) (sum(?c) AS ?pers) (SAMPLE(?c) as ?sort_c) (SAMPLE(?sample_p) as ?sample_pers)
+WHERE 
+{
+  {   SELECT ?i (COUNT(?p) AS ?c) (SAMPLE(?p) as ?sample_p)
+      WHERE 
+      {
+        ?i wdt:P6597 [].
+        OPTIONAL { ?p wdt:P734 ?i ; wdt:P27 wd:Q40 }
+      }  
+      GROUP BY ?i
+  }
+  BIND( IF( ?c > 9999 , "10000+" ,
+        IF( ?c > 4999 , "5000+" ,
+        IF( ?c > 999 , "1000+" ,
+        IF( ?c > 499 , "500+" ,
+        IF( ?c > 99 , "100+" ,
+        IF( ?c > 49 , "50+" ,
+        IF( ?c > 9 , "10+" ,
+        IF( ?c > 5 , "5-9" ,
+        IF( ?c > 1 , "2-4" ,
+        IF( ?c > 0 , "1" , "0" )))))))))) as ?people_with_surname)
+                   
+}
+GROUP BY ?people_with_surname
+ORDER BY ?sort_c

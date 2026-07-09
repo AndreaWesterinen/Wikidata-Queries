@@ -1,0 +1,21 @@
+SELECT *
+WHERE
+{
+    SERVICE wikibase:mwapi
+    {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:limitContinuations "5".
+
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "allpages" .
+      bd:serviceParam mwapi:gaplimit "1" .
+
+      # Also add site statistics to the API call:
+      bd:serviceParam mwapi:meta "siteinfo" .
+      bd:serviceParam mwapi:siprop "interwikimap" .
+      ?prefix wikibase:apiOutput "//api/query/interwikimap//@prefix" .
+      ?local wikibase:apiOutput "//api/query/interwikimap//@local" .
+      ?url wikibase:apiOutput "//api/query/interwikimap//@url" .
+    }
+    BIND( "y" as ?test) 
+}

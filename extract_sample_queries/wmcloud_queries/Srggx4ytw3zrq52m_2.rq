@@ -1,0 +1,22 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+select distinct ?movie ?movieLabel (year(?date) as ?year) ?Commons ?InternetArchive ?Youtube  ?url 
+where {
+
+  { ?movie wdt:P31/wdt:P279* wd:Q11424 . ?movie wdt:P10 ?Commons .} 
+  UNION { ?movie wdt:P31/wdt:P279* wd:Q11424 . ?movie wdt:P724 ?InternetArchive .}
+  UNION { ?movie wdt:P31/wdt:P279* wd:Q11424 . ?movie wdt:P1651 ?Youtube .}
+  UNION { ?movie wdt:P31/wdt:P279* wd:Q11424 . ?movie wdt:P963 ?url .}
+  
+  OPTIONAL {?movie wdt:P577 ?date.}
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,en"
+  } 
+} ORDER BY ?date

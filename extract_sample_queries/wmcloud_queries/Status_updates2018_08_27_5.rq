@@ -1,0 +1,18 @@
+#defaultView:Map{"layer":"?typeLabel"}
+
+SELECT  ?item ?itemLabel ?coords ?pic ?genderLabel ?type ?typeLabel
+where {
+  ?item wdt:P1648 ?biog .
+  ?item wdt:P19 ?location .
+?location wdt:P625 ?coords . 
+  ?item wdt:P21 ?gender .
+  ?item wdt:P106 ?type .
+  OPTIONAL { ?item wdt:P18 ?pic }
+
+ 
+  
+ 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} 
+
+GROUP BY ?item ?itemLabel ?coords ?pic ?genderLabel ?type ?typeLabel

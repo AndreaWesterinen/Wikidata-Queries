@@ -1,0 +1,15 @@
+select ?item where {
+	?item wdt:P31/wdt:P279* wd:Q37144  minus {
+		{
+			?item wdt:P31/wdt:P279* wd:Q7333267 
+		} union {
+			?item wdt:P31/wdt:P279* wd:Q29819756 
+		} union {
+			?item wdt:P31/wdt:P279* wd:Q29820118 
+		} union {
+			?item wdt:P31/wdt:P279* wd:Q29825322 
+		} union {
+			?item wdt:P31/wdt:P279* wd:Q1763371 
+		}
+	}
+}

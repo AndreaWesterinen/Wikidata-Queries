@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+
+  ?item wdt:P31 wd:Q955824
+MINUS {?item wdt:P101 ?occupation}
+}

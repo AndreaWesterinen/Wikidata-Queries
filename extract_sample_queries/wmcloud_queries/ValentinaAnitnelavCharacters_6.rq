@@ -1,0 +1,86 @@
+#Gender ratio among fictional characters in wikidata by media
+#defaultView:BarChart
+SELECT ?type ((?characterCount/ ?overallCount)*100 AS ?genderShare_inPercent)  ?gender 
+
+WITH {
+  SELECT DISTINCT ?gender ?type (COUNT(DISTINCT ?character) AS ?characterCount) WHERE{
+  {?character wdt:P31 ?sType. ?sType wdt:P279* wd:Q3658341.
+   MINUS{?sType wdt:P279* wd:Q1114461}
+   MINUS{?sType wdt:P279* wd:Q3375722}
+   BIND("literary character" AS ?type)
+  } UNION #literaryCharacters
+  {?character wdt:P31/wdt:P279* wd:Q1114461.
+   BIND("comic character" AS ?type)
+  } UNION #comicCharacters
+  {?character wdt:P31/wdt:P279* wd:Q50386450.
+   BIND("operatic character" AS ?type)
+  } UNION #operaticCharacters
+  {?character wdt:P31 ?sType. ?sType wdt:P279* wd:Q15773347.
+   MINUS{?sType wdt:P279* wd:Q15711870}
+   MINUS{?sType wdt:P279* wd:Q15773317}
+   BIND("film character" AS ?type)
+  } UNION #filmCharacters
+  {?character wdt:P31/wdt:P279* wd:Q15711870.
+   BIND("animated character" AS ?type)
+  } UNION #animatedCharacters
+  {?character wdt:P31/wdt:P279* wd:Q1569167.
+   BIND("game character" AS ?type)
+  } UNION #gameCharacters
+  {?character wdt:P31/wdt:P279* wd:Q15773317.
+   BIND("television character" AS ?type)
+  } UNION #televisionCharacters
+  {?character wdt:P31/wdt:P279* wd:Q3375722.
+   BIND("theatre character" AS ?type)
+  }  #theatreCharacters
+  
+  #getting characters and their gender
+  OPTIONAL
+  {
+  ?character wdt:P21 ?gen.
+  ?gen rdfs:label ?gLabel.
+  FILTER(LANG(?gLabel) = "en")
+  }
+  
+  BIND(IF(!BOUND(?gen), "unknown/none", ?gLabel) AS ?gender)
+  }
+  GROUP BY ?gender ?type
+} AS %charactersGenders
+WITH {
+   SELECT DISTINCT ?type (COUNT(DISTINCT ?chara) AS ?overallCount)
+     WHERE {
+      {?chara wdt:P31 ?sType. ?sType wdt:P279* wd:Q3658341.
+       MINUS{?sType wdt:P279* wd:Q1114461}
+       MINUS{?sType wdt:P279* wd:Q3375722}
+       BIND("literary character" AS ?type)
+      } UNION #literaryCharacters
+      {?chara wdt:P31/wdt:P279* wd:Q1114461.
+       BIND("comic character" AS ?type)
+      } UNION #comicCharacters
+      {?chara wdt:P31/wdt:P279* wd:Q50386450.
+     BIND("operatic character" AS ?type)
+    } UNION #operaticCharacters
+    {?chara wdt:P31 ?sType. ?sType wdt:P279* wd:Q15773347.
+     MINUS{?sType wdt:P279* wd:Q15711870}
+     MINUS{?sType wdt:P279* wd:Q15773317}
+     BIND("film character" AS ?type)
+    } UNION #filmCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q15711870.
+     BIND("animated character" AS ?type)
+    } UNION #animatedCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q1569167.
+     BIND("game character" AS ?type)
+    } UNION #gameCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q15773317.
+     BIND("television character" AS ?type)
+    } UNION #televisionCharacters
+    {?chara wdt:P31/wdt:P279* wd:Q3375722.
+     BIND("theatre character" AS ?type)
+    } #theatreCharacters
+
+    }
+    GROUP BY ?type
+  } AS %overallCountPerType
+WHERE {
+  INCLUDE %charactersGenders
+  INCLUDE %overallCountPerType
+}

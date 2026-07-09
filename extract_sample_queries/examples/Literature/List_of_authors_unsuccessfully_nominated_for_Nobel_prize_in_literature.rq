@@ -1,3 +1,4 @@
+#title: List of authors unsuccessfully nominated for Nobel prize in literature
 SELECT ?nominee ?nomineeLabel (SAMPLE(?citizenshipLabel) AS ?country) (COUNT(DISTINCT ?year) as ?timesNominated)
 WHERE
 {

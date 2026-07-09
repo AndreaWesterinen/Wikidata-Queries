@@ -1,0 +1,27 @@
+SELECT ?item (COUNT(?sitelink) AS $slcnt) WHERE {
+  ?item wdt:P5008 wd:Q66098665 .
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q57733494 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q18608583 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q66239912 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q50382640 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q13406463 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q22936940 }
+  FILTER NOT EXISTS { ?item wdt:P527 ?dummy0 }
+  FILTER NOT EXISTS { ?item wdt:P2094 wd:Q57749193 }
+  FILTER NOT EXISTS { ?item wdt:P2094 wd:Q57749192 }
+  FILTER NOT EXISTS { ?item wdt:P2094 wd:Q57750246 }
+  FILTER NOT EXISTS { ?item wdt:P2094 wd:Q63301933 }
+  FILTER NOT EXISTS { ?item wdt:P279 wd:Q13406554 }
+  FILTER NOT EXISTS { ?item wdt:P279 wd:Q526719 }
+  FILTER NOT EXISTS { ?item wdt:P279 wd:Q16510064 }
+  FILTER NOT EXISTS { ?item wdt:P279 wd:Q2122052 }
+  FILTER NOT EXISTS { ?item wdt:P279 wd:Q2312410 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q149882 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q73989685 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q655951 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q20807089 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q797176 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q47045263 }
+  OPTIONAL { ?sitelink schema:about ?item . }
+}
+GROUP BY(?item) ORDER BY DESC(?slcnt) LIMIT 8000

@@ -1,0 +1,13 @@
+SELECT DISTINCT ?year ?item (GROUP_CONCAT(?r3;separator="; ") AS ?ratings) (ROUND(AVG(?a1)*10)/10 AS ?avg)
+WHERE {
+  {
+    SELECT ?item ?year ?ctr (GROUP_CONCAT(DISTINCT ?r1;separator=" ") AS ?r2) (AVG(?ma) AS ?a1)
+    WHERE {
+      {
+        SELECT DISTINCT ?item ?v ?ctr ?value ?ma (year(xsd:dateTime(sample(?year))) AS ?year) (GROUP_CONCAT(DISTINCT ?q;separator=", ") AS ?qs)
+        WHERE {
+          ?item wdt:P31/wdt:P279* wd:Q11424; p:P166 [ ps:P166 wd:Q102427; pq:P805 [ wdt:P585 ?year ] ] .
+          OPTIONAL { [] wdt:P31/wdt:P279* wd:Q24716199; wikibase:claim ?p; wikibase:statementProperty ?ps.
+                    ?item ?p ?v .
+                    OPTIONAL { { ?v pq:P2676 ?q }
+                    UNION { ?v pq:P518

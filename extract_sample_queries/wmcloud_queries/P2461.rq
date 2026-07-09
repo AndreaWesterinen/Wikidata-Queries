@@ -1,0 +1,10 @@
+# items with property P2461
+SELECT DISTINCT ?value ?item ?itemLabel
+{
+          #?item wdt:P2461 ?value .
+          ?item p:P2461 ?s .
+          ?s ps:P2461 ?value .
+          ?s pq:P5102 wd:Q53737447 .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+}

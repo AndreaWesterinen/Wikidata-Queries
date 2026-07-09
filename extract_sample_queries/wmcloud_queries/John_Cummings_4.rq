@@ -1,0 +1,10 @@
+embed.html##defaultView:Map
+SELECT ?geo ?layer WHERE {
+  ?district wdt:P31/wdt:P279* wd:Q171634 ;
+            wdt:P17 wd:Q145 ;
+            wdt:P3896 ?geo .
+  ?district rdfs:label ?labels .
+  FILTER(LANG(?labels) = "en")
+  BIND (?labels AS ?layer)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

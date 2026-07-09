@@ -1,0 +1,9 @@
+#Professorenwijken
+SELECT ?item ?itemLabel ?gemeenteLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q123705.
+  ?item wdt:P138 wd:Q121594.
+  ?item wdt:P131 ?gemeente
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+}

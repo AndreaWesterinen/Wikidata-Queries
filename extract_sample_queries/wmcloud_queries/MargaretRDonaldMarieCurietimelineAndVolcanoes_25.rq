@@ -1,0 +1,7 @@
+SELECT ?p ?pLabel ?coordinate_location ?name WHERE {
+  ?p wdt:P31* wd:Q3914.
+  ?p wdt:P17 wd:Q408.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?p wdt:P625 ?coordinate_location. }
+  OPTIONAL { ?p wdt:P2561 ?name. }
+}

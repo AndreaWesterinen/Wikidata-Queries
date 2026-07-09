@@ -1,0 +1,8 @@
+SELECT DISTINCT ?street ?streetLabel ?womanLabel WHERE {
+  ?street wdt:P17 wd:Q55 ;
+          wdt:P31 wd:Q79007 ;
+          wdt:P138 ?woman .
+  ?woman wdt:P21 wd:Q6581072 ;
+         wdt:P1343 wd:Q20031271 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

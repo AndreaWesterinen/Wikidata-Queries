@@ -1,0 +1,47 @@
+#Female Authors with caribbean citizenship OR born in caribbean 
+
+SELECT DISTINCT ?person ?personLabel ?nationality ?nationalityLabel ?placeOfBirthLabel
+
+WHERE
+
+{  ?person wdt:P31 wd:Q5 .
+   ?person wdt:P106 wd:Q36180 . 
+   ?person wdt:P21 wd:Q6581072 .
+   ?person wdt:P27 | (wdt:P19 / wdt:P131* / wdt:P17) ?nationalities .
+  OPTIONAL {?person wdt:P27 ?nationality} .
+  OPTIONAL {?person wdt:P19 ?placeOfBirth} .
+
+  VALUES ?nationalities {wd:Q766 #Jamaica
+                       wd:Q790 #Haiti
+                       wd:Q5785 #Cayman Islands
+                       wd:Q241 #Cuba
+                       wd:Q23635 #Bermuda
+                       wd:Q778 #The Bahamas
+                       wd:Q18221 #Turks and Caicos Islands
+                       wd:Q734 #Guyana
+                       wd:Q730 #Suriname
+                       wd:Q3769 #French Guiana
+                       wd:Q25228 #Anguilla
+                       wd:Q781 #Antigua and Barbuda
+                       wd:Q244 #Barbados
+                       wd:Q784 #Dominica
+                       wd:Q769 #Grenada
+                       wd:Q17012 #Guadeloupe NA
+                       wd:Q754 #Trinidad & Tobago
+                       wd:Q13353 #Montserrat NA
+                       wd:Q17054 #Martinique NA
+                       wd:Q1183 #Puerto Rico NA
+                       wd:Q25362 #St Barts NA
+                       wd:Q763 #St Kitts
+                       wd:Q760 #St Lucia
+                       wd:Q757 #St Vincent 
+                       wd:Q786 #Dominican Republic
+                       wd:Q25305 #BVI
+                       wd:Q6143362 #Federal territories of Venezuela
+                       wd:Q26855 #San Andrés y Providencia
+                       wd:Q25227 #Netherlands Antilles: Curacao, Sint Maarten, Aruba
+                       }
+
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+       
+       }

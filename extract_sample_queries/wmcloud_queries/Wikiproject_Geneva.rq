@@ -1,0 +1,9 @@
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?_image ?startdate ?enddate WHERE {
+  ?item wdt:P361 wd:Q61741587.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+  }  
+  ?item wdt:P580 ?startdate .
+  ?item wdt:P582 ?enddate .
+}

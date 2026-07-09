@@ -1,0 +1,17 @@
+#titles with accented characters
+SELECT ?item ?title ?titlelang ?langstatementcode
+WHERE 
+{
+  #VALUES ?letters {'¡' '¿' 'ß' 'à' 'á' 'â' 'ã' 'ä' 'å' 'æ' 'ç' 'è' 'é' 'ê' 'ë' 'ì' 'í' 'î' 'ï' 'ð' 'ñ' 'ò' 'ó' 'ô' 'õ' 'ö' 'ø' 'ù' 'ú' 'û' 'ü' 'ý' 'ÿ'}
+  #VALUES ?letters {'À' 'Á' 'Â' 'Ã' 'Ä' 'Å' 'Æ' 'Ç' 'È' 'É' 'Ê' 'Ë' 'Ì' 'Í' 'Î' 'Ï' 'Ð' 'Ñ' 'Ò' 'Ó' 'Ô' 'Õ' 'Ö' 'Ø' 'Ù' 'Ú' 'Û' 'Ü' 'Ý'}
+  VALUES ?letters {" la " " las " " le " " les " " lo " " los " " l'" " il " " el " " da " " das " " de " " del " " du " " d'"}
+  ?item wdt:P2880 ?nid.
+  ?item wdt:P1476 ?title.
+  filter contains(?title, ?letters).
+  
+  BIND (lang(?title) AS ?titlelang).
+  OPTIONAL {?item wdt:P407 ?langstatement.
+  ?langstatement wdt:P218 ?langstatementcode.}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

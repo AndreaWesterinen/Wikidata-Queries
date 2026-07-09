@@ -1,0 +1,10 @@
+embed.html##defaultView:Timeline
+select DISTINCT ?sLabel ?s ?legendLabel ?date ?image WHERE {
+  ?s wdt:P361 wd:Q46611 ; #Apollo Program
+     wdt:P619 ?date ; #launch
+     wdt:P18 ?image .
+  ?s p:P18 ?imgstatement .
+  OPTIONAL {?imgstatement pq:P642 ?legend .}
+  SERVICE wikibase:label 
+                 { bd:serviceParam wikibase:language "en, fr, de, it". }
+}

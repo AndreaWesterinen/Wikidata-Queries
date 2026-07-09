@@ -1,0 +1,4 @@
+#title: Items with P1889 and the same GeoNames ID as another item
+# Complex constraint from [[Property talk:P1566]]
+# Items explicitly marked as being different from each other are not expected to have the same GeoNames ID.
+select distinct ?item { ?item wdt:P1889 ?item2 ; wdt:P1566 ?geonames . ?item2 wdt:P1566 ?geonames . } order by ?item limit 1000

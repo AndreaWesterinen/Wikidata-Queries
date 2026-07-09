@@ -1,0 +1,15 @@
+select distinct ?item ?itemLabel ?typeLabel ?countryLabel ?subjectLabel ?namesakeLabel ?namesake
+where
+{
+  ?item wdt:P31 ?type .                            # item is ...
+  { ?type wdt:P279* wd:Q20977775 } union           # an airport (defined broadly)
+  { ?type wdt:P279* wd:Q55488 }                    # or a rail station (ditto)
+  ?item wdt:P138 ?namesake .                       # item is named after something
+  ?namesake wdt:P31 ?subject .                     # namesake is ...
+  { ?subject wdt:P279* wd:Q95074 } union           # a fictional character
+                                                   # (definition here excludes deities & biblical figures)
+  { ?subject wdt:P279* wd:Q7725634 } union         # or a literary work
+  { ?subject wdt:P279* wd:Q7725310 }               # or a series of works
+  optional { ?item wdt:P17 ?country } .            # what country is the something in?
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} order by ?itemLabel

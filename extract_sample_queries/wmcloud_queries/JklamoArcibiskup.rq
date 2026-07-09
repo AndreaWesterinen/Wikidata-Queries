@@ -1,0 +1,8 @@
+SELECT ?item ?startTime ?endTime 
+WHERE
+{
+	?item wdt:P31 wd:Q5 ;
+          p:P39 [ ps:P39 wd:Q17149370 ; pq:P580 ?startTime ] .
+    OPTIONAL {?item p:P39 [ ps:P39 wd:Q17149370 ; pq:P582 ?endTime ] .}
+}
+ORDER BY DESC(?startTime)

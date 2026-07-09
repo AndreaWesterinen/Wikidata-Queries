@@ -1,0 +1,13 @@
+#TEMPLATE={"template":"Surnames, similar to ?surname, according to Cologne phonetics, Caverphone and Soundex algorithms","variables":{"?surname":{"query":" SELECT ?id { ?id wdt:P31 wd:Q101352 ; wdt:P3879 [] ; wdt:P3880 [] ; wdt:P3878 [] } LIMIT 100 "} } }
+SELECT ?item ?itemLabel WHERE {
+  BIND(wd:Q28800754 AS ?surname)
+  ?surname wdt:P3879 ?cologne.
+  ?surname wdt:P3880 ?caverphone.
+  ?surname wdt:P3878 ?soundex.
+  ?item wdt:P31 wd:Q101352.
+  ?item wdt:P3879 ?cologne.
+  ?item wdt:P3880 ?caverphone.
+  ?item wdt:P3878 ?soundex.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(?item != ?surname)
+}

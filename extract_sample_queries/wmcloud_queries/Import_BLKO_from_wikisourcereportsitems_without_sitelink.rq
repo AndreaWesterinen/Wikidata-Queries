@@ -1,0 +1,19 @@
+SELECT ?item ?itemLabel ?itemDescription ?st ?scan ?vol ?scanp ?pagect ?page_s
+{
+	?item wdt:P1433 wd:Q665807 . 
+	MINUS { [] schema:about ?item ; schema:isPartOf <https://de.wikisource.org/> }
+	OPTIONAL { ?item wikibase:statements ?st }
+	OPTIONAL { ?item p:P996 ?sst . ?sst ps:P996 ?scanimage . 
+        OPTIONAL { ?sst pq:P7668 ?pnb } . 
+        BIND(COALESCE(?pnb, 1) as ?scanp) . 
+        OPTIONAL { ?item wdt:P1476 ?ttle }
+        BIND( CONCAT("[[",
+        REPLACE(str(?scanimage),"http://commons.wikimedia.org/wiki/Special:FilePath/","File:"),
+        "\u007C","page=",str(?scanp),"\u007C","75px","\u007C","center","\u007C",COALESCE(?ttle,""), "]]") as ?scan) 
+        OPTIONAL { ?sst pq:P1104 ?pagect } . 
+    }
+    OPTIONAL { ?item wdt:P478 ?vol }
+    OPTIONAL { ?item wdt:P304 ?page_s }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de". }
+}
+ORDER BY xsd:integer(?vol) ?scanp ?page_s

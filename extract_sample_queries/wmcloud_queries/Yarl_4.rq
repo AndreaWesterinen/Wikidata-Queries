@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?regNum ?regDate
+WHERE 
+{
+  BIND ("A/1471/92" as ?regNum)
+  BIND ("1993-11-12T00:00:00Z"^^xsd:dateTime as ?regDate)
+
+  # ?item wdt:P3424 ?regNum.
+  ?item p:P3424 ?n . ?n pq:P585 ?regDate.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

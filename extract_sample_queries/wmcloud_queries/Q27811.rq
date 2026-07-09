@@ -1,0 +1,17 @@
+embed.html##title: WMF projects in language
+SELECT ?item ?itemLabel ?itemDescription ?url
+{
+    {
+        ?item wdt:P31/wdt:P279 wd:Q33120876.
+        ?item p:P407 ?st ; wdt:P856 ?url1.
+        ?st ps:P407 wd:Q27811.
+        OPTIONAL { ?st prov:wasDerivedFrom / pr:P4656 ?url0 }
+        BIND(COALESCE(?url0, ?url1) as ?url)
+    }
+    UNION
+    {
+        wd:Q27811 wdt:P9748 ?url.
+        BIND( wd:Q846672 as ?item )
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?doi WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P356 ?doi.
+  FILTER(STRSTARTS(?doi, "10.1145/"))
+}
+LIMIT 100

@@ -1,0 +1,33 @@
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?rgb ?value ?valueLabel ?class ?classLabel WHERE {
+  
+#  BIND(wd:Q109921519 AS ?work)
+#  BIND("293" AS ?pop)
+#  VALUES ?pop { "521" "529" "531" "534" "228" "4378" "4379" "43710" "43711" "43712" "4374" "532" "43714" "624" "623" "431434"}  
+  ?penny wdt:P1433 wd:Q109839011 .
+  ?penny ?prop ?statement .
+  ?statement rdf:type wikibase:BestRank .
+  ?statement (prov:wasDerivedFrom/pr:P9622) ?pop.
+  ?work wdt:P9622 ?pop .
+  
+    { ?work ( wdt:P747 | wdt:P4969 | wdt:P179 | wdt:P155 | wdt:P156 | wdt:P144 | wdt:P1433 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P5059 )* ?item .}
+  UNION
+    { ?work (wdt:P527 | wdt:P361 ) ?item .}
+  UNION
+    { ?item ( wdt:P144 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P2550 | wdt:P5059 )* / ( wdt:P144 | wdt:P629 | wdt:P9745 | wdt:P6524 | wdt:P2550 | wdt:P5059 )+  ?work .}
+  
+  VALUES ?p { wdt:P144 wdt:P629 wdt:P9745 wdt:P6524 wdt:P2550 wdt:P5059 wdt:P747 wdt:P4969 wdt:P179 wdt:P155 wdt:P156 wdt:P1433 wdt:P361 wdt:P527 }  
+    { ?item ?p ?value }
+    UNION
+    { ?value ?p ?item }  
+
+  ?item wdt:P31 ?class .
+  
+  OPTIONAL { ?item wdt:P9622 ?pop . BIND("000080" AS ?rgb) }
+  OPTIONAL { ?item ( wdt:P144 | wdt:P361 | wdt:P9745 | wdt:P5059 | wdt:P361 )* ?work . BIND("3333ff" AS ?rgb) } 
+  OPTIONAL { { ?item ( wdt:P144 | wdt:P361 | wdt:P9745 | wdt:P5059 )* / wdt:P6524 [] .} UNION {?item wdt:P6524 [] } . BIND("008000" AS ?rgb) }
+  OPTIONAL { ?item wdt:P31 wd:Q3374808 . BIND("bb0a1e" AS ?rgb) } 
+  OPTIONAL { {?item ( wdt:P629 | wdt:P2550 ) [] .} . BIND("ff8080" AS ?rgb) }
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

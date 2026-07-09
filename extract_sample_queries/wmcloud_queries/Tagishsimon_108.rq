@@ -1,0 +1,28 @@
+SELECT distinct ?item ?itemLabel ?lake ?lakeLabel ?coord  ?lat ?long ?ref WITH { SELECT ?item 
+WHERE 
+{
+  ?item wdt:P131/wdt:P131 wd:Q22 . #} hint:Prior hint:runFirst true.
+  {?item wdt:P31 wd:Q55659167.}
+  UNION
+  {?item wdt:P31 wd:Q4022 . }
+  UNION
+  {?item wdt:P31 wd:Q47521 . }
+    
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  ?lake wdt:P200 ?item .
+  ?lake wdt:P201 ?item .
+  FILTER NOT EXISTS {?item wdt:P469 ?lake.} 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?lake p:P625 ?stat . 
+  ?stat a wikibase:BestRank .
+  ?stat ps:P625 ?coord .
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat psv:P625/wikibase:geoLatitude ?lat. 
+  ?stat prov:wasDerivedFrom ?stat2 . 
+  ?stat2 pr:P854 ?ref .
+
+} order by desc(?sitelinks) ?itemLabel

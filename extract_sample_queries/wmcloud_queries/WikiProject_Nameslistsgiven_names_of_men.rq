@@ -1,0 +1,15 @@
+SELECT ?item ?ct ?sample ?lk
+{
+  {
+    SELECT ?item (count(DISTINCT ?person) as ?ct) (SAMPLE(?person) as ?sample)
+    WHERE
+    {
+      ?person wdt:P735 ?item; wdt:P21 wd:Q6581097; wdt:P31 wd:Q5 
+    }
+    GROUP BY ?item
+    ORDER BY DESC(?ct)
+    LIMIT 1000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?item rdfs:label ?lk }
+}
+ORDER BY DESC(?ct) ASC(?item)

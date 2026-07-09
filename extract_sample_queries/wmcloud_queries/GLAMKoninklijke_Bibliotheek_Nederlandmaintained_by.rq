@@ -1,0 +1,7 @@
+#maintained by de Koninklijke Bibliotheek
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P126 wd:Q1526131.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

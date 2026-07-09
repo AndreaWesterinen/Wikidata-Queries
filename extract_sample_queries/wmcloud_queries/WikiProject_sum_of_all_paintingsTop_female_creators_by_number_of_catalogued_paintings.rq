@@ -1,0 +1,14 @@
+SELECT ?item (CONCAT("[[Wikidata:WikiProject sum of all paintings/Creator/",?name, "|list]]") AS ?listlink) (COUNT(DISTINCT(?painting)) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 ?item .
+  ?item wdt:P21 wd:Q6581072.
+  ?painting p:P528 ?catalogstatement .
+  ?catalogstatement ps:P528 ?catalogid . 
+  ?catalogstatement pq:P972 ?catalog .
+ 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name . }
+  } GROUP BY ?item ?name ?listlink 
+ORDER BY DESC(?count)
+LIMIT 200

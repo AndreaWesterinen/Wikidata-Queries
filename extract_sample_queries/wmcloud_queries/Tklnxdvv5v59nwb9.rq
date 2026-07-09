@@ -1,0 +1,4 @@
+SELECT ?item ?file {{{ ?item wdt:P225 ""l.lagopus scoticus"" } UNION { ?item wdt:P225 ""L.lagopus scoticus"" } } .
+                      ?item wdt:P18 ?file .
+                      filter ( bound ( ?file ) )
+                      }";

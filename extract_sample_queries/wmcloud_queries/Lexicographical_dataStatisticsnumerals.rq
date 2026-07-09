@@ -1,0 +1,16 @@
+SELECT ?item ?num ?count_languages ?count_words{
+    ?item wdt:P1181 ?num.
+  {SELECT ?item (COUNT(DISTINCT ?lang) AS ?count_languages){
+    ?lexeme wikibase:lexicalCategory wd:Q63116.
+    ?lexeme dct:language ?lang.
+    ?lexeme ontolex:sense ?sense.
+    ?sense wdt:P5137 ?item.
+    } GROUP BY ?item
+   }
+  {SELECT ?item (COUNT(DISTINCT ?lexeme) AS ?count_words){
+    ?lexeme wikibase:lexicalCategory wd:Q63116.
+    ?lexeme ontolex:sense ?sense.
+    ?sense wdt:P5137 ?item.
+    } GROUP BY ?item
+   }
+} ORDER BY ?num

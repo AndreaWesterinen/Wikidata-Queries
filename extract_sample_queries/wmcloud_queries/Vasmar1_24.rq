@@ -1,0 +1,10 @@
+#Alle skip med undertyper som ikke har angitt IMO
+SELECT ?item ?itemLabel ?article
+WHERE 
+{
+  ?item wdt:P31* wd:Q11446 .
+        MINUS { ?item wdt:P458 [] } .
+      ?article schema:about ?item .
+    ?article schema:isPartOf <https://en.wikipedia.org/>.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

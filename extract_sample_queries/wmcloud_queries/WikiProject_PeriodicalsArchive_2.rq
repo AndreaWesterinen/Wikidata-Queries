@@ -1,0 +1,10 @@
+SELECT *
+{
+    hint:Query hint:optimizer "None".
+	?item wdt:P31 wd:Q13442814  .
+    FILTER NOT EXISTS  { ?item wdt:P1433 [] }
+    ?item wdt:P433 ?issue . 
+    ?item wdt:P478 ?volume . 
+    ?item wdt:P304 ?pages . 
+}
+LIMIT 100

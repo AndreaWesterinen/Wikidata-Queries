@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL { ?item wdt:P106 ?dummy0. }
+  OPTIONAL { ?item wdt:P569 ?dummy1. }
+  OPTIONAL { ?item wdt:P570 ?dummy2. }
+  FILTER(!BOUND(?dummy0))
+  FILTER(!BOUND(?dummy1))
+  FILTER(!BOUND(?dummy2))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es,pt,fr,de,it,zh,ja,ar,he" }
+}
+LIMIT 3000

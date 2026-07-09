@@ -1,0 +1,8 @@
+SELECT ?pq (count(?pq) as ?count) WHERE 
+{ 
+  
+  ?item p:P69 ?stmt . 
+  ?stmt prov:wasDerivedFrom ?where . 
+  ?where ?pq ?val.
+} group by ?pq
+order by desc(?count)

@@ -1,0 +1,10 @@
+#defaultView:BarChart
+SELECT (str(?year) AS ?year)  (COUNT(?person) AS ?count)
+WHERE
+{
+	?person wdt:P3421 [] ; wdt:P569 ?DOB .
+  BIND ( year(?DOB) as ?year )
+  FILTER( ?year > 1000)
+}
+GROUP BY ?year
+ORDER BY ?year

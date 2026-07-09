@@ -1,0 +1,10 @@
+SELECT ?match ?matchLabel (SAMPLE(?pit) AS ?pit) (GROUP_CONCAT(DISTINCT(?teamName);separator=" vs. ") AS ?teams) (SAMPLE(?winnerName) AS ?winner) WHERE {
+  ?match wdt:P31 wd:Q16466010 .
+  ?match wdt:P361 wd:Q79859 .
+  OPTIONAL{?match wdt:P585 ?pit}
+  OPTIONAL{?match wdt:P1346 ?winner . ?winner rdfs:label ?winnerName .  FILTER(lang(?winnerName) = "en")}
+  OPTIONAL{?match wdt:P710 ?team . ?team rdfs:label ?teamName .  FILTER(lang(?teamName) = "en")} .
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+}
+GROUP BY ?match ?matchLabel
+ORDER BY DESC(?pit) ?teams

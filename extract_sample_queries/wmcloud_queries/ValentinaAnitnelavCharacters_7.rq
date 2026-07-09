@@ -1,0 +1,35 @@
+SELECT ?class ?classLabel ?characterCount (SAMPLE(?sample) AS ?example) ?protagonistCount ?supportingCount ?minorCount ?antagonistCount ?sidekickCount
+WHERE{
+  ?sampleCharacter wdt:P1441 ?work.
+  OPTIONAL{?sampleCharacter rdfs:label ?label. FILTER(lang(?label) = "en")}
+  OPTIONAL{?work rdfs:label ?wlabel. FILTER(lang(?wlabel) = "en")}
+  BIND(CONCAT(?label," (",?wlabel,")") AS ?sample)
+  
+  {
+SELECT ?class ?classLabel (COUNT(DISTINCT ?character) AS ?characterCount) (SAMPLE(?character) AS ?sampleCharacter)
+  (COUNT(DISTINCT ?protagonist) AS ?protagonistCount)
+  (COUNT(DISTINCT ?supportingCharacter) AS ?supportingCount)
+  (COUNT(DISTINCT ?minorCharacter) AS ?minorCount)
+  (COUNT(DISTINCT ?antagonist) AS ?antagonistCount)
+  (COUNT(DISTINCT ?sidekick) AS ?sidekickCount)
+
+WHERE {
+  ?character wdt:P31 ?class.
+  {?class wdt:P31 wd:Q33027691} UNION
+  {?class wdt:P279* wd:Q27825487} UNION
+  {?class wdt:P279* wd:Q30017383} UNION
+  {?class wdt:P31 wd:Q15707583}
+  MINUS{?class wdt:P279* wd:Q4271324}
+  MINUS{?class wdt:P31 wd:Q636497}
+  MINUS{?class wdt:P31/wdt:P279* wd:Q14514600}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL{?character wdt:P5800 wd:Q215972. BIND(?character AS ?protagonist)}
+  OPTIONAL{?character wdt:P5800 wd:Q281525. BIND(?character AS ?sidekick)}
+  OPTIONAL{?character wdt:P5800/wdt:P279* wd:Q4388180. BIND(?character AS ?supportingCharacter)}
+  OPTIONAL{?character wdt:P5800/wdt:P279* wd:Q27623618. BIND(?character AS ?minorCharacter)}
+  OPTIONAL{?character wdt:P5800/wdt:P279* wd:Q245204. BIND(?character AS ?antagonist)}
+}
+GROUP BY ?class ?classLabel
+}}
+GROUP BY ?class ?classLabel ?characterCount ?protagonistCount ?supportingCount ?minorCount ?antagonistCount ?sidekickCount
+ORDER BY DESC(?characterCount)

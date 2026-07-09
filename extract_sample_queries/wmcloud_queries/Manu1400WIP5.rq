@@ -1,0 +1,9 @@
+SELECT ?item ?_starttime {
+  ?item wdt:P39 wd:Q215793.
+  OPTIONAL { ?item p:P39 [ps:P39 wd:Q215793;
+                   pq:P580 ?_starttime;
+                  ].
+  }
+  ?article schema:about ?item.
+  ?article schema:isPartOf <https://fr.wikipedia.org/>. # frwiki
+}

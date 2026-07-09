@@ -1,0 +1,7 @@
+SELECT (STRAFTER(STR(?k), "/entity/") AS ?s1) ("P3921" AS ?s2) (CONCAT("\"?item wdt:P53 wd:", STRAFTER(STR(?r), "/entity/"), "; wdt:P31 wd:Q5.\"") AS ?s3) WHERE {
+  ?k wdt:P31 wd:Q4167836;
+    wdt:P301 ?r.
+  ?r wdt:P31 wd:Q27062351.
+  OPTIONAL { ?k wdt:P3921 ?z. }
+  FILTER(!(BOUND(?z)))
+}

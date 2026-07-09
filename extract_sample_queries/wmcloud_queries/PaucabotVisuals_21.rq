@@ -1,0 +1,13 @@
+#Partits polítics espanyols per ideologia
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+	?partits wdt:P31* wd:Q7278
+	; wdt:P1142 ?name
+    ; wdt:P159/wdt:P17/wdt:P131* wd:Q29 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

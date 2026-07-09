@@ -1,0 +1,18 @@
+SELECT (COUNT(?person) as ?count)  WHERE {
+    #?person wdt:P31 wd:Q5. 
+    ?person wdt:P21 wd:Q6581097.
+    ?person wdt:P569 ?born.
+    FILTER (?born >= "1950-01-01T00:00:00Z"^^xsd:dateTime) .
+    ?article schema:about ?person .
+    
+  # look for articles (sitelinks) in de )
+  	OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "de" }
+	#  select items with such article
+	FILTER (BOUND(?sitelink))
+  #?article schema:isPartOf <https://de.wikipedia.org/>.
+    
+    SERVICE wikibase:label {
+       bd:serviceParam wikibase:language "de"
+    }
+}
+LIMIT 50

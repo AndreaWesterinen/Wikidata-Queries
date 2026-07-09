@@ -1,0 +1,2 @@
+SELECT ?country ?countryLabel ?item ?itemLabel (MIN(?date) AS ?when) (COUNT(DISTINCT ?candidate) AS ?candidates) WHERE { 
+  ?country wdt:P31 wd:Q3624078 ; wdt:P1313

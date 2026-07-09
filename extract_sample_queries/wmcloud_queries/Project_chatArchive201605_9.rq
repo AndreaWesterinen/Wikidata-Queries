@@ -1,0 +1,10 @@
+select ?item ?itemLabel ?instanceLabel where {
+  ?item wdt:P31 ?instance .
+  values ?instance {wd:Q532 wd:Q659103 wd:Q16858213 wd:Q640364 }
+?item wdt:P17 wd:Q218 .
+?item wdt:P131 ?admunit .
+?admunit wdt:P131* wd:Q182624 .  
+      SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "ro" .
+    }
+  }

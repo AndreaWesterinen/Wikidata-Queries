@@ -1,0 +1,4 @@
+#title: Check classes of elements having P31
+# Complex constraint from [[Property talk:P950]]
+#
+SELECT DISTINCT ?item { ?item wdt:P950 [] . MINUS { VALUES ?classes { wd:Q5 wd:Q571 wd:Q811430 wd:Q46169 wd:Q43229 wd:Q486972 wd:Q34770 wd:Q9143 wd:Q11424 wd:Q1190554 wd:Q11344 wd:Q17537576 wd:Q16562419 wd:Q618123 wd:Q16521 wd:Q151885 wd:Q234460 wd:Q12136 wd:Q386724 wd:Q340169 wd:Q9081 wd:Q35120 wd:Q2235308 } . ?item wdt:P31/wdt:P279* ?classes . } . ?item wdt:P31 ?instance } ORDER BY ?item

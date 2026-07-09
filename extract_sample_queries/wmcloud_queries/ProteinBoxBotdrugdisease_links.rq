@@ -1,0 +1,8 @@
+SELECT (count(?drug) as ?count)
+WHERE
+{
+  	values ?did {wd:Q11173 wd:12140}
+    ?drug wdt:P31 ?did .
+    ?drug wdt:P2175|wdt:P1542 ?disease .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

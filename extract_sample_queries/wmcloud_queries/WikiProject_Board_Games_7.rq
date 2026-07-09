@@ -1,0 +1,4 @@
+SELECT ?role_playing_game ?role_playing_gameLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?role_playing_game wdt:P31 wd:Q160738.
+}

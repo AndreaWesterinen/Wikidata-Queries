@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?propertyLabel ?valueLabel WHERE {
+  ?item ?property [pq:P5886 ?value].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

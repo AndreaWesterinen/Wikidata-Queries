@@ -1,0 +1,21 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT 
+	(GROUP_CONCAT(DISTINCT(?number); separator=", ") as ?numbers) 
+	?player ?playerLabel 
+	(GROUP_CONCAT(DISTINCT(?birthday); separator=", ") as ?date_of_birth) 
+	(GROUP_CONCAT(DISTINCT(?nationalityLabel); separator=", ") as ?nationalities)
+WHERE 
+{
+	wd:Q21011427 wdt:P527 ?player .
+	OPTIONAL { ?player wdt:P569 ?birthday }.
+	OPTIONAL { ?player wdt:P1618 ?number }
+	OPTIONAL { 	?player wdt:P27 ?nationality .
+  				?nationality rdfs:label ?nationalityLabel FILTER(lang(?nationalityLabel)="en,en")
+	   		}
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en,en" }
+}
+GROUP BY ?player ?playerLabel

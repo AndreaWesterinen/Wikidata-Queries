@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?work) AS ?count) ?death
+WHERE
+{
+	?item wdt:P2021 [] . 
+    OPTIONAL {?work wdt:P50 ?item .}
+    OPTIONAL {?item wdt:P570 ?death .}
+}
+GROUP BY ?item

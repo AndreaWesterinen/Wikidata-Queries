@@ -1,0 +1,8 @@
+# People with a given name that has no P31
+SELECT ?person ?personLabel ?givenname ?givennameLabel ?givennameDescription WHERE {
+      ?person wdt:P735 ?givenname .
+  	  FILTER NOT EXISTS { ?givenname wdt:P31 ?dummy . }
+  	  FILTER NOT EXISTS { ?person wdt:P735 ?blank . FILTER ISBLANK(?blank) . }
+
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr" . }
+} LIMIT 30

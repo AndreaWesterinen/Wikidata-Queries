@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P973/ps:P973 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://www2?\\.culture\\.gouv\\.fr/public/mistral/joconde_fr\\?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=([0-9A-Z]{11}))$") )
+}

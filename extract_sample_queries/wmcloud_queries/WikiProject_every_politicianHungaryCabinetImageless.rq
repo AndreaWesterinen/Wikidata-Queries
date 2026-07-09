@@ -1,0 +1,7 @@
+select * {
+  ?item p:P39 [ps:P39 ?position ; pq:P580 ?start] . 
+  ?position  wdt:P361 wd:Q1162751 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "hu". ?item rdfs:label ?xLabel . ?position rdfs:label ?positionLabel }
+  minus {?item wdt:P18 ?image}
+  optional{?wp schema:about ?item ; schema:isPartOf <https://hu.wikipedia.org/>}
+}

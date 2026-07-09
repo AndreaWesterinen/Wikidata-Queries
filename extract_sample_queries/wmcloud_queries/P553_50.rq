@@ -1,0 +1,2 @@
+#title:Move the qualifier P554 to property P3835
+SELECT DISTINCT ?item WHERE { ?item wdt:P553 wd:Q1580044 }

@@ -1,0 +1,15 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?_image ?value ?st
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P7769 ?value ; wikibase:statements ?st
+       }
+       ORDER BY DESC(?st) 
+       LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+}
+ORDER BY DESC(?st) ?item

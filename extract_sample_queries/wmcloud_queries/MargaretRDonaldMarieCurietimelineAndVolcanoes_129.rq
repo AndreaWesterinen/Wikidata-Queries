@@ -1,0 +1,12 @@
+#counting u0ploaded Nuytsia articles
+SELECT ?volume (COUNT(DISTINCT ?item) AS ?count) WHERE {
+  ?item wdt:P478 ?volume.      # define the volume
+  ?item wdt:P31 wd:Q13442814.  # scholarly article
+  ?item wdt:P1433 wd:Q2005798. # in Nuytsia 
+    
+       SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .}
+
+  } 
+GROUP BY ?volume
+ORDER BY ASC (?volume)

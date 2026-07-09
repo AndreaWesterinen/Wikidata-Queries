@@ -1,0 +1,14 @@
+# Turing Award winners 
+# plots date of award and age of awardee at time of award
+#defaultView:ScatterChart
+SELECT ?when ?age ?person ?personLabel  
+WHERE 
+{
+  ?person wdt:P31 wd:Q5.
+  ?person wdt:P569 ?born.
+  ?person p:P166 [ps:P166 wd:Q37922;
+                pq:P585 ?when;
+                ].
+  BIND((?when - ?born) / 365 AS ?age )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,9 @@
+embed.html##defaultView:LineChart
+SELECT (str(?year) as ?yr) (COUNT(DISTINCT ?item) as ?ct) 
+{
+    ?item wdt:P27 wd:Q142 .
+    ?item wdt:P569 ?b . 
+    FILTER(YEAR(?b) > 1900 ) 
+    BIND( YEAR(?b) as ?year) 
+}  
+GROUP BY ?year 

@@ -1,0 +1,7 @@
+embed.html#SELECT ?q ?qLabel ?id WHERE {
+  ?q wdt:P3219 ?id .
+  BIND( xsd:integer( STRAFTER( STR( ?q ), STR( wd:Q ) ) ) AS ?num ) .
+  FILTER( ?num < 35714 ) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?num

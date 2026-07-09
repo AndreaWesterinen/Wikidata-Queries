@@ -1,0 +1,15 @@
+#defaultView:Map
+SELECT ?thing ?location ?distance ?thingLabel ?pic WHERE {
+  
+    SERVICE wikibase:around { 
+      ?thing wdt:P625 ?location . 
+      
+      bd:serviceParam wikibase:center "Point(8.5433407 47.3663491)"^^geo:wktLiteral . 
+      bd:serviceParam wikibase:radius "2" . 
+      bd:serviceParam wikibase:distance ?distance .
+    } 
+    ?thing p:P528 ?statement . ?statement pq:P972 wd:Q53629101 .
+   OPTIONAL {?thing wdt:P18 ?pic.}
+   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?distance 

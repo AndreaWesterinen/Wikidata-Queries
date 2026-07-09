@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel
+{  
+  ?item wdt:P297 [] .
+  ?item wdt:P37 ?ol .
+  ?ol wdt:P282 ?ws . 
+  FILTER NOT EXISTS { ?ws wdt:P279* wd:Q8229 }
+  FILTER NOT EXISTS { ?ws wdt:P31/wdt:P282 wd:Q8229 }
+  FILTER NOT EXISTS { ?ws wdt:P31* wd:Q79894 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,7 @@
+SELECT ?wiki (COUNT( DISTINCT ?item ) as ?count) (SAMPLE(?item) as ?sample)
+{
+	?item wdt:P10453 [ ] . 
+    [] schema:about ?item ; schema:isPartOf ?wiki . 
+}
+GROUP BY ?wiki 
+ORDER BY DESC(?count) ?wiki

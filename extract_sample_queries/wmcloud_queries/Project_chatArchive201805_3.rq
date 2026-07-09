@@ -1,0 +1,5 @@
+select (count(DISTINCT ?software) AS ?software_number)
+where{
+  ?software wdt:P178 ?value .
+  ?software wdt:P31/wdt:P279* wd:Q7397 .
+}

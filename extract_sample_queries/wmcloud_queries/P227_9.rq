@@ -1,0 +1,8 @@
+#title: GND ID - type human should not be instance of a subclass of human
+# Complex constraint from [[Property talk:P227]]
+# GND ID exists, type is human, is instance of a subclass of human
+SELECT ?item ?gndid { 
+    ?item wdt:P31/wdt:P279+ wd:Q5 .
+    ?item wdt:P31 ?type .
+    ?item wdt:P227 []
+ }

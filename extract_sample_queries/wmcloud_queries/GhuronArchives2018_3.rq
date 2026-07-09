@@ -1,0 +1,9 @@
+SELECT ?item ?country {
+  {
+    SELECT ?item  { 
+      ?item p:P1532 []
+    } GROUP BY ?item HAVING(COUNT(*)=1)
+  }
+  ?item p:P1532[ps:P1532 ?country; prov:wasDerivedFrom/pr:P143 wd:Q48183]
+  FILTER NOT EXISTS { ?item wdt:P27 ?country } 
+}

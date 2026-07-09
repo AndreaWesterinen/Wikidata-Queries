@@ -1,0 +1,22 @@
+SELECT distinct ?item ?itemLabel  ?imdb  (SAMPLE(?mojo) as ?BOM)
+		(SAMPLE(?rotten) as ?Rotten) (SAMPLE(?allmovie) as ?Allmovie) (SAMPLE(?metacritic) as ?Metacritic) (COUNT(distinct ?sitelink) as ?sitelinks) ?ids WHERE {
+  ?item wdt:P31 wd:Q11424 .
+  ?item wdt:P577 ?time0 .
+  FILTER ( ?time0 >= "2013-01-01T00:00:00Z"^^xsd:dateTime ) .
+  OPTIONAL { ?item wdt:P345 ?imdb . }
+  OPTIONAL { ?item wdt:P1237 ?mojo . }
+  OPTIONAL { ?item wdt:P1258 ?rotten . }
+  OPTIONAL { ?item wdt:P1562 ?allmovie . }
+  OPTIONAL { ?item wdt:P1712 ?metacritic .  }
+	?sitelink schema:about ?item .
+	#FILTER EXISTS { ?wlv schema:about ?item . ?wlv schema:inLanguage "lv" }
+    
+    BIND(IF(!BOUND(?mojo),0,1)+(IF(!BOUND(?allmovie),0,1))+(IF(!BOUND(?rotten),0,1))+(IF(!BOUND(?metacritic),0,1)) as ?ids)
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "lv,en" .
+   }
+ }
+GROUP BY ?item ?itemLabel ?imdb ?ids
+having (?ids<4)
+ORDER BY DESC(?sitelinks)
+limit 100

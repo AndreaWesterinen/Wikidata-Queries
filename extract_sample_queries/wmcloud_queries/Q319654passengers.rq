@@ -1,0 +1,30 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("line" as ?type)
+  ("200" as ?heigth) 
+  ("600" as ?width) 
+  ("month" as ?xAxisTitle) 
+  (SAMPLE(?y1titl) as ?y1title)
+  (SAMPLE(?y2titl) as ?y2title)
+  (SAMPLE(?y3titl) as ?y3title)
+  ("passengers (thousands)" as ?yAxisTitle)
+  ("Passengers per month" as ?legend)
+  (GROUP_CONCAT(DISTINCT ?month;separator=",") as ?x)
+  (GROUP_CONCAT(COALESCE(?t1a,"");separator=",") as ?y1)
+  (GROUP_CONCAT(COALESCE(?t2a,"");separator=",") as ?y2)
+  (GROUP_CONCAT(COALESCE(?t3a,"");separator=",") as ?y3)
+WHERE
+{
+  SELECT ?month           (ROUND(?t1/1000) as ?t1a)         (ROUND(?t2/1000) as ?t2a)         (ROUND(?t3/1000) as ?t3a)         ?y1titl ?y2titl ?y3titl
+  {
+    BIND(YEAR(NOW())-2 as ?y1titl) 
+    BIND(YEAR(NOW())-1 as ?y2titl) 
+    BIND(YEAR(NOW())   as ?y3titl) 
+      wd:Q319654 p:P3872 [ ps:P3872 ?t1 ; pqv:P585 [ wikibase:timePrecision 10 ; wikibase:timeValue ?d1 ] ]   FILTER(YEAR(?d1)= ?y1titl ). BIND( MONTH(?d1) as ?month)
+    OPTIONAL
+    { wd:Q319654 p:P3872 [ ps:P3872 ?t2 ; pqv:P585 [ wikibase:timePrecision 10 ; wikibase:timeValue ?d2 ] ]   FILTER(YEAR(?d2)= ?y2titl ). BIND( MONTH(?d2) as ?month) }
+    OPTIONAL
+    { wd:Q319654 p:P3872 [ ps:P3872 ?t3 ; pqv:P585 [ wikibase:timePrecision 10 ; wikibase:timeValue ?d3 ] ]   FILTER(YEAR(?d3)= ?y3titl ). BIND( MONTH(?d3) as ?month) }
+  }
+  ORDER BY ASC(?month)
+}

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?abbr1 ?abbr2 ?abbr3 ?iso WHERE {
+  ?item wdt:P31 wd:Q35657 ;
+        p:P1813 ?statement1 .
+  ?statement1 pq:P3831 wd:Q30619513 ;
+             ps:P1813 ?abbr1 ;
+             wikibase:rank ?rank .
+  FILTER(lang(?abbr1) = "en")
+  FILTER (?rank = wikibase:PreferredRank

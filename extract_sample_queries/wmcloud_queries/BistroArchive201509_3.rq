@@ -1,0 +1,10 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/direct/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?date
+WHERE {
+    ?item p:P569 ?date .
+    FILTER REGEX(str(?date), "-02-30T")
+}
+LIMIT 10

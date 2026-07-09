@@ -1,0 +1,11 @@
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?item ?type
+WHERE
+{ 
+  ?item wdt:P345 ?imdb . 
+  FILTER (StrStarts(?imdb, "nm"))
+  ?item wdt:P31 ?type . 
+  MINUS {?item wdt:P31 wd:Q5}
+}

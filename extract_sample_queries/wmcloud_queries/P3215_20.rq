@@ -1,0 +1,5 @@
+#title: Inconsistency between SIRET and SIREN
+# Complex constraint from [[Property talk:P3215]]
+# The first nine digit of the SIREN number should be the same as the SIRET number.
+SELECT DISTINCT ?item WHERE { ?item wdt:P3215 ?SIRET; wdt:P1616 ?SIREN . FILTER( substr(?SIRET, 1, 9) != ?SIREN )
+}

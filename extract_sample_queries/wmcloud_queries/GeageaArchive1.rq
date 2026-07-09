@@ -1,0 +1,6 @@
+embed.html#SELECT DISTINCT ?item ?nli WHERE {
+  ?item p:P949 [ ps:P949 ?nli ].
+  MINUS {
+    ?item p:P8189 ?j9u.
+  }
+}

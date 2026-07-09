@@ -1,0 +1,7 @@
+# items with property P2461
+SELECT ?value ?item ?itemLabel 
+{
+          ?item wdt:P2461 ?value .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+}

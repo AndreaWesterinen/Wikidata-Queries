@@ -1,0 +1,56 @@
+SELECT DISTINCT ?item ?statementCount (CONCAT("{","{rfd links3\u007C",strafter(str(?item), "entity/"),"\u007CDoes not meet the [[Special:MyLanguage/Wikidata:Notability|notability policy]]}","}") as ?del) (CONCAT("{","{REVISIONTIMESTAMP: ", strafter(str(?item), "entity/"), " }","}") as ?data)
+WHERE{
+  ?item wikibase:sitelinks 0 .
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P21 ?p10 .
+  ?item wdt:P27 ?p11 .
+  ?item wdt:P19 ?p12 .
+  #?item wdt:P735 ?p13 .
+  ?item wikibase:statements ?statementCount.
+  FILTER(?statementCount = 5).
+  OPTIONAL{
+    ?backlink ?p1 ?item .
+  }
+  OPTIONAL { ?reference wdt:P106 ?occ ; wdt:P143 ?pmid }
+  FILTER(!bound(?backlink))  
+  OPTIONAL{
+    ?item ?claim ?dummy0 .
+    ?property wikibase:propertyType wikibase:ExternalId .
+    ?property wikibase:directClaim ?claim
+  }
+  FILTER(!bound(?dummy0))
+  OPTIONAL{
+    ?item ?p2 [prov:wasDerivedFrom ?ref] .
+    ?ref ?pr [] .
+    FILTER (?pr != pr:P143) #no source
+  }  
+  FILTER(!bound(?ref))
+  OPTIONAL { 
+    ?item wdt:P18 ?dummy0 
+  } 
+  FILTER(!bound(?dummy0))
+  OPTIONAL { 
+    ?item wdt:P166 ?dummy1
+  } 
+  FILTER(!bound(?dummy1))
+  OPTIONAL { 
+    ?item wdt:P1343 ?dummy2
+  } 
+  FILTER(!bound(?dummy2))
+  OPTIONAL { 
+    ?item wdt:P463 ?dummy3
+  } 
+  FILTER(!bound(?dummy3))
+  OPTIONAL { 
+    ?item wdt:P973 ?dummy4
+  } 
+  FILTER(!bound(?dummy4))
+  OPTIONAL { 
+    ?item wdt:P1472 ?dummy5
+  } 
+  FILTER(!bound(?dummy5))
+  OPTIONAL { 
+    ?item wdt:P39 ?dummy6
+  } 
+  FILTER(!bound(?dummy6))
+} #LIMIT 250

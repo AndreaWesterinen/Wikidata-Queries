@@ -1,0 +1,11 @@
+SELECT ?subject ?subjectLabel ?instance ?instanceLabel (year(?date) as ?year) ?date  WHERE {
+   ?subject p:P575/psv:P575 ?date_node .
+   ?date_node wikibase:timeValue ?date .
+   FILTER ((?date) >= (now())) .
+   ?subject wdt:P31 ?instance .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,en" .
+  }
+}
+ORDER BY DESC(?date)
+LIMIT 100

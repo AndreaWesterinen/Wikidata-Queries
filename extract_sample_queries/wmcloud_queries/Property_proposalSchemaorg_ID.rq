@@ -1,0 +1,17 @@
+# ontology mappings from Wikidata
+SELECT ?wd ?wdLabel ?type ?uri ?prefix ?localName WHERE {
+  {
+    { ?wd wdt:P1628 ?uri . BIND("equivalent property" AS ?type) } UNION
+    { ?wd wdt:P1709 ?uri . BIND("equivalent class" AS ?type) } UNION
+    { ?wd wdt:P2888 ?uri . BIND("exact match" AS ?type) } UNION
+    { ?wd wdt:P2235 ?uri . BIND("superproperty" AS ?type) } UNION
+    { ?wd wdt:P2236 ?uri . BIND("subproperty" AS ?type) } 
+  }
+  BIND( REPLACE(STR(?uri),'[^#/]+$','') AS ?prefix)
+  BIND( REPLACE(STR(?uri),'^.*[#/]','') AS ?localName)
+ 
+  # filter by ontology (otherwise timeout expected)
+  FILTER(?prefix = "http://schema.org/")
+ 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ?prefix ?localName

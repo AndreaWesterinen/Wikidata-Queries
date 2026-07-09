@@ -1,0 +1,5 @@
+select * where {
+	values ?item { wd:Q27885828 wd:Q27885840 }
+	?sitelink schema:about ?item .
+	optional { ?sitelink schema:isPartOf ?site }
+}

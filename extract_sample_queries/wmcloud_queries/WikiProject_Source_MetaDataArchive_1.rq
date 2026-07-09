@@ -1,0 +1,12 @@
+##defaultView:BubbleChart
+#Sources used as references on Wikidata
+SELECT ?source ?sourceLabel (COUNT(?source) AS ?count)
+WHERE
+{
+    ?item wdt:P248 ?source .
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+}
+GROUP BY ?source ?sourceLabel
+ORDER BY DESC(?count)

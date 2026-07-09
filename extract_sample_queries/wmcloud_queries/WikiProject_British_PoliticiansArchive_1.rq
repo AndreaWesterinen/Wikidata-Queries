@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?itemDescription ?startTime ?partyLabel ?electionLabel ?electoralDistrictLabel #?replaces ?replacedBy 
+{
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q16707842; pq:P2937 wd:Q29974940 .
+ # MINUS { ?item p:P39 [ ps:P39 wd:Q16707842; pq:P2937 [ ^(wdt:P155+) wd:Q29974940 ] ] . }
+ # MINUS { ?item wdt:P463 [ ^(wdt:P155+) wd:Q29974940 ] . }
+ OPTIONAL { ?positionStatement pq:P580 ?startTime . }
+ OPTIONAL { ?positionStatement pq:P768 ?electoralDistrict . }
+ OPTIONAL { ?positionStatement pq:P102 ?party . }
+ OPTIONAL { ?positionStatement pq:P2715 ?election . }
+# OPTIONAL { ?positionStatement pq:1365 ?replaces . }
+# OPTIONAL { ?positionStatement pq:1365 ?replacedBy . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

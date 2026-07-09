@@ -1,0 +1,9 @@
+#Websites with OpenAPI endpoints
+SELECT ?database ?databaseLabel ?value WHERE {
+  ?database ?p ?wds.
+  ?wds ?v ?value.
+  ?wdP wikibase:statementProperty ?v.
+  ?wdP wikibase:claim ?p.
+  ?wds pq:P31 wd:Q26261192.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

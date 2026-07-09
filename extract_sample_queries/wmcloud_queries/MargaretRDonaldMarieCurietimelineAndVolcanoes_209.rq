@@ -1,0 +1,12 @@
+# taxa with an article, with an AFD_id but without an image in wikidata
+SELECT ?item  ?taxonName ?article WHERE {
+  ?item wdt:P225 ?taxonName . 
+  ?item wdt:P6039 ?AFD_id.
+   { ?item wdt:P18 ?image.} 
+  OPTIONAL{
+     ?article schema:about ?item. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+}
+ORDER BY ?taxonName ?item

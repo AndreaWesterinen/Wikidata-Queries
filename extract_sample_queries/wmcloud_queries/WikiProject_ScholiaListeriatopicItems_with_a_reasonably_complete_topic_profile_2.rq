@@ -1,0 +1,11 @@
+select ?topic ?topicLabel ?count with
+{
+SELECT ?topic (count(*) as ?count)
+where
+{?topic ^wdt:P921 ?item .  # a work on any of the pre-defined topics
+ } group by ?topic limit 30000 } as %i
+where
+{
+include %i
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by desc(?count)

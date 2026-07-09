@@ -1,4 +1,3 @@
-# ----
 #title: All languages with a Wikimedia language code (P424)
 # Date: 2021-09-24
 SELECT DISTINCT ?lang_code ?itemLabel ?item

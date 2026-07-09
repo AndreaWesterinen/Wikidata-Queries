@@ -1,0 +1,11 @@
+SELECT (wd:Q5 as ?item) (CONCAT("\n",GROUP_CONCAT(?l;separator="\n")) as ?bulk) 
+{
+  SELECT ?p ?t (CONCAT("#[[",strafter(str(?p),"y/"),"|",?t,"]]") as ?l) ?pp ?vol
+  {
+    hint:Query hint:optimizer "None".
+    ?art wdt:P1433 wd:Q665807; wdt:P921 ?p ; wdt:P31 wd:Q19389637 ;  wdt:P1476 ?t ; wdt:P478 ?vol ; wdt:P304 ?pp .
+    ?p wdt:P31 wd:Q5 .
+    MINUS { ?art wdt:P31 wd:Q1263068 }
+  }
+  ORDER BY xsd:integer(?vol) xsd:integer(REPLACE(strbefore(CONCAT(?pp,"-"),"-"),"[a-z]","")) ?pp ?t
+}

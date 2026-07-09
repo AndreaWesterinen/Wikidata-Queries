@@ -1,0 +1,9 @@
+SELECT ?year (COUNT(?item) AS ?count)
+WHERE
+{
+	?item wdt:P19 wd:Q1598962.
+	?item wdt:P569 ?data.
+  BIND(YEAR(?data) as ?year)
+}
+GROUP BY ?year
+ORDER BY ?year

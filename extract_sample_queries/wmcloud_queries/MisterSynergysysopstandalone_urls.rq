@@ -1,0 +1,7 @@
+SELECT ?item ?property ?url WHERE { 
+  ?property wikibase:propertyType wikibase:Url; wikibase:claim ?p; wikibase:statementProperty ?ps .
+  ?item ?p [ ?ps ?url ]; wikibase:sitelinks 0; wikibase:statements 1 .
+  MINUS { [] schema:about ?item } 
+  MINUS { [] ?any ?item }
+  FILTER(?item NOT IN(wd:Q16943273, wd:Q17566023))
+} ORDER BY ASC(xsd:integer(STRAFTER(STR(?property), 'entity/P'))) ASC(xsd:integer(STRAFTER(STR(?item), 'Q')))

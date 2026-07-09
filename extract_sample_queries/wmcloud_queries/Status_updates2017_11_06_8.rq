@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel ?placeLabel ?coords ?image WHERE {
+  ?item wdt:P31 wd:Q42661374 ;
+        wdt:P625 ?coords ;
+        wdt:P131 ?place .
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription (URI(REPLACE(?pattern, '\\$1', ?carthalia)) AS ?carthalia_URL) ?countryLabel (SAMPLE(?adminLabel) AS ?adminLabel)   (SAMPLE(?coord) AS ?coord)
+WHERE {
+        wd:P5652 wdt:P1630 ?pattern .
+        ?item wdt:P5652 ?carthalia .
+        OPTIONAL { ?item wdt:P17 ?country . }
+        OPTIONAL { ?item wdt:P131 ?admin . }
+        OPTIONAL { ?item wdt:P625 ?coord . }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,fr,it,ru". }
+    }
+GROUP BY ?item ?itemLabel ?itemDescription ?carthalia ?carthalia_URL ?pattern ?countryLabel ?adminLabel ?coord 
+LIMIT 3000

@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-uppercase>
+SELECT DISTINCT ?item WHERE { ?item wdt:P536 ?value . FILTER( REGEX(STR(?value), '^[A-Z][A-Z0-9]{3}$') = false )}

@@ -1,0 +1,1 @@
+SELECT ?item ?st WHERE { ?item wdt:P31 wd:Q17362920; wikibase:statements ?st } ORDER BY ?item LIMIT 5000

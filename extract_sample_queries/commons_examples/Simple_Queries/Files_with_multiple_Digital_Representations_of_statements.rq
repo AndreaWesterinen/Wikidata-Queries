@@ -1,0 +1,7 @@
+SELECT ?file (COUNT(?value) AS ?count)  {
+  ?file wdt:P6243 ?value .
+} 
+GROUP BY ?file 
+HAVING ( ?count > 1 ) 
+ORDER BY DESC(?count)
+LIMIT 100

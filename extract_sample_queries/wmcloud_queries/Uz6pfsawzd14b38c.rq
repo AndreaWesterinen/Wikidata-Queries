@@ -1,0 +1,3 @@
+SELECT ?item ?p ?psv ?precision ?lat ?lon ?globe WHERE {
+  ?item ?p [ ?psv [ rdf:type wikibase:GeoAutoPrecision; wikibase:geoPrecision ?precision; wikibase:geoLatitude ?lat; wikibase:geoLongitude ?lon; wikibase:geoGlobe ?globe ] ] .
+}

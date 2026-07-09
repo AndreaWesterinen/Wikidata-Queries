@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?northernmostLat ?northernmostLong WHERE {
+  wd:Q546 p:P1333/psv:P1333/wikibase:geoLatitude ?threshold .
+  ?item wdt:P31 wd:Q747074;
+        p:P1332/psv:P1332 [
+          wikibase:geoLatitude ?northernmostLat;
+          wikibase:geoLongitude ?northernmostLong
+        ] .
+  FILTER( ?northernmostLat > ?threshold ) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it" } .
+} ORDER BY ?northernmost

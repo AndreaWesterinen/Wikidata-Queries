@@ -1,0 +1,14 @@
+SELECT ?name1 ?name2 ?name1Label ?name2Label ?orig ?hepburn1 ?hepburn2
+WHERE {
+  ?name1 wdt:P31/wdt:P279* wd:Q101352 ;
+         p:P1814 ?kana1 .
+  ?kana1 ps:P1814 ?orig ;
+         pq:P2125 ?hepburn1 .
+  ?name2 wdt:P31/wdt:P279* wd:Q101352 ;
+         p:P1814 ?kana2 .
+  ?kana2 ps:P1814 ?orig ;
+         pq:P2125 ?hepburn2 .
+  FILTER (?name1 != ?name2)
+  FILTER (?hepburn1 != ?hepburn2)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  }

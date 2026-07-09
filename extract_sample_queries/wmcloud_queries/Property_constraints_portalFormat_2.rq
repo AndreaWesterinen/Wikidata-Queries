@@ -1,0 +1,4 @@
+SELECT ?item ?property WHERE {
+  ?property wikibase:propertyType wikibase:ExternalId; wikibase:claim ?p; wikibase:novalue ?wdno .
+  ?item ?p [ rdf:type ?wdno ] .
+}

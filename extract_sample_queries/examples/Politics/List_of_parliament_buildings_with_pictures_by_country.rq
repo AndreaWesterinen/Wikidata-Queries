@@ -1,3 +1,5 @@
+#title: List of parliament buildings with pictures by country
+
 #defaultView:ImageGrid
 SELECT ?building ?buildingLabel ?country ?countryLabel ?picture
 WHERE

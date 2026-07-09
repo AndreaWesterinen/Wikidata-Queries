@@ -1,0 +1,5 @@
+SELECT (COUNT(*)*100 as ?descriptions)
+{
+    SERVICE bd:sample { ?sample wdt:P31 wd:Q4167836 . bd:serviceParam bd:sample.limit 48955 }
+    ?sample schema:description [] .
+}

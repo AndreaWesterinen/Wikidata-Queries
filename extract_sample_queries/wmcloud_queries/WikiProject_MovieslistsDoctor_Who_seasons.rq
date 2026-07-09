@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?ord ?neword ?sts ?sls
+WHERE 
+{
+  ?item (wdt:P179/wdt:P179*) wd:Q34316 ; wdt:P31 wd:Q3464665 .
+  ?item wikibase:statements ?sts; wikibase:sitelinks ?sls. 
+  optional { ?item p:P179 [ps:P179 wd:Q34316 ; pq:P1545 ?ord ] }
+  optional { ?item p:P361 [ps:P361 wd:Q39243484 ; pq:P1545 ?neword ] }
+}
+ORDER BY xsd:integer( ?ord )

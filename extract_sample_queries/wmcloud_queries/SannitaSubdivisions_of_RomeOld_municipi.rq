@@ -1,0 +1,6 @@
+SELECT ?item ?NumberInTheSeries WHERE {
+  ?item wdt:P31 wd:Q525504.
+  ?item wdt:P31 wd:Q19953632.
+  ?item wdt:P31 ?istanza ; p:P31 [pq:P1545 ?NumberInTheSeries] .
+   }
+ORDER BY ?istanza xsd:integer(?NumberInTheSeries)

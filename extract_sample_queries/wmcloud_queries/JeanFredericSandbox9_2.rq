@@ -1,0 +1,1 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P31 wd:Q3331189. ?sitelink schema:about ?entity; schema:isPartOf <https://fr.wikisource.org/>. ?entity wdt:P407 ?grouping .} GROUP BY ?grouping HAVING (?count >= 1) ORDER BY DESC(?count) LIMIT 1000

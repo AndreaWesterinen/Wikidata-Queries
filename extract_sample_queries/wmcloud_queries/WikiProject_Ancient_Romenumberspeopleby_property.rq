@@ -1,0 +1,15 @@
+SELECT 	
+	(SAMPLE(?subjectitem) as ?item) 
+	(concat("\u007B\u007BP\u007C",strafter(str(?property),"/entity/"),"\u007D\u007D") as ?p) 
+	(COUNT(DISTINCT ?s) as ?ct)  
+	(ROUND(?ct / ?total*100) as ?percentage)
+{
+	hint:Query hint:optimizer 'None' .
+  	VALUES ?R { wd:Q17167 wd:Q2277 }
+	?s wdt:P2348 ?R ; wdt:P31 wd:Q5 ; ?wdt [] .
+	?property wikibase:claim ?wdt ; wdt:P1629 ?subjectitem
+    { SELECT (COUNT(DISTINCT ?i) as ?total) { VALUES ?R { wd:Q17167 wd:Q2277 } . ?i wdt:P2348 ?R ; wdt:P31 wd:Q5 . } }    
+}
+GROUP BY ?property ?total
+HAVING (?ct > 99)
+ORDER BY DESC(?ct)

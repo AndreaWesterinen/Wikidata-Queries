@@ -1,0 +1,21 @@
+# living non fictional journalists grouped by country of citizenship 
+
+SELECT ?country ?countryLabel (COUNT(?country) AS ?count)
+WHERE 
+{
+  
+  # item with occupation journalist or any subclass of journalist
+  ?item wdt:P106/wdt:P279* wd:Q1930187.
+  
+  # only include humans (e.g. exclude fictional entities)
+  ?item wdt:P31 wd:Q5.
+  
+  # exclude people with date of death
+  MINUS {?item wdt:P570 ?date}.
+  
+  ?item wdt:P27 ?country
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,7 @@
+#defaultView:ImageGrid
+select ?file ?image {
+  ?file schema:contentUrl ?url;
+        schema:width  88;
+        schema:height 31;
+        schema:url ?image.
+} limit 2000

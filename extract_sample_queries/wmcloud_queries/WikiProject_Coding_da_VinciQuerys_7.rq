@@ -1,0 +1,17 @@
+embed.html#SELECT 
+  ?item 
+  ?itemLabel 
+  ?image 
+  (GROUP_CONCAT(DISTINCT ?creator; SEPARATOR = " | ") AS ?creatorIds) 
+  (GROUP_CONCAT(DISTINCT ?creatorLabel; SEPARATOR = " | ") AS ?creatorLabels) 
+WHERE {
+  ?item wdt:P1535 wd:Q110553382.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P170 ?creator. }
+  SERVICE wikibase:label { 
+    bd:serviceParam wikibase:language "de,en". 
+    ?item rdfs:label ?itemLabel.
+    ?creator rdfs:label ?creatorLabel. 
+  }
+}
+GROUP BY ?item ?itemLabel ?image

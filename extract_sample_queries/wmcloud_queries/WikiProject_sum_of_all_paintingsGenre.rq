@@ -1,0 +1,6 @@
+SELECT ?paintinggenre ?paintinggenreLabel ?artgenre ?artgenreLabel WHERE {
+  ?paintinggenre wdt:P31 wd:Q16743958 .
+  ?paintinggenre wdt:P279 ?artgenre .
+  ?artgenre wdt:P31 wd:Q1792379 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ }

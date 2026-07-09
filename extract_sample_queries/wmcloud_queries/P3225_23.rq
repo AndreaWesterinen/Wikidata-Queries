@@ -1,0 +1,33 @@
+#title: Invalid Corporate Number
+# Complex constraint from [[Property talk:P3225]]
+# Corporate Number that have wrong checksum (see https://www.houjin-bangou.nta.go.jp/documents/checkdigit.pdf)
+SELECT ?item ?value
+  {       { ?item      wdt:P3225          ?value
+          }
+    UNION { ?statement pq:P3225             ?value
+          . ?item      ?p                  ?statement
+          . ?prop      wikibase:claim      ?p
+          }
+    UNION { ?ref       pr:P3225             ?value
+          . ?statement prov:wasDerivedFrom ?ref
+          . ?item      ?p                  ?statement
+          . ?prop      wikibase:claim      ?p
+          }
+  . FILTER( STRLEN(?value) = 13 )
+  . BIND(
+      xsd:integer(SUBSTR(?value,  1, 1)) +
+      xsd:integer(SUBSTR(?value,  3, 1)) +
+      xsd:integer(SUBSTR(?value,  5, 1)) +
+      xsd:integer(SUBSTR(?value,  7, 1)) +
+      xsd:integer(SUBSTR(?value,  9, 1)) +
+      xsd:integer(SUBSTR(?value, 11, 1)) +
+      xsd:integer(SUBSTR(?value, 13, 1)) +
+    ( xsd:integer(SUBSTR(?value,  2, 1)) +
+      xsd:integer(SUBSTR(?value,  4, 1)) +
+      xsd:integer(SUBSTR(?value,  6, 1)) +
+      xsd:integer(SUBSTR(?value,  8, 1)) +
+      xsd:integer(SUBSTR(?value, 10, 1)) +
+      xsd:integer(SUBSTR(?value, 12, 1)) ) * 2 AS ?checksum )
+  . FILTER( FLOOR(?checksum / 9) != (?checksum / 9) )
+  }
+  ORDER BY ?value

@@ -1,0 +1,20 @@
+#UK MPs (ie 1800 onwards) not found in Historic Hansard
+#filtered to exclude any still in office in 2005
+SELECT DISTINCT ?item ?itemLabel ?yob ?yod ?hansard ?article
+WHERE
+{
+  ?membership wdt:P279 wd:Q16707842 . # this format means it only covers MPs with new-style term data
+  ?item wdt:P31 wd:Q5 ; p:P39 ?positionStatement . ?positionStatement ps:P39 ?membership . 
+  ?membership wdt:P576 ?end . 
+  FILTER (?end < "2005-06-01T00:00:00Z"^^xsd:dateTime) # ie sat before 2005
+
+  FILTER NOT EXISTS { ?item wdt:P2015 ?hansard } .
+  OPTIONAL { ?item wdt:P569 ?dob . BIND(YEAR(?dob) as ?yob) }
+  OPTIONAL { ?item wdt:P570 ?dod . BIND(YEAR(?dod) as ?yod) }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .} 
+  OPTIONAL {
+    ?article schema:about ?item .
+    ?article schema:inLanguage "en" .
+    ?article schema:isPartOf <https://en.wikipedia.org/>
+  }
+}

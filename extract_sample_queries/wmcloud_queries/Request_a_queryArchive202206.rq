@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription (SAMPLE(?pic) as ?pic_sample)
+WHERE 
+{
+    VALUES (?item) { (wd:Q2934)(wd:Q2935)(wd:Q5)(wd:Q488383) }.
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?itemLabel .
+    ?item schema:description ?itemDescription .
+  }
+  OPTIONAL { ?item wdt:P18 ?pic .  }
+}

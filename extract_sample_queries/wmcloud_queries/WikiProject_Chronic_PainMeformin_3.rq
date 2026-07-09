@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P921 wd:Q19484 . { { ?item wdt:P921 wd:Q1088113 } UNION { ?item wdt:P921 wd:Q540571 } } }

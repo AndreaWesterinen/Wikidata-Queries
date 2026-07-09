@@ -1,0 +1,19 @@
+# Nombre d'œuvres d'art avec date de création renseignée.
+# La matrice des classes d'items utilisée en requête
+# correspond à la sélection alimentant le projet zone47.com/crotos.
+select (count (distinct ?item) as ?nb)
+where {
+    {?item wdt:P31/wdt:P279* wd:Q4502142}        # œuvre d'art visuel
+	UNION {?item wdt:P31/wdt:P279* wd:Q860861}   # sculpture
+	UNION {?item wdt:P31/wdt:P279* wd:Q1278452}  # polyptyque
+	UNION {?item wdt:P31/wdt:P279* wd:Q20437094} # installation
+	UNION {?item wdt:P31/wdt:P279* wd:Q326478}   # land art
+	UNION {?item wdt:P31/wdt:P279* wd:Q184296}   # tapisserie 
+	UNION {?item wdt:P31/wdt:P279* wd:Q572916}   # ready-made
+	UNION {?item wdt:P31/wdt:P279* wd:Q1473346}  # vitrail
+	UNION {?item wdt:P31/wdt:P279* wd:Q860372}   # art numérique 
+	UNION {?item wdt:P31/wdt:P279* wd:Q17514}    # graffiti
+	UNION {?item wdt:P31/wdt:P279* wd:Q738680}   # céramique grecque antique 
+    UNION {?item wdt:P31 wd:Q220659}             # artifact
+	?item wdt:P571 ?date. 
+}

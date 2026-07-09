@@ -1,0 +1,8 @@
+SELECT (SAMPLE(?lh) as ?item) ?st (COUNT(?lh) as ?ct)
+WHERE
+{
+    	  ?lh wdt:P31 wd:Q39715 .
+          ?lh wikibase:sitelinks ?st .
+}
+GROUP BY ?st
+ORDER BY ASC(xsd:integer(?st))

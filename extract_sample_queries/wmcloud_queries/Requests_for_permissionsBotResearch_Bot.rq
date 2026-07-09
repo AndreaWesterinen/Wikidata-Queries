@@ -1,0 +1,11 @@
+#scientific papers without description in English
+SELECT DISTINCT ?item ?itemLabel ?pubdate
+WHERE
+{
+  { ?item wdt:P31 wd:Q13442814 . } 
+  OPTIONAL { ?item schema:description ?itemDescription  }
+  FILTER (!BOUND(?itemDescription))
+#  { ?item wdt:P577 ?pubdate . } #useful if "scientific article" is already used as a description of another item with the same label 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+LIMIT 1000

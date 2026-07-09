@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?c1v ?c2v (ROUND(100*geof:distance(?c1v, ?c2v))/100 as ?dist)
+{
+	?item wdt:P131/wdt:P131* wd:Q25 .
+    ?item p:P625 ?c1 ; p:P625 ?c2 .
+    FILTER( str(?c1) < str(?c2) ) 
+    ?c1 ps:P625 ?c1v .
+    ?c2 ps:P625 ?c2v .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],cy,en". }
+}

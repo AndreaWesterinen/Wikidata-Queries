@@ -1,0 +1,19 @@
+SELECT ?h ?hl  ?taLabel ?date
+WHERE 
+{
+	?h wdt:P31 wd:Q11424 .
+	?h wdt:P364  wd:Q5885  .
+    ?h wdt:P577 ?date
+    
+OPTIONAL {  
+		?h rdfs:label ?hl filter (lang(?hl) = "en") .
+	}
+       OPTIONAL {  
+		?h rdfs:label ?taLabel filter (lang(?taLabel) = "ta") .
+	}.
+     #FILTER (year(?date)=2014)
+
+    
+
+}
+order by ?date

@@ -1,0 +1,15 @@
+#works referred to by Iron Maiden songs
+SELECT ?item ?itemLabel 
+      (GROUP_CONCAT(?basedOn; separator=", ") AS ?songsBasedOn) 
+      (GROUP_CONCAT(?inspiredBy; separator=", ") AS ?songsInspiredBy)
+      (GROUP_CONCAT(?cites; separator=", ") AS ?songsQuoting)
+      (GROUP_CONCAT(?quotes; separator=", ") AS ?songsQuotingDirectly)
+WHERE {
+  ?song wdt:P175 wd:Q42482; wdt:P31 wd:Q7366. 
+  {?song wdt:P144 ?item. ?song rdfs:label ?label. FILTER(LANG(?label)="en") BIND (?label AS ?basedOn)} UNION
+  {?song wdt:P941 ?item. ?song rdfs:label ?label. FILTER(LANG(?label)="en") BIND (?label AS ?inspiredBy)} UNION
+ {?song wdt:P2860 ?item. ?song rdfs:label ?label. FILTER(LANG(?label)="en") BIND (?label AS ?cites)} UNION
+  {?song wdt:P6166 ?item. ?song rdfs:label ?label. FILTER(LANG(?label)="en") BIND (?label AS ?quotes)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel

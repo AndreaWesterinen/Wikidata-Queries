@@ -1,0 +1,6 @@
+# Find botanists and abbreviationa
+SELECT ?item ?itemLabel ?abbrev   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+   ?item wdt:P31 ?human.
+   ?item wdt:P428 ?abbrev.
+}

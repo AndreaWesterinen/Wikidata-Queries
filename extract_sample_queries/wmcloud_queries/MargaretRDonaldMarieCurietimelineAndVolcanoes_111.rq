@@ -1,0 +1,10 @@
+#Number of journals by publisher
+
+SELECT ?publisherLabel (COUNT(?journal) AS ?count) WHERE {
+  
+  ?journal wdt:P123 ?publisher.      # define variable publisher
+  ?journal wdt:P31 wd:Q5633421.      # item is journal
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?publisherLabel 
+ORDER BY DESC (?count )

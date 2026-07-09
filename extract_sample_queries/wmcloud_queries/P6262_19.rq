@@ -1,0 +1,8 @@
+#title: Error in prefix
+# Complex constraint from [[Property talk:P6262]]
+# Example : the value ''de.memory-alpha.wikia:Technobabble'' is wrong
+SELECT ?item ?value ?prefix {
+    ?item wdt:P6262 ?value .
+    BIND (STRBEFORE(?value, ":") AS ?prefix)
+    FILTER (CONTAINS(?prefix, "wikia"))
+}

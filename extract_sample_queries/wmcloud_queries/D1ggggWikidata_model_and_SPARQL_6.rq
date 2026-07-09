@@ -1,0 +1,6 @@
+SELECT ?descendant ?descendantLabel
+WHERE
+{
+  wd:Q1339 wdt:P40 ?descendant
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY DESC(?descendantLabel)

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?p ?pLabel ?pDescription ?pWikiTreeID  WHERE {
+      {FILTER (strEnds(STR(?p), "Q106471570"))
+        ?p wdt:P2949 ?pWikiTreeID. }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,fr,nl,it,ja,ru". }
+    }

@@ -1,0 +1,2 @@
+SELECT ?img (count(?church) AS ?cnt) (group_concat(?church; separator=";") AS ?churches) { ?church wdt:P31 wd:Q16970 . ?church wdt:P18 ?img } GROUP BY ?img HAVING (?cnt>1)
+ORDER BY desc(?cnt)

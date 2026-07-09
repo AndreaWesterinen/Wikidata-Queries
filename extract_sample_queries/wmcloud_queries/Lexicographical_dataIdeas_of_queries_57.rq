@@ -1,0 +1,10 @@
+sparql?query=#Lexemes with a sense but no P5137
+select ?lang (count(?lexemeId) as ?count) #?lemma 
+WHERE {
+  ?lexemeId a ontolex:LexicalEntry ;
+            dct:language ?lang;
+            #wikibase:lemma ?lemma;
+            ontolex:sense ?sense.
+  filter not exists {?sense wdt:P5137 []}.
+}
+GROUP BY ?lang

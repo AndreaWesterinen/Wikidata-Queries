@@ -1,0 +1,6 @@
+#Items which are ultimately subinstances of any metaclass which is ultimately part of Norse culture or whose culture is Norse culture.
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?Metaclass wdt:P361+|wdt:P2596 wd:Q24175569 .
+  ?item wdt:P31+ ?Metaclass .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

@@ -1,0 +1,12 @@
+PREFIX wdno: <http://www.wikidata.org/prop/novalue/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?item ?itemLabel ?inchi ?pubid WHERE {
+  #?item p:P662/a wdno:P662;  #has pubid
+        ?item wdt:P235 ?inchi.
+        OPTIONAL{?item wdt:P662 ?pubid}
+
+
+      FILTER(!BOUND(?pubid))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,4 @@
+SELECT DISTINCT ?entity ?equivalentClass
+WHERE {
+  ?entity wdt:P1709 ?equivalentClass
+}

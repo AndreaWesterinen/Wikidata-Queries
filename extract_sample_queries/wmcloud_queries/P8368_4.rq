@@ -1,0 +1,22 @@
+#Units used by property P8368
+#by Jura1, 2016-01-24, rev. 2020-10-05, 
+
+SELECT DISTINCT ?unit ?unitLabel ?count ?has_SI_conversion ?has_some_conversion ?allowed_unit ?sample ?sampleLabel
+WHERE
+{
+  {
+      SELECT ?unit (count(DISTINCT(?item)) as ?count) (SAMPLE(?item) as ?samplest)
+    WHERE
+    {
+          ?item psv:P8368/wikibase:quantityUnit ?unit
+    }
+    GROUP BY ?unit
+  }
+    OPTIONAL { ?unit wdt:P2370 [] . BIND("y" as ?has_SI_conversion) }
+    OPTIONAL { ?unit wdt:P2442 [] . BIND("y" as ?has_some_conversion) }
+    ?sample p:P8368 ?samplest .
+    OPTIONAL { wd:P8368 p:P2302 [ ps:P2302 wd:Q21514353 ; pq:P2305 ?unit ] . BIND( "y" as ?allowed_unit) }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"}
+}
+ORDER BY DESC(?count) ?unit
+LIMIT 10

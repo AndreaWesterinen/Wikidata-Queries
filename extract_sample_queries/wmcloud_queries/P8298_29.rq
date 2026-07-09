@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P8298/ps:P8298 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(page/urn:hbo:page:([A-Za-z0-9_-]{21}):type:(episode|extra|feature|franchise|season|series))$") )
+}

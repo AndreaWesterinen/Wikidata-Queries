@@ -1,0 +1,36 @@
+SELECT (STRAFTER(STR(?item1), '/entity/') as ?i )  (?rel as ?_rel ) (CONCAT("+", STRAFTER(?member, ' w '), "-00-00T00:00:00Z/9") as ?rok)  ("S143" as ?s ) ("Q1551807" as ?w) WHERE {
+  hint:Query hint:optimizer "None".
+  {select ?item1 ?member ?rel {
+  {select ?member ?rel {
+    {  
+     hint:Query hint:optimizer "None".
+     SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+     SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Biografie_wed%C5%82ug_daty_%C5%9Bmierci> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 2 .
+     }}
+  
+     ?out schema:name ?member.
+     ?out schema:about ?kat.
+     FILTER(REGEX(?member, "Kategoria:Zmarli w 1[8]\\d{2}"))
+     BIND("P570" AS ?rel)
+    }
+   }}
+      SERVICE wikibase:mwapi {
+     bd:serviceParam wikibase:api "Generator" .
+     bd:serviceParam wikibase:endpoint "pl.wikipedia.org" .
+     bd:serviceParam mwapi:gcmtitle ?member .
+     bd:serviceParam mwapi:generator "categorymembers" .
+     bd:serviceParam mwapi:gcmprop "ids|title|type" .
+     bd:serviceParam mwapi:gcmlimit "max" .
+     ?item1 wikibase:apiOutputItem mwapi:item .
+      }
+}}
+
+  ?item1 wdt:P31 wd:Q5.
+  FILTER(NOT EXISTS{?item1 wdt:P570 ?ds. FILTER(?rel = "P570")})
+  FILTER(NOT EXISTS{?item1 wdt:P2032 ?ds. FILTER(?rel = "P570")})
+
+
+} limit 200

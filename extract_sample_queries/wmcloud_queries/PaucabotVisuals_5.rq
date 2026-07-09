@@ -1,0 +1,5 @@
+SELECT ?item ?label ?coord WHERE {
+  ?item wdt:P131*/wdt:P706* wd:Q5765 .
+  ?item wdt:P625 ?coord .
+  ?item rdfs:label ?label filter (lang(?label) = "ca")
+}

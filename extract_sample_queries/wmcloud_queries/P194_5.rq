@@ -1,0 +1,12 @@
+#title: Countries generally have this property
+# Complex constraint from [[Property talk:P194]]
+# Create item for the legislature, add the property or use [[Property:P3113|does not have part&#32;<small dir="ltr">(P3113)</small>]]=[[d:Q11204|legislature <small>(Q11204)</small>]] on the item.
+SELECT DISTINCT ?item ?itemLabel
+{
+  ?item wdt:P31 wd:Q6256       
+  FILTER NOT EXISTS { ?item p:P194 [] }  
+  FILTER NOT EXISTS { ?item wdt:P576 [] } 
+  FILTER NOT EXISTS { ?item wdt:P3113 wd:Q11204 } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

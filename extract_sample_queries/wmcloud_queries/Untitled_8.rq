@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?sourceLabel
+WHERE {
+  ?item p:P19 ?awardStat . # … with an awarded(P166) statement
+  ?awardStat ps:P19 wd:Q649 . # … that has the value Nobel Prize in Chemistry (Q35637)
+  ?awardStat pq:P17 ?when . # when did he receive the Nobel prize
+    ?awardStat (prov:wasDerivedFrom) ?source.
+{ ?when wdt:P17 wd:Q159 } UNION
+  { ?when wdt:P17 wd:Q15180 } UNION
+  { ?when wdt:P17 wd:Q2305208 } UNION
+  { ?when wdt:P17 wd:Q34266 } UNION
+  { ?when wdt:P17 wd:Q2184 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,cs" }
+} order by ?sourceLabel

@@ -1,0 +1,4 @@
+SELECT ?item ?office WHERE { 
+  ?item wdt:P31 wd:Q3624078 .
+  OPTIONAL { ?item wdt:P1313 ?office . }
+}

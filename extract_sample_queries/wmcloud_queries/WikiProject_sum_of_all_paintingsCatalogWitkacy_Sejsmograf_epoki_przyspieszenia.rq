@@ -1,0 +1,8 @@
+SELECT ?item ?kdm ?page_image ?page_desc WHERE { 
+  ?item wdt:P608 wd:Q113648061;
+  optional{ ?item p:P528 [ ps:P528 ?kdm; pq:P972 wd:Q106425660; ] }
+  optional{ ?item p:P1433 [ ps:P1433 wd:Q114361482; pq:P304 ?page_image ] }
+  ?item p:P608 ?xstatement .
+  optional{ ?xstatement prov:wasDerivedFrom ?xref .
+  ?xref pr:P304 ?page_desc . }
+}

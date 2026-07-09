@@ -1,0 +1,45 @@
+# This query is Approach 1 : 
+# Find the HQs(and ranks) of all PL organisatations via the property "Headquarters location" P159
+# Verify that the found HQ is indeed an instance of HQ (P31 --> Q7540126)
+# Verify that the found HQ is the HQ of the stated PL organisation
+
+SELECT DISTINCT 
+?org
+?orgLabel
+(GROUP_CONCAT(DISTINCT ?orgIsALabel ; separator = " --- ") as ?orgInstanceOf) 
+(GROUP_CONCAT(DISTINCT ?orgRank ; separator = " --- ") as ?orgRanks)
+#------
+?hq
+?hqLabel
+(GROUP_CONCAT(DISTINCT ?hqIsALabel ; separator = " --- ") as ?hqInstanceOf)
+(GROUP_CONCAT(DISTINCT ?hqRank ; separator = " --- ") as ?hqRanks) 
+#------
+(SAMPLE(?org2Label) as ?hqOf)
+?sameOrg
+
+WHERE 
+{
+  #Approach 1: via PL organisations
+  ?org (p:P31/ps:P31) wd:Q28564,wd:Q28324850;wdt:P17 wd:Q55.
+  OPTIONAL{?org p:P31 [ps:P31 ?orgIsA; wikibase:rank ?orgRank].}
+  
+  OPTIONAL{
+  ?org p:P159/ps:P159 ?hq.  #find the HQ-library of this org
+  ?hq p:P31 [ps:P31 ?hqIsA; wikibase:rank ?hqRank]. #check what this HQ-library is (other than HQ)  
+  FILTER(?hqIsA = wd:Q7540126). #filter out any non-HQ instances         
+  ?hq p:P31 [pq:P642 ?org2]. #find the org that this library is the HQ of
+   
+  BIND(IF(?org = ?org2, "TRUE", "FALSE") as ?sameOrg). #Check that ?org = ?IsTheHQOf  
+  }        
+  
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+  ?org rdfs:label ?orgLabel.
+  ?orgIsA rdfs:label ?orgIsALabel.
+  ?hq rdfs:label ?hqLabel.
+  ?hqIsA rdfs:label ?hqIsALabel.
+  ?org2 rdfs:label ?org2Label.
+  }
+
+}
+GROUP BY ?org ?orgLabel ?hq ?hqLabel ?sameOrg
+ORDER BY (?orgLabel)

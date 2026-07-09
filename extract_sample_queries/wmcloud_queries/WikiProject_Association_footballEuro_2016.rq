@@ -1,0 +1,27 @@
+SELECT distinct ?item ?itemLabel 
+	(SAMPLE(?fifa) as ?fifa)
+(SAMPLE(?uefa) as ?uefa)
+(SAMPLE(?worldfootball) as ?worldfootball)
+(SAMPLE(?soccerbase) as ?soccerbase)
+(SAMPLE(?soccerway) as ?soccerway)
+(SAMPLE(?NFT) as ?NFT)
+(SAMPLE(?transfermarkt) as ?transfermarkt)
+?ids WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P1344 wd:Q79859 .
+  OPTIONAL { ?item wdt:P1469 ?fifa . }
+  OPTIONAL { ?item wdt:P2276 ?uefa . }
+  OPTIONAL { ?item wdt:P2020 ?worldfootball . }
+  OPTIONAL { ?item wdt:P2193 ?soccerbase . }
+  OPTIONAL { ?item wdt:P2369 ?soccerway . }
+  OPTIONAL { ?item wdt:P2574 ?NFT . }
+  OPTIONAL { ?item wdt:P2446 ?transfermarkt . }
+          
+    BIND(IF(!BOUND(?fifa),0,1)+(IF(!BOUND(?uefa),0,1))+(IF(!BOUND(?worldfootball),0,1))+
+         (IF(!BOUND(?soccerbase),0,1))+(IF(!BOUND(?soccerway),0,1))+(IF(!BOUND(?NFT),0,1))+(IF(!BOUND(?transfermarkt),0,1)) as ?ids)
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }
+GROUP BY ?item ?itemLabel ?ids
+having (?ids<7)

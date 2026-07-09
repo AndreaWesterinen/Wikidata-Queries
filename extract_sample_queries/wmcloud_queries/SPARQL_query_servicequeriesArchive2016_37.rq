@@ -1,0 +1,6 @@
+SELECT ?team ?teamLabel ?countryLabel WHERE {
+  ?team wdt:P31 wd:Q6979593 .
+  ?team wdt:P17 ?country FILTER NOT EXISTS {?team wdt:P1532 ?sportCountry} .
+  ?country wdt:P30 wd:Q46
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en,de"}
+}

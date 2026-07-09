@@ -1,0 +1,42 @@
+SELECT 
+  (SAMPLE(?sample) as ?item) ?group 
+  (MIN(xsd:integer(?vol)) as ?first) (MAX(xsd:integer(?vol)) as ?last) 
+  (SUM(?count) as ?all) (SUM(?countd) as ?done) (SUM(?diff) as ?todo)
+  (ROUND(?done / ?all * 1000 )/10 as ?percentage_done)
+  (SUM(?main) as ?withmain)
+  (ROUND( ?withmain / ?all * 1000 )/10 as ?percentage_done_main)
+  (ROUND( SUM(?newmain) / SUM(?main) * 1000 )/10 as ?new_main_percentage)
+  (SAMPLE( CONCAT("[https://tools.wmflabs.org/mix-n-match/#/catalog/", ?mxm, " ", ?mxm,"]") ) as ?MxmURL) 
+WITH
+{
+  SELECT ?item ?vol
+    (COUNT(DISTINCT ?entry) as ?count) 
+    (COUNT(DISTINCT ?main_or_first) as ?countd)                
+    (?count - ?countd as ?diff)                
+    (SAMPLE(?entry) as ?sample)
+    (COUNT(DISTINCT ?a1) as ?main) 
+    (COUNT(DISTINCT ?new) as ?newmain) 
+  WHERE
+  {
+	?entry wdt:P31 wd:Q19389637 .
+  	?entry wdt:P1433 wd:Q665807 .
+    OPTIONAL  {   ?entry wdt:P478 ?vol0 . ?item0 wdt:P5176 ?vol0  }
+    BIND(IF(BOUND(?item0), ?item0, wd:Q22910791 ) as ?item) 
+    BIND(IF(BOUND(?vol0), ?vol0, "missing" ) as ?vol)  
+    OPTIONAL  {   ?entry wdt:P921 ?main . BIND(?entry as ?a1) 
+                  BIND(IF( xsd:integer(strafter(str( ?entry), "Q") ) < xsd:integer(strafter(str( ?main), "Q") ), ?entry, wd:Q665807) as ?new ) 
+              }    
+    OPTIONAL  {   ?entry wdt:P1922 [] . BIND(?entry as ?a2)  }    
+    BIND(COALESCE(?a1, ?a2, "") as ?main_or_first)
+  }
+  GROUP BY ?item ?vol
+} as %i
+WHERE
+{
+    INCLUDE %i 
+    OPTIONAL { ?volume wdt:P31 wd:Q1238720 ; wdt:P179 wd:Q665807 ; wdt:P478 ?vol }
+    BIND(str(FLOOR((xsd:integer(?vol)-1)/8)+1) as ?group)
+    OPTIONAL { wd:Q665807 p:P2264 [ ps:P2264 ?mxm ; pq:P1545 ?group ] }
+}
+GROUP BY ?group
+ORDER BY ?group

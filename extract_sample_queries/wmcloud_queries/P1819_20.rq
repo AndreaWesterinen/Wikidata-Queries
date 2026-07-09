@@ -1,0 +1,4 @@
+#title: pipes in label
+# Complex constraint from [[Property talk:P1819]]
+# list of labels to fix
+SELECT ?item ?l WHERE { ?item wdt:P1819 []; rdfs:label ?l. FILTER( lang(?l) ="en" && REGEX(?l,"\\\u007C") )  }  LIMIT 50

@@ -1,0 +1,8 @@
+SELECT ?item ?wiki_sitelink ?sitelink_label ?label WHERE{
+  ?wiki_sitelink schema:about ?item; schema:isPartOf <https://bs.wikipedia.org/>; schema:name ?sitelink_label .
+  ?item rdfs:label ?label .
+  FILTER(LANG(?label) = 'bs') .
+  FILTER(false = (LCASE(?sitelink_label) = LCASE(?label)) ) .
+  FILTER(false=CONTAINS(?sitelink_label,")"))
+  ?item wdt:P31 wd:Q4167836 .
+} 

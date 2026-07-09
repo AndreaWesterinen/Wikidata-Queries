@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item 
+{
+	{ ?item wdt:P31 wd:Q202444 } UNION { ?item wdt:P31 wd:Q11879590 } UNION { ?item wdt:P31 wd:Q12308941 } UNION { ?item wdt:P31 wd:Q3409032 .}
+	?item wdt:P407 wd:Q9176 .
+	FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167410 }
+	FILTER NOT EXISTS { ?item wdt:P31 wd:Q101352 }
+}
+LIMIT 5000

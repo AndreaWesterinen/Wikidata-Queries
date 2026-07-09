@@ -1,0 +1,11 @@
+#Frise chronologique des maires de Brest
+SELECT ?mayor ?mayorLabel ?remplaceLabel ?start ?end ?remplacéparLabel WHERE {
+  ?mayor p:P39 ?position.
+  ?position ps:P39 wd:Q62266917;
+    pq:P580 ?start;
+    pq:P582 ?end.
+  OPTIONAL { ?position pq:P1366 ?remplacépar. }
+  OPTIONAL { ?position pq:P1365 ?remplace. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl,en". }
+}
+ORDER BY DESC (?start)

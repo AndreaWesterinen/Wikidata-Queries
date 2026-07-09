@@ -1,0 +1,20 @@
+# Wikidata map of James Bond filming locations
+# SPARQL by Jura1, 2016-11-05
+#defaultView:Map
+SELECT 	?film (CONCAT(str(?actorLabel), " /in/ ", str(?filmLabel), " -- the ", str(?filmDescription)) as ?layer) 
+		?enwiki_article	?coor	
+		?filminglocation	?filminglocationLabel
+{	SELECT DISTINCT ?film	?filmLabel ?filmDescription 	?enwiki_article	?coor	?filminglocation	?filminglocationLabel ?actorLabel ?propertyLabel 
+	{
+  	?statement pq:P453 wd:Q2009573 .
+  	?film p:P161 ?statement . ?statement ps:P161 ?actor .
+  	?film wdt:P31/wdt:P279* wd:Q11424 .
+  	?film wdt:P915 ?filminglocation .
+  	?filminglocation wdt:P625 ?coor . 
+    filter not exists { ?filminglocation wdt:P17 ?filminglocation }  
+	OPTIONAL { ?enwiki_article schema:about ?film ; schema:isPartOf <https://en.wikipedia.org/> }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . 
+                            ?film rdfs:label ?filmLabel . ?film schema:description ?filmDescription . 
+                            ?filminglocation rdfs:label ?filminglocationLabel . ?actor rdfs:label ?actorLabel  }
+	}
+}

@@ -1,0 +1,6 @@
+#title: items should have an English label (1)
+# Complex constraint from [[Property talk:P244]]
+#
+SELECT ?item 
+WITH { SELECT ?item WHERE { ?item wdt:P244 ?LCCN } LIMIT 200000 } as %i 
+WHERE { INCLUDE %i OPTIONAL { ?item rdfs:label ?l . FILTER(LANG(?l) = "en")}  FILTER(!BOUND(?l)) } LIMIT 1000

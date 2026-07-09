@@ -1,0 +1,19 @@
+SELECT ?item ?link ?count WHERE {
+  {
+    SELECT ?item ?bhl (COUNT(DISTINCT(?stmt)) AS ?count) WHERE {
+           
+      hint:Query hint:optimizer "None" .
+      ?item wdt:P4327 ?bhl .
+      MINUS {?item wdt:P31/wdt:P279* wd:Q1002697}
+      ?item ?p ?stmt .
+      ?prop wikibase:claim ?p .
+  
+    } GROUP BY ?item ?bhl 
+    ORDER BY DESC (?count)
+    LIMIT 250  
+  }
+                   
+  wd:P4327 wdt:P1630 ?fmt .
+  BIND(REPLACE(?fmt, '\\$1'  , ?bhl) AS ?url) .
+  BIND(CONCAT('[', ?url, ' ', ?bhl, ']') AS ?link) .
+} ORDER BY DESC(?count)

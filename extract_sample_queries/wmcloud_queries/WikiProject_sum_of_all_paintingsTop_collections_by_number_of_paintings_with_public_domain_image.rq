@@ -1,0 +1,10 @@
+SELECT ?item 
+(COUNT(?painting) AS ?paintingcount) (COUNT(?image) AS ?imagecount) 
+((COUNT(?painting)-COUNT(?image)) AS ?missingimagecount) (ROUND(COUNT(?image)/COUNT(?painting)*100) AS ?percentage) WHERE {
+  ?painting wdt:P31 wd:Q3305213 ;
+        wdt:P195 ?item ;
+        wdt:P6216 wd:Q19652 .
+  OPTIONAL { ?painting wdt:P18 ?image }
+  } GROUP BY ?item
+ORDER BY DESC (?imagecount)
+LIMIT 200

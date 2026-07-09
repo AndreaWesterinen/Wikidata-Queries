@@ -1,0 +1,8 @@
+SELECT ?item ?downloadurl WHERE {
+  ?item p:P4765/ps:P4765 ?downloadurl ;
+        p:P6216 ?copyrightstatement .
+  ?copyrightstatement ps:P6216 wd:Q19652 .
+  ?copyrightstatement pq:P1001 wd:Q60332278 .
+  ?copyrightstatement pq:P459 wd:Q29940705     
+  } 
+  LIMIT 15000

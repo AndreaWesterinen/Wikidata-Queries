@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P1435 ?heritage .
+  ?item wdt:P17 wd:Q33 .
+  ?item wdt:P131* wd:Q1757 .  
+}
+GROUP BY ?item

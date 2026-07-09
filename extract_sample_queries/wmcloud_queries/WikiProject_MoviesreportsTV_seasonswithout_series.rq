@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel (SAMPLE(?title) as ?title)  (SAMPLE(?lang) as ?lang) ?sl 
+{
+	?item wdt:P31 wd:Q3464665 . FILTER NOT EXISTS { ?item wdt:P179 [] }
+    ?item wikibase:sitelinks ?sl 
+    OPTIONAL { [] schema:about ?item ; schema:name ?title ; schema:inLanguage ?lang } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel ?sl
+ORDER BY ?lang ?title

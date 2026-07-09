@@ -1,0 +1,14 @@
+SELECT ?item ?revenue ?hq ?date ?prof ?emp
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?item p:P2139 ?revenueSt .
+    ?revenueSt pq:P585 ?date .
+    ?revenueSt ps:P2139 ?revenue . 
+    FILTER((?date >= "2018-01-01T00:00:00Z"^^xsd:dateTime) && (?date <= "2018-12-31T00:00:00Z"^^xsd:dateTime))
+    FILTER( ?item not in (wd:Q11878499,wd:Q58197019,wd:Q54983885,wd:Q58197026,wd:Q60161033,wd:Q98930883))
+}
+ORDER BY DESC(?revenue)
+LIMIT 50

@@ -1,0 +1,6 @@
+#title: Sibling is the person self
+# Complex constraint from [[Property talk:P3373]]
+# A person can never be a sibling of himself/herself
+SELECT * WHERE {
+  ?item wdt:P3373 ?item .
+}

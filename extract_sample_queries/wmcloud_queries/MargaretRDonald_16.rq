@@ -1,0 +1,11 @@
+# Alex Lum's query for Siobhan Leachman
+# ("Here is a rough query which shows the Q-numbers of all items redirected to a human with occupation "botanist":)
+
+SELECT (REPLACE(STR(?item),".*Q","Q") AS ?qid) (REPLACE(STR(?tgt),".*Q","Q") AS ?tgtQid) ?tgtLabel
+WHERE {
+  ?tgt wdt:P31 wd:Q5 .         # instance of  human
+  ?tgt wdt:P106 wd:Q2374149 .  # occupation is botanist
+  ?item owl:sameAs ?tgt .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?qid

@@ -1,0 +1,4 @@
+embed.html#SELECT * WHERE {
+  ?q wdt:P17 wd:Q16 ; wdt:P31 wd:Q23397 ; wdt:P131 ?loc .
+  ?loc wdt:P31 wd:Q11828004 .
+}

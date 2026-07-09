@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?url
+WHERE
+{
+	?item wdt:P21 wd:Q6581072 . #gender female
+    {?url wikibase:badge wd:Q17437796} #with badge featured

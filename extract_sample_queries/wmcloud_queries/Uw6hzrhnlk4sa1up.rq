@@ -1,0 +1,18 @@
+SELECT DISTINCT ?color1 ?color1Label ?color2 ?color2Label (COUNT(DISTINCT ?flag) AS ?count) WHERE {
+  ?flag wdt:P31/wdt:P279* wd:Q186516 ;
+        wdt:P1001 ?country ;
+        wdt:P462/wdt:P279* ?color1 ;
+        wdt:P462/wdt:P279* ?color2 .
+  ?color1 wdt:P31 wd:Q1075 .
+  ?color2 wdt:P31 wd:Q1075 .
+  ?country wdt:P31 wd:Q3624078 .
+  FILTER NOT EXISTS { ?country wdt:P576 ?x }
+  FILTER NOT EXISTS { ?color1 wdt:P279 ?c . ?c wdt:P31 wd:Q1075 }
+  FILTER NOT EXISTS { ?color2 wdt:P279 ?c . ?c wdt:P31 wd:Q1075 }
+  ?color1 rdfs:label ?color1L filter (lang(?color1L) = "en") .
+  ?color2 rdfs:label ?color2L filter (lang(?color2L) = "en") .
+  FILTER(xsd:string(?color1L) < xsd:string(?color2L))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?color1 ?color1Label ?color2 ?color2Label
+ORDER BY DESC(?count) ?color1Label ?color2Label

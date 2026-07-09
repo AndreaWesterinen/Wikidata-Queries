@@ -1,0 +1,19 @@
+SELECT ?item ?itemLabel ?dates ?caseNo ?deathNo ?countryLabel WHERE { 
+  ?item wdt:P361 wd:Q83741704 .
+  OPTIONAL { ?item wdt:P17 ?country . }
+  ?item p:P1603 ?cases .
+  ?cases ps:P1603 ?caseNo ;
+         pq:P585 ?dates .
+  OPTIONAL{ ?item p:P1120 ?deaths .
+  ?deaths pq:P585 ?dates ;
+          ps:P1120 ?deathNo .
+  }
+  filter not exists {
+  {?item p:P1603/pq:P585 ?dates2 .}UNION
+  {?item p:P1120/pq:P585 ?dates2 .}
+  filter (?dates2 > ?dates)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}
+ORDER BY ?country
+#limit 10

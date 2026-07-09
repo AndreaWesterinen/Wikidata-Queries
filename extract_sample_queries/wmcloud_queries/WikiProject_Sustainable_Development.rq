@@ -1,0 +1,10 @@
+SELECT ?indicator ?indicatorDescription ?indicatorLabel ?targetDescription ?goalDescription
+WHERE {
+  ?indicator wdt:P31 wd:Q56726345.
+  ?indicator wdt:P1269 ?target.
+  ?target wdt:P31 wd:Q56724848.
+  ?target wdt:P1269 ?goal.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+  }
+}

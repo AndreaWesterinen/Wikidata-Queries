@@ -1,0 +1,7 @@
+SELECT ?item ?taxonName ?fna ?foc WHERE {
+	?item wdt:P225 ?taxonName .
+    ?item wdt:P1747 ?foc .
+    OPTIONAL {?item wdt:P1727 ?fna} .
+    FILTER (!bound(?fna))
+}
+ORDER BY ASC(?taxonName)

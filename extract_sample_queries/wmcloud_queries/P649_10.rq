@@ -1,0 +1,4 @@
+#title: National Historic Landmark but not listed on the National Register of Historic Places
+# Complex constraint from [[Property talk:P649]]
+# Items who are designated [[d:Q624232|National Historic Landmark <small>(Q624232)</small>]], but are not listed as [[d:Q19558910|National Register of Historic Places listed place <small>(Q19558910)</small>]] or [[d:Q20856087|NRHP district <small>(Q20856087)</small>]]
+SELECT ?item WHERE { ?item wdt:P1435 wd:Q624232 . MINUS { ?item wdt:P1435 wd:Q19558910 } MINUS { ?item wdt:P1435 wd:Q20856087 } }

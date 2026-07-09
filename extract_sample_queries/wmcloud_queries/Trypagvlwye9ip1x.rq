@@ -1,0 +1,1 @@
+SELECT ?sitelink { ?sitelink schema:about wd:Q28878586 }

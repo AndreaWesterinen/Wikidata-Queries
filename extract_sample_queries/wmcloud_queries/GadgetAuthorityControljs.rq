@@ -1,0 +1,5 @@
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT ?item ?imdb WHERE {
+  ?item wdt:P345 ?imdb FILTER (StrStarts(?imdb, "ev"))
+} ORDER BY ?imdb

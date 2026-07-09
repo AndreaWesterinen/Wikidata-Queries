@@ -1,0 +1,10 @@
+SELECT ?item ?id ?url WHERE {
+  ?item wdt:P31 wd:Q3305213;
+    (p:P170/ps:P170) wd:Q5577.
+  OPTIONAL { ?item wdt:P571 ?inception }
+  OPTIONAL {
+    wd:P6595 wdt:P1630 ?formatterurl.
+    ?item wdt:P6595 ?id.
+    BIND(CONCAT("[", REPLACE(?id, "^(.+)$", ?formatterurl), " P ", ?id, "]") AS ?url)
+  }
+} ORDER BY (?inception)

@@ -1,0 +1,30 @@
+SELECT ?item ?itemLabel ?value ?result (STRLEN(STR(?value)) AS ?stringlength)  ?snak ?rank
+WHERE
+{
+	{
+		SELECT ?item ?value ?result ?snak ?rank
+		WHERE
+		{
+			{
+				?item p:P396 [ ps:P396 ?value; wikibase:rank ?rank ] .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement1 pq:P396 ?value;
+					wikibase:rank ?rank .
+				?item ?p1 ?statement1 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P396 ?value .
+				?statement2 prov:wasDerivedFrom ?ref;
+					wikibase:rank ?rank .
+				?item ?p2 ?statement2 .
+				BIND("reference" AS ?snak) .
+			} .
+			BIND( REGEX( STR( ?value ), "^(IT\\\\ICCU\\\\\\D\\D[\\D\\d]\\D\\\\\\d{6})$" ) AS ?regexresult ) .
+			FILTER( ?regexresult = false ) .
+			BIND( IF( ?regexresult = true, "pass", "fail" ) AS ?result ) .
+			FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+		} 
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

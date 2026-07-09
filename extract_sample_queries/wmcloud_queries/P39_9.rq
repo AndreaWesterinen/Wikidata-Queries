@@ -1,0 +1,11 @@
+#title: Contemporary constraint in 'of' qualifier
+# Complex constraint from [[Property talk:P39]]
+#
+SELECT ?item ?de ?deDied ?born {
+  ?item p:P39 ?statement.
+  ?statement pq:P642 ?de.
+  ?de p:P570/psv:P570 [ wikibase:timeValue ?deDied ; wikibase:timePrecision ?deDiedPrecision ].
+  ?item p:P569/psv:P569 [ wikibase:timeValue ?born ; wikibase:timePrecision ?bornPrecision ].
+  FILTER (?born > ?deDied)
+  FILTER (?deDiedPrecision = ?bornPrecision)
+}

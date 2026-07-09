@@ -1,0 +1,6 @@
+SELECT ?itemLabel (COUNT(?item) as ?count) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item rdfs:label ?itemLabel .
+  FILTER (lang(?itemLabel)="en")
+  } GROUP BY ?itemLabel
+ORDER BY DESC(?count)

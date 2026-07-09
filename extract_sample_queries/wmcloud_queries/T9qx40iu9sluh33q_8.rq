@@ -1,0 +1,27 @@
+#defaultView:Map
+SELECT DISTINCT ?team ?teamLabel ?location ?layer
+WHERE
+{
+  {
+    # select only “popular” sports (to keep the number of layers reasonable)
+    SELECT ?sport
+    WHERE
+    {
+      # see below
+      VALUES ?clubTeam { wd:Q847017 wd:Q12973014 }
+      ?team wdt:P31/wdt:P279* ?clubTeam;
+            wdt:P115 [ wdt:P625 ?location ];
+            wdt:P641 ?sport.
+    }
+    GROUP BY ?sport
+    HAVING(COUNT(DISTINCT ?team) >= 5) # only sports played by at least five teams
+  }
+  VALUES ?clubTeam { wd:Q847017 wd:Q12973014 } # sports club or sports team
+  ?team wdt:P31/wdt:P279* ?clubTeam;
+        wdt:P115 [ wdt:P625 ?location ]; # location via home venue
+        wdt:P641 ?sport.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?sport rdfs:label ?layer. # (?sportLabel AS ?layer) in SELECT clause doesn’t work
+  }
+}

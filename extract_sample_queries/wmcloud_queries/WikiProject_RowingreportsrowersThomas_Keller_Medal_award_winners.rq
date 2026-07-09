@@ -1,0 +1,4 @@
+SELECT ?item ?year WHERE {
+  ?item p:P166 [ ps:P166 wd:Q634513; pq:P585 ?time ] .
+  BIND(YEAR(?time) AS ?year) .
+}

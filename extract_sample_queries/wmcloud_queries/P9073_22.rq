@@ -1,0 +1,15 @@
+#title: Value shouldn't be a (non-online) library
+# Complex constraint from [[Property talk:P9073]]
+# TODO: check how to fix values that amalgamate concepts
+select distinct 
+  ?item ?value ?instance 
+  # ?itemLabel ?valueLabel ?instanceLabel
+where
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P9073 ?value.
+  ?value wdt:P31/wdt:P279* wd:Q7075; wdt:P31 ?instance.
+  FILTER NOT EXISTS { ?instance wdt:P279* wd:Q212805 }
+  ?instance wdt:P279* wd:Q7075.
+  # SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }  
+}

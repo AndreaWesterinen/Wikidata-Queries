@@ -1,0 +1,8 @@
+embed.html##defaultView:BubbleChart
+SELECT ?type ?typeLabel (COUNT(DISTINCT ?item) AS ?count)
+WHERE {
+  ?item wdt:P31 ?type ; wdt:P212 [] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+GROUP BY ?type ?typeLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,9 @@
+select ?published_inLabel (count(?item) as ?count) where {
+  ?item wdt:P31 wd:Q13442814 . ?item wdt:P1325 ?resource . 
+  filter ( (regex(str(?resource), "http://neurovault.org/collections/", "i"))
+           ||
+          (regex(str(?resource), "https://openfmri.org/", "i"))
+          )
+  ?item wdt:P1433 ?published_in .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  } group by ?published_in ?published_inLabel

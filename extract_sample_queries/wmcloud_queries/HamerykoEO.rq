@@ -1,0 +1,4 @@
+SELECT ?lexemeId ?lemma WHERE {
+  ?lexemeId <http://purl.org/dc/terms/language> wd:Q143;
+            wikibase:lemma ?lemma.
+}

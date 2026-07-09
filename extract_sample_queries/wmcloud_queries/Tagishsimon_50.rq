@@ -1,0 +1,14 @@
+#title:Scottish things with commonscat but no image
+select distinct ?item ?itemLabel ?P31 ?P31Label  where {
+  ?item wdt:P131* wd:Q22  .
+  optional {?item wdt:P31 ?P31 .} 
+  {  ?article schema:about ?item ;
+     schema:isPartOf <https://commons.wikimedia.org/>.
+  }
+  UNION
+  {  ?item wdt:P373 []. }
+  filter not exists {?item wdt:P18 [] . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                        ?item rdfs:label ?itemLabel .
+                        ?P31 rdfs:label ?P31Label .} 
+} order by lcase(?P31Label) ?itemLabel

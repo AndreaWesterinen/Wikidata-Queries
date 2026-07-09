@@ -1,0 +1,19 @@
+embed.html##All public library branches of the Netherlands, layered by organisation
+#defaultView:Map{"hide":["?dplLoc","?orgLabel","?orgIsALabel"],"layer":"?orgLabel"}
+#defaultView:Map
+
+SELECT DISTINCT ?dpl ?dplLabel ?dplDescription ?dplImage ?dplLoc ?orgLabel ?orgIsALabel WHERE {
+#Is Dutch public library dpl
+?dpl wdt:P31 wd:Q28564. #public library
+?dpl wdt:P31 wd:Q11396180. #library branch 
+?dpl wdt:P17 wd:Q55. #in the Netherlands
+?dpl wdt:P625 ?dplLoc. #Location of the dpl
+OPTIONAL{?dpl wdt:P18 ?dplImage} #Image of the dpl
+  
+?dpl p:P361/ps:P361 ?org.  #PartOf - Mother organisation of the dpl 
+?org p:P31 [ps:P31 ?orgIsA].   
+FILTER(?orgIsA = wd:Q28324850). #Filter ?org voor alleen bibliotheekorganisatie wd:Q28324850 (zie bv OBA De Hallen en bij bibliobussen)}        
+
+SERVICE wikibase:label {bd:serviceParam wikibase:language "nl" .}
+}
+ORDER BY ?orgLabel ?dplDescription ?dplLabel

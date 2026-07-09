@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?start ?end ?date WHERE {
+  ?item wdt:P131* wd:Q38. 
+  ?item p:P2186 ?wlmst .
+  ?wlmst pq:P585 ?date .
+  { ?wlmst pq:P580 ?start } UNION { ?wlmst pq:P582 ?end }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". }
+}

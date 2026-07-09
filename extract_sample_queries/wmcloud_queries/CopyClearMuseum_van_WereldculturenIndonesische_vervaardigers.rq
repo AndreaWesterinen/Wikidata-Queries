@@ -1,0 +1,75 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q17153751.
+  {
+    ?item wdt:P19 ?pob.
+    ?pob wdt:P17 wd:Q188161.
+  }
+  UNION
+  {
+    ?item wdt:P937 ?pow.
+    ?pow wdt:P17 wd:Q188161.
+  }
+  UNION
+  {
+    ?item wdt:P551 ?por.
+    ?por wdt:P17 wd:Q188161.
+  }
+  UNION
+  {
+    ?item wdt:P20 ?pod.
+    ?pod wdt:P17 wd:Q188161.
+  }
+  UNION
+  {
+    ?item wdt:P19 ?pob.
+    ?pob wdt:P17 wd:Q252.
+  }
+  UNION
+  {
+    ?item wdt:P937 ?pow.
+    ?pow wdt:P17 wd:Q252.
+  }
+  UNION
+  {
+    ?item wdt:P551 ?por.
+    ?por wdt:P17 wd:Q252.
+  }
+  UNION
+  {
+    ?item wdt:P937 ?pod.
+    ?pod wdt:P20 wd:Q252.
+  }
+  UNION
+    {
+    ?item wdt:P19 ?pob.
+    ?pob wdt:P17 wd:Q941881.
+  }
+  UNION
+  {
+    ?item wdt:P937 ?pow.
+    ?pow wdt:P17 wd:Q941881.
+  }
+  UNION
+  {
+    ?item wdt:P551 ?por.
+    ?por wdt:P17 wd:Q941881.
+  }
+  UNION
+  {
+    ?item wdt:P20 ?pod.
+    ?pod wdt:P17 wd:Q941881.
+  }
+  UNION
+  {
+    ?item wdt:P27 wd:Q252.
+  }
+  UNION
+  {
+    ?item wdt:P27 wd:Q188161.
+  }
+  UNION
+  {
+    ?item wdt:P27 wd:Q941881.
+  }
+}

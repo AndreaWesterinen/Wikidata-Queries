@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel ?url WHERE {
+  ?item wdt:P973 ?url FILTER (CONTAINS(STR(?url),'filmlexikon') || CONTAINS(STR(?url),'ofdb'))
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "de,en"}
+} ORDER BY ?itemLabel

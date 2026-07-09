@@ -1,0 +1,39 @@
+SELECT ?item ?sitelink ?wikipagina
+  WITH {
+   SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P569 ?born .
+  	# nationality = Kingdom of the Netherlands
+  {?item wdt:P27 wd:Q29999}
+   	# OR place of birth within Netherlands
+	UNION  {?item wdt:P19 ?pob .
+  ?pob wdt:P17 wd:Q55}
+   	# OR work location within Netherlands
+	UNION  {?item wdt:P937 ?pow .
+  ?pow wdt:P17 wd:Q55}
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 ?por .
+  ?por wdt:P17 wd:Q55}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P20 ?pod .
+  ?pod wdt:P17 wd:Q55}
+  
+
+  FILTER NOT EXISTS {?item wdt:P6379 [] }.
+  FILTER NOT EXISTS {?item wdt:P1317 [] }.
+  FILTER NOT EXISTS {?item wdt:P7763 []}.  
+  FILTER NOT EXISTS {?item wdt:P570 []}.  
+  FILTER (?born >= "1880-01-01T00:00:00Z"^^xsd:dateTime )
+  FILTER (?born < "1900-01-01T00:00:00Z"^^xsd:dateTime )
+  } 
+  }
+  AS %results
+  WHERE {
+  INCLUDE %results.
+  ?item wdt:P106/wdt:P279* wd:Q3391743.
+  FILTER NOT EXISTS {
+  ?sitelink schema:about ?item .
+  ?sitelink schema:inLanguage ?lang .   
+  ?sitelink schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+  }
+ }

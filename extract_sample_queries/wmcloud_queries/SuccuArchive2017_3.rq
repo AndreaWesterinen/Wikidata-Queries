@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item ?itemLabel ?coordinates WHERE {
+ ?item wdt:P627 '22679494' .
+ }

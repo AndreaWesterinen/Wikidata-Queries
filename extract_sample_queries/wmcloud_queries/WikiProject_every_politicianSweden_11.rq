@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?start ?end
+WHERE {
+  ?item p:P39 ?positionStatement .
+  ?positionStatement ps:P39 ?position .
+  ?position wdt:P31* wd:Q10655178 .
+  ?positionStatement pq:P580 ?start .
+  ?positionStatement pq:P582 ?end .
+
+  BIND(YEAR(?start) AS ?startYear) .
+  BIND(YEAR(?end) AS ?endYear) .
+  
+  FILTER(?endYear - ?startYear > 4)
+  FILTER(?startYear > 1989)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

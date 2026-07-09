@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel ?itemDescription ?name ?sitelink WHERE {
+  ?sitelink schema:about ?item; schema:isPartOf <https://es.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'es' }
+} LIMIT 250

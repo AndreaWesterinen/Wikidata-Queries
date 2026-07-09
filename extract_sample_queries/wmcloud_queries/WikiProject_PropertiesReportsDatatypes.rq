@@ -1,0 +1,4 @@
+SELECT ?item (CONCAT("[[",strafter(str(?item),"y/"),"\u007C","wikibase:",strafter(str(?type),"#"),"]]") as ?t) ?ct ?sample ?sandbox ?url ?q
+WITH
+{
+  SELECT ?item ?type (COUNT(DISTINCT ?property) as ?ct) (SAMPLE(CONCAT("{","{P","

@@ -1,0 +1,10 @@
+embed.html##defaultView:Timeline
+SELECT ?book ?bookLabel ?date ?author ?authorLabel ?birthPlace ?birthPlaceLabel ?image WHERE {
+  VALUES ?bookType { wd:Q571 wd:Q3331189 }
+  ?book wdt:P50 ?author ; wdt:P31 ?bookType ; wdt:P577 ?date .
+  OPTIONAL { ?book wdt:P18 ?image }
+  ?author wdt:P19 ?birthPlace .
+  ?birthPlace wdt:P17 wd:Q55 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER (year(?date) < 1900)
+} LIMIT 100

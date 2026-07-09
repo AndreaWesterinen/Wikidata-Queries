@@ -1,0 +1,10 @@
+SELECT DISTINCT ?yob ?scientist ?scientistLabel WHERE {
+  ?scientist wdt:P31 wd:Q5.
+  ?scientist wdt:P106 wd:Q901 . # occupation scientist
+  ?scientist wdt:P569 ?dob .
+  ?scientist wdt:P27 wd:Q408.   # citizen of Australia
+  bind(year(?dob) as ?yob )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?scientistLabel
+LIMIT 400

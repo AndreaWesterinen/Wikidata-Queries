@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?statements WITH {
+  SELECT DISTINCT ?item WHERE {
+    ?item p:P106/ps:P106/wdt:P279* wd:Q26270618 .
+  }
+} AS %s WHERE {
+  INCLUDE %s .
+  ?item wikibase:sitelinks 0; wikibase:identifiers 0; wikibase:statements ?statements .
+  MINUS { [] ?backlink ?item }
+  OPTIONAL { ?item ?p [ prov:wasDerivedFrom [ ?pr [] ] ] . FILTER(?pr NOT IN (pr:P143, pr:P3452, pr:P887, pr:P4656)) }
+  FILTER(!BOUND(?p)) .
+  MINUS { ?item wdt:P973

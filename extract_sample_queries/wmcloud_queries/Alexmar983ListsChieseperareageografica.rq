@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P131 ?sub1 . ?sub1 (wdt:P131)* wd:Q16245
+  { ?item wdt:P31/wdt:P279* wd:Q16970 .}
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:Q19899465 .}
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:Q513550 .}
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:Q39614 .}
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:Q29553 .}
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:Q44613 .}
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:Q1430154 .}
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:Q192619 .}
+}

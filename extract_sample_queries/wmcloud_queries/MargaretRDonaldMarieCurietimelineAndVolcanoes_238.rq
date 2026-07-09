@@ -1,0 +1,9 @@
+# AFD publication papers without a pdf
+SELECT ?item  ?itemLabel ?datepub ?doi WHERE {
+  ?item wdt:P6982 ?afdpub . 
+  ?item wdt:P577 ?datepub.
+  ?item wdt:P356 ?doi.
+  minus {?item wdt:P953 ?pdf.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+ORDER BY ?datepub 

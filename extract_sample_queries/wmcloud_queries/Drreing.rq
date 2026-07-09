@@ -1,0 +1,7 @@
+SELECT DISTINCT (uri(concat(str(?x),"#P3365")) as ?url) ?id ?work
+WHERE {
+  ?x wdt:P3365 ?id .
+  FILTER regex(?id, "%[0-9][0-9]") .
+  BIND(REPLACE(STR(?id),".*(\\(|%28)|(\\)|%29).*","") AS ?work) .
+}
+ORDER BY ?work

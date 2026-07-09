@@ -1,0 +1,133 @@
+# This consultation seeks all cases of people murdered and/or disappeared by the Government of Brazil
+# during the period of the Brazilian civil-military dictatorship (1964-1985).
+# The results come from Wikidata and were inserted and cured using different official databases
+SELECT DISTINCT ?item ?nasc ?mort ?organizacao ?rotulo_ocupacao (group_concat(distinct(?ref)) as ?refs) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  #############################################################################################################
+  # References
+  #############################################################################################################
+  # Select all the people that appear in at least one of the official databases that have a Wikidata identifier
+  # and make the references for them. In order:
+  # Memórias da Ditadura (i);
+  # Desaparecidos Políticos (ii);
+  # Comissão da Verdade do Estado de São Paulo (iii);
+  # Comissão Especial Sobre Mortos e Desaparecidos (iv);
+  # Relatório da Comissão Nacional da Verdade (page).
+  {?item wdt:P6673 ?i}
+  UNION {?item wdt:P6674 ?ii}
+  UNION {?item wdt:P6690 ?iii}
+  UNION {?item wdt:P6692 ?iv}
+  UNION {?item wdt:P1343 wd:Q78782867. ?item p:P1343 [ prov:wasDerivedFrom [ pr:P304 ?page ] ].}
+  
+  BIND(CONCAT("[http://memoriasdaditadura.org.br/memorial/",str(?i),"]") as ?ref)
+  BIND(CONCAT("[http://www.desaparecidospoliticos.org.br/pessoa.php?id=",str(?ii),"]") as ?ref)
+  BIND(CONCAT("[http://comissaodaverdade.al.sp.gov.br/mortos-desaparecidos/",str(?iii),"]") as ?ref)
+  BIND(CONCAT("[https://web.archive.org/web/",strafter(?iv,"-"),"/http://cemdp.sdh.gov.br/modules/desaparecidos/acervo/ficha/cid/",strbefore(?iv,"-"),"]") as ?ref)
+  BIND(CONCAT("[https://commons.wikimedia.org/w/index.php?title=File:Relatório_da_CNV_3.pdf&page=",str(?page),"]") as ?ref)
+  
+  # Remove from this selection the people that died before the day of the coup d'état
+  MINUS {?item wdt:P570 ?data_morte.
+         FILTER(?data_morte < "1964-04-01T00:00:00Z"^^xsd:dateTime)}
+  
+  #############################################################################################################
+  # Organizations
+  #############################################################################################################
+  # Select the organization of which one were a member of.
+  # Here, there are three scenarios: 1) One were not part of an organization ("nenhuma organização"), 2) There
+  # is no information about one being member of an organization or 3) the organization is known and declared.
+  
+  OPTIONAL {?item p:P463 ?organizacao_p.
+            ?organizacao_p rdf:type wdno:P463.
+            BIND("nenhuma organização" as ?organizacao)}
+  OPTIONAL {?item wdt:P463 ?organizacao_aux.
+            BIND(IF(ISBLANK(?organizacao_aux),"não consta/desconhecida",?organizacao_aux) as ?organizacao)}
+  
+  #############################################################################################################
+  # Ocupations
+  #############################################################################################################
+  # Select one's ocupation.
+  # Here there is a verification of one's gender to apply the correct ocupation label, as by default in Wikidata
+  # the label is set to the masculine form.
+  OPTIONAL{?item wdt:P21 ?sex.
+           ?item wdt:P106 ?ocupacao.
+           
+           OPTIONAL{?ocupacao wdt:P2521 ?ocupacao_fem.
+                    BIND(lang(?ocupacao_fem) as ?lang).
+                    FILTER(?lang="pt-br")}
+           OPTIONAL{?ocupacao rdfs:label ?ocupacaoLabel.
+                    BIND(lang(?ocupacaoLabel) as ?lang).
+                    FILTER(?lang="pt-br")}
+           BIND(IF(?sex=wd:Q6581072, ?ocupacao_fem, ?ocupacaoLabel) as ?rotulo_ocupacao)
+          }
+  
+  #############################################################################################################
+  # Date of birth
+  #############################################################################################################
+  # Select one's date of birth.
+  # Here, to better display the date, and to format them in Portuguese, the date values (day, month and year)
+  # and the date precision (day, month, year, decade, century etc) are passed through a template called
+  # "Lista do Wikidata/Data". The date of birth itself can either be known, or unknown with qualifiers to
+  # narrow the possible periods of time, in which case a declaration is displayed with them and the correct
+  # prepositions ('entre' = 'between', 'antes de' = 'before' and 'depois de' = 'after')
+  OPTIONAL{?item p:P569/psv:P569 ?dn.
+           ?dn wikibase:timePrecision ?tp_n.
+           ?dn wikibase:timeValue ?tv_n.
+           BIND(CONCAT("{","{","Lista do Wikidata/Data|", str(YEAR(?tv_n)), "|", str(MONTH(?tv_n)), "|", str(DAY(?tv_n)), "|", str(?tp_n), "}", "}") as ?nasc)
+          }
+  OPTIONAL{?item wdt:P569 ?dn.
+           
+           OPTIONAL{?item p:P569/pqv:P1319 ?li_n.
+                    ?li_n wikibase:timeValue ?tv_li_n.
+                    ?li_n wikibase:timePrecision ?tp_li_n.
+                    BIND(CONCAT("{","{","Lista do Wikidata/Data|", str(YEAR(?tv_li_n)), "|", str(MONTH(?tv_li_n)), "|", str(DAY(?tv_li_n)), "|", str(?tp_li_n), "}", "}") as ?inf_n)
+                   }
+           OPTIONAL{?item p:P569/pqv:P1326 ?ls_n.
+                    ?ls_n wikibase:timeValue ?tv_ls_n.
+                    ?ls_n wikibase:timePrecision ?tp_ls_n.
+                    BIND(CONCAT("{","{","Lista do Wikidata/Data|", str(YEAR(?tv_ls_n)), "|", str(MONTH(?tv_ls_n)), "|", str(DAY(?tv_ls_n)), "|", str(?tp_ls_n), "}", "}") as ?sup_n)
+                   }
+           
+           BIND(IF(ISBLANK(?dn),
+                   IF(BOUND(?sup_n),
+                      IF(BOUND(?inf_n),
+                         concat("data desconhecida<br/>(<small>''entre ",str(?inf_n)," e ",str(?sup_n),"''</small>)"),
+                         concat("data desconhecida<br/>(<small>''antes de ",str(?sup_n),"''</small>)")),
+                      IF(BOUND(?inf_n),
+                         concat("data desconhecida<br/>(<small>''depois de ",str(?inf_n),"''</small>)"),
+                         "data desconhecida")),
+                   ?dn) as ?nasc)
+          }
+  #############################################################################################################
+  # Date of death
+  #############################################################################################################
+  # Select one's date of death.
+  # Equal to the date of birth above
+  OPTIONAL{?item p:P570/psv:P570 ?dm.
+           ?dm wikibase:timePrecision ?tp_m.
+           ?dm wikibase:timeValue ?tv_m.
+           BIND(CONCAT("{","{","Lista do Wikidata/Data|", str(YEAR(?tv_m)), "|", str(MONTH(?tv_m)), "|", str(DAY(?tv_m)), "|", str(?tp_m), "}", "}") as ?mort)
+          }
+  OPTIONAL{?item wdt:P570 ?dm.
+           OPTIONAL{?item p:P570/pqv:P1319 ?li_m.
+                    ?li_m wikibase:timeValue ?tv_li_m.
+                    ?li_m wikibase:timePrecision ?tp_li_m.
+                    BIND(CONCAT("{","{","Lista do Wikidata/Data|", str(YEAR(?tv_li_m)), "|", str(MONTH(?tv_li_m)), "|", str(DAY(?tv_li_m)), "|", str(?tp_li_m), "}", "}") as ?inf_m)
+                   }
+           OPTIONAL{?item p:P570/pqv:P1326 ?ls_m.
+                    ?ls_m wikibase:timeValue ?tv_ls_m.
+                    ?ls_m wikibase:timePrecision ?tp_ls_m.
+                    BIND(CONCAT("{","{","Lista do Wikidata/Data|", str(YEAR(?tv_ls_m)), "|", str(MONTH(?tv_ls_m)), "|", str(DAY(?tv_ls_m)), "|", str(?tp_ls_m), "}", "}") as ?sup_m)
+                   }
+           BIND(IF(ISBLANK(?dm),
+                   IF(BOUND(?sup_m),
+                      IF(BOUND(?inf_m),
+                         concat("data desconhecida<br/>(<small>''entre ",str(?inf_m)," e ",str(?sup_m),"''</small>)"),
+                         concat("data desconhecida<br/>(<small>''antes de ",str(?sup_m),"''</small>)")),
+                      IF(BOUND(?inf_m),
+                         concat("data desconhecida<br/>(<small>''depois de ",str(?inf_m),"''</small>)"),
+                         "data desconhecida")),
+                   ?dm) as ?mort)
+           }
+} group by ?item ?nasc ?mort ?organizacao ?rotulo_ocupacao
+order by ?desc(?ref)

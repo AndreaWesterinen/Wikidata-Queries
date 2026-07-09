@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?catnum ?catcode WHERE { 
+  ?item wdt:P195 wd:Q1459037.
+  ?item p:P528 ?catalogstatement.
+  ?catalogstatement ps:P528 ?catcode.
+  ?catalogstatement pq:P972 ?catalog .
+  ?catalog wdt:P50  wd:Q6555603 .
+  ?catalog wdt:P577 ?pubdate.
+  BIND( year(?pubdate) as ?year ).
+  FILTER( ?year = 1905)
+  BIND( REPLACE(?catcode, "[^0-9]", "") AS ?catnum).  
+} ORDER BY xsd:integer(?catnum)

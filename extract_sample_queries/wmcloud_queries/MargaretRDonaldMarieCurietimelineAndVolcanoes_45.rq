@@ -1,0 +1,10 @@
+# Cicada artworks in Wikidata
+SELECT DISTINCT ?item ?itemLabel ?creator ?creatorLabel 
+WHERE 
+{ 
+  ?item wdt:P170 ?creator.    # creator of work
+  ?item wdt:P180 wd:Q47328.   # depicts a cicada
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?creatorLabel

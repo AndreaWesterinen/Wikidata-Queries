@@ -1,0 +1,8 @@
+select ?item ?capital where {
+    ?item wdt:P31 wd:Q937876.
+    ?item wdt:P36 ?capital.
+    minus {
+      ?capital wdt:P31 wd:Q33146843.
+      ?capital wdt:P1376 ?item.
+    }
+  }

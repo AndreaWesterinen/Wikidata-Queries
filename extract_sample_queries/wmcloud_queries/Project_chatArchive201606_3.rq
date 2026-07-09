@@ -1,0 +1,11 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?teamLabel ?player ?playerLabel ?birthplaceLabel ?location WHERE {
+  ?team wdt:P31 wd:Q24199684 .
+  ?team wdt:P710 ?player .
+  ?player wdt:P19 ?birthplace .
+  ?birthplace wdt:P625 ?location
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+} ORDER BY ?birthplace

@@ -1,3 +1,4 @@
+#title: Get the Pathways citation corpus
 SELECT ?id ?item ?itemLabel ?referenceLabel
 WHERE
 {

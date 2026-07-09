@@ -1,0 +1,15 @@
+SELECT ?item ?revenue ?hq ?date ?prof ?emp
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?item p:P2139 ?revenueSt .
+    ?revenueSt a wikibase:BestRank; ps:P2139 ?revenue .
+    OPTIONAL { ?revenueSt pq:P585 ?date } .
+    OPTIONAL { ?item wdt:P2295 ?prof } . 
+    OPTIONAL { ?item wdt:P1128 ?emp } .
+    FILTER( ?item not in (wd:Q11878499,wd:Q58197019,wd:Q54983885,wd:Q58197026,wd:Q60161033,wd:Q11878927,wd:Q58623100,wd:Q98930883,wd:Q58219764,wd:Q15123994,wd:Q45252891,wd:Q12017963))
+}
+ORDER BY DESC(?revenue)
+LIMIT 119

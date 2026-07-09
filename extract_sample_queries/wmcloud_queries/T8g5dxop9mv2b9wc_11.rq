@@ -1,0 +1,18 @@
+#defaultView:Timeline
+SELECT ?family ?familyLabel (MAX(?age) AS ?age) (MIN(?born1) AS ?born1) (MAX(?born2) AS ?born2)
+WHERE
+{
+  ?person1 wdt:P31 wd:Q5;
+           wdt:P569 ?born1;
+           wdt:P53 ?family.
+  ?person2 wdt:P31 wd:Q5;
+           wdt:P570 ?born2;
+           wdt:P53 ?family.
+  FILTER(?born1 < ?born2).
+  BIND(ROUND((?born2 - ?born1)/365.2425) AS ?age).
+  FILTER(?age >= 500).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?family ?familyLabel
+HAVING(?age >= 500)
+ORDER BY DESC(?age)

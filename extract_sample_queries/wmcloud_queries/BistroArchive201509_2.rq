@@ -1,0 +1,21 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?o ?labelEn ?labelFr
+WHERE {
+  {
+    SELECT ?o
+    WHERE {
+      ?o wdt:P279+ wd:Q571 .
+    }
+  }
+  OPTIONAL {
+    ?o rdfs:label ?labelEn filter (lang(?labelEn) = "en") .
+  }
+  OPTIONAL {
+    ?o rdfs:label ?labelFr filter (lang(?labelFr) = "fr") .
+  }
+}
+ORDER BY ?o
+LIMIT 1000

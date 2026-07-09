@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription ?itemAltLabel {
+        { ?item wdt:P166 wd:Q949193 }
+  UNION { ?item wdt:P166 wd:Q30132541 }
+  UNION { ?item wdt:P166 wd:Q30132621 }
+  UNION { ?item wdt:P166 wd:Q30132672 }
+  UNION { ?item wdt:P166 wd:Q30132492 }
+  UNION { ?item wdt:P166 wd:Q30133065 }
+  UNION { ?item wdt:P166 wd:Q30132984 }
+  UNION { ?item wdt:P166 wd:Q30132589 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

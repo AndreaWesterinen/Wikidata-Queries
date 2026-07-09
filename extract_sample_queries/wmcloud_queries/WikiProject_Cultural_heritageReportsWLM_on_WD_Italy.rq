@@ -1,0 +1,8 @@
+SELECT ?idWD 
+    WHERE {
+        { ?idWD wdt:P2186 ?idWLM . } UNION
+        { ?idWD wdt:P1435 wd:Q26971668 .
+            MINUS { ?idWD wdt:P2186 ?idWLM . }
+        }
+        ?idWD wdt:P17 wd:Q38
+    }

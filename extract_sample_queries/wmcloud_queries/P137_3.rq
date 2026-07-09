@@ -1,0 +1,26 @@
+#title: Jail operator
+# Complex constraint from [[Property talk:P137]]
+#
+SELECT ?item ?operator {
+  ?item wdt:P31/wdt:P279* wd:Q40357.
+  ?item wdt:P137 ?operator.
+  FILTER (?operator NOT IN (wd:Q7553258, wd:Q1400015, wd:Q8772743, wd:Q5513196, wd:Q1135278, wd:Q8022, wd:Q2018436, wd:Q7834044, wd:Q11220, wd:Q1547708, 
+                            wd:Q17015228, wd:Q55867952, wd:Q57165085, wd:Q499104, wd:Q55315781, wd:Q4966552, wd:Q23074194, wd:Q1065, wd:Q6071108, wd:Q2821147))
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q7188 }
+  FILTER NOT EXISTS { ?operator wdt:P31/wdt:P279* wd:Q327333 }
+  FILTER NOT EXISTS { ?operator wdt:P1128 [] }
+  FILTER NOT EXISTS { ?operator wdt:P31/wdt:P279* wd:Q8473 }
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q2659904 }
+  FILTER NOT EXISTS { ?operator wdt:P31 wd:Q1802419 }
+  FILTER NOT EXISTS { ?operator wdt:P1056 wd:Q386432 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q152081 }
+  FILTER NOT EXISTS { ?operator wdt:P17 wd:Q77 }
+  FILTER NOT EXISTS { ?operator wdt:P31/wdt:P279* wd:Q7275 }
+  FILTER NOT EXISTS { ?operator p:P576 ?d }
+  FILTER NOT EXISTS { ?item p:P3999 ?old }
+  FILTER (?item NOT IN (wd:Q594994))
+  FILTER NOT EXISTS { ?operator wdt:P17 wd:Q414 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q683992 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q1498196 }
+  FILTER NOT EXISTS { ?item p:P8047 [] }
+}

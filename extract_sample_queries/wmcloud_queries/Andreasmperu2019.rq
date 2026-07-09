@@ -1,0 +1,3 @@
+SELECT * WHERE {
+    ?prof wdt:P106 wd:Q121594;
+  }

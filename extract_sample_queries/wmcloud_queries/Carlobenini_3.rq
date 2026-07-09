@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?coord
+WHERE 
+{ 
+       ?item wdt:P31 wd:Q16970 . 
+       ?item wdt:P131 ?sub1 . 
+       ?sub1 (wdt:P131)* wd:Q2028 .
+       ?item wdt:P625 ?coord .
+}

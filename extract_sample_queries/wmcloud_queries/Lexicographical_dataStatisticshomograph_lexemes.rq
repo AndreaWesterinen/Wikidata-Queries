@@ -1,0 +1,11 @@
+SELECT ?item (SUM(?ct) as ?ct_lexemes_with_homographs) (COUNT(?l) as ?ct_distinct_lemmas) 
+{
+  SELECT ?item (COUNT(DISTINCT ?a) as ?ct) ?l 
+  {
+      ?a <http://purl.org/dc/terms/language> ?item; wikibase:lemma ?l
+  }
+  GROUP BY ?l ?item
+  HAVING(?ct > 1)
+}
+GROUP BY ?item
+ORDER BY DESC(?ct_lexemes_with_homographs)

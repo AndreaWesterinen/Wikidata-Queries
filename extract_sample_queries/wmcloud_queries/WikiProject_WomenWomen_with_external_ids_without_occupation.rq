@@ -1,0 +1,13 @@
+SELECT ?item ?idcount WHERE {
+    ?item wdt:P21 wd:Q6581072 .
+    ?item wdt:P31 wd:Q5 .
+    ?item wikibase:identifiers ?idcount .
+   OPTIONAL {?item wdt:P106 ?occupation . }
+ FILTER(!bound(?occupation)) .
+      SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+  }
+ORDER BY DESC(?idcount )
+LIMIT 500

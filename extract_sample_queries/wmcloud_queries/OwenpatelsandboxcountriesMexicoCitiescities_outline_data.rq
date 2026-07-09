@@ -1,0 +1,28 @@
+SELECT ?item ?headofgov (GROUP_CONCAT(?headofgovinstanceof; SEPARATOR = "<br />")  AS ?hoginstancelist) ?council ?member (GROUP_CONCAT(?memberinstanceof; SEPARATOR = "<br />")  AS ?memberinstancelist) ?numberconstituencies (COUNT(?constituency) AS ?countconstituencies) (GROUP_CONCAT(?constituencyLab; SEPARATOR = "<br />") AS ?constituencyList) ?constype WHERE { 
+  VALUES ?item {wd:Q12348369 wd:Q9022143 wd:Q2557122 wd:Q2143868 wd:Q3313478 wd:Q6905368 wd:Q7258412 wd:Q2360428 wd:Q15121208}
+  OPTIONAL {?item wdt:P1313 ?headofgov .
+            ?headofgov wdt:P31 ?headofgovinstanceof
+            MINUS { ?headofgov wdt:P576 [] } 
+           } 
+  OPTIONAL {?item wdt:P194 ?council 
+            OPTIONAL { ?council wdt:P4253 ?numberconstituencies } 
+            OPTIONAL {?member wdt:P361 ?council .
+                      ?member wdt:P279 wd:Q708492 . 
+                      ?member wdt:P31 ?memberinstanceof
+                      MINUS {?member wdt:P576 [] } 
+           } 
+            OPTIONAL { ?statement ps:P279 wd:Q192611 ;
+                                  pq:P642 ?council.
+                      ?constype p:P279 ?statement .
+                      ?constituency wdt:P31/wdt:P279* ?constype ;
+                                    rdfs:label ?constituencyLab . 
+                      FILTER(lang(?constituencyLab) = 'en') 
+                      MINUS { ?constituency wdt:P576 [] }
+                     }
+            MINUS { ?council wdt:P576 [] } 
+            }
+  MINUS { ?item wdt:P576 [] } 
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q10864048 }
+} 
+GROUP BY ?item ?headofgov ?headofgovinstanceof ?council ?member ?memberinstanceof ?numberconstituencies ?constype 
+ORDER BY ?item ?constituency

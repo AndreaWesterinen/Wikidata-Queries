@@ -1,0 +1,7 @@
+embed.html#SELECT ?item ?labelEn WHERE {
+  ?item wdt:P31 wd:Q16970 ; wdt:P131+ wd:Q217829 .
+  MINUS { ?item rdfs:label ?labelFr.
+  FILTER(LANG(?labelFr) = "cy") }
+  ?item rdfs:label ?labelEn.
+  FILTER(LANG(?labelEn) = "en")
+}

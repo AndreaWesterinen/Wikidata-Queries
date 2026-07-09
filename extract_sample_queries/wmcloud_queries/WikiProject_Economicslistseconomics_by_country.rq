@@ -1,0 +1,6 @@
+SELECT ?item ?enwiki ?sts
+WHERE
+{
+    ?item wdt:P31 wd:Q6456916 ; wikibase:statements ?sts .
+    OPTIONAL { ?article1 schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/>  ; schema:name ?title         BIND( CONCAT("[[:en:",?title,"|",?title,"]]") as ?enwiki)  }
+}

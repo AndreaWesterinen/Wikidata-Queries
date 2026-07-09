@@ -1,0 +1,10 @@
+# Venue statistics for a specific author
+SELECT  DISTINCT ?work 
+   WHERE {
+    ?item wdt:P50 wd:Q38590672 . 
+	?work wdt:P50 wd:Q38590672 .
+    ?work wdt:P1433 ?venue .
+    ?work wdt:P1433 wd:Q27701587.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    optional {?work wdt:P356 ?DOI.} 
+  }

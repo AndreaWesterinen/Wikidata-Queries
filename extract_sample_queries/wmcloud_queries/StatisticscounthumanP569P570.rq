@@ -1,0 +1,1 @@
+SELECT (wd:Q5 as ?item) ?statcount {SELECT (COUNT(*) as ?statcount) { [] wdt:P31 wd:Q5; wdt:P570 []; wdt:P569 [] } }

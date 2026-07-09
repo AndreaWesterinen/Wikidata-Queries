@@ -1,0 +1,12 @@
+#title: Deprecate use case x3
+# Complex constraint from [[Property talk:P642]]
+# If the value is a part of the parent item, [[Property:P518|applies to part&#32;<small dir="ltr">(P518)</small>]] should be used instead. (Use case x3 on [[Wikidata:WikiProject Data Quality/Issues/P642]].)
+SELECT DISTINCT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P527 ?part.
+  ?item ?property [pq:P642 ?part]
+  FILTER (?property != p:P31)
+  FILTER (?property != p:P279)
+  FILTER (?property != p:P2868)
+}

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?dissolved ?merger ?mergerLabel ?inception WHERE {
+  # "merged into" (P7888) being used for entities that did not exist previously.
+  ?item wdt:P7888 ?merger.
+  ?item wdt:P576 ?dissolved.
+  ?merger wdt:P571 ?inception.
+  FILTER(?dissolved <= ?inception)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

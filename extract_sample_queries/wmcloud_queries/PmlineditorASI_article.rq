@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?sitelink_en ?sitelink_bn
+WHERE
+{
+  	?item wdt:P1435 wd:Q17047615 .
+ 
+  	OPTIONAL { ?sitelink_bn schema:about ?item . ?sitelink_bn schema:inLanguage "bn" . ?sitelink_bn schema:isPartOf <https://bn.wikipedia.org/>}
+  	OPTIONAL { ?sitelink_en schema:about ?item . ?sitelink_en schema:inLanguage "en" . ?sitelink_en schema:isPartOf <https://en.wikipedia.org/> }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+LIMIT 5000

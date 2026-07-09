@@ -1,0 +1,7 @@
+select (count(*) as ?total) {
+  {
+    select ?geonames {
+      ?item wdt:P1566 ?geonames .
+    } group by ?geonames having (count(*) > 1)
+  }
+} 

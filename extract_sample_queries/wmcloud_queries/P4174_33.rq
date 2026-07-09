@@ -1,0 +1,11 @@
+#title: WMDE
+# Complex constraint from [[Property talk:P4174]]
+#
+SELECT ?item ?value {
+	?item wdt:P4174 ?value.
+    FILTER (STRENDS( ?value, "(WMDE)" ))
+    FILTER NOT EXISTS { ?item p:P1416 [] }
+    FILTER NOT EXISTS { ?item p:P108 [] }
+    FILTER NOT EXISTS { ?item p:P463 [] }
+    FILTER NOT EXISTS { ?item wdt:P106 wd:Q3809586 }
+}

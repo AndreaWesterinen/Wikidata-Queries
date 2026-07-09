@@ -1,0 +1,9 @@
+SELECT ?item ?authornamestringLabel
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P1433 wd:Q5051313;
+        wdt:P2093 ?authornamestring.
+  FILTER(?authornamestring = "Tiziana Possemato")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

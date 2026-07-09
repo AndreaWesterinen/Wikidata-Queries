@@ -1,0 +1,4 @@
+#title: Equivalent to numeric value
+# Complex constraint from [[Property talk:P5176]]
+# Value should be equivalent to value in [[Property:P1181|numeric value&#32;<small dir="ltr">(P1181)</small>]]
+SELECT ?item { ?item wdt:P5176 ?v ; wdt:P1181 ?nv . FILTER(xsd:integer(?v) != xsd:integer(?nv) )  }

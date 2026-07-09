@@ -1,0 +1,14 @@
+SELECT DISTINCT ?itemLabel ?item  ?origineleNaam  ?naam ?auteursrechtenstatusLabel ?RKD ?geboortedatum ?overlijdensdatum ?gelijk 
+{
+	?item wdt:P6379 wd:Q2098586.
+	?item p:P6379 ?statement.
+	?statement ps:P6379 wd:Q2098586.
+   ?statement prov:wasDerivedFrom ?refnode.
+   ?refnode pr:P972 ?catalogus; #tms
+  FILTER NOT EXISTS {
+	?item p:P6379 ?statement2.
+	?statement2 ps:P6379 wd:Q2098586.
+   ?statement2 prov:wasDerivedFrom ?refnode2.
+   ?refnode2 pr:P9167 ?lakenhalwerk
+  }
+}

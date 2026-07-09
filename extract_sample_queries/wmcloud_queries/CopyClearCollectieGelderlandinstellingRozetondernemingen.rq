@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel ?objectsoort ?titel WHERE {
+  ?item wdt:P6379 wd:Q98908461.
+  MINUS {  ?item wdt:P31 wd:Q5.}
+}

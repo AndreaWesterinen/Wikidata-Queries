@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?labelen ?labelgu WHERE {
+ ?item wdt:P31 wd:Q5. 
+ ?item wdt:P6886 wd:Q5137. 
+ {?item wdt:P106 wd:Q36180} UNION {?item wdt:P106 [wdt:P279* wd:Q36180].} UNION {?item wdt:P106 wd:Q482980.} 
+ OPTIONAL { ?item rdfs:label ?labelen. FILTER(LANG(?labelen)="en") }
+ OPTIONAL { ?item rdfs:label ?labelgu. FILTER(LANG(?labelgu)="gu") }
+}

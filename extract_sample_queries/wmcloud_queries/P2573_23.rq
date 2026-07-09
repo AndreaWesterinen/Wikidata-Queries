@@ -1,0 +1,14 @@
+#title: Items that could use this property
+# Complex constraint from [[Property talk:P2573]]
+# e.g. sovereign states
+SELECT ?item ?pop 
+{
+	{ ?item wdt:P31 wd:Q3624078 }
+	MINUS { ?item wdt:P576 [] }
+	MINUS { ?item wdt:P582 [] }
+	MINUS { ?item wdt:P2573 [] }
+	MINUS { ?item wdt:P31 wd:Q3024240 }
+	MINUS { ?item p:P31 [ ps:P31 wd:Q3624078 ; pq:P582 ?t ] }
+	OPTIONAL { ?item wdt:P1082 ?pop }  
+}
+ORDER BY DESC(?pop)

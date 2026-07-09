@@ -1,0 +1,7 @@
+#twin cities of places in South Africa
+#defaultView:Map
+SELECT * WHERE {
+  ?item wdt:P190 ?sister;
+        wdt:P625 ?coord .
+  ?sister wdt:P131* wd:Q258 .
+}

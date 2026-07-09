@@ -1,0 +1,8 @@
+# Find taxon names with Queensland Biota ids
+SELECT  ?item ?itemLabel ?QLDBiota ?ATRFid WHERE {
+    ?item wdt:P225 ?taxon_name.
+   { ?item wdt:P8468 ?QLDBiota } UNION { ?item wdt:P6904 ?ATRFid} .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
+order by ?itemLabel

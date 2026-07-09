@@ -1,0 +1,12 @@
+# Find reptiles with AFD ids and with no reptile DB id
+SELECT ?item ?itemLabel
+  WHERE
+  {
+    ?item wdt:P6039 ?afd_id .
+    ?item wdt:P171* wd:Q122422.
+    hint:Prior hint:gearing "forward" .
+    minus {?item wdt:P5473 ?reptileDB_id.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    
+  }
+#limit 1000

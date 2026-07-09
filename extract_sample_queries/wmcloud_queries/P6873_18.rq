@@ -1,0 +1,8 @@
+#title: Missing P106
+# Complex constraint from [[Property talk:P6873]]
+#
+SELECT ?item {
+	?item wdt:P6873 [];
+          wdt:P31 wd:Q5.
+	FILTER NOT EXISTS { ?item p:P106 [] }
+}

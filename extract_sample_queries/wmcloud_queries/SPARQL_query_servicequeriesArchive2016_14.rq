@@ -1,0 +1,15 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?i1 ?i1Label ?i2 ?i2Label ?val ?val2 where {
+  ?i1 wdt:P214 ?val .
+  ?i2 wdt:P214 ?val .
+  ?i1 wdt:P569 ?val2 .
+  ?i2 wdt:P569 ?val2 .
+  
+  filter( !(?i1 = ?i2) && str(?i1) < str(?i2) )
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "fr,en" .
+  }
+}
+limit 100

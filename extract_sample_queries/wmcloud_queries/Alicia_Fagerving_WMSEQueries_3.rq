@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?sv WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q486972.
+  ?item wdt:P17 wd:Q34.
+  ?item rdfs:label ?sv.
+  FILTER((LANG(?sv)) = "sv")
+  #FILTER((STR(?sv)) = "Nora")
+}

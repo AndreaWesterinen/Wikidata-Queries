@@ -1,0 +1,1 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity ^ wdt:P921/wdt:P1433 wd:Q665807; wikibase:sitelinks 0; wikibase:identifiers 0. ?entity wdt:P31 ?grouping .} GROUP BY ?grouping HAVING (?count < 20) ORDER BY DESC(?count) LIMIT 1000

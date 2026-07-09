@@ -1,0 +1,38 @@
+embed.html##Provincies Gelderland
+#defaultView:Map
+SELECT ?Qvestiging ?QvestigingLabel ?coor ?partof ?partofLabel ?image ?layer WHERE {
+#SELECT ?s ?sLabel ?coor ?image ?layer WHERE { 
+  
+       ?Qvestiging (p:P31/ps:P31) wd:Q28564;wdt:P17 wd:Q55;
+          wdt:P625 ?coor ;
+          wdt:P361 ?partof ;
+          OPTIONAL {?Qvestiging wdt:P18 ?image .}
+  
+VALUES ?partof {
+#Gelderland
+wd:Q59962366 #St. OB Wageningen
+wd:Q59961903 #CODA Bieb Apeldoorn
+wd:Q59962187 #St. OB Gelderland Zuid 
+wd:Q59962244 #St. OB Scherpenzeel
+wd:Q59771462 #St. OB Rivierenland
+wd:Q59961906 #St.Arnhemse OB / Gelderse WB
+wd:Q59961982 #St. Bieb Montferlnd
+wd:Q59962021 #St. Basisbieb Noord-Veluwe
+wd:Q59961909 #St OB Barneveld
+                 }
+BIND(
+#Gelderland   
+IF(?partof = wd:Q59962366, "Wageningen",
+IF(?partof = wd:Q59961903, "Apeldoorn",
+IF(?partof = wd:Q59962187, "Nijmegen en omstreken", 
+IF(?partof = wd:Q59962244, "Scherpenzeel",
+IF(?partof = wd:Q59771462, "Culemborg, Geldermalsen, Tiel, Zaltbommel e.o",   
+IF(?partof = wd:Q59961906, "Arnhem", 
+IF(?partof = wd:Q59961982, "Montferland", 
+IF(?partof = wd:Q59962021, "Elburg, Epe, Hattem, Heerde en Oldebroek",
+IF(?partof = wd:Q59961909, "Barneveld",
+"")))))))))AS ?layer).  
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" }
+}
+ORDER BY ?layer ?partofLabel ?QvestigingLabel

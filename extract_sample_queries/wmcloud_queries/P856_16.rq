@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P856/ps:P856 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://(www\\.)?facebook\\.com/pages/([\\p{L}\\d.-]+/[1-9][0-9]+)/?(\\?f?ref=[a-z_]+)?(\\?sk=info&tab=page_info)?)$") )
+}

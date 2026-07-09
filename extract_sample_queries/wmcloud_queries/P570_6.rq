@@ -1,0 +1,9 @@
+#title: Date must be before now
+# Complex constraint from [[Property talk:P570]]
+#
+SELECT ?item ?date {
+  ?item wdt:P570 ?date.
+  ?item wdt:P31 wd:Q5.
+  FILTER (NOW() < ?date)
+  FILTER (?date != "2001-01-01")
+}

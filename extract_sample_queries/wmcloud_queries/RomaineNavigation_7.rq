@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?name WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P5068 ?type .
+MINUS { 
+  ?item wdt:P735 ?name
+}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl". }
+}

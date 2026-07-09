@@ -1,0 +1,19 @@
+SELECT (SAMPLE(?paper1) AS ?item) ?namedAuthor (COUNT(DISTINCT ?paper1) AS ?count) 
+(CONCAT("[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=", ENCODE_FOR_URI(?namedAuthor), "&filter=wdt%3AP2093+%22", ENCODE_FOR_URI(?namedAuthor), "%22 Curate works with the author name string '''''", ?namedAuthor, "''''']") AS ?string_matcher_rough) 
+
+WHERE {
+  {
+    SELECT ?namedAuthor ?paper1 
+    WHERE {
+      ?paper1 wdt:P50 ?author1 ; wdt:P50 ?author2 ; wdt:P50 ?author3 ; wdt:P2093 ?namedAuthor .
+      FILTER ( ?author1 != ?author2 && ?author1 != ?author3 && ?author3 != ?author2 )
+      ?paper2 wdt:P50 ?author1 ; wdt:P50 ?author2 ; wdt:P50 ?author3 ; wdt:P2093 ?namedAuthor .
+      FILTER ( ?paper1 != ?paper2 )
+#      ?paper3 wdt:P50 ?author1 ; wdt:P50 ?author2 ; wdt:P50 ?author3 ; wdt:P2093 ?namedAuthor .
+#      FILTER ( ?paper1 != ?paper3 )
+#      FILTER ( ?paper2 != ?paper2 )
+    } LIMIT 1000
+  } .
+}
+GROUP BY ?item ?namedAuthor ?count ?string_matcher_rough
+ORDER BY DESC(?count)

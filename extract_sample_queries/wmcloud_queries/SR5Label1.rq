@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?page ?nLabel WHERE {
+  ?item wdt:P31 wd:Q5;
+    wdt:P106 wd:Q937857.
+  ?article schema:about ?item;
+    schema:inLanguage "ar";
+    schema:name ?page.
+  FILTER((SUBSTR(STR(?article), 1 , 16 )) = "https://ar.wikip")
+  ?item rdfs:label ?itemLabel.
+  FILTER((LANG(?itemLabel)) = "ar")
+  FILTER(CONTAINS(LCASE(?page), "("))
+    BIND(REPLACE(STR(?page), "( [(][0-9أ-ي،, ]{3,}[)])", "") AS ?nLabel)
+        FILTER(STR(?nLabel) != STR(?itemLabel)) .
+}
+LIMIT 50

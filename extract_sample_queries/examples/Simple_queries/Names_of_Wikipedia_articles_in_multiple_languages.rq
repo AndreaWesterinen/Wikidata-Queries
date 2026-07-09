@@ -1,3 +1,4 @@
+#title: Names of Wikipedia articles in multiple languages
 SELECT DISTINCT ?lang ?name WHERE {
   ?article schema:about wd:Q5 . hint:Prior hint:runFirst true.
   ?article schema:inLanguage ?lang ;

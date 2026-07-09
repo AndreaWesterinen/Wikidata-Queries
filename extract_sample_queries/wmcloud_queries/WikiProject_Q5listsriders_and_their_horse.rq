@@ -1,0 +1,24 @@
+SELECT DISTINCT
+	?item ?value ?img ?inst 
+	(str(( 10 * ROUND( (?p1 + ?p2 + ?p3 + ?p4 + ?p5 + ?p6 + ?p7 + ?p10 + ?p11 + ?p12 ) / 10 * 10))) as ?c1)
+	(CONCAT("data-sort-value='", ?c1, "' \u007C [[File:Progressbar", ?c1, ".png\u007Ccenter\u007C100px\u007C ", ?c1, " %]]") as ?completeness)
+{
+	# VALUES ?item { wd:Q21069087 }
+	?item ^wdt:P3091 ?value .
+  	OPTIONAL { ?value wdt:P18 ?img }
+  	OPTIONAL { ?value wdt:P31 ?inst }
+  	OPTIONAL { ?item wdt:P21 ?pr1 }  BIND(IF(!BOUND(?pr1), 0, 1) as ?p1)
+  	OPTIONAL { ?item wdt:P31 ?pr2 }  BIND(IF(!BOUND(?pr2), 0, 1) as ?p2)  
+  	OPTIONAL { ?item wdt:P18 ?pr3 }  BIND(IF(!BOUND(?pr3), 0, 1) as ?p3) 
+  	OPTIONAL { ?item wdt:P569 ?pr4 }  BIND(IF(!BOUND(?pr4), 0, 1) as ?p4)
+  	OPTIONAL { ?item wdt:P462 ?pr5 }  BIND(IF(!BOUND(?pr5), 0, 1) as ?p5)
+  	OPTIONAL { ?item wdt:P570 ?pr6 }  BIND(IF(!BOUND(?pr6), IF(BOUND(?pr4) && YEAR(?pr4)>1985,1, 0), 1) as ?p6) 
+  	OPTIONAL { ?item wdt:P2048 ?pr7 }  BIND(IF(!BOUND(?pr7), 0, 1) as ?p7)
+  	OPTIONAL { ?item wdt:P40 ?pr8 }
+  	OPTIONAL { ?item wdt:P25 ?pr9 }
+  	OPTIONAL { ?item wdt:P22 ?pr10 }  BIND(IF(!BOUND(?pr8)&&!BOUND(?pr9)&&!BOUND(?pr10), 0, 1) as ?p10)
+  	OPTIONAL { ?item wdt:P31 ?pr11 . ?pr11 wdt:P31 wd:Q3745054 } . BIND(IF(!BOUND(?pr11), 0, 1) as ?p11)
+  	OPTIONAL { ?item wdt:P1705 ?pr12 }  BIND(IF(!BOUND(?pr12), 0, 1) as ?p12)
+}
+ORDER BY DESC(xsd:integer(STRAFTER(str(?value), "Q"))) ASC(xsd:integer(STRAFTER(str(?item), "Q")))
+LIMIT 1000

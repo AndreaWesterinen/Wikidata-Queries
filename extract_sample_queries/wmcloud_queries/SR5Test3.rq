@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q5;
+    wdt:P27 wd:Q28179.
+}
+LIMIT 5000

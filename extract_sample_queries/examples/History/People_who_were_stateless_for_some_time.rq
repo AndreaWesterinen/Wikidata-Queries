@@ -1,5 +1,6 @@
-# ----
+#title: People who were stateless for some time
 # persons who were stateless (country of citizenship: no value) for some time (start time and end time qualifiers)
+
 SELECT ?person ?personLabel ?start ?end WHERE {
   ?person wdt:P31 wd:Q5;
           p:P27 [

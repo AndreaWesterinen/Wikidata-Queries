@@ -1,0 +1,35 @@
+SELECT ?item ?itemLabel ?count ?countPictoRight ?countOverig ?PictoRightPercentage ?overigPercentage
+WITH {
+  SELECT DISTINCT ?item ?human WHERE {
+    ?human wdt:P31 wd:Q5 .
+    ?human wdt:P6379 ?item.
+    #?item wdt:P17 wd:Q55.# nl-instituut
+    ?human wdt:P7763 wd:Q73555012
+    FILTER (?item IN (wd:Q64159711, wd:Q88465083))
+  }
+} AS %humans
+WITH {
+  SELECT DISTINCT ?human ?PictoRight ?overig WHERE {
+    INCLUDE %humans.
+    OPTIONAL {
+      ?human wdt:P6275 wd:Q71528227
+      BIND(1 AS ?PictoRight)
+    }
+    OPTIONAL {
+      ?human wdt:P6275 ?vertegenwoordiger
+      MINUS { ?human wdt:P6275 wd:Q71528227 }
+      BIND(1 AS ?overig)
+    }
+  }
+} AS %humansWithRep
+WITH {
+  SELECT ?item (COUNT(?human) AS ?count) (SUM(?PictoRight) AS ?countPictoRight) (CONCAT(str(ROUND(SUM(?PictoRight)* 100 / (COUNT(?human)))), "% (", str(SUM(?PictoRight)), " personen)") AS ?PictoRightPercentage) (SUM(?overig) AS ?countOverig) (CONCAT(str(ROUND(SUM(?overig)* 100 / (COUNT(?human)))), "% (", str(SUM(?overig)), " personen)") AS ?overigPercentage) WHERE {
+    INCLUDE %humans.
+    INCLUDE %humansWithRep.
+  }
+  GROUP BY ?item
+} AS %items
+WHERE {
+  INCLUDE %items.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

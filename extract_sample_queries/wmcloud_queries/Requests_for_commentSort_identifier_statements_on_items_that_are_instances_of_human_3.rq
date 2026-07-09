@@ -1,0 +1,5 @@
+SELECT (COUNT(?item) AS ?count)
+WHERE {
+ ?item wdt:P213 [].
+  minus{?item wdt:P214 []}     
+}

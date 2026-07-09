@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?a1 ?i1Label ?a2 ?i2Label 
+WHERE
+{
+  ?item wdt:P1343 wd:Q665807 .
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P1343 ?st . ?st ps:P1343 wd:Q665807 .
+  ?st pq:P805 ?a1 ; pq:P805 ?a2 . 
+  FILTER( str(?a1) > str(?a2) ) 
+  OPTIONAL { ?a1 wdt:P31 ?i1 }
+  OPTIONAL { ?a2 wdt:P31 ?i2 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

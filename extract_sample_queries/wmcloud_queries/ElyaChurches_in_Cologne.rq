@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item ?itemLabel ?enddate WITH {  SELECT DISTINCT ?item WHERE { ?item wdt:P131* wd:Q365 .} } AS %subquery WHERE {INCLUDE %subquery . ?item p:P31 ?statementNode . ?statementNode ps:P31/wdt:P279* wd:Q16970 . OPTIONAL { ?statementNode pq:P582 ?enddate .} SERVICE wikibase:label { bd:serviceParam wikibase:language 'de,en' } }

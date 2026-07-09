@@ -1,0 +1,7 @@
+#title: Items with Linz inventory number missing identifier
+# Complex constraint from [[Property talk:P10759]]
+# Items that have an [[Property:P217|inventory number&#32;<small dir="ltr">(P217)</small>]] in [[d:Q475667|Führermuseum <small>(Q475667)</small>]], but [[Property:P10759|Linz DB ID&#32;<small dir="ltr">(P10759)</small>]] is missing
+SELECT ?item ?id WHERE {
+ ?item p:P217 [ ps:P217 ?id ; pq:P195 wd:Q475667 ] 
+  MINUS { ?item wdt:P10759 ?id } .
+  }

@@ -1,0 +1,19 @@
+# Items about humans who are FRS with/without  a Wikipedia page
+# and demanding that they be human
+SELECT ?FRS ?FRSLabel?article  with { select distinct ?FRS WHERE 
+ {
+   ?FRS wdt:P166 wd:Q15631401.
+   ?FRS wdt:P31 wd:Q5.             # is human
+   #?FRS wdt:P21 wd:Q6581072.       # is female (
+      
+ } } as %i where
+
+{
+  include %i
+     OPTIONAL
+    {?article schema:about ?FRS. # and optionally have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+     }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?article ?FRSLabel

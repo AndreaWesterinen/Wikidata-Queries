@@ -1,0 +1,8 @@
+SELECT ?person ?personLabel ?dblp ?dob WHERE {
+  ?person wdt:P106 ?occupation.
+  ?occupation wdt:P279* wd:Q82594.
+  OPTIONAL { ?person wdt:P2456 ?dblp. }
+  ?person wdt:P569 ?dob.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+order by ?dob

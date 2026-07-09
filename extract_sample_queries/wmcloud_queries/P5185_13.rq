@@ -1,0 +1,13 @@
+#title: Value should be one of has grammatical gender (P5109) used on language item
+# Complex constraint from [[Property talk:P5185]]
+# TODO: add with [[Property:P5109|has grammatical gender&#32;<small dir="ltr">(P5109)</small>]] to language, fix lexeme or define exception
+SELECT ?item ?lemma ?gender ?lang  # ?genderLabel  ?langLabel
+WHERE
+{
+  ?item <http://purl.org/dc/terms/language> ?lang ; wikibase:lemma ?lemma ; wikibase:lexicalCategory ?lcat .
+  ?item wdt:P5185 ?gender . 
+  MINUS { ?lang wdt:P5109 ?gender }
+  FILTER ( ?lang not in ( wd:Q9056 ) )
+  # SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}
+ORDER BY ?lang ASC(xsd:integer(strafter(str(?item),"/L"))) LIMIT 500

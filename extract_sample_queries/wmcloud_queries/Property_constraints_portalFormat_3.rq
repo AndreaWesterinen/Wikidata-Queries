@@ -1,0 +1,9 @@
+SELECT ?property ?propertyLabel (COUNT(DISTINCT ?item) as ?ct)
+WHERE
+{
+  ?property wikibase:propertyType wikibase:ExternalId; wikibase:claim ?p; wikibase:novalue ?wdno .
+  ?item ?p [ rdf:type ?wdno ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?property ?propertyLabel
+ORDER BY DESC(?ct)

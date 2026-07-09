@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel
+
+  WHERE {
+
+   ?item p:P921 ?subject .
+   ?subject ps:P921 wd:Q18558027 .  # atypical teratoid rhabdoid tumor
+   FILTER EXISTS {
+     	?subject prov:wasDerivedFrom ?reference.
+        ?reference pr:P248 wd:Q180686.
+                  }
+
+   SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+       }

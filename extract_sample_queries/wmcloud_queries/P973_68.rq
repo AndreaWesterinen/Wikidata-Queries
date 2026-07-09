@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P973/ps:P973 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://(www\\.|beta\\.)?musicbrainz.org/event/([0-9a-f]{8&#125;-[0-9a-f]{4&#125;-[0-9a-f]{4&#125;-[0-9a-f]{4&#125;-[0-9a-f]{12}))$") )
+}

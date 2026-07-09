@@ -1,3 +1,4 @@
+#title: Awarded Chemistry Nobel Prizes
 #defaultView:Timeline
 SELECT DISTINCT ?item ?itemLabel ?when (YEAR(?when) as ?date) ?pic
 WHERE {

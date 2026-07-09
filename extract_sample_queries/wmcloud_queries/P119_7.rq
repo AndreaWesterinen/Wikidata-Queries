@@ -1,0 +1,54 @@
+#title: Check important persons # 2
+# Complex constraint from [[Property talk:P119]]
+#
+SELECT DISTINCT ?item ?died {
+  ?item wdt:P119/wdt:P31/wdt:P279* wd:Q162875. # 893
+  ?item wdt:P31 wd:Q5. # * tmp *
+  MINUS { ?item p:P53 ?aa } # 527
+  #MINUS { ?item p:P106 ?b } # 87 ; bien pratique :/
+  MINUS { ?item wdt:P22/wdt:P39 ?functionFather } # 57
+  MINUS { ?item p:P1442 ?b } # 52, bien pratique
+  MINUS { ?item wdt:P22/wdt:P119/wdt:P31 wd:Q162875 } # 43, exclude Q541665   ** duplicate code: Q162875 **
+  MINUS { ?item p:P535 ?c } # 40, exclude Q64091692
+  MINUS { ?item wdt:P26/wdt:P39 ?functionConjoint } # 29, exclude Q33673045
+  MINUS { ?item wdt:P40/wdt:P39 ?functionChild } # exclude : "mother of Jiajing Emperor" (Q8254570)
+  MINUS { ?item wdt:P22/wdt:P1442 ?i } # 10, exclude: Q19521611, -1
+  MINUS { ?item wdt:P140 wd:Q432 } # religion, -4
+  MINUS { ?item wdt:P40/wdt:P119/wdt:P31 wd:Q162875 } # to exclude Q6381943
+  MINUS {
+    VALUES ?columbarium { wd:Q3006253 wd:Q17364144 wd:Q10918978 wd:Q3893448 wd:Q994694 wd:Q7231495 }. # Q10918978: tombe de lui meme
+    ?item wdt:P119 ?columbarium.
+  }
+  MINUS { ?item wdt:P22/wdt:P97 wd:Q273613 }
+  ?item wdt:P119 ?died. # **tmp**
+  MINUS { ?item wdt:P39/wdt:P279* wd:Q116 } # monarque
+  MINUS { ?item wdt:P39/wdt:P279* wd:Q15995642 }
+  MINUS { ?item wdt:P106 wd:Q23833535 }
+  MINUS { ?item wdt:P39 wd:Q3409212 }
+  MINUS { ?item wdt:P97 [] }
+  MINUS { ?item wdt:P410 wd:Q83460 }
+  FILTER (?item NOT IN (wd:Q3611140, wd:Q26208914, wd:Q562417, wd:Q6057440, wd:Q10558979, wd:Q7788340, wd:Q3357599, wd:Q2226355, wd:Q6111001, wd:Q991533)) # wd:Q26208914 cousine de
+  ?item wdt:P106 []. # occupation
+  MINUS { ?item wdt:P106 wd:Q372436 }
+  MINUS { ?item wdt:P1411 ?nommePour } # exclude Q329254
+  MINUS { ?item wdt:P39 wd:Q175240 }
+  MINUS { ?item wdt:P39 ?fonction }
+  MINUS { ?item wdt:P106 wd:Q131524 }
+  MINUS { ?item wdt:P106 wd:Q2095549 }
+  MINUS { ?item wdt:P802 ?eleve }
+  MINUS { ?item wdt:P509 wd:Q81672 }
+  MINUS { ?item wdt:P106 wd:Q3242115 }
+  MINUS { ?item wdt:P19 wd:Q8356 }
+  MINUS { ?item wdt:P410 [] } # grade militaire
+  MINUS { ?item wdt:P800 [] } # oeuvre notable
+  MINUS { ?item wdt:P2002 [] } # TODO: count followers of Q494996
+  MINUS { ?item wdt:P119 wd:Q5574219 }
+  MINUS { ?item wdt:P106 wd:Q43845 }
+  MINUS { ?item wdt:P119/wdt:P825 ?item }
+  MINUS { ?item wdt:P119/wdt:P2025 [] }
+  MINUS { ?item wdt:P509 [] } # quick
+  MINUS { ?item wdt:P1196 [] } # quick
+  MINUS { ?item wdt:P140 [] } # quick
+  MINUS { ?item wdt:P106 wd:Q49757 }
+  MINUS { ?item wdt:P20 wd:Q8356 }
+}

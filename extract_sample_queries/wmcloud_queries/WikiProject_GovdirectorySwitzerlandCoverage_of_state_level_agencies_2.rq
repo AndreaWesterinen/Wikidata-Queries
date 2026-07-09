@@ -1,0 +1,2 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31 ?grouping.
+VALUES ?grouping { wd:Q113025511 wd:Q113015553 }.}

@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel 
+  (SAMPLE(?bn) as ?bn)
+  ?itemDescription 
+  (SAMPLE(?sl) as ?sl)
+  (SAMPLE(?st) as ?st)
+  (COUNT(DISTINCT ?director) as ?dir)
+  (COUNT(DISTINCT ?actor) as ?act)
+  (SAMPLE(?film) as ?sample)
+WHERE
+{
+    ?film wdt:P31 wd:Q11424; wdt:P495 wd:Q902 .
+    { ?film wdt:P57 ?item . BIND(?film as ?director)  }
+    UNION
+    { ?film wdt:P161 ?item . BIND(?film as ?actor) } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    OPTIONAL { ?item rdfs:label ?bn . FILTER(lang(?bn)="bn" )  }
+    OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl }
+}
+GROUP BY ?item ?itemLabel ?itemDescription
+ORDER BY ?itemLabel

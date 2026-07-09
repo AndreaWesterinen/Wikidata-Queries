@@ -1,0 +1,20 @@
+# Items with no site link and is a word, concept or principle
+SELECT ?item ?itemLabel ?link
+WHERE
+{
+  values ?list {
+  wd:Q8171
+  wd:Q2944660
+  wd:Q151885
+  wd:Q1969448
+  wd:Q211364
+  wd:Q24905
+  }
+  {?item wdt:P31 ?list.}
+  union
+  {?item wdt:P31/wdt:P279* wd:Q82042.}
+  minus {?item wdt:P5008 [].} 
+  filter (?link = 0)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 500

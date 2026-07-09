@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription (URI(REPLACE(?pattern, '\\$1', ?TTDB)) AS ?TTDB_URL) ?enWP_article (SAMPLE(?img) AS ?img) 
+WHERE
+{
+	  wd:P4079 wdt:P1630 ?pattern .
+      ?item wdt:P4079 ?TTDB .
+ OPTIONAL { ?enWP_article schema:about ?item; schema:isPartOf <https://en.wikipedia.org/> } .
+
+ OPTIONAL {
+ ?item wdt:P18 ?img .
+ }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } 
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?TTDB ?pattern ?TTDB_URL ?enWP_article
+LIMIT 100

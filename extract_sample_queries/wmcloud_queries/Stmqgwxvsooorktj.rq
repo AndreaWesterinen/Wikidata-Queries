@@ -1,0 +1,16 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+prefix schema: <http://schema.org/>
+
+SELECT ?item WHERE {
+  ?item wdt:P569 ?date .
+  FILTER (?date < "1500-01-01T00:00:00Z"^^xsd:dateTime).
+    ?article schema:about ?item .
+  	FILTER (SUBSTR(str(?article), 1, 35) = "https://species.wikimedia.org/wiki/")
+} LIMIT 1000

@@ -1,0 +1,8 @@
+#title: Value should not have VIAF ID
+# Complex constraint from [[Property talk:P735]]
+# Two possibilities: (1) change P735 value if incorrect item is used, (2) move P214 statement from value if property applied incorrectly, (3) ..
+SELECT DISTINCT ?item
+{
+    [] wdt:P735 ?item .
+    ?item wdt:P214 [] .
+}

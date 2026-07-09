@@ -1,0 +1,8 @@
+SELECT DISTINCT (STRAFTER(STR(?p), "/entity/") AS ?_p) ("P53" AS ?p53) (STRAFTER(STR(?r), "/entity/") AS ?_r) ("S5852" AS ?source) (STRAFTER(STR(?o), "/entity/") AS ?_o) WHERE {
+  ?p wdt:P27 wd:Q172107;
+    wdt:P22 ?o.
+  ?o wdt:P53 ?r.
+  OPTIONAL { ?p wdt:P53 ?rp. }
+  FILTER(!(BOUND(?rp)))
+}
+ORDER BY (?_r)

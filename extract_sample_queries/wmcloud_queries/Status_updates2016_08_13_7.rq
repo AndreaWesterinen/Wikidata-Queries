@@ -1,0 +1,7 @@
+SELECT ?thoroughfare ?thoroughfareLabel ?universeLabel
+WHERE
+{
+  ?thoroughfare wdt:P31 wd:Q18948595.
+  OPTIONAL { ?thoroughfare wdt:P1080 ?universe. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en", "da". }
+}

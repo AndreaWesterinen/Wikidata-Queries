@@ -1,0 +1,10 @@
+SELECT distinct ?person ?personLabel ?died {
+  { ?person wdt:P463 wd:Q123885 . } union { ?person wdt:P166 wd:Q15631401 } .
+  ?person wdt:P570 ?died . 
+  FILTER (?died >= "1932-01-01T00:00:00Z"^^xsd:dateTime) .
+  FILTER (?died <= "1970-01-01T00:00:00Z"^^xsd:dateTime) .
+  MINUS { { ?item wdt:P1433 wd:Q4914871 } UNION { ?item wdt:P1433 wd:Q29043655 } .
+  ?item wdt:P921 ?person . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+order by ?died

@@ -1,0 +1,15 @@
+SELECT distinct ?i ?iLabel ?country ?countryLabel ?position ?positionLabel ?start ?end WHERE {
+  ?i p:P39 ?pstatement .
+  ?pstatement ps:P39  ?position;
+              pq:P580 ?start;
+              pq:P582 ?end .
+  { ?position wdt:P279* wd:Q2285706 } union { ?position wdt:P279* wd:Q48352 }
+  ?position wdt:P1001 ?country .
+  ?country wdt:P31/wdt:P279* wd:Q6256 .
+  filter ( year ( ?start ) < 1754 ) .
+  filter ( year ( ?end   ) > 1754 ) .
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

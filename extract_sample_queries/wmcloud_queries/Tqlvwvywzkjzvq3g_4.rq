@@ -1,0 +1,12 @@
+#Place of birth of spanish queen consorts
+#defaultView:Map
+
+SELECT ?item ?itemLabel ?koord
+WHERE
+{
+	?item wdt:P31 wd:Q5 .
+  	?item wdt:P39 wd:Q6104617 .
+  	?item wdt:P19 ?jaiolekua .
+  	?jaiolekua wdt:P625 ?koord.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

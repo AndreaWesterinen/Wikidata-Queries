@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?def (GROUP_CONCAT(DISTINCT CONCAT(?partLabel, COALESCE( CONCAT(" (",?sym,")"),"") ); separator=", ") as ?d)  
+{
+	?item wdt:P2534 ?def .
+    ?item p:P527 ?st . 
+    ?st ps:P527 ?part . 
+    OPTIONAL { ?st pq:P416 ?sym } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"
+                           . ?part rdfs:label ?partLabel . ?item rdfs:label ?itemLabel .
+                            ?item schema:description ?itemDescription
+                           }
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?def
+ORDER BY ?itemLabel 

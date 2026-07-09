@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?dirigeant ?dirigeantLabel WHERE {
+  wd:Q1450662 ((wdt:P355*)/(wdt:P527*)) ?item.
+  OPTIONAL {?item wdt:P1037 ?dirigeant. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

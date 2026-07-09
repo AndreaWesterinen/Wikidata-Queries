@@ -1,0 +1,1 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P1435 wd:Q811165; wdt:P131* wd:Q400430; FILTER NOT EXISTS{ ?entity wdt:P5816 wd:Q63065035 }.}

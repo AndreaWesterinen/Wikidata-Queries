@@ -1,0 +1,22 @@
+SELECT ?item (GROUP_CONCAT(DISTINCT(?nr_s)) as ?staffel) (GROUP_CONCAT(DISTINCT(?nr_e)) as ?episode) 
+(GROUP_CONCAT(DISTINCT(?delabel)) as ?delabels) 
+(GROUP_CONCAT(DISTINCT(?titleqc)) as ?titleqc) 
+(GROUP_CONCAT(DISTINCT(?itlabel)) as ?itlabels) 
+(GROUP_CONCAT(DISTINCT(?frlabel)) as ?frlabels) 
+(GROUP_CONCAT(DISTINCT(?hulabel)) as ?hulabels) 
+WHERE 
+{  
+  ?item wdt:P31/wdt:P279* wd:Q21191270 .
+  ?item wdt:P179 wd:Q131758 .   
+  ?item wdt:P4908 ?season .
+  ?season p:P179 ?season_statement .
+  ?season_statement pq:P1545 ?nr_s  .
+  ?item p:P179 ?episode_statement .
+  ?episode_statement pq:P1545 ?nr_e  .
+  OPTIONAL { ?item rdfs:label ?enlabel . FILTER(lang(?enlabel)="en")  } 
+  OPTIONAL { ?item rdfs:label ?delabel . FILTER(lang(?delabel)="de")  }
+  OPTIONAL { ?item rdfs:label ?frlabel . FILTER(lang(?frlabel)="fr")  }
+  OPTIONAL { ?item rdfs:label ?hulabel . FILTER(lang(?hulabel)="hu")  }
+  OPTIONAL { ?item rdfs:label ?itlabel . FILTER(lang(?itlabel)="it")  }  
+  OPTIONAL { ?item p:P1552 ?st . ?st ps:P1552 wd:Q22101947 . ?st pq:P1476 ?titleqc } .
+} GROUP BY ?item ?qid ORDER BY xsd:integer(?staffel) xsd:integer(?episode)

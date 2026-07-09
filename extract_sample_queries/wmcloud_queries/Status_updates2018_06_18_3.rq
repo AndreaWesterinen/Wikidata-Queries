@@ -1,0 +1,26 @@
+#Danseuses/chorégraphes avec image et article sur la Wikipédia en anglais mais pas sur celle en français
+
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel (COUNT(distinct ?sitelink) as ?count) (SAMPLE(?picture) as ?picture)
+WHERE
+{
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P21 wd:Q6581072 .
+  ?item wdt:P106 ?dancer .
+  
+  VALUES ?dancer {
+    wd:Q5716684
+    wd:Q805221
+    wd:Q2490358
+  }  
+  
+  ?item wdt:P18 ?picture .
+  ?sitelink schema:about ?item .
+  FILTER EXISTS { ?wen schema:about ?item . ?wen schema:inLanguage "en" }
+  FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:inLanguage "fr" }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,en" .
+  }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+  ?item wdt:P629 wd:Q58141332 .
+  FILTER NOT EXISTS {?item wdt:P407 ?language .}
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?inv WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 wd:Q195436 .
+  } LIMIT 200

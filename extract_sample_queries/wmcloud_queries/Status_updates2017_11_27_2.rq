@@ -1,0 +1,10 @@
+# fictional characters “said to be the same as” other fictional characters from the same fictional universe
+SELECT DISTINCT ?character1 ?character2 ?character1Label ?character2Label ?universeLabel WHERE {
+  hint:Query hint:optimizer "None".
+  ?character1 wdt:P1080 ?universe;
+              wdt:P460|^wdt:P460 ?character2.
+  ?character2 wdt:P1080 ?universe.
+  FILTER(STR(?character1) < STR(?character2))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?universeLabel

@@ -1,0 +1,6 @@
+#species named after Donald Trump
+SELECT ?item ?taxonName WHERE {
+  ?item wdt:P225 ?taxonName.
+  ?item wdt:P105 wd:Q7432.
+  ?item wdt:P138 wd:Q22686.
+}

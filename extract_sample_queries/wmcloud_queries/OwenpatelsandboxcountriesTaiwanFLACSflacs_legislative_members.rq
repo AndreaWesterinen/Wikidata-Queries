@@ -1,0 +1,27 @@
+SELECT DISTINCT ?item ?region ?position ?positiontype ?electoraldistrict ?edtype ?starttime ?endtime ?parliametarygroup ?fbid WHERE { 
+    VALUES ?flacs {wd:Q2225003 wd:Q83020 wd:Q706447} #three types of FLACS in Taiwan, but only one of these subclassed from Q10864048 
+    ?region wdt:P31/wdt:P279* ?flacs ; 
+            wdt:P17 wd:Q865 ;
+            wdt:P1313 ?head .
+    ?council wdt:P1001 ?region ;
+            wdt:P31/wdt:P279* wd:Q11204 .
+    ?member wdt:P361 ?council ;
+            wdt:P279 wd:Q708492 .
+    MINUS {?member wdt:P576 [] }
+    MINUS { ?region wdt:P576 [] }
+    MINUS { ?council wdt:P576 [] }
+    { ?node ps:P39 ?member }
+    UNION {
+      ?node ps:P39 ?head 
+    }
+    OPTIONAL { ?node pq:P4100 ?parliametarygroup }
+    ?node pq:P580 ?starttime .
+    OPTIONAL { ?node pq:P768 ?electoraldistrict .
+               ?electoraldistrict wdt:P31 ?edtype }
+    OPTIONAL { ?node pq:P582 ?endtime }
+    ?node ps:P39 ?position .
+    ?position wdt:P31 ?positiontype .
+    ?item p:P39 ?node .
+    OPTIONAL { ?item wdt:P2013 ?fbid }
+}
+ORDER BY ?item

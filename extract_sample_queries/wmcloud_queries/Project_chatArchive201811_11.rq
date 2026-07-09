@@ -1,0 +1,7 @@
+SELECT ?municipality ?municipalityLabel ?location ?locationLabel ?wiki WHERE {
+  ?municipality wdt:P31 wd:Q3184121 .
+  ?location wdt:P131 ?municipality ;
+            wdt:P31 wd:Q3257686 ;
+            ^schema:about ?wiki .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,17 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/value/>
+# coordinates with "globe=earth" and P376<>Earth
+# adapted from a query by Malrus  https://www.wikidata.org/w/index.php?oldid=283837945
+
+SELECT ?item ?itemLabel ?p ?pLabel WHERE {
+	?item wdt:P376 ?p .
+	FILTER(?p != wd:Q2)
+ 	?item p:P625/v:P625 ?coordValue .
+	?coordValue wikibase:geoGlobe wd:Q2 .
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en,en".}
+}

@@ -1,0 +1,11 @@
+#title: Invalid determination method for clock speed
+# Complex constraint from [[Property talk:P2149]]
+# Clock speed should be determined either by using [[d:Q73207925|base clock frequency <small>(Q73207925)</small>]] and/or [[d:Q73208059|boost clock frequency <small>(Q73208059)</small>]]
+select ?item #?itemLabel ?determinationmethod ?determinationmethodLabel 
+where {
+  ?item p:P2149 ?clockspeed .
+  ?clockspeed pq:P459 ?determinationmethod             
+  FILTER NOT EXISTS {?clockspeed pq:P459 wd:Q73207925}       
+  FILTER NOT EXISTS {?clockspeed pq:P459 wd:Q73208059}
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

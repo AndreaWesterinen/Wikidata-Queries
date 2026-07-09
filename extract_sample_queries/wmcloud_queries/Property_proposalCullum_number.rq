@@ -1,0 +1,5 @@
+SELECT (count(?name) AS ?usma_alumni) WHERE
+{
+  ?name wdt:P69 wd:Q9219 .	#educated at USMA
+  ?name wdt:P31 wd:Q5 .		#and is a real person
+}

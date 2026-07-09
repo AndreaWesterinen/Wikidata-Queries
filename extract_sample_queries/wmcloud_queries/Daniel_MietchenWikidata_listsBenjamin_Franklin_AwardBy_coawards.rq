@@ -1,0 +1,19 @@
+SELECT DISTINCT  ?item  ?itemLabel (COUNT (DISTINCT ?award) AS ?count) # (GROUP_CONCAT(DISTINCT ?award;separator=", ") AS ?awards) 
+WITH {
+    SELECT DISTINCT ?award  
+    WHERE {
+        ?recipient wdt:P166 wd:Q4888612 .
+	    ?recipient wdt:P166 ?award .
+    }
+} AS %awards
+WHERE {
+    INCLUDE %awards
+	?item wdt:P166 ?award .
+    ?item wdt:P21 wd:Q6581072 .
+	FILTER NOT EXISTS { ?item wdt:P166 wd:Q4888612}
+	FILTER (?award != wd:Q752297)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,da,de,es,fr,jp,no,ru,sv,zh" . }  
+}
+GROUP BY  ?count  ?item  ?itemLabel # ?awards
+HAVING (?count > 1)
+ORDER BY DESC (?count)

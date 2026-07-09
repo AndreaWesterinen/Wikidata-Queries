@@ -1,3 +1,4 @@
+#title: Universities ranked by PageRank on English Wikipedia (federated query)
 PREFIX vrank:<http://purl.org/voc/vrank#>
 
 SELECT DISTINCT ?uni ?uniLabel ?pr WHERE {

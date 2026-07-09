@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(?document) AS ?count) WHERE {
+  ?document wdt:P8433 [] ;
+            wdt:P31 ?item .
+}
+GROUP BY ?item
+ORDER BY DESC(?count)

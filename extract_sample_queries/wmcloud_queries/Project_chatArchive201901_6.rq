@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?sitelinkEn
+
+WHERE {
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P106 wd:Q36180.
+ ?item wdt:P21 wd:Q6581097.
+ ?sitelinkEn schema:about ?item;
+  			    schema:isPartOf <https://en.wikipedia.org/>.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }

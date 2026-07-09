@@ -1,0 +1,8 @@
+#title: Items for family names shouldn't also be items for families
+# Complex constraint from [[Property talk:P734]]
+# TODO: split the items
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q101352 , wd:Q8436 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

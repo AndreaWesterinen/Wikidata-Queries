@@ -1,0 +1,23 @@
+#Dutch municipalities that have one or more public libraries
+SELECT 
+?municipality 
+?municipalityLabel
+?muniIsALabel
+(COUNT(?municipality) AS ?AantalOBVestigingen)  
+(GROUP_CONCAT(DISTINCT ?itemLabel ; separator = " --- ") as ?OBVestigingen)
+
+WHERE { #?itemLabel
+  ?item wdt:P31 wd:Q28564. #public library
+  ?item wdt:P31 wd:Q11396180. #branch 
+  ?item wdt:P17 wd:Q55. #from the Netherlands
+  ?item wdt:P131 ?municipality.
+  ?municipality p:P31 [ps:P31 ?muniIsA].
+  VALUES ?muniIsA {wd:Q2039348} #filter only the value "municipality of the Netherlands" Q2039348
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" .
+                         ?item rdfs:label ?itemLabel.
+                         ?municipality rdfs:label ?municipalityLabel.
+                         ?muniIsA rdfs:label ?muniIsALabel.
+                         }
+}
+GROUP BY ?municipality ?muniIsALabel ?municipalityLabel
+ORDER BY DESC(?AantalOBVestigingen) 

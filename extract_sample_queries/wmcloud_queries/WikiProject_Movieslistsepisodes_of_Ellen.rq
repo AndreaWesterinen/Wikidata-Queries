@@ -1,0 +1,19 @@
+SELECT ?item ?nr_s ?nr_e ?nr_all (GROUP_CONCAT(DISTINCT ?enlabel) AS ?enlabels) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q21191270.
+  ?season p:P179 ?season_statement.
+  ?season_statement ps:P179 wd:Q82226.
+  ?season_statement pq:P1545 ?nr_s.
+  ?item p:P4908 ?episode_statement.
+  ?episode_statement ps:P4908 ?season.
+  ?episode_statement pq:P1545 ?nr_e.
+  OPTIONAL {
+    ?item p:P179 ?series_statement.
+    ?series_statement pq:P1545 ?nr_all.
+  }
+  OPTIONAL {
+    ?item rdfs:label ?enlabel.
+    FILTER((LANG(?enlabel)) = "en")
+  }
+}
+GROUP BY ?item ?nr_s ?nr_e ?nr_all
+ORDER BY xsd:integer(?nr_s) xsd:integer(?nr_e)

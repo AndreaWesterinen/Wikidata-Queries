@@ -1,0 +1,1 @@
+SELECT ?item ?release (CONCAT("<small>",STR(?pLabel),"</small>") as ?p) (CONCAT("{","{#invoke:ValterVB

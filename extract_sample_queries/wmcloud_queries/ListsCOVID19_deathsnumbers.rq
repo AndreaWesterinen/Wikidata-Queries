@@ -1,0 +1,11 @@
+SELECT ?item (SAMPLE(?d) as ?d) (COUNT(DISTINCT ?person) as ?count)
+WHERE
+{
+    ?person wdt:P509 wd:Q84263196 ; wdt:P31 wd:Q5 
+    OPTIONAL { ?person wdt:P570 ?d .
+             ?day wdt:P31 wd:Q47150325 ; wdt:P585 ?d 
+             }
+    BIND(COALESCE( ?day, wd:Q7883029) as ?item) 
+}
+GROUP BY ?item
+ORDER BY BOUND(?d) DESC(?d)

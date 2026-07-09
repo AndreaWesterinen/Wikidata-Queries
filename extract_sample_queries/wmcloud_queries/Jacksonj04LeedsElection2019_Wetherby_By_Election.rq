@@ -1,0 +1,12 @@
+SELECT ?item ?start ?end ?party ?ward ?dc_id
+WHERE 
+{
+  ?item p:P39 ?ps .
+  ?ps ps:P39 wd:Q55372701 .
+  ?ps pq:P2715 wd:Q74410389 .
+  OPTIONAL { ?ps pq:P4100 ?party . }
+  OPTIONAL { ?ps pq:P768 ?ward . }
+  OPTIONAL { ?ps pq:P580 ?start . }
+  OPTIONAL { ?ps pq:P582 ?end . }
+  OPTIONAL { ?item wdt:P6465 ?dc_id . }
+}

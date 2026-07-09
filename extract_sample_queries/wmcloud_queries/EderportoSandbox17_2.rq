@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?title ?subtitle ?organizer ?order ?host ?mode ?midia WITH {
+  SELECT DISTINCT ?item ?title ?subtitle ?abbr ?function ?org_ ?order ?mode ?midia
+  (CONCAT("[","[",SUBSTR(STR(?host_),32),"|",?hostLabel,"]","]") AS ?host)
+         WHERE {
+           ?item p:P31 [ps:P31 wd:Q61791944; pq:P1545 ?order; pq:P1552 ?mode]; wdt:P585 ?date_. FILTER(NOW()-?date_<=0)
+           OPTIONAL {?item p:P664 [ps:P664 ?host_; pq:P2868 wd:Q13590141].}
+           OPTIONAL {?item wdt:P1476 ?title}
+           OPTIONAL {?item wdt:P1680 ?subtitle}
+           OPTIONAL {?item wdt:P10 ?video.}
+           OPTIONAL {?item wdt:P18 ?imagem.}
+           BIND(COALESCE(?video,?imagem) AS ?midia)
+           OPTIONAL {?item p:P664 [ps:P664 ?host_; pq:P2868 wd:Q13590141].}
+           OPTIONAL {?item p:P664 [ps:P664 ?org_; pq:P2868 ?function].
+                     OPTIONAL {?org_ wdt:P1813 ?abbr.} FILTER(?function!=wd:Q13590141)}
+           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". ?host_ rdfs:label ?hostLabel}
+         }
+} AS %itens
+WHERE {
+  INCLUDE %itens.
+  BIND(IF(?function=wd:Q25931691,CONCAT("[","[",SUBSTR(STR(?org_),32),"|",?abbr,"]","] {","{Abbr|(Org.)|Organizer}","}"),
+         IF(?function=wd:Q728646,CONCAT("[","[",SUBSTR(STR(?org_),32),"|",?abbr,"]","] {","{Abbr|(Par.)|Partner}","}"),
+           IF(?function=wd:Q1058733,CONCAT("[","[",SUBSTR(STR(?org_),32),"|",?abbr,"]","] {","{Abbr|(Sup.)|Support}","}"),""))) AS ?organizer)
+} ORDER BY ASC(xsd:double(?order))

@@ -1,0 +1,16 @@
+SELECT ?item ?img (CONCAT("sl: ",str(?sl)," - st: ",str(?st)) as ?s)
+WITH
+{
+   SELECT DISTINCT ?item { 
+    ?item wdt:P18 []; wdt:P31 wd:Q5 .
+    FILTER(strlen(str(?item))=41 && xsd:integer(substr(str(?item),33)) > 101002220) 
+  }     
+} as %aa
+WHERE
+{
+    INCLUDE %aa
+    hint:Query hint:optimizer "None".
+    ?item wdt:P18 ?img ; wikibase:sitelinks ?sl ; wikibase:statements ?st . 
+}  
+ORDER BY DESC(xsd:integer(strafter(str(?item), "Q")))
+LIMIT 8

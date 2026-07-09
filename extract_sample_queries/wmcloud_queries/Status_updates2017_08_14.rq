@@ -1,0 +1,9 @@
+# most-depicted musical instruments
+SELECT ?instrument ?instrumentLabel (COUNT(DISTINCT ?work) AS ?count) (SAMPLE(?image) AS ?sampleImage) WHERE {
+  ?work wdt:P180 ?instrument.
+  ?instrument wdt:P279+ wd:Q34379.
+  OPTIONAL { ?work wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?instrument ?instrumentLabel
+ORDER BY DESC(?count)

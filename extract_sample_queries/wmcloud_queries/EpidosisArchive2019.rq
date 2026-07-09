@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?treccani_id
+WHERE {
+  ?item wdt:P3365 ?treccani_id .
+  FILTER regex(?treccani_id, "Enciclopedia[_-]Dantesca").
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+ }
+LIMIT 1000

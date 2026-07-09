@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?comuna ?comunaLabel WHERE {
+  ?item wdt:P31 wd:Q55488 .
+  ?item wdt:P17 wd:Q298
+  OPTIONAL {    ?item wdt:P131 ?comuna.  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+}
+ORDER BY ?itemLabel ?comunaLabel

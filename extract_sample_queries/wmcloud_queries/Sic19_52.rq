@@ -1,0 +1,6 @@
+select ?x ?string where {
+  ?x wdt:P31 wd:Q13442814 ;
+     wdt:P1476 ?string .
+  FILTER(REGEX(?string, "�"))
+  }
+LIMIT 50

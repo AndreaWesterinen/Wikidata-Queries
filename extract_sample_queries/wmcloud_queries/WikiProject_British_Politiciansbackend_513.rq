@@ -1,0 +1,20 @@
+# Finds items with a term in the 1604-1629 period, but sourced *only* to a different HoP volume
+
+
+SELECT DISTINCT ?item ?itemLabel ?termLabel ?constituencyLabel {
+  ?item p:P39 ?positionStatement . 
+  ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+  OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+  
+  ?term wdt:P571 ?termstart . bind(year(?termstart) as ?startyear) . 
+  filter (?startyear >= 1604 ) . filter (?startyear <= 1629 ) .
+  
+ ?positionStatement prov:wasDerivedFrom ?ref . 
+         ?ref pr:P1614 ?refhop . FILTER(!STRSTARTS(?refhop, "1604")).
+
+ minus { ?positionStatement prov:wasDerivedFrom ?ref1604 . 
+         ?ref1604 pr:P1614 ?refhop1604 . FILTER(STRSTARTS(?refhop1604, "1604")). }  
+
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} 

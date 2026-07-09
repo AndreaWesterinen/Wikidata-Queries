@@ -1,0 +1,17 @@
+#Query to find items with more than 8+ identifiers. 
+#Statuts 2016-08-16: 232 items with a total of 1972 identifiers, max: Q692 with 313, Q5879 with 109 
+#if expanded to 5+: 427 with 5342 identifiers
+SELECT DISTINCT ?item ?itemLabel ?ct ?sample
+{
+	{
+		SELECT ?item (COUNT(?value) AS ?ct) (SAMPLE(?value) AS ?sample)
+        {
+			?item wdt:P949 ?value .
+		}
+      	GROUP BY ?item
+	} .
+	FILTER(?ct >= 8) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+} 
+ORDER BY DESC(?ct) 
+LIMIT 500

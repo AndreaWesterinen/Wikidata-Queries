@@ -1,0 +1,5 @@
+SELECT (wd:Q5 as ?item)(COUNT(DISTINCT ?item) as ?count)
+  WHERE { 
+    ?item wdt:P17 wd:Q142.
+    ?item wdt:P31 wd:Q108325.
+  }

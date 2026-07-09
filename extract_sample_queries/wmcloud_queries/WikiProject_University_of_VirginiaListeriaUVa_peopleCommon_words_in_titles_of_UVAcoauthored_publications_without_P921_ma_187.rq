@@ -1,0 +1,44 @@
+SELECT ?item ?Ngram ?count ?l
+(CONCAT("[https://query.wikidata.org/#SELECT%20%0A%20%20DISTINCT%0A%20%20%3Fitem%20%3Ftitle%0A%20%20%28REPLACE%28STR%28%3Fitem%29%2C%20%22.%2aQ%22%2C%20%22Q%22%29%20AS%20%3Fqid%29%20%0A%20%20%28%22P921%22%20AS%20%3Fproperty%29%0A%20%20%28%22Q4115189%22%20AS%20%3FReplaceWithYourTargetID%29%0A%20%20%28%22S887%22%20AS%20%3Fheuristic%29%0A%20%20%28%22Q69652283%22%20AS%20%3Fdeduced%29%0A%0AWHERE%20%7B%0A%20%20hint%3AQuery%20hint%3Aoptimizer%20%22None%22.%0A%20%20%0A%7B%20%20SERVICE%20wikibase%3Amwapi%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aapi%20%22Search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Asrsearch%20%22%5C%22", ENCODE_FOR_URI(?Ngram), "%5C%22%20haswbstatement%3AP31%3DQ13442814%20-haswbstatement%3AP921%3DQ4115189%22.%0A%20%20%20%20%20%20%3Fpage_title%20wikibase%3AapiOutput%20mwapi%3Atitle.%0A%20%20%7D%0A%20%7D%0A%20%20BIND%28IRI%28CONCAT%28STR%28wd%3A%29%2C%20%3Fpage_title%29%29%20AS%20%3Fitem%29%0A%20%20%0A%20%20%3Fitem%20wdt%3AP1476%20%3Ftitle_.%0A%20%20%3Fitem%20wdt%3AP1433%20%3Fvenue.%0A%20%20%3Fvenue%20wdt%3AP1476%20%3Fvenue_title.%0A%20%20BIND%28CONCAT%28%3Ftitle_%20%2C%20%22%20%7C%20%22%20%2C%20%3Fvenue_title%29%20%20AS%20%3Ftitle%29%0A%20%20FILTER%20REGEX%28LCASE%28%3Ftitle%29%2C%20%22", ENCODE_FOR_URI(?Ngram), "%22%29.%0A%0A%7D%0A 📰]") AS ?topic_string_resolver1) 
+(CONCAT("[https://query.wikidata.org/#%0ASELECT%0A%20%20%23%20Number%20of%20works%20on%20the%20topic%20with%20the%20author%20name%20string%0A%20%20%3Fcount%0A%0A%20%20%23%20Number%20of%20works%20with%20the%20author%20name%20string%0A%20%20%3Fcount1%0A%0A%20%20%23%20Author%20as%20a%20string%0A%20%20%3Fauthorstring%0A%0A%20%20%23%20Build%20URL%20to%20the%20Author%20disambiguator%20tool%0A%20%20%28CONCAT%28%0A%20%20%20%20%20%20%27https%3A%2F%2Ftools.wmflabs.org%2Fauthor-disambiguator%2Fnames_oauth.php%3Fname%3D%27%2C%0A%20%20%20%20%20%20ENCODE_FOR_URI%28%3Fauthorstring%29%29%20AS%20%3Fresolver_url%29%0AWITH%20%7B%0A%20%20SELECT%20DISTINCT%20%3Fwork%20%3Fauthorstring%20WHERE%20%7B%0A%20%20%20%20%3Fwork%20wdt%3AP2093%20%3Fauthorstring%20.%0A%23%20%20%20%20%3Fwork%20wdt%3AP50%20%5B%20wdt%3AP21%20wd%3AQ6581072%20%5D.%0A%23%20%20%20%20%3Fwork%20wdt%3AP50%20%5Bwdt%3AP166%20%5B%5D%5D.%0A%23%20%20%20%20%3Fwork%20wdt%3AP921%20%5Bwdt%3AP625%20%5B%5D%5D.%0A%20%20%20%20%7B%20%3Fwork%20wdt%3AP1476%20%3Ftitle%20.%20%7D%20%0A%20%20%20%20FILTER%20REGEX%28LCASE%28%3Ftitle%29%2C%20%22", ENCODE_FOR_URI(?Ngram), "%22%29.%20%20%0A%20%20%7D%0A%20%20LIMIT%20100%0A%7D%20AS%20%25works%0AWITH%20%7B%0A%20%20SELECT%0A%20%20%20%20%28COUNT%28DISTINCT%20%3Fwork%29%20AS%20%3Fcount%29%0A%20%20%20%20%28COUNT%28DISTINCT%20%3Fwork1%29%20AS%20%3Fcount1%29%0A%20%20%20%20%3Fauthorstring%0A%20%20WHERE%20%7B%0A%20%20%20%20INCLUDE%20%25works%0A%20%20%20%20%3Fwork1%20wdt%3AP2093%20%3Fauthorstring%20.%0A%20%20%7D%0A%20%20GROUP%20BY%20%3Fauthorstring%0A%7D%20AS%20%25result%0AWHERE%20%7B%0A%20%20INCLUDE%20%25result%0A%7D%0AORDER%20BY%20DESC%28%3Fcount%29%20DESC%28%3Fcount1%29%0A%23LIMIT%2050%0A%0A%20%20%0A 🙋]") AS ?topic_string_resolver2) 
+
+WITH
+{    SELECT ?re ?nv { ?n wdt:P5176 []; wdt:P1181 ?nv . FILTER(?nv > 0 ) FILTER( ?nv < 51)
+     BIND( CONCAT( "^([^ ]+ ){", str( ?nv - 1 ),"}([^ ]+) .*") as ?re) }
+} as %nb                                                            
+WITH
+{  SELECT ?title ?x (CONCAT("::: ::: ::: ::: ", REPLACE(str(?title),"[\\.:,;\\[\\]()$]",""), " ;;; ;;; ;;; ;;;") as ?input) 
+   {  ?x wdt:P31 wd:Q13442814 ;
+         wdt:P1476 ?title.
+      ?x wdt:P50 ?author .
+      { ?author ?property wd:Q213439. }
+      UNION
+      {
+        ?author ?property2 _:b9.
+        _:b9 wdt:P361 wd:Q213439.
+      }
+     FILTER NOT EXISTS {?x wdt:P921 ?topic}
+     FILTER(lang(?title)="en") 
+   }
+ LIMIT 5000
+} as %a
+WITH
+{ SELECT DISTINCT ?Ngram (COUNT(DISTINCT ?title) as ?count) (SAMPLE(DISTINCT ?x) AS ?item) ?l
+                  { 
+                    INCLUDE %a  INCLUDE %nb  
+                            BIND( LCASE(REPLACE(?input, ?re, "$2")) as ?Ngram) 
+                            BIND(STRLEN(?Ngram) AS ?l) 
+                            FILTER (?l > 4 )  
+                  }
+  GROUP BY ?Ngram ?count ?item ?l
+  HAVING(?count > 5)
+  ORDER BY DESC(?count)
+  LIMIT 250
+} as %b 
+WHERE {
+  INCLUDE %b  
+  FILTER ( ?Ngram != "from" && ?Ngram != "with" && ?Ngram != "after" && ?Ngram != "about"
+           )               
+}
+GROUP BY ?item ?Ngram ?count ?l ?topic_string_resolver1 ?topic_string_resolver2
+ORDER BY DESC(?count) DESC(?l)

@@ -1,0 +1,18 @@
+PREFIX schema: <http://schema.org/>
+
+#Missing description for a target language
+#Search for missing descriptions in a target language.
+#Can be input for Q29032512
+SELECT ?item ?occupationLabel ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q34023.
+  OPTIONAL { ?item wdt:P17 ?occupation. }
+  OPTIONAL {  }
+  OPTIONAL {  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  
+  FILTER(NOT EXISTS {
+    ?item schema:description ?itemdesc.
+    FILTER((LANG(?itemdesc)) = "de")
+  })
+}
+ORDER BY ?itemLabel

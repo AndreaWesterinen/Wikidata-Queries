@@ -1,0 +1,9 @@
+SELECT ?taxonName WHERE {
+  ?item wdt:P225 ?taxonName .
+  ?item wdt:P105 wd:Q68947 . # subspecies
+  ?item p:P225 ?name .
+  ?name ps:P225 ?taxonNameValue .
+  ?name prov:wasDerivedFrom ?ref .
+  ?ref pr:P248 wd:Q27042747 . # IOC World Bird List. Version 6.3  
+}
+ORDER BY ASC(?taxonName)

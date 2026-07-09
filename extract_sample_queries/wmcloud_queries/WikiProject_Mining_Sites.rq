@@ -1,0 +1,7 @@
+#Wikidata property for a mining
+SELECT ?item ?itemLabel
+WHERE
+{
+	?item wdt:P31 wd:Q115203080 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

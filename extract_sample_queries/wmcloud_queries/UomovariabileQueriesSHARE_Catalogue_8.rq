@@ -1,0 +1,8 @@
+#Calciatori con SHARE ID
+SELECT ?item ?itemLabel ?SHAREID
+WHERE
+{
+  ?item wdt:P106 wd:Q937857;
+        wdt:P3987 ?SHAREID.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

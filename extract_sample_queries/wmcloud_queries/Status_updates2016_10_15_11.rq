@@ -1,0 +1,2 @@
+#defaultView:Map
+select * { ?s wdt:P39 wd:Q27169 ; wdt:P19/wdt:P625 ?l }

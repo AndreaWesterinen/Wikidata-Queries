@@ -1,0 +1,8 @@
+SELECT ?person ?personLabel ?erdosNumber 
+WHERE
+{
+  ?person wdt:P2021 ?erdosNumber.
+  ?person wdt:P21 wd:Q6581072.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ASC(?erdosNumber)

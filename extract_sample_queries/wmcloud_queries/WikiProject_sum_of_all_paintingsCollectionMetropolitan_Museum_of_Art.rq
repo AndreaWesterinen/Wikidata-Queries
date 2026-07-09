@@ -1,0 +1,31 @@
+SELECT DISTINCT ?item ?dob ?dod  WHERE {
+  ?item wdt:P195 wd:Q160236 .
+  ?item wdt:P31 wd:Q3305213 .  MINUS {
+  { ?item wdt:P571 ?inception .
+   BIND(year(?inception) as ?inceptionyear) .
+   } UNION {
+    MINUS { ?item wdt:P571 [] } . 
+    ?item wdt:P170 ?creator . 
+    ?creator wdt:P569 ?dob .
+    ?creator wdt:P570 ?dod . 
+    BIND(((year(?dod) - year(?dob))/2 + year(?dob)) as ?inceptionyear) .
+    } UNION {
+    MINUS { ?item wdt:P571 [] } . 
+    ?item wdt:P170 ?creator . 
+    ?creator wdt:P569 ?dob .
+    MINUS { ?creator wdt:P570 ?dod } . 
+    BIND((year(?dob) + 40 ) as ?inceptionyear) .
+    } UNION {
+    MINUS { ?item wdt:P571 [] } . 
+    ?item wdt:P170 ?creator . 
+    ?creator wdt:P570 ?dod .
+    MINUS { ?creator wdt:P569 ?dob } . 
+    BIND((year(?dod) - 40 ) as ?inceptionyear) .
+    }
+  FILTER((1 < ?inceptionyear && ?inceptionyear < 2100)) }
+  OPTIONAL { ?item wdt:P170 ?creator . 
+            MINUS { ?item wdt:P170 wd:Q4233718 } . 
+            OPTIONAL { ?creator wdt:P569 ?dob . } .
+            OPTIONAL { ?creator wdt:P570 ?dod . } .
+  }
+} LIMIT 4000

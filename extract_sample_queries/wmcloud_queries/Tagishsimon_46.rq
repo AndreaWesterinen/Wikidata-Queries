@@ -1,0 +1,26 @@
+#defaultView:Map
+SELECT ?place ?placeLabel ?placeDescription ?location ?terrainLabel ?waterLabel WHERE {
+  hint:Query hint:optimizer "None".
+  wd:Q47134 wdt:P625 ?point . 
+  SERVICE wikibase:around { 
+      ?place wdt:P625 ?location . 
+      bd:serviceParam wikibase:center ?point . 
+      bd:serviceParam wikibase:radius "80" . 
+  } 
+      VALUES ?thing {
+        wd:Q39594 # bay 
+        wd:Q1172599 # inlet
+        wd:Q491713 # sound
+        wd:Q37901 # straitt
+        }
+    ?place wdt:P31/wdt:P279* ?thing . 
+  hint:Prior hint:gearing "forward".
+  OPTIONAL {?place wdt:P706 ?terrain . }
+  OPTIONAL {?place wdt:P206 ?water . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . 
+                         ?place rdfs:label ?placeLabel .
+                         ?place schema:description ?placeDescription . 
+                         ?terrain rdfs:label ?terrainLabel . 
+                         ?water rdfs:label ?waterLabel .}
+ # filter(str(?placeDescription)="bay in Shetland Islands, Scotland, UK")
+}

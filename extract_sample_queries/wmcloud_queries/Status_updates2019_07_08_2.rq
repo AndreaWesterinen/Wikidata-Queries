@@ -1,0 +1,45 @@
+#defaultView:Map
+SELECT DISTINCT ?site ?siteLabel ?place ?placeLabel ?countryLabel ?coords ?image ?unescoUrl ?layer WHERE {{
+SELECT DISTINCT ?site ?place ?country ?coords ?image ?unescoUrl ?layer WHERE {{
+SELECT ?country WHERE {{ ?country wdt:P463 wd:Q7809;wdt:P30 wd:Q46 . } UNION { ?country wdt:P361 wd:Q1191549 } UNION { ?country wdt:P31 wd:Q15304003 }}}
+{SELECT DISTINCT ?site ?protection ?country (group_concat(DISTINCT ?siteType) AS ?siteType) WHERE {
+?site p:P1435 ?protectionStatement ;wdt:P17 ?country .
+FILTER NOT EXISTS { ?x wdt:P527 ?site . ?x wdt:P1435 ?protection }
+?protectionStatement ps:P1435 ?protection .
+FILTER NOT EXISTS { ?protectionStatement pq:P582 ?x }
+VALUES ?protection { wd:Q9259 wd:Q17278671 wd:Q52683530 wd:Q16617071 wd:Q52683527}
+OPTIONAL {?site wdt:P2614 ?criteria .
+BIND (IF ((?criteria in (wd:Q23038972, wd:Q23038976, wd:Q23038977, wd:Q23038978, wd:Q23038979, wd:Q23038980)), "Cultural", "Natural") AS ?siteType)
+}}
+GROUP BY ?site ?protection ?country
+}
+{
+?site p:P757 ?idStatement .
+?idStatement ps:P757 ?id .
+FILTER NOT EXISTS { ?idStatement pq:P582 ?x }
+wd:P757 p:P1630 ?formatterUrlStatement .
+} UNION {
+?site p:P4171 ?idStatement .
+?idStatement ps:P4171 ?id .
+FILTER NOT EXISTS { ?idStatement pq:P582 ?x }
+wd:P4171 p:P1630 ?formatterUrlStatement .
+}
+?formatterUrlStatement ps:P1630 ?formatterurl ;
+pq:P407 wd:Q1860 .
+BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterurl)) AS ?unescoUrl).
+{?site wdt:P527+ ?place .
+?place wdt:P17 ?country ;
+OPTIONAL { ?place wdt:P625 ?coords }
+OPTIONAL { ?place wdt:P18 ?image }
+} UNION {
+FILTER NOT EXISTS { ?site wdt:P527 ?x }
+OPTIONAL { ?site wdt:P625 ?coords . }
+OPTIONAL { ?site wdt:P18 ?image }
+}
+BIND (IF (?protection = wd:Q17278671, "Tentative list", "World heritage") AS ?siteProtection)
+BIND (IF (?siteType != "", CONCAT(?siteProtection, " - ", IF (?siteType = "Cultural Natural" || ?siteType = "Natural Cultural", "Mixed", ?siteType)), ?siteProtection) AS ?layer)
+}
+}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?layer) ?siteLabel ?placeLabel

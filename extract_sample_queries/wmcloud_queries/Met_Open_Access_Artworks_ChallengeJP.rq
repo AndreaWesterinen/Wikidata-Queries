@@ -1,0 +1,9 @@
+SELECT ?item (CONCAT ("<span class="noprint">[[File:Translation-dark-grey.svg|30px|link=https://meta.wikimedia.org/w/index.php?title=Met_Open_Access_Artworks_Challenge/Translations/X&withJS=MediaWiki:Mbabel.js&itemid=", STR(?itemId), "&destlang=fp]]</span>")  as ?translate) WHERE { 
+?item wdt:P195 wd:Q160236 .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "jp" }
+    BIND ((CONCAT ("[http://www.metmuseum.org/art/collection/search/", ?METobjID, " ", ?num, "]")) as ?METurl) .
+    BIND ((STR(?pic)) as ?image) .
+    BIND (REPLACE(STR(?item), "http://www.wikidata.org/entity/", "", "i") as ?itemId) .
+  FILTER EXISTS { ?article schema:about ?item . FILTER REGEX(STR(?article), ".wikipedia.org/wiki/") .} .
+  FILTER NOT EXISTS { ?wjp schema:about ?item . ?wjp schema:inLanguage "jp" . ?wjp schema:isPartOf <https://jp.wikipedia.org/> }
+}

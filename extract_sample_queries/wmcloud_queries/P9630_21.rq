@@ -1,0 +1,26 @@
+# Unique value constraint report for P9630: report by value
+
+SELECT
+    ?value (SAMPLE(?valueLabel) AS ?valueLabel) (SAMPLE(?ct) AS ?ct)
+    (GROUP_CONCAT(DISTINCT(STRAFTER(STR(?item), "/entity/")); separator=", ") AS ?items)
+    (GROUP_CONCAT(DISTINCT(?itemLabel); separator=", ") AS ?itemLabels)
+WHERE    
+{
+  	{ 	SELECT ?value (COUNT(DISTINCT ?item) as ?ct)
+  		WHERE
+  		{ 
+  			?item wdt:P9630 ?value 
+		}
+    	GROUP BY ?value HAVING (?ct>1) 
+    	ORDER BY DESC(?ct)
+    	LIMIT 100
+	}
+  	?item wdt:P9630 ?value .
+	SERVICE wikibase:label {
+    	bd:serviceParam wikibase:language "en" . 
+    	?item rdfs:label ?itemLabel .
+    	?value rdfs:label ?valueLabel .
+  	}
+}
+GROUP BY ?value
+ORDER BY DESC(?ct)

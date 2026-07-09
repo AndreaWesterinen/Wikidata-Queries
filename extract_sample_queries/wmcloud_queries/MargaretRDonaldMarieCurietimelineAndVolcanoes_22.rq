@@ -1,0 +1,11 @@
+SELECT ?Wikidata ?Species_Profile_and_Threats_Database_ID ?taxon_name WHERE {
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?Wikidata wdt:P2455 ?Species_Profile_and_Threats_Database_ID.
+    ?item wdt:P2455 ?Species_Profile_and_Threats_Database_ID.
+  }
+  
+  OPTIONAL { ?Wikidata wdt:P2455 ?Species_Profile_and_Threats_Database_ID. }
+  OPTIONAL { ?Wikidata wdt:P225 ?taxon_name. }
+}
+ORDER BY (?taxon_name)

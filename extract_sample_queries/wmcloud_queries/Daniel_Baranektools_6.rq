@@ -1,0 +1,45 @@
+embed.html#SELECT
+?cas
+(SUM(?zide_celkem) as ?celkem)
+(SUM(?zide_centrum) as ?mesto)
+(( ?mesto / ?celkem * 100) AS ?podil)
+WHERE {
+          	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],cs" }
+       
+
+
+     { SELECT ?cas (SUM(?zid) as ?zide_celkem) {
+          ?item wdt:P31 wd:Q39825;
+          wdt:P361 [ wdt:P131 wd:Q109924309];
+            wdt:P585 ?cas.
+       
+       OPTIONAL { ?item p:P1082 ?obyv.
+          ?obyv pq:P1013 wd:Q56229478.
+          ?obyv ps:P1082 ?obyv_celkem.
+        }
+       FILTER NOT EXISTS { ?obyv pq:P518 ?celkem_temp. }
+      
+       ?item p:P1082 [pq:P518 wd:Q9268; ps:P1082 ?zid].
+      } GROUP BY ?cas
+      }
+  UNION
+       { SELECT ?cas ?zide_centrum {
+          ?item wdt:P31 wd:Q39825;
+          wdt:P361 [ wdt:P131 wd:Q109924309];
+            wdt:P585 ?cas;
+                wdt:P131 wd:Q341223.
+       
+       OPTIONAL { ?item p:P1082 ?obyv.
+          ?obyv pq:P1013 wd:Q56229478.
+          ?obyv ps:P1082 ?obyv_celkem.
+        }
+       FILTER NOT EXISTS { ?obyv pq:P518 ?celkem_temp. }
+      
+       ?item p:P1082 [pq:P518 wd:Q9268; ps:P1082 ?zid].
+        BIND(?zid as ?zide_centrum)
+      }
+      }
+  
+       
+        } GROUP BY ?cas
+ORDER BY ?cas

@@ -1,0 +1,7 @@
+SELECT ?prefix ?length ?number ?largest_id ?respective_item ?respective_itemLabel WHERE {
+?respective_item wdt:P345 ?largest_id .
+{SELECT ?prefix ?length (COUNT(DISTINCT(?imdb)) AS ?number) (MAX(?imdb) AS ?largest_id) WHERE {
+  ?item wdt:P345 ?imdb
+  BIND (SUBSTR(?imdb,1,2) AS ?prefix) .
+  BIND (STRLEN(?imdb) AS ?length)
+} GROUP BY ?prefix ?length} SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } } ORDER BY DESC(?number)

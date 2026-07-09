@@ -1,0 +1,5 @@
+embed.html#SELECT ?ICTV_Master_Species_List ?ICTV_Master_Species_ListLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?ICTV_Master_Species_List wdt:P31 wd:Q45362532.
+}
+LIMIT 100

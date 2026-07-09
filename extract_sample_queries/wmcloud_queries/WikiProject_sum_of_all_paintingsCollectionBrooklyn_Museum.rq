@@ -1,0 +1,9 @@
+SELECT ?item ?museumURL WHERE {
+  wd:P4740 wdt:P1630 ?formatterurl .
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q632682 .
+  ?item wdt:P31 wd:Q3305213 .
+  OPTIONAL { ?item wdt:P4740 ?museumID }.
+  BIND(REPLACE(?museumID, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?museumURL)  .
+  } 
+LIMIT 4000

@@ -1,0 +1,11 @@
+SELECT ?item ?cylabel ?commonname WHERE {
+
+?item p:P1843 ?statement .
+?statement ps:P1843 ?commonname .
+?statement prov:wasDerivedFrom ?ref .
+?ref pr:P248 wd:Q23002367 .
+
+?item rdfs:label ?cylabel filter (lang(?cylabel) = "cy") .
+filter (lcase(?cylabel) != lcase(?commonname) ).
+
+} order by ?cylabel

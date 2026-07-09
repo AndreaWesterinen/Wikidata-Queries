@@ -1,3 +1,4 @@
+#title: Italian mountains higher than 4000 meters
 #defaultView:ImageGrid
 SELECT ?item ?itemLabel ?coord ?elev ?picture
 {

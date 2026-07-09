@@ -1,3 +1,4 @@
+#title: Timeline of mayors of Amsterdam, the Netherlands
 #defaultView:Timeline
 SELECT ?mayor ?mayorLabel ?start ?end where {
   ?mayor p:P39 ?position.

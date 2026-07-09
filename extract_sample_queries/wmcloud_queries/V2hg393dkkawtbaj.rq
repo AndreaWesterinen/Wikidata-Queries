@@ -1,0 +1,5 @@
+SELECT *
+{
+    BIND( "0cf93efcde30f8010862d946ab6025891644fdb4 http://www.thecrickets.com/" as ?removed_lines ) 
+    BIND(REGEX(?removed_lines, ".{40} http://.*") as ?filter)
+}

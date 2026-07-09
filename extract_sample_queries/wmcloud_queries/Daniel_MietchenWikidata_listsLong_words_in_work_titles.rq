@@ -1,0 +1,21 @@
+SELECT (SAMPLE(DISTINCT ?x) AS ?item) ?w (COUNT(DISTINCT ?x) AS ?c) (STRLEN(?w) AS ?l) WHERE {
+  {
+    SELECT DISTINCT ?x ?title WHERE {
+      ?x wdt:P1476 ?title.
+      {?x wdt:P921 wd:Q310424 } UNION {?x wdt:P921 wd:Q24771787 } UNION {?x wdt:P921 wd:Q847556 }
+#      FILTER(STRLEN(?title) >= 13)
+    }
+    LIMIT 100000
+  }
+#  FILTER NOT EXISTS {?x wdt:P921 ?topic}
+  BIND(LCASE(?title) AS ?ltitle)
+  BIND(REPLACE(?ltitle, "^.*?(\\b\\w{5,}\\b).*$", "$1") AS ?w1)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w1), "^.*?(\\b\\w{5,}\\b).*$", "$1") AS ?w2)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w2), "^.*?(\\b\\w{5,}\\b).*$", "$1") AS ?w3)
+  VALUES ?w_ { 1 2 3 }
+  BIND(IF(?w_ = 1, ?w1, IF(?w_ = 2, ?w2, ?w3)) AS ?w)
+  FILTER(REGEX(?w, "^\\w+$")) # since ?w may evaluate to en empty string, e.g. for one-word titles
+}
+GROUP BY ?item ?w
+ORDER BY DESC(?c) DESC(?l)
+LIMIT 2000

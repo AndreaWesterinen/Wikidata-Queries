@@ -1,0 +1,10 @@
+#title: candidates (1: demographics of region without P276)
+# Complex constraint from [[Property talk:P9241]]
+# possible values for this property
+SELECT ?item ?loc
+WHERE
+{
+    ?item wdt:P31 wd:Q23983664 . 
+    MINUS { ?item wdt:P276 ?loc }
+    MINUS { ?loc wdt:P9241 ?item }
+}

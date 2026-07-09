@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-removeFirst>
+SELECT DISTINCT ?item WHERE { ?item wdt:P2002 ?value . FILTER( REGEX(STR(?value), '^([A-Za-z0-9_]+)$') = false )}

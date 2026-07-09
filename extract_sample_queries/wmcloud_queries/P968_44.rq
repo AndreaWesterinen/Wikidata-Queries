@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-lowercase>
+SELECT DISTINCT ?item WHERE { ?item wdt:P968 ?value . FILTER( REGEX(STR(?value), '^(mailto:[-\\w\\.]+@([-\\w]+\\.)+[\\w\\.]+)$') = false )}

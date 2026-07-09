@@ -1,0 +1,15 @@
+SELECT ?item ?electoraldistrict ?starttime ?parliametarygroup ?election WHERE { 
+    BIND (wd:Q55465119 as ?legislature) .
+    ?member wdt:P361 ?legislature ;
+    MINUS {?member wdt:P576 [] }
+    MINUS { ?legislature wdt:P576 [] }
+    ?node ps:P39 ?member .
+    OPTIONAL { ?node pq:P4100 ?parliametarygroup }
+    OPTIONAL { ?node pq:P768 ?electoraldistrict .
+      OPTIONAL { ?electoraldistrict wdt:P31 ?edtype }
+    }
+    OPTIONAL { ?node pq:P580 ?starttime }
+    OPTIONAL { ?node pq:P582 ?endtime }
+    OPTIONAL { ?node pq:P2715 ?election }
+    ?item p:P39 ?node .
+    FILTER(!BOUND(?endtime)

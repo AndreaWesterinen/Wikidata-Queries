@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P1647 wd:P31.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} LIMIT 5

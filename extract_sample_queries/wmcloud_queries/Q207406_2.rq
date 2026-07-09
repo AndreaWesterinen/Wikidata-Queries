@@ -1,0 +1,12 @@
+#title: Mosonmagyaróvár is used as death location for people died before 1939-07-01
+# Complex constraint from [[Property talk:Q207406]]
+# Items with [[Property:P937|work location&#32;<small dir="ltr">(P937)</small>]] equal to [[d:Q207406|Mosonmagyaróvár <small>(Q207406)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] before 1939-07-01
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P937 wd:Q207406.
+  ?item p:P570 [ psv:P570 ?node; wikibase:rank ?rank ] .
+  FILTER(?rank != wikibase:DeprecatedRank) .
+  ?node wikibase:timeValue ?death .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (?death < "1939-07-01T00:00:00Z"^^xsd:dateTime)
+  FILTER (?precision >= "9"^^xsd:integer)
+}

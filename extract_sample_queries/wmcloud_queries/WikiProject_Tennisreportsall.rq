@@ -1,0 +1,2 @@
+SELECT (wd:Q847 as ?item )  ( GROUP_CONCAT( CONCAT("[[",strafter(str(?t),"y/"), "]]"); separator=" ") as ?all)
+WHERE { ?t wdt:P641 wd:Q847 . FILTER NOT EXISTS { ?t wdt:P31 wd:Q5 } }

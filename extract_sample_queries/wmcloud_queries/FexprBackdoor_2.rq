@@ -1,0 +1,28 @@
+#List of Indonesian actor
+SELECT ?actor ?actorLabel ?actorDescription ?actorLabel_id ?dateOfBirth ?dateOfDeath ?article ?website
+WHERE {
+	?actor wdt:P31 wd:Q5 ;
+		wdt:P27 wd:Q252 ;
+        wdt:P106 wd:Q33999
+	OPTIONAL {
+		?actor rdfs:label ?actorLabel_id filter (lang(?actorLabel_id) = "id")
+	}
+    OPTIONAL {
+		?article schema:about ?actor .
+        ?article schema:isPartOf <https://id.wikipedia.org/>.
+	}
+    OPTIONAL {
+		?actor wdt:P856 ?website
+	}
+    OPTIONAL {
+		?actor wdt:P569 ?dateOfBirth
+	}
+    OPTIONAL {
+		?actor wdt:P570 ?dateOfDeath
+	}
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,id" .
+	}
+ 
+}
+ORDER BY ?actorLabel

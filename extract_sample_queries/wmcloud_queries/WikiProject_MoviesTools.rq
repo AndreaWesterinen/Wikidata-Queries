@@ -1,0 +1,18 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX entity: <http://www.wikidata.org/entity/>
+
+SELECT ?item ?itemLabel WHERE {
+  VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730}
+  ?item wdt:P31 ?filmtype .
+  ?item wdt:P364 entity:Q150 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }  
+  OPTIONAL { ?item wdt:P1476 ?title } FILTER(!bound(?title))
+}
+GROUP BY ?item ?itemLabel
+LIMIT 10000

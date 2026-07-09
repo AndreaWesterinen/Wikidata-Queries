@@ -1,0 +1,22 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("area" as ?type)
+  ("800" as ?width) 
+  ("200" as ?heigth) 
+  ("date of publication (2 January 2020 -> today)" as ?xAxisTitle) 
+  ("count" as ?yAxisTitle)
+  ("date" as ?xType) 
+  (GROUP_CONCAT(?date;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+  { SELECT ?date (COUNT(DISTINCT ?entry) as ?count)
+  {
+    ?entry wdt:P8150 [] .
+    ?entry wdt:P577 ?date . 
+    FILTER( ?date <= Now() && ?date > "2020-01-01T00:00:00Z"^^xsd:dateTime )
+  }
+  GROUP BY ?date
+  ORDER BY DESC(?date)
+  }
+}

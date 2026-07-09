@@ -1,0 +1,8 @@
+SELECT (CONCAT("Who is?") as ?TheQuestion) ?img (?itemlabel as ?TheAnswer)
+WHERE
+{
+	?item wdt:P31 wd:Q5 . 
+  	?item wdt:P18 ?img .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?item rdfs:label ?itemLabel  }
+}
+LIMIT 100

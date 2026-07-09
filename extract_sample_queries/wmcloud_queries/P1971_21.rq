@@ -1,0 +1,10 @@
+#title: Number of children shouldn't be lower than the number of statements with [[Property:P40|child&#32;<small dir="ltr">(P40)</small>]]
+# Complex constraint from [[Property talk:P1971]]
+# Counts may be lower due to older data, children that didn't live to adulthood being excluded, etc
+SELECT ?item ?count {
+  { SELECT ?item (COUNT(?child) AS ?count)    {      ?item wdt:P40 ?child; wdt:P31 wd:Q5    }     GROUP BY ?item }
+  ?item wdt:P1971 ?value .
+  FILTER ( ?value < ?count )
+  FILTER ( ?item not in ( wd:Q78454 , wd:Q91 ) )
+} 
+ORDER BY DESC(?count)

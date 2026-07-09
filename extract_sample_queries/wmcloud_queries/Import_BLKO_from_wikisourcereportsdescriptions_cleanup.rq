@@ -1,0 +1,49 @@
+SELECT DISTINCT ?item ?desc ?issue
+WHERE
+{
+    hint:Query hint:optimizer "None".
+	{
+      ?item wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q1302249 .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, "cross-reference" ) )  
+      BIND( "without 'cross-reference'" as ?issue)
+    }
+    UNION  {
+      ?item wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q9353932 .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, "genealogical table" ) )  
+      BIND( "without 'genealogical table'" as ?issue)
+    }
+    UNION  {
+      ?item wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q19389637 .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, "entry" ) )  
+      BIND( "without 'entry'" as ?issue)
+    }
+    UNION  {
+      ?item wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q13433827 .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, "vol" ) )  
+      BIND( "without 'vol'" as ?issue)
+    }    
+    UNION  {
+      ?item wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q13433827 .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, "entry" ) )  
+      BIND( "without 'entry'" as ?issue)
+    }  
+    UNION  {
+      ?item wdt:P1433 wd:Q665807  .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, "Biographisches Lexikon des Kaiserthums Oesterreich" ) )  
+      BIND( "without 'Biographisches Lexikon des Kaiserthums Oesterreich'" as ?issue)
+    }
+    UNION  {
+      ?item wdt:P1433 wd:Q665807  .
+      OPTIONAL { ?item schema:description ?desc . FILTER(lang(?desc)="en") }
+      FILTER( !BOUND(?desc )  )
+      BIND( "English missing" as ?issue)
+    }    
+      FILTER( ?item not in ( wd:Q15397819 , wd:Q15397819 ) )
+}
+ORDER BY ?issue ?desc ?item

@@ -1,0 +1,12 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?image WHERE {
+  ?item wdt:P31 wd:Q186516 ;
+        wdt:P18 ?image ;
+        wdt:P1001 ?country .
+  ?country wdt:P31 wd:Q3624078 .
+  FILTER NOT EXISTS { ?country wdt:P31 wd:Q3024240 }
+  FILTER NOT EXISTS { ?item wdt:P462/wdt:P279* wd:Q3142 }
+  FILTER NOT EXISTS { ?item wdt:P462/wdt:P279* wd:Q23444 }
+  FILTER NOT EXISTS { ?item wdt:P462/wdt:P279* wd:Q1088 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

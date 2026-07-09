@@ -1,0 +1,7 @@
+#Cats
+SELECT ?item ?itemLabel ?hashtagLabel
+WHERE
+{
+  	?item wdt:P2572 ?hashtag
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

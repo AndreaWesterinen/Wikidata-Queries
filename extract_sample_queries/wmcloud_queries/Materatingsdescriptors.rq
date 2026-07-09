@@ -1,0 +1,14 @@
+SELECT ?item ?system ?type ?country ?usage ?date
+WHERE {
+  { SELECT ?item (COUNT(?s) AS ?usage)
+           WHERE { ?item wdt:P31/wdt:P279* wd:Q68183127 .
+                  OPTIONAL { ?s pq:P7367|pq:P8428 ?item . }
+                 } GROUP BY ?item }
+  OPTIONAL { ?item wdt:P31/wdt:P361 ?system .
+  OPTIONAL { ?system wdt:P17 ?country . }
+  OPTIONAL { ?system wdt:P31/p:P279/pq:P642 ?type } }
+  OPTIONAL { ?item wdt:P571 ?start } OPTIONAL { ?item wdt:P576 ?end }
+  BIND ( IF ( bound(?end) ,
+             concat(str(year(?start)),"–",str(year(?end))) ,
+             concat(str(year(?start)),"–") ) AS ?date)
+  } ORDER BY ?system ?item ?type

@@ -1,0 +1,26 @@
+SELECT ?item ?sitter ?sittername ?dob ?dod ?url ?addlink WHERE {
+  ?item wdt:P136 wd:Q134307 . 
+  MINUS { ?item wdt:P195 wd:Q1967614 }.
+  MINUS { ?item wdt:P195 wd:Q238587 }.
+  MINUS { ?item wdt:P921 [] } . 
+  ?item wdt:P31 wd:Q3305213 .
+  ?item rdfs:label ?sittername . 
+  FILTER(LANG(?sittername)="en" && REGEX(STR(?sittername), "^.+\\s.+$"))
+  { ?sitter rdfs:label ?sittername } UNION { ?sitter skos:altLabel ?sittername } . 
+  ?sitter wdt:P569 ?dob . 
+  ?sitter wdt:P31 wd:Q5 .
+  FILTER(YEAR(?dob) > 1000) .
+  OPTIONAL { ?sitter wdt:P570 ?dod } . 
+  ?sitter wikibase:sitelinks ?sitterlinks .  
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P921&entityid=", REPLACE(STR(?sitter), "http://www.wikidata.org/entity/", ""), " Add]") AS ?addlink)
+  OPTIONAL {
+  ?property wikibase:propertyType wikibase:ExternalId .
+  ?property wdt:P31 wd:Q44847669 .
+  ?property wdt:P1630 ?formatterurl .
+  ?property wikibase:directClaim ?claim . 
+  MINUS { ?property wikibase:directClaim wdt:P350 } .
+  ?item ?claim ?id .
+  ?property rdfs:label ?propertyLabel FILTER (lang(?propertyLabel) = "en") .
+  BIND(CONCAT('[', REPLACE(?id, '^(.+)$', ?formatterurl), ' ', ?propertyLabel, ' ', ?id, ']') AS ?url) . } 
+  OPTIONAL { ?item wdt:P973 ?url } .      
+} ORDER BY DESC(?sitterlinks) LIMIT 4000

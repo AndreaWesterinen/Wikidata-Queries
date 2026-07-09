@@ -1,0 +1,3 @@
+SELECT ?item ?sitelink
+WHERE
+{   ?item wdt:P31 wd:Q191067. ?item wdt:P577 ?date FILTER (?date < "1924-01-01T00:00:00Z"^^xsd:dateTime).  ?sitelink schema:about ?item; schema:isPartOf <https://es.wikisource.org/> . }

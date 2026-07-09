@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?collection ?collectionLabel ?location ?locationLabel
+WHERE 
+{
+  ?item wdt:P276 wd:Q3330709. # collection : collection du musée national de la Marine
+  ?item wdt:P276 ?location .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    OPTIONAL{?item wdt:P195 ?collection .}       # P195  : collection
+    OPTIONAL{?itemLabel wdt:P195 ?collectionLabel .}       # P195 : Label de la collection
+}

@@ -1,0 +1,9 @@
+SELECT ?item ?en_label (SAMPLE(?img) AS ?image) ?inception ?dissolved__abolished_or_demolished
+{ 
+   WHERE {
+  ?item wdt:P31 wd:Q158454.
+  ?item wdt:P17 wd:Q30.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P571 ?inception. }
+  OPTIONAL { ?item wdt:P576 ?dissolved__abolished_or_demolished. }
+} GROUP BY ?item ?en_label

@@ -1,0 +1,14 @@
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?item WHERE {
+  ?item (wdt:P106/wdt:P1647*) wd:Q182436.
+  ?item wdt:P21 wd:Q6581072.
+  ?item wdt:P31 wd:Q5.
+  MINUS { ?item wdt:P27 ?nationality. }
+  MINUS { ?item wdt:P27 wd:Q145. }
+  ?wen schema:about ?item.
+  ?wen schema:inLanguage "en".
+}
+
+
+limit 400

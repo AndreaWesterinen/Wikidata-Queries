@@ -1,0 +1,13 @@
+SELECT ?idWD ?idWDLabel ?catasto
+        (MAX(?coord) as ?coord)
+    WHERE {
+        ?idWD wdt:P17 wd:Q38 .
+        ?idWD wdt:P131/wdt:P806 ?catasto
+        OPTIONAL { ?idWD wdt:P969 ?indirizzo . }
+        OPTIONAL { ?idWD wdt:P625 ?coord . }
+        { ?idWD wdt:P1435 wd:Q26971668 .
+            MINUS { ?idWD wdt:P2186 ?idWLM . }
+        }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+    }
+    GROUP BY ?idWD ?idWDLabel ?catasto

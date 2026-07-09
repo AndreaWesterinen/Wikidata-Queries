@@ -1,0 +1,1 @@
+SELECT ?l ?form WHERE{?l a ontolex:LexicalEntry;ontolex:sense ?form.?form wdt:P31 ?o}

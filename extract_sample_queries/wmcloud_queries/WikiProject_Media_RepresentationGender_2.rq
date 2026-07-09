@@ -1,0 +1,37 @@
+#summary of test results for men related tests, ordered by number of wikipedia sitelinks
+SELECT ?item ?itemLabel ?type (MIN(YEAR(?date)) AS ?year)
+(GROUP_CONCAT(DISTINCT ?reverse_bechdel; separator = '/') AS ?reverse_Bechdel) 
+
+?sitelinks
+#first I'm getting all items with at least one result for one of the tests
+WITH { SELECT DISTINCT ?item ?type WHERE {
+    #getting possible results
+    VALUES ?result {wd:Q105776216}
+    #for consideration an item has to have at least one result for one of the tests
+    ?item wdt:P5021 ?result.
+    #excluding television series episodes and chapters
+    MINUS{?item wdt:P31/wdt:P279* wd:Q21191270}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q1980247}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q11424 BIND("film" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q5398426 BIND("television series" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q7725634 BIND("literary work" AS ?type)}
+}
+} AS %items
+#now I get the results for all relevant tests
+ WHERE {    
+    INCLUDE %items
+    #getting reverse bechdel
+    OPTIONAL{?item p:P5021 ?st_reverse_bechdel. ?st_reverse_bechdel ps:P5021 wd:Q105776216; pq:P9259 ?reverse_bechdel_result.
+             ?reverse_bechdel_result rdfs:label ?reverse_bechdel_label. FILTER(LANG(?reverse_bechdel_label)="en")
+              OPTIONAL{?st_reverse_bechdel pq:P444 ?reverse_bechdel_score}
+              BIND(IF(BOUND(?reverse_bechdel_score),CONCAT(?reverse_bechdel_label," (",?reverse_bechdel_score,")"),?reverse_bechdel_label) AS ?reverse_bechdel)
+            }
+    ?item wikibase:sitelinks ?sitelinks.
+    OPTIONAL{?item wdt:P577 ?publication}
+    OPTIONAL{?item wdt:P580 ?start}
+    BIND(IF(BOUND(?publication),?publication,?start) AS ?date)
+   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?sitelinks ?type
+ORDER BY DESC(?sitelinks)

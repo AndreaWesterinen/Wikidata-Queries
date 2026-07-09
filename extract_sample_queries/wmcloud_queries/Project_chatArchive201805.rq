@@ -1,0 +1,16 @@
+SELECT ?WikiData_item ?WikiData_itemLabel ?CAS_registry_number ?PubChem_CID ?EINECS ?SMILES ?InChI ?InChIKey ?WikiPedia_article #Showing data in this order
+{
+  ?WikiData_item wdt:P231 ?CAS_registry_number . #Collecting all items which have CAS number data, from whole WikiData item pages.
+
+  OPTIONAL{?WikiData_item wdt:P662 ?PubChem_CID .} #If collected item has PubChem CID data, show that.
+  OPTIONAL{?WikiData_item wdt:P232 ?EINECS .} #If collected item has EINECS data, show that.
+  OPTIONAL{?WikiData_item wdt:P233 ?SMILES .} #If collected item has SMILES data, show that.
+  OPTIONAL{?WikiData_item wdt:P234 ?InChI .} #If collected item has InChI data, show that.
+  OPTIONAL{?WikiData_item wdt:P235 ?InChIKey .} #If collected item has InChIKey data, show that.
+  OPTIONAL{
+      ?WikiPedia_article schema:about ?WikiData_item .
+      ?WikiPedia_article schema:inLanguage "en" .
+      FILTER (SUBSTR(str(?WikiPedia_article), 1, 25) = "https://en.wikipedia.org/") #If collected item has sitelink to en.wikipedia, show that.
+    }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  } #Show WikiData item label in this language. "en" is English.
+}

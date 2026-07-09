@@ -1,3 +1,4 @@
+#title: Presidents and their causes of death ranking
 #defaultView:BubbleChart
 SELECT ?cid ?cause (count(*) as ?count)
 WHERE

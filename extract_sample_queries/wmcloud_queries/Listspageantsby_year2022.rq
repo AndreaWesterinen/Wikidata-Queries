@@ -1,0 +1,38 @@
+SELECT DISTINCT ?item ?itemLabel ?winner ?img (COALESCE(?e2, ?e1) as ?e) ?series
+WITH
+{
+  SELECT DISTINCT ?winner ?series (?series as ?item) ?img ?e1 ?e2
+  {
+      ?series wdt:P31 wd:Q58863414 .
+      ?st ps:P2522 ?series  ; pq:P585 ?d . FILTER( YEAR(?d) = 2022)                                   
+      FILTER NOT EXISTS { ?st pq:P805 [] } 
+      ?winner p:P2522 ?st . 
+      OPTIONAL { ?series wdt:P2541 wd:Q62900839  . BIND ("🌐" as ?e2) } 
+      OPTIONAL { ?series wdt:P17/p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?e1 ] }   
+      OPTIONAL { ?winner wdt:P18 ?img }
+  }
+} as %seriesitems
+WITH
+{
+  SELECT DISTINCT ?item ?winner ?series ?img ?e1 ?e2
+  {
+    ?item wdt:P31 wd:Q62391930 ; wdt:P585 ?d .
+    FILTER(YEAR(?d)=2022)
+    OPTIONAL
+      { ?item wdt:P1346 ?winner
+        OPTIONAL { ?winner wdt:P18 ?img }
+      }
+    OPTIONAL
+      { ?item wdt:P179 ?series
+          OPTIONAL { ?series wdt:P2541 wd:Q62900839  . BIND ("🌐" as ?e2) } 
+      }
+    OPTIONAL { ?item wdt:P17/p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?e1 ] }   
+  }
+} as %editionitems
+WHERE
+{
+  { INCLUDE %editionitems } UNION { INCLUDE %seriesitems }
+  MINUS { ?series wdt:P31 wd:Q63253904 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,pt,es,id" }
+}
+ORDER BY ?e ?itemLabel

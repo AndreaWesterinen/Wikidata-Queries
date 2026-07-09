@@ -1,0 +1,7 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription ?st ?ids ?sl
+WHERE
+{
+  SERVICE bd:sample { ?item wdt:P735 wd:Q64698701 . bd:serviceParam bd:sample.limit 15 }
+  OPTIONAL { ?item wikibase:statements ?st ; wikibase:identifiers ?ids ; wikibase:sitelinks ?sl }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

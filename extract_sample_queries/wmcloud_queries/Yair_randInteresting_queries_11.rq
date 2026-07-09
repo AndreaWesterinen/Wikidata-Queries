@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT distinct ?country ?countryLabel ?personLabel ?cityLabel ?coords WHERE {
+  ?country wdt:P31 wd:Q3624078;
+     wdt:P6 | wdt:P35 ?person . ?person wdt:P19 ?city . ?city wdt:P625 ?coords .
+  FILTER NOT EXISTS { ?country wdt:P576 [] }
+  FILTER NOT EXISTS { ?city wdt:P17 ?country . }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,27 @@
+# German-language female science fiction authors
+SELECT DISTINCT ?author ?authorLabel ?dateOfBirth ?dateOfDeath WHERE {
+  ?author wdt:P31 wd:Q5;
+          wdt:P21/wdt:P279* wd:Q6581072.
+  # speaks/writes German, or citizen of Germany, Austria or Liechtenstein (since “languages spoken, written or signed” alone is not very complete; Swiss citizenship would probably include too many French- or Italian-writing authors)
+  {
+    ?author wdt:P1412 wd:Q188.
+  } UNION {
+    VALUES ?country { wd:Q183 wd:Q40 wd:Q347 }
+    ?author wdt:P27 ?country.
+  }
+  # genre science fiction, or occupation science fiction author, or genre science fiction as qualifier on occupation author statement
+  {
+    ?author wdt:P136/wdt:P279* wd:Q24925.
+  } UNION {
+    ?author wdt:P106/wdt:P279* wd:Q28225718.
+  } UNION {
+    ?author p:P106 [
+      a wikibase:BestRank;
+      ps:P106/wdt:P279* wd:Q482980;
+      pq:P136/wdt:P279* wd:Q24925
+    ].
+  }
+  OPTIONAL { ?author wdt:P569 ?dateOfBirth. }
+  OPTIONAL { ?author wdt:P570 ?dateOfDeath. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

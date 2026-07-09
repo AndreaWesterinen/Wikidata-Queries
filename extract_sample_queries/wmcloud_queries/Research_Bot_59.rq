@@ -1,0 +1,3 @@
+SELECT (COUNT(*) AS ?count) WHERE {   ?item wdt:P496 [] .
+  FILTER NOT EXISTS { ?item wdt:P106 []}
+ }

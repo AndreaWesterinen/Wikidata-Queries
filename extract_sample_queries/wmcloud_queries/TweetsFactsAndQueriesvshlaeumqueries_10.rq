@@ -1,0 +1,16 @@
+embed.html## names that were used gender-neutrally among people on Wikidata
+SELECT ?name ?nameLabel ?women ?total ?ratio (ABS(?ratio-0.5) AS ?diffFrom5050) WHERE {
+  {
+    SELECT ?name (COUNT(*) AS ?total) (SUM(?woman) AS ?women) (SUM(?woman)/COUNT(*) AS ?ratio) WHERE { # should be (?women/?total AS ?ratio) – see T172113
+      ?person wdt:P31 wd:Q5;
+              wdt:P735 ?name;
+              wdt:P21 ?sexOrGender;
+              wdt:P569 ?dob.
+      BIND(IF(?sexOrGender IN (wd:Q6581072, wd:Q1052281), 1, 0) AS ?woman)
+    }
+    GROUP BY ?name
+    HAVING(?total >= 10 && 0.4 <= ?ratio && ?ratio <= 0.6) # arbitrary limits, feel free to tweak
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?total)

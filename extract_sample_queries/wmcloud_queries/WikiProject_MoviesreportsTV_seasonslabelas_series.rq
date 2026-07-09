@@ -1,0 +1,2 @@
+SELECT ?item ?lang ?ct ?samplelabel ?sampleitem WITH  {  SELECT ?lang (COUNT(DISTINCT ?it) as ?ct)           (SAMPLE (?l) as ?samplelabel) (SAMPLE (?it) as ?sampleitem)  {    [] wdt:P4908 ?it . ?it wdt:P31 wd:Q3464665 ; wdt:P179 ?series ; rdfs:label ?l . 
+?series rdfs:label ?l .    BIND(lang(?l) as ?lang)  }        GROUP BY ?lang HAVING (?ct > 20) } as %in WHERE {  INCLUDE %in ?item wdt:P424 ?lang ; wdt:P305 [] } ORDER BY DESC(?ct)

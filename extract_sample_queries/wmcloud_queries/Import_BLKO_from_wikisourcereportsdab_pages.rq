@@ -1,0 +1,22 @@
+SELECT DISTINCT	?item ?dab ?note  (GROUP_CONCAT(DISTINCT CONCAT("[",str(?ws)," s:", ?wst,"]")) as ?wsp) (SAMPLE(CONCAT("[[:de:",?wpt,"]]")) as ?wpp)
+{
+	hint:Query hint:optimizer "None".
+    { ?item wdt:P1433 wd:Q665807 ; wdt:P921 ?dab . ?dab wdt:P31 wd:Q4167410 
+                OPTIONAL { ?ws schema:about ?item ; schema:name ?wst }
+    } 
+    UNION
+    { ?dab	wdt:P1343 wd:Q665807 ; wdt:P31 wd:Q4167410 
+        OPTIONAL { ?dab p:P1343 [ ps:P1343 wd:Q665807 ; pq:P805 ?item ] 
+                OPTIONAL { ?ws schema:about ?item ; schema:name ?wst }
+                 }
+    } 
+    UNION
+    {  
+       BIND(wd:Q21281405 as ?item) 
+       BIND("<small>ignore this line<br> should be the only one</small>" as ?note) 
+       BIND("-" as ?dab)  
+    }
+    OPTIONAL { [] schema:about ?dab ; schema:isPartOf <https://de.wikipedia.org/> ; schema:name ?wpt  }
+}
+GROUP BY ?dab ?note ?item
+ORDER BY ?note ?dab

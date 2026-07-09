@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?taxonName ?basionymOf WHERE {
+  ?item wdt:P2868 wd:Q810198 .  # basionym
+  ?item wdt:P225 ?taxonName .
+  ?item p:P2868 ?taxonNameStatement .
+  ?taxonNameStatement pq:P642/wdt:P225 ?basionymOf
+}
+ORDER BY ASC(?taxonName) ASC(?basionymOf)

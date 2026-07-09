@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?formula WHERE {
+  ?item wdt:P2534 ?formula.
+  FILTER(CONTAINS(?formula, "&amp;") || CONTAINS(?formula, "&quot;")).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

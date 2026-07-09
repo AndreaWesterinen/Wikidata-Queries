@@ -1,3 +1,4 @@
+#title: Map of the locations of all paintings by Johannes Vermeer with an image
 #defaultView:Map
 SELECT ?painting ?paintingLabel ?location ?image where {
   ?painting wdt:P276 ?collection;

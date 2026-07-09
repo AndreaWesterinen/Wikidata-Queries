@@ -1,0 +1,14 @@
+#Find common strings for authors of scientific articles
+SELECT * WHERE {
+ {
+ SELECT ?authorstring (COUNT(?paper) AS ?count) (GROUP_CONCAT(?paper; SEPARATOR = " , ") AS ?items) WHERE { { ?paper wdt:P2093 ?authorstring . }}
+ GROUP BY ?authorstring
+ }
+# FILTER(CONTAINS(LCASE(?authorstring), "-"))
+ FILTER(!CONTAINS(LCASE(?authorstring), "."))
+ FILTER(!regex (?authorstring, "^[A-Za-z]{1}((?= ))")).
+ FILTER(!regex (?authorstring, "(?<= )[A-Za-z]{1}((?= ))")).
+ FILTER(?count > 20)
+# FILTER(?count < 30)
+}
+ORDER BY DESC(?count)

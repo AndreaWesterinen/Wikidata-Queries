@@ -1,0 +1,27 @@
+# Uses of P3388:
+# - as property (any rank/best rank/normal rank/preferred rank/deprecated rank)
+# - as qualifier
+# - in references
+# by Jura1, rev 2016-03-03
+SELECT ?use ?rank ?items_with_property ?uses_of_property
+WHERE {
+  {
+    SELECT (wikibase:statementProperty AS ?use) (COUNT(DISTINCT(?item)) AS ?items_with_property) (COUNT(?value) AS ?uses_of_property)
+    WHERE {?item p:P3388 ?value}
+  } UNION {
+    SELECT (wikibase:statementProperty AS ?use) (wikibase:BestRank AS ?rank) (COUNT(DISTINCT(?item)) AS ?items_with_property) (COUNT(?bestvalue) AS ?uses_of_property)
+    WHERE {?item wdt:P3388 ?bestvalue}
+  } UNION {
+    SELECT (wikibase:statementProperty AS ?use) ?rank (COUNT(DISTINCT(?item)) AS ?items_with_property) (COUNT((?statement)) AS ?uses_of_property)
+    WHERE {?item p:P3388 ?statement . ?statement wikibase:rank ?rank} GROUP BY ?rank
+  } UNION {
+    SELECT (wikibase:reference AS ?use) (COUNT(DISTINCT(?item)) AS ?items_with_property) (COUNT(?value) AS ?uses_of_property)
+    WHERE {?item pr:P3388 ?value}
+  } UNION {
+    SELECT (wikibase:qualifier AS ?use) (COUNT(DISTINCT(?item)) AS ?items_with_property) (COUNT(?value) AS ?uses_of_property)
+    WHERE {?item pq:P3388 ?value}
+  }
+}
+ORDER BY DESC(?use) DESC(?items_with_property) ?rank
+
+#PLEASE NOTE: Deleted items appear in counts for some ranks, but not in others.

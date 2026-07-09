@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription (COUNT(*) as ?count)
+{
+	?i ?wdt wd:Q34726 . 
+    ?item wikibase:directClaim ?wdt . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?itemDescription
+ORDER BY DESC(?count)

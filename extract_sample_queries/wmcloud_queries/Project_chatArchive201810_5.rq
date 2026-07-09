@@ -1,0 +1,10 @@
+embed.html##antal objekt, av typen naturreservat, med NVR-id per län
+#defaultView:BarChart
+SELECT ?lanLabel (COUNT(DISTINCT ?item) AS ?antal_reservat) {
+  ?item wdt:P3613 ?nvrid; wdt:P31 wd:Q179049; wdt:P131 ?kommun; wdt:P17 wd:Q34 . ?kommun p:P131 ?lanstm .
+  ?lanstm ps:P131 ?lan . ?lan wdt:P31 wd:Q200547 . 
+  OPTIONAL { ?lanstm pq:P582 ?slutdat . } FILTER(!BOUND(?slutdat))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+}
+GROUP BY ?lanLabel
+ORDER BY ?lanLabel

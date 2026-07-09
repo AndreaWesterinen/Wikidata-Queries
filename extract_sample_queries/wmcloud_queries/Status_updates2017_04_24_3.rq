@@ -1,0 +1,16 @@
+#defaultView:ImageGrid
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?cocktail ?cocktailLabel (GROUP_CONCAT(?_ingredientLabel; separator=", ") AS ?ingredients) (COUNT(DISTINCT(?_ingredientLabel)) AS ?n_ingredients) ?pic
+WHERE
+{
+	?cocktail wdt:P31/wdt:P279* wd:Q134768 .
+  	OPTIONAL {
+		?cocktail wdt:P18 ?pic
+	}
+  	?cocktail wdt:P186 ?ingredient .
+    ?ingredient rdfs:label ?_ingredientLabel
+	FILTER((LANG(?_ingredientLabel)) = "en")
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?cocktail ?cocktailLabel ?pic
+ORDER BY DESC(?n_ingredients)

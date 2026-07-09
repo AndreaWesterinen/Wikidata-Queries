@@ -1,0 +1,36 @@
+SELECT ?letter (COUNT(?letter) AS ?count) WITH {
+  SELECT ?l WHERE {
+      ?l a ontolex:LexicalEntry ; 
+           dct:language wd:Q1860 # English
+           }} AS %lexemes
+  WITH { SELECT ?wl { 
+    BIND ( 5 AS ?wl )
+  }} AS %word_length
+  WITH { SELECT DISTINCT ?word {
+      INCLUDE %word_length
+      INCLUDE %lexemes
+      ?l ontolex:lexicalForm [ontolex:representation ?word ]
+      BIND (CONCAT("^[a-z]{", STR(?wl), "}$") AS ?r )  
+      FILTER(REGEX(?word, ?r)) 
+  }} AS %word_matches 
+WITH { SELECT DISTINCT ?index WHERE {
+  INCLUDE %word_length
+  VALUES ?start { 1 }
+  BIND (?wl AS ?end)
+  BIND ( (?end - ?start ) + 1 AS ?x )
+  ?n p:P31 [
+     ps:P31 wd:Q21199 ;
+     pq:P155 ?prev
+            ] .
+  ?prev wdt:P1181 ?index .
+  FILTER (?index > 0 && ?index < ?x + 1)
+  }
+} AS %indices
+WHERE {
+  INCLUDE %word_matches
+  INCLUDE %indices
+  VALUES ?letter { "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z" }
+  FILTER (CONTAINS(SUBSTR (?word, ?index, 1 ), ?letter))
+}        
+GROUP BY ?letter
+ORDER BY DESC (?count)

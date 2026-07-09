@@ -1,0 +1,19 @@
+SELECT  ?item ?collectie 
+  WITH {SELECT ?item  ?collectie {
+  ?item wdt:P6379 ?collectie.
+  ?item wdt:P31/(wdt:P279)* wd:Q4830453.
+  ?item wdt:P17 wd:Q55.
+  FILTER NOT EXiSTS {
+   ?item wdt:P856 ?website
+  }
+  FILTER NOT EXiSTS {
+   ?item wdt:P576 ?opheffing
+  }
+}
+} AS %items
+WHERE {
+INCLUDE %items
+  ?sitelink schema:about ?item .
+  ?sitelink schema:inLanguage ?lang .   
+  ?sitelink schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+}

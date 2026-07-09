@@ -1,0 +1,5 @@
+SELECT ?pansexualit_ ?pansexualit_Label WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?pansexualit_ wdt:P91 wd:Q271534.
+}
+LIMIT 100

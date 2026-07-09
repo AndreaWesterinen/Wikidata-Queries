@@ -1,0 +1,19 @@
+SELECT ?label ?lang ?item ?shape
+WHERE
+{
+  {
+    SELECT ?shape (SAMPLE(LANG(?label)) AS ?lang)
+    WHERE
+    {
+      ?item wdt:P1419 ?shape.
+      ?item rdfs:label ?label.
+      ?shape rdfs:label ?label.
+      FILTER(LANG(?label) IN ("en", "fr")). # this doesn’t change the result – if you comment it out, you’ll get the same four items, just with different languages
+    }
+    GROUP BY ?shape
+  }
+  ?item wdt:P1419 ?shape.
+  ?item rdfs:label ?label.
+  ?shape rdfs:label ?label.
+  FILTER(LANG(?label) = ?lang).
+}

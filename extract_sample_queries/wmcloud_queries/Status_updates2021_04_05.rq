@@ -1,0 +1,58 @@
+embed.html##defaultView:Map{"hide":["?coords", "?line", "?rgb", "?layer"]}
+SELECT DISTINCT ?item ?itemLabel ?img ?georef ?proportion ?coords ?line ?rgb ?layer
+
+WITH {
+  SELECT ?item ?img ?georef ?coords ?lat ?lon WHERE {
+    ?item wdt:P195 wd:Q7100888 .
+    ?item p:P5140 ?coord_stmt .
+    OPTIONAL {?item wdt:P9361 ?georef} .
+    OPTIONAL {?item wdt:P18 ?img} .
+    ?coord_stmt ps:P5140 ?coords .
+    ?coord_stmt psv:P5140 / wikibase:geoLatitude ?lat .
+    ?coord_stmt psv:P5140 / wikibase:geoLongitude ?lon .
+  } 
+} AS %points
+
+WITH {
+  SELECT ?line ?layer ?rgb WHERE {
+    INCLUDE %points .
+    ?item wdt:P47 ?item2 .
+    ?item2 p:P5140 ?coord2_stmt .
+    ?coord2_stmt psv:P5140 / wikibase:geoLatitude ?lat2 .
+    ?coord2_stmt psv:P5140 / wikibase:geoLongitude ?lon2 .  
+    BIND(CONCAT('LINESTRING (', STR(?lon), ' ', STR(?lat), ',', STR(?lon2), ' ', STR(?lat2), ')') AS ?str) .
+    BIND(STRDT(?str, geo:wktLiteral) AS ?line) .
+    BIND('adjacent' AS ?layer) .
+    BIND('FF0000' AS ?rgb) .
+  }
+} AS %lines
+
+WITH {
+  SELECT ?line ?layer ?rgb ?proportion WHERE {
+    INCLUDE %points .
+    ?item p:P3179 ?stmt .
+    ?stmt ps:P3179 ?item2 .
+    OPTIONAL {?stmt pq:P1107 ?prop1} .
+    OPTIONAL {?item2 p:P3179 ?stmt2 . ?stmt2 ps:P3179 ?item . ?stmt2 pq:P1107 ?prop2}
+    BIND(IF(bound(?prop2) && bound(?prop1) && (?prop2 > ?prop1), ?prop2, ?prop1) AS ?prop) .
+    BIND(COALESCE(?prop, ?prop1, ?prop2) AS ?proportion) .
+    ?item2 p:P5140 ?coord2_stmt .
+    ?coord2_stmt psv:P5140 / wikibase:geoLatitude ?lat2 .
+    ?coord2_stmt psv:P5140 / wikibase:geoLongitude ?lon2 .  
+    BIND(CONCAT('LINESTRING (', STR(?lon), ' ', STR(?lat), ',', STR(?lon2), ' ', STR(?lat2), ')') AS ?str) .
+    BIND(STRDT(?str, geo:wktLiteral) AS ?line) .
+    BIND('overlap' AS ?layer) 
+    BIND('0000AA' AS ?rgb) .
+  }
+} AS %lines2
+
+
+WHERE {
+  { INCLUDE %lines } 
+  UNION
+  { INCLUDE %lines2 } 
+  UNION
+  { INCLUDE %points . BIND('points' AS ?layer) . BIND('FF0000' AS ?rgb)} .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

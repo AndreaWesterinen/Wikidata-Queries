@@ -1,0 +1,8 @@
+SELECT ?item ?year ?seq WHERE {
+  ?item p:P166 ?x.
+  ?x ps:P166 wd:Q55042186.
+  ?x pq:P580 ?time.
+  ?x pq:P1545 ?seq
+  BIND(year(?time) as ?year)
+}
+ORDER BY xsd:integer(?seq)

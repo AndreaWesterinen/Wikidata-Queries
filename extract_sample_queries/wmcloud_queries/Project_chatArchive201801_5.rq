@@ -1,0 +1,14 @@
+embed.html##Dams without P4661 but with reservoirs within 1.5 km
+SELECT DISTINCT ?barrage ?barrageLabel ?lac ?lacLabel ?loc WHERE {
+  ?barrage wdt:P31 wd:Q12323.
+  ?lac wdt:P31 wd:Q131681.
+  ?barrage wdt:P625 ?loc.
+  SERVICE wikibase:around {
+    ?lac wdt:P625 ?location.
+    bd:serviceParam wikibase:center ?loc.
+    bd:serviceParam wikibase:radius "1.5".
+  }
+  MINUS { ?barrage wdt:P4661 ?xxx }
+  MINUS { ?yyy wdt:P4661 ?lac }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,es,de,it". }
+}

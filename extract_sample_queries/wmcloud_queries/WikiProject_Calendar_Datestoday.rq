@@ -1,0 +1,1 @@
+SELECT ?item {?item wdt:P31 wd:Q47150325;wdt:P585 ?d FILTER(DAY(?d)=DAY(NOW())&&MONTH(?d)=MONTH(now())&&YEAR(?d)=YEAR(now()))  }

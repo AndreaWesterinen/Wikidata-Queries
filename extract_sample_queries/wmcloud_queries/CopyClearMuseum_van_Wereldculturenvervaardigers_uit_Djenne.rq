@@ -1,0 +1,19 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q17153751.
+  {
+    ?item wdt:P19 wd:Q213507.
+  }
+  UNION
+  {
+    ?item wdt:P937 wd:Q213507.
+  }
+  UNION
+  {
+    ?item wdt:P551 wd:Q213507.
+  }
+  UNION
+  {
+    ?item wdt:P20 wd:Q213507.
+  }
+}

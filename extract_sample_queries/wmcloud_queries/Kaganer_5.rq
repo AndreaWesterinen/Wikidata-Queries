@@ -1,0 +1,15 @@
+#Hermitage paintings
+SELECT ?pic ?labelRu ?labelEn ?cat_num ?website WHERE {
+  ?pic wdt:P31 wd:Q33506	.
+  ?pic wdt:P131 wd:Q656.
+ OPTIONAL {?pic wdt:P7414 ?cat_num }.
+ OPTIONAL {?pic wdt:P856 ?website }.
+  OPTIONAL {
+    ?pic rdfs:label ?labelEn.
+    FILTER((LANG(?labelEn)) = "en")
+  }
+  OPTIONAL {
+    ?pic rdfs:label ?labelRu.
+    FILTER((LANG(?labelRu)) = "ru")
+  }
+}

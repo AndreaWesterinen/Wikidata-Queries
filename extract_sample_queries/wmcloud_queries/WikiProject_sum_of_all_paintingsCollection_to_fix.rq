@@ -1,0 +1,5 @@
+SELECT ?item ?subclass WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+        wdt:P195 ?collection .
+  ?collection wdt:P279 ?subclass .        
+} LIMIT 500

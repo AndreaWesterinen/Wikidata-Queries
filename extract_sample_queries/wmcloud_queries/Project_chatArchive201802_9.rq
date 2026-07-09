@@ -1,0 +1,5 @@
+#Ship class
+SELECT ?item ?itemLabel ?shipclass WHERE {
+  ?item wdt:P289 ?shipclass.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}

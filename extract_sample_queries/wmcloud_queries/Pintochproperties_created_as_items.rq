@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?type ?typeLabel WHERE {
+  ?item wdt:P31 ?type.
+  ?type wdt:P279* wd:Q18616576.
+  FILTER(REGEX(str(?item), "Q[1-9]\\d+"))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

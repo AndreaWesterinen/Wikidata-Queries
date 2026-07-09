@@ -1,0 +1,9 @@
+SELECT (CONCAT("Who painted ", ?itemLabel, "?") as ?TheQuestion) ?img (?answerlabel as ?TheAnswer)
+WHERE
+{
+	?item wdt:P31 wd:Q3305213 . 
+  	?item wdt:P18 ?img .
+	?item wdt:P170 ?answer          
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?item rdfs:label ?itemLabel . ?answer rdfs:label ?answerlabel }
+}
+LIMIT 100

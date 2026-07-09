@@ -1,0 +1,8 @@
+SELECT ?statement WHERE {
+  VALUES (?item ?value) {
+    (wd:Q94279 "university-of-alaska-southeast-sitka")
+    (wd:Q152057 "bp-alternative-energy")
+  }
+  ?item p:P2088 ?statement.
+  ?statement ps:P2088 ?value.
+}

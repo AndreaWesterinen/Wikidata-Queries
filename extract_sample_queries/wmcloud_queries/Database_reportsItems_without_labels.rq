@@ -1,0 +1,5 @@
+SELECT ?item ?sitelinks {
+  ?item wikibase:sitelinks ?sitelinks .
+  MINUS { ?item rdfs:label [] } .
+  FILTER( ?item NOT IN ( wd:Q16943273, wd:Q17339402, wd:Q17566023, wd:Q17578745, wd:Q85408509, wd:Q85408938, wd:Q85409163, wd:Q85409310, wd:Q85409446, wd:Q85409596 ) ) .
+} LIMIT 200

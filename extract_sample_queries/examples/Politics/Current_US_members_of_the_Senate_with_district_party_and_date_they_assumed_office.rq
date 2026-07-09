@@ -1,3 +1,4 @@
+#title: Current U.S. members of the Senate with district, party and date they assumed office
 SELECT ?senator ?senatorLabel ?districtLabel ?partyLabel ?assumedOffice (sample(?image) as ?image) where {
   # Get all senators
   ?senator p:P39 ?posheld; # With position held

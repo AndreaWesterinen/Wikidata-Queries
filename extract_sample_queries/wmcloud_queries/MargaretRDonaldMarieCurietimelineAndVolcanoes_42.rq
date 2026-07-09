@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item wdt:P105 wd:Q35409. 
+  ?item wdt:P171/wdt:P171* wd:Q756 .
+  hint:Prior hint:gearing "forward".
+  OPTIONAL { ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/>  }
+  FILTER(!BOUND(?article )) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+ }
+ORDER BY ?item

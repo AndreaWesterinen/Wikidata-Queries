@@ -1,0 +1,13 @@
+#defaultView:ImageGrid
+SELECT ?person ?personLabel ?painting ?paintingLabel ?pic ?depicts
+WHERE
+{
+?person wdt:P31 wd:Q5 .
+?person wdt:P18 ?pic .
+?painting wdt:P18 ?pic .
+?painting wdt:P31 wd:Q3305213 .
+?painting wdt:P136 wd:Q134307 .
+OPTIONAL { ?painting wdt:P180 ?depicts } .
+FILTER (!BOUND(?depicts))
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

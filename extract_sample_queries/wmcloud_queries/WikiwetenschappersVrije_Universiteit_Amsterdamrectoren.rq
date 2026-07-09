@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?begindatum ?einddatum WHERE {
+  ?item wdt:P39 wd:Q64689203.
+     ?item p:P39 ?statement.
+     OPTIONAL {?statement pq:P580 ?begindatum.}
+     OPTIONAL {?statement pq:P582 ?einddatum.}
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}

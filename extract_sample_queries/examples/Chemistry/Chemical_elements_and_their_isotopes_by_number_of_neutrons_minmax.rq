@@ -1,3 +1,4 @@
+#title: Chemical elements and their isotopes by number of neutrons (min/max)
 SELECT ?element (SAMPLE(?symbol) AS ?symbol) (SAMPLE(?protons) AS ?protons) (MIN(?neutrons) AS ?minNeutrons) (MAX(?neutrons) AS ?maxNeutrons)
 WHERE
 {

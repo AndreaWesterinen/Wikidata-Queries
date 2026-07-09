@@ -1,0 +1,17 @@
+#defaultView:Map
+SELECT DISTINCT ?person ?personLabel ?birth_place ?birth_placeLabel ?birth_place_coords ?birth_country ?birth_countryLabelWHERE 
+{      
+       ?person wdt:P39 wd:Q16707842 ; wdt:P31 wd:Q5 .
+    ?person wdt:P19 ?birth_place . 
+    ?birth_place wdt:P625 ?birth_place_coords .
+    OPTIONAL { ?birth_place wdt:P17 ?birth_country . }
+    FILTER ( ?birth_country != wd:Q145 ) 
+    FILTER ( ?birth_country != wd:Q22 ) 
+    FILTER ( ?birth_country != wd:Q25 ) 
+    FILTER ( ?birth_country != wd:Q26 ) 
+    FILTER ( ?birth_country != wd:Q27 ) 
+    FILTER ( ?birth_country != wd:Q161885 ) 
+    FILTER ( ?birth_country != wd:Q174193 ) 
+  
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "en" }
+}

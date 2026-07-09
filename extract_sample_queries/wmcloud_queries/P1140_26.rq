@@ -1,0 +1,8 @@
+#title: Check 00xx values
+# Complex constraint from [[Property talk:P1140]]
+# [[d:Q189672|county of Estonia <small>(Q189672)</small>]]
+SELECT ?item ?id {
+	?item wdt:P1140 ?id.
+	?item wdt:P31 wd:Q189672.
+    FILTER (SUBSTR(STR(?id), 1, 2) != "00")
+}

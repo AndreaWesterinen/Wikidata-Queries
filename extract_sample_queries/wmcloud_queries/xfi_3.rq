@@ -1,0 +1,9 @@
+# kulturní památka ČR nacházející se v administrativní jednotce
+#defaultView:Map
+SELECT ?hora ?horaLabel ?horaDescription ?geocoordinates WHERE {
+ ?hora wdt:P1435 wd:Q385405.
+ ?hora wdt:P131+ wd:Q393426.
+ OPTIONAL { ?hora wdt:P625 ?geocoordinates. }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,sk,[AUTO_LANGUAGE],en". }
+}
+LIMIT 5000

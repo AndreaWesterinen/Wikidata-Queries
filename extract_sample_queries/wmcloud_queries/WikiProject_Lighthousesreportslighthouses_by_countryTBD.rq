@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemlabel ?coor ?image
+{
+	{ ?item wdt:P31 wd:Q39715 . 
+	OPTIONAL { ?item p:P17 ?country } FILTER(!BOUND(?country))  }
+    UNION { BIND( wd:Q884375 as ?item)  } 
+	OPTIONAL { ?item wdt:P625 ?coor }
+	OPTIONAL { ?item wdt:P18 ?image }  
+}

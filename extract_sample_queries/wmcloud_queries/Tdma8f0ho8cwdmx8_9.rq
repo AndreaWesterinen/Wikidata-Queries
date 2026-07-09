@@ -1,0 +1,14 @@
+#defaultView:Map
+SELECT DISTINCT ?activity ?activityLabel ?coordinates (COALESCE(?layer, "earthquake") AS ?layer) WHERE {
+  {
+    ?activity wdt:P31/wdt:P279* wd:Q8072.
+  } UNION {
+    ?activity wdt:P31/wdt:P279* wd:Q7944.
+  }
+  ?activity wdt:P625 ?coordinates.
+  OPTIONAL {
+    ?activity wdt:P31/wdt:P279* wd:Q8072.
+    BIND("volcano" AS ?layer).
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

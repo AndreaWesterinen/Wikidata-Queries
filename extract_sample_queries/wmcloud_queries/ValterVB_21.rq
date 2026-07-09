@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item WHERE{
+  ?item wikibase:sitelinks 0 .
+  ?item wdt:P31 wd:Q5 .
+  OPTIONAL{
+    ?backlink ?p1 ?item .
+  }
+  FILTER(!bound(?backlink))  
+  OPTIONAL{
+    ?item ?claim ?dummy0 .
+    ?property wikibase:propertyType wikibase:ExternalId .
+    ?property wikibase:directClaim ?claim
+  }
+  FILTER(!bound(?dummy0))
+  OPTIONAL{
+    ?item ?p2 [prov:wasDerivedFrom ?ref] .
+    ?ref ?pr [] .
+    FILTER (?pr != pr:P143)
+  }  
+  FILTER(!bound(?ref))
+}

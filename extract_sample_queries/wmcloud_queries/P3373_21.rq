@@ -1,0 +1,10 @@
+#title: Duplicate statements
+# Complex constraint from [[Property talk:P3373]]
+# Items that seem to have multiple statements about the same sibling. [[User:KrBot]] might remove them.
+SELECT ?item ?ps1 WHERE {
+  ?item p:P3373 ?statement1 .
+  ?statement1 ps:P3373 ?ps1 .
+  ?item p:P3373 ?statement2 .
+  ?statement2 ps:P3373 ?ps1 .    
+  FILTER (?statement1 != ?statement2  )
+  } LIMIT 1000

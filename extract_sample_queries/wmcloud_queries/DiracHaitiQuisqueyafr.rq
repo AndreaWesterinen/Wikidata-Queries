@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?location WHERE
+{
+  # Coordonnées d'une entrée proche de Q16682060
+  wd:Q16682060 wdt:P625 ?MaisonLoc .
+  SERVICE wikibase:around {
+    ?item wdt:P625 ?location .
+    bd:serviceParam wikibase:center ?MaisonLoc .
+# À 1 km de rayon autour de l'entrée
+    bd:serviceParam wikibase:radius "1" . 
+  } .
+  }

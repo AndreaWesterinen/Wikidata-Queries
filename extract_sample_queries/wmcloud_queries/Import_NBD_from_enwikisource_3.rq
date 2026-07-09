@@ -1,0 +1,15 @@
+SELECT
+# Readable output:
+	?item ?itemLabel ?subject ?subjectLabel 
+# Output for QuickStatements:
+	(strafter(str(?subject), "entity/") as ?QuickStatementsItem)
+	("P21" as ?QuickStatementsProperty)
+	("Q6581097" as ?QuickStatementsValue_change_if_female)
+WHERE
+{
+	?item wdt:P1433 wd:Q16055052 .
+  	?item wdt:P921 ?subject .
+  	?subject wdt:P31 wd:Q5 .    
+	MINUS { ?subject wdt:P21 ?g }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

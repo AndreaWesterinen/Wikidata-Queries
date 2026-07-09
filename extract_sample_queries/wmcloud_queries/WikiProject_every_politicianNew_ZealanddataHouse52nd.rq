@@ -1,0 +1,8 @@
+SELECT ?item ?group ?district ?start ?end WHERE { 
+    ?item p:P39 ?ps . 
+    ?ps ps:P39 wd:Q18145518 ; pq:P2937 wd:Q30688562 .
+    OPTIONAL { ?ps pq:P580 ?start }
+    OPTIONAL { ?ps pq:P582 ?end }
+    OPTIONAL { ?ps pq:P4100 ?group }
+    OPTIONAL { ?ps pq:P768 ?district }
+  }

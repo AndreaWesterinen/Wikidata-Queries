@@ -1,0 +1,10 @@
+#title: Missing inventory number
+# Complex constraint from [[Property talk:P195]]
+# Items which have [[Property:P217|inventory number&#32;<small dir="ltr">(P217)</small>]] as a qualifier of [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]], but not as a statement
+SELECT DISTINCT ?item ?collection ?inventory WHERE {
+	?item p:P195 ?collectionstatement .
+    ?collectionstatement ps:P195 ?collection . 
+    ?collectionstatement pq:P217 ?inventory . 
+    MINUS { ?item wdt:P217 [] } . 
+}
+LIMIT 1000

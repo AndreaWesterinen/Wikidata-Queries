@@ -1,0 +1,11 @@
+SELECT ?item WHERE
+{
+  ?item wdt:P279 wd:Q8054 .
+  ?item wdt:P703 wd:Q15978631 .
+  ?item wdt:P352 ?uniprot .
+  ?item schema:description ?d .
+  FILTER REGEX(?d, "annotated by UniProtKB/TrEMBL") .
+  FILTER NOT EXISTS {?gene wdt:P688 ?item}
+  FILTER NOT EXISTS {?item wdt:P702 ?gene}
+  FILTER NOT EXISTS {?article schema:about ?item}
+}

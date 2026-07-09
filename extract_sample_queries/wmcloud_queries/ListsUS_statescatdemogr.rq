@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?cat ?c ?en ?ca ?cs ?da ?de ?es ?fr ?it ?nl ?pl ?pt ?ru ?sv (ROUND(?pop/100000)/10 as ?popM) ?sls
+WHERE
+{
+    ?item wdt:P31 wd:Q23983664 . 
+    ?item wdt:P276 / wdt:P5086 ?c .
+    OPTIONAL { ?item wdt:P276 / wdt:P1082 ?pop }
+    OPTIONAL { ?item wdt:P910 ?cat 
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://ca.wikipedia.org/>  BIND( CONCAT("+") as ?ca)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://cs.wikipedia.org/>  BIND( CONCAT("+") as ?cs)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://da.wikipedia.org/>  BIND( CONCAT("+") as ?da)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://de.wikipedia.org/>  BIND( CONCAT("+") as ?de)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?en_l  BIND( CONCAT("[","[w:",str(?en_l),"

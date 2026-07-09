@@ -1,0 +1,28 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?creator ?creatorLabel 
+    ("P585" AS ?P585) ?time
+    ("S143" AS ?S143) ?importedFrom
+    ("S854" AS ?S854) ?url
+    ("S813" AS ?S813) ?retrieved
+WHERE
+{
+  ?item wdt:P31 wd:Q5.
+  #religious characters are ok
+  MINUS {?item wdt:P31/wdt:P279* wd:Q18563354}
+  #appearances in religious texts are ok
+  MINUS {?item wdt:P1441/wdt:P31 wd:Q179461}
+  
+  #whitelist
+  FILTER(?item NOT IN 
+                       #weird cases
+                      (wd:Q2038305, wd:Q565148)
+        )
+  ?item p:P170 ?st. ?st ps:P170 ?creator.
+  OPTIONAL {?st pq:P585 ?time}
+  OPTIONAL {?st prov:wasDerivedFrom ?ref.
+           OPTIONAL{?ref pr:P143 ?importedFrom}
+           OPTIONAL{?ref pr:P854 ?url}
+           OPTIONAL{?ref pr:P813 ?retrieved}
+   }       
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

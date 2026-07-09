@@ -1,0 +1,8 @@
+SELECT DISTINCT ?publisher ?publisherLabel #?entry ?entryLabel 
+WHERE
+{
+  ?entry ?p ?statement .
+  ?statement prov:wasDerivedFrom ?source.
+  ?source pr:P123 ?publisher.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

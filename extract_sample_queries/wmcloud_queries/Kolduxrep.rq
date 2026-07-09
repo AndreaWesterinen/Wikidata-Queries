@@ -1,0 +1,12 @@
+SELECT ?municipality ?swissMunicipalityCode ?cantonCode ?municipalityLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?municipality wdt:P31 wd:Q70208.
+  MINUS { ?municipality wdt:P31 wd:Q685309. }
+  OPTIONAL { ?municipality wdt:P771 ?swissMunicipalityCode. }
+  OPTIONAL {
+    ?canton wdt:P31 wd:Q23058.
+    ?municipality (wdt:P131*) ?canton.
+    ?canton wdt:P395 ?cantonCode.
+  }
+}
+ORDER BY (?cantonCode) (?municipalityLabel)

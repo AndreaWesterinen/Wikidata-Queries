@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?wikiLabel ?dbname (strafter(?pagetitle, ":") as ?cat)
+# ?about
+{
+	?item wdt:P3713 ?value .
+	?about schema:about ?value .
+  	?about schema:isPartOf ?wikiurl .
+  	?wiki wdt:P1800 ?dbname ; wdt:P856 ?wikiurl .
+  	?about schema:name ?pagetitle . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+LIMIT 1000

@@ -1,0 +1,20 @@
+SELECT (COALESCE(?parent, ?project) AS ?qid) (COALESCE(?parentLabel, ?projectLabel) AS ?name) (COALESCE(?inception, ?parentInception) AS ?inception) ?editions {
+  {
+    SELECT ?project (COUNT(?edition) AS ?editions) {
+      ?project (wdt:P31|wdt:P279) wd:Q33120876.
+      OPTIONAL { ?edition wdt:P31 ?project. }
+    } GROUP BY ?project
+  }
+  OPTIONAL { ?project wdt:P571 ?inception. }
+  OPTIONAL {
+    ?project wdt:P629 ?parent.
+    OPTIONAL { ?parent wdt:P571 ?parentInception. }
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    # Since we use the labels in the COALESCE functions we have to use the label service in manual mode
+    # see https://en.wikibooks.org/wiki/SPARQL/SERVICE_-_Label#Manual_Label_SERVICE
+    ?parent rdfs:label ?parentLabel.
+    ?project rdfs:label ?projectLabel.
+  }
+} ORDER BY ?inception

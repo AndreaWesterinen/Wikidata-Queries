@@ -1,0 +1,35 @@
+SELECT ?item ?property ?wikilink ?cnt ?cnt2 ?cnt3 WHERE {
+  {
+    SELECT ?property ?cnt ?cnt2 ?cnt3 WHERE {
+      {
+        SELECT ?property (COUNT(?p) AS ?cnt) WHERE {
+          wd:Q44601380 ^wdt:P31 ?property .
+          ?property wikibase:claim ?p .
+          [] ?p [] .
+        } GROUP BY ?property 
+      }
+      {
+        SELECT ?property (COUNT(?p) AS ?cnt2) WHERE {
+          wd:Q44601380 ^wdt:P31 ?property .
+          ?property wikibase:claim ?p .
+          ?i1 ?p [] .
+          ?i1 wdt:P31 wd:Q5.
+        } GROUP BY ?property 
+      }
+      {
+        SELECT ?property (COUNT(?p) AS ?cnt3) WHERE {
+          wd:Q44601380 ^wdt:P31 ?property .
+          ?property wikibase:claim ?p .
+          ?i1 ?p [] .
+          ?i1 wdt:P31 wd:Q5.
+          MINUS { ?i1 wdt:P570 ?dummy0 }
+          MINUS { ?i1 wdt:P569 ?b1 . FILTER (year(now())-year(?b1) > 115) }
+          MINUS { ?i1 wdt:P1317 ?b2 . FILTER (year(now())-year(?b2) > 115) }
+        } GROUP BY ?property 
+      }
+    }
+  }
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  BIND(CONCAT('\u007B\u007BP\u007C', SUBSTR(STR(?property), 32), '\u007D\u007D') AS ?wikilink) .
+}
+ORDER BY ?property

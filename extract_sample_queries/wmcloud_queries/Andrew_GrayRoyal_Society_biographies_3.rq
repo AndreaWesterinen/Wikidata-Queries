@@ -1,0 +1,11 @@
+#Royal Society obituaries
+SELECT ?difference (count(?item) as ?count)
+WHERE 
+{
+  { ?item wdt:P1433 wd:Q4914871 } UNION { ?item wdt:P1433 wd:Q29043655 } . # In Bio Memoirs RS or Obit Notices RS
+  ?item wdt:P921 ?subject . ?subject wdt:P570 ?died . bind(year(?died) as ?deathyear) . 
+  ?item wdt:P577 ?published. bind(year(?published) as ?pubyear) .
+  bind((?pubyear-?deathyear) as ?difference)
+          
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} group by ?difference order by ?difference

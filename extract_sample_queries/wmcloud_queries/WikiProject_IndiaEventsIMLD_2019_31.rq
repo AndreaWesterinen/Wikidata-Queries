@@ -1,0 +1,1 @@
+SELECT ?film ?filmLabel ?supactor ?supactorLabel ?year{?film p:P166 ?prizestmt.?film wdt:P31 wd:Q11424.?prizestmt ps:P166 wd:Q5449103. OPTIONAL{?prizestmt pq:P585 ?date. BIND(YEAR(?date) as ?year)}. OPTIONAL{?prizestmt pq:P1346 ?supactor}SERVICE wikibase:label{bd:serviceParam wikibase:language "kn,en".}}ORDER BY ?date

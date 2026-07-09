@@ -1,0 +1,21 @@
+SELECT ?item (SUM(?ect_) as ?examplecount) (SUM(?ict_) as ?imagecount)
+WITH {
+  SELECT ?item (count(?example) as ?ect) WHERE {
+      ?l dct:language ?item . ?l wdt:P5831 ?example.
+  } group by ?item
+} AS %ects
+WITH {
+  SELECT ?item (count(?image) as ?ict) WHERE {
+    ?l dct:language ?item ; ontolex:sense ?sense. ?sense wdt:P18 ?image.
+  } group by ?item
+} AS %icts
+WITH {
+  SELECT ?item ?ect_ ?ict_ {
+    { INCLUDE %ects } UNION { INCLUDE %icts. }
+    BIND(IF(BOUND(?ect),?ect,xsd:integer(0)) as ?ect_)
+    BIND(IF(BOUND(?ict),?ict,xsd:integer(0)) as ?ict_)
+  }
+} AS %unionthereof
+WHERE {
+  INCLUDE %unionthereof.
+} group by ?item order by desc(?examplecount)

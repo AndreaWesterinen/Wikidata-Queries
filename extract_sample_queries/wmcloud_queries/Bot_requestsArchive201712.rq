@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?value  ?rank
+WHERE
+{
+	{
+		SELECT ?item ?value ?rank
+		WHERE
+		{
+			?item p:P345 [ ps:P345 ?value; wikibase:rank ?rank ]
+			FILTER( REGEX( STR( ?value ), "^(ch)\\d{7}$" )  ) .
+            FILTER( ?rank != wikibase:DeprecatedRank ) 
+			FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+		} 
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

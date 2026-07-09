@@ -1,0 +1,7 @@
+#title: Population need to be 0 on uninhabited island
+# Complex constraint from [[Property talk:P1082]]
+# Check [[d:Q1065592|desert island <small>(Q1065592)</small>]]
+SELECT ?item {
+  ?item wdt:P31 wd:Q1065592.
+  FILTER NOT EXISTS { ?item wdt:P1082 0 }.
+}

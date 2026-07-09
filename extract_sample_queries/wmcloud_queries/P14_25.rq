@@ -1,0 +1,11 @@
+#title: USA roads
+# Complex constraint from [[Property talk:P14]]
+# USA roads without [[Property:P17|country&#32;<small dir="ltr">(P17)</small>]] : [[d:Q30|United States of America <small>(Q30)</small>]]
+SELECT ?item ?value WHERE {
+  ?item wdt:P14 ?value.
+  FILTER(REGEX(STR(?value), "^((?i).+(US |Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming).+)$")) .
+  FILTER NOT EXISTS {
+    ?item wdt:P17 wd:Q30.
+  }
+  FILTER( ?item NOT IN ( wd:Q2740646 ) ) .
+}

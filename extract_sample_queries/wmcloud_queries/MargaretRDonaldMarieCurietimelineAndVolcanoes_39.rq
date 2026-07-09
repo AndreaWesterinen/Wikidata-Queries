@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171 wd:Q756 .
+
+  ?item wdt:P105 wd:Q35409.
+
+  OPTIONAL {
+      ?article schema:about ?item .
+      ?article schema:inLanguage "en" .
+      FILTER (SUBSTR(str(?article), 1, 25) = "https://en.wikipedia.org/")
+  }
+
+  FILTER(!BOUND(?article))
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+  }
+}
+LIMIT 10000

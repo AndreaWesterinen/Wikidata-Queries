@@ -1,0 +1,6 @@
+SELECT ?greek_ceramic ?greek_ceramicLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?greek_ceramic wdt:P195 wd:Q1376.
+  ?greek_ceramic wdt:P2596 wd:Q11772.
+  ?greek_ceramic wdt:P186 wd:Q60424.
+}

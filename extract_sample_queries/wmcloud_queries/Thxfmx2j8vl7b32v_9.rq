@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?battleLabel (YEAR(?time) AS ?year) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q294440 ;
+        wdt:P131 ?arrondissement ;
+        wdt:P138 ?battle .
+  ?arrondissement wdt:P131 wd:Q90 .
+  ?battle wdt:P31 wd:Q178561 .
+  OPTIONAL { ?battle wdt:P585|wdt:P580 ?time }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?year ?battleLabel

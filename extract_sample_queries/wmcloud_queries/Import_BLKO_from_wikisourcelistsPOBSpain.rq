@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?st (CONCAT("[",str(?url)," ws]") as ?ws) ?sl ?ids
+{
+      ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+      ?item wdt:P31 wd:Q5 . 
+      ?item wdt:P19 ?place . ?place wdt:P17 wd:Q29 .
+      ?item wikibase:identifiers ?ids .
+      ?item wikibase:sitelinks ?sl .
+      ?item wikibase:statements ?st .  
+      ?url schema:about ?entry ; schema:isPartOf <https://de.wikisource.org/> .
+      ?entry wdt:P31 wd:Q19389637 .
+}
+ORDER BY ASC(?st) ?item
+LIMIT 1000

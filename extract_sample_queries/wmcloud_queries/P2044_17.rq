@@ -1,0 +1,16 @@
+#title: Check minimal value for elevation in country
+# Complex constraint from [[Property talk:P2044]]
+# Items with incorrect elevation value ; todo: only on item who having a single country
+SELECT DISTINCT ?obj ?pel ?el ?altMin {  
+    ?obj p:P2044/psv:P2044 ?pel.
+    ?pel wikibase:quantityAmount ?el.
+    ?pel wikibase:quantityUnit wd:Q11573.
+    ?obj wdt:P17 ?pays.
+    ?pays wdt:P1589 ?objMin .
+    ?objMin wdt:P2044 ?altMin .
+    BIND(10 AS ?tolerance).
+    FILTER(( (?altMin - ?tolerance) <= ?el ) = false).
+    MINUS {
+      ?obj wdt:P31 wd:Q674775.
+    } 
+} ORDER BY ?obj

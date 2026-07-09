@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription ?value 
+{
+	?item wdt:P2966 ?value ; wikibase:sitelinks 0 ; wdt:P31 wd:Q5 ; wikibase:statements ?st 
+	FILTER ( ?st < 6 )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,4 @@
+#title: pattern occurring only once
+# Complex constraint from [[Property talk:P1030]]
+# may be correct, but might be malformed
+SELECT (SAMPLE(?item) as ?item) ?value (COUNT(DISTINCT ?item) as ?count) WHERE { ?item wdt:P1030 ?value } GROUP BY ?value HAVING (?count = 1) ORDER BY DESC(?value) LIMIT 1000

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?qual ?qualValue
+{
+  ?item p:P2815 ?ps .
+  ?ps pq:P642 ?qual .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+}
+LIMIT 1000

@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?linkTo {
+  wd:Q221674 wdt:P156* ?item
+  OPTIONAL { ?item wdt:P156 ?linkTo }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "{{int:lang}},en" }
+}

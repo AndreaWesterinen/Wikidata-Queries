@@ -1,0 +1,14 @@
+# Actors who have starred in at least 3 Oscar Best Picture-nominated films in the same year
+# Inspired by this article: http://www.vulture.com/2017/12/oscars-2018-michael-stuhlbarg-is-having-a-great-year.html
+SELECT ?actor ?actorLabel ?oscarEditionLabel (YEAR(?date) as ?year) ?film1Label ?film2Label ?film3Label
+WHERE 
+{
+  ?film1 wdt:P161 ?actor; p:P1411 ?bestPic1Statement. ?bestPic1Statement ps:P1411 wd:Q102427; pq:P805 ?oscarEdition.
+  ?film2 wdt:P161 ?actor; p:P1411 ?bestPic2Statement. ?bestPic2Statement ps:P1411 wd:Q102427; pq:P805 ?oscarEdition.
+  ?film3 wdt:P161 ?actor; p:P1411 ?bestPic3Statement. ?bestPic3Statement ps:P1411 wd:Q102427; pq:P805 ?oscarEdition.
+  ?oscarEdition wdt:P585 ?date;
+  FILTER(STR(?film1) < STR(?film2)).
+  FILTER(STR(?film2) < STR(?film3)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?year

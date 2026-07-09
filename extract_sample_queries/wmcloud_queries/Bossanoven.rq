@@ -1,0 +1,4 @@
+embed.html#select distinct ?cause ?causeLabel {
+  [] p:P4224/pq:P509 ?cause
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]" }
+}

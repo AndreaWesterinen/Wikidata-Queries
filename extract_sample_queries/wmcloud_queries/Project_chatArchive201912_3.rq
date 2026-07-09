@@ -1,0 +1,5 @@
+SELECT * WHERE {
+  ?i p:P31/ps:P31 wd:Q42744322.
+  ?i p:P31/ps:P31 wd:Q13539802.
+#  ?i wdt:p31 wd:Q262166.
+}

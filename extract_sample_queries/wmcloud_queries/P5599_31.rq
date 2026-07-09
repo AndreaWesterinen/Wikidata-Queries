@@ -1,0 +1,8 @@
+#title: built before 1975
+# Complex constraint from [[Property talk:P5599]]
+#
+SELECT ?item ?date {
+	?item wdt:P5599 [];
+          wdt:P571 ?date
+	FILTER (YEAR(?date) > 1975)
+}

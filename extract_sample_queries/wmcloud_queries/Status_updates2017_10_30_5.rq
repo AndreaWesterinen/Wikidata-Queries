@@ -1,0 +1,9 @@
+# % of popes who died in Rome (a rule inferred by AMIE on YAGO, presented by Fabian M. Suchanek in his WikidataCon keynote)
+SELECT (100*SUM(?diedInRome)/COUNT(?pope) AS ?percentDiedInRome) WHERE {
+  ?pope wdt:P31 wd:Q5;
+        wdt:P39 wd:Q19546.
+  OPTIONAL {
+    ?pope wdt:P20/(wdt:P276|wdt:P131|wdt:P501)* wd:Q18288160.
+    BIND(1 AS ?diedInRome)
+  }
+}

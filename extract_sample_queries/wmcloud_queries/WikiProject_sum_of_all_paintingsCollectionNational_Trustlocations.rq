@@ -1,0 +1,6 @@
+SELECT ?item ?artukurl WHERE {
+  ?item wdt:P1602 ?artukid .
+  FILTER regex (?artukid, "^national-trust").
+  wd:P1602 wdt:P1630 ?artukformatterurl .
+  BIND(REPLACE(?artukid, '^(.+)$', CONCAT("[", ?artukformatterurl, " $1]")) AS ?artukurl) .
+  } LIMIT 1000

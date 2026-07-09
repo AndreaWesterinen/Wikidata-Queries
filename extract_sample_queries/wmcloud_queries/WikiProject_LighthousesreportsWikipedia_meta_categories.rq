@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?l  ?lLabel
+	(COUNT(distinct ?sitelink) as ?count)
+	(GROUP_CONCAT(DISTINCT ?p1; separator=", ") as ?properties)
+{
+	?item wdt:P971 wd:Q39715 . 
+	OPTIONAL { ?sitelink schema:about ?item } 
+  	?item wdt:P971 ?l . ?l wdt:P31 wd:Q24571886 
+	OPTIONAL { ?l wdt:P1659 ?p } . 
+  	BIND(	IF(BOUND(?p), CONCAT("<small>\u007B\u007BP\u007C",strafter(str(?p),"entity/"),"\u007D\u007D</small>") , "") as ?p1)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+}
+GROUP BY ?item ?itemLabel ?l ?lLabel
+ORDER BY ?lLabel ?itemLabel

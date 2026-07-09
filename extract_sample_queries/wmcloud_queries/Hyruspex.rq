@@ -1,0 +1,17 @@
+SELECT DISTINCT ?author ?authorLabel ?image
+WHERE
+{
+  ?author wdt:P31 wd:Q5 .
+  ?author wdt:P106/wdt:P279* wd:Q482980 .
+  ?author wdt:P18 ?image .
+  ?author wdt:P21 wd:Q6581072 .
+
+#FILTER NOT EXISTS 
+ # {
+ #?wfr schema:about ?author . 
+ #?wfr schema:inLanguage "fr"
+#}
+  
+ SERVICE wikibase:label {bd:serviceParam wikibase:language "fr" . }
+  }
+limit 700

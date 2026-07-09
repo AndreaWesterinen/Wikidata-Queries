@@ -1,0 +1,25 @@
+SELECT DISTINCT ?item ?gndid 
+WHERE {
+ { ?item wdt:P227 ?gndid;
+        wdt:P31 wd:Q5. 
+  FILTER(REGEX(STR(?gndid), "[^0-9X]")) 
+}
+UNION 
+{
+  ?item wdt:P227 ?gndid;
+        wdt:P31 wd:Q5. 
+  FILTER(REGEX(STR(?gndid), "^[^1]")) 
+}
+UNION 
+{
+  ?item wdt:P227 ?gndid;
+        wdt:P31 wd:Q5. 
+  FILTER(REGEX(STR(?gndid), "[0-9]{10}[0-9X]$")) 
+}
+UNION 
+{
+  ?item wdt:P227 ?gndid;
+        wdt:P31 wd:Q5. 
+  FILTER(REGEX(STR(?gndid), "^[0-9]{0,7}[0-9X]$")) 
+}
+}LIMIT 100

@@ -1,0 +1,15 @@
+# Map of filming locations, 
+# by Jura1, 2016-10-24
+#defaultView:Map
+SELECT 
+	?film ?title ?filmLabel ?filmDescription 
+	?filminglocation ?filminglocationLabel ?coor
+WHERE
+{
+	?film wdt:P31 wd:Q11424 .
+  	?film wdt:P915 ?filminglocation .
+  	?filminglocation wdt:P625 ?coor .
+  	OPTIONAL { ?film wdt:P1476 ?title } .
+  	FILTER NOT EXISTS { ?film wdt:P915 ?l . ?l wdt:P17 ?l }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" }
+}

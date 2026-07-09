@@ -1,0 +1,25 @@
+embed.html### A Query to check the Wikidata translation status of a Language in the Europeana Migration Vocabulary project
+## Wikidata homepage: https://www.wikidata.org/wiki/User:Wittylama/Migration_vocabulary
+## Europeana homepage: https://pro.europeana.eu/page/europeana-migration
+
+SELECT  
+  ?Q_number                                       #The Wikidata item of the Migration Vocabulary term
+  ?Latvian                                         #its label in the target language (check if accurate, create if blank)
+  ?EN_comparison                                  #its label in English, for comparison
+  ?Latvian_description                             #its description in the target language (check if accurate, create if blank)
+  ?EN_description_comparison                      #its description in English, for comparison
+  (sample(?Subclass) as ?Subclass)                #The Wikidata item's "subclass"
+  (sample(?Latvian_subclass) as ?Latvian_subclass)  #its label in the target language (check if accurate, create if blank)
+
+WHERE {
+  VALUES ?Q_number {                            #These are the 61 items in the Migration Vocabulary list
+    wd:Q177626 wd:Q131288 wd:Q187668 wd:Q1932461 wd:Q12547146 wd:Q706601 wd:Q473741 wd:Q15320003 wd:Q280958 wd:Q2608153 wd:Q6013750 wd:Q4354288 wd:Q7317170 wd:Q837556 wd:Q379693 wd:Q133004 wd:Q705818 wd:Q181784 wd:Q8463 wd:Q7167 wd:Q11376059 wd:Q59816 wd:Q11409 wd:Q41397 wd:Q230533 wd:Q154278 wd:Q166005 wd:Q8461 wd:Q8458 wd:Q79913 wd:Q1338878 wd:Q192989 wd:Q1368367 wd:Q16513600 wd:Q36192 wd:Q18344718 wd:Q912512 wd:Q8434 wd:Q7181 wd:Q1397926 wd:Q131572 wd:Q2382319 wd:Q283509 wd:Q12765670 wd:Q564811 wd:Q128393 wd:Q133346 wd:Q185598 wd:Q4006 wd:Q170404 wd:Q1351807 wd:Q196756 wd:Q1522225 wd:Q43812 wd:Q2918584 wd:Q61509 wd:Q5843 wd:Q865054 wd:Q200814 wd:Q3172759 wd:Q367293}
+  OPTIONAL {?Q_number rdfs:label ?Latvian. FILTER((LANG(?Latvian)) = "lv")}
+  OPTIONAL {?Q_number rdfs:label ?EN_comparison. FILTER((LANG(?EN_comparison)) = "en")}  
+  OPTIONAL {?Q_number schema:description ?EN_description_comparison. FILTER((LANG(?EN_description_comparison)) = "en")}
+  OPTIONAL {?Q_number schema:description ?Latvian_description. FILTER((LANG(?Latvian_description)) = "lv")}
+  OPTIONAL { ?Q_number wdt:P279 ?Subclass. }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "lv" . ?Subclass rdfs:label ?Latvian_subclass.}     
+}
+GROUP BY ?Q_number ?Latvian ?EN_comparison ?Latvian_description ?EN_description_comparison
+ORDER BY ?Latvian                             #Showing the items with missing labels in the target language at the top

@@ -1,0 +1,1 @@
+SELECT (wd:Q665807 as ?item) (COUNT(DISTINCT ?st) as ?count) WHERE { ?st prov:wasDerivedFrom / pr:P248 / wdt:P1433* wd:Q665807 }

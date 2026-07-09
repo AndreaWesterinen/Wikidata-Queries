@@ -1,0 +1,7 @@
+SELECT ?beachLabel (group_concat(?beach) AS ?items) (count(?beach) AS ?cnt) WHERE {
+  ?beach (wdt:P31/wdt:P279*) wd:Q40080.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en,ca,gl,eu". }
+  ?beach wdt:P17 wd:Q29.
+}
+GROUP BY ?beachLabel
+HAVING ( ?cnt>1 )

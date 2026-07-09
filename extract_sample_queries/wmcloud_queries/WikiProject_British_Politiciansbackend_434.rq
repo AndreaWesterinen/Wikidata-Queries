@@ -1,0 +1,13 @@
+SELECT ?d (count(?mem) as ?n) WHERE 
+{
+ { SELECT distinct ?d WHERE {
+ ?m p:P39 [ ps:P39 
+ wd:Q30580545; # < The position.
+ ( pq:P580 | pq:P582 ) ?d ].
+ }}
+ ?mem p:P39 ?st .
+ ?st ps:P39
+ wd:Q30580545. # < Again.
+ ?st pq:P580 ?sd filter( ?sd < ?d ) .
+ optional { ?st pq:P582 ?ed . } filter( !bound( ?ed ) || ?ed >= ?d )
+} group by ?d order by ?d

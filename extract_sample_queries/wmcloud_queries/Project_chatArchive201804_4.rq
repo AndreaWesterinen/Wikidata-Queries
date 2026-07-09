@@ -1,0 +1,21 @@
+embed.html#select  ?person ?personLabel ?statedinLabel ?NationalArchivesOfSweden ?named ?page
+{
+   hint:Query hint:optimizer "None" .
+   ?person wdt:P906 ?NationalLibraryID. #personer kopplade till SKBL
+   ?person wdt:P4963 ?SKBLID. #personer kopplade till SKBL
+   BIND (URI(CONCAT("https://www.skbl.se/sv/artikel/",?SKBLID)) AS ?SKBL)
+   ?person ?prop ?statement. #all props
+   {?statement prov:wasDerivedFrom ?ref}
+   OPTIONAL {?ref pr:P854 ?NationalArchivesOfSweden} 
+   {?ref pr:P248 ?statedin} 
+   OPTIONAL {?ref pr:P1810 ?named} 
+   OPTIONAL {?ref pr:P1476 ?named} 
+   OPTIONAL {?ref pr:P1683 ?cite} 
+   OPTIONAL {?ref pr:P304 ?page} 
+   minus{ ?ref pr:P248 wd:Q379406}
+   FILTER (CONTAINS(str(?NationalArchivesOfSweden),'riksarkivet')) .  
+   ?property wikibase:claim ?prop .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+Group by ?person ?personLabel ?statedinLabel ?NationalArchivesOfSweden ?named ?page
+Order by ?personLabel ?statedinLabel 

@@ -1,0 +1,9 @@
+# Items that have occupation = mangaka that have a japanese label, but no english label
+SELECT ?item ?itemLabel ?japaneseLabel WHERE {
+    ?item wdt:P106 wd:Q191633 .
+    ?item rdfs:label ?japaneseLabel filter (lang(?japaneseLabel) = "ja") .
+	filter not exists { ?item rdfs:label ?missinglabel filter (lang(?missinglabel) = "en") } .
+  	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}

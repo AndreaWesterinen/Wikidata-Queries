@@ -1,0 +1,18 @@
+#TEMPLATE={ "template": "potential reviewers for papers in ?field", "variables": { "?field": { "query": "SELECT DISTINCT ?id WHERE { ?id wdt:P2578 []. }" } } }
+SELECT DISTINCT ?reviewer ?reviewerLabel (SAMPLE(?website) AS ?website) (SAMPLE(?orcid) AS ?orcid) (SAMPLE(?example) AS ?example) WHERE {
+  BIND(wd:Q21198 AS ?field).
+  ?subField wdt:P279* ?field.
+  ?reviewer wdt:P31 wd:Q5.
+  MINUS { ?reviewer wdt:P570 []. }
+  ?work wdt:P50 ?reviewer;
+        wdt:P577 ?workDate.
+  FILTER(?workDate > (NOW() - "P5Y"^^xsd:duration)).
+  { ?work wdt:P921 ?subField. } UNION 
+  { ?reviewer wdt:P101 ?subField. }
+  OPTIONAL { ?reviewer wdt:P856 ?website. }
+  OPTIONAL { ?reviewer wdt:P496 ?orcid_. BIND(IRI(CONCAT("https://orcid.org/", ?orcid_)) AS ?orcid). }
+  OPTIONAL { ?reviewer wdt:P2002 ?example_. BIND(IRI(CONCAT("https://example.com/", ?example_)) AS ?example). }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?reviewer ?reviewerLabel
+ORDER BY RAND()

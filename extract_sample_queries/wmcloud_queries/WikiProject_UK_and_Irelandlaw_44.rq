@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription ?cite ?follows ?followsLabel ?followed_by ?followed_byLabel WHERE {
+  ?item p:P179 ?stat.
+  ?stat ps:P179 wd:Q106153118.
+  optional {?stat pq:P1545 ?series.
+  bind(xsd:integer(str(?series)) as ?thing) }
+  optional {?stat pq:P155 ?follows.}
+  optional {?stat pq:P156 ?followed_by.}
+  ?item wdt:P1031 ?cite.
+  filter (!strstarts(str(?cite),"18"))
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" .   }
+} order by ?thing

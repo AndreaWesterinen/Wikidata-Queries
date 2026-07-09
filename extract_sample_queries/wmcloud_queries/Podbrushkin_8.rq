@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel # ?instanceOfLabel
+?sitelinks WHERE { 
+  
+    ?item wdt:P136 wd:Q5292 .
+  #?item wdt:P31 ?instanceOf .
+  ?item wikibase:sitelinks ?sitelinks
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}
+ORDER BY DESC(?sitelinks) ?itemLabel

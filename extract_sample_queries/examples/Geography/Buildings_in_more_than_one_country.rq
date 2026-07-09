@@ -1,3 +1,4 @@
+#title: Buildings in more than one country
 SELECT ?item ?itemLabel ?count
 WHERE
 {

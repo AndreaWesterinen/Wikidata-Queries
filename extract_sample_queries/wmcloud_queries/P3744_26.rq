@@ -1,0 +1,8 @@
+#title: Before 1700
+# Complex constraint from [[Property talk:P3744]]
+#
+SELECT DISTINCT ?item {
+	?item wdt:P3744 ?value .
+	?item wdt:P571 ?dateF . 
+    FILTER (YEAR(?dateF) < 1700)
+}

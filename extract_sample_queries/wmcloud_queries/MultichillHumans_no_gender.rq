@@ -1,0 +1,12 @@
+SELECT ?item WHERE { 
+  { ?item wdt:P245 [] . }
+  UNION { ?item wdt:P650 [] . }
+  UNION { ?item wdt:P651 [] . }
+  UNION { ?item wdt:P1707 [] . }
+  UNION { ?item wdt:P2843 [] . }
+  UNION { ?item wdt:P2915 [] . }  
+  UNION { ?item wdt:P3372 [] . }  
+  MINUS { ?item p:P21 [] }
+  ?item wdt:P31 wd:Q5
+  }
+  LIMIT 1000

@@ -1,0 +1,12 @@
+SELECT ?qid ("P551" AS ?pid) ?value ("P582" AS ?qualprop) ("+1940-00-00T00:00:00Z/7" AS ?enddate) ("S248" AS ?sid) ?StolpID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q5.
+  MINUS { ?item wdt:P551 ?Wohnsitz. }
+  ?Stolperstein wdt:P31 wd:Q26703203.
+  ?Stolperstein wdt:P547 ?item.
+  ?Stolperstein wdt:P131 ?location.
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+  BIND(SUBSTR(STR(?location), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?value)
+  BIND(SUBSTR(STR(?Stolperstein), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?StolpID)
+}
+LIMIT 1000

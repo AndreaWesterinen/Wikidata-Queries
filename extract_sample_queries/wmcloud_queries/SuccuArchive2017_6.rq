@@ -1,0 +1,7 @@
+SELECT ?item ?taxonName ?ptCommonName WHERE {
+  ?item wdt:P225 ?taxonName .
+  ?item wdt:P1843 ?ptCommonName .  
+  FILTER(lang(?ptCommonName) = 'pt' )
+  FILTER(contains(?ptCommonName,  "/"))
+} 
+ORDER BY ASC(?taxonName)

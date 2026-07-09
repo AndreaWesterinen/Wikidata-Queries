@@ -1,0 +1,14 @@
+#title: Frequently used values for conversion
+# Complex constraint from [[Property talk:P6333]]
+# If it refers to the same work, convert to [[Property:P1433|published in&#32;<small dir="ltr">(P1433)</small>]]. If not available yet, create an item for the resource.
+SELECT ?title_of_broader_work (COUNT(DISTINCT ?st) as ?count) (SAMPLE(?item) as ?sample_item) (SAMPLE(?p) as ?sample_property)  (SAMPLE(?refurl) as ?sample_refurl)
+WHERE
+{
+  ?st prov:wasDerivedFrom ?ref . ?ref pr:P6333 ?title_of_broader_work .
+  ?item ?p ?st
+  OPTIONAL { ?ref pr:P854 ?refurl }  .
+}
+GROUP BY ?title_of_broader_work
+HAVING( ?count > 14 )
+ORDER BY DESC(?count) 
+LIMIT 100

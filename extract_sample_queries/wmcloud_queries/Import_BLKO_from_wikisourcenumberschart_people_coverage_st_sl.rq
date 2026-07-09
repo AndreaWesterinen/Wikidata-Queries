@@ -1,0 +1,33 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("100" as ?height) 
+  ("100" as ?width) 
+  ("identifiers+sitelinks" as ?legend) 
+  ("fontsize:10,offset:10,angle:0" as ?showValues)
+  (GROUP_CONCAT(?group;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+  { SELECT ?group (COUNT(DISTINCT ?p) as ?count)
+{
+    ?p wdt:P1343 wd:Q665807 .
+    ?p wdt:P31 wd:Q5 .
+    ?p wikibase:identifiers ?ids .
+    ?p wikibase:sitelinks ?sl .
+    BIND( ?ids + ?sl as ?s )
+    BIND(
+         IF(?s = 0 , " 0" , 
+         IF(?s = 1 , " 1" , 
+         IF(?s = 2 , " 2" , 
+         IF(?s = 3 , " 3" , 
+         IF(?s < 7 , " 4-6" , 
+         IF(?s < 10 , " 7-9" , 
+         IF(?s < 20 , "10-19" , 
+         IF(?s < 50 , "20-49" , "50+"
+        ) ) ) ) ) ) ) ) as ?group)
+}
+GROUP BY ?group
+ORDER BY DESC(?group)               
+ }
+}

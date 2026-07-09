@@ -1,0 +1,9 @@
+#Women with most sitelinks and no image born in 1921 or later
+SELECT ?s ?born ?sLabel WHERE {
+  ?s wdt:P31 wd:Q5;
+    wdt:P569 ?born.
+  FILTER(?born <= "1871-01-01T00:00:00Z"^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?s wdt:P106 wd:Q19746576.
+}
+ORDER BY ASC(?born)

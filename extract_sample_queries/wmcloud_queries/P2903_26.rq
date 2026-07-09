@@ -1,0 +1,11 @@
+#title: Mill in the Netherlands without a link to any of the mill databases.
+# Complex constraint from [[Property talk:P2903]]
+# [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] -> [[d:Q44494|mill <small>(Q44494)</small>]] (or subclasses) and [[Property:P17|country&#32;<small dir="ltr">(P17)</small>]] -> [[d:Q55|Netherlands <small>(Q55)</small>]], but not [[Property:P2863|Nederlandse Molendatabase ID&#32;<small dir="ltr">(P2863)</small>]], [[Property:P2866|Hollandsche Molen ID&#32;<small dir="ltr">(P2866)</small>]] or [[Property:P2903|Molendatabase verdwenen molens ID&#32;<small dir="ltr">(P2903)</small>]].
+SELECT DISTINCT ?item
+{
+    ?item wdt:P31/wdt:P279* wd:Q44494 .
+    ?item wdt:P17 wd:Q55 . 
+	MINUS { ?item wdt:P2863 [] } .
+    MINUS { ?item wdt:P2866 [] } .
+    MINUS { ?item wdt:P2903 [] } .  
+}

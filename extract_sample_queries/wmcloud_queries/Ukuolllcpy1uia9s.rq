@@ -1,0 +1,15 @@
+select ?personne ?personneLabel ?nom_lieu_fr ?article {
+  ?personne wdt:P569 ?date_naissance ;
+            wdt:P19  ?lieu_naissance .
+  
+  ?lieu_naissance p:P1448 [
+    ps:P1448 ?nom_lieu_fr ; 
+    pq:P580  ?date_debut_nom_actuel
+  ] filter ( ?date_debut_nom_actuel > ?date_naissance) filter (lang(?nom_lieu_fr) = "fr").
+  
+  ?article schema:about ?personne ; 
+           schema:isPartOf <https://fr.wikipedia.org/> .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+}limit 100

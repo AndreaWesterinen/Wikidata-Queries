@@ -1,0 +1,29 @@
+SELECT DISTINCT
+?male ?name 
+?maleLabel ?nameLabel
+WHERE {
+  {
+    SELECT ?name ?male
+    WHERE {
+      ?name wdt:P31/wdt:P279* wd:Q101352 ;
+            wdt:P31 ?nature2 ;
+            wdt:P460 ?male .
+      ?male wdt:P31/wdt:P279* wd:Q101352 ;
+            wdt:P31 ?nature3 .
+      FILTER (?name != ?male)
+      FILTER (?name != wd:Q2874494)
+      FILTER (?name != wd:Q17520937)
+      FILTER (?name != wd:Q23790236)
+      FILTER (?name != wd:Q318375)
+      FILTER (?male != wd:Q16291224)
+      FILTER (?male != wd:Q8064727)
+      FILTER (?male != wd:Q6544328)
+      FILTER (?male != wd:Q18535317)
+      FILTER NOT EXISTS { ?male wdt:P460 ?name .}
+    }
+    GROUP BY ?name ?male
+    HAVING ((COUNT(?nature2) = 1) && (COUNT(?nature3) = 1))
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

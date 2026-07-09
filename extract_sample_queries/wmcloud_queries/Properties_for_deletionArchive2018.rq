@@ -1,0 +1,23 @@
+SELECT ?item ?day ?month WITH {
+	SELECT DISTINCT ?item ?dob ?dod	{
+    	?item p:P569/psv:P569 [ wikibase:timePrecision 11; wikibase:timeValue ?dob ] .
+    	FILTER( YEAR( ?dob ) > 1848) .
+    	?item p:P570/psv:P570 [ wikibase:timePrecision 11; wikibase:timeValue ?dod ] .
+    	FILTER( MONTH( ?dod ) = MONTH( ?dob ) && DAY( ?dod ) = DAY( ?dob ) ) .
+    	?item wdt:P31 wd:Q5 .
+  	}
+} AS %people WITH {
+	SELECT DISTINCT ?month ?order {
+        ?monthitem p:P279 [ ps:P279 wd:Q18602249; pq:P1545 ?monthorder ]; # query without P2837
+    	#?monthitem wdt:P2837 ?monthorder ; #query with P2837
+                   rdfs:label ?monthLabel .    
+	    FILTER( LANG( ?monthLabel ) = 'en' ) .
+    	BIND( xsd:integer( ?monthorder ) AS ?order ) .
+    	BIND( CONCAT( IF( ?order < 10, "0", "" ), str(?monthorder), ' ', STR( ?monthLabel ) ) AS ?month ) .
+  	}
+} AS %months WHERE {
+	INCLUDE %people .
+	INCLUDE %months .
+	FILTER( MONTH( ?dob ) = ?order ) .
+	BIND( DAY( ?dob ) AS ?day ) .
+} ORDER BY ?month ?day ?item

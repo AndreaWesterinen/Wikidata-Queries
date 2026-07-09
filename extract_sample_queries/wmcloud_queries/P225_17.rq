@@ -1,0 +1,6 @@
+SELECT ?item ?taxonName  WHERE {
+   ?item wdt:P105 wd:Q4886 . # Cultivar
+   ?item wdt:P225 ?taxonName .
+   FILTER (CONTAINS(?taxonName, "'"))
+}
+ORDER BY ASC(?taxonName)

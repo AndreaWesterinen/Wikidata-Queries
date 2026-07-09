@@ -1,0 +1,14 @@
+SELECT ?inst ?instLabel ?count ?sample ?sampleLabel
+{
+  {  SELECT ?inst (COUNT(*) as ?count) (SAMPLE(?item) as ?sample) 
+    {
+      ?statement pq:P407 [] .
+      hint:Prior hint:rangeSafe true .         
+      ?item p:P31 ?statement .
+      ?statement ps:P31 ?inst . 
+    } 
+    GROUP BY ?inst
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

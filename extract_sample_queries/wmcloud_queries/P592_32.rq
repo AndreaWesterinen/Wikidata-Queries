@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-uppercase>
+SELECT DISTINCT ?item WHERE { ?item wdt:P592 ?value . FILTER( REGEX(STR(?value), '^(CHEMBL\\d+)$') = false )}

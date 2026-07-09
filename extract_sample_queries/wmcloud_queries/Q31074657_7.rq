@@ -1,0 +1,11 @@
+#title: Cims amb més d'un parell de coordenades
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item ?coord1 ?coord2 where {
+  ?item p:P361 ?stat .
+  ?stat ps:P361 wd:Q31074657 .
+  ?stat pq:P2699 [] .
+  ?item wdt:P625 ?coord1 .
+  ?item wdt:P625 ?coord2 .
+  filter(str(?coord1) < str(?coord2))
+}

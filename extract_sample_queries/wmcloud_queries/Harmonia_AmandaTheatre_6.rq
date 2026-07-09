@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel (year(?date) as ?year) ?specialty ?specialtyLabel WHERE {
+  ?item p:P69 ?statement .
+  ?statement ps:P69 wd:Q523926 .
+  ?statement pq:P582 ?date .
+  ?statement pq:P812 ?specialty .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} GROUP BY ?item ?itemLabel ?date ?specialty ?specialtyLabel

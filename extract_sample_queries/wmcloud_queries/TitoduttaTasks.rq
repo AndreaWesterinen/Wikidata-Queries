@@ -1,0 +1,5 @@
+SELECT ?John_Donne ?John_DonneLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?John_Donne wdt:P50 wd:Q140412.
+}
+LIMIT 100

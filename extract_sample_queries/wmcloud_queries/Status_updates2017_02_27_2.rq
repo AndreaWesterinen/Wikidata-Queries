@@ -1,0 +1,10 @@
+#defaultView:Timeline
+SELECT DISTINCT ?item ?itemLabel ?stateLabel ?startDate ?image WHERE {
+  ?item wdt:P1001 ?state ;
+        wdt:P571 ?startDate ;
+        wdt:P18 ?image .
+  { ?item wdt:P1366* wd:Q79874 ;
+          wdt:P576 ?endDate . } UNION
+  { ?item wdt:P1001 wd:Q889 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?startDate ?endDate

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P3829/ps:P3829 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https://publons\\.com/researcher/)?(\\d+)/([a-z-]+/?)?)$") )
+}

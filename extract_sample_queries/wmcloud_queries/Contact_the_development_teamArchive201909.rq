@@ -1,0 +1,12 @@
+#defaultView:LineChart
+
+select ?org (year(?date) as ?year) ?count ?orgLabel{
+  optional {
+    ?org p:P2124 [ps:P2124 ?count ; pq:P585 ?date] .
+  }
+  
+  values ?org {  wd:Q516755 wd:Q141971 
+              }
+  
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

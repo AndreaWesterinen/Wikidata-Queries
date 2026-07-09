@@ -1,0 +1,12 @@
+#list of people in 1000 articles every wikipedia needs by ethnicity, gender and nationality
+SELECT ?person ?personLabel ?familynameLabel?gender ?genderLabel  ?nationality ?nationalityLabel ?ethnicity ?ethnicityLabel 
+WHERE
+{
+	?person wdt:P31 wd:Q5 .
+    ?person wdt:P972 wd:Q5460604 .
+  OPTIONAL {?person wdt:P734 ?familyname .}.
+  OPTIONAL {?person wdt:P21 ?gender .}.
+  OPTIONAL {?person wdt:P27 ?nationality .} . 
+  OPTIONAL {?person wdt:P172 ?ethnicity .}.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} 

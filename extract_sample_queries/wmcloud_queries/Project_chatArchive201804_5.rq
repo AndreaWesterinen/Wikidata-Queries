@@ -1,0 +1,9 @@
+#Liste aller Kulturdenkmale in Sachsen
+#defaultView:Map
+SELECT ?itemLabel ?itemDescription ?image ?coord WHERE {
+  ?item (wdt:P31) wd:Q11691318.
+  ?item wdt:P17 wd:Q183.
+  ?item wdt:P625 ?coord.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

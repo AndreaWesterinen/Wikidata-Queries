@@ -1,0 +1,14 @@
+#Natura2000 in NRW which need taxa
+#defaultView:Map
+SELECT DISTINCT ?natura ?naturaLabel ?coord WHERE {
+  ?natura wdt:P31/wdt:P279* wd:Q15069452.
+  ?natura wdt:P1001 wd:Q1198.
+    ?natura p:P31 ?instance.
+  FILTER NOT EXISTS{
+    ?instance wdt:P6569 ?taxa
+  }
+  Filter not exists{?instance prov:wasDerivedFrom ?refnode.}
+  ?natura wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}
+LIMIT 1000

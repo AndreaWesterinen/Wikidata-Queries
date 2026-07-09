@@ -1,4 +1,4 @@
-# ----
+#title: All statements of an item containing another item
 #defaultView:Graph
 #TEMPLATE={ "template": { "en": "All statements of ?item containing another item" }, "variables": { "?item": {} } }
 SELECT ?item ?itemLabel ?itemImage ?value ?valueLabel ?valueImage ?edgeLabel WHERE {

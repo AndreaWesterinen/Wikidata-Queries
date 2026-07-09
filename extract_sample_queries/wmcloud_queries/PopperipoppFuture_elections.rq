@@ -1,0 +1,26 @@
+SELECT ?item ?itemLabel ?countryLabel ?time ?officeLabel
+WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q2618461;
+            wdt:P1001 ?country;
+            p:P585 ?timeStatement .
+
+  ?timeStatement ps:P585 ?time;
+                 psv:P585/wikibase:timePrecision ?timePrecision .
+
+  ?timeStatement ps:P585 ?time;
+                 wikibase:rank ?rank .
+
+  ?country wdt:P31 wd:Q3624078 .
+
+  OPTIONAL { ?timeStatement pq:P1545 ?ordinal . }
+  OPTIONAL {
+    ?item wdt:P541 ?position .
+    ?position wdt:P361 ?office .
+  }
+
+  FILTER (NOW() < ?time)
+  FILTER (?rank != wikibase:DeprecatedRank)
+  FILTER NOT EXISTS { ?office wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?time

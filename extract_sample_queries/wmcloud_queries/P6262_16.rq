@@ -1,0 +1,11 @@
+#title: Road(s) without a country
+# Complex constraint from [[Property talk:P6262]]
+# Check links to [http://routes.wikia.com routes.wikia.com]
+SELECT ?item ?value {
+    ?item wdt:P6262 ?value.
+    FILTER (REGEX(?value, "^(routes:)")).
+    FILTER NOT EXISTS {
+      ?item wdt:P17 []
+    }
+    FILTER (?item != wd:Q3483618)   
+}

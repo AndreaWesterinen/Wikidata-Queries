@@ -1,0 +1,12 @@
+#title: Unexpected websites
+# Complex constraint from [[Property talk:P939]]
+# Hungarian municipalities are expected to have websites named as <municipality name usually with diacritics removed>.hu. Websites that don’t follow this scheme are often official websites regardless, but sometimes they are rather touristical websites, hobby sites etc. Or even typos that go nowhere.
+SELECT DISTINCT ?item ?website
+WHERE {
+	?item wdt:P31/wdt:P279* wd:Q14502790; wdt:P856 ?website.
+	?item rdfs:label ?itemLabel. FILTER(LANG(?itemLabel) = "hu").
+	BIND(LCASE(?itemLabel) AS ?lcaseLabel).
+	BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(?lcaseLabel, "á", "a"), "é", "e"), "í", "i"), "ó", "o"), "ö", "o"), "ő", "o"), "ú", "u"), "ü", "u"), "ű", "u") AS ?expected).
+	FILTER(!REGEX(STR(?website), CONCAT("^https?:\\/\\/(www\\.)?(", ?expected, "\u007C", ?lcaseLabel, ")\\.hu\\/?$"))).
+}
+ORDER BY ?itemLabel

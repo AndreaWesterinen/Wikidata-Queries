@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?imdb ?anno
+WHERE
+{
+    ?item wdt:P31/wdt:P279* wd:Q11424.
+    ?item wdt:P57 ?regista .
+    ?item wdt:P577 ?date .
+    BIND (YEAR(?date) as ?anno).
+    OPTIONAL { ?regista wdt:P345 ?imdb. }
+    OPTIONAL { ?item schema:description ?itemDescription  }
+    FILTER (!BOUND(?itemDescription))
+  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "it"}
+}

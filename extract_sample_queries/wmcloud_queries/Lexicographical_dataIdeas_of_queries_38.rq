@@ -1,0 +1,6 @@
+SELECT * WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?language ; wikibase:lemma ?lemma .
+  ?language wdt:P218 ?codeLang .
+  BIND ( substr(lang(?lemma),1,2) as ?codeLemma )
+  FILTER ( ?codeLang != ?codeLemma )
+}

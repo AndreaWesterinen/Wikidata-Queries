@@ -1,0 +1,25 @@
+SELECT *  
+  WITH {
+    SELECT ?uri ?id ?complexid WHERE {
+      # Federation work around
+      SERVICE <https://data.pdok.nl/sparql> {
+        SERVICE <https://linkeddata.cultureelerfgoed.nl/sparql> {
+          SELECT ?uri ?id ?complexid WHERE {
+            ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://linkeddata.cultureelerfgoed.nl/def/ceo#Complex> .
+            ?uri <https://linkeddata.cultureelerfgoed.nl/def/ceo#complexnummer> ?id .
+            BIND(STR(?id) AS ?complexid)
+          } LIMIT 3000
+        }
+      }
+    }
+  } AS %rce
+  WITH {
+    SELECT ?item ?complexid WHERE {
+      ?item wdt:P1435 wd:Q13423591 . 
+      ?item wdt:P7135 ?complexid  .
+    }
+  } AS %wikidata  
+WHERE {
+  INCLUDE %rce 
+  MINUS { INCLUDE %wikidata }
+}

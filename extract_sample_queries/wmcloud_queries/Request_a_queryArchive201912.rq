@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel #?itemDescription #?_image 
+WITH {
+  Select ?item WHERE {
+  ?item wdt:P155 ?any.
+  filter not exists {?item wdt:P31 ?dummy}.
+  }
+} as %i
+WHERE {
+  include %i
+  ?item rdfs:label ?label.
+  filter(?label = "Hebrew calendar year"@en).
+  #filter(lang(?label) = "en")
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en".  }
+  
+#OPTIONAL { ?item wdt:P18 ?_image. }
+}
+LIMIT 1000

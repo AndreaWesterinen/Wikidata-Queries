@@ -1,3 +1,4 @@
+#title: Common phrases
 SELECT ?q ?qLabel
 WHERE
 {

@@ -1,0 +1,46 @@
+#female share in Disney's traditionally animated films as scatter chart
+
+#defaultView:ScatterChart
+SELECT DISTINCT (STR(?year) AS ?year_str)(ROUND(COUNT(DISTINCT ?female)/COUNT(DISTINCT ?character)*100) AS ?femaleShare_inPercent)  ?filmLabel
+{
+SELECT DISTINCT ?filmLabel ?character ?label ?female ?male (MIN(YEAR(?year)) AS ?year)
+WHERE                          
+{
+  
+  #Characters
+  {
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+        wdt:P527* ?film1;
+        wdt:P577 ?year.
+    
+  #getting characters and their gender
+  {?character wdt:P1441 ?film1; wdt:P31/wdt:P279* wd:Q95074; wdt:P21 ?gender.}
+   UNION {?film1 p:P161 ?st. ?st pq:P453 wd:Q18086706; ps:P161 ?character}
+  }
+  UNION
+  
+  #Unisex character groups
+  { 
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+        wdt:P527* ?film1;
+        wdt:P577 ?year.
+    
+  #getting characters and their gender
+  ?character wdt:P1441 ?film1; wdt:P31/wdt:P279* wd:Q24577840; p:P2670 ?st.
+  ?st pq:P21 ?gender.
+  }
+  
+  #counting male characters
+  { {?character wdt:P21 wd:Q6581097} UNION {?character wdt:P21 wd:Q44148}. BIND(?character AS ?male). } UNION
+  #counting female characters
+  { {?character wdt:P21 wd:Q43445} UNION {?character wdt:P21 wd:Q6581072}. BIND(?character AS ?female). }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?filmLabel ?character ?label ?female ?male
+ORDER BY ?filmLabel
+}
+GROUP BY ?filmLabel ?year

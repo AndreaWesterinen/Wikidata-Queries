@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription ?sitelinks WHERE { 
+  ?item wdt:P31 wd:Q18340514 .
+  ?item wikibase:sitelinks ?sitelinks
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } }
+ORDER BY DESC(?sitelinks)
+LIMIT 500

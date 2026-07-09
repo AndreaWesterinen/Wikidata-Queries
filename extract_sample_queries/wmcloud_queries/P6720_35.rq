@@ -1,0 +1,27 @@
+#title: formatter URL domain not in official website(s)
+# Complex constraint from [[Property talk:P6720]]
+# Official website (P856) should include the domain used by the formatter URL qualifier. TODO: Add P856 statement, set current website to preferred rank.
+SELECT 
+  ?item ?iw 
+  ?f ?domain_f 
+  ?ws ?domain_ws
+WHERE
+{
+  ?item p:P6720 ?st . 
+  ?st ps:P6720 ?iw . 
+  ?st pq:P1630 ?f . 
+  ?st a wikibase:BestRank .
+  BIND(REPLACE(REPLACE(REPLACE(str(?f), "^.*//", ""), "/.*", ""), "^www\\.", "") as ?domain_f)
+  FILTER NOT EXISTS 
+    {
+      ?item p:P856 / ps:P856 ?ws0 . 
+      BIND(REPLACE(REPLACE(REPLACE(CONCAT(str(?ws0),"/"), "^.*//", ""), "/.*", ""), "^www\\.", "") as ?domain_ws0)
+      FILTER( CONTAINS( ?domain_ws0, lcase(?domain_f) ) )
+    }  
+  FILTER NOT EXISTS 
+    {
+      ?item p:P856 / ps:P856 ?ws1 . 
+      BIND(REPLACE(REPLACE(REPLACE(CONCAT(str(?ws1),"/"), "^.*//", ""), "/.*", ""), "^www\\.", "") as ?domain_ws1)
+      FILTER( CONTAINS( lcase(?domain_f), ?domain_ws1 ) )
+    }  
+}

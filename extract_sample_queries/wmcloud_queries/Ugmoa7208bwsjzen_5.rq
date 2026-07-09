@@ -1,0 +1,15 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?location WHERE {
+  SERVICE wikibase:around {
+    ?item wdt:P625 ?location.
+    bd:serviceParam wikibase:center "[AUTO_COORDINATES]";
+                    wikibase:radius "1";
+                    wikibase:distance ?dist.
+  }
+  ?item rdfs:label ?itemLabel.
+  FILTER(LANG(?itemLabel) = "en")
+  FILTER NOT EXISTS {
+    ?item rdfs:label ?frLabel.
+    FILTER(LANG(?frLabel) = "cy")
+  }
+}

@@ -1,0 +1,9 @@
+#defaultView:Map{"hide":["?geographische_Koordinaten"]}
+SELECT ?Spielplatz ?SpielplatzLabel ?geographische_Koordinaten
+WHERE {
+  ?Spielplatz wdt:P31 wd:Q11875349 ;
+                  wdt:P131* wd:Q1715 ;
+                  wdt:P625 ?geographische_Koordinaten .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?SpielplatzLabel

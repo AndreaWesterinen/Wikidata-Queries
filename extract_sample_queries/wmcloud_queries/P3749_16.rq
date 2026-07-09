@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P3749/ps:P3749 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((?:(?:https?)?:\\/\\/)?(?:maps\\.google\\.[a-z]{2,3}\\/?|(?:www\\.)?google\\.[a-z]{2,3}\\/maps)\\?cid=(\\d{14,20}))$") )
+}

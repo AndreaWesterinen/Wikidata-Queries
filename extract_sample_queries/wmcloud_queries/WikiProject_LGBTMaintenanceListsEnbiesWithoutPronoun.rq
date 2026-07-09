@@ -1,0 +1,19 @@
+SELECT DISTINCT ?itemLabel ?link ?item
+WHERE
+{
+    # item is human
+    ?item wdt:P31 wd:Q5 .
+    # with non binary gender
+    ?item wdt:P21/wdt:P279* wd:Q48270 
+    # and no pronoun.
+    MINUS { ?item wdt:P6553 ?pronoun } 
+    OPTIONAL {
+      # ?link is about ?item
+      ?link schema:about ?item . 
+
+      # ?link is on english wikipedia
+      ?link schema:isPartOf <https://en.wikipedia.org/>
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?itemLabel

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?itemsLabel ?parentLabel
+WHERE {
+  ?items wdt:P279 ?parent . # get the parent genre of the band
+  ?items wdt:P31 wd:Q188451 . # get things that are music genres
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . #get labels in english.
+    #with this service, you can add "Label" suffix to any variable.
+  }
+}

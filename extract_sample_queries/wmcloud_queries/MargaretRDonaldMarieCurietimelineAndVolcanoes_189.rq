@@ -1,0 +1,9 @@
+# AusFungi taxa without taxon authors or ex-taxon authors 
+SELECT ?item ?itemLabel ?taxon_name ?ausFungi  WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P9076 ?ausFungi.
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  MINUS {{?stat pq:P405 ?taxon_author.} UNION {?stat pq:P697 ?ex_author.}}
+}
+ORDER BY ?taxon_name

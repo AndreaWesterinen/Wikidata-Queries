@@ -1,0 +1,3 @@
+SELECT * {
+  wd:P6262 p:P2302 [ps:P2302 wd:Q21502404 ; a wikibase:BestRank; pq:P1793 ?regex]
+}

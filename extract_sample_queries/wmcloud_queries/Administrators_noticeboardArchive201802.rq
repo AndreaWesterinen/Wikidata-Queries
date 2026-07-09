@@ -1,0 +1,4 @@
+SELECT ?paper ?paperLabel WHERE{
+    ?paper wdt:P2093 "Geoffrey B Fincher".
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

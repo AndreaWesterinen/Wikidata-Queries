@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?born ?death ?hhlink WHERE {
+VALUES ?humor { wd:Q40831 wd:Q245068 wd:Q35874 wd:Q5151421 wd:Q2561390 wd:Q5977103 wd:Q128758 wd:Q6045975 wd:Q170238 }
+  ?item wdt:P106 wd:Q28389 . 
+  ?item wdt:P1412 wd:Q7026. 
+  ?hhlink ?prop ?item. 
+  ?hhlink ?prop2 ?humor .
+   OPTIONAL { ?item wdt:P569 ?dob . BIND(YEAR(?dob) as ?born) }
+  OPTIONAL { ?item wdt:P570 ?dod . BIND(YEAR(?dod) as ?death) }
+}

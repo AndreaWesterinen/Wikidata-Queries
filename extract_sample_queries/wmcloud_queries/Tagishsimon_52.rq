@@ -1,0 +1,24 @@
+#defaultView:Map
+SELECT distinct ?place ?placeLabel ?placeDescription ?location ?layer ?P706Label WHERE {
+  hint:Query hint:optimizer "None".
+  wd:Q841074 wdt:P625 ?point . 
+  SERVICE wikibase:around { 
+      ?place wdt:P625 ?location . 
+      bd:serviceParam wikibase:center ?point . 
+      bd:serviceParam wikibase:radius "2" . 
+  }
+  ?place p:P625 ?stat .
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat a wikibase:BestRank .  
+  OPTIONAL {?place wdt:P31 ?P31 .}
+  OPTIONAL {?place wdt:P706 ?P706 .}
+  filter not exists {?place wdt:P31/wdt:P279* wd:Q1229765 . }
+  filter not exists {?place wdt:P276 [] . }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . 
+                           ?place rdfs:label ?placeLabel .
+                           ?place schema:description ?placeDescription . 
+                           ?P31 rdfs:label ?layer .
+                           ?P706 rdfs:label ?P706Label .  }
+
+} order by ?layer

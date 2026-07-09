@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?lastUpdate ?versionNo WHERE { ?item wdt:P1535 wd:Q73897190; schema:dateModified ?lastUpdate; schema:version ?versionNo. SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } } ORDER BY ASC (?itemLabel)

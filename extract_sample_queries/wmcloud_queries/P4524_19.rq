@@ -1,0 +1,4 @@
+#title: items should have an English label
+# Complex constraint from [[Property talk:P4524]]
+# add a label or delete the item
+SELECT ?item WHERE {  ?item wdt:P4524 [] MINUS { ?item rdfs:label ?l . FILTER(lang(?l) = "en")}  }

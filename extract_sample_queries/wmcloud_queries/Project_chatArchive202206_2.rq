@@ -1,0 +1,6 @@
+select distinct ?surname (sample(?label) as ?label) where {
+
+  ?surname wdt:P31 wd:Q101352 .
+  ?surname wdt:P1705 ?label .
+  
+} group by ?surname

@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?itoem ?itoemLabel ?count WHERE {
+  {
+    SELECT ?item (COUNT(*) AS ?count) WHERE {
+      ?pid wdt:P171 ?item.
+    }
+    GROUP BY ?item
+    ORDER BY DESC (?count)
+    LIMIT 5000
+  }
+    OPTIONAL {
+      ?item wdt:P105 ?itoem.
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ar". }
+}
+ORDER BY DESC (?count)

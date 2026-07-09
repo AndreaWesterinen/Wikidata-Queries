@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?ref ?refLabel ?coord WHERE {
+  ?item wdt:P31 wd:Q55488.
+  ?item wdt:P17 wd:Q39.
+  ?item p:P625 [ ps:P625 ?coord;
+                         prov:wasDerivedFrom
+                         [pr:P143 ?ref;
+                                  ]
+                         ].
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://en.wikipedia.org/>.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

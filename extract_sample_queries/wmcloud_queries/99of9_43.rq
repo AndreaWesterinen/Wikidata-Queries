@@ -1,0 +1,17 @@
+#added before 2016-10
+SELECT DISTINCT ?item ?itemLabel ?asgsid ?itemDescription
+WHERE
+{
+   ?item wdt:P4014 ?asgsid .
+    #FILTER( regex(str(?asgsid), "SSC") )
+ 
+  
+    FILTER(NOT EXISTS {
+      ?item schema:description ?itemdesc.
+      FILTER(LANG(?itemdesc) = "en") # with missing English description
+    })
+ 
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}

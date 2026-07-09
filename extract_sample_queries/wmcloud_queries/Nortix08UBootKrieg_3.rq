@@ -1,0 +1,12 @@
+#defaultView:Map{"hide":["?coords"]}
+SELECT DISTINCT ?uboat ?uboatLabel ?coords ?image
+WHERE {
+  ?uboat
+  	wdt:P31 wd:Q428661 ; # ist ein Deutsches Militär-U-Boot des 1. und 2. Weltkrieges
+    wdt:P137 wd:Q151701 ; # Betreiber ist Kriegsmarine – Ausschluss der Boote der Kaiserlichen Marine
+  	OPTIONAL { ?uboat wdt:P625 ?coords ; # wenn vorhanden Koordinaten abfragen
+                      wdt:P18 ?image . # wenn vorhanden Bild einbinden
+              }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en" } #Sprache festlegen, wenn nicht verfügbar auf DE danach EN
+	}
+ORDER BY ?uboatLabel # sortieren nach Bezeichnung

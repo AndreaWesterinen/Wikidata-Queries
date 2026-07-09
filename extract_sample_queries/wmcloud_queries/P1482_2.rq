@@ -1,0 +1,32 @@
+SELECT ?item ?itemLabel ?value ?result (STRLEN(STR(?value)) AS ?stringlength)  ?snak ?rank WHERE {
+	{
+		SELECT ?item ?value ?result ?snak ?rank WHERE {
+			{
+				?item p:P1482 [ ps:P1482 ?value; wikibase:rank ?rank ] .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement1 pq:P1482 ?value;
+					wikibase:rank ?rank .
+				?item ?p1 ?statement1 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P1482 ?value .
+				?statement2 prov:wasDerivedFrom ?ref;
+					wikibase:rank ?rank .
+				?item ?p2 ?statement2 .
+				BIND("reference" AS ?snak) .
+			} .
+			BIND( REGEX(STR(?value), "^(https://((academia|android|anime|apple|arduino|astronomy|aviation|beer|bicycles|biology|bitcoin|blender|boardgames|bricks|buddhism|chemistry|chess|chinese|christianity|codegolf|codereview|cogsci|cooking|craftcms|crypto|cs|cstheory|datascience|dba|diy|drupal|dsp|earthscience|ebooks|electronics|ell|emacs|english|expatriates|expressionengine|fitness|freelancing|french|gamedev|gaming|gardening|genealogy|german|gis|graphicdesign|ham|hermeneutics|hinduism|history|homebrew|islam|italian|japanese|joomla|judaism|linguistics|magento|martialarts|math|matheducators|mathematica|mechanics|meta|moderators|money|movies|music|networkengineering|opendata|outdoors|parenting|patents|pets|philosophy|photo|physics|pm|poker|politics|productivity|programmers|puzzling|quant|raspberrypi|reverseengineering|robotics|rpg|russian|salesforce|scicomp|scifi|security|sharepoint|skeptics|softwarerecs|sound|space|spanish|sports|sqa|startups|stats|sustainability|tex|tor|travel|tridion|unix|ux|video|webapps|webmasters|windowsphone|wordpress|workplace|writers)\\.stackexchange\\.com|askubuntu\\.com|mathoverflow\\.net|pt\\.stackoverflow\\.com|serverfault\\.com|stackapps\\.com|stackoverflow\\.com|superuser\\.com)/(tags|questions/tagged)/.*)$") AS ?regexresult ) .
+			FILTER( ?regexresult = false ) .
+			BIND( IF(?regexresult = true, "pass", "fail") AS ?result ) .
+			FILTER( ?item NOT IN (wd:Q4115189, wd:Q13406268, wd:Q15397819) ) .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}
+#ORDER BY ?rank ?snak ?value
+#PLEASE NOTE: This is experimental and may only work for simple patterns.
+#Tests may fail due to:
+#(1) differences in regex format between SPARQL (https://www.w3.org/TR/xpath-functions/#regex-syntax) and PCRE (used by constraint reports). Don't change the regex to work with SPARQL!
+#(2) some bug in the link that brought you here
+#Known to fail: P227 (multiple curly braces), P274, P281

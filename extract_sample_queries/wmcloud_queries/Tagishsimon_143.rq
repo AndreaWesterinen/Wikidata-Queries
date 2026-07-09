@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?canmore
+WHERE 
+{
+  ?item wdt:P709 "LB4" 
+  OPTIONAL {?item p:P718 ?stat . 
+            ?stat ps:P718 ?canmore.}
+  
+        
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

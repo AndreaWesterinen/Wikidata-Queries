@@ -1,0 +1,23 @@
+embed.html#SELECT ?item ?itemLabel ?fictionalType ?type
+WHERE
+{
+  FILTER(?fictionalType != ?type)
+{
+SELECT DISTINCT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?value1Lab; separator=", ") AS ?fictionalType) (GROUP_CONCAT(DISTINCT ?value2Lab; separator=", ") AS ?type)
+WHERE 
+{
+  ?item wdt:P31 ?value1. ?value1 wdt:P279* wd:Q14897293; rdfs:label ?value1Lab.
+  MINUS{?item wdt:P31/wdt:P279* wd:Q18563354}
+  MINUS{?value1 wdt:P279* wd:Q207174}
+  FILTER(LANG(?value1Lab) = "en")
+  {?item wdt:P31 ?value2. ?value2 wdt:P279* wd:Q24334685} UNION
+  {?item wdt:P31 ?value2. ?value2 wdt:P31 wd:Q16521} UNION
+  {?item wdt:P31 ?value2. ?value2 wdt:P31 wd:Q502895} UNION
+  {?item wdt:P31 ?value2. ?value2 wdt:P279* wd:Q728} UNION
+  {?item wdt:P31 ?value2. ?value2 wdt:P279* wd:Q11460}
+  ?value2 rdfs:label ?value2Lab.
+  FILTER(LANG(?value2Lab) = "en")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel
+}}

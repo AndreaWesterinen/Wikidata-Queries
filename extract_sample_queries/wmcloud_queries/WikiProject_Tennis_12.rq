@@ -1,0 +1,7 @@
+SELECT ?item ?label
+{
+    ?item wdt:P31 wd:Q13219666 .
+    ?item rdfs:label ?label . FILTER(LANG(?label) = 'en') .
+    FILTER(REGEX(STR(?label), " – [Ss]ingles?$")) .  
+}          
+LIMIT 5000

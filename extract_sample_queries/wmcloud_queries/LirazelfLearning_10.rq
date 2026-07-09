@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel WITH {
+  SELECT ?item WHERE 
+{
+  ?item wdt:P106 wd:Q36180. 
+  ?item wdt:P19/wdt:P131* wd:Q145. hint:Prior hint:gearing "forward".
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  ?item wdt:P22 ?father .
+  ?item wdt:P25 ?mother .
+  ?mother wdt:P106/wdt:P279* wd:Q36180. hint:Prior hint:gearing "forward". 
+  ?father wdt:P106/wdt:P279* wd:Q36180. hint:Prior hint:gearing "forward". 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+}

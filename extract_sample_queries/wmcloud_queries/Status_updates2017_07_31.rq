@@ -1,0 +1,15 @@
+# Which White House chief of staff had the shortest tenure?
+# 
+SELECT ?item ?itemLabel ?start ?end ?days
+WHERE 
+{
+  ?item wdt:P31 wd:Q5 .            # Human
+  ?item wdt:P39 wd:Q786242 .       # position held: White House chief of staff
+  ?item p:P39 ?positionstatement . # grab statement
+  ?positionstatement ps:P39 ?position ;  # grab position
+                     pq:P580 ?start .    # grab start date
+  ?position wdt:P279* wd:Q786242 .       # re-filter for White House chief of staff
+  OPTIONAL { ?positionstatement pq:P582 ?end } # grab optional end date
+  bind(floor(?end - ?start) as ?days)    # calculate number of days served
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?days

@@ -1,0 +1,12 @@
+#title: Kingdom of Hungary is used as country of citizenshp for people born after 1946-02-01
+# Complex constraint from [[Property talk:Q171150]]
+# Items with [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]] equal to [[d:Q171150|Kingdom of Hungary <small>(Q171150)</small>]] and [[Property:P569|date of birth&#32;<small dir="ltr">(P569)</small>]] before 1946-02-01
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P27 wd:Q171150 .
+  ?item p:P569 [ psv:P569 ?node; wikibase:rank ?rank ] .
+  FILTER(?rank != wikibase:DeprecatedRank) .
+  ?node wikibase:timeValue ?born .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (?born > "1946-02-01T00:00:00Z"^^xsd:dateTime)
+  FILTER (?precision >= "9"^^xsd:integer)
+}

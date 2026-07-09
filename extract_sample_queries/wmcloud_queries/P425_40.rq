@@ -1,0 +1,2 @@
+#title:Change the property P425 to P101
+SELECT DISTINCT ?item WHERE { ?item wdt:P425 ?value; wdt:P31 wd:Q5 }

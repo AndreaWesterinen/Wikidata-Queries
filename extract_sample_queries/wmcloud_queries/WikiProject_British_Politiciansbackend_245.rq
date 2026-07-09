@@ -1,0 +1,17 @@
+#people who continued to hold a position after their death
+
+SELECT ?item ?itemLabel ?positionLabel ?died WHERE {
+  ?item p:P39 ?statement.                                  # person holds a position
+  ?statement ps:P39 ?position; 
+             pq:P582 ?end.                                 # and that position has a known end date
+  ?item wdt:P570 ?died .                                   # and that person has a known death date
+  FILTER(?end > ?died)                                     # and they died before that position ended
+  ?position wdt:P279* wd:Q16707842 .                       # and that position is a UK MP
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?died
+
+# note that this report may catch people who have an end date and a death date the "same"
+# but where one date is Gregorian and the other Julian
+# may also find cases where the death date is only precise to a year
+# but the end date is precise to a day/month

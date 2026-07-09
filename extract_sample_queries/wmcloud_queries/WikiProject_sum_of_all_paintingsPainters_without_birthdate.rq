@@ -1,0 +1,11 @@
+SELECT ?item (COUNT(*) AS ?count) WHERE {
+  ?item wdt:P106 wd:Q1028181 .
+  MINUS { ?item p:P569 [] }
+  ?item ?p [] .
+  ?property wdt:P31 wd:Q19595382 .
+  ?property a wikibase:Property .
+  ?property wikibase:directClaim ?p
+} 
+GROUP BY ?item
+ORDER BY DESC(?count)
+LIMIT 100

@@ -1,0 +1,32 @@
+SELECT DISTINCT ?item (SAMPLE(?itemLabel) AS ?itemLabel) (SAMPLE(?trialLabels) AS ?trialLabels) (SAMPLE(?typeLabel) AS ?typeLabel)
+WHERE 
+{
+  { ?item wdt:P279 wd:Q87719492 } UNION {
+    VALUES ?v { wd:Q84263196 wd:Q82069695 }
+    VALUES ?vv { wd:Q134808 wd:Q28051899 }
+    ?item wdt:P279 ?vv.
+    ?item wdt:P1924 ?v.
+  }
+  OPTIONAL
+  {
+    VALUES ?type { wd:Q3560939 wd:Q96695067 wd:Q96841548 wd:Q578537 wd:Q97153934 wd:Q97153933 wd:Q58623657 wd:Q99518999 }
+    ?item wdt:P279 ?type
+  }
+  OPTIONAL { ?item wdt:P1343 ?type }
+  { 	
+    SELECT ?item (GROUP_CONCAT(DISTINCT(?trialLabel); separator=", ") AS ?trialLabels) 
+  	WHERE
+  	{ 
+  	  ?item wdt:P1343 ?src.
+      ?src wdt:P6099 ?trial.
+      ?trial rdfs:label ?trialLabel. FILTER( LANG(?trialLabel)="en" )
+	}
+    GROUP BY ?item
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?itemLabel .
+    ?type rdfs:label ?typeLabel .
+  	}
+}
+GROUP BY ?item

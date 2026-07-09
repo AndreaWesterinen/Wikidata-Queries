@@ -1,0 +1,8 @@
+#title: Items with Goering location or collection missing identifier
+# Complex constraint from [[Property talk:P10779]]
+# Items that have an [[Property:P276|location&#32;<small dir="ltr">(P276)</small>]] or [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q2647884|Hermann Göring Collection <small>(Q2647884)</small>]], but [[Property:P10779|Collection Hermann Göring DB ID&#32;<small dir="ltr">(P10779)</small>]] is missing
+SELECT DISTINCT ?item WHERE {
+  { ?item p:P276/ps:P276 wd:Q2647884 } UNION
+  { ?item p:P195/ps:P195 wd:Q2647884 } 
+  MINUS { ?item wdt:P10779 [] } .
+  }

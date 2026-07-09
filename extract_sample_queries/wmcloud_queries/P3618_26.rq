@@ -1,0 +1,18 @@
+SELECT ?item ?unit ?exception
+WHERE
+{
+	{
+      SELECT ?item ?unit
+      WHERE
+      {
+        ?item      p:P3618              ?stmnode.
+        ?stmnode   psv:P3618            ?valuenode.
+        ?valuenode wikibase:quantityUnit   ?unit.
+      }
+    }.
+    OPTIONAL {
+		wd:P3618 p:P2302 [ ps:P2302 wd:Q21514353; pq:P2303 ?exc ] .
+		FILTER( ?exc = ?item ) .
+	} .
+	BIND( BOUND( ?exc ) AS ?exception ) .
+}

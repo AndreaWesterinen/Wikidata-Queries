@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  ?painting wdt:P195 wd:Q12376420 .
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 ?item .
+  } LIMIT 4000

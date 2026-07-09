@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?person ?position ?start
+WHERE { 
+  ?position wdt:P279* wd:Q382617 .
+  ?person p:P39 ?statement FILTER NOT EXISTS { ?statement pq:P582 ?end } .
+  ?statement ps:P39 ?position ; pq:P580 ?start .
+  OPTIONAL { ?statement pq:P642 ?item } .
+  OPTIONAL { ?position wdt:P1001 ?item } .
+}

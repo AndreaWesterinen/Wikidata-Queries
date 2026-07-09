@@ -1,4 +1,4 @@
-# ----
+#title: Items in the Messier Catalog, with image
 #defaultView:ImageGrid
 # Items in the Messier Catalog
 SELECT DISTINCT ?item ?itemLabel ?numero (SAMPLE(?image) AS ?image)

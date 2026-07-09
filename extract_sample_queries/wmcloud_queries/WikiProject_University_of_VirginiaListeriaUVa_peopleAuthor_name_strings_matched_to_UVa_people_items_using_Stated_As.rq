@@ -1,0 +1,63 @@
+SELECT
+# Author of a paper with a "stated as" statement for authorship
+  ?item
+
+  # Sample work by the author with that "stated as" value
+  ?pub
+
+  # Stated as value for the author in the sample publication
+  ?authorstring
+
+  # Build URL to the Author disambiguator tool
+  (CONCAT(
+      "[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=",
+      ENCODE_FOR_URI(?authorstring), " Find papers where an author name string is '''''",?authorstring , "''''' or similar]") AS ?string_resolver)
+
+  (CONCAT(
+      "[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=",
+      ENCODE_FOR_URI(?authorstring), "&filter=wdt%3AP2093+%22", ENCODE_FOR_URI(?authorstring), "%22 Find papers where an author name string is '''''",?authorstring , "''''']") AS ?filtered_string_resolver)
+
+  (CONCAT("[https://tools.wmflabs.org/author-disambiguator/?name=", 
+      ENCODE_FOR_URI(?item_label), "&filter=wdt%3AP2093+%22", ENCODE_FOR_URI(?item_label), "%22 Find papers where an author name string is '''''",?item_label, "''''']") 
+                                AS ?item_string_resolver)
+
+# Number of works with an author name string that matches the one above
+  ?count
+
+WITH {
+  SELECT DISTINCT  ?authorstring ?item  (SAMPLE(?work1) AS ?pub) 
+  WHERE {
+  ?work1 p:P50 ?author_statement .
+  ?author_statement ps:P50 ?item .
+  ?author_statement pq:P1932 ?authorstring .
+    { ?item wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?item wdt:P1416 / wdt:P361* wd:Q213439 .}    
+  }
+  GROUP BY ?authorstring ?item 
+} AS %stateds
+WITH {
+  SELECT
+    (COUNT(?work) AS ?count)
+    ?authorstring
+    ?item
+    ?pub
+  WHERE {
+    INCLUDE %stateds
+    ?work wdt:P2093 ?authorstring  .
+#    ?work wdt:P50 ?item  .
+    FILTER(regex (?authorstring, "^(?=^[A-Z][a-z]{1,}.*)(?=.*[a-z]$).*$")).
+    
+  }
+  GROUP BY ?authorstring ?item ?pub
+} AS %result
+WHERE {
+ INCLUDE %result
+  ?item rdfs:label ?item_label .
+  FILTER (lang(?item_label) = "en")
+
+}
+ORDER BY DESC(?count)
+LIMIT 2000

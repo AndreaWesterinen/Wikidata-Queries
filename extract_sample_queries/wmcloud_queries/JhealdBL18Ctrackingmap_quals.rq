@@ -1,0 +1,45 @@
+SELECT ?item ?prop ?propLink ?qual ?qualLink ?example ?count
+
+WITH {
+  SELECT ?item WHERE {
+      ?class wdt:P195 wd:Q56753539 .    # KTop
+      ?item wdt:P195 ?class .
+      ?item wdt:P31/wdt:P279* wd:Q4006 .
+      MINUS {?item wdt:P31 wd:Q17146139}
+  }
+} AS %items 
+
+WITH {
+  SELECT ?item ?stmt ?qual ?pred ?qual_val WHERE {
+    INCLUDE %items .
+    ?item ?pred ?stmt .
+    ?stmt ?qual ?qual_val .
+    ?prop2 wikibase:qualifier ?qual .
+#    ?prop wikibase:claim ?p .
+  }
+} AS %stmts 
+
+WITH {
+  SELECT (COUNT(DISTINCT(?stmt)) AS ?count) ?qual ?pred (SAMPLE(?qual_val) AS ?example) WHERE {
+     INCLUDE %stmts .
+  } GROUP BY ?qual ?pred 
+} AS %top_quals
+
+WHERE {
+  INCLUDE %top_quals .
+  OPTIONAL {
+     ?pred ^wikibase:claim ?prop .
+     ?prop rdfs:label ?prop_label . FILTER(lang(?prop_label) = 'en') .
+     BIND(STRAFTER(STR(?prop), 'P') AS ?propno) .
+     BIND(CONCAT('[[:d:Property:P', ?propno, '|', STR(?prop_label), ']]') AS ?propLink) .
+  }
+  OPTIONAL {
+      ?qual ^wikibase:qualifier ?qual_ent .
+      ?qual_ent rdfs:label ?qual_label . FILTER(lang(?qual_label) = 'en') .
+      BIND(STRAFTER(STR(?qual_ent), 'P') AS ?qualno) .
+      BIND(CONCAT('[[:d:Property:P', ?qualno, '|', STR(?qual_label), ']]') AS ?qualLink) .
+  }
+  
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?propno)) AS ?item) .  # dummy
+
+}  ORDER BY DESC(?count)

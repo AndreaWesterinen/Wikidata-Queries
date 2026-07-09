@@ -1,0 +1,10 @@
+Select ?Label where {
+  VALUES ?Label{
+    'Stolperstein für Franz Jägerstätter'@de
+    'Stolperstein für Gertrud Kolmar'@de
+    'Stolperstein für Carl Friedrich Goerdeler'@de
+   
+  }
+  MINUS
+  {?Item rdfs:label ?Label}
+  }

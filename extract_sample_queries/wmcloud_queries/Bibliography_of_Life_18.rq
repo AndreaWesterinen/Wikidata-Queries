@@ -1,0 +1,9 @@
+# Articles in wikidata, with an AFD_pub_id with Giampaulo Rossetti as author
+SELECT ?date ?item  ?itemLabel ?link WHERE {
+  ?item wdt:P6982 ?AFD_pub_id.
+  ?item wdt:P50 wd:Q21388713.
+  ?item wdt:P577 ?date.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+    BIND (URI(CONCAT("https://biodiversity.org.au/afd/publication/",str(?AFD_pub_id))) as ?link)  
+    }
+ORDER BY ?date ?item ?itemLabel ?link

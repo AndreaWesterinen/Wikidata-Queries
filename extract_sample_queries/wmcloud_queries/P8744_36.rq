@@ -1,0 +1,10 @@
+#title: values of property P8744 with fewest statements
+SELECT ?item ?itemLabel ?itemDescription ?sts
+WHERE
+{
+	?p wdt:P8744 ?item . 
+    ?item wikibase:statements ?sts
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }      
+}
+ORDER BY ASC(?sts) ?item
+LIMIT 100

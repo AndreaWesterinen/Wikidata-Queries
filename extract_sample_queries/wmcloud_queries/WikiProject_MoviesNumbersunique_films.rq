@@ -1,0 +1,25 @@
+SELECT 
+	?item 
+	(COUNT(DISTINCT ?item1) as ?films) 
+	(ROUND(100 * COUNT(DISTINCT ?withdirector)/ ?films) as ?withdirector)
+	(ROUND(100 * COUNT(DISTINCT ?withyear)/ ?films) as ?withyear)
+	(ROUND(100 * COUNT(DISTINCT ?withtitle)/ ?films) as ?withtitle)
+	(ROUND(100 * COUNT(DISTINCT ?withoriginallanguage)/ ?films) as ?withoriginallanguage)
+	(strlen(?films) as ?group) 
+	(SUM(?ct) as ?statements) 
+	(ROUND( SUM(?ct) / ?films * 10)/10 as ?perfilm)
+	(ROUND(1000 * (COUNT(?item1) - ?films) / ?films )/10 as ?potentialerrorPCperfilm) 
+WHERE
+{
+  	?item1 wdt:P31/wdt:P279* wd:Q11424 . 
+  	?item1 wikibase:statements ?ct . 
+  	?item1 wikibase:sitelinks 1 . 
+  	OPTIONAL { ?item1 wdt:P57 [] . 	BIND(?item1 as ?withdirector) }
+  	OPTIONAL { ?item1 wdt:P577 [] . BIND(?item1 as ?withyear) }  
+  	OPTIONAL { ?item1 wdt:P1476 [] . BIND(?item1 as ?withtitle) }
+  	OPTIONAL { ?item1 wdt:P364 [] . BIND(?item1 as ?withoriginallanguage) }  
+  	[] schema:about ?item1; schema:isPartOf/^wdt:P856 ?item
+}  
+GROUP BY ?item
+HAVING (?films>5)
+ORDER BY DESC(?group) ASC(?perfilm)

@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?prop ?propLabel ?rank ?value ?valueLabel
+WHERE
+{
+	?item p:P5110 [ ?pq ?value; wikibase:rank ?rank ] .
+	?prop wikibase:qualifier ?pq .
+	FILTER( ?prop NOT IN ( wd:P805, wd:P2241, wd:P7452, wd:P5548, wd:P518, wd:P5102, wd:P3680, wd:P1310, wd:P1013, wd:P5980, wd:P9570, wd:P6001, wd:P1011, wd:P1552, wd:P6477, wd:P6191 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 100

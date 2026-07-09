@@ -1,0 +1,8 @@
+SELECT ?item ?itemdesc ?class ?classdesc
+WHERE
+{
+  ?item wdt:P31 wd:Q103997133. # ?item is instance of indirect anatomical metaclass
+  OPTIONAL { ?item wdt:P8225 ?class. } # ?item is metaclass for ?class
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?class schema:description ?classdesc . ?item schema:description ?itemdesc }
+}
+ORDER BY ?item

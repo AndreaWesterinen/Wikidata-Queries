@@ -1,0 +1,22 @@
+SELECT ?item ?itemLabel ?doi
+WHERE
+{
+  BIND ( "10.1023/A" as ?search_string )
+  hint:Query hint:optimizer "None".  
+  SERVICE wikibase:mwapi
+  {
+    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "search" .
+    bd:serviceParam mwapi:gsrsearch ?search_string .
+    bd:serviceParam mwapi:gsrlimit "max" .    
+    bd:serviceParam mwapi:gsrnamespace "0" .    
+    ?item wikibase:apiOutputItem mwapi:title  .
+  }
+  FILTER( BOUND(?item) )
+  ?item wdt:P356 ?doi 
+  FILTER ( CONTAINS(?doi, ?search_string) )
+  FILTER NOT EXISTS { ?item wdt:P1476 [] }   
+  OPTIONAL { ?item wdt:P31 ?instance_of }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

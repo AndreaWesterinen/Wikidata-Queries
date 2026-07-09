@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?parclassLabel ?ofLabel
+WHERE
+{
+  ?item p:P31 ?inst_stm .
+  ?inst_stm ps:P31 ?parclass .
+  {?parclass wdt:P279* wd:Q9261468 .}
+  UNION
+  {?parclass wdt:P279* wd:Q679206 .}
+  ?inst_stm pq:P642 ?of .
+  ?of wdt:P31 / wdt:P279* wd:Q43229 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+}

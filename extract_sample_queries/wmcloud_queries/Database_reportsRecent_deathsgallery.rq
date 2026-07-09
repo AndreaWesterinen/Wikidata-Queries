@@ -1,0 +1,19 @@
+SELECT ?item ?dob ?dod ?img (CONCAT(" <small>aged&nbsp;",str(ROUND(FLOOR((?dod - ?dob)/365.2425))),"</small>") as ?s3)
+{
+SELECT ?item ?stct ?slct (?stct + ?slct*2 as ?rank) (SAMPLE(?img1) as ?img) (MAX(?dod1) as ?dod) (SAMPLE(?dob1) as ?dob)
+{
+	?item wdt:P570 ?dod1
+	FILTER ( ?dod1 > "2021-04-02T00:00:00Z"^^xsd:dateTime)
+    FILTER NOT EXISTS { ?item wdt:P570 ?dod2 . FILTER( ?dod2 > ?dod1 ) }          
+	FILTER ( ?dod1 > (now()-"P32D"^^xsd:duration) && ?dod1 < now() )
+	?item wdt:P18 ?img1 .
+  	FILTER NOT EXISTS { ?item wdt:P1087 [] }
+	?item wdt:P31 wd:Q5 .
+  	?item wikibase:statements ?stct ; wikibase:sitelinks ?slct .
+    OPTIONAL { ?item wdt:P569 ?dob1 } 
+}
+GROUP BY ?item ?stct ?slct
+ORDER BY DESC(?rank) ?item
+LIMIT 8
+}
+ORDER BY DESC(?dod)

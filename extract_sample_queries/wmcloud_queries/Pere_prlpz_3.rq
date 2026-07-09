@@ -1,0 +1,10 @@
+#P131 Catalunya
+SELECT ?item ?name ?article
+WHERE {
+  ?item wdt:P131 wd:Q5705 .
+  MINUS {?item wdt:P31 []}
+  ?article schema:about ?item; schema:inLanguage ?lang; schema:name ?name .
+  FILTER(?lang in ('ceb')) .
+  FILTER(regex(?name, "lungsod"))
+}
+#ORDER BY ASC (?name)

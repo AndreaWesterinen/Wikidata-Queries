@@ -1,0 +1,6 @@
+select ?item ?s where {
+
+  ?item wdt:P31 wd:Q5 .
+  ?item p:P172 ?s .
+  minus {?s prov:wasDerivedFrom ?ref .}
+}

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?image WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P136 wd:Q134307 .
+  {?item wdt:P180/wdt:P21 wd:Q6581072 .}  
+  UNION                                   
+  {?item wdt:P180/wdt:P279* wd:Q6581072 .} 
+  ?item wdt:P571 ?date.
+  ?item wdt:P18 ?image .
+  FILTER((?date >= "1810-01-01T00:00:00Z"^^xsd:dateTime) && (?date <= "1819-01-01T00:00:00Z"^^xsd:dateTime))
+}

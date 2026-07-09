@@ -1,0 +1,87 @@
+# TV channels in Russian plus Russia located non-Russian TV channels
+
+SELECT DISTINCT
+
+  ?item
+  ?itemLabel
+  (GROUP_CONCAT(DISTINCT ?langCode;SEPARATOR="; ") as ?language)
+  (GROUP_CONCAT(DISTINCT ?runAtLabel;SEPARATOR="; ") as ?location)
+  ?desc
+  (GROUP_CONCAT(DISTINCT ?ownedByLabel;SEPARATOR="; ") as ?owner)
+  (GROUP_CONCAT(DISTINCT ?homeUrl;SEPARATOR="; ") as ?home)
+  (GROUP_CONCAT(DISTINCT ?streamUrl;SEPARATOR="; ") as ?stream)
+
+WHERE 
+{
+    {  
+        ?item p:P31/ps:P31/wdt:P279* wd:Q2001305;
+              wdt:P17|wdt:P2541 wd:Q159.
+        ?item wdt:P407|wdt:P2936 ?channelLang.
+
+        FILTER(?channelLang != wd:Q7737)
+      
+    } UNION {
+    
+        ?item p:P31/ps:P31/wdt:P279* wd:Q2001305;
+            wdt:P407|wdt:P2936 wd:Q7737.
+      
+        OPTIONAL {
+          ?item wdt:P2541 ?operatingLocation.
+        }
+
+        OPTIONAL {
+          ?item wdt:P17 ?country.
+        }
+      
+        FILTER(?country != wd:Q159 || ?operatingLocation != wd:Q159)
+      
+    } UNION {
+      
+      SELECT ?item (COUNT(DISTINCT ?onWiki) AS ?articleCount) WHERE {
+        ?item p:P31/ps:P31/wdt:P279* wd:Q2001305;
+              wdt:P17|wdt:P2541 wd:Q159.
+        
+        ?onWiki schema:about ?item.        
+      }
+      GROUP BY ?item
+      ORDER BY DESC(?articleCount)
+      
+    }
+  
+    FILTER(IF(BOUND(?articleCount), ?articleCount >= 7, True))
+    FILTER(?item NOT IN (wd:Q208491, wd:Q157118, wd:Q629733, wd:Q2566240, wd:Q434629, wd:Q614244, wd:Q4216309, wd:Q60850800, wd:Q21661612, wd:Q83263846, wd:Q20854272))
+    MINUS { ?item wdt:P576|wdt:P582 ?closeDate. }
+    MINUS { ?item wdt:P31 wd:Q526877. }
+
+    OPTIONAL {
+      ?item wdt:P963 ?streamUrl.
+    }
+  
+    OPTIONAL {
+      ?item wdt:P2936|wdt:P407 ?lang.
+      ?lang wdt:P218 ?langCode
+    }
+
+    OPTIONAL {
+      ?item wdt:P127|wdt:P137|wdt:P112 ?ownedBy.
+    }
+
+    OPTIONAL {
+      ?item wdt:P17|wdt:P2541 ?runAt .
+    }
+
+    OPTIONAL {
+      ?item wdt:P856 ?homeUrl.
+    }
+
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "ru,[AUTO_LANGUAGE],uk,be,hy,tt,ce,kk,uz,en,zh,fr,de,pl".
+      ?item rdfs:label ?itemLabel.
+      ?ownedBy rdfs:label ?ownedByLabel.
+      ?runAt rdfs:label ?runAtLabel.
+      ?item schema:description ?desc.
+    }
+}
+
+GROUP BY ?item ?itemLabel ?desc
+ORDER BY DESC(?stream)

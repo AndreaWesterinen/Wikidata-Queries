@@ -1,0 +1,37 @@
+SELECT ?item ?item2 ?labelstring (SAMPLE(?country2) as ?country2) (GROUP_CONCAT(?lang) as ?langs)
+WHERE
+{
+  { 
+    BIND(wd:Q884375 as ?item )
+    BIND(wd:Q884375 as ?item2 )
+    BIND("! ignore this line " as ?labelstring )
+  }
+  UNION
+  {
+  ?item wdt:P31 wd:Q39715 .
+  ?item2 wdt:P31 wd:Q39715 .
+  { ?item rdfs:label ?label . ?item2 rdfs:label ?label }
+  UNION { ?item rdfs:label ?label . ?item2 skos:altLabel ?label }
+  UNION { ?item2 rdfs:label ?label . ?item skos:altLabel ?label }
+  UNION { ?item skos:altLabel ?label . ?item2 skos:altLabel ?label }
+  FILTER( ?item != ?item2 && str(?item) > str(?item2)  )
+  FILTER NOT EXISTS { ?item wdt:P1889 ?item2 }
+  FILTER NOT EXISTS { ?item2 wdt:P1889 ?item }
+  FILTER NOT EXISTS { ?item wdt:P167 ?item2 }
+  FILTER NOT EXISTS { ?item2 wdt:P167 ?item }
+  FILTER NOT EXISTS { ?item wdt:P1398 ?item2 }
+  FILTER NOT EXISTS { ?item2 wdt:P1398 ?item }
+  FILTER NOT EXISTS { ?item wdt:P1365 ?item2 }
+  FILTER NOT EXISTS { ?item2 wdt:P1365 ?item }
+  FILTER NOT EXISTS { ?item wdt:P1366 ?item2 }
+  FILTER NOT EXISTS { ?item2 wdt:P1366 ?item }
+  FILTER ( ?label != "The Old Lighthouse"@en )
+  FILTER ( ?label != "The Lighthouse"@en )
+  BIND(str(?label) as ?labelstring)
+  BIND(lang(?label) AS ?lang)
+  OPTIONAL { ?item2 wdt:P17 ?country2 }
+  }
+}
+GROUP BY ?item ?item2 ?labelstring
+ORDER BY ?langs ?labelstring
+limit 500

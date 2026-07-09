@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?image ?coor ?idmérimée ?statut WHERE {
+  ?item wdt:P131 wd:Q12193.
+  OPTIONAL { ?item wdt:P625 ?coor. }
+  OPTIONAL { ?item wdt:P380 ?idmérimée. }
+  OPTIONAL { ?item wdt:P1435 ?statut. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl,fr,es". }
+}

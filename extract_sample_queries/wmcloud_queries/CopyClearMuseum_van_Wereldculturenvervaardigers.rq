@@ -1,0 +1,3 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P6379 wd:Q17153751.
+}

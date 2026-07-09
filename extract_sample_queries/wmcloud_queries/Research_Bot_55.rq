@@ -1,0 +1,9 @@
+SELECT ?author ?authorLabel ?authorstring (COUNT(DISTINCT ?paper) AS ?count) WHERE {
+  { ?paper wdt:P921 wd:Q202864 . } UNION { ?paper wdt:P921 wd:Q8071861 . }
+  ?paper wdt:P50 ?author .
+#  ?author wdt:P31 wd:Q5.
+  MINUS { ?paper wdt:P2093 ?authorstring . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?author ?authorLabel ?authorstring
+ORDER BY DESC(?count)

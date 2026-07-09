@@ -1,0 +1,14 @@
+SELECT ?painting ?paintingLabel ?creator ?creatorLabel
+{ 
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 ?creator .
+  #      not                          human
+  filter not exists {?creator wdt:P31 wd:Q5 .} .
+  #      not                          artist collective
+  filter not exists {?creator wdt:P31 wd:Q1400264 .} .
+  # anonymous is OK
+  filter (?creator != wd:Q4233718) .
+  
+  SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .} .
+}

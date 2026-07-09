@@ -1,0 +1,5 @@
+#"Outer list" query, i.e. for review articles with Creative Commons license
+SELECT ?item 
+  WHERE {?item wdt:P921 wd:Q50986719;
+               wdt:P31 wd:Q7318358;
+               wdt:P275 [ ]}

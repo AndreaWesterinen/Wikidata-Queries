@@ -1,0 +1,12 @@
+SELECT ?Objekt ?Titel ?Ver_ffentlichungsdatum ?ver_ffentlicht_in ?ver_ffentlicht_inLabel WHERE {
+  { ?Objekt wdt:P31 wd:Q13442814. }
+  UNION
+  { ?Objekt wdt:P31 wd:Q191067. }
+  UNION
+  { ?Objekt wdt:P31 wd:Q571. }
+  ?Objekt wdt:P50 wd:Q318207.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?Objekt wdt:P1476 ?Titel. }
+  OPTIONAL { ?Objekt wdt:P577 ?Ver_ffentlichungsdatum. }
+  OPTIONAL { ?Objekt wdt:P1433 ?ver_ffentlicht_in. }
+}

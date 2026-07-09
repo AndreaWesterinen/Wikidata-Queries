@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coords ?image WHERE {
+  ?item wdt:P361 wd:Q3053741 .
+  OPTIONAL { ?item wdt:P625 ?coords }
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?itemLabel

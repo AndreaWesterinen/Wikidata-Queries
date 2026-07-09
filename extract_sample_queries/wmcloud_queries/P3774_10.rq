@@ -1,0 +1,15 @@
+# items with property P3774 and most identifiers
+# added by User:Jura1, 2017-07-30
+SELECT ?item ?itemLabel ?value ?ids
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P3774 ?value ; wikibase:identifiers ?ids
+       }
+       ORDER BY DESC(?ids)
+       LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?ids) ?item

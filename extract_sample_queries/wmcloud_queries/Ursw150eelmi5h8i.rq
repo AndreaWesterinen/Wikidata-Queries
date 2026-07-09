@@ -1,0 +1,5 @@
+select ?artiste ?artisteLabel {
+  ?artiste wdt:P106 wd:Q1114448 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?article schema:about ?artiste ; schema:isPartOf <https://fr.wikipedia.org/> 
+}

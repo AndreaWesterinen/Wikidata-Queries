@@ -1,0 +1,8 @@
+SELECT ?for_t ?for_tLabel ?coordonn_es_g_ographiques ?localisation_administrativeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?for_t wdt:P31 wd:Q4421;
+    wdt:P17 wd:Q142.
+  OPTIONAL { ?for_t wdt:P625 ?coordonn_es_g_ographiques. }
+  OPTIONAL { ?for_t wdt:P131 ?localisation_administrative. }
+}
+LIMIT 10000

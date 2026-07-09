@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?p wdt:P1795 ?id .
+  ?p wdt:P21 ?item .
+} 
+GROUP BY ?item ?itemLabel
+ORDER BY DESC (?count)

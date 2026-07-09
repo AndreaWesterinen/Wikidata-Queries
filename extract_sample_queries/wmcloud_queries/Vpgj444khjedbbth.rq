@@ -1,0 +1,12 @@
+embed.html#SELECT ?item ?itemLabel ?ministere ?ministereLabel ?datedebut ?datefin 
+WHERE
+{
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  	?item p:P39 ?statement . # avec un statement P39 (fonction)
+	?statement ps:P39 ?ministere . # où la fonction est une  
+	?ministere wdt:P279* wd:Q83307 . # ... une sous-classe (P279) de ministre (Q83307)
+    ?ministere wdt:P17 wd:Q142 # ... un pays français
+	OPTIONAL {?statement pq:P580 ?datedebut .} # avec une qualification de la date de début (P580)
+  	OPTIONAL {?statement pq:P582 ?datefin .} # avec une qualification de la date de fin (P582)
+}
+ORDER BY DESC(?datedebut)

@@ -1,0 +1,7 @@
+#Awarded Chemistry Nobel Prizes
+#defaultView:Timeline
+SELECT DISTINCT ?item ?itemLabel ?when (YEAR(?when) AS ?date) ?pic WHERE {
+ ?item p:P166 ?awardStat.
+ ?awardStat ps:P166 wd:Q663005.
+ ?awardStat pq:P585 ?when.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 

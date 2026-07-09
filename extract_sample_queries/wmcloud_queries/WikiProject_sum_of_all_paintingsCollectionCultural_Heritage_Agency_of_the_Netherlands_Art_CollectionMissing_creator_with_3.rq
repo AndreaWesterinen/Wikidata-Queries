@@ -1,0 +1,30 @@
+SELECT DISTINCT ?item ?description ?name ?painter ?painterLabel ?dob ?dod ?url ?addlink
+WITH {
+  SELECT DISTINCT ?item ?description ?name WHERE {
+  ?item wdt:P195 wd:Q18600731;
+    wdt:P31 wd:Q3305213.
+  MINUS { ?item p:P170 _:b1. }
+  ?item schema:description ?description.
+  FILTER((LANG(?description)) = "en")
+  BIND(REPLACE(STR(?description), "^painting by ([^\\)]+)(\\([^\\)]+\\))?$", "$1") AS ?name)
+}
+} AS %paintings
+WITH {
+  SELECT ?painter ?painterLabel ?name WHERE {
+  ?painter wdt:P106 wd:Q1028181;
+    wdt:P27 wd:Q29999;
+    wdt:P31 wd:Q5;
+    rdfs:label ?painterLabel.
+  FILTER((LANG(?painterLabel)) = "nl")
+  BIND(REPLACE(STR(?painterLabel), "^(.)([[^\\s]]+) (.+)$", "$1. $3") AS ?name) .
+}
+} AS %painters
+WHERE {
+  INCLUDE %paintings.
+  INCLUDE %painters.
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P170&entityid=", REPLACE(STR(?painter), "http://www.wikidata.org/entity/", ""), " Add]") AS ?addlink)
+  OPTIONAL { ?painter wdt:P569 ?dob } 
+  OPTIONAL { ?painter wdt:P570 ?dod } 
+  OPTIONAL { ?item p:P4765/pq:P2699 ?url } 
+} ORDER BY ?description
+LIMIT 1500

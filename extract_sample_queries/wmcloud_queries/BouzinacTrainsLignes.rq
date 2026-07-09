@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel (GROUP_CONCAT(?reseauLabel;separator=",") as ?network) ?colour ?line_number WHERE {
+  ?item wdt:P31 wd:Q15079663;wdt:P1671 ?line_number;wdt:P5817 wd:Q55654238; wdt:P16|wdt:P361 ?reseau
+OPTIONAL { ?item wdt:P465 ?rgb } . # colour if known
+ bind(concat("|", "{","{ font color

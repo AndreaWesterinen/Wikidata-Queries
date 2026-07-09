@@ -1,0 +1,18 @@
+#Missing labels for English
+#Where labels exist in Spanish
+#Occupation = nonfiction writer or subclass
+SELECT ?item ?itemLabel ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q5;
+    (p:P106/ps:P106/(wdt:P279*)) wd:Q15980158.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+  FILTER(NOT EXISTS {
+    ?item rdfs:label ?lang_label.
+    FILTER((LANG(?lang_label)) = "en")
+  })
+  FILTER(EXISTS {
+    ?item rdfs:label ?lang_label.
+    FILTER((LANG(?lang_label)) = "es")
+  })
+}
+ORDER BY (?itemLabel)
+LIMIT 10

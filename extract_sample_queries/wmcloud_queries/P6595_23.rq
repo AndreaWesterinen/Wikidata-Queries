@@ -1,0 +1,8 @@
+#title: Items with a statements imported from Wikimedia project
+# Complex constraint from [[Property talk:P6595]]
+# Items with statements that have [[Property:P143|imported from Wikimedia project&#32;<small dir="ltr">(P143)</small>]] as source instead of a real source. Reference should be replaced with a real source.
+SELECT DISTINCT ?item ?property WHERE {
+  ?item wdt:P6595 ?id;
+        ?property ?statement .
+  ?statement prov:wasDerivedFrom/pr:P143 ?imported.
+} LIMIT 500

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?l
+{
+  ?item wdt:P9152 ?value ; rdfs:label ?l . 
+  FILTER( lang(?l)="en" && CONTAINS( ?l, "/") )
+}

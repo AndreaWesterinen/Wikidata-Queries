@@ -1,0 +1,29 @@
+SELECT distinct ?term ?termLabel ?start ?end ?members ?with_constituencies 
+?distinct_constituencies ?distinct_counties ?distinct_boroughs where
+{
+  { SELECT distinct ?term ?start ?end where 
+   { ?term wdt:P279 wd:Q18018860 . ?term wdt:P571 ?start . ?term wdt:P576 ?end . filter(year(?start) >= 1485) . filter(year(?end) <= 1680) . } 
+   # find all terms and their date (for sorting)
+ } 
+ optional  { SELECT ?term (count(distinct ?item) as ?members) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+    } group by ?term } 
+
+ optional { SELECT ?term (count(distinct ?item) as ?with_constituencies) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+      ?positionStatement pq:P768 ?const . } group by ?term } 
+  
+ optional { SELECT ?term (count(distinct ?const) as ?distinct_constituencies) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+      ?positionStatement pq:P768 ?const . } group by ?term } 
+  
+ optional { SELECT ?term (count(distinct ?const) as ?distinct_counties) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+      ?positionStatement pq:P768 ?const . ?const wdt:P131 ?parent . ?parent wdt:P31 ?type . ?type wdt:P279* wd:Q67376938 } group by ?term } 
+  
+ optional { SELECT ?term (count(distinct ?const) as ?distinct_boroughs) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . ?term wdt:P279 wd:Q18018860 . 
+      ?positionStatement pq:P768 ?const . ?const wdt:P131 ?parent . ?parent wdt:P31 ?type . ?type wdt:P279* wd:Q486972 } group by ?term } 
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by ?start

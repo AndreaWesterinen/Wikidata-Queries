@@ -1,0 +1,7 @@
+SELECT ?conseiller_r_gional_d_Auvergne_Rh_ne_Alpes ?mandature ?mandatureLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?conseiller_r_gional_d_Auvergne_Rh_ne_Alpes wdt:P39 wd:Q62394055.
+  OPTIONAL { ?conseiller_r_gional_d_Auvergne_Rh_ne_Alpes wdt:P2937 ?mandature. }
+  OPTIONAL { ?conseiller_r_gional_d_Auvergne_Rh_ne_Alpes wdt:P2937 wd:Q62663668 }
+}
+LIMIT 100

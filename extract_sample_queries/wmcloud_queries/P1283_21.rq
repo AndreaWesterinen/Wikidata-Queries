@@ -1,0 +1,15 @@
+#title: Values to add
+# Complex constraint from [[Property talk:P1283]]
+# Filmographies which are not associated with its performer
+SELECT ?item ?sl ?ms
+WHERE
+{
+    ?item wdt:P31 wd:Q1371849 . 
+    MINUS { ?item ^ wdt:P1283 [] } 
+    MINUS { ?item ^ wdt:P2354 [] } 
+    MINUS { ?item ^ wdt:P1455 [] } 
+    OPTIONAL { ?item wdt:P921 ?ms }
+    ?item wikibase:sitelinks ?sl . 
+}
+ORDER BY DESC(?sl) DESC(?ms) ?item
+LIMIT 100

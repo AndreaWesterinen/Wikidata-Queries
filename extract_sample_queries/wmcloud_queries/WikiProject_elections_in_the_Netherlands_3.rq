@@ -1,0 +1,17 @@
+    SELECT ?Person_WD_idLabel ?Election_WD_idLabel ?Party_WD_idLabel ?Candidate_numberLabel  ?N_votes
+    WHERE
+    {
+     ?Person_WD_id p:P3602 ?node .
+      ?node ps:P3602 ?Election_WD_id .
+      ?Election_WD_id wdt:P17 wd:Q55.
+      ?Election_WD_id wdt:P31 ?type.
+
+      OPTIONAL {?Election_WD_id wdt:P585 ?tijdstip.}           
+
+      OPTIONAL { ?node pq:P10777 ?Candidate_number }
+      OPTIONAL { ?node pq:P1268 ?Party_WD_id }
+      OPTIONAL { ?node pq:P1111 ?N_votes }
+
+    FILTER ( ?type in (wd:Q152450, wd:Q4289143, wd:Q15966540, wd:Q1128324,wd:Q2243695,wd:Q14509381,wd:Q2385043) )
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+      }

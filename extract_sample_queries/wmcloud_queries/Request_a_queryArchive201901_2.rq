@@ -1,0 +1,9 @@
+select ?item ?itemLabel ?sum ?ru WITH {
+  SELECT ?item (SUM(?weigth) as ?sum) {
+    ?sitelink schema:about ?item; wikibase:badge ?badge
+    VALUES (?badge ?weigth) { ( wd:Q17437796 2 ) ( wd:Q17437798 1) }
+  } GROUP BY ?item
+} as %q {
+  INCLUDE %q
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+} ORDER BY DESC (?sum)

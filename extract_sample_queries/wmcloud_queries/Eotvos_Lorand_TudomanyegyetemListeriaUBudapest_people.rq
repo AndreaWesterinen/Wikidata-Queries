@@ -1,0 +1,12 @@
+#defaultView:Map
+# to do: add colour layers as a function of number of statements
+SELECT DISTINCT ?item ?itemLabel ?pob ?pobLabel ?loc ?st ?image
+       {
+          {?item ?property wd:Q390287.} UNION { ?item ?property2 [wdt:P361 wd:Q390287].} 
+          ?item wdt:P31 wd:Q5; wikibase:statements ?st ; wdt:P19 ?pob .
+          ?pob wdt:P625 ?loc .
+         OPTIONAL {?item wdt:P18 ?image }
+         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+       }
+ #      ORDER BY ASC(?st) ?item 
+       LIMIT 2000

@@ -1,0 +1,11 @@
+SELECT ?item ?linkcount ?museumurl 
+WHERE
+{
+  ?item wdt:P2539 ?id .
+  ?item wdt:P217 ?inv .
+  ?item wikibase:sitelinks ?linkcount .
+  BIND ((CONCAT ("[http://collection.nationalmuseum.se/eMuseumPlus?service=ExternalInterface&module=collection&objectId=", ?id, "&viewType=detailView", " ", ?inv, "]")) as ?museumurl) .
+  FILTER (?linkcount > 0)
+}
+GROUP BY ?item ?linkcount ?museumurl 
+ORDER BY DESC(?linkcount)

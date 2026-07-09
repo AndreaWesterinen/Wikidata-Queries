@@ -1,0 +1,12 @@
+#title: Items for permanent duplicates and English description
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: replace with "Wikimedia permanent duplicate item"
+SELECT DISTINCT ?item #?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q21286738 .
+	?item wdt:P2959 [] .
+  	MINUS { ?item wdt:P31 wd:Q4167836 } .
+	?item schema:description ?itemDescription .
+	FILTER( LANG( ?itemDescription ) = "en" && ?itemDescription != "Wikimedia permanent duplicate item"@en ) .
+	#SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+} ORDER BY ASC(xsd:integer(STRAFTER(str(?value), "Q")))

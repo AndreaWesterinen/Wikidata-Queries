@@ -1,0 +1,2 @@
+select (count(?region) as ?nb) where {
+  ?region wdt:P31 wd:Q36784

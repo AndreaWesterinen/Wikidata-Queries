@@ -1,0 +1,4 @@
+SELECT (COUNT(*) as ?count)
+{
+  ?item wdt:P2949 ?value ; schema:description "-"@en .
+}

@@ -1,0 +1,46 @@
+#title: Carte des tramways français
+#defaultView:Map{"hide":["?coords", "?line","?rgb"]}
+SELECT ?station ?stationLabel ?subwayLine ?coords ?line ?layer ?rgb WHERE {
+  ?search wdt:P31 wd:Q15640053 ;wdt:P17 wd:Q142.
+  ?search wdt:P527 ?lignes.
+  ?lignes wdt:P559 ?termini.
+  ?station wdt:P31 wd:Q2175765;
+    (wdt:P361|wdt:P16) ?search;
+    wdt:P625 ?coords;
+    (wdt:P81|wdt:P1192) ?subwayLine;
+    wdt:P197 ?pred.
+  ?pred wdt:P625 ?coords_pred;
+    (wdt:P81|wdt:P1192) ?subwayLine_pred.
+  ?station p:P197 _:b1.
+  _:b1 ps:P197 ?pred;
+    pq:P5051 ?towards;
+    (pq:P81|pq:P1192) ?line_pq.
+  OPTIONAL { ?subwayLine wdt:P1671 ?line_number. }
+  FILTER(?subwayLine_pred = ?lignes)
+  FILTER(?subwayLine = ?lignes)
+  FILTER(?towards = ?termini)
+  MINUS { ?station (wdt:P576|wdt:P582|wdt:P3999) ?dispar. }
+  MINUS {
+    ?station (wdt:P5817|wdt:P5816) ?interdit.    VALUES ?interdit {    wd:Q811683    wd:Q63065035     wd:Q12377751     wd:Q97317113     wd:Q55653430     wd:Q30108381      wd:Q55570340      wd:Q11639308
+      wd:Q104664889
+    }
+  }
+  ?pred p:P625 ?node_pred.
+  ?node_pred (psv:P625/wikibase:geoLatitude) ?lat1;
+    (psv:P625/wikibase:geoLongitude) ?lon1;
+    rdf:type wikibase:BestRank.
+  ?station p:P625 ?node_station.
+  ?node_station (psv:P625/wikibase:geoLatitude) ?lat2;
+    (psv:P625/wikibase:geoLongitude) ?lon2;
+    rdf:type wikibase:BestRank.
+  BIND(CONCAT("LINESTRING(", STR(?lon1), " ", STR(?lat1), ",", STR(?lon2), " ", STR(?lat2), ")") AS ?str)
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line)
+  ?subwayLine wdt:P465 ?rgb.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr".
+    ?subwayLine rdfs:label ?layer.
+    ?station rdfs:label ?stationLabel.
+  } 
+}
+GROUP BY ?station ?stationLabel ?subwayLine ?rgb ?layer ?coords ?line
+ORDER BY (?line_number) (?subwayLine)

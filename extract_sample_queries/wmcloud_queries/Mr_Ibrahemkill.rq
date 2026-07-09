@@ -1,0 +1,11 @@
+SELECT ?item 
+#?itemLabel
+?item2
+WHERE {
+  ?item wdt:P1399 wd:Q1475448.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ar,en". }
+  #OPTIONAL { 
+    ?item2 wdt:P157 ?item. 
+  #}
+}
+LIMIT 100

@@ -1,0 +1,10 @@
+#iiif
+#defaultView:ImageGrid
+SELECT ?item ?iiif ?image
+WHERE 
+{
+  ?item wdt:P6108 ?iiif .
+  ?item wdt:P18 ?image .
+  ?item wdt:P180 wd:Q7307 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

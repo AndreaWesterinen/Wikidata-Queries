@@ -1,0 +1,10 @@
+SELECT * WHERE {
+SERVICE wikibase:box {
+    ?place wdt:P625 ?location .
+    bd:serviceParam wikibase:cornerSouthWest "Point(-179 -88)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerNorthEast "Point(179 -89)"^^geo:wktLiteral .
+  }
+	?place wdt:P31 ?instanceof
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?place rdfs:label ?placeLabel }       
+}
+LIMIT 1000

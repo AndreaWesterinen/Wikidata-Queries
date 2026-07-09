@@ -1,0 +1,4 @@
+SELECT DISTINCT ?pdbid WHERE {
+  ?item wdt:P638 ?pdbid.
+}
+ORDER BY ASC(?pdbid)

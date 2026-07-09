@@ -1,0 +1,9 @@
+#Graves and tombs in Livius project
+SELECT ?item ?itemLabel 
+WHERE {
+{ ?item wdt:P31 wd:Q173387 . } UNION { ?item wdt:P31 wd:Q381885 . } UNION { ?item wdt:P31 wd:Q39614 . } UNION { ?item wdt:P31 wd:Q200141 . } UNION { ?item wdt:P31 wd:Q162875 . } UNION { ?item wdt:P31 wd:Q48634 . } UNION { ?item wdt:P31 wd:Q255595 . }
+  ?item wdt:P5008 wd:Q68074438 ;
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+order by desc(?itemLabel)

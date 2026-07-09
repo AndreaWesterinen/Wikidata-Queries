@@ -1,0 +1,1 @@
+SELECT  (COALESCE( ?subj, ?sample ) as ?item)  (CONCAT("[[Property:",strafter(str(?p),"y/"),"|",str(?pLabel),"]]") as ?t)   ?ct (CONCAT('align=left data-sort-value="',strafter(str(?p),"y/P"),'"

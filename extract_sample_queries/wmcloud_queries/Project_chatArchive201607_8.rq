@@ -1,0 +1,11 @@
+SELECT ?item ?lang ?alias {
+  ?item skos:altLabel ?alias .
+  BIND(LANG(?alias) AS ?lang) .
+   FILTER( ?lang = "lv" ) .
+  # FILTER( ?lang IN ( "my_language1", "my_language2" ) ) .
+  MINUS {
+    ?item rdfs:label ?label .
+    BIND(LANG(?label) AS ?lang1) .
+    FILTER(?lang1 = ?lang) .
+  } .
+} LIMIT 500

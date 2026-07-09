@@ -1,0 +1,4 @@
+#title: Partner didn't live during the same time as subject
+# Complex constraint from [[Property talk:P451]]
+# death date of person A is before birth date of person B
+SELECT * { {SELECT ?item WHERE { ?item wdt:P451 ?item2 . ?item p:P569/psv:P569 ?birth1_node . ?birth1_node wikibase:timeValue ?birth1 . ?birth1_node wikibase:timePrecision "11"^^xsd:integer . ?item2 p:P570/psv:P570 ?death2_node . ?death2_node wikibase:timeValue ?death2 . ?death2_node wikibase:timePrecision "11"^^xsd:integer . FILTER (?birth1 > ?death2) } } UNION {SELECT ?item WHERE { ?item wdt:P451 ?item2 . ?item p:P570/psv:P570 ?death1_node . ?death1_node wikibase:timeValue ?death1 . ?death1_node wikibase:timePrecision "11"^^xsd:integer . ?item2 p:P569/psv:P569 ?birth2_node . ?birth2_node wikibase:timeValue ?birth2 . ?birth2_node wikibase:timePrecision "11"^^xsd:integer . FILTER (?birth2 > ?death1)} } }

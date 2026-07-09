@@ -1,0 +1,15 @@
+#defaultView:Timeline
+#Zeitstrahl der verlegten Stolpersteine in Hannover
+SELECT DISTINCT ?item ?itemLabel ?zeitpunkt ?bild
+WHERE {
+  ?item
+	wdt:P31 wd:Q26703203 ; # ist ein Stolperstein
+    wdt:P131* wd:Q1715 ; # Ort Hannover
+    p:P793 ?verlegung . # Schlüsselereignis…
+    ?verlegung 
+      ps:P793 wd:Q3010369 ; # …Einweihungsfeier
+      pq:P585 ?zeitpunkt . # Zeitpunkt der Verleihung
+  OPTIONAL { ?item wdt:P18 ?bild } # Bild anzeigen wenn vorhanden
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". } # Auswahl der Sprache
+}
+ORDER BY ?zeitpunkt

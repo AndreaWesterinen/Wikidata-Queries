@@ -1,0 +1,14 @@
+SELECT ?item ?label ?_image WHERE {
+  ?item p:P131 ?statement1.
+  ?statement1 ps:P131 wd:Q6076.
+  {?item wdt:P31 wd:Q634099.}
+  UNION
+  {?item wdt:P31 wd:Q2661988.}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?label
+  }
+  
+OPTIONAL { ?item wdt:P18 ?_image. }
+}
+LIMIT 100

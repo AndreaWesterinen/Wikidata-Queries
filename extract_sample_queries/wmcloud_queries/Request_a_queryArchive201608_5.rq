@@ -1,0 +1,11 @@
+#Uitgevers
+SELECT ?item ?itemLabel ?_coordinate_location ?_date_of_birth ?_date_of_death ?_image ?_work_locationLabel WHERE {
+  ?item wdt:P106 wd:Q2516866.
+  ?item wdt:P937 ?worklocation.
+  OPTIONAL { ?worklocation wdt:P625 ?_coordinate_location. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en,de,fr". }
+  OPTIONAL { ?item wdt:P569 ?_date_of_birth. }
+  OPTIONAL { ?item wdt:P570 ?_date_of_death. }
+  OPTIONAL { ?item wdt:P18 ?_image. }
+  OPTIONAL { ?item wdt:P937 ?_work_location. }
+}

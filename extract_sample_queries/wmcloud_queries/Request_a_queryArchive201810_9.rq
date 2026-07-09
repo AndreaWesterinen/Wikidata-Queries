@@ -1,0 +1,7 @@
+SELECT ?Naturdenkmal_in_Germany ?Naturdenkmal_in_GermanyLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Naturdenkmal_in_Germany wdt:P31 wd:Q21573182.
+  ?Naturdenkmal_in_Germany wdt:P131 ?territory1.
+  ?territory1 wdt:P131 wd:Q985.
+}
+LIMIT 100

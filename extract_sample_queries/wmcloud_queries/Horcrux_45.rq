@@ -1,0 +1,13 @@
+SELECT DISTINCT
+  ?season
+  ?seriesLabel
+  ?seasonNum
+WHERE {
+  ?season wdt:P31/wdt:P279* wd:Q3464665 ;
+          p:P179 ?seriesStmt .
+  ?seriesStmt ps:P179 ?series .
+  OPTIONAL { ?seriesStmt pq:P1545 ?seasonNum . }
+  ?series rdfs:label ?seriesLabel .
+  FILTER (lang(?seriesLabel) = "it")
+  FILTER NOT EXISTS { ?season rdfs:label ?seasonLabel . FILTER (lang(?seasonLabel) = "it") }
+}

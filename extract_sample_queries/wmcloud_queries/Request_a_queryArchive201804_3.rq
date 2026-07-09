@@ -1,0 +1,39 @@
+SELECT DISTINCT ?countMP ?previousMPLabel ?constituencyLabel ?end ?causeLabel ?days ?electionLabel ?start ?newMPLabel
+with {SELECT ?constituency (count(?newMP) as ?countMP) where {
+ # values ?constituency {wd:Q751637}
+ ?newMP p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q41582619 . 
+ ?positionStatement pq:P768 ?constituency .
+ ?positionStatement pq:P580 ?start .
+ ?positionStatement pq:P2715 ?election . # this makes sure a by-election happened and not just a change of affiliation, etc
+  } group by ?constituency} as %count
+
+ where { include %count
+ ?newMP p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q41582619 . 
+ ?positionStatement pq:P768 ?constituency .
+ ?positionStatement pq:P580 ?start .
+ ?positionStatement pq:P2715 ?election . # this makes sure a by-election happened and not just a change of affiliation, etc
+ ?election wdt:P279 wd:Q1057954.
+       
+ ?previousMP p:P39 ?positionStatement2 .
+ ?positionStatement2 ps:P39 wd:Q41582619 . 
+ ?positionStatement2 pq:P768 ?constituency . # restricts it to the same seat  
+ ?positionStatement2 pq:P582 ?end . 
+ OPTIONAL { ?positionStatement2 pq:P1534 ?cause . } # in case cause not stated
+
+ ?previousMP2 p:P39 ?positionStatement22 .
+ ?positionStatement22 ps:P39 wd:Q41582619 . 
+ ?positionStatement22 pq:P768 ?constituency . # restricts it to the same seat  
+ ?positionStatement22 pq:P582 ?end2 . 
+ OPTIONAL { ?positionStatement22 pq:P1534 ?cause2 . } # in case cause not stated
+
+ FILTER (?start > ?end) .
+ FILTER(if(?countMP>2,?newMP!=?previousMP2,?start > ?end)) .
+ FILTER(if(?countMP>2,?previousMP!=?previousMP2,?start>?end)) .
+ FILTER(if(?countMP>2 && ?start > ?end && ?start > ?end2 && ?end < ?end2,?start<?end2,?start > ?end)). 
+       
+ bind((?start-?end) as ?days) . # find how long the gap was
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?constituencyLabel

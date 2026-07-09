@@ -1,0 +1,10 @@
+#title: Cims sense etiqueta
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item where {
+  ?item p:P361/ps:P361 wd:Q31074657 .
+  minus {
+    ?item rdfs:label ?label .
+    filter(lang(?label) = "ca")
+  }
+}

@@ -1,0 +1,8 @@
+#title: Label
+# Complex constraint from [[Property talk:P5125]]
+# English labels should start with "outline of "
+SELECT ?item ?itemLabel ?outline ?l
+{
+  ?item wdt:P5125 ?outline . ?outline rdfs:label ?l . FILTER ( lang(?l) = "en" && !strstarts(str(?l), "outline of ") )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

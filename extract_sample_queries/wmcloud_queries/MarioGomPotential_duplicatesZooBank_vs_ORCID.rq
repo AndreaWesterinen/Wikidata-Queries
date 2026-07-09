@@ -1,0 +1,26 @@
+SELECT (?itemA AS ?item) (CONCAT("[http://zoobank.org/Authors/", ?zoobankA, " zoobank]") AS ?zoobank) ?itemB (CONCAT("[https://orcid.org/", ?orcidB, " orcid]") AS ?orcid) WHERE {
+  hint:Query hint:optimizer "None".
+  {
+    SELECT DISTINCT ?itemB ?orcidB WHERE {
+      ?work wdt:P1433 ?journal.
+      VALUES ?journal {
+        wd:Q220370
+        wd:Q6296164
+        wd:Q15716414
+        wd:Q21384970
+      }
+      ?work wdt:P50 ?itemB.
+      ?itemB wdt:P496 ?orcidB.
+    }
+  }
+  OPTIONAL { ?itemB wdt:P2006 ?zoobankB. }
+  FILTER(!(BOUND(?zoobankB)))
+  FILTER(NOT EXISTS { ?itemB wdt:P31 wd:Q17362920. })
+  ?itemB wdt:P734 ?familyA;
+    wdt:P735 ?givenA.
+  ?itemA wdt:P734 ?familyA;
+    wdt:P2006 ?zoobankA;
+    wdt:P735 ?givenA.
+  FILTER(NOT EXISTS { ?itemA wdt:P496 ?orcidA. })
+  OPTIONAL { ?itemA wdt:P569 ?dobA. }
+  FILTER((!(BOUND(?dobA)))

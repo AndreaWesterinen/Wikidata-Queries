@@ -1,0 +1,33 @@
+#Target required claim report for P2554: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P2554/ps:P2554 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P2554 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P2554 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q2962070 wd:Q483501 wd:Q2707485 wd:Q1028181 wd:Q42973 wd:Q644687 wd:Q2133309 wd:Q5322166 wd:Q3391743 wd:Q28107590 wd:Q15296811 wd:Q21550489 wd:Q715301 wd:Q17098559 wd:Q1281618 wd:Q28110454 wd:Q1114448 wd:Q3658608 wd:Q1925963 wd:Q6409989 wd:Q40309200 wd:Q627325 wd:Q706364 } .
+			MINUS {
+				?value p:P106/ps:P106 ?values .
+			} .
+			OPTIONAL {
+				?value p:P106/ps:P106 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

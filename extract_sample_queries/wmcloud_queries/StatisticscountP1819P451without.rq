@@ -1,0 +1,9 @@
+SELECT (wd:Q5 AS ?item) ?statcount 
+WHERE
+{
+  SELECT (COUNT(DISTINCT ?rel) AS ?statcount) WHERE {
+    ?item wdt:P1819 [] ; wdt:P451 ?rel. 
+    hint:Prior hint:rangeSafe true .        
+    MINUS { ?rel wdt:P1819 [] }  
+  }
+}

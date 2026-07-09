@@ -1,3 +1,4 @@
+#title: Wikidata statements with a reference to data in Figshare
 SELECT ?doi (count(?doi) as ?counts) WHERE {
    ?statement prov:wasDerivedFrom ?ref .
    ?ref pr:P356 ?doi .

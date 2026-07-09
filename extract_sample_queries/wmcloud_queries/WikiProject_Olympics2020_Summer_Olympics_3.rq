@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q18536594.
+  ?item wdt:P361 ?sport.
+  ?sport wdt:P31 wd:Q26132862. 
+  ?sport wdt:P361 wd:Q181278.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

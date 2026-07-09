@@ -1,3 +1,4 @@
+#title: E-Readers that support the mobipocket file format
 SELECT ?ereader ?ereaderLabel
 
 WHERE {

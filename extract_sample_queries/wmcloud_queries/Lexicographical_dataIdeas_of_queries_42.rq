@@ -1,0 +1,48 @@
+sparql?query=SELECT (uri(replace(str(?l), "L", "Q")) as ?item) (MD5(CONCAT(str(?item),str(RAND()))) as ?random) ?l ?hitza ?sense ?ahotsak ?elhuyar ?audio (SAMPLE(?picture_) AS ?picture) 
+WHERE
+{
+  ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?hitza ;
+        ontolex:sense ?esanahia.
+  ?esanahia skos:definition ?sense;
+
+        wdt:P5137 ?q_concept.
+  ?q_concept wdt:P18 ?picture_.
+  ?language wdt:P218 'eu'.
+  FILTER (LANG(?sense) = 'eu')
+  OPTIONAL {?l wdt:P7559 ?ahotsak.}
+  OPTIONAL {?l wdt:P6838 ?elhuyar.}
+  ?l ontolex:lexicalForm ?f .
+  ?f ontolex:representation ?form ;
+     wdt:P443 ?audio .
+  filter (regex(str(?f), "-F1$")) .
+    # Exclude out of scope concepts
+  MINUS {?q_concept wdt:P31 wd:Q3624078.}. # countries
+  MINUS {?l wdt:P31 wd:Q1499602.}. #ad hoc hitzak
+ 
+  # Exclude non suitable concepts
+  VALUES ?minus {
+  wd:Q47092 # rape
+  wd:Q198   # war
+  wd:Q124490 # violence
+  wd:Q170382 # revolver
+  wd:Q1576   #cigar
+  #... add yours here
+  }.
+  MINUS {?sense wdt:P5137 ?minus.}.
+  
+  # Exclude senses not suitable for young children:
+  FILTER NOT EXISTS {
+    VALUES ?filter {
+      wd:Q8102
+      wd:Q545779
+      wd:Q1521634
+      wd:Q571571
+      wd:Q184439
+    }
+    ?esanahia wdt:P6191 ?filter.
+  }
+}
+GROUP BY ?l ?sense ?hitza ?ahotsak ?elhuyar ?audio
+ORDER BY ?random
+LIMIT 1

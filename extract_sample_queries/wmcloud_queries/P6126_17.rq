@@ -1,0 +1,14 @@
+#title: Quick check
+# Complex constraint from [[Property talk:P6126]]
+#
+SELECT ?item {
+  ?item wdt:P6126 [];
+        wdt:P31 wd:Q5.
+  MINUS { ?item wdt:P106 [] }
+  MINUS { ?item wdt:P140 [] }
+  MINUS { ?item wdt:P411 [] }
+  MINUS { ?item wdt:P841 [] }
+  MINUS { ?item wdt:P1441 [] }
+  MINUS { ?item wdt:P4286 [] }
+  MINUS { ?item wdt:P8366 [] }
+}

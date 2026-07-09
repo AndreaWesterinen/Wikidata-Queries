@@ -1,0 +1,16 @@
+SELECT ?m ?mLabel ?geb ?sterf ?startjaar ?eindjaar ?jaren
+WHERE 
+{
+ ?m p:P463 ?org .
+ ?org ps:P463 wd:Q56764476 . 
+ ?org pq:P580 ?start . 
+ ?org pq:P582 ?eind . 
+ OPTIONAL { ?m wdt:P569 ?geb . }
+ OPTIONAL { ?m wdt:P570 ?sterf . }
+ BIND(year(?start) AS ?startjaar) .
+ BIND(year(?eind) AS ?eindjaar) .
+ BIND(year(?eind)-year(?start)+1 AS ?jaren) .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+ORDER BY DESC (?jaren)
+LIMIT 100

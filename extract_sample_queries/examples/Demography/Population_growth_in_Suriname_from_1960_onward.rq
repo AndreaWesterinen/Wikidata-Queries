@@ -1,3 +1,4 @@
+#title: Population growth in Suriname from 1960 onward
 #defaultView:LineChart
 SELECT ?year ?population {
   wd:Q730 p:P1082 ?p .

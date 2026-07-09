@@ -1,0 +1,16 @@
+#added before 2016-10
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?asgsid  ?instanceofLabel ?countryLabel ?arr ?arrLabel ?coord ?population ?electorate
+WHERE
+{
+   ?item wdt:P4014 ?asgsid .
+   OPTIONAL {?item wdt:P17 ?country .}
+   OPTIONAL {?item wdt:P131 ?arr .} 
+   OPTIONAL {?item wdt:P31 ?instanceof .}  # Instance of
+   OPTIONAL {?item wdt:P625 ?coord.}                      # geographic coordinates (option)
+   OPTIONAL {?item wdt:P1082 ?population .}                      # population
+   OPTIONAL {?item wdt:P1831 ?electorate .}                      # electorate
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}

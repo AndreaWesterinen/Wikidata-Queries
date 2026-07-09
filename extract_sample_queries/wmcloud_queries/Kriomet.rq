@@ -1,0 +1,11 @@
+#Danska uttryck
+#title:Danish idioms
+# Author: So9q 
+# Date: 2021-04-11
+SELECT ?l ?lemma ?stem WHERE {
+  ?l dct:language wd:Q9027;
+     wikibase:lemma ?lemma;
+     wikibase:lexicalCategory wd:Q24905;
+     wdt:P5187 ?stem.
+  filter(regex(?stem, ".*a$"))
+}

@@ -1,0 +1,7 @@
+SELECT ?item ?rkdurl ?catcode ?catnum WHERE { 
+?item p:P528 [ pq:P972 wd:Q20643929 ; ps:P528 ?catcode].  
+wd:P350 wdt:P1630 ?formatterurl .
+  OPTIONAL { ?item wdt:P350 ?rkdid }.
+  BIND(REPLACE(?rkdid, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?rkdurl)  .
+  BIND( REPLACE(?catcode, "[^0-9]", "") AS ?catnum).
+} ORDER BY xsd:integer(?catnum)

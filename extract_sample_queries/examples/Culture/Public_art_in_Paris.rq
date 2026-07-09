@@ -1,3 +1,4 @@
+#title: Public art in Paris
 SELECT
   ?item
   (SAMPLE (?titleL) AS ?title)

@@ -1,0 +1,6 @@
+sparql?query=SELECT ?article ?articleLabel ?doi WHERE {
+  ?article wdt:P1433 wd:Q538683 ;
+           wdt:P356 ?doi .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY ?articleLabel

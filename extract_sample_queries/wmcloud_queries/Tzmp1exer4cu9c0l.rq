@@ -1,0 +1,17 @@
+#Occupations popular among criminals
+
+#defaultView:BubbleChart
+SELECT ?occupation ?occupationLabel ?count ?total
+WHERE
+{
+  {
+    SELECT ?occupation (COUNT(?person) AS ?count) WHERE {
+      ?person wdt:P31 wd:Q5.
+      ?person wdt:P1399 ?crime.
+      ?person wdt:P106 ?occupation.
+    }
+    GROUP BY ?occupation
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?count)

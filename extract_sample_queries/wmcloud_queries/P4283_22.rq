@@ -1,0 +1,7 @@
+#title: Check P106
+# Complex constraint from [[Property talk:P4283]]
+#
+SELECT ?item {
+	?item wdt:P4283 [].
+    MINUS { ?item wdt:P106/wdt:P31/wdt:P279* wd:Q4220920 }
+}

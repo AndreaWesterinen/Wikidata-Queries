@@ -1,0 +1,19 @@
+SELECT ?item WHERE {
+  BIND(wd:Q252 AS ?country)
+  VALUES ?type {
+    wd:Q17417403 # ministries (34)
+    wd:Q5098     # provinces / provinsi (34)
+    wd:Q4272761  # administrative city of Indonesia / kota (5)
+    wd:Q3199141  # city of Indonesia / kota (93)
+    wd:Q3191695  # regency / kabupaten (416)
+  }
+  ?item wdt:P31 ?type ;
+       wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+  MINUS { ?org wdt:P31 wd:Q3191695 ;
+               p:P31 ?inStatement .
+          ?inStatement pq:P582 [] .
+        }
+}

@@ -1,0 +1,6 @@
+#Dibner Portrait Project Entities
+SELECT ?item ?itemLabel ?itemDescription 
+WHERE {
+  ?item wdt:P5008 wd:Q103505599 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

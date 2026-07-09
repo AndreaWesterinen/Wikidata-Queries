@@ -1,0 +1,49 @@
+# This query finds all usages of property P933 as a qualifier.
+#
+# Important note: most SPARQL users don't need such level of complication!
+# If you want to get only concrete values with best rank, replace body with something like:
+# ?item ?relation [rdf:type wikibase:BestRank; pq:P933 ?value]
+#
+# Implementation note: it is not possible to distinguish between items where statement looks like:
+# P933: novalue with qualifier P933: novalue, AS both facts are stored in a form of:
+# (p:xxxx rdf:type wdno:P933)
+
+SELECT ?item ?itemLabel ?relitem ?relitemLabel ?statement ?rank ?snacktype ?value ?qual_snacktype ?qual_value
+WITH {
+  SELECT ?item ?relitem ?statement ?qual_snacktype ?qual_value {
+    hint:Query hint:optimizer "None" .
+    {
+      ?statement pq:P933 ?qual_dbvalue .
+      ?item ?relation ?statement .
+      ?relation rdf:type owl:ObjectProperty .
+      ?relitem wikibase:claim ?relation .
+    } UNION {
+      ?statement rdf:type wdno:P933 .
+      ?item ?relation ?statement .
+      ?relation rdf:type owl:ObjectProperty .
+      ?relitem wikibase:claim ?relation .
+      FILTER(?relation != p:P933)
+    } UNION {
+      ?statement rdf:type wdno:P933 .
+      ?item p:P933 ?statement .
+      ?statement ps:P933 [] .
+      BIND(wd:P933 AS ?relitem)
+    }
+
+    BIND(COALESCE(IF(wikibase:isSomeValue(?qual_dbvalue), "", ?qual_dbvalue), "") AS ?qual_value)
+    BIND(COALESCE(IF(wikibase:isSomeValue(?qual_dbvalue), "unknown", "concrete"), "novalue") AS ?qual_snacktype)
+  } LIMIT 1000
+} AS %statements
+{
+  INCLUDE %statements
+
+  ?statement wikibase:rank ?rank .
+  ?relitem wikibase:statementProperty ?ps .
+
+  OPTIONAL { ?statement ?ps ?dbvalue }
+
+  BIND(COALESCE(IF(wikibase:isSomeValue(?dbvalue), "unknown", "concrete"), "novalue") AS ?snacktype)
+  BIND(IF(wikibase:isSomeValue(?dbvalue), "", ?dbvalue) AS ?value)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

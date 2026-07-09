@@ -1,0 +1,23 @@
+select DISTINCT ?urlatlas ?item ?itemLabel ?lieuLabel ?dateconsult
+where {
+ ?item wdt:P195/wdt:P361* wd:Q3044768. 
+ ?item (wdt:P276|wdt:P361)/(wdt:P276*|wdt:P361*) wd:Q1075988.
+ MINUS{?item wdt:P276 wd:Q1075988.}
+ MINUS{?item wdt:P276 wd:Q40091273.}
+ MINUS{?item wdt:P276 wd:Q19675. }
+ ?item wdt:P276 ?lieu.
+ OPTIONAL{
+ ?item p:P276 ?declarationloc.
+ ?declarationloc prov:wasDerivedFrom ?ref.
+ ?ref pr:P854 ?URLref.
+ FILTER regex(str(?URLref), "cartelfr.louvre")
+ ?ref pr:P813 ?dateconsult .
+ }
+ MINUS{?item wdt:P18 ?img.}
+ OPTIONAL{
+ ?item wdt:P1212 ?IDatlas .
+ wd:P1212 wdt:P1630 ?formatterurl .
+ BIND(IRI(REPLACE(?IDatlas, '^(.+)$', ?formatterurl)) AS ?urlatlas)
+ }
+ SERVICE wikibase:label {bd:serviceParam wikibase:language "fr"}
+}ORDER BY ?LieuLabel

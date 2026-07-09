@@ -1,0 +1,5 @@
+SELECT ?item (COUNT(DISTINCT ?Cod_LMI) AS ?count) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ro". }
+  ?item wdt:P1770 ?Cod_LMI .
+} GROUP BY ?item
+HAVING (?count > 1)

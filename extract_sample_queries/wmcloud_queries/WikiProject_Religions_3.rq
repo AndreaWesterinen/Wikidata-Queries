@@ -1,0 +1,6 @@
+embed.html#SELECT DISTINCT ?x ?xLabel
+{
+  ?x wdt:P279* wd:Q29182 .
+  ?x wdt:P140 wd:Q3333484 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

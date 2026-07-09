@@ -1,0 +1,12 @@
+#defaultView:Graph
+SELECT distinct ?item ?itemLabel ?street  ?other ?otherLabel ?otherstreet
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453.
+    ?item wdt:P159 wd:Q1731.
+    ?item wdt:P452 wd:Q907703. 
+    ?item p:P159 [ pq:P625 ?coord; pq:P6375 ?street;].
+    ?other  wdt:P155  ?item  .  
+    ?other p:P159 [ pq:P625 ?othercoord; pq:P6375 ?otherstreet;].
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en,[AUTO_LANGUAGE]" }
+}

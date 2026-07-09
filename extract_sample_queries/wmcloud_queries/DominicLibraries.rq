@@ -1,0 +1,50 @@
+SELECT *
+WITH {
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item ?itemLabel WHERE {
+      ?item p:P373 ?statement0.
+      ?statement0 (ps:P373) _:anyValueP373.
+      ?item p:P31 ?statement1.
+      ?statement1 (ps:P31/(wdt:P279*)) wd:Q28564.
+      MINUS {
+        ?item p:P31 ?statement2.
+        ?statement2 (ps:P31/(wdt:P279*)) wd:Q26271642.
+      }
+        MINUS {
+          ?item p:P18 ?image.
+        }
+      }
+    }
+  }
+} AS %q1
+     
+WITH {
+  
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item ?itemLabel WHERE {
+      ?commons schema:about ?item;
+               schema:isPartOf <https://commons.wikimedia.org/> .
+      ?item p:P31 ?statement1.
+      ?statement1 (ps:P31/(wdt:P279*)) wd:Q28564.
+      MINUS {
+        ?item p:P31 ?statement2.
+        ?statement2 (ps:P31/(wdt:P279*)) wd:Q26271642.
+      }
+        MINUS {
+          ?item p:P18 ?image.
+        }
+      }
+    }
+  }
+  } AS %q2
+{
+  {
+    include %q1
+  } UNION {
+    include %q2
+  }
+}

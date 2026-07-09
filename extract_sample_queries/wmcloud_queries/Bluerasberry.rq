@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?state ?stateLabel ?geoshape
+		WHERE
+		{
+		?state wdt:P31 wd:Q35657 ;
+		       wdt:P3896 ?geoshape .
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+	}
+}        

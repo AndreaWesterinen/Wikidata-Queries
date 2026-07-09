@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P1933/ps:P1933 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(/?game/([a-z0-9_\\-]+)/?)$") )
+}

@@ -1,0 +1,10 @@
+select ?l1 ?l2 ?lemma ?langLabel {
+  ?l1 wdt:P5402 ?l2
+  minus { ?l2 wdt:P5402 ?l1 }
+  ?l1 wikibase:lemma ?lemma .
+  ?l1 dct:language ?lang .
+  ?l2 wikibase:lemma ?lemma .
+  ?l2 dct:language ?lang .
+  ?lang wdt:P218 'es' .
+  service wikibase:label { bd:serviceParam wikibase:language "es". }
+}

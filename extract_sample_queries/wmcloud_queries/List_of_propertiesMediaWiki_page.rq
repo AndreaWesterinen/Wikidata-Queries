@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?value 
+WHERE
+{ 
+  ?item

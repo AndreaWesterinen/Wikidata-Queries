@@ -1,0 +1,27 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P2632 wd:Q7341.
+  MINUS {?item wdt:P2632 wd:Q323420} .
+  { ?item wdt:P27 wd:Q29999. }
+  UNION
+  {
+    ?item wdt:P19 ?pob.
+    ?pob wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P937 ?pow.
+    ?pow wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P551 ?por.
+    ?por wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P20 ?pod.
+    ?pod wdt:P17 wd:Q55.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

@@ -1,0 +1,8 @@
+#defaultView:Map{"hide":["?coor"]}
+SELECT ?c ?l ?layer ?item   ?coor
+{
+	?item wdt:P31 wd:Q70208 . 
+    ?item wdt:P1448 ?l . 
+	BIND(lang(?l) as ?layer) .
+    ?item wdt:P625 ?coor .
+}

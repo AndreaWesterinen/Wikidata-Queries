@@ -1,0 +1,16 @@
+# All items that have P2951 set. Plotted on a map. Symbols according to p31
+#defaultView:Map
+SELECT ?item ?itemLabel ?heritageId ?adminLabel ?coord ?image ?layer
+WHERE
+{
+    ?item wdt:P2951 ?heritageId .
+    OPTIONAL { ?item wdt:P131 ?admin }
+    OPTIONAL { ?item wdt:P131 ?admin }
+    OPTIONAL { ?item wdt:P625 ?coord }
+    OPTIONAL { ?item wdt:P625 ?image }
+    OPTIONAL { ?item wdt:P31 ?type }
+    SERVICE wikibase:label { 
+      bd:serviceParam wikibase:language "de" .
+      ?type rdfs:label ?layer .
+    }
+}

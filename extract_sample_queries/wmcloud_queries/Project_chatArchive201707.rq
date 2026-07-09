@@ -1,0 +1,6 @@
+select ?work ?workLabel where {
+  ?work wdt:P31 wd:Q13442814; 
+        wdt:P921 wd:Q43035.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 1000

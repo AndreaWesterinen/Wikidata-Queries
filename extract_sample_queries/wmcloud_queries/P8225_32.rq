@@ -1,0 +1,10 @@
+#title: Instances of the metaclass are not subclasses of the class it is for
+# Complex constraint from [[Property talk:P8225]]
+# (experiment, might be a bad idea to add to all) Usually, the metaclass instances should be subclasses of the class it is for, for example « car models » instances are subclasses of car or mass produced cars.
+select ?metaclass ?subtype ?type {
+  ?metaclass wdt:P8225 ?type filter (?metaclass not in (wd:Q16521)) # removing « taxons » because there is way to many of them to complete the query
+  ?subtype wdt:P31 ?metaclass .
+  minus {
+    ?subtype wdt:P279+ ?type .
+  }
+}

@@ -1,0 +1,6 @@
+select ?item ?itemLabel ?creator
+where
+{ 
+  ?item wdt:P1472 ?creator . filter not exists { ?item wdt:P31 ?type . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

@@ -1,0 +1,16 @@
+SELECT ?item ?site ?criterion
+
+WHERE { 
+  
+  ?item wdt:P1435 wd:Q9259 . 
+  ?item wdt:P2614 ?criterion_item .
+        OPTIONAL {
+          ?item rdfs:label ?site filter (lang(?site) ="en") .
+                 }
+             
+        OPTIONAL {
+          ?criterion_item rdfs:label ?criterion filter (lang(?criterion) ="en") .        
+                 } 
+}
+
+ORDER BY (?item)

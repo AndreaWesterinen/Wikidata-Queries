@@ -1,0 +1,10 @@
+SELECT DISTINCT ?person ?personLabel ?museum ?museumLabel
+WHERE
+{
+	?person wdt:P31 wd:Q5 .
+	?person wdt:P108 ?museum .
+    ?museum wdt:P31 ?type .
+  	?type (wdt:P279)* wd:Q33506 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?museumLabel

@@ -1,0 +1,8 @@
+select ?item ?provincia1 ?provincia2 where {
+    ?item wdt:P31 wd:Q33146843.
+    ?item wdt:P131+ ?provincia1.
+    ?item wdt:P131+ ?provincia2.
+    ?provincia1 wdt:P31 wd:Q162620.
+    ?provincia2 wdt:P31 wd:Q162620.
+    filter (?provincia1 != ?provincia2)
+  }

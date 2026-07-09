@@ -1,0 +1,7 @@
+SELECT ?item ?creador ?catCommons
+{
+	?item wdt:P7076 ?artePublico;
+          wdt:P170 ?creador.
+    FILTER NOT EXISTS { ?creador wdt:P373 ?catCommons }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en"  }
+}

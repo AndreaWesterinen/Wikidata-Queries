@@ -1,0 +1,5 @@
+embed.html#SELECT ?q ?qLabel ?loc ?locLabel WHERE {
+  ?q wdt:P131 wd:Q176 ; wdt:P131 ?loc ; wdt:P31 wd:Q1248784 .
+  ?loc wdt:P131+ wd:Q176 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

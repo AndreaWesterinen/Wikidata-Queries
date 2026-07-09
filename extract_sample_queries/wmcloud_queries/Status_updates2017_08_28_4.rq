@@ -1,0 +1,23 @@
+# Canadian actors who twice played a US president
+SELECT
+?actor ?actorLabel
+(GROUP_CONCAT(?movieLabel; separator = "; ") AS ?movies)
+(GROUP_CONCAT(?presidentLabel; separator = "; ") AS ?presidents)
+WHERE {
+  ?actor wdt:P31 wd:Q5;
+         wdt:P27 wd:Q16;
+         p:P106/ps:P106 wd:Q33999.
+  ?movie p:P161 [
+    ps:P161 ?actor;
+    pq:P453 ?president
+  ].
+  ?president p:P39/ps:P39 wd:Q11696.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?actor rdfs:label ?actorLabel.
+    ?movie rdfs:label ?movieLabel.
+    ?president rdfs:label ?presidentLabel.
+  }
+}
+GROUP BY ?actor ?actorLabel
+HAVING(COUNT(DISTINCT ?movie) = 2)

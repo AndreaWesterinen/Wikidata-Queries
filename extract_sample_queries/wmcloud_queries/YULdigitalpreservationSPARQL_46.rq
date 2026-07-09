@@ -1,0 +1,18 @@
+#defaultView:Map
+SELECT  ?personLabel  ?birthplaceLabel ?coord ?lat ?lon
+
+WHERE {
+  ?person wdt:P485 wd:Q964035.
+  ?person wdt:P19 ?birthplace
+  OPTIONAL {?birthplace wdt:P625 ?coord. }
+   OPTIONAL {
+    ?birthplace p:P625 ?statement.
+    ?statement psv:P625 ?node.
+    ?node wikibase:geoLatitude ?lat.
+    ?node wikibase:geoLongitude ?lon.
+   }
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

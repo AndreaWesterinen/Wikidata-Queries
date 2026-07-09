@@ -1,0 +1,4 @@
+SELECT ?item ?name ?partOf {
+  ?item wdt:P31 wd:Q4167836; ^schema:about [ schema:name ?name; schema:isPartOf ?partOf ] .
+  FILTER( !CONTAINS( ?name, ':' ) ) .
+} LIMIT 25

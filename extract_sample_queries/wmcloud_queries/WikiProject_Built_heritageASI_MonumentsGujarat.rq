@@ -1,0 +1,6 @@
+SELECT ?item ?location WHERE {
+  ?item wdt:P1435 wd:Q17047615.
+  ?item wdt:P131 ?location.
+  ?location wdt:P131* wd:Q1061.
+  }
+limit 5000

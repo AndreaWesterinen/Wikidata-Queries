@@ -1,0 +1,7 @@
+SELECT * WHERE {
+  wd:Q137 rdfs:label ?label1 .
+  wd:Q12518 rdfs:label ?label2 .
+  BIND (lang(?label1) AS ?lang)
+  BIND (lang(?label2) AS ?lang)
+  BIND( IF( ?label1 = ?label2, "same", "different" ) AS ?result ) .
+}

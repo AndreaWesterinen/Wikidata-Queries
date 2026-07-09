@@ -1,0 +1,5 @@
+SELECT ?wmfproject ?wmfprojectLabel (COUNT(*) AS ?cnt) WHERE {
+  ?wmfproject wdt:P31/wdt:P279* wd:Q14827288 .
+  ?item ?any [ prov:wasDerivedFrom/pr:P248 ?wmfproject ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?wmfproject ?wmfprojectLabel ORDER BY DESC(?cnt)

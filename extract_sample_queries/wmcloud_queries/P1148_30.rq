@@ -1,0 +1,12 @@
+#title: Correct rank for isotopes
+# Complex constraint from [[Property talk:P1148]]
+# rank in the series (instance of qualifier) of some isotope of some element should be the sum of the atomic number and the neutron number
+select (?isotope as ?item) ?rank ?neutron_number ?at_number {
+  ?isotopeclass wdt:P279* wd:Q25276 .
+  ?isotope p:P31 [ ps:P31 ?isotopeclass ;
+                          pq:P1545 ?rank ] .
+  ?isotope wdt:P1148 ?neutron_number ;
+           wdt:P1086 ?at_number .
+  
+   filter (?at_number + ?neutron_number != xsd:integer(?rank)  ) # check that the ranking number is the sum of the atomic number and the neutron number
+}

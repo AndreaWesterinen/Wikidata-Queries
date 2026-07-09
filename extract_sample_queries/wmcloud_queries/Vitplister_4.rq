@@ -1,0 +1,10 @@
+SELECT ?place ?location ?distance ?whatLabel ?placeLabel WHERE {
+    SERVICE wikibase:around { 
+      ?place wdt:P625 ?location.
+      bd:serviceParam wikibase:center "Point(19.242296 57.955333)"^^geo:wktLiteral . 
+      bd:serviceParam wikibase:radius "50" . 
+      bd:serviceParam wikibase:distance ?distance .
+    } 
+    OPTIONAL {?place wdt:P31  ?what . }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en,[AUTO_LANGUAGE]". }
+}

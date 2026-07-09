@@ -1,0 +1,12 @@
+select ?item where {
+ { ?item wdt:P1344 wd:Q8613 . }
+  UNION
+  {?item wdt:P1344 ?event .
+  ?event wdt:P361 wd:Q8613 .
+   }
+  UNION
+  {?item wdt:P1344 ?descipline .
+  ?event wdt:P361 wd:Q8613 .
+  ?descipline wdt:P361 ?event .
+   }
+  }

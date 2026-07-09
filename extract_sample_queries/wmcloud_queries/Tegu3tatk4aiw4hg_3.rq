@@ -1,0 +1,7 @@
+#Cheeses
+SELECT ?item ?itemLabel
+WHERE
+{
+	?item wdt:P279 wd:Q3088299 .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

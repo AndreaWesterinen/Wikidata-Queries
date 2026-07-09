@@ -1,0 +1,6 @@
+SELECT ?item ?partij ?positie WHERE {
+  ?item p:P3602 ?electionstatement .
+  ?electionstatement ps:P3602 wd:Q16061881 .
+  ?electionstatement pq:P1268 ?partij .
+  ?electionstatement pq:P1545 ?positie .
+  } ORDER BY ?partij xsd:integer(?positie)

@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?author ?authorLabel ?orcid ?location
+WHERE
+{
+  ?author wdt:P31 wd:Q5;
+          wdt:P496 ?orcid;
+  OPTIONAL { ?author wdt:P551/wdt:P625 ?location. }
+  OPTIONAL { ?author wdt:P19/wdt:P625 ?location. }
+  FILTER(BOUND(?location)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

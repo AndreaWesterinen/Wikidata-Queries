@@ -1,0 +1,11 @@
+embed.html#SELECT DISTINCT ?university ?universityLabel ?degreeLabel ?majorLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?university wdt:P31 wd:Q3918  .
+  ?university wdt:P5460 ?degree .
+OPTIONAL { ?university p:P5460 ?rev . ?rev pq:P812 ?major}
+ 
+FILTER(?degree = wd:Q183816) #master's degree
+FILTER(?major = wd:Q55636433) #Electrical Engineering 
+}
+
+ORDER BY ?universityLabel ?degreeLabel ?majorLabel

@@ -1,0 +1,24 @@
+#Dresdner Unternehmen der Tabakindustrie (Headquarter)
+SELECT ?item ?itemLabel ?street ?coord ?founded ?dissolved ?legalformLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q4830453.
+  ?item wdt:P159 wd:Q1731.
+  ?item wdt:P452 wd:Q907703. 
+  ?item wdt:P571 ?inception.
+  optional {
+    ?item wdt:P1454 ?legalform.
+  }
+  optional {
+    ?item  wdt:P576 ?dissolvedYear.
+  }
+  optional {
+  ?item p:P159 [ pq:P625 ?coord; pq:P6375 ?street;]
+  
+    }
+  BIND(str(YEAR(?inception)) AS ?founded)
+  BIND(str(YEAR(?dissolvedYear)) AS ?dissolved)
+  FILTER (?inception >= "1918-01-01T00:00:00Z"^^xsd:dateTime && ?inception <= "1933-01-01T00:00:00Z"^^xsd:dateTime) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+  
+} ORDER BY (?founded)

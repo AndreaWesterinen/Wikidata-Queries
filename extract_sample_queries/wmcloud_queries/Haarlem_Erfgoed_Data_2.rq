@@ -1,0 +1,11 @@
+#defaultView:Map
+# straten zonder begindatum, op de kaart
+SELECT ?street ?streetLabel ?geo
+WHERE 
+{
+  ?street wdt:P31 wd:Q79007.
+  ?street wdt:P131 wd:Q9920.
+  ?street wdt:P625 ?geo .
+  FILTER NOT EXISTS {?street wdt:P571 ?start }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+}

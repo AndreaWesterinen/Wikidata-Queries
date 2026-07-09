@@ -1,0 +1,65 @@
+embed.html##defaultView:Map
+PREFIX nobel: <http://data.nobelprize.org/terms/>
+PREFIX nobelFile: <http://data.nobelprize.org/resource/filetype/>
+SELECT distinct ?id (sample(?name) AS ?name) (sample(?text) AS ?text) ?motivationen ?contribution ?Documentary ?Diploma ?Nobel_Lecture ?Prize_Presentation ?Biographical ?Banquet_Speech
+(sample (?coord) AS ?coord)
+(sample (?img) AS ?img)
+?layer
+
+WHERE {
+  SERVICE <http://data.nobelprize.org/sparql> {
+    ?laureate_nobel_uri nobel:laureateAward ?NobelAwardid.
+    BIND(REPLACE(str(?laureate_nobel_uri),"http://data.nobelprize.org/resource/laureate/","") AS ?id)
+
+    OPTIONAL{?laureate_nobel_uri nobel:laureateAward / nobel:year ?Year}
+    OPTIONAL{?NobelAwardid rdfs:label ?text}
+    OPTIONAL{?NobelAwardid nobel:laureate/foaf:name ?name}
+    OPTIONAL{?NobelAwardid nobel:category ?category}
+
+       OPTIONAL{?NobelAwardid nobel:motivation ?motivationen 
+            FILTER (lang(?motivationen) = 'en')
+         }
+       OPTIONAL {
+            ?NobelAwardid nobel:contribution ?contribution 
+            FILTER (lang(?contribution) = 'en')
+         }
+       OPTIONAL  { 
+           ?NobelAwardid nobel:awardFile ?NobelAwardFileF.
+           ?NobelAwardFileF nobel:fileType   <http://data.nobelprize.org/resource/filetype/Documentary>.
+           ?NobelAwardFileF rdfs:seeAlso ?Documentary
+         } 
+       OPTIONAL { 
+           ?NobelAwardid nobel:awardFile ?NobelAwardFileD.
+           ?NobelAwardFileD nobel:fileType   <http://data.nobelprize.org/resource/filetype/Nobel_Diploma>.
+           ?NobelAwardFileD rdfs:seeAlso ?Diploma
+         } 
+       OPTIONAL { # 845 st
+           ?NobelAwardid nobel:awardFile ?NobelAwardFileL.
+           ?NobelAwardFileL nobel:fileType   <http://data.nobelprize.org/resource/filetype/Nobel_Lecture>.
+           ?NobelAwardFileL rdfs:seeAlso ?Nobel_Lecture
+         } 
+       OPTIONAL { # 3 st
+           ?NobelAwardid nobel:awardFile ?NobelAwardFileP.
+           ?NobelAwardFileP nobel:fileType   <http://data.nobelprize.org/resource/filetype/Prize_Presentation>.
+           ?NobelAwardFileP rdfs:seeAlso ?Prize_Presentation
+         } 
+        OPTIONAL { # 66 st
+           ?NobelAwardid nobel:awardFile ?NobelAwardFileB.
+           ?NobelAwardFileB nobel:fileType   <http://data.nobelprize.org/resource/filetype/Biographical>.
+           ?NobelAwardFileB rdfs:seeAlso ?Biographical
+         } 
+       OPTIONAL { 
+           ?NobelAwardid nobel:awardFile ?NobelAwardFileBa.
+           ?NobelAwardFileBa nobel:fileType   <http://data.nobelprize.org/resource/filetype/Banquet_Speech>.
+           ?NobelAwardFileBa rdfs:seeAlso ?Banquet_Speech
+         } 
+  }
+  # Match with Wikidata P2888 Exact match
+  ?Wikidataid wdt:P2888 ?laureate_nobel_uri.
+  ?Wikidataid wdt:P19/wdt:P625 ?coord.
+  OPTIONAL {?Wikidataid wdt:P18 ?img}
+  BIND (REPLACE(str(?category),"http://data.nobelprize.org/resource/category/","") AS ?layer)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} group by ?id  ?motivationen ?contribution ?Documentary ?Diploma ?Nobel_Lecture ?Prize_Presentation ?Biographical ?Banquet_Speech
+?layer
+order by xsd:integer(?id)

@@ -1,0 +1,12 @@
+select ?item ?itemLabel ?FullWorkURL ?FW_language ?FW_reference_url ?FW_stated_in ?FW_retrieved
+where {
+  ?item p:P195 ?st .
+  ?st  ps:P195 wd:Q1526131 .
+  ?st pq:P2868 wd:Q29188408
+  OPTIONAL {?item wdt:P953 ?FullWorkURL.}  
+  OPTIONAL {?item p:P953 [prov:wasDerivedFrom [pr:P854 ?FW_reference_url]] .} 
+  OPTIONAL {?item p:P953 [pq:P407 ?FW_language].} 
+  OPTIONAL {?item p:P953 [prov:wasDerivedFrom [pr:P248 ?FW_stated_in]] .} 
+  OPTIONAL {?item p:P953 [prov:wasDerivedFrom [pr:P813 ?FW_retrieved]] .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+} ORDER BY ?itemLabel

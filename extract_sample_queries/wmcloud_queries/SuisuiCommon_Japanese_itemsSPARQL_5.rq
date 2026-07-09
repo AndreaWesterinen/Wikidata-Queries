@@ -1,0 +1,8 @@
+SELECT ?i ?iLabel ?yLabel ?r WHERE {
+?i wdt:P31 wd:Q101352 ;
+wdt:P282 wd:Q82772;
+wdt:P1705 ?yLabel.
+OPTIONAL{?i p:P1705 [pq:P2125 ?ro].}
+FILTER(BOUND(?ro))
+SERVICE wikibase:label { bd:serviceParam wikibase:language "ja". }
+}

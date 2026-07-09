@@ -1,0 +1,4 @@
+#title: BCIN sense IPAC ni IPAPC
+# Complex constraint from [[Property talk:P1586]]
+# element amb codi BCIN sense identificador IPAC ni identificador IPAPC
+SELECT ?item WHERE { ?item wdt:P1586 ?bcin . MINUS { ?item wdt:P1600 ?ipac . } MINUS { ?item wdt:P5957 ?ipapc . } }

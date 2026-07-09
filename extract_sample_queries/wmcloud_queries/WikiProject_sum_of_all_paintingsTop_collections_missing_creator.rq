@@ -1,0 +1,12 @@
+SELECT ?item (CONCAT("[[Wikidata:WikiProject sum of all paintings/Collection/",?name, "|list]]") AS ?listlink) (COUNT(?item) as ?count) (CONCAT("[https://tools.wmflabs.org/multichill/painters/index.php?collection=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), " create missing creators]") AS ?createlink)  WHERE {
+  ?painting wdt:P31 wd:Q3305213 .  
+  MINUS { ?painting wdt:P170 [] }
+  ?painting wdt:P195 ?item . 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+} GROUP BY ?item ?name ?listlink
+HAVING (?count > 10)
+ORDER BY DESC(?count) 
+LIMIT 250

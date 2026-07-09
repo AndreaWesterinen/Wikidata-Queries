@@ -1,0 +1,41 @@
+SELECT ?item ?itemLabel ?item2Label ?item3Label ?item4Label ?item5Label ?item6Label ?item7Label ?item8Label ?item9Label ?item10Label ?item11Label ?item12Label ?item13Label ?item14Label ?item15Label WITH {
+  SELECT DISTINCT ?item WHERE 
+{
+  {?item wdt:P131/wdt:P131 wd:Q22 .} hint:Prior hint:runFirst true.
+#  ?item wdt:P31/wdt:P279* wd:Q55659167. hint:Prior hint:gearing "forward".
+  filter not exists {?somethingelse wdt:P403|wdt:P201 ?item . }
+  } } as %i
+WHERE {
+  INCLUDE %i
+  ?item wdt:P403|wdt:P201 ?item2.
+  OPTIONAL {?item2 wdt:P403|wdt:P201 ?item3. 
+  OPTIONAL {?item3 wdt:P403|wdt:P201 ?item4. 
+  OPTIONAL {?item4 wdt:P403|wdt:P201 ?item5. 
+  OPTIONAL {?item5 wdt:P403|wdt:P201 ?item6. 
+  OPTIONAL {?item6 wdt:P403|wdt:P201 ?item7. 
+  OPTIONAL {?item7 wdt:P403|wdt:P201 ?item8. 
+  OPTIONAL {?item8 wdt:P403|wdt:P201 ?item9. 
+  OPTIONAL {?item9 wdt:P403|wdt:P201 ?item10. 
+  OPTIONAL {?item10 wdt:P403|wdt:P201 ?item11.
+  OPTIONAL {?item11 wdt:P403|wdt:P201 ?item12.
+  OPTIONAL {?item12 wdt:P403|wdt:P201 ?item13.
+  OPTIONAL {?item13 wdt:P403|wdt:P201 ?item14.
+  OPTIONAL {?item14 wdt:P403|wdt:P201 ?item15.
+  }}}}}}}}}}}}}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by 
+(!bound(?item15Label)) ?item15Label
+(!bound(?item14Label)) ?item14Label
+(!bound(?item13Label)) ?item13Label
+(!bound(?item12Label)) ?item12Label
+(!bound(?item11Label)) ?item11Label
+(!bound(?item10Label)) ?item10Label
+(!bound(?item9Label)) ?item9Label
+(!bound(?item8Label)) ?item8Label
+(!bound(?item7Label)) ?item7Label
+(!bound(?item6Label)) ?item6Label
+(!bound(?item5Label)) ?item5Label
+(!bound(?item4Label)) ?item4Label
+(!bound(?item3Label)) ?item3Label
+(!bound(?item2Label)) ?item2Label
+(!bound(?itemLabel)) ?itemLabel

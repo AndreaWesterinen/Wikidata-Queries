@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?party ?age   WHERE {
+    ?item wdt:P39 wd:Q14850694 .
+
+  OPTIONAL { ?item p:P102 ?par .
+             ?par ps:P102 ?party. 
+           MINUS { ?party wdt:P576 ?dissolved } #정당 소멸 제외
+           MINUS { ?par pq:P582 ?exitParty } #탈당
+           } # 소속 정당
+  OPTIONAL { ?item wdt:P569 ?dateOfBirth .
+            BIND (ROUND(FLOOR( (now() - ?dateOfBirth)/365.2425 )) as ?age) #연령
+            }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

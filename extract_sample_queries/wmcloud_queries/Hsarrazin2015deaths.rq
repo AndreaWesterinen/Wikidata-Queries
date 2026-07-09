@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item 
+WHERE 
+{
+  ?item wdt:P570 ?time0 1949  FILTER ( ?time0 >= "1948-01-01T00:00:00Z"^^xsd:dateTime && ?time0 < "2016-01-01T00:00:00Z"^^xsd:dateTime )
+  ?item wdt:P31 wd:Q5 .
+}
+ORDER BY ?time0
+LIMIT 10000

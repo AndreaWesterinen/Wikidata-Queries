@@ -1,0 +1,33 @@
+#by CamelCaseNick
+select (?borough as ?item) ?label ?name ?amount
+(group_concat(distinct concat("[[/", ?name, "#",?quarterLabel, "|", ?quarterLabel, "]]"); separator=" • ") as ?quarters)
+(group_concat(distinct ?emptyQuarterLabel; separator=" • ") as ?emptyQuarters)
+where {
+  ?borough wdt:P31 wd:Q278976.
+  {
+    select ?borough (count(distinct ?stolperstein) as ?amount) where {
+      ?stolperstein wdt:P31 wd:Q26703203;
+                    wdt:P131 ?borough.
+      minus { ?stolperstein wdt:P576|wdt:P1366 []. }
+    }
+    group by ?borough
+  }
+  optional {
+    ?emptyQuarter wdt:P31 wd:Q15830667;
+                  wdt:P131 ?borough.
+    minus { [wdt:P31 wd:Q26703203] wdt:P131 ?borough; wdt:P276 ?emptyQuarter. }
+  }
+  optional {
+    ?quarter wdt:P31 wd:Q15830667;
+             wdt:P131 ?borough.
+    filter exists { [wdt:P31 wd:Q26703203] wdt:P131 ?borough; wdt:P276 ?quarter. }
+  }
+  service wikibase:label {
+    bd:serviceParam wikibase:language "de".
+    ?borough rdfs:label ?label.
+    ?quarter rdfs:label ?quarterLabel.
+    ?emptyQuarter rdfs:label ?emptyQuarterLabel.
+  }
+  bind(replace(?label, "^(Bezirk )?(Hamburg-)?", "") as ?name)
+}
+group by ?borough ?name ?label ?amount

@@ -1,0 +1,8 @@
+SELECT ?author ?authorLabel (COUNT(?publication) AS ?count)
+WHERE 
+{
+ ?item wdt:P2860 ?publication .
+ ?publication wdt:P50 ?author .      
+ ?author wdt:P108 wd:Q1739877 .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?author ?authorLabel ORDER BY DESC (?count)

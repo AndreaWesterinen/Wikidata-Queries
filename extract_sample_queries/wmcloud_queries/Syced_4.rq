@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?location ?q ?qLabel WHERE {
+ SERVICE wikibase:around{?q wdt:P625 ?location. bd:serviceParam wikibase:center "Point(139.735064 35.660428)"^^geo:wktLiteral. bd:serviceParam wikibase:radius "5".}
+ MINUS { ?q wdt:P18 ?image }
+ MINUS { ?q wdt:P31 ?class }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,ja". }
+} LIMIT 100

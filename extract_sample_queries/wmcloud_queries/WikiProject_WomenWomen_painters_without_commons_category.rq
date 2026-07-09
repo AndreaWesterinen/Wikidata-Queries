@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item where {
+ ?item wdt:P106 wd:Q1028181 . 
+ ?item wdt:P21 wd:Q6581072 .
+ ?item wdt:P18 ?pic .
+ OPTIONAL {?item wdt:P373 ?commonscat . }
+ FILTER(!bound(?commonscat)) .
+ BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid)
+} ORDER BY DESC(?qid) LIMIT 500

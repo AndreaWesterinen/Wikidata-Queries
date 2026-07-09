@@ -1,0 +1,4 @@
+#title: Unsuitable OL identifier M
+# Complex constraint from [[Property talk:P648]]
+# OL identifier ending with M should only be used with editions.
+SELECT ?item ?val{ ?item wdt:P648 ?val . FILTER(SUBSTR(?val, STRLEN(?val), 1) = 'M') MINUS { ?item wdt:P31/wdt:P279* wd:Q3331189 } }

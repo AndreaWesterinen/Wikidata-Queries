@@ -1,0 +1,9 @@
+# CWGC person ID with enwiki link
+SELECT DISTINCT ?s ?sLabel ?article WHERE {
+  ?s wdt:P1908 ?cwgcid .
+    ?article schema:about ?s .
+    ?article schema:inLanguage "en" .
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+ }
+ ORDER BY ?sLabel

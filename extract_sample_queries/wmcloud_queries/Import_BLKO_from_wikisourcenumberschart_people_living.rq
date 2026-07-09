@@ -1,0 +1,41 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("stackedrect" as ?type)
+  ("800" as ?width) 
+  ("200" as ?height) 
+  ("volume" as ?xAxisTitle) 
+  ("% living" as ?y1Title)
+  ("% dod missing at Wikidata" as ?y2Title)
+#  ("% deceased" as ?y3Title)
+  ("Subject of biography at publication date" as ?legend)
+  (GROUP_CONCAT(?vol;separator=",") as ?x)
+  (GROUP_CONCAT(?percentage1;separator=",") as ?y1)
+  (GROUP_CONCAT(?percentage2;separator=",") as ?y2)
+  (GROUP_CONCAT(?percentage3;separator=",") as ?y3)
+  ("100" as ?yAxisMax)
+  ("0" as ?yAxisMin)
+WHERE
+{
+  { SELECT ?vol (COUNT(DISTINCT ?item) as ?count_all) 
+             (COUNT(DISTINCT ?living) as ?count_living) (ROUND( ?count_living / ?count_all * 100 )  as ?percentage1)
+             (COUNT(DISTINCT ?dead) as ?count_dead) (ROUND( ?count_dead / ?count_all * 100 )  as ?percentage2)
+             (COUNT(DISTINCT ?unk) as ?count_unk) (ROUND( ?count_unk / ?count_all * 100 )  as ?percentage3)
+  {
+    ?volitem wdt:P179 wd:Q665807 . 
+    ?volitem wdt:P478 ?vol . 
+    ?volitem wdt:P577 ?pub .
+    ?entry wdt:P1433 wd:Q665807 . 
+    ?entry wdt:P31 wd:Q19389637 .
+    ?entry wdt:P478 ?vol . 
+    ?entry wdt:P921 ?item . 
+    ?item wdt:P31 wd:Q5 .
+    OPTIONAL { ?item wdt:P570 ?d }          
+    BIND( IF( BOUND(?d) && (YEAR(?d) > YEAR(?pub)), ?item, "") as ?living) 
+    BIND( IF( BOUND(?d) && (YEAR(?d) <= YEAR(?pub)), ?item, "") as ?dead) 
+    BIND( IF( BOUND(?d), "", ?item) as ?unk)  
+  }
+  GROUP BY ?vol
+  ORDER BY DESC(xsd:integer(?vol))
+  }
+  hint:Query hint:optimizer "None".
+}

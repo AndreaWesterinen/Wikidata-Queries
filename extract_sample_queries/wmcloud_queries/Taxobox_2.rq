@@ -1,0 +1,6 @@
+select ?item ?itemLabel ?parent ?parentLabel where {
+  ?item wdt:P31 wd:Q16521;
+        wdt:P171 ?parent.
+  ?parent wdt:P31 wd:Q23038290.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,15 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?wc ?wcLabel ?start ?end ?participants ?matches ?goals ?winnerLabel WHERE {
+  ?wc wdt:P31 wd:Q19317 .
+  OPTIONAL {?wc wdt:P580 ?start}
+  OPTIONAL {?wc wdt:P582 ?end}
+  OPTIONAL {?wc wdt:P1132 ?participants}
+  OPTIONAL {?wc wdt:P1350 ?matches}
+  OPTIONAL {?wc wdt:P1351 ?goals}
+  OPTIONAL {?wc wdt:P1346 ?winner}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+}
+ORDER BY ?start

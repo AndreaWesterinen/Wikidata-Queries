@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P5008 wd:Q107014862. # mediakunst op Wikipedia
+  ?item wdt:P31/wdt:P279* wd:Q17537576. # creatief werk
+}

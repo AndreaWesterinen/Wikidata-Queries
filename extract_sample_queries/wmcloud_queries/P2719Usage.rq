@@ -1,0 +1,7 @@
+SELECT (SAMPLE(?lang) AS ?item) ?wmlc (COUNT(DISTINCT ?statement) AS ?count)
+WHERE {
+  ?statement pq:P2719 []; ?p ?text .
+  [] wikibase:statementProperty ?p .
+  BIND (LANG(?text) AS ?wmlc) .
+  OPTIONAL { ?lang wdt:P424 ?wmlc; wdt:P31/wdt:P279* wd:Q34770 . }
+} GROUP BY ?wmlc ORDER BY DESC(?count) ?wmlc

@@ -1,0 +1,10 @@
+#title: RKDartists photographers without link
+# Complex constraint from [[Property talk:P3269]]
+# People with [[Property:P650|RKDartists ID&#32;<small dir="ltr">(P650)</small>]] and [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] (or subclass) [[d:Q33231|photographer <small>(Q33231)</small>]], but no [[Property:P3269|Fotografen.nl ID&#32;<small dir="ltr">(P3269)</small>]]
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P650 [] .
+  ?item wdt:P31 wd:Q5.
+  ?item  wdt:P106/wdt:P279* wd:Q33231 .                  
+  MINUS {?item wdt:P3269 [] .
+        }                   
+}

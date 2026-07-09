@@ -1,0 +1,5 @@
+SELECT ?item ?ilte WHERE {
+  ?item wdt:P31 wd:Q55488.
+  ?item wdt:P131* wd:Q677037.
+  OPTIONAL { ?item rdfs:label ?ilte. FILTER(LANG(?ilte)="te") }
+}

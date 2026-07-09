@@ -1,0 +1,11 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P5368]]
+# List of works that are in [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] [[d:Q1068063|National Gallery of Canada <small>(Q1068063)</small>]] and have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]] set, but that creator doesn't have a [[Property:P5368|National Gallery of Canada artist ID&#32;<small dir="ltr">(P5368)</small>]] link
+SELECT ?item ?creator 
+{
+	?item wdt:P195 wd:Q1068063 .
+    ?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P5368 [] } .
+	MINUS { ?item wdt:P170 wd:Q4233718 } . # Filter out anonymous
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ?creatorLabel

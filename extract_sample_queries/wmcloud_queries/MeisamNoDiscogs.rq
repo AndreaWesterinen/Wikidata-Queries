@@ -1,0 +1,9 @@
+SELECT ?item ?mbid WHERE {
+ ?item wdt:P31 wd:Q215380.
+ ?item wdt:P434 ?mbid.
+ FILTER(NOT EXISTS {
+  ?item wdt:P1953 ?id
+ })
+}
+ORDER BY RAND()
+LIMIT 100

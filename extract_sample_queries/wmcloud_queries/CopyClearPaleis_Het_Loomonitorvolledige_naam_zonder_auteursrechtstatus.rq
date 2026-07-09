@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?objectsoort ?titel WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P6379 wd:Q99349995.
+  ?item wdt:P31 wd:Q5.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+  FILTER NOT EXISTS {?item wdt:P7763 [].}
+  FILTER((LANG(?label)) = "nl")
+  FILTER(!REGEX(?label, "^([A-Z][.]?)+ "))
+   ?item p:P6379 [ ps:P6379 wd:Q99349995;
+                    prov:wasDerivedFrom 
+                    [ pr:P3865 ?objectsoort; 
+                      pr:P1476 ?titel;
+                    ]
+                  ].
+}

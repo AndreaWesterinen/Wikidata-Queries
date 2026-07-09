@@ -1,0 +1,12 @@
+#title: Constraint between P5205 and P5281
+# Complex constraint from [[Property talk:P5281]]
+# Residual stroke count must be less than total stroke count
+SELECT * WHERE {
+    ?item wdt:P5205 ?stroke_count;
+        p:P5280 [
+            ps:P5280 ?radical;
+            pq:P5281 ?residual_stroke_count
+        ].
+    FILTER(?stroke_count <= ?residual_stroke_count).
+}
+LIMIT 100

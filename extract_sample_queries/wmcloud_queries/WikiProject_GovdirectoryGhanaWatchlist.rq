@@ -1,0 +1,15 @@
+SELECT ?item
+WHERE {
+  BIND(wd:Q117 AS ?country)
+
+  VALUES ?type {
+    wd:Q545769 # district of Ghana (260)
+    wd:Q1052743 # region of Ghana (16)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+}

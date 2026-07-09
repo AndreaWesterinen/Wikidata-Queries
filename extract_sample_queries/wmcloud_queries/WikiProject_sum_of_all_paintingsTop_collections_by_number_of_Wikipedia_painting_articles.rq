@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?painting) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P195 ?item .
+  ?article schema:about ?painting .
+  ?article schema:isPartOf ?sitelink . 
+  FILTER REGEX(STR(?sitelink), ".+wikipedia.org.+") .
+  } GROUP BY ?item
+ORDER BY DESC(?count)
+LIMIT 250

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?constituencyLabel ?start ?end
+{
+ ?membership wdt:P279 wd:Q16707842 .  ?item p:P39 ?positionStatement .  ?positionStatement ps:P39 ?membership . 
+ ?positionStatement pq:P768 ?constituency .
+ optional { ?positionStatement pq:P4100 ?party . } filter(!bound(?party)) .
+ ?positionStatement pq:P582 ?end . 
+ ?positionStatement pq:P580 ?start . 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }  
+} order by desc(?end)

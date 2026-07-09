@@ -1,0 +1,6 @@
+SELECT (group_concat(?material ; separator = ", ") AS ?mats)
+WHERE
+{
+	wd:Q12418 wdt:P186 ?material
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

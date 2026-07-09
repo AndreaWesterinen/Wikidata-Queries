@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?region ?council WHERE { 
+  VALUES ?cons { wd:Q50258518 }
+  ?region wdt:P31/wdt:P279* wd:Q10864048 ; 
+          wdt:P17 wd:Q884.
+  ?council wdt:P1001 ?region ;
+           wdt:P31/wdt:P279* wd:Q11204 .
+  MINUS { ?council wdt:P576 [] }
+  ?node ps:P279 ?cons ;
+        pq:P642 ?council .
+  ?flaccons p:P279 ?node .
+  ?item wdt:P31 ?flaccons
+  MINUS { ?item wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

@@ -1,0 +1,7 @@
+SELECT (count(?n_articles) AS ?n_items) ?n_articles WHERE{
+  {
+    SELECT (count(?item) as ?n_articles) WHERE{
+      ?item wdt:P1447 ?ids
+    } GROUP BY ?item
+  }
+} GROUP BY ?n_articles

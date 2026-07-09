@@ -1,0 +1,13 @@
+#title: Model year ±1 ≥ year of first commercialization of car model
+# Complex constraint from [[Property talk:P5444]]
+# correct [[Property:P5204|date of commercialization&#32;<small dir="ltr">(P5204)</small>]] on item for car model or define exception(s)
+SELECT ?item ?my ?model ?commdate
+{
+	?item wdt:P5444 / wdt:P585 ?mydate .
+	BIND(YEAR(?mydate) as ?my) 
+	?item wdt:P279 ?model .
+	?model wdt:P31 wd:Q3231690 .
+	?model wdt:P5204 ?commdate .
+	FILTER(YEAR(?commdate)-1 >= ?my) 
+}
+LIMIT 200

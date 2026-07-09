@@ -1,0 +1,10 @@
+#title: Occupation: tennis trainer
+# Complex constraint from [[Property talk:P286]]
+#
+SELECT ?item ?trainer {
+  ?item wdt:P286 ?trainer.
+  ?item wdt:P106 wd:Q10833314.
+  FILTER NOT EXISTS { ?trainer wdt:P106 wd:Q13219424}
+  FILTER NOT EXISTS { ?trainer wdt:P106 wd:Q41583}
+  FILTER NOT EXISTS { ?trainer wdt:P106 wd:Q57199189}
+}

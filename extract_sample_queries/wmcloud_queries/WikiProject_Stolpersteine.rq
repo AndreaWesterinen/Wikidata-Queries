@@ -1,0 +1,5 @@
+SELECT ?Stolperstein ?StolpersteinLabel ?Staat ?StaatLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Stolperstein wdt:P360 wd:Q26703203.
+  OPTIONAL { ?Stolperstein wdt:P17 ?Staat. }
+}

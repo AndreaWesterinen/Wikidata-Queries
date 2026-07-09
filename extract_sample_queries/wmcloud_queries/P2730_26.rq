@@ -1,0 +1,10 @@
+#title: Country code
+# Complex constraint from [[Property talk:P2730]]
+#
+SELECT ?item ?code {
+  ?item p:P2730 [ ps:P2730 ?value ].
+  BIND(SUBSTR(?value, 3, 3) AS ?code).
+  # FILTER NOT EXISTS { ?country wdt:P984 ?code } # CIO
+  FILTER NOT EXISTS { ?country p:P984/ps:P984 ?code } # SIN is an old CIO code
+  FILTER (?code NOT IN ("ROM")) # exception
+}

@@ -1,0 +1,10 @@
+#title: Hungary roads
+# Complex constraint from [[Property talk:P14]]
+# End by 'table.svg' without [[d:Q28|Hungary <small>(Q28)</small>]]
+SELECT ?item ?value WHERE {
+  ?item wdt:P14 ?value.
+  FILTER(REGEX(STR(?value), "http:\\/\\/commons\\.wikimedia\\.org\\/wiki\\/Special:FilePath\\/.*Otszogletu%20zold%20tabla.svg")) .
+  FILTER NOT EXISTS {
+    ?item wdt:P17 wd:Q28.
+  }
+} ORDER BY ?value

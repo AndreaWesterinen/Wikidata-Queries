@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?numberofsitelinks ?numberofstatements
+{
+    ?item wdt:P31/wdt:P279* wd:Q398141 .
+    ?item wdt:P131 wd:Q1439 .
+    OPTIONAL { ?item wikibase:sitelinks ?numberofsitelinks }
+    OPTIONAL { ?item wikibase:statements ?numberofstatements }  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  

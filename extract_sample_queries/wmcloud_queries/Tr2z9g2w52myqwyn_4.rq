@@ -1,0 +1,9 @@
+# Find duplicate HMDB identifiers
+
+SELECT * WHERE {
+  {
+    SELECT ?id (COUNT(?obj) AS ?count) (GROUP_CONCAT(?obj; SEPARATOR = " , ") AS ?items) WHERE { ?obj wdt:P2057 ?id. }
+    GROUP BY ?id
+  }
+  FILTER(?count > 1)
+}

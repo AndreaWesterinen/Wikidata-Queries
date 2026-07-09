@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P496/ps:P496 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?:\\/\\/(www\\.)?orcid\\.org\\/(0000-000(1-[5-9]|2-[0-9]|3-[0-4])\\d\\d\\d-\\d\\d\\d[\\dX])/?)$") )
+}

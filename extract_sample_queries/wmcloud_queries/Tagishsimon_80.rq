@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?itemDescription
+WHERE 
+{
+  ?item wikibase:statements "1"^^xsd:integer . 
+  ?item wdt:P17 wd:Q145 .
+  ?article schema:about ?item ;
+  schema:isPartOf <https://gd.wikipedia.org/> .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,gd". } 
+} order by ?itemLabel

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?olympics WHERE {
+  # lidi
+  ?item wdt:P31 wd:Q5.
+  # pocházející nebo reprezentující Česko nebo Československo
+  OPTIONAL { ?item wdt:P27 ?nationality }
+  OPTIONAL { ?item wdt:P1532 ?represents }
+  FILTER ( ?nationality = wd:Q213

@@ -1,0 +1,46 @@
+# Approach 2: 
+# Find all PL braches and filter those that are (also) instances of headquarters Q7540126.
+# Find the organisation these libraries are the HQs of (via 'of' (P642) as qualifier) 
+# Find the HQs of these organisations (via P159)
+
+SELECT DISTINCT 
+
+?branch
+?branchLabel
+(GROUP_CONCAT(DISTINCT ?branchIsALabel ; separator = " --- ") as ?branchInstanceOf) 
+(GROUP_CONCAT(DISTINCT ?branchRank ; separator = " --- ") as ?branchRanks)
+#------
+?org 
+?orgLabel
+(GROUP_CONCAT(DISTINCT ?orgIsALabel ; separator = " --- ") as ?orgInstanceOf) 
+(GROUP_CONCAT(DISTINCT ?orgRank ; separator = " --- ") as ?orgRanks)
+#------
+?hqLabel
+?branchIsHQ
+
+WHERE 
+{
+  #Approach 2: via PL branches
+  ?branch (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55.
+  ?branch p:P31 [ps:P31 ?branchIsA; wikibase:rank ?branchRank].
+  FILTER(?branchIsA = wd:Q7540126). #filter out any non-HQ instances     
+  
+  OPTIONAL{
+  ?branch p:P31 [pq:P642 ?org].
+  ?org p:P31 [ps:P31 ?orgIsA; wikibase:rank ?orgRank].   
+  ?org p:P159/ps:P159 ?hq.
+  BIND(IF(?branch = ?hq, "TRUE", "FALSE") as ?branchIsHQ).
+  } 
+
+SERVICE wikibase:label 
+  { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+  ?branch rdfs:label ?branchLabel.
+  ?branchIsA rdfs:label ?branchIsALabel.
+  ?org rdfs:label ?orgLabel.
+  ?orgIsA rdfs:label ?orgIsALabel.
+  ?hq rdfs:label ?hqLabel.
+  }
+
+}
+GROUP BY ?branch ?branchLabel ?org ?orgLabel ?hqLabel ?branchIsHQ
+ORDER BY (?orgLabel)

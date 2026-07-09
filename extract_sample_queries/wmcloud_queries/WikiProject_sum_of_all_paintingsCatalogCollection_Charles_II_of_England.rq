@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?inv WHERE 
+{ ?item wdt:P127 wd:Q122553.
+  ?item wdt:P195 wd:Q1459037.
+  ?item wdt:P217 ?inv
+        FILTER( STRSTARTS(?inv, "RCIN 40") ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} Order by ?inv

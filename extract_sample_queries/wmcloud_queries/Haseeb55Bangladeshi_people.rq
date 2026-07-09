@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P27 wd:Q902.
+}
+ORDER BY DESC(?d) ?item
+LIMIT 3000

@@ -1,0 +1,6 @@
+SELECT ?item (COUNT(DISTINCT ?ancestor) as ?ct)
+{
+    ?item wdt:P31 wd:Q5; wdt:P39 wd:Q14211.
+    ?item (wdt:P22|wdt:P25)+ ?ancestor .
+} 
+GROUP BY ?item

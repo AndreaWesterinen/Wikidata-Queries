@@ -1,0 +1,6 @@
+select ?qualvalue ?quallabel (count(?qualvalue) as ?total) where {
+?item wdt:P31/wdt:P279* wd:Q355304 .
+?item p:P625 ?statement .
+?statement pq:P518 ?qualvalue .
+optional { ?qualvalue rdfs:label ?quallabel filter (lang(?quallabel) = "en") . }
+} group by ?qualvalue ?quallabel order by desc(?total)

@@ -1,0 +1,15 @@
+SELECT * WITH { SELECT ?item 
+  (GROUP_CONCAT(?s1; separator="") as ?s_1) (GROUP_CONCAT(?s2; separator="") as ?s_2) (GROUP_CONCAT(?s3; separator="") as ?s_3) (GROUP_CONCAT(?s4; separator="") as ?s_4) (GROUP_CONCAT(?s5; separator="") as ?s_5) (GROUP_CONCAT(?s6; separator="") as ?s_6) (GROUP_CONCAT(?s7; separator="") as ?s_7) (GROUP_CONCAT(?s8; separator="") as ?s_8) (GROUP_CONCAT(?s9; separator="") as ?s_9) (GROUP_CONCAT(?s10; separator="") as ?s_10) 
+  (GROUP_CONCAT(?s11; separator="") as ?s_11) (GROUP_CONCAT(?s12; separator="") as ?s_12) (GROUP_CONCAT(?s13; separator="") as ?s_13) (GROUP_CONCAT(?s14; separator="") as ?s_14) (GROUP_CONCAT(?s15; separator="") as ?s_15) (GROUP_CONCAT(?s16; separator="") as ?s_16) (GROUP_CONCAT(?s17; separator="") as ?s_17) (GROUP_CONCAT(?s18; separator="") as ?s_18) (GROUP_CONCAT(?s19; separator="") as ?s_19) (GROUP_CONCAT(?s20; separator="") as ?s_20)
+  (GROUP_CONCAT(?s21; separator="") as ?s_21) (GROUP_CONCAT(?s22; separator="") as ?s_22) (GROUP_CONCAT(?s23; separator="") as ?s_23) (GROUP_CONCAT(?s24; separator="") as ?s_24) (GROUP_CONCAT(?s25; separator="") as ?s_25) (GROUP_CONCAT(?s26; separator="") as ?s_26) (GROUP_CONCAT(?s27; separator="") as ?s_27) (GROUP_CONCAT(?s28; separator="") as ?s_28) (GROUP_CONCAT(?s29; separator="") as ?s_29) (GROUP_CONCAT(?s30; separator="") as ?s_30) 
+WHERE
+{ 
+    ?season wdt:P31 wd:Q3464665; p:P179 [ pq:P1545 ?o ; ps:P179 ?item ] 
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q581714 } 
+    BIND( CONCAT("[[",substr(str(?season),32),"\u007C","♦]]") as ?s)
+    BIND(IF(?o='1',?s,'') as ?s1) BIND(IF(?o='2',?s,'') as ?s2) BIND(IF(?o='3',?s,'') as ?s3) BIND(IF(?o='4',?s,'') as ?s4) BIND(IF(?o='5',?s,'') as ?s5) BIND(IF(?o='6',?s,'') as ?s6) BIND(IF(?o='7',?s,'') as ?s7) BIND(IF(?o='8',?s,'') as ?s8) BIND(IF(?o='9',?s,'') as ?s9) BIND(IF(?o='10',?s,'') as ?s10) 
+    BIND(IF(?o='11',?s,'') as ?s11) BIND(IF(?o='12',?s,'') as ?s12) BIND(IF(?o='13',?s,'') as ?s13) BIND(IF(?o='14',?s,'') as ?s14) BIND(IF(?o='15',?s,'') as ?s15) BIND(IF(?o='16',?s,'') as ?s16) BIND(IF(?o='17',?s,'') as ?s17) BIND(IF(?o='18',?s,'') as ?s18) BIND(IF(?o='19',?s,'') as ?s19) BIND(IF(?o='20',?s,'') as ?s20) 
+    BIND(IF(?o='21',?s,'') as ?s21) BIND(IF(?o='22',?s,'') as ?s22) BIND(IF(?o='23',?s,'') as ?s23) BIND(IF(?o='24',?s,'') as ?s24) BIND(IF(?o='25',?s,'') as ?s25) BIND(IF(?o='26',?s,'') as ?s26) BIND(IF(?o='27',?s,'') as ?s27) BIND(IF(?o='28',?s,'') as ?s28) BIND(IF(?o='29',?s,'') as ?s29) BIND(IF(?o='30',?s,'') as ?s30)
+} GROUP BY ?item } as %1 { INCLUDE %1 } 
+ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),33))) 
+OFFSET 0 LIMIT 500

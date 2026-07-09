@@ -1,0 +1,11 @@
+SELECT ?type (COUNT(?item) AS ?count) WHERE {
+  ?item p:P1343/ps:P1343 wd:Q66362718 .
+  BIND(xsd:integer(STRAFTER(STR(?item), 'Q')) AS ?qid )
+  OPTIONAL { #Oldies 
+    FILTER(?qid < 66363195) .
+    BIND("Existing items created before August 2019" AS ?type) }
+  OPTIONAL {
+    FILTER(?qid >= 66363195) .
+    BIND("New items created August 2019 or newer" AS ?type) 
+  }
+} GROUP BY ?type 

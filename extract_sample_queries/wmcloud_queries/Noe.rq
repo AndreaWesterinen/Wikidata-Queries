@@ -1,0 +1,5 @@
+embed.html#SELECT (COUNT (?statement) as ?statements)
+WHERE
+{
+  ?statement prov:wasDerivedFrom/<http://www.wikidata.org/prop/reference/P143> wd:Q22001373 .
+}

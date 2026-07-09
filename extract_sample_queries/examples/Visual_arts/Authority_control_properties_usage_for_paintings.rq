@@ -1,5 +1,4 @@
-# ----
-# Make a list of the most used authority control properties for works for paintings
+#title: Make a list of the most used authority control properties for works for paintings
 SELECT ?propertyLabel ?propertyDescription (COUNT(?propertyclaim) AS ?count) WHERE {
   ?item wdt:P31 wd:Q3305213 .
 

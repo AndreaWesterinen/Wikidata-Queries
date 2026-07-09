@@ -1,0 +1,8 @@
+SELECT * {
+  BIND("testcase" as ?testing)
+  BIND("The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog" as ?test1) 
+  BIND("ThequickbrownfoxjumpsoverthelazydogThequickbrownfoxjumpsoverthelazydog Thequickbrownfoxjumpsoverthelazydog" as ?test2) 
+  BIND("ThequickbrownfoxjumpsoverthelazydogThequickbrownfoxjumpsoverthelazydogThequickbrownfoxjumpsoverthelazydog" as ?test3) 
+  BIND( URI("https://www.wikidata.org/ThequickbrownfoxjumpsoverthelazydogThequickbrownfoxjumpsoverthelazydog") as ?test4) 
+  BIND( URI("https://www.wikidata.org/ThequickbrownfoxjumpsoverthelazydogThequickbrownfoxjumpsoverthelazydog5") as ?test5) 
+}

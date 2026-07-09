@@ -1,0 +1,5 @@
+SELECT ?item ?downloadurl WHERE {
+  ?item p:P4765/ps:P4765 ?downloadurl ;
+        wdt:P31 wd:Q3305213 .
+  } 
+  LIMIT 25000

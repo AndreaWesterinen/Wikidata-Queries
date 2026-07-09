@@ -1,0 +1,14 @@
+#title: no item should have the same value for both a property and its negated property (unless distinctly qualified)
+# Complex constraint from [[Property talk:P11317]]
+# the query doesn't currently check for distinct qualifiers, so, for example, a false positive is Q1056761.
+SELECT ?commonitem ?propertyAd ?propertyBd ?commonvalue
+WHERE
+{
+    ?propertyA wdt:P11317 ?propertyB .
+    FILTER(STR(?propertyA)>STR(?propertyB)) .
+    ?propertyA wikibase:directClaim ?propertyAd .
+    ?propertyB wikibase:directClaim ?propertyBd .
+
+    ?commonitem ?propertyAd ?commonvalue . 
+    ?commonitem ?propertyBd ?commonvalue . 
+}

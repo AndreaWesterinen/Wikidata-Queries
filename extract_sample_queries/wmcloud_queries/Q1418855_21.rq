@@ -1,0 +1,23 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q1418855>
+SELECT ?rank ?count ?item ?itemLabel ?itemDescription
+WITH  {  
+        SELECT DISTINCT ?item (COUNT(?p) as ?count) WHERE { ?p wdt:P735 ?item } GROUP BY ?item ORDER BY DESC(?count) LIMIT 1000
+      } AS %all 
+WITH  {
+        SELECT (?item as ?item2) (?count AS ?count2) WHERE { INCLUDE %all }
+      } AS %all2 
+WITH  {
+        SELECT ?item (SUM(?x) AS ?rank) ?count WHERE {
+          INCLUDE %all .
+          INCLUDE %all2 .
+          BIND( IF( ?count  <= ?count2 ,z 1, 0 ) AS ?x ) .
+        } GROUP BY ?item ?count
+      } AS %main 
+WHERE
+{
+  hint:Query hint:optimizer "None".    
+  INCLUDE %main .
+  FILTER( ?item = wdname: )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

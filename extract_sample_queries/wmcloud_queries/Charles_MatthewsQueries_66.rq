@@ -1,0 +1,17 @@
+embed.html##defaultView:Map
+#Federated search Wikidata -> NobelPrice.org
+PREFIX nobel: <http://data.nobelprize.org/terms/>
+ 
+SELECT DISTINCT ?geo ?place ?placeLabel ?motivation WHERE {
+  ?laureate wdt:P2888 ?laureate_nobel_uri .  
+  FILTER (strStarts(str(?laureate_nobel_uri), "http://data.nobelprize.org/resource/laureate/"))
+  ?place wdt:P138 ?laureate .
+  ?place wdt:P625 ?geo . 
+  
+  SERVICE <http://data.nobelprize.org/sparql> {
+    ?laureate_nobel_uri nobel:laureateAward / nobel:motivation ?motivation .
+    FILTER (lang(?motivation) = 'en')
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de,da,nl". }
+}

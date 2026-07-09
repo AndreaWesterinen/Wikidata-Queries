@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel (YEAR(?point_in_time) as ?year) ?driver ?constructor WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P3450 wd:Q1968.
+  OPTIONAL { ?item wdt:P585 ?point_in_time. }
+  OPTIONAL { ?item p:P1346 ?winner. ?winner ps:P1346 ?driver. ?winner pq:P642 wd:Q63436479.}
+  OPTIONAL { ?item p:P1346 ?win. ?win ps:P1346 ?constructor. ?win pq:P642 wd:Q63436495.}
+}
+order by desc(?year)

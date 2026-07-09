@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?local_election ?local_electionLabel
+WHERE {
+  ?item wdt:P1344 ?local_election.
+  ?local_election wdt:P361 wd:Q16999180.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

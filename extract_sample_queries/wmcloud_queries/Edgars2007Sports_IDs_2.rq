@@ -1,0 +1,23 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX schema: <http://schema.org/>
+
+        SELECT ?lang (COUNT(DISTINCT ?item) AS ?count) WHERE {
+           
+	?item wdt:P31 wd:Q5 .
+	?item wdt:P106 wd:Q10873124 .
+	FILTER not EXISTS { ?item wdt:P1440 ?dummy }
+           ?article schema:about ?item .
+           FILTER (SUBSTR(str(?article), 11, 15) = ".wikipedia.org/") .
+           ?article schema:inLanguage ?lang . 
+           
+          
+        }  GROUP BY ?lang
+
+        ORDER BY DESC (?count)

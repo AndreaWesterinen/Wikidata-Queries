@@ -1,0 +1,13 @@
+#title: Author's P7311 value constraint
+# Complex constraint from [[Property talk:P7312]]
+#
+SELECT ?item ?value ?author WHERE {
+  ?item wdt:P7312 ?value;
+        wdt:P50 ?author.
+  BIND(REPLACE(?value, "^0*([1-9]\\d*)/card[1-9]\\d*$", "$1") AS ?authorID).
+  MINUS {
+    ?author wdt:P7311 ?authorID.
+  }
+}
+ORDER BY ?item
+LIMIT 200

@@ -1,0 +1,12 @@
+select ?stolperstein ?label ?inscription ?image ?commemorated ?commemoratedName ?coords where {
+  ?stolperstein wdt:P361 wd:Q314003; wdt:P131+ wd:Q39779.
+  optional { ?stolperstein wdt:P18 ?image. }
+  optional { ?stolperstein wdt:P547 ?commemorated. }
+  optional { ?stolperstein wdt:P1684 ?inscription. }
+  optional { ?stolperstein wdt:P625 ?coords. }
+  service wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en".
+    ?stolperstein rdfs:label ?label.
+    ?commemorated rdfs:label ?commemoratedName.
+  }
+}

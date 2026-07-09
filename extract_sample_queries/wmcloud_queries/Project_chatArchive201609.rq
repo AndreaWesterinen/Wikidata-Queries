@@ -1,0 +1,16 @@
+#Embassies
+SELECT ?item ?itemLabel ?operatorLabel ?countryLabel ?cityLabel ?coordinates ?address ?phone ?website ?facebook ?image
+WHERE
+{
+	?item wdt:P31 wd:Q3917681 .
+  	OPTIONAL {?item wdt:P137 ?operator .}
+    OPTIONAL {?item wdt:P17 ?country .}
+    OPTIONAL {?item wdt:P131 ?city .}
+    OPTIONAL {?item wdt:P625 ?coordinates .}
+    OPTIONAL {?item wdt:P969 ?address .}
+    OPTIONAL {?item wdt:P1329 ?phone .}
+    OPTIONAL {?item wdt:P856 ?website .}
+    OPTIONAL {?item wdt:P2013 ?facebook .}
+    OPTIONAL {?item wdt:P18 ?image .}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

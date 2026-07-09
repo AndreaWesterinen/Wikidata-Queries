@@ -1,0 +1,14 @@
+# Australian weed ids
+SELECT ?item ?taxon_name ?weed_id ?WeedLink   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item p:P225 ?stat. 
+  ?stat ps:P225 ?taxon_name.
+  ?item wdt:P8469 ?weed_id.
+
+  bind(uri(concat("https://profile.ala.org/opus/weeds-australia/about#profile=",?weed_id)) as ?WeedLink)  
+  #MINUS {?stat pq:P405 ?taxon_author.}
+  #?article schema:about ?item. # and have an article about them
+  #?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+#SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  #bind(uri(concat("https://en.wikipedia.org/wiki/",?taxon_name)) as ?articlee)
+}

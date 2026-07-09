@@ -1,0 +1,12 @@
+SELECT ?px ?pxLabel ?Bd ?BpLabel
+WHERE
+{
+wd:Q323838 wdt:P87 ?px.
+# OPTIONAL { ?px wdt:P27 ?Nat. }
+# OPTIONAL { ?px wdt:P106 ?Occ. }
+OPTIONAL { ?px wdt:P569 ?Bd. }
+OPTIONAL { ?px wdt:P19 ?Bp. }
+OPTIONAL { ?px wdt:P570 ?Dd. }
+OPTIONAL { ?px wdt:P20 ?Dp. }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}

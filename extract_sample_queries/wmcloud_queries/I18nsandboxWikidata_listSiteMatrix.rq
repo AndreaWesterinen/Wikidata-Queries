@@ -1,0 +1,1 @@
+SELECT ?item ?ll ?iso6391 ?iso6392 ?iso6393 WHERE {    ?item wdt:P31 wd:Q10876391 .    OPTIONAL {        ?item wdt:P407 ?l .        ?l rdfs:label ?ll .        FILTER (lang(?ll) = "en") OPTIONAL { ?l wdt:P218 ?iso6391 . } OPTIONAL { ?l wdt:P219 ?iso6392 . }OPTIONAL { ?l wdt:P220 ?iso6393 . } } }

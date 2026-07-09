@@ -1,0 +1,18 @@
+# AGSA artworks/ paintings/drawing/print/sculpture by year of inceptin
+#defaultView:Timeline{"hide": "?date"}
+SELECT DISTINCT ?date ?year  (COUNT(?artwork) AS ?count) WHERE {
+  {?artwork wdt:P31 wd:Q3305213.}    # painting
+  UNION
+   {?artwork wdt:P31 wd:Q11060274.}  # print
+  UNION 
+   {?artwork wdt:P31 wd:Q93184.}     # drawing
+  UNION 
+   {?artwork wdt:P31 wd:Q860861.}    # sculpture
+    UNION 
+   {?artwork wdt:P31 wd:Q42314818.}  # visual art
+   ?artwork wdt:P195 wd:Q705557.     # Art work is in AGSA
+   ?artwork wdt:P571 ?date
+  BIND(str(YEAR(?date)) AS ?year)           
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?date ?year

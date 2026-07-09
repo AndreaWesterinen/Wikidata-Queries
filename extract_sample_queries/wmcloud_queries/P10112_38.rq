@@ -1,0 +1,18 @@
+#title: XXX2### codes should be [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]]: [[d:Q36687|Victoria <small>(Q36687)</small>]].
+# Complex constraint from [[Property talk:P10112]]
+#
+SELECT ?item ?itemLabel ?admin ?adminLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?admin ?value {
+			?item wdt:P10112 ?value .
+			MINUS {
+				?item wdt:P131|wdt:P131/wdt:P131 wd:Q36687 .
+			} .
+			?item wdt:P131 ?admin .
+            FILTER(STRSTARTS(?value, "LGA2") || STRSTARTS(?value, "SED2") || STRSTARTS(?value, "CED2") || STRSTARTS(?value, "SAL2") ).
+		} LIMIT 1000
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

@@ -1,0 +1,41 @@
+PREFIX target: <http://www.wikidata.org/entity/Q202864>
+
+#defaultView:Table
+SELECT ?count1 ?topic1 ?topic1Label ?example_work1 ?example_work1Label ?count ?bridge ?bridgeLabel ?example_work ?example_workLabel
+WITH {
+  SELECT (COUNT(?work) AS ?count) ?bridge (SAMPLE(?work) AS ?example_work) WHERE {
+    # Find works for the specific queried topic
+	  ?work wdt:P921/( wdt:P31*/wdt:P279* | wdt:P361+ | wdt:P1269+) target: .
+    
+    # Find co-occuring topics
+    ?work wdt:P921 ?bridge .
+    
+    # Avoid listing the queried topic
+      FILTER (target: != ?bridge)
+  }
+  GROUP BY ?bridge
+  ORDER BY DESC(?count)  
+  LIMIT 10
+} AS %result
+WITH {
+  SELECT (COUNT(?work1) AS ?count1) ?topic1 (SAMPLE(?work1) AS ?example_work1) ?count ?bridge ?example_work WHERE {
+    INCLUDE %result
+    # Find works for the specific queried topic
+	  ?work1 wdt:P921/( wdt:P31*/wdt:P279* | wdt:P361+ | wdt:P1269+) ?bridge .
+    
+    # Find co-occuring topics
+    ?work1 wdt:P921 ?topic1 .
+    
+    # Avoid listing the queried topic
+      FILTER (target: != ?topic1)
+      FILTER (?bridge != ?topic1)
+  }
+  GROUP BY ?topic1 ?example_work1 ?count ?bridge ?example_work
+  ORDER BY DESC(?count1)           
+} AS %result1
+WHERE {
+  # Label the results
+  INCLUDE %result1
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,da,de,es,fr,jp,nl,no,ru,sv,zh" . } 
+}
+ORDER BY DESC(?count1)

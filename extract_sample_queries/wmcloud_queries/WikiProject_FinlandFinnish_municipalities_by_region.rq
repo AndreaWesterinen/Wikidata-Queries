@@ -1,0 +1,5 @@
+SELECT ?item ?maakunta WHERE {
+  ?item wdt:P31 wd:Q856076 .
+  ?item wdt:P131 ?maakunta .
+  ?maakunta wdt:P31 wd:Q193512
+}

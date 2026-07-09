@@ -1,0 +1,7 @@
+select distinct (?l as ?item) (concat("[[Lexeme:", replace(str(?l), str(wd:), ""), "|", replace(str(?l), str(wd:), ""), "]]") as ?l_) ?lemma ?len {
+  ?l dct:language wd:Q7737;
+     wikibase:lemma ?lemma.
+  filter (regex(lcase(str(?lemma)), "^а*б*в*г*д*[её]*ж*з*и*й*к*л*м*н*о*п*р*с*т*у*ф*х*ц*ч*ш*щ*ъ*ы*ь*э*ю*я*$")).
+  bind (strlen(?lemma) as ?len).
+  filter (?len >= 4).
+} order by desc(?len) ?lemma

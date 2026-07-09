@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT DISTINCT ?sculpture ?sculptureLabel ?_coordinate_location WHERE {
+  ?sculpture wdt:P31 wd:Q860861 .
+  ?sculpture ?range wd:Q34.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+  OPTIONAL { ?sculpture wdt:P170 ?dummy0. }
+  FILTER(!BOUND(?dummy0))
+  OPTIONAL { ?sculpture wdt:P625 ?_coordinate_location. }
+}

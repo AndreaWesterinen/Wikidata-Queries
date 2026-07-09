@@ -1,0 +1,36 @@
+embed.html##defaultView:Map{"hide":["?bbox", "?rgb"]}
+
+SELECT DISTINCT ?item ?itemLabel ?url ?img ?bbox ?rgb (year(?year) AS ?layer)
+
+WITH {
+  SELECT (xsd:float(?colour) AS ?colour2) ?rgb WHERE {
+    wd:Q105849312 p:P527 ?stmt .
+    ?stmt pq:P1545 ?colour .
+    ?stmt pq:P465 ?rgb .
+  }
+} AS %colours 
+  
+WHERE {  
+
+  ?item wdt:P195 wd:Q7100888 .    # OSD
+ 
+  ?item p:P1332/psv:P1332/wikibase:geoLatitude ?nth .
+  ?item p:P1333/psv:P1333/wikibase:geoLatitude ?sth .
+  ?item p:P1334/psv:P1334/wikibase:geoLongitude ?east .
+  ?item p:P1335/psv:P1335/wikibase:geoLongitude ?west .
+  ?item wdt:P571 ?year .
+  BIND ((1 + floor ((year(?year) - 1789) * 2.0/3.0)) AS ?colour) .
+  BIND (xsd:float(IF(?colour > 31, 31, ?colour)) AS ?colour2) .
+  INCLUDE %colours .
+    
+  OPTIONAL {?item wdt:P18 ?img} .
+  ?item wdt:P973 ?url .
+  BIND(STRDT(  CONCAT('LINESTRING (', 
+                    str(?west), ' ', str(?sth), ',',
+                    str(?west), ' ', str(?nth), ',',
+                    str(?east), ' ', str(?nth), ',',
+                    str(?east), ' ', str(?sth), ',',
+                    str(?west), ' ', str(?sth), ')'   ), geo:wktLiteral) AS ?bbox) .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

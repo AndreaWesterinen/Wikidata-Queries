@@ -1,0 +1,11 @@
+SELECT  ?personLabel  ?archiveLabel
+
+WHERE {
+  ?person wdt:P166 wd:Q194944 .
+  ?person wdt:P485 ?archive .
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

@@ -1,0 +1,1 @@
+SELECT (wd:Q26817508 as ?item) (SUM(?sl) as ?statcount) WHERE { ?entity wdt:P31 wd:Q26817508; wikibase:sitelinks ?sl }

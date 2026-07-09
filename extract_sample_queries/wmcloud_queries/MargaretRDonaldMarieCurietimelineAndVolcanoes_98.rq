@@ -1,0 +1,25 @@
+# Taxa without taxonbar template
+SELECT ?item  ?taxon_name ?article ?sitelink WHERE {
+ { ?item wdt:P225 ?taxon_name. 
+  ?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  ?sitelink ^schema:name ?article .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  }
+  MINUS
+  {
+    SERVICE wikibase:mwapi
+    {
+      bd:serviceParam wikibase:api "Search" .
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam mwapi:srnamespace "0" .
+      bd:serviceParam mwapi:srlimit "max" .
+      bd:serviceParam mwapi:srwhat "text" .
+      bd:serviceParam mwapi:srsearch 'insource:"{{Taxonbar"' .
+      ?title wikibase:apiOutput mwapi:title .
+    }
+    BIND (STRLANG(?title, "en") as ?sitelink)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

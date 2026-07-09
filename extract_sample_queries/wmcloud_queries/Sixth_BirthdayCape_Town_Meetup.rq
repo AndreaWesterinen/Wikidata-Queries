@@ -1,0 +1,7 @@
+SELECT ?city ?cityLabel ?loc ?pop WHERE {
+  ?city wdt:P31/wdt:P279* wd:Q515 .
+  ?city wdt:P17 wd:Q258 .
+  OPTIONAL { ?city wdt:P625 ?loc .}
+  OPTIONAL { ?city wdt:P1082 ?pop . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

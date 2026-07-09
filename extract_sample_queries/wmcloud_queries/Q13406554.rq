@@ -1,0 +1,5 @@
+SELECT ?property ?propertyLabel (COUNT(?item) AS ?cnt) WHERE {
+  ?item ?wdt wd:Q18608583 .
+  ?property wikibase:directClaim ?wdt .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?property ?propertyLabel ORDER BY DESC(?cnt)

@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?P131Label ?sitelink ?P18
+WHERE 
+{
+  ?item wdt:P31 wd:Q131681.
+  ?item wdt:P131  ?P131.
+  ?P131 wdt:P31 wd:Q15060255.
+  
+  OPTIONAL {
+  ?article schema:about ?item ;
+  schema:isPartOf <https://commons.wikimedia.org/> ; 
+  schema:name ?sitelink . 
+  }
+  
+  OPTIONAL {?item wdt:P373 ?P373 .}
+  OPTIONAL {?item wdt:P18 ?P18 .}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by ?P131Label ?itemLabel 

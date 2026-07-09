@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q61927259.
+  ?item wdt:P1444 ?bestemming.
+  ?item wdt:P1427 ?vertrek.
+  ?bestemming wdt:P17 wd:Q55.
+  ?vertrek wdt:P17 wd:Q55.
+}

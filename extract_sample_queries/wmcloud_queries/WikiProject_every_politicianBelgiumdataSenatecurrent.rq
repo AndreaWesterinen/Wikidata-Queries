@@ -1,0 +1,11 @@
+SELECT ?item ?party ?district ?start ?end
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39/wdt:P279* wd:Q17619252 ; pq:P580 ?start .
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P768 ?district }
+  OPTIONAL { ?statement pq:P4100 ?party }
+  BIND(COALESCE(?end, "3001-01-01T00:00:00Z"^^xsd:dateTime) as ?enddate)
+  FILTER (?enddate > NOW())
+}

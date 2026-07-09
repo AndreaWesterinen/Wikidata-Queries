@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel 
+(GROUP_CONCAT(DISTINCT ?type) as ?types) (GROUP_CONCAT(DISTINCT ?composer) as ?composers)
+(GROUP_CONCAT(DISTINCT ?librettist) as ?librettists) (IRI(GROUP_CONCAT(DISTINCT ?id)) as ?ids) WHERE {
+  ?item wdt:P144 wd:Q3027260.
+  OPTIONAL {?item wdt:P31/rdfs:label ?type FILTER(lang(?type) = "en")}
+  OPTIONAL {?item wdt:P86/rdfs:label ?composer FILTER(lang(?composer) = "en")}
+  OPTIONAL {?item wdt:P87/rdfs:label ?librettist FILTER(lang(?librettist) = "en")}
+  OPTIONAL {?item (wdt:P646|wdt:P2671) ?mreid BIND(CONCAT("https://angryloki.github.io/mreid-resolver/#", ?mreid) as ?id)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel

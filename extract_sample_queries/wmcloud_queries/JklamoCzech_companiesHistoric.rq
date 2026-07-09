@@ -1,0 +1,13 @@
+SELECT ?item ?revenue ?hq ?date
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453 .
+    ?item wdt:P159 ?hq . 
+    ?hq wdt:P17 wd:Q213 .
+    ?item wdt:P2139 ?revenue .
+    ?item p:P2139 ?revenueSt .
+    OPTIONAL { ?revenueSt pq:P585 ?date } .
+    FILTER( ?item not in (wd:Q11878499,wd:Q58197019,wd:Q54983885,wd:Q58197026,wd:Q60161033,wd:Q11878927,wd:Q58623100,wd:Q98930883))
+}
+ORDER BY DESC(?revenue)
+LIMIT 50

@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?gamesClass ?delegations (COUNT(DISTINCT ?linked_delegation) AS ?linked_delegations) ((?delegations - ?linked_delegations) AS ?missing_delegations) WHERE {
+  VALUES ?gamesClass { wd:Q159821 wd:Q82414 }
+  ?item wdt:P31 ?gamesClass .
+  OPTIONAL {
+    BIND(IF(?item=wd:Q8105, wd:Q18002875, wd:Q40970) AS ?publisher) .
+    ?item p:P1132 [ ps:P1132 ?delegations; pq:P642 wd:Q26213387; prov:wasDerivedFrom/pr:P123 ?publisher ] .
+  }
+  OPTIONAL {
+    { ?item wdt:P710

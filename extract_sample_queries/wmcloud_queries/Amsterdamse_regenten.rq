@@ -1,0 +1,15 @@
+#defaultView:Timeline
+SELECT ?m ?mLabel ?start ?eind
+WHERE 
+{
+    ?m p:P463 ?org .
+	?org ps:P463 wd:Q56764476 . 
+	?org pq:P580 ?start . 
+	?org pq:P582 ?eind . 
+    ?m rdfs:label ?label .
+    FILTER(LANG(?label)="nl")
+    FILTER REGEX(?label,'Bicker')
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+ORDER BY ?start
+LIMIT 50

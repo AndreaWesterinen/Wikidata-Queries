@@ -1,0 +1,12 @@
+#title: Russia is used as death place qualifier value for people dead before 1991-12-25
+# Complex constraint from [[Property talk:Q159]]
+# Items with [[Property:P17|country&#32;<small dir="ltr">(P17)</small>]] qualifier of [[Property:P20|place of death&#32;<small dir="ltr">(P20)</small>]] equal to [[d:Q159|Russia <small>(Q159)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] before 1991-12-25
+SELECT DISTINCT ?item WHERE {
+    ?item p:P570/psv:P570 ?node .
+    ?node wikibase:timeValue ?dead .
+    ?node wikibase:timePrecision ?precision .
+    ?item wdt:P19 ?deathPlace .
+    ?deathPlace pq:P17 wd:Q159 .
+    FILTER (?dead < "1991-12-25T00:00:00Z"^^xsd:dateTime)
+    FILTER (?precision >= "9"^^xsd:integer)
+  }

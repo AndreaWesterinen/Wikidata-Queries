@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?when ?jurisdiction ?jurisdictionLabel ?office ?officeLabel ?country ?countryLabel
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q1076105 ; wdt:P585 ?when .
+  FILTER (?when > NOW()) .
+  FILTER (?when < "2019-01-01T00:00:00Z"^^xsd:dateTime) .
+  OPTIONAL { ?item wdt:P1001 ?jurisdiction } 
+  OPTIONAL { ?item wdt:P541 ?office } 
+  OPTIONAL { ?item wdt:P17 ?country } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?when
+|Upcoming

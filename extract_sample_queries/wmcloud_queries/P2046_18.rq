@@ -1,0 +1,11 @@
+#title: Check units
+# Complex constraint from [[Property talk:P2046]]
+# Unit must to be a [[d:Q1371562|unit of area <small>(Q1371562)</small>]]
+SELECT ?item ?unit
+WHERE {
+  ?item p:P2046/psv:P2046/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P31 wd:Q1371562.
+  }.
+  FILTER (?item NOT IN (wd:Q26002024, wd:Q26002011)).
+}

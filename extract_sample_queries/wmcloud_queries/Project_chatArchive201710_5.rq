@@ -1,0 +1,7 @@
+SELECT ?occupation ?occupationLabel ?superclass ?superclassLabel WHERE {
+ ?occupation (wdt:P279*) ?superclass.
+ ?superclass (wdt:P279) wd:Q901.
+ SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en".
+ }
+}

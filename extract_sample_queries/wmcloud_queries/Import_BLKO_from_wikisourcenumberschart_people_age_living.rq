@@ -1,0 +1,39 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("area" as ?type)
+  ("400" as ?height) 
+  ("300" as ?width) 
+  ("age at publication" as ?xAxisTitle) 
+  ("number of people" as ?yAxisTitle)
+  (GROUP_CONCAT(?age;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WITH
+{ SELECT ?volitem ?vol ?pub { ?volitem wdt:P179 wd:Q665807 ; wdt:P478 ?vol ; wdt:P577 ?pub }  } as %vol 
+WITH
+{
+  SELECT ?item ?age WHERE
+  {
+    ?entry wdt:P1433 wd:Q665807 . 
+    ?entry wdt:P921 ?item . 
+    ?item wdt:P570 ?dod . 
+    ?entry wdt:P478 ?vol . 
+    INCLUDE %vol
+    FILTER( ?dod > ?pub)
+    ?item wdt:P569 ?dob .
+    BIND( YEAR(?pub)-YEAR(?dob) as ?age)
+    ?item p:P570 / psv:P570 [ wikibase:timeValue ?dod ; wikibase:timePrecision ?prec2 ] .
+    ?item p:P569 / psv:P569 [ wikibase:timeValue ?dob ; wikibase:timePrecision ?prec1 ] .
+    FILTER( ?prec1 >8 && ?prec2 >8 )      
+  }
+} as %liv
+WHERE
+{
+  { SELECT ?age (COUNT(DISTINCT ?item) as ?count)
+  {
+    INCLUDE %liv
+    hint:Query hint:optimizer "None".
+  }
+  GROUP BY ?age
+  ORDER BY DESC(?age)
+  }
+}

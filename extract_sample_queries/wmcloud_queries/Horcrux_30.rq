@@ -1,0 +1,10 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q486972 ;
+     wdt:P17 wd:Q38 .
+  FILTER NOT EXISTS {
+    ?x schema:description ?desc 
+    FILTER (lang(?desc) = "it")
+  }
+}
+LIMIT 100000

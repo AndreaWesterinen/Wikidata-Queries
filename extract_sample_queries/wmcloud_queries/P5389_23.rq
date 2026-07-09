@@ -1,0 +1,26 @@
+PREFIX wdtp: <http://www.wikidata.org/prop/direct/P5389>
+#title:values with most statements
+SELECT ?value ?valueLabel ?valueDescription ?sts ?uses_of_value ?sample_use ?sample_useLabel
+WITH
+{
+    SELECT ?value (count(*) as ?uses_of_value) (SAMPLE(?i) as ?sample_use)
+    {      ?i wdtp: ?value    }
+    GROUP BY ?value
+    # HAVING( ?uses_of_value > 10 )               
+} as %allvalues
+WITH
+{
+  SELECT ?value ?sts ?uses_of_value ?sample_use
+  {    
+      INCLUDE %allvalues    
+      ?value wikibase:statements ?sts  
+  }
+  ORDER BY DESC(?sts) ?value
+  LIMIT 100
+} as %top100values  
+WHERE
+{
+	INCLUDE %top100values
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .}      
+}
+ORDER BY DESC(?sts) ?value

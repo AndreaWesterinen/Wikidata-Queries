@@ -1,0 +1,8 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?geo ?layer ?layerLabel WHERE
+{
+  ?item wdt:P31 ?layer.
+  ?item wdt:P276*/wdt:P131* wd:Q183036.
+  ?item wdt:P625 ?geo.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr,en,de". } 
+}

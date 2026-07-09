@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?constituencyLabel ?groupLabel ?starttime WHERE {
+  ?item p:P39 ?position;
+    wdt:P31 wd:Q5.
+  ?position ps:P39 wd:Q98077491;
+    pq:P768 ?constituency;
+    pq:P580 ?starttime;
+    pq:P4100 ?group.
+}

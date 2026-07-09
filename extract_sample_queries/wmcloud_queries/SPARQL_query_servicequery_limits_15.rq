@@ -1,0 +1,1 @@
+SELECT ?item WHERE { hint:Query hint:optimizer "None". { ?item wdt:P31 wd:Q13442814 . ?item wdt:P577 ?date } MINUS { ?item schema:description ?desc FILTER(LANG(?desc)="ru") }}

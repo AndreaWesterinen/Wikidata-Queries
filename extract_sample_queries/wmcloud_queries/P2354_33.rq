@@ -1,0 +1,19 @@
+#title: Lists about Argentina not values of P2354
+# Complex constraint from [[Property talk:P2354]]
+#
+SELECT ?item 
+WHERE
+{
+  ?item wdt:P31 wd:Q13406463; wdt:P17 wd:Q414 .
+  MINUS { _:b61 wdt:P2354 ?item. }
+  MINUS { _:b62 wdt:P1753 ?item. }
+  MINUS { ?item wdt:P1754 _:b63. }
+  MINUS { _:b64 wdt:P1811 ?item. }
+  MINUS { _:b65 wdt:P358 ?item. }
+  MINUS { _:b66 wdt:P1283 ?item. }
+  MINUS { _:b82 wdt:P1881 ?item. }
+  MINUS { _:b83 wdt:P1455 ?item. }
+  MINUS { _:b84 wdt:P1456 ?item. }
+  MINUS { _:b85 wdt:P5125 ?item. }     
+}
+LIMIT 100

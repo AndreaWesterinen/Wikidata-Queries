@@ -1,0 +1,10 @@
+PREFIX entity: <http://www.wikidata.org/entity/>
+
+SELECT ?taxon ?taxonname WHERE {
+  ?tree0 wdt:P171* ?taxon.
+  BIND(entity:Q1934004 AS ?tree0)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?taxon rdfs:label ?taxonname.
+  }
+}

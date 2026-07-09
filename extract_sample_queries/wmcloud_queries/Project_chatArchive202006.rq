@@ -1,0 +1,43 @@
+embed.html##defaultView:Map{"hide":["?st","?coor","?mass_kg","?height_m","?angle"]}
+#defaultView:ImageGrid{"hide":["?st","?coor","?mass_kg","?height_m","?angle","?img"]}
+SELECT DISTINCT
+  ?item ?itemLabel ?part_of ?part_ofLabel ?itemDescription ?typeLabel ?inception_ ?angle ?height_m ?img 
+  ?st 
+  ?coor ?country
+  ?steps_
+  ?bells_
+  (CONCAT("mass: ",str(?mass_kg)," kg") AS ?mass_)
+  ?height_
+  ?coor_
+  ?mats_
+  (CONCAT("angle: ",str(?angle),"°") AS ?angle_)
+WHERE
+{
+	?item wdt:P31/wdt:P279* wd:Q797765 . 
+    OPTIONAL { ?item wdt:P4183 ?angle }
+    OPTIONAL { ?item wdt:P18 ?img }  
+    OPTIONAL { ?item wdt:P571 ?inc . BIND(YEAR(?inc) as ?inception) }  
+    OPTIONAL { ?item wdt:P17 / p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?country ]  }  
+    OPTIONAL { ?item wikibase:statements ?st }
+    OPTIONAL { ?item p:P2048/psn:P2048/wikibase:quantityAmount ?height_m .  }
+    OPTIONAL { ?item p:P2067/psn:P2067/wikibase:quantityAmount ?mass .   BIND( ROUND(?mass/1000) as ?mass_kg) }  
+    OPTIONAL { ?item wdt:P625 ?coor }  
+    OPTIONAL { ?item p:P2670 [ ps:P2670 wd:Q1391831 ; pq:P1114 ?steps_qty ] }
+    OPTIONAL { ?item p:P2670 [ ps:P2670 wd:Q101401 ; pq:P1114 ?bells_qty ] }
+    OPTIONAL { ?item wdt:P361 ?part_of }
+    BIND( IF(BOUND(?steps_qty),(CONCAT("steps: ",str(?steps_qty))),"How many steps to the top?") AS ?steps_) 
+    BIND( IF(BOUND(?height_m),(CONCAT("height: ",str(ROUND(?height_m))," m")),"How high is it?") AS ?height_) 
+    BIND( IF(BOUND(?coor),"","What are its coordinates?") AS ?coor_) 
+    BIND( IF(BOUND(?inception),str(?inception),"When was it built?") AS ?inception_) 
+    OPTIONAL { ?item wdt:P31 wd:Q200334 . BIND("y" as ?isBT) }
+    BIND( IF(BOUND(?bells_qty), CONCAT("bells: ",str(?bells_qty)), IF(BOUND(?isBT), "How many bells?", "")) as ?bells_)
+    OPTIONAL {
+                SELECT ?item (GROUP_CONCAT(?mat1; separator="; ") as ?mats)
+                { ?item wdt:P186 ?mat0 ; wdt:P31/wdt:P279* wd:Q797765. 
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?mat0 rdfs:label ?mat1 }  } 
+                GROUP BY ?item 
+            }
+    BIND( IF(BOUND(?mats),?mats,"Which materials were used?") AS ?mats_) 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,it,es". }
+}
+ORDER BY (?item != wd:Q39054) (?item = wd:Q61602719) DESC(?angle) DESC(FLOOR(?st/5)) DESC(?height_m) ?item

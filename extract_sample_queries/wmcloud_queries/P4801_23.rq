@@ -1,0 +1,9 @@
+#title: Check prefix 'ethnographicTerms'
+# Complex constraint from [[Property talk:P4801]]
+#
+SELECT ?item ?marc ?prefix {
+  ?item wdt:P4801 ?marc.
+  BIND (STRBEFORE(?marc, "/") AS ?prefix).
+  FILTER (?prefix IN ("ethnographicTerms"))
+  FILTER (REGEX(?marc, "^(ethnographicTerms\\/afset\\d{6})$") = false)
+}

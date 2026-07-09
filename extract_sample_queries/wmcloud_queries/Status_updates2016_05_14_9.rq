@@ -1,0 +1,8 @@
+# Gotta catch 'em all
+SELECT ?pokemon ?pokemonLabel ?pokedexNumber
+WHERE
+{
+  	?pokemon wdt:P31 wd:Q3966183.
+    ?pokemon wdt:P1112 ?pokedexNumber
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY (?pokedexNumber)

@@ -1,0 +1,4 @@
+#title: Qualifier of P1476 only
+# Complex constraint from [[Property talk:P6835]]
+# Is defined as a qualifier of [[Property:P1476|title&#32;<small dir="ltr">(P1476)</small>]], not other properties
+SELECT ?item ?p WHERE { ?st pq:P6835 [] . MINUS { ?item p:P1476 ?st } MINUS { ?item p:P1855 ?st } ?item ?p ?st }

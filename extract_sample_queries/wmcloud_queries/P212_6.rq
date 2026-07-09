@@ -1,0 +1,5 @@
+SELECT ?isbn10 ?statement WHERE {
+ ?statement prov:wasDerivedFrom ?ref .
+ ?ref pr:P957 ?isbn10 .
+ FILTER (CONTAINS(lcase(?isbn10), lcase("$1")))
+}

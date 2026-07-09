@@ -1,0 +1,14 @@
+# Monuments in Switzerland by language
+#defaultView:BubbleChart
+SELECT ( COUNT(*) AS ?count ) ?itemLang WHERE {
+  BIND( LANG( ?itemLabel ) as ?itemLang ).
+  ?item wdt:P1435 [];
+        wdt:P381 [];
+        wdt:P18 [].
+  ?item rdfs:label ?itemLabel.
+  MINUS {
+    ?item wdt:P373 [].
+  }
+}
+GROUP BY ?itemLang
+ORDER BY DESC( ?count )

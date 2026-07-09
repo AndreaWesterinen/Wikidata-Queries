@@ -1,0 +1,10 @@
+#title: Label of season should be different from series
+# Complex constraint from [[Property talk:P4908]]
+# Seasons generally have a label in the format "[name of series], season [number]". Sometimes bot create items stripping the season number. Limited to English. See [[Wikidata:WikiProject_Movies/reports/TV_seasons/label/as_series]].
+SELECT ?item ?series ?l 
+WHERE
+{
+    [ ] wdt:P4908 ?item . ?item wdt:P31 wd:Q3464665 ; wdt:P179 ?series ; rdfs:label ?l . ?series rdfs:label ?l .
+    FILTER(lang(?l)="en")
+    filter ( ?item != ?series)
+}

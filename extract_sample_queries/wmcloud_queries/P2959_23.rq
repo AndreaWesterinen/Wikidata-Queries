@@ -1,0 +1,18 @@
+#title: Items for permanent duplicates and statements
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: TBD (remove statements other than P31=Q21286738 and P2959?)
+SELECT DISTINCT ?item #?itemLabel ?itemDescription ?value ?valueLabel ?valueDescription ?main ?mainLabel
+{
+	hint:Query hint:optimizer "None" .	
+  	?item wdt:P2959 ?main .
+  	?item wdt:P31 wd:Q21286738 .
+  	?item ?wdt ?value .
+  	?prop wikibase:directClaim ?wdt .
+  	FILTER ( ?wdt NOT IN ( wdt:P2959 ) )
+  	FILTER ( ?value NOT IN ( wd:Q21286738  ) )  
+  	FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 }  # skip  categories
+  	FILTER NOT EXISTS { ?item wdt:P31 wd:Q11266439 } # skip  templates
+  	#SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ASC(xsd:integer(STRAFTER(str(?item), "Q")))
+LIMIT 500

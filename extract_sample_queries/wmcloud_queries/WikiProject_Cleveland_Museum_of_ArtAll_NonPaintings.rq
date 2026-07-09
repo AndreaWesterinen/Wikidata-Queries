@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P195 wd:Q657415.
+  FILTER (
+    NOT EXISTS { ?item wdt:P31 wd:Q3305213 }
+  )
+}

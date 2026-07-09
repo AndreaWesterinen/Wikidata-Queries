@@ -1,4 +1,3 @@
-# ----
 # Illustrates optional fields, instances of subclasses, language fallback on label service, date to year conversion
 #title: Horses on Wikidata
 SELECT DISTINCT ?horse ?horseLabel ?mother ?motherLabel ?father ?fatherLabel (year(?birthdate) as ?birthyear) (year(?deathdate) as ?deathyear) ?genderLabel

@@ -1,0 +1,10 @@
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+SELECT ?item ?player ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q107185688. 
+  OPTIONAL {?item p:P710 ?playerSet . 
+  ?playerSet v:P710 ?player .
+  ?playerSet pq:P413 ?position FILTER(?position = wd:Q715772)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

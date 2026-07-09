@@ -1,0 +1,9 @@
+#Number of entities that use archivesAt
+#counted by repository, written by @erussey
+#illustrates bubblechart view, count
+#defaultView:BubbleChart
+SELECT ?archives_atLabel (COUNT(?items) AS ?count) WHERE {
+  ?items wdt:P485 ?archives_at.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?archives_atLabel

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  VALUES ?type {wd:Q3957 wd:Q515 wd:Q532 wd:Q486972 wd:Q4229812 wd:Q1963041}
+  ?item wdt:P31 ?type .   
+  ?item wdt:P17 wd:Q217 . 
+}

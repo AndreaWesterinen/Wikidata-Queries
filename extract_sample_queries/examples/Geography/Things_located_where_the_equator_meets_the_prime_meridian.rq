@@ -1,3 +1,4 @@
+#title: Things located where the equator meets the prime meridian
 SELECT ?place ?placeLabel ?location
 WHERE
 {

@@ -1,0 +1,2 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity dct:language wd:Q12107 ; wikibase:lexicalCategory ?cat ; wikibase:statements ?st 
+GROUP BY ?l ?cat ?st.}

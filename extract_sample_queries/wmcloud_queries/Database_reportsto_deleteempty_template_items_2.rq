@@ -1,0 +1,5 @@
+SELECT ?item (CONCAT("\u007C {","{rfd links\u007C",strafter(str(?item), "entity/"),"\u007Cfrom [[Wikidata:Database reports/to delete/empty template items]]}","}") as ?del)
+{
+	?item wdt:P31/wdt:P279* wd:Q11266439; wikibase:sitelinks 0
+}
+ORDER BY ?item

@@ -1,0 +1,6 @@
+#title: Value can't be an individual Wikimedia category item.
+# Complex constraint from [[Property talk:P301]]
+# Value of [[Property:P301|category&#39;s main topic&#32;<small dir="ltr">(P301)</small>]] shouldn't be an [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] [[d:Q4167836|Wikimedia category <small>(Q4167836)</small>]] or any of its subclasses. This can happen as a result of an incorrect merge, or because a category sitelink is linked to a non-category item. In the later case, bots might change that non-category item into a category item.
+SELECT ?item WHERE {
+  ?item (wdt:P301/wdt:P31/wdt:P279*) wd:Q4167836 .
+}

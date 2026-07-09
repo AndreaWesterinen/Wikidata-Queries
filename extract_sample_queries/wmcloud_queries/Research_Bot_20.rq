@@ -1,0 +1,8 @@
+SELECT DISTINCT ?venue ?venueLabel WHERE {
+  ?item wdt:P1433 ?venue ;
+        wdt:P921 ?papertopic ;
+        wdt:P698 ?pmid.
+  MINUS { ?venue wdt:P921 ?topic }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

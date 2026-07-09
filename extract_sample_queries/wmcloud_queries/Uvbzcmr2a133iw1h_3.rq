@@ -1,0 +1,4 @@
+SELECT ?item ?spouse ?start ?end {
+  ?item p:P26 [ ps:P26 ?spouse; pq:P580 ?start; pq:P582 ?end ] .
+  FILTER( ?start > ?end ) .
+} ORDER BY ?start ?end

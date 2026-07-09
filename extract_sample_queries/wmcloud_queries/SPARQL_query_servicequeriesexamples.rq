@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?time0Label WHERE {
+  ?item (wdt:P106/wdt:P279*) wd:Q715301.
+  ?item wdt:P570 ?time0.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr,en". }
+  FILTER((?time0 >= "2018-01-01T00:00:00Z"^^xsd:dateTime) && (?time0 <= "2030-01-01T00:00:00Z"^^xsd:dateTime))
+}
+ORDER BY DESC(?time0)

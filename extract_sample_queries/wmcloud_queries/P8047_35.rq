@@ -1,0 +1,7 @@
+#title: Warships are generally not registered
+# Complex constraint from [[Property talk:P8047]]
+# Warships in active naval use are generally not registered by the states controlling the warships. It is possible that former warships are converted to merchant/civilian use, in which case registration would become necessary. It is also possible that registration is required during construction of a warship whilst a civilian shipbuilder is performing sea trials and before commissioning of the warship into a navy. The constraint SPARQL query is currently not complex enough to factor in these less common scenarios and a small number of false positives therefore may be returned for this constraint.
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q3114762;
+        wdt:P8047 ?registration_country.
+}

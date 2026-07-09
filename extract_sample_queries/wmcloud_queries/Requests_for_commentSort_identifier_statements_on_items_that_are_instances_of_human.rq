@@ -1,0 +1,5 @@
+SELECT (COUNT(?item) AS ?count)
+WHERE {
+ ?item wdt:P31 wd:Q5 ;
+ wdt:P213 []
+}

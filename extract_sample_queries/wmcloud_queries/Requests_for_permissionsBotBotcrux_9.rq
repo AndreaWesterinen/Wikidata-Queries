@@ -1,0 +1,7 @@
+SELECT DISTINCT ?x ( CONCAT("https://www.idref.fr/", ?id) as ?url )
+WHERE {
+  ?x wdt:P31 wd:Q5 .   
+  ?x wdt:P269 ?id .
+  FILTER NOT EXISTS { ?x wdt:P1412 ?lang . }
+ }
+LIMIT 250000

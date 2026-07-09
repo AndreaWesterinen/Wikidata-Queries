@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P131 wd:Q11703 . MINUS { ?item wdt:P17 wd:Q30 } }  LIMIT 4000

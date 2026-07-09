@@ -1,0 +1,9 @@
+SELECT ?subj ?coord ?elev ?country
+WHERE
+{
+	?subj wdt:P2044 ?elev	filter(?elev > 8000) .
+	?subj wdt:P625 ?coord .
+	#OPTIONAL{?subj wdt:P17 ?country }. FILTER( (!BOUND(?country)) ||  (?country NOT IN (wd:Q30,wd:Q148) ))   
+	OPTIONAL{?subj wdt:P17 ?country }. VALUES ?exclude {wd:Q30 wd:Q148} . MINUS {?subj wdt:P17 ?exclude}    
+  	#OPTIONAL{?subj wdt:P17 ?country }. FILTER( (!BOUND(?country)) ||  (?country!=wd:Q30) )   
+}

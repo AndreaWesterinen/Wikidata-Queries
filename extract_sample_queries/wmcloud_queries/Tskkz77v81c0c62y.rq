@@ -1,0 +1,5 @@
+select ?item ?pagename {
+?item wdt:P31 wd:Q17633526 .
+?sitelink schema:about ?item ; schema:name ?pagename ; schema:isPartOf/wikibase:wikiGroup "wikinews" .
+filter (regex(str(?pagename), "[^ 0-9]:[^ ]")) .
+} order by ?pagename

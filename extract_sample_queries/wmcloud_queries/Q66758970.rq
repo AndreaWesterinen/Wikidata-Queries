@@ -1,0 +1,10 @@
+SELECT ?item ?named ?pages ?author (CONCAT("[[:w:en:",?lemma,"]]") AS ?wikipedia) WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P1343 wd:Q66758970.
+  ?item p:P1343 ?statement.
+  OPTIONAL {?statement pq:P1810 ?named ; ps:P1343 wd:Q66758970.}
+  OPTIONAL {?statement pq:P304 ?pages ; ps:P1343 wd:Q66758970.}
+  OPTIONAL {?sitelink schema:about ?item;
+    schema:isPartOf <https://en.wikipedia.org/>;
+    schema:name ?lemma.  }
+  }

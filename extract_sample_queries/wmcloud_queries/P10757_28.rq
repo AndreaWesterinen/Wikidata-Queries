@@ -1,0 +1,25 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#Sample query to start a list of values for property P10757
+#Remove some of the "#" below to see if it helps you
+
+SELECT ?item ?itemLabel ?rkdurl #?value ?valueLabel
+#sample variables defined below (but commented out)
+?dob ?dod ?country
+WHERE
+{
+  ?item wdt:P10757 ?value .
+    ?item wdt:P10757 ?rkdid .
+wd:P10757 wdt:P1630 ?formatterurl .
+    BIND(IRI(REPLACE(?rkdid, '^(.+)$', ?formatterurl)) AS ?rkdurl).
+  OPTIONAL {?item wdt:P569 ?dob } .
+  OPTIONAL {?item wdt:P570 ?dod } .
+  OPTIONAL {?item wdt:P17 ?country} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en-gb,en"  }
+}
+LIMIT 10

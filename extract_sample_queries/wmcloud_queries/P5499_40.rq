@@ -1,0 +1,9 @@
+#title: Artworks with creator not linked to Boijmans artists
+# Complex constraint from [[Property talk:P5499]]
+# Items that have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]], but that item doesn't have [[Property:P3888|Boijmans artist ID&#32;<small dir="ltr">(P3888)</small>]]. Missing link can probably be added
+SELECT DISTINCT ?item ?creator WHERE {
+  ?item wdt:P5499 ?value;
+    wdt:P170 ?creator.
+  ?creator wdt:P31 wd:Q5.
+  MINUS { ?creator wdt:P3888 [] }
+} LIMIT 500

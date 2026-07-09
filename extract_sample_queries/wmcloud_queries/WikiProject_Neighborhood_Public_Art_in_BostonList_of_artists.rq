@@ -1,0 +1,4 @@
+select ?item where { 
+?item wdt:P5008 wd:Q108040915;
+wdt:P31 wd:Q5. 
+}

@@ -1,0 +1,5 @@
+embed.html#select ?s ?label where {
+  ?s wdt:P31 wd:Q61925311;
+     rdfs:label ?label.
+  FILTER (lang(?label)="ja")
+}

@@ -1,0 +1,8 @@
+#Unique value constraint report for P2949: report listing each item
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value ?id ?item2Description
+{
+	?item1 wdt:P2949 ?value . ?item2 wdt:P2949 ?value .
+    { ?item1 wdt:P1614 ?id } union { ?item1 wdt:P2015 ?id }
+	FILTER( ?item1 != ?item2 ) . SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+order by ?item1

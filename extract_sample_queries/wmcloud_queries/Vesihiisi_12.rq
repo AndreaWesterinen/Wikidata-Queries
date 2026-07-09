@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?occLabel ?year
+WHERE 
+{
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P106 ?occ.
+  VALUES (?occ) {
+    (wd:Q14467526) #linguist
+    (wd:Q13418253) #philologist
+    (wd:Q16267607) #classical philologist
+    (wd:Q14972848) #lexicographer
+    (wd:Q1792450) #art historian
+    (wd:Q13570226) #literary historian
+  }
+  ?item wdt:P27 wd:Q34.
+  ?item wdt:P570 ?death.
+  BIND(str(YEAR(?death)) AS ?year)
+  FILTER ( YEAR(?death) <= 1948)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?year)

@@ -1,0 +1,9 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?item ?itemLabel ?lb_num WHERE {
+  ?item wdt:P31 wd:Q811979.
+  ?item wdt:P709 ?lb_num.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+
+}

@@ -1,0 +1,10 @@
+SELECT  ?iso2 ?item (COUNT(?item) AS ?count)
+WHERE
+{
+  ?item wdt:P297 ?iso2 .
+  OPTIONAL{?item wdt:P402 ?osm_id .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?iso2 ?item
+HAVING (COUNT(?item) >1)
+ORDER BY ?iso2

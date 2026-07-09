@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?property ?propertyLabel WITH {
+  SELECT DISTINCT ?property ?propertyLabel ?p WHERE {
+    ?property wdt:P31/wdt:P279* wd:Q30041186; wikibase:propertyType wikibase:ExternalId; wikibase:claim ?p .
+    ?property rdfs:label ?propertyLabel . FILTER(LANG(?propertyLabel) = 'en') .
+  }
+} AS %subquery1 WITH {
+  SELECT DISTINCT ?item ?property ?propertyLabel WHERE {
+    INCLUDE %subquery1 .
+    ?item wikibase:identifiers 1; wikibase:sitelinks 0; ?p [] .
+  }
+} AS %subquery2 WHERE {
+  INCLUDE %subquery2 .
+  MINUS { [] schema:about ?item }
+  MINUS { [] ?any ?item }
+  MINUS { ?item ?any [ prov:wasDerivedFrom [ ?pr [] ] ] . FILTER(?pr NOT IN (pr:P813, pr:P143, pr:P4656, pr:P3452, pr:P887)) }
+  MINUS { ?item p:P528|p:P973|p:P1343|p:P166|p:P5008 [] }
+} ORDER BY ASC(xsd:integer(STRAFTER(STR(?item), 'Q')))

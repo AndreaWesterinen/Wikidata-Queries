@@ -1,0 +1,11 @@
+#title: wikia still used
+# Complex constraint from [[Property talk:P6720]]
+# wikia generally changed to fandom.com. If the specific site changed, you may want to request an update at [[m:Talk:Interwiki_map#Requests_for_updates]]. Once the interwiki table updated, add the new formatter with preferred [[Help:Ranking|rank]].
+SELECT ?item ?iw (CONCAT("[[",?iw,":]]") as ?iwlinked) ?f
+{
+  ?item p:P6720 ?st . 
+  ?st ps:P6720 ?iw . 
+  ?st pq:P1630 ?f . 
+  ?st a wikibase:BestRank .
+  FILTER( CONTAINS( ?f, "wikia.com") )
+}

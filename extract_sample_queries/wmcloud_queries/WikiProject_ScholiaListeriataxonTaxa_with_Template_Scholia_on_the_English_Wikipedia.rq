@@ -1,0 +1,22 @@
+SELECT 
+  DISTINCT ?item 
+WHERE {
+  ?item wdt:P31 wd:Q16521.
+    
+  {   
+   SELECT ?item ?pageid 
+                ?ns WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Scholia" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+      ?pageid wikibase:apiOutput "@pageid" .
+      ?ns wikibase:apiOutput "@ns" .
+    }
+  } LIMIT 10000
+ }
+
+}

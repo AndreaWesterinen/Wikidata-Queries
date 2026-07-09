@@ -1,0 +1,12 @@
+#title: Items with P31 = [[d:Q21286738|Wikimedia permanent duplicate item <small>(Q21286738)</small>]] and P460
+# Complex constraint from [[Property talk:P2959]]
+# FIXME: Add P2959 or remove P31=Q21286738, probably replace P460
+SELECT ?item #?itemLabel ?itemDescription ?value ?valueLabel ?valueDescription
+{
+  	?item wdt:P31 wd:Q21286738 .
+  	?item wdt:P460 ?value .
+  	MINUS { ?item wdt:P2959 [] } .
+  	MINUS { ?item wdt:P31 wd:Q4167836 } . #maybe as well
+  	#SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+}
+ORDER BY ASC(xsd:integer(STRAFTER(str(?item), "Q")))

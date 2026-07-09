@@ -1,0 +1,11 @@
+#defaultView:BubbleChart
+SELECT ?cause ?causeLabel (COUNT(?person) AS ?count)
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          wdt:P509 ?cause;
+          wdt:P91 wd:Q6636.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?cause ?causeLabel
+ORDER BY DESC(?count)

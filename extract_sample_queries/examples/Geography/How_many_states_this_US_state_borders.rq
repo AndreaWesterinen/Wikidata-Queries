@@ -1,3 +1,4 @@
+#title: How many states this US state borders
 SELECT ?state ?stateLabel ?borders
 WHERE
 {

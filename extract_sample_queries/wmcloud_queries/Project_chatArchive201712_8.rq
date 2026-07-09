@@ -1,0 +1,33 @@
+embed.html#SELECT ?item ?date1 ?precision1 ?calendar1 ?r1 ?rank1 ?refurl1 ?statedin1Label ?i1 ?date2 ?precision2 ?calendar2 ?r2 ?rank2 ?refurl2 ?statedin2Label ?i2 WHERE
+{
+  ?item wdt:P3217 ?sbl .
+  ?item p:P569 ?date1stm .
+  ?date1stm psv:P569 ?date1node .
+  ?date1node wikibase:timeValue ?date1 .
+  ?date1node wikibase:timePrecision ?precision1 .
+  ?date1node wikibase:timeCalendarModel ?cal1 .
+  BIND(IF(?cal1=wd:Q1985727,'Gregorian',IF(?cal1= wd:Q1985786, 'Julian', '?')) AS ?calendar1) 
+  ?date1stm wikibase:rank ?r1 .
+  BIND(IF(?r1=wikibase:PreferredRank,'Preferred',IF(?r1= wikibase:NormalRank, 'Normal', 'Deprecated')) AS ?rank1) 
+  OPTIONAL { ?date1stm prov:wasDerivedFrom ?ref1.
+     OPTIONAL { ?ref1 pr:P854 ?refurl1 . }
+     OPTIONAL { ?ref1 pr:P248 ?statedin1 . }
+     OPTIONAL { ?ref1 pr:P143/wdt:P424 ?i1 . }
+  }
+  ?item p:P569 ?date2stm .
+  ?date2stm psv:P569 ?date2node .
+  ?date2node wikibase:timeValue ?date2 . 
+  ?date2node wikibase:timePrecision ?precision2 .
+  ?date2node wikibase:timeCalendarModel ?cal2 .
+  BIND(IF(?cal2=wd:Q1985727,'Gregorian',IF(?cal2= wd:Q1985786, 'Julian', '?')) AS ?calendar2) 
+  ?date2stm wikibase:rank ?r2 .
+  BIND(IF(?r2=wikibase:PreferredRank,'Preferred',IF(?r2= wikibase:NormalRank, 'Normal', 'Deprecated')) AS ?rank2)
+  OPTIONAL { ?date2stm prov:wasDerivedFrom ?ref2 .
+     OPTIONAL { ?ref2 pr:P854 ?refurl2 . }
+     OPTIONAL { ?ref2 pr:P248 ?statedin2 . }
+     OPTIONAL { ?ref2 pr:P143/wdt:P424 ?i2 . }
+  }
+  FILTER(?date1<?date2)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,sv". }
+}
+ORDER BY ?item ?refurl1 ?refurl2

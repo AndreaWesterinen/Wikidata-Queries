@@ -1,0 +1,4 @@
+SELECT ?eponym (COUNT(?item) AS ?count) (SAMPLE(?item) AS ?sample)
+WHERE { ?item wdt:P138 ?eponym. }
+GROUP BY ?eponym
+ORDER BY DESC(?count)

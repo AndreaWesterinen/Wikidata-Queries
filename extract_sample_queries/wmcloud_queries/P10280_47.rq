@@ -1,0 +1,10 @@
+#title: subclasses of honorary citizenship without a category
+# Complex constraint from [[Property talk:P10280]]
+# todo: TBD, if there is s category: link it
+SELECT DISTINCT ?item ?c
+{ 
+  ?item wdt:P279+ wd:Q987080.
+  FILTER NOT EXISTS { ?item wdt:P910 [ ] }
+  FILTER NOT EXISTS { ?item wdt:P2517 [ ] }  
+  OPTIONAL { ?item wdt:P17/wdt:P297 ?c }
+}

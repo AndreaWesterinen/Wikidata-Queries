@@ -1,0 +1,10 @@
+#title:Femmes espérantistes n'ayant pas de page sur frWP
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5 ;
+        wdt:P106 wd:Q860918 ;
+        wdt:P21 wd:Q6581072 .
+  FILTER NOT EXISTS { 
+    ?article schema:about ?item .
+    ?article schema:isPartOf <https://fr.wikipedia.org/>
+  }
+}

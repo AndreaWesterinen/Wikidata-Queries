@@ -1,0 +1,11 @@
+# office-holders convicted of crimes
+SELECT ?person ?personLabel (GROUP_CONCAT(DISTINCT ?positionLabel; separator=", ") AS ?positions) (GROUP_CONCAT(DISTINCT ?crimeLabel; separator=", ") AS ?crimes) WHERE {
+ ?person wdt:P31 wd:Q5;
+ wdt:P39 ?position;
+ wdt:P1399 ?crime.
+ OPTIONAL { ?person rdfs:label ?personLabel. FILTER(LANG(?personLabel) = "en"). }
+ OPTIONAL { ?position rdfs:label ?positionLabel. FILTER(LANG(?positionLabel) = "en"). }
+ OPTIONAL { ?crime rdfs:label ?crimeLabel. FILTER(LANG(?crimeLabel) = "en"). }
+}
+GROUP BY ?person ?personLabel
+ORDER BY DESC(COUNT(DISTINCT ?crime)) ?crimes

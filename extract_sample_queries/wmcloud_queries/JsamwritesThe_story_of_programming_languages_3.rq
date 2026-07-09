@@ -1,0 +1,7 @@
+SELECT (str(?year) AS ?year) (count(DISTINCT ?lang) as ?count)
+WHERE {
+  ?lang wdt:P31/wdt:P279* wd:Q9143;
+        wdt:P571 ?day.
+  BIND( year(?day) as ?year ).
+}
+GROUP by ?year

@@ -1,0 +1,13 @@
+SELECT ?pob ?enname ?ssc WHERE {
+  ?pob wdt:P17 wd:Q408 .
+
+  ?pob rdfs:label ?cebname 
+  FILTER((LANG(?cebname)) = "ceb")
+  FILTER (CONTAINS(str(?cebname),'(bahin nga lungsod)'))
+
+  ?pob rdfs:label ?enname 
+  FILTER((LANG(?enname)) = "en")
+
+  OPTIONAL{?pob wdt:P4093 ?ssc .}
+  FILTER(!BOUND(?ssc) )
+}

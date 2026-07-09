@@ -1,0 +1,9 @@
+# Australian taxa without taxon authors 
+SELECT ?item ?taxon_name ?APNILink   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  ?item wdt:P5984 ?apni_id.
+  bind(uri(concat("https://biodiversity.org.au/nsl/services/rest/name/apni/",?apni_id)) as ?APNILink)  
+  MINUS {?stat pq:P405 ?taxon_author.} 
+}

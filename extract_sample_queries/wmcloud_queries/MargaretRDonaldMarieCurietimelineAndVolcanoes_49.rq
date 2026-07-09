@@ -1,0 +1,8 @@
+SELECT ?museum ?museumLabel ?located_in_the_administrative_territorial_entity ?located_in_the_administrative_territorial_entityLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?museum wdt:P31 wd:Q207694.
+  OPTIONAL {  }
+  OPTIONAL {  }
+  ?museum wdt:P17 wd:Q408.
+  OPTIONAL { ?museum wdt:P131 ?located_in_the_administrative_territorial_entity. }
+}

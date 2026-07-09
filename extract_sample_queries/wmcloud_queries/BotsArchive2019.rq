@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q11424 ; rdfs:label ?en . FILTER(lang(?en)="en" && CONTAINS( str(?en), "(") )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

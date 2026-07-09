@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT DISTINCT ?site ?siteLabel ?coordinates ?image WHERE {
+  ?site (wdt:P31/(wdt:P279*)) wd:Q2175765;
+    wdt:P17 wd:Q142;
+    wdt:P625 ?coordinates.
+  OPTIONAL { ?site wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

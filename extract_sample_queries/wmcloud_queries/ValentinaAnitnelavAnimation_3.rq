@@ -1,0 +1,35 @@
+embed.html##Disney's character animators by the number of characters they worked on
+
+SELECT ?animatorLabel ?sitelink (group_concat(DISTINCT ?label;separator=", ") as ?characters) (COUNT(DISTINCT ?character) AS ?number)  
+WHERE
+{
+  #getting the films
+   ?film1 wdt:P179 wd:Q56070713;
+          wdt:P136 wd:Q28968511.
+  
+  #getting possible parts of package films
+  ?film wdt:P361* ?film1.
+  
+  #getting the characters appearing in those films
+  ?character p:P767 ?st1;
+             rdfs:label ?label;
+             wdt:P1441 ?film.
+  
+  #getting the animators
+  ?st1 ps:P767 ?animator;
+       (pq:P794 | pq:P3831) ?role.
+  
+  #getting the sitelinks
+  OPTIONAL
+  {
+    ?sitelink schema:about ?animator;
+              schema:isPartOf <https://en.wikipedia.org/> ;
+              schema:inLanguage "en".
+  } 
+
+  FILTER(?role = wd:Q266569 || ?role =  wd:Q28122926 || ?role =  wd:Q28007056)
+  FILTER (lang(?label) = "en")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?animatorLabel ?sitelink
+ORDER BY DESC(?number)

@@ -1,0 +1,8 @@
+#title: Without P31 and P279
+# Complex constraint from [[Property talk:P2548]]
+#
+SELECT ?item {
+  ?item wdt:P2548 [].
+  MINUS {?item p:P31 []}.
+  MINUS {?item p:P279 []}
+}

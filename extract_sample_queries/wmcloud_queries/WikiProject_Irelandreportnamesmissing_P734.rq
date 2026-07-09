@@ -1,0 +1,15 @@
+SELECT ?item ?spaces ?itemAltLabel ?l ?O ?last ?aftercomma
+WHERE
+{
+	?item wdt:P27 wd:Q27; wdt:P31 wd:Q5 .
+	MINUS { ?item p:P734 [] }
+	MINUS { ?item wdt:P570 ?dod . FILTER(YEAR(?dod) <1400) }
+	MINUS { ?item wdt:P569 ?dob . FILTER(YEAR(?dob) <1400) }
+	MINUS { ?item wdt:P1317 ?dfl . FILTER(YEAR(?dfl) <1400) }
+	MINUS { ?item p:P570/pq:latest ?dod2 . FILTER(YEAR(?dod2) <1400) }
+	OPTIONAL
+	{
+	      ?item rdfs:label ?l . FILTER(lang(?l)="en") .
+	      BIND( strlen(?l) - strlen(REPLACE(str(?l)," ", "")) as ?spaces)
+	      BIND( REPLACE(str(?l), "^[^,]+ ([^ ,]+)(, .+)?$","$1") as ?last)
+	      BIND( IF(  REGEX(str(strbefore(CONCAT(?l,","), ",")), "^.+ ([ÓO]

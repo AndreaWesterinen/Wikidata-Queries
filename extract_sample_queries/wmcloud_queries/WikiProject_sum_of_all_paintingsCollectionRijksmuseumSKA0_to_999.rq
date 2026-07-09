@@ -1,0 +1,11 @@
+SELECT ?item ?inv (year(?collectiondate) as ?collectionyear) ?rkdurl WHERE {
+  wd:P350 wdt:P1630 ?formatterurl .
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q190804 .
+  ?item wdt:P217 ?inv .
+  FILTER regex(?inv, "^SK-A-\\d{1,3}(-\\w)?$") 
+  OPTIONAL { ?collectionstatement pq:P580 ?collectiondate }  .
+  OPTIONAL { ?item wdt:P350 ?rkdid }.
+  BIND(REPLACE(?rkdid, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?rkdurl)  .
+  } ORDER BY xsd:integer(REPLACE(?inv, "^SK-A-(\\d+)(-\\w)?$", "$1")) ?inv
+LIMIT 2000

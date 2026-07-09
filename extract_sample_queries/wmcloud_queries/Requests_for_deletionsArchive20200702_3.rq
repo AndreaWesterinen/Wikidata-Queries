@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel (COUNT(?any) AS ?cnt) WHERE {
+  ?item wdt:P279+ wd:Q21073937; wdt:P17 wd:Q668 .
+  OPTIONAL { [] ?any ?item }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?item ?itemLabel

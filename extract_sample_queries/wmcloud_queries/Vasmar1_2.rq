@@ -1,0 +1,6 @@
+#IMO number
+SELECT ?item ?itemLabel ?imo WHERE {
+  ?item wdt:P373 ?imo.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+  FILTER(STRSTARTS(?imo, "IMO"))
+}

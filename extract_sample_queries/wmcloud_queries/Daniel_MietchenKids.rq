@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT * WHERE {
+ ?painting wdt:P31 wd:Q3305213 ;
+           wdt:P180 ?topic ;
+           wdt:P18 ?image .
+ { ?topic wdt:P31*/wdt:P279* wd:Q11422 .}
+  UNION
+ { ?topic wdt:P31*/wdt:P279* wd:Q11410 .}
+  UNION
+ { ?topic wdt:P31*/wdt:P279* wd:Q7569 .}
+}

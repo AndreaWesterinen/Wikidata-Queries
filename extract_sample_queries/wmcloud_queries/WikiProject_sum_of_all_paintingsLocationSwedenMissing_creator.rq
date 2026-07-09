@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P195 ?collection .
+  ?collection wdt:P17 wd:Q34
+  MINUS { ?item p:P170 [] } .
+  OPTIONAL { ?item schema:description ?description .  FILTER (LANG(?description) = "en") }
+  } ORDER BY ?description

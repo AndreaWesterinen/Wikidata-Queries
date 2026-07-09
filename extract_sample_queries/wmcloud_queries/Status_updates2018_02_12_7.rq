@@ -1,0 +1,9 @@
+# Female UK MPs (past & present) whose ancestors were MPs 
+SELECT ?mpLabel ?ancestorLabel
+WHERE {
+  ?mp wdt:P39 wd:Q16707842 ;         #subject is/was a UK MP
+      wdt:P21 wd:Q6581072 ;          #subject is female
+      (wdt:P25|wdt:P22)+ ?ancestor . #find subject's ancestors
+  ?ancestor wdt:P39 wd:Q16707842 .   #ancestor was/is a UK MP
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

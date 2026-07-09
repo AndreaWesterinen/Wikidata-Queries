@@ -1,0 +1,29 @@
+#Animated films by country
+SELECT DISTINCT ?country ?countryLabel (ROUND((?animatedFilmCount / ?filmCount)*100) AS ?animatedFilmShare) ?animatedFilmCount ?filmCount
+WHERE
+{
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+{
+SELECT DISTINCT ?country (COUNT(DISTINCT ?animatedFilm) AS ?animatedFilmCount) (COUNT(DISTINCT ?film) AS ?filmCount)
+WHERE 
+{
+  ?film wdt:P31/wdt:P279* wd:Q11424; wdt:P495 ?country.
+  
+  #excluding film series
+  MINUS{?film wdt:P31/wdt:P279* wd:Q24856}
+  MINUS{?film wdt:P31/wdt:P279* wd:Q5398426}
+  
+  OPTIONAL{
+  {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866} UNION
+  {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107}
+    BIND(?film AS ?animatedFilm)
+  }
+
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?filmCount)
+}
+}
+GROUP BY ?country ?countryLabel ?animatedFilmCount ?filmCount
+HAVING(?filmCount > 10)
+ORDER BY DESC(?animatedFilmShare)

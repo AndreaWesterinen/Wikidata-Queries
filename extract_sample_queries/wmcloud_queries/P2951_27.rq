@@ -1,0 +1,21 @@
+#title: Single value constraint violation not marked as an exception
+# Complex constraint from [[Property talk:P2951]]
+# either fix or mark as an exception (add object causing the contraint violation to [[Property:P2951|Cultural heritage database in Austria ObjektID&#32;<small dir="ltr">(P2951)</small>]], Property [[Property:P2302|property constraint&#32;<small dir="ltr">(P2302)</small>]],  [[d:Q19474404|single-value constraint <small>(Q19474404)</small>]], qualifier [[Property:P2303|exception to constraint&#32;<small dir="ltr">(P2303)</small>]]
+SELECT DISTINCT ?item ?count ?sample1 ?sample2
+WHERE
+{
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2) {
+			?item wdt:P2951 ?val .
+			OPTIONAL { wd:P2951 wdt:P1630 ?formatter } .
+			BIND( IF( BOUND( ?formatter ), URI( REPLACE( ?formatter, '\\$1', ?val ) ), ?val ) AS ?value ) .
+		} GROUP BY ?item HAVING ( ?count > 1 ) LIMIT 500
+	} .
+	OPTIONAL {
+		wd:P2951 p:P2302 [ ps:P2302 wd:Q19474404; pq:P2303 ?exc ] .
+		FILTER( ?exc = ?item ) .
+	} .
+	BIND( BOUND( ?exc ) AS ?exception ) .
+	FILTER (?exception = false) .
+}
+ORDER BY DESC(?count)

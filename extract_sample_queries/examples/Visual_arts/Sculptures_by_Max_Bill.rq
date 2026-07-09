@@ -1,3 +1,4 @@
+#title: Sculptures by Max Bill
 SELECT DISTINCT ?item ?itemLabel ?countryLabel ?placeLabel (YEAR(?date) as ?year) ?coords ?image
 WHERE
 {

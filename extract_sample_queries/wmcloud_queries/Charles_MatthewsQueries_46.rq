@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?inst ?instLabel
+WHERE {
+    ?item wdt:P31 ?inst .
+    ?item wdt:P1846 ?dummy1 .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,10 @@
+#title: Same value in P177 and in P2505
+# Complex constraint from [[Property talk:P177]]
+# Exception for [[d:Q7577756|spiral bridge <small>(Q7577756)</small>]] items
+SELECT ?item {
+    ?item wdt:P2505 ?value.
+    ?item wdt:P177 ?value.
+    FILTER NOT EXISTS {
+      ?item wdt:P31 wd:Q7577756
+    }
+}

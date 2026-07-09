@@ -1,0 +1,15 @@
+# Distribution of Australian women's biography articles by (top 50) occupation(s) on English Wikipedia:
+#defaultView:BarChart
+SELECT (COUNT(?occ) as ?count) ?occLabel
+WHERE {
+  ?item wdt:P31 wd:Q5.         # all humans
+  ?item wdt:P106 ?occ.         # their occupation
+  ?item wdt:P21 wd:Q6581072.   # who are women
+  ?item wdt:P27 wd:Q408.       # who are Australian
+  ?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} GROUP BY ?occLabel
+ORDER BY DESC(?count)
+LIMIT 50

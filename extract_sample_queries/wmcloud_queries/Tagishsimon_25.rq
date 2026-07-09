@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?prop ?ref ?refLabel
+WHERE 
+{
+ # values ?item {wd:Q323699}
+  ?item p:P2580 ?statement .
+  ?statement ps:P2580 ?BBLD .  
+  optional {?statement prov:wasDerivedFrom ?statement2 .
+  ?statement2 ?prop ?ref
+  filter(contains(str(?prop),"reference/P"))  
+  filter(!contains(str(?prop),"813"))  
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?prop) DESC (?refLabel)

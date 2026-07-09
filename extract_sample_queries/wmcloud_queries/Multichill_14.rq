@@ -1,0 +1,14 @@
+SELECT ?item ?inv ?url1 ?url2 WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 wd:Q2051997 .
+  OPTIONAL { ?item wdt:P973 ?url1 . FILTER regex(str(?url1), "^.+tate.+$") } .
+  OPTIONAL { ?item wdt:P973 ?url2 . FILTER regex(str(?url2), "^.+nationalgalleries.+$") } .
+  MINUS { ?item wdt:P195  wd:Q430682 .
+           ?item p:P217 ?invstatement2 .
+           ?invstatement2 ps:P217 ?inv .
+  		?invstatement2 pq:P195 wd:Q430682 .
+        }
+  FILTER regex(?inv, "^AR\\d+$") 
+  } LIMIT 101

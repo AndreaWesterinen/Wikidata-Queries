@@ -1,0 +1,23 @@
+SELECT ?item ?itemLabel ?itemDescription
+WITH
+{
+  SELECT ?item ?itemLabel ?itemDescription
+  { 
+      ?item wdt:P31 wd:Q26817508 . 
+      MINUS { ?item rdfs:label ?en . FILTER( lang(?en)="en")  }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es,fr,it,de,pt,nl,pl,sv,ru" .
+                             ?item rdfs:label ?itemLabel . 
+                             ?item schema:description ?itemDescription .}
+  }
+} as %test
+WHERE
+{
+  { INCLUDE %test }
+  UNION
+  {
+      BIND( wd:Q4115189 as ?item ) 
+      BIND( "should be the only line" as ?itemLabel ) 
+      BIND( "ignore this line" as ?itemDescription ) 
+   }          
+}
+ORDER BY (?item = wd:Q4115189 ) ?itemLabel

@@ -1,0 +1,7 @@
+#defaultView:Graph
+SELECT ?i ?iLabel ?q ?qLabel WHERE
+{
+	wd:Q9077 (^wdt:P802|wdt:P802)* ?i .
+    ?i wdt:P802 | ^wdt:P1066 ?q .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,1 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P31 wd:Q19844914; wdt:P5008 wd:Q104665671 SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }. ?entity wdt:P17 ?grouping .} GROUP BY ?grouping HAVING (?count < 0) ORDER BY DESC(?count) LIMIT 1000

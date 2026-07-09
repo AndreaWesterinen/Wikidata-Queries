@@ -1,0 +1,18 @@
+SELECT ?item ?loc ?capital ?coord WHERE {
+  ?item wdt:P31 wd:Q2643128.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". 
+    ?loc rdfs:label ?locLabel.
+    ?item rdfs:label ?itemLabel.}
+  OPTIONAL {
+    ?item p:P131 ?node1.
+    ?node1 ps:P131 ?loc.
+    MINUS { ?node1 pq:P582 []. }
+  }
+  OPTIONAL {
+    ?item p:P36 ?node2.
+    ?node2 ps:P36 ?capital.
+    MINUS { ?node2 pq:P582 []. }
+  }
+  OPTIONAL { ?item wdt:P625 ?coord. }
+  MINUS { ?item wdt:P576 []. }
+} ORDER BY (?locLabel) (?loc) (?itemLabel)

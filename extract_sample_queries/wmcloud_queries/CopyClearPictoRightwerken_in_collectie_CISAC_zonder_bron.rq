@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  
+  ?item wdt:P6275 wd:Q739586.
+  ?item wdt:P6379 ?werken.
+  MINUS {
+  ?item wdt:P6275 wd:Q71528227.
+   }
+  MINUS {
+  ?item wdt:P6275 wd:Q71521142.
+   }
+ }

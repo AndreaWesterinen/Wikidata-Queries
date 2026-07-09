@@ -1,0 +1,8 @@
+#title: In the National Trust Collection without a link
+# Complex constraint from [[Property talk:P4373]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] -> [[d:Q333515|National Trust <small>(Q333515)</small>]], but that don't have a [[Property:P4373|National Trust Collections ID&#32;<small dir="ltr">(P4373)</small>]] link
+SELECT DISTINCT ?item ?url WHERE {
+  ?item wdt:P195 wd:Q333515 .
+  OPTIONAL { ?item wdt:P973 ?url } . 
+  MINUS { ?item wdt:P4373 [] } .
+}  LIMIT 500

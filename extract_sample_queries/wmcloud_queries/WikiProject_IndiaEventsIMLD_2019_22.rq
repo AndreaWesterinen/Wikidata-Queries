@@ -1,0 +1,13 @@
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?pubdate ?author ?authorLabel
+WHERE
+{
+	{ ?item wdt:P31 wd:Q17537576 .} UNION { ?item wdt:P31 wd:Q7725634 .} UNION { ?item wdt:P31 wd:Q571 .}
+    ?item wdt:P50 ?author.
+    ?author wdt:P166 wd:Q916783.
+    ?item wdt:P577 ?pubdate.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    OPTIONAL { ?item wdt:P18 ?image }
+}
+GROUP BY ?item ?itemLabel ?pubdate ?author ?authorLabel
+#

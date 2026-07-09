@@ -1,0 +1,6 @@
+SELECT ?e ?v (REPLACE(str(?v), ".*?-.*?-(.*?)-.*", "$1") as ?user)
+{
+    ?e wdt:P443 ?v .
+    FILTER( CONTAINS(str(?v), "LL-Q150") )
+}
+LIMIT 1000

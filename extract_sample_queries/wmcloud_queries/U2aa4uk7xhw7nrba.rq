@@ -1,0 +1,6 @@
+sparql?query=select ?item ?val{
+  ?item p:P1352 ?statement .
+  ?statement pq:P459 wd:Q180825;
+             ps:P1352 ?val
+  filter(?val > 300)             
+}             

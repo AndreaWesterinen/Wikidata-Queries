@@ -1,0 +1,9 @@
+SELECT ?item (CONCAT("http://www.filmportal.de/film/", ?filmportal) as ?filmportal_link) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q11424 .
+  ?item wdt:P495 wd:Q183 .
+  ?item wdt:P2639 ?filmportal
+  FILTER NOT EXISTS {
+    ?item rdfs:label ?delabel .
+    FILTER(lang(?delabel) = "de")
+  }
+} ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))

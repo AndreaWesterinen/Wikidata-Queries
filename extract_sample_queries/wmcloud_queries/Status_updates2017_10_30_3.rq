@@ -1,0 +1,48 @@
+#defaultView:Map
+# constituencies for the election to the German Bundestag 2017, with winning candidate and party
+SELECT ?district ?districtLabel ?districtNumber ?mdb ?mdbLabel ?party ?partyLabelCONF (?partyLabel AS ?layer) ?votesPercentage ?rgb ?shape ?sanityCheckMdb WHERE {
+  # find districts with shape
+  ?district wdt:P3896 ?shape;
+            # successful candidate for 19th German Bundestag with party and % votes
+            p:P991 [
+              ps:P991 ?mdb;
+              pq:P2937 wd:Q30579723;
+              pq:P1268 ?party;
+              pqv:P1111 [ wikibase:quantityAmount ?votesPercentage; wikibase:quantityUnit wd:Q11229 ]
+            ];
+            # district number in 2017 Bundestag constituencies
+            p:P528 [
+              ps:P528 ?districtNumberString;
+              pq:P972 wd:Q26971257
+            ].
+  # turn string district number into integer
+  BIND(xsd:integer(?districtNumberString) AS ?districtNumber)
+  # sanity check
+  OPTIONAL {
+    ?mdb p:P39 [
+      ps:P39 wd:Q1939555;
+      pq:P2937 wd:Q30579723;
+      pq:P768 ?district;
+      pq:P4100 ?party
+    ].
+    BIND(true AS ?sanityCheckMdb)
+  }
+  # find original color of party
+  ?party wdt:P462?/wdt:P465 ?rgbOriginal.
+  # fade color depending on % votes, knowing that the original colors are only composed of FF, 80, 00: shift 80 to A0 or C0, and 00 to 40 or 80
+  # (using separate calls to replace R, G, and B components so that the replacements are aligned to them)
+  BIND(IF(?votesPercentage >= (100/2),
+          ?rgbOriginal,
+          IF(?votesPercentage >= (100/3),
+             REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(?rgbOriginal, "80(..)(..)", "A0$1$2"), "(..)80(..)", "$1A0$2"), "(..)(..)80", "$1$2A0"), "00(..)(..)", "40$1$2"), "(..)00(..)", "$140$2"), "(..)(..)00", "$1$240"),
+             REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(?rgbOriginal, "80(..)(..)", "C0$1$2"), "(..)80(..)", "$1C0$2"), "(..)(..)80", "$1$2C0"), "00(..)(..)", "80$1$2"), "(..)00(..)", "$180$2"), "(..)(..)00", "$1$280")
+            )
+         ) AS ?rgb)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?district rdfs:label ?districtLabel.
+    ?party rdfs:label ?partyLabel.
+    ?mdb rdfs:label ?mdbLabel.
+  }
+}
+ORDER BY ?districtNumber

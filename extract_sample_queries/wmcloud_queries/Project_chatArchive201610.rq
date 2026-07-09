@@ -1,0 +1,3 @@
+select ?edition where {
+  {?edition wdt:P393 ?number}
+}

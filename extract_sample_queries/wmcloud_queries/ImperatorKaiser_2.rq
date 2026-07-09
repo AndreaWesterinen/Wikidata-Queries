@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel (count(?cod) as ?total)
+WHERE {
+        ?item wdt:P3456 ?cod              
+        MINUS { ?item wdt:P664 wd:Q948442 }           # Excepto organizados por la WTA
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es,en" }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY desc(?total)
+LIMIT 10

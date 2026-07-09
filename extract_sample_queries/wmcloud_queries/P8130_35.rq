@@ -1,0 +1,4 @@
+#title: Alternate name or disambiguation in label (pl)
+# Complex constraint from [[Property talk:P8130]]
+# If () in the [[Help:Label|label]] includes a disambiguation, it would generally be redundant to the item's [[Help:Description|description]]. If it's an alternate name, it should be an [[Help:Alias|alias]] of the item
+SELECT ?item ?l WHERE { ?item wdt:P8130 []; rdfs:label ?l. FILTER( lang(?l) ="pl" && REGEX(?l,"\\(") )  }  LIMIT 5

@@ -1,0 +1,15 @@
+SELECT ?item  WHERE { 
+ ?item wdt:P170 wd:Q381238 .  
+ ?item wdt:P195 wd:Q153306.  
+ MINUS{ ?item wdt:P31 wd:Q3658341 .}
+ #MINUS{ ?item wdt:P973 ?url .}
+
+ OPTIONAL {
+   ?item rdfs:label ?Len 
+   FILTER((LANG(?Len)) = "en")
+ }
+ OPTIONAL {
+   ?item rdfs:label ?Lpl 
+   FILTER((LANG(?Lpl)) = "pl")
+ }
+}

@@ -1,0 +1,6 @@
+SELECT distinct ?item ?label 
+WHERE {
+  ?item wdt:P106 wd:Q937857.         
+  filter not exists {?item schema:description ?Den. filter(lang(?Den)="en")}
+  optional {?item rdfs:label ?label. filter(lang(?label)="en")}
+  }

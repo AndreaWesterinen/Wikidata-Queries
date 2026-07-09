@@ -1,0 +1,20 @@
+embed.html##defaultView:LineChart
+SELECT ?country ?year ?population ?countryLabel
+WITH
+{
+    SELECT ?country ?year (avg(?populationValue) as ?population)
+    WHERE
+    {
+          ?country wdt:P47 wd:Q183.
+          ?country p:P1082 ?populationStatement.
+          ?populationStatement ps:P1082 ?populationValue.
+          ?populationStatement pq:P585 ?date.
+          bind(str(YEAR(?date)) AS ?year)
+    }
+    group by ?country ?year
+} AS %results
+WHERE
+{
+    INCLUDE %results.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

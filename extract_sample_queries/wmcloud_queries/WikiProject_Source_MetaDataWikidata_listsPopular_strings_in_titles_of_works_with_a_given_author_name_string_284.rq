@@ -1,0 +1,41 @@
+SELECT
+  # Number of works on the topic with the author name string
+  ?count
+
+  # Number of works with the author name string
+  ?count1
+
+  # Author as a string
+  ?authorstring
+
+  # Build URL to the Author disambiguator tool
+  (CONCAT(
+      'https://tools.wmflabs.org/author-disambiguator/names_oauth.php?name=',
+      ENCODE_FOR_URI(?authorstring)) AS ?resolver_url)
+WITH {
+  SELECT DISTINCT ?work ?authorstring WHERE {
+    ?work wdt:P2093 ?authorstring .
+#    ?work wdt:P50 [ wdt:P21 wd:Q6581072 ].
+#    ?work wdt:P50 [wdt:P166 []].
+#    ?work wdt:P921 [wdt:P625 []].
+    { ?work wdt:P1476 ?title . } 
+    FILTER CONTAINS(LCASE(?title), "Psoriasis").  
+  }
+  LIMIT 100
+} AS %works
+WITH {
+  SELECT
+    (COUNT(DISTINCT ?work) AS ?count)
+    (COUNT(DISTINCT ?work1) AS ?count1)
+    ?authorstring
+  WHERE {
+    INCLUDE %works
+    ?work1 wdt:P2093 ?authorstring .
+  }
+  GROUP BY ?authorstring
+} AS %result
+WHERE {
+  INCLUDE %result
+}
+ORDER BY DESC(?count) DESC(?count1)
+#LIMIT 50

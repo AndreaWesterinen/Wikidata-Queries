@@ -1,0 +1,4 @@
+#title: located in an administrative territorial entity different from an Austrian municipality
+# Complex constraint from [[Property talk:P2951]]
+# cultural heritage located in an administrative territorial entity different from an Austrian municipality ''– not sure whether this works, please fix it if it does not''
+SELECT ?item WHERE { ?item wdt:P2951 [] . FILTER NOT EXISTS { ?item wdt:P361?/wdt:P131/wdt:P964 []} } ORDER BY ?item

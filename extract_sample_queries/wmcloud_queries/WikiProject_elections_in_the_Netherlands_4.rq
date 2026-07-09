@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel 
+WHERE {
+  ?item wdt:P31 wd:Q5 . 
+  ?item wdt:P106 wd:Q82955 .
+   ?item wdt:P27 wd:Q29999 .
+  OPTIONAL {?item wdt:P569 ?geboortedatum}
+
+  FILTER(NOT EXISTS { ?item  wdt:P3602 [] })
+  FILTER(?geboortedatum > "1945-01-01"^^xsd:dateTime|| NOT EXISTS { ?item  wdt:P569 [] })
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl" }}

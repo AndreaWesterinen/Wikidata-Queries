@@ -1,0 +1,8 @@
+SELECT ?l ?lemma ?length WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma .
+  ?language wdt:P218 'cs' .
+  FILTER REGEX ( lcase(?lemma), "^[^aáeéěiíoóuúůyý]*$")
+  BIND ( strlen(?lemma) as ?length )
+}
+ORDER BY DESC(?length) 

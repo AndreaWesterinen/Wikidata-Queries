@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  ?reference pr:P143 wd:Q54919 .
+  ?statement prov:wasDerivedFrom ?reference . 
+  ?item p:P214 ?statement .
+} LIMIT 100000

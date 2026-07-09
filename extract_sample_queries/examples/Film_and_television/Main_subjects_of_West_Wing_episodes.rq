@@ -1,3 +1,4 @@
+#title: Main subjects of West Wing episodes
 SELECT DISTINCT ?episode ?ordinal ?episodeLabel ?subject ?subjectLabel
 WHERE {
   ?episode wdt:P31/wdt:P279* wd:Q1983062;

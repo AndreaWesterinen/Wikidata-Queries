@@ -1,0 +1,12 @@
+# Other properties generally found on  items with P6102. 
+# Limited to statements with best rank (wdt:), exceptions not filtered
+# query added by Jura1, 2017-08-03
+
+SELECT ?item ?itemLabel ?itemDescription ?value ?valueLabel
+WHERE
+{
+	?item wdt:P6102 ?value .
+	FILTER NOT EXISTS { ?item   p:P131 [] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 1000

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?WDPA_ID ?end WHERE {
+  { SELECT ?item WHERE { ?item (wdt:P31/(wdt:P279*)) wd:Q759421. } }
+  ?item (wdt:P131*) wd:Q1198.
+  OPTIONAL { ?item wdt:P809 ?WDPA_ID. }
+  OPTIONAL { ?item wdt:P576 ?end. }
+}

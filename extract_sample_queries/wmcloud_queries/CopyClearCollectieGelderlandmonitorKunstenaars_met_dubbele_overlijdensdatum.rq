@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item (COUNT(?overlijdensdatum) AS ?datumCount)
+  WITH {
+   SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P9152 [].
+  } 
+  } AS %results
+    WHERE {
+     INCLUDE %results.
+   ?item wdt:P570 ?overlijdensdatum.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}
+GROUP BY ?item
+HAVING (?datumCount > 1)

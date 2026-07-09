@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?office ?jurisdiction
+WHERE {      
+  ?item wdt:P31 wd:Q3624078 ; wdt:P1313 ?office .
+  OPTIONAL { ?office wdt:P1001 ?jurisdiction } 
+  FILTER ( ?jurisdiction != ?item )
+}

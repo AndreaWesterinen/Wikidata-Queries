@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?casa_consistorial ?casa_consistorialLabel ?coordenadas WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?casa_consistorial wdt:P31 wd:Q543654.
+  ?casa_consistorial wdt:P17 wd:Q29.
+  OPTIONAL { ?casa_consistorial wdt:P625 ?coordenadas. }
+}

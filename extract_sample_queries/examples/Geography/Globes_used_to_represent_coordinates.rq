@@ -1,4 +1,5 @@
-SELECT (count(?v) as ?c) ?globe
+#title: Globes used to represent coordinates
+ SELECT (count(?v) as ?c) ?globe
 WHERE
 {
   ?v wikibase:geoGlobe ?globe

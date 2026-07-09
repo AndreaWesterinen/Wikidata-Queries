@@ -1,0 +1,19 @@
+#defaultView:Map{"hide":["?location", "?geo", "?count"],"layer":"?count"}
+SELECT ?geo ?county ?countyLabel (COUNT(DISTINCT ?glam) AS ?count) (GROUP_CONCAT(DISTINCT ?blam; SEPARATOR = " ; ") AS ?glams) 
+ WHERE {
+ {?glam wdt:P31/wdt:P279* wd:Q7075 ; wdt:P17 wd:Q222 ; wdt:P625 ?location. bind("library" as ?layer)}   
+   UNION  
+  {?glam wdt:P31/wdt:P279* wd:Q166118 ; wdt:P17 wd:Q222 ; wdt:P625 ?location. bind("archives" as ?layer)}  
+    UNION  
+  {?glam wdt:P31/wdt:P279* wd:Q33506 ; wdt:P17 wd:Q222 ; wdt:P625 ?location. bind("museum" as ?layer)}
+    UNION  
+  {?glam wdt:P31/wdt:P279* wd:Q207694 ; wdt:P17 wd:Q222 ; wdt:P625 ?location. bind("gallery" as ?layer)}
+   ?glam wdt:P131* ?county ;
+         rdfs:label ?blam.
+   FILTER (LANG(?blam)="sq") 
+   ?county wdt:P31 wd:Q104251 ;
+     wdt:P3896 ?geo .
+              SERVICE wikibase:label { bd:serviceParam wikibase:language "sq" }
+}
+GROUP BY ?geo ?county ?countyLabel
+ORDER BY ?count

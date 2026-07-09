@@ -1,0 +1,1 @@
+SELECT (COUNT(DISTINCT ?value) as ?distinct_property_values) { [] wdt:P735 ?value }

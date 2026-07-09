@@ -1,0 +1,9 @@
+#title: Items with collection not linked to Art UK collection/venue ID
+# Complex constraint from [[Property talk:P1679]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]], but that item doesn't have a [[Property:P1602|Art UK venue ID&#32;<small dir="ltr">(P1602)</small>]] or [[Property:P1751|Art UK collection ID&#32;<small dir="ltr">(P1751)</small>]] statement. Missing link can probably be added
+SELECT DISTINCT ?item ?collection {
+	?item wdt:P1679 ?value .
+    ?item wdt:P195 ?collection .
+    MINUS { ?collection wdt:P1602 [] } 
+    MINUS { ?collection wdt:P1751 [] } 
+} LIMIT 500

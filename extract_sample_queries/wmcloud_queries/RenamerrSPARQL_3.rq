@@ -1,0 +1,6 @@
+SELECT ?item ?ictv ?parent ?parenttaxonname ?specieslink WHERE {
+  ?item p:P4628 ?ictv .
+  OPTIONAL { ?item wdt:P171 ?parent } . 
+  OPTIONAL { ?parent wdt:P225 ?parenttaxonname } .
+  ?specieslink schema:about ?item; schema:isPartOf <https://species.wikimedia.org/> .
+}

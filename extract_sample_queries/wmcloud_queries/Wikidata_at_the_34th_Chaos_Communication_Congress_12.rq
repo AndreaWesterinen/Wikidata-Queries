@@ -1,0 +1,12 @@
+embed.html#SELECT ?work ?workLabel ?david1Label ?david2Label WHERE {
+  ?work wdt:P31/wdt:P279* wd:Q571;
+        wdt:P50 ?david1, ?david2.
+  wd:Q18057751 ^wdt:P735 ?david1, ?david2.
+  FILTER(STR(?david1) < STR(?david2))
+  FILTER NOT EXISTS {
+    ?work wdt:P50 ?otherAuthor.
+    FILTER(?otherAuthor != ?david1 && ?otherAuthor != ?david2)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?work

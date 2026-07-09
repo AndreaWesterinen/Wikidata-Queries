@@ -1,0 +1,10 @@
+#title: Check values like 3/10
+# Complex constraint from [[Property talk:P444]]
+#
+SELECT ?item ?note ?before ?after {
+	?item wdt:P444 ?note.
+  FILTER (CONTAINS(STR(?note), "/"))
+  BIND (STRBEFORE(?note, "/") AS ?before)
+  BIND (STRBEFORE(?note, "/") AS ?after)
+  FILTER (xsd:float(?before) < xsd:float(?after))
+}

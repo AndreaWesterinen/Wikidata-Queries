@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q571.
+  ?item wdt:P31 ?what.
+  FILTER ( ?what != wd:Q3331189 )
+  { ?item wdt:P212 ?isbn13 . } UNION { ?item wdt:P957 ?isbn10 . }
+  ?item wdt:P50 ?author. #only books with author
+  OPTIONAL  { ?sitelink schema:about ?item . } #find if linked to wikipedia article
+  FILTER (!BOUND(?sitelink)) # but select items with no such article
+  }

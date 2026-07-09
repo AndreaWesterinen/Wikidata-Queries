@@ -1,0 +1,7 @@
+SELECT ?review ?reviewLabel ?work ?workLabel WHERE {
+  ?review wdt:P31 wd:Q265158 .
+  ?review wdt:P921 ?work .
+  # { ?work wdt:P31 wd:Q47461344 . } UNION { ?work wdt:P31 wd:Q571 } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

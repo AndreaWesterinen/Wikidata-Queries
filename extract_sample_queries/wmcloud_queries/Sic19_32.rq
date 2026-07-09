@@ -1,0 +1,10 @@
+SELECT (COUNT(DISTINCT ?eng) AS ?count1) (COUNT(DISTINCT ?pub) AS ?count2) (COUNT(DISTINCT ?after) AS ?count3) 
+(COUNT(DISTINCT ?place) AS ?count4) (COUNT(DISTINCT ?depicts) AS ?count5) WHERE {
+  ?x wdt:P361 wd:Q21542493 ;
+  OPTIONAL {?x wdt:P170 ?eng }
+  OPTIONAL {?x wdt:P123 ?pub }
+  OPTIONAL {?x wdt:P1877 ?after }
+  OPTIONAL {?x wdt:P291 ?place }
+  OPTIONAL {?x wdt:P180 ?depicts }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

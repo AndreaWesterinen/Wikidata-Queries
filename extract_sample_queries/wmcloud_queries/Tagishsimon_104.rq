@@ -1,0 +1,18 @@
+SELECT distinct ?item ?itemLabel ?sitelinks ?coord  ?a WITH { SELECT ?item 
+WHERE 
+{
+    {?item wdt:P131/wdt:P131 wd:Q22 . } hint:Prior hint:runFirst true.
+  ?item wdt:P31/wdt:P279* wd:Q23397. hint:Prior hint:gearing "forward".
+  
+  filter not exists {?item wdt:P10051 [] .}
+  filter not exists {?item wdt:P31 wd:Q187223 . }
+  filter not exists {?item a wdno:P10051 .}
+
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item wikibase:sitelinks ?sitelinks.
+  ?item wdt:P625 ?coord .
+} order by desc(?sitelinks) ?itemLabel

@@ -1,0 +1,6 @@
+SELECT ?item ?collection ?location WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P276 ?location .
+  ?item wdt:P195 ?collection . ?collection wdt:P131+ ?location . 
+  }
+LIMIT 2000

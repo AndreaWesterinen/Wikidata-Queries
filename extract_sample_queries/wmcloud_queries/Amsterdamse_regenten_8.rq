@@ -1,0 +1,9 @@
+SELECT ?vroedschapslid ?vroedschapslidLabel ?kindvan ?kindvanLabel ?geslachtLabel
+WHERE 
+{
+  ?vroedschapslid wdt:P463 wd:Q56764476 .
+  ?vroedschapslid wdt:P40 ?kindvan .
+  ?kindvan wdt:P21 ?geslacht .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 500

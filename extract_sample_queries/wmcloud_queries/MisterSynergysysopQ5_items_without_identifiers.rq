@@ -1,0 +1,6 @@
+SELECT ?item ?statements WHERE {
+  ?item wikibase:sitelinks 0; wikibase:identifiers 0; wdt:P31 wd:Q5; wikibase:statements ?statements .
+  MINUS { [] ?backlink ?item }
+  OPTIONAL { ?item ?p [ prov:wasDerivedFrom [ ?pr [] ] ] . FILTER (?pr != pr:P143) }
+  FILTER(!BOUND(?p))
+} ORDER BY ASC(?statements)

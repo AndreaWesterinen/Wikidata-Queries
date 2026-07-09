@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?place ?id WHERE {
+  { ?item wdt:P481 ?id ;
+          wdt:P131 ?place .
+  } UNION {
+    ?item wdt:P361 ?group .
+    ?group wdt:P481 ?id ;
+           wdt:P131 ?place .
+  }
+  FILTER strStarts(?id, "PM") .
+  ?place wdt:P131 wd:Q12788 .
+}

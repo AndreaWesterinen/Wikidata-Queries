@@ -1,0 +1,6 @@
+SELECT (count(?l) as ?count)
+WHERE {
+  ?l a ontolex:LexicalEntry.
+  ?l ontolex:lexicalForm ?form.
+  minus {?form wikibase:grammaticalFeature [].}
+}

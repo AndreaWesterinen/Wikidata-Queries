@@ -1,0 +1,6 @@
+SELECT ?end (COUNT(?item) as ?count) 
+{
+	?item p:P27 [ ps:P27 wd:Q174193 ; pq:P582 ?end ] 
+}
+GROUP BY ?end
+ORDER BY DESC(?count)

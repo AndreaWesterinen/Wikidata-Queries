@@ -1,0 +1,10 @@
+#Chemische Elemente und ihre Eigenschaften
+SELECT ?_ordnungszahl ?element ?elementLabel ?_density 
+WHERE
+{
+  ?element wdt:P31 wd:Q11344.
+  ?element wdt:P2054 ?_density.
+  ?element wdt:P1086 ?_ordnungszahl
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}
+Order By ?_ordnungszahl

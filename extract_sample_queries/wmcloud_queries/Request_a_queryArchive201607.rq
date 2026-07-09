@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?image WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P18 ?image .
+  values ?item {wd:Q2104}
+  FILTER(CONTAINS(?image, "1958"))
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,de,fr".
+  }
+}
+LIMIT 1000

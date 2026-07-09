@@ -1,0 +1,12 @@
+SELECT ?item ?qid (GROUP_CONCAT( DISTINCT ?sitelink) as ?links) 
+WHERE
+{
+  VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q506240 wd:Q336144} . 
+  ?item wdt:P31 ?filmtype ; wdt:P495 wd:Q668
+  BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid) 
+  FILTER (?qid > 28400000) .
+  OPTIONAL { ?s schema:about ?item ; schema:inLanguage ?lang . BIND(CONCAT("[", str(?s), " ", ?lang, "]") as ?sitelink)  } 
+}
+GROUP BY ?item ?qid 
+ORDER BY DESC(?qid) 
+LIMIT 10000

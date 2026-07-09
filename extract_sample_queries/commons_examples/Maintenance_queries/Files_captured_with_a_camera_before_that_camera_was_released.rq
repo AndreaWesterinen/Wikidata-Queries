@@ -1,0 +1,18 @@
+select ?file ?file_date ?camera ?camera_date 
+with {
+  select * {
+    # SELECT all camera models
+    service <https://query.wikidata.org/sparql> {
+      ?camera wdt:P31 wd:Q20741022;
+               wdt:P571 ?camera_date.
+    }
+  }
+} as %cameras
+where {
+  include %cameras .
+  #select images taken with the camera
+  ?file wdt:P4082 ?camera;
+        wdt:P571 ?file_date.
+  FILTER(?file_date < ?camera_date)
+
+} LIMIT 1000

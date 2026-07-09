@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?instanceOfLabel ?countryLabel WHERE {
+  
+  ?item wdt:P31 wd:Q21029893 .
+  ?item wdt:P17 wd:Q55 . 
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" . }  #change the "en" if you want the labels in different language
+}

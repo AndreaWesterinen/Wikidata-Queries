@@ -1,0 +1,6 @@
+SELECT ?Asperger_syndrome ?Asperger_syndromeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Asperger_syndrome wdt:P1050 wd:Q38404.
+  ?Asperger_syndrome wdt:P106 wd:Q17125263.
+}
+LIMIT 100

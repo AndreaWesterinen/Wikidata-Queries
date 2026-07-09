@@ -1,0 +1,12 @@
+#title: Potential items
+# Complex constraint from [[Property talk:P8002]]
+# Americans who died in the US after 2000 without P8002
+SELECT ?item ?d
+WHERE
+{
+  ?item wdt:P20 / wdt:P17 wd:Q30; wdt:P570 ?d.
+  FILTER(YEAR(?d) > 2000 && YEAR(?d) < YEAR(now()) )
+  MINUS { ?item p:P8002 [] }
+  ?item wdt:P31 wd:Q5 ; wdt:P27 wd:Q30 .
+}
+LIMIT 500

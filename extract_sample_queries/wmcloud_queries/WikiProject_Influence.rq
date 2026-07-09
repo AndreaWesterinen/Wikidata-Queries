@@ -1,0 +1,6 @@
+SELECT ?influencer ?influencerLabel ?influenced ?influencedLabel
+WHERE
+{
+	?influenced wdt:P737 ?influencer .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

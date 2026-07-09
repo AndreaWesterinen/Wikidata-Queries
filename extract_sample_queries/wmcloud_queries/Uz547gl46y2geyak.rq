@@ -1,0 +1,6 @@
+SELECT ?item ?location ?adminlocation ?modified  WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P276 ?location .
+  ?item wdt:P131 ?adminlocation .
+  ?item schema:dateModified ?modified 
+  } ORDER BY DESC(?modified)

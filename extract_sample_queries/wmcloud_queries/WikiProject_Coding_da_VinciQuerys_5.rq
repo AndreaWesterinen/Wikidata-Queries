@@ -1,0 +1,18 @@
+embed.html#SELECT 
+  ?item 
+  ?itemLabel 
+  ?image 
+  (GROUP_CONCAT(DISTINCT ?usedDataset; SEPARATOR = " | ") AS ?usedDatasetIds) 
+  (GROUP_CONCAT(DISTINCT ?usedDatasetLabel; SEPARATOR = " | ") AS ?usedDatasetLabels) 
+WHERE {
+  ?item wdt:P9883 wd:Q110553382.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P973 ?describedAtUrl. }
+  OPTIONAL { ?item wdt:P2283 ?usedDataset. }    
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "de,en".
+    ?item rdfs:label ?itemLabel.
+    ?usedDataset rdfs:label ?usedDatasetLabel.
+  }
+}
+GROUP BY ?item ?itemLabel ?image

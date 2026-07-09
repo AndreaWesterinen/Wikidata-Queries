@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?library ?coord
+WHERE {
+  ?library p:P31/ps:P31/wdt:P279* wd:Q7075 .
+  
+  OPTIONAL { ?library wdt:P625 ?coord }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

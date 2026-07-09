@@ -1,0 +1,11 @@
+#defaultView:Timeline
+SELECT ?realLabel ?FilmLabel ?Film ?date WHERE {
+?Film wdt:P161 wd:Q180338;
+      wdt:P577 ?date.
+  OPTIONAL {
+    ?Film wdt:P57 ?real.
+}
+  SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en" .
+}
+} ORDER BY ?date

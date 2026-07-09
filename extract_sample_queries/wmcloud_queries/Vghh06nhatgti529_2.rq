@@ -1,0 +1,12 @@
+embed.html##defaultView:LineChart
+SELECT (str(?year) as ?yr) (COUNT(DISTINCT ?item) as ?ct) 
+{
+    hint:Query hint:optimizer "None".
+    ?item wdt:P27 wd:Q142 .
+    ?item wdt:P569 ?b . 
+    FILTER(YEAR(?b) > 1900 ) 
+    ?item p:P569/psv:P569 [ wikibase:timeValue ?b ; wikibase:timePrecision ?precision ]  
+    FILTER(?precision > 8 )           
+    BIND( YEAR(?b) as ?year) 
+}  
+GROUP BY ?year 

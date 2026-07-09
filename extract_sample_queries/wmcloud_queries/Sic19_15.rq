@@ -1,0 +1,21 @@
+embed.html#SELECT DISTINCT ?item ?label WHERE {
+  {?item wdt:P1216 [] . } UNION   {?item wdt:P1459 [] . } UNION {?item wdt:P709 [] . } 
+  #?item wdt:P131 wd:Q39121 .
+  OPTIONAL { ?item wdt:P31 ?dummy0 . }
+  FILTER(!bound(?dummy0)).
+  ?item rdfs:label ?label.
+  FILTER(LANG(?label) = "en").
+#  FILTER(CONTAINS(STR(?label), "Church Of ")).
+#  FILTER(!CONTAINS(STR(?label), "Of ")) .
+#  FILTER(!CONTAINS(STR(?label), "of ")) .
+#  FILTER(!CONTAINS(STR(?label), " At ")) .
+#  FILTER(!CONTAINS(STR(?label), " To ")) .
+#   FILTER REGEX(?label, "^[0-9].*(Street|Road|Terrace|Hill|Gate|Gardens|Drive|Close)$") .
+  FILTER REGEX(?label, "^([A-Z]{1}[a-z]+)\\s(Hall)$") .
+#    FILTER REGEX(?label, "^[0-9]") .
+#   FILTER REGEX(?label, "^(Church Of)") .
+#  FILTER REGEX(?label, "(?!North Of|South of|East of|West of|N of|S of|E of|W of)") .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }
+GROUP BY ?item ?label
+LIMIT 500

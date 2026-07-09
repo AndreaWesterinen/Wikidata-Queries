@@ -1,0 +1,13 @@
+#Monuments in the muncipality of Rheden, the Netherlands
+SELECT ?item ?itemLabel  ?countryLabel ?gemeenteLabel ?pic ?coordinate 
+WHERE
+{
+	?item wdt:P31 wd:Q4989906 .
+  	?item wdt:P17 wd:Q55 . 
+    ?item wdt:P625 ?coordinate  . 
+   	?item wdt:P17 ?country 
+  	OPTIONAL {
+		?item wdt:P18 ?pic
+	}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" }
+}

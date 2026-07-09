@@ -1,0 +1,20 @@
+SELECT ?lexeme ?lemma ?categoryLabel ?lemma2 ?gloss2 ?lexeme2 WHERE {
+  BIND(wd:Q7737 AS ?lang)
+  
+  ?lang wdt:P424 ?langcode.
+  ?lexeme a ontolex:LexicalEntry;
+       wikibase:lemma ?lemma;
+       dct:language wd:Q36846;
+       wikibase:lexicalCategory ?category;
+       ontolex:sense ?sense.
+  ?sense skos:definition ?gloss.
+  ?sense wdt:P5137 ?item.
+  ?sense2 wdt:P5137 ?item.
+  ?sense2 skos:definition ?gloss2.
+  ?lexeme2 dct:language ?lang;
+           wikibase:lemma ?lemma2;
+           ontolex:sense ?sense2.
+  ?category rdfs:label ?categoryLabel.
+  FILTER (lang(?categoryLabel) = ?langcode)
+  FILTER (lang(?gloss2) = ?langcode)
+} ORDER BY ?lemma

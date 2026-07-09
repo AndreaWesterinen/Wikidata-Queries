@@ -1,0 +1,15 @@
+SELECT ?institution ?institutionLabel (COUNT(?item) AS ?total) (GROUP_CONCAT(DISTINCT ?LieuLabel; SEPARATOR = ", ") AS ?Lieux) WHERE {
+  ?institution (wdt:P31/wdt:P279*) wd:Q166118.
+  ?institution wdt:P17 wd:Q39.
+  OPTIONAL {
+    ?institution wdt:P131 ?Lieu.
+    OPTIONAL {
+      ?Lieu rdfs:label? ?LieuLabel.
+      FILTER((LANG(?LieuLabel)) = "fr")
+    }
+  }
+  OPTIONAL { ?item wdt:P485 ?institution. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr,de,it,en". }
+}
+GROUP BY ?institution ?institutionLabel
+ORDER BY DESC(?total) ?institutionLabel

@@ -1,0 +1,1 @@
+SELECT * { ?item wdt:P31 wd:Q4167410; wikibase:sitelinks 0 MINUS { [] schema:about ?item } }

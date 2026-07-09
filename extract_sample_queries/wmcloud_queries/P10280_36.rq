@@ -1,0 +1,10 @@
+#title: categories lacking "category's main topic" (P301), but are values of "topic's main category" (P910)
+# Complex constraint from [[Property talk:P10280]]
+# todo: add missing P301
+SELECT DISTINCT ?item ?hc
+WHERE 
+{ 
+ [] ps:P10280 ?item . 
+ ?hc wdt:P910 ?item . 
+ MINUS { ?item wdt:P301 ?hc } 
+}

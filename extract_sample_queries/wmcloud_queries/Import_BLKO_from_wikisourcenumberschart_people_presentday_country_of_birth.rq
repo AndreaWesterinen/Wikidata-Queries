@@ -1,0 +1,28 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("200" as ?width) 
+  ("200" as ?height) 
+  ("Birth by present-day country (top 20)" as ?legend) 
+  (GROUP_CONCAT(?cLabel;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+   { SELECT ?cLabel ?count { 
+  { SELECT ?c ?cLabel (COUNT(DISTINCT ?item) as ?count)
+  {
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+    ?item wdt:P19 ?place .
+    ?place wdt:P17 ?c .  
+    ?item wdt:P31 wd:Q5 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }
+  GROUP BY ?c ?cLabel
+  ORDER BY DESC(?count)
+  LIMIT 20
+  }
+  }
+  ORDER BY DESC(?count)
+  }
+
+}

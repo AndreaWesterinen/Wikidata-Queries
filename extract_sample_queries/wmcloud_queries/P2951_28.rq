@@ -1,0 +1,7 @@
+#title: Find municipalities marked as cultural heritage monuments in Austria
+# Complex constraint from [[Property talk:P2951]]
+# Error, as municipalities as a whole are not cultural heritage monuments in Austria
+SELECT ?item WHERE
+{ ?item wdt:P2951 [] .
+  ?item wdt:P31 wd:Q667509.
+} ORDER BY ?itemLabel

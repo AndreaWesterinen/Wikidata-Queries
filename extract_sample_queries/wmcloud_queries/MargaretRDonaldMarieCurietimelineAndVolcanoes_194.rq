@@ -1,0 +1,8 @@
+# AusLichen taxa: taxon author citations for Tom May
+SELECT ?item ?itemLabel ?taxon_name ?ausLichen ?citation  WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P9093 ?ausLichen.
+  ?item wdt:P225 ?taxon_name.
+  {?item wdt:P6507 ?citation.} 
+}
+ORDER BY ?taxon_name

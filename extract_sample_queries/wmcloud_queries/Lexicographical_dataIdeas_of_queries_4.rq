@@ -1,0 +1,7 @@
+SELECT ?form ?word ?senseItem ?senseItemLabel WHERE {
+  ?lexeme a ontolex:LexicalEntry ;
+            ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?word ;
+            wdt:P5137 ?senseItem .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

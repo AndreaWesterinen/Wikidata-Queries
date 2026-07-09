@@ -1,0 +1,17 @@
+SELECT ?item (GROUP_CONCAT(?identifier) as ?identifiers) WHERE {
+  ?item wdt:P136 wd:Q69662460.
+  OPTIONAL { 
+    # Get external identifiers
+    ?item ?prop ?id.
+    ?propItem wikibase:directClaim ?prop.
+    ?propItem wikibase:propertyType wikibase:ExternalId.
+    ?propItem wdt:P1630 ?formatterurl .
+    MINUS {
+      ?propItem wdt:P1629 wd:Q131276.
+    }
+    ?propItem rdfs:label ?propItemLabel .
+    FILTER (lang(?propItemLabel) = "en"). 
+    BIND(IRI(REPLACE(?id, '^(.+)$', ?formatterurl)) AS ?url).
+    BIND(CONCAT("[", str(?url), " ", ?propItemLabel, "]") as ?identifier)
+  } 
+} GROUP BY ?item

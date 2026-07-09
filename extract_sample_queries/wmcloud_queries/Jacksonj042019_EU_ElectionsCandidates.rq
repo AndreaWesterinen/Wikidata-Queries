@@ -1,0 +1,20 @@
+SELECT ?item ?constituency ?party ?votes ?election
+WHERE 
+{
+  {
+    ?election wdt:P361 wd:Q22001091 . 
+    ?item p:P3602 ?ps .
+    ?ps ps:P3602 ?election .
+    ?election p:P541 ?office .
+    ?office pq:P768 ?constituency .
+    OPTIONAL { ?ps pq:P1268 ?party . }
+    OPTIONAL { ?ps pq:P1111 ?votes . }
+  } UNION {
+    VALUES ?election  {wd:Q22001091 }
+    ?item p:P3602 ?ps .
+    ?ps ps:P3602 ?election .
+    OPTIONAL { ?ps pq:P1268 ?party . }
+    OPTIONAL { ?ps pq:P768 ?constituency . }
+    OPTIONAL { ?ps pq:P1111 ?votes . }
+  }
+}

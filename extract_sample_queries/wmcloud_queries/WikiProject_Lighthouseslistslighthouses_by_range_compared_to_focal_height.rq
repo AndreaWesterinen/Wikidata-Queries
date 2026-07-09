@@ -1,0 +1,20 @@
+SELECT ?item ?range_nm_per_focalheight_m ?nm ?mfocal 
+{
+    ?item wdt:P31 wd:Q39715 ; wdt:P2923 ?rawfocal ; wdt:P2929 ?rawrange .
+  
+    ?item p:P2923 ?pfocal .
+    ?pfocal psn:P2923 [ wikibase:quantityAmount ?sifocal ; wikibase:quantityUnit ?sifocalunit ]  .
+    ?pfocal psv:P2923 [ wikibase:quantityAmount ?rawfocal ; wikibase:quantityUnit ?rawfocalunit ] . 
+    wd:Q11573 p:P2370/psv:P2370 [ wikibase:quantityAmount ?convfocalqt ; wikibase:quantityUnit ?sifocalunit ]  
+    BIND(?sifocal / ?convfocalqt as ?mfocal ) .  
+  
+    ?item p:P2929 ?p .
+    ?p psv:P2929 [ wikibase:quantityAmount ?rawrange ; wikibase:quantityUnit wd:Q93318 ] . 
+    BIND(?rawrange as ?nm ) .
+    
+    BIND(ROUND(?nm / ?mfocal*10)/10 as ?range_nm_per_focalheight_m )
+
+	FILTER (?item not in ( wd:Q15397819 , wd:Q4999731)  )
+}  
+ORDER BY DESC(?range_nm_per_focalheight_m)
+LIMIT 50

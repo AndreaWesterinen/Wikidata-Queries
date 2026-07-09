@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel ?RKD_url WHERE {
+  ?item wdt:P6379 wd:Q2098586.
+  MINUS {  ?item wdt:P31 wd:Q5.}
+}

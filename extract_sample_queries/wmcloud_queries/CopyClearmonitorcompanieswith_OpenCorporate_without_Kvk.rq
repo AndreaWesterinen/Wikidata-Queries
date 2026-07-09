@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?corporate {
+  ?item wdt:P1320 ?corporate.
+  FILTER NOT EXISTS { ?item wdt:P3220 [].}
+   FILTER strStarts (?corporate, "nl")
+}

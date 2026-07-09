@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item WHERE { wd:Q25389237 p:P527 [ pq:P39 ?item ] }

@@ -1,0 +1,24 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+#based on Wikidata:SPARQL_query_service/queries#People_born_on_this_day.2C_generally by Jheald
+SELECT ?subject ?subjectLabel (month(?date) as ?month) (day(?date) as ?day) (year(?date) as ?BirthYear) (year(?ddate) as ?DeathYear) WHERE { 
+   ?subject p:P569/psv:P569 ?date_node .
+   ?subject p:P570/psv:P570 ?ddate_node .
+   ?date_node wikibase:timeValue ?date .
+   ?ddate_node wikibase:timeValue ?ddate .
+   FILTER (day(?date) = day(?ddate)) .   
+   FILTER (month(?date) = month(?ddate)) .
+   ?date_node wikibase:timePrecision "11"^^xsd:integer .
+   ?ddate_node wikibase:timePrecision "11"^^xsd:integer .
+   ?subject wdt:P31 wd:Q5  .
+
+  #SERVICE wikibase:label {bd:serviceParam wikibase:language "en,ru,ja,zh" .
+  #                                        ?subject rdfs:label ?subjectLabel}          
+          
+}
+#ORDER BY ?date
+LIMIT 100

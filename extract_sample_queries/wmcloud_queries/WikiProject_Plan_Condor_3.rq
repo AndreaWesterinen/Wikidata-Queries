@@ -1,0 +1,23 @@
+#desaparecidos uruguayos con hermano/a, padre/madre o esposo/a, etc. también desaparecido
+#defaultView:Graph
+SELECT   ?persona1 ?persona1Label ?persona1picture ?persona2 ?persona2Label ?persona2picture
+WHERE 
+{
+  ?persona1 wdt:P31 wd:Q5.
+  ?persona1 wdt:P27 wd:Q77.
+  ?persona1 wdt:P746 [] .
+  { ?persona1 wdt:P22 ?persona2 } UNION
+  { ?persona1 wdt:P25 ?persona2 } UNION
+  { ?persona1 wdt:P26 ?persona2 } UNION
+  { ?persona1 wdt:P40 ?persona2 } UNION
+  { ?persona1 wdt:P451 ?persona2 } UNION
+  { ?persona1 wdt:P3373 ?persona2 }.
+  ?persona2 wdt:P746 [] .
+   OPTIONAL{
+	?persona1 wdt:P18 ?persona1picture .
+    ?persona2 wdt:P18 ?persona2picture .
+    }
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "es" .
+	}
+}

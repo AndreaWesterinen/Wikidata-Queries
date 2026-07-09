@@ -1,0 +1,1 @@
+SELECT (SAMPLE(?materialL) AS ?mats) { SELECT ?materialL WHERE { wd:Q12418 wdt:P186 ?material . ?material rdfs:label ?materialL filter (lang(?materialL) = "en"). }}

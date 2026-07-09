@@ -1,0 +1,6 @@
+select DISTINCT ?item WHERE {
+  ?metametaclass wdt:P31 ?item .
+  ?metaclass wdt:P31 ?metametaclass .
+    ?class wdt:P31 ?metaclass .
+    ?otherclass wdt:P279 ?class .
+}

@@ -1,0 +1,8 @@
+#title: date on January 1 with best rank
+SELECT ?item ?itemLabel ?date
+{
+  ?item p:P8555 [ a wikibase:BestRank; psv:P8555 [ wikibase:timeValue ?date; wikibase:timePrecision 11 ]] . 
+  FILTER( MONTH(?date) = 1 && DAY(?date) = 1 ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

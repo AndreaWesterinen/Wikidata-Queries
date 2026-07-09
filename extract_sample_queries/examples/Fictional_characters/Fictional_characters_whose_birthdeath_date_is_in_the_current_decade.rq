@@ -1,3 +1,4 @@
+#title: Fictional characters whose birth/death date is in the current decade
 SELECT DISTINCT ?character ?characterLabel ?birth ?death WITH {
   # Fictional character subclasses as a named subquery
   SELECT ?fictiontype WHERE {

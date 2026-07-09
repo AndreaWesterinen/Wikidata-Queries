@@ -1,0 +1,5 @@
+SELECT ?item ?gnd ?viaf WHERE {
+VALUES ?item {  wd:Q636855 wd:Q636943 wd:Q707955 wd:Q812412 wd:Q897952 wd:Q1188483 wd:Q1231774 wd:Q1420476 wd:Q1501748 wd:Q1528326 wd:Q1541782 wd:Q1551476 wd:Q1699513 wd:Q1788173 wd:Q1789735 wd:Q1798433 wd:Q1802048 wd:Q1802049 wd:Q1802160 wd:Q1988639 wd:Q2430947 wd:Q15824901 wd:Q17124210 wd:Q58907726 wd:Q1802102 } # yes, we intentionally pre-select items for the listeria list here
+OPTIONAL { ?item wdt:P227 ?gndId . BIND(IRI(CONCAT('http://d-nb.info/gnd/', ?gndId)) AS ?gnd) }
+OPTIONAL { ?item wdt:P214 ?viafId . BIND(IRI(CONCAT('http://viaf.org/viaf/', ?viafId )) AS ?viaf) }
+}

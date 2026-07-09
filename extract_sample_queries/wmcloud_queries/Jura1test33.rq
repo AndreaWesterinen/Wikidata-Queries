@@ -1,0 +1,7 @@
+SELECT ?item ?s ?a ?b 
+{ 
+?item wdt:P2348 wd:Q52394608 ; wdt:P641 ?s 
+OPTIONAL { ?item wdt:P3450 ?a }
+OPTIONAL { ?item wdt:P5138 ?b }
+} 
+ORDER BY ?s (!BOUND(?a)) (!BOUND(?b)) ?item

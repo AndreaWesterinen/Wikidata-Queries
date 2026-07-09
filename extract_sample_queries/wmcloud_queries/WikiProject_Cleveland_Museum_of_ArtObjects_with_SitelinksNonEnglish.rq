@@ -1,0 +1,11 @@
+SELECT ?item WHERE {
+  ?item wdt:P195 wd:Q657415;
+    wikibase:sitelinks ?linkcount.
+  FILTER(?linkcount > 0 )
+  ?article schema:about ?item.
+  FILTER(NOT EXISTS {
+    ?wen schema:about ?item;
+      schema:inLanguage "en".
+  })
+}
+GROUP BY ?item

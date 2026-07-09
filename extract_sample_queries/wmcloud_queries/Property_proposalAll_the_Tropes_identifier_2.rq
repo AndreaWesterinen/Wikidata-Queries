@@ -1,0 +1,6 @@
+SELECT ?prop ?propLabel ?mwtype ?mwtypeLabel ?type
+{
+    VALUES ?mwtype { wd:Q83336425 wd:Q83336089 wd:Q83336212 } 
+    ?prop wikibase:propertyType ?type ; wdt:P1552 ?mwtype .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  

@@ -1,0 +1,41 @@
+#defaultView:Map{"hide":["?coordinates","?location,"?rgb"]}
+SELECT DISTINCT ?coordinates ?location ?station ?stationLabel ?connectingline ?connectinglineLabel ?native ?rgb WITH {
+  SELECT ?station ?coordinates ?lat1 ?lon1 ?administrativeLocation ?native (sample(?operator)as?operator) WHERE {
+    {?station wdt:P31 wd:Q55488.}  # railway station
+    union
+    {?station wdt:P31 wd:Q55678.}  # railway halt
+    union
+    {?station wdt:P31 wd:Q928830.} # metro station
+    ?station wdt:P625 ?coordinates;
+    wdt:P17 wd:Q869;  # is in Thailand
+      p:P625/psv:P625 ?y.
+    ?y wikibase:geoLatitude ?lat1;
+      wikibase:geoLongitude ?lon1.
+    OPTIONAL{?station wdt:P131 ?administrativeLocation}
+    OPTIONAL{?station wdt:P137 ?operator}
+    OPTIONAL{?station wdt:P1705 ?native}
+    }
+  GROUP BY ?station ?coordinates ?lat1 ?lon1 ?native ?administrativeLocation}AS%station
+WITH
+{
+  SELECT ?location ?connectingline ?owner ?terminus  WHERE {
+    INCLUDE %station.
+    ?station p:P197 ?neighborStations.
+    ?neighborStations ps:P197 ?ns.
+    ?ns p:P625/psv:P625 ?z.
+    ?z wikibase:geoLatitude ?lat2;
+      wikibase:geoLongitude ?lon2.
+    OPTIONAL {
+      ?neighborStations pq:P81 ?connectingline.
+      OPTIONAL{?connectingline wdt:P127 ?owner} }
+    OPTIONAL{?neighborStations pq:P5051 ?terminus}
+    FILTER(STR(?station)< STR(?ns)).
+    BIND(CONCAT('LINESTRING(',STR(?lon1),' ',STR(?lat1),',',STR(?lon2),' ',STR(?lat2),')')AS?str).
+    BIND(STRDT(?str,geo:wktLiteral)AS?location)}
+}AS%line
+WHERE
+{
+  {INCLUDE%station}UNION{INCLUDE%line}.
+  BIND(IF(BOUND(?location),IF(BOUND(?connectingline),IF(BOUND(?terminus),IF(BOUND(?owner),"00f","4682b4"),"40e0d0"),"ff0"),IF(BOUND(?administrativeLocation),IF(BOUND(?operator),"00f","4682b4"),"40e0d0"))AS?rgb)
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en".}
+}

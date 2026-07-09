@@ -1,0 +1,15 @@
+PREFIX schema: <http://schema.org/>
+
+#Missing description for a target language
+#Search for missing descriptions in a target language.
+#Can be input for Q29032512
+SELECT ?item ?itemDescription ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q486972.
+  ?item wdt:P17 wd:Q265.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  FILTER(NOT EXISTS {
+    ?item schema:description ?itemdesc.
+    FILTER((LANG(?itemdesc)) = "de")
+  })
+}
+ORDER BY ?itemLabel

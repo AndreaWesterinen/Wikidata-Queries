@@ -1,0 +1,5 @@
+select ?qualvalue (count(?qualvalue) as ?total) where {
+?item wdt:P31/wdt:P279* wd:Q355304 .
+?item p:P625 ?statement .
+?statement pq:P31 ?qualvalue .
+} group by ?qualvalue

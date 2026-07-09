@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?membershipLabel ?presumedLabel ?positionStatement ?presumed
+WHERE {
+ ?membership wdt:P279 wd:Q16707842 . 
+ ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?membership .
+ filter not exists { ?positionStatement pq:P2937 ?term . }
+ ?membership wdt:P2937 ?presumed .
+ ?membership wdt:P571 ?start . 
+ # FILTER (?start >= "1935-01-01T00:00:00Z"^^xsd:dateTime) .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' } 
+}

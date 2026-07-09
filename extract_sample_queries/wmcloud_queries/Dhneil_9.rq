@@ -1,0 +1,12 @@
+#Catalan speaking Jews
+#defaultView:Timeline{"hide": ["?dob","?dod"]} 
+SELECT ?person ?personLabel  ?dod (YEAR(?dod) as ?datedeath) ?dob (YEAR(?dob) as ?datebirth) ?pic
+WHERE 
+{
+  ?person wdt:P140 wd:Q9268 .
+  ?person wdt:P1412 wd:Q7026 .
+  ?person wdt:P569 ?dob .
+  ?person wdt:P570 ?dod .  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?person wdt:P18 ?pic }
+}

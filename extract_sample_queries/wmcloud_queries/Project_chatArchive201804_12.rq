@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?P31 ?P31Label ?sitelinks WHERE {
+  {?item wdt:P17 wd:Q668.}               #country is India
+  UNION                                  #and/or
+  {?item wdt:P27 wd:Q668.}               #country of citizenship is India
+  ?item wikibase:sitelinks ?sitelinks .  #number of sitelinks
+  filter(?sitelinks >20)                 #discard if less than 20
+  ?item wdt:P31 ?P31.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by desc(?sitelinks)

@@ -1,0 +1,11 @@
+#title: Frequency of first names > 100000 (in a country) and not the top 10
+# Complex constraint from [[Property talk:P5323]]
+#
+SELECT ?item ?attestedIn ?date ?number ?order {
+  ?item p:P5323 [ps:P5323 ?attestedIn;
+                 pq:P1114 ?number;
+                 pq:P1545 ?order;
+                  ].
+  FILTER (?number > 100000 && ?order > 10).
+  ?attestedIn wdt:P585 ?date.
+}

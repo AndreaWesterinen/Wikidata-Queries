@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item 
+{
+   ?item wdt:P31 wd:Q8502 ;
+         p:P625 [
+           psv:P625 [
+             wikibase:geoLatitude ?lat ;
+             wikibase:geoLongitude ?lon ;
+             wikibase:geoGlobe ?globe ;
+           ] ;
+           ps:P625 ?coord
+         ]
+  FILTER ( ?globe = wd:Q405 )
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name
+   }
+} LIMIT 10

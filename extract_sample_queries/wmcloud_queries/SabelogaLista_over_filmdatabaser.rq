@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?landLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv, [AUTO_LANGUAGE]". }
+  ?item wdt:P31 wd:Q29542094.
+  OPTIONAL { ?item wdt:P17 ?land. }
+}
+ORDER BY ?landLabel

@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P650 "32439" } LIMIT 10

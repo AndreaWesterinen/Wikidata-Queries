@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel
+WHERE
+{
+  BIND(wdt:P31 AS ?instanceOf).
+  ?item ?instanceOf wd:Q31732340.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "jbo". }
+  # FILTER(?itemLabel = "ZO").
+}

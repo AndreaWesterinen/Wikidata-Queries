@@ -1,0 +1,18 @@
+SELECT (COUNT(?item) AS ?num) ?prov ?provLabel WHERE {
+  ?item wdt:P131* ?prov .
+
+  {?prov wdt:P31 wd:Q15089.} # Province
+  UNION {?prov wdt:P31 wd:Q15110.} # Città metropolitane
+  UNION {?prov wdt:P31 wd:Q21190155.} # Liberi consorzi comunali
+  UNION {?prov wdt:P31? wd:Q1222} # Val d'Aosta
+  UNION {?prov wdt:P131 wd:Q1250; wdt:P31 wd:Q3924474.} # Ex province del Friuli-Venezia Giulia
+
+  ?item wdt:P2186 ?wlmid .
+  MINUS { ?item p:P2186 [ pq:P582 ?end ] .
+  FILTER ( ?end <= "2019-09-01T00:00:00+00:00"^^xsd:dateTime ) }
+  MINUS { ?item p:P2186 [ pq:P585 ?date ] .
+  FILTER ( ?date <= "2020-01-01T00:00:00+00:00"^^xsd:dateTime ) }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,[AUTO_LANGUAGE]". }
+} GROUP BY ?prov ?provLabel
+ORDER BY DESC(?num)

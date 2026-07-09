@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel (COUNT(DISTINCT ?country) as ?countryCount)
+WHERE {
+  ?item wdt:P1717 ?dummy0 FILTER(bound(?dummy0))
+  ?item wdt:P2043 ?dummy1 FILTER(bound(?dummy1)) 
+  ?item wdt:P17 ?country .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en,de" } 
+} 
+GROUP BY ?item ?itemLabel
+HAVING (?countryCount > 1) 
+ORDER BY DESC (?countryCount)

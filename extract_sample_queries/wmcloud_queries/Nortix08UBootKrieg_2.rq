@@ -1,0 +1,12 @@
+#defaultView:Map{"hide":["?location"]}
+SELECT DISTINCT ?uboat ?uboatLabel ?location
+WHERE
+{
+  ?uboat wdt:P31 wd:Q428661 . # ist ein Weltkriegs-U-Boot
+  ?uboat p:P793 ?event . # hat ein Schlüsselereignis…
+    ?event ps:P793 wd:Q17781833 ; # …vom Typ Zerstörung…
+           pq:P625 ?location . # …und den Koordinaten
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". }
+}
+ORDER BY ?uboat ?uboatLabel 

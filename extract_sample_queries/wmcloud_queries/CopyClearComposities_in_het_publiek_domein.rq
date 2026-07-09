@@ -1,0 +1,24 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?item ?itemLabel ?date ?componistLabel ?writerLabel ?deathwriter ?countryLabel WHERE {
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+
+  ?componist wdt:P31 wd:Q5.
+  ?componist wdt:P569 ?born.
+  ?componist wdt:P570 ?death.
+  OPTIONAL {?item wdt:P495 ?country.
+  }
+  OPTIONAL {?item wdt:P676 ?writer.
+    ?writer wdt:P570 ?deathwriter.
+    FILTER(?deathwriter < "1949-01-01T00:00:00Z"^^xsd:dateTime)        
+  }
+  ?item wdt:P86 ?componist.
+  OPTIONAL {?item wdt:P571 ?creationdate.}
+  OPTIONAL {?item wdt:P1191 ?performancedate.}
+  OPTIONAL {?item wdt:P577 ?pubdate.}
+  BIND (IF(BOUND(?creationdate), ?creationdate, IF(BOUND(?performancedate), ?performancedate, ?pubdate)) AS ?date)
+  FILTER(?date >= "1900-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?date < "1949-01-01T00:00:00Z"^^xsd:dateTime) 
+  FILTER(?death < "1949-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?death >= ?date)
+}

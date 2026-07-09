@@ -1,0 +1,9 @@
+SELECT DISTINCT ?movie ?movieLabel
+WHERE 
+{
+	?movie wdt:P2897 ?id .
+
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}

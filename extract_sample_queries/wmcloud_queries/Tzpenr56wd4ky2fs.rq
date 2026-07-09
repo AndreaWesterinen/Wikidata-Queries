@@ -1,0 +1,6 @@
+SELECT ?human ?humanLabel (YEAR(?date) AS ?year)
+WHERE {
+  ?human wdt:P31 wd:Q5 ; wdt:P21 wd:Q6581072 ; p:P166 [ rdf:type wikibase:BestRank ; ps:P166 wd:Q38104 ; pq:P585 ?date ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+ORDER BY ?year

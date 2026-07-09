@@ -1,0 +1,22 @@
+# languages of labels
+# by Jura1 for JakobVoss, 2016-07-01
+SELECT ?lang 
+           (COUNT(DISTINCT ?label) as ?ct) 
+           (GROUP_CONCAT(DISTINCT ?itemLabel; separator=", ") as ?itemLabels)
+			(GROUP_CONCAT(DISTINCT ?items; separator=", ") as ?items)
+WHERE 
+{ 
+  	# comment out the following line to view all languages with labels
+  	VALUES ?lang { "fr" "es" "it" "ceb" "la" }
+  	?item wdt:P31 wd:Q179700 . 
+    #use "rdfs:label" to access available labels only
+  	?item rdfs:label ?label .
+  	BIND(lang(?label) as ?lang) 
+    #use wikibase:label service to add some label to the items being selected
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,es,it" . ?item rdfs:label ?itemLabel }
+	FILTER(?lang != "en")
+} 
+GROUP BY ?lang
+# uncomment the following line to limit to languages with more than 2 labels
+# HAVING (?ct > 2)
+ORDER BY DESC(?ct)

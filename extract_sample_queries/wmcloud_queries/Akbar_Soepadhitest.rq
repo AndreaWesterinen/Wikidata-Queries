@@ -1,0 +1,10 @@
+SELECT ?b ?bLabel ?pLabel ?tLabel
+WHERE 
+{
+?b wdt:P31 wd:Q571;
+      wdt:P495 wd:Q252;
+      wdt:P6216 wd:Q19652.
+?b wdt:P921 ?t.
+OPTIONAL {?b wdt:P123 ?p.}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,id". }
+}

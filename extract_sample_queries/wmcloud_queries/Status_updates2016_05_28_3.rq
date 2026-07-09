@@ -1,0 +1,8 @@
+# Places with free wi-fi
+SELECT ?item ?itemLabel ?coord
+WHERE
+{
+	?item wdt:P2848 wd:Q1543615 .
+     ?item wdt:P625 ?coord .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

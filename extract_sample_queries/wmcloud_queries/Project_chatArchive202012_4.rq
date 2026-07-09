@@ -1,0 +1,7 @@
+SELECT ?item ?value {
+  ?item wdt:P1814 ?value .
+  ?item wdt:P27 | (wdt:P19/wdt:P131*) wd:Q17 .
+  
+  ?item wdt:P31 wd:Q5 .
+  OPTIONAL { ?item rdfs:label ?iteml filter (lang(?iteml) = "en") } FILTER (!BOUND(?iteml))
+}

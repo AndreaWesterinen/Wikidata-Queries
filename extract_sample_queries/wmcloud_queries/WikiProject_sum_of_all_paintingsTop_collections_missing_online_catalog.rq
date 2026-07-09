@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 ;
+            wdt:P195 ?item . 
+  FILTER NOT EXISTS { ?item wdt:P8768 [] }  
+} GROUP BY ?item ?name
+HAVING (?count > 10)
+ORDER BY DESC(?count) 
+LIMIT 250

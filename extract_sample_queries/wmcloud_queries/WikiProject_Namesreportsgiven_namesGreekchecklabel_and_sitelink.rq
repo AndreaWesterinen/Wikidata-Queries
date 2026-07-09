@@ -1,0 +1,16 @@
+SELECT ?item ?l ?l_el 
+  (COUNT(DISTINCT ?p) as ?count)
+  (SAMPLE(?p) as ?sample_p)
+{
+    ?item wdt:P407 wd:Q9129 ;
+          wdt:P31/wdt:P279? wd:Q202444 . 
+    [] schema:about ?item ; schema:isPartOf <https://el.wikipedia.org/> ; schema:name ?l.
+    ?item rdfs:label ?l_el. 
+    FILTER (lang(?l_el) = "el"  
+            && str(?l_el) != str(?l)
+            && str(?l) != CONCAT( str(?l_el), " (όνομα)")
+           ) 
+    OPTIONAL { ?p wdt:P735 ?item }
+}
+GROUP BY ?item ?l ?l_el
+ORDER BY DESC(?count) ?item

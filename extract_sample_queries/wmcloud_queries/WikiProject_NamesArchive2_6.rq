@@ -1,0 +1,7 @@
+SELECT (COUNT(*) as ?count)
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?item wdt:P734 []
+          ; wdt:P735 [] 
+}

@@ -1,0 +1,14 @@
+#count number of people with History of Parliament identifiers
+#also count total number of identifiers used out of 21399 total (many people have two or three) 
+#for more complex figures see nightly report at http://www.generalist.org.uk/wikidata/
+
+SELECT  (COUNT(DISTINCT ?subject) AS ?distinct_people )
+		(COUNT(?subject) AS ?identifiers )
+		(21399-?identifiers AS ?identifiers_remaining)
+		(100*?identifiers/21399 AS ?percent_identifiers)
+
+WHERE
+{
+    ?subject wdt:P1614 ?id .
+    ?subject wdt:P31 wd:Q5 .
+}

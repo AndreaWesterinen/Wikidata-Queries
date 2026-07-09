@@ -1,0 +1,15 @@
+SELECT
+  ?item ?pid 
+  (SAMPLE(CONCAT("<","nowiki>",?ten,"</","nowiki>")) as ?pattern)
+  (COUNT(?lang) as ?count)
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?prop p:P1552 [ ps:P1552 wd:Q100884525 ; pq:P8770 ?t ].
+  BIND(lang(?t) as ?lang)
+  BIND(strafter(str(?prop),"P") as ?pid)
+  OPTIONAL { ?prop p:P1552 [ ps:P1552 wd:Q100884525 ; pq:P8770 ?ten ] . FILTER(lang(?ten)="en") }
+  ?item wdt:P5176 ?pid.
+}
+GROUP BY ?item ?pid
+ORDER BY DESC(?count)

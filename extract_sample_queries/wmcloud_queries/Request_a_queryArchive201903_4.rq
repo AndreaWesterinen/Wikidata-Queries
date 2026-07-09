@@ -1,0 +1,29 @@
+SELECT ?id
+  (if(BOUND(?link),
+      concat('[[', substr(str(?link),31,500),  '{{!}}', ?idLabel, ']]'),
+      ?idLabel)
+   as ?title)
+WHERE {
+  { ?id p:P31/ps:P31/wdt:P279* wd:Q2198484 .
+  hint:Prior hint:gearing 'forward' 
+}
+  UNION
+  { ?id p:P31/ps:P31/wdt:P279* wd:Q13626398 . 
+  hint:Prior hint:gearing 'forward' 
+}  
+  UNION
+  { ?id p:P31/ps:P31/wdt:P279* wd:Q4057820 . 
+  hint:Prior hint:gearing 'forward' 
+}  
+  ?id p:P131 ?locst .
+  ?locst ps:P131/wdt:P131* wd:Q2596.
+  hint:Prior hint:gearing 'forward' 
+  MINUS { ?locst pq:P582 [] }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en' .
+    ?id rdfs:label ?idLabel .
+  }
+  OPTIONAL {?link schema:about ?id .
+  ?link schema:isPartOf <https://en.wikipedia.org/> . }
+} 
+GROUP BY ?id ?link ?idLabel

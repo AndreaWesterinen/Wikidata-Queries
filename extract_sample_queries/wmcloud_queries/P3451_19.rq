@@ -1,0 +1,7 @@
+#title: Short filename
+# Complex constraint from [[Property talk:P3451]]
+#
+SELECT DISTINCT ?item ?value {
+  ?item wdt:P3451 ?value.
+  FILTER(STRLEN(STR(?value)) < 65).
+}

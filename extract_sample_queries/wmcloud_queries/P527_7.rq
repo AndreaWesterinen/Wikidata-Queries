@@ -1,0 +1,10 @@
+#title: Only allow P4184 qualifier when object is a class
+# Complex constraint from [[Property talk:P527]]
+# Only allow [[Property:P4184|slope&#32;<small dir="ltr">(P4184)</small>]] qualifier when either the target object has a [[Property:P279|subclass of&#32;<small dir="ltr">(P279)</small>]] property or another item points to it using [[Property:P279|subclass of&#32;<small dir="ltr">(P279)</small>]].
+SELECT distinct ?item WHERE {
+  ?item p:P527 ?st .
+  ?st pq:P4184 [] .
+  FILTER NOT EXISTS {
+    ?st ps:P527 / ( wdt:P279 | ^wdt:P279 ) [] .
+  }
+}

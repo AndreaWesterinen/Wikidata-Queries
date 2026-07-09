@@ -1,0 +1,18 @@
+embed.html##defaultView:ImageGrid
+SELECT ?item  ?itemLabel ?itemDescription ?img ?sl ?st
+WITH
+{
+   SELECT DISTINCT ?item { 
+    ?item wdt:P18 []; wdt:P31 wd:Q5 .
+    FILTER(xsd:integer(strafter(str(?item), "Q")) > 95000000) 
+  }     
+} as %a
+WHERE
+{
+    INCLUDE %a
+    hint:Query hint:optimizer "None".
+    ?item wdt:P18 ?img ; wikibase:sitelinks ?sl ; wikibase:statements ?st . 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr,pl,ru,zh". }
+}  
+ORDER BY DESC(xsd:integer(strafter(str(?item), "Q")))
+OFFSET 500 LIMIT 500

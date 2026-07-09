@@ -1,0 +1,28 @@
+#defaultView:Map 
+
+#Federated search Wikidata -> NobelPrice.org
+PREFIX nobel: <http://data.nobelprize.org/terms/>
+ 
+SELECT DISTINCT  ?place ?img  ?twitter ?motivation ?article ?NobelArticle ?coord22 ?TED WHERE {
+  ?laureate wdt:P2888 ?laureate_nobel_uri .  
+  OPTIONAL{?laureate wdt:P2002 ?twitterID}
+  ?laureate wdt:P2611 ?TEDID
+  FILTER (strStarts(str(?laureate_nobel_uri), "http://data.nobelprize.org/resource/laureate/"))
+  OPTIONAL {?laureate wdt:P18 ?img}
+  OPTIONAL {?laureate wdt:P19/wdt:P625 ?coord22}
+
+  OPTIONAL {?article schema:about ?laureate .
+            ?article schema:isPartOf <https://en.wikipedia.org/>}
+
+  OPTIONAL{?laureate wdt:P3188 ?Na}
+  BIND (URI(CONCAT("https://www.nobelprize.org/nobel_prizes/",?Na,"-facts.html")) AS ?NobelArticle)
+  BIND (URI(CONCAT("https://twitter.com/",?twitterID)) AS ?twitter)
+  BIND (URI(CONCAT("https://www.ted.com/speakers/",?TEDID)) AS ?TED)
+  
+  SERVICE <http://data.nobelprize.org/sparql> {
+    ?laureate_nobel_uri nobel:laureateAward / nobel:motivation ?motivation .
+    FILTER (lang(?motivation) = 'en')
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,da,nl". }
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?instanceLabel WHERE {
+  ?item wdt:P31 ?instance.
+  ?item wdt:P291 wd:Q654019.
+  OPTIONAL { ?item wdt:P577 ?publication_date }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,en". }
+} ORDER BY DESC(?instanceLabel) ?publication_date

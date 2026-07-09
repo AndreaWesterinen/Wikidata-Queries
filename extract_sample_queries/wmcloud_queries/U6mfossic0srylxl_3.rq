@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT ?ct ?item ?itemLabel ?itemDescription ?bezirkLabel ?ortsteilLabel ?addressLabel ?image WHERE {
+  ?item wdt:P131+ wd:Q64.
+  ?item wdt:P31 wd:Q41253.
+  ?item wdt:P18 ?image .
+  OPTIONAL { ?item wdt:P4129 ?ct. }
+  OPTIONAL { ?item wdt:P131 ?bezirk . }
+  OPTIONAL { ?item wdt:P276 ?ortsteil . }
+  OPTIONAL { ?item wdt:P969 ?address . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,de". }
+}

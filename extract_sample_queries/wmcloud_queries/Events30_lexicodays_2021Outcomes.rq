@@ -1,0 +1,5 @@
+SELECT (count(?item) as ?count)
+{
+  ?item wdt:P8478 ?value .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en"  }
+}

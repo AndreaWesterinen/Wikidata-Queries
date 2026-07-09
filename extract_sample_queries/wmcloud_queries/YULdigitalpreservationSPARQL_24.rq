@@ -1,0 +1,14 @@
+SELECT ?person ?personLabel (COUNT(?archive) AS ?count)
+
+WHERE {
+  ?person wdt:P31 wd:Q5 .
+  ?person wdt:P485 ?archive .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }
+
+GROUP BY ?person ?personLabel
+ORDER BY DESC(?count)

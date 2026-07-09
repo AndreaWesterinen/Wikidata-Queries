@@ -1,0 +1,11 @@
+SELECT ?itemLabel ?item ?start ?end ?partLabel ?causeLabel #Select name, item number and start and end time of slavery
+WHERE {
+?item p:P3716 ?socstatement. #calling all items with a class statement.
+?socstatement  ps:P3716/wdt:P279* wd:Q12773225. #That class statement has a value of "Slave" or "Enslaved person"
+OPTIONAL { ?socstatement  pq:P580 ?start}. #Optionally, give me the start time for the enslavemen
+OPTIONAL {?socstatement  pq:P582 ?end}.#Optionally give me the end time for the enslavement
+  OPTIONAL {?socstatement  pq:P518 ?part}. #optionally give me what part of their enslavement 
+  OPTIONAL {?socstatement  pq:P1534 ?cause }. #optionally give me the cause of the end of the enslavement
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }          
+  
+}

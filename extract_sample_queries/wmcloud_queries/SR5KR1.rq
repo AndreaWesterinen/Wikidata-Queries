@@ -1,0 +1,27 @@
+SELECT DISTINCT ?item WHERE {
+  { ?item wdt:P17 wd:Q884. }
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q9842. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q490329. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q149566. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q8502. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q483515. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q39816. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q9826. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q23442. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q133056. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q54050. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q55488. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q207326. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q24024848. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q17128341. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q22698. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q861951. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q34442. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q928830. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q17683170. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q35509. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q5398426. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q3918. })
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q24529780. })
+  }
+LIMIT 8000

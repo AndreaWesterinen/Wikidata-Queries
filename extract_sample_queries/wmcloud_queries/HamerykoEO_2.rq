@@ -1,0 +1,25 @@
+select ?lexemeId ?lemma ?nomSing ?nomPlur ?acuSing ?acuPlur WHERE {
+  ?lexemeId <http://purl.org/dc/terms/language> wd:Q143;
+            wikibase:lexicalCategory wd:Q1084;
+            wikibase:lemma ?lemma.
+  # Nominativo singular
+  ?lexemeId ontolex:lexicalForm ?form1 .
+  ?form1 wikibase:grammaticalFeature wd:Q110786;
+         wikibase:grammaticalFeature wd:Q131105;
+         ontolex:representation ?nomSing .
+  # Nominativo plural
+  ?lexemeId ontolex:lexicalForm ?form2 .
+  ?form2 wikibase:grammaticalFeature wd:Q146786;
+         wikibase:grammaticalFeature wd:Q131105;
+         ontolex:representation ?nomPlur .
+  # Acusativo singular
+  ?lexemeId ontolex:lexicalForm ?form3 .
+  ?form3 wikibase:grammaticalFeature wd:Q110786;
+         wikibase:grammaticalFeature wd:Q146078;
+         ontolex:representation ?acuSing .
+  # Acusativo plural
+  ?lexemeId ontolex:lexicalForm ?form4 .
+  ?form4 wikibase:grammaticalFeature wd:Q146786;
+         wikibase:grammaticalFeature wd:Q146078;
+         ontolex:representation ?acuPlur .
+}

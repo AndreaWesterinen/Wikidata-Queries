@@ -1,0 +1,26 @@
+SELECT DISTINCT ?item ?ID ?taxon 
+{
+    ?item wdt:P3398 ?ID .  
+    ?item wdt:P225  ?taxon .       # taxon name
+    ?item wdt:P171|
+                 wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171| 
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|  
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|   
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|    
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|    
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|     
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|     
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|  
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|   
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171|
+                 wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171/wdt:P171
+                 wd:Q165468 . 
+}

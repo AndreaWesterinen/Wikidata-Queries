@@ -1,0 +1,8 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?item ?itemLabel ?value ?valueLabel WHERE
+{
+	?item p:P37/pq:P518 ?value .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}

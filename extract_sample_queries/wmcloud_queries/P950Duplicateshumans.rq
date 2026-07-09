@@ -1,0 +1,14 @@
+SELECT ?item ?item2 (REPLACE(CONCAT('[', ?formatter, ' $1]'), '\\$1', ?bne) AS ?url) WITH {
+  SELECT * {
+    ?item wdt:P950/^wdt:P950 ?item2 .
+    FILTER( STR( ?item ) < STR( ?item2 ) ) .
+  { ?item wdt:P31 wd:Q5 . } UNION { ?item2 wdt:P31 wd:Q5 . }
+  }
+} AS %duplicates WITH {
+  SELECT * { wd:P950 wdt:P1630 ?formatter } LIMIT 1
+} AS %formatter WHERE {
+  INCLUDE %duplicates .
+  INCLUDE %formatter .
+  ?item wdt:P950 ?bne .
+  ?item2 wdt:P950 ?bne .
+} ORDER BY ?bne

@@ -1,0 +1,9 @@
+#title: Need P106
+# Complex constraint from [[Property talk:P1977]]
+# See [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]]. 199 results in 6 november 2020
+SELECT ?item {
+  ?item wdt:P1977 [];
+    wdt:P31 wd:Q5.
+  MINUS { ?item wdt:P106 [] }.
+}
+ORDER BY ?item

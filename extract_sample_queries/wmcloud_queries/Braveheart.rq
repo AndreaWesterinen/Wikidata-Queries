@@ -1,0 +1,26 @@
+#Missing labels for a target language
+#Search for labels in other languages that do not exist in a target language
+#Can be input for Q29032512
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P17 wd:Q40.
+  ?item wdt:P625 []
+  MINUS
+  {
+    ?item wdt:P18 []
+  }
+  MINUS
+  {
+    ?item wdt:P31 wd:Q29023906.
+  }  
+  MINUS
+  {
+    ?item wdt:P31 wd:Q13220204
+  }   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de,nl,fr,sv,ceb". }
+  FILTER(NOT EXISTS {
+    ?item rdfs:label ?lang_label.
+    FILTER((LANG(?lang_label)) = "de")
+  })
+  
+}
+ORDER BY (?itemLabel)

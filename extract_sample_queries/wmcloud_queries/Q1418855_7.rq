@@ -1,0 +1,17 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q1418855>  
+#most frequent family names of people with given name 
+#by Jura1, February 2020
+SELECT (COUNT(DISTINCT ?item) as ?count) ?fnLabel (GROUP_CONCAT(DISTINCT ?script0) as ?script) ?fn (SAMPLE(?item) as ?sample)
+WHERE
+{
+    ?item wdt:P735 wdname: .
+    hint:Prior hint:runFirst true .
+    ?item wdt:P734 ?fn . 
+    ?item wdt:P31 wd:Q5 .
+    ?fn wdt:P1705 ?fnLabel0 .
+    BIND( str(?fnLabel0) as ?fnLabel)
+    OPTIONAL { ?fn wdt:P282 / rdfs:label ?script0 . FILTER(lang(?script0)="en" ) } 
+}
+GROUP BY ?fn ?fnLabel
+ORDER BY DESC(?count)
+LIMIT 100

@@ -1,0 +1,6 @@
+SELECT ?item  ?woll_catalog WHERE {
+  ?item wdt:P195 wd:Q844926 .
+  ?item wdt:P31  wd:Q3305213 .
+  ?item p:P528 [ pq:P972 wd:Q18891549; ps:P528 ?woll_catalog] .
+  OPTIONAL { ?item wdt:P571 ?inception }
+  } ORDER BY ?inception

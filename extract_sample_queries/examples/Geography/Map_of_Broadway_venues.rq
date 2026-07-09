@@ -1,3 +1,4 @@
+#title: Map of Broadway venues
 #defaultView:Map
 # Venues in Broadway
 SELECT DISTINCT ?venue ?venueLabel ?coords {

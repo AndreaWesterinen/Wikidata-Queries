@@ -1,0 +1,21 @@
+# Bases de données, bases de données web ou jeux de données tout ou partie francophones
+SELECT ?base_de_donn_es ?paysLabel ?base_de_donn_esLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  {
+    ?base_de_donn_es wdt:P31 wd:Q8513.
+    ?base_de_donn_es wdt:P407 wd:Q150. 
+    OPTIONAL { ?base_de_donn_es wdt:P17 ?pays. }
+  }
+  UNION {
+    ?base_de_donn_es wdt:P31 wd:Q7094076.
+    ?base_de_donn_es wdt:P407 wd:Q150.
+    OPTIONAL { ?base_de_donn_es wdt:P17 ?pays. }
+  }
+  UNION {
+    ?base_de_donn_es wdt:P31 wd:Q1172284.
+    ?base_de_donn_es wdt:P407 wd:Q150.
+    OPTIONAL { ?base_de_donn_es wdt:P17 ?pays. }
+  }
+}
+ORDER BY ?base_de_donn_esLabel
+LIMIT 500

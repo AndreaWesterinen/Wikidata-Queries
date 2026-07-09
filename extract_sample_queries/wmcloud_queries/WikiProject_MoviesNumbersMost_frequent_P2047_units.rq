@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel (count(*) as ?count) WHERE { VALUES ?filmtype { wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?film wdt:P31 ?filmtype . ?film p:P2047/psv:P2047 ?runningtime_det . ?runningtime_det wikibase:quantityUnit ?item. SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . } } GROUP BY ?item ?itemLabel ORDER BY DESC(?count)

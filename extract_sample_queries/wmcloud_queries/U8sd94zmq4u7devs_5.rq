@@ -1,0 +1,11 @@
+#defaultView:Timeline
+SELECT ?mayor ?mayorLabel ?end ?date (SAMPLE(?photo) AS ?pic)
+WHERE {
+  wd:Q1718 p:P6 ?mayorStatement .
+  ?mayorStatement ps:P6 ?mayor ;
+         pq:P580 ?date .
+  OPTIONAL { ?mayorStatement ps:P6 ?mayor ; pq:P582 ?end . }
+  OPTIONAL { ?mayor wdt:P18 ?photo . }
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" .  }
+}GROUP BY ?mayor ?mayorLabel ?date ?end
+ORDER BY ?date

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?sitter WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P136 wd:Q134307 .  
+  ?item wdt:P921 ?sitter .
+  MINUS { ?item wdt:P180 ?sitter  }. 
+  } 

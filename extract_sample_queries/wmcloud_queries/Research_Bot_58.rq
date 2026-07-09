@@ -1,0 +1,11 @@
+SELECT DISTINCT ?author #?authorLabel (COUNT(?paper) AS ?count)
+WHERE
+{
+    ?author wdt:P496 ?orcid .
+#    ?paper wdt:P50 ?author .
+    FILTER NOT EXISTS { ?author wdt:P106 ?occupation . }
+#	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+#GROUP BY ?author ?authorLabel
+#ORDER BY DESC(?count)
+LIMIT 100000

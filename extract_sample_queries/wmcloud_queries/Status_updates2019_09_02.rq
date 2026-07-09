@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?creator ?creatorLabel WHERE 
+{ 
+  ?item wdt:P136 wd:Q557141 . 
+  ?item wdt:P131 ?sub0 . 
+  ?sub0 (wdt:P131)* wd:Q23939248 .
+  ?item wdt:P170 ?creator .
+  ?creator wdt:P21 wd:Q6581072 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?coord ?b WHERE 
+  {
+    ?item wdt:P131 wd:Q100166 . hint:Prior hint:runFirst true.
+    ?item wdt:P31/wdt:P279* wd:Q355304 . hint:Prior hint:gearing "forward".
+    ?item wdt:P625 ?coord .  
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  
+} order by ?itemLabel

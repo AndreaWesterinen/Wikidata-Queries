@@ -1,0 +1,7 @@
+#title: Can't be one thing and group of things
+# Complex constraint from [[Property talk:P31]]
+# keep only one claim, split into several items: Q1880543, Q161678, Q232009
+SELECT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q15619176 . # one 
+  ?item wdt:P31/wdt:P279* wd:Q17519152 . # group
+}

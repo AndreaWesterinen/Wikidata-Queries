@@ -1,0 +1,21 @@
+PREFIX schema: <http://schema.org/>
+
+#Missing description for a target language
+#Search for missing descriptions in a target language.
+#Can be input for Q29032512
+SELECT ?item ?itemDescription ?itemLabel ?countryLabel ?ist_ein_e ?ist_ein_e_Label WITH {
+  SELECT ?item ?country ?ist_ein_e_ ?ist_ein_e_Label WHERE {
+    VALUES ?country { wd:Q965 wd:Q1041 wd:Q929 wd:Q1045 wd:Q79 wd:Q1016 }
+    ?item wdt:P17 ?country.
+    FILTER(NOT EXISTS {
+      ?item schema:description ?itemdesc.
+      FILTER((LANG(?itemdesc)) = "de")
+    })
+  }
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  OPTIONAL { ?item wdt:P31 ?ist_ein_e_. }
+}
+ORDER BY ?itemLabel  
+Limit 100000                   

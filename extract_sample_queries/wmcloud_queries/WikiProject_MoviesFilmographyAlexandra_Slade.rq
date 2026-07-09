@@ -1,0 +1,29 @@
+SELECT
+	(?film as ?item)
+	(group_concat(DISTINCT concat("\u007B\u007BP\u007C",strafter(str(?property),"/entity/"),"\u007D\u007D");separator="<br>") as ?part) 
+	(SAMPLE(?role) as ?role)
+	(SAMPLE(?as) as ?as)
+	(MIN(?year) as ?year)
+	(SAMPLE(?sitelinks) as ?sitelinks)
+	(SAMPLE(?statements) as ?statements)
+	(COUNT(DISTINCT ?cast) as ?castlisted)
+	(COUNT(DISTINCT ?va) as ?valisted)
+	(SAMPLE(?ids) as ?ids)
+	(CONCAT("[[:en:", str(sample(?article)), "|en]]") as ?en)
+{
+  	hint:Query hint:optimizer "None" .
+  	?film ?wdt wd:Q30070897 .
+  	?property wikibase:directClaim ?wdt ; wikibase:claim ?p ; wikibase:statementProperty ?ps
+  	OPTIONAL { ?film ?p ?statement . ?statement ?ps wd:Q30070897 . ?statement pq:P453 ?role . OPTIONAL {?statement pq:P794 ?as} }
+  	OPTIONAL { ?film wdt:P577 ?pub BIND(YEAR(?pub) as ?year) }
+  	?film wdt:P31/wdt:P279* wd:Q11424
+  	OPTIONAL { ?film wikibase:sitelinks ?sitelinks }
+  	OPTIONAL { ?film wikibase:statements ?statements }
+  	OPTIONAL { ?film wikibase:identifiers ?ids }
+  	OPTIONAL { ?film wdt:P161 ?cast } .
+  	OPTIONAL { ?film wdt:P725 ?va } .
+	OPTIONAL { [] schema:about ?film ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?article }      
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?property rdfs:label ?propertylabel }
+}
+GROUP BY ?film
+ORDER BY DESC(?year) ?film ?item

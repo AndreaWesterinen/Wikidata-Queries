@@ -1,0 +1,11 @@
+SELECT ?item ?linkcount ?meturl 
+WHERE
+{
+  ?item wdt:P3634 ?id .
+  ?item wdt:P217 ?inv .
+  ?item wikibase:sitelinks ?linkcount .
+  BIND ((CONCAT ("[http://www.metmuseum.org/art/collection/search/", ?id, " ", ?inv, "]")) as ?meturl) .
+  FILTER (?linkcount > 0)
+}
+GROUP BY ?item ?linkcount ?meturl 
+ORDER BY DESC(?linkcount)

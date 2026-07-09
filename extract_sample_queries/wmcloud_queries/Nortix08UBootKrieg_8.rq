@@ -1,0 +1,28 @@
+#defaultView:Map{"hide":["?location"]}
+SELECT DISTINCT ?uboat ?uboatLabel (SAMPLE(?location) AS ?location) (SAMPLE(?date) AS ?date) ?layer
+WHERE
+{
+  ?uboat wdt:P31 wd:Q428661 ; # ist ein Weltkriegs-U-Boot
+         wdt:P137 wd:Q151701 . # Betreiber ist Kriegsmarine
+  OPTIONAL {
+    ?uboat p:P793 ?event . # hat ein Schlüsselereignis…
+    ?event ps:P793 wd:Q1786766 ; # …vom Typ Selbstversenkung…
+           pq:P1478 wd:Q566859 ; # …hat unmittelbare Ursache Operation Regenbogen…
+           pq:P585 ?date ; # …mit dem Zeitpunkt…
+           pq:P625 ?location . # …und den Koordinaten
+    BIND ("Operation Regenbogen" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat p:P793 ?event . 
+    ?event ps:P793 wd:Q30880545 ; # …vom Typ Versenkung…
+           pq:P1478 wd:Q660865 ; # …hat unmittelbare Ursache Operation Deadlight
+           pq:P585 ?date ; 
+           pq:P625 ?location . 
+    BIND ("Operation Deadlight" AS ?layer)
+  }
+
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". }
+}
+GROUP BY ?uboat ?uboatLabel ?date ?layer

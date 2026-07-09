@@ -1,0 +1,5 @@
+SELECT ?item ?id WHERE {
+  ?item p:P1343 ?describedproperty .
+  ?describedproperty ps:P1343 wd:Q21712440 .
+  ?describedproperty pq:P958 ?id . 
+  }

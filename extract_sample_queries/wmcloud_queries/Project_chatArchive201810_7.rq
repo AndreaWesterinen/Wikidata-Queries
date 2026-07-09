@@ -1,0 +1,11 @@
+embed.html##defaultView:BubbleChart
+SELECT ?langLabel (COUNT(DISTINCT ?languagelink) AS ?linkcount)
+WHERE {
+    ?item wdt:P31 wd:Q5.       # is a human 
+    ?item wdt:P3217 ?SBL.      
+    ?languagelink schema:about ?item.
+    ?languagelink schema:inLanguage ?lang.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de,es,ar,sv" }
+}
+GROUP BY ?langLabel 
+ORDER BY DESC(?linkcount)

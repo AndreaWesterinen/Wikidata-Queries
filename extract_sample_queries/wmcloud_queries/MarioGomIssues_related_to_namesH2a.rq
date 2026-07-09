@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item
+WHERE {
+  {
+    SELECT ?item
+    WHERE {
+      ?item wdt:P735 ?given .
+      VALUES ?given {
+        wd:Q43400291 # Chema (nickname)
+      }
+    }
+    LIMIT 10
+  }
+}

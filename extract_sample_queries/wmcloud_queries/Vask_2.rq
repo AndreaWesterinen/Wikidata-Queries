@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(?pris) AS ?count) WHERE {
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P21 wd:Q6581072.
+ ?item wdt:P166 ?pris.
+ FILTER(NOT EXISTS {
+ ?article2 schema:about ?item .
+ ?article2 schema:isPartOf <https://sv.wikipedia.org/> . 
+ })
+} 
+GROUP BY ?item HAVING(?count > 20) ORDER BY DESC(?count) LIMIT 1000

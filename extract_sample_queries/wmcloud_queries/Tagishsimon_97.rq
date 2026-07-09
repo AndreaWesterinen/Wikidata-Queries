@@ -1,0 +1,12 @@
+SELECT distinct ?item ?itemLabel ?P31Label ?P361Label ?P206Label
+WHERE 
+{
+  { ?item wdt:P131/wdt:P131 wd:Q22 . } hint:Prior hint:runFirst true.
+  ?item wdt:P31/wdt:P279* wd:Q19817101 . hint:Prior hint:gearing "forward". # coastal landform
+  
+  OPTIONAL { ?item wdt:P361 ?P361 . } # part of
+  OPTIONAL { ?item wdt:P206 ?P206 . } # located in water 
+  ?item wdt:P31 ?P31 .
+  [] wdt:P201|wdt:P403 ?item .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

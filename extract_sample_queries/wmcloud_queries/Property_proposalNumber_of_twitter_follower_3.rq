@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?count WHERE {
+  {
+    SELECT ?item (COUNT (?twitter_account) AS ?count) WHERE {
+      ?item wdt:P2002 ?twitter_account .
+    }
+    GROUP BY ?item
+  }
+  FILTER (?count > 1)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

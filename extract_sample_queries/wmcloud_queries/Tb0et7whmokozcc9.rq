@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?capital ?capitalLabel ?code WHERE{
+  ?item p:P31 ?st .
+  ?st ps:P31/wdt:P279* wd:Q3624078
+  OPTIONAL { ?st pq:P582 ?end }
+  FILTER(!bound(?end))
+  ?item wdt:P36 ?capital .
+  ?capital wdt:P473 ?code
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }       
+} 

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item  WHERE {
+ {?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q16335227  } UNION 
+  { ?item wdt:P195 wd:Q51252 } .
+  ?item wdt:P31 wd:Q3305213 .  
+  } 
+ LIMIT 4000

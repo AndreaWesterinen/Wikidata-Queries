@@ -1,0 +1,27 @@
+SELECT ?entity ?entityLabel ?entityDescription ?st ?sl ?ids
+WHERE
+{
+  ?entity wdt:P17 wd:Q55 .
+{
+?entity wdt:P31 wd:Q2039348 .
+  MINUS { 
+    ?entity p:P31 ?inStatement .
+    ?inStatement pq:P582 [] .
+    MINUS { ?entity p:P31 ?p.
+            ?p ps:P31 wd:Q2039348; pq:P580 ?start .
+            FILTER NOT EXISTS { ?p pq:P582 []}
+    }             
+  }
+  OPTIONAL { ?entity p:P31 ?p.
+            ?p ps:P31 wd:Q2039348; pq:P580 ?start .  }
+  FILTER ( ?start < NOW() ) 
+}  
+UNION
+{
+?entity wdt:P31 wd:Q26934845 ;
+        wdt:P17 wd:Q55 .
+}. 
+  # MINUS { ?entity wdt:   [] }
+  OPTIONAL { ?entity wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } 
+}

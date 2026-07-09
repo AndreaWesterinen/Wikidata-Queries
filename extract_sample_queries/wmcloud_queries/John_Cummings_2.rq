@@ -1,0 +1,15 @@
+embed.html##defaultView:Map{"hide":["?geo", "?rgb", "?layer"],"markercluster": true}
+SELECT DISTINCT ?geo ?xLabel (SAMPLE(?x) AS ?x) (SAMPLE(?freedom) AS ?freedom) (SAMPLE(?layer) AS ?layer) WHERE {
+  ?x wdt:P31/wdt:P279* wd:Q6256 ;
+  #   wdt:P30 wd:Q46 ;
+     wdt:P3896 ?geo ;
+     wdt:P1552 ?freedom.
+  BIND(
+    IF(?freedom = wd:Q3174312, "free country",
+    IF(?freedom = wd:Q47185145, "partly free country",
+    IF(?freedom = wd:Q47185282, "not-free country",
+        "")))
+    AS ?layer).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?geo ?xLabel

@@ -1,0 +1,10 @@
+SELECT ?item ?p ?propertyDescription
+{
+  ?property wikibase:propertyType wikibase:ExternalId.
+  FILTER NOT EXISTS { 
+     { ?property wdt:P1629 ?subject } UNION { ?subject wdt:P1687 ?property }
+  }
+  BIND (concat("\u007B\u007BP'\u007C",strafter(str(?property),"y/"),"\u007D\u007D") as ?p) 
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}

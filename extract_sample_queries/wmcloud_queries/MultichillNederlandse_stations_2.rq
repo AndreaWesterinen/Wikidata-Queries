@@ -1,0 +1,1 @@
+SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE {?entity wdt:P31 wd:Q55488 ; wdt:P17 wd:Q55 ; wdt:P5817 wd:Q55654238 ; wdt:P127 wd:Q23076.}

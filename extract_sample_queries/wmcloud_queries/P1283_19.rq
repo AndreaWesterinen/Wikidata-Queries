@@ -1,0 +1,22 @@
+#title: Most active actors/directors without one at Wikidata
+# Complex constraint from [[Property talk:P1283]]
+#
+SELECT ?item
+WITH 
+{
+  SELECT ?item (COUNT(DISTINCT ?film) as ?count)
+  WHERE
+  {
+    ?p wdt:P1283 ?item ; (^ wdt:P161 \u007C ^ wdt:P57 ) ?film .
+  }
+  GROUP BY ?item
+  ORDER BY DESC(?count)
+  LIMIT 100
+} as %0
+WHERE
+{
+  INCLUDE %0
+  FILTER NOT EXISTS { [] schema:about ?item ; schema:isPartOf <https://www.wikidata.org/> }
+}
+ORDER BY DESC(?count) 
+LIMIT 10

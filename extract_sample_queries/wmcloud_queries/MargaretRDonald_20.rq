@@ -1,0 +1,42 @@
+PREFIX schema: <http://schema.org/>
+SELECT ?item ?itemLabel ?article WHERE {
+  ?item wdt:P106 ?sci.
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P21 wd:Q6581072.  # woman  
+  ?item wdt:P27 wd:Q408 .     # Australian
+    VALUES ?sci {
+    wd:Q901      # scientist
+    wd:Q2374149  # botanist
+    wd:Q11063    # astronomer
+    wd:Q18805    # naturalist
+    wd:Q39631    # physician
+    wd:Q81096    # engineer
+    wd:Q170790   # mathematician 
+    wd:Q82594    # computer scientist
+    wd:Q169470   # physicist 
+    wd:Q593644   # chemist
+    wd:Q864503   # biologist
+    wd:Q1265807  # information scientist
+    wd:Q3126128  # geneticist
+    wd:Q3140857  # horticulturist
+    wd:Q3745071  # science writer
+    wd:Q20107384 # gerontologist
+    wd:Q26726323 # food scientist
+    wd:Q28054752 # agricultural scientist 
+    wd:Q28870501 # neuroendocrinologist
+    wd:Q30084569 # medical researcher
+    wd:Q10872101 # anatomist
+    wd:Q14565186 # cognitive scientist
+    wd:Q15143181 # space scientist 
+    wd:Q15143191 # science communicator
+    wd:Q15401884 # medical researcher
+    wd:Q15839134 # ecologist
+    wd:Q15941468 # forensic scientist 
+}
+    #FILTER NOT EXISTS {
+    OPTIONAL  {
+    ?article schema:about ?item.
+    ?article schema:isPartOf <https://en.wikipedia.org/>. }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+} 
+#LIMIT 5000

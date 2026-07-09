@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?itemDescription ( REGEX( ?itemLabel, "^van .+$")  as ?chk) 
+{
+	?item wdt:P31 wd:Q101352 ; wdt:P1705 ?l . FILTER( REGEX( ?l, "^van .+$")  ) 
+    MINUS { ?item wdt:P7377 [] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?chk ?itemLabel

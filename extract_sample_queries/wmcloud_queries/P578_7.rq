@@ -1,0 +1,6 @@
+SELECT ?calendar (count(*) as ?count)
+WHERE {
+  ?dateproperty psv:P578/wikibase:timeCalendarModel ?calendar.
+}
+GROUP BY ?calendar
+ORDER BY DESC(?count)

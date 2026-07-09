@@ -1,0 +1,6 @@
+SELECT (COUNT(DISTINCT ?item) AS ?count)
+WHERE
+{
+  VALUES ?type { wd:Q4830453 wd:Q783794 }
+  ?item wdt:P31 ?type.
+}

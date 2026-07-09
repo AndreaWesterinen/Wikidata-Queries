@@ -1,0 +1,19 @@
+#defaultView:ImageGrid
+#Gallery of authors of scientific articles that have been published on this day of the year
+SELECT DISTINCT ?article ?articleLabel ?author ?authorLabel ?image (YEAR(?date) as ?year) 
+WHERE
+{
+    BIND(MONTH(NOW()) AS ?nowMonth)
+    BIND(DAY(NOW()) AS ?nowDay)
+
+    ?article wdt:P31 wd:Q13442814;
+            wdt:P577 ?date .
+    FILTER (MONTH(?date) = ?nowMonth && DAY(?date) = ?nowDay).
+    ?article wdt:P50 ?author.
+    ?author wdt:P18 ?image .
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+}
+ORDER BY ASC(?date)
+LIMIT 100

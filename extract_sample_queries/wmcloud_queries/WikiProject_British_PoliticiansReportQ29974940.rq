@@ -1,0 +1,7 @@
+SELECT ?item ?person {
+  ?item wdt:P31 wd:Q27971968 
+  FILTER NOT EXISTS { ?item wdt:P576 ?end }
+  OPTIONAL { 
+     ?person p:P39 [ ps:P39 wd:Q30524710 ; pq:P768 ?item ]
+  }
+}

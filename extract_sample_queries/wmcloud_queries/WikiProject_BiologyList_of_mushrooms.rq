@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item 
+WHERE
+{
+	{ ?item wdt:P783 [] } UNION
+  	{ ?item wdt:P784 [] } UNION
+  	{ ?item wdt:P785 [] } UNION 
+  	{ ?item wdt:P786 [] } UNION
+  	{ ?item wdt:P787 [] } UNION
+  	{ ?item wdt:P788 [] } UNION
+	{ ?item wdt:P789 [] }
+}
+LIMIT 5000

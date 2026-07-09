@@ -1,0 +1,23 @@
+prefix tgn: <http://vocab.getty.edu/tgn/>
+prefix gvp: <http://vocab.getty.edu/ontology#>
+prefix xl: <http://www.w3.org/2008/05/skos-xl#>
+prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+select * {
+  ?item wdt:P1667 ?tgn1 .
+  ?item wdt:P1667 ?tgn2 .
+  filter (?tgn1 != ?tgn2) .
+  
+  service <http://vocab.getty.edu/sparql.json> {
+    ?place1 skos:inScheme tgn: ; 
+           dc:identifier ?tgn1 ;
+           gvp:prefLabelGVP/xl:literalForm ?name1 .
+  }
+  service <http://vocab.getty.edu/sparql.json> {
+    ?place2 skos:inScheme tgn: ; 
+           dc:identifier ?tgn2 ;
+           gvp:prefLabelGVP/xl:literalForm ?name2 .
+  }
+  
+  filter (?name1 != ?name2) .
+}

@@ -1,0 +1,28 @@
+embed.html#PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?municip ?link ?municipLabel ?url_OK ?superficie ?mrcLabel ?regionLabel  WHERE {
+  { ?municip (wdt:P31/wdt:P279*) wd:Q3327873. }
+  UNION
+  { ?municip wdt:P31 wd:Q3327873. }
+  ?municip wdt:P31 ?statut.
+  ?municip wdt:P131 ?mrc.
+  ?mrc wdt:P131 ?region.
+  ?region wdt:P131 wd:Q176.
+  OPTIONAL { ?municip wdt:P571 ?dateCreation. }
+  OPTIONAL { ?municip wdt:P2046 ?superficie. }
+  OPTIONAL { ?municip wdt:P856 ?url.  BIND(1 AS ?url_OK). }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  OPTIONAL {
+    ?link schema:about ?municip.
+    ?link schema:isPartOf <https://fr.wikipedia.org/>.
+  }
+  FILTER(NOT EXISTS { ?municip wdt:P571 ?dateCreation. })
+  FILTER(NOT EXISTS { ?municip wdt:P576 ?dissolu. })
+  FILTER(NOT EXISTS { ?municip wdt:P582 ?fin. })
+  FILTER(NOT EXISTS {
+    ?municip p:P31 _:b13.
+    _:b13 pq:P582 ?pqfin.
+  })
+}
+ORDER BY ?regionLabel ?mrcLabel ?municipLabel
+LIMIT 1000

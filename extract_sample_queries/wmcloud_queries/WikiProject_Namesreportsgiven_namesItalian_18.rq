@@ -1,0 +1,8 @@
+SELECT ?item ?nl
+WHERE
+{
+    ?item wdt:P407 wd:Q652 ;
+          wdt:P31/wdt:P279? wd:Q202444 .
+    ?item wdt:P1705 ?nl .
+    FILTER( !REGEX ( ?nl, "^[A-Z][A-Za-zòùèì '-]+$") )
+}

@@ -1,0 +1,20 @@
+# Australian women botanists
+# the query also finds their article
+
+
+SELECT DISTINCT ?female ?femaleLabel ?ipni_id ?dob ?dod ?age ?birthplaceLabel ?id  ?sitelink WHERE {
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?female wdt:P21 wd:Q6581072;     # is female
+    wdt:P106 wd:Q2374149 ;         # instance of botanist
+    wdt:P27 wd:Q408 .              # is an Australian
+  
+  OPTIONAL { ?female wdt:P586 ?ipni_id}   #IPNI-id
+  OPTIONAL { ?female wdt:P569 ?dob. }     # date of birth
+  OPTIONAL { ?female wdt:P570 ?dod. }     # date of death
+  bind(year(?dod)-year(?dob) as ?age ) 
+  OPTIONAL {?female wdt:P19 ?birthplace.}   # defines birth place
+  OPTIONAL 	{ ?sitelink schema:about ?female. ?sitelink schema:inLanguage "en" }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY ?femaleLabel  
+ LIMIT 4000    

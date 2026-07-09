@@ -1,0 +1,1 @@
+SELECT?item (SAMPLE(?u) as ?u) (COUNT(DISTINCT ?y) as ?y){?item wdt:P5305 ?u.OPTIONAL{wd:Q54860579 wdt:P2699 ?u.BIND(?u as ?y)}.}GROUP BY ?item ORDER BY ?u ?item

@@ -1,0 +1,4 @@
+#title: Death before 1940
+# Complex constraint from [[Property talk:P3361]]
+# People with [[Property:P650|RKDartists ID&#32;<small dir="ltr">(P650)</small>]] dead before the year 1940
+SELECT DISTINCT ?item WHERE { ?item wdt:P3361 [] ; wdt:P570 ?dod .  FILTER(?dod < "+1940-00-15T00:00:00Z"^^xsd:dateTime)}  ORDER BY ?dod LIMIT 1000

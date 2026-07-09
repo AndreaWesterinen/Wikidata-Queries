@@ -1,0 +1,12 @@
+#defaultView:Dimensions
+SELECT  ?personLabel  ?awardLabel
+
+WHERE {
+  ?person wdt:P485 wd:Q964035 .
+    ?person wdt:P166 ?award .
+ 
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

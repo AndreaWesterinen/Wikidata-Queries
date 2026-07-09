@@ -1,0 +1,4 @@
+#title: Non-fictional places on Earth would generally not have "novalue" as coordinates
+# Complex constraint from [[Property talk:P625]]
+# TODO fix or define exceptions
+{{{sparql}}}

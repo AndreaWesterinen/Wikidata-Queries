@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?berufLabel ?image WHERE {
+    ?item wdt:P27 wd:Q40 . #Staatsangehörigkeit Österreich
+    ?item wdt:P21 wd:Q6581072 . #geschlecht weiblich
+    ?item wdt:P106 ?beruf.
+    VALUES ?beruf {wd:Q593644 wd:Q11063 wd:Q169470 wd:Q170790 wd:Q520549 wd:Q1627196 wd:Q39631 wd:Q864503 wd:Q3779582}
+  FILTER NOT EXISTS {
+    ?article schema:about ?item .
+    ?article schema:isPartOf <https://de.wikipedia.org/> . #Targeting Wikipedia language where subjects has no article.
+  }
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE,de,en]' }
+  }

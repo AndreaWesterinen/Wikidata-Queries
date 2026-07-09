@@ -1,0 +1,4 @@
+SELECT (count(*) as ?countOfCitation) WHERE {
+    #?item p:P225/pq:P6507 ?citation .
+    ?item wdt:P6507 ?citation .
+}

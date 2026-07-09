@@ -1,0 +1,21 @@
+SELECT ?item (CONCAT("[[Wikidata:WikiProject sum of all works/Creator/",?name, "|list]]") AS ?listlink) (COUNT(DISTINCT ?street) AS ?streetcount) ?workcount WHERE {
+  ?item wdt:P106 wd:Q36180 .
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P21 wd:Q6581072 .
+  ?street wdt:P138 ?item .
+  ?street wdt:P31 wd:Q79007 .
+  ?street wdt:P17 wd:Q55 .
+  { 
+    SELECT ?item (COUNT(?item) as ?workcount) WHERE {
+    ?work wdt:P31 wd:Q47461344 .  
+    ?work wdt:P50 ?item . 
+     } GROUP BY ?item 
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+  }
+}
+GROUP BY ?item ?name ?listlink ?workcount
+ORDER BY DESC(?streetcount)
+LIMIT 250

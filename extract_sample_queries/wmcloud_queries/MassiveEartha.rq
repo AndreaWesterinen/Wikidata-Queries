@@ -1,0 +1,8 @@
+SELECT ?person ?personLabel ?nationality ?nationalityLabel ?occupation ?occupationLabel
+WHERE{
+  ?person wdt:P3716 wd:Q12773225 .
+  ?person wdt:P106 wd:Q483501 .
+  OPTIONAL {?person wdt:P27 ?nationality .} . 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . } 
+  
+ }

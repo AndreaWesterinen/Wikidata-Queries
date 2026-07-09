@@ -1,0 +1,23 @@
+# Living people employed at Swedish universities without article in Swedish
+SELECT ?item ?itemLabel ?institLabel (GROUP_CONCAT(DISTINCT ?occLabel; SEPARATOR = ", ") AS ?occps) ?linkcount WHERE {
+  ?item wdt:P31 wd:Q5;
+    wdt:P108 ?instit.
+  MINUS { ?item wdt:P570 _:b2. }
+  ?instit wdt:P31 wd:Q3918;
+    wdt:P17 wd:Q34.
+  OPTIONAL {
+    ?sitelink schema:about ?item;
+      schema:inLanguage "sv".
+  }
+  FILTER(!(BOUND(?sitelink)))
+  OPTIONAL { ?item wikibase:sitelinks ?linkcount. }
+  OPTIONAL { ?item wdt:P106 ?occ. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "sv,en".
+    ?item rdfs:label ?itemLabel.
+    ?instit rdfs:label ?institLabel.
+    ?occ rdfs:label ?occLabel.
+  }
+}
+GROUP BY ?item ?itemLabel ?institLabel ?linkcount
+ORDER BY DESC (?linkcount)

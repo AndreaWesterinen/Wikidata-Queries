@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item p:P4812 ?s . MINUS { ?s wikibase:rank [] } }

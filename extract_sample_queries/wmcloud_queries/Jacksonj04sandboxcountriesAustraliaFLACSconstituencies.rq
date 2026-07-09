@@ -1,0 +1,14 @@
+SELECT ?item ?council WHERE { 
+  VALUES ?flacs {wd:Q10864048}
+  VALUES ?cons { wd:Q192611 }
+  ?region wdt:P31/wdt:P279* ?flacs ; 
+          wdt:P17 wd:Q408.
+  OPTIONAL {?council wdt:P1001 ?region ;
+                     wdt:P31 wd:Q11204 .
+            MINUS { ?council wdt:P576 [] }
+    }
+    ?item wdt:P31/wdt:P279* ?cons .
+    ?item wdt:P131 ?region
+  MINUS { ?item wdt:P576 [] }
+}
+ORDER BY ?item

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P31/wdt:P279* wd:Q18616576 .
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q19847637 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

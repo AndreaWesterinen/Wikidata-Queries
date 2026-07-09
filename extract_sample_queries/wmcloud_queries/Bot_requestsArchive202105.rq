@@ -1,0 +1,5 @@
+SELECT *
+WHERE
+{
+    ?item schema:description "Kategorija Wikipedije"@bs ; wdt:P31 wd:Q4167836
+}

@@ -1,0 +1,12 @@
+#title: Municipis amb més d'una província
+# Complex constraint from [[Property talk:Q234963]]
+#
+select distinct ?item ?provincia1 ?provincia2 where {
+   ?item wdt:P31/wdt:P279? wd:Q2074737 .
+   ?item wdt:P131*/wdt:P361/wdt:P361? wd:Q234963.
+   ?item wdt:P131+ ?provincia1.
+   ?item wdt:P131+ ?provincia2.
+   ?provincia1 wdt:P31 wd:Q162620.
+   ?provincia2 wdt:P31 wd:Q162620.
+   filter (?provincia1 != ?provincia2)
+ }

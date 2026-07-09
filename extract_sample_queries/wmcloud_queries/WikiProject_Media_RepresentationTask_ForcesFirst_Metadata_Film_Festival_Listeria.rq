@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item WHERE {
+  VALUES ?source {wd:Q105406968 wd:Q95415779 wd:Q77855044}
+  ?item wdt:P1343 ?source.
+}

@@ -1,0 +1,20 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX value: <http://www.wikidata.org/prop/statement/value/>
+
+SELECT ?item ?itemLabel ?lat ?long WHERE {
+	?item wdt:P30 wd:Q51 .
+	?item wdt:P625 ?coordinate .
+	?item p:P625 ?coordStatement .
+	?coordStatement value:P625 ?coordValue .
+	?coordValue wikibase:geoLatitude ?lat .
+	?coordValue wikibase:geoLongitude ?long .
+	FILTER (?lat > "-60"^^xsd:decimal) .
+
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}
+ORDER BY DESC(?lat)

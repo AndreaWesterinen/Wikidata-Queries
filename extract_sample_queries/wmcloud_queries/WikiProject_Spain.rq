@@ -1,0 +1,13 @@
+embed.html##Night in Spain
+ 
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?coord  ?noctu
+WHERE
+{
+  ?item wdt:P17 wd:Q29 . 
+  ?item wdt:P3451 ?noctu .   
+ OPTIONAL {	?item wdt:P625 ?coord } .
+ OPTIONAL { ?item wdt:P18 ?picture } .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en,ca,gl,eu,fr,de,it" . }
+}

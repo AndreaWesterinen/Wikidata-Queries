@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription ?value ?valueLabel
+WHERE
+{
+	?item wdt:P2302 ?value .
+	FILTER NOT EXISTS { ?item   wdt:P2302 wd:Q53869507 }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 100

@@ -1,0 +1,16 @@
+#defaultView:Graph
+SELECT ?deity ?deityLabel ?genderLabel ?worshippedByLabel ?image ?spouse ?spouseLabel ?child ?childLabel ?mother ?motherLabel ?father ?fatherLabel ?sister ?sisterLabel ?brother ?brotherLabel
+WHERE
+{
+	?deity wdt:P31 wd:Q178885 .
+	OPTIONAL { ?deity wdt:P21 ?gender }
+	OPTIONAL { ?deity wdt:P1049 ?worshippedBy }
+	OPTIONAL { ?deity wdt:P18 ?image }
+	OPTIONAL { ?deity wdt:P26 ?spouse }
+	OPTIONAL { ?deity wdt:P40 ?child }
+	OPTIONAL { ?deity wdt:P25 ?mother }
+	OPTIONAL { ?deity wdt:P22 ?father }
+	OPTIONAL { ?deity wdt:P9 ?sister }
+	OPTIONAL { ?deity wdt:P7 ?brother }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

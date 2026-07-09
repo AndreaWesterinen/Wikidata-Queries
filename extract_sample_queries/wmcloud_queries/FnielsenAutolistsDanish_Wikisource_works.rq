@@ -1,0 +1,5 @@
+SELECT distinct ?item WHERE {
+  ?article schema:about ?item.
+  ?article schema:isPartOf <https://da.wikisource.org/>.
+  values ?kind { wd:Q7725634 wd:Q1372064 wd:Q7366 wd:Q49848 }
+  ?item (wdt:P31/wdt:P279*) ?kind . }

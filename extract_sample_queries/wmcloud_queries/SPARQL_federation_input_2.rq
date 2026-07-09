@@ -1,0 +1,6 @@
+select * {
+  ?wd wdt:P245 "500041156".
+  ?wp schema:about ?wd
+  filter(regex(str(?wp),"https?://en.wikipedia.org/wiki/"))
+  bind(uri(replace(str(?wp),"https?://en.wikipedia.org/wiki/","http://dbpedia.org/resource/")) as ?db)
+}

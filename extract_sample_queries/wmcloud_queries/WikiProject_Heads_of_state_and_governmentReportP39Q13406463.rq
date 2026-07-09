@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?position ?jurisdiction ?shouldbe
+WHERE {      
+  ?item wdt:P31 wd:Q5 ; wdt:P39 ?position .
+  ?position p:P31/ps:P31/wdt:P279* wd:Q13406463 ; wdt:P360 ?shouldbe .
+  ?shouldbe wdt:P279 wd:Q2285706 ; wdt:P1001 ?jurisdiction .
+  ?jurisdiction wdt:P31 wd:Q6256 .
+}

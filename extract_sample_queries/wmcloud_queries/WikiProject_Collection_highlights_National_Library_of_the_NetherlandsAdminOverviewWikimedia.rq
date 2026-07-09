@@ -1,0 +1,17 @@
+select ?item ?itemLabel ?article_WPNL ?article_WPEN
+where {
+  ?item p:P195 ?st .
+  ?st ps:P195 wd:Q1526131 .
+  ?st pq:P2868 wd:Q29188408
+
+OPTIONAL {
+    ?article_WPNL schema:about ?item.
+    ?article_WPNL schema:isPartOf <https://nl.wikipedia.org/>.
+  }
+OPTIONAL {
+    ?article_WPEN schema:about ?item.
+    ?article_WPEN schema:isPartOf <https://en.wikipedia.org/>.
+  }
+
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}

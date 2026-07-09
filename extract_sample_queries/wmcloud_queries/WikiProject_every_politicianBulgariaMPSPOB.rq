@@ -1,0 +1,7 @@
+select * { 
+  ?item wdt:P11446 ?strazha ; wdt:P569 ?born .
+  bind(uri(concat("https://www.strazha.bg/",?strazha)) as ?strazha_url)
+  minus {?item wdt:P11446 [] ; wdt:P19 []}
+  optional {?wikipedia_url schema:about ?item ; schema:isPartOf <https://bg.wikipedia.org/> ; schema:name ?wikipedia}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "bg". ?x rdfs:label ?x_label }
+} order by desc(?born)

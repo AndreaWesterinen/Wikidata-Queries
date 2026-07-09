@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q157031;
+              wdt:P138 ?proglang.
+  ?proglang wdt:P31/wdt:P279* wd:Q9143
+  }

@@ -1,0 +1,10 @@
+#Naturschutzgebiete in Sachsen-Anhalt
+SELECT ?nrLabel ?nrDescription ?website ?coord ?WDPA_id ?_image WHERE {
+  ?nr (wdt:P31/wdt:P279*) wd:Q759421.
+  ?nr wdt:P131 wd:Q1206.
+  ?nr wdt:P625 ?coord.
+  OPTIONAL { ?nr wdt:P856 ?website. }
+  OPTIONAL { ?nr wdt:P809 ?WDPA_id. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  OPTIONAL { ?nr wdt:P18 ?_image. }
+}

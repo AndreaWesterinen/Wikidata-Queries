@@ -1,0 +1,16 @@
+#title: Not a U.S. citizen or permanent resident
+# Complex constraint from [[Property talk:P8002]]
+# Social Security numbers are only issued to U.S. citizens, permanent residents, or temporary (working) residents. This constraint will show a false positive for temporary residents; however, these should be fairly rare.
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P8002 ?ssn.
+  OPTIONAL {
+    ?item wdt:P27 wd:Q30.
+    BIND(wdt:P27 AS ?rel)
+  }
+  OPTIONAL {
+    ?item wdt:P5389 wd:Q30.
+    BIND(wdt:P5389 AS ?rel)
+  }
+  FILTER(!BOUND(?rel))
+}

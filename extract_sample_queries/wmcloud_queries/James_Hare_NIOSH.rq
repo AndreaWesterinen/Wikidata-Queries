@@ -1,0 +1,6 @@
+SELECT ?title (COUNT(DISTINCT ?paper) AS ?count) WHERE {
+  ?paper wdt:P31 wd:Q13442814.
+  ?paper wdt:P1476 ?title.
+}
+GROUP BY ?title
+ORDER BY DESC(?count)

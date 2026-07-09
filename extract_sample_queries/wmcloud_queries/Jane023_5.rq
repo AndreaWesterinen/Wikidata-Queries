@@ -1,0 +1,11 @@
+embed.html#SELECT ?decade (COUNT(?decade) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P571 ?inception .
+  ?item wdt:P170 ?painter .
+  ?painter wdt:P19 ?pob .
+  { ?pob wdt:P131* wd:Q55 }  UNION  { ?pob wdt:P131* wd:Q252 }
+  BIND( year(?inception) as ?year ). 
+  BIND( ROUND(?year/10)*10 as ?decade ) .
+  FILTER( ?year > 1400)
+  } GROUP BY ?decade
+ORDER BY ?decade

@@ -1,0 +1,91 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?work ?workLabel 
+              ("P580" AS ?P580) ?starttime
+              ("P582" AS ?P582) ?endtime
+              ("S248" AS ?S248) ?statedIn
+              ("S143" AS ?S143) ?importedFrom
+              ("S854" AS ?S854) ?url
+              ("S813" AS ?S813) ?retrieved
+
+WHERE
+{
+  ?item wdt:P31 wd:Q5.
+  #religious and mythical humans are ok
+  MINUS {?item wdt:P31/wdt:P279* wd:Q18563354}
+  MINUS {?item wdt:P31/wdt:P279* wd:Q21070568}
+  MINUS {?item wdt:P31/wdt:P279* wd:Q4271324}
+  #appearances in religious texts are ok
+  MINUS {?item wdt:P1441/wdt:P31/wdt:P279* wd:Q179461}
+  
+  {?item p:P1441 ?st. ?st ps:P1441 ?work.}
+  
+  #whitelist for works
+  FILTER(?item NOT IN 
+                       #humans appearing in pseudohistorical accounts may be ok
+                      (wd:Q1291632, wd:Q18644104, wd:Q23906252)
+        )
+  
+  MINUS{?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q38072107}
+  
+  MINUS
+  #humans appearing in fictional works as characters are ok
+  {?item wdt:P1441 ?work. {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q8253 } 
+                           UNION {?work wdt:P361/(wdt:P31|wdt:P136)/wdt:P279* wd:Q8253} 
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q867335} 
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q15706467} 
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q1004}
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q37484}
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q25372}
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q3025978}
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q7832362}
+                           UNION {?work (wdt:P31|wdt:P136)/wdt:P279* wd:Q1279564} 
+                           UNION {?work wdt:P31/wdt:P279* wd:Q7889}
+                           UNION {?work wdt:P31/wdt:P279* wd:Q29154515}
+  MINUS{{?item wdt:P106/wdt:P279* wd:Q33999} UNION {?item wdt:P106/wdt:P279* wd:Q639669}}
+  }
+  
+  #other human-work-pairs that might be ok
+  MINUS{?item wdt:P279* wd:Q264699; wdt:P1441 wd:Q8539}
+  MINUS{?item wdt:P279* wd:Q27621044; wdt:P1441 wd:Q4500509}
+  MINUS{?item wdt:P279* wd:Q312311; wdt:P1441 wd:Q16438}
+  MINUS{?item wdt:P279* wd:Q3275910; wdt:P1441 wd:Q3208882}
+  MINUS{?item wdt:P279* wd:Q33198852; wdt:P1441 wd:Q19685580}
+  MINUS{?item wdt:P279* wd:Q33199175; wdt:P1441 wd:Q19685580}
+  MINUS{?item wdt:P279* wd:Q3762973; wdt:P1441 wd:Q3078400}
+  MINUS{?item wdt:P279* wd:Q3762973; wdt:P1441 wd:Q42759166}
+  MINUS{?item wdt:P279* wd:Q55168; wdt:P1441 wd:Q507285}
+  MINUS{?item wdt:P279* wd:Q32295; wdt:P1441 wd:Q1442293}
+  MINUS{?item wdt:P279* wd:Q62961; wdt:P1441 wd:Q28055223}
+  MINUS{?item wdt:P279* wd:Q255; wdt:P1441 wd:Q3715016}
+  MINUS{?item wdt:P279* wd:Q1111707; wdt:P1441 wd:Q9374753}
+  MINUS{?item wdt:P279* wd:Q11731660; wdt:P1441 wd:Q9393313}
+  MINUS{?work wdt:P674 ?item}
+  MINUS{?work p:P161/pq:P453 ?item}
+  
+  #other human-work-paris that are not ok but I don't know how to express otherwise
+  MINUS{?item wdt:P279* wd:Q53435; wdt:P1441 wd:Q901164}
+  
+  #whitelist for works
+  FILTER(?work NOT IN 
+                       #humans appearing in pseudohistorical accounts may be ok
+                      (wd:Q238693, wd:Q1361715, wd:Q4752730)
+                       
+        )
+  
+  #whitelist for humans
+  FILTER(?item NOT IN 
+                       #humans in the bible
+                      (wd:Q1056931)
+        )
+  
+  OPTIONAL {?st pq:P580 ?starttime}
+  OPTIONAL {?st pq:P582 ?endtime}
+  OPTIONAL {?st prov:wasDerivedFrom ?ref.
+           OPTIONAL{?ref pr:P248 ?statedIn}
+           OPTIONAL{?ref pr:P143 ?importedFrom}
+           OPTIONAL{?ref pr:P854 ?url}
+           OPTIONAL{?ref pr:P813 ?retrieved}
+   }    
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

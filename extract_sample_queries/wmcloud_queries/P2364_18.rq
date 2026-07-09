@@ -1,0 +1,8 @@
+#title: The Simpsons
+# Complex constraint from [[Property talk:P2364]]
+#
+SELECT ?item ?value {
+	?item wdt:P2364 ?value.
+    ?item wdt:P179 wd:Q886.
+	FILTER(REGEX( STR( ?value ), "^([A-Z0-9\\.\\/-]{4,6})$" ) = false)
+}

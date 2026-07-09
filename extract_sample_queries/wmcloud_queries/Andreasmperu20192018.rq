@@ -1,0 +1,1 @@
+SELECT ?property { ?property wdt:P31 wd:Q19595382 . ?property wdt:P31 wd:Q27918607 }

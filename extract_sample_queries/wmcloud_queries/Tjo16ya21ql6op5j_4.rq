@@ -1,0 +1,14 @@
+#Fire stations in Paris
+#defaultView:Map
+
+SELECT ?item ?itemLabel ?adresse ?coords ?image
+WHERE
+{
+  ?item wdt:P31 wd:Q1195942 .
+  ?item wdt:P131 ?place .
+  ?item wdt:P969 ?adresse .
+  ?place wdt:P131 wd:Q90 .
+  OPTIONAL { ?item wdt:P625 ?coords . }
+  OPTIONAL { ?item wdt:P18 ?image . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?placeLabel ?itemLabel

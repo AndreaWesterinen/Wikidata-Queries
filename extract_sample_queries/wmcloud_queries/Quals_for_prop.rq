@@ -1,0 +1,14 @@
+SELECT ?qual ?qualLabel (COUNT(DISTINCT ?item) AS ?count) WHERE {
+
+     hint:Query hint:optimizer "None" .
+     ?statement ps:{{{prop}}} ?value .  # need 'wd:' to specify value
+     ?item p:{{{prop}}} ?statement .
+     ?statement ?pq_qual ?pq_obj . # a triple involving the award statement ...     
+     ?qual wikibase:qualifier ?pq_qual . # ... with a predicate ?pq_pred that is a qualifier
+
+     SERVICE wikibase:label {
+         bd:serviceParam wikibase:language "en" .
+     }
+
+}  GROUP BY ?qual ?qualLabel
+ORDER BY DESC (?count)

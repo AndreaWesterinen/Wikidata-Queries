@@ -1,0 +1,10 @@
+#title: Missing English label
+# Complex constraint from [[Property talk:P1472]]
+# Items that have [[Property:P1472|Commons Creator page&#32;<small dir="ltr">(P1472)</small>]] but do not have English label. English label is used as a last-resort fall-back by <code>&#123;&#123;[[Template:Label|Label]]&#125;&#125;</code> when creating a name to show and without it many uses will see Q-code instead of a name.
+SELECT ?item ?creator {
+  ?item wdt:P1472 ?creator .
+  FILTER NOT EXISTS {
+    ?item rdfs:label ?label .
+    FILTER((LANG(?label) = 'en')) .
+  }
+}

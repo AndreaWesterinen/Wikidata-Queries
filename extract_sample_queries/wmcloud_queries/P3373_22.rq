@@ -1,0 +1,8 @@
+#title: Birthdates too far away
+# Complex constraint from [[Property talk:P3373]]
+# Items that are siblings but with birthdate more than 100 years away.
+SELECT * WHERE {
+  ?item wdt:P3373 ?item2 ; wdt:P569 ?date1. 
+  ?item2 wdt:P3373 ?item ; wdt:P569 ?date2.
+  filter (abs(?date1 - ?date2) > 36500 )
+}

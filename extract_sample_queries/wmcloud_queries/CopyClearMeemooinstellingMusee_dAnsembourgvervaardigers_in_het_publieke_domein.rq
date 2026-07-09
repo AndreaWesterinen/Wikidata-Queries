@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q2478313.
+  ?item wdt:P7763 wd:Q71887839 .
+}

@@ -1,0 +1,17 @@
+embed.html##Bubble chart showing number of out of school children per country in 2013
+#defaultView:BubbleChart
+SELECT DISTINCT ?country ?countryLabel ?number_of_out_of_school_chidren ?date ?methodLabel
+WHERE {
+  ?country wdt:P31 wd:Q6256 .
+  ?country p:P2573 ?out_of_school_chidren .
+  ?out_of_school_chidren ps:P2573 ?number_of_out_of_school_chidren .
+  ?out_of_school_chidren pq:P585 ?date .
+  ?out_of_school_chidren pq:P459 ?method .
+  
+  FILTER (year(?date) = 2013)
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+} 
+
+ORDER BY DESC (?number_of_out_of_school_chidren)

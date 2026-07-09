@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?inception WHERE { 
+  ?item wdt:P31 wd:Q17202187 .
+  OPTIONAL { ?item wdt:P571 ?inception }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?itemLabel ?inception

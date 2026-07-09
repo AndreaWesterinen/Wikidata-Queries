@@ -1,0 +1,2 @@
+#title:Add new claim P971:Q24514938
+SELECT DISTINCT ?item WHERE { ?prop wdt:P2875 ?item . MINUS { ?item p:P971/ps:P971 [] } }

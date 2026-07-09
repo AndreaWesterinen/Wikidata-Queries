@@ -1,0 +1,4 @@
+#title: Stamps would generally have this
+# Complex constraint from [[Property talk:P3934]]
+# TODO: add property if applicable
+SELECT ?item {	?item wdt:P31 wd:Q16937116  MINUS { ?item p:P3934 [] }  } LIMIT 1000

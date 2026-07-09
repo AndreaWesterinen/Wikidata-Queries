@@ -1,0 +1,4 @@
+select ?work ?workLabel ?unknown_author_id {
+  ?work wdt:P50 ?unknown_author_id filter isBlank(?unknown_author_id) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,12 @@
+SELECT	?item ?itemLabel ?subject ?subjectLabel ?vol ?coa
+WHERE
+{
+	?item	wdt:P1433 wd:Q665807 .
+  	?item	wdt:P31 wd:Q13433827 .
+  	OPTIONAL { ?item wdt:P921 ?subject 
+  	  	  	OPTIONAL {?subject wdt:P94 ?coa }
+  	  	  }
+  	OPTIONAL {?item wdt:P478 ?vol }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?itemLabel ?item

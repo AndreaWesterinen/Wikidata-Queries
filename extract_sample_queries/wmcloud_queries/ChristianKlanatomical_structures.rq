@@ -1,0 +1,8 @@
+SELECT ?item ?itemdesc 
+WHERE
+{
+  ?item wdt:P279 wd:Q4936952.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?item schema:description ?itemdesc }
+}
+ORDER BY ?item

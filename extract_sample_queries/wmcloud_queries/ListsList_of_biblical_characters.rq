@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item WHERE {
+{
+    ?item wdt:P31 ?sub0 .
+    ?sub0 (wdt:P279)* wd:Q12405827 .
+} UNION {
+    ?item wdt:P1441 ?sub1 .
+    ?tree0 (wdt:P527)* ?sub1 .
+    BIND (wd:Q1845 AS ?tree0)
+}
+}
+LIMIT 5000

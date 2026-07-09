@@ -1,0 +1,33 @@
+SELECT distinct ?term ?termLabel ?start ?end ?members ?constituencies ?articles ?categoryLabel where
+{
+  { SELECT distinct ?term ?start ?end where 
+   {
+    { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 } 
+      optional { ?term wdt:P571 ?start } optional { ?term wdt:P576 ?end } 
+  } # find all terms and their date (for sorting)
+ } 
+ optional  { SELECT ?term (count(distinct ?item) as ?members) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+    { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 } 
+    } group by ?term
+  } # number of people in this term
+    # this code finds anyone who served at any point in the parliamentary term 
+
+ optional { SELECT ?term (count(distinct ?item) as ?constituencies) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+      { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 } 
+      ?positionStatement pq:P768 ?const .
+    } group by ?term
+  } # as above, count only with a known constituency
+  
+ optional { SELECT ?term (count(distinct ?item) as ?articles) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+      { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 }   
+      ?article schema:about ?item . ?article schema:inLanguage "en" .
+      ?article schema:isPartOf <https://en.wikipedia.org/> 
+    } group by ?term
+  } # as above, count only with a known constituency
+  
+  optional {?category wdt:P301 ?term }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by ?start

@@ -1,0 +1,8 @@
+#title: Length: 2
+# Complex constraint from [[Property talk:P843]]
+#
+SELECT ?item ?id {
+	?item wdt:P843 ?id.
+    FILTER (STRLEN(?id) = 2)
+	FILTER NOT EXISTS { ?item wdt:P31 wd:Q1776764 }    
+}

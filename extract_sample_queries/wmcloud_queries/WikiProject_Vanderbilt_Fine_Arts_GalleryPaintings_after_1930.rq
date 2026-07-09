@@ -1,0 +1,6 @@
+SELECT ?item WHERE {
+  ?item wdt:P195 wd:Q18563658.
+  ?item wdt:P31 wd:Q3305213.
+  ?item wdt:P571 ?date.
+  filter(?date >= "1930-01-01T00:00:00Z"^^xsd:dateTime)
+}

@@ -1,0 +1,21 @@
+#Authors with initials instead of given names with
+#sitelinks to en.wikisource.
+
+#TODO: Use petscan to check these pages for existence
+#      of the {{initials}} template or their presence
+#      in the Authors with unidentified initials Category
+
+SELECT ?article WHERE {
+
+  ?initials wdt:P31 wd:Q19803443.
+  ?author wdt:P31 wd:Q5;
+          wdt:P735 ?initials.
+  ?link schema:about ?author.
+  ?link schema:isPartOf <https://en.wikisource.org/>.
+  ?link schema:name ?article
+
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en"
+  }
+}

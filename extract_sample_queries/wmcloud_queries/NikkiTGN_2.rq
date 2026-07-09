@@ -1,0 +1,16 @@
+#defaultView:Map
+prefix tgn: <http://vocab.getty.edu/tgn/>
+prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+select * {
+  values ?item { wd:Q15228707 }
+  ?item wdt:P1667 ?tgn .
+  optional { ?item wdt:P625 ?coords }
+  service <http://vocab.getty.edu/sparql.json> {
+    ?place skos:inScheme tgn: ; 
+           dc:identifier ?tgn ;
+           foaf:focus [ wgs:lat ?lat ; wgs:long ?lon ] .
+  }
+  bind(strdt(concat("Point(", str(?lon), " ", str(?lat), ")"), geo:wktLiteral) as ?coords1) .
+
+}

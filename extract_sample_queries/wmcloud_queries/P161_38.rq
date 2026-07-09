@@ -1,0 +1,33 @@
+#Target required claim report for P161: report listing each item and value
+
+SELECT ?item ?itemLabel ?value ?valueLabel ?target ?targetLabel ?snak
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak
+		WHERE
+		{
+			{
+				?item p:P161/ps:P161 ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:P161 ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P161 ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			VALUES ?values { wd:Q33999 wd:Q10798782 wd:Q10800557 wd:Q2259451 wd:Q177220 wd:Q245068 wd:Q27658988 wd:Q970153 wd:Q1371925 wd:Q55960555 wd:Q15077007 wd:Q2629392 wd:Q5716684 wd:Q4110598 wd:Q805221 wd:Q947873 wd:Q465501 wd:Q2045208 wd:Q488111 wd:Q622807 wd:Q52688389 wd:Q1954956 wd:Q1800680 wd:Q60118864 wd:Q2722764 wd:Q57414145 wd:Q12330954 wd:Q2252262 wd:Q2705098 wd:Q6625963 wd:Q130857 wd:Q36834 wd:Q639669 wd:Q106638245 wd:Q44508716 wd:Q1079215 wd:Q28692662 wd:Q2865819 wd:Q2405480 wd:Q226008 wd:Q10628536 wd:Q26262117 wd:Q48146261 wd:Q105581958 wd:Q658371 wd:Q10774753 wd:Q270389 wd:Q1154500 wd:Q116695160 } .
+			MINUS {
+				?value p:P106/ps:P106 ?values .
+			} .
+			OPTIONAL {
+				?value p:P106/ps:P106 ?target .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

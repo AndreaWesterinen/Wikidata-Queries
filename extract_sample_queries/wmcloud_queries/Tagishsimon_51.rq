@@ -1,0 +1,10 @@
+#title: object has role qualifier counts for Scottish Council Area P131 values
+SELECT ?qually ?quallyLabel (count (?item) as ?count)
+WHERE 
+{
+  ?item p:P131 ?stat . 
+  ?stat ps:P131 ?value .
+  ?value wdt:P31 wd:Q15060255.
+  ?stat pq:P3831 ?qually .      
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+} group by  ?qually ?quallyLabel

@@ -1,0 +1,17 @@
+SELECT ?item ?group (COUNT(DISTINCT ?p) as ?count) (SAMPLE(?p) as ?sample)
+{
+    ?p wdt:P1433 wd:Q665807 ; wikibase:statements ?st .
+    BIND(
+         IF(?st < 10 , CONCAT("0",str(?st)) , 
+         IF(?st < 20 , "10-19" , 
+         IF(?st < 50 , "20-49" , "50+"
+        ) ) ) as ?group)
+    BIND(
+         IF(?st < 10 , str(?st) , 
+         IF(?st < 20 , "10" , 
+         IF(?st < 50 , "20" , "50"
+        ) ) ) as ?order) 
+    ?item wdt:P5176 ?order 
+}
+GROUP BY ?group ?item
+ORDER BY ?group

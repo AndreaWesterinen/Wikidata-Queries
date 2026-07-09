@@ -1,0 +1,22 @@
+SELECT (SAMPLE(?x) AS ?item) ?w (COUNT(DISTINCT ?x) AS ?c) WHERE {
+  {
+    SELECT ?x ?title WHERE {
+      ?x wdt:P31 wd:Q13442814;
+         wdt:P2093 ?authorstring ; # this is simply to ensure the results set returned by this query changes over time, and P2093 changes quite frequently
+            wdt:P1476 ?title.
+
+    }
+    LIMIT 10000
+  }
+      FILTER NOT EXISTS { ?x wdt:P921 ?taxon . ?taxon wdt:P225 ?taxonname }.      
+  FILTER(STRLEN(?title) >= 4)
+  BIND(REPLACE(?title, "^.*?(\\b\\w{10,}\\b).*$", "$1") AS ?w1)
+  BIND(REPLACE(STRAFTER(?title, ?w1), "^.*?(\\b\\w{10,}\\b).*$", "$1") AS ?w2)
+  BIND(REPLACE(STRAFTER(?title, ?w2), "^.*?(\\b\\w{10,}\\b).*$", "$1") AS ?w3)
+  VALUES ?w_ { 1 2 3 }
+  BIND(IF(?w_ = 1, ?w1, IF(?w_ = 2, ?w2, ?w3)) AS ?w)
+  FILTER(REGEX(?w, "^\\w+$")) # no idea why this is necessary
+}
+GROUP BY ?item ?w
+ORDER BY DESC(?c)
+LIMIT 1000

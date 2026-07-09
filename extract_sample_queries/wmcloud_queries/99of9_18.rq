@@ -1,0 +1,15 @@
+SELECT ?c ?cLabel ?office ?officeLabel ?state ?stateLabel WHERE {
+   ?c wdt:P31 wd:Q3624078 .
+
+  OPTIONAL {
+   ?c wdt:P1313 ?office .
+  }
+  OPTIONAL {
+   ?c wdt:P1906 ?state .
+  }
+         
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en"
+   }
+
+ }

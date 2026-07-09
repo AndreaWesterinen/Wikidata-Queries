@@ -1,0 +1,8 @@
+#auteurs in de Canon van de Nederlandse letterkunde 2002
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P361 wd:Q2773681 . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

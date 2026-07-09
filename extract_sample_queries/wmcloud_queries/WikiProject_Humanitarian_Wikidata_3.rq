@@ -1,0 +1,5 @@
+SELECT ?item
+WHERE 
+{
+  ?item schema:about wd:Q5638917 .
+}

@@ -1,0 +1,1 @@
+SELECT * { wd:Q670819 wdt:P570 ?d }

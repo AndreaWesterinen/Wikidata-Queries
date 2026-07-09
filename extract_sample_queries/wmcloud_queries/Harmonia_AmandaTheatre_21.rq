@@ -1,0 +1,14 @@
+SELECT DISTINCT ?surname ?family ?surnameLabel ?familyLabel
+WHERE {
+  ?given wdt:P1533 ?surname ;
+         wdt:P460 ?other .
+  ?other wdt:P1533 ?family .
+  ?surname wdt:P31 wd:Q101352 ;
+           wdt:P31 ?nature1 .
+  ?family wdt:P31 wd:Q101352 ;
+          wdt:P31 ?nature2 .
+  MINUS { ?surname wdt:P460 ?family . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  }
+GROUP BY ?surname ?family ?surnameLabel ?familyLabel
+HAVING((COUNT(?nature1) = 1) && (COUNT(?nature2) = 1))

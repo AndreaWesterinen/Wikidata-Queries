@@ -1,3 +1,5 @@
+#title: Popular names per birthplace
+
 #defaultView:BubbleChart
 SELECT ?cid ?firstname (COUNT(*) AS ?count)
 WHERE

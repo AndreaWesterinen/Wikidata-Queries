@@ -1,0 +1,8 @@
+SELECT ?item ?link ?volumeTitle WHERE {
+  ?item wdt:P1343 ?volume .
+  ?volume wdt:P361 wd:Q28763 .
+  ?volume wdt:P1476 ?volumeTitle .
+  ?article schema:about ?item ; schema:inLanguage "zh" ; schema:name ?pageTitle .
+  BIND(CONCAT("[[", ?pageTitle, "]]") AS ?link ) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "zh" }
+}

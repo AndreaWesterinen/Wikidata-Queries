@@ -1,0 +1,10 @@
+SELECT ?length (COUNT(?word) AS ?count ) WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        ontolex:lexicalForm ?form .
+  ?form ontolex:representation ?word .
+  ?language wdt:P218 'cs' .
+  FILTER REGEX ( ?word, "^[^\\s]*$")
+  BIND ( strlen(?word) as ?length )
+}
+GROUP BY ?length
+ORDER BY ASC(?length) 

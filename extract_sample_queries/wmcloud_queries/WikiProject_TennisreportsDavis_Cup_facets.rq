@@ -1,0 +1,3 @@
+SELECT ?item ?itemLabel ?year ?cup
+WITH
+{     SELECT DISTINCT ?cup ?year {  ?cup ( wdt:P31

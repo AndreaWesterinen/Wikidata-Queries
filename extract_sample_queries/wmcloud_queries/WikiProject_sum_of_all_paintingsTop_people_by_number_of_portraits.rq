@@ -1,0 +1,11 @@
+SELECT ?item (COUNT(DISTINCT ?portrait) AS ?portraitcount) WHERE {
+  ?portrait wdt:P31 wd:Q3305213 . 
+  ?portrait wdt:P136/wdt:P279* wd:Q134307.
+  ?portrait wdt:P180 ?item .
+  ?item wdt:P569 ?dob.
+  FILTER(?dob >= "1300-01-01T00:00:00Z"^^xsd:dateTime) 
+  ?item wdt:P31 wd:Q5 .
+}
+GROUP BY ?item ?portraitcount HAVING (?portraitcount > 3 )
+ORDER BY DESC(?portraitcount)
+LIMIT 500

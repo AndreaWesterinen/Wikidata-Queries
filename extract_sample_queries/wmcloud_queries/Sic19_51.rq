@@ -1,0 +1,19 @@
+embed.html#select ?name ?english ?urdu ?hebrew ?persian ?serbian where {
+  ?lib wdt:P31 wd:Q28564 ;
+       wdt:P17 wd:Q145 ;
+       wdt:P137 wd:Q6515870 ;
+       rdfs:label ?name .
+  {?lib wdt:P2671 ?GKP} UNION {?lib wdt:P646 ?GKP} 
+  
+  FILTER(LANG(?name) = "en").
+  
+  BIND(REPLACE("https://www.google.com/search?kgmid=ABC&kponly&q=XYZ","ABC",?GKP ) AS ?x).
+  BIND(REPLACE(?x,"XYZ",ENCODE_FOR_URI(?name)) AS ?url).
+  
+  BIND(URI(CONCAT(?url, "&hl=en")) as ?english)
+  BIND(URI(CONCAT(?url, "&hl=ur")) as ?urdu)
+  BIND(URI(CONCAT(?url, "&hl=iw")) as ?hebrew)
+  BIND(URI(CONCAT(?url, "&hl=fa")) as ?persian)
+  BIND(URI(CONCAT(?url, "&hl=sr")) as ?serbian)
+  
+  }

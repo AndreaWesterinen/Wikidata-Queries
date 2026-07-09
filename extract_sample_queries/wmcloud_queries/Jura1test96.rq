@@ -1,0 +1,24 @@
+SELECT DISTINCT ?item ?abbr ?or1 ?or2 ?c ?inceptionyear (?inceptionyear + xsd:integer(?or2) - 1 as ?check) ?st ?sl ?ids
+  ?w 
+  (COALESCE(?c1,?c2,?c3) as ?commons) 
+  (COALESCE(?wiki1,?wiki3,?wiki2) as ?wiki) ?m
+{ 	?item wdt:P31 wd:Q27787439 .
+	?item wdt:P585 ?year 
+	FILTER(YEAR(?year)=YEAR( now() ) )
+	OPTIONAL { ?item wdt:P393 ?or2 }
+	OPTIONAL { ?item wdt:P179 ?or1 }
+	OPTIONAL { ?item wdt:P179 / wdt:P571 ?y1 . BIND(YEAR(?y1) as ?inceptionyear) } 
+	OPTIONAL { ?item wdt:P179 / wdt:P17 / p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?c ] }
+	OPTIONAL { ?item wdt:P179 / wdt:P856 ?ws . BIND(  CONCAT("[", str(?ws) , " " , replace( str(?ws), "https?://(www.)?", ""), "]") as ?w) }  
+	OPTIONAL { ?item wdt:P179/wdt:P1813 ?abbr }  
+	OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl }
+	OPTIONAL { ?item wikibase:identifiers ?ids }
+	OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://commons.wikimedia.org/> ; schema:name ?cn1  BIND( CONCAT("[[c:",str(?cn1),"|✓]]") as ?c1) } 
+	OPTIONAL { ?item wdt:P910 ?cat . ?cc schema:about ?cat ; schema:isPartOf <https://commons.wikimedia.org/> ; schema:name ?cn2   BIND( CONCAT("[[c:",str(?cn2),"|✓]]") as ?c2) }       
+	OPTIONAL { ?item wdt:P373 ?cn3  BIND( CONCAT("[[c:Category:",str(?cn3),"|✓]]") as ?c3) } 
+	OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w1  BIND( CONCAT("[[:en:",str(?w1),"|en]]") as ?wiki1) } 
+	OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?w3  BIND( CONCAT("[[:fr:",str(?w3),"|fr]]") as ?wiki3) } 
+	OPTIONAL { ?item wdt:P179 / wdt:P2922 / wdt:P2837 ?m }
+	OPTIONAL { ?item wikibase:sitelinks 1 . ?wi2 schema:about ?item FILTER NOT EXISTS { ?wi2 schema:isPartOf <https://commons.wikimedia.org/> } ?wi2 schema:inLanguage ?l ; schema:name ?w2  BIND( CONCAT("[[:",?l,":",str(?w2),"|",?l,"]]") as ?wiki2) } 
+}
+ORDER BY (xsd:integer(?or2)) ?item

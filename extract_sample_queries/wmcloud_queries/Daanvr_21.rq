@@ -1,0 +1,16 @@
+SELECT ?wdLabel ?ps_Label ?wdpqLabel ?pq_Label {
+  VALUES (?company) {(wd:Q95)}
+  
+  ?company ?p ?statement .
+  ?statement ?ps ?ps_ .
+  
+  ?wd wikibase:claim ?p.
+  ?wd wikibase:statementProperty ?ps.
+  
+  OPTIONAL {
+  ?statement ?pq ?pq_ .
+  ?wdpq wikibase:qualifier ?pq .
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ?wd ?statement ?ps_

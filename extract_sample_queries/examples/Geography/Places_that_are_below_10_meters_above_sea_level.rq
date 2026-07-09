@@ -1,3 +1,5 @@
+#title: Places that are below 10 meters above sea level
+
 #defaultView:Map
 SELECT ?place ?location ?elev ?image
 WHERE

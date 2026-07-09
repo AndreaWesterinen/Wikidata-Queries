@@ -1,0 +1,17 @@
+SELECT ?person ?personLabel ?beskæftigelse ?sitelink
+WITH {
+  SELECT DISTINCT ?person ?sitelink (GROUP_CONCAT(?occupation_label; separator=", ") AS ?beskæftigelse) WHERE {
+    ?person wdt:P570 ?date_of_death .
+    BIND(YEAR(?date_of_death) AS ?year)
+    FILTER (?year = 1947)
+    ?sitelink schema:about ?person .
+    ?sitelink schema:inLanguage "da" .
+    OPTIONAL { ?person wdt:P106 ?occupation . ?occupation rdfs:label ?occupation_label . FILTER (LANG(?occupation_label) = 'da') }
+  }
+  GROUP BY ?person ?sitelink
+} AS %results
+WHERE {
+  INCLUDE %results
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "da,en". }
+}
+ORDER BY ?personLabel

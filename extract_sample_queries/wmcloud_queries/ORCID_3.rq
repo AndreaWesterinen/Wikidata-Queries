@@ -1,0 +1,10 @@
+#People with both ORCID and Loop IDs 
+
+select ?person ?personLabel ?personDescription ?orcid ?loop 
+WHERE
+{
+  ?person wdt:P31 wd:Q5. # instance of human
+  ?person wdt:P496 ?orcid . # ORCID iD
+  ?person wdt:P2798 ?loop . # Loop ID
+  service wikibase:label { bd:serviceParam wikibase:language "en". } # used to display English label
+}

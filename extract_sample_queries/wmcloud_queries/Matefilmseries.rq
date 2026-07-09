@@ -1,0 +1,13 @@
+SELECT ?item ?avg
+       ((sum((?age-?avg)*(?age-?avg))/(count(?age)-1)) AS ?var)
+       (count(distinct ?film) AS ?films) (count(?age) AS ?ratings)
+WHERE {
+  [] wdt:P31 wd:Q24716199; wikibase:directClaim ?p .
+  ?film wdt:P31/wdt:P279* wd:Q11424; wdt:P179 ?item; ?p [ wdt:P2899 ?age ] .
+  { SELECT ?item (avg(?age) AS ?avg)
+    WHERE {
+      [] wdt:P31 wd:Q24716199; wikibase:directClaim ?p .
+      ?film wdt:P31/wdt:P279* wd:Q11424; wdt:P179 ?item; ?p [ wdt:P2899 ?age ] .
+    } GROUP BY ?item
+  }
+} GROUP BY ?item ?avg ORDER BY ?item

@@ -1,0 +1,4 @@
+embed.html#SELECT ?property ?formatUrl WHERE {
+  ?property wdt:P2378 wd:Q3803714 ; wdt:P1630 ?formatUrl .
+}
+ORDER BY ?formatUrl

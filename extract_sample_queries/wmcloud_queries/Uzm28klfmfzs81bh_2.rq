@@ -1,0 +1,14 @@
+#propriétés les plus utilisées sur les diocèses (et sous-classes de)
+SELECT ?property ?propertyLabel ?propertyDescription ?count ?date_de_consultation ?archidioc_se ?archidioc_seLabel WHERE {
+  {
+    SELECT ?propertyclaim (COUNT(*) AS ?count) WHERE {  }
+    GROUP BY ?propertyclaim
+  }
+  ?property wikibase:claim ?propertyclaim.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  OPTIONAL {  }
+  OPTIONAL { ?item wdt:P813 ?date_de_consultation. }
+  ?archidioc_se wdt:P31 wd:Q2072238.
+}
+ORDER BY DESC (?count)
+LIMIT 5

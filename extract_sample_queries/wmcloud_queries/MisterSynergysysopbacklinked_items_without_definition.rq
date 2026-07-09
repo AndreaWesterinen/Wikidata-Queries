@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(DISTINCT ?backlink) AS ?cnt) WITH {
+  SELECT ?item WHERE { ?item wikibase:statements 0 }
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  ?item wikibase:sitelinks 0 .
+  OPTIONAL { ?backlink ?any ?item }
+} GROUP BY ?item HAVING (?cnt >= 3) ORDER BY DESC(?cnt)

@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription ?dob ?dod
+{ 
+    ?item p:P1889 [ps:P1889 ?item2 ; pq:P1013 wd:Q20978290 ] .
+    ?item wdt:P27 wd:Q212 .
+    ?item2 wdt:P27 wd:Q212 .
+    ?item wdt:P569 ?dob . 
+    ?item wdt:P570 ?dod . 
+    ?item wdt:P31 wd:Q5 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,uk". }
+} 
+ORDER BY DESC(?dod)

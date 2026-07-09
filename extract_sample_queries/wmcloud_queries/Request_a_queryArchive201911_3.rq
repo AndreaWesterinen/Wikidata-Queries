@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?pr_nom ?pr_nomLabel ?nom_de_famille ?nom_de_familleLabel WITH {
+  select * where {
+    
+  ?item wdt:P31 wd:Q5;
+        wdt:P27 wd:Q35.
+  #?country wdt:P463 wd:Q458. 
+  }} AS %i
+WHERE {
+  include %i
+  MINUS {
+    ?item rdfs:label ?label_fr.
+    FILTER((LANG(?label_fr)) = "fr")
+  }
+ ?item wdt:P735 ?pr_nom. 
+ ?item wdt:P734 ?nom_de_famille. 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

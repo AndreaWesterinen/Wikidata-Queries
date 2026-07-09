@@ -1,0 +1,2 @@
+#title:Move source to qualifier
+SELECT DISTINCT ?item WHERE { ?ref pr:P1013 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }

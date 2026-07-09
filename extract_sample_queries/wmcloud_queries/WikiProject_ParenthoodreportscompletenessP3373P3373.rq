@@ -1,0 +1,12 @@
+SELECT 
+  (wd:Q5 as ?item)
+  ("P3373" as ?in)
+  ("P3373" as ?out)
+  (COUNT(DISTINCT ?relative) as ?all)
+  (COUNT(DISTINCT ?has) as ?with)
+{
+    ?item wdt:P3373 ?relative .
+    OPTIONAL { ?relative wdt:P3373 ?item . BIND(?relative as ?has)  }
+    ?item wdt:P31 wd:Q5 .
+    ?relative wdt:P31 wd:Q5 .
+}

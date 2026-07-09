@@ -1,0 +1,28 @@
+#title: NFPA 704 data without any of the 4 mandatory qualifiers
+# Complex constraint from [[Property talk:P4952]]
+# NFPA 704 ([[Property:P4952|safety classification and labelling&#32;<small dir="ltr">(P4952)</small>]] with [[d:Q51139288|NFPA 704: Standard System for the Identification of the Hazards of Materials for Emergency Response <small>(Q51139288)</small>]] value) should always have all 4 qualifiers ([[Property:P877|NFPA Special&#32;<small dir="ltr">(P877)</small>]]/[[Property:P993|NFPA Health&#32;<small dir="ltr">(P993)</small>]]/[[Property:P994|NFPA Fire&#32;<small dir="ltr">(P994)</small>]]/[[Property:P995|NFPA Instability&#32;<small dir="ltr">(P995)</small>]]), even if some of them have ''no value''
+SELECT DISTINCT ?item
+  # we are looking for P4952=Q51139288 which are missing any of four PQs
+  # a PQ of 'no value' is a valid PQ.
+WHERE { 
+       ?item p:P4952 ?statement.
+       ?statement ps:P4952 wd:Q51139288.
+       MINUS {
+       OPTIONAL { ?statement pq:P877 ?v877 }
+       FILTER(BOUND(?v877) || EXISTS{?statement a wdno:P877.})  #treat the value "no value" as valid
+       OPTIONAL { ?statement pq:P993 ?v993 }
+       FILTER(BOUND(?v993) || EXISTS{?statement a wdno:P993.})
+       OPTIONAL { ?statement pq:P994 ?v994 }
+       FILTER(BOUND(?v994) || EXISTS{?statement a wdno:P994.}) 
+       OPTIONAL { ?statement pq:P995 ?v995 }
+       FILTER(BOUND(?v995) || EXISTS{?statement a wdno:P995.}) 
+       }
+
+  # Out of the above emerges a list of P4952=Q51139288 where there is one or more missing PQs.
+  # ALSO the filter treats a PQ value of 'no value' as the PRESENCE of a PQ.
+  # So an item having the 4 PQs, but with one or more of 'no value', will NOT appear in the results.
+  
+  # Please note that also a PQ of 'unknown value', as e.g. Q331451 and Q21099636 have, is treated as a valid PQ
+  
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+      }

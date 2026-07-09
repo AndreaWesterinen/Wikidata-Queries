@@ -1,0 +1,6 @@
+SELECT * WHERE {
+   ?item wdt:P31 wd:Q16521 ;
+         p:P18 ?image .
+   ?image prov:wasDerivedFrom ?reference ;
+          ps:P18 ?imageValue .
+}

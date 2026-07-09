@@ -1,0 +1,10 @@
+#title: Too long time
+# Complex constraint from [[Property talk:P106]]
+#
+SELECT ?item {
+  ?item p:P106 ?statement.
+     ?statement ps:P106 ?occupation.
+     ?statement pq:P2047 ?duree.
+  FILTER (?duree > 100).
+  ?item wdt:P31 wd:Q5.
+}

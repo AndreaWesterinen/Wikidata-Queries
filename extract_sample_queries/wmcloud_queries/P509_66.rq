@@ -1,0 +1,2 @@
+#title:Change the property P509 to P1196
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q3739104 wd:Q171558 wd:Q10737 wd:Q149086 wd:Q15729048 wd:Q8454 } . ?item wdt:P509 ?value . }

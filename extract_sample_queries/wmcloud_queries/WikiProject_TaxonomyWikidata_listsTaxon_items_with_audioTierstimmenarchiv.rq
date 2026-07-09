@@ -1,0 +1,11 @@
+SELECT 
+  ?item 
+  (CONCAT(
+      '[http://www.tierstimmen.org/de/Datenbank?field_spec_species_target_id_selective=',
+      ENCODE_FOR_URI(?tsa_), ' ', ?tsa_, ']') AS ?tsa)
+
+WHERE { 
+  ?item wdt:P31 wd:Q16521 . 
+  {?item wdt:P51 [] } UNION {?item wdt:P5397 ?tsa_} 
+}
+#LIMIT 100

@@ -1,0 +1,8 @@
+SELECT ?category ?categoryLabel ?list ?listLabel
+WHERE
+{
+	?list wdt:P31 wd:Q13406463 ;
+          rdfs:label ?listLabel
+          FILTER (lang(?listLabel) = "en")
+          FILTER (regex(?listLabel, "^(list of )?lists ")) .
+}

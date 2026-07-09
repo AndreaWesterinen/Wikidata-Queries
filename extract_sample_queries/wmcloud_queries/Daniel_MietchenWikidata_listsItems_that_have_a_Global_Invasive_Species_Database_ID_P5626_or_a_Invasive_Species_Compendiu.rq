@@ -1,0 +1,30 @@
+#title: Wikidata items for concepts that have a Global Invasive Species Database ID (P5626) or a Invasive Species Compendium Datasheet ID (P5698)
+
+SELECT 
+  DISTINCT ?item 
+  (CONCAT("{{Scholia-inline|", REPLACE(STR(?item), ".*Q", "Q"), "}}") AS ?q)
+  ?English ?Hindi ?Bangla ?Marathi ?Telugu ?EastPunjabi ?Kannada ?Odia ?Urdu ?Malayalam
+  ?sitelinks 
+
+WHERE {
+  {?item wdt:P5626 ?GISD . }
+  UNION
+  {?item wdt:P5698 ?ISCD . }
+  ?item wdt:P31 wd:Q16521 .
+  ?item wikibase:sitelinks ?sitelinks .
+  FILTER (?sitelinks > 50)
+
+  OPTIONAL { ?item rdfs:label ??English filter (lang(?English) = "en") . }
+
+   { ?item rdfs:label ?Hindi filter (lang(?Hindi) = "hi") . }
+  UNION { ?item rdfs:label ?Bangla filter (lang(?Bangla) = "bn") . }
+
+  UNION { ?item rdfs:label ?Marathi filter (lang(?Marathi) = "mr") . }
+  UNION { ?item rdfs:label ?Telugu filter (lang(?Telugu) = "te") . }
+  UNION { ?item rdfs:label ?EastPunjabi filter (lang(?EastPunjabi) = "pa") . }
+  UNION { ?item rdfs:label ?Kannada filter (lang(?Kannada) = "kn") . }
+  UNION { ?item rdfs:label ?Odia filter (lang(?Odia) = "or") . }
+  UNION { ?item rdfs:label ?Urdu filter (lang(?Urdu) = "ur") . }
+  UNION { ?item rdfs:label ?Malayalam filter (lang(?Malayalam) = "ml") . }
+}
+ORDER BY DESC(?sitelinks)

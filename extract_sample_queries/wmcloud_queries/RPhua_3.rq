@@ -1,0 +1,10 @@
+#library buildings in New South Wales
+#defaultView:Map
+SELECT ?item ?itemLabel ?geo
+WHERE {
+  ?item wdt:P31 wd:Q856584.
+  ?item wdt:P131 ?county.
+  ?county wdt:P131 wd:Q3224.
+  ?item wdt:P625 ?geo.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?stardate WHERE {
+  ?item wdt:P179 wd:Q20922. ?item wdt:P31 wd:Q61220733.
+  OPTIONAL {
+    ?item p:P840 [ pq:P4895 ?stardate ].
+  } 
+}

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?coord ?osm ?country ?instance ?image WHERE {
+  ?item wdt:P131* wd:Q8356.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+  OPTIONAL { ?item wdt:P625 ?coord. }
+  OPTIONAL { ?item wdt:P402 ?osm. }
+  OPTIONAL { ?item wdt:P17 ?country. }
+  OPTIONAL { ?item wdt:P31 ?instance. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+}
+ORDER BY ?itemLabel
+LIMIT 1000

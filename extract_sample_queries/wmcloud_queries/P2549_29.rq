@@ -1,0 +1,10 @@
+SELECT DISTINCT ?x (group_concat(?id; separator="-") as ?ids)
+WHERE {
+  SELECT DISTINCT ?x ?id
+  WHERE {
+    ?x wdt:P2549 ?val .
+    bind (replace(?val, "leg=[0-9]+&id=", "") as ?id)
+  }
+}
+GROUP BY ?x
+HAVING(regex(?ids, "-")) #select only items with multiple ids

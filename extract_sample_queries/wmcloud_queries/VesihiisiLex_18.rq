@@ -1,0 +1,9 @@
+SELECT ?posLabel (COUNT(?l) AS ?count )  WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ;
+        wikibase:lexicalCategory ?pos.
+  ?language wdt:P218 'sv'
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?posLabel
+ORDER BY DESC(?count)

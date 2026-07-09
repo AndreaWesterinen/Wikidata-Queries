@@ -1,0 +1,21 @@
+SELECT ?municipality ?swissMunicipalityCode ?cantonCode ?municipalityLabel ?endTimeNormal ?startTimeFormer WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?municipality wdt:P31 wd:Q685309.
+  OPTIONAL { ?municipality wdt:P771 ?swissMunicipalityCode. }
+  OPTIONAL {
+    ?canton wdt:P31 wd:Q23058.
+    ?municipality (wdt:P131*) ?canton.
+    ?canton wdt:P395 ?cantonCode.
+  }
+  OPTIONAL {
+    ?municipality p:P31 ?instanceOfFormer.
+    ?instanceOfFormer ps:P31 wd:Q685309.
+    ?instanceOfFormer pq:P580 ?startTimeFormer.
+  }
+  OPTIONAL {
+    ?municipality p:P31 ?instanceOfNormal.
+    ?instanceOfNormal ps:P31 wd:Q70208.
+    ?instanceOfNormal pq:P582 ?endTimeNormal.
+  }
+}
+ORDER BY (?cantonCode) (?municipalityLabel)

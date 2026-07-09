@@ -1,0 +1,9 @@
+SELECT ?item ?taxonName ?itemLabel WHERE {
+   ?item wdt:P31 wd:Q922448 .
+   OPTIONAL {?item wdt:P225 ?taxonName } .
+     SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+     ?item rdfs:label ?itemLabel .
+  }
+}
+ORDER BY ASC(?itemLabel)

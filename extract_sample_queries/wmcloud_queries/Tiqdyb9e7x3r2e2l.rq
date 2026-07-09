@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?item2 ?catalog ?cat WHERE {
+  ?item wdt:P31 wd:Q3305213 . 
+  ?item p:P528 ?cat1statement .
+  ?cat1statement ps:P528 ?cat .
+  ?cat1statement pq:P972 ?catalog .
+  ?item2 p:P528 ?cat2statement .
+  ?cat2statement ps:P528 ?cat .
+  ?cat2statement pq:P972 ?catalog .
+  FILTER(?item!=?item2 && str(?item) < str(?item2))
+  } ORDER BY str(?item) LIMIT 500

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q5;
+    wdt:P21 wd:Q6581097;
+    wdt:P463 ?P463.
+  ?P463 wdt:P495 wd:Q884.
+}
+ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))
+LIMIT 5000

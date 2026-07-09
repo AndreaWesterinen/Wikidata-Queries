@@ -1,0 +1,4 @@
+select ?item ?label where {
+  ?item wdt:P31 wd:Q62832 .
+  ?item rdfs:label ?label filter(lang(?label)="en" && regex(?label,"q[0-9]+")) . 
+} 

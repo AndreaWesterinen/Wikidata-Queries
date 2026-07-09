@@ -1,0 +1,45 @@
+embed.html##title:Chart of P1565 usage
+# Note: this chart is based on https://www.wikidata.org/wiki/Template:Number_of_main_statements_by_property
+# which is updated once a day by PLbot
+
+#defaultView:LineChart
+SELECT ?day ?count WITH { SELECT (".+\\|1565=(\\d+).+" as ?r) ("|1565=" as ?p)
+  (IF(CONTAINS(?r1,?p),xsd:integer(REPLACE(?r1,?r,"$1","s")),-1) AS ?c1) (xsd:dateTime(?t1) AS ?d1)
+  (IF(CONTAINS(?r2,?p),xsd:integer(REPLACE(?r2,?r,"$1","s")),-1) AS ?c2) (xsd:dateTime(?t2) AS ?d2)
+  (IF(CONTAINS(?r3,?p),xsd:integer(REPLACE(?r3,?r,"$1","s")),-1) AS ?c3) (xsd:dateTime(?t3) AS ?d3)
+  (IF(CONTAINS(?r4,?p),xsd:integer(REPLACE(?r4,?r,"$1","s")),-1) AS ?c4) (xsd:dateTime(?t4) AS ?d4)
+  (IF(CONTAINS(?r5,?p),xsd:integer(REPLACE(?r5,?r,"$1","s")),-1) AS ?c5) (xsd:dateTime(?t5) AS ?d5)
+  (IF(CONTAINS(?r6,?p),xsd:integer(REPLACE(?r6,?r,"$1","s")),-1) AS ?c6) (xsd:dateTime(?t6) AS ?d6)
+  (IF(CONTAINS(?r7,?p),xsd:integer(REPLACE(?r7,?r,"$1","s")),-1) AS ?c7) (xsd:dateTime(?t7) AS ?d7)
+  (IF(CONTAINS(?r8,?p),xsd:integer(REPLACE(?r8,?r,"$1","s")),-1) AS ?c8) (xsd:dateTime(?t8) AS ?d8)
+  (IF(CONTAINS(?r9,?p),xsd:integer(REPLACE(?r9,?r,"$1","s")),-1) AS ?c9) (xsd:dateTime(?t9) AS ?d9)
+  (IF(CONTAINS(?r10,?p),xsd:integer(REPLACE(?r10,?r,"$1","s")),-1) AS ?c10) (xsd:dateTime(?t10) AS ?d10)
+  { SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:api "Generator" ; wikibase:endpoint "www.wikidata.org" ; mwapi:generator "allpages" ; 
+                      mwapi:gapfrom "Number_of_main_statements_by_property" ; mwapi:gapto "Number_of_main_statements_by_property" ; mwapi:gapnamespace "10" ; 
+                      mwapi:prop "revisions" ; mwapi:rvprop "content|timestamp" ; mwapi:rvlimit "10" ; mwapi:rvuser "PLbot" ; wikibase:limit "100" .
+      ?t1 wikibase:apiOutput "revisions/rev[1]/@timestamp" . ?r1 wikibase:apiOutput "revisions/rev[1]/text()" .
+      ?t2 wikibase:apiOutput "revisions/rev[2]/@timestamp" . ?r2 wikibase:apiOutput "revisions/rev[2]/text()" .
+      ?t3 wikibase:apiOutput "revisions/rev[3]/@timestamp" . ?r3 wikibase:apiOutput "revisions/rev[3]/text()" .
+      ?t4 wikibase:apiOutput "revisions/rev[4]/@timestamp" . ?r4 wikibase:apiOutput "revisions/rev[4]/text()" .
+      ?t5 wikibase:apiOutput "revisions/rev[5]/@timestamp" . ?r5 wikibase:apiOutput "revisions/rev[5]/text()" .
+      ?t6 wikibase:apiOutput "revisions/rev[6]/@timestamp" . ?r6 wikibase:apiOutput "revisions/rev[6]/text()" .
+      ?t7 wikibase:apiOutput "revisions/rev[7]/@timestamp" . ?r7 wikibase:apiOutput "revisions/rev[7]/text()" .
+      ?t8 wikibase:apiOutput "revisions/rev[8]/@timestamp" . ?r8 wikibase:apiOutput "revisions/rev[8]/text()" .
+      ?t9 wikibase:apiOutput "revisions/rev[9]/@timestamp" . ?r9 wikibase:apiOutput "revisions/rev[9]/text()" .
+      ?t10 wikibase:apiOutput "revisions/rev[10]/@timestamp" . ?r10 wikibase:apiOutput "revisions/rev[10]/text()" .
+    }
+  }
+} as %revs {
+  {BIND(?c1 AS ?count) BIND(?d1 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c2 AS ?count) BIND(?d2 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c3 AS ?count) BIND(?d3 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c4 AS ?count) BIND(?d4 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c5 AS ?count) BIND(?d5 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c6 AS ?count) BIND(?d6 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c7 AS ?count) BIND(?d7 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c8 AS ?count) BIND(?d8 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c9 AS ?count) BIND(?d9 AS ?day) INCLUDE %revs} UNION
+  {BIND(?c10 AS ?count) BIND(?d10 AS ?day) INCLUDE %revs} 
+  FILTER(?count != -1)
+}

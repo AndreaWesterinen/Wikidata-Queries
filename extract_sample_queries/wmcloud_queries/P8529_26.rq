@@ -1,0 +1,10 @@
+#title: specific codes should be subclasses of higher level codes
+# Complex constraint from [[Property talk:P8529]]
+#
+SELECT ?item ?for ?itemLabel ?miditem ?mid ?miditemLabel { 
+  ?item wdt:P8529 ?for .
+  BIND (SUBSTR(?for,1,STRLEN(?for)-2) AS ?mid)
+  ?miditem wdt:P8529 ?mid .
+  MINUS {?item wdt:P279* ?miditem .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} LIMIT 1000

@@ -1,0 +1,14 @@
+embed.html#SELECT ?item ?itemLabel ?year
+(sample(?number) as ?number)
+WHERE {
+  values ?item {
+wd:Q1371018} .
+  ?item p:P3872 ?statement.
+  ?statement pq:P585 ?time.
+  ?statement ps:P3872 ?number.
+  bind (YEAR(?time) AS ?year)
+FILTER(?year>=1980) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+  MINUS { ?statement wikibase:rank wikibase:DeprecatedRank }
+} group by ?year ?item ?itemLabel
+order by ?item desc (?year)

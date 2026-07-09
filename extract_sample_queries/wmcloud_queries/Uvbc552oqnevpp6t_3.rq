@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?commune ?communeLabel ?cityHall ?cityHallLabel ?coords ?image WHERE {
+  ?commune wdt:P31 wd:Q484170 ;
+           wdt:P47 wd:Q90 .
+  ?cityHall wdt:P131 ?commune ;
+            wdt:P31/wdt:P279* wd:Q543654 ;
+            wdt:P625 ?coords .
+  OPTIONAL { ?cityHall wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?communeLabel

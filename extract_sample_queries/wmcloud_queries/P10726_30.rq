@@ -1,0 +1,4 @@
+SELECT DISTINCT ?prop ?propLabel ?class ?classLabel WHERE {
+  ?prop a wikibase:Property ; wdt:P2876 [ wdt:P111 ?class ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

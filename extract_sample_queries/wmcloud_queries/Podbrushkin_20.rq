@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?itemDescription ?children WHERE {
+  {SELECT ?item (COUNT(?child) AS ?children) # ?childLabel 
+               WHERE { 
+                 ?item wdt:P31* wd:Q7725634 .
+                 ?child wdt:P31 ?item .
+                 MINUS {VALUES ?item {wd:Q7725634}}
+               }
+  GROUP BY ?item
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,[AUTO_LANGUAGE]". } 
+}
+ORDER BY DESC(?children)

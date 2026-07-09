@@ -1,0 +1,41 @@
+#defaultView:Map{"hide":["?point","?rgb"]}
+SELECT ?item ?itemLabel ?parLabel (CONCAT("dx = ",str(?dx)) AS ?xdiff) (CONCAT("dy = ", str(?dy)) AS ?ydiff) ?point ?line ?map_url ?rgb
+# SELECT ?dx ?dy (str(?item) AS ?qid)
+
+WITH {
+  SELECT ?item ?gb1900_stmt ?coord_stmt WHERE {
+    ?item p:P9284 ?gb1900_stmt .
+    ?item wdt:P31 wd:Q489357 .
+    ?item p:P625 ?coord_stmt .
+  }
+} AS %items 
+
+WITH {
+  SELECT ?item ?par ?dx ?dy ?point ?map_url ('AA0000' AS ?rgb) WHERE {
+    INCLUDE %items .  
+    ?coord_stmt psv:P625/wikibase:geoLatitude  ?wd_lat .
+    ?coord_stmt psv:P625/wikibase:geoLongitude ?wd_lon .
+                  
+    ?gb1900_stmt pqv:P625/wikibase:geoLatitude ?gb_lat .
+    ?gb1900_stmt pqv:P625/wikibase:geoLongitude ?gb_lon .
+    BIND ( 111.2 * (?gb_lat - ?wd_lat) AS ?dy) . 
+    BIND (  63.8 * (?gb_lon - ?wd_lon) AS ?dx) . 
+    BIND(STRDT(CONCAT("Point(",str(?dx)," ",str(?dy),")"), geo:wktLiteral) AS ?point) .
+    BIND(IRI(CONCAT("https://maps.nls.uk/geo/explore/#zoom=16&lat=",str(?gb_lat),"&lon=",str(?gb_lon),"&layers=6&b=1&marker=",str(?wd_lat),",",str(?wd_lon))) AS ?map_url) .
+    OPTIONAL {?item wdt:P131 ?par} .
+  }
+} AS %points 
+
+WITH {
+  SELECT ?line ('00AA00' AS ?rgb) WHERE {
+    VALUES (?lon ?lat ?lon2 ?lat2) { ('-0.25' '0.0' '0.25' '0.0') ('0.0' '-0.25' '0.0' '0.25') }
+    VALUES ?item {wd:Q1783819}
+    BIND(CONCAT('LINESTRING (', STR(?lon), ' ', STR(?lat), ',', STR(?lon2), ' ', STR(?lat2), ')') AS ?str) .
+    BIND(STRDT(?str, geo:wktLiteral) AS ?line) 
+  }
+} AS %lines 
+
+WHERE {
+  {INCLUDE %lines} UNION {INCLUDE %points}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

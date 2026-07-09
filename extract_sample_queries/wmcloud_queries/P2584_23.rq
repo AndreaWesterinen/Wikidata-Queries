@@ -1,0 +1,11 @@
+#title: Check location (without the prefix EXT)
+# Complex constraint from [[Property talk:P2584]]
+#
+SELECT ?item ?value {
+	?item wdt:P2584 ?value.
+  FILTER NOT EXISTS {
+    ?item wdt:P131/wdt:P131? ?loc.
+    ?loc wdt:P300 ?iso.
+  }
+  FILTER (SUBSTR(?value, 1, 3) NOT IN ("EXT"))
+}

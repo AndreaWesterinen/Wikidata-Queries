@@ -1,0 +1,18 @@
+SELECT ?item ?prop ?propLink ?count WHERE {
+    {
+        SELECT ?prop (COUNT(DISTINCT(?ref)) AS ?count) WHERE {
+            hint:Query hint:optimizer "None".
+            ?ref pr:P687 ?p .
+            ?ref ?pr_prop ?val .
+            ?stmt prov:wasDerivedFrom ?ref .
+            ?prop wikibase:reference ?pr_prop
+        }
+        GROUP BY ?prop ORDER BY DESC(?count)
+    }
+          
+    ?prop rdfs:label ?prop_label . FILTER(lang(?prop_label) = 'en') .
+    BIND(STRAFTER(STR(?prop), 'P') AS ?propno) .
+    BIND(CONCAT('[[:d:Property:P', ?propno, '|', STR(?prop_label), ']]') AS ?propLink) .
+    BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?propno)) AS ?item) .  # dummy
+   
+} ORDER BY DESC (?count) ?prop

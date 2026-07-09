@@ -1,0 +1,14 @@
+# people who were Time Person of the Year in two consecutive years
+SELECT ?person ?personLabel WHERE {
+  ?person wdt:P31 wd:Q5;
+          p:P166 [
+            ps:P166 wd:Q207826;
+            pq:P585 ?pointInTime1
+          ];
+          p:P166 [
+            ps:P166 wd:Q207826;
+            pq:P585 ?pointInTime2
+          ].
+  FILTER(YEAR(?pointInTime1) = YEAR(?pointInTime2) + 1)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

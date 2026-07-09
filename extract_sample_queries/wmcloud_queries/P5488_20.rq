@@ -1,0 +1,7 @@
+#title: Suggestion: Less than 5 statements
+# Complex constraint from [[Property talk:P5488]]
+#
+SELECT * {
+  ?item wdt:P5488 ?value ; wikibase:statements ?st.
+  FILTER (?st < 5)
+}

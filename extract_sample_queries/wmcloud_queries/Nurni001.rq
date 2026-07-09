@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?typ
+{
+    ?item wdt:P31 wd:Q3305213.
+    ?item wdt:P18 ?img.
+    OPTIONAL {?item wdt:P136 ?genre.}.
+    FILTER (!BOUND(?genre)).
+  {
+    ?item rdfs:label ?nazwa.
+    FILTER(REGEX(?nazwa, 'still[.]life', 'i')

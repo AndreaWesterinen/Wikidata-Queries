@@ -1,0 +1,8 @@
+SELECT ?x ?xLabel ?xDescription ?y ?yLabel ?yDescription WHERE {
+  VALUES ?y { wd:Q161524 wd:Q26699965 }
+  ?x wdt:P279+ wd:Q26699961 .
+  ?x wdt:P279+ ?y .
+  SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+ }
+  }

@@ -1,0 +1,25 @@
+#title: Recency
+# Complex constraint from [[Property talk:P2196]]
+# [[Property:P585|point in time&#32;<small dir="ltr">(P585)</small>]]-qualifier of values shouldn't be older than the duration set at [[Property:P2196#P1552]] with [[d:Q102173107|complex constraint recency <small>(Q102173107)</small>]]
+SELECT ?item ?dt ?age_days ( ROUND((now() - ?dt) / ?factor ) as ?age)
+WHERE 
+{
+	hint:Query hint:optimizer "None".
+	wd:P2196 p:P1552 [ ps:P1552 wd:Q102173107 ; pq:P2047 ?duration ; pqv:P2047 / wikibase:quantityUnit ?unit ] .
+	?unit p:P2442 / psv:P2442 [ wikibase:quantityUnit wd:Q573 ; wikibase:quantityAmount ?factor ]
+	BIND(?duration * ?factor as ?maxagedays)
+	?item p:P2196 ?st . ?st pq:P585 ?dt . 
+	FILTER NOT EXISTS
+	{
+		?item p:P2196 / pq:P585 ?dt0 . 
+		FILTER( ?dt0 > ?dt) 
+	}      
+	?st ps:P2196 ?value .
+	BIND( ROUND(now() - ?dt) as ?age_days)
+	FILTER( ?age_days > ?maxagedays)
+	FILTER NOT EXISTS { ?item wdt:P576 [] }
+	FILTER NOT EXISTS { ?item wdt:P3999 [] }
+	FILTER NOT EXISTS { ?item wdt:P582 [] }
+	FILTER NOT EXISTS { ?item wdt:P570 [] }
+}
+LIMIT 500

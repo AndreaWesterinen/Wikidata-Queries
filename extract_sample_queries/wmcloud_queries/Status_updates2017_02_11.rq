@@ -1,0 +1,14 @@
+# Everything on Wikidata tagged as in the collection or physically located at the Ashmolean, Oxford, UK
+# Created by argotechnica on 11/2/2017
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?Title ?Creator (YEAR(?Date) AS ?YearCreated) ?Image ?coord WHERE {
+  { ?item wdt:P195 wd:Q636400. } UNION { ?item wdt:P276 wd:Q636400. }
+  ?item rdfs:label ?Title.
+  OPTIONAL {
+    ?item wdt:P170 ?QCreator.
+    FILTER((LANG(?Creator)) = "en")
+  }
+  OPTIONAL { ?item wdt:P571 ?Date. }
+  OPTIONAL { ?item wdt:P18 ?Image. }
+  FILTER((LANG(?Title)) = "en")
+}

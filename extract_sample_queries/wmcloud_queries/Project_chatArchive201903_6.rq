@@ -1,0 +1,51 @@
+# UK Members of Parliament whose Commons categories are not yet in [[Category:Politicians of the United Kingdom]]
+### see the comments below for where to adjust this query for other purposes
+SELECT ?item ?commonsCategory ?page ?command1
+WITH {
+  # UK Members of Parliament
+  ### change the below subquery to select different items than UK Members of Parliament
+  SELECT DISTINCT ?item WHERE {
+    ?item wdt:P31 wd:Q5;
+          wdt:P39/wdt:P279* wd:Q16707842.
+  }
+} AS %items
+WITH {
+  # their categories (via P373 or commonswiki sitelink, which gets a bit complicated)
+  ### you should not need to change this part
+  SELECT ?item ?commonsCategory WHERE {
+    hint:SubQuery hint:optimizer "None". # we have to disable the optimizer for this subquery because it gets confused by the ?commonsCategoryStatementEn part
+    INCLUDE %items.
+    OPTIONAL {
+      ?item wdt:P373 ?commonsCategoryStatement.
+      BIND(STRLANG(CONCAT("Category:", ?commonsCategoryStatement), "en") AS ?commonsCategoryStatementEn)
+      ?commonsCategoryFromStatement schema:name ?commonsCategoryStatementEn;
+                                    schema:isPartOf <https://commons.wikimedia.org/>.
+    }
+    OPTIONAL {
+      ?commonsCategoryFromSitelink schema:about ?item;
+                                   schema:isPartOf <https://commons.wikimedia.org/>.
+      FILTER(STRSTARTS(STR(?commonsCategoryFromSitelink), "https://commons.wikimedia.org/wiki/Category:"))
+    }
+    BIND(COALESCE(?commonsCategoryFromStatement, ?commonsCategoryFromSitelink) AS ?commonsCategory)
+    FILTER(BOUND(?commonsCategory))
+  }
+} AS %itemsWithCommonsCategories
+WHERE {
+  # check if Commons category is in [[Category:Politicians of the United Kingdom]], using https://www.mediawiki.org/wiki/Wikidata_Query_Service/Categories
+  ### replace the category on L42 and the command on L48 (possibly with more than one command – in that case don’t forget to also add it to the SELECT),
+  ### the rest you shouldn’t need to change either
+  INCLUDE %itemsWithCommonsCategories.
+  MINUS {
+    SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+      SERVICE gas:service {
+        gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.BFS";
+                    gas:linkType mediawiki:isInCategory;
+                    gas:traversalDirection "Reverse";
+                    gas:in <https://commons.wikimedia.org/wiki/Category:Politicians_of_the_United_Kingdom>;
+                    gas:out ?commonsCategory.
+      }
+    }
+  }
+  BIND(REPLACE(wikibase:decodeUri(SUBSTR(STR(?commonsCategory), STRLEN("https://commons.wikimedia.org/wiki/") + 1)), "_", " ") AS ?page)
+  BIND("+Category:Politicians of the United Kingdom" AS ?command1)
+}

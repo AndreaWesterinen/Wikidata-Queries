@@ -1,0 +1,20 @@
+SELECT ?item (CONCAT("[[Wikidata:WikiProject Sculpture/Creator/",?name, "|list]]") AS ?listlink) (COUNT(DISTINCT ?street) AS ?streetcount) ?sculpturecount WHERE {
+  ?item wdt:P106 wd:Q1281618 .
+  ?item wdt:P31 wd:Q5 .
+  ?street wdt:P138 ?item .
+  ?street wdt:P31 wd:Q79007 .
+  ?street wdt:P17 wd:Q55 .
+  { 
+    SELECT ?item (COUNT(?item) as ?sculpturecount) WHERE {
+    ?sculpture wdt:P31/wdt:P279* wd:Q860861 .  
+    ?sculpture wdt:P170 ?item . 
+     } GROUP BY ?item 
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+  }
+}
+GROUP BY ?item ?name ?listlink ?sculpturecount
+ORDER BY DESC(?streetcount)
+LIMIT 250

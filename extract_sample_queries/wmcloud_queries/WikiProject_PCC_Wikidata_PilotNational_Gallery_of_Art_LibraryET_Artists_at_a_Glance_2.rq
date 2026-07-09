@@ -1,0 +1,9 @@
+embed.html#SELECT ?artist ?artistLabel ?dateBirth ?placeBirthLabel ?coordinates  
+WHERE {
+  ?artist wdt:P1343 wd:Q100427138;
+    wdt:P569 ?dateBirth;
+    wdt:P19 ?placeBirth.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC (?dateBirth)

@@ -1,0 +1,8 @@
+SELECT ?fictional_character ?title ?fictional_war ?fictional_warLabel ?narrative_location ?narrative_locationLabel ?participant ?participantLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?fictional_character wdt:P1434 ?title. }
+  ?fictional_war wdt:P31 wd:Q17198419.
+  OPTIONAL { ?fictional_war wdt:P1080 ?narrative_location. }
+  OPTIONAL { ?fictional_war wdt:P710 ?participant. }
+}
+LIMIT 100

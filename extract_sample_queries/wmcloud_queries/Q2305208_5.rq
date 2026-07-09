@@ -1,0 +1,11 @@
+#title: RSFSR is used as nationality for people dead before 1917-11-07
+# Complex constraint from [[Property talk:Q2305208]]
+# Items with [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]] equal to [[d:Q2305208|Russian Socialist Federative Soviet Republic <small>(Q2305208)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] before 1917-11-07
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P27 wd:Q2305208 .
+  ?item p:P570/psv:P570 ?node .
+  ?node wikibase:timeValue ?born .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (?born < "1917-11-07T00:00:00Z"^^xsd:dateTime)
+  FILTER (?precision >= "9"^^xsd:integer)
+}

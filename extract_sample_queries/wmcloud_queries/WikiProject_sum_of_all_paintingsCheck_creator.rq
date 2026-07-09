@@ -1,0 +1,7 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P170 ?creator .
+  MINUS { ?item wdt:P170 wd:Q4233718 } .
+  MINUS { ?item wdt:P170 wd:Q4294967294 } .
+  MINUS { ?creator wdt:P106 wd:Q1028181 } .
+  }

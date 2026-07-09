@@ -1,0 +1,8 @@
+select ?bridge ?bridgeLabel ?number where {
+  ?bridge wdt:P31 wd:Q12280;
+          wdt:P131 wd:Q9899.
+  OPTIONAL {
+    ?bridge wdt:P1545 ?number.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+}

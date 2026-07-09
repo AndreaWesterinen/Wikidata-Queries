@@ -1,0 +1,4 @@
+SELECT ?item ?url WHERE {
+  ?item p:P195/ps:P195 wd:Q857276 .
+  ?item wdt:P31 wd:Q3305213 .  
+  }

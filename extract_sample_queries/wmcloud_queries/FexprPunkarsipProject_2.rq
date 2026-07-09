@@ -1,0 +1,15 @@
+#List of all punk bands from Indonesia
+SELECT DISTINCT ?band ?bandLabel ?bandDescription ?locationLabel
+WHERE {
+	?band wdt:P31/wdt:P279* wd:Q25391823 ;
+		wdt:P495 wd:Q252;
+    OPTIONAL {
+		?band wdt:P856 ?website
+	}
+    OPTIONAL {
+		?band wdt:P740 ?location
+	}
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,id" .
+	}
+}

@@ -1,0 +1,10 @@
+SELECT ?language ?languageLabel (GROUP_CONCAT(?caseLabel; separator = ", ") AS ?cases) WHERE {
+  ?language wdt:P2989 ?case.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?language rdfs:label ?languageLabel.
+    ?case rdfs:label ?caseLabel.
+  }
+}
+GROUP BY ?language ?languageLabel
+ORDER BY DESC(COUNT(?case))

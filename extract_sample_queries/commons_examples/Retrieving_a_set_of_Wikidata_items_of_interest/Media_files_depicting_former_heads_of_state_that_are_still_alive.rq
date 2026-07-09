@@ -1,0 +1,20 @@
+# Media files depicting (former) heads of state that are still alive
+#defaultView:ImageGrid
+select distinct ?file ?image ?leaderLabel with {
+  select ?leader ?leaderLabel where {
+    service <https://query.wikidata.org/sparql> {
+      ?leader wdt:P31 wd:Q5;
+            wdt:P39 ?posHeld. 
+      minus { ?leader wdt:P570 []. } # Minus date of death, only living people
+      ?posHeld wdt:P31/wdt:P279* wd:Q48352. # Position held = subclass or instance of 'head of state'
+      service wikibase:label { 
+        bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+        ?leader rdfs:label ?leaderLabel. 
+      }
+    }
+  }
+} as %wikidataItems where {
+  include %wikidataItems .
+  ?file wdt:P180 ?leader;
+        schema:url ?image.
+}

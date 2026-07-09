@@ -1,0 +1,11 @@
+SELECT DISTINCT ?l ?lemma WHERE {
+  ?l a ontolex:LexicalEntry ; 
+       dct:language wd:Q1571 ; 
+       wikibase:lexicalCategory wd:Q1084 ; 
+       wikibase:lemma ?lemma ; 
+       ontolex:lexicalForm ?form .
+    ?form ontolex:representation ?word ;  
+    minus {
+      {?l a ontolex:LexicalEntry ; ontolex:lexicalForm/wikibase:grammaticalFeature wd:Q192997 .}
+    }.
+}

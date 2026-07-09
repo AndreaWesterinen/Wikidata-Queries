@@ -1,0 +1,5 @@
+SELECT ?Archivi_e_biblioteche_d_autore__Bibliografia ?Archivi_e_biblioteche_d_autore__BibliografiaLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Archivi_e_biblioteche_d_autore__Bibliografia wdt:P5008 wd:Q68777238.
+}
+LIMIT 1000

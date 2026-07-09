@@ -1,0 +1,12 @@
+#defaultView:Graph
+select ?author1 ?author1Label ?image ?author2 where {
+  ?item wdt:P31 wd:Q13442814 .
+  ?item wdt:P1325 ?resource . 
+  filter ( strstarts(str(?resource), "https://openfmri.org/") || strstarts(str(?resource), "http://neurosynth.org/") || strstarts(str(?resource), "http://neurovault.org/")
+          )
+  ?item wdt:P50 ?author1 ;
+        wdt:P50 ?author2 .
+  optional { ?author1 wdt:P18 ?image . }
+  filter not exists { filter (?author1 = ?author2)  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

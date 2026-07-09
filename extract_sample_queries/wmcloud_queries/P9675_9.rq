@@ -1,0 +1,15 @@
+#title: Used without known proper context
+# Complex constraint from [[Property talk:P9675]]
+# Used to qualify a statement that doesn't seem to tell us what wiki it refers to. Known good cases are when the statement's property has [[Property:P1552|has quality&#32;<small dir="ltr">(P1552)</small>]] with value [[d:Q83336425|MediaWiki page title <small>(Q83336425)</small>]], or if the statement is also qualified with [[Property:P2699|URL&#32;<small dir="ltr">(P2699)</small>]]; otherwise, more study is needed.
+SELECT ?item ?property ?value ?prop ?qualifierP9675value WHERE {
+  ?prop pq:P9675 ?qualifierP9675value .
+  hint:Query hint:optimizer "None" .
+  ?item ?p ?prop .
+  ?property wikibase:claim ?p .
+  ?property wikibase:statementProperty ?ps .
+  ?prop ?ps ?value .
+
+  OPTIONAL { ?prop pq:P2699 ?url }
+  FILTER (!bound(?url))
+  FILTER NOT EXISTS { ?property wdt:P1552 wd:Q83336425 }
+}

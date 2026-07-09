@@ -1,0 +1,11 @@
+SELECT ?p ?o
+
+WHERE {
+  
+  ?emulator wdt:P31 wd:Q202871 .
+  ?emulator ?p ?o .          
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

@@ -1,0 +1,6 @@
+SELECT ?commune ?canton WHERE {
+  ?commune wdt:P31 wd:Q484170 .
+  ?commune wdt:P131 ?canton .
+  ?canton wdt:P31 ?isCanton .
+  VALUES ?isCanton { wd:Q18524218 wd:Q184188 }.
+} ORDER BY ?commune

@@ -1,0 +1,12 @@
+embed.html#SELECT DISTINCT ?w ?t ?a ?n ?d
+WHERE {
+{?a ?p1 wd:Q1433199.} UNION {?a ?p2 [wdt:P361 wd:Q1433199].}
+?w wdt:P50 ?a ; wdt:P921 wd:Q59959795 .
+OPTIONAL {?w wdt:P577 ?d.} 
+OPTIONAL {?w wdt:P1476 ?t.} 
+?a rdfs:label ?n.
+FILTER(LANG(?n) = "en").
+}
+GROUP BY ?w ?t ?a ?n ?d
+ORDER BY DESC(?d)
+LIMIT 100

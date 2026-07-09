@@ -1,0 +1,21 @@
+# Which country has most people whose names start from X or Q? https://twitter.com/RahulBharadwajR/status/1032994688498905089
+# clarifications: name = given name; country = country of birth
+SELECT ?country ?countryLabel ?count WITH {
+  SELECT ?givenName ?givenNameLabel WHERE {
+    ?givenName wdt:P31/wdt:P279* wd:Q202444;
+               wdt:P1705 ?givenNameLabel.
+    FILTER(STRSTARTS(?givenNameLabel, "X") || STRSTARTS(?givenNameLabel, "Q"))
+  }
+} AS %givenNames WITH {
+  SELECT ?country (COUNT(DISTINCT ?human) AS ?count) WHERE {
+    INCLUDE %givenNames.
+    ?human wdt:P31 wd:Q5;
+           wdt:P735 ?givenName;
+           wdt:P19/wdt:P17 ?country.
+  }
+  GROUP BY ?country
+} AS %countries WHERE {
+  INCLUDE %countries.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

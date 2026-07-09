@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?value 
+{
+	?item wdt:P1993 ?value .
+    
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

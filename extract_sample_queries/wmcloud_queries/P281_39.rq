@@ -1,0 +1,4 @@
+#title: Check postal codes in Switzerland
+# Complex constraint from [[Property talk:P281]]
+#
+SELECT DISTINCT ?item ?zipCode WHERE { ?item wdt:P17 wd:Q39; wdt:P281 ?zipCode. FILTER( REGEX( STR( ?zipCode ), "^(\\d{4})$" ) = false ) . } ORDER BY ?item

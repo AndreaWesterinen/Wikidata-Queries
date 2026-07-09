@@ -1,0 +1,4 @@
+SELECT ?award ?awardLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?award wdt:P279 wd:Q618779.
+}

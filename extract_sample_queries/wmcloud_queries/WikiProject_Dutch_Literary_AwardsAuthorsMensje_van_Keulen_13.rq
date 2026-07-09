@@ -1,0 +1,17 @@
+#Awards ?author was nominated for, with years, but without nominated works
+SELECT DISTINCT ?author ?authorLabel ?role ?roleLabel ?item ?itemLabel ?year ?itemDescription 
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)} 
+  ?item wdt:P3342 ?author. #Items for which ?author was a relevant person (P3342)
+  ?item p:P3342 ?s. #Relevant person for specific award
+  ?s ps:P3342 ?author. #Only for ?author
+  ?s pq:P3831 ?role 
+    FILTER(?role = wd:Q618536) #role=nomineee (Q618536),
+  OPTIONAL {?s pq:P585 ?year1
+  BIND(YEAR(?year1) AS ?year)}
+                        
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} ORDER BY ?year 

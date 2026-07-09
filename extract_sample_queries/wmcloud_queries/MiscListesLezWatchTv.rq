@@ -1,0 +1,3 @@
+select distinct ?item WHERE {
+  ?item wdt:P7106 ?id .
+  }

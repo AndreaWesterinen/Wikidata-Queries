@@ -1,0 +1,37 @@
+# Part of (P361)
+# Branches must be Part of (P361) of parent library organisation 
+# PartOf statement can have multiple values (e.g. [[Q60290390|OBA Hallen]])
+
+SELECT 
+?branch
+(GROUP_CONCAT(DISTINCT ?branchLabel ; separator = " --- ") as ?Vestigingen)
+?partofLabel
+#?partofIsA ?partofIsALabel
+
+WHERE 
+{
+  ?branch (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55.
+  ?branch p:P31 [ps:P31 ?branchIsA; wikibase:rank ?branchRank].
+  OPTIONAL{?branch p:P361/ps:P361 ?partof.
+  ?partof p:P31 [ps:P31 ?partofIsA; wikibase:rank ?partofRank]. 
+  FILTER (?partofIsA = wd:Q28324850) #filter out any values that are not Q28324850         
+          }
+  
+#  {
+#  SELECT DISTINCT
+#  WHERE{
+#  }
+#  GROUP BY
+#  }
+  
+  SERVICE wikibase:label 
+  { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+  ?branch rdfs:label ?branchLabel.
+  ?partof rdfs:label ?partofLabel.
+  ?partofIsA rdfs:label ?partofIsALabel 
+# ?hasparts rdfs:label ?haspartsLabel 
+  }
+
+}
+GROUP BY ?branch ?partofLabel #?OnderdeelVan #?partofIsA ?partofIsALabel
+ORDER BY (?partofLabel)

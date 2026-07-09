@@ -1,0 +1,5 @@
+#title: Unique IDs across PIM properties
+# Complex constraint from [[Property talk:P8742]]
+# [[Property:P3973|PIM authority ID&#32;<small dir="ltr">(P3973)</small>]] and [[Property:P8742|PIM award ID&#32;<small dir="ltr">(P8742)</small>]] cannot hold the same values
+SELECT ?item ?item2 ?id
+WHERE { ?item wdt:P8742 ?id . ?item2 wdt:P3973 ?id }

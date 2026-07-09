@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q5; wdt:P27 ?country.
+  OPTIONAL {
+    ?item schema:description ?descnl.
+    FILTER((LANG(?descnl)) = "nl")
+  }
+  FILTER(!BOUND(?descnl))
+} LIMIT 1000

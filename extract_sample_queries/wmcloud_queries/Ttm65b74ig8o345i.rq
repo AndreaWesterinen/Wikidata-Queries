@@ -1,0 +1,10 @@
+embed.html##defaultView:Map
+SELECT ?livre ?livreLabel ?personneLabel ?lieuLabel ?page ?img ?coord WHERE {
+	?livre wdt:P50 ?personne .
+	?personne wdt:P19 ?lieu .
+ ?lieu wdt:P625 ?coord .
+ optional { ?personne wdt:P18 ?img } .
+	?page schema:about ?livre .
+	?page schema:isPartOf <https://br.wikisource.org/> .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

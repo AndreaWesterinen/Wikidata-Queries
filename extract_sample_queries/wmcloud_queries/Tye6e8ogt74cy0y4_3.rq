@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?portLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q15836568 .
+  ?item wdt:P1641 ?port .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,21 @@
+SELECT
+  ?item ?itemLabel
+  ?vol ?page_s ?page
+  (CONCAT('<span title="',strafter(?wst,"BLKÖ:"),'">[',str(?ws),"#Seite_",strbefore(CONCAT(?page_s,"-"), "-")," wikisource]</span>") as ?wsp)
+{
+	?item wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q9353932 .
+  	MINUS { ?item wdt:P996 [] } 
+    OPTIONAL { ?item wdt:P478 ?vol }
+    OPTIONAL { ?item wdt:P304 ?page_s
+    BIND( xsd:integer(strbefore(CONCAT(?page_s,"-"), "-")) as ?page) 
+             }
+  
+    OPTIONAL {  ?ws1 schema:about ?item ; schema:name ?wst1 ; schema:isPartOf <https://de.wikisource.org/> }
+    OPTIONAL {  ?item wdt:P361 ?art . 
+                ?ws2 schema:about ?art ; schema:name ?wst2 ; schema:isPartOf <https://de.wikisource.org/> }
+    BIND( COALESCE( ?ws1, ?ws2) as ?ws) 
+    BIND( COALESCE( ?wst1, ?wst2) as ?wst)  
+  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de". }
+}
+ORDER BY xsd:integer(?vol) ?page ?page_s

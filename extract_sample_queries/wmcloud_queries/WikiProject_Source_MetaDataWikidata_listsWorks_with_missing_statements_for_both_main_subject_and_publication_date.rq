@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P50 ?author ;
+        wdt:P1476 ?title .
+  FILTER NOT EXISTS { ?item wdt:P577 ?pubdate }
+  FILTER NOT EXISTS { ?item wdt:P921 ?topic }
+}
+LIMIT 1000

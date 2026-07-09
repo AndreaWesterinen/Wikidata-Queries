@@ -1,0 +1,6 @@
+SELECT * WHERE {
+  ?lexeme ontolex:sense ?sense.
+  ?lexeme wikibase:lemma ?lemma.
+  ?lexeme dct:language wd:Q1860.
+  ?sense wdt:P5137 wd:Q41176.
+}

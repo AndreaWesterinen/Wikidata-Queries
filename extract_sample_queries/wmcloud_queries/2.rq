@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel
+WHERE {
+  ?item rdfs:label ?itemLabel.
+  FILTER(strlen(?itemLabel) = 1)
+}
+LIMIT 1000

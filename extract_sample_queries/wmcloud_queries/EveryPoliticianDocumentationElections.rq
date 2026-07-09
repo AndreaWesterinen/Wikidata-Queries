@@ -1,0 +1,7 @@
+# Members of the 57th United Kingdom Parliament with unknown Date of Birth
+SELECT ?person ?personLabel {
+  ?person p:P39 [ ps:P39 wd:Q16707842; pq:P2937 wd:Q29974940 ] .
+  FILTER NOT EXISTS { ?person wdt:P569 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?personLabel

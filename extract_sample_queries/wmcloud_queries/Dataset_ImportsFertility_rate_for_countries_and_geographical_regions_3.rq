@@ -1,0 +1,4 @@
+embed.html##defaultView:LineChart
+SELECT (STR(YEAR(?date)) AS ?year) ?fertility_rate ?placesLabel ?places (STR(?refUrl) as ?source) WHERE {
+  
+  VALUES

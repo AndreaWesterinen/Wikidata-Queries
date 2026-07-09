@@ -1,0 +1,21 @@
+SELECT ?item ?itemLabel ?fecha_de_publicacion ?plataformaLabel ?edadPublicacion ?edadAños ?puntuacion ?editorialLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q7889.
+  ?item wdt:P400 wd:Q19610114.
+  ?item p:P577 ?fecha_de_publicacionP.
+  OPTIONAL {
+    ?fecha_de_publicacionP pq:P400 ?plataforma.
+  }
+  OPTIONAL
+  {
+    ?item wdt:P400 ?plataforma.
+  }
+  FILTER(?plataforma = wd:Q19610114)
+  ?fecha_de_publicacionP ps:P577 ?fecha_de_publicacion.
+  BIND(NOW() - ?fecha_de_publicacion AS ?edadPublicacion)
+  BIND(?edadPublicacion/365.2425 AS ?edadAños).
+  FILTER(?edadAños <= 2)
+  OPTIONAL{?item wdt:P444 ?puntuacion}
+  OPTIONAL{?item wdt:P123 ?editorial}
+}
+ORDER BY DESC(?edadAños)

@@ -1,0 +1,12 @@
+SELECT DISTINCT ?itemLabel ?item  ?origineleNaam  ?naam ?auteursrechtenstatusLabel ?RKD ?geboortedatum ?overlijdensdatum ?gelijk 
+{
+	?item wdt:P6379 wd:Q99349995 .
+  FILTER NOT EXISTS {
+   ?item p:P6379 [ ps:P6379 ?collectie;
+                    prov:wasDerivedFrom 
+                    [ pr:P972 ?catalogus; 
+                    ]
+                  ].
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" } .
+}

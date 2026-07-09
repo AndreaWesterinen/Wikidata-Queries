@@ -1,0 +1,5 @@
+embed.html#SELECT DISTINCT ?item ?label WHERE {
+	?item wdt:P4638 [] ; rdfs:label ?label .
+	FILTER (lang(?label) = "en"). 
+	FILTER regex (?label, "^Sir ").
+}

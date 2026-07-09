@@ -1,0 +1,6 @@
+#defaultView:Graph
+SELECT ?taxon (?taxonName AS ?taxonLabel) ?parentTaxon WHERE {
+  wd:{{{origin}}} wdt:P171* ?taxon.
+  ?taxon wdt:P225 ?taxonName.
+  ?taxon wdt:P171 ?parentTaxon.
+}

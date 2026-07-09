@@ -1,0 +1,17 @@
+SELECT ?item ?pgroupLabel ?consLabel (group_concat(distinct ?deg;separator=", ") as ?degree) (group_concat(distinct ?maj;separator=", ") as ?major) (group_concat(distinct ?RL;separator=", ") as ?region)  (group_concat(distinct ?occLabel;separator=", ") as ?occupationLabel) (group_concat(distinct ?ali;separator=", ") as ?alias) WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q96657427 .
+  optional {?statement pq:P4100 ?pgroup . ?pgroup skos:altLabel ?pgroupLabel . filter(lang(?pgroupLabel)="en")}
+  optional {?statement pq:P768 ?cons . ?cons rdfs:label ?consLabel . filter(lang(?consLabel)="en")
+                                      ?cons wdt:P131 ?region. ?region rdfs:label ?RL . filter(lang(?RL)="en") 
+                                      ?region wdt:P31 wd:Q1052743.
+           }
+  optional {?item wdt:P106 ?occupation. filter(?occupation != wd:Q82955) . ?occupation rdfs:label ?occLabel . filter(lang(?occLabel)="en") }
+  optional {?item skos:altLabel ?ali . filter(lang(?ali)="en") }
+ # minus {?statement pq:P582 [] .} 
+  optional { ?item p:P69 ?statementD .
+            optional { ?statementD pq:P512 ?dg . ?dg rdfs:label ?deg . filter(lang(?deg)="en") }
+            optional { ?statementD pq:P812 ?mj . ?mj rdfs:label ?maj . filter(lang(?maj)="en") }
+           }  
+ } group by ?item ?pgroupLabel ?consLabel ?statement

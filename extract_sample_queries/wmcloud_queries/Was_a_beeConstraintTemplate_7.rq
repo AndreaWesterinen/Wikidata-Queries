@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?count ?sample1 ?sample2 ?exception
+{
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2) {
+			?item wdt:Was a bee/ConstraintTemplate ?val .
+			OPTIONAL { wd:Was a bee/ConstraintTemplate wdt:P1630 ?formatter } .
+			BIND( IF( BOUND( ?formatter ), URI( REPLACE( ?formatter, '\\$1', ?val ) ), ?val ) AS ?value ) .
+		} GROUP BY ?item
+	} .
+	FILTER(?count > 1) .
+	BIND (IF(CONTAINS(IF(""!="","{{{exceptions}}}",""), substr(str(?item), 33)), true, false) AS ?exception )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+} ORDER BY DESC(?count) LIMIT 1000

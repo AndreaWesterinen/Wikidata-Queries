@@ -1,0 +1,54 @@
+SELECT distinct ?item ?itemLabel ?item2 ?item2Label ?mouth ?mouthLabel ?coord ?dist ?ref WITH { SELECT ?item 
+WHERE 
+{
+  ?item wdt:P131/wdt:P131 wd:Q22 . #} hint:Prior hint:runFirst true.
+  {?item wdt:P31 wd:Q55659167.}
+  UNION
+  {?item wdt:P31 wd:Q4022 . }
+  UNION
+  {?item wdt:P31 wd:Q47521 . }
+} } as %i
+WHERE
+{
+ INCLUDE %i
+  ?item p:P403 ?stat . 
+  ?stat ps:P403 ?mouth .
+  ?stat pq:P625 ?coord .
+   ?stat prov:wasDerivedFrom ?stat99 . 
+  ?stat99 pr:P854 ?ref .
+  
+  ?item2 p:P403 ?stat2 . 
+  ?stat2 ps:P403 ?mouth .
+  ?stat2 pq:P625 ?coord2 .
+  filter(str(?item) < str(?item2)) 
+  ?item2 wdt:P131/wdt:P131 wd:Q22.
+  ?mouth wdt:P131/wdt:P131 wd:Q22.
+  {?mouth wdt:P31 wd:Q55659167.}
+  UNION
+  {?mouth wdt:P31 wd:Q4022 . }
+  UNION
+  {?mouth wdt:P31 wd:Q47521 . }
+  
+  filter not exists 
+  { ?item3 wdt:P403 ?mouth . 
+    ?item3 wdt:P2789 []. }
+ 
+  OPTIONAL {?item p:P2789 ?stat3 .
+  ?stat3 pq:P1552 wd:Q111794957 .
+  ?stat3 ps:P2789 ?item2.
+  BIND("conf" as ?conf) } 
+  
+  filter not exists {?mouth wdt:P885 [] . }
+ 
+  OPTIONAL {?item2 p:P2789 ?stat4 .
+  ?stat4 pq:P1552 wd:Q111794957 .
+  ?stat4 ps:P2789 ?item.
+  BIND("conf2" as ?conf2) }
+ 
+  BIND(geof:distance(?coord, ?coord2) as ?dist)  
+  
+  ?mouth p:P403/pq:P625 ?mouthcoord. 
+  BIND(geof:distance(?mouthcoord, ?coord2) as ?dist2)  
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by ?dist

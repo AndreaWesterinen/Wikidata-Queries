@@ -1,0 +1,18 @@
+SELECT DISTINCT ?lemma
+WHERE {
+
+    ?lexeme wikibase:lemma ?lemma ;
+            dct:language wd:Q1860
+    FILTER(strlen(?lemma)=5)
+    FILTER(contains(?lemma,"a"))
+    FILTER(contains(?lemma,"l"))   
+    FILTER(contains(?lemma,"s"))
+    FILTER(!contains(?lemma,"h"))  
+    FILTER(!contains(?lemma,"e"))  
+    FILTER(!contains(?lemma,"t"))  
+    FILTER(!contains(?lemma,"n"))   
+    FILTER(!contains(?lemma,"i"))
+    FILTER(!contains(?lemma,"y"))  
+    FILTER(!contains(?lemma,"g"))
+
+}

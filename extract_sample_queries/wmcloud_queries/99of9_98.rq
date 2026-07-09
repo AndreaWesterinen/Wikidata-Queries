@@ -1,0 +1,22 @@
+#SELECT ?sex ?sexLabel (COUNT(*) AS ?count) WHERE {
+SELECT ?pid ?pidLabel ?sexLabel WHERE {
+  {?pid wdt:P106 wd:Q19542123 .}
+  UNION
+  {?pid wdt:P39/wdt:P279* wd:Q19542123 .}
+  UNION  
+  { ?pid p:P108 
+       [ps:P108 ?employer;
+        pq:P39 wd:Q19542123
+                ] .
+  }
+  
+  ?pid wdt:P21 ?sex .
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+
+}
+#GROUP BY ?sex ?sexLabel
+#ORDER BY DESC(?count) ?sexLabel
+LIMIT 500

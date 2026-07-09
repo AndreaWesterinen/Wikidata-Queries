@@ -1,0 +1,40 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?P17Label
+{
+  hint:Query hint:optimizer "None".
+  { 
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+    bd:serviceParam mwapi:language "en" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "search" .
+    bd:serviceParam mwapi:gsrsearch 'Tourist Interest' .
+    bd:serviceParam mwapi:gsrlimit "max" .    
+    bd:serviceParam mwapi:gsrnamespace "0" .    
+    ?item wikibase:apiOutputItem mwapi:title  .    
+  } 
+  } UNION  { 
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+    bd:serviceParam mwapi:language "en" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "search" .
+    bd:serviceParam mwapi:gsrsearch 'Tourism Interest' .
+    bd:serviceParam mwapi:gsrlimit "max" .    
+    bd:serviceParam mwapi:gsrnamespace "0" .    
+    ?item wikibase:apiOutputItem mwapi:title  .    
+  } 
+  } UNION {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+    bd:serviceParam mwapi:language "es" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "search" .
+    bd:serviceParam mwapi:gsrsearch 'Interés Turístico' .
+    bd:serviceParam mwapi:gsrlimit "max" .    
+    bd:serviceParam mwapi:gsrnamespace "0" .    
+    ?item wikibase:apiOutputItem mwapi:title  .    
+  }
+    }
+  ?item wdt:P17 ?P17.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+}

@@ -1,0 +1,33 @@
+# Query ?person wdt:P2538 ?Natmus.
+#defaultView:Map
+select distinct  ?article ?person ?personLabel  ?personDescription  (floor(year(?birthdate)/100)*100 as ?layer) ?pic ?coord ?coord2 ?coord3 ?NatMus {
+{
+   ?person wdt:P2538 ?NatMusID.
+   ?person wdt:P569 ?birthdate .
+   OPTIONAL{ ?person wdt:P18 ?pic .} 					# If we have an illustration
+   OPTIONAL{ ?person wdt:P1442 ?picGrave .} 			# If we have a picture of the grave
+   BIND (URI(CONCAT("http://collection.nationalmuseum.se/eMuseumPlus?service=ExternalInterface&module=artist&objectId=",?NatMusID)) AS ?NatMus)
+   OPTIONAL {  ?person wdt:P19 ?loc . 			# P19 Place of Birth
+    ?loc wdt:P625 ?coord } .    				# Get coordinates from Place of Birth
+   OPTIONAL {  ?person wdt:P20 ?loc2 . 			# P19 Place of Death
+    ?loc2 wdt:P625 ?coord2 } .    				# Get coordinates from Place of Death
+   OPTIONAL {  ?person wdt:P119 ?loc3 . 			# P19 Place of Burial
+    ?loc3 wdt:P625 ?coord3 } .    				# Get coordinates from Place of Burial
+
+   OPTIONAL {
+      ?article schema:about ?person .
+      ?article schema:inLanguage "sv" .
+      ?article schema:isPartOf <https://sv.wikipedia.org/> .
+    }
+   OPTIONAL {
+      ?article schema:about ?person .
+      ?article schema:inLanguage "en" .
+      ?article schema:isPartOf <https://sv.wikipedia.org/> .
+    }
+
+   OPTIONAL { ?person wdt:P106 ?group .} 			# Occupation in Layer
+
+}   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv","en"}
+}
+Order by ?personLabel

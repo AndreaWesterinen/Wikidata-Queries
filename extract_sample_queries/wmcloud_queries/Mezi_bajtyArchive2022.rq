@@ -1,0 +1,5 @@
+select ?item ?value where {
+
+  ?item wdt:P9391 ?value filter(!REGEX(?value,"^[0-9]*$")).  
+
+}

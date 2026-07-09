@@ -1,0 +1,15 @@
+# items with property P3765 and the lowest number of statements
+# added by User:Jura1, 2017-07-31
+SELECT ?item ?itemLabel ?value ?valueLabel ?st
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P3765 ?value ; wikibase:statements ?st
+       }
+       ORDER BY ASC(?st) ?item
+       LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ASC(?st) ?item

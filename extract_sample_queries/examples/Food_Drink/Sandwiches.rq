@@ -1,3 +1,4 @@
+#title: Sandwiches
 #defaultView:ImageGrid
 SELECT ?item ?itemLabel ?_image
 WHERE

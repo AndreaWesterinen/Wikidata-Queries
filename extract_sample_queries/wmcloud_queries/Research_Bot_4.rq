@@ -1,0 +1,7 @@
+#Scientific articles with titles that are all UPPER CASE
+SELECT ?item ?title WHERE {
+  ?item wdt:P31 wd:Q13442814; #scientific article
+        wdt:P1476 ?title. #title
+  FILTER(REGEX(STR(?title), "^[\\p{Lu}\\p{M}\\p{N}\\p{P}\\p{Z}]+$")) #non-lowercase 
+}
+LIMIT 1000

@@ -1,0 +1,9 @@
+#Red pandas
+SELECT ?item ?itemLabel ?itemDescription ?pobLabel ?podLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q41960.
+  OPTIONAL {?item wdt:P19 ?pob}.
+  OPTIONAL {?item wdt:P20 ?pod}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr, en". }
+}

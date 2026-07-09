@@ -1,0 +1,10 @@
+SELECT DISTINCT ?country ?item ?seats
+WHERE {
+  ?country wdt:P31 wd:Q3624078 .
+  OPTIONAL { 
+    VALUES ?type { wd:Q10553309 wd:Q37002670 }
+    ?item wdt:P31/wdt:P279* ?type ; wdt:P1001 ?country . 
+    FILTER NOT EXISTS { ?item wdt:P576 [] } . # no end date
+    OPTIONAL { ?item wdt:P1342 ?seats } 
+  }
+}

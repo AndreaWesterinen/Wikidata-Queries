@@ -1,0 +1,9 @@
+SELECT
+	?item
+	(GROUP_CONCAT(DISTINCT(concat("\u007B\u007BP\u007C",strafter(str(?se),"/entity/"),"\u007D\u007D"));separator=", ") as ?seealso)
+WHERE
+{
+	?item wdt:P279 wd:Q21502402 . 
+	OPTIONAL { ?item wdt:P1659 ?se }
+}
+GROUP BY ?item

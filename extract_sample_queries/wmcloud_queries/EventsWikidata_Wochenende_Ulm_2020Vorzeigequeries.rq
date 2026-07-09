@@ -1,0 +1,20 @@
+embed.html##defaultView:Timeline
+SELECT DISTINCT ?marriage ?marriageLabel ?time ?image
+{
+  {
+    SELECT ?marriage ?time {
+      ?marriage wdt:P31|wdt:P279 wd:Q17422;
+                wdt:P580 ?time.
+    }
+  }
+  UNION {
+    SELECT ?marriage ?time {
+      ?marriage wdt:P31|wdt:P279 wd:Q17422;
+            wdt:P585 ?time.
+    }
+  }
+  OPTIONAL{
+    ?marriage wdt:P18 ?image.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,13 @@
+embed.html#SELECT DISTINCT ?paper ?label (SAMPLE(?subject) AS ?subject) WHERE {
+  ?paper wdt:P31 wd:Q13442814.
+  ?paper wdt:P50 ?author.
+  ?author wdt:P108 / wdt:P17 wd:Q145 .
+  ?paper rdfs:label ?label.
+  FILTER(LANG(?label) = "en").
+   FILTER REGEX(?label, "(Wales)") .
+   OPTIONAL {
+   ?paper wdt:P921 ?subject. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }
+GROUP BY ?paper ?label
+LIMIT 100

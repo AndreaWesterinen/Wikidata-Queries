@@ -1,0 +1,43 @@
+SELECT ?item ?total ?gender ?dob ?birthplace ?givenName ?familyName ?twitter ?facebook ?linkedin ?instagram ?website ?mems ?district ?group ?term ?start ?election
+WITH {
+  SELECT DISTINCT ?member ?gender ?dob ?birthplace ?givenName ?familyName ?facebook ?twitter ?linkedin ?instagram ?website ?district ?group ?term ?election ?start WHERE { 
+    ?member p:P39 ?ps .
+    ?ps ps:P39 wd:Q3044918 ; pq:P2937 wd:Q112567597 .
+    OPTIONAL { ?member wdt:P21 ?gender }
+    OPTIONAL { ?member wdt:P569 ?dob }
+    OPTIONAL { ?member wdt:P19 ?birthplace }
+    OPTIONAL { ?member wdt:P735 ?givenName }
+    OPTIONAL { ?member wdt:P734 ?familyName }
+    OPTIONAL { ?member wdt:P2013 ?facebook }
+    OPTIONAL { ?member wdt:P2002 ?twitter }
+    OPTIONAL { ?member wdt:P6634 ?linkedin }
+    OPTIONAL { ?member wdt:P2003 ?instagram }
+    OPTIONAL { ?member wdt:P856 ?website }
+    OPTIONAL { ?ps pq:P768 ?district }
+    OPTIONAL { ?ps pq:P4100 ?group }
+    OPTIONAL { ?ps pq:P2937 ?term }
+    OPTIONAL { ?ps pq:P2715 ?election }
+    OPTIONAL { ?ps pq:P580 ?start }
+    FILTER NOT EXISTS { ?ps pq:P582 [] }
+  }
+} AS %members 
+WHERE {
+  BIND(wd:Q112567597 AS ?item)
+  OPTIONAL { SELECT ?total WHERE { wd:Q193582 wdt:P1342 ?total } }
+  OPTIONAL { SELECT ?mems WHERE { wd:Q193582 wdt:P1342 ?mems } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?gender) WHERE { INCLUDE %members .  FILTER(!ISBLANK(?gender))  } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?dob) WHERE { INCLUDE %members. FILTER(!ISBLANK(?dob)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?birthplace) WHERE { INCLUDE %members. FILTER(!ISBLANK(?birthplace)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?givenName) WHERE { INCLUDE %members. FILTER(!ISBLANK(?givenName)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?familyName) WHERE { INCLUDE %members. FILTER(!ISBLANK(?familyName)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?twitter) WHERE { INCLUDE %members. FILTER(!ISBLANK(?twitter)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?facebook) WHERE { INCLUDE %members. FILTER(!ISBLANK(?facebook)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?linkedin) WHERE { INCLUDE %members. FILTER(!ISBLANK(?linkedin)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?instagram) WHERE { INCLUDE %members. FILTER(!ISBLANK(?instagram)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?website) WHERE { INCLUDE %members. FILTER(!ISBLANK(?website)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?district) WHERE { INCLUDE %members. FILTER(!ISBLANK(?district)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?group) WHERE { INCLUDE %members. FILTER(!ISBLANK(?group)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?term) WHERE { INCLUDE %members. FILTER(!ISBLANK(?term)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?start) WHERE { INCLUDE %members. FILTER(!ISBLANK(?start)) } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?member) AS ?election) WHERE { INCLUDE %members. FILTER(!ISBLANK(?election)) } }
+}

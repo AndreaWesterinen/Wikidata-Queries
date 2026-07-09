@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?itemDescription ?typeLabel  ?councilLabel ?c_councilLabel WITH {
+  SELECT ?item 
+WHERE 
+{
+  ?item wdt:P17 wd:Q145 .
+  FILTER NOT EXISTS { ?item schema:description ?description . }
+ } } as %i
+WHERE
+{
+  INCLUDE %i
+  ?item wdt:P31/wdt:P279* wd:Q811979 . hint:Prior hint:gearing "forward".
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  optional {?item wdt:P31 ?type . }
+  OPTIONAL {?item wdt:P131 ?council . optional {?council wdt:P131 ?c_council} }
+}

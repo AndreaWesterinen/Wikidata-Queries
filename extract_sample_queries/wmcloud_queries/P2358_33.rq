@@ -1,0 +1,11 @@
+#title: Labels in English would generally be different from Portuguese (pt)
+# Complex constraint from [[Property talk:P2358]]
+# output: item with English label, English label, Portuguese label
+SELECT ?item ?en ?pt
+{
+  ?item wdt:P2358 [ ] ; wdt:P31 wd:Q5 .
+  ?item rdfs:label ?en . FILTER( lang(?en) = "en" ) 
+  ?item rdfs:label ?pt . FILTER( lang(?pt) = "pt" ) 
+  FILTER( str(?en) = str(?pt) )
+}
+LIMIT 1000

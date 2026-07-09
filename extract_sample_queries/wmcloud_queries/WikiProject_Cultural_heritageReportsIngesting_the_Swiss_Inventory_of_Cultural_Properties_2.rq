@@ -1,0 +1,7 @@
+SELECT+?item+?PCP_NO+?Label_en+?Label_de+?Label_fr+?Label_it+
+		
+
+WHERE+{
+	{?item+wdt:P381+?PCP_NO.}+												+	#have+a+PCP+Number
+	
++	OPTIONAL+{+?item+rd

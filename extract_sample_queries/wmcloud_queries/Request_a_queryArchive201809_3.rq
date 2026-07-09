@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?start ?end ?point ?doLabel
+
+
+WHERE {
+ 
+
+?item wdt:P1830 wd:Q24027085 . 
+  
+ 
+  ?item p:P1830 ?do .
+  ?do pq:P580 ?start .
+  ?do pq:P582 ?end .
+                               
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

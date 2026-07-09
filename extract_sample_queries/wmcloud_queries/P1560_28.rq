@@ -1,0 +1,5 @@
+#title: Value of qualifier P407 should be precise
+# Complex constraint from [[Property talk:P1560]]
+# avoid using [[d:Q20923490|multiple languages <small>(Q20923490)</small>]] as value
+SELECT DISTINCT ?item { ?item p:P1560 [pq:P407 wd:Q20923490] }
+LIMIT 100

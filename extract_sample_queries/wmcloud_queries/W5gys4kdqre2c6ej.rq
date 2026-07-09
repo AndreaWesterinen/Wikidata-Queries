@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P971 wd:Q159810 ; wikibase:sitelinks 1 .
+    [] schema:about ?item ; schema:isPartOf <https://de.wikipedia.org/> .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de". }
+}

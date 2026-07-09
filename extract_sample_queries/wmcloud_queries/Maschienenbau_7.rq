@@ -1,0 +1,18 @@
+#---------------------------------------------------------------------------------------
+# Straßen und Plätze in Dresden
+#---------------------------------------------------------------------------------------
+#defaultView:Map{"layer":"?instance_ofLabel"}
+SELECT  ?item ?itemLabel ?itemDescription ?coordinate ?instance_ofLabel
+WHERE {    
+  ?item wdt:P131 ?list_of_cities1.                   # liegt in Verwaltungseinheit Dresden
+    VALUES ?list_of_cities1 {wd:Q14808 wd:Q585627 wd:Q311539 wd:Q184481 wd:Q587077 wd:Q585248 wd:Q671788 wd:Q583462 wd:Q545340 wd:Q587094 wd:Q531735 wd:Q583458 wd:Q583171 wd:Q581972 wd:Q583155 wd:Q589644 wd:Q583178 wd:Q583033 wd:Q585613}
+    VALUES ?instance_of { 
+      wd:Q79007      # Innerortstraße
+      wd:Q21000333   # Einkaufsstraße 
+      wd:Q174782     # Platz
+    } 
+  ?item wdt:P31 ?instance_of.                # ist Straße oder Platz  
+  ?item wdt:P625 ?coordinate.
+  #BIND(IF(BOUND(?street),"FFA500","7FFF00") AS ?rgb)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en,[AUTO_LANGUAGE]". }
+}

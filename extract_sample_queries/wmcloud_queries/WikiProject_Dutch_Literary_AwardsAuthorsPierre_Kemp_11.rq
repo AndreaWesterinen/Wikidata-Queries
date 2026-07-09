@@ -1,0 +1,32 @@
+#Works written or translated by a given Author, that also won awards
+SELECT distinct 
+?authorLabel 
+?work ?workLabel ?workDescription (GROUP_CONCAT(DISTINCT ?IsALabel ; separator = "****") as ?WorkIsA)
+?award ?awardLabel ?year 
+WHERE
+{
+  #Works written or translated by a given Author  
+  BIND(wd:Q2677204 as ?author) . 
+  BIND(wd:Q2677204 as ?translator) 
+  {?work wdt:P50 ?author} UNION {?work wdt:P655 ?translator}.
+  ?work wdt:P31 ?IsA.
+  
+  # that received an award (optional)
+  OPTIONAL {
+    ?work p:P166  ?s. 
+    ?s ps:P166 ?award. # award received
+    ?s pq:P585 ?year1
+    BIND(YEAR(?year1) AS ?year)
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+    ?IsA rdfs:label ?IsALabel.
+    ?work rdfs:label ?workLabel .
+    ?work schema:description ?workDescription .
+    ?author rdfs:label ?authorLabel .
+    ?award rdfs:label ?awardLabel .
+    
+  }
+} GROUP BY ?work ?workLabel ?authorLabel ?workDescription ?award ?awardLabel ?year 
+ORDER BY ?year

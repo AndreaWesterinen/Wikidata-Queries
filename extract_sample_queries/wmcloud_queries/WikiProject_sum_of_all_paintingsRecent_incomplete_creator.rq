@@ -1,0 +1,14 @@
+SELECT ?item ?ids WHERE {
+  ?item wdt:P106 wd:Q1028181 .
+  ?item wdt:P31 wd:Q5 .
+  ?item wikibase:identifiers ?ids . 
+  MINUS {
+    # Items that got everything
+    ?item wdt:P21 [] .
+    ?item wdt:P569 [] .
+    ?item wdt:P19 [] .
+    { ?item p:P570 [] . ?item wdt:P20 [] } UNION { ?item wdt:P569 ?birth . FILTER(?birth > "+1900-00-00T00:00:00Z"^^xsd:dateTime) }
+    { ?item p:P27 [] } UNION { ?item wdt:P569 ?birth . FILTER(?birth < "+1900-00-00T00:00:00Z"^^xsd:dateTime) }
+     }    
+} ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))) 
+LIMIT 300

@@ -1,0 +1,40 @@
+# Graph of astronauts as crew of flights of different countries
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?rgb ?link ?naut_seed
+WHERE
+{ 
+  VALUES ?toggle { true false }
+  
+  # Let's select a subset of astronauts
+  {
+    SELECT DISTINCT ?naut WHERE
+    { 
+      VALUES ?naut_seed {wd:Q313815}.  # Sergei Krikalev
+      ?s wdt:P1029 ?naut_seed, ?naut;  # ?naut_seed & ?naut are member of a same crew
+    }
+  }
+  
+  ?s  wdt:P31/wdt:P279* wd:Q40218; # spacecraft and subclasses
+      wdt:P31/wdt:P279* wd:Q752783;# human spaceflight and subclasses, e.g. expedition to the International Space Station
+          wdt:P1029 ?naut;         # has member of the crew ?naut
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+  BIND(IF(?toggle,?s,?naut) AS ?item).
+  BIND(IF(?toggle,?sLabel,?nautLabel) AS ?itemLabel).
+  BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb_source).
+  BIND(IF(?toggle,"",?s) AS ?link).
+  
+  ?naut wdt:P27 ?country. # astronaut is citizen of country 
+
+  # ?toggle = true then spacecraft node
+  # ?toggle = false then astronaut node
+  BIND(                  # Soviet & Russian astronauts have red nodes
+    IF(!?toggle && (?country=wd:Q15180 || ?country=wd:Q159),"FF0000",
+    IF(!?toggle && ?country=wd:Q30,"FF00FF",  # USA - fuchsia
+    IF(!?toggle && ?country=wd:Q183,"C0C0C0", # Germany - silver
+    IF(!?toggle && ?country=wd:Q142,"008080", # France - teal
+    IF(!?toggle && ?country=wd:Q232,"FFFF00", # Kazakhstan - yellow
+    IF(!?toggle && ?country=wd:Q40,"800000", # Austria - maroon
+    IF(!?toggle && ?country=wd:Q38,"00FFFF", # Italy - aqua
+    ?rgb_source)))))))
+    AS ?rgb).
+}

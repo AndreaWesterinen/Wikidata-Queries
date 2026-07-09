@@ -1,0 +1,11 @@
+SELECT ?cause ?causeLabel (COUNT(?person) AS ?count)
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          wdt:P509 ?cause;
+          wdt:P53 [].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?cause ?causeLabel
+HAVING(?count > 1)
+ORDER BY DESC(?count)

@@ -1,0 +1,25 @@
+#The world's tallest 200 mountains, and if/when they were first climbed.
+#defaultView:Map
+SELECT DISTINCT ?mountain ?mountainLabel (sample(?height) as ?height) (year(?date) as ?year) (sample(?location) as ?location) ?layer
+WHERE
+{
+  ?mountain wdt:P31 wd:Q8502 . # Everything that's a mountain
+  ?mountain wdt:P625 ?location . # and has a coordinate
+  ?mountain p:P2044 ?heightstatement . # and has a height-statement
+  ?heightstatement psv:P2044 ?PSVStatement. # normalised height statement
+  ?PSVStatement wikibase:quantityNormalized ?another_statement .
+  ?another_statement wikibase:quantityAmount ?height.# height - phew!
+  FILTER(?height > 6000) # only the tallest
+  OPTIONAL { 
+    ?mountain p:P793 ?event . # and within that "significant event" statement
+    ?event ps:P793 wd:Q1194369 . # continued...
+    ?event pq:P585 ?date . #it has a "point in time" qualifier statement.
+    bind ("Climbed" as ?layer) # this seems to be what we need to get colour labels -
+                               # ie if it falls in the optional group of "was first summited"
+                               # then bind to a new layer, otherwise no special layer
+  } 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+group by ?mountain ?mountainLabel ?date ?layer
+ORDER BY DESC (?height)
+LIMIT 200

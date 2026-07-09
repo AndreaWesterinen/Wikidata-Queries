@@ -1,0 +1,6 @@
+SELECT ?human ?humanLabel ?Artists_in_Canada_record_number WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?human wdt:P31 wd:Q5.
+  ?human wdt:P5239 ?Artists_in_Canada_record_number.
+}
+ORDER BY xsd:integer(?Artists_in_Canada_record_number)

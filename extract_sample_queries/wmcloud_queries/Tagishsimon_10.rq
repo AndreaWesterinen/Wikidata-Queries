@@ -1,0 +1,36 @@
+select distinct ?p ?pLabel ?pDescription ?death (year(?death) as ?yd) where {
+  ?p  wdt:P31 wd:Q5.
+  ?p  p:P27 ?node.
+  ?node ps:P27 wd:Q145.
+  
+   minus {?node prov:wasDerivedFrom ?node4 .}
+#  ?node4 ?prop ?ref.
+  
+  ?p p:P569/psv:P569 ?node1.
+  #{?node1 wikibase:timePrecision "9"^^xsd:integer.}
+ # UNION
+ # {?node1 wikibase:timePrecision "10"^^xsd:integer.}
+ # UNION
+  ?node1 wikibase:timePrecision "9"^^xsd:integer.
+  ?node1 wikibase:timeValue ?birth.
+
+  ?p p:P570/psv:P570 ?node2.
+  {?node2 wikibase:timePrecision "9"^^xsd:integer. }
+  UNION
+  {?node2 wikibase:timePrecision "10"^^xsd:integer. }
+  UNION
+  {?node2 wikibase:timePrecision "11"^^xsd:integer. }
+  ?node2 wikibase:timeValue ?death.
+  
+  filter(year(?birth)<1927)
+  filter(year(?death)>1927)
+  minus {?p wdt:P27 wd:Q174193 .}       
+       
+# Q161885 Kingdom of Great Britain 1 May 1707 –1801
+# Q174193 United Kingdom of Great Britain and Ireland 1 January 1801 - 12 April 1927
+# Q179876 Kingdom of England 
+# Q230791 Kingdom of Scotland   
+# Q215530 Kingdom of Ireland 1542 and 1801
+       
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+       } 

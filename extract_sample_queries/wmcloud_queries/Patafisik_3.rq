@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?imagelink WHERE {
+  ?item wdt:P17 wd:Q38 .
+  ?item wdt:P2186 ?wlmid .
+  ?item wdt:P373 ?commons .
+  MINUS { ?item wdt:P18 ?image } .
+  BIND(CONCAT('"Wiki Loves Monuments Italia" insource:', ?wlmid) AS ?needle ) .
+  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "commons.wikimedia.org" .
+      bd:serviceParam wikibase:api "Search" .
+      bd:serviceParam mwapi:srnamespace "6" .
+      bd:serviceParam mwapi:srsearch ?needle .
+      bd:serviceParam mwapi:srlimit "1" .
+      ?image wikibase:apiOutput mwapi:title .
+    }
+  BIND(CONCAT('https://commons.wikimedia.org/wiki/', ?image) AS ?imagelink ) .
+}
+LIMIT 100

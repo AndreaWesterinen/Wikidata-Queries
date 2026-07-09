@@ -1,0 +1,8 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel ?wpt
+WHERE
+{
+    ?item wdt:P1433 wd:Q665807 .  ?item wdt:P31 wd:Q19389637 .  
+    [] schema:about ?item ; schema:isPartOf <https://de.wikisource.org/> ; schema:name ?wpt  
+    FILTER ( REGEX(?wpt, "Verweis") )                     
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de" }
+}

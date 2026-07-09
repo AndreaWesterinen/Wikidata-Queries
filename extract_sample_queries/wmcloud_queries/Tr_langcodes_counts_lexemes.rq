@@ -1,0 +1,14 @@
+SELECT (wd:Q5 as ?item) 
+(CONCAT("<onlyinclude",">",
+        "{","{","#switch:{","{","{c}","}","}\u007C", 
+        GROUP_CONCAT(CONCAT(?c,"=",str(?count));separator=" \u007C"),
+        "}","}",
+        "</","onlyinclude>") as ?test)
+{
+  SELECT ?c (COUNT(?l) as ?count) 
+  {
+    ?l wikibase:lemma ?lem .
+    BIND( lang(?lem) as ?c)
+  }
+  GROUP BY ?c ORDER BY DESC(?c)
+}

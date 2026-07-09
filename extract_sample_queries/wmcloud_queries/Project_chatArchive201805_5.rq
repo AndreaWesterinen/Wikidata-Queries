@@ -1,0 +1,8 @@
+#Cats
+SELECT ?item ?itemLabel ?geni
+WHERE 
+{
+  VALUES ?geni {"2352898" "2531545" "6000000018978022586" "6000000024954878960" "6000000002307526818"}
+  ?item wdt:P2600 ?geni .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

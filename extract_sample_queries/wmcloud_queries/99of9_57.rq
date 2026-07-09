@@ -1,0 +1,30 @@
+#defaultView:Map
+SELECT ?place ?placeLabel ?location ?element ?elementLabel
+WHERE
+{
+  ?element wdt:P31 wd:Q11344 ; rdfs:label ?elementLabel ; FILTER (LANG(?elementLabel)="en")
+ 
+  wd:Q42738046 wdt:P488 ?president .
+  ?president wdt:P19 ?pob .
+  ?pob wdt:P625 ?loc00 . 
+  
+  SERVICE wikibase:around { 
+    ?place wdt:P625 ?location . 
+    bd:serviceParam wikibase:center ?loc00 . 
+    bd:serviceParam wikibase:radius "1" . 
+  }
+
+  ?place rdfs:label ?placeLabel .
+
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .  }
+
+  ?place rdfs:label ?placeLabel; FILTER (LANG(?placeLabel)="en") 
+  #FILTER((LANG(?placeLabel)) = LANG(?elementLabel))
+
+  #FILTER((LANG(?placeLabel)) = "en")
+  #FILTER((LANG(?elementLabel)) = "en")
+  FILTER (CONTAINS(LCASE(str(?placeLabel)),LCASE(str(?elementLabel))))
+
+}
+#ORDER BY ?placeLabel
+LIMIT 10

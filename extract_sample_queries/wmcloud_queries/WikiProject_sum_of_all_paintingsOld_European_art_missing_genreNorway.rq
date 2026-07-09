@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?addportraitlink ?addreligiouslink WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+        wdt:P6216 wd:Q19652 ;
+  #      wdt:P18 [] .
+  MINUS { ?item wdt:P136 [] } .
+  ?item wdt:P195/wdt:P17 wd:Q20 # /wdt:P30 wd:Q46.
+  { ?item wdt:P571 ?inception . FILTER (YEAR(?inception) < 1675 ) . } UNION
+  { ?item wdt:P170/wdt:P570 ?dod . FILTER (YEAR(?dod) < 1700 ) . } UNION 
+  { ?item wd:P170 wd:Q4233718 . MINUS { ?item wdt:P571 [] } } .
+    BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P136&entityid=Q134307 Add portrait]") AS ?addportraitlink)
+    BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P136&entityid=Q2864737 Add religious]") AS ?addreligiouslink)
+  } ORDER BY ?label 
+LIMIT 2500

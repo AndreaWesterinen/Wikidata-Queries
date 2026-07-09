@@ -1,0 +1,4 @@
+SELECT (COUNT(DISTINCT(?item)) AS ?cnt) WHERE{
+  ?item wdt:P31 [] .
+  ?item2 wdt:P279 ?item
+}

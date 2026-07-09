@@ -1,0 +1,9 @@
+SELECT ?i1 ?i1Label ?i2 ?i2Label ?val where {
+  ?i1 wdt:P1566 ?val .
+  ?i2 wdt:P1566 ?val .
+  filter( !(?i1 = ?i2) && str(?i1) < str(?i2) )
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,fr" .
+  }
+}
+limit 50

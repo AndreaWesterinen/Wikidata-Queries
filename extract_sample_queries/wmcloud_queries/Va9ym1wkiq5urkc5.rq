@@ -1,0 +1,1 @@
+SELECT * { ?item wdt:P1705 ?nl . FILTER (lang(?nl)="nrf-je") }

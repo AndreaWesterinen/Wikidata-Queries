@@ -1,0 +1,4 @@
+#title: Deutsche Biographie ID - type human should have sex
+# Complex constraint from [[Property talk:P7902]]
+# Deutsche Biographie ID exists, type is human, sex missing
+SELECT ?item ?dtbioid {?item wdt:P7902 ?dtbioid; wdt:P31 wd:Q5; MINUS {?item wdt:P21 []} }

@@ -1,0 +1,10 @@
+SELECT ?item ?inv ?sitter WHERE {
+  ?item wdt:P195 wd:Q238587 .
+  ?item wdt:P31 wd:Q3305213 .
+  OPTIONAL {   ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 wd:Q238587 . }
+  OPTIONAL { ?item wdt:P180 ?sitter .
+            ?sitter wdt:P31 wd:Q5 }
+  } ORDER BY xsd:integer(REPLACE(?inv, "^(NPG )L?(\\d+)([^\\d].*)?$", "$2"))
+LIMIT 4000

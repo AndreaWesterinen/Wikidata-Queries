@@ -1,0 +1,8 @@
+embed.html##defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?person ?personLabel ?coord WHERE {
+  ?item wdt:P276+ wd:Q240744.
+  ?item wdt:P625 ?coord.
+  ?item wdt:P31 wd:Q173387.
+  ?item p:P31 [ ps:P31 wd:Q173387 ; pq:P642 ?person ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

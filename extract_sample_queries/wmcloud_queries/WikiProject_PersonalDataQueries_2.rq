@@ -1,0 +1,6 @@
+SELECT ?instance ?instanceLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  wd:Q458 wdt:P150 ?instance.
+  ?instance wdt:P463 wd:Q458.
+}
+LIMIT 100

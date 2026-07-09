@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT DISTINCT ?museum ?museumLabel ?_coordinate_location ?_Instagram_username WHERE {
+  ?museum wdt:P31/wdt:P279* wd:Q33506 .
+  ?museum p:P2003 ?statement.
+  ?museum ?range wd:Q34.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+  OPTIONAL { ?museum wdt:P625 ?_coordinate_location. }
+  OPTIONAL { ?museum wdt:P2003 ?_Instagram_username. }
+}

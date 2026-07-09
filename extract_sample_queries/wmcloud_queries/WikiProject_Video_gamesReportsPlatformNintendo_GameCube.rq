@@ -1,0 +1,34 @@
+SELECT ?item (GROUP_CONCAT( ?releaseStr; SEPARATOR= '<br />' ) AS ?release) WHERE {
+  ?item wdt:P400 wd:Q182172.
+  OPTIONAL {
+    ?item p:P577 ?st .
+    ?st ps:P577 ?releaseDate .
+    {
+      ?st pq:P400 wd:Q182172
+    } UNION {
+      FILTER NOT EXISTS { ?st pq:P400 [] }
+    }
+    OPTIONAL {
+      { SELECT ?st ( GROUP_CONCAT( ?regionCode; SEPARATOR=', ') AS ?regionCodes ) WHERE {
+        ?st pq:P291 ?region .
+        {
+          VALUES ( ?region ?regionCode ) {
+            ( wd:Q46 'EU' )
+            ( wd:Q49 'NA' )
+            ( wd:Q2729044 'PAL' )
+            ( wd:Q45256 'AU' )
+            ( wd:Q13780930 'WW' )
+            ( wd:Q48 'AS' )
+            ( wd:Q18 'SA' )
+            ( wd:Q538 'OC' )
+            ( wd:Q11708 'SEA' )
+          }
+        } UNION {
+          ?region wdt:P297 ?regionCode .
+        }
+      } GROUP BY ?st }
+    }
+    BIND( CONCAT( substr(str( ?releaseDate ), 1, 10), IF( bound(?regionCodes), CONCAT( ' (', ?regionCodes, ')' ), '' ) ) AS ?releaseStr ) .
+  }
+}
+GROUP BY ?item

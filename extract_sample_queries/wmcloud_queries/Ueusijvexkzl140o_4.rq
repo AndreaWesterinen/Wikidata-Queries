@@ -1,0 +1,47 @@
+#defaultView:Map{"hide":["?decade", "?coord", "?layer"], "markercluster": {"maxClusterRadius": 70}}
+
+SELECT DISTINCT ?decade ?place ?placeLabel ?coord ?year ?xLabel ?image
+(SAMPLE(?x) AS ?x) (SAMPLE(?layer) AS ?layer) WHERE {
+  { ?x wdt:P361 wd:Q2603503. }
+  UNION
+  { ?x wdt:P361 wd:Q16964319 . }
+    ?x  wdt:P577 ?date ;      
+        wdt:P291 ?place . 
+  
+  ?place wdt:P625 ?coord. 
+  
+  OPTIONAL {?x wdt:P18 ?image . }
+  
+  BIND (YEAR(?date) AS ?year)
+  BIND(FLOOR(?year / 10) *10 as ?decade ) 
+  
+    BIND(
+    IF(?decade =1770, "1770s",
+    IF(?decade =1780, "1780s",
+    IF(?decade =1790, "1790s",
+    IF(?decade =1800, "1800s",   
+    IF(?decade =1810, "1810s",
+    IF(?decade =1820, "1820s",
+    IF(?decade =1830, "1830s",
+    IF(?decade =1840, "1840s",
+    IF(?decade =1850, "1850s",
+    IF(?decade =1860, "1860s",
+    IF(?decade =1870, "1870s",
+    IF(?decade =1880, "1880s",
+    IF(?decade =1890, "1890s",
+    IF(?decade =1900, "1900s",
+    IF(?decade =1910, "1910s",
+    IF(?decade =1920, "1920s",
+    IF(?decade =1930, "1930s",
+    IF(?decade =1940, "1940s",
+    IF(?decade =1950, "1950s",
+    IF(?decade =1960, "1960s",
+    IF(?decade =1970, "1970s",
+    IF(?decade =1980, "1980s",
+    IF(?decade =1990, "1990s",
+        " "))))))))))))))))))))))) AS ?layer).
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?decade ?place ?placeLabel ?coord ?year ?xLabel ?image
+ORDER BY ?decade

@@ -1,0 +1,9 @@
+SELECT ?q ?series_id ?author_q ?author_name {
+ ?q p:P50 ?author_statement .
+ ?author_statement ps:P50 ?author_q .
+ ?author_statement pq:P1545 ?series_id .
+ ?q p:P2093 ?author_name_statement .
+ ?author_name_statement ps:P2093 ?author_name .
+ ?author_name_statement pq:P1545 ?series_id
+ }
+LIMIT 5

@@ -1,0 +1,5 @@
+SELECT ?item ?value WHERE {
+  ?item wdt:P31 wd:Q11424 .
+  ?item wdt:P973 ?value .
+  FILTER(REGEX(STR(?value), "crew-united")) 
+} ORDER BY ?value

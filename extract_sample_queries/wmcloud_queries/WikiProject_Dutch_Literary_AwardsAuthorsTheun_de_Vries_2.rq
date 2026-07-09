@@ -1,0 +1,13 @@
+#Name variants (pseudonymes etc.) of Theun de Vries (from the NTA)
+SELECT DISTINCT ?author ?s ?nta ?nta_uri ?namedAs #?award ?awardLabel ?year ?forwork ?forworkLabel
+WHERE
+{
+  VALUES (?author) {(wd:Q2143934)}
+  ?author p:P1006 ?s .
+  ?s ps:P1006 ?nta
+  BIND(URI(CONCAT("https://data.bibliotheken.nl/doc/thes/p",?nta)) AS ?nta_uri)   
+  OPTIONAL {?s pq:P1810 ?namedAs.}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} 

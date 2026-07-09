@@ -1,0 +1,10 @@
+SELECT ?item
+
+WHERE
+{
+  ?item wdt:P31 wd:Q4022; wdt:P17 wd:Q159;
+  
+  FILTER NOT EXISTS { ?item wdt:P625 ?coord }
+  
+  FILTER EXISTS { ?wru schema:about ?item . ?wru schema:inLanguage "ru" }   
+}

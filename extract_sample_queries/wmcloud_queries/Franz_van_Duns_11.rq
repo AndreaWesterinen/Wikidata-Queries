@@ -1,0 +1,31 @@
+# Enlist all Wikidata items where manufacturer is stated as being 'Carl Zeiss AG', ignoring those items that have a valid 'subclass of' entry.
+#   This query construct enables one to reveal items LACKING a valid entry.
+# Query makes use of MINUS operator in combination with a subquery.
+# Last revision : 2021-12-15.
+# Table columns: ?WDitem ?WDitemLabel ?instanceOfLabel ?subclassOfLabel (WD=Wikidata)
+# NOTE: The sort order applied to the column "cameraLabel" rearranges entries containing foreign characters, such as "umlauts" or Greek characters, e.g. "Sony α7R IV", AFTER entries containing the regular set of characters. 
+
+SELECT DISTINCT ?WDitem ?WDitemLabel ?instanceOfLabel ?subclassOfLabel
+WHERE
+{
+  {?WDitem wdt:P176 wd:Q282186 . }   # manufacturer (P176): Carl Zeiss AG (Q282186)
+
+  OPTIONAL {?WDitem wdt:P31 ?instanceOf . }          # instance of (P31)
+  OPTIONAL {?WDitem wdt:P279 ?subclassOf . }         # subclass of (P279)   # NOTE: Adding this term to the query raises RESULT from 28 to 31 items due to 3 entries having two subclass entries, which are dutily displayed as separate items.
+
+  MINUS            # NOTE: deactivating this line (by inserting a preceding "#") will display ONLY those entries with a valid 'subclass of' entry.
+  {
+    SELECT ?WDitem
+    WHERE
+    {
+      {?WDitem wdt:P176 wd:Q282186 . }   # manufacturer (P176): Carl Zeiss AG (Q282186)
+      {?WDitem wdt:P279 ?subclassOf . } # subclass of (P279)  
+    }
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+
+ORDER BY ASC(UCASE(?WDitemLabel))
+
+# LIMIT 50

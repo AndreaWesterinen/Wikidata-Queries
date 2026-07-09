@@ -1,0 +1,10 @@
+#femmes alpinistes
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?img
+WHERE 
+{
+  ?item wdt:P106 wd:Q9149093. 
+  ?item wdt:P21 wd:Q6581072.
+  OPTIONAL {?item wdt:P18 ?img}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

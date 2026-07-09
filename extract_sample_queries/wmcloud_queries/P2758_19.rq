@@ -1,0 +1,4 @@
+#title: Single value (other than warning)
+# Complex constraint from [[Property talk:P2758]]
+# this property generally contains a single value other than [[d:Q23817739|warning <small>(Q23817739)</small>]]
+SELECT ?item WHERE { ?item wdt:P2758 ?value . FILTER ( ?value != wd:Q23817739 ) } GROUP BY ?item HAVING (COUNT(?value) > 1)

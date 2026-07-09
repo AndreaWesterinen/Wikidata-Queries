@@ -1,0 +1,4 @@
+SELECT *
+{
+  ?provenance pr:P6720 ?ref_dbvalue
+}

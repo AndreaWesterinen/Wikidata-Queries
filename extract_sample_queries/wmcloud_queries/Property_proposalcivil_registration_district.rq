@@ -1,0 +1,6 @@
+SELECT ?civil_registry ?civil_registryLabel ?located_in_the_administrative_territorial_entityLabel ?countryLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?civil_registry wdt:P31 wd:Q254213.
+  OPTIONAL { ?civil_registry wdt:P131 ?located_in_the_administrative_territorial_entity. }
+  OPTIONAL { ?civil_registry wdt:P17 ?country. }
+}

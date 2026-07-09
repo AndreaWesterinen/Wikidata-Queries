@@ -1,0 +1,10 @@
+SELECT ?id ?label WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language wd:Q809 ; wikibase:lemma ?lemma ; ontolex:lexicalForm ?id .
+  ?id ontolex:representation ?label .
+  FILTER NOT EXISTS { ?id wdt:P443 ?audio. }
+  bind(if(contains(replace(?label,"rz",""),"r")||contains(replace(?label,"Rz",""),"R"),1,0) as ?test)
+  filter(?test=0)
+  filter(?l!=wd:L19356) # CD - płyta kompaktowa, odtwarzacz
+  filter(?l!=wd:L19357) # CD - corps diplomatique
+  filter(?l!=wd:L7860)  # ale - piwo
+} order by ?lemma limit 150

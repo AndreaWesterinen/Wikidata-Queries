@@ -1,3 +1,4 @@
+#title: Chemical elements and their properties
 SELECT ?elementLabel ?_boiling_point ?_melting_point ?_electronegativity ?_density ?_mass
 WHERE
 {

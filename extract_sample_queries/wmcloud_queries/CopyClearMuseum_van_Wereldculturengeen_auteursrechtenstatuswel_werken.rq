@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?object ?book
+  WITH {
+  SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 wd:Q17153751.
+  FILTER NOT EXISTS {?item wdt:P7763 []}.  
+  } 
+  } AS %results
+  WHERE {
+    INCLUDE %results.
+  {?object wdt:P170 ?item.}#maker
+  UNION
+  {?book wdt:P50 ?item.}#auteur
+}

@@ -1,0 +1,50 @@
+# query to demonstrate ways to manipulate dates
+# find rawdate, precision, calendar.
+# if Julian and day-precision, offset (year and month stay the same)
+# then give an YYYY-MM-DD form of the date converted and tagged as Julian if needed
+# sample set: birth dates of roman emperors
+# thanks again to Melderick!
+select distinct ?item ?itemLabel ?rawdate ?calLabel ?born ?precision ?tidy_date where
+{
+  ?item wdt:P31 wd:Q5 . ?item p:P39 ?ps . ?ps ps:P39 wd:Q842606 .
+  ?item p:P569 ?bs . ?bs psv:P569 ?bsv . ?bsv wikibase:timePrecision ?precision .
+  ?item wdt:P569 ?rawdate . ?bsv wikibase:timeValue ?rawdate .  # to ensure it matches best statement
+  ?bsv wikibase:timeCalendarModel ?cal. # now correct for calendar
+  bind(coalesce(
+    IF(?cal = wd:Q1985727,  "P0D"^^xsd:duration, 1/0), # no change if Gregorian
+    IF(?precision <= 10 ,  "P0D"^^xsd:duration, 1/0), # no change if year precision or less
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1900-03-01T00:00:00Z"^^xsd:dateTime, "P13D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1800-03-01T00:00:00Z"^^xsd:dateTime, "P12D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1700-03-01T00:00:00Z"^^xsd:dateTime, "P11D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1500-03-11T00:00:00Z"^^xsd:dateTime, "P10D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1400-03-10T00:00:00Z"^^xsd:dateTime, "P9D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1300-03-09T00:00:00Z"^^xsd:dateTime, "P8D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1100-03-08T00:00:00Z"^^xsd:dateTime, "P7D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "1000-03-07T00:00:00Z"^^xsd:dateTime, "P6D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "0900-03-06T00:00:00Z"^^xsd:dateTime, "P5D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "0700-03-05T00:00:00Z"^^xsd:dateTime, "P4D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "0600-03-04T00:00:00Z"^^xsd:dateTime, "P3D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "0500-03-03T00:00:00Z"^^xsd:dateTime, "P2D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "0300-03-02T00:00:00Z"^^xsd:dateTime, "P1D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "0200-03-01T00:00:00Z"^^xsd:dateTime, "P0D"^^xsd:duration, 1/0),
+    IF(?cal = wd:Q1985786 && ?rawdate >= "0100-03-01T00:00:00Z"^^xsd:dateTime, "-P1D"^^xsd:duration, 1/0),
+    # pre-100 it Gets ComplicatedTM and this is estimated based on eyeballing
+    IF(?cal = wd:Q1985786 && ?rawdate >= "-0100-03-01T00:00:00Z"^^xsd:dateTime, "-P2D"^^xsd:duration, 1/0), # check exact March date
+    
+    'undefined') as ?duration)
+  bind(?rawdate - ?duration AS ?born) 
+  bind(str(year(?born)) as ?year) . 
+  bind(str(month(?born)) as ?m) . bind(if(strlen(?m) = 1, concat('0',?m), ?m) as ?month) . 
+  bind(str(day(?born)) as ?d) . bind(if(strlen(?d) = 1, concat('0',?d), ?d) as ?day) . 
+  bind(concat(?year,'-',?month,'-',?day) as ?combined) 
+  bind(coalesce(
+    if(?precision = 11, concat(?year,'-',?month,'-',?day), 1/0),
+    if(?precision = 10, concat(?year,'-',?month), 1/0),
+    if(?precision = 9,  concat(?year), 1/0),
+    'undefined') as ?v)  
+  bind(coalesce(
+    if(?cal = wd:Q1985727, ?v, 1/0),
+    if(?cal = wd:Q1985786, concat(?v, " (Julian)"), 1/0),
+    'undefined') as ?tidy_date)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?born

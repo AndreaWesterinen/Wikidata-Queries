@@ -1,0 +1,10 @@
+embed.html##defaultView:Map
+#by Jura1, February 2020
+SELECT ?p ?pLabel ?pob ?pobLabel ?coor
+WHERE
+{
+    ?p wdt:P735 wd:Q1418855 .
+    ?p wdt:P19 ?pob .
+    ?pob wdt:P625 ?coor .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

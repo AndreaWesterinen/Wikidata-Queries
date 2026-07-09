@@ -1,0 +1,22 @@
+SELECT ?item (CONCAT("[https://ordia.toolforge.org/language/", REPLACE(STR(?item),STR(wd:),""), " Ordia]") as ?ordia) ?langs ?lexemecount ?formcount ?sensecount
+WITH {
+  SELECT ?item (count(distinct ?l) as ?lexemecount) (GROUP_CONCAT(DISTINCT lang(?lem); SEPARATOR=", ") as ?langs) {
+    { SELECT ?item ?l ?lem { 
+      ?l dct:language ?item ; wikibase:lemma ?lem .
+    } ORDER BY ?lem }
+  } GROUP BY ?item
+} AS %lexemecounts
+WITH {
+  SELECT ?item (count(?form) as ?formcount) WHERE {
+    ?l dct:language ?item . OPTIONAL { ?l ontolex:lexicalForm ?form. }
+  } group by ?item
+} AS %formcounts
+WITH {
+  SELECT ?item (count(?sense) as ?sensecount) WHERE {
+   ?l dct:language ?item . OPTIONAL { ?l ontolex:sense ?sense }
+  } group by ?item
+} AS %sensecounts
+WHERE {
+  INCLUDE %lexemecounts. INCLUDE %formcounts. INCLUDE %sensecounts.
+}
+ORDER BY DESC(?sensecount) DESC(?lexemecount) DESC(?formcount) ?langs ?item

@@ -1,0 +1,4 @@
+#title: <span dir="ltr" lang="en">Unsuitable weight for human</span>
+# Complex constraint from [[Property talk:P2067]]
+# <span dir="ltr" lang="en">Person with weight and bigger than 300kg</span>
+SELECT DISTINCT ?item WHERE { ?item wdt:P31 wd:Q5; p:P2067/psn:P2067/wikibase:quantityAmount ?amount; p:P2067/psn:P2067/wikibase:quantityUnit wd:Q11570. FILTER( ?amount > 300 ) }

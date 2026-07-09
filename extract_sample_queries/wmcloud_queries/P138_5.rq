@@ -1,0 +1,8 @@
+#title: Detect loop
+# Complex constraint from [[Property talk:P138]]
+# Loop is strange. Could detect some mistakes.
+SELECT ?item ?value {
+	?item wdt:P138 ?value.
+  ?value wdt:P138 ?item.
+  FILTER (?item NOT IN (wd:Q44571)) # false positive: GNU
+}

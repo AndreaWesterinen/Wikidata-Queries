@@ -1,0 +1,7 @@
+SELECT ?item ?dialingcode WHERE{
+  ?item wdt:P473 ?dialingcode;
+        wdt:P17 ?country .
+  FILTER(?country NOT IN (wd:Q159, wd:Q30, wd:Q16))  
+  ?country wdt:P3238 ?prefix .
+  FILTER(!STRSTARTS(?dialingcode,?prefix))
+}

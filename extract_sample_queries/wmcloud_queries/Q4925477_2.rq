@@ -1,0 +1,36 @@
+embed.html## by Jura1, February 2020 
+# percentage of "John"
+SELECT
+  ( ROUND(?ct_John / ?ct_men * 1000)/10 as ?percentage ) 
+  ?ct_John   
+  ?ct_men
+  ?c ?cLabel ?cDescription 
+  ?sample ?sampleLabel
+WITH
+{
+    SELECT ?c (COUNT(DISTINCT ?p) as ?ct_men) 
+    WHERE 
+    {
+      VALUES ?c { wd:Q145 wd:Q174193 wd:Q161885 wd:Q30 wd:Q16 wd:Q408 wd:Q27 wd:Q664
+                wd:Q233 wd:Q242 wd:Q258                 }
+      ?p wdt:P27 ?c ; wdt:P21 wd:Q6581097 
+    }
+    GROUP BY ?c
+} 
+as %all_men
+WITH
+{
+  SELECT ?c ?ct_men (COUNT(DISTINCT ?item) as ?ct_John) (SAMPLE(?item) as ?sample)
+  WHERE
+  {
+    INCLUDE %all_men
+    ?item wdt:P735 wd:Q4925477 ; wdt:P27 ?c ; wdt:P31 wd:Q5 .
+  }
+  GROUP BY ?c ?ct_men
+} as %a
+WHERE 
+{
+  INCLUDE %a
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}  
+ORDER BY DESC(?percentage)

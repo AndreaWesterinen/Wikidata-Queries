@@ -1,0 +1,7 @@
+SELECT ?item (REPLACE(?cattitle, "Category:", "") as ?c)
+{
+	?item wdt:P971 wd:Q4663261 . 
+  	?item wdt:P971 wd:Q5 . 
+    [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?cattitle .     
+}
+Limit 250

@@ -1,0 +1,35 @@
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+SELECT ?item ?itemLabel ?linkTo ?linkToLabel ?size ?rgb {
+  { SELECT ?item (count(distinct ?element) as ?size) {
+  { SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q503424 ;
+                gas:traversalDirection "Forward" ;
+                gas:out ?item ;
+                gas:out1 ?depth ;
+                gas:maxIterations 2 ;
+                gas:linkType wdt:P108 .
+  } } UNION { SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q503424 ;
+                gas:traversalDirection "Reverse" ;
+                gas:out ?item ;
+                gas:out1 ?depth ;
+                gas:maxIterations 2 ;
+                gas:linkType wdt:P108 .
+  } }
+  OPTIONAL { ?element wdt:P1416 ?item }
+  } GROUP BY ?item }
+  OPTIONAL { ?item wdt:P1416 ?linkTo }
+ BIND(
+    IF(?linkTo = wd:Q24707683, "ff0000",
+      IF(?linkTo = wd:Q4119673, "ff0000",
+       IF(?linkTo = wd:Q26226451, "ff0000",  
+         IF(?linkTo = wd:Q26226449, "ff0000",
+         IF(?linkTo = wd:Q26226450, "ff0000",
+       IF(?item = wd:Q503424, "4d4dff",
+          IF(?linkTo = wd:Q26209981, "ffff00", 
+       "000000"))))))) AS ?rgb) .
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" }
+}

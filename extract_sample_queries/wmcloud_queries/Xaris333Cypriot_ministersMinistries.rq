@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel ?constituencyLabel ?partyLabel ?start ?electionLabel ?end ?causeLabel {
+ ?item p:P31 ?positionStatement .
+ ?positionStatement ps:P31 wd:Q66488868 . 
+}

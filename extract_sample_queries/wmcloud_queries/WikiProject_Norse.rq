@@ -1,0 +1,5 @@
+#Items that are ultimately part of Norse culture.
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P361+ wd:Q24175569 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

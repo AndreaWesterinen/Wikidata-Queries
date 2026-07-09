@@ -1,0 +1,20 @@
+SELECT DISTINCT (STRAFTER(STR(?p), "/entity/") AS ?kk) ?st ?q WHERE {
+  {
+    ?p wdt:P27 ?pn.
+    FILTER(?pn IN(wd:Q172107, wd:Q171348, wd:Q11710624, wd:Q49683))
+  }
+  UNION
+  {
+    ?p wdt:P39 ?f1.
+    ?f1 (wdt:P279*) wd:Q2662430.
+  }
+  UNION
+  { ?p wdt:P39 wd:Q28934332. }
+  OPTIONAL { ?p wdt:P31 ?j. }
+  FILTER(!(BOUND(?j)))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  VALUES (?st ?q) {
+    ("P31" "Q5")
+  }
+}
+ORDER BY (?kk) (?st)

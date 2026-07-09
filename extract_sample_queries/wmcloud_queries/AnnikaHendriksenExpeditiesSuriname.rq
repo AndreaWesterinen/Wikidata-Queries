@@ -1,0 +1,16 @@
+#Expedities Suriname
+SELECT ?item ?itemLabel ?begindatum ?einddatum ?deelnemer ?deelnemerLabel ?geografische_locatie
+WHERE {
+  { ?item wdt:P31 wd:Q2401485. }
+  UNION
+  { ?item wdt:P31 wd:Q366301. }
+  { ?item wdt:P17 wd:Q7646305. }#kolonie binnen NL
+  UNION
+  { ?item wdt:P17 wd:Q19901436. }#land binnen NL
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P710 ?deelnemer. }
+  OPTIONAL { ?item wdt:P580 ?begindatum. }
+  OPTIONAL { ?item wdt:P582 ?einddatum. }
+  OPTIONAL { ?item wdt:P625 ?geografische_locatie. }
+OPTIONAL { ?item wdt:P373 ?Commonscategorie. }
+}

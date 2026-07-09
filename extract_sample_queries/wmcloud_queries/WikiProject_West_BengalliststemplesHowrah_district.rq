@@ -1,0 +1,6 @@
+SELECT ?item ?location WHERE {
+  { ?item wdt:P31 wd:Q44539. }
+  UNION
+  { ?item wdt:P31 wd:Q58621988. }
+  ?item wdt:P131* wd:Q1478937.
+  }

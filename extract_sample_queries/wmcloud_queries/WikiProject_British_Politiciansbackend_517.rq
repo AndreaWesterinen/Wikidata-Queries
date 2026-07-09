@@ -1,0 +1,27 @@
+SELECT distinct ?item ?member ?cat_title ?term
+{  
+  VALUES ?term {
+wd:Q96776414
+wd:Q96776415
+wd:Q96776417
+wd:Q96776420
+wd:Q96776422
+  }
+  ?term wdt:P910 ?category . 
+  # all uk terms with crosslinked categories
+  ?link schema:about ?category; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?cat_title .
+  SERVICE wikibase:mwapi {
+     # in
+     bd:serviceParam wikibase:endpoint "en.wikipedia.org";
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?cat_title;
+                     mwapi:gcmprop "ids|title|type";
+                     mwapi:gcmlimit "max".
+     # out
+     ?member wikibase:apiOutput mwapi:title.
+     ?ns wikibase:apiOutput "@ns".
+     ?item wikibase:apiOutputItem mwapi:item.
+    }
+  filter not exists { ?item p:P39 ?ps . ?ps ps:P39 ?term } . ?item wdt:P31 wd:Q5 . 
+}

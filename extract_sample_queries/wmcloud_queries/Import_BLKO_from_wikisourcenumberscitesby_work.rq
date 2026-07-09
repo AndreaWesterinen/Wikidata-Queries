@@ -1,0 +1,15 @@
+SELECT
+  ?item ?itemLabel ?itemDescription 
+  (COUNT(DISTINCT ?entry) as ?count)
+  (SAMPLE(?entry) as ?sample)
+  ( ROUND( COUNT(DISTINCT ?p1343)/ ?count * 100) as ?pc_p1343)
+  ( CONCAT("[https://de.wikisource.org/w/index.php?ns0=1&search=",ENCODE_FOR_URI(str(?itemLabel)),"~+BLKO ws]") as ?ws)
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P2860 ?item .
+    OPTIONAL { ?entry wdt:P921 / wdt:P1343 ?item . BIND(?entry as ?p1343) }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de,la,cs,it,hu,pl,sk,sl,es,fr,hr" }
+}
+GROUP BY ?item ?itemLabel ?itemDescription
+ORDER BY ?itemLabel ?item

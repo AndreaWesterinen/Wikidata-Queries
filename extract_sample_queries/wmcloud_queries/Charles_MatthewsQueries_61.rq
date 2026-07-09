@@ -1,0 +1,13 @@
+embed.html##defaultView:BubbleChart
+SELECT ?leagueLabel (COUNT(?league) AS ?count)  WHERE {
+  ?match wdt:P31 wd:Q16466010. # a football match
+  ?match wdt:P361* wd:Q170645. # that's part of the 2018 World Cup
+  ?match p:P1363 ?stmt.      # we want the details of goals
+  ?stmt ps:P1363 ?scorer.    # who scored
+  ?scorer p:P54 ?stmt1.
+  ?stmt1 ps:P54 ?team.       # what teams have they played for
+  MINUS {?stmt1 pq:P582 []} # no end time => player is still playing for team
+  ?team wdt:P31 wd:Q476028. # we only want domestic teams
+  ?team wdt:P118 ?league.    # what league do they play in
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?leagueLabel ?league

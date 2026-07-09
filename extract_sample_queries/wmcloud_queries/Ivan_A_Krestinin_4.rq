@@ -1,0 +1,4 @@
+#title: Unsuitable IMDb identifier for human
+# Complex constraint from [[Property talk:P345]]
+# Person with IMDb identifier but prefix is not ''nm'' or ''ch''
+SELECT DISTINCT ?item WHERE { ?item wdt:P31 wd:Q5; wdt:P345 ?imdb . FILTER(!STRSTARTS(?imdb, 'nm') && !STRSTARTS(?imdb, 'ch')) }

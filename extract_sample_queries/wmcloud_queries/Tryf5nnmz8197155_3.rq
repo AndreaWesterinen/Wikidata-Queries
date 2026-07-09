@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel
+WHERE 
+{
+	?item wdt:P31 wd:Q11879590;
+    	      wdt:P1705 ?itemLabel;
+    	 #FILTER (lang(?itemLabel) = "mul") . 
+    	 FILTER regex (?itemLabel, "o$").
+}

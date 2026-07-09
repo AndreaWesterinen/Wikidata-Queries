@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?gradyear ?dob ?dod ?img WHERE {
+  ?item p:P69 [ps:P69 wd:Q5921129; pq:P582 ?gradyear] .
+  ?item wdt:P21 wd:Q6581072 .
+  OPTIONAL { ?item wdt:P18 ?img } .
+    OPTIONAL { ?item wdt:P569 ?dob } .
+    OPTIONAL { ?item wdt:P570 ?dod } .
+ 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

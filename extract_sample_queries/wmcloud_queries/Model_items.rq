@@ -1,0 +1,6 @@
+embed.html#SELECT ?property ?propertyLabel ?modelItem ?modelItemLabel WHERE {
+  ?property rdf:type wikibase:Property .
+  ?property wdt:P5869 ?modelItem .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

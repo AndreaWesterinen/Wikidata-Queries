@@ -1,0 +1,18 @@
+# members of the 1832-34 Parliament-658 seats.
+SELECT DISTINCT ?constituency ?constituencyLabel ?members ?endMP ?endMPLabel
+{
+ ?item p:P39 ?positionStatement . # report for error-checking imports from Historic Hansard
+ ?positionStatement ps:P39 wd:Q41582546 . 
+ ?positionStatement pq:P768 ?constituency . 
+ OPTIONAL { ?constituency wdt:P31 ?type . } # find miscellaneous data about the constituency
+ OPTIONAL { ?constituency wdt:P571 ?start . }
+ OPTIONAL { ?constituency wdt:P576 ?end . } 
+ OPTIONAL { ?constituency wdt:P1410 ?members . } 
+ OPTIONAL { # find the MP in office at dissolution (may not always be one)
+ ?endMP p:P39 ?positionStatement3 .
+ ?positionStatement3 ps:P39 wd:Q41582546 . 
+ ?positionStatement3 pq:P768 ?constituency . 
+ ?positionStatement3 pq:P1534 wd:Q741182 . 
+ }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

@@ -1,0 +1,11 @@
+#title: Check the prize 'Prix de Cornulier'
+# Complex constraint from [[Property talk:P166]]
+# Prize for a 4-10 years old horse
+SELECT ?item ?date ?diff WHERE {
+     ?item p:P166 ?statement.
+     ?statement ps:P166 wd:Q3405463.
+     ?statement pq:P585 ?date.
+     ?item wdt:P569 ?born.
+     BIND((?date - ?born)/365 AS ?diff).
+     FILTER (?diff > 10 || ?diff < 4)
+} ORDER BY ?diff

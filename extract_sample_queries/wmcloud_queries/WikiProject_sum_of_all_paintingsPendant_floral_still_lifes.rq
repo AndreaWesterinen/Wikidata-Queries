@@ -1,0 +1,8 @@
+SELECT ?item ?image1 WHERE {
+    ?item wdt:P31 wd:Q3305213.
+    ?item wdt:P571 ?date.
+  ?item wdt:P1639 ?fruit.
+  ?item wdt:P136 wd:Q12303833 .
+  ?fruit wdt:P18 ?image1.
+  ?fruit wdt:P136/wdt:P279* wd:Q170571 .
+} ORDER BY ?date

@@ -1,0 +1,31 @@
+SELECT DISTINCT ?item ?itemLabel ?population ?normalizedarea (ROUND(?hustota*1000)/1000 AS ?hustota_rounded)
+WHERE
+{
+    ?item p:P31 ?neco .
+    ?neco ps:P31 wd:Q20871353 .
+    ?item wdt:P17 wd:Q213 . 
+    MINUS { ?neco pq:P582 ?dummy0 }
+    ?item wdt:P131 ?prs .
+    {  
+    ?prs wdt:P131 wd:Q1085 .
+    }
+    UNION
+    {
+    ?prs wdt:P131 ?vrs .
+    ?vrs wdt:P131 wd:Q1085 .  
+    } 
+    UNION
+    {
+    ?prs wdt:P131 ?vrs .
+    ?vrs wdt:P131 ?drs .  
+    ?drs wdt:P131 wd:Q1085 .  
+    } 
+    OPTIONAL { 
+    ?item p:P2046 [ psn:P2046 [ wikibase:quantityAmount ?normalizedSuperficie; wikibase:quantityUnit ?normalizedUnit ] ] .
+    ?item p:P2046 [ psv:P2046 [ wikibase:quantityAmount ?originalSuperficie; wikibase:quantityUnit ?originalUnit ] ] . 
+    ?item wdt:P1082 ?population. } .
+    BIND(?normalizedSuperficie/1000000 AS ?normalizedarea) .
+    BIND(?population / ?normalizedarea AS ?hustota ) .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "cs" }
+}
+ORDER BY ?itemLabel

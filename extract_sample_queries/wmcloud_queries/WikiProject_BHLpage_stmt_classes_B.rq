@@ -1,0 +1,7 @@
+SELECT (?class AS ?item) (COUNT(DISTINCT(?x)) AS ?count) WHERE {
+   hint:Query hint:optimizer "None".
+   ?x wdt:P687 ?p .
+   ?x wdt:P31 ?class .
+   MINUS {?class wdt:P279* wd:Q732577} .
+}
+GROUP BY ?class ORDER BY DESC(?count)

@@ -1,0 +1,8 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?item WHERE { ?item wdt:P1435 wd:Q1188447 . OPTIONAL { ?item wdt:P2951 ?dummy0 } FILTER(!bound(?dummy0)) } ORDER BY ?item

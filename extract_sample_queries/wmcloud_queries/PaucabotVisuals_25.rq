@@ -1,0 +1,12 @@
+#Tractats per lloc
+#defaultView:BubbleChart
+SELECT ?lloc ?llocLabel (count(*) as ?count)
+WHERE {
+    ?tractat wdt:P31*/wdt:P279* wd:Q131569 .
+    ?tractat wdt:P131|wdt:P276 ?lloc .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca,en,es,fr" .
+  }
+}
+GROUP BY ?lloc ?llocLabel
+ORDER BY DESC(?count)

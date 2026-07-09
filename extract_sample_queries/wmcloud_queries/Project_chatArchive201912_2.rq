@@ -1,0 +1,17 @@
+SELECT DISTINCT ?lang ?langLabel ?l ?lemmaString ?pluralFormString (group_concat(?grammar) as ?grammarFeatures) WHERE {
+  # We want lexemes in a language, with a lemma string and having a form:
+  ?l a ontolex:LexicalEntry ; dct:language ?lang ; wikibase:lemma ?lemmaString ; ontolex:lexicalForm ?form .
+  # We want the language to be German or a sub(sub(…))class thereof:
+  ?lang wdt:P279* wd:Q188 .
+  # We want the representation of the form, and a feature of the form to be “plural”:
+  ?form ontolex:representation ?pluralFormString ; wikibase:grammaticalFeature wd:Q146786 .
+  # Capturing every grammatical feature, just for reporting back:
+  ?form wikibase:grammaticalFeature ?grammar .
+  # We want the representation of the form (that is have the feature “plural”) to end with “n”, but not “en”:
+  FILTER regex (?pluralFormString, "[^e]n$") .
+  # Limiting the result set to a reasonable size by requiring the lemma to start with “Urgro”: 
+  FILTER regex (?lemmaString, "^Urgro") .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } .
+}
+# Aggregating so as to print all grammatical features of a given form on the same line (cf. group_concat above):
+GROUP BY ?lang ?langLabel ?l ?lemmaString ?pluralFormString

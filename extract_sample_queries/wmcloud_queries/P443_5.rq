@@ -1,0 +1,16 @@
+#title: Languages with categories available at Commons, but no item with audio file
+# Complex constraint from [[Property talk:P443]]
+# if applicable, add P443 to an item (e.g. place name pronunciation audio to an item for the place). Based on [[Property_talk:P7084#Use for pronunciation file categories (Commons)]]
+SELECT ?item ?comcat
+WHERE
+{
+    ?item p:P7084 [ ps:P7084 ?r ; pq:P642 wd:Q184377 ]
+    MINUS { ?a p:P443/pq:P407 ?item .
+            FILTER NOT EXISTS { ?a wikibase:lemma [] }
+            FILTER NOT EXISTS { ?a rdf:type <http://www.w3.org/ns/lemon/ontolex#Form> }
+    }           
+    [] schema:about ?r ; schema:isPartOf <https://commons.wikimedia.org/> ; schema:name ?com . 
+    BIND(CONCAT("[[c:", ?com, "\u007C", strafter(?com, ":"), "]]" ) as ?comcat)   
+}
+ORDER BY ?comcat
+LIMIT 500

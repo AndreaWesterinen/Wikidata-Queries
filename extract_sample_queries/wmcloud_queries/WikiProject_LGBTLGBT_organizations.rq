@@ -1,0 +1,13 @@
+SELECT distinct ?item WHERE {
+  {
+    VALUES ?association {wd:Q64606659 wd:Q6458277}.
+    ?item wdt:P31 ?association.
+  } union {
+    # members of ILGA
+    ?item wdt:P463 wd:Q691715.
+  } union {
+    # organisation whose field of work is LGBT
+    ?item wdt:P31/wdt:P279* wd:Q43229.
+    ?item wdt:P101/wdt:P279* wd:Q17884.
+  }
+}

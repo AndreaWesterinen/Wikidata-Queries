@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?item ?coord 
+WHERE 
+{
+  ?item wdt:P31 wd:Q2140665.
+  ?item wdt:P625 ?coord.
+}

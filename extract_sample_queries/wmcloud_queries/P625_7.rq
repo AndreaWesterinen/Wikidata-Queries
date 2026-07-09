@@ -1,0 +1,19 @@
+SELECT ?ct ?globe ?globeLabel ?globeDescription ?sample ?sampleLabel
+WITH
+{
+  SELECT ?st ?globe { ?st wikibase:geoGlobe ?globe . FILTER ( ?globe != wd:Q2 )  }
+}  as %a
+WHERE
+{
+    {      
+        SELECT ?globe (COUNT(*) as ?ct) (SAMPLE(?item) as ?sample)
+        WHERE 
+        { 
+          INCLUDE %a 
+          ?item p:P625/psv:P625 ?st 
+  	    } 
+        GROUP BY ?globe 
+   }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?ct)

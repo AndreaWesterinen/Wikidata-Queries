@@ -1,0 +1,4 @@
+SELECT ?Nederlands_Tijdschrift_voor_Geneeskunde ?Nederlands_Tijdschrift_voor_GeneeskundeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Nederlands_Tijdschrift_voor_Geneeskunde wdt:P1433 wd:Q1891153.
+}

@@ -1,0 +1,19 @@
+SELECT ?item ?itemLabel ?p ?statement ?statedLabel ?wID ?date ?pr ?pr_ 
+WITH {
+  Select distinct ?ref where {
+    {?ref pr:P248 wd:Q1074931 }
+    union
+    {?ref pr:P2949 ?wID1}
+  }
+} AS %i
+WHERE {
+  INCLUDE %i
+  ?statement prov:wasDerivedFrom ?ref.
+  ?item ?p ?statement.
+  ?ref ?pr ?pr_ . filter (?pr not in (prv:P813, pr:P813, pr:P248, pr:P2949 )) # to display other properties in reference
+  Optional {?ref pr:P248 ?stated}
+  Optional {?ref pr:P2949 ?wID}
+  Optional {?ref pr:P813 ?date}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+order by ?statement ?pr

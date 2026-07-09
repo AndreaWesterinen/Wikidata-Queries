@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?item wdt:P3358 wd:Q188874 ; wdt:P3433 ?gene .  }

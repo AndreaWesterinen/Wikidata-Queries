@@ -1,0 +1,7 @@
+#Names of Wikipedia articles in multiple languages
+SELECT DISTINCT ?name ?article WHERE {
+  ?article schema:about wd:Q1513879 ;
+              schema:name ?name ;
+              schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] ;
+           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }.
+}

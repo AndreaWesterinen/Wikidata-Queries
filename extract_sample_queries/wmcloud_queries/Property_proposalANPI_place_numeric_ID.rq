@@ -1,0 +1,9 @@
+SELECT DISTINCT ?prop ?numIds ?propLabel
+WHERE {
+  ?prop wdt:P4876 ?numIds FILTER(?numIds < 1000) .
+  ?prop wdt:P31/wdt:P279 wd:Q18616576 .
+  ?prop rdfs:label ?propLabel
+        FILTER (lang(?propLabel) = "en" &&
+                !regex(?propLabel, "Wikipedia")) .
+}
+ORDER BY ?numIds

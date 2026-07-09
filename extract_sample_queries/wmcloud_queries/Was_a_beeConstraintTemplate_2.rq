@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?should_link_via_{{{property}}}_to ?should_link_via_{{{property}}}_toLabel WHERE { ?should_link_via_{{{property}}}_to wdt:ConstraintTemplate ?item FILTER NOT EXISTS { ?item wdt:{{{property}}} ?should_link_via_{{{property}}}_to } SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE], en" } }

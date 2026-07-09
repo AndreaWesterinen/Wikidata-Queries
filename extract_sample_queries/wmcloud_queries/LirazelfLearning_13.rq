@@ -1,0 +1,35 @@
+#Show me facts about miracle workers, if we have them
+SELECT ?item ?itemLabel ?instanceofLabel ?imageLabel ?sexorgenderLabel ?givennameLabel	?surnameLabel ?DOBLabel ?DODLabel ?placeofbirthLabel ?placeofdeathLabel	?occupationLabel	?memberofLabel ?educatedatLabel ?awardreceivedLabel ?countryofcitizenshipLabel ?childLabel ?languagesspokenLabel WHERE {
+ VALUES ?item
+{wd:Q23901626
+wd:Q21338356
+wd:Q99979991
+wd:Q30559564
+wd:Q15997690
+wd:Q4648433
+wd:Q5200835
+wd:Q106302497
+wd:Q320851
+wd:Q108672183
+wd:Q108672792
+wd:Q108985989}
+  
+  OPTIONAL   {?item wdt:P31 ?instanceof . }
+      OPTIONAL   {   ?item wdt:P18 ?image . }
+      OPTIONAL   {   ?item wdt:P21 ?sexorgender .} 
+      OPTIONAL   {   ?item wdt:P735 ?givenname . }
+      OPTIONAL   {   ?item wdt:P734 ?surname . }
+      OPTIONAL   {   ?item wdt:P569 ?DOB . }
+    OPTIONAL   {     ?item wdt:P570 ?DOD . }
+    OPTIONAL   {     ?item wdt:P19 ?placeofbirth . }
+     OPTIONAL   {    ?item wdt:P20 ?placeofdeath . }
+      OPTIONAL   {   ?item wdt:P106 ?occupation . }
+      OPTIONAL   {   ?item wdt:P463 ?memberof . }
+      OPTIONAL   {   ?item wdt:P69 ?educatedat . }
+      OPTIONAL   {   ?item wdt:P166 ?awardreceived . }
+      OPTIONAL   {   ?item wdt:P27 ?countryofcitizenship . }
+       OPTIONAL   {  ?item wdt:P40 ?child . }
+          
+          
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

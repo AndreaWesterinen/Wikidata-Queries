@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?appID ?platform WHERE {
+  ?item p:P1733 ?statement. # Get the statement of the appID
+    ?statement ps:P1733 ?appID. # Get the actual appID
+    FILTER NOT EXISTS {?statement pq:P400 ?platform.} # Get rid of anything with a platform qualifier.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}

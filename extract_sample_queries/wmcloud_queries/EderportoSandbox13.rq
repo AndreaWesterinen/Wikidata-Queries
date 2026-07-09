@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?order ?title ?subtitle ?date ?year ?video ?topic ?host (STR(?organizer_) AS ?organizer) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item p:P31 [ps:P31 wd:Q61791944; pq:P1545 ?order_].
+  BIND(xsd:decimal(?order_) AS ?order)
+  OPTIONAL { ?item wdt:P10 ?video }
+  OPTIONAL { ?item wdt:P1476 ?title }
+  OPTIONAL { ?item wdt:P1680 ?subtitle }
+  OPTIONAL { ?item wdt:P921 ?topic }
+  OPTIONAL { ?item wdt:P585 ?date. BIND(YEAR(?date) AS ?year) }
+  OPTIONAL { ?item p:P664 [ps:P664 ?host; pq:P2868 wd:Q13590141] }
+  OPTIONAL { ?item p:P664 [ps:P664 [wdt:P1813 ?organizer_]; pq:P2868 ?function]. FILTER (?function!=wd:Q13590141) }
+  {?page schema:about ?item. ?page schema:isPartOf <https://pt.wikipedia.org/>}
+  UNION
+  {?item wdt:P361 ?main. ?page schema:about ?main. ?page schema:isPartOf <https://pt.wikipedia.org/>}
+} ORDER BY ?order

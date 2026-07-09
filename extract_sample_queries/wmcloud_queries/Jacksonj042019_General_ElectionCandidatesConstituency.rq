@@ -1,0 +1,11 @@
+SELECT ?item ?constituency ?party ?votes
+WHERE 
+{
+    VALUES ?election  {wd:Q30173038 }
+    ?item p:P3602 ?ps .
+    ?ps ps:P3602 ?election .
+    OPTIONAL { ?ps pq:P1268 ?party . }
+    OPTIONAL { ?ps pq:P768 ?constituency . }
+    OPTIONAL { ?ps pq:P1111 ?votes . }
+}
+ORDER BY DESC(?votes)

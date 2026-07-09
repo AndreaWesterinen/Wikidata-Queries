@@ -1,0 +1,10 @@
+#title: Companies having akciová společnost as legal form and not having country Czech Republic or Czechoslovakia
+# Complex constraint from [[Property talk:Q3742494]]
+#
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P1454 wd:Q3742494 .
+  MINUS {
+    { ?item wdt:P17 wd:Q213 . }
+  UNION { ?item wdt:P17 wd:Q33946. }  
+       }
+}

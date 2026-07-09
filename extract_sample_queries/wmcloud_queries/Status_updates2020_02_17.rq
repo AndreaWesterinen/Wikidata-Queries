@@ -1,0 +1,11 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?itemDescription ?audio ?coor ?img ?filename
+WHERE
+{
+    ?item p:P443 [ ps:P443 ?audio ; pq:P407 wd:Q652 ] .
+    ?item wdt:P131 wd:Q16137 . 
+    OPTIONAL { ?item wdt:P625 ?coor }         
+    OPTIONAL { ?item wdt:P18 ?img }
+    BIND(uri(concat("https://commons.wikimedia.org/wiki/File:",strafter(wikibase:decodeUri(str(?audio)),"FilePath/"))) as ?filename)   
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en" }
+} 

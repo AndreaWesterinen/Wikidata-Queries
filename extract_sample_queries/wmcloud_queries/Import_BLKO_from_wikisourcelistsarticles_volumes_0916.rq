@@ -1,0 +1,19 @@
+SELECT
+  ?item ?title
+  (CONCAT("[[",strafter(str(?item), "y/"),"|", ?title, "]]") as ?l) 
+  (CONCAT("[",str(?ws)," ", ?wst,"]") as ?wsp)
+  ?subject ?vol ?pages ?page
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    VALUES ?vol { "9" "10" "11" "12" "13" "14" "15" "16" }
+    ?item wdt:P1433 wd:Q665807 . 
+    ?item wdt:P478 ?vol . 
+    ?item wdt:P304 ?pages . 
+    OPTIONAL { ?item wdt:P1476 ?title } . 
+    OPTIONAL { ?item wdt:P921 ?subject } . 
+    MINUS { ?item wdt:P31 wd:Q1302249 }
+    BIND( xsd:integer(strbefore(CONCAT(REPLACE(?pages,"[a-z]",""),"-"), "-")) as ?page) 
+    OPTIONAL {  ?ws schema:about ?item ; schema:name ?wst ; schema:isPartOf <https://de.wikisource.org/> }
+}
+ORDER BY xsd:integer(?vol) ?page ?pages ?title

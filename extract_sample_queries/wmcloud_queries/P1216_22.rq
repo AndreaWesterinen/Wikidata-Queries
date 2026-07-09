@@ -1,0 +1,11 @@
+#title: items should have an English label
+# Complex constraint from [[Property talk:P1216]]
+#
+SELECT ?item
+WHERE
+{
+  ?item wdt:P1216 []
+  OPTIONAL { ?item rdfs:label ?l . FILTER(LANG(?l) = "en") }
+  FILTER(!BOUND(?l))
+}
+LIMIT 1000

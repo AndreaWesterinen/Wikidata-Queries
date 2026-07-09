@@ -1,0 +1,5 @@
+#defaultView:Map
+select ?item ?coordinates where {
+  ?item p:P625/prov:wasDerivedFrom/pr:P248 wd:Q1224853;
+        wdt:P625 ?coordinates.
+}

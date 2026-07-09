@@ -1,0 +1,14 @@
+# Count fishbase taxa in wikidata & whether they have an article in enwiki 
+SELECT ?item ?FishBaseid ?taxon_name ?article ?sitelink WHERE {
+ {?item wdt:P225 ?taxon_name. 
+ 
+  ?item wdt:P938 ?FishBaseid.    # FishBase ID 
+  OPTIONAL{
+  ?article schema:about ?item. # and have an article about them
+  ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  ?sitelink ^schema:name ?article .}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  }
+
+}

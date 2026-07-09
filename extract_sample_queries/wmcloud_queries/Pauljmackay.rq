@@ -1,0 +1,12 @@
+#Cathedrals in Paris
+#added before 2016-10
+
+SELECT DISTINCT ?item ?itemLabel ?inception
+WHERE
+{
+  ?item wdt:P31 wd:Q46169 .
+  ?item wdt:P17 wd:Q145 .
+  OPTIONAL { ?item wdt:P571 ?inception . }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY ?itemLabel

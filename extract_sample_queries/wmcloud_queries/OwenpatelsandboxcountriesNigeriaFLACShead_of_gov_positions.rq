@@ -1,0 +1,5 @@
+SELECT ?item ?council ?region WHERE { 
+    ?region wdt:P31/wdt:P279* wd:Q10864048 ; 
+            wdt:P17 wd:Q1033 ;
+            wdt:P1313 ?item 
+}

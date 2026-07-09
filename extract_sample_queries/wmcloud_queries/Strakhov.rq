@@ -1,0 +1,15 @@
+embed.html##defaultView:BubbleChart
+SELECT ?cityLabel (COUNT(DISTINCT ?pub) as ?count)
+
+WHERE {
+  ?pub wdt:P31/wdt:P279* wd:Q1002697 .
+  ?pub wdt:P495 wd:Q29 .
+  ?pub wdt:P291 ?city .
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "es,en" .  }
+  
+}
+
+GROUP BY ?city ?cityLabel
+ORDER BY DESC(?count)

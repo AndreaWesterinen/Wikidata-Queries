@@ -1,0 +1,7 @@
+#Cats
+SELECT ?item
+WHERE 
+{
+    ?item wdt:P301 ?value1 .
+    ?item wdt:P971 ?value2 .
+}

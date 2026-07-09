@@ -1,0 +1,8 @@
+SELECT ?act ?actLabel ?signatoryStatement
+WHERE
+{
+	?act wdt:P31 wd:Q476068 .    #find act of congress
+    ?act p:P1891 ?signatoryStatement .
+	?signatoryStatement rdf:type wdno:P1891 .   #with at least one P1891 (signatory) statement defined to be "no value"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

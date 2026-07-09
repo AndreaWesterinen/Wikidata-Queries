@@ -1,0 +1,36 @@
+SELECT (?entry as ?item) ?item0 ?ct ?fl0 ?c0 ?c1 ?c2
+WITH
+{
+SELECT 
+  ?item0
+  (COUNT(DISTINCT ?entry) as ?ct) 
+WHERE
+{
+      ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item0 .
+      ?item0 wdt:P31 wd:Q5 .
+      ?entry wdt:P31 wd:Q19389637 .
+      FILTER NOT EXISTS { ?entry wdt:P31 wd:Q1263068 }
+}
+GROUP BY ?item0
+HAVING(?ct > 1)
+ORDER BY DESC(?ct) ?item0
+} as %inc
+WHERE
+{
+  INCLUDE %inc .
+  ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item0 .
+  ?item0 wdt:P31 wd:Q5 .
+  ?entry wdt:P31 wd:Q19389637 .
+  ?entry wdt:P1922 ?fl .
+  ?ws schema:about ?entry ; schema:isPartOf <https://de.wikisource.org/>; schema:name ?wst .
+  BIND( CONCAT( "<","nowiki",">", str(?fl), "<","/","nowiki",">[",str(?ws)," →ws]") as ?fl0) 
+  BIND(CONCAT("[https://tools.wmflabs.org/quickstatements/index_old.html#v1=",
+                  strafter(str(?entry),"y/"),                  "%09P31%09Q1302249%0A",
+                  "-",strafter(str(?entry),"y/"),              "%09P31%09Q19389637%0A ↔xref]") as ?c0)
+  BIND(CONCAT("[https://tools.wmflabs.org/quickstatements/index_old.html#v1=",
+                  strafter(str(?entry),"y/"),                  "%09P31%09Q352858%0A",
+                  "-",strafter(str(?entry),"y/"),              "%09P31%09Q19389637%0A ↔addendum]") as ?c1)
+  BIND(CONCAT("[https://tools.wmflabs.org/quickstatements/index_old.html#v1=",
+                  strafter(str(?entry),"y/"),                  "%09P31%09Q1263068%0A +duplicate]") as ?c2)
+}  
+ORDER BY DESC(?ct) ?item0 ?entry ?fl

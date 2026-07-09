@@ -1,4 +1,5 @@
-SELECT ?genderlabel (COUNT(?genderlabel) as ?total)
+#title: Gender balance of members of Irish parliament
+ SELECT ?genderlabel (COUNT(?genderlabel) as ?total)
 WHERE
 {
    ?subj wdt:P39 wd:Q654291 .

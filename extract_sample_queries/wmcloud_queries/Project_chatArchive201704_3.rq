@@ -1,0 +1,2 @@
+# ladies with "mass" P2067 over 2 kg
+SELECT DISTINCT ?item WHERE { ?item wdt:P21 wd:Q6581072; p:P2067/psv:P2067 ?weight . ?weight wikibase:quantityUnit wd:Q11570; wikibase:quantityAmount ?amount . FILTER( ?amount > 2 ) }

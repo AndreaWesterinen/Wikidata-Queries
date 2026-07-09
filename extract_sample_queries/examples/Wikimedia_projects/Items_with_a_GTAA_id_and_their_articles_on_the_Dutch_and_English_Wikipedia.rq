@@ -1,3 +1,4 @@
+#title: Items with a GTAA id and their articles on the Dutch and English Wikipedia
 SELECT ?item ?itemLabel ?gtaa ?_articleEN ?_articleNL where {
   ?item wdt:P1741 ?gtaa. # GTAA id
   OPTIONAL {

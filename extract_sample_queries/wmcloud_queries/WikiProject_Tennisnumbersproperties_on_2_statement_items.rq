@@ -1,0 +1,19 @@
+SELECT
+	(concat("\u007B\u007BP\u007C",strafter(str(?property),"y/"),"\u007D\u007D") as ?p) 
+	(COUNT(DISTINCT ?s) as ?ct)  
+	(strafter(str(?ptype),"#") as ?ptype)
+	(SAMPLE(?s) as ?item)
+    ?todo
+{
+	hint:Query hint:optimizer "None".
+	?s wdt:P641 wd:Q847 ; wikibase:statements 2 ; ?wdt [] .
+    ?property wikibase:claim ?wdt .
+  	?property wikibase:propertyType ?ptype .
+    BIND(  IF( ?wdt IN ( p:P31 , p:P641 , p:P279 , p:P1269 , p:P3450 , p:P361 ), "",
+            IF( ?wdt IN ( p:P17 , p:P910 , p:P373 , p:P856 , p:P585 , p:P18 , p:P2257 , p:P646 ), "add",            
+            "TBD" ) ) as ?todo )
+    FILTER ( ?wdt != p:P641 )
+}
+GROUP BY ?property ?ptype ?todo
+ORDER BY ?todo DESC(?ct)
+LIMIT 200

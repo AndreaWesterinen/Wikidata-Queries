@@ -1,0 +1,21 @@
+SELECT DISTINCT ?creatorLabel 
+?creator 
+(SAMPLE(?placebirth) AS ?birthplace) 
+(SAMPLE(?placebirthLabel) as ?placebirthLabel)
+(SAMPLE(?_date_of_death) as ?_date_of_death)
+(SAMPLE(?_place_of_deathLabel) as ?placedeathLabel)
+(SAMPLE(?creatorimage) as ?creatorimage)
+(SAMPLE(?geoloc) as ?geoloc)
+WHERE {
+  ?item wdt:P195 wd:Q2365880 .
+  ?item wdt:P170 ?creator .
+  ?creator wdt:P19 ?placebirth .
+  ?creator wdt:P18 ?creatorimage .
+  ?placebirth wdt:P625 ?geoloc .
+  OPTIONAL { ?creator wdt:P569 ?_date_of_birth. }
+  OPTIONAL { ?creator wdt:P570 ?_date_of_death. }
+  OPTIONAL { ?creator wdt:P20 ?_place_of_death. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,fr,en,de". }
+}
+GROUP BY ?creatorLabel ?creator 
+ORDER BY ?creator

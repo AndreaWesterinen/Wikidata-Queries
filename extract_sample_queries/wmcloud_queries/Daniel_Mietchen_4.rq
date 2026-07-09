@@ -1,0 +1,1 @@
+sparql?query=SELECT ?dob WHERE {wd:Q42 wdt:P569 ?dob.}&explain=details

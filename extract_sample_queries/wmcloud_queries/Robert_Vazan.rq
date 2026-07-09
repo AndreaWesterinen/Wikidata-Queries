@@ -1,0 +1,10 @@
+SELECT ?gender ?genderLabel ?count WHERE {
+  {
+    SELECT ?gender (COUNT(?lexeme) AS ?count) WHERE {
+      ?lexeme dct:language wd:Q9058; wikibase:lexicalCategory ?category.
+      FILTER( ?category IN (wd:Q1084, wd:Q147276) )
+      ?lexeme wdt:P5185 ?gender.
+    } GROUP BY ?gender
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+} ORDER BY DESC(?count)

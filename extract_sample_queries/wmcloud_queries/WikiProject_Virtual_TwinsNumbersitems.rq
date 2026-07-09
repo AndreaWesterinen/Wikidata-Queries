@@ -1,0 +1,8 @@
+SELECT DISTINCT (wd:Q5 as ?item) (COUNT(DISTINCT ?twin) as ?ct)
+{
+  ?twin wdt:P31 wd:Q5 .
+  ?twin wdt:P1889 [] .
+  ?twin p:P1889/pq:P1013 wd:Q20978290 .
+  MINUS { ?item wdt:P31 wd:Q159979 }
+}
+GROUP BY ?item

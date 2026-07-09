@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q327197.
+  ?item (wdt:P921/wdt:P279*) wd:Q647578.
+}

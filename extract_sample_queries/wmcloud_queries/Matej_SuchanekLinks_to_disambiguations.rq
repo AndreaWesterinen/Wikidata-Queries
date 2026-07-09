@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item (CONCAT('{', '{P\u007C', STRAFTER( STR( ?prop ), STR( wd:P ) ), '}', '}') AS ?property) ?disambig ?aspect {
+  ?disambig wdt:P31 wd:Q4167410 .
+  {
+    ?item ?p [ ?ps ?disambig ] .
+    ?ps ^wikibase:statementProperty ?prop .
+    BIND( 'mainsnak' AS ?aspect ) .
+  } UNION {
+    ?st1 ?pq ?disambig .
+    ?pq ^wikibase:qualifier ?prop .
+    ?item ?p1 ?st1 .
+    BIND( CONCAT( 'qualifier of {', '{P\u007C', STRAFTER( STR( ?p1 ), STR( p:P ) ), '}', '}' ) AS ?aspect ) .
+  } UNION {
+    ?ref ?pr ?disambig .
+    ?pr ^wikibase:reference ?prop .
+    ?st2 prov:wasDerivedFrom ?ref .
+    ?item ?p2 ?st2 .
+    BIND( CONCAT( 'reference of {', '{P\u007C', STRAFTER( STR( ?p2 ), STR( p:P ) ), '}', '}' ) AS ?aspect ) .
+  } .
+  FILTER( ?prop NOT IN ( wd:P460, wd:P1889, wd:P3452 ) ) .
+  MINUS { ?item wdt:P31/wdt:P279? wd:Q4167410 } .
+  MINUS { ?item wdt:P31/wdt:P279? wd:Q17362920 } .
+} LIMIT 500

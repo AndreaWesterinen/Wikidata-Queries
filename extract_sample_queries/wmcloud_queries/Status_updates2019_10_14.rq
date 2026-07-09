@@ -1,0 +1,45 @@
+# settlements in Scottish parishes
+
+#defaultView:Map{"hide":["?point", "?line", "?layer"]}
+SELECT ?point ?line ?par ?parLabel ?sett ?settLabel (?parLabel AS ?layer)
+
+WITH {
+    SELECT ?par (AVG(?lat) AS ?avg_lat) (AVG(?long) AS ?avg_long) WHERE {
+        ?item wdt:P709 [] .
+        ?item p:P131 ?adm_stmt .
+        ?adm_stmt pq:P3831 wd:Q5124673 .
+        ?adm_stmt ps:P131 ?par .
+        ?item p:P625 ?coord_stmt .
+        ?coord_stmt psv:P625/wikibase:geoLatitude ?lat .
+        ?coord_stmt psv:P625/wikibase:geoLongitude ?long .
+    } GROUP BY ?par
+} AS %par_data
+
+WITH {
+    SELECT ?par ?point WHERE {
+        INCLUDE %par_data
+        BIND(CONCAT('POINT (', str(?avg_long), ' ', str(?avg_lat), ')') AS ?str)       
+        BIND(STRDT(?str, geo:wktLiteral) AS ?point) . 
+    }
+} AS %points
+
+WITH {
+    SELECT ?sett ?par ?line ?point WHERE {
+      INCLUDE %par_data 
+            
+      ?par wdt:P1383 ?sett .
+      ?sett p:P625 ?sett_stmt .
+      ?sett_stmt ps:P625 ?point .
+      ?sett_stmt psv:P625/wikibase:geoLatitude ?sett_lat .
+      ?sett_stmt psv:P625/wikibase:geoLongitude ?sett_long .
+      BIND(CONCAT('LINESTRING (', STR(?sett_long), ' ', STR(?sett_lat), ',', STR(?avg_long), ' ', STR(?avg_lat), ')') AS ?str) .
+      BIND(STRDT(?str, geo:wktLiteral) AS ?line) .        
+            
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    } 
+} AS %lines
+
+WHERE {
+  { INCLUDE %points }  UNION { INCLUDE %lines  } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

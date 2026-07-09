@@ -1,0 +1,6 @@
+# items with property P571 and the lowest number of statements
+# added by User:Jura1, 2017-07-31
+SELECT ?item ?itemLabel ?st
+{
+  {
+       SELECT 

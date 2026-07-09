@@ -1,0 +1,39 @@
+#Overview of most common external identifiers for contributors to the AA JH
+SELECT DISTINCT ?contributor ?contributorLabel
+(GROUP_CONCAT(DISTINCT ?isni1  ; separator = " -- ") as ?isni)
+(GROUP_CONCAT(DISTINCT ?viaf1  ; separator = " -- ") as ?viaf)
+(GROUP_CONCAT(DISTINCT ?nta1  ; separator = " -- ") as ?nta)
+(GROUP_CONCAT(DISTINCT ?dbnl1  ; separator = " -- ") as ?dbnl)
+(GROUP_CONCAT(DISTINCT ?bioport1  ; separator = " -- ") as ?bioport)
+(GROUP_CONCAT(DISTINCT ?cerl1  ; separator = " -- ") as ?cerl)
+(GROUP_CONCAT(DISTINCT ?rkd1  ; separator = " -- ") as ?rkd)
+(GROUP_CONCAT(DISTINCT ?ecartico1  ; separator = " -- ") as ?ecartico)
+(GROUP_CONCAT(DISTINCT ?emlo1  ; separator = " -- ") as ?emlo)
+(GROUP_CONCAT(DISTINCT ?gnd1  ; separator = " -- ") as ?gnd)
+(GROUP_CONCAT(DISTINCT ?europeana1  ; separator = " -- ") as ?europeana)
+(GROUP_CONCAT(DISTINCT ?LCaID1  ; separator = " -- ") as ?LCaID)
+(GROUP_CONCAT(DISTINCT ?ulan1  ; separator = " -- ") as ?ulan)
+
+WHERE { 
+  BIND(wd:Q72752496 as ?album)
+  ?album wdt:P767 ?contributor.
+
+  OPTIONAL{?contributor wdt:P213  ?isni1.} #ISNI
+  OPTIONAL{?contributor wdt:P214  ?viaf1.} #VIAF ID
+  OPTIONAL{?contributor wdt:P1006 ?nta1.} #NTA ID
+  OPTIONAL{?contributor wdt:P723  ?dbnl1.} #DBNL author ID
+  OPTIONAL{?contributor wdt:P651  ?bioport1.} #Biografisch Portaal number
+  OPTIONAL{?contributor wdt:P1871 ?cerl1.} #CERL ID
+  OPTIONAL{?contributor wdt:P650  ?rkd1.} #RKDartists ID
+  OPTIONAL{?contributor wdt:P2915 ?ecartico1.} #Ecartico ID
+  OPTIONAL{?contributor wdt:P1802 ?emlo1.} #EMLO person ID
+  OPTIONAL{?contributor wdt:P227  ?gnd1.} #GND ID
+  OPTIONAL{?contributor wdt:P7704 ?europeana1.} #Europeana Entity
+  OPTIONAL{?contributor wdt:P244  ?LCaID1.} #Library of Congress authority ID
+  OPTIONAL{?contributor wdt:P245  ?ulan1.} #ULAN ID
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 
+GROUP BY ?contributor ?contributorLabel
+ORDER BY ?contributor 

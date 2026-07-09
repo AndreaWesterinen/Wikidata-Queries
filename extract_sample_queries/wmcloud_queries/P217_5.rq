@@ -1,0 +1,12 @@
+#title: Missing collection
+# Complex constraint from [[Property talk:P217]]
+# Items which have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] as a qualifier of [[Property:P217|inventory number&#32;<small dir="ltr">(P217)</small>]], but not as a statement
+SELECT ?item ?inv WHERE {
+  ?item p:P217 ?invstatement .
+  ?invstatement ps:P217 ?inv .
+  ?invstatement pq:P195 ?collection . 
+  ?item wdt:P195 [] . # Only want items that have a collection set
+  MINUS { ?item wdt:P195 ?collection } 
+  # Might need this MINUS { ?item p:P195 ?collectionstatement . ?collectionstatement ps:P195 ?collection }.
+  MINUS { VALUES ?collection { wd:Q842858  } } # Nationalmuseum filtered out for now. Needs to be cleaned up first.
+  } LIMIT 1000

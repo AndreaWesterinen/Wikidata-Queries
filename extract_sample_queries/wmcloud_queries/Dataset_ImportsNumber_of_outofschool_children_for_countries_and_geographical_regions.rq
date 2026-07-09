@@ -1,0 +1,14 @@
+embed.html##Number of out of school children for all countries, continents and geographic regions since 1999
+SELECT ?country ?countryLabel ?number_of_out_of_school_chidren ?date ?methodLabel
+WHERE {
+  
+  ?country p:P2573 ?out_of_school_chidren .
+  ?out_of_school_chidren ps:P2573 ?number_of_out_of_school_chidren .
+  ?out_of_school_chidren pq:P585 ?date .
+  ?out_of_school_chidren pq:P459 ?method .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+} 
+
+ORDER BY ?countryLabel ?date

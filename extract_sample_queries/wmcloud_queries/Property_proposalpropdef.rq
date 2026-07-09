@@ -1,0 +1,53 @@
+## Generate SPARQL query to resolve a "calculated property":
+## "ISBN-13 without dashes" values for the books written by J. K. Rowling
+SELECT ?sparql
+WHERE 
+{
+  ##########################################################
+  ## Define "calculated property" item as "?calcprop" here
+  ##↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+  BIND(wd:Q55237971 AS ?calcprop).
+
+  ##↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+  ##########################################################
+  ?calcprop wdt:P370 ?propdef.
+  {
+    SELECT (
+      CONCAT(
+        "VALUES ?item {",
+        GROUP_CONCAT(
+          REPLACE(STR(?item), "http://www.wikidata.org/entity/", "wd:");
+          separator=" "
+        ),"}"
+      ) as ?values
+    )
+    WHERE
+    { 
+      ######################################################
+      ## Query to get "?item" can be written here
+      ##↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+      ?item wdt:P31 wd:Q571.
+      ?item wdt:P50 wd:Q34660.
+
+      ##↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+      ######################################################
+    }
+  }
+  BIND(
+    IRI(
+      CONCAT(
+        "https://query.wikidata.org/#", 
+        "SELECT DISTINCT ?item ?itemLabel ?value", "%0A",
+        "WHERE ", "%0A",
+        "{ ", "%0A  ",
+        ?values, "%0A  ",
+        ?propdef, "%0A", 
+        "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[",
+        "AUTO_LANGUAGE", "],en\". } ", "%0A",
+        "} "  
+      )
+    ) AS ?sparql
+  )
+}

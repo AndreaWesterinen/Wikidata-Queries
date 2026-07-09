@@ -1,0 +1,15 @@
+SELECT ?lexemeId ?lemma ?participio
+WHERE
+{
+  ?lexemeId dct:language             wd:Q1321.
+  ?lexemeId wikibase:lexicalCategory wd:Q24905.
+  ?lexemeId wikibase:lemma           ?lemma.
+  MINUS
+  {
+  ?lexemeId ontolex:lexicalForm      ?qParticipio.
+  ?qParticipio   ontolex:representation   ?participio.
+  ?qParticipio   wikibase:grammaticalFeature wd:Q814722;
+                 wikibase:grammaticalFeature wd:Q110786;
+                 wikibase:grammaticalFeature wd:Q499327.
+  }
+}

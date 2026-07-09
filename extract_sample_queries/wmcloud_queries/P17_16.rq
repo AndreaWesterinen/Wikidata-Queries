@@ -1,0 +1,5 @@
+SELECT ?item WHERE
+{
+  ?item p:P17/ps:P17 wd:Q17063
+  
+}

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?dc
+{
+  OPTIONAL{?item wdt:P571 ?dc}.
+  FILTER(?item IN (wd:Q5189814, wd:Q642198, wd:Q979440, wd:Q733017)).
+}
+ORDER BY ASC(?dc)

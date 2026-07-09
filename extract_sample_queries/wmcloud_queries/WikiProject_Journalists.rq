@@ -1,0 +1,21 @@
+# living non fictional journalists
+# the full query will most likeyly time out 
+# selecting just ?item and ?itemLabel will usually work
+
+SELECT ?item # ?itemLabel ?citizenship ?citizenshipLabel ?viafid
+WHERE 
+{
+  # item with occupation journalist or any subclass of journalist
+  ?item wdt:P106/wdt:P279* wd:Q1930187.
+  
+  # only include humans (e.g. exclude fictional entities)
+  ?item wdt:P31 wd:Q5.
+  
+  # exclude people with date of death
+  MINUS { ?item wdt:P570 ?date }.
+  
+  OPTIONAL { ?item wdt:P27 ?citizenship }.
+  OPTIONAL { ?item wdt:P214 ?viafid }.
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

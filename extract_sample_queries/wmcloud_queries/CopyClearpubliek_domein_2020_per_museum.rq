@@ -1,0 +1,17 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT DISTINCT ?item ?itemLabel ?archieflocatie ?collectie ?instelling ?instellingLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P570 ?death.
+  {
+   ?item wdt:P6379 ?collectie.
+   BIND(?collectie AS ?instelling)
+  }
+  UNION
+   {?item wdt:P485 ?archieflocatie.
+   BIND(?archieflocatie AS ?instelling)
+  }
+  FILTER(?death > "1949-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?death < "1950-01-01T00:00:00Z"^^xsd:dateTime)
+}

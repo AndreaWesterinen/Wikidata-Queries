@@ -1,0 +1,5 @@
+SELECT ?item ?value ?n 
+{
+  ?item wdt:P2949 ?value ; schema:description "-"@en .
+  OPTIONAL { ?item p:P2949 / prov:wasDerivedFrom / pr:P1810 ?n }
+}

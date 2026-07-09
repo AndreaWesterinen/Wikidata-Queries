@@ -1,7 +1,10 @@
+#title: Metabolite-metabolite interactions (mostly conversions) and their pKa change (federated query)
 #defaultView:Dimensions
+
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+
 SELECT DISTINCT ?wpid ?metaboliteLabel ?pKa ?pKa2 ?metabolite2Label ?wpid2
 WITH {
   SELECT ?wpid ?source_pathway ?metabolite ?pKa ?pKa2 ?metabolite2 ?wpid2

@@ -1,0 +1,6 @@
+SELECT ?q ?qLabel ?location ?locationLabel {
+  ?q wdt:P31 wd:Q839954 
+  OPTIONAL { ?q wdt:P131 ?location }
+  MINUS { ?q wdt:P625 ?dummy } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}

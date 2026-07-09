@@ -1,0 +1,4 @@
+#title: Same image in P18 and in P1442
+# Complex constraint from [[Property talk:P1442]]
+#
+SELECT DISTINCT ?item WHERE { ?item wdt:P1442 ?imageTombe. ?item wdt:P18 ?image FILTER (?imageTombe = ?image) } ORDER BY ?item

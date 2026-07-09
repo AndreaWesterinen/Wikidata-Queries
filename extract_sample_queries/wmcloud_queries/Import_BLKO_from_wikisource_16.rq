@@ -1,0 +1,22 @@
+SELECT ?item ?itemLabel ?itemDescription 
+( CONCAT (
+    strbefore ( strafter ( 
+      REPLACE (
+        ?itemLabel,
+        "(Freiherr |Freiin |Graf |Edler |Ritter |Landgraf |Chevalier )", "")
+      , ", "), " (") ,
+    " ",
+    strbefore ( 
+      ?itemLabel
+      , ",") 
+  ) as ?test
+) 
+
+WHERE
+{
+	?item wdt:P31 wd:Q19389637 ; wdt:P1433 wd:Q665807 .
+    ?item wdt:P478 ?vol . FILTER( xsd:integer( ?vol) < 9 ) .
+    MINUS { ?item  wdt:P921 ?art }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+}
+LIMIT 10000

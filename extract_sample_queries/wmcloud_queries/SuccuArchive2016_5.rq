@@ -1,0 +1,12 @@
+SELECT ?item ?taxonName ?itemDesc WHERE {
+   ?item wdt:P225 ?taxonName .
+   ?item wdt:P105 wd:Q7432 . # species
+   ?item (wdt:P171)* wd:Q5113 . # Aves
+   SERVICE wikibase:label {
+   bd:serviceParam wikibase:language "cy" .
+   ?item schema:description ?itemDesc .
+   }
+   #FILTER( !bound( ?itemDesc ) )
+   FILTER(!regex(?itemDesc, "rhywogaeth o adar"))
+}
+ORDER BY ASC(?taxonName)

@@ -1,0 +1,3 @@
+select ?item (count(*) as ?cnt) where{
+ ?item wdt:P1082 ?val
+} group by ?item having (?cnt > 1)

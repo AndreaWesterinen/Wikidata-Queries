@@ -1,0 +1,9 @@
+embed.html##defaultView:ImageGrid
+SELECT ?lemma (SAMPLE(?img) AS ?image) WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?language ; wikibase:lemma ?lemma ; ontolex:sense ?sense .
+  ?language wdt:P218 'br' .
+  ?sense wdt:P5137 ?item .
+  ?item wdt:P18 ?img .
+}
+GROUP BY ?lemma
+ORDER BY ?lemma

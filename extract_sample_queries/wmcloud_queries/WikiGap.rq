@@ -1,0 +1,11 @@
+SELECT ?women ?womenLabel (CONCAT ("<span class="noprint">[[File:Translation-dark-grey.svg|30px|link=https://meta.wikimedia.org/w/index.php?title=Met_Open_Access_Artworks_Challenge/Translations/X&withJS=MediaWiki:Mbabel.js&itemid=", STR(?itemId), "&destlang=sv]]</span>")  as ?translate) WHERE { 
+  ?women wdt:P31 wd:Q5.
+  ?women wdt:P21 wd:Q6581072.
+  ?women (wdt:P106/wdt:P279*) wd:Q193391.
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    BIND ((CONCAT ("[http://www.metmuseum.org/art/collection/search/", ?METobjID, " ", ?num, "]")) as ?METurl) .
+    BIND ((STR(?pic)) as ?image) .
+    BIND (REPLACE(STR(?item), "http://www.wikidata.org/entity/", "", "i") as ?itemId) .
+  FILTER EXISTS { ?article schema:about ?item } .
+  FILTER NOT EXISTS { ?wen schema:about ?item . ?wen schema:inLanguage "sv" . ?wen schema:isPartOf <https://sv.wikipedia.org/> }
+}

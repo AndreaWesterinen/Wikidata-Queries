@@ -1,0 +1,40 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("400" as ?width) 
+  ("200" as ?height) 
+  ("Public domain" as ?legend) 
+  ("copyright status" as ?xAxisTitle) 
+  ("amount of creators" as ?yAxisTitle)
+  (GROUP_CONCAT(?status;separator=",") as ?x)
+  (GROUP_CONCAT(?color;separator=",") as ?colors)
+  ("fontsize:15,offset:-15" as ?showValues)
+  ("40" as ?innerRadius)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+SELECT ?color ?status ?count WHERE
+{{ 
+    SELECT (COUNT(?item1) as ?count) ("green" AS ?color) ("public domain" AS ?status) 
+    WHERE {
+    ?item1 wdt:P31 wd:Q5 .
+    ?item1 wdt:P6379 wd:Q2338135.
+    ?item1 wdt:P7763 wd:Q71887839.#PD
+    
+    }       
+} UNION {
+    SELECT (COUNT(?item2) as ?count) ("red" AS ?color) ("copyrighted" AS ?status) 
+    WHERE {
+    ?item2 wdt:P31 wd:Q5 .
+    ?item2 wdt:P6379 wd:Q2338135.
+    ?item2 wdt:P7763 wd:Q73555012.#C
+    }        
+} UNION {
+    SELECT (COUNT(?item3) as ?count) ("grey" AS ?color)("unknown" AS ?status) 
+    WHERE {
+    ?item3 wdt:P31 wd:Q5 .
+    ?item3 wdt:P6379 wd:Q2338135.
+      FILTER NOT EXISTS {?item3 wdt:P7763 ?status.}
+    }       
+
+}}}

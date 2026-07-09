@@ -1,0 +1,24 @@
+#title: Most active actors/directors (since 2010) without one at Wikidata
+# Complex constraint from [[Property talk:P1283]]
+#
+SELECT ?item ?count
+WITH 
+{
+  SELECT ?item (COUNT(DISTINCT ?film) as ?count)
+  WHERE
+  {
+    ?film ( wdt:P161 \u007C wdt:P57 ) ?item ; wdt:P577 ?d .
+    filter ( YEAR(?d) > 2010) 
+    ?film wdt:P31 wd:Q11424 .
+  }
+  GROUP BY ?item
+  ORDER BY DESC(?count)
+  LIMIT 100           
+} as %all
+WHERE
+{
+  INCLUDE %all
+  FILTER NOT EXISTS { ?item wdt:P1283 ?item . [] schema:about ?item ; schema:isPartOf <https://www.wikidata.org/> }
+}
+ORDER BY DESC(?count) 
+LIMIT 10

@@ -1,0 +1,11 @@
+SELECT ?constraint ?constraintLabel ?dataType ?dataTypeLabel
+WHERE 
+{
+  ?constraint wdt:P31/wdt:P279* wd:Q21502402.
+  OPTIONAL {
+     ?constraint wdt:P8956 ?dataType.
+     ?dataType wdt:P31/wdt:P279* wd:Q19798645.
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?dataTypeLabel

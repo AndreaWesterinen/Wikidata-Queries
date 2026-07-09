@@ -1,3 +1,4 @@
+#title: A network of Drug-disease interactions on infectious diseases (Source: Disease Ontology, NDF-RT and ChEMBL)
 #defaultView:Graph
 SELECT DISTINCT ?item ?itemLabel ?rgb ?link
 WHERE

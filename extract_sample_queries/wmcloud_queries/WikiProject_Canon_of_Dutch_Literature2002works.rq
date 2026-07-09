@@ -1,0 +1,7 @@
+#Works in the Canon of Dutch literature (2202)
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P361 wd:Q2773681 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

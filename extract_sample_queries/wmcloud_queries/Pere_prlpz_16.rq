@@ -1,0 +1,12 @@
+#Municipis catalans sense p31 de municipi de Catalunya
+SELECT ?mun ?muname
+WHERE {
+  ?mun wdt:P31 wd:Q2074737.
+  ?mun wdt:P131* wd:Q5705.
+  MINUS {?mun wdt:P31 wd:Q33146843}
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "ca" .
+?mun rdfs:label ?muname
+}
+}
+#ORDER BY ASC (?name)

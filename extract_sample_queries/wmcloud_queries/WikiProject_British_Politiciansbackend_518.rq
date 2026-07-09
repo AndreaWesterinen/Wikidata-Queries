@@ -1,0 +1,54 @@
+SELECT distinct ?item ?member
+{  
+  VALUES ?term {
+ wd:Q60585632
+wd:Q60585635
+wd:Q60585646
+wd:Q60585652
+wd:Q60585654
+wd:Q60585656
+wd:Q60585661
+wd:Q60585664
+wd:Q60585665
+wd:Q60585668
+wd:Q60585670
+wd:Q60585685
+wd:Q60585727
+wd:Q60585766
+wd:Q60585811
+wd:Q60585857
+wd:Q60585908
+wd:Q60585962
+wd:Q60586012
+wd:Q60586066
+wd:Q60586104
+wd:Q60586145
+wd:Q60586149
+wd:Q60586150
+wd:Q60586151
+wd:Q60586153
+wd:Q60586155
+wd:Q60586156
+wd:Q60586157
+wd:Q60586159
+wd:Q60586163
+wd:Q60586167
+wd:Q60586171
+  }
+  ?term wdt:P910 ?category . 
+  # all uk terms with crosslinked categories
+  ?link schema:about ?category; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?cat_title .
+  SERVICE wikibase:mwapi {
+     # in
+     bd:serviceParam wikibase:endpoint "en.wikipedia.org";
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?cat_title;
+                     mwapi:gcmprop "ids|title|type";
+                     mwapi:gcmlimit "max".
+     # out
+     ?member wikibase:apiOutput mwapi:title.
+     ?item wikibase:apiOutputItem mwapi:item.
+    }
+ ?item wdt:P31 wd:Q5 . filter not exists { ?item wdt:P1614 ?hop }
+}

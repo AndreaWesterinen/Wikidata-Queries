@@ -1,0 +1,4 @@
+#title: Check postal codes in Northern Territory
+# Complex constraint from [[Property talk:P281]]
+#
+SELECT DISTINCT ?item ?zipCode WHERE { ?item wdt:P17 wd:Q408; wdt:P131 wd:Q3235; wdt:P281 ?zipCode. FILTER( REGEX( STR( ?zipCode ), "^(0[89]\\d{2})$" ) = false ) . } ORDER BY ?item

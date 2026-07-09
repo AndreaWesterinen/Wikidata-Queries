@@ -1,0 +1,3 @@
+SELECT * WHERE {
+   ?location wdt:P1990 ?species
+}

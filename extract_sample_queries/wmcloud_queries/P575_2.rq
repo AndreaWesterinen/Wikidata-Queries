@@ -1,0 +1,12 @@
+#title: Discovered date after died date
+# Complex constraint from [[Property talk:P575]]
+# False positive cases exists
+SELECT ?item ?discovered ?died ?diff ?nb ?person {
+  ?item wdt:P575 ?discovered; wikibase:statements ?nb.
+  ?item wdt:P61 ?person.
+  ?person wdt:P570 ?died.
+  BIND (?died - ?discovered AS ?diff)
+  FILTER (?discovered > ?died)
+  FILTER (?item NOT IN (wd:Q1434934, wd:Q1537693, wd:Q1156887, wd:Q64547993, wd:Q1628151, wd:Q871, wd:Q1143156, wd:Q29592913, wd:Q2116298, wd:Q11035, wd:Q10422))
+}
+ORDER BY ?diff

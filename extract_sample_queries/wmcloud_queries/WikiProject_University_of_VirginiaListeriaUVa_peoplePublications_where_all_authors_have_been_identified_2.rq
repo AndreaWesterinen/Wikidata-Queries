@@ -1,0 +1,10 @@
+SELECT DISTINCT ?work WHERE {
+  ?work wdt:P50 ?author.
+      { ?author wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?author wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?author wdt:P1416 / wdt:P361* wd:Q213439 .}
+
+  MINUS {?work wdt:P2093 []}
+}

@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item WHERE {
+  {  ?item wdt:P131* wd:Q12755 }   UNION {  ?item wdt:P131* wd:Q535897 }  UNION {  ?item wdt:P131* wd:Q3120 }
+}  LIMIT 5000

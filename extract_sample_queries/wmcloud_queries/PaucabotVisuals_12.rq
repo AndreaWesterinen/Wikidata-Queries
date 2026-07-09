@@ -1,0 +1,13 @@
+#Artistes balears per moviment
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+	?balears wdt:P19/wdt:P131* wd:Q5765
+	; wdt:P135 ?name
+	; wdt:P106/wdt:P279* wd:Q483501 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

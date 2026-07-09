@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item ?itemLabel ?instance_of ?instance_ofLabel ?parent_organization ?parent_organizationLabel
+WHERE
+  { ?item wdt:P749

@@ -1,0 +1,25 @@
+SELECT ?insee ?type ?count { {
+  SELECT ?insee ("Avec" as ?type) (COUNT(DISTINCT ?item) as ?count)
+  WHERE {
+    hint:Query hint:optimizer "None".
+    ?item wdt:P17 wd:Q142.
+    ?item (wdt:P31/wdt:P279*) wd:Q16970.
+    ?item wdt:P131 ?commune.
+    ?item wdt:P131* ?dep . ?dep wdt:P31 wd:Q6465.
+    ?dep wdt:P2586 ?insee.
+    ?item wdt:P625 ?coor.} 
+  GROUP BY ?insee}
+UNION {
+  SELECT ?insee ("Sans" as ?type) (COUNT(DISTINCT ?item) as ?count)
+  WHERE {
+    hint:Query hint:optimizer "None".
+    ?item wdt:P17 wd:Q142.
+    ?item (wdt:P31/wdt:P279*) wd:Q16970.
+    ?item wdt:P131 ?commune.
+    ?item wdt:P131* ?dep . ?dep wdt:P31 wd:Q6465.
+    ?dep wdt:P2586 ?insee.
+  MINUS { ?item wdt:P625 [].} }
+  GROUP BY ?insee }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}
+ORDER BY ?insee ?type

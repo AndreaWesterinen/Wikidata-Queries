@@ -1,0 +1,12 @@
+sparql?query=#defaultView:Table
+SELECT ?state ?stateLabel WHERE {
+  ?state wdt:P31 wd:Q35657.
+  FILTER NOT EXISTS {
+    ?state p:P1813 ?abbrevStmt.
+    ?abbrevStmt ps:P1813 ?abbrev.
+    ?abbrevStmt pq:P31 wd:Q30619513.
+    ?abbrevStmt pq:P580 ?start.
+    FILTER NOT EXISTS { ?abbrevStmt pq:P582 []. }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,8 @@
+#title: LOU code 5493, 3157, 5493, 9695, 9884
+# Complex constraint from [[Property talk:P1278]]
+# For these LOUs, the two chars in pos 5-6 should be "00"
+SELECT ?value {
+  ?item wdt:P1278 ?value .
+  FILTER (substr(?value,1,4) in ("5493","3157","5493","9695","9884")
+      && !substr(?value,5,2) = "00")
+}

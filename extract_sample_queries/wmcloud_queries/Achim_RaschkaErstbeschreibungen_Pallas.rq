@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item
+WHERE
+{
+	?item p:P225 ?claim .
+	?claim pq:P405 wd:Q155914 .
+	?item wdt:P225 ?t .
+	?claim ps:P225 ?t .
+}
+LIMIT 5000

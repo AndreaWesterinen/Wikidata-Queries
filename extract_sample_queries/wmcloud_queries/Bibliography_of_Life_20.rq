@@ -1,0 +1,14 @@
+# count afd taxa with authors
+
+
+SELECT (COUNT(DISTINCT ?item) AS ?count) WHERE {
+  #hint:Prior hint:gearing "forward" .
+  ?item wdt:P6039 ?afd_id.
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  minus{?stat pq:P405 ?author.}
+  ?item wdt:P6039 ?afd_id.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+
+} 
+ORDER BY DESC (?count)

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?value WHERE {
+	?item p:P5592/psv:P5592/wikibase:quantityAmount ?value .
+	FILTER( xsd:integer( ?value ) != ?value ) .
+	FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

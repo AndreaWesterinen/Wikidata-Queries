@@ -1,0 +1,2 @@
+#title:Change values:
+SELECT DISTINCT ?item WHERE {?item wdt:P31 ?value . FILTER ( ?value IN (wd:Q215627, wd:Q467, wd:Q8441, wd:Q171283))}

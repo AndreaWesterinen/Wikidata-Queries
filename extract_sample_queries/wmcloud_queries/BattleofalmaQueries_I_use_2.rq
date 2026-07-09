@@ -1,0 +1,11 @@
+PREFIX schema: <http://schema.org/>
+
+#Members of current parliament with jobs attached
+SELECT DISTINCT ?woman ?Role ?article ?position_held ?position_heldLabel WHERE {
+  ?woman wdt:P31 wd:Q5.
+  ?woman wdt:P39 wd:Q30524710.
+  ?article schema:about ?woman.
+  ?article schema:isPartOf <https://en.wikipedia.org/>.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?woman wdt:P39 ?position_held. }
+}

@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(DISTINCT ?role) AS ?count) 
+WHERE
+{
+    ?item p:P161 / pq:P453 ?role . 
+    VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . 
+    ?item wdt:P31 ?filmtype . 
+} 
+GROUP BY ?item 
+ORDER BY DESC (?count)
+LIMIT 12

@@ -1,0 +1,6 @@
+# taxa with an article, with an AFD_pub_id and which is a genus
+SELECT ?item  ?itemLabel ?AFD_id WHERE {
+  ?item wdt:P6982 ?AFD_id.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+ORDER BY ?item ?itemLabel ?AFD_id

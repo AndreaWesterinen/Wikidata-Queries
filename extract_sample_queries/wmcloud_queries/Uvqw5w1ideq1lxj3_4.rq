@@ -1,0 +1,8 @@
+#the number of songs named after days of the week by day
+#defaultView:BarChart
+SELECT ?day ?dayLabel (COUNT(DISTINCT ?item) AS ?songCount) WHERE {
+  ?day wdt:P31 wd:Q41825.
+  ?item wdt:P31/wdt:P279* wd:Q7366; wdt:P138 ?day.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?day ?dayLabel

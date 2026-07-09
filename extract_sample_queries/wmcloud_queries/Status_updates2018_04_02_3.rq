@@ -1,0 +1,23 @@
+SELECT
+  ?book ?bookLabel
+  ?density
+  ?height
+  ?width
+  ?thickness
+  ?weight
+WITH {
+  SELECT * WHERE {
+    ?book wdt:P31 wd:Q3331189 ;
+      p:P2067 / psn:P2067 / wikibase:quantityAmount ?weight ;
+      p:P2048 / psn:P2048 / wikibase:quantityAmount ?height ;
+      p:P2049 / psn:P2049 / wikibase:quantityAmount ?width ;
+      p:P2610 / psn:P2610 / wikibase:quantityAmount ?thickness .
+
+    BIND(?weight / (?height * ?width * ?thickness) AS ?density)
+  }
+} AS %results
+WHERE {
+  INCLUDE %results
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+ORDER BY ?density

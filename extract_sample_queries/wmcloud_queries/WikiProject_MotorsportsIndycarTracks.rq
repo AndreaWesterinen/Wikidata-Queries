@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item  WHERE {
+  ?Indycar_race (wdt:P31/(wdt:P279*)) wd:Q63860191.
+  ?Indycar_race wdt:P276 ?item.
+} order by ?item

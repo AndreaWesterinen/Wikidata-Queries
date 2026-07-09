@@ -1,0 +1,33 @@
+#defaultView:Map
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+#SELECT ?p ?pLabel ?b ?bLabel ?bloc ?d ?dLabel ?dloc WHERE {
+#SELECT ?p ?blat ?blong ?dlat ?dlong WHERE {
+SELECT ?bloc ?dloc WHERE {
+   ?p wdt:P106 wd:Q2259532 .
+   ?p wdt:P19 ?b .
+   ?b wdt:P625 ?bloc .
+
+#  ?bloc psv:P625 ?bcoordinate_node .
+#  ?bcoordinate_node wikibase:geoLatitude ?blat .
+#  ?bcoordinate_node wikibase:geoLongitude ?blong .
+  
+   ?p wdt:P20 ?d . 
+   ?d wdt:P625 ?dloc .
+ 
+#  ?dloc psv:P625 ?dcoordinate_node .
+#  ?dcoordinate_node wikibase:geoLatitude ?dlat .
+#  ?dcoordinate_node wikibase:geoLongitude ?dlong .
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }  LIMIT 100000

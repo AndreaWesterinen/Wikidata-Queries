@@ -1,0 +1,28 @@
+#title: candidates (from categories, mainly Commons)
+# Complex constraint from [[Property talk:P9597]]
+# add statement if applicable
+SELECT DISTINCT ?item ?lense ?endpoint
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?lense wdt:P279 wd:Q14672 . 
+  ?catitem wdt:P971 ?lense . 
+  ?sitelink schema:about ?catitem ; schema:isPartOf ?site ; schema:name ?title.
+  BIND (REPLACE(STR(?site), ".+/(.+)/", "$1") AS ?endpoint)  
+  BIND (STR(?title) AS ?cat)
+  SERVICE wikibase:mwapi
+  {
+    bd:serviceParam wikibase:endpoint ?endpoint;  
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?cat ;    
+                     mwapi:gcmprop "title";
+                     mwapi:gcmlimit "max";
+                     mwapi:gcmnamespace "14".
+    ?item wikibase:apiOutputItem mwapi:item.           
+  } 
+  FILTER( BOUND(?item) )
+  ?item wdt:P31/wdt:P279? wd:Q39715 .
+  FILTER NOT EXISTS { ?item p:P9597 [] }
+}
+LIMIT 100

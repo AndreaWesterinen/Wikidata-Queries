@@ -1,0 +1,10 @@
+#title: Check value
+# Complex constraint from [[Property talk:P220]]
+#
+SELECT ?item ?value ?marc {
+	?item wdt:P220 ?value.
+  ?item wdt:P4801 ?marc.
+  BIND (SUBSTR(?marc, 1, 9) AS ?prefix).
+  BIND (SUBSTR(?marc, 11) AS ?s).
+  FILTER (?marc = ?s)
+}

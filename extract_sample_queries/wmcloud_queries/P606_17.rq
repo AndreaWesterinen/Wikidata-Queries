@@ -1,0 +1,17 @@
+#Dates before 1582 in Gregorian calendar (date precision > 9)
+#added 2016-02-26, based on a query by Mbch331
+SELECT ?item ?itemLabel ?date
+{
+  {  SELECT ?item ?date
+    {
+      ?item p:P606/psv:P606 ?datevalue .
+        ?datevalue wikibase:timeValue ?date .
+      FILTER(?date < "+1582-10-15T00:00:00Z"^^xsd:dateTime)
+      ?datevalue wikibase:timePrecision ?dateprecision .
+      FILTER(?dateprecision > 9)
+      ?datevalue wikibase:timeCalendarModel wd:Q1985727 .
+    }
+        LIMIT 5000
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}

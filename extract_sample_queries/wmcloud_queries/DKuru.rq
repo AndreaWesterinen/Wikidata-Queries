@@ -1,0 +1,4 @@
+SELECT ?r ?es ?en WHERE{
+?r wdt:P971 wd:Q83437733.
+OPTIONAL{?r rdfs:label ?en. FILTER(LANG(?en) = 'en')}
+}

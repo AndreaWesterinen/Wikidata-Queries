@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?subc ?subcLabel ?of ?ofLabel ?country ?countryLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item p:P279 ?statement.
+  ?statement ps:P279 ?subc.
+  ?item wdt:P279 wd:Q987080.
+  FILTER (?item NOT IN (wd:Q16687686, wd:Q59199680, wd:Q494273, wd:Q23852061, wd:Q498339, wd:Q4375546, wd:Q99864)) .
+  OPTIONAL { ?statement pq:P642 ?of. }
+  OPTIONAL { ?item wdt:P17 ?country. }
+}
+LIMIT 400

@@ -1,0 +1,15 @@
+SELECT ?item1 ?item1Label (year(?date1) AS ?year1) ?item2 ?item2Label (year(?date2) AS ?year2) WHERE {
+
+    ?item1 p:P166 ?prize_stmt1 .
+    ?prize_stmt1 ps:P166 wd:Q616568 .
+    OPTIONAL {?prize_stmt1 pq:P585 ?date1} .
+ 
+    ?item1 wdt:P3373 ?item2 .
+    ?item2 p:P166 ?prize_stmt2 . 
+    ?prize_stmt2 ps:P166 wd:Q616568 .
+    OPTIONAL {?prize_stmt2 pq:P585 ?date2 } .
+
+    FILTER ((?date1 < ?date2) || ( (!(?date2 < ?date1)) && (str(?item1) < str(?item2)) ) ).
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} ORDER BY ?year1

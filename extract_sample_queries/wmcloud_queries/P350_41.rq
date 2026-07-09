@@ -1,0 +1,18 @@
+#title: Items with more than one RKDimages link
+# Complex constraint from [[Property talk:P350]]
+# Single value constraint, but with [[d:Q15727816|painting series <small>(Q15727816)</small>]] and [[d:Q79218|triptych <small>(Q79218)</small>]] (and related types) filtered out
+SELECT DISTINCT ?item ?count ?sample
+{
+	{
+		SELECT ?item (COUNT(?value) AS ?count) (SAMPLE(?value) AS ?sample) {
+			?item wdt:P350 ?value .
+             MINUS { ?item wdt:P31 wd:Q15727816 } .
+             MINUS { ?item wdt:P31 wd:Q1278452 } .
+             MINUS { ?item wdt:P31 wd:Q79218 } .
+             MINUS { ?item wdt:P31 wd:Q475476 } .
+             MINUS { ?item wdt:P31 wd:Q15711026 } .          
+             MINUS { ?item wdt:P31 wd:Q5299612 } .
+		} GROUP BY ?item
+	} .
+	FILTER(?count > 1) .
+} ORDER BY DESC(?count) LIMIT 500

@@ -1,4 +1,4 @@
-# ----
+#title: Using formatter url to construct links in SPARQL
 # Get 10 paintings that have a link to RKDimages (P350)
 # Use the formatter URL (P1630) to construct the links to RKDimages
 #defaultView:ImageGrid

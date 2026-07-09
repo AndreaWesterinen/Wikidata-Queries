@@ -1,0 +1,14 @@
+SELECT DISTINCT ?female ?femaleLabel ?dob ?dod ?age WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?female wdt:P21 wd:Q6581072;         # instance of female
+    wdt:P6379 ?institution.            # Has works in the collection of ?institution
+  
+   {?institution wdt:P131* wd:Q408.}   # institution in Oz (administrative territory)
+  union
+    {?institution wdt:P17 wd:408 . }   # institution in Oz (country)
+  OPTIONAL { ?female wdt:P569 ?dob. }
+  OPTIONAL { ?female wdt:P570 ?dod. }
+  bind(year(?dod)-year(?dob) as ?age ) 
+}
+
+ORDER BY  ?femaleLabel

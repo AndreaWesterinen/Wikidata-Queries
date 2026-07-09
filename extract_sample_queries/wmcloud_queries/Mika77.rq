@@ -1,0 +1,18 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#Cats
+SELECT ?Unterklasse_vonLabel ?item ?itemLabel ?BegruenderLabel  ?Symbol ?RechtsgrundlageLabel ?seitJahr ?basiert_aufLabel  ?schriftlichSeit
+WHERE {
+  ?item wdt:P31 wd:Q9174.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de,jp,es,ru". }
+  ?item wdt:P112 ?Begruender.
+  OPTIONAL { ?item wdt:P1249 ?erste_schriftliche_Erw_hnung. }
+  OPTIONAL { ?item wdt:P2910 ?Symbol. }
+  OPTIONAL { ?item wdt:P571 ?seit. }
+  BIND(YEAR(xsd:dateTime(?seit)) AS ?seitJahr)
+  OPTIONAL { ?item wdt:P457 ?basiert_auf. }
+  OPTIONAL { ?item wdt:P92 ?Rechtsgrundlage. }
+  OPTIONAL { ?item wdt:P279 ?Unterklasse_von. }
+  FILTER  ( ?seitJahr < 1000 )
+}
+order by ?Unterklasse_vonLabel

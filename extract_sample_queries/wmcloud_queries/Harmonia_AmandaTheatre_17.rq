@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?disambig
+WHERE
+{
+  ?item	wdt:P31 wd:Q101352 ;
+        wdt:P31 ?nature ;
+		rdfs:label ?label .
+  ?disambig wdt:P31 wd:Q4167410 ;
+            wdt:P31 ?nature2 ;
+            rdfs:label ?label .
+  FILTER (lang(?label) = "de").
+  FILTER NOT EXISTS { ?item wdt:P1889 ?disambig .}
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}
+}GROUP BY ?item ?disambig
+HAVING((COUNT(?nature) = 1) && (COUNT(?nature2) = 1))
+LIMIT 5000

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?countryLabel WHERE {
+   
+  ?item (wdt:P31/wdt:P279*) wd:Q3918.
+  ?item wdt:P17 ?country.
+  ?country wdt:P30 wd:Q15.
+}

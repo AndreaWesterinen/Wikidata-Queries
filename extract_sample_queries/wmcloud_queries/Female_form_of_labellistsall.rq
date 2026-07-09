@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item (GROUP_CONCAT(CONCAT(?femalelabel, " <sub>(", ?lang ,")</sub>"); separator = ', ') as ?lbls) (COUNT(DISTINCT(?femalelabel)) as ?ct)  WHERE { ?item wdt:P2521 ?femalelabel . BIND(lang(?femalelabel) as ?lang) } GROUP BY ?item ORDER BY DESC(?ct) ?item ?lang

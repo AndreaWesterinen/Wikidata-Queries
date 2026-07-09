@@ -1,0 +1,37 @@
+#defaultView:BarChart
+SELECT ?genreLabel (COUNT(DISTINCT ?item)/ ?item_count AS ?share) ?bechdel_resultLabel
+WITH {
+SELECT ?genre ?item ?bechdel_result WHERE{
+    VALUES ?genre {wd:Q188473 
+                   wd:Q319221 
+                   wd:Q157443 
+                   wd:Q959790 
+                   wd:Q130232  
+                   wd:Q157394 
+                   wd:Q17013749 
+                   wd:Q200092 
+                   wd:Q842256 
+                   wd:Q1200678 
+                   wd:Q1054574 
+                   wd:Q471839
+                   wd:Q2484376
+                   wd:Q369747
+                   wd:Q172980}
+    ?st ps:P5021 wd:Q4165246; pq:P9259 ?bechdel_result.
+    ?item p:P5021 ?st; wdt:P136/wdt:P279* ?genre.
+     
+     }
+                             
+} AS %bechdel_by_genre
+WITH {
+SELECT ?genre (COUNT(DISTINCT ?item) AS ?item_count) WHERE{
+    INCLUDE %bechdel_by_genre
+     }
+    GROUP BY ?genre
+} AS %item_count_by_genre
+WHERE {
+INCLUDE %bechdel_by_genre
+INCLUDE %item_count_by_genre
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?bechdel_resultLabel ?genreLabel ?item_count

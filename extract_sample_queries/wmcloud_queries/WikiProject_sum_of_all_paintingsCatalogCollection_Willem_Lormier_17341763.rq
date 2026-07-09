@@ -1,0 +1,4 @@
+SELECT ?item ?cat1763 WHERE { 
+?item wdt:P127 wd:Q29646370. 
+  OPTIONAL {?item p:P528 [ pq:P972 wd:Q56230792 ; ps:P528 ?cat1763]. }  
+}

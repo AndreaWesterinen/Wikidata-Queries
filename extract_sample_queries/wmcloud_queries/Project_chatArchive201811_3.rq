@@ -1,0 +1,12 @@
+SELECT ?edition ?editionLabel ?gutenbergid ?gpubdate ?book ?bpubdate ?guten2 WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?edition wdt:P31 wd:Q3331189.
+  ?edition wdt:P2034 ?gutenbergid.
+  ?edition wdt:P629 ?book.
+  OPTIONAL { ?book wdt:P2034 ?guten2. }
+    OPTIONAL { ?edition wdt:P577 ?gpubdate. }
+  OPTIONAL { ?book wdt:P577 ?bpubdate. }
+
+}
+ORDER BY ?book
+LIMIT 100

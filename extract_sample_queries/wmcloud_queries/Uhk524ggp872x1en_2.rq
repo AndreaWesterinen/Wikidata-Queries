@@ -1,0 +1,25 @@
+#Translations of the Disease Ontology term DOID:399 (Tuberculosis)
+SELECT DISTINCT ?disease ?diseaseLabel ?doid (GROUP_CONCAT(?language) as ?saTranslations ) (COUNT(?language) as ?counts) WHERE {
+ 
+  # VALUES ?disease {wd:Q79793} #change this for another disease
+  VALUES ?country {wd:Q258} #change this to get the offical language of another country
+  
+  # Get the official language of South Africa  
+    ?country wdt:P37 ?wdLanguage .
+  	?wdLanguage wdt:P424 ?languageCode;
+	            rdfs:label ?language .
+             	FILTER (LANG(?language)=?languageCode)
+   FILTER EXISTS {?wdLanguage wdt:P31?/wdt:P279+ wd:Q17376908}
+  
+   # get the item that has a Disease Ontology ID
+   ?disease	 wdt:P699 ?doid; 
+             rdfs:label ?English .
+  	FILTER (LANG(?English)="en")
+  
+   # To extract non existing translation you need to make the language optional
+    ?disease rdfs:label ?label .
+	BIND(LANG(?label) as ?languageCode) 
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} 
+GROUP BY ?disease ?diseaseLabel ?doid ?saTranslations
+ORDER BY DESC(?counts)

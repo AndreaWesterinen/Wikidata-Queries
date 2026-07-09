@@ -1,0 +1,16 @@
+embed.html#SELECT DISTINCT	
+  ?item ?item2 
+  ?l (lang(?l) as ?lang)  
+  ?s1 
+  ?s2
+WHERE
+{
+	?item	wdt:P1433 wd:Q665807 ; rdfs:label ?l . FILTER(lang(?l) = "en") 
+  	?item2	wdt:P1433 wd:Q665807 ; rdfs:label ?l . 
+    
+    FILTER( xsd:integer(strafter(str(?item),"Q")) > xsd:integer(strafter(str(?item2),"Q")) ) 
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    OPTIONAL { ?s1 schema:about ?item } 
+    OPTIONAL { ?s2 schema:about ?item2 } 
+}
+ORDER BY DESC(xsd:integer(strafter(str(?item),"Q")))

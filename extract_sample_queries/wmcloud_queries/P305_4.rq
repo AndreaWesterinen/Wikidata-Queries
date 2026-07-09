@@ -1,0 +1,9 @@
+#title: Wikipedia categories
+# Complex constraint from [[Property talk:P305]]
+# categories combining [[d:Q28373483|article with other language external link <small>(Q28373483)</small>]] or [[d:Q28368760|article containing other language text <small>(Q28368760)</small>]] should also have P971 with a language-tag
+SELECT ?item ?lang
+{
+	{ ?item wdt:P971 wd:Q28373483 } UNION { ?item wdt:P971 wd:Q28368760 }
+  	FILTER NOT EXISTS { ?item wdt:P971 / wdt:P305 [] }
+	OPTIONAL { ?item wdt:P971 ?lang . ?lang wdt:P31/wdt:P279* wd:Q17376908 }
+}

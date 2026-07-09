@@ -1,0 +1,1 @@
+SELECT ?q ?qLabel { ?q  rdf:type wdno:P18 .SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }

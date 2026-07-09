@@ -1,0 +1,12 @@
+embed.html##Asturierazko Wikipediako biografien genero oreka
+SELECT ?genderLabel (count(distinct?human) as ?number)
+WHERE
+{
+	?human wdt:P31 wd:Q5
+	; wdt:P21 ?gender.
+    ?wikilink schema:about ?human.
+    ?wikilink schema:isPartOf <https://ast.wikipedia.org/>.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ast" }
+}
+GROUP BY ?genderLabel
+LIMIT 6

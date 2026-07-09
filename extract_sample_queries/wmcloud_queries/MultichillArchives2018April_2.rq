@@ -1,0 +1,9 @@
+SELECT ?item ?itemName ?itemNameLang WHERE {
+  ?item wdt:P4887 ?id.
+  { ?item rdfs:label ?itemName. } UNION { ?item skos:altLabel ?itemName. }
+  BIND(LANG(?itemName) AS ?itemNameLang)
+  FILTER(REGEX(STR(?itemName), "(^.+ (st|ml)\\.$|^(st|ml)\\., .+)"))
+  FILTER(?itemNameLang NOT IN("cs", "sk"))
+}
+ORDER BY ?item
+LIMIT 2500

@@ -1,0 +1,3 @@
+embed.html##100 highest fertility rate countries in 2014
+#defaultView:BarChart
+SELECT ?place ?placeLabel ?fertility_rate (STR(YEAR(?date)) AS ?year)  (STR(?refUrl

@@ -1,0 +1,18 @@
+SELECT
+?item ?itemLabel 
+(GROUP_CONCAT(DISTINCT ?DatURL_language ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?langOfReferenceSource)
+(GROUP_CONCAT(DISTINCT ?DatURL_reference_url ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?DescAtURL_reference_url)
+(GROUP_CONCAT(DISTINCT ?DatURL_stated_in ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?DescAtURL_stated_in)
+(GROUP_CONCAT(DISTINCT ?DatURL_retrieved ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?DescAtURL_retrieved)
+WHERE {
+  ?item p:P195 ?st .
+  ?st  ps:P195 wd:Q1526131 .
+  ?st pq:P2868 wd:Q29188408
+  OPTIONAL {?item p:P973 [pq:P407 ?DatURL_language].} 
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P854 ?DatURL_reference_url]] .} 
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P248 ?DatURL_stated_in]] .} 
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P813 ?DatURL_retrieved]] .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+} 
+GROUP BY ?item ?itemLabel 
+ORDER BY ?itemLabel

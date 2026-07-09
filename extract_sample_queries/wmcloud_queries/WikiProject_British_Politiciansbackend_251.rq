@@ -1,0 +1,12 @@
+# MPs who have more than one of the standard qualifiers on a membership item
+SELECT DISTINCT ?item ?itemLabel ?membershipLabel ?constituencyLabel ?partyLabel ?start ?electionLabel ?end ?causeLabel 
+{
+ ?membership wdt:P279 wd:Q16707842 .  ?item p:P39 ?positionStatement .  ?positionStatement ps:P39 ?membership . 
+ optional { ?positionStatement pq:P768 ?constituency } .
+ optional { ?positionStatement pq:P4100 ?party . }
+ optional { ?positionStatement pq:P2715 ?election . }
+ optional { ?positionStatement pq:P582 ?end . }
+ filter not exists { ?positionStatement pq:P580 ?start . }
+ optional { ?positionStatement pq:P1534 ?cause . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }  
+}   

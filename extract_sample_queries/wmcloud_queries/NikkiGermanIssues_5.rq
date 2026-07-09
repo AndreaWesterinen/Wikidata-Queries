@@ -1,0 +1,10 @@
+select distinct (?l as ?item) (concat(replace(str(?l),str(wd:),"{{L|"),"}}") as ?l_) {
+  ?l dct:language wd:Q188;
+     wikibase:lemma ?lemma;
+     wikibase:lexicalCategory wd:Q1084.
+
+  ?l ontolex:lexicalForm/wikibase:grammaticalFeature wd:Q146786.
+
+  filter not exists { ?l ontolex:lexicalForm/wikibase:grammaticalFeature wd:Q110786 }
+  filter not exists { ?l wdt:P31 wd:Q138246 }
+} order by ?lemma ?l

@@ -1,0 +1,8 @@
+#Items with both a Freebase ID and a Google Knowledge Graph ID
+SELECT ?item ?itemLabel ?fbid ?gkbid
+WHERE
+{
+    ?item wdt:P2671 ?gkbid.
+    ?item wdt:P646 ?fbid.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

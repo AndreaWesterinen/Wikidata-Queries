@@ -1,0 +1,26 @@
+# Heksenprocessen te Peelland 
+SELECT DISTINCT ?item ?itemLabel ?geslachtLabel ?overlijden (GROUP_CONCAT(DISTINCT ?plaatsLabel; SEPARATOR=", ") AS ?plaatsen) ?tenlasteleggingLabel ?refLabel ?godsoordeelLabel ?vrijgesproken 
+WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P793 wd:Q2184793.  #Heksenprocessen te Peelland 
+  OPTIONAL { ?item wdt:P21 ?geslacht. }
+  OPTIONAL { ?item wdt:P570 ?overlijden. }  
+  OPTIONAL { ?item wdt:P551|wdt:P20 ?plaats. }
+  OPTIONAL { ?item p:P1595|p:P7781 ?st1.
+             ?st1 ps:P1595|ps:P7781 ?tenlastelegging.  # tenlastenlegging of vrijgesproken
+             ?st1 prov:wasDerivedFrom ?refnode1.
+             ?refnode1   pr:P248 ?ref. }
+  OPTIONAL { ?item p:P7781 ?st2.
+             ?st2 pq:P585 ?vrijgesproken }
+  OPTIONAL { ?item wdt:P7209 ?godsoordeel. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl,en".
+                  ?item rdfs:label ?itemLabel. 
+                  ?geslacht rdfs:label ?geslachtLabel. 
+                  ?plaats rdfs:label ?plaatsLabel. 
+                  ?tenlastelegging rdfs:label ?tenlasteleggingLabel. 
+                  ?tenlastelegging rdfs:label ?tenlasteleggingLabel. 
+                  ?ref rdfs:label ?refLabel. 
+                  ?godsoordeel rdfs:label ?godsoordeelLabel. 
+            }
+}
+GROUP BY ?item ?itemLabel ?geslachtLabel ?overlijden ?tenlasteleggingLabel ?refLabel ?godsoordeelLabel ?vrijgesproken

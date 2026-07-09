@@ -1,0 +1,1 @@
+SELECT * { ?item wikibase:sitelinks 0 ; wikibase:statements 0 ; schema:description "page de catégorie de Wikimedia"@fr } LIMIT 300

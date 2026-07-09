@@ -1,0 +1,8 @@
+SELECT ?item ?cat1974 ?cat1923 WHERE { 
+?item p:P528 [ pq:P972 wd:Q17616737 ; ps:P528 ?cat1974].  
+OPTIONAL { ?item p:P528 [ pq:P972 wd:Q63323669 ; ps:P528 ?cat1923].  }
+BIND(REPLACE(?cat1974, "[a-zA-Z ()-]", "") AS ?catnum) .
+BIND(REPLACE(?cat1974, "[0-9]*", "") AS ?catletter) .
+BIND(REPLACE(?catletter, "[a-z ()-]", "") AS ?section) .
+#BIND(xsd:integer(?catnum) AS ?ord) . 
+} ORDER BY ?section xsd:integer(?catnum)

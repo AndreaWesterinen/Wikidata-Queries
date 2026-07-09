@@ -1,0 +1,9 @@
+#title: FR
+# Complex constraint from [[Property talk:P8181]]
+#
+SELECT ?item ?code {
+  ?item wdt:P8181 ?code.
+  ?item wdt:P17 ?country.
+  FILTER (SUBSTR(STR(?code), 1, 2) = "FR")
+  FILTER (?country != wd:Q142)
+}

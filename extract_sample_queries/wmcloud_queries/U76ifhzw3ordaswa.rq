@@ -1,0 +1,4 @@
+SELECT ?value (COUNT(?q) AS ?cnt) (GROUP_CONCAT(?q ;separator="|") AS ?qs)
+{ ?q wdt:P1708 ?value }  
+GROUP BY ?value
+HAVING (?cnt>1)

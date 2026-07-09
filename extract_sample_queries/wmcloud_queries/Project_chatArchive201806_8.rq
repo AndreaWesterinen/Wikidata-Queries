@@ -1,0 +1,5 @@
+SELECT ?element ?elementLabel ?compound ?compoundLabel WHERE{
+     ?element wdt:P31 wd:Q11344.
+     ?element wdt:P361 ?compound.
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

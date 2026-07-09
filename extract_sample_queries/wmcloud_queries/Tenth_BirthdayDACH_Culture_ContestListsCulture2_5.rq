@@ -1,0 +1,1 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P31 wd:Q482994;  wdt:P175/(wdt:P495|wdt:P27) ?countries FILTER (?countries IN (wd:Q40, wd:Q183, wd:Q39)). ?entity wdt:P175/(wdt:P495|wdt:P27) ?grouping .} GROUP BY ?grouping HAVING (?count < 0) ORDER BY DESC(?count) LIMIT 1000

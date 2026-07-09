@@ -1,0 +1,5 @@
+SELECT (COUNT(DISTINCT ?subject) AS ?subjcount ) 
+WHERE
+{
+    ?subject p:P1006/ps:P1006 ?nta.
+}

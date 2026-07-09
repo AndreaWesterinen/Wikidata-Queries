@@ -1,0 +1,9 @@
+SELECT ?property ?propertyLabel ?formatter WHERE {
+  ?property wikibase:propertyType wikibase:ExternalId .
+  ?property wdt:P1630 ?formatter .
+  FILTER NOT EXISTS {?property wdt:P8966 ?match_pattern}
+  
+  FILTER(CONTAINS(?formatter, "wd"))
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

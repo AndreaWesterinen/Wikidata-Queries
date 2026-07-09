@@ -1,0 +1,66 @@
+#defaultView:Map
+SELECT distinct ?place ?placeLabel ?placeDescription ?coords ?layer ?terrainLabel ?waterLabel WHERE {
+  hint:Query hint:optimizer "None".
+#  VALUES ?island {wd:Q47134 # Shetland Islands
+#  VALUES ?island {wd:Q565640 # Bressay  
+#  VALUES ?island {wd:Q762752 # Fair Isle
+#  VALUES ?island {wd:Q586660 # Fetlar
+#  VALUES ?island {wd:Q932332 # Foula
+#  VALUES ?island {wd:Q1273310 # Muckle Roe
+#  VALUES ?island {wd:Q3344230 # Northmavine
+#  VALUES ?island {wd:Q1552121 # Papa Stour   
+#  VALUES ?island {wd:Q754867 # Unst   
+#  CALUES ?island {wd:Q3192009 # Vementry
+#  VALUES ?island {wd:Q7985839 # West Mainland
+#  VALUES ?island {wd:Q552027 # Whalsay
+#  VALUES ?island {wd:Q376068 # Yell
+
+  VALUES ?island {wd:Q100166 # Orkney Islands  
+#  VALUES ?island {wd:Q931770 # Papa Westray  
+#  VALUES ?island {wd:Q931770 # North Ronaldsay
+                  
+                  
+                 }
+  {
+    ?island wdt:P625 ?point . 
+    SERVICE wikibase:around { 
+      ?place wdt:P625 ?location . 
+      bd:serviceParam wikibase:center ?point . 
+      bd:serviceParam wikibase:radius "99" . 
+      }
+    ?place p:P625 ?stat .
+      ?stat a wikibase:BestRank .  
+      ?stat psv:P625/wikibase:geoLongitude ?long.
+      ?stat psv:P625/wikibase:geoLatitude ?lat.
+    ?island p:P1332/psv:P1332/wikibase:geoLatitude ?north . filter(?lat <= ?north )
+    ?island p:P1333/psv:P1333/wikibase:geoLatitude ?south . filter(?lat >= ?south )
+    ?island p:P1334/psv:P1334/wikibase:geoLongitude ?east . filter(?long <= ?east )
+    ?island p:P1335/psv:P1335/wikibase:geoLongitude ?west . filter(?long >= ?west )
+  }
+  UNION
+  {
+    ?place ?predicate ?island .
+    ?property wikibase:directClaim ?predicate .
+  }
+  UNION
+  {
+       ?place wdt:P131* ?island .
+  }
+  UNION
+  {
+    ?place wdt:P706* ?island .
+  }
+  ?place wdt:P625 ?coords . 
+  OPTIONAL {?place wdt:P31 ?P31 .}
+  OPTIONAL {?place wdt:P706 ?terrain .}
+  OPTIONAL {?place wdt:P206 ?water .}  
+  filter not exists {?place wdt:P31/wdt:P279* wd:Q1229765 . }
+ # filter not exists {?place wdt:P2789 [] . }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . 
+                           ?place rdfs:label ?placeLabel .
+                           ?place schema:description ?placeDescription . 
+                           ?P31 rdfs:label ?layer .
+                           ?terrain rdfs:label ?terrainLabel . 
+                           ?water rdfs:label ?waterLabel . }
+} order by ?layer

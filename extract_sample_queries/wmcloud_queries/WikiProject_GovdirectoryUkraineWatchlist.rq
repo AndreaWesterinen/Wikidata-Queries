@@ -1,0 +1,16 @@
+SELECT ?item WHERE {
+BIND(wd:Q212 AS ?country)
+
+  VALUES ?type {
+    wd:Q7878545 # ministries (20)
+    wd:Q3348196 # oblast (24)
+    wd:Q84823091 # region (1)
+    wd:Q5124045  # city with special status (2)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+}

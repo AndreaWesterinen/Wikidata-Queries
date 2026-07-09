@@ -1,0 +1,16 @@
+SELECT ?item ?doi ?pubMedId ?zoobankpub (substr(?published1, 1, 10) as ?published )?volume ?issue ?pages ?title WHERE {  
+  ?item wdt:P1433 wd:Q220370 .
+  OPTIONAL {?item wdt:P356 ?doi} .
+  OPTIONAL {?item wdt:P698 ?pubMedId} .  
+  OPTIONAL {?item wdt:P577 ?published1} .
+  OPTIONAL {?item wdt:P478 ?volume} .
+  OPTIONAL {?item wdt:P433 ?issue} .
+  OPTIONAL {?item wdt:P304 ?pages0} . 
+  OPTIONAL {?item wdt:P2007 ?zoobankpub} . 
+  OPTIONAL {?item wdt:P1476 ?title} .   
+  FILTER(!bound(?doi))
+  BIND(replace(?pages0, "-", "–") AS ?pages)
+  BIND(if(contains(?pages,  "–"), strbefore(?pages, "–"), ?pages) as ?startpage)
+  BIND(if(contains(?pages,  "–"), strafter(?pages, "–"), ?pages) as ?endpage)
+}
+ORDER BY ASC(xsd:integer(?volume)) ASC(xsd:integer(?issue)) ASC(xsd:integer(?startpage))

@@ -1,0 +1,6 @@
+SELECT ?item (count(distinct ?p) AS ?numberOfRatingProperties)
+WHERE {
+  [] wdt:P31/wdt:P279* wd:Q24716199; wikibase:claim ?p .
+  ?item wdt:P31/wdt:P279* wd:Q11424; ?p [] .
+  MINUS { ?item wdt:P5201 [] }
+} GROUP BY ?item ORDER BY DESC(?numberOfRatingProperties) LIMIT 10

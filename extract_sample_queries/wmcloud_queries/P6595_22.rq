@@ -1,0 +1,12 @@
+#title: Missing inception sourced to the catalog
+# Complex constraint from [[Property talk:P6595]]
+# Items with [[Property:P6595|Paintings by Salvador Dalí ID&#32;<small dir="ltr">(P6595)</small>]] and [[Property:P571|inception&#32;<small dir="ltr">(P571)</small>]], but it's not sourced to the catalog. Date should be checked and source should be added.
+SELECT ?item WHERE {
+  ?item wdt:P6595 ?id;
+    p:P571 ?inceptionstatement.
+  FILTER(NOT EXISTS {
+    ?inceptionstatement prov:wasDerivedFrom ?reference.
+    ?reference pr:P854 ?referenceurl.
+    FILTER(REGEX(STR(?referenceurl), "https://www.salvador-dali.org/en/artwork/catalogue-raisonne-paintings/obra/.*"))
+  })
+}

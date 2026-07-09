@@ -1,0 +1,4 @@
+#title: Year should be ≥ 1980
+# Complex constraint from [[Property talk:P5461]]
+# TO DO: check values
+SELECT ?item ?value ?d WHERE {	?item wdt:P5461 ?value ; wdt:P585 ?d . FILTER( YEAR(?d) < 1980 ) }

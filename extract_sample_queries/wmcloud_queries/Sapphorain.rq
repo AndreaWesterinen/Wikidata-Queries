@@ -1,0 +1,4 @@
+embed.html#select ?person ?personLabel ?date {
+  ?person p:P463 ?s . ?s ps:P463 wd:Q161806; OPTIONAL {?s pq:P580 ?date}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

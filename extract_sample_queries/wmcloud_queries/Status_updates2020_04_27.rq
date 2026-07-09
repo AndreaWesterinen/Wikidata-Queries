@@ -1,0 +1,7 @@
+embed.html#SELECT * WHERE {
+  ?lac1 wdt:P138 ?person1 ; wdt:P131 ?loc ; wdt:P31 wd:Q23397 .
+  ?lac2 wdt:P138 ?person2 ; wdt:P131 ?loc ; wdt:P31 wd:Q23397 .
+  ?person1 wdt:P26 ?person2 .
+  FILTER ( str(?lac1) > str(?lac2) )
+}
+LIMIT 10

@@ -1,0 +1,16 @@
+SELECT ?item WHERE {
+  BIND(wd:Q16 AS ?country)
+
+  VALUES ?type {
+    wd:Q111190932 # Ministerial departments (21)
+    wd:Q11828004 # Provinces (10)
+    wd:Q9357527 # Territories (3)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+  MINUS { ?item wdt:P582 [] }
+}

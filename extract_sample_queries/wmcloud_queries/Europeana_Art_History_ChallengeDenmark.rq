@@ -1,0 +1,18 @@
+# click "Execute" to run the query, then (on the right side) below "Display" select the link "Map" or "Image Grid"
+SELECT 
+	?item 
+	?itemLabel 
+	(GROUP_CONCAT(?instanceLabel; separator=", ") as ?instance_of)
+	(SAMPLE(?coord) as ?coordinates)
+	(SAMPLE(?img) as ?image)
+WHERE
+{
+	VALUES ?item { wd:Q18359104 wd:Q21747106 wd:Q6644913 wd:Q21747156 wd:Q21204267 wd:Q20278308 wd:Q20440955 wd:Q20438955 wd:Q20354158 wd:Q20537703  }
+	OPTIONAL {?item wdt:P625 ?coord } .  
+	OPTIONAL {?item wdt:P31 ?instance } .   
+  	OPTIONAL {?item wdt:P18 ?img } .   
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" 
+                           . ?item rdfs:label ?itemLabel
+                           . ?instance rdfs:label ?instanceLabel }
+}
+GROUP BY ?item ?itemLabel 

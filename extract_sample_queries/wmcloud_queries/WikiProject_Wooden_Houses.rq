@@ -1,0 +1,15 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?layer
+WHERE 
+{
+  {
+    ?item wdt:P31 wd:Q1362233.
+  }
+  UNION {
+    ?item wdt:P31 wd:Q279118.
+    ?item wdt:P7046 ?hov.
+ }
+   ?item wdt:P31 ?layer.
+   ?item wdt:P625 ?coord.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

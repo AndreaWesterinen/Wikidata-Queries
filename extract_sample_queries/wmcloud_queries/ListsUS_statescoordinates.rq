@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?st ?sl ?a ?b ?ids ?isstate ?us ?main ?centre ?N ?S ?W ?E
+{
+    ?item wdt:P5087 ?b . 
+    OPTIONAL { ?item wdt:P5086 ?a }
+    OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids }
+    OPTIONAL { ?item wdt:P31 wd:Q35657 . BIND("y" as ?isstate) }
+    OPTIONAL { ?item wdt:P17 wd:Q30 . BIND("y" as ?us) }
+    OPTIONAL { ?item wdt:P625 [] . BIND("♦" as ?main) }
+    OPTIONAL { ?item wdt:P5140 [] . BIND("♦" as ?centre) }
+    OPTIONAL { ?item wdt:P1332 [] . BIND("♦" as ?N) }
+    OPTIONAL { ?item wdt:P1333 [] . BIND("♦" as ?S) }
+    OPTIONAL { ?item wdt:P1334 [] . BIND("♦" as ?E) }
+    OPTIONAL { ?item wdt:P1335 [] . BIND("♦" as ?W) }
+}  
+ORDER BY DESC(?us) DESC(?isstate) DESC(?item = wd:Q61 ) DESC(BOUND(?a)) ?a ?b

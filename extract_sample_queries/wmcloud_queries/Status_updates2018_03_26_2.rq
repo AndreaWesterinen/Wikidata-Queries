@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?titelDeutsch
+WHERE
+{
+	?item wdt:P31/wdt:P279* wd:Q11424;
+    	      rdfs:label ?titelDeutsch;
+    FILTER (lang(?titelDeutsch) = "de") .
+    FILTER(STRENDS(?titelDeutsch,"antwortet nicht")).
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

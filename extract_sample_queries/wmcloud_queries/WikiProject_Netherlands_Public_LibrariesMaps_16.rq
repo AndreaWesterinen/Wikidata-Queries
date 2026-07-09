@@ -1,0 +1,28 @@
+embed.html##Provincie Utrecht
+#defaultView:Map
+SELECT ?Qvestiging ?QvestigingLabel ?coor ?partof ?partofLabel ?image ?layer WHERE {
+#SELECT ?s ?sLabel ?coor ?image ?layer WHERE { 
+  
+       ?Qvestiging (p:P31/ps:P31) wd:Q28564;wdt:P17 wd:Q55;
+          wdt:P625 ?coor ;
+          wdt:P361 ?partof ;
+          OPTIONAL {?Qvestiging wdt:P18 ?image .}
+  
+VALUES ?partof {
+# Utrecht  
+wd:Q59962322 #St. de Bieb Utrecht
+wd:Q59962182 #St. Bieb Nieuwegein
+wd:Q24040756 #St.Bibliotheken Eemland
+wd:Q59962328 #St. OB Veenendaal
+                 }
+BIND(
+# Utrecht  
+IF(?partof = wd:Q59962322, "Utrecht",
+IF(?partof = wd:Q59962182, "Nieuwegein",
+IF(?partof = wd:Q59962328, "Veenendaal",
+IF(?partof = wd:Q24040756, "Amersfoort, Baarn, Leusden, Bunschoten en Woudenberg",   
+""))))AS ?layer).  
+ 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" }
+}
+ORDER BY ?layer ?partofLabel ?QvestigingLabel

@@ -1,0 +1,8 @@
+#Katter
+SELECT ?item ?itemLabel ?picture
+WHERE 
+{
+  ?item wdt:P31 wd:Q106153893.
+  OPTIONAL {?item wdt:P18 ?picture.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

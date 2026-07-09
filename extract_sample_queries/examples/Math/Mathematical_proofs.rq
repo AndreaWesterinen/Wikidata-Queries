@@ -1,3 +1,4 @@
+#title: Mathematical proofs
 SELECT ?proof ?proofLabel
 WHERE
 {

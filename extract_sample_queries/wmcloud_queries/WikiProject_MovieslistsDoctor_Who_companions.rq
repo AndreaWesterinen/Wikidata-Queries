@@ -1,0 +1,17 @@
+SELECT ?item ?d (SAMPLE(?imgA) as ?img) (COUNT(DISTINCT ?ep) as ?epcount) (COUNT(DISTINCT ?serial) as ?serialcount)
+WHERE
+{
+  { ?item wdt:P5800 wd:Q55497622 } UNION { ?item wdt:P2546/wdt:P31 wd:Q47543030 }
+  OPTIONAL { ?item wdt:P4584 ?firstep . ?firstep wdt:P179 wd:Q34316 ; wdt:P577 ?d }
+  FILTER NOT EXISTS { ?item wdt:P4584 ?firstep2 . ?firstep2 wdt:P179 wd:Q34316 ; wdt:P577 ?d2 . FILTER( ?d2 < ?d)  }
+  OPTIONAL { ?ep wdt:P674 ?item ; wdt:P31 wd:Q21191270 }
+  OPTIONAL { ?serial wdt:P674 ?item ; wdt:P31 wd:Q28225717 }
+
+  OPTIONAL { ?item wdt:P18 ?img1 }
+  OPTIONAL { ?item wdt:P175 / wdt:P18 ?img2 }
+  OPTIONAL { ?item wdt:P6802 ?img3 }
+  OPTIONAL { ?item wdt:P175 / wdt:P6802 ?img4 }
+  BIND( COALESCE( ?img1 , ?img2 , ?img3 , ?img4 ) as ?imgA)
+}
+GROUP BY ?item ?d
+ORDER BY (!BOUND(?d)) ?d ?epcount

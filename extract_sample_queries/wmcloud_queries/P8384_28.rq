@@ -1,0 +1,4 @@
+#title: locality in Austria without number
+# Complex constraint from [[Property talk:P8384]]
+# [[d:Q3257686|locality <small>(Q3257686)</small>]] in [[d:Q40|Austria <small>(Q40)</small>]] lacking a [[Property:P8384|locality number in Austria&#32;<small dir="ltr">(P8384)</small>]] statement specifying the [[d:Q60476040|locality number <small>(Q60476040)</small>]]
+SELECT ?item WHERE { ?item wdt:P31 wd:Q3257686 . ?item wdt:P17 wd:Q40 . MINUS { ?item wdt:P8384 ?any . } }

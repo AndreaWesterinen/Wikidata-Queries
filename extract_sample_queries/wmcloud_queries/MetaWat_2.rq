@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?article ?sitelinks WHERE {
+  ?article schema:isPartOf <https://myv.wikipedia.org/> .
+  ?article schema:about ?item .
+  ?item wikibase:sitelinks ?sitelinks.
+  FILTER (?sitelinks = 1).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],myv,ru,en" } .
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836. } # instance of WM category
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167410. } # instance of WM disambiguation page
+} LIMIT 200

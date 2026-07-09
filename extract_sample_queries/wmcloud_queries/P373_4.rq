@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?c1 ?c2 WHERE {
+  ?item wdt:P373 ?c1.
+  ?item wdt:P373 ?c2.
+  FILTER(?c1 != ?c2). 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

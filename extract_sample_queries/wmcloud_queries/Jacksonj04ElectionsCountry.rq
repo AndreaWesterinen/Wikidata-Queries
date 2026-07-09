@@ -1,0 +1,9 @@
+SELECT ?item ?country ?date
+WHERE 
+{
+  ?item wdt:P31/wdt:P279* wd:Q40231 .
+  ?item wdt:P585 ?date .
+  OPTIONAL { ?item wdt:P17 ?country . }
+  FILTER(?date > NOW())
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

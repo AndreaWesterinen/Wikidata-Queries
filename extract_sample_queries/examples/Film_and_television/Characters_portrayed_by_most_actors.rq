@@ -1,3 +1,4 @@
+#title: Characters portrayed by most actors
 SELECT ?character ?characterLabel (COUNT(?actor) AS ?count)
 WHERE
 {

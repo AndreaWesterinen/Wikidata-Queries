@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?loc WHERE {
+  ?item wdt:P31 wd:Q3305213.
+  ?item wdt:P276 ?loc.
+  ?loc wdt:P131* wd:Q701.
+  OPTIONAL { ?item wdt:P195 ?coll. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+  MINUS {
+    ?item wdt:P195 wd:Q25861166.
+    ?item wdt:P195 wd:Q17201547 .
+    ?item wdt:P195 wd:Q1820897 .
+    ?item wdt:P195 wd:Q924335.
+  }
+} LIMIT 1000

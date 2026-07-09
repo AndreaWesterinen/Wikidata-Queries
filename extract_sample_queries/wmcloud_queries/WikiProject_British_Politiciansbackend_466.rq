@@ -1,0 +1,33 @@
+SELECT distinct ?term ?termLabel ?constituency ?constituencyLabel ?count ?caveats ?total where
+{
+  { SELECT distinct ?term ?start where 
+   {
+    # { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union
+     { ?term wdt:P279 wd:Q18018860 } 
+      ?term wdt:P571 ?start . 
+  } # find all terms and their date (for sorting)
+ } 
+  { SELECT ?term (count(distinct ?item) as ?members) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+    { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 } 
+    } group by ?term
+  } # number of people in this term
+    # this code finds anyone who served at any point in the parliamentary term 
+
+ { SELECT ?term ?constituency (count(distinct ?item) as ?count) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+      { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 } 
+      ?positionStatement pq:P768 ?constituency . minus { ?positionStatement pq:P768 wd:Q60578265 . }  
+    } group by ?term ?constituency HAVING (?count >2)
+  } # as above, count only with a known constituency
+ optional { SELECT ?term ?constituency (count(distinct ?item) as ?caveats) where 
+    { ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term . 
+      { ?term wdt:P279 wd:Q16707842 } union { ?term wdt:P279 wd:Q18015642 } union { ?term wdt:P279 wd:Q18018860 } 
+      ?positionStatement pq:P768 ?constituency .
+      ?positionStatement pq:P793 ?note .
+    } group by ?term ?constituency
+  } #items with caveats
+  bind((?count - ?caveats ) as ?total)
+  optional {?category wdt:P301 ?term }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} order by ?start

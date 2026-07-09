@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?interpetreLabel ?generoLabel ?cn
+WHERE {
+    ?item (wdt:P31/wdt:P279*) wd:Q482994;
+          wdt:P495 wd:Q414;
+          wikibase:statements ?cn.
+  OPTIONAL {
+    ?item wdt:P175 ?interpetre.
+  }
+  OPTIONAL {
+    ?item wdt:P136 ?genero.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+}

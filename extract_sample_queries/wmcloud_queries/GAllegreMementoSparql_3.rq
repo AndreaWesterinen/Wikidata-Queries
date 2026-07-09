@@ -1,0 +1,11 @@
+bigdata/namespace/wdq/sparql?query=PREFIX v: <http://www.wikidata.org/prop/statement/> #mandatory
+
+SELECT  ?lang ?langLabel (COUNT(DISTINCT ?item) as ?itemCount)
+WHERE
+{
+	?item p:P2919 ?file_statement .
+    ?file_statement v:P2919 ?file .
+    OPTIONAL { ?file_statement pq:P407 ?lang }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?lang ?langLabel ORDER BY DESC(?itemCount)

@@ -1,0 +1,6 @@
+SELECT *
+{
+    ?item wdt:P227 [] ; wdt:P214 [] ; schema:description ?d .
+    FILTER(lang(?d)="en" && REGEX(str(?d), ".*Beruf/Funktion.*") )
+}
+LIMIT 100

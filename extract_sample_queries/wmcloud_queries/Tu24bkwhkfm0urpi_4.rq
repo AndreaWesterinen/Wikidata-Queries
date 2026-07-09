@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?image
+WHERE
+{
+  ?item wdt:P31/wdt:P279* wd:Q3305213 .   
+  ?item wdt:P180 ?object .
+  ?item ?prop ?hhlink .
+  ?hhlink ?prop2 wd:Q29 .
+  ?object wdt:P279* wd:Q34379 .  
+  ?item wdt:P18 ?image .
+}

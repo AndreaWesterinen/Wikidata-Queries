@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?value ?st
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P17 wd:Q408 ; wikibase:statements 1
+       }
+       LIMIT 10000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?st) ?item

@@ -1,0 +1,12 @@
+select ?declaration ?property ?propertyLabel ?valeurPrincipale ?valeurPrincipaleLabel ?qual ?qualifierLabel {
+  ?declaration ?qual wd:Q132555 .
+  ?declaration ?property ?valeurPrincipale .
+  ?mainproperty wikibase:statementProperty ?property .
+  ?q wikibase:qualifier ?qual.
+    SERVICE wikibase:label { 
+      bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+      ?mainproperty rdfs:label ?propertyLabel .
+      ?q rdfs:label ?qualifierLabel .
+      ?valeurPrincipale rdfs:label ?valeurPrincipaleLabel .
+    }
+}

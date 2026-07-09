@@ -1,0 +1,10 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5.
+  { ?item wdt:P27 wd:Q25279. }
+  UNION
+  { ?item wdt:P19 ?placeofbirth.
+  ?placeofbirth wdt:P17 wd:Q25279. }
+  UNION
+  { ?item wdt:P20 ?placeofdeath.
+  ?placeofdeath wdt:P17 wd:Q25279. }
+}

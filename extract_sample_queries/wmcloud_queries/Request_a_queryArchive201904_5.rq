@@ -1,0 +1,9 @@
+#Karte der Umgebindehäuser
+#added 2019-02
+#defaultView:Map{"markercluster": {}}
+SELECT * WHERE {
+  ?item (wdt:P31*/wdt:P279*) wd:Q1362233.
+  ?item wdt:P625 ?geo.
+  OPTIONAL { ?item wdt:P6375 ?Adresse. filter(lang(?Adresse)="de")}
+  OPTIONAL { ?item wdt:P18 ?Bild. }
+}

@@ -1,0 +1,17 @@
+#title: Possibly wrong inheritance pattern 2
+# Complex constraint from [[Property talk:P1853]]
+# Parents who have only blood type O or B, can't have a child having blood type A or AB. Similarly, parents with O or A, can't have a child having B or AB.
+SELECT * WHERE {
+ 
+  ?item wdt:P25 ?parent1.
+  ?item wdt:P22 ?parent2.
+   
+  ?item wdt:P1853 ?itemBloodType.
+  ?parent1 wdt:P1853 ?parentBloodType1.
+  ?parent2 wdt:P1853 ?parentBloodType2.
+  
+  FILTER ((?parentBloodType1 = wd:Q19831451 \u007C\u007C ?parentBloodType1 = wd:Q19831453) && (?parentBloodType2 = wd:Q19831451 \u007C\u007C ?parentBloodType2 = wd:Q19831453) && (?itemBloodType = wd:Q19831454 \u007C\u007C ?itemBloodType = wd:Q19831455)
+          \u007C\u007C
+          (?parentBloodType1 = wd:Q19831451 \u007C\u007C ?parentBloodType1 = wd:Q19831454) && (?parentBloodType2 = wd:Q19831451 \u007C\u007C ?parentBloodType2 = wd:Q19831454) && (?itemBloodType = wd:Q19831453 \u007C\u007C ?itemBloodType = wd:Q19831455)
+         )  
+}

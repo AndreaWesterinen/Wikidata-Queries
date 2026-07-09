@@ -1,0 +1,26 @@
+#defaultView:Map{"hide":["?geographische_Koordinaten", "?layer", "?GLIEMNummer""]}
+SELECT ?GLIEM ?GLIEMLabel ?GLIEMNummer ?geographische_Koordinaten ?Bild ?layer
+WHERE {
+  ?GLIEM wdt:P31 wd:Q721747;
+         wdt:P361 wd:Q95124492;
+         wdt:P1545 ?GLIEMNummer.
+  OPTIONAL {
+    ?GLIEM wdt:P625 ?geographische_Koordinaten;
+           wdt:P5816 wd:Q56557591.
+    MINUS {?GLIEM wdt:P18 ?Bild}
+    BIND ("Kein Bild vorhanden/No picture available" AS ?layer)
+  }
+  OPTIONAL {
+    ?GLIEM wdt:P18 ?Bild;
+           wdt:P625 ?geographische_Koordinaten;
+           wdt:P5816 wd:Q56557591.
+    BIND ("Bild vorhanden/Picture available" AS ?layer)
+    }
+  OPTIONAL {
+    ?GLIEM wdt:P625 ?geographische_Koordinaten;
+           wdt:P5816 wd:Q63065035.
+    BIND ("Tafel nicht erhalten/Plaque not preserved" AS ?layer)
+    }
+    
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en"  }
+  }

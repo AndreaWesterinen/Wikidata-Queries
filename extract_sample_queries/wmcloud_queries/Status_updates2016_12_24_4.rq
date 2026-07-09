@@ -1,0 +1,30 @@
+# Query Find in WikiData people with Place of Burial Q252312 Norra Begravningsplatsen
+# that has no picture of the grave
+#defaultView:Map
+select distinct ?groupLabel (?groupLabel as ?layer) ?article ?person ?personLabel  ?personDescription  ?graveplot ?coord ?pic ?picGrave ?WikiTree ?FindAGrave{
+{
+	?person wdt:P119 wd:Q252312; #Place of burial
+            p:P119 [ 
+              pq:P965 ?graveplot;
+              pq:P625 ?coord].                          
+   OPTIONAL { ?person wdt:P535 ?FindAGraveID .} 		# If we have a FindAGrave ID
+   OPTIONAL{ ?person wdt:P18 ?pic .} 					# If we have an illustration
+   minus { ?person wdt:P1442 ?picGrave .} 			# If we have a picture of the grave
+   BIND (URI(CONCAT("http://www.findagrave.com/cgi-bin/fg.cgi?page=gr&df=all&GRid=",?FindAGraveID)) AS ?FindAGrave)
+   OPTIONAL {
+      ?article schema:about ?person .
+      ?article schema:inLanguage "sv" .
+      ?article schema:isPartOf <https://sv.wikipedia.org/> .
+    }
+   OPTIONAL {
+      ?article schema:about ?person .
+      ?article schema:inLanguage "en" .
+      ?article schema:isPartOf <https://en.wikipedia.org/> .
+    }
+
+   OPTIONAL { ?person wdt:P21 ?group .} 			# Gender in Layer
+
+}   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en","sv"}
+ }
+Order by ?personLabel

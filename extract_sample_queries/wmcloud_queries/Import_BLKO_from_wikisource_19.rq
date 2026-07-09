@@ -1,0 +1,13 @@
+SELECT DISTINCT ?wst
+WHERE
+{
+  ?item	wdt:P1433 wd:Q665807 .
+  [] schema:about ?item ; schema:isPartOf <https://de.wikisource.org/>; schema:name ?wst .
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q9353932 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q1114135 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q89374120 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q89349829 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q89697681 }  
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q90076236 }  
+}
+ORDER BY ?wst

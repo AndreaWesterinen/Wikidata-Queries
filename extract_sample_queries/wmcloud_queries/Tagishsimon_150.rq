@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?itemLabel ?sitelinks ?coord  ?layer WITH { SELECT ?item ?layer
+WHERE 
+{
+    {?item wdt:P131/wdt:P131 wd:Q22 . } hint:Prior hint:runFirst true.
+  ?item wdt:P31 wd:Q618123.
+  
+  
+} } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  ?item wikibase:sitelinks ?sitelinks.
+  optional {?item wdt:P625 ?coord .}
+  BIND(if(!BOUND(?layer),"No",?layer) as ?layer)
+} order by desc(?sitelinks) ?itemLabel

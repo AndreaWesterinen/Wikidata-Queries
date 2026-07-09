@@ -1,0 +1,26 @@
+SELECT ?item ?fcode ?jhcode ?rkdurl ?idurl WHERE { 
+  ?item wdt:P31 wd:Q3305213 . 
+  ?item p:P170 ?creatorstatement .
+  ?creatorstatement ps:P170 wd:Q5582 . 
+  MINUS { ?item wdt:P31 wd:Q18761202 } .
+  OPTIONAL {?item p:P528 ?fstatement .
+  ?fstatement ps:P528 ?fcode .
+  ?fstatement pq:P972 wd:Q17280421 . }
+  OPTIONAL {?item p:P528 ?jhstatement .
+  ?jhstatement ps:P528 ?jhcode .
+  ?jhstatement pq:P972 wd:Q19833315 . }
+  OPTIONAL {
+  ?property wikibase:propertyType wikibase:ExternalId .
+  ?property wdt:P31 wd:Q44847669 .
+  ?property wdt:P1630 ?formatterurl .
+  ?property wikibase:directClaim ?claim . 
+  MINUS { ?property wikibase:directClaim wdt:P350 } .
+  ?item ?claim ?id .
+  ?property rdfs:label ?propertyLabel FILTER (lang(?propertyLabel) = "en") .
+  BIND(CONCAT('[', REPLACE(?id, '^(.+)$', ?formatterurl), ' ', ?propertyLabel, ' ', ?id, ']') AS ?idurl) . } 
+  OPTIONAL {
+  wd:P350 wdt:P1630 ?formatterurl .
+  ?item wdt:P350 ?rkdid .
+  BIND(CONCAT('[', REPLACE(?rkdid, '^(.+)$', ?formatterurl), ' ', ?rkdid, ']') AS ?rkdurl) . } 
+  } #ORDER BY xsd:integer(REPLACE(?jhcode, "JH(\\d+)(.+)?", "$1"))
+LIMIT 1000

@@ -1,0 +1,16 @@
+select ?item ?st ?label ?v ?p ?mt ?mtlang {
+  ?item p:P898 ?st.
+  ?st pq:P407 wd:Q9610; ps:P898 ?v.
+  optional { ?item rdfs:label ?label filter(lang(?label) = "en") }
+  minus { ?item ontolex:representation [] }
+  optional {
+    values ?p { wdt:P1705 wdt:P1448 wdt:P1559 wdt:P1476 wd:P1477 wdt:P1843 }
+    ?item ?p ?mt. 
+    bind(lang(?mt) as ?mtlang).
+    #filter (?mtlang = "").
+  }
+  #filter (
+  #  regex(wikibase:decodeUri(str(?v)), concat("/-",?mt,".og[ga]$"))
+  #  || regex(wikibase:decodeUri(str(?v)), concat("/LL-Q9610 \\(\\)-[^-]+-",?mt,".wav$"))
+  #).
+} order by strlen(str(?item))

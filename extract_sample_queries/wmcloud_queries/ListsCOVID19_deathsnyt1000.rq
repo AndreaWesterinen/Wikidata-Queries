@@ -1,0 +1,12 @@
+SELECT ?item ?d ?st ?sl ?ids ?age ?haspob ?haspod
+WHERE
+{
+    ?item wdt:P1343 wd:Q95431705 ; wdt:P31 wd:Q5 
+    OPTIONAL { ?item wdt:P570 ?d }
+    OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids }
+    OPTIONAL { ?item wdt:P569 ?dob ; wdt:P570 ?dod . BIND(YEAR(?dod)-YEAR(?dob) as ?age) }
+    OPTIONAL { ?item wdt:P19 [] . BIND("✔" as ?haspob) }
+    OPTIONAL { ?item wdt:P20 [] . BIND("✔" as ?haspod) }
+}
+ORDER BY BOUND(?age) DESC(?age)
+LIMIT 1000

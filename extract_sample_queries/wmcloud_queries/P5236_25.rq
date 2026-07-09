@@ -1,0 +1,4 @@
+#title: Natural numbers would generally have this property
+# Complex constraint from [[Property talk:P5236]]
+#
+SELECT ?item { ?item wdt:P31 wd:Q21199 . MINUS { ?item wdt:P5236 [] }  } LIMIT 1000

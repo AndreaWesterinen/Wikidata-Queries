@@ -1,0 +1,7 @@
+SELECT ?singer ?singerLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  ?singer wdt:P106 wd:Q177220.
+  ?singer wdt:P27 wd:Q884.
+}
+LIMIT 6000

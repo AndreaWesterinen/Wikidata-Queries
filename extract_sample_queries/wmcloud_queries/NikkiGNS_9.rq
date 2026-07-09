@@ -1,0 +1,9 @@
+select distinct ?item1 ?item1Label ?item2 ?item2Label {
+  ?item1 wdt:P2326 ?value .
+  ?item2 wdt:P2326 ?value .
+  filter (?item1 != ?item2 && str(?item1) < str(?item2)) .
+  service wikibase:label { bd:serviceParam wikibase:language "en,sv" } .
+  minus { ?item1 wdt:P31 wd:Q17362920 }
+  minus { ?item2 wdt:P31 wd:Q17362920 }
+  minus { ?item1 wdt:P31 wd:Q23397 ; wdt:P17 wd:Q33 }
+} 

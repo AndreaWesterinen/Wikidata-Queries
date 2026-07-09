@@ -1,0 +1,10 @@
+SELECT ?item ?qid (COUNT(distinct ?sitelink) as ?count) 
+WHERE 
+{ 
+?item wdt:P31 wd:Q5 .
+?item wdt:P27 wd:Q213 .
+BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid) FILTER (?qid > 22000000) . 
+OPTIONAL { ?sitelink <http://schema.org/about> ?item }  } 
+GROUP BY ?item ?qid 
+ORDER BY DESC(?qid) 
+LIMIT 100

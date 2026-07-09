@@ -1,0 +1,17 @@
+embed.html#SELECT 
+  ?item ?itemLabel ?itemDescription 
+  ?st ?ids ?sl
+  (MIN(?age) as ?age_years) 
+WHERE
+{ 
+  VALUES ?item {
+ wd:Q1 wd:Q2 wd:Q3 wd:{{{4}}} wd:{{{5}}} wd:{{{6}}} wd:{{{7}}} wd:{{{8}}} wd:{{{9}}} wd:{{{10}}} 
+} 
+  ?item wikibase:statements ?st ; wikibase:identifiers ?ids ; wikibase:sitelinks ?sl . 
+  wd:Q38074555 p:P1114 [ ps:P1114 ?milestone ; pq:P585 ?d ]
+  FILTER( ?milestone < xsd:integer(STRAFTER(str(?item),"Q"))) 
+  BIND(ROUND((NOW()-?d)/36.5)/10 as ?age)              
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } 
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?st ?ids ?sl
+ORDER BY ?st

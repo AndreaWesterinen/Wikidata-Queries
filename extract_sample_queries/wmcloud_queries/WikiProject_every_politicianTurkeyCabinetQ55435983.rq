@@ -1,0 +1,12 @@
+SELECT ?item ?position ?sex_gender ?birthdate ?start ?replaces ?end ?cause  ?replaced_by WHERE {
+  ?item p:P39 ?statement.
+  ?statement ps:P39 ?position;
+  pq:P5054 wd:Q55435983.
+  OPTIONAL { ?statement pq:P21 ?sex_gender. }
+  OPTIONAL { ?statement pq:P569 ?birthdate. }
+  OPTIONAL { ?statement pq:P580 ?start. }
+  OPTIONAL { ?statement pq:P1365 ?replaces. }  
+  OPTIONAL { ?statement pq:P582 ?end. }
+  OPTIONAL { ?statement pq:P1534 ?cause. }
+  OPTIONAL { ?statement pq:P1366 ?replaced_by. }  
+}

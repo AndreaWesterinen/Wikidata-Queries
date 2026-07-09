@@ -1,0 +1,12 @@
+embed.html#SELECT ?episode_nb ?item ?itemLabel ?title ?season_nb ?episode_nb_in_season ?season ?sl ?st
+WHERE
+{
+  ?item wdt:P31 wd:Q21191270 ; wdt:P4908 ?season ; wdt:P179 wd:Q2632294 .
+  OPTIONAL { ?season p:P179 [ pq:P1545 ?season_nb ] }
+  OPTIONAL { ?item p:P4908 [ pq:P1545 ?episode_nb_in_season ] }
+  OPTIONAL { ?item p:P179 [ pq:P1545 ?episode_nb ] } 
+  OPTIONAL { ?item wdt:P1476 ?title . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wikibase:sitelinks ?sl ; wikibase:statements ?st }
+}
+ORDER BY xsd:integer(?season_nb) xsd:integer(?episode_nb)

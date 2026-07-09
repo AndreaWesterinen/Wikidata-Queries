@@ -1,0 +1,8 @@
+select ?kinship ?kinshipLabel (count(distinct ?item) as ?count)
+where
+{
+  ?kinship wdt:P31 wd:Q171318 . 
+  optional { ?item p:P1038 ?ks . ?ks pq:P1039 ?kinship }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+group by ?kinship ?kinshipLabel

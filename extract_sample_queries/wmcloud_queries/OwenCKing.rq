@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE
+{
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P108 wd:Q1783178.
+  { ?item wdt:P8413 wd:Q102120520 . } UNION { ?item wdt:P8413 wd:Q101016152 . }
+  { ?item wdt:P5008 wd:Q100153988 . } UNION { ?item wdt:P5008 wd:Q113329855 . }
+}
+ORDER BY ?item

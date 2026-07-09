@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P106 wd:Q3455803 .
+  OPTIONAL {?item rdfs:label ?lab2 . FILTER(LANG(?lab2) = "it").}
+  FILTER(!BOUND(?lab2))
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+  }

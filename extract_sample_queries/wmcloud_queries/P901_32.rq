@@ -1,0 +1,2 @@
+#title:<DeltaBot-removeStatement>
+SELECT DISTINCT ?item WHERE{ ?item wdt:P882 ?val1; wdt:P901 ?val2 FILTER((concat('US',?val1)) = ?val2)}

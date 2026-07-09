@@ -1,0 +1,9 @@
+#defaultView:Tree
+SELECT ?parent ?parentLabel ?type ?typeLabel  ?subtype ?subtypeLabel 
+WHERE {
+  VALUES ?parent { wd:Q7725634 }.
+    ?type wdt:P279 ?parent .
+    OPTIONAL { ?subtype wdt:P279 ?type . }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?typeLabel ?subtypeLabel

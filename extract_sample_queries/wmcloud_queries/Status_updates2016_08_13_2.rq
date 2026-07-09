@@ -1,0 +1,7 @@
+SELECT ?composer ?countryLabel (count(distinct ?f) as ?count) (min(year(?date)) as ?min) (max(year(?date)) as ?max) WHERE { 
+  ?f        wdt:P31 wd:Q11424 ;
+            wdt:P86 ?composer .
+  optional {?f          wdt:P577 ?date }
+  ?composer wdt:P27 ?country  .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} group by ?composer ?countryLabel having (?count > 100)

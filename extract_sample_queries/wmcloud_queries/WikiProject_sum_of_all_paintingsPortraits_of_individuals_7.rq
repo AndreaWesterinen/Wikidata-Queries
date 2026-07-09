@@ -1,0 +1,11 @@
+SELECT ?sitter ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+        wdt:P136 wd:Q134307 ;  
+        wdt:P921 ?sitter ;
+        wdt:P180 ?sitter ;
+        wdt:P18 ?image .
+  ?sitter wdt:P31 wd:Q5 ;
+          wdt:P18 ?image . 
+  MINUS { ?sitter wdt:P1299 [] }  . 
+  
+  } 

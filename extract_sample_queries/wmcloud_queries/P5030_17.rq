@@ -1,0 +1,12 @@
+#title: Candidates (currently with P161 on program)
+# Complex constraint from [[Property talk:P5030]]
+# fix me or define exceptions/correct query
+SELECT ?item ?itemLabel ?itemDescription (COUNT(DISTINCT ?cast) as ?ct) 
+{
+	{ ?item wdt:P136 wd:Q622812 } UNION { ?item wdt:P136 wd:Q986699 } UNION { ?item wdt:P361 wd:Q1806825 }
+	?item wdt:P161  ?cast. 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel ?itemDescription
+HAVING( ?ct > 20)
+ORDER BY DESC(?ct)

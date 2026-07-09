@@ -1,0 +1,26 @@
+SELECT DISTINCT ?item ?itemLabel ?P31 ?P31Label ?partof ?partofLabel
+WHERE {
+  hint:Query hint:optimizer "None".
+  {  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:api "Search";
+                      wikibase:endpoint "www.wikidata.org";
+                      mwapi:srsearch "hydro".
+      ?item wikibase:apiOutputItem mwapi:title .
+    }
+  }
+  UNION
+  {
+    ?item wdt:P361 ?scheme .
+    ?scheme wdt:P31 wd:Q108792154 . # is part of a hydroelectric power scheme
+  }
+  UNION
+  {
+    ?item wdt:P31 wd:Q15911738. #hydro-power station
+  }
+  ?item wdt:P131/wdt:P131* wd:Q22 . hint:Prior hint:gearing "forward".
+  OPTIONAL { ?item wdt:P361 ?partof . }
+  ?item wdt:P31 ?P31.
+  VALUES ?notexist {wd:Q63099748 wd:Q27686}
+  filter not exists {?item wdt:P31 ?notexist . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?partofLabel ?P31Label ?itemLabel

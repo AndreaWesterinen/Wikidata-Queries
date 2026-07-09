@@ -1,3 +1,4 @@
+#title: Biologists with Twitter accounts
 SELECT DISTINCT ?personLabel (CONCAT("https://twitter.com/",?twitterName) AS ?twitterlink) ?pic
 WHERE {
   ?person wdt:P2002 ?twitterName ;

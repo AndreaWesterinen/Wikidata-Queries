@@ -1,0 +1,9 @@
+SELECT ?item (SAMPLE(?main) as ?main) (SAMPLE(?qty) as ?qty) (GROUP_CONCAT(DISTINCT ?year; separator=", ") as ?years)
+{ 
+    ?item wdt:P279+ wd:Q43767805 . 
+    OPTIONAL {  ?item wdt:P279* ?main . ?main wdt:P279+ wd:Q43767805 .
+    ?main p:P2670 [ ps:P2670 wd:Q2312410 ; pq:P1114 ?qty ] }
+    OPTIONAL { ?comp wdt:P641 ?item ; wdt:P361+ ?ol . ?ol wdt:P31/wdt:P279 wd:Q5389 . ?ol wdt:P580 ?dt . BIND(YEAR(?dt) as ?year) }
+}
+GROUP BY ?item
+ORDER BY ?qty DESC(?main = ?item ) ?item

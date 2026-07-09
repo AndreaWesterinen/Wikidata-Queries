@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel
+{ 
+    hint:Query hint:optimizer "None".
+    ?item wdt:P27 wd:Q142 .
+    hint:Prior hint:rangeSafe true .
+    FILTER NOT EXISTS { ?item rdfs:label ?l . FILTER( lang(?l) = "en") }
+    ?item wdt:P31 wd:Q5 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,it,es,pt" }
+}

@@ -1,0 +1,36 @@
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?rgb ?amendedby ?amendedbyLabel 
+{
+  ?item wdt:P2461 ?value .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "". }
+  
+  
+  {?item wdt:P2567 ?amendedby .}
+  UNION
+  {?item wdt:P2568 ?amendedby .}
+
+  OPTIONAL {?item wdt:P126 ?dept .
+    values (?dept ?rgb) { 
+      (wd:Q1191489 "7700FF")
+      (wd:Q17002394 "FF00FF")
+      (wd:Q16257337 "00FFFF")
+      (wd:Q2981744 "FF0000")
+      (wd:Q4294668 "00FF00")
+      (wd:Q3295575 "0000FF")
+      (wd:Q3277092 "000000")
+      (wd:Q4294705 "FFFF77")
+      (wd:Q55393012 "FF77FF")
+      (wd:Q16257333 "77FFFF")
+      (wd:Q3055310 "FF7777")
+      (wd:Q3044789 "770000")
+      (wd:Q19872842 "7777FF")
+      (wd:Q19872849 "FF7700")
+      (wd:Q28129565 "007700")
+      (wd:Q39071190 "FFFF00")
+      (wd:Q4294808 "777777")
+      (wd:Q4294371 "000077")
+    }
+  }  
+  BIND( IF(!BOUND(?dept), "AAAAAA" ,  ?rgb )  AS ?rgb).  
+} 

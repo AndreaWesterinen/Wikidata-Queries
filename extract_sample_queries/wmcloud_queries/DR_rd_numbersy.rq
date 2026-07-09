@@ -1,0 +1,14 @@
+SELECT ?item ?dod ?itemLabel ?itemDescription
+WHERE
+{
+	?item wdt:P570 ?dod .
+	FILTER ( ?dod >= "{{{year}}}-01-01T00:00:00Z"^^xsd:dateTime && ?dod <= "{{{year}}}-12-31T00:00:00Z"^^xsd:dateTime )
+  	?item wdt:P31 wd:Q5 .
+	{ ?item wdt:P106 wd:Q49757 .} 
+  	UNION {    ?item wdt:P106 wd:Q36180 .} 
+  	UNION {    ?item wdt:P106 wd:Q482980 .} 
+  	UNION {    ?item wdt:P106 wd:Q6625963 .}
+  	OPTIONAL { ?item wdt:P214 ?v }
+  	FILTER(!bound(?v))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en". }  
+}

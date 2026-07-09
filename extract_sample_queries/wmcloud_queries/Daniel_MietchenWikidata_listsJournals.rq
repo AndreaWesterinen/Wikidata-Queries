@@ -1,0 +1,6 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5633421 .
+  ?item wdt:P236 ?dummy0 .
+  ?wiki0 <http://schema.org/about> ?item .
+  ?wiki0 <http://schema.org/isPartOf> <https://en.wikipedia.org/> .
+}

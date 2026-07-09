@@ -1,0 +1,6 @@
+SELECT ?Person ?PersonLabel ?CollegeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?College wdt:P31 wd:Q1055028.
+  ?Person wdt:P69 ?College.
+}
+LIMIT 1000

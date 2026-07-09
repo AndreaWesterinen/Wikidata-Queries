@@ -1,0 +1,9 @@
+SELECT ?item ?dod ?itemLabel ?age ?itemDescription ?dob 
+WHERE
+{
+	?item wdt:P570 ?dod .
+	FILTER ( ?dod >= "2016-01-01T00:00:00Z"^^xsd:dateTime && ?dod <= "2016-12-31T00:00:00Z"^^xsd:dateTime )
+  	?item wdt:P31 wd:Q5 .
+  	OPTIONAL { ?item wdt:P569 ?dob . BIND( (2016-YEAR(?dob)+1) as ?age) }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en". }  
+}

@@ -1,0 +1,4 @@
+select ?person ?personLabel where {
+  ?person wdt:P361 wd:Q1299.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

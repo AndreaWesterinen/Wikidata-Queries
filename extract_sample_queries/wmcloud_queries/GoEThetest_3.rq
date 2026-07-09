@@ -1,0 +1,38 @@
+select distinct ?province ?provinceLabel (count(?item) as ?count_without_image) where {
+{
+SELECT DISTINCT ?item ?province WHERE {
+  ?item wdt:P17 wd:Q45 . 
+  ?item wdt:P1702 ?dgpcid .
+  ?item wdt:P1700 ?sipaid .
+  
+  minus {?item wdt:P18 ?image }
+  
+  ?item wdt:P131* ?province .
+  values ?province {wd:Q273533 #Guarda
+                    wd:Q373528 #Bragança
+                    wd:Q210527 #Aveiro
+                    wd:Q244517 #Coimbra
+                    wd:Q244512 #Leiria
+                    wd:Q321455 #Beja
+                    wd:Q326203 #Braga
+                    wd:Q273529 #Castelo Branco
+                    wd:Q244521 #Faro
+                    wd:Q207199 #Lisboa
+                    wd:Q225189 #Portalegre
+                    wd:Q244510 #Santarém
+                    wd:Q274109 #Setúbal
+                    wd:Q326214 #Viana do Castelo
+                    wd:Q379372 #Vila Real
+                    wd:Q273525 #Viseu
+                    wd:Q274118 #Évora
+                    wd:Q322792 #Porto
+                    wd:Q25263 #Açores
+                    wd:Q26253 #Madeira
+                   }
+  
+}
+    }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "pt". }
+  
+}
+GROUP BY ?province ?provinceLabel

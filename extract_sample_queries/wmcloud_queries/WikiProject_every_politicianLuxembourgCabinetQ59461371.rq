@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?position ?positionLabel ?began ?ended WHERE {
+  BIND (wd:Q59461371 AS ?cabinet) .
+  BIND (wd:Q25056658 AS ?parent) .
+
+  # Dates of this cabinet
+  ?cabinet wdt:P571

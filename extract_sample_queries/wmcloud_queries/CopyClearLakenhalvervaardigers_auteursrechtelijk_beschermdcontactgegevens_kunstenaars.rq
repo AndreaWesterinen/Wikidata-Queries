@@ -1,0 +1,39 @@
+SELECT DISTINCT ?item ?itemLabel ?result WHERE {
+  ?item wdt:P31 wd:Q5.
+  FILTER NOT EXISTS {?item wdt:P570 [].}#niet overleden
+  ?item wdt:P6379 wd:Q2098586.
+  ?item wdt:P7763 wd:Q73555012 .
+  OPTIONAL {
+     ?item wdt:P6275 ?auteursrechtvertegenwoordiger.
+    BIND (
+     IF(?auteursrechtvertegenwoordiger = wd:Q71528227, wd:Q2377084, 1/0)
+     AS ?pictoright)
+  }
+  OPTIONAL {?item wdt:P2013 ?facebookid.
+            wd:P2013 wdt:P1630 ?formatterurl .
+            BIND(IRI(REPLACE(?facebookid, '^(.+)$', ?formatterurl)) AS ?facebook).
+           }
+  OPTIONAL {?item wdt:P6634 ?linkedinid.
+            wd:P6634 wdt:P1630 ?formatterurl .
+            BIND(IRI(REPLACE(?linkedinid, '^(.+)$', ?formatterurl)) AS ?linkedin).
+           }
+  OPTIONAL {?item wdt:P2002 ?twitterid.
+            wd:P2002 wdt:P1630 ?formatterurl .
+            BIND(IRI(REPLACE(?twitterid, '^(.+)$', ?formatterurl)) AS ?twitter).
+           }
+  OPTIONAL {?item wdt:P2003 ?instagramid.
+            wd:P2003 wdt:P1630 ?formatterurl .
+            BIND(IRI(REPLACE(?instagramid, '^(.+)$', ?formatterurl)) AS ?instagram).           
+           }
+  OPTIONAL {?item wdt:P856 ?website.}
+  OPTIONAL {?item wdt:P1875 ?vertegenwoordiger.}
+  OPTIONAL {?item wdt:P3220 ?kvkid.
+             wd:P3220 wdt:P1630 ?formatterurl .
+            BIND(IRI(REPLACE(?kvkid, '^(.+)$', ?formatterurl)) AS ?kvk).           
+           }
+  BIND (
+  COALESCE(
+    ?pictoright, ?website, ?vertegenwoordiger, ?instagram, ?facebook, ?linkedin, ?twitter, ?kvk
+  ) AS ?result
+  )
+}

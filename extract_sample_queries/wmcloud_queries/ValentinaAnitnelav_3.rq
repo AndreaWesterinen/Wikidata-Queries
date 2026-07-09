@@ -1,0 +1,8 @@
+#defaultView:BubbleChart
+SELECT distinct ?subjectLabel (COUNT(?item) as ?count) WHERE{
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+  ?item wdt:P823 wd:Q3052772.
+  ?item wdt:P180 ?subject
+}
+GROUP BY ?subjectLabel
+HAVING (?count > 2)

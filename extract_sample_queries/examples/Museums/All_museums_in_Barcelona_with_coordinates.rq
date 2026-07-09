@@ -1,5 +1,4 @@
-# ----
-# All museums (including subclass of museum) in Barcelona with coordinates
+#title: All museums (including subclass of museum) in Barcelona with coordinates
 SELECT DISTINCT ?item ?name ?coord ?lat ?lon
 WHERE
 {

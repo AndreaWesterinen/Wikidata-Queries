@@ -1,0 +1,10 @@
+SELECT * WHERE {
+  ?property rdf:type wikibase:Property;
+    rdfs:label ?english.
+  FILTER(NOT EXISTS {
+    ?property rdfs:label ?hebrew.
+    FILTER((LANG(?hebrew)) = "he")
+  })
+  FILTER((LANG(?english)) = "en")
+}
+LIMIT 10000

@@ -1,0 +1,1 @@
+SELECT ?item ?ilbn ?district { ?item wdt:P31 wd:Q3812392 ; wdt:P131 ?subdistrict . ?subdistrict wdt:P31 wd:Q620471 ; wdt:P131 ?district . ?district wdt:P31 wd:Q152732 ; wdt:P131 wd:Q459732. OPTIONAL { ?item rdfs:label ?ilbn. FILTER(LANG(?ilbn) = "bn") } }

@@ -1,0 +1,6 @@
+#defaultView:Map
+SELECT ?phare ?phareLabel ?coord
+WHERE {
+  ?phare wdt:P31/wdt:P279* wd:Q39715 ; wdt:P625 ?coord .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

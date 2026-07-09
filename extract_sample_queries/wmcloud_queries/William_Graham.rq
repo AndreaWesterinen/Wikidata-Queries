@@ -1,0 +1,5 @@
+SELECT ?item ?desc WHERE {
+  ?item wdt:P31+ wd:Q476068.
+  OPTIONAL {
+    ?item rdfs:label ?desc.
+    FILTER((LANG(?desc)) = 

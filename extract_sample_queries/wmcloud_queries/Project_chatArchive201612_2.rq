@@ -1,0 +1,3 @@
+sparql?format=json&query=SELECT (count(*) as ?total) WHERE {
+	?item wdt:P2936 [] .
+}

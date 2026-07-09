@@ -1,0 +1,41 @@
+SELECT ?item ?itemLabel ?c ?cLabel ?ct1 ?s1 ?ct2 ?s2 ?ct3 ?s3 ?ct4 ?s4
+WITH
+{
+    SELECT ?c (COUNT(DISTINCT ?p) as ?ct1) (SAMPLE(?fp) as ?s1)
+    {
+      ?p wdt:P106 wd:Q10833314 ; wdt:P27 ?c ; wdt:P31 wd:Q5 .
+      OPTIONAL { ?p wdt:P21 wd:Q6581072 . BIND(?p as ?fp) }
+    } GROUP BY ?c
+} as %ct1
+WITH
+{
+    SELECT ?c (COUNT(DISTINCT ?tt) as ?ct2) (SAMPLE(?tt) as ?s2)
+    {
+      ?tt wdt:P31 wd:Q47443726 ; wdt:P17 ?c  .
+    } GROUP BY ?c
+} as %ct2
+WITH
+{
+    SELECT ?c (COUNT(DISTINCT ?tc) as ?ct3) (SAMPLE(?tc) as ?s3)
+    {
+      ?tc wdt:P31 wd:Q847017 ; wdt:P641 wd:Q847 ; wdt:P17 ?c  .
+    } GROUP BY ?c
+} as %ct3
+WITH
+{
+    SELECT ?c (COUNT(DISTINCT ?v) as ?ct4) (SAMPLE(?v) as ?s4)
+    {
+      ?v wdt:P31 wd:Q1076486 ; wdt:P641 wd:Q847 ; wdt:P17 ?c  .
+    } GROUP BY ?c
+} as %ct4
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?item wdt:P31 wd:Q29791211 ; wdt:P641 wd:Q847; wdt:P276 ?c . FILTER NOT EXISTS { ?item wdt:P2094 [] }
+    OPTIONAL { INCLUDE %ct4 }
+    OPTIONAL { INCLUDE %ct3 }
+    OPTIONAL { INCLUDE %ct2 }
+    OPTIONAL { INCLUDE %ct1 }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?cLabel ?item

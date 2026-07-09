@@ -1,0 +1,16 @@
+# awards with no receipiants after 2014
+# doesn't look for "winner" property on award items
+# by Jura1 for GerardM, 2016-06-18
+SELECT ?award ?awardLabel (MAX(?awarddate) as ?latestward) (COUNT(?awardee) as ?awardees)
+{
+  	?awardee p:P166 ?statement . 
+	?statement ps:P166 ?award . 
+  	?statement pq:P585 ?awarddate . 
+  	MINUS { 	{ SELECT ?award { ?awardee p:P166 ?statement . ?statement ps:P166 ?award . ?statement pq:P585 ?awarddate1 FILTER(YEAR(?awarddate1)>2014) } }
+          }
+	OPTIONAL { ?award wdt:P582 ?end }  FILTER(!BOUND(?end))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}  
+GROUP BY ?award ?awardLabel
+ORDER BY DESC(?awardees)
+LIMIT 10000

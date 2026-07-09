@@ -1,0 +1,19 @@
+#title: SAL codes should generally be suburbs, localities, or at least human settlements. Technically all should be a [[d:Q7632426|suburb/locality <small>(Q7632426)</small>]] by definition, approximating a [[d:Q33112019|Suburb and Locality <small>(Q33112019)</small>]].
+# Complex constraint from [[Property talk:P10112]]
+#
+SELECT ?item ?itemLabel ?instance ?instanceLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?instance ?value {
+			?item wdt:P10112 ?value .
+			MINUS {
+				VALUES ?classes { wd:Q7632426 wd:Q188509 wd:Q3257686 wd:Q486972 } .
+				?item wdt:P31/wdt:P279* ?classes .
+			} .
+            ?item wdt:P31 ?instance .
+            FILTER(STRSTARTS(?value, "SAL")).
+		} LIMIT 10000
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

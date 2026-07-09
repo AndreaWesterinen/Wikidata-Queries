@@ -1,0 +1,13 @@
+#added before 2016-10
+SELECT DISTINCT ?item ?itemLabel ?asgsid ?alias
+WHERE
+{
+   ?item wdt:P4014 ?asgsid .
+    FILTER( regex(str(?asgsid), "SSC") )
+
+    OPTIONAL {?item skos:altLabel ?alias FILTER (LANG (?alias) = "en")}
+
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}

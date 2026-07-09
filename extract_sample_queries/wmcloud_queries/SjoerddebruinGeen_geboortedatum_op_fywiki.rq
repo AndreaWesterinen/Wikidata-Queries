@@ -1,0 +1,12 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?article schema:about ?item.
+  ?article schema:isPartOf <https://fy.wikipedia.org/>.
+  MINUS { ?item wdt:P569 _:b5. }
+  MINUS { ?item wdt:P2031 _:b6. }
+  MINUS { ?item wdt:P2032 _:b7. }
+  MINUS { ?item wdt:P1317 _:b8. }
+  MINUS { ?item wdt:P3150 _:b9. }
+}
+ORDER BY DESC(xsd:integer(SUBSTR(STR(?item), (STRLEN("http://www.wikidata.org/entity/Q")) + 1)))
+LIMIT 500

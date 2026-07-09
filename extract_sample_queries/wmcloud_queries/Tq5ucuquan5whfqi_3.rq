@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+# oeuvres avec personnes présumées représentées
+SELECT ?oeuvre ?oeuvreLabel ?personne_representee_presumeeLabel ?personne_representee_presumee ?img WHERE {
+ 	?oeuvre p:P180 [ ps:P180 ?personne_representee_presumee ;
+                 pq:P1480 wd:Q18122778 ].
+    ?personne_representee_presumee wdt:P31 wd:Q5.
+	?oeuvre wdt:P18 ?img.
+    SERVICE wikibase:label { #BabelRainbow
+ 		bd:serviceParam wikibase:language "fr,en,ar,be,bg,bn,ca,cs,da,de,el,es,et,fa,fi,he,hi,hu,hy,id,it,ja,jv,ko,nb,nl,eo,pa,pl,pt,ro,ru,sh,sk,sr,sv,sw,te,th,tr,uk,yue,vec,vi,zh"
+ 	} 
+}

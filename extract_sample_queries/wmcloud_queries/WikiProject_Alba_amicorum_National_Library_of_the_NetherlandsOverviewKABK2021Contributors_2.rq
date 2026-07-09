@@ -1,0 +1,24 @@
+#Contributors to the  Album amicorum of Hiskia van Harinxma thoe Slooten (Q98277114) 
+SELECT DISTINCT ?item ?itemLabel ?creator ?creatorLabel ?gender ?genderLabel ?image ?dateofbirth ?dateofdeath 
+(GROUP_CONCAT(DISTINCT ?occupationLabel ; separator = " -- ") as ?Occupations)
+?CommonsCategory
+WHERE 
+{
+  ?item p:P31/ps:P31 wd:Q81564326.
+  ?item p:P361/ps:P361 wd:Q98277114. 
+  ?item p:P170/ps:P170 ?creator.
+  OPTIONAL {?creator p:P18/ps:P18 ?image.}
+  OPTIONAL {?creator p:P21/ps:P21 ?gender.}
+  OPTIONAL {?creator p:P569/ps:P569 ?dateofbirth.}
+  OPTIONAL {?creator p:P570/ps:P570 ?dateofdeath.}                          
+  OPTIONAL {?creator p:P106/ps:P106 ?occupation.}
+  OPTIONAL {?creator p:P373/ps:P373 ?commonscat.
+  BIND(URI(CONCAT("https://commons.wikimedia.org/wiki/Category:", REPLACE(?commonscat, " ", "_", "i"))) as ?CommonsCategory).}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en".
+                          ?occupation rdfs:label ?occupationLabel.
+                          ?item rdfs:label ?itemLabel.
+                          ?creator rdfs:label ?creatorLabel.
+                          ?gender rdfs:label ?genderLabel.
+                          } 
+} GROUP BY ?item ?itemLabel ?creator ?creatorLabel ?gender ?genderLabel ?image ?dateofbirth ?dateofdeath ?CommonsCategory
+  ORDER BY ASC(?creatorLabel)

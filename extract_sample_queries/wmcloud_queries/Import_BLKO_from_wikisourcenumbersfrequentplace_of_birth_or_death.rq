@@ -1,0 +1,11 @@
+PREFIX llemma:   <http://wikiba.se/ontology#lemma>
+PREFIX lcat:     <http://wikiba.se/ontology#lexicalCategory>
+PREFIX llang:    <http://purl.org/dc/terms/language>
+PREFIX lforms:   <http://www.w3.org/ns/lemon/ontolex#lexicalForm>
+PREFIX lhasform: <http://www.w3.org/ns/lemon/ontolex#representation>
+PREFIX lfeature: <http://wikiba.se/ontology#grammaticalFeature>
+PREFIX lsenses:  <http://www.w3.org/ns/lemon/ontolex#sense>
+PREFIX lglos:    <http://www.w3.org/2004/02/skos/core#definition>
+
+SELECT DISTINCT ?item ?ct ?sample ?lexeme ?lentity ?sample_entry
+   (CONCAT("{","{TD BLKO places","

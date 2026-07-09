@@ -1,0 +1,8 @@
+SELECT ?item ?desc
+WHERE
+{
+	?item wdt:P31 wd:Q4167836 . # ~3 * 10^6 items
+	?item schema:description ?desc
+    FILTER(LANG(?desc)="it")
+}
+LIMIT 1000000

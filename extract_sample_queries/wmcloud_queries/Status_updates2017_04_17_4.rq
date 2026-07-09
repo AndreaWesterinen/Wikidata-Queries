@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?item ?itemL ?coords WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q484170 ;
+        wdt:P625 ?coords ;
+        rdfs:label ?itemL filter (lang(?itemL) = "fr") .
+  FILTER (STRSTARTS(?itemL, "W"))
+}

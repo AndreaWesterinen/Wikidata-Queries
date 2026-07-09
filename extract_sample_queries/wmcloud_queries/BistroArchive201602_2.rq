@@ -1,0 +1,27 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?lieu ?lieuLabel ?pays ?paysLabel ?ct
+WHERE
+{
+	{
+		SELECT ?lieu (COUNT(?item) as ?ct)
+		WHERE 
+		{
+			?item	wdt:P19	?lieu .
+			?item	wdt:P31	wd:Q5 .
+			#?sitelink schema:about ?item .
+			#FILTER (SUBSTR(str(?sitelink), 1, 16) = "https://fr.wikip")        
+		}
+		GROUP BY ?lieu
+		HAVING (?ct > 50)
+	}
+	OPTIONAL { ?lieu wdt:P1464 ?cat }
+	FILTER(!bound(?cat))
+	?lieu wdt:P17 ?pays
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}
+ORDER BY DESC(?ct)

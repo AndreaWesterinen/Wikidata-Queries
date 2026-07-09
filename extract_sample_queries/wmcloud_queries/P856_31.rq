@@ -1,0 +1,8 @@
+#title: to www or not to www
+# Complex constraint from [[Property talk:P856]]
+# Vast majority of sites would handle www. prefix for users. Very rare <s>dinosaurs</s> exceptions are possible.
+SELECT ?item ?value
+{
+  ?item wdt:P856 ?value
+  FILTER(STRSTARTS(STR(?value), "https://www.") \u007C\u007C STRSTARTS(STR(?value), "http://www."))
+} LIMIT 10

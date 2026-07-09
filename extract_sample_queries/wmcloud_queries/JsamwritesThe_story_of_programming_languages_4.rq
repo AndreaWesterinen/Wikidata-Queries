@@ -1,0 +1,11 @@
+SELECT DISTINCT ?property ?propertyLabel
+WHERE
+{
+  ?item wdt:P31/wdt:P279* wd:Q9143;
+        ?propertyUrl [].
+  ?property ?ref ?propertyUrl .
+  ?property a wikibase:Property .
+  ?property rdfs:label ?propertyLabel.
+  FILTER(LANG(?propertyLabel)="en")
+}
+ORDER by ?property

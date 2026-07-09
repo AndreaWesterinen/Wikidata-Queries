@@ -1,0 +1,8 @@
+SELECT ?prop ?propLabel ?propDescripton
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?prop p:P2302 / pq:P5314 wd:Q54828450 . 
+  ?prop wikibase:propertyType wikibase:ExternalId .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+}

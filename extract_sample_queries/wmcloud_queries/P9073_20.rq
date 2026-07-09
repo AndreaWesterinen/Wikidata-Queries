@@ -1,0 +1,15 @@
+#title: Properties lacking this
+# Complex constraint from [[Property talk:P9073]]
+# External-ID-properties used as reference without P9073. TODO: add P9073 statement to property entity, create item when non-existing
+SELECT 
+  ?item ?ms ?msinstance
+  # ?itemLabel ?msLabel ?msinstanceLabel
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  ?item p:P2302 / pq:P5314 wd:Q54828450 . 
+  ?item wikibase:propertyType wikibase:ExternalId .
+  FILTER NOT EXISTS { ?item p:P9073 ?v9073 }
+  OPTIONAL { ?item wdt:P1629 ?ms . ?ms wdt:P31 ?msinstance }
+  # SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

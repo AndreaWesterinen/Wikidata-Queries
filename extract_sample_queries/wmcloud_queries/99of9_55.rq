@@ -1,0 +1,20 @@
+SELECT ?cid ?cidLabel ?elementloc ?dist ?president ?presidentLabel ?pobLabel WHERE {
+  ?element wdt:P31 wd:Q11344 . 
+  ?cid wdt:P138 ?element .
+  ?cid wdt:P625 ?elementloc . 
+  wd:Q42738046 wdt:P488 ?president .
+  ?president wdt:P19 ?pob .
+
+  SERVICE wikibase:around {
+      ?pob wdt:P625 ?pobloc .
+      bd:serviceParam wikibase:center ?elementloc .
+      bd:serviceParam wikibase:radius "50000.0" .     
+  } 
+
+  BIND(geof:distance(?pobloc, ?elementloc) as ?dist)         
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .  }
+}
+#GROUP BY ?president
+ORDER BY ?dist
+LIMIT 1000

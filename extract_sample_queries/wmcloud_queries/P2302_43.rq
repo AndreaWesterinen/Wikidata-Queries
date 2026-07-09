@@ -1,0 +1,10 @@
+#title: "allowed units constraint", "integer constraint" and "no-bounds constraint" must only be used on properties with a Quantity datatype
+# Complex constraint from [[Property talk:P2302]]
+# Only properties with a [[d:Q29934271|quantity <small>(Q29934271)</small>]] datatype should have [[d:Q21514353|allowed units constraint <small>(Q21514353)</small>]], [[d:Q52848401|integer constraint <small>(Q52848401)</small>]] and [[d:Q51723761|no-bounds constraint <small>(Q51723761)</small>]] applied.
+SELECT ?item ?itemLabel ?datatype WHERE {
+  VALUES ?constraints { wd:Q21514353 wd:Q52848401 wd:Q51723761 }.
+  ?item wdt:P2302 ?constraints.
+  ?item wikibase:propertyType ?datatype.
+  FILTER (?datatype != wikibase:Quantity).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

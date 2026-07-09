@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?itemDescription ?type WHERE 
+{ 
+    {
+       BIND('missing Finnish MP ID P39' AS ?mpid)
+       ?item wdt:P39 wd:Q17592486.
+       FILTER NOT EXISTS { ?item wdt:P2181 [] } 
+    } UNION {
+       BIND('missing P39:Q17592486' AS ?mp)
+       ?item wdt:P2181 []
+       FILTER NOT EXISTS { ?item wdt:P39 wd:Q17592486. } 
+    }
+    BIND(IF(BOUND(?mpid), ?mpid, ?mp) AS ?type)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fi" }
+}

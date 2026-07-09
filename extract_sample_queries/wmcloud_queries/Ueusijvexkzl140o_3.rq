@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel ?capitalLabel ?countryLabel ?coords WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q23442 ;
+        wdt:P131+ ?capital .
+
+  ?capital p:P1376 ?scapital .        
+  ?scapital ps:P1376 ?country .
+  FILTER NOT EXISTS { ?scapital pq:P582 ?x }
+
+  ?country p:P31 ?scountry .
+  ?scountry ps:P31 wd:Q6256 .
+  FILTER NOT EXISTS { ?scountry pq:P582 ?x }
+  
+  OPTIONAL { ?item wdt:P625 ?coords }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?countryLabel ?capitalLabel ?itemLabel

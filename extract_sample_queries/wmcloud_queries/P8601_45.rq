@@ -1,0 +1,7 @@
+#title: Art públic de Barcelona sense identificador
+# Complex constraint from [[Property talk:P8601]]
+# elements amb art públic de Barcelona com a estatus patrimonial, però sense identificador d'art públic de Barcelona
+SELECT ?item WHERE {
+  ?item wdt:P1435 wd:Q15945449 .
+  MINUS { ?item wdt:P8601 [] }
+}

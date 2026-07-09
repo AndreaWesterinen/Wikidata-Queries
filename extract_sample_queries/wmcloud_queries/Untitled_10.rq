@@ -1,0 +1,10 @@
+#defaultView:Map{"hide":"?coord"}
+SELECT ?itemLabel ?birthplaceLabel ?coord ?layer {
+  ?item p:P6509 ?p6509stm .
+  ?p6509stm ps:P6509 ?layer .
+  FILTER(?layer > 0)
+  ?p6509stm pq:P642 wd:Q484028 .
+  ?item wdt:P19 ?birthplace .
+  ?birthplace wdt:P625 ?coord .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

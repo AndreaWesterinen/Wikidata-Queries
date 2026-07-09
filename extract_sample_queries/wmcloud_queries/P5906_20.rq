@@ -1,0 +1,16 @@
+#title: Check brand
+# Complex constraint from [[Property talk:P5906]]
+# Check [[Property:P1716|brand&#32;<small dir="ltr">(P1716)</small>]]
+SELECT ?item {
+  {
+SELECT ?item ?itemLabel ?id ?marque ?marqueLabel {
+  ?item wdt:P5906 ?id.
+  ?item wdt:P1716 ?marque
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }    
+  }
+  }
+  BIND (LCASE(?marqueLabel) AS ?lcase)
+  BIND (CONCAT("^(", $lcase, ".+)$") AS ?regexstr)
+  FILTER (REGEX(?id, ?regexstr) = false)
+  FILTER (?marque NOT IN (wd:Q1146710, wd:Q63554165, wd:Q2766))
+}

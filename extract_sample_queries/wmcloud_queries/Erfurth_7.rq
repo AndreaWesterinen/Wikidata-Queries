@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?conn
+WHERE 
+{
+  ?item wdt:P31 wd:Q79007.
+  ?item wdt:P131 wd:Q1731.
+  ?item wdt:P281 "01326".
+  optional {
+     ?item wdt:P2789 ?conn 
+  }
+  MINUS{?item wdt:P2789 []}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?itemLabel

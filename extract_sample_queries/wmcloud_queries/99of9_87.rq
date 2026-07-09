@@ -1,0 +1,15 @@
+#defaultView:BarChart
+SELECT ?IDpred ?IDpredLabel ?count WITH {
+  SELECT ?IDpred (COUNT(?id) AS ?count) WHERE {
+    ?chemical ?IDdir ?id .
+    ?IDpred wikibase:directClaim ?IDdir ;
+            wdt:P31 wd:Q19833835 .
+    FILTER (?IDpred != wd:P639)
+    FILTER (?IDpred != wd:P2926)
+    FILTER (?IDpred != wd:P233)
+    FILTER (?IDpred != wd:P2017)
+  } GROUP BY ?IDpred
+} AS %RESULTS {
+  INCLUDE %RESULTS
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?count)

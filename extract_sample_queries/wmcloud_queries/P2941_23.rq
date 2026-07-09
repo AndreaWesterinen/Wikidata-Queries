@@ -1,0 +1,4 @@
+SELECT (COUNT(DISTINCT ?value) as ?count) 
+{
+  ?item owl:sameAs / wdt:P2941 ?value .
+}

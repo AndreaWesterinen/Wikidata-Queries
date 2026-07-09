@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(DISTINCT ?p) as ?count) (COUNT(DISTINCT ?p0) as ?with)  (?count - ?with as ?todo) ( ROUND(?with / ?count * 100 ) as ?percentage)  (SAMPLE(?p1) as ?samp)
+{
+  VALUES ?item { wd:Q159 wd:Q15180  wd:Q34266 }
+  ?p wdt:P27 ?item .
+  ?p wdt:P31 wd:Q5 .
+  OPTIONAL { ?p rdfs:label ?l . FILTER(lang(?l)="en") . BIND( ?p as ?p0) }
+  OPTIONAL { FILTER NOT EXISTS { ?p rdfs:label ?l . FILTER(lang(?l)="en") } . BIND( ?p as ?p1) }
+}
+GROUP BY ?item 
+ORDER BY DESC(?count)

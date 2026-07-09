@@ -1,0 +1,5 @@
+SELECT (COUNT(DISTINCT ?taxon) AS ?count) WHERE {
+  
+  ?taxon wdt:P31 wd:Q3863.
+}
+LIMIT 1

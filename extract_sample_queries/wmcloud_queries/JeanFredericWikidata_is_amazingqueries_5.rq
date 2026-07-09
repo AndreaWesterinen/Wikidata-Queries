@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q7889.
+  ?item wdt:P400 wd:Q23882.
+  OPTIONAL { ?item wdt:P577 ?_publication_date. }
+  FILTER(!BOUND(?_publication_date))
+}

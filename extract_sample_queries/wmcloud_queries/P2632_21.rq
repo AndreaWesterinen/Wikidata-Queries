@@ -1,0 +1,8 @@
+#title: Real human with a fictional place of detention
+# Complex constraint from [[Property talk:P2632]]
+#
+SELECT DISTINCT ?item {
+  ?item wdt:P2632 ?value .	
+  ?value wdt:P31/wdt:P279* wd:Q17682891 .
+  ?item wdt:P31/wdt:P279* wd:Q5.
+} ORDER BY ?item

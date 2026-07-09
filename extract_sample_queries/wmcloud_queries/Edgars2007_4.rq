@@ -1,0 +1,22 @@
+SELECT ?prop	?p ?rank ?items_with_property	?uses_of_property
+WHERE{	{		SELECT 	?prop 	(COUNT(DISTINCT(?item)) as ?items_with_property)	(COUNT(?id) as ?uses_of_property)
+				WHERE	{
+                  
+                #  ?item ?prop ?value .
+                
+                
+           ?item ?p ?id .
+           ?prop wikibase:directClaim ?p .
+                  
+ ?prop wdt:P1896 ?fsd .
+ ?prop wikibase:propertyType ?type .
+ filter not exists {?prop wdt:P1793 ?regex} .
+         # values ?prop {wd:P3010 }
+  values ?type { wikibase:ExternalId}
+                
+                
+                }
+        group by ?prop
+        }
+}
+ORDER BY DESC(?use) DESC(?items_with_property) ?rank

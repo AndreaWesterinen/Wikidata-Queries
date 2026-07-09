@@ -1,0 +1,9 @@
+#title: Minimum quantity value of a "range constraint" or "difference-within-range constraint" must be less than the maximum quantity value of the range
+# Complex constraint from [[Property talk:P2312]]
+# For a [[d:Q21510860|range constraint <small>(Q21510860)</small>]] or [[d:Q21510854|difference-within-range constraint <small>(Q21510854)</small>]], the value of the [[Property:P2313|minimum value&#32;<small dir="ltr">(P2313)</small>]] qualifier must be less than the value of the [[Property:P2312|maximum value&#32;<small dir="ltr">(P2312)</small>]] qualifier.
+SELECT ?item ?itemLabel ?constraint ?constraintLabel ?min ?max WHERE {
+  VALUES ?constraint { wd:Q21510860 wd:Q21510854 }.
+  ?item p:P2302 [ps:P2302 ?constraint; pq:P2313 ?min; pq:P2312 ?max].
+  FILTER (?min >= ?max).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

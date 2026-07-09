@@ -1,0 +1,4 @@
+select ?item {
+  ?item wdt:P123 [];
+        wdt:P747 []
+}        

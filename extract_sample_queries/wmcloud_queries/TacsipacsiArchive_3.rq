@@ -1,0 +1,5 @@
+SELECT (COUNT(?item) AS ?count) WHERE {
+  ?item wdt:P3226 ?mta; wdt:P569 ?dob.
+  MINUS { ?item wdt:P2492 []. }
+  FILTER(?dob >= "1950-01-01T00:00:00Z"^^xsd:dateTime)
+}

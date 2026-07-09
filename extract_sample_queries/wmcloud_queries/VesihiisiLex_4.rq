@@ -1,0 +1,15 @@
+# When were the usage examples in a given language published
+#defaultView:BarChart
+SELECT DISTINCT ?year (COUNT(?stated_in) AS ?count ) WHERE {
+  ?l a ontolex:LexicalEntry;
+       dct:language ?language.
+  ?language wdt:P218 'sv'.
+  ?l wdt:P5831 ?example.
+    ?l p:P5831 ?statement.
+    ?statement prov:wasDerivedFrom ?refnode.
+    ?refnode pr:P248 ?stated_in.
+    ?stated_in wdt:P577 ?date.
+    BIND(str(YEAR(?date)) AS ?year)
+}
+GROUP BY ?year
+ORDER BY ?year

@@ -1,0 +1,5 @@
+SELECT ?San_Casciano_in_Val_di_Pesa ?San_Casciano_in_Val_di_PesaLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?San_Casciano_in_Val_di_Pesa wdt:P131 wd:Q82822.
+}
+LIMIT 100

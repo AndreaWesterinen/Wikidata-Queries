@@ -1,0 +1,10 @@
+embed.html#SELECT ?yearLabel (COUNT(*) AS ?cnt) WITH {
+  SELECT DISTINCT ?item WHERE {
+    ?item p:P106/ps:P106/wdt:P279* wd:Q26270618 .
+  }
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  ?item p:P569/psv:P569 [ wikibase:timeValue ?date; wikibase:timePrecision ?precision ] .
+  FILTER(?precision >= 9) .
+  BIND(YEAR(?date) AS ?yearLabel) .
+} GROUP BY ?yearLabel ORDER BY ASC(?yearLabel)

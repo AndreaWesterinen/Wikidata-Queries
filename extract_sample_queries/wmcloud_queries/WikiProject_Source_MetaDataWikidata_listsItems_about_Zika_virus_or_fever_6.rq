@@ -1,0 +1,14 @@
+##defaultView:BubbleChart
+#Most cited publications on Zika virus or Zika fever
+SELECT ?publication ?publicationLabel (COUNT(?publication) AS ?count)
+WHERE
+{
+    ?item wdt:P2860 ?publication .
+    { ?publication wdt:P921 wd:Q202864 . } UNION { ?publication wdt:P921 wd:Q8071861 . }
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+       ?publication rdfs:label ?publicationLabel
+	}
+}
+GROUP BY ?publication ?publicationLabel
+ORDER BY DESC(?count)

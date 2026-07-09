@@ -1,0 +1,4 @@
+#title: Shared images within single item
+# Complex constraint from [[Property talk:P18]]
+# Multiple properties using same image as value
+SELECT DISTINCT ?item WHERE { ?prop1 wikibase:propertyType wikibase:CommonsMedia; wikibase:directClaim ?wdt . ?item ?wdt ?value . ?prop2 wikibase:propertyType wikibase:CommonsMedia . FILTER(?prop1 != ?prop2) . ?prop2 wikibase:directClaim ?wdt2 . ?item ?wdt2 ?value } LIMIT 2500

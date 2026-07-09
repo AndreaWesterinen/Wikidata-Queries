@@ -1,0 +1,11 @@
+SELECT DISTINCT ?creatorLabel ?creator?_date_of_birth ?placebirthLabel ?_date_of_death ?_place_of_deathLabel ?geoloc ?creatorimage  WHERE {
+  ?item wdt:P195 wd:Q2365880.
+  ?item wdt:P170 ?creator.
+  ?creator wdt:P19 ?placebirth.
+  ?creator wdt:P18 ?creatorimage.
+  ?placebirth wdt:P625 ?geoloc.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,fr,en,de". }
+  OPTIONAL { ?creator wdt:P569 ?_date_of_birth. }
+  OPTIONAL { ?creator wdt:P570 ?_date_of_death. }
+  OPTIONAL { ?creator wdt:P20 ?_place_of_death. }
+}

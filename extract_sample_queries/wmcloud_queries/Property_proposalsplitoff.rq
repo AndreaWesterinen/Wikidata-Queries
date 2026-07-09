@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?merger ?mergerLabel WHERE {
+  ?item wdt:P7888 ?merger.          # -> A merged into B
+  ?merger wdt:P155|wdt:P1365 ?item. # <- B follows A or B replaces A
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

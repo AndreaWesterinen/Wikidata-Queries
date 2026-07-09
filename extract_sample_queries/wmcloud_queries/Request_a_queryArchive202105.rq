@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q3917681. #Finds all instances of embassy. Don't change this line.
+  ?item wdt:P17 wd:Q967. #Finds all of the above in the country specified. Change Q967 to the country you want.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

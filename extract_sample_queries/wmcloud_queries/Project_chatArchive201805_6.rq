@@ -1,0 +1,360 @@
+SELECT ?item ?sitelink ?article
+WHERE 
+{
+  VALUES ?sitelink {
+"Abilene Christian Wildcats women's basketball"@en
+"Air Force Falcons women's basketball"@en
+"Akron Zips women's basketball"@en
+"Alabama A&M Lady Bulldogs basketball"@en
+"Alabama Crimson Tide women's basketball"@en
+"Alabama State Lady Hornets basketball"@en
+"Albany Great Danes women's basketball"@en
+"Alcorn State Lady Braves basketball"@en
+"American Eagles women's basketball"@en
+"Appalachian State Mountaineers women's basketball"@en
+"Arizona State Sun Devils women's basketball"@en
+"Arizona Wildcats women's basketball"@en
+"Arkansas Razorbacks women's basketball"@en
+"Arkansas State Red Wolves women's basketball"@en
+"Arkansas–Pine Bluff Golden Lady Lions basketball"@en
+"Army Black Knights women's basketball"@en
+"Auburn Tigers women's basketball"@en
+"Austin Peay Lady Govs basketball"@en
+"Ball State Cardinals women's basketball"@en
+"Baylor Lady Bears women's basketball"@en
+"Belmont Bruins women's basketball"@en
+"Bethune-Cookman Wildcats women's basketball"@en
+"Binghamton Bearcats women's basketball"@en
+"Boise State Broncos women's basketball"@en
+"Boston College Eagles women's basketball"@en
+"Boston University Terriers women's basketball"@en
+"Bowling Green Falcons women's basketball"@en
+"Bradley Braves women's basketball"@en
+"Brown Bears women's basketball"@en
+"Bryant Bulldogs women's basketball"@en
+"Bucknell Bison women's basketball"@en
+"Buffalo Bulls women's basketball"@en
+"Butler Bulldogs women's basketball"@en
+"BYU Cougars women's basketball"@en
+"Cal Poly Mustangs women's basketball"@en
+"Cal State Bakersfield Roadrunners women's basketball"@en
+"Cal State Fullerton Titans women's basketball"@en
+"Cal State Northridge Matadors women's basketball"@en
+"California Baptist Lancers women's basketball"@en
+"California Golden Bears women's basketball"@en
+"Campbell Fighting Camels women's basketball"@en
+"Canisius Golden Griffins women's basketball"@en
+"Central Arkansas Sugar Bears basketball"@en
+"Central Connecticut Blue Devils women's basketball"@en
+"Central Michigan Chippewas women's basketball"@en
+"Charleston Southern Buccaneers women's basketball"@en
+"Charlotte 49ers women's basketball"@en
+"Chattanooga Lady Mocs basketball"@en
+"Chicago State Cougars women's basketball"@en
+"Cincinnati Bearcats women's basketball"@en
+"Clemson Tigers women's basketball"@en
+"Cleveland State Vikings women's basketball"@en
+"Coastal Carolina Chanticleers women's basketball"@en
+"Colgate Raiders women's basketball"@en
+"College of Charleston Cougars women's basketball"@en
+"Colorado Buffaloes women's basketball"@en
+"Colorado State Rams women's basketball"@en
+"Columbia Lions women's basketball"@en
+"Connecticut Huskies women's basketball"@en
+"Coppin State Eagles women's basketball"@en
+"Cornell Big Red women's basketball"@en
+"Creighton Bluejays women's basketball"@en
+"Dartmouth Big Green women's basketball"@en
+"Davidson Wildcats women's basketball"@en
+"Dayton Flyers women's basketball"@en
+"Delaware Fightin' Blue Hens women's basketball"@en
+"Delaware State Hornets women's basketball"@en
+"Denver Pioneers women's basketball"@en
+"DePaul Blue Demons women's basketball"@en
+"Detroit Titans women's basketball"@en
+"Drake Bulldogs women's basketball"@en
+"Drexel Dragons women's basketball"@en
+"Duke Blue Devils women's basketball"@en
+"Duquesne Dukes women's basketball"@en
+"East Carolina Pirates women's basketball"@en
+"East Tennessee State Lady Buccaneers basketball"@en
+"Eastern Illinois Panthers women's basketball"@en
+"Eastern Kentucky Colonels women's basketball"@en
+"Eastern Michigan Eagles women's basketball"@en
+"Eastern Washington Eagles women's basketball"@en
+"Elon Phoenix women's basketball"@en
+"Evansville Purple Aces women's basketball"@en
+"Fairfield Stags women's basketball"@en
+"Fairleigh Dickinson Knights women's basketball"@en
+"FIU Panthers women's basketball"@en
+"Florida A&M Lady Rattlers women's basketball"@en
+"Florida Atlantic Owls women's basketball"@en
+"Florida Gators women's basketball"@en
+"Florida Gulf Coast Eagles women's basketball"@en
+"Florida State Seminoles women's basketball"@en
+"Fordham Rams women's basketball"@en
+"Fort Wayne Mastodons women's basketball"@en
+"Fresno State Bulldogs women's basketball"@en
+"Furman Paladins women's basketball"@en
+"Gardner–Webb Runnin' Bulldogs women's basketball"@en
+"George Mason Patriots women's basketball"@en
+"George Washington Colonials women's basketball"@en
+"Georgetown Hoyas women's basketball"@en
+"Georgia Lady Bulldogs basketball"@en
+"Georgia Southern Eagles women's basketball"@en
+"Georgia State Panthers women's basketball"@en
+"Georgia Tech Yellow Jackets women's basketball"@en
+"Gonzaga Bulldogs women's basketball"@en
+"Grambling State Tigers women's basketball"@en
+"Grand Canyon Antelopes women's basketball"@en
+"Green Bay Phoenix women's basketball"@en
+"Hampton Lady Pirates basketball"@en
+"Hartford Hawks women's basketball"@en
+"Harvard Crimson women's basketball"@en
+"Hawaii Rainbow Wahine basketball"@en
+"High Point Panthers women's basketball"@en
+"Hofstra Pride women's basketball"@en
+"Holy Cross Crusaders women's basketball"@en
+"Houston Baptist Huskies women's basketball"@en
+"Houston Cougars women's basketball"@en
+"Howard Lady Bison basketball"@en
+"Idaho State Bengals women's basketball"@en
+"Idaho Vandals women's basketball"@en
+"Illinois Fighting Illini women's basketball"@en
+"Illinois State Redbirds women's basketball"@en
+"Incarnate Word Cardinals women's basketball"@en
+"Indiana Hoosiers women's basketball"@en
+"Indiana State Sycamores women's basketball"@en
+"Iona Gaels women's basketball"@en
+"Iowa Hawkeyes women's basketball"@en
+"Iowa State Cyclones women's basketball"@en
+"IUPUI Jaguars women's basketball"@en
+"Jackson State Lady Tigers basketball"@en
+"Jacksonville Dolphins women's basketball"@en
+"Jacksonville State Gamecocks women's basketball"@en
+"James Madison Dukes women's basketball"@en
+"Kansas Jayhawks women's basketball"@en
+"Kansas State Wildcats women's basketball"@en
+"Kennesaw State Owls women's basketball"@en
+"Kent State Golden Flashes women's basketball"@en
+"Kentucky Wildcats women's basketball"@en
+"La Salle Explorers women's basketball"@en
+"Lafayette Leopards women's basketball"@en
+"Lamar Lady Cardinals basketball"@en
+"Lehigh Mountain Hawks women's basketball"@en
+"Liberty Lady Flames basketball"@en
+"Lipscomb Bisons women's basketball"@en
+"Little Rock Trojans women's basketball"@en
+"LIU Brooklyn Blackbirds women's basketball"@en
+"Long Beach State 49ers women's basketball"@en
+"Longwood Lancers women's basketball"@en
+"Louisiana Ragin' Cajuns women's basketball"@en
+"Louisiana Tech Lady Techsters basketball"@en
+"Louisiana–Monroe Warhawks women's basketball"@en
+"Louisville Cardinals women's basketball"@en
+"Loyola Greyhounds women's basketball"@en
+"Loyola Marymount Lions women's basketball"@en
+"Loyola Ramblers women's basketball"@en
+"LSU Lady Tigers basketball"@en
+"Maine Black Bears women's basketball"@en
+"Manhattan Lady Jaspers basketball"@en
+"Marist Red Foxes women's basketball"@en
+"Marquette Golden Eagles women's basketball"@en
+"Marshall Thundering Herd women's basketball"@en
+"Maryland Eastern Shore Hawks women's basketball"@en
+"Maryland Terrapins women's basketball"@en
+"McNeese State Cowgirls basketball"@en
+"Memphis Tigers women's basketball"@en
+"Mercer Bears women's basketball"@en
+"Miami Hurricanes women's basketball"@en
+"Miami RedHawks women's basketball"@en
+"Michigan State Spartans women's basketball"@en
+"Michigan Wolverines women's basketball"@en
+"Middle Tennessee Blue Raiders women's basketball"@en
+"Milwaukee Panthers women's basketball"@en
+"Minnesota Golden Gophers women's basketball"@en
+"Mississippi State Bulldogs women's basketball"@en
+"Mississippi Valley State Devilettes basketball"@en
+"Missouri State Lady Bears basketball"@en
+"Missouri Tigers women's basketball"@en
+"Monmouth Hawks women's basketball"@en
+"Montana Lady Griz basketball"@en
+"Montana State Bobcats women's basketball"@en
+"Morehead State Eagles women's basketball"@en
+"Morgan State Lady Bears basketball"@en
+"Mount St. Mary's Mountaineers women's basketball"@en
+"Murray State Racers women's basketball"@en
+"Navy Midshipmen women's basketball"@en
+"NC State Wolfpack women's basketball"@en
+"Nebraska Cornhuskers women's basketball"@en
+"Nevada Wolf Pack women's basketball"@en
+"New Hampshire Wildcats women's basketball"@en
+"New Mexico Lobos women's basketball"@en
+"New Mexico State Aggies women's basketball"@en
+"New Orleans Privateers women's basketball"@en
+"Niagara Purple Eagles women's basketball"@en
+"Nicholls State Colonels women's basketball"@en
+"NJIT Highlanders women's basketball"@en
+"Norfolk State Spartans women's basketball"@en
+"North Alabama Lions women's basketball"@en
+"North Carolina A&T Aggies women's basketball"@en
+"North Carolina Central Lady Eagles basketball"@en
+"North Carolina Tar Heels women's basketball"@en
+"North Dakota Fighting Hawks women's basketball"@en
+"North Dakota State Bison women's basketball"@en
+"North Florida Ospreys women's basketball"@en
+"North Texas Mean Green women's basketball"@en
+"Northeastern Huskies women's basketball"@en
+"Northern Arizona Lumberjacks women's basketball"@en
+"Northern Colorado Bears women's basketball"@en
+"Northern Illinois Huskies women's basketball"@en
+"Northern Iowa Panthers women's basketball"@en
+"Northern Kentucky Norse women's basketball"@en
+"Northwestern State Lady Demons basketball"@en
+"Northwestern Wildcats women's basketball"@en
+"Notre Dame Fighting Irish women's basketball"@en
+"Oakland Golden Grizzlies women's basketball"@en
+"Ohio Bobcats women's basketball"@en
+"Ohio State Buckeyes women's basketball"@en
+"Oklahoma Sooners women's basketball"@en
+"Oklahoma State Cowgirls women's basketball"@en
+"Old Dominion Lady Monarchs basketball"@en
+"Ole Miss Rebels women's basketball"@en
+"Omaha Mavericks women's basketball"@en
+"Oral Roberts Golden Eagles women's basketball"@en
+"Oregon Ducks women's basketball"@en
+"Oregon State Beavers women's basketball"@en
+"Pacific Tigers women's basketball"@en
+"Penn Quakers women's basketball"@en
+"Penn State Lady Lions basketball"@en
+"Pepperdine Waves women's basketball"@en
+"Pittsburgh Panthers women's basketball"@en
+"Portland Pilots women's basketball"@en
+"Portland State Vikings women's basketball"@en
+"Prairie View A&M Lady Panthers basketball"@en
+"Presbyterian Blue Hose women's basketball"@en
+"Princeton Tigers women's basketball"@en
+"Providence Friars women's basketball"@en
+"Purdue Boilermakers women's basketball"@en
+"Quinnipiac Bobcats women's basketball"@en
+"Radford Highlanders women's basketball"@en
+"Rhode Island Rams women's basketball"@en
+"Rice Owls women's basketball"@en
+"Richmond Spiders women's basketball"@en
+"Rider Broncs women's basketball"@en
+"Robert Morris Colonials women's basketball"@en
+"Rutgers Scarlet Knights women's basketball"@en
+"Sacramento State Hornets women's basketball"@en
+"Sacred Heart Pioneers women's basketball"@en
+"Saint Francis Red Flash women's basketball"@en
+"Saint Joseph's Hawks women's basketball"@en
+"Saint Louis Billikens women's basketball"@en
+"Saint Mary's Gaels women's basketball"@en
+"Saint Peter's Peahens basketball"@en
+"Sam Houston State Bearkats women's basketball"@en
+"Samford Bulldogs women's basketball"@en
+"San Diego State Aztecs women's basketball"@en
+"San Diego Toreros women's basketball"@en
+"San Francisco Dons women's basketball"@en
+"San Jose State Spartans women's basketball"@en
+"Santa Clara Broncos women's basketball"@en
+"Savannah State Lady Tigers basketball"@en
+"Seattle Redhawks women's basketball"@en
+"Seton Hall Pirates women's basketball"@en
+"Siena Saints women's basketball"@en
+"SIU Edwardsville Cougars women's basketball"@en
+"SMU Mustangs women's basketball"@en
+"South Alabama Jaguars women's basketball"@en
+"South Carolina Gamecocks women's basketball"@en
+"South Carolina State Lady Bulldogs basketball"@en
+"South Dakota Coyotes women's basketball"@en
+"South Dakota State Jackrabbits women's basketball"@en
+"South Florida Bulls women's basketball"@en
+"Southeast Missouri State Redhawks women's basketball"@en
+"Southeastern Louisiana Lady Lions basketball"@en
+"Southern Illinois Salukis women's basketball"@en
+"Southern Lady Jaguars basketball"@en
+"Southern Miss Lady Eagles basketball"@en
+"Southern Utah Thunderbirds women's basketball"@en
+"St. Bonaventure Bonnies women's basketball"@en
+"St. Francis Brooklyn Terriers women's basketball"@en
+"St. John's Red Storm women's basketball"@en
+"Stanford Cardinal women's basketball"@en
+"Stephen F. Austin Ladyjacks basketball"@en
+"Stetson Hatters women's basketball"@en
+"Stony Brook Seawolves women's basketball"@en
+"Syracuse Orange women's basketball"@en
+"TCU Horned Frogs women's basketball"@en
+"Temple Owls women's basketball"@en
+"Tennessee Lady Volunteers basketball"@en
+"Tennessee State Lady Tigers basketball"@en
+"Tennessee Tech Golden Eagles women's basketball"@en
+"Tennessee–Martin Skyhawks women's basketball"@en
+"Texas A&M Aggies women's basketball"@en
+"Texas A&M–Corpus Christi Islanders women's basketball"@en
+"Texas Longhorns women's basketball"@en
+"Texas Southern Lady Tigers basketball"@en
+"Texas State Bobcats women's basketball"@en
+"Texas Tech Lady Raiders basketball"@en
+"Texas–Arlington Mavericks women's basketball"@en
+"Texas–Rio Grande Valley Vaqueros women's basketball"@en
+"Toledo Rockets women's basketball"@en
+"Towson Tigers women's basketball"@en
+"Troy Trojans women's basketball"@en
+"Tulane Green Wave women's basketball"@en
+"Tulsa Golden Hurricane women's basketball"@en
+"UAB Blazers women's basketball"@en
+"UC Davis Aggies women's basketball"@en
+"UC Irvine Anteaters women's basketball"@en
+"UC Riverside Highlanders women's basketball"@en
+"UC Santa Barbara Gauchos women's basketball"@en
+"UCF Knights women's basketball"@en
+"UCLA Bruins women's basketball"@en
+"UIC Flames women's basketball"@en
+"UMass Lowell River Hawks women's basketball"@en
+"UMass Minutewomen basketball"@en
+"UMBC Retrievers women's basketball"@en
+"UMKC Kangaroos women's basketball"@en
+"UNC Asheville Bulldogs women's basketball"@en
+"UNC Greensboro Spartans women's basketball"@en
+"UNC Wilmington Seahawks women's basketball"@en
+"UNLV Rebels women's basketball"@en
+"USC Trojans women's basketball"@en
+"USC Upstate Spartans women's basketball"@en
+"Utah State Aggies women's basketball"@en
+"Utah Utes women's basketball"@en
+"Utah Valley Wolverines women's basketball"@en
+"UTEP Miners women's basketball"@en
+"UTSA Roadrunners women's basketball"@en
+"Valparaiso Crusaders women's basketball"@en
+"Vanderbilt Commodores women's basketball"@en
+"VCU Rams women's basketball"@en
+"Vermont Catamounts women's basketball"@en
+"Villanova Wildcats women's basketball"@en
+"Virginia Cavaliers women's basketball"@en
+"Virginia Tech Hokies women's basketball"@en
+"Wagner Seahawks women's basketball"@en
+"Wake Forest Demon Deacons women's basketball"@en
+"Washington Huskies women's basketball"@en
+"Washington State Cougars women's basketball"@en
+"Weber State Wildcats women's basketball"@en
+"West Virginia Mountaineers women's basketball"@en
+"Western Carolina Catamounts women's basketball"@en
+"Western Illinois Leathernecks women's basketball"@en
+"Western Michigan Broncos women's basketball"@en
+"Wichita State Shockers women's basketball"@en
+"William & Mary Tribe women's basketball"@en
+"Winthrop Eagles women's basketball"@en
+"Wisconsin Badgers women's basketball"@en
+"WKU Lady Toppers basketball"@en
+"Wofford Terriers women's basketball"@en
+"Wright State Raiders women's basketball"@en
+"Wyoming Cowgirls basketball"@en
+"Xavier Musketeers women's basketball"@en
+"Yale Bulldogs women's basketball"@en
+"Youngstown State Penguins women's basketball"@en
+  } .
+  ?sitelink ^schema:name ?article .
+  ?article schema:about ?item ;
+           schema:isPartOf <https://en.wikipedia.org/> .
+}

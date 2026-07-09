@@ -1,0 +1,6 @@
+SELECT ?language ?languageLabel ?count WHERE {
+  {SELECT ?language (COUNT(?lexeme) AS ?count) WHERE {
+      ?lexeme dct:language ?language.
+  } GROUP BY ?language}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+} ORDER BY DESC(?count)

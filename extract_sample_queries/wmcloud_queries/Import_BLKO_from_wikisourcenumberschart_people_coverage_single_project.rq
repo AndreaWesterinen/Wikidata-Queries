@@ -1,0 +1,23 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("only project linked" as ?legend) 
+  (GROUP_CONCAT(?group;separator = ",") as ?labels) 
+  (GROUP_CONCAT(?count;separator = ",") as ?values)
+WHERE
+{
+   SELECT *
+   {
+      SELECT ?group (COUNT(DISTINCT ?p) as ?count)
+      {
+        hint:Query hint:optimizer "None".
+        ?p wdt:P1343 wd:Q665807 ; wikibase:sitelinks 1 .
+        [] schema:about ?p ; schema:isPartOf ?ws . 
+        ?wp wdt:P856 ?ws ; wdt:P1800 ?group .
+        ?p wdt:P31 wd:Q5 .
+      }
+      GROUP BY ?group
+      ORDER BY DESC(?count)
+      LIMIT 15
+   }
+   ORDER BY DESC(?count) 
+}

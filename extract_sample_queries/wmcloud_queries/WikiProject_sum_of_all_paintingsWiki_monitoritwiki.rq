@@ -1,0 +1,7 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P31 wd:Q1147753 } . # Cyclorama's don't have a collection
+  MINUS { ?item p:P170 [] . ?item p:P195 [] . ?item p:P571 [] } .# Filter out the items that have creator, collection and inception
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://it.wikipedia.org/>
+}

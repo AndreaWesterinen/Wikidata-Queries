@@ -1,0 +1,11 @@
+SELECT DISTINCT ?date ?constituencyLabel ?item ?itemLabel ?eventLabel ?losingLabel ?gainingLabel {
+ VALUES ?term { wd:Q30580546 }
+ ?item p:P39 ?positionStatement . ?positionStatement ps:P39 ?term .  
+ ?positionStatement pq:P768 ?constituency .
+ { ?term wdt:P571 ?termstart . ?positionStatement pq:P580 ?start . filter(?start > ?termstart) . bind(?start as ?date) .
+   optional { ?positionStatement pq:P2715 ?election . bind(?election as ?event) } . ?positionStatement pq:P4100 ?gaining } union 
+ { ?term wdt:P576 ?termend . ?positionStatement pq:P582 ?end . filter(?end < ?termend) . bind(?end as ?date) . 
+   optional { ?positionStatement pq:P1534 ?cause . bind(?cause as ?event) } . ?positionStatement pq:P4100 ?losing .  }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?date ?constituencyLabel desc(?losingLabel)  

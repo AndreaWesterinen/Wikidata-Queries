@@ -1,0 +1,10 @@
+select ?item ?Len ?Lfr ?Den ?Dfr ?PiT where
+{
+  ?item wdt:P31 wd:Q18340514.
+  filter not exists {?item rdfs:label ?Len . filter(lang(?Len)="en")}
+  ?item rdfs:label ?Lfr . filter(lang(?Lfr)="fr")
+  optional {?item schema:description ?Den . filter(lang(?Den)="en")}
+  optional {?item schema:description ?Dfr . filter(lang(?Dfr)="fr")}
+  ?item wdt:P585 ?PiT.
+  }
+order by ?PiT

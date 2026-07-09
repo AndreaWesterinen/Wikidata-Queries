@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?el ?elLabel WHERE {
+  {?el wdt:P31/wdt:P279* wd:Q327496}
+  UNION
+  {?el wdt:P31/wdt:P279* wd:Q1847641}
+  ?item wdt:P3828 ?el .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

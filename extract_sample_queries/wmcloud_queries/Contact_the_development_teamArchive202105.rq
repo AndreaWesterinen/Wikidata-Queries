@@ -1,0 +1,27 @@
+SELECT ?item ?fam_nameLabel ?article  (MAX(?dob) AS ?max_dob) (MAX(?dod) AS ?max_dod) ?titleLabel ?accession WHERE
+{
+    VALUES ?cat {wd:Q25003860} .
+    VALUES ?wp {<https://en.wikipedia.org/>} .
+    [] schema:about ?cat ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?catname .
+    BIND(strbefore(strafter(str(?wp),"//"),"/") as ?wiki) 
+    BIND(str(?catname) as ?cstr)
+    FILTER(BOUND(?cstr) ) 
+    SERVICE wikibase:mwapi
+      {
+      bd:serviceParam wikibase:endpoint ?wiki ; wikibase:api "Generator".
+      bd:serviceParam mwapi:generator "categorymembers".
+      bd:serviceParam mwapi:gcmtitle ?cstr ; mwapi:gcmnamespace "0".
+      bd:serviceParam mwapi:gcmlimit "max".
+      ?item wikibase:apiOutputItem mwapi:item.
+      ?article wikibase:apiOutput mwapi:title.    
+      }
+    FILTER(BOUND(?item) )
+    OPTIONAL { ?item wdt:P569 ?dob }
+    OPTIONAL { ?item wdt:P570 ?dod }
+    OPTIONAL { ?item p:P97 ?title_stmt . ?title_stmt ps:P97 ?title . OPTIONAL {?title_stmt pq:P580 ?accession}} .
+    OPTIONAL { ?item wdt:P734 ?fam_name } .
+    FILTER (!(bound(?dod) && (year(?dod) < 1670))) .
+    FILTER (!(bound(?dob) && (year(?dob) > 1680))) .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?fam_nameLabel ?article ?titleLabel ?accession
+ORDER BY ?fam_nameLabel ?max_dod ?article

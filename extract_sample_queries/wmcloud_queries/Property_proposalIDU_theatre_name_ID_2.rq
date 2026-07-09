@@ -1,0 +1,4 @@
+SELECT ?q ?oldprop ?newprop WHERE {
+  OPTIONAL {?q wdt:P7637 ?oldprop}
+  OPTIONAL {?q wdt:P8129 ?newprop}
+}

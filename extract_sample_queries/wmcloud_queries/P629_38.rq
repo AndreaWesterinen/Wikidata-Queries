@@ -1,0 +1,2 @@
+#title:Add inverse statements from P747
+SELECT DISTINCT ?item { ?item wdt:P629 ?item2 . FILTER ( !isBLANK(?item2) ) . MINUS { ?item2 p:P747/ps:P747/owl:sameAs? ?item }}

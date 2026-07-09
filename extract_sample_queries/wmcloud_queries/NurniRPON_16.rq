@@ -1,0 +1,14 @@
+SELECT DISTINCT (STRAFTER(STR(?o), "/entity/") AS ?_q) ("P27" AS ?_rel) ("Q172107" AS ?_val) ("S3452" AS ?s143) (STRAFTER(STR(?m), "/entity/") AS ?_src)
+WHERE {
+  ?o wdt:P26 ?m.
+  ?m wdt:P27 wd:Q172107.
+  OPTIONAL { ?m wdt:P569 ?du. }
+  OPTIONAL { ?m wdt:P570 ?ds. }
+  OPTIONAL { ?o wdt:P27 ?b. }
+  FILTER(!(BOUND(?b)))
+  BIND(1569  AS ?Rp)
+  BIND(1795  AS ?Rk)
+  BIND(IF(!(BOUND(?du)), 1568 , YEAR(?du)) AS ?d1)
+  BIND(IF(!(BOUND(?du)), 1796 , YEAR(?ds)) AS ?d2)
+  FILTER((?d1 >= ?Rp) && (?d2 <= ?Rk))
+}

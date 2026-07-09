@@ -1,0 +1,19 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?item ?itemLabel ?last_time WHERE {
+    {
+			SELECT ?item (MAX(?time0) AS ?last_time)  WHERE {
+  			?item wdt:P31 wd:Q5 .
+  			?item wdt:P570 ?time0 .
+  			FILTER ( ?time0 >= "1945-01-01T00:00:00Z"^^xsd:dateTime && ?time0 <= "1945-12-31T00:00:00Z"^^xsd:dateTime ) .
+
+        }  GROUP BY ?item
+    }
+           
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+
+} ORDER BY ASC (?last_time)

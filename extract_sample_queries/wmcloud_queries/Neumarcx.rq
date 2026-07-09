@@ -1,0 +1,21 @@
+# Liste der Bundestagswahlkreise 2017
+SELECT ?item ?itemLabel ?start ?ende ?osm_rel ?katalogid ?katalog ?katalogLabel ?article
+WHERE
+{
+ BIND(wd:Q26971257 AS ?katalog)
+ ?item wdt:P31 wd:Q11703715 .
+ ?item p:P31 ?statement .
+ OPTIONAL {?statement pq:P580 ?start.}.
+ OPTIONAL {?statement pq:P582 ?ende.}.
+ OPTIONAL {?item wdt:P402 ?osm_rel.}.
+ ?item p:P528 ?katalogStatement.
+ ?katalogStatement ps:P528 ?katalogid.
+ ?katalogStatement pq:P972 ?katalog.
+ OPTIONAL {
+      ?article schema:about ?item .
+      ?article schema:inLanguage "de" .
+      ?article schema:isPartOf <https://de.wikipedia.org/> .
+    }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+}
+ORDER BY xsd:integer(?katalogid)

@@ -1,0 +1,28 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  	# beroep = fotograaf of onderliggend
+  {?item (wdt:P106/wdt:P279*) wd:Q98084799} #beroepsfotograaf of onderliggend
+    UNION
+  {?item (wdt:P106/wdt:P6275*) wd:Q73278267} #vertegenwoordigd door een auteursrechtenorganisatie
+  	# nationality = Kingdom of the Netherlands
+     UNION
+  {?item wdt:P6275 wd:Q71528227.  #vertegenwoordigd door Pictoright
+  ?item (wdt:P106/wdt:P279*) wd:Q33231} #fotograaf of onderliggend
+    UNION
+  {?item wdt:P463 wd:Q69063196} 
+  
+  {?item wdt:P27 wd:Q29999}
+   	# OR place of birth within Netherlands
+	UNION  {?item wdt:P19 ?pob .
+  ?pob wdt:P17 wd:Q55}
+   	# OR work location within Netherlands
+	UNION  {?item wdt:P937 ?pow .
+  ?pow wdt:P17 wd:Q55}
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 ?por .
+  ?por wdt:P17 wd:Q55}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P20 ?pod .
+  ?pod wdt:P17 wd:Q55}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

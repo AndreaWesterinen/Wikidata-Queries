@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?source ?namedas WHERE {
+    ?item p:P973 ?describedAt .
+    ?describedAt ps:P973 ?source .
+    OPTIONAL {
+      ?describedAt pq:P1810 ?namedas .
+    }
+    FILTER(CONTAINS(LCASE(STR(?source)), "democracy.leeds.gov.uk/"))
+}
+ORDER BY ?namedas

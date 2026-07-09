@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P2281/ps:P2281 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https://music\\.apple\\.com/[a-z]{2}/album/)?[a-z%0-9A-F-]+/(id)?([1-9][0-9]*))$") )
+}

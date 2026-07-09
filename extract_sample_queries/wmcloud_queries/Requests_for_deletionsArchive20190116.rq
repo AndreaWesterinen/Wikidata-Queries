@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q56228301 . 
+    FILTER NOT EXISTS { SELECT ?item WHERE { ?item wdt:P31/wdt:P279* wd:Q101352 ; wdt:P1705 ?label ; FILTER regex (?label, "^(O'|Ó)"). }  }
+ 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

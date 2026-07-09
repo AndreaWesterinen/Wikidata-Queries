@@ -1,0 +1,15 @@
+# people who were born on the same day their mother died
+SELECT ?child ?childLabel ?motherLabel ?date ?causeLabel WHERE {
+  {
+    SELECT ?child ?mother ?date ?cause WHERE {
+      ?child wdt:P31 wd:Q5;
+             p:P569/psv:P569 [ wikibase:timeValue ?date; wikibase:timePrecision 11 ].
+      ?mother wdt:P31 wd:Q5;
+              p:P570/psv:P570 [ wikibase:timeValue ?date; wikibase:timePrecision 11 ].
+      ?child wdt:P25 ?mother.
+      OPTIONAL { ?mother wdt:P509 ?cause. }
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?date

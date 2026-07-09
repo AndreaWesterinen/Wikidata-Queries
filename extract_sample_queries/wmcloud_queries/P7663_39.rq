@@ -1,0 +1,21 @@
+#title: Occupations not listed on the site "Scienza a due voci"
+# Complex constraint from [[Property talk:P7663]]
+# Women with [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]], but without being [[d:Q901|scientist <small>(Q901)</small>]] or a '''[[Property:P279|subclass of&#32;<small dir="ltr">(P279)</small>]]''' listed on the site ("Settore")
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P7663 [] .
+  ?item wdt:P106 [] .
+  ?item wdt:P31 wd:Q5 .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q3391743} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q5322166} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q42973} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q901} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q1650915} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q11974939} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q2500638} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q974144} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q36180} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q16727193} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q13582652} .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q81096} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,it" }
+} ORDER BY ?itemLabel

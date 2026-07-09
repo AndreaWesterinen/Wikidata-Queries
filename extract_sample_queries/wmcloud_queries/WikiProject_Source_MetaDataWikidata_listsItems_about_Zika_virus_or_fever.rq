@@ -1,0 +1,12 @@
+#Wikidata scientific articles that contain "zika" in the title
+SELECT ?item ?itemLabel ?_PubMed_ID WHERE {
+  ?item wdt:P31 wd:Q13442814.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?itemLabel.
+  }
+  FILTER(CONTAINS(LCASE(?itemLabel), "zika"))
+  MINUS  { { ?item wdt:P921 wd:Q202864 . } UNION { ?item wdt:P921 wd:Q8071861 . } }
+  OPTIONAL { ?item wdt:P698 ?_PubMed_ID. }
+}
+LIMIT 1000

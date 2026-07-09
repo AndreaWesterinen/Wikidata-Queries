@@ -1,0 +1,24 @@
+select * where {
+	values ?desc {
+		"Soyad"@az
+		"Прозьвішча"@be-tarask
+		"Фамилия"@bg
+		"Nôzwëskò"@csb
+		"Хушамат"@cv
+		"Perekonnanimi"@et
+		"Ahà nnà"@ig
+		"Ættarnafn"@is
+		"Alkunya"@lad
+		"Тукымлӱм"@mhr
+		"Nama keluarga"@ms
+		"Мыггаг"@os
+		"Cognòm"@pms
+		"Prezime"@sh
+		"Soyadı"@tr
+		"Familiya"@uz
+		"Họ"@vi
+		"No d' famile"@wa
+		"Apelyidu"@war
+	}
+	?item schema:description ?desc
+}

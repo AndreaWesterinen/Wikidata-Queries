@@ -1,0 +1,7 @@
+SELECT (COALESCE(SAMPLE(?rank), wd:Q183385) as ?rankitem)
+	?rankl (COUNT(DISTINCT ?p) as ?count) (SAMPLE(?p) as ?item) (SAMPLE(?scan) as ?scan1)
+WITH
+{
+  SELECT ?rank ?rankLabel 
+  {
+      ?rank wdt:P31 wd:Q56019 ; wdt:P361 wd:Q172771 . ?rank (rdfs:label

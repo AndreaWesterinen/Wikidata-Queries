@@ -1,0 +1,9 @@
+SELECT 
+DISTINCT
+?item
+{
+  ?taxon wdt:P105 wd:Q7432 .
+  ?taxon p:P2974 ?statement .
+  ?statement wikibase:rank ?rank .
+  ?statement ps:P2974 ?item .
+}

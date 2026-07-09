@@ -1,0 +1,1 @@
+SELECT ?item { ?item wdt:P734 wd:Q20731004 ; wdt:P31 wd:Q5 } LIMIT 5000

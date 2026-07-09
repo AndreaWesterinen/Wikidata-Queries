@@ -1,0 +1,12 @@
+SELECT ?film ?filmLabel ?seriesLabel ?durationLabel 
+WHERE {?film wdt:P57 wd:Q2071 .
+       OPTIONAL {?film wdt:P2047 ?duration .
+                 }
+       OPTIONAL {?film wdt:P179 ?series .
+                 }
+       # get a label in English
+      SERVICE wikibase:label {
+            bd:serviceParam wikibase:language "en, pl, it, fr" .
+        }
+       }
+ORDER BY ?duration

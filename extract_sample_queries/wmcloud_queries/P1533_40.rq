@@ -1,0 +1,18 @@
+#title: Missing statements (male given name)
+# Complex constraint from [[Property talk:P1533]]
+# add P1533
+SELECT ?item ?fam
+WHERE
+{
+	?fam wdt:P31 wd:Q101352 . 
+    MINUS { ?fam ^ wdt:P1533 [] }
+    ?fam rdfs:label ?fn . FILTER(lang(?fn)="en") 
+    ?item  rdfs:label ?fn . 
+    ?item wdt:P31 wd:Q12308941 .
+    FILTER( ?item != ?fam ) 
+    ?fam wdt:P282 wd:Q8229 .
+    ?item wdt:P282 wd:Q8229 .
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167410 }
+    FILTER NOT EXISTS { ?fam wdt:P31 wd:Q4167410 }
+}
+LIMIT 50

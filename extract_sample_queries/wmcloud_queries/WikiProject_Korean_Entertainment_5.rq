@@ -1,0 +1,7 @@
+SELECT ?television_series ?television_seriesLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  ?television_series wdt:P31 wd:Q5398426.
+  ?television_series wdt:P495 wd:Q884.
+}
+LIMIT 2048

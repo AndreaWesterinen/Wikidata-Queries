@@ -1,0 +1,11 @@
+#title: Related to La Réunion
+# Complex constraint from [[Property talk:P9427]]
+#
+SELECT ?item ?value {
+  ?item wdt:P9427 ?value.
+  MINUS { ?item wdt:P1344 wd:Q70719673 }
+  MINUS { ?item wdt:P166 wd:Q18589972 }
+  MINUS { ?item wdt:P166 wd:Q90905418 }
+  MINUS { ?item wdt:P19/wdt:P131* wd:Q17070 }
+  MINUS { ?item wdt:P551/wdt:P131* wd:Q17070 }
+}

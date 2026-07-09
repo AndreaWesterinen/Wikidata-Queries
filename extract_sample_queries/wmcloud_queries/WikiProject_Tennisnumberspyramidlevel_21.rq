@@ -1,0 +1,12 @@
+SELECT 
+   (wd:Q847 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   (wd:Q47482648 as ?type)
+("{{{level}}}" as ?level)
+("{{{descr}}}" as ?descr)
+WHERE
+   { 
+  ?level1 wdt:P279 wd:Q13219666; wdt:P527 ?a .
+  ?a wdt:P279* wd:Q13219666; wdt:P279 ?level2TournamentClass .
+}

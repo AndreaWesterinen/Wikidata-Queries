@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(DISTINCT ?ancestor) as ?ct)
+{
+    ?item wdt:P31 wd:Q5. 
+    {
+      ?item wdt:P39 wd:Q45341328.
+    }
+    # UNION { ?item wdt:P39 wd:Q15233311. } 
+    OPTIONAL { ?item (wdt:P22

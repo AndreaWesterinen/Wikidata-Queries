@@ -1,0 +1,6 @@
+embed.html#SELECT ?items ?item ?propLabel WHERE {
+  ?items wdt:P357 ?item .
+  ?items wdt:P31 ?prop . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} 
+ORDER BY ?propLabel ASC(REPLACE(?items, "wd:Q", ""))

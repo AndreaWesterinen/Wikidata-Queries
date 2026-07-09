@@ -1,0 +1,9 @@
+embed.html##title:location of items with property P6640 statements
+#defaultView:Map{"hide":["?coordinates"]}
+SELECT DISTINCT ?site ?siteLabel ?coordinates ?image ?value
+WHERE 
+{
+  ?site wdt:P6640 ?value; wdt:P625 ?coordinates.
+  OPTIONAL { ?site wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

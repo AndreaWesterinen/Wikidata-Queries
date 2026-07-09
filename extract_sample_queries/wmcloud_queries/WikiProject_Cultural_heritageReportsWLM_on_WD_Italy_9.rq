@@ -1,0 +1,17 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?regioneLabel (COUNT(?item) AS ?count) WHERE {
+  ?item wdt:P131* ?regione.
+  ?item wdt:P2186 ?wlmid.
+  { ?regione wdt:P31 wd:Q16110. }
+  UNION
+  { ?regione wdt:P31 wd:Q1710033. }
+  MINUS {
+    ?item p:P2186 _:b6.
+    _:b6 pq:P582 ?end.
+    FILTER(?end <= "2018-09-01T00:00:00+00:00"^^xsd:dateTime)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?regioneLabel
+ORDER BY DESC(?count)

@@ -1,0 +1,28 @@
+SELECT
+  ?item
+  ?position
+  ?electionDate
+  ?startDate
+  ?endDate
+  (sample(?givenName) as ?givenName)
+  (sample(?familyName) as ?familyName)
+  (sample(?party) as ?party)
+  (group_concat(?fbPage) as ?fbPages)
+WHERE {
+  ?item p:P39 ?statement .
+  
+  ?statement ps:P39 wd:Q25223 .
+  ?statement pq:P2715 wd:Q23558762 .
+  
+  ?statement ps:P39 ?position .
+        
+  optional { ?item wdt:P2013 ?fbPage }
+  optional { ?item wdt:P735 ?givenName }
+  optional { ?item wdt:P734 ?familyName }
+  optional { ?statement pq:P2715 ?election .
+             ?election wdt:P585 ?electionDate }
+  optional { ?statement pq:P1268 ?party }
+  optional { ?statement pq:P580 ?startDate }
+  optional { ?statement pq:P582 ?endDate }
+}
+GROUP BY ?item ?position ?area ?areaType ?electionDate ?startDate ?endDate

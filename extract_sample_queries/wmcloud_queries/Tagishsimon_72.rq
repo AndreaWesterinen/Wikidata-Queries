@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?coord2 ?layer ?layerLabel
+WHERE 
+{
+  ?item wdt:P131 wd:Q47134.
+  
+  ?item p:P625 ?stat2 . 
+  ?stat2 ps:P625 ?coord2 .
+  ?stat2 prov:wasDerivedFrom/pr:P143 wd:Q837615.
+  ?stat2 a wikibase:BestRank .
+  ?item wdt:P31 ?layer .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by ?layerLabel ?itemLabel
+#defaultView:Map

@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?should_link_via_P7_to ?should_link_via_P7_toLabel WHERE { ?should_link_via_P7_to wdt:Archive ?item FILTER NOT EXISTS { ?item wdt:P7 ?should_link_via_P7_to } SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE], en" } }

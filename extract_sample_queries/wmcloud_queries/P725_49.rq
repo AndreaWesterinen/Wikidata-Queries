@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?instance ?instanceLabel
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?instance {
+			?item wdt:P725 [] .
+			MINUS {
+				VALUES ?classes { wd:Q11424 wd:Q7889 wd:Q15416 wd:Q26204053 wd:Q1555508 wd:Q106833 wd:Q2431196 wd:Q15524954 wd:Q95074 wd:Q24856 wd:Q56561355 wd:Q2031291 wd:Q104217120 wd:Q1144661 wd:Q116741534 } .
+				?item wdt:P31/wdt:P279* ?classes .
+			} .
+			OPTIONAL {
+				?item wdt:P31 ?instance .
+			} .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

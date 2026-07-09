@@ -1,0 +1,7 @@
+SELECT DISTINCT ?municipalities ?item WHERE { 
+  VALUES ?municipalities {wd:Q12348369 wd:Q9022143 wd:Q2557122 wd:Q2143868 wd:Q3313478 wd:Q6905368  wd:Q7258412 wd:Q2360428 wd:Q15121208 }
+  OPTIONAL {?municipalities wdt:P194 ?council .
+  OPTIONAL { ?council wdt:P527 ?item
+  MINUS { ?item wdt:P576 [] } }
+  }
+}

@@ -1,0 +1,12 @@
+SELECT DISTINCT ?person ?personLabel WHERE {
+  ?person p:P39 ?statement .
+  ?statement ps:P39 [ wdt:P279* wd:Q21328576 ] .
+  FILTER NOT EXISTS { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL {
+    ?statement pq:P2937 ?term .
+    FILTER NOT EXISTS { ?term wdt:P576|wdt:P582 ?term_end }
+  }
+  FILTER (BOUND(?start) || BOUND(?term))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }        
+}

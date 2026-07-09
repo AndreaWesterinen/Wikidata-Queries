@@ -1,0 +1,25 @@
+SELECT ?item 
+  ?test ?testLabel 
+  ?scores ?scoresLabel 
+  ?inventedYear 
+  (GROUP_CONCAT(?lang) as ?langs)
+  (GROUP_CONCAT(?inventor; separator=", ") as ?inventors)
+WHERE
+{
+    ?test wdt:P31 wd:Q2114712 .
+    hint:Query hint:optimizer "None".
+    OPTIONAL { ?test wdt:P575 ?inventedDate . BIND(YEAR(?inventedDate) as ?inventedYear) } 
+    OPTIONAL { ?test wdt:P527 ?scores 
+               OPTIONAL { ?scores wdt:P2936 / wdt:P424 ?lang1 }
+               OPTIONAL { ?scores wdt:P61 / rdfs:label ?inventor2 . FILTER(lang(?inventor2) = "en") }
+             } 
+    BIND( IF(BOUND(?scores), ?scores, ?test) as ?item) 
+    OPTIONAL { ?test wdt:P2936 / wdt:P424 ?lang0 }
+    BIND(COALESCE(?lang1, ?lang0) as ?lang)
+    OPTIONAL { ?test wdt:P61 / rdfs:label ?inventor1 . FILTER(lang(?inventor1) = "en")  }
+    BIND(COALESCE(?inventor2, ?inventor1) as ?inventor)
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?test ?testLabel ?scores ?scoresLabel ?inventedYear
+ORDER BY DESC(?inventedYear) DESC(?item)

@@ -1,0 +1,10 @@
+SELECT ?Wikidata ?Mendeley_person_ID ?Label WHERE {
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?Wikidata wdt:P3835 ?Mendeley_person_ID.
+    ?item wdt:P3835 ?Mendeley_person_ID.
+  }
+  OPTIONAL { ?Wikidata wdt:P3835 ?Mendeley_person_ID. }
+  OPTIONAL { ?Wikidata wdt:P31 ?Label. }
+}
+ORDER BY ?Label

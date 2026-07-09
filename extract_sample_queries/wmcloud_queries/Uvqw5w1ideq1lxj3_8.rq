@@ -1,0 +1,10 @@
+#defaultView:Map{"hide": "?coords"}
+SELECT DISTINCT ?library ?libraryLabel (SAMPLE(?coords) AS ?coords)
+   (SAMPLE(?image) AS ?image) ?website ?layer WHERE {
+?library wdt:P31 ?type .?type wdt:P279* wd:Q7075 . ?library wdt:P625 ?coords
+OPTIONAL {?library wdt:P18 ?image}
+OPTIONAL {?library wdt:P856 ?website}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+?library rdfs:label ?libraryLabel. ?type rdfs:label ?layer }
+} GROUP BY ?library ?libraryLabel ?website ?layer
+ORDER BY UCASE(?layer)

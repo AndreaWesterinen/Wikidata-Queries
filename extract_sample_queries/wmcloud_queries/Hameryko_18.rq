@@ -1,0 +1,17 @@
+select ?lexemeId ?lemma ?form ?gloss WHERE {
+  ?lexemeId dct:language wd:Q1321;
+            wikibase:lemma ?lemma.
+  OPTIONAL
+  {
+    ?lexemeId ontolex:sense ?sense .
+    ?sense a ontolex:LexicalSense .
+    ?sense skos:definition ?gloss .
+    FILTER (LANG(?gloss) = "es")
+  }
+  OPTIONAL
+  {
+    ?lexemeId ontolex:lexicalForm ?form.
+  }
+  FILTER (regex(?gloss, 'elemento.*') && regex(?gloss, 'atómico.*')).
+}
+ORDER BY (?gloss)

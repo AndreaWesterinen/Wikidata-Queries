@@ -1,0 +1,7 @@
+SELECT DISTINCT ?x
+WHERE {
+  VALUES ?p { wdt:P3365 wdt:P6404 wdt:P7993 wdt:P4223 wdt:P5844 wdt:P7620 wdt:P9621 }
+  ?x ?p ?id .
+  FILTER NOT EXISTS {?x rdfs:label ?label FILTER (lang(?label) = "it") . }
+  FILTER (regex (str(?x), "Q[0-9]"))
+}

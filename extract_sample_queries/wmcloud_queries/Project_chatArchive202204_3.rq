@@ -1,0 +1,12 @@
+SELECT ?work ?page ?title WHERE {
+	?wikidata wdt:P31 wd:Q15156455;
+	      wdt:P856 ?site.
+	?page schema:isPartOf ?site;
+		schema:name ?title;
+		schema:about/wdt:P629 ?work.
+	FILTER EXISTS {?work wdt:P1476 ?any}
+	FILTER NOT EXISTS {
+		?url schema:isPartOf ?site;
+			schema:about ?work.
+	}
+}

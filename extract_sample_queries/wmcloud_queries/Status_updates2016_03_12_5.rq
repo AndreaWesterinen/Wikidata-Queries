@@ -1,0 +1,13 @@
+PREFIX bd: <http://www.bigdata.com/rdf#> 
+PREFIX wikibase: <http://wikiba.se/ontology#> 
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/> 
+select distinct ?women ?womenLabel
+where {
+       ?women wdt:P31 wd:Q5 .
+       ?women wdt:P21 wd:Q6581072 . 
+       ?women wdt:P106/wdt:P279* wd:Q483501 . # artists
+       SERVICE wikibase:label {
+           bd:serviceParam wikibase:language "fr,en" .
+       }
+} LIMIT 500

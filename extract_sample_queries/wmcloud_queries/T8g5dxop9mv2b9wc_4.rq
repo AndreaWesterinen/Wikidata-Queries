@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?countryLabel ?coords WHERE {
+  ?item wdt:P31/wdt:279* wd:Q486972 .
+  ?item wdt:P625 ?coords .
+  ?item p:P625 ?coordinate .
+  ?coordinate psv:P625 ?coordinate_node . 
+  ?coordinate_node wikibase:geoLatitude ?latitude .
+  FILTER ( ?latitude > 66.56278 )
+  OPTIONAL { ?item wdt:P17 ?country }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} 
+ORDER BY DESC(?latitude)

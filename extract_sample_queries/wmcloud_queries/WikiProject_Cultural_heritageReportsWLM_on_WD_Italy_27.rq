@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?prec WHERE {
+  ?item wdt:P17 wd:Q38 .
+  ?item p:P2186 ?wlmst .
+  { ?wlmst pqv:P580/wikibase:timePrecision ?prec . FILTER(?prec < 9) }
+  UNION { ?wlmst pqv:P582/wikibase:timePrecision ?prec . FILTER(?prec < 9) }
+  UNION { ?wlmst pqv:P585/wikibase:timePrecision ?prec . FILTER(?prec < 9) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],it". }
+
+}

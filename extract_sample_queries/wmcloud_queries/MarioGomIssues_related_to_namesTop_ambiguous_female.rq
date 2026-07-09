@@ -1,0 +1,29 @@
+SELECT (?given AS ?item) ?count
+WHERE {
+
+SELECT ?given (COUNT(?item) AS ?count)
+WHERE {
+  hint:Query hint:optimizer "Runtime" .
+  ?item wdt:P21 wd:Q6581072 . # is female
+
+  # Prioritize cases with sitelinks at the moment
+  ?item wikibase:sitelinks ?linkcount .
+  FILTER (?linkcount >= 1)
+  
+  ?item wdt:P735 ?given .
+  ?given wdt:P31 wd:Q12308941 . # has male given name'
+  FILTER NOT EXISTS { ?given wdt:P31 wd:Q3409032 . } # not unisex given name
+  FILTER NOT EXISTS { ?given wdt:P31 wd:Q11879590 . } # not female given name
+
+  # filter out The Peerage entries, too many wrong entries,
+  # it should be handled separately
+  OPTIONAL { ?item wdt:P4638 ?thepeerageid . }
+  FILTER(!BOUND(?thepeerageid))
+  
+  FILTER NOT EXISTS { ?item wdt:P735/wdt:P31 wd:Q11879590 . } # not combined with a female given name
+}
+GROUP BY ?given
+
+}
+ORDER BY DESC(?count)
+LIMIT 20

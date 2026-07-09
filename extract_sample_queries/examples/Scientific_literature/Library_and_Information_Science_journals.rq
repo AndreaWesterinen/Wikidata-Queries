@@ -1,3 +1,4 @@
+#title: Library and Information Science journals
 SELECT DISTINCT ?journal ?name WHERE {
     ?journal wdt:P31 wd:Q5633421 . # is scientific journal
     {

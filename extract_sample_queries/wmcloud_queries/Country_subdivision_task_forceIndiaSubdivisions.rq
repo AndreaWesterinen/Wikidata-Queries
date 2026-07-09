@@ -1,0 +1,1 @@
+SELECT ?item ?district ?state WHERE { ?item wdt:P31/wdt:P279* wd:Q7631016 . ?item wdt:P131 ?district. ?district wdt:P131* ?state. ?district wdt:P31 wd:Q1149652. ?state wdt:P31 wd:Q13390680. } ORDER BY ?state

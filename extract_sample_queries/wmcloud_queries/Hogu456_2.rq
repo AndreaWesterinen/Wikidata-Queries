@@ -1,0 +1,6 @@
+SELECT ?item ?Urheber ?UrheberLabel WHERE {
+  ?item wdt:P31 wd:Q3305213;
+    schema:description ?description.
+  FILTER(((LANG(?description)) = "de") && ((STR(?description)) = "Gemälde von"))
+  OPTIONAL { ?item wdt:P170 ?Urheber. }
+}

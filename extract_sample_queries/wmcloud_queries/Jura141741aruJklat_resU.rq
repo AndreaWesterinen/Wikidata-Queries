@@ -1,0 +1,9 @@
+SELECT	?item ?itemLabel ?itemDescription  (strafter(str(?item), "y/") as ?qid)
+{
+  	?item wdt:P27 wd:Q79 .
+  	?item wdt:P106 wd:Q33999 .
+  	?item wdt:P21 wd:Q6581072 .
+  	?item wdt:P31 wd:Q5 . 
+  	FILTER NOT EXISTS { ?item schema:description "Egyptian actress"@en . }
+  	SERVICE wikibase:label {  bd:serviceParam wikibase:language "en" .  }
+}

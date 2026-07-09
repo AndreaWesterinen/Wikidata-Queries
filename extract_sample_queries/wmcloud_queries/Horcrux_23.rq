@@ -1,0 +1,15 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P17 wd:Q38 .
+  
+  { ?x wdt:P31 wd:Q1134686 . } UNION
+  { ?x wdt:P31 wd:Q486972 . } UNION
+  { ?x wdt:P31 wd:Q747074 . }
+  
+  FILTER NOT EXISTS { ?x wdt:P421 ?tz . }
+  FILTER NOT EXISTS { ?x wdt:P31 wd:Q839954 . }
+  FILTER NOT EXISTS { ?x wdt:P31 wd:Q15661340 . }
+  FILTER NOT EXISTS { ?x wdt:P31 wd:Q2974842 . }
+  FILTER NOT EXISTS { ?x wdt:P31 wd:Q41176 . }
+}
+LIMIT 10000

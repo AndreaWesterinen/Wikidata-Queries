@@ -1,0 +1,7 @@
+#title: Property cannot form cycles (size 3)
+# Complex constraint from [[Property talk:P279]]
+# impossible claim or items should be merged — specific to the size 3 cycles as the generic query is too expensive. A few could be found initially, maybe it will timeout when those are corrected.
+select ?item ?intermediate {
+  ?item wdt:P279/wdt:P279 ?intermediate .
+  ?intermediate wdt:P279 ?item .
+} limit 5

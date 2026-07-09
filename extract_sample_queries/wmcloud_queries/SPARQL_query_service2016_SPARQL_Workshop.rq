@@ -1,0 +1,16 @@
+#defaultView:Map
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT ?author ?placebirthLabel ?geoloc where {
+      ?item wdt:P31/wdt:P279* wd:Q603773 .  # any sub-class of TED talk 
+  ?item wdt:P195 wd:Q189021. # collection TED
+  ?item wdt:P50 ?author. # speaker 
+	?author wdt:P19 ?placebirth. # lieu de naissance 
+             ?placebirth wdt:P625 ?geoloc . #coordonnées géo
+  SERVICE wikibase:label {
+       bd:serviceParam wikibase:language "fr,es,en" .
+    }
+       
+         
+}

@@ -1,0 +1,17 @@
+SELECT ?coauthor ?coauthorLabel ?count WHERE {
+    {
+    SELECT ?coauthor (COUNT(?item) AS ?count)
+    WHERE
+    {
+      ?item wdt:P31 wd:Q13442814.
+      ?item wdt:P50 wd:Q56878423.
+      ?item wdt:P50 ?coauthor.
+      FILTER (?coauthor != wd:Q56878423)
+    }
+    GROUP BY ?coauthor
+    ORDER BY ASC(?count)
+    LIMIT 100
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 100

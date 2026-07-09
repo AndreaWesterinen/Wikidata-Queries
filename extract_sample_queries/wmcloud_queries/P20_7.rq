@@ -1,0 +1,13 @@
+#title: Dead in jail, with data missing
+# Complex constraint from [[Property talk:P20]]
+#
+SELECT ?item {
+  ?item wdt:P20 ?locationDead.
+  ?locationDead wdt:P31 wd:Q40357.
+  FILTER NOT EXISTS { ?item wdt:P2632 [] }.
+  FILTER NOT EXISTS { ?item wdt:P1196 [] }.
+  FILTER NOT EXISTS { ?item wdt:P106 [] }.
+  FILTER NOT EXISTS { ?item wdt:P1399 [] }.
+  FILTER NOT EXISTS { ?item wdt:P119 [] }.
+  FILTER NOT EXISTS { ?item wdt:P570 [] }.
+}

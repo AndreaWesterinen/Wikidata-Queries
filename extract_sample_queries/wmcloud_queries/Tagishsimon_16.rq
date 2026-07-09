@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?c ?d (count(distinct ?P106) as ?occ_count)  with 
+{select ?item (count (distinct ?c) as ?country_count) WHERE {
+  ?item wdt:P106 wd:Q13141064. 
+} group by ?item} as %i
+where {include %i
+#  filter(?country_count<2)
+  ?item wdt:P106 ?P106.
+#  filter not exists{?item wdt:P27 ?c.}
+       #  filter exists {?item wdt:P27 wd:Q145.}
+#  filter exists {?item wdt:P27 wd:Q174193.}
+
+  ?item wdt:P31 wd:Q5.
+  filter not exists {?item schema:description ?Den. filter(lang(?Den)="en")}
+  optional {?item rdfs:label ?itemLabel. filter(lang(?itemLabel)="en")}
+} group by ?item ?itemLabel ?c ?d order by desc(?occ_count) 

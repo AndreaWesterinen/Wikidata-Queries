@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?shcat ?shcatLabel ?dnv WHERE {
+  ?item wdt:P7782 ?shcat.
+          MINUS { ?item wdt:P729 [] } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,4 @@
+#title: Items for TV series episodes should have this
+# Complex constraint from [[Property talk:P179]]
+# Add P179 or correct P31. Limited to 500
+SELECT ?item { ?item wdt:P31 wd:Q21191270 . MINUS { ?item wdt:P179 [] }  } LIMIT 500

@@ -1,0 +1,15 @@
+SELECT
+	?item ?itemLabel ?subject ?subjectLabel ?instanceof ?instanceofLabel ?vol
+WHERE
+{
+	?item	wdt:P1433 wd:Q665807
+	OPTIONAL {?item	wdt:P31 ?instanceof }.
+  	OPTIONAL {?item wdt:P921 ?subject }.
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  	MINUS { ?item wdt:P31 wd:Q19389637 }
+  	MINUS { ?item wdt:P31 wd:Q1302249 }
+  	MINUS { ?item wdt:P31 wd:Q13433827 }
+  	MINUS { ?item wdt:P31 wd:Q9353932 }
+  	OPTIONAL {?item wdt:P478 ?vol }.
+}
+ORDER BY ?instanceofLabel xsd:integer(?vol) ?item

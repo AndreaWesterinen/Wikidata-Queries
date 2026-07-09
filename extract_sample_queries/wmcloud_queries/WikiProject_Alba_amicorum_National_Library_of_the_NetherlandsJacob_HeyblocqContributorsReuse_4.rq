@@ -1,0 +1,1 @@
+SELECT DISTINCT ?entity ?entityLabel ?value ?valueLabel WHERE {  ?entity wdt:P31 wd:Q5;wdt:P3919 wd:Q72752496 .  ?entity wdt:P3919 wd:Q72752496 .  ?entity p:P650 ?prop . OPTIONAL { ?prop ps:P650 ?value }  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}

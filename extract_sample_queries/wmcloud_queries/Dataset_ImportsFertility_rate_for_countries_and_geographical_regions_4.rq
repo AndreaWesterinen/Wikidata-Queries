@@ -1,0 +1,3 @@
+embed.html##Fertility rate vs Out of school children (as % of population) for all countries from 1999 to 2014
+#defaultView:ScatterChart
+SELECT ?fertility_rate ?percentage

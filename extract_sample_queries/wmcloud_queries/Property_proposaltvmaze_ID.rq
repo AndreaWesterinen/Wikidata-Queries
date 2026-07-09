@@ -1,0 +1,5 @@
+SELECT *
+{
+  ?item wdt:P973 ?value .
+  FILTER(strstarts(str(?value),"https://www.tvmaze.com") ) 
+}

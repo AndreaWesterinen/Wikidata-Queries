@@ -1,0 +1,6 @@
+SELECT DISTINCT ?theme ?themeLabel ?item ?itemLabel WHERE {
+  ?theme wdt:P31 wd:Q1406161 .
+  ?item wdt:P144 ?theme . 
+  ?item wdt:P921 ?theme . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

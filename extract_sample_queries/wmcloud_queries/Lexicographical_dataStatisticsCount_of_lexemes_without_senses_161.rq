@@ -1,0 +1,24 @@
+SELECT ?item
+(concat("[https://query.wikidata.org/#select%20%3Fl%20%3Flemma%20%7B%20%3Fl%20wikibase%3Alemma%20%3Flemma%20%3B%20dct%3Alanguage%20wd%3A", replace(str(?item), str(wd:), ""), "%20.%20minus%20%7B%20%3Fl%20ontolex%3Asense%20%5B%5D%20%7D%20%7D Senselesses]") as ?senselesses)
+        ?sensecount (?lexcount - ?sensedcount as ?senselesscount) (ROUND(10000*(?sensecount / ?lexcount))/10000 as ?senseratio) (1001 - ?lexcount as ?remaining)
+WITH { 
+  SELECT ?item (COUNT(?a) as ?lexcount) {
+    ?a dct:language ?item.
+  } GROUP BY ?item
+} AS %lexcounts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?a) as ?sensedcount) {
+    ?a dct:language ?item; ontolex:sense [].
+  } GROUP BY ?item
+} AS %sensedcounts
+WITH { 
+  SELECT ?item (COUNT(?sense) as ?sensecount) {
+    ?a dct:language ?item ; ontolex:sense ?sense
+  } GROUP BY ?item
+} AS %sensecounts
+WHERE {
+  INCLUDE %lexcounts. INCLUDE %sensedcounts. INCLUDE %sensecounts.
+  FILTER(?lexcount >= 25)
+  FILTER(?lexcount <= 1000)
+}
+ORDER BY ASC(?senselesscount) DESC(?sensecount)

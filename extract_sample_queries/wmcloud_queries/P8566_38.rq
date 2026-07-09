@@ -1,0 +1,10 @@
+#title: Occupation isn't a subclass of author
+# Complex constraint from [[Property talk:P8566]]
+# Human with [[Property:P106|Occupation&#32;<small>(P106)</small>]] isn't a subclass of  [[d:Q482980|Author <small>(Q482980)</small>]]
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P8566 [] .
+  ?item wdt:P106 [] .
+  ?item wdt:P31 wd:Q5 .
+  MINUS { ?item wdt:P106/wdt:P279* wd:Q482980} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" }
+} ORDER BY ?itemLabel

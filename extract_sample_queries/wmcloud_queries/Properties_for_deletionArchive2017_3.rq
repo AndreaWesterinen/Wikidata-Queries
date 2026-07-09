@@ -1,0 +1,16 @@
+SELECT ?item ?comment (LANG(?comment) AS ?lang) ?rank ?aspect {
+ {
+ ?item p:P2315 [ ps:P2315 ?comment; wikibase:rank ?rank ] .
+ BIND( 'property main value' AS ?aspect ) .
+ } UNION {
+ ?st pq:P2315 ?comment .
+ ?item ?p ?st .
+ ?st wikibase:rank ?rank .
+ BIND( CONCAT( 'qualifier of ', STRAFTER( STR( ?p ), STR( p: ) ) ) AS ?aspect ) .
+ } UNION {
+ ?ref pr:P2315 ?comment .
+ ?st prov:wasDerivedFrom ?ref; wikibase:rank ?rank .
+ ?item ?p ?st .
+ BIND( CONCAT( 'reference of ', STRAFTER( STR( ?p ), STR( p: ) ) ) AS ?aspect ) .
+ } .
+} ORDER BY ?lang ?comment

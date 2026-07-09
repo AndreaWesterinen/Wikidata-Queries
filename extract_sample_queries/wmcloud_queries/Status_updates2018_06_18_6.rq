@@ -1,0 +1,27 @@
+SELECT ?countryLabel ?country2 ?country3 ?wikilang ?languageLabel ?language2 ?language3
+WHERE 
+{
+  ?country wdt:P31 wd:Q6256.
+  ?country wdt:P37 ?language.
+  OPTIONAL {
+    # ISO 3166-1 alpha-2 code
+    ?country wdt:P297 ?country2.
+  }
+  OPTIONAL {
+    # ISO 3166-1 alpha-3 code
+    ?country wdt:P298 ?country3.
+  }
+  OPTIONAL {
+    # ISO 639-1 code
+    ?language wdt:P218 ?language2.
+  }
+  OPTIONAL {
+    # ISO 639-3 code
+    ?language wdt:P220 ?language3.
+  }
+  OPTIONAL {
+    # Wikimedia language code
+    ?language wdt:P424 ?wikilang.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

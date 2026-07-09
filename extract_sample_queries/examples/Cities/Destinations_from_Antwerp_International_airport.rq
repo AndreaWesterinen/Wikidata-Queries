@@ -1,3 +1,4 @@
+#title: Destinations from Antwerp International airport
 #defaultView:Map
 SELECT ?connectsairport ?connectsairportLabel ?place_served ?place_servedLabel ?coor
 WHERE

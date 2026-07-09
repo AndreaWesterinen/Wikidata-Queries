@@ -1,0 +1,10 @@
+#Unique value constraint report for P2275: report listing each item
+
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value (LANG(?value) AS ?lang)
+{
+	?item1 wdt:P2275 ?value .
+	?item2 wdt:P2275 ?value .
+	FILTER( ?item1 != ?item2 && STR( ?item1 ) < STR( ?item2 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 100

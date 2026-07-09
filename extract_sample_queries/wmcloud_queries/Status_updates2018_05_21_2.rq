@@ -1,0 +1,16 @@
+#defaultView:Map
+#Map of prisoners of conscience on Wikidata - by place of birth
+SELECT ?item ?itemLabel ?birthPlace ?coords ?image
+WHERE 
+{
+  ?item wdt:P793 wd:Q4667873.
+  OPTIONAL
+  { 
+    ?item wdt:P18 ?image .}
+  OPTIONAL 
+  {
+    ?item wdt:P19 ?birthPlace .
+    ?birthPlace wdt:P625 ?coords .
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

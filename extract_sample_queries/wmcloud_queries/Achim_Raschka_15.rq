@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?taxonName ?roleLabel {
+  BIND(wd:Q9482 AS ?higherParent) # Sciuridae
+  ?item (wdt:P171)* ?higherParent .  
+  ?item p:P225 ?statement .
+  ?statement ps:P225 ?taxonName .
+  ?statement prov:wasDerivedFrom ?refnode .
+  OPTIONAL {?refnode pr:P6184 ?role}. 
+  FILTER(BOUND(?role))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}
+ORDER BY ASC(?taxonName)

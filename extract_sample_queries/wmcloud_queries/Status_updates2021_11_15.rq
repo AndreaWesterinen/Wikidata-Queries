@@ -1,0 +1,34 @@
+embed.html#select ?dec ((?count/?total)*100 as ?percent) ?causeLabel  where 
+{ 
+  { select (str(?decade) as ?dec) (count(distinct ?ps) as ?count) ?cause where {
+  ?mp p:P39 ?ps . ?ps ps:P39 ?term . ?term wdt:P279 wd:Q16707842 . 
+  ?ps pq:P582 ?pend . filter not exists { ?mp p:P39 ?ps2 . ?ps2 ps:P39 ?term . ?ps2 pq:P580 ?pend } 
+  # not new term starting same day - ie left Parliament
+  ?ps pq:P1534 ?cause . 
+  filter not exists { ?ps pq:P1534 wd:Q741182 } # not dissolution
+  filter not exists { ?ps pq:P1534 wd:Q7649223 } # not suspension
+  filter not exists { ?ps pq:P1534 wd:Q35855188 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q36345696 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q30580660 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q52084147 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q35867887 } # tofix
+  bind(year(?pend) as ?year) . filter(?year >= 1870) . bind((floor(?year/10)*10) as ?decade) .
+} group by ?cause ?decade } 
+
+  { select (str(?decade) as ?dec) (count(distinct ?ps) as ?total) where {
+  ?mp p:P39 ?ps . ?ps ps:P39 ?term . ?term wdt:P279 wd:Q16707842 . 
+  ?ps pq:P582 ?pend . filter not exists { ?mp p:P39 ?ps2 . ?ps2 ps:P39 ?term . ?ps2 pq:P580 ?pend } 
+  # not new term starting same day - ie left Parliament
+  ?ps pq:P1534 ?cause . 
+  filter not exists { ?ps pq:P1534 wd:Q741182 } # not dissolution
+  filter not exists { ?ps pq:P1534 wd:Q7649223 } # not suspension
+  filter not exists { ?ps pq:P1534 wd:Q35855188 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q36345696 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q30580660 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q52084147 } # tofix
+  filter not exists { ?ps pq:P1534 wd:Q35867887 } # tofix
+  bind(year(?pend) as ?year) . filter(?year >= 1870) . bind((floor(?year/10)*10) as ?decade) .
+} group by ?decade } 
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+#defaultView:BarChart

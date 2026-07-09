@@ -1,0 +1,7 @@
+SELECT (wd:Q5 AS ?item) ?statcount 
+WHERE
+{
+  SELECT (COUNT(DISTINCT ?rel) AS ?statcount) WHERE {
+    ?item wdt:P1185 [] ; wdt:P26 ?rel . ?rel wdt:P1185 [] .
+  }
+}

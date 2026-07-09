@@ -1,0 +1,17 @@
+#Libros publicados por alguna editorial uruguaya
+#defaultView:Graph
+SELECT ?editorial ?editorialLabel ?editorialPicture ?autor ?autorLabel ?autorPicture
+WHERE 
+{
+  ?item wdt:P31 wd:Q3331189.
+  ?editorial wdt:P17 wd:Q77. #editoriales de Uruguay
+
+
+  ?item wdt:P123 ?editorial.
+  OPTIONAL {?editorial wdt:P154 ?editorialPicture}.
+  {?item wdt:P50 ?autor} UNION  {?item wdt:P110 ?autor} UNION {?item wdt:P655 ?autor} UNION {?item wdt:P170 ?autor} .
+  ?autor wdt:P27 ?pais.
+  ?pais wdt:P41 ?autorPicture .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+
+}

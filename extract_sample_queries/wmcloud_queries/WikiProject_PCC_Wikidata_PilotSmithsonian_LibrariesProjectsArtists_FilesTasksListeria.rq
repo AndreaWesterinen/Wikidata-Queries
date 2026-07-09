@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item WHERE { ?item wdt:P27 wd:Q30. 
+{ ?item wdt:P106 wd:Q483501 } #artist
+UNION {?item wdt:P106 wd:Q3391743 } #visual artist
+UNION {?item wdt:P106 wd:Q1114448 } #cartoonist
+UNION {?item wdt:P106 wd:Q1281618 } #sculptor
+UNION {?item wdt:P106 wd:Q7541856 } #ceramicist
+UNION {?item wdt:P106 wd:Q1028181 } #painter
+UNION {?item wdt:P106 wd:Q6138343 } #wood carver
+. }
+LIMIT 300

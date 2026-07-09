@@ -1,0 +1,11 @@
+#title: 200 CN sans date de fin
+# Complex constraint from [[Property talk:P1307]]
+# il devrait y avoir 200 membres
+SELECT (wd:Q5 as ?item) (COUNT(DISTINCT ?p) as ?ct) (?ct=200 as ?ok)
+{
+    ?p p:P39 ?st1 .
+    ?st1 ps:P39 wd:Q18510612 .
+    ?st1 pq:P580 ?a1 .
+    FILTER NOT EXISTS  { ?st1 pq:P582 ?z1 }  
+}
+GROUP BY ?item

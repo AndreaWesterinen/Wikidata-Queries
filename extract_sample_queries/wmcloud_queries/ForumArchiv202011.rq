@@ -1,0 +1,6 @@
+SELECT ?item ?twitter ?subscribers WHERE {
+  ?item p:P2002 ?statement.
+  ?statement ps:P2002 ?twitter;
+             pq:P3744 ?subscribers.
+}
+ORDER BY DESC(?subscribers)

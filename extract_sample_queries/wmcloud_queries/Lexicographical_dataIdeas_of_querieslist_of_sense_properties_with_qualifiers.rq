@@ -1,0 +1,20 @@
+select (?property as ?item) ?propertyLabel ?qualifier ?qualifierLabel ?count 
+  
+  with {
+    select ?prop ?qual (count(?prop) as ?count){
+      ?lex ontolex:sense ?sense .
+      ?sense ?prop ?val .
+      ?val ?qual [] 
+           ; a wikibase:BestRank # only bestrank for query speed
+      .  
+    } group by ?prop ?qual
+  } as %props
+
+{ 
+  {
+       include %props
+  }
+  ?property wikibase:claim ?prop .
+  ?qualifier wikibase:qualifier ?qual .
+ 
+} order by desc(?count) ?property

@@ -1,0 +1,26 @@
+SELECT DISTINCT ?item (CONCAT("{","{rfd links3\u007C",strafter(str(?item), "entity/"),"\u007CDoes not meet the [[Special:MyLanguage/Wikidata:Notability|notability policy]]}","}") as ?del) (CONCAT("{","{REVISIONTIMESTAMP: ", strafter(str(?item), "entity/"), " }","}") as ?data)
+WHERE{
+  ?item wikibase:sitelinks 0 .
+  FILTER(?statementCount = 1).
+  ?item wdt:P31 wd:Q5 .
+  ?item wikibase:statements ?statementCount.
+  MINUS { ?item wdt:P972 wd:Q28781198 }
+
+  OPTIONAL{
+    ?backlink ?p1 ?item .
+  }
+  FILTER(!bound(?backlink))
+  OPTIONAL{
+    ?item ?p2 [prov:wasDerivedFrom ?ref] .
+    ?ref ?pr [] .
+    FILTER (?pr != pr:P143)
+  }
+  FILTER(!bound(?ref))
+
+  OPTIONAL{
+    ?item ?claim ?dummy0 .
+    ?property wikibase:propertyType wikibase:ExternalId .
+    ?property wikibase:directClaim ?claim
+  }
+  FILTER(!bound(?dummy0))
+}

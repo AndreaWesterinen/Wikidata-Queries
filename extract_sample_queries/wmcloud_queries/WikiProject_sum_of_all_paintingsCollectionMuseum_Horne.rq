@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q531218 .
+  ?item wdt:P31 wd:Q3305213 .
+  }

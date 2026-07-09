@@ -1,0 +1,9 @@
+#title: Non-list part of list
+# Complex constraint from [[Property talk:P361]]
+# Item that is not a Wikimedia list article part of instance of a Wikimedia list article
+SELECT ?item WHERE {
+  ?item wdt:P361 / wdt:P31 wd:Q13406463.
+  FILTER NOT EXISTS {
+    ?item wdt:P31 wd:Q13406463 .
+  }
+}

@@ -1,0 +1,15 @@
+# Sample to query all values of a property
+# Property talk pages on Wikidata include basic queries adapted to each property
+SELECT
+  ?item ?itemLabel
+  ?value
+# valueLabel is only useful for properties with item-datatype
+WHERE 
+{
+  ?item wdt:P2369 ?value
+  # change P1800 to another property  
+        MINUS { ?item p:P3043 [  ] .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+# remove or change limit for more results
+LIMIT 100

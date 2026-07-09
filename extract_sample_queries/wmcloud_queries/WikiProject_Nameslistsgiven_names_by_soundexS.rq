@@ -1,0 +1,11 @@
+SELECT
+  (SAMPLE(?item2) as ?item)
+  ?soundex
+  (GROUP_CONCAT(DISTINCT ( CONCAT("[[",strafter(str(?item2),"y/"),"|",?nl,"]]")) ; separator=", " ) as ?names)
+WHERE
+{
+    ?item2 wdt:P31/wdt:P279* wd:Q202444 ; wdt:P1705 ?nl ; wdt:P3878 ?soundex .
+    FILTER(substr(?soundex,1,1)="S")
+}
+GROUP BY ?soundex
+ORDER BY ?soundex

@@ -1,0 +1,11 @@
+SELECT ?ereader ?ereaderLabel ?format ?formatLabel
+
+WHERE {
+  ?ereader wdt:P31  wd:Q726235 .
+  ?ereader wdt:P1072 ?format
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription 
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "painter".
+    ?item wikibase:apiOutputItem mwapi:title .
+  }
+  ?item wdt:P31 wd:Q5 .
+  FILTER NOT EXISTS { ?item wdt:P106/wdt:P279* wd:Q1028181 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+# LIMIT 10000

@@ -1,0 +1,48 @@
+embed.html#SELECT ?total ?count ?depicts_class ?depicts_classLabel ?prop ?propLabel ?samp 
+
+WITH {
+  SELECT ?item ?depicts_stmt WHERE {
+      ?item p:P180 ?depicts_stmt .
+  } # LIMIT 100000
+} AS %stmts
+
+WITH {
+  SELECT ?prop (COUNT(DISTINCT(?depicts_stmt)) AS ?total) WHERE {
+    INCLUDE %stmts .
+    ?depicts_stmt ?qual [] .
+    ?prop wikibase:qualifier ?qual .
+  } GROUP BY ?prop
+} AS %totals
+    
+
+WITH {
+  SELECT ?depicts_class ?prop (COUNT(DISTINCT(?depicts_stmt)) AS ?count) (SAMPLE(?item) AS ?samp) WHERE {
+    INCLUDE %stmts .
+    ?depicts_stmt ps:P180 ?depicts_val .
+    ?depicts_val wdt:P31? ?depicts_class .
+    ?depicts_stmt ?qual [] .
+    ?prop wikibase:qualifier ?qual .
+  } GROUP BY ?depicts_class ?prop
+  ORDER BY DESC(?count) 
+  LIMIT 5000
+} AS %data
+
+WITH {
+  SELECT ?depicts_class ?prop (COUNT(DISTINCT(?depicts_class1)) AS ?rank) WHERE {
+     INCLUDE %data .
+     {
+        SELECT (?depicts_class AS ?depicts_class1) ?prop (?count AS ?count1) WHERE {
+           INCLUDE %data .
+        }
+     }
+     FILTER (?count1 >= ?count) .
+   } GROUP BY ?depicts_class ?prop
+} AS %ranks 
+            
+WHERE {
+  INCLUDE %data .
+  INCLUDE %ranks .
+  INCLUDE %totals .
+  FILTER (?rank < 11) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?total) ?prop DESC(?count)

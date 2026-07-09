@@ -1,0 +1,58 @@
+SELECT ?o ?oLabel ?rd ?rdLabel ?f ?fLabel ?ddu ?dds ?r WHERE {
+  {
+    SELECT ?o ?f ?r ?du ?ds WHERE {
+      {
+        ?o wdt:P27 wd:Q172107.
+        OPTIONAL { ?o wdt:P569 ?du. }
+        OPTIONAL { ?o wdt:P570 ?ds. }
+        OPTIONAL { ?o wdt:P31 ?p. }
+        FILTER(!(BOUND(?p)))
+        BIND("JEST TO" AS ?r)
+      }
+      UNION
+      {
+        ?o wdt:P27 wd:Q172107.
+        OPTIONAL { ?o wdt:P569 ?du. }
+        OPTIONAL { ?o wdt:P570 ?ds. }
+        OPTIONAL { ?o wdt:P21 ?p. }
+        FILTER(!(BOUND(?p)))
+        BIND("PLEĆ" AS ?r)
+      }
+      UNION
+      {
+        ?o wdt:P39 ?f.
+        OPTIONAL { ?o wdt:P569 ?du. }
+        OPTIONAL { ?o wdt:P570 ?ds. }
+        ?f (wdt:P279*) wd:Q2662430.
+        OPTIONAL { ?o wdt:P31 ?p. }
+        FILTER(!(BOUND(?p)))
+        BIND("JEST TO" AS ?r)
+      }
+      UNION
+      {
+        ?o wdt:P39 ?f.
+        OPTIONAL { ?o wdt:P569 ?du. }
+        OPTIONAL { ?o wdt:P570 ?ds. }
+        ?f (wdt:P279*) wd:Q2662430.
+        OPTIONAL { ?o wdt:P21 ?p. }
+        FILTER(!(BOUND(?p)))
+        BIND("PLEĆ" AS ?r)
+      }
+      UNION
+      {
+        ?o wdt:P39 ?f.
+        OPTIONAL { ?o wdt:P569 ?du. }
+        OPTIONAL { ?o wdt:P570 ?ds. }
+        ?f (wdt:P279*) wd:Q2662430.
+        OPTIONAL { ?o wdt:P27 ?p. }
+        FILTER(!(BOUND(?p)))
+        BIND("OBYWATELSTWO" AS ?r)
+      }
+    }
+  }
+  OPTIONAL { ?o wdt:P53 ?rd. }
+  BIND(xsd:dateTime(?du) AS ?ddu)
+  BIND(xsd:dateTime(?ds) AS ?dds)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?oLabel)

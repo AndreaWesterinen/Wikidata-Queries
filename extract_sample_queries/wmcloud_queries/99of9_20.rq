@@ -1,0 +1,13 @@
+SELECT ?cid ?cidLabel (COUNT(*) AS ?count) WHERE {
+  ?pid wdt:P19 ?pob .
+  ?pob wdt:P17 wd:Q408 .
+  ?pid wdt:P21 ?cid .
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+
+}
+GROUP BY ?cid ?cidLabel
+ORDER BY DESC(?count) ?cidLabel
+LIMIT 500

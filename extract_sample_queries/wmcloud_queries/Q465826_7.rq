@@ -1,0 +1,12 @@
+SELECT DISTINCT ?film ?filmLabel ?filmDescription ?sl ?ids (uri(CONCAT("https://mix-n-match.toolforge.org/#/search/", REPLACE(?filmLabel,"The ",""), "/1480,1499,319,196,1196")) as ?a) 
+{
+  	hint:Query hint:optimizer "None" .
+    { VALUES ?film { wd:Q465826 } } UNION {
+  	?film ?wdt wd:Q465826 .
+  	?property wikibase:directClaim ?wdt ; wikibase:claim ?p ; wikibase:statementProperty ?ps .
+  	{ ?film wdt:P31/wdt:P279* wd:Q11424 } UNION { ?film wdt:P31 wd:Q5398426 }
+    }
+    ?film wikibase:sitelinks ?sl ; wikibase:identifiers ?ids .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?film = wd:Q465826) ?ids ?filmDescription

@@ -1,0 +1,12 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?item ?item_Label  ?place_of_birthLabel ?date_of_birth ?place_of_birth WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P19 ?birth_place.
+  ?item wdt:P569 ?dob.
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+  OPTIONAL { ?item wdt:P19 ?place_of_birth. }
+  FILTER(?dob < "1929-08-01"^^xsd:dateTime)
+  FILTER(?birth_place = wd:Q2107)
+  OPTIONAL { ?item wdt:P569 ?date_of_birth. }
+}

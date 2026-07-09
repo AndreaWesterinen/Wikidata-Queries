@@ -1,0 +1,8 @@
+SELECT ?sl ?item ?itemLabel ?itemDescription
+WHERE
+{
+  ?item wdt:P5942 ?value ; wikibase:sitelinks ?sl .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?sl)
+LIMIT 50

@@ -1,0 +1,7 @@
+SELECT ?person ?personLabel (GROUP_CONCAT(DISTINCT CONCAT("http://www.treccani.it/enciclopedia/",?ei,"_(Enciclopedia-Italiana)"); SEPARATOR=', ') AS ?eiUrl)
+WHERE {
+  ?person wdt:P4223 ?ei . 
+  ?person wdt:P31 wd:Q5 .
+  { ?person wdt:P27 wd:Q38 . } UNION { ?person wdt:P27 wd:Q172579 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en" . }
+} GROUP BY ?person ?personLabel

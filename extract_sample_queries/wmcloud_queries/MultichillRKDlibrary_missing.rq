@@ -1,0 +1,1 @@
+SELECT ?item ?idlink WHERE { ?item wdt:P4989 ?id . BIND(CONCAT("[https://rkd.nl/explore/library/", ?id, " ", ?id, "]") AS ?idlink). }

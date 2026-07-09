@@ -1,0 +1,10 @@
+#Macromolecules
+SELECT ?names (COUNT(*) as ?count)
+WHERE {
+ ?item wdt:P1433 wd:Q2711584.
+ ?item wdt:P2093 ?names.
+ optional {
+ ?item wdt:P50 ?author.
+ }
+ MINUS{?item wdt:P50 []}
+} GROUP BY ?names ORDER BY DESC (?count)

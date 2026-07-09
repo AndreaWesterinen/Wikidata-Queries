@@ -1,4 +1,4 @@
-# ----
+#title: Scientists who have worked together but whose Erdos numbers don’t reflect that
 # Finds authors who have published scientific articles together,
 # but whose Erdos numbers are more than one apart.
 # These would appear to violate the definition of the Erdos number.

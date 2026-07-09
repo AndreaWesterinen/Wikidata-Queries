@@ -1,0 +1,16 @@
+#defaultView:Map
+#TEMPLATE={ "template": "?type in language ?lang starting with ?letter ", "variables": { "?type": {}, "?lang": { "query": "SELECT ?id WHERE { ?id wdt:P31 wd:Q34770. }"} , "?letter": { "query": "SELECT ?id WHERE { ?id wdt:P31 wd:Q9788. }" }  } }
+SELECT ?item ?itemLabel ?coord WHERE {
+  BIND(wd:Q4022 AS ?type)
+  ?item (wdt:P31/wdt:P279*) ?type.
+  ?item rdfs:label ?itemLabel.
+  ?item wdt:P625 ?coord.
+  BIND(wd:Q9968 AS ?letter)
+  ?letter rdfs:label ?letterLabel.
+  BIND(wd:Q188 AS ?lang)
+  ?lang wdt:P218 ?langISO.
+  FILTER((LANG(?itemLabel)) = ?langISO)
+  FILTER((LANG(?letterLabel)) = ?langISO)
+  FILTER(STRSTARTS(?itemLabel, ?letterLabel))
+}
+LIMIT 100

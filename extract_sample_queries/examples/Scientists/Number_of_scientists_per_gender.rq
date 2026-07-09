@@ -1,3 +1,4 @@
+#title: Number of scientists per gender
 SELECT ?gender (count(DISTINCT ?human) as ?number)
 WHERE
 {

@@ -1,0 +1,8 @@
+SELECT ?l ?lemma ?glossLabel WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ; ontolex:sense ?sense.
+  ?language wdt:P218 'pl'.
+  ?sense skos:definition ?gloss
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  FILTER NOT EXISTS {?l p:P5831 [pq:P6072 ?sense] }
+} ORDER BY ?lemma

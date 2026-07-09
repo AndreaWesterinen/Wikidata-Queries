@@ -1,0 +1,8 @@
+SELECT ?item ?title
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P1476 ?title .
+  FILTER CONTAINS(?title, "&lt").
+}
+LIMIT 10

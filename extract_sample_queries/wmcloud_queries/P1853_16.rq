@@ -1,0 +1,12 @@
+#title: Possibly wrong inheritance pattern 1
+# Complex constraint from [[Property talk:P1853]]
+# A human who has blood type O can't have a child having blood type AB, and vice versa.
+SELECT * WHERE {
+
+  ?item wdt:P25\u007Cwdt:P22 ?itemParent.
+   
+  ?item wdt:P1853 ?bloodType.
+  ?itemParent wdt:P1853 ?bloodTypeParent.
+  
+  FILTER (?bloodType = wd:Q19831451 && ?bloodTypeParent = wd:Q19831455 \u007C\u007C ?bloodTypeParent = wd:Q19831451 && ?bloodType = wd:Q19831455)
+  }

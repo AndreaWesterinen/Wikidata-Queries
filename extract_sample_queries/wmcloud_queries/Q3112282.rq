@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?who ?mem_start ?mem_end {
+  wd:Q3112282 wdt:P2670 ?item ; wdt:P571 ?cabinet_start; wdt:P576 ?cabinet_end .
+  OPTIONAL { 
+    ?who p:P39 [ ps:P39 ?item ; pq:P580 ?mem_start; pq:P582 ?mem_end ] .
+    FILTER ( (?mem_end > ?cabinet_start) && (?mem_start < ?cabinet_end) )
+  }
+}

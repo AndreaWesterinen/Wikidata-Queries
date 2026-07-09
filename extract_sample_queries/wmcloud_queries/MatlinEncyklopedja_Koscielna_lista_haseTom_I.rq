@@ -1,0 +1,1 @@
+SELECT ?item ?itemLabel ?itemmainsubject WHERE {?item p:P31 ?item_s_0Statement .?item_s_0Statement ps:P31 wd:Q13433827 .?item p:P1433 ?item_s_1Statement .?item_s_1Statement ps:P1433 wd:Q9253865 .OPTIONAL {?item wdt:P921 ?itemmainsubject .}SERVICE wikibase:label { bd:serviceParam wikibase:language "pl" . } }

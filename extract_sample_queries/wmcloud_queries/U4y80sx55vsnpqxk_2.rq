@@ -1,0 +1,18 @@
+# most common years of birth in Wikidata
+SELECT ?yearOfBirth (SUM(?count) AS ?total) WHERE {
+  {
+    SELECT ?dateOfBirth (COUNT(?item) AS ?count) WHERE {
+      VALUES ?precision { "9"^^xsd:integer "10"^^xsd:integer "11"^^xsd:integer }
+      ?item wdt:P31 wd:Q5;
+            p:P569/psv:P569 [
+              wikibase:timeValue ?dateOfBirth;
+              wikibase:timePrecision ?precision
+            ].
+    }
+    GROUP BY ?dateOfBirth
+  }
+  BIND(YEAR(?dateOfBirth) AS ?yearOfBirth)
+}
+GROUP BY ?yearOfBirth
+ORDER BY DESC(?total)
+LIMIT 100

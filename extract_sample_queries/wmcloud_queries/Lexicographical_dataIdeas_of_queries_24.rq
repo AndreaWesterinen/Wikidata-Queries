@@ -1,0 +1,4 @@
+SELECT ?l ?sense WHERE {
+  ?l a ontolex:LexicalEntry ; ontolex:sense ?sense .
+  FILTER NOT EXISTS {?l wdt:P5137 ?sense}
+}

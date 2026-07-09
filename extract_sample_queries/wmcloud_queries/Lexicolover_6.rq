@@ -1,0 +1,8 @@
+SELECT ?lastLetter (COUNT(?lemma) AS ?count ) WHERE {
+  ?lexeme a ontolex:LexicalEntry ; dct:language ?language ; wikibase:lemma ?lemma .
+  ?language wdt:P218 'cs' .
+  BIND ( SUBSTR(UCASE(STR(?lemma)), STRLEN(?lemma), 1) AS ?lastLetter )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],cs". }
+}
+GROUP BY ?lastLetter
+ORDER BY ASC(?lastLetter)

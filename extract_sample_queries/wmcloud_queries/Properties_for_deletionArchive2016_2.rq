@@ -1,0 +1,5 @@
+select ?item {
+  ?item p:P170 ?n .
+  ?n ps:P170 wd:Q4233718 .
+  ?n pq:P1776 []
+}       

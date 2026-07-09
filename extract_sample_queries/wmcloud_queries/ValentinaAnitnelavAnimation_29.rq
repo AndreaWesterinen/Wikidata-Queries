@@ -1,0 +1,44 @@
+sparql?query=#share of animated short films with female directors by country (in comparison to the share in all films)
+SELECT DISTINCT ?country ?countryLabel ?shareFilmsWithFemDirectors ?shareAnimatedFilmsWithFemDirectors ?CountAnimFilmsWithFemDirectors ?CountAnimFilms
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+{
+SELECT DISTINCT ?country 
+                (ROUND((COUNT(DISTINCT ?fem) / COUNT(DISTINCT ?film))*100) AS ?shareFilmsWithFemDirectors)
+                (ROUND((COUNT(DISTINCT ?animFem) / COUNT(DISTINCT ?anim))*100) AS ?shareAnimatedFilmsWithFemDirectors) 
+                (COUNT(DISTINCT ?animFem) AS ?CountAnimFilmsWithFemDirectors)
+                (COUNT(DISTINCT ?anim) AS ?CountAnimFilms)
+WHERE
+{
+    ?film wdt:P31/wdt:P279* wd:Q11424; wdt:P57 ?director; wdt:P495 ?country.
+    {?film wdt:P31/wdt:P279* wd:Q24862} UNION
+    {?film p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+    MINUS {?film wdt:P31/wdt:P279* wd:Q24869}
+    MINUS {?film wdt:P31/wdt:P279* wd:Q24862}
+    FILTER(?duration < 2700)
+    }
+     
+    #excluding film series
+    MINUS{?film wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?film wdt:P31/wdt:P279* wd:Q5398426}
+  
+    OPTIONAL{
+    {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866} UNION
+    {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107}
+    Bind(?film AS ?anim)
+      OPTIONAL{
+      ?film wdt:P57/wdt:P21 wd:Q6581072.
+      BIND(?film AS ?animFem)
+      }
+    }
+    OPTIONAL{
+      ?film wdt:P57/wdt:P21 wd:Q6581072.
+      BIND(?film AS ?fem)
+    }
+  
+}
+GROUP BY ?country
+HAVING (?CountAnimFilms>10)
+}
+}
+ORDER BY DESC(?shareAnimatedFilmsWithFemDirectors)

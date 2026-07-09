@@ -1,3 +1,4 @@
+#title: Parent taxons of Blue Whale
 #defaultView:Graph
 SELECT ?item ?itemLabel ?pic ?linkTo
 WHERE

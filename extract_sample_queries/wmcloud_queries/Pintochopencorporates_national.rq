@@ -1,0 +1,8 @@
+SELECT DISTINCT ?prefix (COUNT(?item) AS ?count) (SAMPLE(?prop) AS ?prop) (SAMPLE(?item) AS ?item) WHERE {
+  ?item wdt:P1320 ?ocid.
+   BIND(STRBEFORE(?ocid, "/") AS ?prefix)
+   BIND(STRAFTER(?ocid, "/") AS ?suffix)
+   OPTIONAL { ?item ?prop ?suffix. }
+}
+GROUP BY ?prefix
+ORDER BY DESC(?count)

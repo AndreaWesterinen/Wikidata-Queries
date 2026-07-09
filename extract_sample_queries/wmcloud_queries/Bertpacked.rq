@@ -1,0 +1,23 @@
+ PREFIX wd: <http://www.wikidata.org/entity/>
+ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+ PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+ PREFIX p: <http://www.wikidata.org/prop/>
+ PREFIX pr: <http://www.wikidata.org/prop/reference/>
+ PREFIX v: <http://www.wikidata.org/prop/statement/>
+ PREFIX wikibase: <http://wikiba.se/ontology#>
+ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ PREFIX prov: <http://www.w3.org/ns/prov#>
+
+ SELECT ?work ?workLabel ?collectionLabel ?datapid 
+ WHERE {
+  
+  ?work p:P195/v:P195 wd:Q1540707 .    # zoek alle items die behoren tot de collectie van het SMAK
+  ?work p:P195/v:P195 wd:Q2173225 .    # zoek voor al deze items welke er behoren tot de Collectie Vlaamse Gemeenschap
+  ?work p:P195 ?y .               # zoek voor deze items alle collection statements
+  ?y v:P195 ?collection .         # zoek voor al deze collection statemens de waarde op
+  ?y prov:wasDerivedFrom ?z .     # zoek voor al deze collection statements het bronverwijzing statement op
+  ?z pr:P854 ?datapid .           # zoek voor al deze bronverwijzing statement de URL op
+
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "nl" .} # toon voor eigenschappen het label in het Nederlands
+        } 
+LIMIT 20

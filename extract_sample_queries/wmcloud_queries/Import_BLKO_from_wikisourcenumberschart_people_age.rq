@@ -1,0 +1,24 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("area" as ?type)
+  ("400" as ?height) 
+  ("300" as ?width) 
+  ("age" as ?xAxisTitle) 
+  ("people" as ?yAxisTitle)
+  (GROUP_CONCAT(?age;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+  { SELECT ?age (COUNT(DISTINCT ?item) as ?count)
+  {
+    ?entry wdt:P1433 wd:Q665807 . 
+    ?entry wdt:P921 ?item . 
+    ?item p:P569 / psv:P569 [ wikibase:timeValue ?dob ; wikibase:timePrecision ?prec1 ] .
+    ?item p:P570 / psv:P570 [ wikibase:timeValue ?dod ; wikibase:timePrecision ?prec2 ] .
+    FILTER( ?prec1 >8 && ?prec2 >8 && ?dob < ?dod )                  
+    BIND( YEAR(?dod)-YEAR(?dob) as ?age)
+  }
+  GROUP BY ?age
+  ORDER BY DESC(?age)
+  }
+}

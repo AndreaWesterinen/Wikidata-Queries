@@ -1,0 +1,9 @@
+# article, with a ZOBODAT_id which has no authors
+SELECT ?year ?item  ?itemLabel ?link WHERE {
+  ?item wdt:P577 ?year.
+  ?item wdt:P10931 ?ZOBODAT_id.
+  minus {?item wdt:P50 ?author.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  BIND (URI(CONCAT("https://www.zobodat.at/publikation_articles.php?id=",str(?ZOBODAT_id))) as ?link)  
+    }
+ORDER BY ?year ?item ?itemLabel ?link

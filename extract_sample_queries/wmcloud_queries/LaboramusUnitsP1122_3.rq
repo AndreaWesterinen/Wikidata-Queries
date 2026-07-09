@@ -1,0 +1,5 @@
+SELECT ?id ?idLabel WHERE {
+    ?id p:P1122/psv:P1122 [ wikibase:quantityUnit wd:Q12503 ]
+    FILTER(?id != wd:Q4115189 && ?id != wd:Q13406268 && ?id != wd:Q15397819)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

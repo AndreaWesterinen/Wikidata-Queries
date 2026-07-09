@@ -1,0 +1,11 @@
+SELECT ?item ?d ?st ?sl ?ids ?age
+WHERE
+{
+    ?item wdt:P509 wd:Q84263196 ; wdt:P31 wd:Q5 ; wdt:P106/wdt:P279* wd:Q39631 ; wdt:P27 wd:Q142 .
+    OPTIONAL { ?item wdt:P570 ?d }
+    OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids }
+    OPTIONAL { ?item wdt:P569 ?dob ; wdt:P570 ?dod . BIND(YEAR(?dod)-YEAR(?dob) as ?age) }
+
+}
+ORDER BY BOUND(?d) DESC(?d)
+LIMIT 3000

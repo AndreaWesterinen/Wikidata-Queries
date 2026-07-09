@@ -1,0 +1,13 @@
+#title: Check ISIL DE-MUS-*
+# Complex constraint from [[Property talk:P791]]
+# Item with an ISIL identifier with ''DE-MUS-'' prefix but not a museum
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P791 ?value; wdt:P31 ?instance
+  MINUS {
+    VALUES ?classes { wd:Q33506 } .
+    ?item wdt:P31/wdt:P279* ?classes .
+  } .
+  FILTER( REGEX( STR( ?value ), "^(DE-MUS-.+)$" ) ) .
+  FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+}
+ORDER BY ?item

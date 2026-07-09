@@ -1,0 +1,7 @@
+SELECT ?item ?sl {
+  SERVICE bd:sample {
+    ?item wikibase:statements "0"^^xsd:integer.
+    bd:serviceParam bd:sample.limit "2000".
+   }
+  ?item wikibase:sitelinks ?sl
+ }

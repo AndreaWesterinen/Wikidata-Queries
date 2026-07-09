@@ -1,0 +1,17 @@
+embed.html##defaultView:Map{"hide":["?coor","?layer"],"layer":"?typeLabel"}
+SELECT ?sLabel ?yLabel ?typeLabel ?s ?coor ?y ?type ?image ?layer WHERE { 
+  
+       ?s wdt:P31/wdt:P279* wd:Q7075 ;
+          wdt:P625 ?coor ;
+          wdt:P31 ?type ;
+          wdt:P131* ?y .
+       ?y wdt:P17 wd:Q145 .
+       ?type wdt:P279* wd:Q7075 .
+          VALUES ?y {wd:Q505610 wd:Q596885 wd:Q650682 wd:Q24342199 wd:Q843868 wd:Q11294004 wd:Q10996863 wd:Q817971 wd:Q156150 wd:Q168159 
+                             wd:Q217829 wd:Q109128 wd:Q207176 wd:Q213361 wd:Q697126 wd:Q748065 wd:Q748078 wd:Q817960 wd:Q844784 wd:Q3306663
+                             wd:Q643919 wd:Q217840}
+      OPTIONAL {?s wdt:P18 ?image .}
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?sLabel ?yLabel 

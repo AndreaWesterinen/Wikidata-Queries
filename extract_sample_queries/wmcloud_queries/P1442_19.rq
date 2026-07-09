@@ -1,0 +1,10 @@
+#title: Wrong date
+# Complex constraint from [[Property talk:P1442]]
+# [[Property:P585|point in time&#32;<small dir="ltr">(P585)</small>]] is for the date of picture (see [[Property:P4602|date of burial or cremation&#32;<small dir="ltr">(P4602)</small>]] for an other date)
+SELECT ?item ?died ?datePicture
+WHERE {
+     ?item p:P1442 ?statement.
+     ?statement pq:P585 ?datePicture.
+     ?item wdt:P570 ?died.
+     FILTER (?datePicture < ?died).
+}

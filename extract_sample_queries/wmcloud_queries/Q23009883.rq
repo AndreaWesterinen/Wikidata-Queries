@@ -1,0 +1,1 @@
+select ?item where { wd:Q23009883 wdt:P527 ?item . }

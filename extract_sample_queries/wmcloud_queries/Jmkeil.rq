@@ -1,0 +1,16 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?rgb ?item2 ?item2Label ?edgeLabel WHERE {
+  {
+    ?item (wdt:P31/wdt:P279*) wd:Q387196.
+    OPTIONAL { ?item wdt:P527 ?item2. }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".}
+	BIND ("0000FF" AS ?rgb )
+	BIND ("hasPart" AS ?edgeLabel)
+  } UNION {
+    ?item (wdt:P31/wdt:P279*) wd:Q3929429.
+    OPTIONAL { ?item p:P1552 [pq:P642 ?item2]. }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+	BIND ("00FF00" AS ?rgb )
+	BIND ("supports" AS ?edgeLabel)
+  }
+}

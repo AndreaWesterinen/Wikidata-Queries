@@ -1,0 +1,11 @@
+# Items about people, with a badge on Wikipedia but no picture on Wikidata
+SELECT DISTINCT ?item ?itemLabel (COUNT(?site) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?article schema:about ?item .
+  ?article wikibase:badge ?badge .
+  ?article schema:isPartOf ?site .
+  
+  FILTER NOT EXISTS { ?item wdt:P18 ?image . }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} GROUP BY ?item ?itemLabel ORDER BY DESC(?count)

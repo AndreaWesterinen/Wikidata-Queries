@@ -1,0 +1,4 @@
+SELECT ?q ?qLabel ?qDescription ?url WHERE {
+?q wdt:P195 wd:Q1456119;  wdt:P953 ?url.
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

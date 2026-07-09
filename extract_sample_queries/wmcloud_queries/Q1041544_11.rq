@@ -1,0 +1,10 @@
+embed.html##title: films with Carla Mancini missing "genre" (P136)
+SELECT DISTINCT ?film ?filmLabel ?filmDescription 
+{
+  	hint:Query hint:optimizer "None" .
+  	?film ?wdt wd:Q1041544 .
+  	?property wikibase:directClaim ?wdt ; wikibase:claim ?p ; wikibase:statementProperty ?ps
+  	{ ?film wdt:P31/wdt:P279* wd:Q11424 } UNION { ?film wdt:P31 wd:Q5398426 }
+    FILTER NOT EXISTS { ?film wdt:P136 [] }   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

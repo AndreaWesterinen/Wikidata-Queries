@@ -1,0 +1,23 @@
+select ?item ?d ?a ?url
+{
+  ?item wdt:P217 ?d.
+  ?a wdt:P217 ?d.
+  filter (?item != ?a).
+  ?item wdt:P195 ?k.
+  ?a wdt:P195 ?k.
+  OPTIONAL{?k wdt:P856 ?url}
+  filter not exists {?item wdt:P1889 ?a}.
+  filter not exists {?item wdt:P2959 ?a}.
+  filter not exists {?item wdt:P1639 ?a}.
+  minus {?item wdt:P527 ?a}.
+  minus {?item wdt:P361 ?a}.
+  minus {?a wdt:P527 ?item}.
+  minus {?a wdt:P361 ?item}.
+  minus {?item wdt:P2681 ?a}.
+  minus {?item wdt:P2682 ?a}.
+  filter not exists {?a wdt:P2681 ?item}.
+  filter not exists {?a wdt:P2682 ?item}.  
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "pl, en" }
+}
+order by ?d

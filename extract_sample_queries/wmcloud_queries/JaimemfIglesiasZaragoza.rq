@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?diocesis ?diocesisLabel ?religion ?religionLabel ?misasOrg ?dedicadoA ?dedicadoALabel
+{
+	?item wdt:P17 wd:Q29;
+          wdt:P131 wd:Q10305;
+          wdt:P31/wdt:P279* wd:Q16970.
+    OPTIONAL { ?item wdt:P708 ?diocesis }
+    OPTIONAL { ?item wdt:P140 ?religion }
+    OPTIONAL { ?item wdt:P7054 ?misasOrg }
+    OPTIONAL { ?item wdt:P825 ?dedicadoA }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en"  }    
+}

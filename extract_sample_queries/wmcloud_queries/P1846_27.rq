@@ -1,0 +1,2 @@
+#title:Change the property P1846 to P181
+SELECT DISTINCT ?item WHERE { ?item wdt:P1846 ?value; wdt:P31 wd:Q16521}

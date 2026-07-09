@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P5008 wd:Q100975219.
+  FILTER(NOT EXISTS { ?item wdt:P1855 ?o. })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY (LCASE(?itemLabel))

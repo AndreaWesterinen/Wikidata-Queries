@@ -1,0 +1,14 @@
+embed.html##Reservoir without GNS
+#defaultView:Map
+SELECT DISTINCT ?entity ?entityLabel ?locationLabel ?coord ?lat ?lon WHERE {
+  ?entity wdt:P31 wd:Q131681 .      # Thai temple
+  ?entity wdt:P17 wd:Q869 .			# in Thailand
+  FILTER NOT EXISTS { ?entity wdt:P2326 ?x } .	# no gns 
+  ?entity wdt:P625 ?coord .
+  ?entity p:P625 ?coordinate .
+  ?coordinate psv:P625 ?coordinate_node .
+  ?coordinate_node wikibase:geoLatitude ?lat .
+  ?coordinate_node wikibase:geoLongitude ?lon .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?entityLabel

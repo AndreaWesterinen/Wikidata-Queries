@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?name ?q ?q1 {
+ {SELECT (?e AS ?expr) ?q ?q1 {
+  VALUES (?e ?q ?q1) {
+    ("(Ant[h]?ony.*Abbot

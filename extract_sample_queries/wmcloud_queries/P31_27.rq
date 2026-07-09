@@ -1,0 +1,22 @@
+#title: Multiple P31 claims lead to duplicate tuples
+# Complex constraint from [[Property talk:P31]]
+# Multiple P31 claims are unnecessary in most cases with Wikimedia-related items. Consider [[Property:P1269|facet of&#32;<small dir="ltr">(P1269)</small>]] instead of second P31 value.
+SELECT ?item # ?inspected ?itemLabel ?else
+WHERE
+{
+    VALUES ?inspected
+    {
+       wd:Q4167836
+       wd:Q11266439
+       wd:Q17362920
+    }
+    VALUES ?whitelistedCombinations
+    {
+       wd:Q4115189
+       wd:Q15397819 #placeholders
+    }
+	?item wdt:P31 ?inspected .
+    ?item wdt:P31 ?else FILTER (?else != ?inspected).
+    MINUS { ?item wdt:P31 ?whitelistedCombinations . }
+# SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

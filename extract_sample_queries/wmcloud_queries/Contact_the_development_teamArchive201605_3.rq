@@ -1,0 +1,6 @@
+select * where {
+values ?item { wd:Q12061543 wd:Q81231 }
+?item p:P1092 ?statement .
+?statement psv:P1092 ?value .
+optional { ?value wikibase:quantityUnit ?unit . }
+}

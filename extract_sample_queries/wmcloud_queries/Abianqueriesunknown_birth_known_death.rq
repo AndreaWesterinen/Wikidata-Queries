@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?death
+WHERE
+{
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P569 ?birth.
+  FILTER isBLANK(?birth)
+  ?item p:P570/psv:P570 [
+    wikibase:timePrecision ?precision;
+    wikibase:timeValue ?death
+  ].
+  VALUES ?precision {
+    "9"^^xsd:integer # year
+    "10"^^xsd:integer
+    "11"^^xsd:integer
+    "12"^^xsd:integer
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,es,fr" }
+}

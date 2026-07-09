@@ -1,0 +1,4 @@
+SELECT ?property ?propertyLabel ?regex WHERE {
+  ?property wikibase:propertyType wikibase:ExternalId; wdt:P1793 ?regex .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} ORDER BY ?propertyLabel

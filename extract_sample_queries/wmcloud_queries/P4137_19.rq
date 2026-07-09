@@ -1,0 +1,10 @@
+#title: Check units
+# Complex constraint from [[Property talk:P4137]]
+# Unit must to be a [[d:Q15222637|unit of speed <small>(Q15222637)</small>]]
+SELECT ?item ?unit
+WHERE {
+  ?item p:P4137/psv:P4137/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P31 wd:Q15222637.
+  }.
+}

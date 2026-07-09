@@ -1,0 +1,33 @@
+# Livre avec en genre récit de voyage
+# options : date de création / date de publication / langue originale / langue de l'œuvre / auteur
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT DISTINCT ?item ?itemLabel ?auteurLabel ?langueOriginaleLabel ?langueOeuvreLabel (year(?dateC) as ?datecrea) (year(?dateP) as ?datepubli)
+where {
+   ?item wdt:P136 wd:Q1164267 .
+   ?item  wdt:P31 wd:Q571 .
+   OPTIONAL{
+    ?item wdt:P571 ?dateC   .                     
+   }
+   OPTIONAL{
+    ?item wdt:P577 ?dateP   .                     
+   }
+   OPTIONAL{
+    ?item wdt:P407 ?langueOriginale   .                        
+   }
+   OPTIONAL{
+    ?item wdt:P364 ?langueOeuvre   .                       
+   }
+   OPTIONAL{
+    ?item wdt:P50 ?auteur   .                      # Option, P577 : une date de publication   
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,ar,be,bg,bn,ca,cs,da,de,el,en,es,et,fa,fi,he,hi,hu,hy,id,it,ja,jv,ko,nb,nl,eo,pa,pl,pt,ro,ru,sh,sk,sr,sv,sw,te,th,tr,uk,yue,vec,vi,zh" #BabelRainbow
+  } 
+} ORDER BY ?datecrea

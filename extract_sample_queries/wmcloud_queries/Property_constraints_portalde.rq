@@ -1,0 +1,16 @@
+# https://www.wikidata.org/wiki/Help:Property_constraints_portal
+# popular contraints
+SELECT ?constraint ?constraintLabel ?ct
+WHERE
+{
+  {
+  SELECT ?constraint (count(*) as ?ct)
+  WHERE
+  {
+    ?item wdt:P2302 ?constraint
+  }
+  GROUP BY ?constraint
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?ct) ASC(?constraint)

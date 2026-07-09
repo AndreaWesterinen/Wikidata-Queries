@@ -1,0 +1,8 @@
+SELECT ?item ?articurl WHERE {
+  wd:P4625 wdt:P1630 ?formatterurl .
+  ?item p:P195/ps:P195 wd:Q49133 .
+  ?item wdt:P31 wd:Q3305213 .
+  OPTIONAL { ?item wdt:P4625 ?articid }.
+  BIND(REPLACE(?articid, '^(.+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?articurl)  .
+  } 
+LIMIT 4000

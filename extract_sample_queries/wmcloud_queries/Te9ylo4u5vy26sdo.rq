@@ -1,0 +1,9 @@
+# set unit to Q24564698 for
+# age of majority 						(P2997) 
+# age of candidacy 						(P2998) 
+# age of consent 						(P2999) 
+# marriageable age 						(P3000)
+# retirement age 						(P3001)
+# compulsory education (minimum age) 	(P3270) 
+# compulsory education (maximum age) 	(P3271) 
+SELECT ?item WHERE { ?item p:P2997/psv:P2997/wikibase:quantityUnit ?unit . FILTER(?unit = wd:Q199) }

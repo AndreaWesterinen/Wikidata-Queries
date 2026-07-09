@@ -1,0 +1,21 @@
+SELECT ?composition (SAMPLE(?composerLabel) AS ?composer) (SAMPLE(?title) AS ?title) (GROUP_CONCAT(?otherInstrumentLabel; SEPARATOR = ", ") AS ?otherInstruments)
+WHERE
+{
+  ?composition wdt:P870/wdt:P279* wd:Q1444;
+               wdt:P870 ?otherInstrument.
+  FILTER(?otherInstrument != wd:Q1444).
+  OPTIONAL {
+   	?composition rdfs:label ?title.
+    FILTER(LANG(?title) = "en").
+  }
+  OPTIONAL {
+    ?otherInstrument rdfs:label ?otherInstrumentLabel.
+    FILTER(LANG(?otherInstrumentLabel) = "en").
+  }
+  OPTIONAL {
+    ?composition wdt:P86 ?composer.
+    ?composer rdfs:label ?composerLabel.
+    FILTER(LANG(?composerLabel) = "en").
+  }
+}
+GROUP BY ?composition

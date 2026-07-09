@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P356/ps:P356 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https?://[^/]+\\.(com|net|edu|uk|ch|fi|de|it|ie|nl|arxiv.org|aisnet.org|dyne.org|australianhumanitiesreview.org)/.+))$") )
+}

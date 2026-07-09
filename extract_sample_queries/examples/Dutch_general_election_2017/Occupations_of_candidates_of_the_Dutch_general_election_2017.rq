@@ -1,5 +1,5 @@
-# ----
-#Kandidaten voor de Nederlandse TK verkiezingen van 2017
+#title: Occupations of candidates of the Dutch general election 2017
+# Kandidaten voor de Nederlandse TK verkiezingen van 2017
 #defaultView:Dimensions
 SELECT ?positie_op_lijst ?genderLabel ?occupationLabel ?politieke_partijLabel WHERE {
   VALUES ?politieke_partij {wd:Q747910 wd:Q275441}

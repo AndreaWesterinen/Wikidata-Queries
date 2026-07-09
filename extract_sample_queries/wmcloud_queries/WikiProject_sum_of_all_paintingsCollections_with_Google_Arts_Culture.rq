@@ -1,0 +1,10 @@
+SELECT ?item (CONCAT("[",REPLACE(?igacid, '^(.+)$', ?formatterurl)," ",?igacid,"]") as ?igaclink) ?countgac ?countall (CONCAT(str(ROUND(1000*?countgac/?countall)/10), "%") AS ?percent) WHERE {
+{ SELECT ?item (COUNT(?gacid ) AS ?countgac) (COUNT(?item) AS ?countall) (CONCAT(str(ROUND(1000*?countgac/?countall)/10), "%") AS ?percent) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P195 ?item .
+  OPTIONAL { ?painting wdt:P4701 ?gacid } 
+  }
+GROUP BY ?item
+} OPTIONAL { ?item wdt:P4702 ?igacid . wd:P4702 wdt:P1630 ?formatterurl . } 
+} ORDER BY DESC(?countgac)
+LIMIT 150

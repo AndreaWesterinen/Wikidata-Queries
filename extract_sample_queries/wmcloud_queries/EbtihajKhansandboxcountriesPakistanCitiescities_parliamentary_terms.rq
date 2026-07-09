@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?legislature ?ordinal WHERE {
+  VALUES ?cities { wd:Q8660 wd:Q11739 wd:Q173985 wd:Q93230 wd:Q24440 wd:Q243322 wd:Q549467 wd:Q185453 wd:Q1640079 wd:Q848613 wd:Q185458 wd:Q318156 wd:Q855997 wd:Q643883 wd:Q868631 wd:Q696605 wd:Q2503836 wd:Q2639823 wd:Q936703 wd:Q999076 wd:Q929062 wd:Q523778 wd:Q2379056 wd:Q2503839 wd:Q46785 wd:Q389161 wd:Q64170 wd:Q2503822 wd:Q74192 } .
+  ?cities wdt:P194 ?legs .
+  ?statement ps:P31 wd:Q15238777 ;
+             pq:P642 ?legs .
+  ?item p:P31 ?statement .
+  OPTIONAL { ?statement pq:P642 ?legislature }
+  OPTIONAL { ?statement pq:P1545 ?ordinal }
+  OPTIONAL { ?item wdt:P156 ?followedby }
+  OPTIONAL { ?item wdt:P155 ?follows }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (xsd:integer(?ordinal))

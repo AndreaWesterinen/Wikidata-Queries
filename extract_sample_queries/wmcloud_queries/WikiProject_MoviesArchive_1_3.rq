@@ -1,0 +1,17 @@
+SELECT ?originalMovieLabel ?originalActorLabel ?dubActorLabel ?characterLabel
+WHERE 
+{
+	?dubbedMovie p:P725 ?da .
+	?da ps:P725 ?dubActor .
+  
+  	?dubbedMovie wdt:P629 ?originalMovie .
+  	?originalMovie p:P161 ?oa .
+  	?oa ps:P161 ?originalActor .
+
+  	?da pq:P453 ?character .
+  	?oa pq:P453 ?character .
+  
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel 
+{
+	?item wdt:P7076 ?artePublico.
+    FILTER NOT EXISTS { ?item wdt:P170 ?creador}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en"  }    
+}

@@ -1,0 +1,16 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+select distinct ?item ?itemLabel ?instanceOfLabel ?DateofBirth ?Inception
+where {
+  { ?item wdt:P569 ?DateofBirth. #P569 date of birth
+    FILTER (month(?DateofBirth) = 10 && day(?DateofBirth) = 29)
+  }UNION 
+  { ?item wdt:P571 ?Inception. #P571 inception/date of creation
+    FILTER (month(?Inception) = 10 && day(?Inception) = 29)
+  }
+  ?item wdt:P31 ?instanceOf. #P31 instance of
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,ar,be,bg,bn,ca,cs,da,de,el,es,et,fa,fi,fr,he,hi,hu,hy,id,it,ja,jv,ko,nb,nl,eo,pa,pl,pt,ro,ru,sh,sk,sr,sv,sw,te,th,tr,uk,yue,vec,vi,zh"
+  }
+}

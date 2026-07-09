@@ -1,0 +1,9 @@
+#title: Check dates
+# Complex constraint from [[Property talk:P2568]]
+#
+SELECT ?item ?value ?publicationDate ?publicationDateBis {
+	?item wdt:P2568 ?value.
+    ?item wdt:P577 ?publicationDate.
+    ?value wdt:P577 ?publicationDateBis.
+    FILTER (?publicationDate > ?publicationDateBis)  
+}

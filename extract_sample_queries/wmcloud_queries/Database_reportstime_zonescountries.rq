@@ -1,0 +1,17 @@
+SELECT
+	?item
+	(GROUP_CONCAT( DISTINCT( CONCAT("[[", strafter(str(?c),"y/"),"|", ?cLabel ,"]] ",str(?ct),"; ") )) as ?countries)
+	(SUM(?ct) as ?stmts)
+{
+	{
+  		SELECT ?item ?c (COUNT(DISTINCT ?loc) as ?ct)
+		{
+			?loc wdt:P421 ?item .
+  			?loc wdt:P17 ?c
+		}
+		GROUP BY ?item ?c
+	}
+	FILTER (!isBlank(?c))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?c rdfs:label ?cLabel }
+}
+GROUP BY ?item

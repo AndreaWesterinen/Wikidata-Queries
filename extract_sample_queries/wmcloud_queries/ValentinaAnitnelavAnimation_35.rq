@@ -1,0 +1,82 @@
+#time lines of animated films by country
+#defaultView:BarChart
+SELECT ?countryLabel (STR(?year) AS ?years) ?filmType
+  WITH {
+    SELECT DISTINCT ?item (YEAR(MIN(?date)) AS ?year) ?country ("unknown" AS ?filmType) WHERE {
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date} UNION
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date}
+    
+    #excluding film series
+    MINUS{?item wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q5398426}
+    #excluding feature and short films
+    MINUS{{?item wdt:P31/wdt:P279* wd:Q24869} UNION {?item wdt:P31/wdt:P279* wd:Q24862}}
+    #excluding films with duration
+    MINUS{?item p:P2047 ?duration}
+    }
+    GROUP BY ?item ?country
+  } AS %animatedFilms
+  WITH {
+    SELECT DISTINCT ?item (YEAR(MIN(?date)) AS ?year) ?country ("feature" AS ?filmType) WHERE {
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date} UNION
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date}
+    
+    #excluding film series
+    MINUS{?item wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q5398426}
+    #selecting only feature films
+    {?item (wdt:P31/wdt:P279*) wd:Q24869.} UNION {
+    ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+    MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+    MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+    FILTER(?duration >= 2700)
+    }
+    }
+    GROUP BY ?item ?country
+  } AS %animatedFeatures
+         
+  WITH {
+    SELECT DISTINCT ?item (YEAR(MIN(?date)) AS ?year) ?country ("short" AS ?filmType) WHERE {
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date} UNION
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date}
+    
+    #excluding film series
+    MINUS{?item wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q5398426}
+    #selecting only short films
+    {?item wdt:P31/wdt:P279* wd:Q24862} UNION {
+    ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+    MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+    MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+    FILTER(?duration < 2700)
+    }
+    }
+    GROUP BY ?item ?country
+  } AS %animatedShorts
+       
+  WITH {
+    SELECT DISTINCT ?country ?year (GROUP_CONCAT(DISTINCT ?filmType) AS ?filmTypes) WHERE { 
+    {
+    SELECT DISTINCT ?country (YEAR(MIN(?date)) AS ?year) ?filmType ?item WHERE {
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date} UNION
+    {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; wdt:P495 ?country; (wdt:P577|wdt:P2754) ?date}
+    FILTER(YEAR(?date)>0)
+    {INCLUDE %animatedFeatures} UNION
+    {INCLUDE %animatedShorts} UNION
+    {INCLUDE %animatedFilms}
+    
+    }
+    GROUP BY ?country ?filmType ?item
+    }
+    }
+    GROUP BY ?country ?year
+    } AS %years
+         
+  WHERE {
+  
+  {INCLUDE %years FILTER(CONTAINS(STR(?filmTypes), "feature")) BIND("feature" AS ?filmType)} UNION
+  {INCLUDE %years FILTER(CONTAINS(STR(?filmTypes), "short") && !CONTAINS(STR(?filmTypes), "feature")) BIND("short" AS ?filmType)} UNION
+  {INCLUDE %years FILTER(!CONTAINS(STR(?filmTypes), "short") && !CONTAINS(STR(?filmTypes), "feature")) BIND("unknown" AS ?filmType)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en","fr","it","es","de","ru","cs","sk","nl","sv","fi","no". }
+  
+  }

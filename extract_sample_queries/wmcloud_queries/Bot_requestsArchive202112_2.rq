@@ -1,0 +1,7 @@
+#title:parts of duos
+SELECT ?duo ?duoLabel ?item ?itemLabel
+{
+    ?item p:P31 [ prov:wasDerivedFrom/pr:P3452 wd:Q10648343 ; ps:P31 wd:Q5 ] .
+    ?item wdt:P361 ?duo .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

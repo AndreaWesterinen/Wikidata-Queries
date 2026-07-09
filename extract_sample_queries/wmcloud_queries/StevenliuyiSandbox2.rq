@@ -1,0 +1,9 @@
+SELECT
+?item ?link (GROUP_CONCAT(DISTINCT ?position_label;SEPARATOR="<br/>") AS ?positions)
+?birth_placeLabel ?ancestral_homeLabel (MAX(?rank_label) AS ?rank_label) WHERE {
+  ?item p:P39 ?position_statement .
+  ?position_statement ps:P39 ?position .
+  ?position_statement pq:P580 ?start_time .
+  FILTER NOT EXISTS { ?position_statement pq:P582 ?end_time } .
+  ?position wdt:P279 ?rank .
+  FILTER ( ?rank = wd:Q30945753

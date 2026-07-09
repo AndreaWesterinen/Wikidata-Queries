@@ -1,0 +1,11 @@
+SELECT distinct ?item ?subject ?subjectLabel  ?DOI WHERE {
+  ?item wdt:P123 wd:Q57971890.
+  OPTIONAL { ?item wdt:P921 ?subject. }
+  OPTIONAL { ?item wdt:P356 ?BookDOI. }
+  BIND(URI(CONCAT("https://doi.org/", ?BookDOI)) AS ?DOI)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "sv".
+    bd:serviceParam wikibase:language "en".
+  }
+}
+ORDER BY ?subjectLabel

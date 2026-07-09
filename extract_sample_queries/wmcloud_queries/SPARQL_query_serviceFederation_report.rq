@@ -1,0 +1,5 @@
+SELECT ?a ?b ?c WHERE { 
+  SERVICE <http://data.bibliotheken.nl/sparql> {
+    SELECT ?a ?b ?c WHERE { ?a ?b ?c } LIMIT 1
+  }
+} LIMIT 1

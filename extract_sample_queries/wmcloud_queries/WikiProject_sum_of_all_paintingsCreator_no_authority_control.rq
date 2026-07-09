@@ -1,0 +1,48 @@
+SELECT ?painter ?paintername ?mixurl(COUNT(?painter) as ?count) (MIN(?item) as ?item) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P170 ?painter .
+  MINUS {
+  { 
+    ?painter wdt:P214 [] } UNION { 
+    ?painter wdt:P245 [] } UNION { 
+    ?painter wdt:P268 [] } UNION { 
+    ?painter wdt:P650 [] } UNION { 
+    ?painter wdt:P781 [] } UNION { 
+    ?painter wdt:P1138 [] } UNION { 
+    ?painter wdt:P1367 [] } UNION { 
+    ?painter wdt:P1422 [] } UNION { 
+    ?painter wdt:P1615 [] } UNION { 
+    ?painter wdt:P1707 [] } UNION { 
+    ?painter wdt:P1711 [] } UNION { 
+    ?painter wdt:P1795 [] } UNION { 
+    ?painter wdt:P1882 [] } UNION { 
+    ?painter wdt:P2041 [] } UNION { 
+    ?painter wdt:P2042 [] } UNION { 
+    ?painter wdt:P2174 [] } UNION { 
+    ?painter wdt:P2252 [] } UNION { 
+    ?painter wdt:P2268 [] } UNION { 
+    ?painter wdt:P2342 [] } UNION { 
+    ?painter wdt:P2399 [] } UNION { 
+    ?painter wdt:P2431 [] } UNION { 
+    ?painter wdt:P2432 [] } UNION { 
+    ?painter wdt:P2538 [] } UNION {
+    ?painter wdt:P2741 [] } UNION {
+    ?painter wdt:P2843 [] } UNION { 
+    ?painter wdt:P2915 [] } UNION {
+    ?painter wdt:P3372 [] } UNION {
+    ?painter wdt:P3421 [] } UNION {
+    ?painter wdt:P3544 [] } UNION {
+    ?painter wdt:P3782 [] } UNION {
+    ?painter wdt:P3888 [] } UNION {
+    ?painter wdt:P3965 [] } UNION {
+    ?painter wdt:P4025 [] } UNION {
+    ?painter wdt:P4145 [] } UNION {
+    ?painter wdt:P4177 [] } UNION {
+    ?painter wdt:P4687 [] }
+  }
+  OPTIONAL {
+    ?painter rdfs:label ?paintername .
+    FILTER (lang(?paintername) = "en") .
+    BIND(CONCAT("[https://tools.wmflabs.org/mix-n-match/#/search/", REPLACE(STR(?paintername), " ", "%20"), " search in Mix'n'match]") AS ?mixurl)  . 
+  }
+} GROUP BY ?painter ?paintername ?mixurl

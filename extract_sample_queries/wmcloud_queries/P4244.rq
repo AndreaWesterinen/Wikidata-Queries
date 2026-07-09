@@ -1,0 +1,4 @@
+SELECT ?q ?qLabel ?id {
+ ?q wdt:P4244 ?id .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+ }

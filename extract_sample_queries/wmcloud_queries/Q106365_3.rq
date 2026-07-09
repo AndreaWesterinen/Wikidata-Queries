@@ -1,0 +1,13 @@
+embed.html#SELECT DISTINCT ?film ?filmLabel ?filmDescription ?award ?awardLabel ?winner ?winnerLabel 
+{
+  	hint:Query hint:optimizer "None" .
+  	?film ?wdt wd:Q106365 .
+  	?property wikibase:directClaim ?wdt ; wikibase:claim ?p ; wikibase:statementProperty ?ps
+  	OPTIONAL { ?film ?p ?statement . ?statement ?ps wd:Q106365 . ?statement pq:P453 ?role . OPTIONAL { ?statement pq:P794 ?as} }
+  	OPTIONAL { ?film wdt:P577 ?pub BIND(YEAR(?pub) as ?year) }
+    ?film p:P166 ?ast . ?ast ps:P166 ?award . OPTIONAL { ?ast pq:P1346 ?winner }  
+  	{ ?film wdt:P31/wdt:P279* wd:Q11424 } UNION { ?film wdt:P31 wd:Q5398426 }
+  	?film wikibase:sitelinks ?sitelinks; wikibase:statements ?statements ; wikibase:sitelinks ?ids .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?filmDescription ?item

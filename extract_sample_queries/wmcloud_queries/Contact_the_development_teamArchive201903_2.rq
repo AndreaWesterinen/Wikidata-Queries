@@ -1,0 +1,10 @@
+# units that are not proper items
+SELECT ?value ?unit ?count WITH {
+  SELECT ?unit (COUNT(*) AS ?count) (SAMPLE(?value) AS ?value) WHERE {
+    ?value wikibase:quantityUnit ?unit.
+  }
+  GROUP BY ?unit
+} AS %units WHERE {
+  INCLUDE %units.
+  MINUS { ?unit wikibase:statements ?statements. }
+}

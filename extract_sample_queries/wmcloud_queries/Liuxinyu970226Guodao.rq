@@ -1,0 +1,1 @@
+SELECT ?item ?st WHERE { ?item wdt:P16 wd:Q1847533; wikibase:statements ?st; SERVICE wikibase:label { bd:serviceParam wikibase:language "en,zh" } } ORDER BY ?item LIMIT 5000

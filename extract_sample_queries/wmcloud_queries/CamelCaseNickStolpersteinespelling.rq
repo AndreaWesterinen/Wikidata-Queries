@@ -1,0 +1,25 @@
+#by CamelCaseNick
+select (?stolperstein as ?item) ?inscription ?reason where {
+  ?stolperstein wdt:P31 wd:Q26703203;
+                wdt:P1684 ?inscription;
+               # wdt:P131+ wd:Q1055.
+  
+  values (?reason ?regex) {
+    ("missing space"             "Jg\\.\\d{4}|KZ[A-Z]|geb\\.[A-Z]|[A-Za-z]geb\\.|wohnte[A-Za-z]")
+    ("missing period"            " (Jg|geb)[^\\.o]")
+    ("too many spaces"           "‚ | ‘|  |^ | $")
+   # ("incorrect quotation marks" "['\"„“]")
+    ("incorrect spaces"          "[^ ]\\/ | \\/[^ ]")
+    ("year with less than four digits" "(\\d\\.|[^\\.])\\d{,3}([^\\d]|$)")
+    ("ill-formatted date"        "\\d{1,2}\\.( ?\\d{1,2}\\. | ?\\d{1,2}\\. )\\d{4}")
+    ("misspelling of Łodz"       "Lodz|Łódź")
+    ("misspelling of wohnte"     "wohnt ")
+   # ("incorrect capital letter"  "(Ermordet|Verhaftet|Deportiert|Geb\\.|Tot)")
+   # ("all-caps"                  "^[^a-z]*$")
+    ("all-caps at abbr."         "(JG|GEB).*[a-z]")
+    ("use of Wiki syntax"        "<br ?/>|[\\[\\]]")
+    ("unknown character, use � (U+FFFD)" "_|♦|(?<!geb\\. ?|Jg\\. ?)\\?(?!$| ?\\?| für tot erklärt$| FÜR TOT ERKLÄRT$)")
+  }
+  filter(regex(?inscription, ?regex))
+  #filter(regex(?inscription, "[a-z]"))
+}

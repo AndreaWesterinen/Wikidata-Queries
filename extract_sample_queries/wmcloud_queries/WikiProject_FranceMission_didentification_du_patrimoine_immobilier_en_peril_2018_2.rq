@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?commune ?dep
+WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P1435 wd:Q54556283.
+  OPTIONAL {?item wdt:P131 ?commune.
+  ?item wdt:P131* ?dep . ?dep (wdt:P31/wdt:P279*) wd:Q6465 }
+}

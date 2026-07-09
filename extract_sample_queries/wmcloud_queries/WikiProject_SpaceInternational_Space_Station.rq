@@ -1,0 +1,6 @@
+SELECT ?item ?connects_with ?connects_withLabel ?space_station_module ?space_station_moduleLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P2789 ?connects_with. }
+  ?space_station_module wdt:P31 wd:Q18812508.
+}
+LIMIT 100

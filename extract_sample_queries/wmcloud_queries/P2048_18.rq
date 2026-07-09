@@ -1,0 +1,15 @@
+#title: Unsuitable height for human
+# Complex constraint from [[Property talk:P2048]]
+# Person with height and bigger than 2.72m (man) or 2.48m (women)
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5;
+        wdt:P21 ?sex.
+  ?item          p:P2048                     ?stmnode.
+  ?stmnode       psn:P2048                   ?valuenode.  # normalised value
+  ?valuenode     wikibase:quantityAmount     ?height.
+  VALUES (?maxHeight ?relatedSex) {
+    (2.72 wd:Q6581097)
+    (2.48 wd:Q6581072)
+  }
+ FILTER (?height > ?maxHeight && ?sex = ?relatedSex)
+}

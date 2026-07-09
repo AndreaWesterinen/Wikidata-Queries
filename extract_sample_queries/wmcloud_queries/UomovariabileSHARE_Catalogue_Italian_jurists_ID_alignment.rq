@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?pic ?SHARECATid ?IdRef ?UniBarcelona ?SBN ?NTA ?BNE ?SELIBR ?Bibsys ?GND  WHERE {
+  ?item wdt:P3987 ?SHARECATid;
+         
+    wdt:P106 wd:Q185351;
+    wdt:P27 wd:Q38.
+  
+  OPTIONAL { ?item wdt:P396 ?SBN. }
+  OPTIONAL { ?item wdt:P269 ?IdRef. }
+  OPTIONAL { ?item wdt:P1580 ?UniBarcelona. }
+  OPTIONAL { ?item wdt:P950 ?BNE. }
+  OPTIONAL { ?item wdt:P1006 ?NTA. }
+  OPTIONAL { ?item wdt:P1015 ?Bibsys. }
+  OPTIONAL { ?item wdt:P906 ?SELIBR. }
+  OPTIONAL { ?item wdt:P227 ?GND. }
+  OPTIONAL { ?item wdt:P18 ?pic. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

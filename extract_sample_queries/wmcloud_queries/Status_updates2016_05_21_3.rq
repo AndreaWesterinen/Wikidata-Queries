@@ -1,0 +1,6 @@
+SELECT ?meme ?memeLabel
+WHERE
+{
+  ?meme wdt:P31/wdt:P279* wd:Q978.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

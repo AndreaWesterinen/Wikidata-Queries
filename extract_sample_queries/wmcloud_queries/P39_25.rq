@@ -1,0 +1,9 @@
+#title: Check kapellmeister
+# Complex constraint from [[Property talk:P39]]
+# Check [[d:Q215793|kapellmeister <small>(Q215793)</small>]]
+SELECT ?item {
+  ?item p:P39 [ps:P39 wd:Q215793; # maitre de chapelle
+               pq:P642 ?of
+              ].
+  MINUS { ?of wdt:P31 [] }.
+}

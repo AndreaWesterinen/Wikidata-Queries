@@ -1,0 +1,5 @@
+select ?item where { 
+    ?item wdt:P31 wd:Q3055118.
+    ?item wdt:P131+ wd:Q5705.
+    minus { ?item wdt:P131/wdt:P31 wd:Q33146843 }
+  }

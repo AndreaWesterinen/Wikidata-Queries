@@ -1,0 +1,15 @@
+select ?item ?itemLabel ?itemDescription   ?designation ?designationLabel ?P709 where {
+  VALUES ?designation {
+    wd:Q10729142 # cat C
+    wd:Q10729054 # cat A
+    wd:Q10729125 # cat B
+    wd:Q219538   # Scheduled Monument
+    wd:Q83245825 # part of a Scheduled Monument
+  }
+  ?item p:P1435 ?stat . 
+  ?stat ps:P1435 ?designation . 
+  filter not exists { ?stat pq:P217  [] . }
+  OPTIONAL {?item wdt:P709 ?P709.}
+  ?item wdt:P131/wdt:P131 wd:Q22 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . } 
+}

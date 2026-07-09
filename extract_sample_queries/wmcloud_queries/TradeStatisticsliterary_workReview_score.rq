@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel (COUNT(?game) AS ?reviews) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?game (wdt:P31/(wdt:P279*)) wd:Q134556;
+    p:P444 ?review_statement.
+  ?review_statement ps:P444 ?review_score;
+    pq:P447 ?item.
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC (?reviews)

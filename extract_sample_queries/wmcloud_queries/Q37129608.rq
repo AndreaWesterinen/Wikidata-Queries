@@ -1,0 +1,27 @@
+embed.html##defaultView:Map
+SELECT distinct ?item ?itemLabel (sample(?img) as ?img) ?personLabel ?Litteraturbanken ?coord WHERE {
+
+  ?person wdt:P5101 ?LittID . 
+  BIND (URI(CONCAT("https://litteraturbanken.se/forfattare/",?LittID)) AS ?Litteraturbanken)
+  ?item wdt:P170 ?person.
+  OPTIONAL {?item wdt:P625 ?coord}
+  OPTIONAL {?item wdt:P361/wdt:P625 ?coord}
+  OPTIONAL {
+    	?item wdt:P217/wdt:P195/wdt:P625 ?coord . 	#Inventory P217/Collection P195/Coordinates P625
+	}
+  OPTIONAL {
+    	?item wdt:P195/wdt:P625 ?coord . 			#Collection P195/Coordinates P625
+	}
+  OPTIONAL {
+    	?item wdt:P276/wdt:P625 ?coord . 			#Location P276/ Coordinates P625
+	}	
+  OPTIONAL {
+    	?item wdt:P276/wdt:P159/wdt:P625 ?coord . 	#Location P276/ Headquarter location has location
+	}
+  OPTIONAL {
+    	?item wdt:P195/wdt:P276/wdt:P625 ?coord . 	#Collection  P195/Location  P276/Coordinates  P625
+	}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv" }
+  OPTIONAL { ?item wdt:P18 ?img. } 
+} group by ?item ?itemLabel ?personLabel ?Litteraturbanken ?coord

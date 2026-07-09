@@ -1,4 +1,3 @@
-# ----
 #title: Forms of nouns in Hebrew that are both feminine and masculine
 # by Uziel302
 SELECT ?lexemeId ?lemma ?form ?word WHERE {

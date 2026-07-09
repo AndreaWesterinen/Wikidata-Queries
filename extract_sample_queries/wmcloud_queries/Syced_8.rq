@@ -1,0 +1,8 @@
+SELECT ?place1 ?place1Label ?country1Label ?place2 ?place2Label ?country2Label
+WHERE 
+{
+  ?place1 wdt:P131* wd:Q865. # Taiwan
+  ?place1 wdt:P190 ?place2. # Twinned administrative bodies.
+  ?place2 wdt:P17 wd:Q142. # France
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

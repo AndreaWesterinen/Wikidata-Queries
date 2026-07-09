@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?movement ?movementLabel WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P135 ?movement .
+  MINUS { ?movement wdt:P31/wdt:P279* wd:Q2198855 } . 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  } ORDER BY ?movementLabel LIMIT 2000

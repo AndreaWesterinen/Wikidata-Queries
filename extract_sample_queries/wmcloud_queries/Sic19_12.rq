@@ -1,0 +1,9 @@
+embed.html#SELECT ?item ?label WHERE {
+ ?item wdt:P17 wd:Q30 . 
+ OPTIONAL { ?item wdt:P31 ?dummy0 . }
+        ?item rdfs:label ?label.
+  FILTER(!bound(?dummy0)).
+  FILTER(LANG(?label) = "en").
+  FILTER(CONTAINS(STR(?label), "Library")).
+  }
+Limit 200

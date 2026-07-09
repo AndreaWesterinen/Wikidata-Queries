@@ -1,0 +1,21 @@
+SELECT 
+#?sl 
+?extids
+?item ?gnd ?gn #?gnLabel
+?isni
+{
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P227 ?gnd.
+ ?item wdt:P735 ?gn.
+ MINUS {?item wdt:P21 []}
+ {?item wdt:P213 ?isni.}
+ ?gn wdt:P31 wd:Q12308941.
+     #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+     #label service leads to time out, w/o it is just 4046 ms
+     
+ #?item wikibase:sitelinks ?sl . FILTER (?sl >= 1) . # only include items having X or more sitelinks
+ ?item wikibase:identifiers ?extids. FILTER (?extids >= 12) . # only include items having X or more external ids
+
+} #ORDER BY ?gn #DESC(?sl)
+#DESC(?extids) 
+LIMIT 100

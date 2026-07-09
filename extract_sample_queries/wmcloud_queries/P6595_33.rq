@@ -1,0 +1,7 @@
+#title: Items in catalog without the identifier
+# Complex constraint from [[Property talk:P6595]]
+# Items in catalog without the identifier property
+SELECT ?item WHERE {
+  ?item p:P528/pq:P972 wd:Q24009539 .
+  MINUS { ?item wdt:P6595 [] }
+}

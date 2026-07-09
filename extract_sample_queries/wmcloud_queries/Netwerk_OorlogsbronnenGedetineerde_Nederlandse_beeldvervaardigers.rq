@@ -1,0 +1,32 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P2632 ?value .
+  	# beroep = beeldend kunstenaar of onderliggend
+  {?item (wdt:P106/wdt:P279*) wd:Q3391743.}
+  UNION
+  	# beroep = grafisch ontwerper of onderliggend
+  {?item (wdt:P106/wdt:P279*) wd:Q627325.}
+  
+
+  { ?item wdt:P27 wd:Q29999. }
+  UNION
+  {
+    ?item wdt:P19 ?pob.
+    ?pob wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P937 ?pow.
+    ?pow wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P551 ?por.
+    ?por wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P20 ?pod.
+    ?pod wdt:P17 wd:Q55.
+  }
+}

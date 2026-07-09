@@ -1,0 +1,12 @@
+#title: Need P7957 or P166
+# Complex constraint from [[Property talk:P7957]]
+#
+SELECT ?item ?value {
+	?item wdt:P7957 ?value.
+    FILTER NOT EXISTS {
+      ?item wdt:P1066 ?eleve.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P166 wd:Q3303274.
+    }
+}

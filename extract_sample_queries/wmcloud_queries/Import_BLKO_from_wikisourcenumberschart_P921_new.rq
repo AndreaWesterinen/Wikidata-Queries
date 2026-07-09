@@ -1,0 +1,21 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("80" as ?height) 
+  ("80" as ?width) 
+  ("main subject with P31=Q5" as ?legend) 
+  ("fontsize:10,offset:5,angle:0" as ?showValues)
+  (GROUP_CONCAT(?type;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+WHERE
+{
+  { SELECT ?type (COUNT(DISTINCT ?main) as ?count) {
+    ?entry wdt:P1433 wd:Q665807 . 
+    ?entry wdt:P921 ?main . 
+    ?main wdt:P31 wd:Q5 .
+    BIND(IF( xsd:integer(strafter(str( ?entry), "Q") ) < xsd:integer(strafter(str( ?main), "Q") ), "new item", "existing item") as ?type ) 
+  }
+    GROUP BY ?type
+    ORDER BY ASC(?count)
+ }
+}

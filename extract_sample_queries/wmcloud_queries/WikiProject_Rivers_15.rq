@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 ?type.
+  FILTER(?type = wd:Q4022)
+  ?item wdt:P17 ?country.
+  FILTER(?country = wd:Q16)
+  FILTER(NOT EXISTS { ?item wdt:P403 ?mouth. })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, uk, be, en, tt, ba, kk, ky, os, ceb". }
+}
+ORDER BY (?itemLabel)

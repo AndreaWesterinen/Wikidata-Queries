@@ -1,0 +1,10 @@
+#title: values of property P4195 with most statements
+SELECT ?item ?itemLabel ?itemDescription ?sts
+WHERE
+{
+	?p wdt:P4195 ?item . 
+    ?item wikibase:statements ?sts
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }      
+}
+ORDER BY DESC(?sts) ?item
+LIMIT 100

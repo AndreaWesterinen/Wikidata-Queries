@@ -1,0 +1,15 @@
+#title: Check ID
+# Complex constraint from [[Property talk:P2459]]
+#
+SELECT ?item ?id ?code ?code0 {
+	?item wdt:P2459 ?id.
+    BIND (SUBSTR(?id, 3, 3) AS ?code)
+    FILTER NOT EXISTS { ?country p:P984/ps:P984 ?code }
+    FILTER (?item NOT IN (wd:Q1388096)) # format exception
+    
+    BIND (SUBSTR(?id, 4, 3) AS ?code0)
+    FILTER NOT EXISTS { ?country p:P984/ps:P984 ?code0 }
+  
+    FILTER (?code NOT IN ("GRL", "grl", "ROM"))
+    # OPTIONAL { ?item wdt:P27 ?_nationality }
+}

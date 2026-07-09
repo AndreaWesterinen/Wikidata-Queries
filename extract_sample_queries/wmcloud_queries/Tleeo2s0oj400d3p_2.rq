@@ -1,0 +1,13 @@
+embed.html#SELECT ?id ?lieu (count(*) as ?nombre)
+WHERE {
+    ?pid wdt:P31 wd:Q5 .
+    ?pid wdt:P119 ?id .
+    OPTIONAL {
+        ?id rdfs:label ?lieu filter (lang(?lieu) = "fr") .
+    }
+
+}
+
+GROUP BY ?id ?lieu
+ORDER BY DESC(?nombre) ASC(?lieu)
+LIMIT 50

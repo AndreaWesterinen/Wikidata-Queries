@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?image 
+WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P1435 wd:Q62018102.
+  ?item wdt:P625 ?coord.
+  OPTIONAL {?item wdt:P18 ?image}.
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

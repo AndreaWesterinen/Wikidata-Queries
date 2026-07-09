@@ -1,0 +1,13 @@
+SELECT DISTINCT ?o ?oLabel (YEAR(?ds) AS ?rok_s) ?fLabel (YEAR(?dod) AS ?rok_od) (YEAR(?ddo) AS ?rok_do) WHERE {
+  ?f wdt:P279* wd:Q8138141.
+  ?o wdt:P39 ?f.
+  OPTIONAL {
+    ?o p:P39 ?fo.
+    ?fo ps:P39 ?f.
+    OPTIONAL { ?fo pq:P580 ?dod. }
+    OPTIONAL { ?fo pq:P582 ?ddo. }
+  }
+  OPTIONAL { ?o wdt:P570 ?ds. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?fLabel) (?rok_od) (?rok_do)

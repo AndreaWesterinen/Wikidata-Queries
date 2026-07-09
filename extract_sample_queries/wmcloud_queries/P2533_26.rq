@@ -1,0 +1,10 @@
+#title: Not an author
+# Complex constraint from [[Property talk:P2533]]
+# People with [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] but without a [[d:Q482980|author <small>(Q482980)</small>]] profession
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P2533 [] . 
+  ?item wdt:P106 [] . 
+  ?item wdt:P31 wd:Q5 . 
+  MINUS {?item wdt:P106/wdt:P279* wd:Q482980} .
+  MINUS {?item wdt:P106/wdt:P279* wd:Q901} .
+} LIMIT 1000

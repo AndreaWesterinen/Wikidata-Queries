@@ -1,0 +1,10 @@
+# best-described items in Te Papa museum
+SELECT DISTINCT ?q ?qLabel ?stcount WHERE {
+  { ?q wdt:P195 wd:Q915603 .} # in Te Papa's collection 
+  UNION 
+  { ?q wdt:P276 wd:Q915603 .} # or "located in" Te Papa }
+  # ?q wdt:P31 wd:Q3305213 . # limit to paintings (to not timeout)
+  ?q wikibase:statements ?stcount .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} GROUP BY ?q ?qLabel ?stcount
+ORDER BY DESC(?stcount)

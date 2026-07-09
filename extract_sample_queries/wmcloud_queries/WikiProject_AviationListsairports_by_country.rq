@@ -1,0 +1,12 @@
+SELECT ?item ?country ?cat ?cat2
+{
+  	?item wdt:P360 wd:Q1248784 .
+  	?a schema:about ?item . 
+  	?a schema:isPartOf <https://www.wikidata.org/> .
+	OPTIONAL
+  		{ 
+      	?item wdt:P17 ?country . 
+      	?item wdt:P1754 ?cat .
+        BIND( CONCAT("{{#invoke:AutoListLinks \u007C statementtocat \u007C cat=", strafter(str(?cat),"y/") ," \u007C property=P17 \u007C value=", strafter(str(?country),"y/") ," \u007C depth=1 \u007C desc=0}}") as ?cat2 )
+		}
+}

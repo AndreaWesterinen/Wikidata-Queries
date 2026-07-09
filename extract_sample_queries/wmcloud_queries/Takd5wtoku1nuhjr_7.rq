@@ -1,0 +1,7 @@
+#defaultView:Graph
+SELECT DISTINCT ?drug ?drugLabel (concat("7FFF00") as ?rgb) ?disease ?diseaseLabel (concat("FFA500") as ?rgb2 ) ?doid WHERE {
+  ?disease wdt:P699 ?doid ;
+           wdt:P279+ wd:Q18123741 ;
+           wdt:P2176 ?drug .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

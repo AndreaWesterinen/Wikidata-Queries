@@ -1,0 +1,4 @@
+#title: Deutsche Biographie ID - item requires statement if described by ADB
+# Complex constraint from [[Property talk:P7902]]
+# Deutsche Biographie ID missing and described by ADB
+SELECT ?item {?item wdt:P1343 wd:Q590208. MINUS {?item wdt:P7902 []} }

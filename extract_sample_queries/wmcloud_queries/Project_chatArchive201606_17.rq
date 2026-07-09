@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?_image WHERE {
+  ?item wdt:P17 wd:Q21590062.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 100

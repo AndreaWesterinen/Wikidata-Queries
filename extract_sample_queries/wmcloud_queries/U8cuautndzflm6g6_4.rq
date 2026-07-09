@@ -1,0 +1,11 @@
+# flags featuring the Union Jack as a canton (the top inner corner of a flag)
+#defaultView:ImageGrid
+SELECT ?flag ?flagLabel ?image WHERE {
+  ?flag wdt:P31/wdt:P279* wd:Q186516;
+        p:P180 [
+          ps:P180 wd:Q3173323;
+          pq:P518|pq:P1354 wd:Q1559605
+        ].
+  OPTIONAL { ?flag wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

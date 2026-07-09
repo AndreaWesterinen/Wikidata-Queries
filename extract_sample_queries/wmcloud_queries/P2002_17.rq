@@ -1,0 +1,14 @@
+SELECT ?item ?username ?id ?v ?d
+WHERE
+{
+  hint:Query hint:optimizer "None".
+  VALUES ?goodRanks { wikibase:NormalRank wikibase:PreferredRank }
+  ?item p:P2002 ?st.
+  ?st pq:P6552 ?id.
+  ?st pq:P3744 ?v . 
+  ?st pq:P585 ?d . 
+  ?st wikibase:rank ?goodRanks .
+  ?st ps:P2002 ?username.
+  FILTER(!(wikibase:isSomeValue(?id)))
+}
+LIMIT 10

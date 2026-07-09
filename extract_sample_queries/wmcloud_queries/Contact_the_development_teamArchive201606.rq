@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item
+{
+  ?item wdt:P764 "46608101216"
+}

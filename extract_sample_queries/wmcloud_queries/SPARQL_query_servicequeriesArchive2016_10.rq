@@ -1,0 +1,22 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?award (GROUP_CONCAT(DISTINCT(?nominee)) AS ?nominees) ?winner_film (GROUP_CONCAT(DISTINCT(?winner)) AS ?winners) WHERE {
+  wd:Q658041 p:P1411 ?award_statement .
+  ?award_statement v:P1411 ?award .
+  ?award wdt:P31 wd:Q19020 .
+  ?award_statement pq:P805 ?ceremony .
+  ?award_statement pq:P2453 ?nominee .
+  ?winner_film p:P166 ?winner_statement .
+  ?winner_statement v:P166 ?award .
+  ?winner_statement pq:P805 ?ceremony .
+  ?winner_statement pq:P1346 ?winner
+}
+GROUP BY ?award ?winner_film
+ORDER BY ?award

@@ -1,0 +1,10 @@
+SELECT ?taxon_name (COUNT(DISTINCT ?item) AS ?count)
+WHERE
+{
+    {?item wdt:P9076 ?ausfungiID.} UNION {?item wdt:P1391 ?IF_ID.}
+    ?item wdt:P225 ?taxon_name.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+GROUP BY ?taxon_name 
+ORDER BY DESC(?count)
+#LIMIT 200

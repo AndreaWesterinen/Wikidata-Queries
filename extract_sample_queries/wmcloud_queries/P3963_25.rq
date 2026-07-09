@@ -1,0 +1,9 @@
+#title: Identifiants incorrects (commune)
+# Complex constraint from [[Property talk:P3963]]
+# Identifiant correspondant à une église située dans une autre commune selon le code INSEE
+SELECT ?item ?ID ?code WHERE {
+  ?item wdt:P3963 ?ID .
+  ?item wdt:P131 ?commune .
+  ?commune wdt:P374 ?code .
+  FILTER (SUBSTR(STRAFTER(?ID,"/accueil_"), 1, 5) != ?code )
+}

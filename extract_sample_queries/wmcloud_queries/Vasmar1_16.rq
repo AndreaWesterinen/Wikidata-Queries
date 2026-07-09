@@ -1,0 +1,26 @@
+#Skipsregistreringer etter hjemmehavn
+
+#defaultView:BubbleChart
+SELECT ?hjemmehavn ?hjemmehavnLabel ?count ?bruttoregistertonn ?bruttoregistertonntotal
+WHERE
+{
+  {
+    SELECT ?hjemmehavn (SUM(?bruttoregistertonn) AS ?bruttoregistertonntotal) WHERE {
+      ?city wdt:P532 ?hjemmehavn .
+      {?hjemmehavn wdt:P17 wd:Q20.}
+      UNION
+      {?hjemmehavn wdt:P17 wd:Q34.}
+            UNION
+      {?hjemmehavn wdt:P17 wd:Q35.}
+                  UNION
+      {?hjemmehavn wdt:P17 wd:Q189.}
+                        UNION
+      {?hjemmehavn wdt:P17 wd:Q33.}
+      ?city wdt:P1093 ?bruttoregistertonn .
+    }
+    GROUP BY ?hjemmehavn
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}
+ORDER BY DESC(?bruttoregistertonntotal)
+LIMIT 50

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?mettag ?itemLabel ?item 
+WHERE 
+{
+  ?item p:P1343 [
+    ps:P1343 wd:Q106727050 ;  
+             pq:P1810 ?mettag ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?mettag

@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?gps
+WHERE
+{
+	?item wdt:P31 wd:Q8502 .
+    ?item wdt:P625 ?gps .
+  	?item wdt:P361* wd:Q1277
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

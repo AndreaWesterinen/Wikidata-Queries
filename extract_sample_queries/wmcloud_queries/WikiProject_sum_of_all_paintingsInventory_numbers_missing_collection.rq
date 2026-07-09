@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item
+WHERE 
+{
+	?item wdt:P31 wd:Q3305213 .  # find instances of painting
+	?item p:P217 ?inventory .  # with an inventory number and we want the statement
+  	?item wdt:P195 ?collection .  # with a collection set
+  	MINUS { ?collection wdt:P17 wd:Q142 } . # France has it's own list
+	FILTER NOT EXISTS { ?inventory pq:P195 ?somecollection }  # and the inventory statement is missing the collection qualifier
+}
+LIMIT 1000

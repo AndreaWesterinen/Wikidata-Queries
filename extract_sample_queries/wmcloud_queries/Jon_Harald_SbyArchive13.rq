@@ -1,0 +1,13 @@
+SELECT ?item ?linkcount
+WHERE
+{
+  ?item wdt:P106 wd:Q177220 . # find film directors
+  ?item wikibase:sitelinks ?linkcount . # find number of sitelinks on the item
+  OPTIONAL { ?sitelink schema:about ?item .
+             ?sitelink schema:inLanguage "ar" } # find articles _with_ links to arwiki
+  FILTER (!BOUND(?sitelink)) . # exclude the articles with links to arwiki
+  ?item wdt:P31 wd:Q5 # find only humans
+}
+GROUP BY ?item ?linkcount
+ORDER BY DESC(?linkcount)
+LIMIT 1000 # the number of items that will be included. If you want more or fewer, change this. Max 5000

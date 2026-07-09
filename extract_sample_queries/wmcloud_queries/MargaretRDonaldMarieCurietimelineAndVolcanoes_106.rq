@@ -1,0 +1,9 @@
+# Botanists with aliases
+SELECT ?item ?itemLabel ?itemAltLabel ?itemDescription ?IPNILink
+WHERE
+{
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    ?item wdt:P586 ?ipni_id.
+    bind(uri(concat("https://www.ipni.org/a/",?ipni_id)) as ?IPNILink)  
+}
+LIMIT 10

@@ -1,0 +1,4 @@
+select ?item ?plop ?itemLabel {
+  ?item wdt:P1265 "108509" .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

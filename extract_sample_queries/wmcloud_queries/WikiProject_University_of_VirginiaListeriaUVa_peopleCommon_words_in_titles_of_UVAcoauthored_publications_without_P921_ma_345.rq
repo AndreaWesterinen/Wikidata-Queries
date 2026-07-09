@@ -1,0 +1,28 @@
+SELECT 
+  DISTINCT
+  ?item ?title
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  ("P921" AS ?property)
+  ("Q4115189" AS ?ReplaceWithYourTargetID)
+  ("S887" AS ?heuristic)
+  ("Q69652283" AS ?deduced)
+
+WHERE {
+  hint:Query hint:optimizer "None".
+  
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "\"tissue\" haswbstatement:P31=Q13442814 -haswbstatement:P921=Q4115189".
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+  
+  ?item wdt:P1476 ?title_.
+  ?item wdt:P1433 ?venue.
+  ?venue wdt:P1476 ?venue_title.
+  BIND(CONCAT(?title_ , " | " , ?venue_title)  AS ?title)
+  FILTER REGEX(LCASE(?title), "tissue").
+
+}

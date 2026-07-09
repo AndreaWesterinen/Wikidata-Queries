@@ -1,0 +1,9 @@
+SELECT ?item (count(?audio) as ?count)  WHERE {
+  ?l dct:language ?item ;
+     ontolex:lexicalForm ?form .
+  {
+    ?form wdt:P443 ?audio .
+  } UNION {
+    ?form p:P7243/pq:P443 ?audio .
+  }
+} group by ?item order by desc(?count)

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value WHERE {
+  ?item p:P528 ?st.
+  ?st ps:P528 ?value.
+  ?st pq:P972 wd:Q634670. # Incunabula Short Title Catalogue
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

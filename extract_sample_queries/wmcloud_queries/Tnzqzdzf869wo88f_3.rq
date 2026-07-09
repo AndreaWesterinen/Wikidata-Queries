@@ -1,0 +1,23 @@
+#defaultView:Timeline
+SELECT DISTINCT ?family ?familyLabel ?eldest ?eldestLabel ?image (?dob AS ?date) WHERE
+{
+  ?family wdt:P31 wd:Q13417114 .
+  ?eldest wdt:P53 ?family .
+  ?eldest wdt:P31 wd:Q5 .
+  ?eldest wdt:P569 ?dob . 
+  
+  FILTER(!isBLANK(?dob)).
+  
+  OPTIONAL {
+    ?older wdt:P53 ?family .
+    ?older wdt:P31 wd:Q5 .
+    ?older wdt:P569 ?odob . 
+    FILTER (?odob < ?dob)
+  }
+  
+  FILTER (!bound (?older))
+  
+  OPTIONAL { ?eldest wdt:P18 ?image . }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ?yob

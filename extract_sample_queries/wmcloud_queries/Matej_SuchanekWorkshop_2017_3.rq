@@ -1,0 +1,11 @@
+SELECT ?label ?item ?item2 {
+  ?item rdfs:label ?label FILTER( LANG( ?label ) = 'cs' ) .
+  ?item2 rdfs:label ?label .
+  FILTER( ?item != ?item2 ) .
+  FILTER( ?label NOT IN ( "Krucifix"@cs, "Autoportrét"@cs ) ) .
+  MINUS { ?item schema:description ?desc FILTER( LANG( ?desc ) = 'cs' ) } .
+  MINUS { ?item2 schema:description ?desc2 FILTER( LANG( ?desc2 ) = 'cs' ) } .
+  FILTER( STR( ?item ) < STR( ?item2 ) ) .
+  MINUS { ?item wikibase:propertyType [] } .
+  MINUS { ?item2 wikibase:propertyType [] } .
+} LIMIT 1000

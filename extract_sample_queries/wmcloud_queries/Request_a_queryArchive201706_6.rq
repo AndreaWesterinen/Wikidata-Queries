@@ -1,0 +1,7 @@
+SELECT * {
+  hint:Query hint:optimizer "None" .
+  ?item wdt:P31 wd:Q4167410 .
+  minus { ?item schema:description "Wikimedia disambiguation page"@en }
+  minus { ?item schema:description "Wikipedia disambiguation page"@en }
+  optional { ?item schema:description ?desc filter (lang(?desc) = "en") }
+}

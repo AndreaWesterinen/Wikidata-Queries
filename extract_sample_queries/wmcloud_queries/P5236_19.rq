@@ -1,0 +1,4 @@
+#title: Items with self-links should be prime numbers
+# Complex constraint from [[Property talk:P5236]]
+#
+SELECT ?item { ?item wdt:P5236 ?item . MINUS { ?item wdt:P31 wd:Q49008 }  } LIMIT 100

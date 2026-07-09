@@ -1,0 +1,8 @@
+#defaultView:Timeline
+SELECT DISTINCT ?author ?authorLabel ?image ?date ?coord WHERE {
+  ?author wdt:P106/wdt:P279* wd:Q901 .
+  ?author wdt:P570 ?date .
+  ?author wdt:P509 wd:Q468455 .
+  OPTIONAL {?author wdt:P18 ?image .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, es, it, cz" }
+} 

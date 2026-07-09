@@ -1,0 +1,27 @@
+SELECT ?a ?b ?c
+WITH {
+  SELECT * {
+    VALUES ?a {10 100}.
+  }
+} AS %0
+WITH {
+  SELECT * {
+    VALUES (?a ?b) {
+      (100 200)
+    }
+  }
+} AS %1
+WITH {
+  SELECT * {
+    VALUES (?a ?c) {
+      (10 30)
+      (100 300)
+    }
+  }
+} AS %2
+# Below is what I call the "main query"
+{
+  INCLUDE %0.
+  OPTIONAL{INCLUDE %2}.
+  OPTIONAL{INCLUDE %1}.
+}

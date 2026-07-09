@@ -1,0 +1,49 @@
+SELECT 
+#  DISTINCT ?item ?title
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  ("P921" AS ?property)
+  ("Q212809" AS ?ReplaceWithYourTargetID)
+  ("S887" AS ?heuristic)
+  ("Q69652283" AS ?deduced)
+
+WHERE {
+  hint:Query hint:optimizer "None".
+  
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "endoscopic and haswbstatement:P31=Q13442814 -haswbstatement:P921=Q212809".
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+UNION
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "endoscopy and haswbstatement:P31=Q13442814 -haswbstatement:P921=Q212809". 
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+UNION
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "endoscopic -and haswbstatement:P31=Q13442814 -haswbstatement:P921=Q212809".
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+UNION
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "endoscopy -and haswbstatement:P31=Q13442814 -haswbstatement:P921=Q212809". 
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+  
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P1476 ?title.
+  FILTER CONTAINS(LCASE(?title), "endoscop").
+
+}

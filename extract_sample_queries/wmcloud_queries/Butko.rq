@@ -1,0 +1,11 @@
+SELECT ?item ?label ?commons
+WHERE
+{
+  VALUES ?type {wd:Q41298}  # Частный случай понятия "журнал"
+  ?item wdt:P31 ?type .
+  # ?item rdfs:label ?label FILTER (lang(?label) = "ru") .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+  ?item p:P495 ?country.
+      ?country (ps:P495/(wdt:P279*)) wd:Q34266. # Страна происхождения = Российская империя
+}
+LIMIT 10000

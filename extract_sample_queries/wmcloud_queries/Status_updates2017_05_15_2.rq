@@ -1,0 +1,10 @@
+#defaultView:BarChart
+SELECT(SAMPLE(?year) AS ?year) (COUNT(?item) AS ?citesFounded)
+WHERE
+{
+  ?item wdt:P31 wd:Q515 . # instance of city
+  ?item wdt:P17 wd:Q30 . # in U.S.
+  ?item wdt:P571 ?inception . # inception
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  BIND(str(YEAR(?inception)) AS ?year)
+} GROUP BY ?year

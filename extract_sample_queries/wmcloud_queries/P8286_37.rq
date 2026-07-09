@@ -1,0 +1,4 @@
+#title: Without participation (P1344)
+# Complex constraint from [[Property talk:P8286]]
+# Item with a [[Property:P8286|Olympedia people ID&#32;<small dir="ltr">(P8286)</small>]] identifier should have a [[Property:P1344|participant in&#32;<small dir="ltr">(P1344)</small>]] claim for their Olympic participation
+SELECT DISTINCT ?item WHERE { ?item wdt:P8286 ?id . MINUS { ?item wdt:P1344 [] } } ORDER BY ASC(xsd:integer(STRAFTER(STR(?item), 'Q')))

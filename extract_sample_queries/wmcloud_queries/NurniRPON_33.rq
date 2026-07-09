@@ -1,0 +1,25 @@
+SELECT DISTINCT (STRAFTER(STR(?o), "/entity/") AS ?oo) ?plec ?val WHERE {
+  ?o1 wdt:P27 ?p.
+  {
+    { ?o1 wdt:P26 ?o. }
+    UNION
+    { ?o wdt:P26 ?o1. }
+    ?o1 wdt:P21 wd:Q6581072.
+    BIND("P21" AS ?plec)
+    BIND("Q6581097" AS ?val)
+    OPTIONAL { ?o wdt:P21 ?pl. }
+    FILTER(!(BOUND(?pl)))
+  }
+  UNION
+  {
+    { ?o1 wdt:P26 ?o. }
+    UNION
+    { ?o wdt:P26 ?o1. }
+    ?o1 wdt:P21 wd:Q6581097.
+    BIND("P21" AS ?plec)
+    BIND("Q6581072" AS ?val)
+    OPTIONAL { ?o wdt:P21 ?pl. }
+    FILTER(!(BOUND(?pl)))
+  }
+  FILTER(?p IN(wd:Q172107, wd:Q49683, wd:Q171348, wd:Q221457, wd:Q11710624, wd:Q36))
+}

@@ -1,0 +1,22 @@
+#Dutch public libraries located on a road (weg)
+SELECT DISTINCT ?item ?itemLabel ?full_address 
+?streetLabel ?street_number ?postal_code
+
+WHERE 
+{
+  ?item wdt:P31 wd:Q28564. #public library
+  ?item wdt:P31 wd:Q11396180. #library branch 
+  ?item wdt:P17 wd:Q55. #from the Netherlands 
+
+  OPTIONAL {?item wdt:P131 ?municipality.} # located in the administrative territorial entity (P131)  
+  OPTIONAL {?item wdt:P969 ?full_address .} #located at street address (P969)
+  OPTIONAL {?item wdt:P669 ?street . #located on street (P669)
+            ?street rdfs:label ?streetLabel.}
+  OPTIONAL {?item p:P669 [pq:P670 ?street_number].} #Find  street number (P670), qualifier of P669
+  OPTIONAL {?item wdt:P281 ?postal_code .} #postal code (P281)
+  FILTER (lang(?streetLabel) = "nl")
+  FILTER REGEX (?streetLabel, "weg$").
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}
+
+ORDER BY ASC(?streetLabel)

@@ -1,0 +1,10 @@
+#title: de label should match P1705 value
+# Complex constraint from [[Property talk:P6597]]
+# check [[Property:P1705|native label&#32;<small dir="ltr">(P1705)</small>]] and label in German (de)
+SELECT ?item ?nl
+{
+  ?item wdt:P6597 ?value .
+  ?item wdt:P1705 ?nl . 
+  BIND( strlang(str(?nl),"de") as ?de_label) 
+  FILTER NOT EXISTS { ?item rdfs:label ?de_label }
+}

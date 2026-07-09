@@ -1,0 +1,1 @@
+SELECT ?grouping (SAMPLE(?_higher_grouping) as ?higher_grouping) (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity wdt:P2538 [] ; wdt:P31 wd:Q5. ?entity wdt:P106 ?grouping. OPTIONAL { ?grouping wdt:P106  ?_higher_grouping } } GROUP BY ?grouping HAVING (?count > 5) ORDER BY DESC(?count) LIMIT 1000

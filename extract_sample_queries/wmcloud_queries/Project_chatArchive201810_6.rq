@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?qual
+{
+  ?item wdt:P3983 ?value .
+  ?item p:P3983 [?qual ?obj] .
+  ?prop wikibase:qualifier ?qual .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }    
+}

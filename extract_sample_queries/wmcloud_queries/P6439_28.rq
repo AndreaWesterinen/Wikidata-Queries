@@ -1,0 +1,26 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?scopeLabel
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?value ?scope
+		WHERE
+		{
+			{
+			?item p:P6439/ps:P6439 ?value .
+			BIND(wd:Q54828448 AS ?scope) .
+			} UNION {
+			?statement pq:P6439 ?value .
+			?item ?p ?statement .
+			FILTER(?p != p:P1855) .
+			BIND(wd:Q54828449 AS ?scope) .
+			} UNION {
+			?ref pr:P6439 ?value .
+			?statement prov:wasDerivedFrom ?ref .
+			?item ?p ?statement .
+			BIND(wd:Q54828450 AS ?scope) .
+			}
+		} LIMIT 100
+	} .
+	FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

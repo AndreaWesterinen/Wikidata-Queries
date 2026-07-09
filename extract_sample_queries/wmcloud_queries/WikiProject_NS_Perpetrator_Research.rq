@@ -1,0 +1,9 @@
+#Holocaust victim deported by Gestapo
+SELECT ?deportationtrain ?deportationtrainLabel ?person ?personLabel
+WHERE 
+{
+  ?deportationtrain wdt:P31 wd:Q61927259. #Item is deportation train journey
+  ?deportationtrain wdt:P8031 wd:Q106625639. #Perpetrator of deportationtrain is  Secret State Police Central Office Hannover
+  ?person wdt:P793 ?deportationtrain. #Person was on this train
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?countryLabel ?inception WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  {
+    ?item (wdt:P136/(wdt:P279*)) wd:Q86463500.
+    OPTIONAL { 
+      {?item wdt:P17 ?country.}
+      UNION {?item wdt:P495 ?country}
+      }
+    OPTIONAL { ?item wdt:P571 ?inception.}
+  }
+}

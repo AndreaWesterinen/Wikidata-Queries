@@ -1,0 +1,7 @@
+SELECT DISTINCT ?statement WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],cs". }
+  ?item wdt:P1343 wd:Q104900509;
+			p:P569 [ ps:P569 ?narkdyHrub; psv:P569 [wikibase:timePrecision 9]];
+            p:P569 ?statement.
+  ?statement ps:P569 ?narkdy; psv:P569 [wikibase:timePrecision 11] ; wikibase:rank wikibase:NormalRank.
+} limit 100

@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item
+WHERE 
+{
+  VALUES ?types { wd:Q106453584 }
+  {
+    ?item wdt:P31/wdt:P279* wd:Q40231 .
+    ?item wdt:P541 wd:Q96392376 . 
+  }
+  UNION
+  {
+    ?item wdt:P31 ?types .
+  }
+}

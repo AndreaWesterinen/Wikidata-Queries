@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?instanceOfLabel ?instanceOptionsLabel ?locationLabel WHERE {
+  ?item wdt:P17 wd:Q31 .
+  ?item wdt:P31/wdt:P279* wd:Q83620 . # and are some kind of street
+  MINUS {
+    ?item wdt:P131 ?gemeente .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,fr,en". }
+}

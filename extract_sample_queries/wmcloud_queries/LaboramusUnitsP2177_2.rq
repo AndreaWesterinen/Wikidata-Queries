@@ -1,0 +1,6 @@
+SELECT ?id ?idLabel ?type ?typeLabel WHERE {
+    ?id p:P2177/psv:P2177 [ wikibase:quantityUnit wd:Q21061369 ] .
+    OPTIONAL { ?id wdt:P31 ?type }
+    FILTER(?id != wd:Q4115189 && ?id != wd:Q13406268 && ?id != wd:Q15397819)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

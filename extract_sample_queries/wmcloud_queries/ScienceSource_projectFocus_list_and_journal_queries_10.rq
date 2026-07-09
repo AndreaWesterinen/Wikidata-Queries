@@ -1,0 +1,5 @@
+SELECT DISTINCT ?journal
+  WHERE {?item wdt:P5008 wd:Q55439927;
+               wdt:P1433 ?journal.
+          MINUS { ?journal wdt:P1058 [ ]}
+         }

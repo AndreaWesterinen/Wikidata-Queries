@@ -1,0 +1,6 @@
+SELECT DISTINCT ?lexeme ?lemma ?senseItem ?senseItemLabel WHERE {
+  ?lexeme a ontolex:LexicalEntry ;
+            wikibase:lemma ?lemma ;
+            wdt:P5137 ?senseItem .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

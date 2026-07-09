@@ -1,0 +1,28 @@
+# Wikidata items for key concepts related to clinical trials
+# and optionally a Wikidata label in English and multiple Indian languages
+# sorted by number of Wikimedia sitelinks for the concept
+
+SELECT 
+  DISTINCT ?item 
+  (CONCAT("{{Scholia-inline|", REPLACE(STR(?item), ".*Q", "Q"), "}}") AS ?q)
+  ?English ?Hindi ?Bangla ?Marathi ?Telugu ?EastPunjabi ?Kannada ?Odia ?Urdu ?Malayalam
+  ?sitelinks 
+WHERE {
+  VALUES ?item { wd:Q3918 wd:Q39631 wd:Q16917 wd:Q11190 wd:Q737498 wd:Q13442814 wd:Q177719 wd:Q237151 wd:Q1774898 wd:Q186360 wd:Q181600 wd:Q12140 wd:Q12136 wd:Q42240 wd:Q4 wd:Q3259564 wd:Q3505712 wd:Q2861470 wd:Q2512965 wd:Q193078 wd:Q30612 wd:Q5133849 wd:Q57951700 wd:Q7245082 wd:Q362104 wd:Q1132684 wd:Q5133845 wd:Q764527 wd:Q697474 wd:Q1331083 wd:Q777473 wd:Q2329814 wd:Q27913684 wd:Q2198549 wd:Q1203526 wd:Q2585693 wd:Q760102 wd:Q4781752 wd:Q11516357 wd:Q5615510 wd:Q1331083 wd:Q5154912 wd:Q2985397 }
+  ?item wikibase:sitelinks ?sitelinks .
+
+  { ?item rdfs:label ?English filter (lang(?English) = "en") . }
+  UNION
+   { ?item rdfs:label ?Hindi filter (lang(?Hindi) = "hi") . }
+  UNION { ?item rdfs:label ?Bangla filter (lang(?Bangla) = "bn") . }
+
+  UNION { ?item rdfs:label ?Marathi filter (lang(?Marathi) = "mr") . }
+  UNION { ?item rdfs:label ?Telugu filter (lang(?Telugu) = "te") . }
+  UNION { ?item rdfs:label ?EastPunjabi filter (lang(?EastPunjabi) = "pa") . }
+  UNION { ?item rdfs:label ?Kannada filter (lang(?Kannada) = "kn") . }
+  UNION { ?item rdfs:label ?Odia filter (lang(?Odia) = "or") . }
+  UNION { ?item rdfs:label ?Urdu filter (lang(?Urdu) = "ur") . }
+  UNION { ?item rdfs:label ?Malayalam filter (lang(?Malayalam) = "ml") . }
+#  FILTER (?sitelinks > 5)
+}
+ORDER BY DESC(?sitelinks)

@@ -1,0 +1,24 @@
+embed.html##defaultView:Tree
+SELECT ?continent ?continentFlag ?continentLabel ?country ?countryLabel ?countryFlag ?region ?regionLabel ?regionFlag ?city ?cityLabel ( 'Population:' as ?popLabel )  ?pop  ?cityImage WHERE {
+  {
+    SELECT * WHERE {
+      ?continent wdt:P31 wd:Q5107.
+      ?country wdt:P30 ?continent.
+      ?country wdt:P31 wd:Q6256.
+      ?country wdt:P150 ?region.
+      OPTIONAL {
+        ?continent wdt:P242 ?continentFlag.
+        ?country wdt:P41 ?countryFlag.
+        ?region wdt:P41 ?regionFlag.
+      }
+      OPTIONAL {
+        ?region wdt:P36 ?city.
+        ?city wdt:P31 wd:Q515.
+        ?city wdt:P1082 ?pop.
+        ?city wdt:P18 ?cityImage.
+      }
+    }
+    
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

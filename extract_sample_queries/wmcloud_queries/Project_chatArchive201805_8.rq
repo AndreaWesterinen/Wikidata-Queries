@@ -1,0 +1,4 @@
+SELECT ?property ?propertyLabel WHERE {
+  ?property wdt:P2302 wd:Q51723761.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

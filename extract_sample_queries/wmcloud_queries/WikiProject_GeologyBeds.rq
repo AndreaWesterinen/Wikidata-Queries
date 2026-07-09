@@ -1,0 +1,4 @@
+SELECT ?item WHERE { 
+ VALUES ?formation { wd:Q806617 } 
+ ?item wdt:P31 ?formation . 
+ ?item wdt:P17 wd:Q30 }

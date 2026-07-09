@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?teamsize ?flagbearer ?flagbearerLabel
+WHERE
+{
+	?item wdt:P31 wd:Q26213387 .
+	?item wdt:P361 wd:Q8613 .
+	?item wdt:P2103 ?teamsize .
+	optional {?item wdt:P3022 ?flagbearer . }
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,fr,de,pl,ru" .
+	}
+} 
+ORDER BY DESC(?teamsize)

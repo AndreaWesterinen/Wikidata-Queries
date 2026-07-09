@@ -1,0 +1,8 @@
+SELECT ?item ?image1 ?date1 WHERE {
+    ?item wdt:P31 wd:Q3305213.
+    ?item wdt:P571 ?date.
+  ?item wdt:P144 ?based_on.
+ ?based_on wdt:P31 wd:Q3305213.
+  ?based_on wdt:P18 ?image1.
+   ?based_on wdt:P571 ?date1.
+} ORDER BY ?date1

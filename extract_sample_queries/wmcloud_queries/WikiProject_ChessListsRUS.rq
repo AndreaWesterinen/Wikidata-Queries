@@ -1,0 +1,11 @@
+SELECT ?item WHERE {  ?item wdt:P106 wd:Q10873124. ?item wdt:P1532 wd:Q159.
+  optional { 
+    ?item rdfs:label ?itemLabel filter (lang(?itemLabel) = "en")  . 
+    bind (strafter(?itemLabel, " ") as ?computedName)
+  }
+  optional { 
+    ?item wdt:P734 ?familyname .
+    ?familyname wdt:P1705 ?nomstm
+  }
+  bind (coalesce(?nomstm, ?computedName) as ?familyName)
+} order by ?familyName ?itemLabel ?item

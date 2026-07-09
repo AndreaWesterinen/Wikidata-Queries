@@ -1,0 +1,6 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription ?u 
+{
+	?item wdt:P31 wd:Q20726407 ; wdt:P856 ?u 
+    FILTER(CONTAINS( stR(?u), "tools.wmflabs.org")   )       
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

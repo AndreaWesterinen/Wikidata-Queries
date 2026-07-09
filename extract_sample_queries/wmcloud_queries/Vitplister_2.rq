@@ -1,0 +1,48 @@
+#Properties grouped by their parent property
+#TODO: should display links and numeric ids
+#SELECT ?property2 ?property2Label ?property1 ?property1Label WHERE {
+#  ?property1 rdf:type wikibase:Property. #not replaceable with wikibase:Item, wikibase:Statement, wikibase:Reference at WDQS
+#                                         #https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format#WDQS_data_differences
+#  ?property1 wdt:P1647 ?property2.
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+#}
+SELECT ?biograf ?biografLabel ?inception ?opening ?closure ?address ?bgidLabel ?operatorLabel ?kommunLabel ?locationLabel ?adminAreaDistrictLabel ?adminAreaKommunLabel ?adminAreaLanLabel ?coordsLabel ?wikipedialink WHERE {
+  ?biograf wdt:P31 wd:Q41253;
+    wdt:P17 wd:Q34.
+  OPTIONAL { ?biograf wdt:P571 ?inception. }
+  OPTIONAL { ?biograf wdt:P1619 ?opening. }
+  OPTIONAL { ?biograf wdt:P3999 ?closure. }
+  OPTIONAL { ?biograf wdt:P6375 ?address. }
+  OPTIONAL {
+    ?biograf p:P276 ?statement.
+    ?statement prov:wasDerivedFrom ?ref.
+    ?ref ?prop wd:Q93803749.
+    ?biograf wdt:P276 ?location.
+  }
+  OPTIONAL {
+      ?biograf wdt:P137 ?operator.
+  }
+  OPTIONAL {
+    ?biograf wdt:P131 ?kommun.
+    ?kommun wdt:P31 wd:Q127448.
+  }
+  
+  OPTIONAL {
+    ?biograf wdt:P9462 ?bgid.
+  }
+  OPTIONAL {
+    ?biograf wdt:P131 ?adminAreaDistrict.
+    ?adminAreaDistrict wdt:P31 wd:Q18333556;
+      wdt:P131 ?adminAreaKommun.
+    ?adminAreaKommun wdt:P31 wd:Q127448;
+      wdt:P131 ?adminAreaLan.
+    ?adminAreaLan wdt:P31 wd:Q200547.
+  }
+  OPTIONAL { ?biograf wdt:P625 ?coords. }
+  OPTIONAL {
+    ?wikipedialink schema:isPartOf <https://sv.wikipedia.org/>;
+      schema:about ?biograf.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en,[AUTO_LANGUAGE]". }
+}
+ORDER BY (?locationLabel) (?kommunLabel) (?adminAreaLanLabel) (?adminAreaKommunLabel) (?adminAreaDistrictLabel) (?locationAreaDistrict) (?opening)

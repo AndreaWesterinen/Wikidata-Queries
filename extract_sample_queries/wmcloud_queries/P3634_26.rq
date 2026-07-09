@@ -1,0 +1,8 @@
+#title: In the MET without a link
+# Complex constraint from [[Property talk:P3634]]
+# Items that have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] -> [[d:Q160236|Metropolitan Museum of Art <small>(Q160236)</small>]], but that don't have a [[Property:P3634|The Met object ID&#32;<small dir="ltr">(P3634)</small>]] link
+SELECT DISTINCT ?item ?url WHERE {
+  ?item wdt:P195 wd:Q160236 .
+  OPTIONAL { ?item wdt:P973 ?url } . 
+  MINUS { ?item wdt:P3634 [] } .
+}  LIMIT 500

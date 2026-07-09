@@ -1,0 +1,8 @@
+select (count(?work) as ?count) ?subject ?subjectLabel where {
+  ?work wdt:P31 wd:Q13442814;
+        wdt:P921 ?subject .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+group by ?subject ?subjectLabel
+order by desc(?count)
+limit 200

@@ -1,0 +1,7 @@
+SELECT ?item ?com ?cnt WHERE {
+ ?item wdt:P31 wd:Q19960510.
+ ?item wdt:P136 wd:Q185905 .
+ ?item wdt:P170 wd:Q360978;
+        p:P373 ?com.
+OPTIONAL { ?com pq:P2635 ?cnt }
+ }

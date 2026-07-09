@@ -1,0 +1,4 @@
+select ?unit ?enlabel (count(?unit) as ?count) where {
+?x wikibase:quantityUnit ?unit .
+optional { ?unit rdfs:label ?enlabel filter (lang(?enlabel) = "en" ). }
+} group by ?unit ?enlabel order by desc(?count)

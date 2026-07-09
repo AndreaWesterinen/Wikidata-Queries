@@ -1,0 +1,13 @@
+#Alba Amicorum
+SELECT ?item ?itemLabel ?inventorynumber ?KBcatalogURL ?CommonsCategory ?Described_at_URL
+WHERE { VALUES ?item {wd:Q98277268 wd:Q98277046 wd:Q98277045 wd:Q98277114 wd:Q98277545 wd:Q99189800 wd:Q98277231 wd:Q98277179 wd:Q98277080 wd:Q72752496 wd:Q72752530 wd:Q98831708 wd:Q72752451 wd:Q72752427 wd:Q99973604}
+  ?item  p:P31/ps:P31 wd:Q457843 .
+  ?item  p:P195/ps:P195 wd:Q1526131.
+  OPTIONAL{?item  p:P528/ps:P528 ?catalogcode_PPN.
+  BIND(URI(CONCAT("https://resolver.kb.nl/resolve?urn=PPN:", ?catalogcode_PPN)) as ?KBcatalogURL).}
+  OPTIONAL{?item  p:P373/ps:P373 ?commonscat.
+  BIND(URI(CONCAT("https://commons.wikimedia.org/wiki/Category:", REPLACE(?commonscat, " ", "_", "i"))) as ?CommonsCategory).}
+  OPTIONAL{?item  p:P973/ps:P973 ?Described_at_URL.
+  FILTER(regex(str(?Described_at_URL), "https://www.kb.nl" )).}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

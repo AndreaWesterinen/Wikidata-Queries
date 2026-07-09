@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P971 wd:Q1279564 . 
+    FILTER NOT EXISTS { ?item wdt:P971 / wdt:P31 wd:Q3186692 }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

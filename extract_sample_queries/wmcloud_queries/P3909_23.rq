@@ -1,0 +1,8 @@
+#title: English words before English existed
+# Complex constraint from [[Property talk:P3909]]
+# Person with English last words who died before the year 400
+SELECT ?item WHERE {
+    ?item wdt:P3909 ?words; wdt:P569 ?db.
+    FILTER ( LANG( ?words ) = 'en' ) 
+    FILTER ( YEAR( ?db ) < 400 )
+  }

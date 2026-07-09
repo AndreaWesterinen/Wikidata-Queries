@@ -1,0 +1,12 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel (GROUP_CONCAT(distinct ?natLb; separator=" - ") as ?nature) (COUNT(distinct ?depictspos) as ?nb_depicts)   ?display
+WHERE
+{
+  ?item p:P180[ pq:P2677 ?depictspos ] .
+  ?item wdt:P31 ?nat.
+  ?nat rdfs:label ?natLb . filter (lang(?natLb) = "en") .
+  BIND(IRI((CONCAT("https://tools.wmflabs.org/wd-image-positions/item/", REPLACE(str(?item),"http://www.wikidata.org/entity/","")))) as ?display )
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "sv,en,fr".
+  }
+} GROUP BY ?item ?itemLabel ?display
+ORDER BY DESC(?nb_depicts)

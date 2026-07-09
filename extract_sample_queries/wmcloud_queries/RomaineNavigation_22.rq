@@ -1,0 +1,13 @@
+#All items used in "instance of" statements on a properties, that are missing a Dutch label
+SELECT ?typeItem ?enLabel (SAMPLE(?property) as ?propertyExampleUse)
+
+WHERE {
+  ?property wikibase:propertyType ?propertyType .
+  ?property wdt:P31 ?typeItem .
+  
+  ?typeItem rdfs:label ?enLabel FILTER (lang(?enLabel) = "en") .
+  OPTIONAL { ?typeItem rdfs:label ?nlLabel FILTER (lang(?nlLabel) = "nl") }
+  
+  FILTER (!BOUND(?nlLabel))
+            
+} GROUP BY ?typeItem ?enLabel 

@@ -1,0 +1,39 @@
+# by-elections in the 1974-79 Parliament
+# this query finds all MPs who had another MP sit for the same seat in the same Parliament
+# if they started after the first one's term ended, it guesses they were matched
+# it then puts them in the correct order, counts the gap in days
+# and checks for a couple of false-positive risks (split terms and suspensions)
+SELECT DISTINCT ?region ?elected ?constituencyLabel ?secondMP ?electionLabel ?causeLabel ?left ?firstMP
+ {
+   values ?term { wd:Q41582617 }
+   
+ ?firstMP p:P39 ?positionStatement .
+ ?positionStatement ps:P39 ?term . 
+ ?positionStatement pq:P768 ?constituency .
+ ?positionStatement pq:P582 ?left . 
+ OPTIONAL { ?positionStatement pq:P1534 ?cause . } # in case cause not stated
+ 
+ ?secondMP p:P39 ?positionStatement2 .
+ ?positionStatement2 ps:P39 ?term . 
+ ?positionStatement2 pq:P768 ?constituency . # restricts it to the same seat  
+ ?positionStatement2 pq:P2715 ?election .
+ ?positionStatement2 pq:P580 ?elected .
+  
+    FILTER (?elected > ?left) . # make sure they're in the right order!
+    bind((?elected-?left) as ?days) . # find how long the gap was
+      
+    filter not exists {
+      ?firstMP p:P39 ?positionStatement3 . ?positionStatement3 ps:P39 ?term . 
+      ?positionStatement3 pq:P768 ?constituency . ?positionStatement3 pq:P580 ?left . }
+   # check there does not exist another term for the first MP, starting on the same day the previous one ended
+   # this would indicate a change of affiliation
+      filter not exists { ?positionStatement pq:P1534 wd:Q7649223 . }
+   # check the first MP was not merely suspended
+   # this would lead to a short gap in service not followed by a by-election
+   optional { ?constituency wdt:P131* wd:Q57695350 . bind("Ireland" as ?region) } 
+   optional { ?constituency wdt:P131* wd:Q26 . bind("Northern Ireland" as ?region) } 
+
+   
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?elected ?constituencyLabel ?left

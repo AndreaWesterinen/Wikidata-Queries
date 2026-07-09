@@ -1,0 +1,17 @@
+#title:Minor planets with no parent object
+SELECT DISTINCT ?item WHERE {
+  VALUES ?prop {
+    wdt:P2243
+    wdt:P2244
+    wdt:P2325
+    wdt:P4501
+  }
+  VALUES ?externalId {
+    wdt:P716
+    wdt:P5736
+  }
+  ?item (wdt:P31/(wdt:P279*)) wd:Q1022867;
+    ?externalId _:b1;
+    ?prop _:b2.
+  FILTER(NOT EXISTS { ?item wdt:P397 _:b3. })
+}

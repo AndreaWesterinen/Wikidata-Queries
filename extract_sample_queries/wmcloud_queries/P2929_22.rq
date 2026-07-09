@@ -1,0 +1,10 @@
+#title: Use for lighthouses
+# Complex constraint from [[Property talk:P2929]]
+# Items for existing lighthouses would generally have this property
+SELECT ?item 
+WHERE
+{ 
+	?item wdt:P31 wd:Q39715 . 
+	OPTIONAL { ?item wdt:P2929 ?lthorange } . filter (!BOUND(?lthorange)) 
+	MINUS { ?item wdt:P576 [] }
+}

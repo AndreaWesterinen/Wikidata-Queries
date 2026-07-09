@@ -1,0 +1,18 @@
+SELECT
+	?item
+	?itemLabel
+	?itemDescription 
+	?st
+	?sl
+	?ids
+    (?st - COALESCE(?ids,0) as ?sts)
+{
+	?item wdt:P31 wd:Q220505 . 
+  	?item wikibase:statements ?st .
+  	?item wikibase:sitelinks ?sl .
+  	OPTIONAL { ?item wikibase:identifiers ?ids . }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	FILTER ( ?item not in ( wd:Q685504 ) )
+}
+ORDER BY DESC(?sts)
+LIMIT 50

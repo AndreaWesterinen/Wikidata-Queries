@@ -1,0 +1,8 @@
+#Zigarettenfabriken
+SELECT ?item ?itemLabel ?coord
+WHERE 
+{
+  ?item wdt:P276 wd:Q1699003.
+  ?item wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

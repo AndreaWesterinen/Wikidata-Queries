@@ -1,0 +1,23 @@
+#Natural heritage without protection
+# GROUP BY ?desc 
+# ORDER BY DESC(?linkcount)
+SELECT ?s ?sLabel ?UICNLabel ?inst_ncia_de ?inst_ncia_deLabel WHERE {
+#  ?s wdt:P279* wd:Q386426.
+  ?s wdt:P814 ?UICN.
+#  MINUS { ?s wdt:P814 _:b0. }
+  MINUS { ?s wdt:P809 _:b1. }
+  MINUS { ?s wdt:P757 _:b2. }
+  MINUS { ?s wdt:P3425 _:b3. }
+  MINUS { ?s wdt:P2525 _:b4. }
+  MINUS { ?s wdt:P2520 _:b5. }
+  MINUS { ?s wdt:P5965 _:b6. }
+  MINUS { ?s wdt:P3974 _:b7. }
+  MINUS { ?s wdt:P4800 _:b8. }
+  MINUS { ?s wdt:P6230 _:b9. }
+  MINUS { ?s wdt:P2467 _:b10. }
+  MINUS { ?s wdt:P3412 _:b11. }
+#  OPTIONAL { ?s wdt:P809 ?identificador_WDPA. }
+  OPTIONAL { ?s wdt:P31 ?inst_ncia_de. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 10000

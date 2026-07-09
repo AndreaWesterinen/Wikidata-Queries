@@ -1,0 +1,10 @@
+#Locations of universities in Cameroon
+#added before 2016-10
+#defaultView:Map
+SELECT ?universityLabel ?universityDescription ?website ?coord WHERE {
+  ?university (wdt:P31/wdt:P279*) wd:Q3918.
+  ?university wdt:P17 wd:Q16.
+  ?university wdt:P625 ?coord.
+  OPTIONAL { ?university wdt:P856 ?website. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de". }
+}

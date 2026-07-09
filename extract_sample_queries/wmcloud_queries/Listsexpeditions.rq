@@ -1,0 +1,7 @@
+SELECT ?item ?wiki1 ?sl ?st
+WHERE
+{	
+?item wdt:P31 wd:Q2401485 
+OPTIONAL { ?item wikibase:statements ?st ; wikibase:sitelinks ?sl }
+OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w1  BIND( CONCAT("[[:en:",str(?w1),"|en]]") as ?wiki1) } 
+}

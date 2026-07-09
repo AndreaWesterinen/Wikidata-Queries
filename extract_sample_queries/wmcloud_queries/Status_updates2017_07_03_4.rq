@@ -1,0 +1,6 @@
+#defaultView:Graph
+SELECT ?character ?characterLabel ?linkTo WHERE {
+  ?character wdt:P31/wdt:P279* wd:Q208255;
+             wdt:P22|wdt:P25|wdt:P40|wdt:P1038|wdt:P3373 ?linkTo.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,pt". }
+}

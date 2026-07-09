@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P3211]]
+# Items that do have [[d:Q15641550|heritage lighthouse <small>(Q15641550)</small>]] in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P3211|Heritage Lighthouse of Canada ID&#32;<small dir="ltr">(P3211)</small>]]
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q15641550 } . ?item wdt:P1435 ?value . MINUS { ?item wdt:P3211 [] } }

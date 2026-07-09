@@ -1,0 +1,6 @@
+SELECT ?item ?rkdimage ?image WHERE {
+  ?item wdt:P4765 ?image .  
+  ?item wdt:P195 wd:Q679527 . 
+  ?item wdt:P31 wd:Q3305213 .
+  ?item schema:dateModified ?modified
+  } ORDER BY DESC(?modified)

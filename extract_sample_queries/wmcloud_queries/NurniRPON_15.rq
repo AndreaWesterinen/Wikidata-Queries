@@ -1,0 +1,72 @@
+SELECT DISTINCT ?s ?sLabel ?je ?popLabel ?nasLabel ?jur ?jurLabel ?pan (IF(BOUND(?od), ?od, xsd:dateTime(REPLACE(?sl, ".*(\\d{4}).*", "$1-01-01T00:00:00Z"))) AS ?_od) ?do ?mscLabel ?kat ?katLabel ?katp ?katpLabel ?marsz ?marszLabel WHERE {
+  {
+    SELECT ?s ?sl (GROUP_CONCAT(?jel; SEPARATOR = ", ") AS ?je) ?pop ?nas ?jur ?pan ?od ?do ?msc ?kat ?katp ?marsz WHERE {
+      {
+        ?s wdt:P31 wd:Q15238777;
+          p:P31 ?js.
+        ?js ps:P31 ?j;
+          pq:P642 wd:Q2660626.
+        OPTIONAL { ?s wdt:P155 ?pop. }
+        OPTIONAL { ?s wdt:P156 ?nas. }
+        OPTIONAL { ?s wdt:P1001 ?jur. }
+        OPTIONAL { ?s wdt:P17 ?pan. }
+        OPTIONAL { ?s wdt:P580 ?od. }
+        OPTIONAL { ?s wdt:P582 ?do. }
+        OPTIONAL { ?s wdt:P910 ?kat. }
+        OPTIONAL { ?katp wdt:P971 ?s. }
+        OPTIONAL { ?s wdt:P31 ?je. }
+        OPTIONAL { ?s wdt:P276 ?msc. }
+        OPTIONAL {
+          ?marsz wdt:P39 wd:Q11770519;
+            p:P39 ?ms.
+          ?ms ps:P39 wd:Q11770519;
+            pq:P2937 ?s.
+        }
+        ?je rdfs:label ?jel.
+        FILTER((LANG(?jel)) = "pl")
+        ?s rdfs:label ?sl.
+        FILTER(LANG(?sl) = "pl").
+      }
+    }
+    GROUP BY ?s ?sl ?pop ?nas ?jur ?pan ?od ?do ?msc ?kat ?katp ?marsz
+  }
+  UNION
+  { 
+    SELECT (xsd:dateTime(REPLACE(?nk, ".*(\\d{4}).*", "$1-01-01T00:00:00Z")) AS ?od) ?kat WHERE { 
+      hint:Query hint:optimizer "None".
+      SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+      SERVICE mediawiki:categoryTree {
+          bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Sejmy_I_Rzeczypospolitej_(chronologia)> .
+          bd:serviceParam mediawiki:direction "Reverse" .
+          bd:serviceParam mediawiki:depth 1 .
+      }}
+      ?out schema:name ?nk.
+      ?out schema:about ?kat.
+      
+      OPTIONAL { ?kat wdt:P301 ?s1. }
+      FILTER (!BOUND(?s1))
+      FILTER (?kat NOT IN (wd:Q9662278, wd:Q10047226))
+    }
+  }
+    UNION
+  { 
+    SELECT (xsd:dateTime(REPLACE(?nkp, ".*(\\d{4}).*", "$1-01-01T00:00:00Z")) AS ?od) ?katp WHERE { 
+      hint:Query hint:optimizer "None".
+      SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+      SERVICE mediawiki:categoryTree {
+          bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Pos%C5%82owie_na_Sejm_I_Rzeczypospolitej_(chronologia)> .
+          bd:serviceParam mediawiki:direction "Reverse" .
+          bd:serviceParam mediawiki:depth 1 .
+      }}  
+      ?out schema:name ?nkp.
+      ?out schema:about ?katp.
+      
+      OPTIONAL { ?katp wdt:P971 ?s1. }      
+      FILTER (!BOUND(?s1))      
+      FILTER (?katp NOT IN (wd:Q9662278))
+    }
+  }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?_od) (?katLabel)

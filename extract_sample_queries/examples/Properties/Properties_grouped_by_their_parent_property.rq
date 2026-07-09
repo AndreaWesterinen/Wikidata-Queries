@@ -1,5 +1,4 @@
-# ----
-# Properties grouped by their parent property
+#title: Properties grouped by their parent property
 # TODO: should display links and numeric ids
 #defaultView:Tree
 SELECT ?property2 ?property2Label ?property1 ?property1Label WHERE {

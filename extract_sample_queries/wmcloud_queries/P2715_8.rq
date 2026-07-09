@@ -1,0 +1,8 @@
+#title: Match P541
+# Complex constraint from [[Property talk:P2715]]
+# Target election should point back to the position using P541 (contested office)
+SELECT ?item ?itemLabel WHERE {
+  ?item p:P39 [ pq:P2715 ?election; ps:P39 ?position ] .
+  FILTER NOT EXISTS { ?election wdt:P541 ?position . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

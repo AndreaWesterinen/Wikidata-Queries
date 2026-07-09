@@ -1,0 +1,13 @@
+SELECT ?ceremony ?category ?film ?filmLabel ?item ?itemLabel WHERE {
+  ?item p:P1411 ?statement ;
+         wdt:P31 wd:Q5 .
+  ?statement ps:P1411 ?awardcat .
+  ?awardcat wdt:P31 wd:Q19020 ;
+         wdt:P31/wdt:P279 wd:Q97016080 .
+  ?statement pq:P1686 ?film ;
+             pq:P805 ?ceremony .
+  ?ceremony wdt:P276 wd:Q1122565 .
+  ?awardcat rdfs:label ?awardcatLabel. FILTER( LANG(?awardcatLabel)="en" )
+  BIND(SUBSTR(STR(?awardcatLabel),19,99) AS ?category)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ } ORDER BY ?ceremony ?category ?filmLabel ?itemLabel

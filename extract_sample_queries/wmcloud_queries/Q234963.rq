@@ -1,0 +1,15 @@
+#title: Municipis sense l'article de la Viquipèdia enllaçat
+# Complex constraint from [[Property talk:Q234963]]
+# Formentera no cal arreglar-ho, perquè l'article sobre l'illa ja inclou el municipi.
+select distinct ?item where {
+   ?item wdt:P31 ?instancia .
+   ?instancia wdt:P279* wd:Q15284.
+   ?item wdt:P131*/wdt:P361/wdt:P361? wd:Q234963.
+   minus { ?item ^schema:about/schema:isPartOf <https://ca.wikipedia.org/> }
+   minus { ?instancia wdt:P279* wd:Q19730508 }
+   minus {
+     ?item p:P31 ?statement .
+     ?statement ps:P31 ?instancia .
+     ?statement pq:P582 [] .
+   }
+ }

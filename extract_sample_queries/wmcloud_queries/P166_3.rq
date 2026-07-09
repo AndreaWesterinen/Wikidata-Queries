@@ -1,0 +1,9 @@
+#title: Check veteran tree (in France)
+# Complex constraint from [[Property talk:P166]]
+#
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P166 wd:Q1771174.
+  FILTER NOT EXISTS {?item wdt:P31 wd:Q811534}.
+}

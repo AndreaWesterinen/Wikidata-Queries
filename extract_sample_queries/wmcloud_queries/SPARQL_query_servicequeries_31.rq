@@ -1,0 +1,6 @@
+SELECT distinct ?place ?placeLabel ?coordinate_location WHERE {
+  ?place (wdt:P31/(wdt:P279*)) wd:Q62447;
+    wdt:P17 wd:Q183.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?place wdt:P625 ?coordinate_location. }
+}

@@ -1,0 +1,25 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P195 ?collection .
+  MINUS { ?item p:P170 [] } .
+  MINUS {  ?collection wdt:P17 wd:Q20 } .
+  MINUS {  ?collection wdt:P17 wd:Q28 } .
+  MINUS {  ?collection wdt:P17 wd:Q29 } .
+  MINUS {  ?collection wdt:P17 wd:Q30 } .
+  MINUS {  ?collection wdt:P17 wd:Q31 } .
+  MINUS {  ?collection wdt:P17 wd:Q34 } .
+  MINUS {  ?collection wdt:P17 wd:Q40 } .
+  MINUS {  ?collection wdt:P17 wd:Q55 } .
+  MINUS {  ?collection wdt:P17 wd:Q142 } .
+  MINUS {  ?collection wdt:P17 wd:Q145 } .
+  MINUS {  ?collection wdt:P17 wd:Q159 } .
+  MINUS {  ?collection wdt:P17 wd:Q183 } . 
+  MINUS {  ?collection wdt:P17 wd:Q191 } . 
+  MINUS {  ?collection wdt:P17 wd:Q213 } . 
+  MINUS {  ?collection wdt:P17 wd:Q214 } . 
+  MINUS {  ?collection wdt:P17 wd:Q408 } .
+  MINUS {  ?collection wdt:P17 wd:Q414 } . 
+  MINUS {  ?collection wdt:P17 wd:Q664 } . 
+  OPTIONAL { ?item schema:description ?description .  FILTER (LANG(?description) = "en") }
+  } ORDER BY ?description
+  LIMIT 5000

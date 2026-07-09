@@ -1,0 +1,7 @@
+SELECT ?item ?type ?person  WHERE {  
+    ?person p:P39 ?position_statement .
+    ?position_statement ps:P39 wd:Q17592486 .
+    ?position_statement pq:P768 ?item .
+    ?item wdt:P31 ?type .
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q28657263 }
+  }

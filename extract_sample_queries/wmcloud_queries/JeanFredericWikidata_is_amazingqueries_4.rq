@@ -1,0 +1,11 @@
+#defaultView:BarChart
+SELECT (str(?year) AS ?year)  (COUNT(?item) AS ?count)
+WHERE
+{
+    ?item wdt:P31 wd:Q7889.
+    ?item wdt:P400 wd:Q23882.
+    ?item wdt:P577 ?_publication_date. 
+    BIND ( year(?_publication_date) as ?year )
+}
+GROUP BY ?year
+ORDER BY ?year

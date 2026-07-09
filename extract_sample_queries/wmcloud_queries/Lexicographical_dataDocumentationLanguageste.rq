@@ -1,0 +1,8 @@
+SELECT ?category ?categoryLabel (count(?category) as ?countTelugu) WHERE {
+  ?lexeme dct:language wd:Q8097; 
+          wikibase:lexicalCategory ?category;
+          wikibase:lemma [].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],te". }
+}
+GROUP BY ?category ?categoryLabel
+ORDER BY ?countTelugu

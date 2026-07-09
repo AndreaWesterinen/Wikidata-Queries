@@ -1,0 +1,15 @@
+SELECT ?item ?p ?propertyDescription ?domain
+{
+  ?property wikibase:propertyType wikibase:ExternalId .
+  FILTER NOT EXISTS { ?property wdt:P31/wdt:P279* wd:Q19847637 }
+  OPTIONAL {
+    ?property p:P2302 [
+       ps:P2302 wd:Q21503250 ;
+       pq:P2309 wd:Q21503252 ;
+       pq:P2308 ?domain
+    ] 
+  }
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', SUBSTR(STR(?property), 33))) AS ?item) .
+  BIND(CONCAT('\u007B\u007BP\u007C', SUBSTR(STR(?property), 32), '\u007D\u007D') AS ?p) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

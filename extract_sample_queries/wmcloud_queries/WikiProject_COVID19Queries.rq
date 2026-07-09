@@ -1,0 +1,35 @@
+embed.html#
+SELECT
+  # Number of works with the author
+  ?count
+
+  # Author as a string
+  ?author
+
+  # Build URL to the Author disambiguator tool
+  (uri(CONCAT(
+      'https://tools.wmflabs.org/author-disambiguator/names_oauth.php?name=',
+      ENCODE_FOR_URI(?author))) AS ?resolver_url)
+WITH {
+  SELECT DISTINCT ?work WHERE {
+    ?work wdt:P8150 ?covidwho .
+  }
+} AS %works
+WITH {
+  SELECT
+    (COUNT(?work) AS ?count)
+    ?author
+  WHERE {
+    INCLUDE %works
+    ?work wdt:P2093 ?author .
+  }
+  GROUP BY ?author
+} AS %result
+WHERE {
+  INCLUDE %result
+
+  # Label the result
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,da,de,es,fr,jp,nl,no,ru,sv,zh". }
+}
+ORDER BY DESC(?count)
+LIMIT 500

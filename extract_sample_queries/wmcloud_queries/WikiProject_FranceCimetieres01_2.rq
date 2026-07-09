@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P31 wd:Q39614.
+  ?item wdt:P131 ?commune_ain.
+  ?commune_ain wdt:P31 wd:Q484170;
+    wdt:P131 wd:Q3083.
+}

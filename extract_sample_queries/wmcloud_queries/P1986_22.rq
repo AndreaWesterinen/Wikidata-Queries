@@ -1,0 +1,11 @@
+#title: Probable mismatches
+# Complex constraint from [[Property talk:P1986]]
+# items with this property always have a publication date which is posterior to death date; otherwise, either the death date or the DBI ID is wrong
+SELECT DISTINCT ?item ?itemLabel ?pubdate ?deathdate
+WHERE {
+  ?item p:P1986 [ pq:P577 ?pubdate ] .
+  ?item wdt:P570 ?deathdate .
+  FILTER(YEAR(?pubdate) < YEAR(?deathdate))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?pubdate

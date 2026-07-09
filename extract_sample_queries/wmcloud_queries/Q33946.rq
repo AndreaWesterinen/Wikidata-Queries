@@ -1,0 +1,12 @@
+#title: Czechoslovakia is used as country of citizenship for people dead before 1918-10-28
+# Complex constraint from [[Property talk:Q33946]]
+# Items with [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]] equal to [[d:Q33946|Czechoslovakia <small>(Q33946)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] before 1918-10-28
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P27 wd:Q33946 .
+  ?item p:P570 [ psv:P570 ?node; wikibase:rank ?rank ] .
+  FILTER(?rank != wikibase:DeprecatedRank) .
+  ?node wikibase:timeValue ?born .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (?born < "1918-10-28T00:00:00Z"^^xsd:dateTime)
+  FILTER (?precision >= "9"^^xsd:integer)
+}

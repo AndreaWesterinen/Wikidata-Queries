@@ -1,0 +1,19 @@
+#Values used by property P31
+SELECT ?value ?valueLabel ?value2 ?value2Label ?ct
+WHERE
+{
+  {
+    SELECT ?value ?value2 (count(*) as ?ct)
+    WHERE
+    {
+      ?item wdt:P969 [].
+      ?item wdt:P31 ?value.
+      ?item wdt:P17 ?value2.
+    }
+    GROUP BY ?value ?value2
+    ORDER BY DESC(?ct)
+    LIMIT 1000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY DESC(?ct) ASC(?value)

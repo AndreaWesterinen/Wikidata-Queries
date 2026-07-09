@@ -1,0 +1,59 @@
+SELECT * WHERE {
+  ?lexeme wikibase:lemma ?lemma;
+         dct:language wd:Q1860;
+         wikibase:lexicalCategory ?cat.
+  OPTIONAL { ?lexeme wdt:P5185 ?genus. } .
+  FILTER NOT EXISTS {
+    ?lexeme ontolex:sense ?sense.
+    ?sense wdt:P5137 ?item.
+  }.
+  FILTER NOT EXISTS { ?lexeme wdt:P5402 ?homograph }.
+  
+  ?item rdfs:label ?lemma.
+  ?item schema:description ?desc.	FILTER(LANG(?desc) = LANG(?lemma)).
+  FILTER NOT EXISTS { ?item a wikibase:Property}.
+  # Filter out common false-positives
+  FILTER NOT EXISTS { ?item wdt:P131 ?_ }.
+  FILTER NOT EXISTS {
+    VALUES ?not { wd:Q4167410 wd:Q101352 
+                              #wd:Q11424 
+                              #wd:Q3305213 
+                              #wd:Q482994 
+                              wd:Q13417114 
+                              #wd:Q7366 
+                              #wd:Q208569 
+                              wd:Q15632617 
+                              wd:Q21191270 
+                              wd:Q5185279
+                              wd:Q215380  # band
+                              wd:Q23786   # eye color
+                              #wd:Q838948  # work of art
+                              #wd:Q2188189 # work of music
+                              wd:Q40056   # software
+                              wd:Q3491429 # military terms
+                              wd:Q7187    # gene
+                              wd:Q19798644 # wikibase model terms
+                              wd:Q11668273 # shogi pieces
+                              wd:Q1208658 # ring theory
+                              wd:Q246672 # object in math
+                              wd:Q17638537 # routine - fix computer terminology
+                              wd:Q11446    # ships
+                              wd:Q2235308  # types of ships
+                              wd:Q17537576 # any creative work
+                              wd:Q8134     # economics
+                              wd:Q20202269 # music terms
+                }.
+    ?item wdt:P31/(wdt:P279*) ?not
+  }
+  
+  FILTER NOT EXISTS { 
+    VALUES ?not2 {
+      wdt:P688 # gene stuff
+      }
+      ?item ?not2 ?_ }. 
+  FILTER (!regex(?desc, '.*heraldic.*')) . # heraldic crap
+  FILTER (!regex(?desc, '.*heraldry.*')) . 
+  FILTER (!regex(?desc, '.*C++.*')) .      # c++ crap items by sk!dbot 
+  
+}
+limit 1000

@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?handle ?parenthandle ?partofLabel ?verdict
+WHERE 
+{
+  ?item wdt:P276 wd:Q666063.
+  ?item wdt:P1184 ?handle.
+  ?item wdt:P361 ?partof. 
+  ?partof wdt:P1184 ?parenthandle.  
+  bind(if(?handle=?parenthandle,"remove handle","keep handle") as ?verdict)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?handle ?parenthandle

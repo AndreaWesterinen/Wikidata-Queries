@@ -1,0 +1,8 @@
+#title: Items with creator not linked to Art UK artist ID
+# Complex constraint from [[Property talk:P1679]]
+# Items that have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]], but that item doesn't have [[Property:P1367|Art UK artist ID&#32;<small dir="ltr">(P1367)</small>]]. Missing link can probably be added
+SELECT DISTINCT ?item ?creator {
+	?item wdt:P1679 ?value .
+    ?item wdt:P170 ?creator .
+    MINUS { ?creator wdt:P1367 [] } 
+} LIMIT 500

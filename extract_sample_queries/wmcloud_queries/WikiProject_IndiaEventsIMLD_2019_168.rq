@@ -1,0 +1,20 @@
+#Service destination graph (starting from CCU Airport)
+#defaultView:Graph
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+SELECT ?item ?itemLabel ?image ?linkTo
+WHERE
+{
+  SERVICE gas:service {
+  gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+  gas:in wd:Q388535;
+  gas:traversalDirection "Forward" ;
+  gas:out ?item ;
+  gas:out1 ?depth ;
+  gas:maxIterations 2 ;
+  gas:linkType wdt:P521 .
+  }
+  OPTIONAL { ?item wdt:P521 ?linkTo }
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" }
+}
+#

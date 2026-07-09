@@ -1,0 +1,28 @@
+#defaultView:Map
+SELECT ?train_station ?coordinate_location ?layer WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu". }
+  ?train_station (wdt:P31/wdt:P279*) wd:Q719456.
+  { ?train_station wdt:P361 wd:Q10862037. }
+  UNION
+  { ?train_station wdt:P361 wd:Q123955. }
+  UNION
+  { ?train_station wdt:P361 wd:Q149274. }
+  UNION
+  { ?train_station wdt:P361 wd:Q2946410. }
+  UNION
+  { ?train_station wdt:P81 wd:Q43283383. }
+  UNION
+  { ?train_station wdt:P361 wd:Q3239365. }
+  UNION
+  { ?train_station wdt:P81 wd:Q43283518. }
+  UNION
+  { ?train_station wdt:P81 wd:Q43325427. }
+  MINUS { ?train_station (wdt:P131/wdt:P131) wd:Q55180. }
+  MINUS { ?train_station (wdt:P131/wdt:P131) wd:Q55271. }
+  ?train_station wdt:P625 ?coordinate_location.
+  ?train_station wdt:P81 ?connecting_line.
+  MINUS { ?connecting_line wdt:P81 wd:Q5852245. }
+  MINUS { ?connecting_line wdt:P81 wd:Q801991. }
+  ?connecting_line rdfs:label ?layer.
+  FILTER((LANG(?layer)) = "eu")
+}

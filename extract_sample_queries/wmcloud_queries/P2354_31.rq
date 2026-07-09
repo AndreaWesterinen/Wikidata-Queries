@@ -1,0 +1,19 @@
+#title: Lists not values of P2354 (2nd sample)
+# Complex constraint from [[Property talk:P2354]]
+# 2nd sample of 500 lists
+SELECT ?item 
+WHERE
+{
+  SERVICE bd:sample { ?item wdt:P31 wd:Q13406463. bd:serviceParam bd:sample.limit 4000 }
+  FILTER NOT EXISTS { [ ] wdt:P2354 ?item }
+  FILTER NOT EXISTS { [ ] wdt:P1753 ?item }
+  FILTER NOT EXISTS { ?item wdt:P1754 [ ] }
+  FILTER NOT EXISTS { [ ] wdt:P1811 ?item }
+  FILTER NOT EXISTS { [ ] wdt:P358  ?item }
+  FILTER NOT EXISTS { [ ] wdt:P1283 ?item }
+  FILTER NOT EXISTS { [ ] wdt:P1881 ?item }
+  FILTER NOT EXISTS { [ ] wdt:P1455 ?item }
+  FILTER NOT EXISTS { [ ] wdt:P1456 ?item }
+  FILTER NOT EXISTS { [ ] wdt:P5125 ?item }  
+}
+LIMIT 500

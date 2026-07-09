@@ -1,0 +1,14 @@
+SELECT
+  ?item ?itemLabel 
+  (SAMPLE(?site_arch) as ?site_arch_ )
+  (COUNT(DISTINCT ?n) as ?n_count) 
+  (GROUP_CONCAT(?nLabel; separator="; ") as ?ns) 
+WHERE
+{
+  ?item wdt:P31 wd:Q15661340.
+  MINUS { ?item wdt:P576 [] }
+  OPTIONAL { ?item wdt:P31 ?n . FILTER( ?n != wd:Q15661340) }
+  OPTIONAL { ?item wdt:P31 wd:Q839954 . BIND("Y" as ?site_arch) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" . ?item rdfs:label ?itemLabel . ?n rdfs:label ?nLabel }
+}
+GROUP BY ?item ?itemLabel

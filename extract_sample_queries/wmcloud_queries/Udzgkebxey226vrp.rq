@@ -1,0 +1,6 @@
+SELECT ?film ?filmLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?film wdt:P31 wd:Q11424.
+  ?film wdt:P495 wd:Q29999.
+}
+LIMIT 100

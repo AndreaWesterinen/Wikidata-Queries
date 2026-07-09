@@ -1,0 +1,7 @@
+#title: In Brno
+# Complex constraint from [[Property talk:P9104]]
+#
+SELECT ?item {
+  ?item wdt:P9104 [].
+  MINUS { ?item wdt:P131* wd:Q14960 }
+}

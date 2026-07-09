@@ -1,0 +1,8 @@
+bigdata/namespace/wdq/sparql?query=SELECT ?item WHERE
+{
+    { ?item wdt:P721 [] } UNION
+  { ?item wdt:P764 [] } . 
+  MINUS { ?item rdfs:label ?itemLabel .
+  	FILTER (lang(?itemLabel) = "ru") }
+}
+ORDER BY ?item

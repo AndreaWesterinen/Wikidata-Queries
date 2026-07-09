@@ -1,0 +1,15 @@
+#Professions de les dones
+#defaultView:BubbleChart
+SELECT ?cid ?cause (count(*) as ?count)
+WHERE {
+	?pid wdt:P21 wd:Q6581072 .
+	?pid wdt:P106 ?cid .
+	OPTIONAL {
+		?cid rdfs:label ?cause filter (lang(?cause) = "ca") .}
+
+	# només humans
+  	?pid wdt:P31 wd:Q5 . 
+	
+}
+GROUP BY ?cid ?cause
+ORDER BY DESC(?count) ASC(?cause)

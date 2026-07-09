@@ -1,0 +1,8 @@
+#List of venues with reference to a music festival
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q868557.
+  ?item wdt:P3820 ?value
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

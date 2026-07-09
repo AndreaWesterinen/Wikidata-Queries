@@ -1,0 +1,8 @@
+#title: Department of France
+# Complex constraint from [[Property talk:P119]]
+# for value, prefer cemetery or city
+SELECT ?item ?location {
+  ?item wdt:P119 ?location.
+  ?location wdt:P31 wd:Q6465.
+}
+ORDER BY ?location

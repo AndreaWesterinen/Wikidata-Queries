@@ -1,0 +1,6 @@
+SELECT ?persona ?personaLabel
+WHERE {
+  ?persona wdt:P214 ?viaf ; wdt:P1412 wd:Q652 .
+  MINUS { ?persona wdt:P396 ?sbn } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,[AUTO_LANGUAGE],en". }
+}

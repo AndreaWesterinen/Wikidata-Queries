@@ -1,0 +1,9 @@
+SELECT ?item ?rkdimage ?image WHERE {
+  ?item wdt:P350 ?rkdimage .
+  ?item wdt:P4765 ?image .  
+  ?item wdt:P31 wd:Q3305213 .
+  FILTER(REGEX(STR(?image), 'https://images.rkd.nl/rkd/thumb/fullsize/.+')) . 
+  MINUS { ?item wdt:P170 [] . ?item wdt:P195 [] } . 
+  ?item schema:dateModified ?modified
+  } ORDER BY DESC(?modified)
+  LIMIT 12345671

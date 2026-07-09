@@ -1,0 +1,10 @@
+# cities located next to most rivers
+SELECT ?item ?itemLabel (COUNT(DISTINCT ?river) AS ?count) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q486972;
+        wdt:P206 ?river.
+  ?river wdt:P31/wdt:P279* wd:Q355304.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?item ?itemLabel
+HAVING(?count > 2)
+ORDER BY DESC(?count)

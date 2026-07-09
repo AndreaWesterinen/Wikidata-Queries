@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P108 ?university.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  FILTER((LANG(?label)) = "nl")
+  FILTER(REGEX(?label, "[A-Z]{3,}"))
+  ?university wdt:P463 wd:Q3212092.
+}

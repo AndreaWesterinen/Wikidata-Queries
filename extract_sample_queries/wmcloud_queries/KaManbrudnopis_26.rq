@@ -1,0 +1,11 @@
+SELECT ?l ?lemma ?form ?ipa WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ; ontolex:lexicalForm ?form.
+  ?language wdt:P218 'pl'.
+  ?form p:P898 ?statement.
+  ?statement ps:P898 ?ipa.
+  FILTER NOT EXISTS {
+    ?statement prov:wasDerivedFrom ?refnode.
+    ?refnode pr:P143 wd:Q33109097.
+  }
+} ORDER BY ?lemma

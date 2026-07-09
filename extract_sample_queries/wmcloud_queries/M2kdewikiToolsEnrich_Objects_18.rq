@@ -1,0 +1,20 @@
+SELECT ?item ?geo ?sitelink  WHERE {
+  
+       { ?item wdt:P31 wd:Q1518285 . } UNION
+       { ?item wdt:P31 wd:Q486972 . } UNION
+       { ?item wdt:P31 wd:Q860861 . } UNION
+       { ?item wdt:P31 wd:Q2579179 . } UNION
+       { ?item wdt:P31 wd:Q502074 . } UNION
+       { ?item wdt:P31 wd:Q182676 . } UNION
+      { ?item wdt:P31 wd:Q2082774 . } UNION
+     { ?item wdt:P31 wd:Q19860854 . } UNION
+     { ?item wdt:P31 wd:Q41487 . } UNION
+   { ?item wdt:P31 wd:Q10521078 . } UNION
+  { ?item wdt:P31 wd:Q17376095 . } UNION { ?item wdt:P31 wd:Q44613 . } UNION { ?item wdt:P31 wd:Q3257686 . } UNION { ?item wdt:P31 wd:Q2983893 . } UNION { ?item wdt:P31 wd:Q811979 . } UNION { ?item wdt:P31 wd:Q41176 . } UNION { ?item wdt:P31 wd:Q123705 . } UNION { ?item wdt:P31 wd:Q253019 . } UNION { ?item wdt:P31 wd:Q23413 . } UNION { ?item wdt:P31 wd:Q1015644 . } UNION { ?item wdt:P31 wd:Q16970 . } UNION { ?item wdt:P31 wd:Q3914 . } UNION { ?item wdt:P31 wd:Q8502 . } UNION { ?item wdt:P31 wd:Q355304 . } UNION { ?item wdt:P31 wd:Q337567 . } UNION { ?item wdt:P31 wd:Q34627 . }  UNION { ?item wdt:P31 wd:Q4632675 . } UNION { ?item wdt:P31 wd:Q4989906 . } UNION { ?item wdt:P31 wd:Q39614 . } UNION { ?item wdt:P31 wd:Q79007 . } UNION { ?item wdt:P31 wd:Q846659 . } UNION { ?item wdt:P31 wd:Q350895 . }  # Bauwerk, Gebäude, Stadtviertel oder Ortsteil, Ortsteil, Burg, Burgstall, Kirchengebäude, Schule, Berg, Fließgewässer, Stillgewässer, Synagoge, Wohnplatz, Denkmal,Friedhof, Innerortsstraße, jüdischer Friedhof , Wüstung
+  ?sitelink schema:about ?item .
+  ?sitelink schema:isPartOf <https://de.wikipedia.org/> .
+  OPTIONAL {?item wdt:P625 ?geo }  
+  FILTER (!bound(?geo))   # nur jene OHNE geographische Koordindaten (P625)
+  # FILTER (bound(?geo))   # nur jene MIT geographische Koordindaten (P625)
+  MINUS { ?item wdt:P376 wd:Q405 . } # ohne astronomischem Körper (P376): Mond (Q405) 
+}

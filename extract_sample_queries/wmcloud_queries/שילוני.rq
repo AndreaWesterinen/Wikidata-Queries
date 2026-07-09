@@ -1,0 +1,13 @@
+SELECT ?item ?cona (CONCAT("[[Wikidata:WikiProject sum of all paintings/Main subject/",?name, "|list]]") AS ?listlink) (COUNT(?item) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .  
+  ?painting wdt:P921 ?item . 
+  ?painting wdt:P136 wd:Q2864737 .
+  OPTIONAL { ?item wdt:P5986 ?cona } .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+} GROUP BY ?item ?cona ?name ?listlink
+HAVING (?count > 5)
+ORDER BY DESC(?count) 
+LIMIT 300

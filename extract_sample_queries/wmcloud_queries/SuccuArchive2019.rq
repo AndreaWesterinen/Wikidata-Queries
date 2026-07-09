@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?rankLabel
+WHERE 
+{
+  ?item wdt:P171/wdt:P171* wd:Q44631.
+  ?item wdt:P105 ?rank.
+  ?item wdt:P105 wd:Q3238261.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by ?rankLabel ?itemLabel

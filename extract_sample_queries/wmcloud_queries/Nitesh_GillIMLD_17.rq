@@ -1,0 +1,5 @@
+SELECT ?language ?languageLabel ?languageDescription ?languageAltLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "as". }
+  ?language wdt:P31 wd:Q34770.
+  ?language wdt:P17 wd:Q668.
+}

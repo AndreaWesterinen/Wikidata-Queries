@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT * WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P136 wd:Q134307 .
+  ?item wdt:P180 wd:Q146 .
+  ?item wdt:P18 ?img .
+}
+limit 100

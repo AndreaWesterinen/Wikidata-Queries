@@ -1,0 +1,13 @@
+#title: de description to include "Familienname"
+# Complex constraint from [[Property talk:P6597]]
+# Default German language description for Latin script family names is "Familienname"
+SELECT ?item ?de_desc 
+{
+	?item wdt:P6597 [] .
+    hint:Prior hint:rangeSafe true .  
+    ?item schema:description ?de_desc . 
+    FILTER(  lang(?de_desc)="de" 
+             && !CONTAINS( ?de_desc, "Familienname" )
+          )
+    ?item wdt:P282 wd:Q8229
+}

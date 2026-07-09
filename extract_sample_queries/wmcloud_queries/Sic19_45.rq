@@ -1,0 +1,6 @@
+embed.html#SELECT ?item ?itemLabel ?wrro_url WHERE {
+  ?item wdt:P31 wd:Q13442814.
+  ?item wdt:P953 ?wrro_url .
+  FILTER(CONTAINS(STR(?wrro_url), "whiterose.ac.uk")).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

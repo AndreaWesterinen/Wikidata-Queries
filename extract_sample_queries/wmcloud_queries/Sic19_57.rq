@@ -1,0 +1,6 @@
+embed.html#SELECT ?subj ?subjLabel ?inventory_number ?url WHERE {
+   ?subj wdt:P485 wd:Q666063 .
+OPTIONAL {  ?subj p:P485 [ps:P485 wd:Q666063 ; pq:P217 ?inventory_number ] }
+OPTIONAL {  ?subj p:P485 [ps:P485 wd:Q666063 ; pq:P856 ?url ] }
+ SERVICE wikibase:label {  bd:serviceParam wikibase:language "en" . }
+}

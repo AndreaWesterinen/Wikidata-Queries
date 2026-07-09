@@ -1,0 +1,22 @@
+#defaultView:Map
+SELECT ?software ?softwareLabel ?developerLabel ?birthplaceLabel ?coord ?lat ?lon
+
+WHERE {
+  
+  ?software wdt:P31 wd:Q341 .
+  ?software wdt:P178 ?developer .
+  ?developer wdt:P19 ?birthplace
+  OPTIONAL {?birthplace wdt:P625 ?coord. }
+   OPTIONAL {
+    ?birthplace p:P625 ?statement.
+    ?statement psv:P625 ?node.
+    ?node wikibase:geoLatitude ?lat.
+    ?node wikibase:geoLongitude ?lon.
+   }
+  
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+}

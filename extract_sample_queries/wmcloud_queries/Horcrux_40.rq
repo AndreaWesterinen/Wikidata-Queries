@@ -1,0 +1,5 @@
+SELECT DISTINCT (uri(concat(str(?x),"#P3365")) as ?url) ?id
+WHERE {
+  ?x wdt:P3365 ?id .
+  FILTER regex(?id, "_(?!res-|\\()").
+}

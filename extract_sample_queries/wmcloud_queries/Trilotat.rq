@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?errata ?errataLabel
+WHERE 
+{
+  ?item wdt:P2507 ?errata.                      #item has a P2507
+  filter not exists {?errata wdt:P921 ?item .}  #oh woe; the errata does not point back to the item
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,1 @@
+SELECT ?s (COUNT(DISTINCT?o) as ?ct) { ?s wdt:P7 ?o; wdt:P31 wd:Q5 } GROUP BY ?s HAVING (?ct > 25) ORDER BY DESC(?ct)

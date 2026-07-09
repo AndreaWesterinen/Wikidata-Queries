@@ -1,0 +1,27 @@
+#title: Occupation
+# Complex constraint from [[Property talk:P6777]]
+# Check [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]]
+SELECT DISTINCT ?item {
+    ?item wdt:P6777 ?value.
+    ?item wdt:P106 ?occupation.
+    FILTER NOT EXISTS {
+      ?item wdt:P106 wd:Q2405480.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P106 wd:Q333634.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P106 wd:Q2526255.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P106 wd:Q33999.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P106 wd:Q10800557.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P106 ?nature. 
+      ?nature wdt:P31 wd:Q4220920
+    }
+}
+ORDER BY ?item

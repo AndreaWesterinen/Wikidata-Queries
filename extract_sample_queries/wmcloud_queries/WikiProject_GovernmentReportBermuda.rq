@@ -1,0 +1,7 @@
+#title: Ministries in Bermuda (should be ?)
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q112873181.
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} ORDER BY ?itemLabel

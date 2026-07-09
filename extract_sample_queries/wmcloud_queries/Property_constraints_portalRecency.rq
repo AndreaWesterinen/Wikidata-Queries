@@ -1,0 +1,8 @@
+embed.html#SELECT ?prop ?propLabel ?propDescription ?duration ?unitLabel
+WHERE 
+{
+	hint:Query hint:optimizer "None".
+	?prop p:P1552 [ ps:P1552 wd:Q102173107 ; pq:P2047 ?duration ; pqv:P2047 / wikibase:quantityUnit ?unit ] .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  
+LIMIT 500

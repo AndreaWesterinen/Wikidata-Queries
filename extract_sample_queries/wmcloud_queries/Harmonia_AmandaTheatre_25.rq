@@ -1,0 +1,8 @@
+SELECT ?item ?itemlabel
+WHERE {
+  ?item wdt:P734 wd:Q16880652 .
+  ?item rdfs:label ?itemlabel .
+  FILTER (lang(?itemlabel) = "ja"). 
+  FILTER(STRSTARTS(?itemlabel, '織田')) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ja" . }
+  }

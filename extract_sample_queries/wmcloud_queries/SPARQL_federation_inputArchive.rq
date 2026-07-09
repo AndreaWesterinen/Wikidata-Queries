@@ -1,0 +1,8 @@
+# Movies adapted from books or literary works with ID BnF
+SELECT DISTINCT ?movie (GROUP_CONCAT(DISTINCT  ?IDBnF; separator=";") as ?IDsBnF)   
+WHERE {
+  ?movie wdt:P31/wdt:P279* wd:Q11424.
+  ?movie wdt:P144 ?work.
+  {?work wdt:P31/wdt:P279* wd:Q571} UNION {?work wdt:P31/wdt:P279* wd:Q7725634}
+  ?work wdt:P268 ?IDBnF.  
+}GROUP BY ?movie

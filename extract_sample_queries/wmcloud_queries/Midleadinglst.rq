@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel (COUNT(?article) AS ?count) WHERE {
+  ?site schema:about ?article;
+        schema:isPartOf <https://zh.wikisource.org/>.
+  ?article wdt:P50 ?item.
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "zh,zh-hant,zh-hans,[AUTO_LANGUAGE]"}
+} GROUP BY ?item ?itemLabel ORDER BY DESC(?count) ASC(?item) LIMIT 200

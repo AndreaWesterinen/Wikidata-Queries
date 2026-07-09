@@ -1,0 +1,75 @@
+#Overview of all non-external ID properties of contributors the AA JH
+SELECT DISTINCT *
+
+WHERE { 
+  BIND(wd:Q72752496 as ?album)
+  ?album wdt:P767 ?contributor.
+
+OPTIONAL{?contributor wdt:P31 ?p31.} #instance of
+OPTIONAL{?contributor wdt:P101 ?p101.} #field of work
+OPTIONAL{?contributor wdt:P103 ?p103.} #native language
+OPTIONAL{?contributor wdt:P106 ?p106.} #occupation
+OPTIONAL{?contributor wdt:P108 ?p108.} #employer
+OPTIONAL{?contributor wdt:P109 ?p109.} #signature
+OPTIONAL{?contributor wdt:P119 ?p119.} #place of burial
+OPTIONAL{?contributor wdt:P135 ?p135.} #movement
+OPTIONAL{?contributor wdt:P136 ?p136.} #genre
+OPTIONAL{?contributor wdt:P140 ?p140.} #religion
+OPTIONAL{?contributor wdt:P172 ?p172.} #ethnic group
+OPTIONAL{?contributor wdt:P18 ?p18.} #image
+OPTIONAL{?contributor wdt:P184 ?p184.} #doctoral advisor
+OPTIONAL{?contributor wdt:P185 ?p185.} #doctoral student
+OPTIONAL{?contributor wdt:P19 ?p19.} #place of birth
+OPTIONAL{?contributor wdt:P20 ?p20.} #place of death
+OPTIONAL{?contributor wdt:P21 ?p21.} #sex or gender
+OPTIONAL{?contributor wdt:P22 ?p22.} #father
+OPTIONAL{?contributor wdt:P25 ?p25.} #mother
+OPTIONAL{?contributor wdt:P26 ?p26.} #spouse
+OPTIONAL{?contributor wdt:P27 ?p27.} #country of citizenship
+OPTIONAL{?contributor wdt:P39 ?p39.} #position held
+OPTIONAL{?contributor wdt:P40 ?p40.} #child
+OPTIONAL{?contributor wdt:P69 ?p69.} #educated at
+OPTIONAL{?contributor wdt:P91 ?p91.} #sexual orientation
+OPTIONAL{?contributor wdt:P1038 ?p1038.} #relative
+OPTIONAL{?contributor wdt:P1066 ?p1066.} #student of
+OPTIONAL{?contributor wdt:P1299 ?p1299.} #depicted by
+OPTIONAL{?contributor wdt:P1303 ?p1303.} #instrument
+OPTIONAL{?contributor wdt:P1317 ?p1317.} #floruit
+OPTIONAL{?contributor wdt:P1343 ?p1343.} #described by source
+OPTIONAL{?contributor wdt:P1412 ?p1412.} #languages spoken, written or signed
+OPTIONAL{?contributor wdt:P1472 ?p1472.} #Commons Creator page
+OPTIONAL{?contributor wdt:P1477 ?p1477.} #birth name
+OPTIONAL{?contributor wdt:P1559 ?p1559.} #name in native language
+OPTIONAL{?contributor wdt:P1636 ?p1636.} #date of baptism in early childhood
+OPTIONAL{?contributor wdt:P1813 ?p1813.} #short name
+OPTIONAL{?contributor wdt:P1889 ?p1889.} #different from
+OPTIONAL{?contributor wdt:P1971 ?p1971.} #number of children
+OPTIONAL{?contributor wdt:P2579 ?p2579.} #studied by
+OPTIONAL{?contributor wdt:P279 ?p279.} #subclass of
+OPTIONAL{?contributor wdt:P3373 ?p3373.} #sibling
+OPTIONAL{?contributor wdt:P3919 ?p3919.} #contributed to creative work
+OPTIONAL{?contributor wdt:P443 ?p443.} #pronunciation audio
+OPTIONAL{?contributor wdt:P451 ?p451.} #partner
+OPTIONAL{?contributor wdt:P463 ?p463.} #member of
+OPTIONAL{?contributor wdt:P512 ?p512.} #academic degree
+OPTIONAL{?contributor wdt:P551 ?p551.} #residence
+OPTIONAL{?contributor wdt:P569 ?p569.} #date of birth
+OPTIONAL{?contributor wdt:P570 ?p570.} #date of death
+OPTIONAL{?contributor wdt:P6275 ?p6275.} #copyright representative
+OPTIONAL{?contributor wdt:P6379 ?p6379.} #has works in the collection
+OPTIONAL{?contributor wdt:P734 ?p734.} #family name
+OPTIONAL{?contributor wdt:P735 ?p735.} #given name
+OPTIONAL{?contributor wdt:P7763 ?p7763.} #copyright status as a creator
+OPTIONAL{?contributor wdt:P800 ?p800.} #notable work
+OPTIONAL{?contributor wdt:P802 ?p802.} #student
+OPTIONAL{?contributor wdt:P910 ?p910.} #topic's main category
+OPTIONAL{?contributor wdt:P935 ?p935.} #Commons gallery
+OPTIONAL{?contributor wdt:P937 ?p937.} #work location
+OPTIONAL{?contributor wdt:P973 ?p973.} #described at URL
+OPTIONAL{?contributor wdt:P373 ?p373.} #Commons category
+
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+
+} 
+ORDER BY ?contributor 

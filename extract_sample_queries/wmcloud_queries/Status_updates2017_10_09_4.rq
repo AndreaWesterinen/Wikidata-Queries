@@ -1,0 +1,10 @@
+# units of measurement named after Germans
+# („Tag der Deutschen Einheit“ is “German Unity Day”, but can also be translated as “Day of the German Unit”, since „Einheit“ can mean both “Unity” and “Unit”.)
+SELECT DISTINCT ?unit ?unitLabel ?personLabel WHERE {
+  ?unit wdt:P31/wdt:P279* wd:Q47574;
+        wdt:P138 ?person.
+  { ?person wdt:P27/wdt:P156* wd:Q183. } UNION
+  { ?person wdt:P103 wd:Q188. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?personLabel

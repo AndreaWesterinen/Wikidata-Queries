@@ -1,0 +1,8 @@
+SELECT ?item 
+	(group_concat(concat("\u007B\u007BP\u007C",strafter(str(?property),"/entity/"),"\u007D\u007D");separator=", ") as ?p) 
+{
+	?item wdt:P3176 ?property .
+	FILTER NOT EXISTS { ?item wdt:P31 wd:Q11266439 }
+}
+GROUP BY ?item
+ORDER BY ?item

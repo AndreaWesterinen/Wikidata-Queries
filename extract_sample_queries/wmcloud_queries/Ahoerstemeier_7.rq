@@ -1,0 +1,13 @@
+#Natura2000 in NRW
+#defaultView:Table
+SELECT DISTINCT ?natura ?naturaLabel ?cdda ?wdpa ?inception ?area WHERE {
+  ?natura (wdt:P31/wdt:P279*) wd:Q15069452.
+  ?natura wdt:P131 ?location.
+  ?location wdt:P131* wd:Q1198.
+  OPTIONAL { ?natura wdt:P4762 ?cdda. }
+  OPTIONAL { ?natura wdt:P809 ?wdpa. }
+  OPTIONAL { ?natura wdt:P571 ?inception. }
+  OPTIONAL { ?natura wdt:P2046 ?area. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}
+LIMIT 1000

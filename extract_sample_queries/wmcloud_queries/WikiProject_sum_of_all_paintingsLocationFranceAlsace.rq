@@ -1,0 +1,8 @@
+SELECT ?item ?town (CONCAT("[[",replace(str(?cre),str(wd:),''),"|",?name,"]]") AS ?creator) WHERE {
+  ?item wdt:P31 wd:Q3305213.
+  ?item wdt:P276 ?loc.
+  ?loc wdt:P131 ?town.
+  ?town wdt:P131 ?Alsace. 
+  values ?Alsace { wd:Q12722 wd:Q12717 }
+  OPTIONAL { ?item wdt:P170 ?cre . ?cre rdfs:label ?name . FILTER (lang(?name)="en") }
+} LIMIT 2500

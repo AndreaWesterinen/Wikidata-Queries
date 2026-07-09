@@ -1,0 +1,148 @@
+#SELECT ?item ?itemLabel ?level ?rgb ?prop ?propLabel ?value ?valueLabel ?class ?classLabel WHERE {
+SELECT ?item ?itemLabel ?level ?rgb ?prop ?propLabel ?class ?classLabel WHERE {
+#SELECT ?level ?prop ?propLabel ?class ?classLabel WHERE {
+    { {
+      SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 p:P747 p:P4969 p:P179 p:P155 p:P156 p:P144 p:P1433 p:P361 p:P941 p:P527 p:P9745 }
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P9622 [] .
+           ?item ?p ?stmt .  ?prop wikibase:claim ?p .
+           ?stmt ?v ?value. ?prop wikibase:statementProperty ?v.
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("work" AS ?level) BIND("ff0000" AS ?rgb)
+    } UNION {
+    {
+         SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 wdt:P6524 wdt:P629 wdt:P144 wdt:P155 wdt:P941 wdt:P527 wdt:P156 wdt:P361 wdt:P1574 wdt:P1433 wdt:P2550 wdt:P4969 wdt:P747 wdt:P6166 wdt:P4330 wdt:P2860 }
+           hint:Query hint:optimizer "None" .
+           ?item wdt:P9622 [] .  
+           ?value ?p ?item .
+           ?prop wikibase:directClaim ?p .
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("work" AS ?level) BIND("ff0000" AS ?rgb) 
+    } UNION {
+    {
+      SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 p:P747 p:P4969 p:P179 p:P155 p:P156 p:P144 p:P1433 p:P361 p:P941 p:P527 p:P9745 }
+           hint:Query hint:optimizer "None" .
+           ?work wdt:P9622 []. {?work wdt:P4969 ?item } UNION {?item  wdt:P144 ?work} UNION {?item  wdt:P6524 ?work} .  
+#           ?item wdt:P9622 [] .
+           ?item ?p ?stmt .  ?prop wikibase:claim ?p .
+           ?stmt ?v ?value. ?prop wikibase:statementProperty ?v.
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("expression" AS ?level) BIND("008000" AS ?rgb)
+    } UNION {
+    {
+         SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 wdt:P6524 wdt:P629 wdt:P144 wdt:P155 wdt:P941 wdt:P527 wdt:P156 wdt:P361 wdt:P1574 wdt:P1433 wdt:P2550 wdt:P4969 wdt:P747 wdt:P6166 wdt:P4330 wdt:P2860 }
+           hint:Query hint:optimizer "None" .
+           ?work wdt:P9622 []. {?work wdt:P4969 ?item } UNION {?item  wdt:P144 ?work} UNION {?item  wdt:P6524 ?work} . 
+#           ?item wdt:P9622 [] .
+           ?value ?p ?item .
+           ?prop wikibase:directClaim ?p .
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("expression" AS ?level) BIND("008000" AS ?rgb)
+    } UNION {
+    {
+      SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 p:P747 p:P4969 p:P179 p:P155 p:P156 p:P144 p:P1433 p:P361 p:P941 p:P527 p:P9745 }
+           hint:Query hint:optimizer "None" .
+           ?work wdt:P9622 []. {?work wdt:P4969 ?expression} UNION {?expression wdt:P144 ?work} UNION {?expression wdt:P6524 ?work}. 
+                                            ?item ( wdt:P5059 | wdt:P9745 ) ?expression  .
+           ?item ?p ?stmt .  ?prop wikibase:claim ?p .
+           ?stmt ?v ?value. ?prop wikibase:statementProperty ?v.
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    }  BIND("adaptation" AS ?level) BIND("ffffcc" AS ?rgb)
+    } UNION {
+    {
+         SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 wdt:P6524 wdt:P629 wdt:P144 wdt:P155 wdt:P941 wdt:P527 wdt:P156 wdt:P361 wdt:P1574 wdt:P1433 wdt:P2550 wdt:P4969 wdt:P747 wdt:P6166 wdt:P4330 wdt:P2860 }
+           hint:Query hint:optimizer "None" .
+                        
+           ?work wdt:P9622 []. {?work wdt:P4969 ?expression} UNION {?expression wdt:P144 ?work} UNION {?expression wdt:P6524 ?work}. 
+                                            ?item ( wdt:P5059 | wdt:P9745 ) ?expression .
+           ?value ?p ?item .
+           ?prop wikibase:directClaim ?p .
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    }  BIND("adaptation" AS ?level) BIND("ffffcc" AS ?rgb)
+    } UNION {
+    {
+      SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 p:P747 p:P4969 p:P179 p:P155 p:P156 p:P144 p:P1433 p:P361 p:P941 p:P527 p:P9745 }
+           hint:Query hint:optimizer "None" .       
+           ?work wdt:P9622 []. {?work wdt:P747 ?item . } UNION { ?item wdt:P629 ?work . } UNION {?item wdt:P2550 ?work} .
+           ?item ?p ?stmt .  ?prop wikibase:claim ?p .
+           ?stmt ?v ?value. ?prop wikibase:statementProperty ?v.
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb)
+    } UNION {
+    {
+         SELECT ?item ?prop ?value ?level ?rgb WHERE {
+           VALUES ?p { p:P31 wdt:P6524 wdt:P629 wdt:P144 wdt:P155 wdt:P941 wdt:P527 wdt:P156 wdt:P361 wdt:P1574 wdt:P1433 wdt:P2550 wdt:P4969 wdt:P747 wdt:P6166 wdt:P4330 wdt:P2860 }
+           hint:Query hint:optimizer "None" .
+           ?work wdt:P9622 []. {?work wdt:P747 ?item . } UNION { ?item wdt:P629 ?work . } UNION {?item wdt:P2550 ?work} .
+           ?value ?p ?item .
+           ?prop wikibase:directClaim ?p .
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb 
+    } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb)
+    } UNION {
+    {
+      SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 p:P747 p:P4969 p:P179 p:P155 p:P156 p:P144 p:P1433 p:P361 p:P941 p:P527 p:P9745 }
+           hint:Query hint:optimizer "None" .
+           
+           ?work wdt:P9622 []. {?work wdt:P4969 ?expression} UNION {?expression wdt:P144 ?work} UNION {?expression wdt:P6524 ?work}. 
+                                            {?expression wdt:P747 ?item} UNION {?item wdt:P629 ?expression} UNION {?item wdt:P2550 ?expression} . 
+           ?item ?p ?stmt .  ?prop wikibase:claim ?p .
+           ?stmt ?v ?value. ?prop wikibase:statementProperty ?v.
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb)
+    } UNION {
+    {
+         SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 wdt:P6524 wdt:P629 wdt:P144 wdt:P155 wdt:P941 wdt:P527 wdt:P156 wdt:P361 wdt:P1574 wdt:P1433 wdt:P2550 wdt:P4969 wdt:P747 wdt:P6166 wdt:P4330 wdt:P2860 }
+           hint:Query hint:optimizer "None" .
+                      
+           ?work wdt:P9622 []. {?work wdt:P4969 ?expression} UNION {?expression wdt:P144 ?work} UNION {?expression wdt:P6524 ?work}. 
+                                            {?expression wdt:P747 ?item} UNION {?item wdt:P629 ?expression} UNION {?item wdt:P2550 ?expression} . 
+           ?value ?p ?item .
+           ?prop wikibase:directClaim ?p .
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb)
+    } UNION {
+    {
+      SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 p:P747 p:P4969 p:P179 p:P155 p:P156 p:P144 p:P1433 p:P361 p:P941 p:P527 p:P9745 }
+           hint:Query hint:optimizer "None" .
+           ?work wdt:P9622 []. {?work wdt:P4969 ?expression} UNION {?expression wdt:P144 ?work} UNION {?expression wdt:P6524 ?work} . 
+                                            ?adaptation ( wdt:P5059 | wdt:P9745 ) ?expression .{?adaptation wdt:P747 ?item} UNION {?item wdt:P629 ?adaptation} UNION {?item wdt:P2550 ?adaptation} .
+           ?item ?p ?stmt .  ?prop wikibase:claim ?p .
+           ?stmt ?v ?value. ?prop wikibase:statementProperty ?v.
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb)
+    } UNION {
+    {
+         SELECT ?item ?prop ?value ?level ?rgb ?class WHERE {
+           VALUES ?p { p:P31 wdt:P6524 wdt:P629 wdt:P144 wdt:P155 wdt:P941 wdt:P527 wdt:P156 wdt:P361 wdt:P1574 wdt:P1433 wdt:P2550 wdt:P4969 wdt:P747 wdt:P6166 wdt:P4330 wdt:P2860 }
+           hint:Query hint:optimizer "None" .
+           ?work wdt:P9622 []. {?work wdt:P4969 ?expression} UNION {?expression wdt:P144 ?work} UNION {?expression wdt:P6524 ?work} . 
+                                            ?adaptation ( wdt:P5059 | wdt:P9745 ) ?expression .{?adaptation wdt:P747 ?item} UNION {?item wdt:P629 ?adaptation} UNION {?item wdt:P2550 ?adaptation} .
+           ?value ?p ?item .
+           ?prop wikibase:directClaim ?p .
+           ?value wdt:P31 ?class .
+        }  GROUP BY ?item ?prop ?value ?level ?rgb ?class
+    } BIND("manifestation" AS ?level) BIND("0000ff" AS ?rgb) }  
+    
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

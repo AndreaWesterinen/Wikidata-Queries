@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P9468 ?limacode.
+MINUS {
+  {?item wdt:P106/wdt:P279* wd:Q7016454.}
+     UNION 
+  {  ?item wdt:P106/wdt:P279* wd:Q22343406.}
+  UNION
+  {  ?item wdt:P106/wdt:P279* wd:Q19850998.}
+  UNION
+  {  ?item wdt:P106/wdt:P279* wd:Q2526255.}
+  }
+    
+}

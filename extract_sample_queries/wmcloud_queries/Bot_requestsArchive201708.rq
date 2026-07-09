@@ -1,0 +1,9 @@
+SELECT ?item ?first_paper ?work_period_start ?error WHERE {
+ {
+ SELECT ?item (MIN(?publication_date) AS ?first_paper) ?work_period_start WHERE{
+ ?item wdt:P2031 ?work_period_start;
+ ^wdt:P50/wdt:P577 ?publication_date
+ } GROUP BY ?item ?work_period_start
+ } 
+ bind(year(?first_paper)-year(?work_period_start) as ?error)
+} order by desc(?error)

@@ -1,0 +1,13 @@
+#defaultView:Timeline
+SELECT ?mayor ?mayorLabel ?start ?end
+WHERE {
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+ ?mayor wdt:P39 wd:Q30185.
+ ?mayor p:P39 ?of.
+ ?of pq:P642 wd:Q13360.
+ ?of pq:P580 ?start.
+ OPTIONAL {
+ ?of pq:P582 ?end
+ }
+}
+ORDER BY ?start

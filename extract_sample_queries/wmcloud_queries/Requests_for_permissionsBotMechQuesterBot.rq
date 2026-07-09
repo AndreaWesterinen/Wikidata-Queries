@@ -1,0 +1,8 @@
+SELECT ?item ?coordinate {
+  ?item wdt:P421 wd:Q6655;
+        p:P625 ?coordst;
+        wdt:P31 wd:Q484170 .
+  ?coordst ps:P625 ?coordinate .  
+  ?coordst psv:P625/wikibase:geoLongitude ?long .
+  FILTER(?long < -20 || ?long > 26)
+}

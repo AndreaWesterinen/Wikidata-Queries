@@ -1,0 +1,9 @@
+#title: Too young
+# Complex constraint from [[Property talk:P5654]]
+#
+SELECT DISTINCT ?item ?diff {
+  ?item wdt:P5654 ?idFranceMusique.
+  ?item wdt:P569 ?born.
+  BIND (YEAR(NOW()) - YEAR(?born) AS ?diff).
+  FILTER (?diff <= 10).
+}

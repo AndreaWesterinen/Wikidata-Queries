@@ -1,0 +1,5 @@
+select ?subj ?subjLabel ?event ?eventLabel {
+  ?event wdt:P31/wdt:P279?/wdt:P279?/wdt:P279? wd:Q1190554 .
+  ?event p:P31 [ pq:P642 ?subj ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } .
+}

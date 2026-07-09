@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel WHERE { 
+   wd:Q9053464 (^pq:P361/^p:P1014)* ?item  .  # інвертована форма набагато швидша
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

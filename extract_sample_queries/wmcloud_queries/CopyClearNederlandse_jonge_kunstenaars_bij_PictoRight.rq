@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  	# nationality = Kingdom of the Netherlands
+  {?item wdt:P27 wd:Q29999}
+   	# OR place of birth within Netherlands
+	UNION  {?item wdt:P19 ?pob .
+  ?pob wdt:P17 wd:Q55}
+   	# OR work location within Netherlands
+	UNION  {?item wdt:P937 ?pow .
+  ?pow wdt:P17 wd:Q55}
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 ?por .
+  ?por wdt:P17 wd:Q55}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P937 ?pod .
+  ?pod wdt:P17 wd:Q55}
+  ?item wdt:P569 ?born .
+  FILTER (?born >= "1975-01-01T00:00:00Z"^^xsd:dateTime.  
+  ?item wdt:P6275 wd:Q71528227) .
+}

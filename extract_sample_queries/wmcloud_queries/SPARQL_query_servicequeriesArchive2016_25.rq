@@ -1,0 +1,14 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?film ?filmLabel ?imdb (SAMPLE(?ordinal) as ?ordinal) ((MIN(?pub)) AS ?publication) WHERE {
+    ?film p:P179 ?series .
+    ?series v:P179 wd:Q2484680.
+    OPTIONAL {?series pq:P1545 ?ordinal} .
+    ?film wdt:P345 ?imdb .
+  	OPTIONAL {?film wdt:P577 ?pub}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?film ?filmLabel ?imdb
+ORDER BY ?publication

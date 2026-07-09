@@ -1,0 +1,35 @@
+SELECT ?item ?prop ?propLink ?items ?stmts ?listLink
+
+WITH {
+  SELECT DISTINCT ?item WHERE {
+    ?item wdt:P39 wd:Q18018860 .
+    ?item wdt:P570 ?dod .
+    FILTER (year(?dod) < 1700) .
+  }
+} AS %items 
+
+WHERE {
+    {
+        SELECT ?prop (COUNT(DISTINCT ?item) AS ?items) (COUNT(DISTINCT ?stmt) AS ?stmts) WHERE {
+           
+           hint:Query hint:optimizer "None" .
+           INCLUDE %items .
+           ?item ?p ?stmt .
+           ?prop wikibase:directClaim ?p .
+           {?prop wdt:P31/wdt:P279* wd:Q19847637}  # Wikidata property representing a unique identifier 
+             UNION
+           {?prop wdt:P31/wdt:P279* wd:Q18614948}  # Wikidata property for authority control
+           
+          
+        }  GROUP BY ?prop
+    }
+
+           
+    ?prop rdfs:label ?prop_label . FILTER(lang(?prop_label) = 'en') .
+    BIND(STRAFTER(STR(?prop), 'P') AS ?propno) .
+    BIND(CONCAT('[[:d:Property:P', ?propno, '|', STR(?prop_label), ']]') AS ?propLink) .
+    BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q' , ?propno)) AS ?item) .  # dummy
+    BIND(CONCAT('{','{/get list{','{sub','st:!}','}','prop=P',STR(?propno),'}','}') AS ?listLink) .
+   
+
+} ORDER BY DESC(?items) DESC(?stmts)

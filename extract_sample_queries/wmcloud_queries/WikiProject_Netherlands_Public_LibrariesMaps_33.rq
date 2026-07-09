@@ -1,0 +1,37 @@
+#Query used to make GeoJSON input for https://commons.wikimedia.org/wiki/Data:DutchPublicLibraries.map
+#Steps involved
+#1) Download and save query result as tsv file
+#2) Rename headers (replace '_' with '-') in this tsv file : 
+#     marker_size -->  marker-size 
+#     marker_color --> marker-color 
+#     marker_symbol --> marker-symbol 
+#3) Upload this file to geojson.io (Open --> File)
+#4) Copy-paste GeoJSON output (right pane) into Data:DutchPublicLibraries.map file (in the "data" field)
+
+SELECT DISTINCT ?title ?marker_size ?marker_color ?type	?marker_symbol ?long ?lat  WHERE {
+#Is Dutch public library branch
+?dpl wdt:P31 wd:Q28564. #public library
+?dpl wdt:P31 wd:Q11396180. #library branch 
+?dpl wdt:P17 wd:Q55. #in the Netherlands
+  
+?dpl wdt:P625 ?dplLoc. #Location of the dpl
+
+# Get the English Wikidata label of the dpl
+?dpl rdfs:label ?dplLabel.  
+FILTER (lang(?dplLabel) = 'en')  
+  
+#Transform from 'http://www.wikidata.org/entity/Q63890044	Akersloot public library' to '[[d:Q63890044|Akersloot public library]]'  
+BIND(CONCAT('[[d:',STRAFTER(STR(?dpl),"http://www.wikidata.org/entity/"),'|',?dplLabel,']]') AS ?title)     
+
+# Set 4 default values  
+BIND("small" AS ?marker_size)
+BIND("#ee7302" AS ?marker_color)
+BIND("library" AS ?marker_symbol)
+BIND("Point" AS ?type)    
+
+#Transform: 'Point(4.7322704 52.5633782)' (in 1 column) to  '4.7322704' , '52.5633782' ( i.e. 2 columns longitude + latitude)
+BIND(STRBEFORE(STRAFTER(STR(?dplLoc), ' '), ')') AS ?lat)
+BIND(STRBEFORE(STRAFTER(STR(?dplLoc), 'Point('), ' ') AS ?long)  
+
+}
+ORDER BY ?title

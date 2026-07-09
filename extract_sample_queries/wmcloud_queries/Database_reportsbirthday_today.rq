@@ -1,0 +1,10 @@
+SELECT ?item  
+WHERE { 
+?date_node wikibase:timePrecision "11"^^xsd:integer . 
+?date_node wikibase:timeValue ?date . 
+FILTER (year(?date) > 1898 && day(?date) = day(now()) && month(?date) = month(now()))
+?item p:P569/psv:P569 ?date_node . 
+OPTIONAL {?item wdt:P570 ?dod} FILTER (!bound(?dod)) 
+?item wdt:P31 wd:Q5 . 
+} 
+ORDER BY DESC(?date) ?item LIMIT 130

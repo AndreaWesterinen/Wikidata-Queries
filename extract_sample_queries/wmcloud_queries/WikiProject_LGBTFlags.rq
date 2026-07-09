@@ -1,0 +1,14 @@
+select ?item {
+  {
+    select ?item {
+      ?item wdt:P31 wd:Q69506823;
+            wdt:P279+ wd:Q7242811.
+    }
+  } union {
+    select ?item {
+      ?item wdt:P31 wd:Q69506823;
+            wdt:P279 wd:Q7676378.
+      filter (?item != wd:Q3500259).
+    }
+  }
+} order by ?item

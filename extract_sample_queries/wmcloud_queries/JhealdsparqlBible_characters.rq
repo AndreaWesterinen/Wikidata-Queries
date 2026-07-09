@@ -1,0 +1,13 @@
+# Query to list bible characters and the books they appear in
+# From page [[User:Jheald/sparql/Bible_characters]]
+SELECT DISTINCT ?character ?characterLabel ?book ?bookLabel 
+WHERE {
+   ?character wdt:P31/wdt:P279* wd:Q12405827 . # biblical character
+   ?character wdt:P1441 ?book                . # present in work
+   ?book wdt:P361* wd:Q1845                  . # part of the bible
+
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+
+ }  ORDER BY ?characterLabel

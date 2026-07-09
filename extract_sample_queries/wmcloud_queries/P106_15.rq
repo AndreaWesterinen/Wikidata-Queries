@@ -1,0 +1,7 @@
+#title: Link to a Wikimedia disambiguation page
+# Complex constraint from [[Property talk:P106]]
+#
+SELECT ?item ?occupation WHERE {
+  ?item wdt:P106 ?occupation. 
+  ?occupation wdt:P31 wd:Q4167410.
+}

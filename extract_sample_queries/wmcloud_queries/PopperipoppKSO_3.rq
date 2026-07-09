@@ -1,0 +1,1 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity p:P39 ?officeStatement . ?officeStatement ps:P39 [wdt:P279 wd:Q39871607] . FILTER NOT EXISTS { ?officeStatement pq:P582 [] }. ?entity wdt:P21 ?grouping .} GROUP BY ?grouping HAVING (?count >= 20) ORDER BY DESC(?count) LIMIT 1000

@@ -1,0 +1,13 @@
+#title: Check all codes > 6806
+# Complex constraint from [[Property talk:P771]]
+#
+SELECT ?item ?code {
+	?item wdt:P771 ?code.
+    FILTER (xsd:integer(?code) > 6806)
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q14811181 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q23397 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q203300 }
+  FILTER NOT EXISTS { ?item wdt:P131 wd:Q12755 }
+  FILTER NOT EXISTS { ?item wdt:P501 wd:Q39 }
+  FILTER (?code != "7111")
+}

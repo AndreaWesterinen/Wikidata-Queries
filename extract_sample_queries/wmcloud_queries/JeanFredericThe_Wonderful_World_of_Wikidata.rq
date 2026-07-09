@@ -1,0 +1,12 @@
+#number of person in the Belvedere, by sex
+#defaultView:BubbleChart
+SELECT ?sexColorLabel (COUNT(?person) AS ?count)
+WHERE
+{
+  	?person wdt:P3421 [] .   # Artist in Belvedere
+	?person wdt:P21 ?sexColor.
+    ?article schema:about ?person .
+    ?article schema:isPartOf <https://de.wikipedia.org/>
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?sexColorLabel

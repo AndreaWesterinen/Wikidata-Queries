@@ -1,0 +1,14 @@
+SELECT
+	?item
+	(CONCAT("{","{#invoke:AutoListLinks\u007Ccombinecat\u007Cqid=",strafter(str(?item), "entity/"),"\u007Clanguage=en\u007Cmc=1\u007Cproject=wikipedia\u007Ccategory=",strafter(str(?label),"Category:"),"}","}") as ?links)
+	?countryLabel
+	?snLabel
+{
+	?item wdt:P971 	wd:Q26774581 . 
+	?item wdt:P971 ?country . ?country wdt:P31 wd:Q6256 .  
+	OPTIONAL { ?item wdt:P971 ?sn . ?sn wdt:P901 [] . FILTER(?sn != ?country) }    
+	?item rdfs:label ?label . FILTER(lang(?label)="en")
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  	
+}
+ORDER BY ?countryLabel ?snLabel
+LIMIT 200 OFFSET 800

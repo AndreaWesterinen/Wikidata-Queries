@@ -1,0 +1,12 @@
+#title: Items with this property should also have either P31 or P279
+# Complex constraint from [[Property talk:P910]]
+# many lack this (below results are limited to 1000)
+SELECT DISTINCT ?item ?value {
+	{
+		SELECT ?item ?value {
+			?item wdt:P910 ?value .
+			MINUS { ?item wdt:P31 [] } .
+			MINUS { ?item wdt:P279 [] } .
+		} ORDER BY RAND() LIMIT 1000
+	} .
+}

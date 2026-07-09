@@ -1,0 +1,4 @@
+#title: Can't be ?item P31 ?item
+# Complex constraint from [[Property talk:P31]]
+# impossible claim or it should be a separate item
+SELECT ?item WHERE { ?item wdt:P31 ?item }

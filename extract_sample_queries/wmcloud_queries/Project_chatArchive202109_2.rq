@@ -1,0 +1,8 @@
+SELECT ?valueLabel ?termLabel ?statement
+WHERE 
+{
+  wd:Q6514130 p:P39 ?statement .
+  ?statement ps:P39 ?value .
+  ?statement pq:P2937 ?term.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

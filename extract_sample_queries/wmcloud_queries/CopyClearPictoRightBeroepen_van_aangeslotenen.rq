@@ -1,0 +1,6 @@
+SELECT ?item (SAMPLE(?artist) as ?sample) (COUNT(?artist) AS ?countedartist) where {
+?artist wdt:P31 wd:Q5 .
+?artist wdt:P106 ?item .
+?artist wdt:P6275 wd:Q71528227 .
+} group by ?item
+order by desc (?countedartist)

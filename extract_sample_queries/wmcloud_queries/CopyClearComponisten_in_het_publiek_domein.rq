@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P569 ?born.
+  FILTER(?born > "1860-01-01T00:00:00Z"^^xsd:dateTime)
+  ?item wdt:P570 ?death.
+  FILTER(?death < "1948-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER(?death > "1935-01-01T00:00:00Z"^^xsd:dateTime)
+  ?item wdt:P106 wd:Q36834.
+}

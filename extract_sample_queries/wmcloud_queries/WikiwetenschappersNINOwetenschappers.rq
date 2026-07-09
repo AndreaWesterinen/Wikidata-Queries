@@ -1,0 +1,41 @@
+SELECT DISTINCT ?item ?itemLabel ?werkgeverLabel ?geboortedatum ?sterfdatum ?sitelinknl ?sitelinken WHERE {
+  ?item wdt:P31 wd:Q5.
+  { ?item (wdt:P106/wdt:P279*) wd:Q19361459. }
+  UNION
+  { ?item (wdt:P106/wdt:P279*) wd:Q1350189. }
+  UNION
+  { ?item (wdt:P106/wdt:P279*) wd:Q4529715. }
+  OPTIONAL { ?item wdt:P108 ?werkgever. }
+  OPTIONAL { ?item wdt:P569 ?geboortedatum. }
+  OPTIONAL { ?item wdt:P570 ?sterfdatum. }
+  OPTIONAL { ?sitelinknl schema:about ?item . ?sitelinknl schema:inLanguage "nl" }
+  OPTIONAL { ?sitelinken schema:about ?item . ?sitelinken schema:inLanguage "en" . ?sitelinken schema:isPartOf <https://en.wikipedia.org/>. }
+
+  { ?item wdt:P27 wd:Q29999. }
+  UNION
+  {
+    ?item wdt:P19 ?pob.
+    ?pob wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P937 ?pow.
+    ?pow wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P551 ?por.
+    ?por wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P20 ?pod.
+    ?pod wdt:P17 wd:Q55.
+  }
+  UNION
+  {
+    ?item wdt:P108 ?nlwerkgever.
+    ?nlwerkgever wdt:P17 wd:Q55.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

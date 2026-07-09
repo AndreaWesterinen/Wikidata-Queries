@@ -1,0 +1,12 @@
+#TEMPLATE={ "template": "Composers of ?city and their compositions by tonality", "variables": { "?city": { "query": "SELECT ?id WHERE { ?composition wdt:P86 ?composer; wdt:P826 ?tonality. ?composer wdt:P19|wdt:P20|wdt:P551 ?id. } GROUP BY ?id ?idLabel ORDER BY DESC(COUNT(DISTINCT ?composer))" } } }
+#defaultView:Tree
+SELECT ?composer ?composerLabel ?composerImage ?tonality ?tonalityLabel ?composition ?compositionLabel WHERE {
+  BIND(wd:Q1741 AS ?city)
+  ?composer wdt:P31 wd:Q5;
+            wdt:P19|wdt:P20|wdt:P551 ?city.
+  OPTIONAL { ?composer wdt:P18 ?composerImage. }
+  ?composition wdt:P86 ?composer;
+               wdt:P826 ?tonality.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de-at,de". }
+}
+ORDER BY ?composerLabel ?tonalityLabel

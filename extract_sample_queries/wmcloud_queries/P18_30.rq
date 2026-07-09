@@ -1,0 +1,8 @@
+select ?item ?img
+{
+  hint:Query hint:maxParallel 400 .
+  hint:Query hint:chunkSize  8000 .
+  ?item wdt:P18 ?img . 
+  filter (contains(lcase(str(?img)), "montage")
+       || contains(lcase(str(?img)), "collage"))
+}

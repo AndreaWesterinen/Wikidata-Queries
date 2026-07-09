@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?located ?locatedLabel ?om WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  {?item wdt:P31 wd:Q55043} UNION {?item wdt:P31 wd:Q9826} UNION {?item wdt:P31 wd:Q322563}  UNION {?item wdt:P31 wd:Q2897316}.
+  ?item wdt:P17 wd:Q28.
+  FILTER NOT EXISTS{ ?item wdt:P576 [] }
+  OPTIONAL { ?item wdt:P131 ?located. }
+  OPTIONAL { ?item wdt:P2493 ?om. }
+}

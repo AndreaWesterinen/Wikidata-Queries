@@ -1,0 +1,8 @@
+SELECT	?item ?itemLabel ?itemDescription  (strafter(str(?item), "y/") as ?qid)
+{
+  	?item wdt:P106 wd:Q33999 .
+  	?item wdt:P21 wd:Q6581072 .
+  	?item wdt:P31 wd:Q5 . 
+  	?item schema:description ?desc . FILTER(lang(?desc) = "en" && contains(str(?desc), "actor") )
+  	SERVICE wikibase:label {  bd:serviceParam wikibase:language "en" .  }
+}

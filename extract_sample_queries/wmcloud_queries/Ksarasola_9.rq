@@ -1,0 +1,23 @@
+#Women born in Gipuzkoa without an article in Basque for Listeria
+#added before 2016-10
+#Listeria can only handle up to 5000
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?item ?itemLabel ?image WHERE {
+  ?item wdt:P21 wd:Q6581072.
+  { ?item wdt:P19 wd:Q95010. }
+  UNION
+  {
+    ?item wdt:P19 ?pob.
+    ?pob wdt:P131* wd:Q95010.
+  }
+  OPTIONAL {
+    ?sitelink schema:about ?item.
+    ?sitelink schema:inLanguage "eu".
+  }
+  ?item wdt:P31 wd:Q5.
+  FILTER(!BOUND(?sitelink))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu,es, en". }
+
+}
+LIMIT 1000

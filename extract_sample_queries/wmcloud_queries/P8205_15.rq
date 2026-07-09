@@ -1,0 +1,27 @@
+#title: ID MDN missing
+# Complex constraint from [[Property talk:P8205]]
+# List of web APIs and HTML tags with no ID MDN
+SELECT DISTINCT ?item {
+  {
+    ?item wdt:P1324 ?url.
+    BIND (STR(?url) AS ?str)
+    FILTER ((CONTAINS(?str, "whatwg") = false && CONTAINS(?str, "w3c") = false) = false) # whatwg OR w3c (avoid double pipe)
+  } UNION {
+    ?item wdt:P170 wd:Q37033.
+  } UNION {
+    VALUES ?instancesOf { wd:Q20202982 wd:Q2661442 }
+    ?item wdt:P31 ?instancesOf.
+  } UNION {
+    VALUES ?devs { wd:Q615940 wd:Q37033 }
+    ?item wdt:P1462 ?devs.
+  } UNION {
+    VALUES ?editors { wd:Q615940 wd:Q37033 }
+    ?item wdt:P123 ?editors.
+  } UNION {
+    ?item wdt:P31/wdt:P279* wd:Q179551. # HTML
+  } UNION {
+    ?item wdt:P178 wd:Q16953111. # CSS
+  }
+  MINUS { ?item p:P8205 ?MDN }
+}
+ORDER BY ?item

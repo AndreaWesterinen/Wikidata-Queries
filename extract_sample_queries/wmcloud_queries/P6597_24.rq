@@ -1,0 +1,25 @@
+#title: Most frequent P734 values without property (Germany, nat)
+# Complex constraint from [[Property talk:P6597]]
+# family names used as P734 values, but without a P6597 statement. Selection by nationalities
+SELECT ?item ?l ?count ?sample
+WITH
+{
+  SELECT ?item (COUNT(DISTINCT ?p) as ?count) (SAMPLE(?p) as ?sample)
+  {
+    VALUES ?c { wd:Q183 wd:Q16957 wd:Q713750 } 
+    ?p wdt:P27 ?c .
+    hint:Prior hint:rangeSafe true .    
+    ?p wdt:P734 ?item .
+    ?p wdt:P31 wd:Q5 .
+  }
+  GROUP BY ?item
+  HAVING ( ?count > 20 )           
+} as %a         
+WHERE
+{
+  INCLUDE %a
+  FILTER NOT EXISTS { ?item wdt:P6597 [] }
+  ?item rdfs:label ?l . FILTER(lang(?l) = "de" ) 
+}
+ORDER BY DESC(?count)
+LIMIT 100

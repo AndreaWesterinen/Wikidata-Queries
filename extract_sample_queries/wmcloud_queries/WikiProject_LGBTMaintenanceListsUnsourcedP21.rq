@@ -1,0 +1,14 @@
+SELECT ?gLabel ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P21 ?g;
+        
+    p:P21 ?gender.
+  FILTER(NOT EXISTS { ?gender prov:wasDerivedFrom ?ref. })
+  FILTER (?g != wd:Q6581072 ).
+  FILTER (?g != wd:Q6581097 ).
+  FILTER (?g != wd:Q179294 ).
+  
+  FILTER ( ! wikibase:isSomeValue(?g) ).
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+LIMIT 500

@@ -1,0 +1,1 @@
+SELECT * { ?a schema:about wd:Q1457673 ; schema:isPartOf <https://bat-smg.wikipedia.org/> ; schema:inLanguage ?langcodeWikidata } 

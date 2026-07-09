@@ -1,0 +1,9 @@
+embed.html#SELECT ?museum ?museumLabel (avg(?dist) AS ?avgDist) WHERE {
+  ?museum wdt:P31/wdt:P279* wd:Q33506 ; wdt:P17 wd:Q142 .
+  ?museum wdt:P625 ?coordLoc .
+  ?q wdt:P195 ?museum ; wdt:P170/wdt:P19/wdt:P625 ?coord .
+  BIND(geof:distance(?coordLoc, ?coord) AS ?dist).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+GROUP BY ?museum ?museumLabel ?coordLoc
+ORDER BY DESC(?avgDist)

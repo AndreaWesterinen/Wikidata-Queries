@@ -1,0 +1,9 @@
+embed.html##title: Categories about language
+SELECT ?item ?itemLabel ?itemDescription ?sls (URI(CONCAT(str(SAMPLE(?wiki)),"wiki/",SAMPLE(?page))) as ?sample_cat)
+{
+    ?item (wdt:P971|wdt:P301) wd:Q27811 ; wikibase:sitelinks ?sls .
+    ?url schema:about ?item ; schema:name ?page ; schema:isPartOf ?wiki .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,aa,fr,es". }
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?sls
+ORDER BY DESC(?sls) ?itemLabel

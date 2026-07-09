@@ -1,0 +1,8 @@
+SELECT ?item ?st ?sl ?site
+{
+  	?item wdt:P31 wd:Q220505 .
+  	OPTIONAL { ?item wdt:P2922 ?dummy1 } FILTER(!bound(?dummy1))
+  	OPTIONAL { ?item wdt:P576 ?dummy0 } FILTER(!bound(?dummy0))
+  	OPTIONAL { ?item wikibase:statements ?st; wikibase:sitelinks ?sl }
+  	OPTIONAL { ?item wdt:P856 ?ws . BIND(  CONCAT("[", str(?ws) , " " , replace( str(?ws), "https?://(www.)?", ""), "]") as ?site) } 
+}

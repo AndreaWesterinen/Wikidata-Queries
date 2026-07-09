@@ -1,0 +1,25 @@
+SELECT DISTINCT ?item ?item2 WITH {
+  SELECT ?item ?item2 {
+    ?item wdt:P18/^wdt:P18 ?item2 .
+    FILTER( ?item != ?item2 ) .
+    ?item wdt:P31/^wdt:P31 ?item2 .
+    {
+      ?item wdt:P569/^wdt:P569 ?item2
+    } UNION {
+      ?item wdt:P570/^wdt:P570 ?item2
+    } UNION {
+      ?item wdt:P735/^wdt:P735 ?item2
+    } .
+    MINUS { ?item wdt:P31 wd:Q159979 } .
+  }
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  FILTER( xsd:integer( STRAFTER( STR( ?item ), STR( wd:Q ) ) ) < xsd:integer( STRAFTER( STR( ?item2 ), STR( wd:Q ) ) ) ) .
+  FILTER( ?item NOT IN ( wd:Q2783163, wd:Q5947009, wd:Q8209372, wd:Q23984333, wd:Q28833792 ) ) .
+  MINUS {
+    ?item ^schema:about/schema:isPartOf ?partOf .
+    ?item2 ^schema:about/schema:isPartOf ?partOf2 .
+    FILTER( SAMETERM( ?partOf, ?partOf2 ) ) .
+  } .
+  MINUS { ?item ?wdt ?item2 } .
+}

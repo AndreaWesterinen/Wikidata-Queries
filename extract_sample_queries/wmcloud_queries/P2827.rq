@@ -1,0 +1,3 @@
+SELECT ?item ?color {
+  ?item wdt:P2827 ?color
+}

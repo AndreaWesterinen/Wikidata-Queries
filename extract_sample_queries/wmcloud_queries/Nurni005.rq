@@ -1,0 +1,2 @@
+SELECT DISTINCT ?item ?name ?q ?q1 ?q2 ?q3 {
+ {SELECT (CONCAT("(^

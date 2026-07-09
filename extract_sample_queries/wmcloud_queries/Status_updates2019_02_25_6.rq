@@ -1,0 +1,4 @@
+#defaultView:Map
+SELECT ?q ?linkcount ?loc {
+  ?q wdt:P31 wd:Q41176 ; wdt:P625 ?loc ; wikibase:sitelinks ?linkcount MINUS { ?q wdt:P18 [] } FILTER ( ?linkcount >= 1 )
+  }

@@ -1,0 +1,25 @@
+SELECT ?designation ?designationLabel ?total ?canmore_match ((xsd:integer(1000 * ?canmore_match / ?total) / 10) AS ?pct) ?report
+WITH {
+  SELECT ?designation (COUNT(DISTINCT(?item)) AS ?total)  (COUNT(DISTINCT(?hs1)) AS ?canmore_match) WHERE 
+{
+    { ?item wdt:P1435 ?designation .
+      ?item wdt:P709 ?hs .
+      OPTIONAL {
+        ?item wdt:P718 ?canmore .
+        ?item wdt:P709 ?hs1_ .
+        BIND(?item as ?hs1)
+      }
+    } 
+   UNION
+  { ?item wdt:P718 ?canmore .
+    filter not exists {?item wdt:P709 [] .}
+    bind("No P709" as ?designation)
+    bind(?item as ?hs)
+    bind(?item as ?hs1)
+  }
+}  GROUP BY ?designation } AS %i
+WHERE 
+{ INCLUDE %i .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  BIND(if(?designation!="No P709",IRI(CONCAT("https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3FP709%0A%7B%0A%20%20%3Fitem%20wdt%3AP1435%20","wd:",strafter(str(?designation),"http://www.wikidata.org/entity/"),"%20.%0A%20%20%3Fitem%20wdt%3AP131%2a%20wd%3AQ22%20.%0A%20%20optional%20%7B%3Fitem%20wdt%3AP709%20%3FP709.%7D%0A%20%20filter%20not%20exists%20%7B%20%3Fitem%20wdt%3AP718%20%3Fcanmore%20.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D")),"") as ?report)
+} ORDER BY DESC(?canmore_match)

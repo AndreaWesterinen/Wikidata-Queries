@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?value 
+WHERE
+{ 
+  ?item wdt:P793 wd:Q42882411 ; wdt:P31 wd:Q5
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de,ru,fr,es,it,ja,zh" }
+}
+LIMIT 500

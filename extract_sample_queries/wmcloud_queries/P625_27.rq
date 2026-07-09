@@ -1,0 +1,4 @@
+#title: Coordinates from Earth with ?lon>180
+# Complex constraint from [[Property talk:P625]]
+# TODO fix or define P376
+{{{sparql}}}

@@ -1,0 +1,11 @@
+SELECT ?article ?articleLabel ?softwareLabel
+
+WHERE {
+  ?article wdt:P31 wd:Q13442814.
+  ?article wdt:P2283 ?software .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

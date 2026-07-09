@@ -1,0 +1,14 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT * WHERE {
+   ?protein wdt:P279 wd:Q8054 .
+   ?protein wdt:P18 ?image .
+   ?protein schema:dateModified ?dateModified .
+   FILTER (?dateModified > "2015-08-01T00:00:00Z"^^xsd:dateTime)
+ }

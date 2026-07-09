@@ -1,0 +1,5 @@
+#Items which are ultimately instances of any class whose culture is Norse culture.
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31/wdt:P279*/wdt:P2596 wd:Q24175569 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

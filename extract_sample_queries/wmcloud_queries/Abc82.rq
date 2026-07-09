@@ -1,0 +1,21 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?itemLabel ?property ?propertyLabel ?value ?valueLabel ?qualifierP1552value
+WHERE
+{
+    ?prop pq:P1552 ?qualifierP1552value .
+  	hint:Query hint:optimizer "None" .	
+	?item ?p ?prop . 
+	?property wikibase:claim ?p .  
+  	?property wikibase:statementProperty ?ps .
+    ?prop ?ps ?value .      
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en"  }    
+}
+ORDER BY ?itemLabel ?propertyLabel ?valueLabel ?qualifierP1552value

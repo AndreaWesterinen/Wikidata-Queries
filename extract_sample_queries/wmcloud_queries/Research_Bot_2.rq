@@ -1,0 +1,6 @@
+SELECT ?item ?topic ?topicLabel WHERE {
+  ?item wdt:P921 ?topic .
+  ?topic wdt:P31 wd:Q5633421 . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?topic

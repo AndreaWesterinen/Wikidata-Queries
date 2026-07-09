@@ -1,0 +1,5 @@
+SELECT ?item (SAMPLE(COALESCE(?en_label, ?item_label)) as ?label)
+WHERE {
+  ?item p:P31/ps:P31 wd:Q10943.  # Instance of cheese
+  OPTIONAL {?item rdfs:label ?en_label . FILTER(LANG(?en_label) = "en")}
+} GROUP BY ?item

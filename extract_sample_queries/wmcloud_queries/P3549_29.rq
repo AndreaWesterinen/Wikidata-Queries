@@ -1,0 +1,4 @@
+#title: Items with an ACN should also have an ABN and the ABN must include the ACN as the last 9 digits
+# Complex constraint from [[Property talk:P3549]]
+# [https://asic.gov.au/for-business/registering-a-company/steps-to-register-a-company/australian-company-numbers/#ABN ABNs include the ACN as the last 9 digits]
+SELECT ?item {?item wdt:P3549 ?ACN . ?item wdt:P3548 ?ABN . FILTER (!(STRENDS(?ABN, ?ACN))) }

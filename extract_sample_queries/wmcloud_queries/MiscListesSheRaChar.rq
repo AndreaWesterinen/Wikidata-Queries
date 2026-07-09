@@ -1,0 +1,3 @@
+SELECT ?item ?community { 
+  ?item wdt:P1441 wd:Q48731484 .
+}

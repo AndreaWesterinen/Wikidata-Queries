@@ -1,0 +1,7 @@
+SELECT ?lexeme ?lemma ?ipa WHERE {
+  ?lexeme a ontolex:LexicalEntry;
+       wikibase:lemma ?lemma;
+       dct:language wd:Q36846;
+       ontolex:lexicalForm ?form.
+  OPTIONAL { ?form wdt:P898 ?ipa. }
+} ORDER BY ?lemma

@@ -1,0 +1,6 @@
+SELECT ?retracted_paper ?retracted_paperLabel ?author_name_string WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?retracted_paper wdt:P31 wd:Q45182324.
+  OPTIONAL { ?retracted_paper wdt:P2093 ?author_name_string. }
+}
+LIMIT 100000

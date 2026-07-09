@@ -1,0 +1,22 @@
+SELECT (?instanceof as ?item) ?instanceofLabel 
+  (SAMPLE(?status) as ?status) 
+  (SAMPLE(?todo) as ?todo) 
+  (COUNT(DISTINCT ?item2) as ?ct) 
+  (GROUP_CONCAT( CONCAT("[[", strafter(str(?item2), "y/") , "|", str(?item2Label), "]]"); separator=", ") as ?lighthouses) 
+WHERE
+{
+	?item2 wdt:P31 wd:Q39715 . 
+	?item2 wdt:P31 ?instanceof . FILTER ( ?instanceof != wd:Q39715 )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl,et,fi,sv,nb,es,fr,ru" .
+	?instanceof rdfs:label ?instanceofLabel .
+	?item2 rdfs:label ?item2Label }
+	#insert NOK here
+	BIND( IF(?instanceof in ( wd:Q45776 , wd:Q23442 , wd:Q207524 , wd:Q2065736, wd:Q8502 ), "NOK", "") as ?status)
+	#insert TODO here
+	BIND( IF(?instanceof in ( wd:Q2065736 ), "use [[Property:P1435|heritage status&#32;<small>(P1435)</small>]]", IF(?instanceof in ( wd:Q45776 , wd:Q23442 , wd:Q207524 , wd:Q8502 ), "split in 2 items", "")) as ?todo)
+	FILTER(?instanceof != wd:Q28725735)
+	FILTER(?item2 != wd:Q15397819)
+}
+GROUP BY ?instanceof ?instanceofLabel
+ORDER BY DESC(?ct) ?instanceofLabel
+LIMIT 100

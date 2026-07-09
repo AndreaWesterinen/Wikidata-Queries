@@ -1,0 +1,10 @@
+#Goats
+SELECT ?item ?itemLabel ?guestLabel ?pub
+WHERE 
+{
+  ?item wdt:P179 wd:Q109238858.
+  OPTIONAL {
+    ?item wdt:P5030 ?guest .
+    ?item wdt:P577 ?pub.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

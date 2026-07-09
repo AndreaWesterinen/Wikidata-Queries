@@ -1,0 +1,17 @@
+#title: Missing BAG links
+# Complex constraint from [[Property talk:P981]]
+# Woonplaatsen in BAG linked open data that we don't link to
+SELECT ?item ?woonplaats ?label ?status WHERE { 
+  SERVICE <https://data.pdok.nl/sparql> {
+    SELECT ?woonplaats ?label ?status WHERE {
+  ?woonplaats <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://bag.basisregistraties.overheid.nl/def/bag#Woonplaats> .
+  ?woonplaats <http://bag.basisregistraties.overheid.nl/def/bag#status> ?status  .
+  ?woonplaats <http://www.w3.org/2000/01/rdf-schema#label> ?label .              
+} 
+  }
+  MINUS { ?item p:P981 ?bagstatement . 
+  ?bagstatement psn:P981 ?woonplaats . }  .
+   # Trick to make a dummy item
+  BIND(xsd:integer(REPLACE(STR(?woonplaats), "http://bag.basisregistraties.overheid.nl/bag/id/woonplaats/", "")) AS ?bagid)
+  BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(?bagid + 1000000000))) AS ?item ) .
+}

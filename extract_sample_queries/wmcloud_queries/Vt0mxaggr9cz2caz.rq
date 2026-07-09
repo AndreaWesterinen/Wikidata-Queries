@@ -1,0 +1,1 @@
+SELECT * { ?item skos:altLabel "Switzerland"@en . FILTER(?item != wd:Q435583 ) }

@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P2888/ps:P2888 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?:\\/\\/scigraph\\.springernature\\.com\\/pub\\.(10\\.\\d{4,9}\\/[0-9a-z\\.-]+).*)$") )
+}

@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?otherClassLabel
+WHERE
+{
+  ?item wdt:P31 wd:Q4167410 .
+  ?item wdt:P31 ?otherClass .
+  FILTER (?otherClass != wd:Q4167410)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 10

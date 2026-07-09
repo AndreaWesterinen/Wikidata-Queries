@@ -1,0 +1,13 @@
+SELECT ?designation ?designationLabel ?count WITH {
+SELECT ?designation  (count(?item) as ?count)
+WHERE 
+{
+  ?item wdt:P1435 ?designation.
+  ?item wdt:P17 wd:Q145.
+  
+} group by ?designation } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} order by desc(?count)

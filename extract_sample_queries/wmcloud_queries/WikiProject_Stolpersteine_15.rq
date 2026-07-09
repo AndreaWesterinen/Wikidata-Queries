@@ -1,0 +1,9 @@
+embed.html#SELECT ?Stolperstein ?StolpersteinLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Stolperstein wdt:P31 wd:Q26703203.
+  MINUS { ?Stolperstein wdt:P625 ?geographische_Koordinaten. }
+  MINUS { ?Stolperstein wdt:P131 ?liegt_in_der_Verwaltungseinheit. }
+  MINUS { ?Stolperstein wdt:P547 ?gewidmet. }
+  MINUS { ?Stolperstein wdt:P18 ?Bild. }
+  MINUS { ?Stolperstein wdt:P571 ?Gr_ndung_Erstellung. }
+}

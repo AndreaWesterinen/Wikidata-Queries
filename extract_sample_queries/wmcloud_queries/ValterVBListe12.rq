@@ -1,0 +1,13 @@
+SELECT ?serieLabel ?item ?prevLabel ?itemLabel ?nextLabel ?series ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q3464665.
+  ?item wdt:P179 ?serie.
+  ?item p:P179 ?statement .
+  OPTIONAL {?statement pq:P155 ?prev .}
+  OPTIONAL {?statement pq:P156 ?next .}
+  ?statement pq:P1545 ?series .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+}
+ORDER by ?serie xsd:integer(?series)
+LIMIT 5000
+OFFSET 5000

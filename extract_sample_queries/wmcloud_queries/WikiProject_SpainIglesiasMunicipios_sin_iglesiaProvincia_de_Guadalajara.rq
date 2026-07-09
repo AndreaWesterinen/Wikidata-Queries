@@ -1,0 +1,5 @@
+SELECT ?item {
+    ?item wdt:P772 ?inecode . 
+    ?item wdt:P131 wd:Q54925 .
+    FILTER NOT EXISTS { ?church wdt:P131 ?item ; wdt:P31/wdt:P279* wd:Q16970 }
+}

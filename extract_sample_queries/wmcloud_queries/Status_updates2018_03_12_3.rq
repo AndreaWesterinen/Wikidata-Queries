@@ -1,0 +1,11 @@
+# WikiProjects about women
+SELECT DISTINCT ?wikiProject ?wikiProjectLabel ?subjectLabel ?wiki ?title ?wikiPage WHERE {
+  ?wikiProject wdt:P31/wdt:P279* wd:Q21025364;
+               wdt:P921 ?subject.
+  ?subject wdt:P1269? wd:Q467.
+  ?wikiPage schema:isPartOf ?wiki;
+            schema:name ?title;
+            schema:about ?wikiProject.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?subjectLabel ?wikiProjectLabel ?wiki

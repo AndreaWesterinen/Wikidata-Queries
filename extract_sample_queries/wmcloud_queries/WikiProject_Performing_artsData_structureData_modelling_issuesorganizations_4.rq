@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel 
+WHERE 
+{
+  {?item wdt:P31 wd:Q43229.} #instance of organisation
+  MINUS {?item wdt:P1454 ?value1.} #where legal form is missing
+  {?item wdt:P5164 ?value.} #belongs to Flanders Art Institute
+   {?item wdt:P17 wd:Q39.} #only Switzerland
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

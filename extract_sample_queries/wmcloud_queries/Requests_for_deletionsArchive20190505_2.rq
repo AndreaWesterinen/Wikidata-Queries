@@ -1,0 +1,10 @@
+SELECT ?unit ?unitLabel ?cnt WITH {
+  SELECT ?unit (COUNT(?statement) AS ?cnt) WHERE {
+    ?statement ?psv_or_pqv [ wikibase:quantityUnit ?unit ] .
+  } GROUP BY ?unit
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  MINUS { ?unit wdt:P31/wdt:P279* wd:Q47574 }
+  FILTER(?unit != wd:Q199) . # remove "1" from result
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} ORDER BY DESC(?cnt)

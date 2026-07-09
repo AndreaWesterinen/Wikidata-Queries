@@ -1,0 +1,8 @@
+#title: Qualifier for none-of constraint
+# Complex constraint from [[Property talk:P9729]]
+# This qualifier is generally used for [[d:Q52558054|none-of constraint <small>(Q52558054)</small>]]. TODO: double-check
+SELECT ?item ?constraint ?repvalue
+{
+    ?item p:P2302 [ pq:P9729 ?repvalue ; ps:P2302 ?constraint ]
+    FILTER( ?constraint != wd:Q52558054 )           
+}

@@ -1,0 +1,12 @@
+#línea de tiempo de desapariciones forzadas de uruguayos
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?imagen ?nacimiento ?Desaparicion ?lugar ?ciudadLabel {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P27 wd:Q77.
+  OPTIONAL {?item wdt:P18 ?imagen}.
+  ?item wdt:P746 ?Desaparicion.
+  ?item p:P746 ?statement.
+  OPTIONAL {?statement pq:P625 ?lugar}.
+  OPTIONAL {?statement pq:P276 ?ciudad}.
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+}

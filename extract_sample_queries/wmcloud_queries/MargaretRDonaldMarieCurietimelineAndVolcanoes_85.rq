@@ -1,0 +1,9 @@
+# Tropicos taxa without taxon authors 
+SELECT ?item ?taxon_name ?tropicosLink   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  ?item wdt:P960 ?tropicos_id.
+  bind(uri(concat("http://legacy.tropicos.org/Name/",?tropicos_id)) as ?tropicosLink)  
+  MINUS {?stat pq:P405 ?taxon_author.} 
+}

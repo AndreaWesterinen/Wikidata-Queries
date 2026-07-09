@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?geo 
+WHERE {
+  SERVICE wikibase:box {
+    ?item wdt:P625 ?geo.
+    bd:serviceParam wikibase:cornerWest "Point(32 34)"^^geo:wktLiteral.
+    bd:serviceParam wikibase:cornerEast "Point(34.7 35.7)"^^geo:wktLiteral.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+}

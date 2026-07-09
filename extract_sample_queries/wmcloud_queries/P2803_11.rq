@@ -1,0 +1,18 @@
+SELECT ?precision ?precisionLabel ?prec ?sample ?sampleLabel ?date
+WITH
+{
+    SELECT ?prec (SAMPLE(?item) as ?sample)
+    {
+        ?item p:P585/psv:P585/wikibase:timePrecision ?prec
+    }
+    GROUP BY ?prec
+}  as %inc
+WHERE      
+{
+    INCLUDE %inc 
+    ?precision wdt:P2803 ?pr .
+    ?sample wdt:P585 ?date
+    FILTER(?prec = xsd:integer(?pr) )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,it,fr,ro". }
+}          
+ORDER BY DESC(?prec)

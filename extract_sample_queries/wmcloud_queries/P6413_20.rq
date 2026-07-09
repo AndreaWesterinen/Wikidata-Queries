@@ -1,0 +1,7 @@
+#title: Wrong ID
+# Complex constraint from [[Property talk:P6413]]
+# The property value doesn’t match the entity ID
+SELECT DISTINCT ?item ?value WHERE {
+	?item wdt:P6413 ?value .
+	FILTER ( REPLACE(STR(?item), 'http://www.wikidata.org/entity/', '') != STR(?value) )
+}

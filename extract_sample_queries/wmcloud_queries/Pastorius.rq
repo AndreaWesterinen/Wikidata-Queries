@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT ?item ?location  WHERE {
+  ?item wdt:P2788 ?dummy0 .
+  ?item wdt:P625 ?location .
+  OPTIONAL { ?item wdt:P18 ?dummy1 }
+  FILTER(!bound(?dummy1))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "cs" } .
+}

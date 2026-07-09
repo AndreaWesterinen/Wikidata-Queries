@@ -1,0 +1,12 @@
+#title:"place of burial" (P119) of people with property "Paris Faculty of Letters professor ID (1909-1939)" (P5544) statements
+#defaultView:Map{"hide":["?coordinates"]}
+SELECT DISTINCT ?person ?personLabel ?personDescription ?coordinates ?image ?value
+WHERE 
+{
+  ?person wdt:P5544 ?value ; wdt:P119/wdt:P625 ?coordinates.
+  hint:Query hint:optimizer "None".
+  OPTIONAL { ?person wdt:P18 ?image }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

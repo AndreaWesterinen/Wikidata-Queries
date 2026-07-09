@@ -1,0 +1,6 @@
+select * where {
+?item wdt:P31/wdt:P279* wd:Q355304 .
+?item p:P885 ?statement .
+?statement ps:P885 ?value .
+?statement pq:P625 ?qualvalue .
+}

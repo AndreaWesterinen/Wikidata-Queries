@@ -1,0 +1,5 @@
+SELECT ?eleccions_municipals_espanyoles_de_2019 ?eleccions_municipals_espanyoles_de_2019Label WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?eleccions_municipals_espanyoles_de_2019 wdt:P361 wd:Q30279382.
+  ?eleccions_municipals_espanyoles_de_2019 wdt:P1001 ?sub0 . ?sub0 (wdt:P131)* wd:Q7194
+}

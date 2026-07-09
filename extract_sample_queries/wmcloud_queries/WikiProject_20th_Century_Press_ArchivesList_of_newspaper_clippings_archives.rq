@@ -1,0 +1,6 @@
+SELECT ?item ?page ?fromTo ?subjects ?status WHERE {
+  { select ?item (group_concat(?subjectLabel; separator = '; ') as ?subjects)
+    where {
+      ?item wdt:P31 wd:Q65651503 .
+      optional {
+        ?item (wdt:P921

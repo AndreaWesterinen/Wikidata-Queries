@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?teamLabel (count(*) as ?count)
+WHERE {  	
+	?item p:P54 ?teams .
+	?teams ps:P54 ?team .
+  	?team wdt:P31 wd:Q697959

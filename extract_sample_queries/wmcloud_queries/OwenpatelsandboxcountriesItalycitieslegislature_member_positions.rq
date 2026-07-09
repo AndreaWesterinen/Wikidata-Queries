@@ -1,0 +1,7 @@
+SELECT ?cities ?item  WHERE { 
+  VALUES ?cities {wd:Q490 wd:Q220 wd:Q3940419 wd:Q2634 wd:Q495 wd:Q2656 wd:Q1449 wd:Q1891 wd:Q2044 wd:Q3519 wd:Q1903 wd:Q641 wd:Q2028}
+  OPTIONAL {?cities wdt:P194 ?council .
+    OPTIONAL { ?council wdt:P527 ?item
+  MINUS { ?item wdt:P576 [] } }
+  }
+}

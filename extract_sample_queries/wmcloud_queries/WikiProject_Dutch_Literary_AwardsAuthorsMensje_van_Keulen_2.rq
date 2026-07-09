@@ -1,0 +1,18 @@
+#Awards won by a given ?author, with year and winning work
+# Via https://opendata.stackexchange.com/questions/14123/wikidata-sparql-with-optional-qualifiers
+SELECT DISTINCT ?author ?authorLabel ?award ?awardLabel ?awardDescription ?year ?forwork ?forworkLabel ?forworkDescription
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)} 
+  ?award wdt:P1346 ?author. #Items for which this author was a winner
+  FILTER(?award != wd:Q65926936) #minus the 1958 individual instance of the PCHooftprijs
+  ?award p:P1346 ?s.
+  ?s ps:P1346 ?author.
+  OPTIONAL {?s pq:P585 ?year1
+  BIND(YEAR(?year1) AS ?year)}.
+  OPTIONAL {?s pq:P1686 ?forwork } .                               
+                                  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} ORDER BY ?year 

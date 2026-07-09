@@ -1,0 +1,9 @@
+SELECT ?business ?businessLabel ?short_name ?businessDescription
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?business wdt:P31 wd:Q4830453.
+  ?business wdt:P17 wd:Q155.
+  OPTIONAL { ?business wdt:P1813 ?short_name. }
+}
+ORDER BY DESC(?short_name)
+LIMIT 1000

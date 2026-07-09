@@ -1,3 +1,4 @@
+#title: Images of organic acids
 #defaultView:ImageGrid
 SELECT ?compound ?compoundLabel ?image WHERE {
   ?compound wdt:P279+|wdt:P31+ wd:Q421948 ;

@@ -1,0 +1,10 @@
+SELECT	?item1 ?item1Label
+{
+  	?item1 		wdt:P31 			wd:Q5 .
+  	?sitelink 	schema:about 		?item1 .
+    ?sitelink	schema:isPartOf		<https://it.wikipedia.org/> .
+  	OPTIONAL { ?item1 wdt:P21 ?P1v }
+	FILTER(!BOUND(?P1v))
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "it,es,en" }
+	FILTER(?item1 != wd:Q4115189 )            
+}

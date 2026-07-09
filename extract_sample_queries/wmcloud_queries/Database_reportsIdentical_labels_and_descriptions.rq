@@ -1,0 +1,4 @@
+SELECT ?item ?text (LANG(?text) AS ?lang) {
+  ?item rdfs:label ?text.
+  ?text ^schema:description ?item.
+} LIMIT 20

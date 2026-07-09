@@ -1,0 +1,59 @@
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#share of animated short films with female directors per year and country, considering only year-country-pairs with more than 1 film
+#year-country-pairs with less than 2 films are marked with the value -1
+#defaultView:LineChart
+SELECT (STR(?year) AS ?years) ?femaleShare ?countryLabel ?itemCount
+WITH {
+  SELECT DISTINCT ?year ((COUNT(DISTINCT ?fem)/COUNT(DISTINCT ?item))*100 AS ?femShare) (COUNT(?item) AS ?itemCount) ?country WHERE {
+    FILTER(BOUND(?year))
+    {
+    SELECT DISTINCT ?item ?fem (MIN(YEAR(?date)) AS ?year) ?country WHERE {
+      {  
+        ?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866; wdt:P57 ?director; (wdt:P577|wdt:P2754) ?date; wdt:P495 ?country
+      } UNION {
+        ?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107; wdt:P57 ?director; (wdt:P577|wdt:P2754) ?date; wdt:P495 ?country
+      }
+      {?item (wdt:P31/wdt:P279*) wd:Q24862. } UNION {
+      ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+      MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+      MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+      FILTER(?duration < 2700)
+      }
+    OPTIONAL{?item wdt:P57/wdt:P21 wd:Q6581072. BIND(?item AS ?fem)}
+    #excluding film series
+    MINUS{?item wdt:P31/wdt:P279* wd:Q24856}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q5398426}
+    }
+    GROUP BY ?item ?country ?fem
+    }
+  }
+GROUP BY ?year ?country
+} AS %films
+
+WITH {
+  SELECT DISTINCT ?year WHERE {
+    INCLUDE %films
+    FILTER(?year>0)  
+    }
+  } AS %years
+WITH {
+  SELECT DISTINCT ?country WHERE {
+    INCLUDE %films
+  }
+  GROUP BY ?country ?countryLabel ?femShare
+  HAVING(?femShare>0)
+} AS %countries
+
+
+WHERE {
+  INCLUDE %years
+  INCLUDE %countries
+  OPTIONAL{
+  INCLUDE %films
+  BIND(IF(?itemCount>1,?femShare,-1) AS ?share)
+  }
+  BIND(IF(!BOUND(?share),0,?share) AS ?femaleShare)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

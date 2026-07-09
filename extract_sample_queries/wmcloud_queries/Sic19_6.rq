@@ -1,0 +1,16 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?typeLabel ?location ?image ?layer WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q49844 .
+  ?item wdt:P31 ?type .
+          OPTIONAL {?item wdt:P625 ?location}
+          OPTIONAL {?item wdt:P18 ?image}
+  VALUES ?type { wd:Q7407968 wd:Q49844 wd:Q58663 }
+  BIND(
+       IF(?type = wd:Q7407968, "wall box", 
+       IF(?type = wd:Q49844, "post box",
+       IF(?type = wd:Q58663, "pillar box",
+            ""))) AS ?layer).  
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" . }
+  }

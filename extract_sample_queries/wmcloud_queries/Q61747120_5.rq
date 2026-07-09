@@ -1,0 +1,19 @@
+SELECT ?film ?filmLabel ?filmDescription ?date2 
+WHERE
+{
+  {  SELECT ?film (MIN(?date) as ?date2)
+    {
+  	  hint:Query hint:optimizer "None" .
+  	  ?film ?wdt wd:Q61747120 .
+  	  ?property wikibase:directClaim ?wdt ; wikibase:claim ?p ; wikibase:statementProperty ?ps
+  	  { ?film wdt:P31/wdt:P279* wd:Q11424 } UNION { ?film wdt:P31 wd:Q5398426 }
+  	  OPTIONAL { ?film wdt:P577 ?pub } 
+      OPTIONAL { ?film wdt:P580 ?start } 
+      BIND( COALESCE( ?pub, ?start) as ?date) 
+    }
+    GROUP BY ?film
+  }
+  FILTER( YEAR(?date)>= YEAR(NOW()) || !BOUND(?date) )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ASC(?filmDescription) ?item

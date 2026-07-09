@@ -1,0 +1,28 @@
+SELECT ?slaveowner ?slaveownerLabel ?lbso ?mp ?mpLabel ?born ?died WHERE {
+  ?slaveowner wdt:P3023 ?lbso .                # someone in LBSO was a slaveowner, obviously
+
+   #?mp wdt:P39 [ wdt:P279 wd:Q30524710 ] .     # person is in the current Parliament
+
+   ?mp wdt:P39 [ wdt:P279* wd:Q16707842 ] .     # person was any UK MP
+  
+ # { ?mp (wdt:P25|wdt:P22)* ?slaveowner . } # mp's mother or father, or their mother or father, and so on, was a slaveowne
+  
+ # UNION
+  
+  { ?mp ^(wdt:P40*) ?slaveowner . }
+  
+  # the second approach here looks down the chain through children (^ = inverse direction)
+  # let's stick with children for now
+  # using them both times out horribly
+  
+  OPTIONAL { ?mp wdt:P569 ?born } .
+  OPTIONAL { ?mp wdt:P570 ?died } .
+  FILTER NOT EXISTS { ?mp wdt:P3023 [] } . # mp is not themselves a slaveowner
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+
+#10617 slaveowners
+#303 were MPs
+#319 MPs were descended from slaveowners by parent direction
+#328 by children

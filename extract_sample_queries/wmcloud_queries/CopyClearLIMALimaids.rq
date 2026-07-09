@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel ?limaId WHERE {
+  ?item wdt:P9468 ?limaId.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+}

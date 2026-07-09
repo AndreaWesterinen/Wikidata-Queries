@@ -1,0 +1,13 @@
+#title: elevation of value should be lower
+# Complex constraint from [[Property talk:P7479]]
+# TODO: correct value or elevation, adjust ranks, define exceptions
+SELECT ?item ?itemLabel ?item_elevation ?keycol ?keycolLabel ?keycol_elevation
+{
+  ?item wdt:P7479 ?keycol .
+  ?item p:P2044 / psn:P2044 / wikibase:quantityAmount ?item_elevation .
+  ?keycol p:P2044 / psn:P2044 / wikibase:quantityAmount ?keycol_elevation .
+  FILTER( ?item_elevation < ?keycol_elevation )
+  FILTER( ?item not in ( wd:Q15397819 , wd:Q4115189 ) ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+}
+LIMIT 100

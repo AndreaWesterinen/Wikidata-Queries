@@ -1,0 +1,4 @@
+SELECT ?item ?taxonName WHERE {  
+     ?item wdt:P31 wd:Q17276484 .
+     ?item wdt:P225 ?taxonName
+}

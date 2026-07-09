@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?afbeelding ?geboortedatum WHERE {
+  ?item wdt:P39 wd:Q18887908.
+  OPTIONAL { ?item wdt:P569 ?geboortedatum. }
+  OPTIONAL { ?item wdt:P18 ?afbeelding. }
+  FILTER(!(BOUND(?afbeelding)))
+}

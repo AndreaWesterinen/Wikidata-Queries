@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?geo
+WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q1030034 .
+  ?item wdt:P17 wd:Q36 .
+  ?item wdt:P625 ?geo .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,pl". }
+}

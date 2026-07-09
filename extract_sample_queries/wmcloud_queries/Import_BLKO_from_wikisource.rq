@@ -1,0 +1,8 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription ?vol 
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?item wdt:P1433 wd:Q665807 . 
+    ?item wdt:P478 ?vol . 
+    MINUS { ?item wdt:P304 [] } 
+}

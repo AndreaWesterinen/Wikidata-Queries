@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item (YEAR(?d) as ?y) ?1st ?v ?scan ?edof ?lLabel ?ids
+{ 
+	?item wdt:P629+ wd:Q16438
+    OPTIONAL { ?item wdt:P214 ?v }
+    OPTIONAL { ?item wdt:P31 ?i }
+    OPTIONAL { ?item wdt:P577 ?d }
+    OPTIONAL { ?item wdt:P407 ?l }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    ?item wdt:P629 ?edof 
+    BIND(IF(?edof = wd:Q16438, "", ?edof) as ?1st)
+    OPTIONAL { ?item wikibase:identifiers ?ids }   
+    OPTIONAL { ?item p:P996 ?sst . ?sst ps:P996 ?scanimage . OPTIONAL { ?sst pq:P4714 ?pnb } . BIND(COALESCE(?pnb, 1) as ?scanp) . 
+              BIND( CONCAT("[[",REPLACE(str(?scanimage),"http://commons.wikimedia.org/wiki/Special:FilePath/","File:"),"\u007C","page=",str(?scanp),"\u007C","75px","\u007C","center]]") as ?scan) }
+}
+ORDER BY DESC(?l = wd:Q652) ?lLabel ?d 
+LIMIT 5000

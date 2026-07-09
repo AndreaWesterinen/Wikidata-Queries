@@ -1,0 +1,2 @@
+#title:Change the property P131 to P159
+SELECT DISTINCT ?item WHERE { ?item wdt:P131 []; wdt:P31 wd:Q4830453 . MINUS { ?item wdt:P159 [] } }

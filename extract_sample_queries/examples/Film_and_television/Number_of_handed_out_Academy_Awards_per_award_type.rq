@@ -1,3 +1,4 @@
+#title: Number of handed out Academy Awards per award type
 SELECT ?awardCount ?award ?awardLabel WHERE {
   {
     SELECT (COUNT(?award) AS ?awardCount) ?award

@@ -1,0 +1,2 @@
+#title:Add inverse statements from P3373
+SELECT DISTINCT ?item { ?item wdt:P3373 ?item2 . MINUS { ?item2 p:P3373/ps:P3373/owl:sameAs? ?item } . ?item2 ?pred ?parent . ?item ?pred ?parent . FILTER( ?pred IN ( wdt:P22, wdt:P25 ) ) }

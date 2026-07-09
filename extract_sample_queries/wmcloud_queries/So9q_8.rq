@@ -1,0 +1,11 @@
+#Cats
+SELECT ?item ?itemLabel ?image ?date
+WHERE 
+{
+  ?item wdt:P509 wd:Q3966286.
+  optional {
+    ?item wdt:P570 ?date;
+          wdt:P18 ?image.
+          }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

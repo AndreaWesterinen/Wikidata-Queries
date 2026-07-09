@@ -1,0 +1,12 @@
+# Title: TV series episode without IMDB
+# Complex constraint from [[Property talk:P345]]
+# [[Property:P31|instance of&#32;<small>(P31)</small>]] -> [[Q21191270|TV series episode <small>(Q21191270)</small>]], but no [[Property:P345|IMDb ID&#32;<small>(P345)</small>]], might need to add some filters later
+SELECT DISTINCT ?series ?seriesLabel (COUNT(?series) AS ?count) WHERE { 
+  ?item wdt:P31 wd:Q21191270 . 
+  ?item wdt:P179 ?series .
+  MINUS {?item wdt:P345 [] } 
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,es" .
+	}
+} GROUP BY ?series ?seriesLabel
+ORDER BY DESC(?count)

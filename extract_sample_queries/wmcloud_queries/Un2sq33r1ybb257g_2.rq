@@ -1,0 +1,15 @@
+# What other relations do people commonly have with their spouses?
+SELECT ?property ?propertyLabel ?count WHERE { 
+  # First find other additional relations and their count:
+  {SELECT ?directProperty (COUNT(*) as ?count)
+    WHERE {
+      BIND( wdt:P26 as ?firstRelation) # spouse; can be changed to anything
+      ?item ?firstRelation ?item2 .
+      ?item ?directProperty ?item2
+      FILTER(?directProperty != ?firstRelation)
+    } GROUP BY ?directProperty
+  }
+  # Then find the property entity for this relation and fetch its label:
+  ?property wikibase:directClaim ?directProperty 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?count)

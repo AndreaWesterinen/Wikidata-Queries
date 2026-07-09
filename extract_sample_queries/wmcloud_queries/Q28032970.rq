@@ -1,0 +1,4 @@
+select ?article ?articleLabel where {
+  ?article wdt:P1433 wd:Q30689463 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

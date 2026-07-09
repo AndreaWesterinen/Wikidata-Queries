@@ -1,0 +1,17 @@
+#title: natural_feature and place codes should all have coords
+# Complex constraint from [[Property talk:P3794]]
+#
+SELECT ?item ?itemLabel ?value
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?instance ?value {
+			?item wdt:P3794 ?value .
+			MINUS {
+              ?item wdt:P625 ?coords .
+			} .
+            FILTER(STRSTARTS(?value, "natural_feature")||STRSTARTS(?value, "place")).
+		} LIMIT 1000
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

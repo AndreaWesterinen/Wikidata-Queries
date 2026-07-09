@@ -1,0 +1,2 @@
+SELECT ?item (CONCAT("[https://www.augustins.org/fr/oeuvre/-/oeuvre/",?value, " ", ?value, "]") AS ?CLURL) {
+	?item wdt:P4739 ?value}

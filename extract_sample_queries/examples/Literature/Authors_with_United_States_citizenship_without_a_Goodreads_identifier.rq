@@ -1,6 +1,4 @@
-# ----
-# Authors with country of citizenship United States who do not have a Goodreads identifier
-
+#title: Authors with country of citizenship United States who do not have a Goodreads identifier
 SELECT ?item ?itemLabel
 WHERE
 {

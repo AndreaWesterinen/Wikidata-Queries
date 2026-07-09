@@ -1,0 +1,9 @@
+SELECT ?coc ?cocLabel (COUNT(*) AS ?cnt) WITH {
+  SELECT DISTINCT ?item WHERE {
+    ?item p:P106/ps:P106/wdt:P279* wd:Q26270618 .
+  }
+} AS %s WHERE {
+  INCLUDE %s .
+  ?item p:P27/ps:P27 ?coc .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?coc ?cocLabel ORDER BY DESC(?cnt)

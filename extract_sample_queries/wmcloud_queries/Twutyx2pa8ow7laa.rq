@@ -1,0 +1,6 @@
+SELECT ?item ?start ?end {
+  wd:Q28095344 p:P1308 ?st .
+  ?st ps:P1308 ?item .
+  OPTIONAL { ?st pq:P580 ?start } .
+  OPTIONAL { ?st pq:P582 ?end } .
+}

@@ -1,0 +1,13 @@
+SELECT ?item ?workLabel ?date_modified
+WHERE {
+?work wdt:P31 wd:Q47461344 ;
+        wdt:P747 ?item . # written works with edition or translation
+  ?item wdt:P31 wd:Q3331189 ;
+            ?p ?onlineAccess ;
+            schema:dateModified ?date_modified .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER (?p IN (wdt:P675, wdt:P724, wdt:P2034, wdt:P996, wdt:P1957, wdt:P953)) .
+  BIND (now() - ?date_modified as ?date_range) .
+ }
+ORDER BY ?date_range
+LIMIT 20

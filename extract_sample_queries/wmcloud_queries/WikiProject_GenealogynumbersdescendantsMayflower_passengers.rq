@@ -1,0 +1,1 @@
+SELECT (wd:Q41967248 as ?item)  (COUNT(DISTINCT ?relative) as ?descendants)  WHERE { ?passenger wdt:P1344 wd:Q41967248 . ?passenger (wdt:P40)+ ?relative FILTER (?relative != ?passenger)  }

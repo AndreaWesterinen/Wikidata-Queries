@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?year ?st ?sl
+WHERE
+{
+	?item wdt:P641 wd:Q847 . 
+    FILTER NOT EXISTS { ?item wdt:P31 [] } 
+    FILTER NOT EXISTS { ?item wdt:P361 [] } 
+    FILTER NOT EXISTS { ?item wdt:P279 [] } 
+    FILTER NOT EXISTS { ?item wdt:P3450 [] } 
+    FILTER NOT EXISTS { ?item wdt:P1269 [] } 
+    FILTER NOT EXISTS { ?item wdt:P179 [] }   
+    FILTER NOT EXISTS { ?item wikibase:statements 1 } 
+    ?item wikibase:statements ?st ; wikibase:statements ?sl ; rdfs:label ?l
+    BIND(xsd:integer(REPLACE(str(?l),"^.*((20[01]

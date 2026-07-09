@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?url ?creatorurl WHERE {
+  wd:P5223 wdt:P1630 ?formatterurl.
+  wd:P1736 wdt:P1630 ?creatorformatterurl.
+  ?item wdt:P5223 ?id.
+  BIND(REPLACE(?id, "^(\\d+)$", CONCAT("[", ?formatterurl, " $1]")) AS ?url)
+  OPTIONAL {
+    ?item wdt:P170 ?creator.
+    ?creator wdt:P1736 ?creatorid.
+  }
+  BIND(REPLACE(?creatorid, "^(\\d+)$", CONCAT("[", ?creatorformatterurl, " $1]")) AS ?creatorurl)
+}
+LIMIT 5000

@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel ?copyrightholder WHERE {
+  ?item wdt:P6379 wd:Q679527.
+  ?item wdt:P6275 ?copyrightholder
+}

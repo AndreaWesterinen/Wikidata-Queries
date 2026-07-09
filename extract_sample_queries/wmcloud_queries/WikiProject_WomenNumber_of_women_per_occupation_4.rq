@@ -1,0 +1,6 @@
+SELECT ?item (SAMPLE(?female) as ?sample) (COUNT(?female) AS ?countedfemale) where {
+?female wdt:P31 wd:Q5 .
+?female wdt:P106 ?item .
+?female wdt:P21 wd:Q6581072 .
+} group by ?item HAVING (?countedfemale > 5)
+order by desc (?countedfemale)

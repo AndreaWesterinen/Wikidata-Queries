@@ -1,0 +1,17 @@
+#title: unit violations when used as qualifier: list
+# Complex constraint from [[Property talk:P3744]]
+# detailed list
+SELECT ?unit ?unitLabel ?item ?itemLabel ?statement ?prop ?propLabel
+{
+  {  SELECT *
+     { 
+        ?statement pqv:P3744/wikibase:quantityUnit ?unit .
+        FILTER( ?unit != wd:Q199 )
+      }
+  }
+  hint:Query hint:optimizer "None".
+  ?item ?p ?statement .
+  ?prop wikibase:claim ?p .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  
+LIMIT 500

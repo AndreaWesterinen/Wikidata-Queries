@@ -1,0 +1,13 @@
+SELECT ?item ?order
+WITH {
+  SELECT DISTINCT ?item {
+    { ?item wdt:P175 wd:Q100269171 } UNION
+    { ?item wdt:P175 wd:Q105767535 } UNION
+    { ?item wdt:P86 wd:Q105755025 }
+    FILTER(!EXISTS {?item wdt:P31 wd:Q482994} && !EXISTS {?item wdt:P31 wd:Q59564754})
+  }
+} AS %compositions
+{
+  INCLUDE %compositions .
+  OPTIONAL { ?album p:P658 ?st . ?st ps:P658 ?item . ?st pq:P1545 ?order }
+} ORDER BY ASC(?album) ASC(?order)

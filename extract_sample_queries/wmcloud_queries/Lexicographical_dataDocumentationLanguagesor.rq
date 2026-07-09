@@ -1,0 +1,8 @@
+SELECT ?category ?categoryLabel (count(?category) as ?countOdia) WHERE {
+  ?lexeme dct:language wd:Q33810; 
+          wikibase:lexicalCategory ?category;
+          wikibase:lemma [].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],or". }
+}
+GROUP BY ?category ?categoryLabel
+ORDER BY ?countOdia

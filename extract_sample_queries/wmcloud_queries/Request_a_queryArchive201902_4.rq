@@ -1,0 +1,5 @@
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+#defaultView:Graph
+# parts of a gene and their subclasses
+SELECT DISTINCT ?down ?downLabel ?up ?upLabel ("

@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?HMBid ?sitelink
+WHERE {
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P3885 ?HMBid.
+ OPTIONAL { ?sitelink schema:about ?item } . #any sitelink if present
+ OPTIONAL { ?ensitelink schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> } . # enwiki sitelink
+ FILTER (!BOUND(?ensitelink)) . # does not have enwiki
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,17 @@
+SELECT ?item ?native WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:language "id";
+                    mwapi:srsearch "\"nama asli (\"";
+                    mwapi:srlimit "max".
+    ?item wikibase:apiOutputItem mwapi:title.
+  }
+  ?item wdt:P31 wd:Q101352;
+        schema:description ?desc.
+  FILTER(LANG(?desc) = "id")
+  FILTER(STRSTARTS(?desc, "nama asli (")).
+  OPTIONAL { ?item wdt:P1705 ?native. }
+}GROUP BY ?item ?native 
+HAVING(COUNT(?native)=1)

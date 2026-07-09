@@ -1,0 +1,14 @@
+#title: item datatype properties would generally have this
+# Complex constraint from [[Property talk:P7087]]
+# if applicable, create an item and link it with P7087
+SELECT ?item ?property ?propertyLabel 
+{
+    ?property wikibase:propertyType wikibase:WikibaseItem .
+    MINUS { ?property wdt:P1696 [] }
+    MINUS { ?property wdt:P2302 wd:Q21510862 }
+    MINUS { ?property wdt:P7087 [] }  
+    MINUS { ?property wdt:P31 wd:Q18667213 }  
+    MINUS { ?property wdt:P31 wd:Q18720640 }
+    OPTIONAL { ?property wdt:P1629 ?item }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

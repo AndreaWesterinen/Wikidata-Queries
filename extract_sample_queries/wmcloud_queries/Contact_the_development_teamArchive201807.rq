@@ -1,0 +1,5 @@
+CONSTRUCT{?film ?p ?o.}  WHERE {
+  ?film wdt:P31 wd:Q11424.
+  ?film wdt:P179 wd:Q2484680.
+  ?film ?p ?o.
+}

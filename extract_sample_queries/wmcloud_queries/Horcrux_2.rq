@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?olid
+WHERE {
+  ?item wdt:P648 ?olid .
+  FILTER regex(?olid, "A$").
+ }
+LIMIT 200000

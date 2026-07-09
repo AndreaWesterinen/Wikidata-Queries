@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel WHERE
+{
+  ?item wdt:P31 wd:Q7889; # instance of video game
+        wdt:P400 wd:Q3251801. # on GNU/Linux
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

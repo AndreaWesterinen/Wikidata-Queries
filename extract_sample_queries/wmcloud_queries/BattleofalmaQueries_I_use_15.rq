@@ -1,0 +1,7 @@
+SELECT ?sausage ?sausageLabel (GROUP_CONCAT(?country) as ?countries) ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?sausage wdt:P279 wd:Q131419.
+  OPTIONAL {?sausage wdt:P17 ?country.}
+  OPTIONAL {?sausage wdt:P18 ?image. }
+}
+GROUP BY ?sausage ?sausageLabel ?image

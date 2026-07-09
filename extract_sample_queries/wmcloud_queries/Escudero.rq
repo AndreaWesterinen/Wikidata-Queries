@@ -1,0 +1,7 @@
+SELECT ?film ?filmLabel (COUNT(?film) AS ?num) WHERE {
+  ?film wdt:P136 wd:Q202866 .
+  ?film wdt:P161 ?cast
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en,de"}
+}
+GROUP BY ?film ?filmLabel
+ORDER BY DESC(?num)

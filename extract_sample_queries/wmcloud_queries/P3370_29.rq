@@ -1,0 +1,11 @@
+#title: Potentially missing statements
+# Complex constraint from [[Property talk:P3370]]
+# items with [[d:Q89410507|name without diacritical marks <small>(Q89410507)</small>]], but no P3370 on target
+SELECT ?item ?value ?item2
+{
+  ?item wdt:P3370 ?value ; p:P1552 [ ps:P1552 wd:Q89410507 ; pq:P642 ?item2 ] . 
+  FILTER NOT EXISTS { ?item2 wdt:P3370 [] }
+  ?item2 rdfs:label ?l2_en . FILTER (lang(?l2_en) = "en")
+  FILTER (!regex(?l2_en, "[ầăāąạćčďđēěėęğìķłńñøòōőřšşșțůūűżź]", "i"))
+}
+LIMIT 100

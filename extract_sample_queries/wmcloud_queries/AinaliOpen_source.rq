@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?type
+WITH 
+{ SELECT ?item ?developer WHERE {
+  ?item wdt:P31 wd:Q341;   # Free software
+        wdt:P178

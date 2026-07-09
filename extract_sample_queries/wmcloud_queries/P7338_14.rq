@@ -1,0 +1,10 @@
+#title: P735 value should have P1705
+# Complex constraint from [[Property talk:P7338]]
+# given name item should have [[Property:P1705|native label&#32;<small dir="ltr">(P1705)</small>]]
+SELECT DISTINCT ?item ?itemLabel 
+{
+	?prop p:P735 [ pq:P7338 ?ro; ps:P735 ?item ]
+	MINUS { ?item p:P1705 [] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  
+}
+ORDER BY ?itemLabel

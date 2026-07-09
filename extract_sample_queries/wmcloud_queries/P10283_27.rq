@@ -1,0 +1,10 @@
+#title: check A for P6366
+# Complex constraint from [[Property talk:P10283]]
+# ?value would generally match P6366
+SELECT ?item ?value ?p6366
+{
+  ?item wdt:P10283 ?value ; wdt:P6366 ?p6366
+  FILTER( REGEX( ?value, '^A') )
+  FILTER( !REGEX( ?value, CONCAT('^A',?p6366,'$') )  )
+}
+LIMIT 10

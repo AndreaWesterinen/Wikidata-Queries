@@ -1,0 +1,19 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+#SELECT ?ID (COUNT(?ID) AS ?count) WHERE {
+SELECT ?p ?pLabel WHERE {
+  
+   ?p wdt:P4014 "SSC31127" .
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }
+#GROUP BY ?ID
+#ORDER BY DESC(?count)
+LIMIT 100

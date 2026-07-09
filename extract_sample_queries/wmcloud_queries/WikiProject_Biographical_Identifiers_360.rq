@@ -1,0 +1,15 @@
+#Country distribution for a given identifier
+
+SELECT ?country ?countryLabel ?count WHERE { 
+	{
+		select ?country (COUNT(*) AS ?count) where {
+			?item wdt:P497 ?id . 
+			?item wdt:P31 wd:Q5 .
+			?item wdt:P27 ?country .
+		} group by ?country 
+	}
+	SERVICE wikibase:label {            # ... include the labels
+		bd:serviceParam wikibase:language "en" .
+	}
+} ORDER BY DESC (?count)
+LIMIT 100

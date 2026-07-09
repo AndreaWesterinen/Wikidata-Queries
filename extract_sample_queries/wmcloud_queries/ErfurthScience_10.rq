@@ -1,0 +1,14 @@
+SELECT ?item ?title ?pages ?authorLabel (COUNT(?citations) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q13442814.
+  ?item wdt:P1433 wd:Q1919514.
+  ?item wdt:P577 ?year.
+  ?item wdt:P1476 ?title.
+  ?item wdt:P304 ?pages.
+  ?item wdt:P50 ?author.
+  ?author wdt:P21 wd:Q6581072.
+  optional {
+    ?item wdt:P2860 ?citations.
+  }
+  FILTER (year(?year)=2018)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?title ?pages ?authorLabel

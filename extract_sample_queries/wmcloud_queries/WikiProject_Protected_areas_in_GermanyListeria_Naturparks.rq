@@ -1,0 +1,17 @@
+SELECT ?Nationalpark_in_Deutschland ?Nationalpark_in_DeutschlandLabel ?liegt_in_der_Verwaltungseinheit ?liegt_in_der_VerwaltungseinheitLabel ?Gr_ndung__Erstellung_bzw__Entstehung ?Schutzgebietkategorie_der_IUCN ?Schutzgebietkategorie_der_IUCNLabel ?benannt_nach ?benannt_nachLabel ?geographische_Koordinaten ?geh_rt_zum_Zust_ndigkeitsbereich ?geh_rt_zum_Zust_ndigkeitsbereichLabel ?Fl_che ?Rechtsgrundlage ?RechtsgrundlageLabel ?Commons_Kategorie ?WDPA_ID ?Common_Database_on_Designated_Areas_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Nationalpark_in_Deutschland wdt:P31 wd:Q20354035.
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P18 ?liegt_in_der_Verwaltungseinheit. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P571 ?Gr_ndung__Erstellung_bzw__Entstehung. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P814 ?Schutzgebietkategorie_der_IUCN. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P138 ?benannt_nach. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P131 ?liegt_in_der_Verwaltungseinheit. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P625 ?geographische_Koordinaten. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P1001 ?geh_rt_zum_Zust_ndigkeitsbereich. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P2046 ?Fl_che. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P92 ?Rechtsgrundlage. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P373 ?Commons_Kategorie. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P809 ?WDPA_ID. }
+  OPTIONAL { ?Nationalpark_in_Deutschland wdt:P4762 ?Common_Database_on_Designated_Areas_ID. }
+  ?Nationalpark_in_Deutschland wdt:P17 wd:Q183.
+}

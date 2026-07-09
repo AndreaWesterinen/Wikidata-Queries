@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription ?emptyOtherLanguageLabel WHERE {
+  ?item wdt:P641 wd:Q7291 .
+  ?item wdt:P31 wd:Q5 .
+  OPTIONAL {
+    ?item rdfs:label ?emptyOtherLanguageLabel .
+  	FILTER( LANG(?emptyOtherLanguageLabel) = "dag" ) . 
+  }
+  FILTER(!BOUND(?emptyOtherLanguageLabel))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?itemLabel

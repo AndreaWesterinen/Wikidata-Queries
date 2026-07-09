@@ -1,0 +1,15 @@
+# average age of physicist with a SHARE Cat ID by century
+SELECT ?century (ROUND(AVG(?age)) AS ?rounded_average_age)
+WHERE 
+{
+  ?item wdt:P31 wd:Q5.          # is a human
+  ?item wdt:P106 wd:Q169470.   # occupation fisico
+  ?item wdt:P3987 ?shareID. 
+  ?item wdt:P569 ?born.
+  ?item wdt:P570 ?died.
+  FILTER( ?died > ?born ).
+  BIND( (?died - ?born)/365.2425 AS ?age )
+  BIND( FLOOR(YEAR(?born)/100)*100 AS ?century ) 
+}
+GROUP BY ?century
+ORDER BY DESC (?century)

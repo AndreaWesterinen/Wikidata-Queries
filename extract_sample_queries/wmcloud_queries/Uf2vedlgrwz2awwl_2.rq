@@ -1,0 +1,8 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription
+{
+  ?item wdt:P31 wd:Q133056 .
+  FILTER NOT EXISTS { ?item wdt:P17 [] }
+  FILTER NOT EXISTS { ?item wdt:P131 wd:Q21590062 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

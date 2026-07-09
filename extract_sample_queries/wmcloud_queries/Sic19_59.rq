@@ -1,0 +1,26 @@
+select distinct ?edition ?nlw ?Len ?Lcy ?title_en ?title_cy ?langEN ?langCY ?author ?statedAs ?authorOrdinal ?authorString ?ansOrdinal where {
+
+  ?edition_ wdt:P6786 ?nlw .
+  MINUS { ?edition_ wdt:P629 ?work }
+#  ?edition_ wdt:P629 ?work
+            
+  OPTIONAL {?edition_ rdfs:label ?Len . FILTER(LANG(?Len) = "en") } 
+  OPTIONAL {?edition_ rdfs:label ?Lcy . FILTER(LANG(?Lcy) = "cy") } 
+  OPTIONAL { ?edition_ wdt:P1476 ?title_cy . FILTER(LANG(?title_cy) = "cy") } 
+  OPTIONAL { ?edition_ wdt:P1476 ?title_en . FILTER(LANG(?title_en) = "en-gb") }
+
+  OPTIONAL {?edition_ wdt:P407 ?language_en . FILTER(?language_en = wd:Q1860) . BIND(REPLACE(STR(?language_en),"http://www.wikidata.org/entity/","") as ?langEN)}
+  OPTIONAL {?edition_ wdt:P407 ?language_cy . FILTER(?language_cy = wd:Q9309) . BIND(REPLACE(STR(?language_cy),"http://www.wikidata.org/entity/","") as ?langCY) }
+
+  OPTIONAL {?edition_ p:P50 ?author_statement .
+            ?author_statement ps:P50 ?author_ ;
+                              pq:P1932 ?statedAs ;
+                              pq:P1545 ?authorOrdinal .
+           BIND(REPLACE(STR(?author_),"http://www.wikidata.org/entity/","") as ?author) }
+  OPTIONAL {?edition_ p:P2093 ?ans_statement .
+            ?ans_statement ps:P2093 ?authorString ;
+                           pq:P1545 ?ansOrdinal . }
+BIND(REPLACE(STR(?edition_),"http://www.wikidata.org/entity/","") as ?edition) 
+
+         }
+ORDER BY ?Len ?edition

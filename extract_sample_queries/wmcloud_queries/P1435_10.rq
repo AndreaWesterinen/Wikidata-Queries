@@ -1,0 +1,5 @@
+#title: Items who don't have location
+# Complex constraint from [[Property talk:P1435]]
+# Items who don't have [[Property:P131|located in the administrative territorial entity&#32;<small dir="ltr">(P131)</small>]] or [[Property:P276|location&#32;<small dir="ltr">(P276)</small>]]
+SELECT ?item WHERE { ?item wdt:P1435 ?value . FILTER NOT EXISTS { ?item wdt:P131 [] } . FILTER NOT EXISTS { ?item wdt:P276 [] } . }
+LIMIT 3000

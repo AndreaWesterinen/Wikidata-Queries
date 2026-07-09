@@ -1,0 +1,20 @@
+SELECT ?item ?nr_all ?release_ja ?release_de (GROUP_CONCAT(DISTINCT ?delabel) AS ?delabels) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q21191270 .
+  ?item p:P179 ?series_statement .
+  ?series_statement ps:P179 wd:Q1564651 .
+  ?series_statement pq:P1545 ?nr_all .  
+    OPTIONAL {
+  ?item p:P577 ?release_statement1 .
+  ?release_statement1 ps:P577 ?release_ja .
+  ?release_statement1 pq:P291 wd:Q17 .  
+  ?item p:P577 ?release_statement2 .
+  ?release_statement2 ps:P577 ?release_de .
+  ?release_statement2 pq:P291 wd:Q183 .  
+      }
+  OPTIONAL {
+    ?item rdfs:label ?delabel.
+    FILTER((LANG(?delabel)) = "de")
+  }
+}
+GROUP BY ?item ?nr_all ?release_ja ?release_de 
+ORDER BY xsd:integer(?nr_all)

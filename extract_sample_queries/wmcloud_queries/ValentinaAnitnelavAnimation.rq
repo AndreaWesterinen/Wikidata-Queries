@@ -1,0 +1,57 @@
+embed.html##average age of crew members for each of Disney's traditionally animated films (credited and uncredited)
+#defaultView:ScatterChart
+SELECT DISTINCT ?release_date (ROUND(AVG(?age)) AS ?avgAge) ?filmLabel  
+WHERE
+{
+{
+SELECT DISTINCT ?filmLabel ?crew (MIN(?rdate) AS ?release_date) (MIN(?age) AS ?age) 
+WHERE
+{
+  {
+  #getting the films
+ ?film wdt:P179 wd:Q56070713;
+       wdt:P136 wd:Q28968511;
+       wdt:P577 ?rdate;
+       wdt:P527* ?film1.
+  
+ ?film1  (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275|p:P1040|p:P676) ?st;
+          wdt:P577 ?rdateSub
+   }
+  #getting rid of long dead people
+  MINUS
+  {
+  ?film wdt:P179 wd:Q56070713;
+       wdt:P136 wd:Q28968511;
+       wdt:P577 ?rdate;
+       wdt:P527* ?film1.
+    
+  ?film1 (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275) ?st.                                                                  
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275) ?crew.
+         
+  ?crew wdt:P570 ?ddate.
+  FILTER(year(?ddate) + 10 < year(?rdate))
+  }
+  
+  BIND(IF(BOUND(?rdateSub), ?rdateSub, ?rdate) AS ?rdateCrew)
+  #getting the crew members
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275|ps:P1040|ps:P676) ?crew.                                                                             
+
+  #getting the age at release date
+  ?crew p:P569/psv:P569 ?bdateNode.
+  {?bdateNode wikibase:timePrecision "8"^^xsd:integer} UNION
+  {?bdateNode wikibase:timePrecision "9"^^xsd:integer} UNION
+  {?bdateNode wikibase:timePrecision "10"^^xsd:integer} UNION
+  {?bdateNode wikibase:timePrecision "11"^^xsd:integer}
+  ?bdateNode wikibase:timeValue ?bdate.
+  ?crew wdt:P569 ?bdate.
+  OPTIONAL{?crew wdt:P570 ?ddate}
+  
+  #getting the age
+  BIND(ROUND(year(?rdateCrew) - year(?bdate)) AS ?age)
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?filmLabel ?crew
+ORDER BY ?filmLabel
+}}
+GROUP BY ?filmLabel ?release_date

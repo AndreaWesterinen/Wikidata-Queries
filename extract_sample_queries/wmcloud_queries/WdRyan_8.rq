@@ -1,0 +1,7 @@
+SELECT ?QID ?username
+WHERE 
+{
+  ?QID p:P553 ?stat . 
+  ?stat ps:P553 wd:Q96177589 .
+  ?stat pq:P554 ?username .
+}

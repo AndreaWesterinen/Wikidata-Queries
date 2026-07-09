@@ -1,0 +1,1 @@
+sparql?query=#Number of objects in cities in WikidataSELECT (COUNT(?item) AS ?count)#SELECT ?item ?city WHERE {  ?item wdt:P131 ?city.  ?city wdt:P31 wd:Q515.}

@@ -1,0 +1,8 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+SELECT ?film ?filmLabel ?date WHERE {
+   ?film wdt:P136 wd:Q28026639.
+  ?film wdt:P577 ?date .
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+   }
+}

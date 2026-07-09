@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel ?capitalofLabel ?desc ?startyear ?note1Label ?note2Label
+WHERE {
+  ?item p:P1376 ?statement .
+  ?statement ps:P1376 ?capitalof .
+  ?capitalof wdt:P31 wd:Q3624078 .
+  MINUS{?statement pq:P582 ?endtime .}
+  MINUS{?statement pq:P156 ?followedby .}
+  MINUS{?item wdt:P31 wd:Q27554677.
+        MINUS{?item wdt:P31 wd:Q5119.} }
+  OPTIONAL{?statement pq:P580 ?start .
+           BIND(YEAR(?start) AS ?startyear)}
+  OPTIONAL{?statement pq:P459 ?note1 .}
+  OPTIONAL{?statement pq:P2868 ?note2 .}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL{?item schema:description ?desc;
+      FILTER(LANG(?desc) = "en").}
+} ORDER BY ?capitalofLabel ?itemLabel

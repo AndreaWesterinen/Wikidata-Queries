@@ -1,0 +1,10 @@
+SELECT ?item ?constituency ?party ?votes ?ranking WHERE {
+    ?item p:P3602 ?candidacy .
+    ?candidacy ps:P3602 wd:Q30173038 .
+    OPTIONAL { ?candidacy pq:P102 ?party }
+    OPTIONAL { ?candidacy pq:P768 ?constituency }
+    OPTIONAL { ?candidacy pq:P1352 ?ranking }
+    OPTIONAL { ?candidacy pq:P1111 ?votes }
+    OPTIONAL { ?candidacy pq:P1352 ?ranking }
+}
+ORDER BY DESC(?votes)

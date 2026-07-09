@@ -1,0 +1,17 @@
+#title: Maybe a mistake in P1098
+# Complex constraint from [[Property talk:P1098]]
+# Compare the number of human who spoken the language in database and the other number
+SELECT ?lang ?nbHuman ?nbLocuteur {
+  ?lang wdt:P1098 ?nbLocuteur
+  {
+    SELECT ?lang (COUNT (?item) AS ?nbHuman) {
+      ?item wdt:P1412 ?lang. # spoken language
+    }
+    GROUP BY ?lang
+  }
+  FILTER (?nbHuman > ?nbLocuteur)
+  FILTER (?nbLocuteur > 2000)
+  FILTER NOT EXISTS { ?lang wdt:P31 wd:Q45762 }
+  FILTER NOT EXISTS { ?lang wdt:P31 wd:Q33384 }
+  FILTER NOT EXISTS { ?lang wdt:P156 [] }
+}

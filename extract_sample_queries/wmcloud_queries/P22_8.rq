@@ -1,0 +1,4 @@
+#title: Father was born after his child was born
+# Complex constraint from [[Property talk:P22]]
+# birth date of person A is after birth date of person B
+SELECT * { { SELECT ?item WHERE { ?item wdt:P22 ?item2 . ?item p:P569/psv:P569 ?birth1_node . ?birth1_node wikibase:timeValue ?birth1 . ?birth1_node wikibase:timePrecision "11"^^xsd:integer . ?item2 p:P569/psv:P569 ?birth2_node . ?birth2_node wikibase:timeValue ?birth2 . ?birth2_node wikibase:timePrecision "11"^^xsd:integer . FILTER (?birth1 < ?birth2) } } }

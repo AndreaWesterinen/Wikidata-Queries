@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel ?jurisdictionLabel ?count ?image WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q14660 ;
+        wdt:P18 ?image ;
+        wdt:P1001 ?jurisdiction ;
+        p:P180 ?statement .
+  ?statement ps:P180/wdt:P279* wd:Q836708 ;
+             pq:P1114 ?count .
+  FILTER ( ?count >= 5 )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY DESC(?count) ?jurisdictionLabel

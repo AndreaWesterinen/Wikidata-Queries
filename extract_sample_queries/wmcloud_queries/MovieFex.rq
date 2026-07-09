@@ -1,0 +1,1 @@
+select * { ?item wdt:P31 wd:Q11424; wdt:P1705 ?name }

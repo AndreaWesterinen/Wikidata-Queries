@@ -1,0 +1,17 @@
+embed.html##print; depicts locations within the historic county of Pembrokeshire with coordinates
+#defaultView:Map
+SELECT DISTINCT ?print ?depicts ?name ?pic ?coord 
+WHERE {
+    ?print wdt:P361 wd:Q21542493 ;
+           { ?print wdt:P921 ?depicts . } UNION { ?print wdt:P180 ?depicts . }
+           OPTIONAL{ ?print wdt:P18 ?pic . }
+
+   ?depicts wdt:P131 wd:Q217829 ;
+            wdt:P625 ?coord .
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+    ?depicts rdfs:label ?name
+   }
+}
+ORDER BY ASC (?name)

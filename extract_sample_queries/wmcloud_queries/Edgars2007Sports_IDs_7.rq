@@ -1,0 +1,16 @@
+#Unique value constraint report for P1447: report by value
+#by Jura1 2016-05-03
+SELECT 
+	?value ?valueLabel 
+	(COUNT(DISTINCT ?item) as ?ct) 
+	(GROUP_CONCAT(DISTINCT(strafter(str(?item), "/entity/"));separator=", ") as ?items)
+	(GROUP_CONCAT(DISTINCT(?itemLabel);separator=", ") as ?itemLabels)
+WHERE
+{
+	?value ^wdt:P1447 ?item .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "lv,en,nb,es,nl,sv,pl,de,fr,pt,fi,bg,uk,ru" . ?item rdfs:label ?itemLabel . ?value rdfs:label ?valueLabel } .
+}
+GROUP BY ?value ?valueLabel
+HAVING (?ct>1)
+ORDER BY DESC(?ct)
+LIMIT 500

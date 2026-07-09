@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel
+WHERE
+{ ?item wdt:P131 wd:Q1718 .
+FILTER NOT EXISTS {?item wdt:P18 ?image}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}

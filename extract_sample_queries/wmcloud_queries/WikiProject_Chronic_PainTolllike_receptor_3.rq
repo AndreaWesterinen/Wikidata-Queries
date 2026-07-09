@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?publication_date ?DOI WHERE {
+  ?item wdt:P921 wd:Q408004.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P577 ?publication_date. }
+  OPTIONAL { ?item wdt:P356 ?DOID. }
+  BIND(URI(CONCAT(STR("https://dx.doi.org/"), ?DOID)) AS ?DOI)
+}
+ORDER BY DESC(?publication_date) 

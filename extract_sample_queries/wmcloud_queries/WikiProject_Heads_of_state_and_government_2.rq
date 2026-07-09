@@ -1,0 +1,14 @@
+SELECT ?property ?propertyLabel ?count WHERE {
+  {
+    SELECT ?property (COUNT (DISTINCT ?person) AS ?count) WHERE {
+       hint:Query hint:optimizer "None".
+       ?mayor_stmt ps:P39 wd:Q30185 .
+       ?person p:P39 ?mayor_stmt .
+       ?mayor_stmt ?qual [] .
+       ?property wikibase:qualifier ?qual .
+    } GROUP BY ?property
+  }  
+  SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+  }  
+} ORDER BY DESC(?count)

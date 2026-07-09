@@ -1,0 +1,16 @@
+# accused Scottish witches: place of death
+#defaultView:Map
+SELECT DISTINCT  ?witch ?witchLabel ?placeOfDeath ?coord ?article WHERE {
+  ?witch wdt:P4478 ?personID.
+  ?witch wdt:P20 ?placeOfDeath.
+  optional {?witch wdt:P570 ?deathdate.}
+  OPTIONAL {?placeOfDeath wdt:P625 ?coord .} 
+  OPTIONAL {
+     ?article schema:about ?witch. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+
+
+#LIMIT 500

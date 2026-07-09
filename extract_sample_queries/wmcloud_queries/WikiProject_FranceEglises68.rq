@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  hint:Query hint:optimizer "None".
+  ?item wdt:P131 ?commune .
+  ?commune p:P131 ?stmt .
+  ?stmt ps:P131 wd:Q12722 .
+  OPTIONAL { ?stmt pq:P582 ?end } 
+  FILTER (!BOUND(?end)) .
+  ?item (wdt:P31/wdt:P279*) wd:Q16970
+}

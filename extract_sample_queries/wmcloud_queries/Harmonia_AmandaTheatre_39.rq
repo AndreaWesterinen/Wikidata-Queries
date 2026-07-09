@@ -1,0 +1,7 @@
+SELECT ?nature ?natureLabel (COUNT(?item) AS ?count)
+WHERE {
+  ?item wdt:P641 ?sport .
+  ?item wdt:P31 ?nature.
+  FILTER (?sport IN (wd:Q38108, wd:Q1682809, wd:Q926191, wd:Q4305887, wd:Q4179462, wd:Q5475728, wd:Q1482312))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}GROUP BY ?nature ?natureLabel ORDER BY DESC(?count)

@@ -1,0 +1,6 @@
+SELECT * WHERE {
+  ?category wdt:P31 wd:Q4167836. # instance of Wikimedia category
+  ?category wdt:P301 ?topic. # Category's main topic 
+  ?topic wdt:P31 wd:Q4167410. # instance of Wikimedia disambiguation page
+
+} LIMIT 20

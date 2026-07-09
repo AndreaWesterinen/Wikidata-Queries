@@ -1,0 +1,4 @@
+#title: Items with [[Property:P1038|relative&#32;<small dir="ltr">(P1038)</small>]] and a more specific property which both link to the same person
+# Complex constraint from [[Property talk:P1038]]
+# If the [[Property:P1038|relative&#32;<small dir="ltr">(P1038)</small>]] statement describes the same information as another statement which uses a more specific property, the [[Property:P1038|relative&#32;<small dir="ltr">(P1038)</small>]] statement should be removed
+select ?item where { ?item wdt:P1038 ?relative filter exists { values ?prop { wdt:P22 wdt:P25 wdt:P40 wdt:P43 wdt:P44 wdt:P3373 } ?item ?prop ?relative } }

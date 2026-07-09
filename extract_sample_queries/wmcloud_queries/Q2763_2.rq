@@ -1,0 +1,10 @@
+#Katzen
+SELECT ?role ?roleLabel ?roleDescription (COUNT(?item) as ?count)
+WHERE 
+{
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P2868 ?role.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?role ?roleLabel ?roleDescription
+ORDER BY DESC(?count)

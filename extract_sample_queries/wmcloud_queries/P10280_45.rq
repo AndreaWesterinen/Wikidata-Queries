@@ -1,0 +1,14 @@
+#title:complex constraint value label template (with declension)
+SELECT ?item ?lang ?l ?value ?v ?t ?check
+WHERE 
+{
+  hint:Query hint:optimizer "None".
+  BIND( "Катэгорыя:Ганаровыя грамадзяне $1?.*"@be as ?t)
+  BIND( lang(?t) as ?lang) 
+  ?item wdt:P10280 ?value .
+  ?item rdfs:label ?l . FILTER(lang(?l) = ?lang) 
+  ?value rdfs:label ?v . FILTER(lang(?v) = ?lang)
+  BIND ( REPLACE(str(?l), "^(.+)$", str(?t)) as ?check) 
+  FILTER ( !REGEX(str(?v), ?check)  )
+}
+LIMIT 350

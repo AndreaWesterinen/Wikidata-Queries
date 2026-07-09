@@ -1,0 +1,27 @@
+SELECT DISTINCT 
+?item ?itemLabel
+
+?PCQualP669 #postal code as qualifier of P669
+?PCQualP669_SpacesStripped 
+
+?PCP281 # postal code as statement P281
+?PCP281_SpacesStripped 
+
+?PCsTheSame
+
+WHERE
+  {
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+    
+  ?item p:P669 [pq:P281 ?PCQualP669]. #postal code as qualifier of P669 
+  BIND(REPLACE(?PCQualP669," ","") as ?PCQualP669_SpacesStripped). #get rid op spaces 
+  
+  ?item (p:P281/ps:P281) ?PCP281. # postal code as statement P281
+  BIND(REPLACE(?PCP281," ","") as ?PCP281_SpacesStripped).#} #get rid op spaces --> THIS DOES NOT WORK!!!, WHATS WRONG???
+  
+  BIND(IF(?PCQualP669_SpacesStripped = ?PCP281_SpacesStripped, "TRUE", "FALSE") as ?PCsTheSame).  
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }  
+}
+
+ORDER BY ASC(?PCsTheSame)

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?instanceOfLabel WHERE {
+  
+  ?item wdt:P31 wd:Q8502 .
+  
+  VALUES ?instanceOptions {wd:Q46831 wd:Q1437459} # more advanced trick for defining a list of possible options
+  ?item wdt:P31 ?instanceOptions .
+  
+  ?item wdt:P31 ?instanceOf .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }  #change the "en" if you want the labels in different language
+}

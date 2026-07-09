@@ -1,0 +1,11 @@
+#defaultView:Timeline
+SELECT ?person ?personLabel ?dob WHERE {
+  BIND(wd:Q1040 AS ?city)
+  ?city wdt:P571 ?inception.
+  ?person wdt:P31 wd:Q5;
+          wdt:P569 ?dob;
+          wdt:P19/wdt:P131* ?city;
+          wdt:P735 wd:Q15731830.
+  FILTER(?dob >= ?inception)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?linkcount WHERE { 
+  {?item wdt:P21 wd:Q6581072; wdt:P496 ?orcid; wikibase:sitelinks ?linkcount .}
+  FILTER (?linkcount >0)
+ { ?item ?property1 wd:Q801 .} UNION { ?item ?property2 [ wdt:P17 wd:Q801 ] }
+}
+LIMIT 20

@@ -1,0 +1,10 @@
+embed.html##TEMPLATE={ "template": "Living employees of ?company with no known ORCID ID", "variables": { "?company": { "query": "SELECT ?id ?idLabel WHERE { ?id wdt:P1128 ?numEmployees. } ORDER BY DESC(?numEmployees) LIMIT 100" } } }
+#Enter employer to find living employees with no known ORCID iD
+SELECT DISTINCT ?person  ?personLabel WHERE {
+  BIND(wd:Q223429 AS ?company).
+  ?person wdt:P31 wd:Q5.
+  ?person wdt:P108 ?company.                   # employed at...
+  FILTER NOT EXISTS { ?person wdt:P496 ?orcid. } # no ORCID iD
+  FILTER NOT EXISTS { ?person wdt:P570 ?date. }  # not dead
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

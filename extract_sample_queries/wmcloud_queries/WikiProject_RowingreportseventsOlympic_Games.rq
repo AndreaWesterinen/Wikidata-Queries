@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(DISTINCT ?event) AS ?events) WHERE {
+  ?item wdt:P31 wd:Q720609 .
+  OPTIONAL {
+    ?item wdt:P527 ?event .
+    ?event wdt:P31 wd:Q21246076 .
+  }
+} GROUP BY ?item

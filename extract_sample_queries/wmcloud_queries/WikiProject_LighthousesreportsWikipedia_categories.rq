@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?country  ?countryLabel ?iscountry ?c ?cLabel (SAMPLE(?cat2) as ?cat2)
+	(COUNT(distinct ?sitelink) as ?count)
+{
+	?item wdt:P971 wd:Q39715 . 
+	?sitelink schema:about ?item .
+  	OPTIONAL  { ?item wdt:P971 ?l . FILTER (?l != wd:Q39715  ) } 
+  	BIND(IF(BOUND(?l), ?l, wd:Q22910791) as ?country)
+  	OPTIONAL { ?country wdt:P297 ?cc } . BIND(IF(BOUND(?cc), "Y", "N") as ?iscountry)
+  	OPTIONAL { ?country wdt:P17 ?c1 } . BIND(IF(BOUND(?c1), ?c1, wd:Q204) as ?c)
+	BIND(IF(BOUND(?cc), CONCAT("{{#", "invoke:AutoListLinks \u007C statementtocat \u007C cat=", 
+                                strafter(str(?item),"y/") ," \u007C property=P17 \u007C value=", 
+                                strafter(str(?country),"y/") ," \u007C depth=1 \u007C desc=0 \u007C ccat=1 }}"),"") as ?cat2 )
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+}
+GROUP BY ?item ?itemLabel ?country ?countryLabel ?iscountry ?c ?cLabel
+ORDER BY DESC(?iscountry) ?cLabel ?countryLabel ?itemLabel

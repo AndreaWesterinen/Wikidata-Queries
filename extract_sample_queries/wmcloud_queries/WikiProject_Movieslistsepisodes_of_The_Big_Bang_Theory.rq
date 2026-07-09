@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription  ?nr_s ?nr_e ?nr_es (CONCAT("[[",strafter(str(?season),"y/"),"\u007C",COALESCE(?nr_s,"?"),"]]") as ?s)
+(CONCAT("S",?nr_s,"&nbsp;E",?nr_e) as ?se)
+{
+	?item wdt:P179 wd:Q8539. 
+  	?item wdt:P31 wd:Q21191270 .
+	OPTIONAL { ?item wdt:P4908 ?season . ?season p:P179 [ pq:P1545 ?nr_s ] }
+	OPTIONAL { ?item p:P4908 [ pq:P1545 ?nr_e ] }
+	OPTIONAL { ?item p:P179 [ pq:P1545 ?nr_es ] } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY xsd:integer(?nr_s) xsd:integer(?nr_e)

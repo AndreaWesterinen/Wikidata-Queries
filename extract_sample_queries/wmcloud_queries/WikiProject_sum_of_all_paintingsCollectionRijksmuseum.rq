@@ -1,0 +1,13 @@
+SELECT ?item ?inv ?rkdurl  WHERE {
+   wd:P350 wdt:P1630 ?formatterurl .
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q190804 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P217 ?inv .
+  FILTER (!regex(?inv, "^SK-[AC]-\\d{1,4}(-\\w)?$")) .
+  OPTIONAL { ?item wdt:P350 ?rkdid }.
+  BIND(REPLACE(?rkdid, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?rkdurl)  .  
+  MINUS { ?item p:P217 ?invstatement .
+         ?invstatement pq:P195 wd:Q190804 } .
+  } 
+LIMIT 2000

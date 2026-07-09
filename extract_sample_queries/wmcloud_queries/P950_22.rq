@@ -1,0 +1,4 @@
+#title: Check periodical literature with the "Mise" prefix
+# Complex constraint from [[Property talk:P950]]
+#
+SELECT DISTINCT ?item WHERE { ?item wdt:P950 ?id. FILTER (substr(?id,0,5) = 'Mise') MINUS { ?item wdt:P31/wdt:P279* wd:Q1002697 }. } ORDER BY ?item

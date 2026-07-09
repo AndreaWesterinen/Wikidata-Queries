@@ -1,4 +1,4 @@
-# ----
+#title: A 7-level inverse tree of Property categories
 #defaultView:Tree
 SELECT ?root ?rootLabel ?item ?itemL ?itemImage ?item2 ?itemL2 ?itemImage2 ?item3 ?itemL3 ?itemImage3 ?item4 ?itemL4 ?itemImage4 ?item5 ?itemL5 ?itemImage5 ?item6 ?itemL6 ?itemImage6 ?item7 ?itemL7 ?itemImage7 WHERE {
   BIND(wd:Q18616576 AS ?root)

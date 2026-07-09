@@ -1,5 +1,4 @@
-# ----
-# Map of all the paintings for which we know a location with the count per location
+#title: Map of all the paintings for which we know a location with the count per location
 
 #defaultView:Map
 SELECT ?locationLabel ?coord (count(*) as ?count)

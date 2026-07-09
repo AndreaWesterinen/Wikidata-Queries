@@ -1,0 +1,7 @@
+SELECT ?item 
+ WHERE 
+ { 
+  { ?item wdt:P31* wd:Q3661311}
+  UNION
+  { ?item wdt:P279* wd:Q3661311} .
+ }

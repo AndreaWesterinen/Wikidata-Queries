@@ -1,0 +1,9 @@
+# Term ending on dissolution day but not marked as such
+SELECT DISTINCT ?item ?itemLabel ?positionLabel ?causeLabel  WHERE {
+ ?position wdt:P279 wd:Q16707842 . # position is a UK MP
+ ?item p:P39 ?statement. # person holds a position
+ ?statement ps:P39 ?position ; pq:P582 ?end . # with an end date
+ ?position wdt:P576 ?end . # that end date is the dissolution date
+ optional { ?statement pq:P1534 ?cause } . filter not exists { ?statement pq:P1534 wd:Q741182 . }  # BUT end cause, if it exists, was not "dissolution"
+ filter not exists { FILTER isBLANK(?end) } .  # omit any undefined dates
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }   

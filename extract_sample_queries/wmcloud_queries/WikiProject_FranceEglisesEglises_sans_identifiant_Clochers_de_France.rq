@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?insee (CONCAT("[http://www.clochers.org/Fichiers_HTML/Accueil/Accueil_clochers/",SUBSTR(?insee,0,3),"/accueil_",?insee,".htm Édifices de la commune]") AS ?CLURL)
+  WHERE {
+    hint:Query hint:optimizer "None".
+    ?item wdt:P131+ wd:Q142.
+    ?item (wdt:P31/wdt:P279*) wd:Q16970.
+    ?item wdt:P131 ?commune.
+    ?commune wdt:P374 ?insee
+  MINUS { ?item wdt:P3963 [].} 
+  FILTER NOT EXISTS { ?item rdf:type wdno:P3963 }
+}

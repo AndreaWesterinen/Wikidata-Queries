@@ -1,0 +1,1 @@
+SELECT (wd:Q2934 as ?item) (COUNT(*) as ?triples) { ?s wikibase:hasViolationForConstraint ?o }

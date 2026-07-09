@@ -1,0 +1,11 @@
+#title: labels in several languages
+# Complex constraint from [[Property talk:P6597]]
+# labels would generally be available in several languages
+SELECT ?item ?nl (COUNT(*) as ?count)
+{
+  ?item wdt:P6597 ?value .
+  ?item rdfs:label ?l . 
+  ?item wdt:P1705 ?nl . 
+}
+GROUP BY ?item ?nl
+HAVING ( ?count < 9)

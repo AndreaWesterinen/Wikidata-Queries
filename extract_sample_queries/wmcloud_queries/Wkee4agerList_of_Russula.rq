@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  # Item Property Value
+  ?item wdt:P31 wd:Q16521. # get all taxon of wikidata
+  ?item wdt:P105 wd:Q7432. # who are species
+  ?item wdt:P171 wd:Q216110. # whose parent taxon is russula
+  ?item wdt:P8707 []. # whose found in artsnavnebasen
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}

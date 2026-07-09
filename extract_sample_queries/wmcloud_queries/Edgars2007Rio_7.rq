@@ -1,0 +1,19 @@
+SELECT ?item# ?sitelink 
+where
+{
+   { ?item wdt:P1344 wd:Q8613 . }
+  UNION
+  {?item wdt:P1344 ?event .
+  ?event wdt:P361 wd:Q8613 .
+   }
+  UNION
+  {?item wdt:P1344 ?descipline .
+  ?event wdt:P361 wd:Q8613 .
+  ?descipline wdt:P361 ?event .
+   }
+  	OPTIONAL {?item rdfs:label ?item_label filter(lang(?item_label) = "en")}
+	FILTER(!BOUND(?item_label))
+	?sitelink schema:about ?item .
+  #?sitelink schema:inLanguage 'en' .
+	FILTER EXISTS { ?wfr schema:about ?item . ?wfr schema:inLanguage "en" }
+}

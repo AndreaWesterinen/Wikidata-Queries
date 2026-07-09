@@ -1,0 +1,13 @@
+#title: WMF
+# Complex constraint from [[Property talk:P4174]]
+#
+SELECT ?item ?value {
+	?item wdt:P4174 ?value.
+    FILTER (STRENDS( ?value, "(WMF)" ))
+    FILTER NOT EXISTS { ?item p:P1416 [] }
+    FILTER NOT EXISTS { ?item p:P108 [] }
+    FILTER NOT EXISTS { ?item p:P463 [] }
+    FILTER NOT EXISTS { ?item p:P106 [] }
+    FILTER NOT EXISTS { ?item p:P968 [] }
+    FILTER NOT EXISTS { ?item p:P2037 [] }
+}

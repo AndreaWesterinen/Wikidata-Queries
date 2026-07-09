@@ -1,0 +1,16 @@
+SELECT ?item ?nom ?nomDescription ?_born {
+  ?item wdt:P31 wd:Q3863;
+        wdt:P138 ?nom.
+  ?nom wdt:P31 wd:Q5.
+  MINUS { ?nom wdt:P106 [] }
+  MINUS { ?nom wdt:P69 [] }
+  MINUS { ?nom wdt:P108 [] }
+  MINUS { ?nom wdt:P22 [] }
+  MINUS { ?nom wdt:P1344 [] }
+  MINUS { ?nom wdt:P26 [] }
+  MINUS { ?nom wdt:P463 wd:Q11523950 }
+  MINUS { ?nom wdt:P3373 [] }
+  MINUS { ?nom wdt:P463 wd:Q2919053 }
+  OPTIONAL { ?nom wdt:P569 ?_born }
+  FILTER (?nom NOT IN (wd:Q62566217)) # give a gift (sponsor)
+}

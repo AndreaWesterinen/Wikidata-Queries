@@ -1,5 +1,4 @@
-# ----
-# Poets who were through An Lushan Rebellion
+#title: Poets who were through An Lushan Rebellion
 SELECT ?poet ?poetLabel WHERE {
  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],zh-hant,zh". }
  wd:Q253774 wdt:P580 ?battleStartTime.

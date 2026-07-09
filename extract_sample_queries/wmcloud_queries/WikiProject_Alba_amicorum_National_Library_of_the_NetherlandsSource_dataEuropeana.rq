@@ -1,0 +1,14 @@
+SELECT DISTINCT ?a ?b WHERE {
+
+  SERVICE <http://sparql.europeana.eu/> {
+       
+   	#<http://data.europeana.eu/aggregation/provider/92065/BibliographicResource_1000056096144> ?a ?b.
+    #<http://data.europeana.eu/aggregation/europeana/92065/BibliographicResource_1000056096203> ?a ?b.
+    #<http://data.europeana.eu/proxy/provider/92065/BibliographicResource_1000056096203> ?a ?b.
+    <http://data.europeana.eu/proxy/europeana/92065/BibliographicResource_1000056096203> ?a ?b.
+    #<http://data.europeana.eu/item/92065/BibliographicResource_1000056096144> ?a ?b.
+    #<http://www.europeana.eu/portal/recordhttp://data.theeuropeanlibrary.org/BibliographicResource/1000056096203>  ?a ?b.
+  
+  }
+  
+    } LIMIT 1000

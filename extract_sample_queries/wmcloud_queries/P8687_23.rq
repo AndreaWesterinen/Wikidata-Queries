@@ -1,0 +1,23 @@
+#title: qualifier for identifier should also be available as statement
+# Complex constraint from [[Property talk:P8687]]
+# query currently excludes Twitter
+SELECT ?item ?st ?prop ?qualv
+WITH
+{  SELECT * 
+  {
+    hint:Query hint:optimizer "None".
+    ?item p:P8687 ?st .
+    ?st ?qual ?qualv .
+    FILTER( ?qual != pq:P585 )  
+    FILTER( ?qual != pq:P6552 )
+    ?prop wikibase:qualifier ?qual .
+    ?prop wikibase:claim ?p .
+    ?prop wikibase:statementProperty ?ps .
+    MINUS { ?item ?p ?a . ?a ?ps ?qualv }
+  }
+} as %all
+WHERE
+{
+  INCLUDE %all
+  FILTER( datatype(?qualv) = xsd:string ) 
+}

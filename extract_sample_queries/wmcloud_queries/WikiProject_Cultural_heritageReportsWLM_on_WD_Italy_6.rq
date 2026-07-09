@@ -1,0 +1,9 @@
+SELECT ?wlmid (count(?item) as ?items)
+WHERE 
+{
+  ?item wdt:P17 wd:Q38 .
+  ?item wdt:P2186 ?wlmid
+}
+GROUP BY ?wlmid
+HAVING ( ?items > 1 )
+ORDER BY ?items

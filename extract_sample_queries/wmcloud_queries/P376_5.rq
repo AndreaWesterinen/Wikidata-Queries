@@ -1,0 +1,12 @@
+#title: P376 missing
+# Complex constraint from [[Property talk:P376]]
+#
+SELECT ?item ?globe {
+   ?item p:P625 [
+           psv:P625 [
+             wikibase:geoGlobe ?globe;
+           ] ;
+         ]
+  FILTER ( ?globe NOT IN (wd:Q2, wd:P2) ) # globe is not earth
+  MINUS { ?item wdt:P376 [] }
+}

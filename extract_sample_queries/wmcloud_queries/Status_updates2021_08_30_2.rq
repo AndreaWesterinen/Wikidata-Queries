@@ -1,0 +1,45 @@
+embed.html##defaultView:Map{"hide":["?coords" ]}
+SELECT ?item ?itemLabel ?desc ?coords WITH {
+  
+SELECT ?item ?lon ?lat ?coords WHERE {
+  ?item wdt:P31 wd:Q515 .
+  ?item wdt:P17 wd:Q145 .
+  ?item p:P625 [
+      ps:P625 ?coords;
+      psv:P625 [
+        wikibase:geoLongitude ?lon;
+        wikibase:geoLatitude  ?lat; 
+      ]
+    ] .
+  FILTER (?lat > 40) # filtering out British Oversea Terrroties
+} } AS %cities 
+WITH { SELECT ?item ?desc ?coords {
+  INCLUDE %cities 
+  BIND ("Most easterly" AS ?desc) 
+} ORDER BY DESC (?lon) 
+LIMIT 1 } AS %easterly 
+WITH { SELECT ?item ?desc ?coords {
+  INCLUDE %cities 
+  BIND ("Most westerly" AS ?desc) 
+} ORDER BY ASC (?lon) 
+LIMIT 1 } AS %westerly 
+WITH { SELECT ?item ?desc ?coords {
+  INCLUDE %cities 
+  BIND ("Most northerly" AS ?desc) 
+} ORDER BY DESC (?lat) 
+LIMIT 1 } AS %northerly 
+WITH { SELECT ?item ?desc ?coords {
+  INCLUDE %cities 
+  BIND ("Most southernly" AS ?desc) 
+} ORDER BY ASC (?lat) 
+LIMIT 1 } AS %southerly 
+WHERE {
+  { INCLUDE %easterly }
+  UNION
+  { INCLUDE %westerly }
+  UNION
+  { INCLUDE %northerly }
+  UNION
+  { INCLUDE %southerly }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

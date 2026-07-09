@@ -1,0 +1,8 @@
+SELECT ?item ?id ?articleEN WHERE {
+  ?item wdt:P1367 ?id .
+    OPTIONAL {
+      ?articleEN schema:about ?item .
+      ?articleEN schema:inLanguage "en" .
+      FILTER (SUBSTR(str(?articleEN), 1, 25) = "https://en.wikipedia.org/")
+    }
+}

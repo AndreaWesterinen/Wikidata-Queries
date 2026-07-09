@@ -1,7 +1,5 @@
-# ----
 #title: People of same year of birth by occupation
-
-#Author: Leaf_plate  2025-08-30
+#author: Leaf_plate, 2025-08-30
 #defaultView:BubbleChart
 SELECT ?occupation ?occupationLabel (COUNT(?occupation) AS ?people)
   WHERE {

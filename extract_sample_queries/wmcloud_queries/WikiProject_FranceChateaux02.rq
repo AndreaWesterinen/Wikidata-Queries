@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  hint:Query hint:optimizer "None".
+  ?item (wdt:P131/wdt:P131) wd:Q3093.
+  { ?item (wdt:P31/(wdt:P279*)) wd:Q879050. }
+  UNION
+  { ?item (wdt:P31/(wdt:P279*)) wd:Q751876. }
+  UNION
+  { ?item (wdt:P31/(wdt:P279*)) wd:Q23413. }
+}

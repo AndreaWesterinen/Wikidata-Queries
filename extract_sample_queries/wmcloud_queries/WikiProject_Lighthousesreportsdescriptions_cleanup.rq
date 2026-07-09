@@ -1,0 +1,68 @@
+SELECT DISTINCT ?item ?desc ?issue ?countryname
+WITH
+{
+    SELECT ?country ?countryname
+    {
+      ?country wdt:P31 wd:Q6256 . ?country rdfs:label ?countryLabel FILTER(lang(?countryLabel)="en")
+      BIND( REPLACE(str(?countryLabel), "United States of America", "United States") as ?countryname)
+      FILTER (?country not in (wd:Q212, wd:Q159, wd:Q148, wd:Q145, wd:Q778 ) )
+    }
+} as %inc
+WITH
+{
+    SELECT DISTINCT ?dep ?depname  {
+    ?dep wdt:P31 wd:Q6465 .
+    ?dep rdfs:label ?depname . FILTER(lang(?depname)="en")
+    }
+} as %inc2
+WITH
+{
+    SELECT DISTINCT ?uk ?ukname  {
+    ?uk wdt:P31 wd:Q3336843 . 
+    ?uk rdfs:label ?ukname . FILTER(lang(?ukname)="en")      
+    }
+} as %inc3
+WHERE
+{
+	{
+      INCLUDE %inc
+      ?item wdt:P31 wd:Q39715 ; wdt:P17 ?country .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, ?countryname ) )  
+      FILTER( ?item not in ( wd:Q3739737 , wd:Q6982191 ) )
+      BIND( CONCAT("country missing (",?countryname,")") as ?issue)
+    }
+    UNION  {
+      ?item wdt:P31 wd:Q39715 ; schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER(strstarts(lcase(str(?desc)), "a "))
+      BIND("starts with 'a '" as ?issue)
+    }
+    UNION  {
+      INCLUDE %inc2
+      hint:Query hint:optimizer "None".
+      ?item wdt:P31 wd:Q39715 ; wdt:P17 wd:Q142 ; wdt:P131* ?dep .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, ?depname ) )  
+      BIND( CONCAT("department missing (",?depname,")") as ?issue)            
+    }
+    UNION  {
+      INCLUDE %inc3
+      hint:Query hint:optimizer "None".
+      ?item wdt:P31 wd:Q39715 ; wdt:P17 wd:Q145 ; wdt:P131* ?uk .
+      ?item schema:description ?desc . FILTER(lang(?desc)="en")
+      FILTER( !CONTAINS(?desc, ?ukname ) )  
+      BIND( CONCAT("country missing (",?ukname,")") as ?issue)            
+    }
+    UNION  {
+      ?item wdt:P31 wd:Q39715 ; schema:description ?desc . FILTER(lang(?desc)="en")
+      ?item rdfs:label ?desc 
+      BIND("desc=label" as ?issue)
+    }
+    UNION  {
+      BIND(wd:Q884375 as ?item)
+      BIND("- ignore this line, should be the only one on the report - " as ?desc) 
+      BIND(". n/a" as ?issue)
+    }
+    FILTER (?item != wd:Q15397819 )
+}
+ORDER BY ?issue ?desc ?item

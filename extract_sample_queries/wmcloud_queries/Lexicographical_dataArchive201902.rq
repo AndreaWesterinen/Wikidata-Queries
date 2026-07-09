@@ -1,0 +1,4 @@
+embed.html#SELECT ?l ?lemma WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ; wikibase:lemma ?lemma .
+  ?l wdt:P31 ?x.
+}

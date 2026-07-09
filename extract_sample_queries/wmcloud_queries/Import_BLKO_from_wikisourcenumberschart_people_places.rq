@@ -1,0 +1,14 @@
+SELECT (wd:Q2481549 as ?item) ("places of birth and death (P19/P20)" as ?legend) (GROUP_CONCAT(?p;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{	SELECT  ?p (COUNT(DISTINCT ?mainsubject) as ?ct)
+		{
+			?entry 	wdt:P31 wd:Q19389637
+  			; 		wdt:P1433 wd:Q665807 .
+          	?entry wdt:P921 ?mainsubject . 
+            ?mainsubject wdt:P31 wd:Q5 .
+          	OPTIONAL { ?mainsubject wdt:P19 ?pob }
+          	OPTIONAL { ?mainsubject wdt:P20 ?pod }
+          	OPTIONAL { ?mainsubject wdt:P551 ?res }
+          	OPTIONAL { ?mainsubject wdt:P937 ?wl }
+			BIND(CONCAT(IF(!BOUND(?pob),"---","born-"),IF(!BOUND(?pod),"---","-died"),
+                        IF(!BOUND(?pob)&&!BOUND(?pod)&&(BOUND(?res)

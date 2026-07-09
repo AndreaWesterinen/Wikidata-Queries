@@ -1,0 +1,10 @@
+SELECT ?item ?catalogcode ?inception WHERE { 
+  ?item wdt:P170 wd:Q164351 . 
+  ?item wdt:P31 wd:Q3305213 . 
+  OPTIONAL { ?item wdt:P571 ?inception } 
+  OPTIONAL { ?item p:P528 ?catalogstatement .
+             ?catalogstatement ps:P528 ?catalogcode .
+             ?catalogstatement pq:P972 wd:Q56810043 .              
+            }
+  MINUS { ?item wdt:P31 wd:Q15727816 } 
+} ORDER BY ?inception xsd:integer(REPLACE(?catalogcode, "^(\\d+)(-\\w)?$", "$1"))

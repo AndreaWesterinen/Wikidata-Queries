@@ -1,0 +1,4 @@
+#title: Missing characters
+# Complex constraint from [[Property talk:P453]]
+# Items with [[Property:P453|character role&#32;<small dir="ltr">(P453)</small>]] qualifier which are missing the same [[Property:P674|characters&#32;<small dir="ltr">(P674)</small>]]
+SELECT DISTINCT ?item WHERE { ?item p:P161/pq:P453 ?value . MINUS { ?item wdt:P674 ?value } }

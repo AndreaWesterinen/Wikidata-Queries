@@ -1,0 +1,3 @@
+SELECT (count(*) as ?c) { 
+  ?cat wdt:P31 wd:Q4167836 FILTER NOT EXISTS {?cat p:P971/pq:P3831 []}
+} LIMIT 50000

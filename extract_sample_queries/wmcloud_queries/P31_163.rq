@@ -1,0 +1,9 @@
+#title: Value should not be industrial sector
+# Complex constraint from [[Property talk:P31]]
+# Statements with Q8148 as a value should use Q268592 instead
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q8148.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Helps get the label in your language, if not, then en language
+}

@@ -1,0 +1,7 @@
+SELECT ?instance ?instanceLabel (COUNT(?film) AS ?count) WHERE {
+  ?film wdt:P345 ?imdb FILTER (STRSTARTS(?imdb,'tt0')) .
+  ?film wdt:P31 ?instance
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+}
+GROUP BY ?instance ?instanceLabel
+ORDER BY DESC(?count)

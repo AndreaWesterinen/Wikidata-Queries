@@ -1,0 +1,7 @@
+#title: Items with identifier without the inventory number
+# Complex constraint from [[Property talk:P6625]]
+# Items with the identifier property and without an inventory number of the Museum
+select ?item where {
+  ?item wdt:P6625 [] .
+  minus { ?item p:P217/pq:P195 wd:Q674427 }
+}

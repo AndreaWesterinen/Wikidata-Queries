@@ -1,0 +1,8 @@
+# Llocs de les Illes amb l'adreça en castellà
+SELECT ?item ?itemLabel ?adr
+WHERE {
+  ?item wdt:P131* wd:Q5765.
+  ?item wdt:P6375 ?adr.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca,oc,en,es,fr". }
+  FILTER (LANG(?adr) = "es").
+}

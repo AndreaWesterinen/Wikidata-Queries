@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?prop ?propLabel ?value {
+  VALUES ?pred { wdt:P1628 wdt:P2235 } .
+  ?item ?pred ?value .
+  ?prop wikibase:directClaim ?pred .
+  FILTER( STRSTARTS( STR(?value), "http://www.w3.org/2006/vcard/ns" ) ) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

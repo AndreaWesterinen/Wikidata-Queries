@@ -1,0 +1,3 @@
+embed.html##Fertility rates for from 1999 - 2014
+SELECT ?places ?placesLabel ?fertility_rate (STR(YEAR(?date)) AS ?year)  ?refUrl WHERE {
+  ?places p:P484

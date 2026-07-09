@@ -1,0 +1,10 @@
+SELECT ?Allgemeiner_Harz_Berg_Kalender ?Allgemeiner_Harz_Berg_KalenderLabel ?Jahrgang
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+  
+  ?Allgemeiner_Harz_Berg_Kalender wdt:P361 wd:Q36502461.
+  
+  OPTIONAL { ?Allgemeiner_Harz_Berg_Kalender wdt:P478 ?Jahrgang. }
+}
+
+ORDER BY ?Jahrgang

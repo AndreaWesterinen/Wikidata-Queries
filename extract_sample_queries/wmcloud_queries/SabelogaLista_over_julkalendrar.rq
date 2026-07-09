@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?startdatum ?land ?landLabel WHERE {
+  ?item wdt:P136 wd:Q7050677.
+  OPTIONAL { ?item wdt:P580 ?startdatum. }
+  OPTIONAL { ?item wdt:P495 ?land. }
+}
+ORDER BY (?startdatum)

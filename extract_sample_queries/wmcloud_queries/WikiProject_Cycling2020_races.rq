@@ -1,0 +1,13 @@
+SELECT ?item ?category ?date ?month WHERE {
+  # find cycling races 
+  ?item wdt:P31 ?category .
+  ?category wdt:P31 wd:Q22348500 .
+  # with a point in time or start date
+  OPTIONAL { ?item wdt:P585 ?date. }
+  OPTIONAL { ?item wdt:P580 ?date. }
+  BIND(MONTH(?date) AS ?month)
+  # but at least one of those
+  FILTER(BOUND(?date) && DATATYPE(?date) = xsd:dateTime).
+  FILTER (?date >= "2020-00-00T00:00:00Z"^^xsd:dateTime && ?date < "2021-00-00T00:00:00Z"^^xsd:dateTime) .
+}
+ORDER BY ?date ?item

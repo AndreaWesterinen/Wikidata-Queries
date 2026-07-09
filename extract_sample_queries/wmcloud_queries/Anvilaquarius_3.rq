@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?townLabel ?TTDB
+WHERE
+{
+	  ?item wdt:P31 wd:Q24354 .
+      ?item wdt:P17 wd:Q145 .
+      OPTIONAL { ?item wdt:P131 ?town .  }
+     OPTIONAL  { ?item wdt:P4079 ?TTDB .  }
+              SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } 
+}
+LIMIT 100

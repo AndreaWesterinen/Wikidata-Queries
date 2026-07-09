@@ -1,0 +1,8 @@
+SELECT * {
+  ?item wdt:P213 ?isni .
+  ?item2 wdt:P213 ?isni .
+  FILTER( STR( ?item ) < STR( ?item2 ) ) .
+  { ?item wdt:P31 wd:Q5 . } UNION { ?item2 wdt:P31 wd:Q5 . }
+}
+ORDER BY ?isni
+LIMIT 1000

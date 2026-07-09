@@ -1,0 +1,1 @@
+SELECT ?item WHERE { VALUES ?cat { wd:Q18681579 wd:Q18681660 } ?item wdt:P5606 ?cat. }

@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?lang ?link2 WHERE {
+
+  ?item wdt:P31 wd:Q5 ;
+        wdt:P19 [ wdt:P131 wd:Q12545 ] .
+
+  ?item wdt:P21/wdt:P279* wd:Q6581072 .
+  
+  MINUS {
+    ?link schema:about ?item ;
+          schema:inLanguage "fr".
+  }
+  OPTIONAL {
+    ?link2 schema:about ?item;
+           schema:inLanguage ?lang
+  }
+}

@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel  WHERE {
+  ?item wdt:P481 [] ;
+        wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P136 [] } . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr" . }
+  } ORDER BY ?itemLabel

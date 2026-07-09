@@ -1,0 +1,7 @@
+# monarchs convicted of regicide
+SELECT DISTINCT ?monarch ?monarchLabel WHERE {
+ ?monarch wdt:P31 wd:Q5;
+ (wdt:P106|wdt:P39)/(wdt:P31|wdt:P279)* wd:Q116; # occupation or position held: some kind of monarch
+ wdt:P1399 wd:Q1475448. # convicted of: regicide
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

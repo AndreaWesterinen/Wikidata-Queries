@@ -1,0 +1,8 @@
+#title: Operate an embassy
+# Complex constraint from [[Property talk:P137]]
+#
+SELECT ?item {
+	?item wdt:P137 ?value;
+          wdt:P31 wd:Q3917681.
+    MINUS { ?value wdt:P31 [] }
+}

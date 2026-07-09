@@ -1,0 +1,18 @@
+SELECT DISTINCT ?item ?label ?en ?la (1+strlen(str(?label))-strlen(replace(str(?label)," ","")) as ?nameparts)
+{
+	VALUES ?R { wd:Q1747689 wd:Q17167 wd:Q42834 wd:Q2277 }
+  	{ 
+    	  	{ ?item wdt:P27 ?R } 
+		UNION { ?item wdt:P39/wdt:P17 ?R }     
+  		UNION { ?item wdt:P39/wdt:P1001 ?R }
+  		UNION { ?item wdt:P2348 ?R } 
+		UNION { ?item wdt:P20 wd:Q220 	; wdt:P570 ?dod . FILTER (?dod < "476-01-01T00:00:00Z"^^xsd:dateTime) }
+  	}
+  	MINUS { ?item wdt:P2358 [] }
+  	MINUS { ?item wdt:P21 wd:Q6581072 }
+	?item wdt:P31 wd:Q5 .
+  	OPTIONAL { ?item rdfs:label ?enl . FILTER(lang(?enl)="en") } BIND(IF(!BOUND(?enl),"N","Y") as ?en)
+  	OPTIONAL { ?item rdfs:label ?lal . FILTER(lang(?lal)="la") } BIND(IF(!BOUND(?lal),"N","Y") as ?la)
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "la,en,fr,nl,sv,de,it,es" . ?item rdfs:label ?label }
+}
+ORDER BY DESC(?nameparts) ?label

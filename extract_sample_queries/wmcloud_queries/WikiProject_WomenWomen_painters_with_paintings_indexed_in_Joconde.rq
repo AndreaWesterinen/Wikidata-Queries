@@ -1,0 +1,23 @@
+SELECT ?item (COUNT(DISTINCT ?Joconde) AS ?Jocondecount) ?paintingcount WHERE {
+    ?item wdt:P106 wd:Q1028181 .
+    ?item wdt:P31 wd:Q5 .
+    ?item wdt:P21 wd:Q6581072.
+    ?painting wdt:P170 ?item . 
+    ?painting wdt:P31 wd:Q3305213 . 
+    ?painting wdt:P347 ?Joconde .
+  { # To filter out the painting dictators
+    SELECT ?item (COUNT(?item) as ?paintingcount) WHERE {
+    ?painting wdt:P31 wd:Q3305213 .  
+    ?painting wdt:P170 ?item . 
+     } GROUP BY ?item 
+      HAVING (?paintingcount > 2)
+  }
+      SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+  }
+GROUP BY ?item ?name ?paintingcount
+HAVING (?Jocondecount > 0)
+ORDER BY DESC(?Jocondecount)
+LIMIT 500

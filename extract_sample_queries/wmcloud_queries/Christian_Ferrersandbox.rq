@@ -1,0 +1,23 @@
+SELECT DISTINCT ?PlaziID ?PlaziID_URL ?publication ?publicationLabel ?referenceHasRole ?referenceHasRoleLabel  ?item ?itemLabel
+WHERE
+{
+    {?item p:P225 ?statement .
+    ?statement prov:wasDerivedFrom ?reference .
+    ?reference pr:P248 ?publication .
+    ?publication p:P1476 ?title      
+  }
+  {?item p:P225 ?statement .
+    ?statement prov:wasDerivedFrom ?reference .
+    ?reference pr:P1992 ?PlaziID
+  BIND(IRI(CONCAT("http://treatment.plazi.org/id/",?PlaziID)) as ?PlaziID_URL)
+  }
+  OPTIONAL { ?item p:P225 ?statement .
+    ?statement prov:wasDerivedFrom ?reference .
+    ?reference pr:P248 ?publication.
+              OPTIONAL { ?item p:P225 ?statement .
+    ?statement prov:wasDerivedFrom ?reference .
+    ?reference pr:P248 ?publication.
+    ?reference pr:P6184 ?referenceHasRole}
+}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

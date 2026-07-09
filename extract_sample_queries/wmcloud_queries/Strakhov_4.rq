@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?imagen ?coord ?lugarLabel WHERE {
+  ?item wdt:P31 wd:Q721747 .
+  ?item wdt:P131/wdt:P131* wd:Q2807 .
+  ?item wdt:P131 ?lugar
+  OPTIONAL { ?item wdt:P18 ?imagen . }
+  OPTIONAL { ?item wdt:P625 ?coord . }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "es,en,gl,pt" }
+}

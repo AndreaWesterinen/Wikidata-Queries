@@ -1,0 +1,25 @@
+#On han nascut els catalans
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+    ?person wdt:P19 ?place .
+{    ?place wdt:P131*/wdt:P706* wd:Q5765.
+  } UNION {
+    ?place wdt:P131*/wdt:P706* wd:Q5705.
+  } UNION {
+    ?place wdt:P131*/wdt:P706* wd:Q5720.
+  } UNION {
+    ?place wdt:P131*/wdt:P706* wd:Q228.
+  } UNION {
+    ?place wdt:P131*/wdt:P706* wd:Q15579.
+  } UNION {
+    ?place wdt:P131*/wdt:P706* wd:Q166282.   
+  } UNION {
+    ?place wdt:P131*/wdt:P706* wd:Q15580.
+}	?person wdt:P19 ?name .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

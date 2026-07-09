@@ -1,0 +1,24 @@
+#Public libraries that are between (the latitudes of) two cities, e.g. Middelburg and Amersfoort 
+#defaultView:Map
+SELECT DISTINCT ?dpl ?dplLabel ?dplLat ?dplLoc WHERE {
+  #Is Dutch public library dpl
+  ?dpl wdt:P31 wd:Q28564. #public library
+  ?dpl wdt:P31 wd:Q11396180. #library branch 
+  ?dpl wdt:P17 wd:Q55. #in the Netherlands
+  ?dpl wdt:P625 ?dplLoc. #Location of the dpl 
+  BIND(geof:latitude(?dplLoc) AS ?dplLat) #Latitude of the library
+  
+  wd:Q33421377 wdt:P625 ?City1Loc. # City1 = Amersfoort (Q992) coordinates
+  BIND(geof:latitude(?City1Loc) AS ?City1Lat). #Latitude of City1 = Amersfoort
+  wd:Q52101 wdt:P625 ?City2Loc. # City2 = Middelburg (Q52101) coordinates
+  BIND(geof:latitude(?City2Loc) AS ?City2Lat). #Latitude of # City2 = Middelburg 
+
+  BIND(IF(?City1Lat > ?City2Lat, ?City1Lat, ?City2Lat ) AS ?maxLat). #find which city has the higher latitude
+  BIND(IF(?City1Lat < ?City2Lat, ?City1Lat, ?City2Lat ) AS ?minLat). #find which city has the lower latitude
+  
+  FILTER(?dplLat < ?maxLat). #keep all dpls below maxLat
+  FILTER(?dplLat > ?minLat). #keep all dpls above minLat
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+} 
+ORDER BY ASC(?dplLat)

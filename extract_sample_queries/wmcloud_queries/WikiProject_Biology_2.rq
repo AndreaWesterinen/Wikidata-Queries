@@ -1,0 +1,16 @@
+SELECT ?qual ?qualLabel ?count (IRI(CONCAT("https://query.wikidata.org/#%23%20qualifier%20-%20", ?qualLabel, "%0ASELECT%20%3Fitem%20%3FitemLabel%20%3FqualifierLabel%0AWHERE%0A{%0A%09%3Fitem%20p%3AP2067%20%3Furlstatement%20.%0A%20%20%20%20%3Furlstatement%20pq%3A", SUBSTR(STR(?qual),32), "%20%3Fqualifier%0A%09SERVICE%20wikibase%3Alabel%20{%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%20}%20%20%20%20%0A}%0AORDER BY %3FitemLabel")) as ?instances)
+WHERE {
+  {
+    SELECT ?qual (COUNT(DISTINCT ?item) AS ?count) WHERE {
+         hint:Query hint:optimizer "None" .
+         ?item p:P2067 ?statement .
+         ?statement ?pq_qual ?pq_obj .
+         ?qual wikibase:qualifier ?pq_qual .
+    }  GROUP BY ?qual
+  } .
+
+  OPTIONAL {
+    ?qual rdfs:label ?qualLabel filter (lang(?qualLabel) = "en") .
+  }
+}
+ORDER BY DESC(?count) ASC(?qualLabel)

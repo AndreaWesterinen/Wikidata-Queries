@@ -1,0 +1,7 @@
+SELECT ?item  WHERE {
+  ?item p:P195/ps:P195 wd:Q238587 .
+  ?item wdt:P136 wd:Q134307 . 
+  MINUS { ?item wdt:P921 [] } . 
+  
+
+}   LIMIT 3000

@@ -1,0 +1,5 @@
+SELECT ?item
+{
+  ?item wdt:P91 ?orientation; 
+          wdt:P31 wd:Q5 FILTER (?orientation != wd:Q1035954 ).
+}

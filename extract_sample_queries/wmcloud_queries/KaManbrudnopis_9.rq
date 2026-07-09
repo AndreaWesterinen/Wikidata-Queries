@@ -1,0 +1,6 @@
+SELECT ?l ?lemma WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ; wdt:P31 wd:Q101244 ;
+        wikibase:lemma ?lemma .
+  ?language wdt:P218 'pl'.
+  FILTER NOT EXISTS { ?l wdt:P5238 ?comb }
+} ORDER BY ?lemma

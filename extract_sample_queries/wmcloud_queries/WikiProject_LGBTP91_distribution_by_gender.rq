@@ -1,0 +1,24 @@
+SELECT
+  (?sexualOrientation as ?item) 
+  (?sexualOrientationLabel as ?legend) 
+  ("gender" as ?xAxisTitle) 
+  ("number" as ?yAxisTitle)
+  ("male,female,non-binary" as ?x)
+  (CONCAT(xsd:string(?ms), ",", xsd:string(?fs), ",", xsd:string(?nbs)) as ?y)
+  ("rect" as ?type)
+  ("200" as ?height) 
+  ("400" as ?width)
+WITH {
+  SELECT ?sexualOrientation (COUNT(*) AS ?count) (SUM(?m) AS ?ms) (SUM(?f) AS ?fs) (SUM(?nb) AS ?nbs) WHERE {
+    ?person wdt:P31 wd:Q5;
+            wdt:P91 ?sexualOrientation.
+    FILTER(!wikibase:isSomeValue(?sexualOrientation))
+    OPTIONAL { ?person wdt:P21/wdt:P279* wd:Q6581097. BIND(1 AS ?m) }
+    OPTIONAL { ?person wdt:P21/wdt:P279* wd:Q6581072. BIND(1 AS ?f) }
+    OPTIONAL { ?person wdt:P21/wdt:P279* wd:Q48270. BIND(1 AS ?nb) }
+  }
+  GROUP BY ?sexualOrientation
+} AS %results WHERE {
+  INCLUDE %results.
+  ?sexualOrientation rdfs:label ?sexualOrientationLabel filter (lang(?sexualOrientationLabel) = "en")
+} order by desc(?count) ?sexualOrientationLabel

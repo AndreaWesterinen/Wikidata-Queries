@@ -1,0 +1,7 @@
+#title: Instance or subclass
+# Complex constraint from [[Property talk:P1552]]
+# Element with this property should also contain property [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] or [[Property:P279|subclass of&#32;<small dir="ltr">(P279)</small>]]
+SELECT DISTINCT ?item {
+  ?item wdt:P1552 ?value .
+  MINUS { { ?item wdt:P31 [] } UNION { ?item wdt:P279 [] } }
+}

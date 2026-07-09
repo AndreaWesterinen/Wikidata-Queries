@@ -1,0 +1,14 @@
+#Paintings by "an author" in "a collection"
+#defaultView:ImageGrid
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?image ?collection ?collectionLabel ?Inv WHERE {
+  ?item wdt:P31 wd:Q3305213.
+  ?item wdt:P170 ?author.
+  ?item (wdt:P195/wdt:P361*) ?collection.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P217 ?Inv. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+# 
+# 
+  FILTER(?collection = wd:Q5476145)    # select museum #
+  FILTER(?author = wd:Q10857968)        # select author #
+}

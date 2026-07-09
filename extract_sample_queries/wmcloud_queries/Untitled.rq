@@ -1,0 +1,6 @@
+SELECT * WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P4421 ?__________________sportbox_ru. }
+  FILTER(STRSTARTS(?__________________sportbox_ru, 'F'))
+}
+LIMIT 5000

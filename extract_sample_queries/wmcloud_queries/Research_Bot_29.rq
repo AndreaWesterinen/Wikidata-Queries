@@ -1,0 +1,12 @@
+SELECT DISTINCT ?paper ?namedAuthor {
+  {
+SELECT ?author1 ?author2 ?namedAuthor {
+  ?paper1 wdt:P50 ?author1 ; wdt:P50 ?author2 ; wdt:P50 ?author2 ; wdt:P2093 ?namedAuthor .
+  ?paper2 wdt:P50 ?author1 ; wdt:P50 ?author2 ; wdt:P50 ?author3 ; wdt:P2093 ?namedAuthor .
+  FILTER ( ?author1 != ?author2 && ?author1 != ?author3 && ?author3 != ?author2 )
+  FILTER ( ?paper1 != ?paper2 )
+  }
+} .
+?paper wdt:P2093 ?namedAuthor ; wdt:P50 ?author1 ; wdt:P50 ?author2 ; wdt:P50 ?author3
+}
+LIMIT 50

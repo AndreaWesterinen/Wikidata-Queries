@@ -1,0 +1,12 @@
+SELECT DISTINCT ?authorstring WHERE {
+  ?citer wdt:P2860 ?item.
+  ?item wdt:P31 wd:Q13442814 ;
+        wdt:P921 ?topic;
+        wdt:P2093 ?authorstring.
+  MINUS { ?item wdt:P50 ?author }
+  FILTER(!CONTAINS(LCASE(?authorstring), "."))
+  FILTER(!regex (?authorstring, "^[A-Za-z]{1}((?= ))")).
+  FILTER(!regex (?authorstring, "(?<= )[A-Za-z]{1}((?= ))")).
+  
+}
+LIMIT 1000

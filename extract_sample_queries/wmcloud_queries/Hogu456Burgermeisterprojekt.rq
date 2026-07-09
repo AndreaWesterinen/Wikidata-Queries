@@ -1,0 +1,9 @@
+SELECT ?Gemeinde ?GemeindeLabel ?Gemeindeschluessel ?bgm ?bgmLabel ?oberstes_Regierungsamt ?oberstes_RegierungsamtLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+  ?Gemeinde wdt:P31 wd:Q262166.
+  ?Gemeinde wdt:P439 ?Gemeindeschluessel.
+  OPTIONAL { ?Gemeinde wdt:P6 ?bgm. }
+  FILTER(STRSTARTS(?Gemeindeschluessel, "09"))
+  OPTIONAL { ?Gemeinde wdt:P1313 ?oberstes_Regierungsamt. }
+}
+ORDER BY ?Gemeindeschluessel

@@ -1,0 +1,6 @@
+SELECT ?x ?name WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?x wdt:P17 wd:Q233;
+     wdt:P969 ?name.
+  FILTER (REGEX(?name, '(Triq|Wied|Pjazza|Knisja)')) .
+}

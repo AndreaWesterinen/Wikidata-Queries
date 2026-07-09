@@ -1,0 +1,8 @@
+SELECT ?item WHERE {
+    ?item p:P4765/ps:P4765 ?downloadurl ;
+          wdt:P31 wd:Q3305213 ;
+          schema:dateModified ?modified ;
+          wdt:P170 wd:Q4233718 .
+  MINUS { ?item wdt:P571 [] } .
+  } ORDER BY ?modified
+LIMIT 2000

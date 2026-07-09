@@ -1,0 +1,15 @@
+SELECT   
+?item
+?itemLabel
+?geo
+
+(SAMPLE( ?image_ ) AS ?image)
+
+WHERE {
+  VALUES ?sumofall { wd:Q17514 wd:Q6160 }
+  ?item wdt:P31 ?sumofall .
+  OPTIONAL { ?item wdt:P18 ?image_ }
+  OPTIONAL { ?item wdt:P625 ?geo }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?geo ?image_

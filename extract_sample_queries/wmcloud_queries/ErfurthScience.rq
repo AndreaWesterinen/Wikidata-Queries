@@ -1,0 +1,11 @@
+#university teachers in chemistry of tu dresden
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P108 wd:Q158158;
+        wdt:P106 wd:Q1622272;
+        wdt:P106 wd:Q593644;
+        wdt:P569 ?born.
+   FILTER (?born >= "1945-01-01T00:00:00Z"^^xsd:dateTime) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+}

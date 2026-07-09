@@ -1,0 +1,8 @@
+#Y-DNA Haplogroups
+SELECT ?item ?itemLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q428875.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

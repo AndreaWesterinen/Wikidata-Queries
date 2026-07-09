@@ -1,0 +1,5 @@
+select ?item (replace(str(?item),str(wd:),"") as ?qid) (count(?item) as ?total) ("P898" as ?p) {
+  ?st pq:P407 ?item.
+  ?item2 p:P898 ?st.
+  minus { ?item2 ontolex:representation [] }
+} group by ?item ?qid order by desc(?total) ?item ?p

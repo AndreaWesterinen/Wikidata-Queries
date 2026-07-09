@@ -1,0 +1,9 @@
+#organizations, people, websites, publications, etc. 
+#related to open access to research in Japan
+SELECT ?open_access_in_Japan ?open_access_in_JapanLabel ?official_website WHERE {
+  { ?open_access_in_Japan wdt:P2650 wd:Q56064901. }
+  UNION
+  { ?open_access_in_Japan wdt:P921 wd:Q56064901. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?open_access_in_Japan wdt:P856 ?official_website. }
+}

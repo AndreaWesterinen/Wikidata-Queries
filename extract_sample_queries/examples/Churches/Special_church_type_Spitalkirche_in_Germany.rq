@@ -1,3 +1,4 @@
+#title: Special church type "Spitalkirche" in Germany
 #defaultView:Map
 SELECT ?pid ?name ?coord ?ort ?ortLabel
 WHERE

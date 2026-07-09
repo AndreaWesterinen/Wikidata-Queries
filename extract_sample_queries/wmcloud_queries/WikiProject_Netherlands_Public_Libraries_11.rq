@@ -1,0 +1,77 @@
+#List of public library branches in the municipality of Amsterdam
+SELECT DISTINCT 
+(SAMPLE(?item) AS ?LibraryID)
+(SAMPLE(?itemLabel) AS ?LibraryLabel)
+(SAMPLE(?isil) AS ?ISILCode)
+(SAMPLE(?itemDescription) AS ?LibraryDescription)
+(SAMPLE(?partofLabel) AS ?PartOf)
+(SAMPLE(?image) AS ?Photo)
+(SAMPLE(?full_address) AS ?FullAdrress)
+(SAMPLE(?native_label) AS ?NativeName)
+(SAMPLE(?streetLabel) AS ?Street)
+(SAMPLE(?street_number) AS ?StreetNumber)
+(SAMPLE(?postal_code) AS ?PostalCode)
+(SAMPLE(?locLabel) AS ?Place)
+(SAMPLE(?loc_admin_terrLabel) AS ?Municipality)
+(SAMPLE(?coord_loc) AS ?LatLong)
+(SAMPLE(?osm_url) AS ?OSM_URL)
+(SAMPLE(?elevation) AS ?Elevation)
+(GROUP_CONCAT(DISTINCT ?phone ; separator = ", ") as ?PhoneNumbers)
+(GROUP_CONCAT(DISTINCT ?email ; separator = ", ") as ?EMailAdresses)
+(GROUP_CONCAT(DISTINCT ?off_website ; separator = ", ") as ?Homepages)
+(GROUP_CONCAT(DISTINCT ?desc_at_url ; separator = ", ") as ?DescribedAt) 
+(SAMPLE(?archive_url) AS ?InternetArchiveURL)
+
+WHERE 
+{
+  
+  ?item wdt:P31 wd:Q28564. #public library
+  ?item wdt:P31 wd:Q11396180. #library branch 
+  ?item wdt:P131 wd:Q9899. #in the the municipality of Amsterdam
+  
+  OPTIONAL{?item schema:description ?itemDescription.
+          FILTER(LANG(?itemDescription) = "nl") }  
+  
+  OPTIONAL {?item wdt:P361 ?partof.  #part of P361 ; can have multiple values 
+  #In case of multiple values for partof, filter only that value that is a public library organisation from NL
+  #Get all public library organisations from NL
+  ?org wdt:P31 wd:Q28564;wdt:P31 wd:Q28324850;wdt:P17 wd:Q55. #public library & library system from the Netherlands
+  FILTER(?partof IN(?org)). 
+           }
+  
+  OPTIONAL {?item wdt:P18 ?image.}  #image P18
+  OPTIONAL {?item wdt:P1705 ?native_label.} #native label P1705    
+  OPTIONAL {?item wdt:P131 ?loc_admin_terr.} # located in the administrative territorial entity (P131)  
+  OPTIONAL {?item wdt:P276 ?loc .}  #location (P276) 
+  OPTIONAL {?item wdt:P625 ?coord_loc.}  #coordinate location (P625)
+  
+  #retrieve OSM url,  reference URL (P854) 
+  OPTIONAL {?item p:P625 [prov:wasDerivedFrom [pr:P854 ?osm_url]] .}
+  
+  OPTIONAL {?item wdt:P2044 ?elevation .} #elevation above sea level (P2044)
+  OPTIONAL {?item wdt:P969 ?full_address .} #located at street address (P969)
+  OPTIONAL {?item wdt:P669 ?street .} #located on street (P669)
+  
+  OPTIONAL {?item p:P669 [pq:P670 ?street_number].} #Find  street number (P670), qualifier of P669
+  
+  OPTIONAL {?item wdt:P281 ?postal_code .} #postal code (P281)
+  OPTIONAL {?item wdt:P1329 ?phone .} #phone number (P1329) ;can have multiple values
+  OPTIONAL {?item wdt:P968 ?email .} #e-mail (P968) ; can have multiple values
+  OPTIONAL {?item wdt:P856 ?off_website .} #official website (P856) ; can have multiple values
+  OPTIONAL {?item wdt:P973 ?desc_at_url .} #described at URL (P973) ; can have multiple values
+
+  #Retrieve WaybackMachineURL, archive URL (P1065) 
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P1065 ?archive_url]] .}
+  
+  OPTIONAL {?item wdt:P791 ?isil .} #International Standard Identifier for Libraries (P791) 
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". 
+                         ?partof rdfs:label ?partofLabel.
+                         ?item rdfs:label ?itemLabel.
+                         ?street rdfs:label ?streetLabel.
+                         ?loc_admin_terr rdfs:label ?loc_admin_terrLabel.
+                         ?loc rdfs:label ?locLabel.
+                         }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY ?item

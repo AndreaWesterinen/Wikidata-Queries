@@ -1,0 +1,8 @@
+SELECT ?item WHERE {
+  ?item wdt:P1788 ?dvn .
+  OPTIONAL {
+    ?wiki0 <http://schema.org/about> ?item .
+    ?wiki0 <http://schema.org/isPartOf> <https://nl.wikipedia.org/> .
+  }
+  FILTER(!bound(?wiki0))
+}

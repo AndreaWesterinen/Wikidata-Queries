@@ -1,0 +1,6 @@
+embed.html#SELECT ?item ?itemLabel (COUNT (DISTINCT ?id) AS ?count) WHERE {
+   ?item wdt:P1067 ?id .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} GROUP BY ?item ?itemLabel
+HAVING (?count > 1)
+ORDER BY DESC(?count)

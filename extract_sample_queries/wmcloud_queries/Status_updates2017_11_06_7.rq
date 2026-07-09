@@ -1,0 +1,9 @@
+SELECT ?level ?levelLabel ?partOfLabel ?same ?sameLabel
+WHERE {
+  ?level p:P31 [ rdf:type wikibase:BestRank ; ps:P31 wd:Q42606026 ; pq:P1545 ?order ] . # niveau de scolarité
+  ?level wdt:P17 wd:Q142 . # France
+  ?level wdt:P361 ?partOf .
+  OPTIONAL { ?level wdt:P460 ?same . ?same wdt:P17 wd:Q30 . } . # équivalent USA
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" . }
+}
+ORDER BY xsd:integer(?order)

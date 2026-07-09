@@ -1,0 +1,22 @@
+SELECT DISTINCT ?item ?itemLabel ?type ?typeLabel ?nhle ?image
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "thatch" . #Fingerpost; Finger post; Milepost; Mile post; Milestone; Mile stone; Guidestone; Guide stone; Guide post; Guidepost; Direction post; Direction stone; Guide pillar; turnpike
+    ?title wikibase:apiOutput mwapi:title. 
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  ?item wdt:P17 wd:Q145 .
+  ?item wdt:P31 ?type .
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q13360578 } #Q10145 Q16980762
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q109838242 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q109874977 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q109874272 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q111792889 }
+  OPTIONAL {  ?item wdt:P1216 ?nhle . }
+  OPTIONAL {  ?item wdt:P18 ?image . }  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?itemLabel

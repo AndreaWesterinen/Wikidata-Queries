@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P9211]]
+# Items in [[d:Q1537|Wisconsin <small>(Q1537)</small>]] that do have [[d:Q19558910|National Register of Historic Places listed place <small>(Q19558910)</small>]] or [[d:Q1129142|NRHP contributing property <small>(Q1129142)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P8588|Wisconsin National or State Registers Record ID&#32;<small dir="ltr">(P8588)</small>]]
+SELECT ?item WHERE { ?item wdt:P131* wd:Q1537 . { ?item wdt:P1435 wd:Q19558910 . } UNION { ?item wdt:P1435 wd:Q1129142 . } MINUS { ?item wdt:P31 wd:Q15243209 . } MINUS { ?item wdt:P8588 [] . } } LIMIT 1000

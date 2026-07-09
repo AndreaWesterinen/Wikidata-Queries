@@ -1,0 +1,9 @@
+SELECT ?currentWinner ?currentWinnerLabel ?defendingChampion ?defendingChampionLabel WHERE {
+  BIND(wd:Q19317 AS ?worldcup) .
+  ?edition wdt:P31 ?worldcup .
+  ?edition wdt:P1346 ?currentWinner .
+  ?edition wdt:P585 ?pointInTime .
+  ?edition wdt:P155 ?previousEdition .
+  ?previousEdition wdt:P1346 ?defendingChampion .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} ORDER BY DESC(?pointInTime) LIMIT 1

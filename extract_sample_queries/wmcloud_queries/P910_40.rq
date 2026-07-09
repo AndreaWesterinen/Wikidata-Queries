@@ -1,0 +1,2 @@
+#title:<DeltaBot-addValueClaim>
+SELECT DISTINCT ?item { ?item wdt:P910 ?value . MINUS { ?value wdt:P31/wdt:P279* wd:Q4167836 } . ?value schema:dateModified ?date FILTER( NOW() - ?date > 0.1 ) }

@@ -1,0 +1,15 @@
+SELECT ?line ?lineLabel ?station ?stationLabel ?stationCode ?openDate ?locationLabel WHERE {
+  ?line wdt:P31 wd:Q728937.
+  ?line wdt:P137 wd:Q1531085.
+  ?station wdt:P81 ?line.
+  ?station wdt:P31 wd:Q55488.
+  OPTIONAL {
+    ?station p:P296 ?statement.
+    ?statement ps:P296 ?stationCode.
+    ?statement pq:P81 ?line.
+  }
+  OPTIONAL {?station wdt:P1619 ?openDate}
+  OPTIONAL {?station wdt:P131 ?location}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?stationCode

@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (group_concat(distinct ?year_;separator="; ") as ?year) (count(distinct ?act) as ?count) WHERE {
+  ?item p:P31 ?stat . 
+  ?stat ps:P31 wd:Q3511132.
+  ?stat pq:P642 wd:Q105774620.
+  ?act wdt:P179 ?item.
+  ?item wdt:P585 ?date.
+  bind(year(?date) as ?year_)
+  
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" .  }
+  
+} group by ?item ?itemLabel  order by ?year ?itemLabel

@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?prop ?propLabel ?rank ?value ?valueLabel
+WHERE
+{
+	?item p:P816 ?statement .
+	VALUES ?pq { pq:P817 } .
+	OPTIONAL {
+		?statement ?pq ?qualif .
+	} .
+	FILTER( !BOUND( ?qualif ) ) .
+	?prop wikibase:qualifier ?pq .
+	?statement wikibase:rank ?rank; ps:P816 ?value .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 100

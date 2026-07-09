@@ -1,0 +1,12 @@
+#title: Check first digit (1 or 2 for public)
+# Complex constraint from [[Property talk:P1616]]
+# First digit need to be 1 or 2 for a public organisation, [http://avis-situation-sirene.insee.fr/Glossaire source]
+SELECT ?item ?itemLabel ?value ?first ?legalForm ?legalFormLabel ?isPublic ?firstPublic {
+ ?item wdt:P1616 ?value ; wdt:P1454 ?legalForm.
+ { VALUES ?privateClasses { wd:Q4830453 wd:Q197952 wd:Q3591583 wd:Q2867418 } . ?item wdt:P31/wdt:P279* ?privateClasses . BIND(false as ?isPublic) } UNION
+ { VALUES ?publicClasses { wd:Q15343039 wd:Q3244038 wd:Q11513034 } . ?item wdt:P31/wdt:P279* ?publicClasses . BIND(true as ?isPublic) }
+ BIND(substr(str(?value),1,1) AS ?first)
+ BIND((?first = '1' || ?first = '2') AS ?firstPublic)
+ FILTER(?isPublic != ?firstPublic)
+ FILTER(STRLEN(str(?value)) = 9)
+} ORDER BY ?item

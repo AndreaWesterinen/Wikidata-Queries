@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?imdb WHERE {
+  ?item wdt:P345 ?imdb .
+  FILTER NOT EXISTS{?item wdt:P31 ?instance}
+  FILTER STRSTARTS(?imdb, 'nm')
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "de,en"}
+}
+ORDER BY ?imdb

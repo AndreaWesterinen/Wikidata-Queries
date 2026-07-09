@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?mainsubject ?mainsubjectLabel WHERE {
+  ?item wdt:P31 wd:Q3305213 .  
+  ?item wdt:P1257 ?iconclass .
+  MINUS { ?item wdt:P921 [] } .
+  ?item2 wdt:P1257 ?iconclass .
+  ?item2 wdt:P136 wd:Q2864737 .
+  ?item2 wdt:P921 ?mainsubject .
+  ?mainsubject wdt:P31 wd:Q1406161 .
+  ?mainsubject wdt:P1256 ?iconclass .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }  LIMIT 20000

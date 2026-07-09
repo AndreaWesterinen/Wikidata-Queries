@@ -1,0 +1,9 @@
+#defaultView:Map{"hide":["?coor"]}
+SELECT ?vestiging ?vestigingLabel ?vestigingDescription ?coor ?image 
+WHERE {
+  wd:Q59961947 wdt:P527 ?vestiging.
+  # or, symmetrically: ?vestiging wdt:P361 wd:Q59961947 .
+  ?vestiging wdt:P625 ?coor .
+  OPTIONAL {?vestiging wdt:P18 ?image .}
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" }
+}

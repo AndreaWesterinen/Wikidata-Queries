@@ -1,0 +1,7 @@
+#Explain identifiers in ideal gas law (wd:Q11432)
+SELECT ?identifier ?descriptionLabel WHERE {
+wd:Q11432 p:P527 ?statement2.
+?statement2 ps:P527 ?description.
+?statement2 pq:P2534 ?identifier. 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

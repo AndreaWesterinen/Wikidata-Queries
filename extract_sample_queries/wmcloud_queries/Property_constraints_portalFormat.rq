@@ -1,0 +1,11 @@
+SELECT ?Property_ ?Property_Label ?Property_Description ?format_as_a_regular_expression  ?syntax_clarification 
+WHERE {
+  
+	?Property_ p:P2302 ?constraint_statement .
+	?constraint_statement ps:P2302 wd:Q21502404 .
+	OPTIONAL {?constraint_statement pq:P1793 ?format_as_a_regular_expression .}
+	OPTIONAL {?constraint_statement pq:P2916 ?syntax_clarification .}
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 

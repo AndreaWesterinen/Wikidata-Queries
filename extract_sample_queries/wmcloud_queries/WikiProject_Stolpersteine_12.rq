@@ -1,0 +1,8 @@
+embed.html#SELECT ?qid ("LPt" AS ?Len) (CONCAT('"', ?labelPt, '"') AS ?str) WHERE {
+  ?stolperstein wdt:P31 wd:Q26703203;
+                rdfs:label ?label.
+  FILTER(LANG(?label) = "de")
+  MINUS { ?stolperstein rdfs:label ?labelPt. FILTER(LANG(?labelPt) = "pt") }
+  BIND(REPLACE(?label, " für ", " em memória de ") AS ?labelPt)
+  BIND(SUBSTR(STR(?stolperstein), STRLEN(STR(wd:)) + 1) AS ?qid)
+}

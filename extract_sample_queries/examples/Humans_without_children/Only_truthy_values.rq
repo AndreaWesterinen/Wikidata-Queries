@@ -1,4 +1,3 @@
-# ----
 # Demonstrates "no value" handling
 #title: Humans without children (only truthy values)
 SELECT ?human ?humanLabel

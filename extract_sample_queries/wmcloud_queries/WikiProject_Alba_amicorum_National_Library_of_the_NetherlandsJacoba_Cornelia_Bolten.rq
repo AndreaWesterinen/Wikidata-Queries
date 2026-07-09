@@ -1,0 +1,8 @@
+#Jacoba Cornelia Bolten
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q81564326 .
+  ?item wdt:P361 wd:Q72752451 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

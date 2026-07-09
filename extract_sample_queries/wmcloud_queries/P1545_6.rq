@@ -1,0 +1,8 @@
+#title: Big strings
+# Complex constraint from [[Property talk:P1545]]
+# Strings with 20+ chars
+SELECT ?item ?stringvalue WHERE {
+  ?item wdt:P1545 ?stringvalue .
+  BIND(strlen(?stringvalue) as ?stringlength).
+  FILTER (?stringlength >= 10).
+}

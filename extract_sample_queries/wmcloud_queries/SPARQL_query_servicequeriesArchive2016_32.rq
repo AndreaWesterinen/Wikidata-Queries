@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?deaths ?injured ?survivors ?time WHERE {
+  ?item wdt:P1120 ?deaths .
+  OPTIONAL {?item wdt:P1339 ?injured } .
+  OPTIONAL {?item wdt:P1561 ?survivors } .
+  ?item wdt:P585 ?time
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "de,en" .
+  }
+} ORDER BY DESC(?time)

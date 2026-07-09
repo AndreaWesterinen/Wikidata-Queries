@@ -1,0 +1,31 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+ #  Query to find the most common values for the property ?prop
+ #  on items in the class ?class
+ #  when ?class =  and ?prop = 
+
+SELECT ?value ?valueLabel ?count WHERE {
+  {
+    SELECT ?value (COUNT(DISTINCT ?a) AS ?count) WHERE {
+       ?a ?prop ?value . 
+       ?a wdt:P31 ?class .
+       BIND ( AS ?prop) .
+       BIND ( AS ?class) .
+    } GROUP BY ?value
+  } . 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+# HAVING (?count > 1)        ### use this to show only repeated values
+ORDER BY DESC(?count) ?valueLabel
+LIMIT 200

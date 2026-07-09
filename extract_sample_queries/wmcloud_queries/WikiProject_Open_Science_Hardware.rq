@@ -1,0 +1,12 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?gosh ?goshLabel ?place
+WHERE{
+
+  ?item wdt:P361 wd:Q62391989.
+  OPTIONAL {
+          ?item wdt:P625 ?place.
+          }
+  
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

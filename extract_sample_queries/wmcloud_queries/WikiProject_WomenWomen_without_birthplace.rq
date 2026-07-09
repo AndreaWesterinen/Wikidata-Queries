@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item where {
+ ?item wdt:P31 wd:Q5 . 
+ ?item wdt:P21 wd:Q6581072 .
+ FILTER EXISTS { ?wikip schema:about ?item; schema:isPartOf ?wiki .
+  FILTER regex (str(?wiki), ".+.wikipedia.org"). } 
+ OPTIONAL {?item wdt:P19 ?birthplace . }
+ FILTER(!bound(?birthplace)) .
+ BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid)
+} ORDER BY DESC(?qid) LIMIT 500

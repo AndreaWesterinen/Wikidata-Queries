@@ -1,0 +1,9 @@
+#Cats
+SELECT ?item ?itemLabel ?praenomenLabel ?givenLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P106 wd:Q82955.
+  ?item wdt:P2358 ?praenomen.
+  ?item wdt:P735 ?given.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

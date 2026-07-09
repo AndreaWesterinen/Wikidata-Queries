@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?locatedIn ?mayor WHERE {
+  ?item wdt:P31/wdt:P279 wd:Q41156 .
+  MINUS { {?item wdt:P31/wdt:P279 wd:Q13221722 } UNION {?item wdt:P31/wdt:P279 wd:Q14757767 .} }
+  MINUS { ?item wdt:P576 ?abolished }
+  OPTIONAL {?item p:P131 ?located .
+           ?located ps:P131 ?locatedIn
+           MINUS{ ?located pq:P582 ?endDate1 } }
+  OPTIONAL {?item p:P6 ?mayors .
+           ?mayors ps:P6 ?mayor .
+           MINUS{ ?mayors pq:P582 ?endDate2 } }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

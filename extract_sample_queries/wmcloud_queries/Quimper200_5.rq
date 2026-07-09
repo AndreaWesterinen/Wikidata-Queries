@@ -1,0 +1,14 @@
+SELECT ?property ?propertyLabel ?count WITH {
+SELECT ?property (COUNT(?ppp) AS ?count)  # use a named subquery first to do the count
+WHERE 
+{
+  hint:Query hint:optimizer "Runtime" . 
+  hint:Query hint:maxParallel 50 .       # use a big hammer
+  ?item p:P580 [?ppp [] ].               # P580 statement with a qualifier or reference
+  ?property wikibase:qualifier ?ppp.     # it's a qualifier & we get the property name
+        } GROUP BY ?property } AS %i     # group this subquery to get a count
+WHERE
+{
+  INCLUDE %i                             # get the label for the property here once we have a list of properties and counts
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?count)

@@ -1,0 +1,13 @@
+#title: Missing correct catalog code
+# Complex constraint from [[Property talk:P6595]]
+# Items with this property should also have a [[Property:P528|catalog code&#32;<small dir="ltr">(P528)</small>]] set to "P <id>" with qualifier [[Property:P972|catalog&#32;<small dir="ltr">(P972)</small>]] set to [[d:Q24009539|Catalogue Raisonné of Salvador Dalí Paintings <small>(Q24009539)</small>]].
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P6595 ?id.
+  FILTER(NOT EXISTS {
+    BIND(CONCAT("P ", ?id) AS ?catalogcode)
+    ?item p:P528 ?catalogstatement.
+    ?catalogstatement ps:P528 ?catalogcode;
+      pq:P972 wd:Q24009539.
+  })
+}
+LIMIT 500

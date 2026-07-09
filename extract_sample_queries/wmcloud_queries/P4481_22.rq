@@ -1,0 +1,8 @@
+#title: Missing P106 on human
+# Complex constraint from [[Property talk:P4481]]
+#
+SELECT ?item ?value {
+	?item wdt:P4481 ?value.
+  ?item wdt:P31 wd:Q5.
+  FILTER NOT EXISTS { ?item p:P106 ?o }
+}

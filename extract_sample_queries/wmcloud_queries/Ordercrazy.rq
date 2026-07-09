@@ -1,0 +1,5 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?by_mon_id ?coords WHERE {
+ ?item wdt:P4244 ?by_mon_id; wdt:P625 ?coords .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'de,en' }
+}

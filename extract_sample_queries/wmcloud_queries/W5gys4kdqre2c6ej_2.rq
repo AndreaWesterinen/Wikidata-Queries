@@ -1,0 +1,11 @@
+SELECT *
+{
+	?item wdt:P31 wd:Q4167836 ; wikibase:sitelinks 1 .
+    hint:Prior hint:rangeSafe true .    
+    [] schema:about ?item ; schema:isPartOf <https://de.wikipedia.org/> ; schema:name ?n .
+    ?item rdfs:label ?l . FILTER( lang(?l) = "de" 
+                                 && strlen(?n) > strlen(?l) 
+                                 && REGEX( ?n, "\\(") 
+                                 && REGEX( ?l, "^[^(]+$") ) 
+}
+LIMIT 1000

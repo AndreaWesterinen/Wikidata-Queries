@@ -1,5 +1,4 @@
-# ----
-#title:Lexemes by number of statements
+#title: Lexemes by number of statements
 SELECT * {
   ?l dct:language [];
      wikibase:statements ?c.

@@ -1,0 +1,7 @@
+SELECT ?Emily_Kngwarreye ?Emily_KngwarreyeLabel ?collection ?collectionLabel ?inventory_number WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Emily_Kngwarreye wdt:P170 wd:Q453890.
+  OPTIONAL { ?Emily_Kngwarreye wdt:P195 ?collection. }
+  OPTIONAL { ?Emily_Kngwarreye wdt:P217 ?inventory_number. }
+}
+LIMIT 100

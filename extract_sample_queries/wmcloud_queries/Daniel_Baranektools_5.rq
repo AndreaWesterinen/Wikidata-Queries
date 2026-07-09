@@ -1,0 +1,6 @@
+# EZO bez cs-desc
+SELECT DISTINCT ?item ?labelEN WHERE {
+  ?item wdt:P1343 wd:Q104900509.
+  ?item rdfs:label ?labelEN FILTER (LANG(?labelEN) = "en").
+  MINUS {?item rdfs:label ?labelCS FILTER (LANG(?labelCS) = "cs").}
+}

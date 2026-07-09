@@ -1,0 +1,2 @@
+#title:Add inverse statements from P361
+SELECT DISTINCT ?item { VALUES ?class { wd:Q3046146 wd:Q16979650 } . ?item wdt:P31/wdt:P279* ?class; wdt:P527 ?part . MINUS { ?part wdt:P361/owl:sameAs? ?item } . }

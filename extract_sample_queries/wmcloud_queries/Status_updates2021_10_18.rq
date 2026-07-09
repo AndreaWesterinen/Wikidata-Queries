@@ -1,0 +1,8 @@
+embed.html##title: List of written works ordered by date
+SELECT ?item ?itemLabel ?itemDescription ?year WHERE {
+  ?item wdt:P50 wd:Q921499.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P577 ?date. }
+  BIND(YEAR(?date) AS ?year)
+}
+ORDER BY (?year)

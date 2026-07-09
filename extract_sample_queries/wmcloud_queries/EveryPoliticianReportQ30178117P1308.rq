@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?officeholder ?org
+WHERE { 
+  wd:Q30178117 wdt:P2670 ?item . 
+  OPTIONAL { ?item wdt:P1308 ?officeholder . } 
+  OPTIONAL { ?item wdt:P2389 ?org . } 
+}

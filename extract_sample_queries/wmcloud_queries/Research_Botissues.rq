@@ -1,0 +1,17 @@
+SELECT
+  ?item ?itemLabel ?itemDescription ?pm ?vol ?p
+  ?item2 ?item2Label ?item2Description ?pm2
+WHERE
+{
+	hint:Query hint:optimizer "None".
+    ?item wdt:P1433 wd:Q27714289 . 
+	?item wdt:P478 ?vol . 
+	?item wdt:P304 ?p . 
+    ?item wdt:P698 ?pm . 
+	?item2 wdt:P1433 wd:Q27714289 . 
+	?item2 wdt:P478 ?vol . 
+	?item2 wdt:P304 ?p . 
+    ?item2 wdt:P698 ?pm2 . 
+    FILTER(?item != ?item2 ) 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

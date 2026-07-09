@@ -1,0 +1,22 @@
+SELECT DISTINCT (uri(concat(str(?x), "#P421")) as ?item) ?xLabel ?classLabel
+WHERE {
+  ?x wdt:P31 ?class ;
+     wdt:P17 wd:Q38 ;
+     p:P421 ?tz1Stmt.
+  {
+    ?tz1Stmt ps:P421 wd:Q6655 .
+    { FILTER NOT EXISTS { ?tz1Stmt pq:P1264 wd:Q1777301 . } } UNION
+    { FILTER NOT EXISTS { ?x p:P421 [ ps:P421 wd:Q6723 ;
+                                      pq:P1264 wd:Q36669 ] . } }
+  }
+  UNION
+  {
+    ?tz1Stmt ps:P421 wd:Q6723 .
+    { FILTER NOT EXISTS { ?tz1Stmt pq:P1264 wd:Q36669 . } } UNION
+    { FILTER NOT EXISTS { ?x p:P421 [ ps:P421 wd:Q6655 ;
+                                      pq:P1264 wd:Q1777301 ] . } }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+}
+ORDER BY ?classLabel
+LIMIT 100

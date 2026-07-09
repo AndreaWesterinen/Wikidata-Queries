@@ -1,0 +1,12 @@
+select (count(?item) as ?num)  ?val  where {
+  select ?item ?val {    
+    ?article schema:about ?item .
+    ?article schema:inLanguage "fr" .
+	
+    ?item ?prop ?val filter not exists { 
+      ?val rdfs:label ?label filter (lang(?label) = "fr") .
+    }    
+    ?mprop wikibase:propertyType wikibase:WikibaseItem .
+    ?mprop !(wikibase:novalue|wikibase:reference|wikibase:claim) ?prop . 
+  } limit 3600 
+} group by ?val having (?num>2)  limit 10

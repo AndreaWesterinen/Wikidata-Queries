@@ -1,0 +1,8 @@
+#UK & P131:Northern Ireland
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P17 wd:Q145.
+  ?item wdt:P131* wd:Q26 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,11 @@
+#title: A factor should be listed just once
+# Complex constraint from [[Property talk:P5236]]
+# Use qualifier "quantity" instead
+SELECT ?item ?factor
+{
+      hint:Query hint:optimizer "None".
+      ?item p:P5236 ?st1 . ?st1 ps:P5236 ?factor .
+      ?item p:P5236 ?st2 . ?st2 ps:P5236 ?factor .
+      FILTER( ?st1 != ?st2 )
+}
+LIMIT 100

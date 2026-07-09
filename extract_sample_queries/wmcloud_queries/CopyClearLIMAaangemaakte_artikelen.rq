@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?articleNL ?pageid ?ns ?date WHERE {
+  ?item wdt:P106 wd:Q18216771.
+#?item wdt:P27 wd:Q29999.
+    ?articleNL schema:about ?item.
+    ?articleNL schema:isPartOf <https://nl.wikipedia.org/>.
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+  ?articleNL schema:name ?name.
+ SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint "nl.wikipedia.org" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "allpages" .
+   bd:serviceParam mwapi:gapfrom ?name .
+         bd:serviceParam mwapi:gapto ?name .
+ bd:serviceParam mwapi:gcmprop "ids

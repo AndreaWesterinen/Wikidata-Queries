@@ -1,0 +1,4 @@
+#title: conflict with administrative territorial entity
+# Complex constraint from [[Property talk:P407]]
+# instances of [[d:Q56061|administrative territorial entity <small>(Q56061)</small>]] should not use this property. Generally, administrative territorial entities don't have a language.
+SELECT DISTINCT ?item WHERE { ?item wdt:P407 []; wdt:P31/wdt:P279* wd:Q56061}

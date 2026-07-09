@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?Natura_2000_ID ?WDPA_ID WHERE {
+  {
+    SELECT ?item WHERE { ?item (wdt:P31/wdt:P279*) wd:Q2463705. }
+  }
+  ?item wdt:P1001* wd:Q1199.
+}

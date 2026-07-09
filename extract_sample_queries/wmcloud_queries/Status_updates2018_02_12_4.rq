@@ -1,0 +1,17 @@
+# Languages used by people in Austria
+#defaultView:ImageGrid
+SELECT ?person ?personLabel ?language ?languageLabel ?layer ?coords ?image
+WHERE { 
+  ?person wdt:P19 ?place . # People born in any place
+  ?place wdt:P17 wd:Q40 . # The place should be in Austria
+  ?person wdt:P1412 ?language . # Any language the person has communicated in
+  ?place wdt:P625 ?coords . # Give the coordinates of that place
+  FILTER ( ?language != wd:Q188 ) # Filter out German results
+  OPTIONAL { ?person wdt:P18 ?image } # Check if person has an image
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "de" .
+    ?language rdfs:label ?layer .
+    ?person rdfs:label ?personLabel .
+    ?language rdfs:label ?languageLabel .
+  }
+}

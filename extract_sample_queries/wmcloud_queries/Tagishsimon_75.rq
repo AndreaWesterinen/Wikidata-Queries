@@ -1,0 +1,25 @@
+SELECT ?item ?itemLabel ?coord2 ?layer ?layerLabel WITH {
+  SELECT ?item WHERE 
+  {
+    ?item wdt:P131* wd:Q22. 
+  } 
+} as %i
+WITH { 
+  SELECT ?item ?coord2 ?layer ?stat2 WHERE
+  {
+    INCLUDE %i
+    ?item p:P625 ?stat2 . 
+    ?stat2 ps:P625 ?coord2 .
+   # ?stat2 prov:wasDerivedFrom/pr:P143 wd:Q837615. # Cebwiki
+    ?stat2 prov:wasDerivedFrom/pr:P248 wd:Q1194038. # GeoNames
+    ?stat2 a wikibase:BestRank .
+    ?item wdt:P31 ?layer .
+  }
+} as %j
+WHERE
+{
+  INCLUDE %j
+  minus { ?stat2 prov:wasDerivedFrom/pr:P854 ?url . 
+          FILTER(strstarts(str(?url), "https://maps.nls.uk")) }      
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by ?layerLabel ?itemLabel

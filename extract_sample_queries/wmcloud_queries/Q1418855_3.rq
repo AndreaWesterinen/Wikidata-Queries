@@ -1,0 +1,25 @@
+embed.html#PREFIX wdname: <http://www.wikidata.org/entity/Q1418855>
+SELECT ?count ?rank ?native_label ?itemLabel ?item ?itemDescription ?scriptLabel
+WITH  { SELECT DISTINCT ?item (COUNT(DISTINCT ?p) as ?count) 
+      WHERE {  { ?item wdt:P527 wdname: . ?p wdt:P735 ?item }  UNION { ?item wdt:P527 wdname: } }
+      GROUP BY ?item ORDER BY DESC(?count) LIMIT 1000
+      } AS %all 
+WITH  {
+        SELECT (?item as ?item2) (?count AS ?count2) WHERE { INCLUDE %all }
+      } AS %all2 
+WITH  {
+        SELECT ?item (SUM(?x) AS ?rank) ?count WHERE {
+          INCLUDE %all .
+          INCLUDE %all2 .
+          BIND( IF( ?count  <= ?count2 , 1, 0 ) AS ?x ) .
+        } GROUP BY ?item ?count
+      } AS %main 
+WHERE
+{
+  hint:Query hint:optimizer "None".    
+  INCLUDE %main .
+  OPTIONAL { ?item wdt:P1705 ?native_label }
+  OPTIONAL { ?item wdt:P282 ?script  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

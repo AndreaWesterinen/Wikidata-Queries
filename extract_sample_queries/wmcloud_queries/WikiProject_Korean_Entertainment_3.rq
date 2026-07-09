@@ -1,0 +1,6 @@
+SELECT ?boy_band ?boy_bandLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?boy_band wdt:P31 wd:Q216337.
+  ?boy_band wdt:P17 wd:Q884.
+}
+LIMIT 600

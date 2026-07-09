@@ -1,3 +1,4 @@
+#title: Freeware games for Windows, ordered from recent date
 SELECT DISTINCT
     ?game
     ?gameLabel

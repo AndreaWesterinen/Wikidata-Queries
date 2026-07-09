@@ -1,0 +1,21 @@
+#defaultView:Graph
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+
+SELECT ?item ?itemLabel ?depth ?parent ?parentLabel
+WHERE {
+  SERVICE gas:service {
+    gas:program gas:gasClass "com.bigdata.rdf.graph.analytics.SSSP" ;
+                gas:in wd:Q7725634;
+                gas:traversalDirection "Reverse" ;
+                gas:out ?item ;
+                #gas:out1 ?depth ;
+                gas:target wd:Q26895936 ;
+
+                #gas:maxIterations 4 ;
+                gas:linkType wdt:P279 .
+  }
+  OPTIONAL { ?item wdt:P279 ?parent }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" }
+}
+#ORDER BY DESC(?depth)
+#ORDER BY ?depth

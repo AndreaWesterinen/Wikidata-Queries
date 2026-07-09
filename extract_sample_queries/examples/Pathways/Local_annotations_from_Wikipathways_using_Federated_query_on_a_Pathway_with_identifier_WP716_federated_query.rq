@@ -1,3 +1,4 @@
+#title: Local annotations from Wikipathways using Federated query on a Pathway with identifier WP716 (federated query)
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 SELECT DISTINCT ?item ?pw_annotation WHERE {

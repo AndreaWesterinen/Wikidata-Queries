@@ -1,0 +1,15 @@
+SELECT ?format ?formatLabel (COUNT(?p) AS ?count)
+
+WHERE {
+  
+  ?format wdt:P31 wd:Q235557 .
+  ?format ?p ?s .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }
+
+GROUP BY ?format ?formatLabel
+ORDER BY DESC(?count)

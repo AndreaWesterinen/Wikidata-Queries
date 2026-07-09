@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel 
+{
+    ?item wdt:P641 wd:Q847 .
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q46190676 }
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q21170330 }  
+    ?item rdfs:label ?l .
+    FILTER ( CONTAINS(str(?l), "ualif") )
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,it,es,fr,nl,cs,de". }            
+}            

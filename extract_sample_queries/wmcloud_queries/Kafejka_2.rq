@@ -1,0 +1,12 @@
+#defaultView:BubbleChart
+SELECT ?name (count(*) as ?count)
+WHERE
+{
+  	?village wdt:P17 wd:Q36 .
+	?village wdt:P31/wdt:P279* wd:Q486972 .
+	?village rdfs:label ?name .
+  	FILTER(lang(?name) = "pl")
+}
+GROUP BY ?name
+ORDER BY DESC(?count) ASC(?name)
+LIMIT 100

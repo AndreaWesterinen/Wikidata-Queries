@@ -1,0 +1,7 @@
+SELECT (COUNT(?item) as ?count) ?parte ?parteLabel WHERE {
+  ?item wdt:P17 wd:Q38 . 
+  ?item p:P2186 [ pq:P518 ?parte ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,[AUTO_LANGUAGE]". }
+}
+GROUP BY ?parte ?parteLabel
+ORDER BY DESC(?count)

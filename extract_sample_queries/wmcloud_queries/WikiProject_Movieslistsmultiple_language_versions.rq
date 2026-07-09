@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?sorting
+WHERE 
+{ 
+  	?statement ps:P460 ?other . 
+  	?item p:P460 ?statement . 
+  	?statement pq:P1013 wd:Q2518205 . 
+	VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . 
+	?item wdt:P31 ?filmtype . 
+	BIND(IF(str(?other)<str(?item),CONCAT(str(?other),str(?item)),CONCAT(str(?item),str(?other)) ) as ?sorting)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+} 
+ORDER BY ?sorting 
+LIMIT 5000

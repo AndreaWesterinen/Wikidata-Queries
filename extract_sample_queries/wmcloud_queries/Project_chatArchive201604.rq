@@ -1,0 +1,6 @@
+select * where {
+	?item wdt:P1435 wd:Q9259 .
+	?item wdt:P17 ?country .
+	?country wdt:P30 wd:Q15 .
+	filter not exists { ?country wdt:P30 wd:Q46 }
+}

@@ -1,0 +1,21 @@
+embed.html#SELECT ?item ?itemLabel ?NSDAPMemberSince ?NSDAPMemberUntil ?BundesverdienstkreuzWhen WHERE {
+  ?item wdt:P31 wd:Q5;
+        p:P102 ?partyStatement;
+        p:P166 ?awardStatement.
+  ?partyStatement ps:P102 wd:Q7320.
+  ?awardStatement ps:P166/wdt:P279* wd:Q21164.
+  OPTIONAL { ?partyStatement pq:P580 ?NSDAPMemberSince_. }
+  OPTIONAL { ?partyStatement pq:P582 ?NSDAPMemberUntil_. }
+  OPTIONAL { ?awardStatement pq:P585 ?BundesverdienstkreuzWhen_. }
+  BIND(COALESCE(?NSDAPMemberSince_, "unknown"@en) AS ?NSDAPMemberSince)
+  BIND(COALESCE(?NSDAPMemberUntil_, "unknown"@en) AS ?NSDAPMemberUntil)
+  BIND(COALESCE(?BundesverdienstkreuzWhen_, "unknown"@en) AS ?BundesverdienstkreuzWhen)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY
+DESC(BOUND(?NSDAPMemberSince_))
+DESC(BOUND(?NSDAPMemberUntil_))
+DESC(BOUND(?BundesverdienstkreuzWhen_))
+ASC(?NSDAPMemberSince_)
+ASC(?NSDAPMemberUntil_)
+ASC(?BundesverdienstkreuzWhen_)

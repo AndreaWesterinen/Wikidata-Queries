@@ -1,0 +1,91 @@
+#share of credited women working on Disney's traditionally animated films
+#defaultView:ScatterChart
+SELECT DISTINCT ?year (ROUND(COUNT(?woman)/COUNT(?crew)*100) AS ?femaleShare_inPercent) ?filmLabel
+{
+SELECT DISTINCT ?filmLabel ?crew ?label ?woman ?man (MIN(?year) AS ?year)
+WHERE                          
+{
+  #Subquery considering all films and filmparts alone
+  {
+    #getting the films
+   ?film1 wdt:P179 wd:Q56070713;
+          wdt:P577 ?year;
+          wdt:P136 wd:Q28968511.
+  
+  #getting possible parts of package films
+  ?film wdt:P31/wdt:P279* wd:Q11424;
+        wdt:P361? ?film1;
+        (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275|p:P1040|p:P676) ?st.
+  
+  #making sure the statements were derived from the credits
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275|ps:P1040|ps:P676) ?crew;
+      prov:wasDerivedFrom ?ref.                                                                            
+  
+  ?ref pr:P248/wdt:P361? ?film1
+
+  }
+  UNION
+  
+  #Subquery considering Fantasia and Fantasia 2000 as a whole
+  {
+    #getting the films
+   ?film wdt:P179 wd:Q56070713;
+         wdt:P577 ?year;
+         wdt:P136 wd:Q28968511.
+  
+  #getting the parts
+  ?film1  wdt:P361+ ?film;
+         (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275|p:P1040|p:P676) ?st.
+    
+  #making sure the statements were derived from the credits
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275|ps:P1040|ps:P676) ?crew;
+      prov:wasDerivedFrom ?ref.                                                                            
+  
+  ?ref pr:P248/wdt:P361? ?film  
+
+  }
+  
+  #Getting the labels of female crew members
+  OPTIONAL
+  {
+  ?crew wdt:P21 wd:Q6581072;
+        rdfs:label ?label.
+  FILTER (lang(?label) = "en")
+  }
+  
+  #getting rid of additional animators
+  #(In case you want to include additional artists you'll like to delete this part ...
+  MINUS
+  {
+  ?film (p:P86|p:P162|p:P57|p:P58|p:P1431|p:P2554|p:P3174|p:P3092|p:P3275|p:P1040|p:P676) ?st.
+  ?st (ps:P86|ps:P162|ps:P57|ps:P58|ps:P1431|ps:P2554|ps:P3174|ps:P3092|ps:P3275|ps:P1040|ps:P676) ?crew;
+       pq:P1932 ?stat.
+  OPTIONAL {?st ps:P3092 ?role}
+  FILTER(CONTAINS(LCASE(?stat), "additional"))
+  }
+  
+  #getting rid of reference models as they're rather part of the cast
+  #(In case you want to include them you'll like to delete this part ...
+  MINUS
+  {
+  ?film p:P3092 ?st.
+  ?st ps:P3092 ?crew;
+      (pq:P794 | pq:P3831) wd:Q1630100.
+  }
+  # till here)
+  
+  #counting male...
+  { ?crew wdt:P21 wd:Q6581097. BIND(1 AS ?man). } UNION
+  #and transgender male persons as male.
+  { ?crew wdt:P21 wd:Q2449503. BIND(1 AS ?man). } UNION
+  #counting female...
+  { ?crew wdt:P21 wd:Q6581072. BIND(1 AS ?woman). } UNION
+  #and transgender female persons as female
+  { ?crew wdt:P21 wd:Q1052281. BIND(1 AS ?woman).}
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?filmLabel ?crew ?label ?woman ?man     
+
+}
+GROUP BY ?filmLabel ?year

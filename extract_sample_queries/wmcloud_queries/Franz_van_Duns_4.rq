@@ -1,0 +1,10 @@
+SELECT DISTINCT ?actor ?actorLabel ?role ?roleLabel ?image
+WHERE {
+  ?movie wdt:P179 wd:Q190214 . # movie is part of Peter Jackson's LotR trilogy
+  ?movie p:P161 ?actorStatement . # movie has actors cast
+  ?actorStatement ps:P161 ?actor . # of which we get the Qid
+  OPTIONAL { ?actor wdt:P18 ?image } . # and an image if one is declared
+  ?actorStatement pq:P453 ?role . # the actors were cast as given roles
+  ?role wdt:P31 wd:Q74359 . # roles that happen to be that of Hobbits
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

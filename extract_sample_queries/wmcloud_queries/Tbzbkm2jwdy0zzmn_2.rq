@@ -1,0 +1,7 @@
+SELECT DISTINCT ?property ?propertyLabel 
+{
+    ?property a wikibase:Property
+  	MINUS { ?property wdt:P2302 wd:Q21502410 }
+  	MINUS { ?property wdt:P31 wd:Q18720640 }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }	
+}

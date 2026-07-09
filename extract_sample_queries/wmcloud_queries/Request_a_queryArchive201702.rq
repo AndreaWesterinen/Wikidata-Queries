@@ -1,0 +1,16 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?coords {
+   	VALUES ?itemclass { wd:Q5710433 wd:Q132821 }
+    ?item wdt:P31/wdt:P279* ?itemclass  .
+    wd:Q1218 wdt:P625 ?jerusalemloc .
+
+    SERVICE wikibase:around {
+      ?item wdt:P625 ?coords .
+      bd:serviceParam wikibase:center ?jerusalemloc . 
+      bd:serviceParam wikibase:radius "15" . 
+    } 
+
+  SERVICE wikibase:label {  
+    bd:serviceParam wikibase:language "he" .  
+  }   
+}

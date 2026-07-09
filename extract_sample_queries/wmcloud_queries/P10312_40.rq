@@ -1,0 +1,5 @@
+#title: Items with property P10312 and no other identifiers
+SELECT ?item ?itemLabel ?value {
+  ?item wdt:P10312 ?value ; wikibase:identifiers 1
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} LIMIT 1000

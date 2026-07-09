@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?type ?typeLabel WHERE {
+ {
+   SELECT ?item WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "insource:\"infobox newspaper\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+  } LIMIT 100
+ }
+ hint:Prior hint:runFirst "true".
+ ?item wdt:P31|wdt:P279 ?type .
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} LIMIT 100

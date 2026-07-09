@@ -1,0 +1,30 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P1343 ?occ
+ 
+VALUES ?occ {wd:Q31790728 
+  wd:Q31803785 
+ wd:Q31804130 
+ wd:Q56649741 
+ wd:Q56753577 
+ wd:Q33093746 
+ wd:Q56753951 
+  wd:Q33287032
+ wd:Q56286171 
+wd:Q96268114} . 
+  MINUS { ?entity wdt:P1343 []; wdt:P1343 ?occ
+ 
+VALUES ?occ {wd:Q31790728 
+  wd:Q31803785 
+ wd:Q31804130 
+ wd:Q56649741 
+ wd:Q56753577 
+ wd:Q33093746 
+ wd:Q56753951 
+  wd:Q33287032
+ wd:Q56286171 
+wd:Q96268114}  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

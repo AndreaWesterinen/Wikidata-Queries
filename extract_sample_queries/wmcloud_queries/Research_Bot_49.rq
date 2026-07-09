@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?regex
+WHERE 
+{
+  ?item wdt:P921 wd:Q130971.
+  ?item wdt:P921 wd:Q12204.
+  ?item rdfs:label ?itemLabel. filter(lang(?itemLabel)="en").
+  filter(contains(?itemLabel,"Mycobacterium tuberculosis")) 
+  bind(if(regex(?itemLabel, ".*(tuberculosis).*(tuberculosis).*"),"both","just MT") as ?regex) 
+} order by ?regex ?itemLabel

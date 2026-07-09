@@ -1,0 +1,17 @@
+SELECT ?taxon ?taxonLabel ?de ?en ?fr ?nl  WHERE {
+bind(if(bound(?english), "+", "-") as ?en )
+bind(if(bound(?french), "+", "-") as ?fr )
+bind(if(bound(?dutch), "+", "-") as ?nl )
+bind(if(bound(?german), "+", "-") as ?de )
+{SELECT ?taxon ?taxonLabel ?english ?french ?dutch ?german WHERE {
+   ?taxon wdt:P5588 wd:Q458 .
+   OPTIONAL {?english schema:about ?taxon .
+   FILTER (regex(str(?english), "https://en.wikipedia"))}
+   OPTIONAL {?dutch schema:about ?taxon .
+   FILTER (regex(str(?dutch), "https://nl.wikipedia"))}
+   OPTIONAL {?french schema:about ?taxon .
+   FILTER (regex(str(?french), "https://fr.wikipedia"))}
+   OPTIONAL {?german schema:about ?taxon .
+   FILTER (regex(str(?german), "https://de.wikipedia"))}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}}}

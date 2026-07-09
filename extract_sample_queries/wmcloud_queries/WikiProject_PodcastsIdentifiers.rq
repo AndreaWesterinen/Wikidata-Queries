@@ -1,0 +1,21 @@
+SELECT ?property ?shortprop ?directproperty ?item ?subject ?constraintreport ?completeness ?catalog (COUNT(?propertyclaim) AS ?usage) ?records (ROUND(100*?usage/?records) AS ?percent) WHERE {
+  ?property wikibase:propertyType wikibase:ExternalId .
+  ?property wdt:P31/wdt:P279* wd:Q67198839.
+  BIND(xsd:integer(REPLACE(STR(?property), "http://www.wikidata.org/entity/P", "")) AS ?propid)
+  # Trick Listeria into working on properties
+  BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(?propid + 1000000000))) AS ?item ) .
+  BIND(CONCAT("{", "{P|", STR(?propid), "}", "}") AS ?shortprop ) .
+  BIND(CONCAT("[[Wikidata:Database reports/Constraint violations/P", STR(?propid), "|Constraints]]") AS ?constraintreport)
+
+  OPTIONAL {
+    ?property wdt:P1629 ?subject.
+  }
+  OPTIONAL { ?property wdt:P2429 ?completeness. }
+  ?property wikibase:claim ?propertyclaim.
+  ?other_item ?propertyclaim _:b1.
+  OPTIONAL { ?property wdt:P4876 ?records. }
+  OPTIONAL { ?property wdt:P2264 ?mixnmatch. }
+  BIND(CONCAT("[https://tools.wmflabs.org/mix-n-match/#/catalog/", STR(?mixnmatch), " ", ?mixnmatch, "]") AS ?catalog)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+} 
+GROUP BY ?property ?shortprop ?directproperty ?subject ?constraintreport ?records ?completeness ?catalog ?item

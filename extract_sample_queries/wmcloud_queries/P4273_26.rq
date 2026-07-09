@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P4273]]
+# Items that do have [[d:Q19825927|New York City Landmark <small>(Q19825927)</small>]]  in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P4273|New York City Landmarks Preservation Commission ID&#32;<small dir="ltr">(P4273)</small>]]
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q19825927 } . ?item wdt:P1435 ?value . MINUS { ?item wdt:P4273 [] } } LIMIT 5000

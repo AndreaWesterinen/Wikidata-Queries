@@ -1,4 +1,3 @@
-# ----
 #title: Places in Antarctica over 3000km away from the South Pole
 #defaultView:Map
 SELECT ?place ?placeLabel ?location WHERE {

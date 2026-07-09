@@ -1,0 +1,15 @@
+SELECT DISTINCT
+	?title
+	?item	?itemLabel	?itemDescription
+	?item2 	?item2Label	?item2Description
+WHERE
+{
+  	{ ?item wdt:P31 wd:Q11424 . } UNION { ?item wdt:P31 wd:Q506240 . } UNION { ?item wdt:P31 wd:Q226730 . } UNION { ?item wdt:P31 wd:Q20667187 . }  
+	?item wdt:P364 wd:Q652 .
+	OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage ?lang .  } . 
+	FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:inLanguage "it" } 
+  	?item wdt:P1476 ?title .
+  	?item2 wdt:P1476 ?title . 
+  	FILTER(?item != ?item2 && str(?item) < str(?item2) )
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

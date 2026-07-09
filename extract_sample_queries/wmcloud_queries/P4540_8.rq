@@ -1,0 +1,9 @@
+#title: Check range 0-359
+# Complex constraint from [[Property talk:P4540]]
+# NNN is the rounded longitude of the first recorded observation of the storm (range 0-359)
+SELECT ?item {
+	?item wdt:P4540 ?value.
+    BIND (SUBSTR(?value, 11, 3) AS ?substr).
+    BIND (xsd:integer(?substr) AS ?int).
+    FILTER (?int > 359)
+}

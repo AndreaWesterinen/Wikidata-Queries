@@ -1,0 +1,8 @@
+SELECT ?property (COUNT(DISTINCT ?school) as ?count) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?school wdt:P31/wdt:P279* wd:Q3914.
+  ?school ?property ?schoolDistrict.
+  ?schoolDistrict wdt:P31/wdt:P279* wd:Q398141.
+}
+GROUP BY ?property
+ORDER BY DESC(?count) 

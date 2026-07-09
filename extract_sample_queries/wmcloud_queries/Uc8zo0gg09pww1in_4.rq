@@ -1,0 +1,26 @@
+# Metro stations in Milano by date
+#defaultView:Map{"layer":"?dateBin"}
+SELECT ?item ?itemLabel ?coord ?image ?minDate ?dateBin
+WHERE {
+  BIND(
+    IF((YEAR(?minDate)) < 1970, "< 1970",
+       IF((YEAR(?minDate)) < 1980, "1970 - 1979",
+          IF((YEAR(?minDate)) < 1990, "1980 - 1989",
+             IF((YEAR(?minDate)) < 2000, "1990 - 1999",
+                IF((YEAR(?minDate)) < 2010, "2000 - 2009", 
+     "2010+"))))) 
+   AS ?dateBin)
+  {
+    SELECT ?item (MIN(?date) AS ?minDate) ?coord ?image WHERE {
+      ?item wdt:P361 wd:Q735559.
+      ?item wdt:P625 ?coord.
+      OPTIONAL { ?item wdt:P18 ?image. }
+      OPTIONAL { ?item wdt:P1619 ?d1. }
+      OPTIONAL { ?item wdt:P571 ?d2. }
+      BIND(IF(BOUND(?d1), ?d1, ?d2) AS ?date)
+    }
+    GROUP BY ?item ?coord ?image
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?minDate

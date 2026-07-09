@@ -1,0 +1,17 @@
+# German municipality pairs with the name pattern „-ing“/„-ingen“
+#defaultView:Map
+SELECT ?item1 ?item1Coords (?ing AS ?item1Label) ?item2 ?item2Coords (?ingen AS ?item2Label) (?ing AS ?layer) WITH {
+  SELECT ?item1 ?ing ?item2 ?ingen WHERE {
+    ?item1 wdt:P31 wd:Q262166;
+           rdfs:label ?ing.
+    FILTER(LANG(?ing) = "de")
+    FILTER(STRENDS(?ing, "ing"@de))
+    BIND(CONCAT(?ing, "en"@de) AS ?ingen)
+    ?item2 rdfs:label ?ingen;
+           wdt:P31 wd:Q262166.
+  }
+} AS %ings WHERE {
+  INCLUDE %ings.
+  ?item1 wdt:P625 ?item1Coords.
+  ?item2 wdt:P625 ?item2Coords.
+}

@@ -1,0 +1,12 @@
+#all taxons with proteins that are subclass of a protein family
+SELECT ?class ?classLabel ?count ?use_as_Label
+{	{	SELECT ?class (COUNT(*) AS ?count) (wd:P703 as ?use_as_)
+		{ ?protein wdt:P352 ?up .
+          ?protein wdt:P279 ?a .	
+          ?a	wdt:P31	wd:Q417841 .
+          ?protein    wdt:P703	?class}
+        GROUP BY ?class ORDER BY DESC(?count)
+  	}
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}
+ORDER BY DESC(?count) ?class

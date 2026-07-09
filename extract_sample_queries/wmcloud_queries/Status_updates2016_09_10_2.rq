@@ -1,0 +1,9 @@
+SELECT ?place ?placeLabel (count(?item) as ?count) WHERE {
+  ?item wdt:P31 wd:Q55488 .
+  ?item wdt:P131* ?place .
+  ?place wdt:P31/wdt:P131* wd:Q484170 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}
+GROUP BY ?place ?placeLabel
+HAVING (?count > 1)
+ORDER BY DESC(?count) ?placeLabel

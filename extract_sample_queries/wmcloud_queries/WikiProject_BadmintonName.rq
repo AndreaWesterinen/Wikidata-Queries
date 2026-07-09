@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?countryLabel WHERE {
+   ?item wdt:P106 wd:Q13141064; wdt:P27 ?country .
+   FILTER EXISTS { ?item wdt:P27 ?dummy0 }
+   FILTER EXISTS { ?item wdt:P106 wd:Q13141064 }
+   FILTER NOT EXISTS { ?item wdt:P1559 ?dummy0 }
+   SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+   }
+ }
+ORDER BY ?country

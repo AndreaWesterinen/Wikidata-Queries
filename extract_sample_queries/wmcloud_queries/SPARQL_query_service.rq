@@ -1,0 +1,15 @@
+embed.html##Armenian Sister City
+#defaultView:Map
+SELECT ?item ?itemLabel ?sisterCity ?sisterCityLabel ?coordinate ?layer
+WHERE {
+  ?item wdt:P17 wd:Q399 .
+  ?item wdt:P190 ?sisterCity .
+  ?sisterCity wdt:P625 ?coordinate .
+  ?sisterCity wdt:P17 ?sisterCountry .
+  SERVICE wikibase:label { 
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?itemLabel .
+    ?sisterCity rdfs:label ?sisterCityLabel .
+	?sisterCountry rdfs:label ?layer .
+  }
+}

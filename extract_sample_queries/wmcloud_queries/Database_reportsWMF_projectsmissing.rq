@@ -1,0 +1,19 @@
+SELECT ?item (SAMPLE(?issue) as ?issue)
+  (GROUP_CONCAT(DISTINCT ?family; separator=", ") as ?families)
+  (GROUP_CONCAT(DISTINCT ?url; separator=" , ") as ?urls)
+WITH
+{
+  SELECT DISTINCT ?item ?url ?family ?issue { ?url wikibase:wikiGroup ?family . 
+BIND(wd:Q5 as ?item) 
+BIND("These urls are missing on Wikidata items, but present on WQS. TODO: create an item for the project or fix the url on the existing item. Make sure it includes P1800." as ?issue)  }
+} as %q
+WHERE
+{
+    { INCLUDE %q } UNION { 
+BIND(wd:Q2017 as ?item) 
+BIND("- ignore this line. If it's the only line: everything is ok." as ?issue) 
+BIND("" as ?url)  }
+    FILTER NOT EXISTS { [] wdt:P856 ?url  ; wdt:P1800 [] }
+}
+GROUP BY ?item
+ORDER BY ?issue

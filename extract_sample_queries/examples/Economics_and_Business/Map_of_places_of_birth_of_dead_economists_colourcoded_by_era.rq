@@ -1,3 +1,4 @@
+#title: Map of places of birth of dead economists, colour-coded by era
 #defaultView:Map
 SELECT DISTINCT ?person ?name ?birthplace ?birthyear ?coord ?layer WHERE {
 {?person wdt:P106 wd:Q188094} UNION {?person wdt:P101 wd:Q8134}

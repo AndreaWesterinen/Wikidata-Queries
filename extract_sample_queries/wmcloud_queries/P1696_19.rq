@@ -1,0 +1,4 @@
+#title: Wrong datatype
+# Complex constraint from [[Property talk:P1696]]
+# Properties with an inverse that do not have entity datatype
+SELECT DISTINCT ?item WHERE { ?item wdt:P1696 []; wikibase:propertyType ?type . FILTER( ?type NOT IN ( wikibase:WikibaseItem, wikibase:WikibaseProperty ) ) . }

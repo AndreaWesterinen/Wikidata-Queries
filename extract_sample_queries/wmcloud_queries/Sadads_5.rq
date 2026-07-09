@@ -1,0 +1,5 @@
+SELECT ?item WHERE {    ?item wdt:P17 wd:Q77. 
+                   MINUS {?item wdt:P31 ?instance 
+                         } 
+                   MINUS {?item wdt:P279 ?subclass} 
+                   } 

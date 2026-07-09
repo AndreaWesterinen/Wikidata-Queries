@@ -1,0 +1,14 @@
+#title: Common parent
+# Complex constraint from [[Property talk:P3373]]
+# Items with parents should share at least one parent. FIXME: check items for parents, correct/create item for common parent if needed
+SELECT DISTINCT ?item ?s
+WHERE 
+{
+  	?item wdt:P3373 ?s . 
+  	MINUS 		{ ?item wdt:P22/^wdt:P22 ?s }
+  	MINUS 		{ ?item wdt:P25/^wdt:P25 ?s }
+  	OPTIONAL 	{ ?item wdt:P22 \u007C wdt:P25 ?p1 }
+  	OPTIONAL 	{ ?s    wdt:P22 \u007C wdt:P25 ?p2 }
+	FILTER 		( BOUND(?p2) && BOUND(?p1) )  
+}
+LIMIT 10000

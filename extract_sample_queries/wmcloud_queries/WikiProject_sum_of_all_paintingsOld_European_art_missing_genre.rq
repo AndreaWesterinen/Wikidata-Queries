@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(?painting) AS ?count) (SAMPLE(?painting) AS ?examplepainting) (SAMPLE(?collection) AS ?examplecollection) WHERE {
+  ?painting wdt:P31 wd:Q3305213 ;
+            wdt:P6216 wd:Q19652 .
+  MINUS { ?painting wdt:P136 [] } .
+  ?painting wdt:P195 ?collection . ?collection  wdt:P17 ?item . ?item wdt:P30 wd:Q46 .
+  } GROUP BY ?item
+ORDER BY DESC(?count)

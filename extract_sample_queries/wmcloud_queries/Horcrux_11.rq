@@ -1,0 +1,12 @@
+SELECT DISTINCT ?x1 ?x2
+WHERE {
+  { ?x1 wdt:P31 wd:Q486972 . } UNION { ?x1 wdt:P31 wd:Q1134686 . }
+  { ?x2 wdt:P31 wd:Q486972 . } UNION { ?x2 wdt:P31 wd:Q1134686 . }
+  ?x1 wdt:P17 wd:Q38 ; wdt:P131 ?city ; rdfs:label ?label .
+  ?x2 wdt:P17 wd:Q38 ; wdt:P131 ?city ; rdfs:label ?label .
+  FILTER (lang(?label) = "it")
+  FILTER (str(?x1) > str(?x2))
+  FILTER NOT EXISTS { ?x1 ?_ ?x2 . }
+  FILTER NOT EXISTS { ?x2 ?_ ?x1 . }
+}
+LIMIT 1000

@@ -1,0 +1,11 @@
+SELECT DISTINCT ?female ?femaleLabel  ?sitelink WHERE {
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?female wdt:P21 wd:Q6581072;         # instance of female
+    wdt:P5008 wd:Q87337959.            # Hasfocus group of Know My Name
+  
+ 
+  OPTIONAL 	{ ?sitelink schema:about ?female. ?sitelink schema:inLanguage "en" }
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY ?femaleLabel  
+ LIMIT 4000    

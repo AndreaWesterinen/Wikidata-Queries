@@ -1,0 +1,11 @@
+SELECT ?grouping (COUNT(DISTINCT ?entity) as ?count) (SAMPLE(?entity) as ?sample) WHERE { ?entity SELECT ?entity ?entityLabel ?entityDescription ?st ?sl ?ids WHERE {
+  ?entity (wdt:P31/(wdt:P279*)) wd:Q163740.
+  VALUES ?exclude {
+      wd:Q7278
+      wd:Q4438121
+      wd:Q1030034
+  }
+  MINUS {
+    ?entity (wdt:P31/(wdt:P279*)) ?exclude.
+  }
+}. ?entity wdt:P17 ?grouping .} GROUP BY ?grouping HAVING (?count >= 200) ORDER BY DESC(?count) LIMIT 1000

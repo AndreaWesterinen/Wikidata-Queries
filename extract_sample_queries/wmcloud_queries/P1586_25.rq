@@ -1,0 +1,4 @@
+#title: BCIN sense codi
+# Complex constraint from [[Property talk:P1586]]
+# element amb estatus patrimonial BCIN sense codi BCIN
+SELECT ?item WHERE { ?item wdt:P1435 wd:Q1019352 . MINUS { ?item wdt:P1586 [] } }

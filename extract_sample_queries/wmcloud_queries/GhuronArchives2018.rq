@@ -1,0 +1,1 @@
+select * { ?item wdt:P31 wd:Q5; wdt:P735 ?name . ?name wdt:P31 wd:Q101352 FILTER NOT EXISTS { ?name wdt:P31 wd:Q202444 } }

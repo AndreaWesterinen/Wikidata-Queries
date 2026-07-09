@@ -1,0 +1,8 @@
+# Publications from Leibniz Institute for Polymerforschung (via its Employers)
+SELECT ?item ?itemLabel (COUNT(DISTINCT ?citedby) as ?count) WHERE {
+  ?citedby wdt:P2860 ?item.
+     ?item wdt:P31 wd:Q13442814.
+     ?item wdt:P50 ?author.
+     ?author wdt:P108 wd:Q1739877.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel ORDER BY DESC (?count)

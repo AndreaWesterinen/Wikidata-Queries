@@ -1,0 +1,16 @@
+PREFIX      foaf:  <http://xmlns.com/foaf/0.1/>
+PREFIX      dbpprop:  <http://dbpedia.org/property/>
+SELECT ?item ?NobelId  ?name ?LaureateNobelUri ?WDBirth ?NobelBirth ?WDDeath ?NobelDeath {
+   SERVICE <http://data.nobelprize.org/sparql> {
+      SELECT distinct ?NobelId ?name ?LaureateNobelUri ?NobelBirth ?NobelDeath ?NobelGender WHERE {
+      ?LaureateNobelUri <http://data.nobelprize.org/terms/laureateAward> ?NobelAwardid.
+      BIND(REPLACE(str(?LaureateNobelUri),"http://data.nobelprize.org/resource/laureate/","") AS ?NobelId)
+      OPTIONAL{ ?LaureateNobelUri foaf:name ?name }
+      OPTIONAL{ ?LaureateNobelUri foaf:birthday ?NobelBirth}
+      minus { ?LaureateNobelUri dbpprop:dateOfDeath ?NobelDeath}
+      }
+   }
+   OPTIONAL {?item wdt:P2888 ?LaureateNobelUri}
+   OPTIONAL {?item wdt:P569 ?WDBirth}
+   {?item wdt:P570 ?WDDeath}
+}  order by desc(xsd:integer(?NobelId))

@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?linkcount WHERE {
+  ?item wdt:P31 wd:Q5 . # instance is human
+  ?item wdt:P21 wd:Q6581072 . # gender is female
+  ?item wdt:P106 wd:Q10873124 . # occupation is chess player
+  FILTER NOT EXISTS { ?wen schema:about ?item . ?wen schema:isPartOf <https://en.wikipedia.org/> .}
+  OPTIONAL {?item wikibase:sitelinks ?linkcount .} # count of sitelinks
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]" }
+}

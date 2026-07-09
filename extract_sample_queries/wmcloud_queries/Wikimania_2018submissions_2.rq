@@ -1,0 +1,5 @@
+embed.html#SELECT ?prop ?propLabel ?propDescription 
+{  ?prop wdt:P31* wd:Q19595382.
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+order by ?prop

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?taxonName ?taxonRankLabel ?nomenclaturalCodeLabel WHERE {
+      BIND("Aa" AS ?taxonName)
+      #BIND(wd:Q13011 AS ?nomenclaturalCode) # ICZN=Q13011, ICNafp=Q693148, ICNCP=Q941761, ICNB=Q743780, ICVCN=Q14920640
+      ?item wdt:P225 ?taxonName .
+      ?item wdt:P105 ?taxonRank .
+      ?item (wdt:P171)* ?higherParent .  
+      ?higherParent wdt:P944 ?nomenclaturalCode .
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

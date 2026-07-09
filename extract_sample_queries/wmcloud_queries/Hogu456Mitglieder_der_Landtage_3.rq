@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?startTime ?endTime ?LegislaturperiodeLabel WHERE {
+  ?item p:P39 ?statementNode .
+  ?statementNode ps:P39 wd:Q18130496 .
+  OPTIONAL {
+    ?statementNode pq:P580 ?startTime .
+  }
+  OPTIONAL {
+    ?statementNode pq:P582 ?endTime .
+  }
+    OPTIONAL {
+    ?statementNode pq:P2937 ?Legislaturperiode .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'de,en' }
+}            

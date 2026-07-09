@@ -1,0 +1,8 @@
+#Cats
+SELECT ?item ?itemLabel ?seat ?seatLabel WHERE {
+  ?item p:P3602 ?stat.
+  ?stat ps:P3602 wd:Q48771246.
+  OPTIONAL { ?stat pq:P768 ?seat. }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

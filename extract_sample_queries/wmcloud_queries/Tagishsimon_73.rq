@@ -1,0 +1,7 @@
+#title:Counts of types of things in Scotland
+select ?P31 ?P31Label (count(?item) as ?count) where {
+  ?item wdt:P131* wd:Q22  .
+  optional {?item wdt:P31 ?P31_ .} 
+  BIND(if(bound(?P31_),?P31_,"nada") as ?P31)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} group by ?P31 ?P31Label order by desc(?count)

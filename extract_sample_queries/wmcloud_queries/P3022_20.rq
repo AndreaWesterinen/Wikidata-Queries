@@ -1,0 +1,13 @@
+#title: Qualify flag bearer with "of" and "opening ceremony" or "closing ceremony" (or their instances)
+# Complex constraint from [[Property talk:P3022]]
+# Use [[Property:P3022|flag bearer&#32;<small dir="ltr">(P3022)</small>]] with one of [[d:Q3010369|opening ceremony <small>(Q3010369)</small>]], [[d:Q13454063|closing ceremony <small>(Q13454063)</small>]]
+SELECT ?item ?itemLabel ?value ?valueLabel
+{
+  ?item p:P3022/pq:P642 ?value .
+  MINUS {
+    VALUES ?of {wd:Q3010369 wd:Q13454063}
+    ?of_items wdt:P31? ?of .
+    ?item p:P3022/pq:P642 ?of_items
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }        
+}

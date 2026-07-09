@@ -1,0 +1,10 @@
+#defaultView:Map
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel  ?wijkcode WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q83620.
+  ?item wdt:P131 wd:Q1144739.
+  ?item wdt:P281 ?postcode.
+  BIND (SUBSTR(?postcode,5,1) AS ?wijkcode)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],nl". }
+}
+ORDER BY (?wijkcode)

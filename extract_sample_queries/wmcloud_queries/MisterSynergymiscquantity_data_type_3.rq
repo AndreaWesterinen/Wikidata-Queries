@@ -1,0 +1,6 @@
+SELECT ?property ?propertyLabel (GROUP_CONCAT(STRAFTER(STR(?unit), 'entity/'); SEPARATOR=', ') AS ?units) WHERE {
+  ?property wikibase:propertyType wikibase:Quantity; p:P2302 ?s .
+  ?s ps:P2302 wd:Q21514353 .
+  OPTIONAL { ?s pq:P2305 ?unit }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?property ?propertyLabel ORDER BY ASC(xsd:integer(STRAFTER(STR(?property), 'entity/P')))

@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item WHERE { ?statement ps:P39/wdt:P279* wd:Q21100241 ; pq:P768 ?item . }

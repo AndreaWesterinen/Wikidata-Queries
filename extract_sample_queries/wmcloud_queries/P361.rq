@@ -1,0 +1,9 @@
+SELECT ?ensemble ?ensembleLabel (GROUP_CONCAT(?instanceL; separator=', ') AS ?instance_of) ?has_parts ?is_part_of ?diff WITH {
+  SELECT ?ensemble (COUNT(?part1) AS ?has_parts) (COUNT(?part2) AS ?is_part_of) (ABS(COUNT(?part1) - COUNT(?part2)) AS ?diff) WHERE {
+    { ?ensemble p:P527/ps:P527 ?part1 } UNION { ?part2 p:P361/ps:P361 ?ensemble }
+  } GROUP BY ?ensemble HAVING(?diff > 200)
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  OPTIONAL { ?ensemble wdt:P31 ?instance . ?instance rdfs:label ?instanceL . FILTER(LANG(?instanceL) = 'en') }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?ensemble ?ensembleLabel ?has_parts ?is_part_of ?diff ORDER BY DESC(?diff)

@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+  ?item wdt:P1433 wd:Q327821
+} ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))) 
+LIMIT 300

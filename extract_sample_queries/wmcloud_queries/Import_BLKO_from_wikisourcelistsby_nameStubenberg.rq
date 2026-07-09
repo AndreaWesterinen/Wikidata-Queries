@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?itemDescription ?ord ?img ?dob ?dod ?f ?m ?spou
+{
+    ?item wdt:P1433 wd:Q665807 .
+    ?item wdt:P31 wd:Q19389637 .
+    ?item wdt:P1476 ?title . 
+    FILTER( strstarts(?title, "Stubenberg") ) 
+    OPTIONAL { ?item wdt:P921 / wdt:P18 ?img }
+    OPTIONAL { ?item wdt:P921 / wdt:P569 ?dob }
+    OPTIONAL { ?item wdt:P921 / wdt:P570 ?dod }
+    OPTIONAL { ?item wdt:P921 / wdt:P22 ?f }
+    OPTIONAL { ?item wdt:P921 / wdt:P25 ?m }
+    OPTIONAL { ?item wdt:P921 / wdt:P26 ?spou }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?dod ?title ?item

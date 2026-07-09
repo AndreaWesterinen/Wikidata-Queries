@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item
+{ 	?item wdt:P31 wd:Q27787439 .
+	OPTIONAL { ?item wdt:P179 ?dummy0 } FILTER(!bound(?dummy0))
+}

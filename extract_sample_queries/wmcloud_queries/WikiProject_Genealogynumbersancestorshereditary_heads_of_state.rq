@@ -1,0 +1,3 @@
+SELECT ?item ?person ?office (COUNT(DISTINCT ?ancestor) as ?ct)
+{
+    ?person (wdt:P22

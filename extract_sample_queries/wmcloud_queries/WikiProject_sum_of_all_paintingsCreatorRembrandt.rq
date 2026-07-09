@@ -1,0 +1,8 @@
+SELECT ?item ?rkdurl WHERE { 
+   wd:P350 wdt:P1630 ?formatterurl .
+  ?item wdt:P31 wd:Q3305213 . 
+  ?item wdt:P170 wd:Q5598 . 
+  MINUS { ?item wdt:P31 wd:Q15727816 } .
+  OPTIONAL { ?item wdt:P350 ?rkdid }.
+  BIND(REPLACE(?rkdid, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?rkdurl)  .
+} LIMIT 1000

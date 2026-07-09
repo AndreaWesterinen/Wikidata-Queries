@@ -1,0 +1,9 @@
+embed.html##defaultView:BubbleChart 
+#title:View instances of which the CdV-BW-22 project is a particular example
+SELECT ?instance ?instanceLabel (COUNT(?instance) AS ?count) WHERE {
+  ?project wdt:P9883 wd:Q110553382;
+    wdt:P31 ?instance.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+}
+GROUP BY ?instance ?instanceLabel
+ORDER BY DESC (?count)

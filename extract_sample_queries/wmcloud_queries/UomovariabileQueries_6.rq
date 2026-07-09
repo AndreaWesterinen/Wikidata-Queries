@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?volume ?flo 
+WHERE
+{ 
+  ?item wdt:P1433 wd:Q3805294.
+  ?item wdt:P478 ?volume;
+        wdt:P433 ?flo. 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY ?volume ?flo 

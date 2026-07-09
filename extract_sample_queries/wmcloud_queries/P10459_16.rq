@@ -1,0 +1,12 @@
+#title:"educated at" (P69) of people with property "Rusactors actor ID" (P10459) statements
+#defaultView:Map{"hide":["?coordinates"]}
+SELECT DISTINCT ?person ?personLabel ?personDescription ?coordinates ?image ?value
+WHERE 
+{
+  ?person wdt:P10459 ?value ; wdt:P69/wdt:P625 ?coordinates.
+  hint:Query hint:optimizer "None".
+  OPTIONAL { ?person wdt:P18 ?image }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

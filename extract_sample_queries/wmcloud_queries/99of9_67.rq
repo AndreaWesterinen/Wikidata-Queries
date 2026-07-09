@@ -1,0 +1,9 @@
+SELECT ?pid ?pidLabel ?name WHERE {
+  ?pid wdt:P31 wd:Q13442814 .
+  ?pid wdt:P2093 ?name.
+ # FILTER((LANG(?name)) = "en")
+  FILTER (CONTAINS(str(?name),'Harrowell'))
+  FILTER (CONTAINS(str(?name),'P'))
+}
+
+LIMIT 1

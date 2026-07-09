@@ -1,0 +1,39 @@
+SELECT ?item ?scanp (SAMPLE(?scan) as ?scanimg) (GROUP_CONCAT( 
+  CONCAT("- ", ?l, " ", COALESCE(?wsp,""), COALESCE(CONCAT(" <small>",str(?p_ct), " pages</small>"), "") ); separator="<br>") as ?desc) 
+WITH
+{
+SELECT
+  ?item
+  ?title
+  (CONCAT("[[",strafter(str(?entry), "y/"),"|", ?title, "]]") as ?l) 
+  (CONCAT("([",str(?ws)," ws])") as ?wsp)
+  ?subject ?pages 
+  ?scanp 
+  ?scan
+  ?p_ct
+WHERE
+{
+    # hint:Query hint:optimizer "None".
+    ?entry wdt:P1433 wd:Q665807 . 
+    ?entry wdt:P478 "3" . 
+    MINUS { ?entry wdt:P31 wd:Q1302249 }
+	?entry p:P996 [ ps:P996 ?scanimage ; pq:P7668 ?scanp ] . 
+    ?item wdt:P5176 [] ; wdt:P1181 ?scanp .
+    ?entry wdt:P304 ?pages . 
+    OPTIONAL { ?entry wdt:P1476 ?title } .
+    OPTIONAL { ?entry wdt:P921 ?subject } .
+    BIND( CONCAT("[[",
+                 REPLACE(str(?scanimage),"http://commons.wikimedia.org/wiki/Special:FilePath/","File:"),
+                 "\u007C",
+                 "page=",str(?scanp),"\u007C","200px","\u007C","center]]") as ?scan)  
+    OPTIONAL {  ?ws schema:about ?entry ; schema:name ?wst ; schema:isPartOf <https://de.wikisource.org/> }
+    OPTIONAL { 	?entry p:P996 [ ps:P996 ?scanimage ; pq:P1104 ?p_ct ] } . 
+
+}
+} as %all
+WHERE
+{  
+  INCLUDE %all
+}
+GROUP BY ?item ?scanp
+ORDER BY ?scanp ?item

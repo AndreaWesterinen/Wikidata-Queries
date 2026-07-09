@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?typeLabel  ?councilLabel ?c_councilLabel ?locationLabel ?locn_councilLabel (year(?pit) as ?year) WITH {
+  SELECT ?item 
+WHERE 
+{
+  ?item wdt:P17 wd:Q145 .
+  FILTER NOT EXISTS { ?item schema:description ?description . }
+ } } as %i
+WHERE
+{
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  optional {?item wdt:P31 ?type . }
+  OPTIONAL {?item wdt:P131 ?council .optional {?council wdt:P131 ?c_council} }
+  optional {?item wdt:P276 ?location . optional {?location wdt:P131 ?locn_council} }
+  optional {?item wdt:P585 ?pit . } 
+}

@@ -1,0 +1,43 @@
+embed.html##Disney's villain animators by the number of characters they worked on
+
+SELECT ?animatorLabel ?sitelink (group_concat(DISTINCT ?label;separator=", ") as ?characters) (COUNT(DISTINCT ?character) AS ?number)  
+WHERE
+{
+ #getting the films
+ ?film1 wdt:P179 wd:Q56070713;
+       wdt:P136 wd:Q28968511.
+  
+  #getting possible parts of package films
+  ?film wdt:P361* ?film1.
+ 
+  #getting the characters
+  ?character p:P767 ?st1;
+             rdfs:label ?label;
+             wdt:P1441 ?film;
+             wdt:P5800 wd:Q290691;
+             p:P5800 ?st2.
+  
+  #getting the animators
+  ?st1 ps:P767 ?animator;
+       (pq:P794 | pq:P3831) ?role.
+  
+  #getting the villains
+  ?st2 ps:P5800 wd:Q290691;
+       pq:P642 ?film.
+  
+  #getting the character animators
+  FILTER(?role = wd:Q266569 || ?role =  wd:Q28122926 || ?role =  wd:Q28007056)
+  
+  #getting the sitelinks
+  OPTIONAL
+  {
+    ?sitelink schema:about ?animator;
+              schema:isPartOf <https://en.wikipedia.org/> ;
+              schema:inLanguage "en".
+  } 
+  
+  FILTER (lang(?label) = "en")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?animatorLabel ?sitelink
+ORDER BY DESC(?number)

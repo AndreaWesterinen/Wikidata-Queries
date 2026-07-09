@@ -1,0 +1,3 @@
+SELECT ?item (MIN(?elo_time) AS ?min_time) WHERE {
+  ?item p:P1087/pq:P585 ?elo_time .
+} GROUP BY ?item

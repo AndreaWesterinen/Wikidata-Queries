@@ -1,0 +1,6 @@
+# 6711 résultats en 23352 ms
+# 14115 résultats en 21288 ms
+# 1000 résultats en 5863 ms
+# 1000 résultats en 24679 ms
+SELECT DISTINCT ?item ?itemLabel ?nb {
+  { ?item wdt:P539

@@ -1,0 +1,51 @@
+SELECT
+  # Sample publication with that author name string
+  DISTINCT ?item
+
+  # Number of works with the author
+  ?count
+
+  # Author as a string
+  ?author
+
+  # Length of author name string
+  ?length
+
+  # Product of count and length
+  ?product
+
+# Build URL to the Author disambiguator tool
+  (CONCAT(
+      "[https://author-disambiguator.toolforge.org/names_oauth.php?name=",
+      ENCODE_FOR_URI(?author), "&filter=wdt%3AP2093+%22", ENCODE_FOR_URI(?author), "%22 Find papers where an author name string is '''''",?author , "''''']") AS ?string_resolver)
+
+WITH {
+  SELECT DISTINCT ?work WHERE {
+    SERVICE bd:sample { ?work wdt:P921 [] . bd:serviceParam bd:sample.limit 100000 } # the "[]" stands for "any topic"; replace with your topic of choice, e.g. wd:Q202864 for Zika virus
+    ?work wdt:P2093 [].
+  }
+  LIMIT 20000
+} AS %works
+WITH {
+  SELECT
+    DISTINCT ?author
+    (SAMPLE(?work) AS ?item)
+    (COUNT(?work) AS ?count)
+  WHERE {
+    INCLUDE %works
+    ?work wdt:P2093 ?author .
+    FILTER(regex (?author, "^(?=^[A-Z][a-z][^.].*)(?=.*[a-z]$).*$")).
+  }
+  GROUP BY ?author
+} AS %result
+WHERE {
+  INCLUDE %result
+  FILTER(?count > 2)
+  BIND(STRLEN(REPLACE(?author, " ", "")) AS ?length)
+#  FILTER(?length > 15)
+  BIND((?count * ?length)  AS ?product)
+  FILTER(?product > 20)
+
+}
+ORDER BY DESC(?product)
+LIMIT 500

@@ -1,0 +1,21 @@
+SELECT ?item ?from ?year WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item p:P106 ?occupation.
+  ?occupation ps:P106 wd:Q860918.
+  OPTIONAL { 
+    ?occupation pqv:P580 [
+        wikibase:timePrecision ?from_precision;
+        wikibase:timeValue ?from_time;
+      ];
+  }
+  ?item p:P166 ?award.
+  ?award ps:P166 wd:Q2735118.
+  OPTIONAL { 
+    ?award pqv:P585 [
+        wikibase:timePrecision ?year_precision;
+        wikibase:timeValue ?year_time;
+      ];
+  }
+  BIND(YEAR(?from_time) AS ?from)
+  BIND(IF(?year_precision = 9, YEAR(?year_time), ?year_time) AS ?year)
+}

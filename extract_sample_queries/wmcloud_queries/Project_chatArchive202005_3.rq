@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?ort
+where
+{
+  ?item wdt:P31 wd:Q5.
+  ?item p:P119 ?ort.
+  ?ort pq:P625 ?coords.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],de,en' }
+}

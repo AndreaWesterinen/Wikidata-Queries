@@ -1,0 +1,52 @@
+embed.html#SELECT DISTINCT ?class1 ?class1Label ?physClass ?physClassLabel ?absClass ?absClassLabel
+WITH {
+  SELECT DISTINCT ?class WHERE {
+    ?class wdt:P279+ wd:Q223557  . 
+#    hint:Prior hint:gearing "reverse".
+  } LIMIT 40000
+} AS %physicalClasses
+WITH {
+  SELECT DISTINCT ?class WHERE {
+    ?class wdt:P279+  wd:Q7184903 . 
+#    hint:Prior hint:gearing "reverse".
+  } LIMIT 40000
+} AS %abstractClasses
+WITH {
+   SELECT DISTINCT ?class WHERE {
+      INCLUDE %physicalClasses .
+      INCLUDE %abstractClasses .
+   }
+} AS %commonClasses 
+WITH {
+   SELECT DISTINCT ?class WHERE {
+     INCLUDE %commonClasses.
+     MINUS {
+       { SELECT (?class AS ?parentClass) WHERE { INCLUDE %commonClasses. } }
+       ?class wdt:P279 ?parentClass.
+     }
+   }
+} AS %reducedClasses
+WHERE {
+  INCLUDE %reducedClasses .
+  ?class wdt:P279* ?class1 .
+  hint:Prior hint:gearing "forward".
+  ?class1 wdt:P279 ?absClass .
+  ?absClass wdt:P279* wd:Q7184903 .
+  hint:Prior hint:gearing "forward".
+  OPTIONAL  {
+      ?absClass wdt:P279* wd:Q223557 .
+      hint:Prior hint:gearing "forward".
+      BIND (1 AS ?no_go) .
+  }
+  FILTER (!bound(?no_go)) .
+  ?class1 wdt:P279 ?physClass .
+  ?physClass wdt:P279* wd:Q223557 .
+  hint:Prior hint:gearing "forward".
+#  OPTIONAL {
+#      ?physClass wdt:P279* wd:Q7184903 .
+#      hint:Prior hint:gearing "forward".
+#      BIND (1 AS ?no_go2) .
+#  }    
+#  FILTER (!bound(?no_go2)) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?absClassLabel

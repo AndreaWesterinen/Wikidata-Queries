@@ -1,3 +1,4 @@
+#title: Candidates for the Dutch general election 2017 living abroad
 #defaultView:Map
 SELECT ?item ?itemLabel ?coordinates WHERE {
   ?item p:P3602 ?node.

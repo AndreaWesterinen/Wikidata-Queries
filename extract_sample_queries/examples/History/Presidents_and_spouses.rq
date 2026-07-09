@@ -1,4 +1,4 @@
-# ----
+#title: Presidents and spouses
 #TEMPLATE={"template":"Presidents of ?country and their spouses","variables":{"?country":{"query":" SELECT ?id WHERE { ?id wdt:P31 wd:Q6256 . }"} } }
 
 SELECT ?p ?pLabel ?ppicture ?w ?wLabel ?wpicture WHERE {

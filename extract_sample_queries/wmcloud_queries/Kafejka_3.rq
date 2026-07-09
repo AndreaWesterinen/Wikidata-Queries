@@ -1,0 +1,8 @@
+SELECT ?item ?label (LANG(?label) AS ?lang)
+WHERE
+{
+  ?item wdt:P17 wd:Q36;
+          rdfs:label ?label.
+  FILTER(LANG(?label) = "pl").
+  FILTER(STRENDS(?label, "w Krakowie")).
+}

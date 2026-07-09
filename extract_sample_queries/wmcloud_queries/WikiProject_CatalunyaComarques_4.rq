@@ -1,0 +1,6 @@
+select ?item ?municipi where {
+    ?municipi wdt:P31 wd:Q33146843.
+    ?municipi wdt:P131 ?item.
+    ?item wdt:P31 wd:Q937876.
+    minus { ?item wdt:P150 ?municipi }
+  }

@@ -1,0 +1,11 @@
+SELECT ?item ?linkcount ?glamurl 
+WHERE
+{
+  ?item wdt:P4704 ?id .
+  OPTIONAL { ?item wdt:P217 ?inv } .
+  ?item wikibase:sitelinks ?linkcount .
+  BIND ((CONCAT ("[https://americanart.si.edu/collections/search/artwork/?id=", ?id, " ", ?id, "]")) as ?glamurl) .
+  FILTER (?linkcount > 0)
+}
+GROUP BY ?item ?linkcount ?glamurl 
+ORDER BY DESC(?linkcount)

@@ -1,0 +1,2 @@
+#title:Move qualifier to source
+SELECT DISTINCT ?item WHERE { ?item ?st ?statement . ?statement pq:P4656 [] }

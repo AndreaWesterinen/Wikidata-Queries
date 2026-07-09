@@ -1,0 +1,1 @@
+SELECT ?property ?propertyLabel ?type (COUNT(*) AS ?cnt) WHERE { ?item ?p [ prov:wasDerivedFrom/pr:P143 wd:Q54919 ] . ?property wikibase:claim ?p; wikibase:propertyType ?type . SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' } } GROUP BY ?property ?propertyLabel ?type ORDER BY DESC(?cnt)

@@ -1,0 +1,15 @@
+embed.html## Get collection specific properties 
+SELECT ?collection ?collectionLabel ?property ?propertyLabel (COUNT(DISTINCT(?painter)) as ?count) WHERE {
+  ?property wikibase:propertyType wikibase:ExternalId . 
+  ?property wdt:P31 wd:Q19595382 .
+  ?property wdt:P31 wd:Q27918607 .
+  ?property wikibase:claim ?propertyclaim .
+  ?property wdt:P126 ?collection .
+  ?property wdt:P2378 ?collection  .
+  ?item wdt:P195 ?collection .  
+  ?item wdt:P31 wd:Q3305213 . 
+  ?item wdt:P170 ?painter . 
+  ?painter wdt:P106 wd:Q1028181 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} GROUP BY ?collection ?collectionLabel ?property ?propertyLabel 
+ORDER BY ?collectionLabel 

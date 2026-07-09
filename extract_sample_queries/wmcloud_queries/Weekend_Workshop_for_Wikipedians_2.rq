@@ -1,0 +1,8 @@
+embed.html##defaultView:Timeline
+SELECT ?painting ?paintingLabel ?image ?inception WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?painting wdt:P31 wd:Q3305213.
+  ?painting wdt:P170 wd:Q157610.
+  OPTIONAL { ?painting wdt:P18 ?image. }
+  OPTIONAL { ?painting wdt:P571 ?inception. }
+}

@@ -1,0 +1,24 @@
+# Monuments in Switzerland without English label and with an image but without Commons category
+SELECT DISTINCT ?item ?itemLabel ?cantonLabel ?image WHERE {
+  ?item wdt:P1435 [].
+  ?item wdt:P381 [].
+  OPTIONAL {
+    ?item wdt:P18 ?image.
+  }
+  MINUS {
+    ?item rdfs:label ?itemLabel.
+    FILTER( LANG( ?itemLabel ) = "en" ).
+  }
+  MINUS {
+    ?item wdt:P373 [].
+  }
+  {
+    ?item wdt:P131 ?canton.
+  } UNION {
+    ?item wdt:P131 ?city.
+    ?city wdt:P131 ?canton.
+  }
+  ?canton wdt:P31 wd:Q23058.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,rm,it,fr,de". }
+}
+ORDER BY DESC( ?image ) ?itemLabel

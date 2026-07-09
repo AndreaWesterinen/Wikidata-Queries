@@ -1,0 +1,9 @@
+#title: In Queensland
+# Complex constraint from [[Property talk:P3257]]
+# in [[d:Q36074|Queensland <small>(Q36074)</small>]]
+SELECT ?item {
+	?item wdt:P3257 [].
+  FILTER NOT EXISTS { ?item wdt:P131 wd:Q36074 }
+  FILTER NOT EXISTS { ?item wdt:P131* wd:Q36074 }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4022 }
+}

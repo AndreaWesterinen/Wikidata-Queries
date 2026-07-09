@@ -1,0 +1,14 @@
+SELECT ?date ?item ?itemLabel ?lieu WHERE {
+  ?item wdt:P17 wd:Q142;
+    (wdt:P31/(wdt:P279*)) wd:Q16970;
+    wdt:P131 ?lieu;
+    schema:dateModified ?dateModif.
+  VALUES ?duration {
+    "P1DT0H0M0.000S"^^xsd:duration
+  }
+  BIND((NOW() - ?duration) AS ?dateFrom)
+  FILTER(?dateModif > ?dateFrom)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}
+ORDER BY DESC (?date)
+LIMIT 10

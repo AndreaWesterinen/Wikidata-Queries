@@ -1,4 +1,3 @@
-# ----
 #title: Humans whose gender we know we don't know
 # Demonstrates filtering for "unknown value"
 SELECT ?human ?humanLabel

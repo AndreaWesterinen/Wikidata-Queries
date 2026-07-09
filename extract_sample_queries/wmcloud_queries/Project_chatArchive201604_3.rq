@@ -1,0 +1,16 @@
+SELECT ?site ?siteLabel  (SAMPLE(?coords) AS ?coords) (group_concat(distinct ?criteria; separator = ", ") as ?crit) (SAMPLE(?id) AS ?id) 
+(SAMPLE(?image) AS ?image)
+
+WHERE { 
+  
+  ?site wdt:P1435 wd:Q9259 .
+  ?site wdt:P625 ?coords .
+  optional {?site wdt:P2614 ?criteria . }
+  ?site wdt:P757 ?id .
+  optional {?site wdt:P18 ?image . }
+  
+SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,fr,es,ru,zh,ar" .
+	}
+}
+GROUP BY ?site ?siteLabel

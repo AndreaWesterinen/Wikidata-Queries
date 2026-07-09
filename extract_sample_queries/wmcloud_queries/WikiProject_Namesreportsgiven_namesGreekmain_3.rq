@@ -1,0 +1,21 @@
+SELECT ?item (SAMPLE(?p0) as ?sample) ?count
+WITH
+{
+  SELECT ?item
+  (COUNT(DISTINCT ?p) as ?count)
+  {
+    ?item wdt:P407 wd:Q9129 ;
+          wdt:P31 wd:Q11879590 .
+    ?p wdt:P735 ?item .
+  }
+  GROUP BY ?item
+  ORDER BY DESC(?count) ?item
+  LIMIT 50
+} as %a
+WHERE
+{
+  INCLUDE %a 
+  OPTIONAL { ?p0 wdt:P735 ?item ; wdt:P27 wd:Q41 ; wdt:P569 [] ; wdt:P570 [] ; wdt:P19 [] ; wdt:P20 []  }          
+}
+GROUP BY ?item ?count
+ORDER BY DESC(?count) ?item

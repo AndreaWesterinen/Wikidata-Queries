@@ -1,0 +1,5 @@
+SELECT ?town ?classification 
+WHERE {
+  	?town wdt:P1879 ?classification .
+	?classification wdt:P31* wd:Q21199 .
+}

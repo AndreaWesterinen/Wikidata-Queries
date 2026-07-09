@@ -1,0 +1,9 @@
+SELECT ?item ?rkdurl WHERE {
+  wd:P350 wdt:P1630 ?formatterurl .
+  ?item p:P195 ?collectionstatement .
+  { ?collectionstatement ps:P195 wd:Q19750488 } UNION { ?collectionstatement ps:P195 wd:Q28097342 }
+  ?item wdt:P31 wd:Q3305213 .
+  OPTIONAL { ?item wdt:P350 ?rkdid }.
+  BIND(REPLACE(?rkdid, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?rkdurl)  .
+  } 
+LIMIT 4000

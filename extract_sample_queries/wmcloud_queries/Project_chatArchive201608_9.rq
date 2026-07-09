@@ -1,0 +1,10 @@
+SELECT (count(?source) as ?mentions)
+WHERE {
+     ?statement ps:P91 ?one .
+  ?statement prov:wasDerivedFrom ?ref .
+  ?ref pr:P143 ?source .
+     SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}
+ORDER BY DESC(?mentions)

@@ -1,0 +1,32 @@
+SELECT (SAMPLE(DISTINCT ?x) AS ?item) ?w (COUNT(DISTINCT ?x) AS ?c) (STRLEN(?w) AS ?l) WHERE {
+  {
+    SELECT DISTINCT ?x ?title WHERE {
+      ?x schema:dateModified ?date_modified ;
+#         wdt:P921 wd:Q202864 ;
+         wdt:P50 wd:Q46155812 ;
+         wdt:P1476 ?title.
+      BIND (now() - ?date_modified as ?date_range)
+      FILTER(STRLEN(?title) >= 6)
+    }
+    LIMIT 10000
+  }
+  FILTER NOT EXISTS { ?x wdt:P921 ?topic .}
+  BIND(LCASE(?title) AS ?ltitle)
+  BIND(REPLACE(?ltitle, "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w1)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w1), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w2)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w2), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w3)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w3), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w4)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w4), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w5)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w5), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w6)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w6), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w7)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w7), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w8)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w8), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w9)
+  BIND(REPLACE(STRAFTER(?ltitle, ?w9), "^.*?(\\b\\w{6,}\\b).*$", "$1") AS ?w10)
+  VALUES ?w_ { 1 2 3 4 5 6 7 8 9 10}
+  BIND(IF(?w_ = 1, ?w1, IF(?w_ = 2, ?w2, IF(?w_ = 3, ?w3, IF(?w_ = 4, ?w4, IF(?w_ = 5, ?w5, IF(?w_ = 6, ?w6, IF(?w_ = 7, ?w7, 
+          IF(?w_ = 8, ?w8, IF(?w_ = 9, ?w9, ?w10))))))))) AS ?w)
+  FILTER(REGEX(?w, "^\\w+$")) # since ?w may evaluate to an empty string, e.g. for one-word titles
+}
+GROUP BY ?item ?w
+ORDER BY DESC(?l) DESC(?c)
+LIMIT 2000

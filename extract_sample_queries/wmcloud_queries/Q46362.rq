@@ -1,0 +1,1 @@
+SELECT ?item ?role ?rep { wd:Q46362 p:P710 ?st . ?st ps:P710 ?item . OPTIONAL { ?st pq:P1268 ?rep } OPTIONAL { ?st pq:P3831 ?role } }

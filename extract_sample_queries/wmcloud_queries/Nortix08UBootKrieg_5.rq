@@ -1,0 +1,12 @@
+#defaultView:Map{"hide":["?koordinaten"]}
+# Karte mit den Positionen aller deutschen Unterseeboote die von der Besatzung selbst versenkt wurden
+SELECT DISTINCT ?uboot ?ubootLabel ?koordinaten ?wann ?ortLabel
+WHERE {
+  ?uboot wdt:P31 wd:Q428661 ; # ist ein Deutsches Militär-U-Boot des 1. und 2. Weltkrieges
+         p:P793 ?versenkung . # hat ein Schlüsselereignis…
+  ?versenkung ps:P793 wd:Q1786766 ; # …das Selbstversenkung ist
+              pq:P585 ?wann ; # Zeitpunkt
+              pq:P625 ?koordinaten . # Koordinaten
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en"  } # Sprache festlegen, wenn nicht verfügbar auf DE danach EN
+}
+ORDER BY ?ubootLabel # sortieren nach Bezeichnung

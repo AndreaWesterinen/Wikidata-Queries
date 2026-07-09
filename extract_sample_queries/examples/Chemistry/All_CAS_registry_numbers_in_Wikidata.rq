@@ -1,3 +1,5 @@
+#title: All CAS registry numbers in Wikidata
+
 SELECT DISTINCT ?compound ?compoundLabel ?cas
 WHERE
 {

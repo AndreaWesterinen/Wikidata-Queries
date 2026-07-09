@@ -1,0 +1,54 @@
+select ?_row
+{
+  {BIND("qid,Lpl,P279,S143,P17,S143,P910,S143" AS ?_row)}
+  
+  UNION
+  {
+  hint:Query hint:optimizer "None".
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Starostowie_grodowi> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 9 .
+  }}
+  
+    ?out schema:name ?nk.
+    ?out schema:about ?kat.
+  
+  OPTIONAL{?u wdt:P910 ?kat}
+  FILTER(!BOUND(?u))
+  FILTER(!REGEX(?nk, "(.*województwo)|(.*Księstwo)|(.*Zjednoczone)|(.*II Rzeczpospolita)|(.*Galicja)"))
+  
+  BIND(CONCAT(",", 
+    CONCAT("starosta ", REPLACE(REPLACE(REPLACE(STRAFTER(?nk, "Kategoria:Starostowie "), " \\(grodowi\\)", ""), "generalni", "generalny"), "cy$", "ki"), ","),
+    "Q9344187", ",Q1551807,",
+    "Q172107,Q1551807,",
+    STRAFTER(STR(?kat), '/entity/'), ",Q1551807"
+  ) AS ?_row)
+  }
+  
+  UNION
+  {
+  hint:Query hint:optimizer "None".
+  SERVICE <https://query.wikidata.org/bigdata/namespace/categories/sparql> {
+  SERVICE mediawiki:categoryTree {
+      bd:serviceParam mediawiki:start <https://pl.wikipedia.org/wiki/Kategoria:Starostowie_niegrodowi> .
+      bd:serviceParam mediawiki:direction "Reverse" .
+      bd:serviceParam mediawiki:depth 9 .
+  }}
+  
+    ?out schema:name ?nk.
+    ?out schema:about ?kat.
+  
+  OPTIONAL{?u wdt:P910 ?kat}
+  FILTER(!BOUND(?u))
+  FILTER(!REGEX(?nk, "(.*województwo)|(.*Księstwo)|(.*Zjednoczone)|(.*II Rzeczpospolita)|(.*Galicja)|(.*Inflanty)"))
+  
+  BIND(CONCAT(",", 
+    CONCAT("starosta ", REPLACE(REPLACE(REPLACE(STRAFTER(?nk, "Kategoria:Starostowie "), " \\(niegrodowi\\)", ""), "generalni", "generalny"), "cy$", "ki"), ","),
+    "Q9344189", ",Q1551807,",
+    "Q172107,Q1551807,",
+    STRAFTER(STR(?kat), '/entity/'), ",Q1551807"
+  ) AS ?_row)
+  }
+}

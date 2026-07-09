@@ -1,0 +1,12 @@
+#Which publication is cited the most? Counting publications that cite other publications (expressed with p2860)
+SELECT ?publication ?publicationLabel (COUNT(?publication) AS ?count)
+WHERE
+{
+	?item wdt:P2860 ?publication .
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+       ?publication rdfs:label ?publicationLabel
+	}
+}
+GROUP BY ?publication ?publicationLabel
+ORDER BY DESC(?count)

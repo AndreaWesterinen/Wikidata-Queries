@@ -1,0 +1,3 @@
+select * where {
+?item wdt:P31 wd:Q1371562 .
+}

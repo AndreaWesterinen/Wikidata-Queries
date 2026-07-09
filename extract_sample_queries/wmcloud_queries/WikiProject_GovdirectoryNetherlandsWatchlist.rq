@@ -1,0 +1,47 @@
+SELECT ?item
+WHERE {
+  BIND(wd:Q55 AS ?country)
+
+  {
+  # agencies with country set to the Netherlands
+  VALUES ?type {
+    wd:Q3143387 # ministries (12)
+    wd:Q4500821 # appeals court (4)
+    wd:Q190752  # supreme court (2)
+    wd:Q2125157 # district court (11)
+    wd:Q134390  # provinces (12)
+    wd:Q702081 # water boards (21)
+    wd:Q2039348 # municipalities (345)
+    wd:Q26934845 # integral overseas territory (3)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+  } UNION {
+    # special case without a unique type
+    VALUES ?item {
+      wd:Q1857094 # cabinet of the King (1)
+    }
+  }
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+  MINUS { ?item wdt:P582 [] .
+          MINUS { ?item wdt:P582 ?ddate ;
+                       wdt:P580 ?idate .
+                  FILTER ( ?idate > ?ddate )
+               }
+        }
+  MINUS { 
+    ?item p:P31 ?inStatement .
+    ?inStatement pq:P582 [] .
+    MINUS { ?item p:P31 ?p.
+            ?p ps:P31 wd:Q2039348; pq:P580 ?start .
+            FILTER NOT EXISTS { ?p pq:P582 []}
+    }             
+  }
+  MINUS { ?item p:P31 ?p.
+            ?p ps:P31 wd:Q2039348; pq:P580 ?start .
+            FILTER ( ?start > NOW() )
+  }
+}

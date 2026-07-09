@@ -1,0 +1,15 @@
+SELECT ?property ?propertyLabel ?constraintTypeLabel (GROUP_CONCAT(?separatorLabel; separator = ", ") AS ?separators) WHERE {
+  ?property a wikibase:Property;
+            p:P2302 [
+              ps:P2302 ?constraintType;
+              pq:P4155 ?separator
+            ].
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?property rdfs:label ?propertyLabel.
+    ?constraintType rdfs:label ?constraintTypeLabel.
+    ?separator rdfs:label ?separatorLabel.
+  }
+}
+GROUP BY ?property ?propertyLabel ?constraintTypeLabel
+ORDER BY DESC(COUNT(*)) ASC(xsd:integer(SUBSTR(STR(?property), STRLEN(STR(wd:)) + 2)))

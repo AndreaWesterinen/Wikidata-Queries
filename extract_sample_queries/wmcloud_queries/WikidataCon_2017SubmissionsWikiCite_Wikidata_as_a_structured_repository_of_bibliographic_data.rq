@@ -1,0 +1,1 @@
+SELECT (COUNT(*) AS ?count) WHERE { ?work wdt:P31 wd:Q13442814 }

@@ -1,0 +1,5 @@
+SELECT (wd:Q5 as ?item) (COUNT(DISTINCT ?owl) as ?statcount)
+{
+  ?owl owl:sameAs ?item2 .
+  ?item2 wdt:P569 []; wdt:P570 []; wdt:P31 wd:Q5.
+}

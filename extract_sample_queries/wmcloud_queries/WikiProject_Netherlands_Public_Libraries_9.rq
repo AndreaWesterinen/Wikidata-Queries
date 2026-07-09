@@ -1,0 +1,25 @@
+#Dutch public library organisations ordered by number of branches
+SELECT 
+(SAMPLE(?item) AS ?OrganisatieID) 
+(SAMPLE(?itemLabel) AS ?OrganisatieNaam)  
+#(SAMPLE(?itemDescription) AS ?OrganisatieOmschrijving)  
+(GROUP_CONCAT(DISTINCT ?haspartLabel ; separator = " --- ") as ?Vestigingen)
+(COUNT(DISTINCT ?haspart) AS ?AantalVestigingen) #Via HasPart P527
+
+WHERE 
+{
+  ?item wdt:P31 wd:Q28564. #public library
+  ?item wdt:P31 wd:Q43229. #organization
+  ?item wdt:P17 wd:Q55. #from the Netherlands
+  OPTIONAL{?item wdt:P527 ?haspart.} 
+  #OPTIONAL{?item schema:description ?itemDescription. FILTER(lang(?itemDescription)="nl")}        
+
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl".
+          ?haspart rdfs:label ?haspartLabel .
+          ?item rdfs:label ?itemLabel.
+         }
+ 
+  } 
+GROUP BY ?item ?item2Label 
+ORDER BY DESC(?AantalVestigingen)

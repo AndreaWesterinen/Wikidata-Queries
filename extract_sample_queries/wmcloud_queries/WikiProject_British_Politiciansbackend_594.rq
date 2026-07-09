@@ -1,0 +1,21 @@
+# MPs with one party affiliation but missing others
+# check individual records to make sure they didn't change seat, then use last two cells to bulk-convert with WD-CLI
+
+select distinct ?mp ?mpLabel ?article ?party2Label ?positionStatement1 ?party2
+WHERE {
+  ?position1 wdt:P279 wd:Q16707842.
+  ?mp p:P39 ?positionStatement1 . ?positionStatement1 ps:P39 ?position1 . filter not exists { ?positionStatement1 pq:P4100 ?party1 } .
+  ?position2 wdt:P279 wd:Q16707842. 
+  ?mp p:P39 ?positionStatement2 . ?positionStatement2 ps:P39 ?position2 ; pq:P4100 ?party2 . ?positionStatement2 pq:P580 ?date . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  # ?positionStatement2 pq:P4100 wd:Q9630 . # filter to only Labour
+  filter not exists { ?mp wdt:P1614 ?hop } # no pre-1832 seats
+  filter not exists { ?mp p:P39 ?ps3 . ?ps3 ps:P39 ?p3 ; pq:P4100 ?party3 . ?p3 wdt:P279 wd:Q16707842 . 
+                     filter(?party3 != ?party2 ) } # avoid any with multiple known parties
+   OPTIONAL {
+    ?article schema:about ?mp .
+    ?article schema:inLanguage "en" .
+    ?article schema:isPartOf <https://en.wikipedia.org/>
+  }
+  # but select items with no such article
+} order by desc(?date)

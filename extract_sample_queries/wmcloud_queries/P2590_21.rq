@@ -1,0 +1,10 @@
+#title: Don't have an article on idwiki
+# Complex constraint from [[Property talk:P2590]]
+#
+SELECT ?item {
+	?item p:P2590 [].
+     MINUS {
+      ?article schema:about ?item.
+      ?article schema:isPartOf <https://id.wikipedia.org/>.
+    }
+}

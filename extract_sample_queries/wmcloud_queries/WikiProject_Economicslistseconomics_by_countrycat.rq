@@ -1,0 +1,22 @@
+SELECT DISTINCT (?cat as ?item) ?c ?en ?ca ?cs ?da ?de ?es ?fr ?it ?nl ?pl ?pt ?ru ?sv (ROUND(?gdp/1000000000) as ?gdpB) ?sls
+WHERE
+{
+    ?ite wdt:P31 wd:Q6456916 ; wdt:P910 ?cat . 
+    ?ite wdt:P276 / wdt:P984 ?c .
+    ?ite wdt:P2131 ?gdp .
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://ca.wikipedia.org/>  BIND( CONCAT("+") as ?ca)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://cs.wikipedia.org/>  BIND( CONCAT("+") as ?cs)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://da.wikipedia.org/>  BIND( CONCAT("+") as ?da)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://de.wikipedia.org/>  BIND( CONCAT("+") as ?de)  }
+    OPTIONAL { ?en_l schema:about ?cat ; schema:isPartOf <https://en.wikipedia.org/>  BIND( CONCAT("[",str(?en_l)," +]") as ?en)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://es.wikipedia.org/>  BIND( CONCAT("+") as ?es)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://fr.wikipedia.org/>  BIND( CONCAT("+") as ?fr)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://it.wikipedia.org/>  BIND( CONCAT("+") as ?it)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://nl.wikipedia.org/>  BIND( CONCAT("+") as ?nl)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://pl.wikipedia.org/>  BIND( CONCAT("+") as ?pl)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://pt.wikipedia.org/>  BIND( CONCAT("+") as ?pt)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://ru.wikipedia.org/>  BIND( CONCAT("+") as ?ru)  }
+    OPTIONAL { [] schema:about ?cat ; schema:isPartOf <https://sv.wikipedia.org/>  BIND( CONCAT("+") as ?sv)  }
+    ?cat wikibase:sitelinks ?sls 
+}
+ORDER BY DESC(?gdpB) ?c

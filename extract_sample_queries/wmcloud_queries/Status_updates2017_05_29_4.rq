@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?date ?doi ?url ?video WHERE {
+  ?item wdt:P921 wd:Q30035267 .
+  OPTIONAL { ?item wdt:P577 ?date }
+  OPTIONAL { ?item wdt:P356 ?doi }
+  OPTIONAL { ?item wdt:P10 ?video }
+  OPTIONAL { ?item wdt:P953 ?url }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

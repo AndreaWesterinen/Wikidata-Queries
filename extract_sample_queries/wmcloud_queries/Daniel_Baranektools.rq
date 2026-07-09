@@ -1,0 +1,6 @@
+select ?item where {
+  ?item wdt:P9109 [];
+        wdt:P2561 ?name.
+  MINUS {?item wdt:P735 [].}
+  FILTER REGEX (?name, "^Kurt ")
+  }

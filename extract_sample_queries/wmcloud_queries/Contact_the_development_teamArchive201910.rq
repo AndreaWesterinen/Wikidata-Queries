@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(*) as ?count)
+WHERE 
+{
+    wd:Q68133860 wdt:P527 ?item . 
+    ?item wdt:P370 ?wdt .
+    # change "wdt:" to "p:" and compare
+}
+GROUP BY ?item

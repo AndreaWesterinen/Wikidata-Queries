@@ -1,0 +1,6 @@
+#defaultView:Graph
+select ?class ?parent ?classLabel {
+  ?class (^wdt:P279)* wd:Q22001389 ; 
+         wdt:P279 ?parent .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

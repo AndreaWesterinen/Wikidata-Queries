@@ -1,0 +1,6 @@
+SELECT ?l ?lemma WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma .
+  ?language wdt:P218 'en'
+  FILTER NOT EXISTS {?l ontolex:sense ?sense }
+}

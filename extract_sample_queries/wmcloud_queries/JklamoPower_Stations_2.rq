@@ -1,0 +1,8 @@
+SELECT ?item WHERE {
+   { ?item wdt:P31 wd:Q6558431 . } UNION { ?item wdt:P31 wd:Q53951823 . }   
+   ?item wdt:P2109 ?instcap .
+   MINUS {?item wdt:P5817 wd:Q811683}   
+   MINUS {?item wdt:P5817 wd:Q12377751}          
+  }
+ORDER BY DESC(?instcap)
+LIMIT 20

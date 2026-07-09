@@ -1,0 +1,4 @@
+SELECT ?item ?itemLabel {
+  ?item p:P794 ?x .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

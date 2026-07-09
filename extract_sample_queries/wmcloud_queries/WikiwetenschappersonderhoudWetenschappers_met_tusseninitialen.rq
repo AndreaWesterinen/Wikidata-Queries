@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?output WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P108 ?university.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  FILTER((LANG(?label)) = "nl")
+  BIND(REPLACE(STR(?label),"^([A-Z][a-z]+ )(([A-Z][.]?)+ )+","$1") AS ?output) .
+  FILTER(REGEX(?label, "^[A-Z][a-z]+ ([A-Z][.]?)+ "))
+  ?university wdt:P463 wd:Q3212092.
+}

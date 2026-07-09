@@ -1,0 +1,8 @@
+SELECT ?item ?inv WHERE {
+  ?item p:P195/ps:P195 wd:Q1471477 .
+  ?item wdt:P31 wd:Q3305213 .  
+  MINUS { ?item wdt:P527 [] } .
+  ?item wdt:P217 ?inv .
+  FILTER(REGEX(?inv, "-")) .
+  } ORDER BY ?inv 
+LIMIT 3000

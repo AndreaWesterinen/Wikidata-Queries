@@ -1,0 +1,6 @@
+#title: Check Entity name
+# Complex constraint from [[Property talk:P4839]]
+# Check Entity listed in nhttps://reference.wolfram.com/language/guide/EntityTypes.html
+SELECT ?item ?value {
+  ?item p:P4839 [ ps:P4839 ?value ].
+  BIND( REGEX( STR( ?value ), "^(.+(Language

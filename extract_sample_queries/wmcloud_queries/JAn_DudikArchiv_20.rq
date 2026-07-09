@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?itemLabel ?lang with {
+  select * where {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "insource:/\\<small\\>/" .
+    ?item wikibase:apiOutputItem mwapi:title.  }
+    
+  } } as %items where {
+    
+  include %items
+  ?item rdfs:label ?itemLabel filter(REGEX(?itemLabel,"\\<small\\>") ) .
+  bind(lang(?itemLabel) as ?lang) .  
+    
+}

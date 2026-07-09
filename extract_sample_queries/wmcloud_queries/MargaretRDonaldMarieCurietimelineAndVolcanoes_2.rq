@@ -1,0 +1,17 @@
+#defaultView:Timeline
+SELECT DISTINCT ?t ?rrLabel ?valueLabel ?image
+WHERE
+{
+  {wd:Q202136 ?prop ?t FILTER (datatype(?t)=xsd:dateTime) .
+   ?value wikibase:directClaim ?prop. }
+  UNION
+  {
+   wd:Q202136 ?q ?statement  FILTER regex (STR(?q),"prop/P") .
+   ?statement ?p ?t FILTER regex (STR(?p), "prop/qualifier/P") FILTER (datatype(?t)=xsd:dateTime) .
+   ?statement ?r ?value FILTER regex (STR(?r),"prop/statement/") .
+   BIND(IRI(CONCAT(CONCAT(SUBSTR(STR(?r),1,29),"direct/"),SUBSTR(STR(?r),40))) as ?rprop)  
+   ?rr wikibase:directClaim ?rprop . 
+   OPTIONAL {?value wdt:P18 ?image} 
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

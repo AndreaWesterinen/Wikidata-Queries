@@ -1,0 +1,9 @@
+embed.html#SELECT *
+WITH
+{ SELECT ("qualifier" as ?type)         (MIN(?q) as ?min)  (MAX(?q) as ?max)    WHERE  { [] pq:P1107 ?q } } as %pq
+WITH
+{ SELECT ("statement value" as ?type)   (MIN(?q) as ?min)  (MAX(?q) as ?max)    WHERE  { [] wdt:P1107 ?q } } as %wdt
+WHERE
+{
+  { INCLUDE %pq } UNION { INCLUDE %wdt }
+}

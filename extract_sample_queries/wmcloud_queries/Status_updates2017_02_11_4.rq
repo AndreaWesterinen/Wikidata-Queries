@@ -1,0 +1,10 @@
+# Antipopes
+#defaultView:Timeline
+SELECT ?antipope ?antipopeLabel ?born ?floruit ?died WHERE {
+ ?antipope p:P39/ps:P39/wdt:P279* wd:Q172748.
+ OPTIONAL { ?antipope wdt:P569 ?born. }
+ OPTIONAL { ?antipope wdt:P1317 ?floruit. }
+ OPTIONAL { ?antipope wdt:P570 ?died. }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY COALESCE(?born,?floruit,?died)

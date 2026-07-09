@@ -1,0 +1,10 @@
+select * where {
+?item wdt:P376 ?body .
+
+optional { ?item rdfs:label ?itemlabel filter(lang(?itemlabel) = "en") . }
+optional { ?item rdfs:label ?itemlabelde filter(lang(?itemlabelde) = "de") . }
+optional { ?item rdfs:label ?itemlabelit filter(lang(?itemlabelit) = "it") . }
+optional { ?item rdfs:label ?itemlabelru filter(lang(?itemlabelru) = "ru") . }
+optional { ?body rdfs:label ?bodylabel filter(lang(?bodylabel) = "en") . }
+filter (!bound(?itemlabel)) .
+} order by ?itemlabelde ?itemlabelit ?itemlabelru ?item

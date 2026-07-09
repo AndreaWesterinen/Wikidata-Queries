@@ -1,0 +1,14 @@
+select ?occup ?occuplabel ?total
+with {
+  select ?occup (count(*) as ?total) {
+    ?sitelink schema:isPartOf <https://de.wikipedia.org/> ; schema:about ?item .
+    hint:Query hint:optimizer "None" .
+    ?item wdt:P31 wd:Q5 ;
+          wdt:P21 wd:Q6581072 ;
+          wdt:P106 ?occup .
+  } group by ?occup
+} as %occupations
+where {
+  include %occupations .
+  optional { ?occup rdfs:label ?occuplabel filter (lang(?occuplabel) = "en") }
+} order by desc(?total) ?occuplabel

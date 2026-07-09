@@ -1,0 +1,4 @@
+#title: Talk shows would generally have this
+# Complex constraint from [[Property talk:P371]]
+# to do: add P371 if applicable
+SELECT ?item ?itemLabel ?itemDescription { ?item wdt:P136 wd:Q622812 . MINUS{?item wdt:P371 []}  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  }

@@ -1,0 +1,41 @@
+SELECT ?item
+       ?sensecount (?lexcount - ?sensedcount as ?senselesscount) (ROUND(10000*(?sensecount / ?lexcount))/10000 as ?senseratio)
+       ?p5137count (ROUND(10000*(?p5137count / ?sensecount))/10000 as ?p5137ratio)
+       ?p5972count (ROUND(10000*(?p5972count / ?sensecount))/10000 as ?p5972ratio)
+       ?p5973count (ROUND(10000*(?p5973count / ?sensecount))/10000 as ?p5973ratio)
+WITH { 
+  SELECT ?item (COUNT(?a) as ?lexcount) {
+    ?a dct:language ?item.
+  } GROUP BY ?item
+} AS %lexcounts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?a) as ?sensedcount) {
+    ?a dct:language ?item; ontolex:sense [].
+  } GROUP BY ?item
+} AS %sensedcounts
+WITH { 
+  SELECT ?item (COUNT(?sense) as ?sensecount) {
+    ?a dct:language ?item ; ontolex:sense ?sense
+  } GROUP BY ?item
+} AS %sensecounts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?sense) as ?p5137count) {
+    ?a dct:language ?item. OPTIONAL { ?a ontolex:sense ?sense. ?sense wdt:P5137|wdt:P9970 [] }
+  } GROUP BY ?item
+} AS %p5137counts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?sense) as ?p5972count) {
+    ?a dct:language ?item. OPTIONAL { ?a ontolex:sense ?sense. ?sense wdt:P5972 [] }
+  } GROUP BY ?item
+} AS %p5972counts
+WITH { 
+  SELECT ?item (COUNT(DISTINCT ?sense) as ?p5973count) {
+    ?a dct:language ?item. OPTIONAL { ?a ontolex:sense ?sense. ?sense wdt:P5973 [] }
+  } GROUP BY ?item
+} AS %p5973counts
+WHERE {
+  INCLUDE %lexcounts. INCLUDE %sensedcounts. INCLUDE %sensecounts.
+  INCLUDE %p5137counts. INCLUDE %p5972counts. INCLUDE %p5973counts.
+  FILTER(?lexcount > 1000)
+}
+ORDER BY ASC(?senselesscount) DESC(?sensecount) ASC(?p5137ratio) ASC(?p5972ratio) ASC(?p5973ratio)

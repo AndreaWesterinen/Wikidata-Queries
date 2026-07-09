@@ -1,0 +1,27 @@
+# Museums open now around me
+SELECT ?place ?location ?distance ?placeLabel WHERE {
+  
+  # Open today. Let's say today is Monday. TODO: Make dynamic
+  {
+    ?place p:P3025 wd:Q105. # Monday
+  }
+  UNION
+  {
+    ?place p:P3025 wd:Q97120402. # Monday to Friday
+  }
+  
+  # Open now. Let's say it is 15:42 now.
+  # TODO
+  
+  # Museums
+  ?place p:P31/ps:P31/wdt:P279* wd:Q33506.
+  
+  # Around me
+  SERVICE wikibase:around {
+    ?place wdt:P625 ?location . 
+    bd:serviceParam wikibase:center "Point(-122.399523 37.786952)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:radius "1" . 
+    bd:serviceParam wikibase:distance ?distance .
+  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?distance LIMIT 10 

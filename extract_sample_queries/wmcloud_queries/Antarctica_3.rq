@@ -1,0 +1,10 @@
+SELECT ?instanceLabel (COUNT(?place) AS ?count) WHERE {
+  SERVICE wikibase:box {
+    ?place wdt:P625 ?location .
+    bd:serviceParam wikibase:cornerSouthWest "Point(-180 -90)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerNorthEast "Point(180 -60)"^^geo:wktLiteral .
+  }
+  ?place wdt:P31 ?instance
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?instanceLabel

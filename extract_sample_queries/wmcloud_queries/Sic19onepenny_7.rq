@@ -1,0 +1,18 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?level ?rgb ?class ?classLabel WHERE {
+{SELECT DISTINCT ?item ?level ?rgb ?class WHERE {
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?item wdt:P9622 []. 
+                                            ?item wdt:P31 ?class . } } BIND("work" AS ?level) BIND("ff0000" AS ?rgb) } UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?publisher wdt:P9624 []. ?item wdt:P123 ?publisher ; wdt:P527 ?p_series . 
+                                            ?item wdt:P31 ?class .} } BIND("work" AS ?level) BIND("330000" AS ?rgb) } UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?publisher wdt:P9624 []. ?periodical wdt:P123 ?publisher ; wdt:P527 ?item . 
+                                            ?item wdt:P31 ?class .} } BIND("work" AS ?level) BIND("330000" AS ?rgb) } UNION
+  { {SELECT ?item ?level ?class ?rgb WHERE { ?work wdt:P9622 []. 
+                                            {?work ( wdt:P4969 | wdt:P144 | wdt:P179 | wdt:P527 | wdt:P361 | wdt:P9745 | wdt:P155 | wdt:P156 | wdt:P1433 ) / 
+                                             ( wdt:P4969 | wdt:P144 | wdt:P179 | wdt:P527 | wdt:P361 | wdt:P9745 | wdt:P155 | wdt:P156 | wdt:P1433 ) ?item}
+                                            UNION
+                                            {?item ( wdt:P4969 | wdt:P144 | wdt:P179 | wdt:P527 | wdt:P361 | wdt:P9745 | wdt:P155 | wdt:P156 ) ?work}
+                                            ?item wdt:P31 ?class .} } BIND("work" AS ?level) BIND("ffcccc" AS ?rgb) } 
+  } }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

@@ -1,0 +1,10 @@
+# People with a Tony Award and no IBDB id
+SELECT DISTINCT ?item ?itemLabel{
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P1411*/wdt:P279 wd:Q191874 .
+  FILTER NOT EXISTS { ?item wdt:P1220 ?ibdb . }
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

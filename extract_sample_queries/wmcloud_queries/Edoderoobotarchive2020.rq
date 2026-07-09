@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item WHERE { ?item p:P2048 [ psv:P2048/wikibase:quantityUnit wd:Q11573; prov:wasDerivedFrom/pr:P248 wd:Q41779610 ] }

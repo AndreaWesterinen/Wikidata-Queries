@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?twitter
+WHERE 
+{
+  ?item wdt:P2002 ?twitter.
+  FILTER CONTAINS (LCASE(?twitter),"support")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

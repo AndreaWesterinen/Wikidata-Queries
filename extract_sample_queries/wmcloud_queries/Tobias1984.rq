@@ -1,0 +1,6 @@
+SELECT ?item ?taxonName WHERE {
+    ?item wdt:P225 ?taxonName .
+    ?item wdt:P105 wd:Q34740 .
+    ?item (wdt:P171)* wd:Q10876 .
+}
+ORDER BY ?taxonName

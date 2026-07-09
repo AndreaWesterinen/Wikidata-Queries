@@ -1,0 +1,5 @@
+embed.html#SELECT ?q ?qLabel WHERE {
+  ?q wdt:P31 wd:Q23397 ; wdt:P17 wd:Q16 ; schema:description ?qLabel .
+  FILTER (LANG(?qLabel) = "fr").
+  FILTER (STRLEN(?qLabel) > 100 )
+}

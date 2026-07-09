@@ -1,0 +1,7 @@
+SELECT DISTINCT ?fileformat ?fileformatLabel
+WHERE
+{
+	?fileformat wdt:P31 wd:Q235557
+	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} 

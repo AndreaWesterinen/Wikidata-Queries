@@ -1,0 +1,20 @@
+embed.html##dead characters per film
+
+#defaultView:ScatterChart
+SELECT DISTINCT (MIN(?year) AS ?year) (COUNT(DISTINCT ?character) AS ?numberofDeaths) ?film1Label
+WHERE                          
+{
+
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+        wdt:P527* ?film1;
+        wdt:P577 ?year.
+  
+  #getting dead characters
+  ?character wdt:P1441 ?film1;
+             wdt:P1196 ?mannerOfDeath.
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?film1Label 

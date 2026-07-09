@@ -1,0 +1,9 @@
+PREFIX schema: <http://schema.org/>
+SELECT ?item (COUNT(DISTINCT ?sitelink) AS ?linkcount) (COUNT(DISTINCT ?painting) AS ?paintingcount) WHERE {
+  ?painting wdt:P31 wd:Q3305213.
+  ?painting wdt:P170 ?item.
+  ?sitelink schema:about ?item.
+}
+GROUP BY ?item HAVING (?paintingcount > 10)
+ORDER BY DESC(?linkcount)
+LIMIT 100

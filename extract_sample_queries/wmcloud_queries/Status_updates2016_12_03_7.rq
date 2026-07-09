@@ -1,0 +1,15 @@
+# personnalités enterrées au cimetière de la XRousse
+#defaultView:Table 
+SELECT DISTINCT ?item ?itemLabel (year(?dateNaissance) as ?anneeNaissance) (year(?dateDeces) as ?anneeDeces) ?image
+
+WHERE {
+	
+  ?item wdt:P31/wdt:P279* wd:Q5 . #humain
+  ?item wdt:P119 wd:Q1542 . #lieu de sépulture
+  OPTIONAL{ ?item wdt:P1442 ?image . }
+  OPTIONAL { ?item wdt:P569 ?dateNaissance . }  
+  OPTIONAL { ?item wdt:P570 ?dateDeces . }  
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  
+} ORDER BY DESC(?image)

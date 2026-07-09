@@ -1,0 +1,4 @@
+select ?pfictif {
+  ?pfictif wdt:P1074?/wdt:P27 wd:Q223050 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

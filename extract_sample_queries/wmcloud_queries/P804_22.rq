@@ -1,0 +1,4 @@
+#title: Latitude should be south of 52.9 S
+# Complex constraint from [[Property talk:P804]]
+# The most northerly latitude in the GNIS Antarctica dataset is 52.9 S, so items should not be further north than that.
+select distinct ?item { ?item wdt:P804 [] . ?item p:P625/psv:P625/wikibase:geoLatitude ?lat filter (?lat > -52.9) . }

@@ -1,0 +1,6 @@
+embed.html#select ?genre ?genreLabel ?superClassLabel where {
+  ?genre wdt:P279* wd:Q483394 ;
+         wdt:P279 ?superClass .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+         }

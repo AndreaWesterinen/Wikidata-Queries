@@ -1,0 +1,6 @@
+SELECT ?item ?image ?coor WHERE {
+  ?item wdt:P131 wd:Q12193.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  { ?item wdt:P625 ?coor. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl,fr,es". }
+}

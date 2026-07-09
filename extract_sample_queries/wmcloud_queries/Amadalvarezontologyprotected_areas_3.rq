@@ -1,0 +1,11 @@
+SELECT ?item ?inst_ncia_de ?inst_ncia_deLabel ?identificador_UICN ?identificador_Natura_2000 ?identificador_WDPA ?identificador__rea_protegida_de_Baviera WHERE {
+  ?item wdt:P17 wd:Q183.
+  ?item wdt:P809 ?codi.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca,en". }
+  OPTIONAL { ?item wdt:P31 ?inst_ncia_de. }
+  OPTIONAL { ?item wdt:P814 ?identificador_UICN. }
+  OPTIONAL { ?item wdt:P3425 ?identificador_Natura_2000. }
+  OPTIONAL { ?item wdt:P809 ?identificador_WDPA. }
+  OPTIONAL { ?item wdt:P6230 ?identificador__rea_protegida_de_Baviera. }
+}
+LIMIT 20000

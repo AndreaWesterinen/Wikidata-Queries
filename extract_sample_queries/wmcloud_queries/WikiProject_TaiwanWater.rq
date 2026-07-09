@@ -1,0 +1,9 @@
+#Rivers Taiwan
+SELECT ?river ?riverLabel ?location
+WHERE
+{
+  ?river wdt:P31/wdt:P279* wd:Q355304; 
+         wdt:P17 wd:Q865.
+  OPTIONAL { ?river wdt:P625 ?location. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "zh". }
+}

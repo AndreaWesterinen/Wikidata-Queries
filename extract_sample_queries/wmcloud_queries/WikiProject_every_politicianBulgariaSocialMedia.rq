@@ -1,0 +1,59 @@
+select 
+  ?item
+  ?mp_name 
+  (group_concat(distinct ?group_label) as ?groups) 
+  ?strazha_url
+  ?facebook_page_url
+  ?facebook_profile_url
+  ?facebook_uncat_url
+  ?mastodon_url
+  ?instagram_url
+  ?twitter_url
+  ?github_url
+  ?linkedin_url
+  ?youtube_url
+  (max(?NUM) as ?max_ns) {
+  ?ns p:P31 [ps:P31 wd:Q43792361 ; pq:P1545 ?ns_num] .
+  bind(strdt(?ns_num,xsd:integer) as ?NUM)
+  filter(?NUM >=39)
+  ?item p:P39 [ps:P39 wd:Q18924508 ; pq:P2937 ?ns ; pq:P4100 ?group] ; wdt:P11446 ?strazha.
+   wd:P11446 wdt:P1630 ?stz_fmt . bind(uri(replace(str(?stz_fmt),"\\$1",?strazha)) as ?strazha_url) 
+
+
+  optional {?item p:P2013 [ps:P2013 ?facebook_page   ;  pq:P3831 wd:Q101420143] . wd:P2013 wdt:P1630 ?fbpage_fmt . bind(uri(replace(str(?fbpage_fmt),"\\$1",?facebook_page)) as ?facebook_page_url)}
+  optional {?item p:P2013 [ps:P2013 ?facebook_profile ; pq:P3831 wd:Q63976443]  . wd:P2013 wdt:P1630 ?fprof_fmt . bind(uri(replace(str(?fprof_fmt),"\\$1",?facebook_profile)) as ?facebook_profile_url)}
+  optional {?item wdt:P4033 ?mastodon. wd:P4033 wdt:P1630 ?mast_fmt . bind(uri(replace(str(?mast_fmt),"\\$1",?mastodon)) as ?mastodon_url)}
+  optional {?item wdt:P2003 ?instagram. wd:P2003 wdt:P1630 ?insta_fmt . bind(uri(replace(str(?insta_fmt),"\\$1",?instagram)) as ?instagram_url)}
+  optional {?item wdt:P2002 ?twitter. wd:P2002 wdt:P1630 ?twitter_fmt . bind(uri(replace(str(?twitter_fmt),"\\$1",?twitter)) as ?twitter_url)}
+  optional {?item wdt:P2037 ?github. wd:P2037 wdt:P1630 ?gh_fmt . bind(uri(replace(str(?gh_fmt),"\\$1",?github)) as ?github_url)}
+  optional {?item wdt:P6634 ?linkedin.  wd:P6634 wdt:P1630 ?ln_fmt . bind(uri(replace(str(?ln_fmt),"\\$1",?linkedin)) as ?linkedin_url)}
+  optional {?item wdt:P11245 ?youtube. wd:P11245 wdt:P1630 ?yt_fmt . bind(uri(replace(str(?yt_fmt),"\\$1",?youtube)) as ?youtube_url)}
+  
+  optional {?wikipedia_url schema:about ?item ; schema:isPartOf <https://bg.wikipedia.org/> ; schema:name ?wikipedia}
+  bind(strafter(str(?item),str(wd:)) as ?wd)
+
+  optional {?item p:P2013 ?fbst. 
+            ?fbst ps:P2013 ?fb_uncat .
+            filter not exists {?fbst pq:P3831 []}
+             wd:P2013 wdt:P1630 ?fb_fmt . bind(uri(replace(str(?fb_fmt),"\\$1",?fb_uncat)) as ?facebook_uncat_url)
+            }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "bg". 
+         ?item rdfs:label ?mp_name .
+         ?group rdfs:label ?group_label .                
+  }
+}
+group by 
+?item 
+?mp_name
+?facebook_page_url
+?facebook_profile_url
+?facebook_uncat_url
+?mastodon_url
+?instagram_url
+?twitter_url
+?github_url
+?linkedin_url
+?youtube_url
+?strazha_url
+order by desc(?max_ns) ?facebook_page_url ?groups

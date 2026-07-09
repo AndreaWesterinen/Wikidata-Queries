@@ -1,0 +1,4 @@
+#title: Items with P31='geography of geographic location' should be linked with this property
+# Complex constraint from [[Property talk:P2633]]
+# Todo: find the item that could link it with P2633
+SELECT ?item ?itemLabel { ?item wdt:P31 wd:Q46865913 . FILTER NOT EXISTS { [] wdt:P2633 ?item }  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  }

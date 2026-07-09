@@ -1,0 +1,1 @@
+SELECT (COUNT(*) as ?ct) { ?item wdt:P31 wd:Q13406463 }

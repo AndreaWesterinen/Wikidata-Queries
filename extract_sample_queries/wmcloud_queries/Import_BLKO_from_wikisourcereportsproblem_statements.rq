@@ -1,0 +1,17 @@
+SELECT ?item (GROUP_CONCAT(?l; separator= ", ") as ?problems) 
+{
+	?item wdt:P1433 wd:Q665807 . 
+    hint:Query hint:optimizer "None".
+    { ?item wdt:P40 [] . wd:P40 rdfs:label ?l . FILTER(lang(?l) = "en") } UNION
+    { ?item wdt:P569 [] . wd:P569 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P570 [] . wd:P570 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P22 [] . wd:P22 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P24 [] . wd:P24 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P25 [] . wd:P25 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P937 [] . wd:P937 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P734 [] . wd:P734 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P6228 [] . wd:P6228 rdfs:label ?l . FILTER(lang(?l) = "en") }  UNION
+    { ?item wdt:P1830 [] . wd:P1830 rdfs:label ?l . FILTER(lang(?l) = "en") }
+}
+GROUP BY ?item
+ORDER BY ?item

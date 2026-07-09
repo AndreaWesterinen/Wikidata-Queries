@@ -1,0 +1,7 @@
+SELECT ?thing ?thingLabel ?inv ?url WHERE {
+VALUES ?in {wd:Q82133 wd:Q2210813} # Bodleian and Sackler
+?thing p:P195 ?s; wdt:P953 ?url.
+?s ps:P195 ?in
+OPTIONAL { ?s pq:P217 ?inv }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?thingLabel

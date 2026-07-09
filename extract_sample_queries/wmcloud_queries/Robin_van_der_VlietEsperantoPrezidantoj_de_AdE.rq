@@ -1,0 +1,28 @@
+SELECT ?item ?from ?start ?end WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item p:P106 ?occupation.
+  ?occupation ps:P106 wd:Q860918.
+  OPTIONAL { 
+    ?occupation pqv:P580 [
+        wikibase:timePrecision ?from_precision;
+        wikibase:timeValue ?from_time;
+      ];
+  }
+  ?item p:P39 ?president.
+  ?president ps:P39 wd:Q21898099.
+  OPTIONAL { 
+    ?president pqv:P580 [
+        wikibase:timePrecision ?start_precision;
+        wikibase:timeValue ?start_time;
+      ];
+  }
+  OPTIONAL { 
+    ?president pqv:P582 [
+        wikibase:timePrecision ?end_precision;
+        wikibase:timeValue ?end_time;
+      ];
+  }
+  BIND(YEAR(?from_time) AS ?from)
+  BIND(IF(?start_precision = 9, YEAR(?start_time), ?start_time) AS ?start)
+  BIND(IF(?end_precision = 9, YEAR(?end_time), ?end_time) AS ?end)
+}

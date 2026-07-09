@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?wsp ?st ?sl ?ids
+{
+    hint:Query hint:optimizer "None".
+	?entry wdt:P1433 wd:Q665807 . 
+	?entry wdt:P2860 / wdt:P407 wd:Q9067 .
+	?entry wdt:P921 ?item . 
+	?item wdt:P31 wd:Q5 .
+	?item wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids .
+	?ws schema:about ?entry ; schema:name ?wst2 ; schema:isPartOf <https://de.wikisource.org/> .
+	BIND( CONCAT('<span title="',strafter(?wst2,"BLKÖ:"),'">[',str(?ws)," ws]</span>") as ?wsp)
+}
+ORDER BY ?item
+LIMIT 3000

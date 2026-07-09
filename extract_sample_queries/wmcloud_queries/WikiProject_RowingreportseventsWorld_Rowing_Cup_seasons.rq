@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(DISTINCT ?regatta) AS ?regattas) WHERE {
+  ?item wdt:P3450 wd:Q1974959 .
+  OPTIONAL {
+    ?item wdt:P527 ?regatta .
+    ?regatta wdt:P31/wdt:P279* wd:Q21224061 .
+  }
+} GROUP BY ?item

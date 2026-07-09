@@ -1,0 +1,5 @@
+SELECT ?item ?catcode ?inv1 ?inv2 WHERE { 
+?item p:P528 [ pq:P972 wd:Q99770530 ; ps:P528 ?catcode].  
+  OPTIONAL { ?item p:P217 [ pq:P195 wd:Q28045665 ; ps:P217 ?inv1]. }
+  OPTIONAL { ?item p:P217 [ pq:P195 wd:Q2284748 ; ps:P217 ?inv2]. }
+} ORDER BY xsd:integer(?catcode)

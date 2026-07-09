@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?council ?councilLabel WHERE { 
+  VALUES ?authority_types { wd:Q211690 wd:Q1136601 wd:Q15060255 wd:Q15979307 wd:Q1002812 wd:Q17364572 wd:Q180673 }
+  ?cities wdt:P31 ?authority_types
+  VALUES ?cons { wd:Q589282 }
+  ?council wdt:P1001 ?cities ;
+           wdt:P31/wdt:P279* wd:Q11204 .
+  MINUS { ?council wdt:P576 [] }
+  {
+  ?statement ps:P31 ?cons ;
+             pq:P642 ?council.
+  ?item p:P31 ?statement 
+  } UNION {
+  wd:Q11703950 p:P279 ?statement .
+  ?statement pq:P642 ?council .
+  ?item wdt:P31 wd:Q11703950 .
+  }
+  MINUS { ?item wdt:P576 [] }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

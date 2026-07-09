@@ -1,0 +1,5 @@
+SELECT ?id (COUNT(DISTINCT ?x) AS ?count) (GROUP_CONCAT(?x) AS ?items) {
+  ?x wdt:P496 ?id .
+} GROUP BY ?id  
+  HAVING (?count > 1)
+  ORDER BY DESC(?count)

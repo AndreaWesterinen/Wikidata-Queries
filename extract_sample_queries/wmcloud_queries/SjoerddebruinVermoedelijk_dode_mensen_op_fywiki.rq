@@ -1,0 +1,1 @@
+SELECT ?item WHERE { ?wiki0 <http://schema.org/about> ?item . FILTER(SUBSTR(STR(?wiki0),1,24) = 'https://fy.wikipedia.org') . ?item wdt:P31 wd:Q5 . ?item wdt:P569 ?time0 . FILTER ( ?time0 >= "0001-01-01T00:00:00Z"^^xsd:dateTime && ?time0 <= "1918-01-01T00:00:00Z"^^xsd:dateTime ) OPTIONAL { ?item wdt:P570 ?dummy0 } FILTER(!bound(?dummy0)) }

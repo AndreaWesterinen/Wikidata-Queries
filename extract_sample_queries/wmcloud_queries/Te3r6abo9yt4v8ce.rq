@@ -1,0 +1,9 @@
+SELECT ?item ?vanaf ?tot ?voorganger ?opvolger WHERE {
+  ?item p:P39 ?positie . 
+  ?positie ps:P39 wd:Q251747 .
+  OPTIONAL { ?positie pq:P580 ?vanaf } . 
+  OPTIONAL { ?positie pq:P582 ?tot } . 
+  OPTIONAL { ?positie pq:P1365 ?voorganger } . 
+  OPTIONAL { ?positie pq:P1366 ?opvolger } .
+  MINUS {?positie pq:P794 wd:Q4676846 } # Neem niet de waarnememend voorzitters mee
+} ORDER BY ?vanaf

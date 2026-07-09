@@ -1,0 +1,2 @@
+#title:Move qualifier to source
+SELECT DISTINCT ?item { ?statement1 pq:P854 [] . ?item ?p1 ?statement1 . FILTER (?p1 NOT IN (p:P1343, p:P248, p:P747, p:P485)) }

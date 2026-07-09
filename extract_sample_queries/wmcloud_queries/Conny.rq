@@ -1,0 +1,8 @@
+#defaultView:Map citys as big as Bautzen
+SELECT DISTINCT ?city ?cityLabel ?populatie2 ?coor WHERE {
+  <http://www.wikidata.org/entity/Q14835> wdt:P1082 ?populatie .
+  ?city wdt:P1082 ?populatie2 ;
+        wdt:P625 ?coor .
+  FILTER (abs(?populatie - ?populatie2) < 1000)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" }
+}

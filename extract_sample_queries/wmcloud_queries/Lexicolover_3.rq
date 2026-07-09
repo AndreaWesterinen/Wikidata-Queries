@@ -1,0 +1,9 @@
+SELECT ?length (COUNT(?lemma) AS ?count ) WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma .
+  ?language wdt:P218 'cs' .
+  FILTER REGEX ( ?lemma, "^[^\\s]*$")
+  BIND ( strlen(?lemma) as ?length )
+}
+GROUP BY ?length
+ORDER BY ASC(?length) 

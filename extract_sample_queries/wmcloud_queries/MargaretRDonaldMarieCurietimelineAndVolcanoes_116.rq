@@ -1,0 +1,8 @@
+# taxa where taxon name contain chrysocalyx
+SELECT ?item ?stat ?taxon_name ?pub_date WHERE {
+  ?item p:P225 ?stat . 
+  ?stat ps:P225 ?taxon_name.
+  filter contains (?taxon_name, "chrysocalyx")
+  optional {?stat pq:P577 ?pub_date.}   
+}
+ORDER BY ?taxon_name 

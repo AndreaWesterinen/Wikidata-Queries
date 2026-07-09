@@ -1,0 +1,7 @@
+SELECT ?item ?rkdurl WHERE {
+  wd:P350 wdt:P1630 ?formatterurl .
+  ?item wdt:P170 wd:Q538350 . 
+  ?item wdt:P31 wd:Q3305213 .  
+  OPTIONAL { ?item wdt:P350 ?rkdid } .
+  BIND(CONCAT('[', REPLACE(?rkdid, '^(.+)$', ?formatterurl), ' ', ?rkdid, ']') AS ?rkdurl)  . 
+}

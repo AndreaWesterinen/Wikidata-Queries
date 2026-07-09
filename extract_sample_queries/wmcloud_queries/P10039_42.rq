@@ -1,0 +1,8 @@
+#title: WW2 provenance needs rank update
+# Complex constraint from [[Property talk:P10039]]
+# The current location, the current collections and the current inventory numbers should be set to rank preferred
+SELECT DISTINCT ?item ?id WHERE {
+  ?item wdt:P10039 ?id .
+  { ?item wdt:P276 wd:Q475667 } UNION { ?item wdt:P276 wd:Q1053735 } UNION
+  { ?item wdt:P195 wd:Q475667 } UNION { ?item wdt:P195 wd:Q1053735 }
+  } LIMIT 1500

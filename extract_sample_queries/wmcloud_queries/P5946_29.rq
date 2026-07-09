@@ -1,0 +1,14 @@
+#title: Items with statements where property P5946 uses the somevalue/anyvalue special value
+SELECT
+  ?item ?itemLabel
+  (GROUP_CONCAT(?instanceLabel; separator=", ") as ?instanceLabels)
+WHERE
+{
+    ?item wdt:P5946 ?value .
+    FILTER (wikibase:isSomeValue(?value))
+  OPTIONAL {?item wdt:P31 ?instance}
+  SERVICE wikibase:label {   bd:serviceParam wikibase:language "en,en,ru,ja,zh" .
+                               ?item rdfs:label ?itemLabel . ?instance rdfs:label ?instanceLabel }
+}
+GROUP BY ?item ?itemLabel
+LIMIT 100

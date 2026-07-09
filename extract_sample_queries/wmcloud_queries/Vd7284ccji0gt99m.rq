@@ -1,0 +1,5 @@
+SELECT * WHERE {
+?i wdt:P31 wd:Q8171;
+   wikibase:sitelinks ?sl.
+  filter(?sl = 0)
+}

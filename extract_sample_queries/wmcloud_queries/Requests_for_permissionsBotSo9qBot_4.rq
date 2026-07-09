@@ -1,0 +1,11 @@
+#title:QS template for adding timestamps to novalue statements
+# 2021-08-06
+select ?qid ?P9837 ?qal585 #?lexemeId ?lemma 
+WHERE {
+  ?lexemeId dct:language wd:Q9027.
+#  ?lexemeId a wdno:P8478.
+    ?lexemeId a wdno:P9837.
+  bind(replace(str(?lexemeId), "http://www.wikidata.org/entity/", "") as ?qid)
+BIND(str("novalue") AS ?P9837)
+  BIND("+2021-09-01T00:00:00Z/11"  AS ?qal585)
+}

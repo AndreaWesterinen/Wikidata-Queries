@@ -1,0 +1,8 @@
+#Populated places in Nigeria
+SELECT ?place ?placeLabel ?location
+WHERE
+{
+  ?place wdt:P17 wd:Q1033 . # in Nigeria
+  ?place wdt:P625 ?location. # with coordinates
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

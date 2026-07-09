@@ -1,0 +1,49 @@
+#Animated films by production company
+SELECT DISTINCT ?company ?companyLabel ?sampleCountryLabel ?filmCount ?featureFilmCount ?shortFilmCount
+WHERE
+{
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+{
+SELECT DISTINCT ?company (SAMPLE(?country) AS ?sampleCountry) 
+                (COUNT(DISTINCT ?film) AS ?filmCount)
+                (COUNT(DISTINCT ?featureFilm) AS ?featureFilmCount)
+                (COUNT(DISTINCT ?shortFilm) AS ?shortFilmCount)
+WHERE 
+{
+  {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866} UNION
+  {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107}
+  
+  #excluding film series
+  MINUS{?film wdt:P31/wdt:P279* wd:Q24856}
+  MINUS{?film wdt:P31/wdt:P279* wd:Q5398426}
+  
+  ?film wdt:P272/wdt:P749* ?company.
+  MINUS{?film wdt:P31/wdt:P279* wd:Q5398426}
+  MINUS{?company wdt:P749 ?company2}
+  OPTIONAL{?company wdt:P17 ?country}.
+  OPTIONAL{
+  #marking films being a feature film (via P31)
+  {?film wdt:P31/wdt:P279* wd:Q24869} UNION
+  #marking films with a duration longer than or equal to 45 minutes/2700 seconds/0.75 hours
+  {?film p:P2047/psv:P2047 ?durationNode. 
+   {?durationNode wikibase:quantityUnit wd:Q7727; wikibase:quantityAmount ?duration. FILTER(?duration >= 45)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q11574; wikibase:quantityAmount ?duration. FILTER(?duration >= 2700)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q25235; wikibase:quantityAmount ?duration. FILTER(?duration >= 0.75)}
+  }
+  BIND(?film AS ?featureFilm)
+    }
+  OPTIONAL{
+     #marking films being a short film (via P31)
+  {?film wdt:P31/wdt:P279* wd:Q24862} UNION
+  #marking films with a duration shorter than 45 minutes/2700 seconds/0.75 hours
+  {?film p:P2047/psv:P2047 ?durationNode. 
+   {?durationNode wikibase:quantityUnit wd:Q7727; wikibase:quantityAmount ?duration. FILTER(?duration < 45)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q11574; wikibase:quantityAmount ?duration. FILTER(?duration < 2700)} UNION
+   {?durationNode wikibase:quantityUnit wd:Q25235; wikibase:quantityAmount ?duration. FILTER(?duration < 0.75)}
+  }
+    BIND(?film AS ?shortFilm)
+  }
+}
+GROUP BY ?company ?companyLabel ?countryLabel
+}}
+ORDER BY DESC(?filmCount)

@@ -1,0 +1,22 @@
+SELECT ?item 
+WHERE 
+{
+{
+    ?item wdt:P31 wd:Q20741022 .
+} UNION {
+    ?item wdt:P31 wd:Q62927 .
+} UNION {
+    ?item wdt:P31 wd:Q196342 .
+} UNION {
+    ?item wdt:P31 wd:Q20679033 .
+} UNION {
+    ?item wdt:P279 wd:Q62927 .
+} UNION {
+    ?item wdt:P279 wd:Q196342 .
+} UNION {
+    ?item wdt:P279 wd:Q20679033 .
+} UNION {
+    ?item wdt:P31 wd:Q20888692 .
+}
+}
+LIMIT 5000

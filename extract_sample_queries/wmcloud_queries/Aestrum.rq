@@ -1,0 +1,8 @@
+embed.html##display instance of class of ambassadors to/of a country 
+SELECT DISTINCT ?item ?itemLabel ?subclass ?subclassLabel
+WHERE
+{
+    {?item wdt:P279 wd:Q29645880.} union {?item wdt:P279 wd:Q29645886}
+    ?item wdt:P279 ?subclass.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "AUTO LANGUAGE,en" }
+}

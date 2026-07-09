@@ -1,0 +1,12 @@
+SELECT ?item ?disciplineType ?gamesLabel (COUNT(DISTINCT ?event) AS ?events) WHERE {
+  VALUES ?disciplineType { wd:Q1123217 }
+  ?item wdt:P31 ?disciplineType .
+  OPTIONAL {
+    { ?item wdt:P527 ?event } UNION { ?event wdt:P361 ?item }
+    ?event wdt:P31 wd:Q18536594 .
+  }
+  ?item wdt:P361 ?games .
+  VALUES ?gamesType { wd:Q159821 wd:Q82414 }
+  ?games wdt:P31 ?gamesType .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?item ?disciplineType ?gamesLabel

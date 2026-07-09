@@ -1,0 +1,11 @@
+embed.html##defaultView:LineChart
+SELECT (STR(YEAR(?date)) AS ?year) ?number_of_out_of_school_chidren ?placesLabel (STR(?refUrl) as ?source) WHERE {
+  VALUES ?places {wd:Q30 wd:Q142 wd:Q145} .
+  ?places p:P2573 [
+    ps:P2573 ?number_of_out_of_school_chidren ;
+    pq:P585 ?date ;
+    prov:wasDerivedFrom [ pr:P854 ?refUrl ]
+    ]
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

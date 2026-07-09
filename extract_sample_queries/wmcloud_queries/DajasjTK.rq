@@ -1,0 +1,12 @@
+SELECT ?item ?group ?start_time ?end_time
+WHERE {
+?item p:P39 ?node.
+  OPTIONAL { ?item p:P734 ?family_name }
+  ?node ps:P39 wd:Q18887908
+  OPTIONAL { ?node pq:P580 ?start_time }
+  OPTIONAL { ?node pq:P582 ?end_time }
+  OPTIONAL { ?node pq:P4100 ?group }
+
+
+}
+  ORDER BY ASC(?family_name)

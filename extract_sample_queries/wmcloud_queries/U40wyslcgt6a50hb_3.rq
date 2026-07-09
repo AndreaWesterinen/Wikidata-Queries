@@ -1,0 +1,16 @@
+# properties with most “no value” statements/qualifiers/references (truthy statements count twice)
+# uncomment lines 7 and 9 to count only main snaks
+SELECT ?property ?propertyLabel ?count WHERE {
+  {
+    SELECT ?property (COUNT(?statement) AS ?count) WHERE {
+      ?property a wikibase:Property;
+                # wikibase:claim ?p;
+                wikibase:novalue ?wdno.
+      # ?entity ?p ?statement.
+      ?statement a ?wdno. # note: if lines 7 and 9 are commented, ?statement may also be an entity with a truthy “no value” statement
+    }
+    GROUP BY ?property
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

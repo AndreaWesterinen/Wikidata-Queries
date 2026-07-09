@@ -1,0 +1,8 @@
+#title: Sporters
+# Complex constraint from [[Property talk:P4663]]
+# People with [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] with [[d:Q2066131|athlete <small>(Q2066131)</small>]] as profession
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P4663 [] . 
+  ?item wdt:P106/wdt:P279* wd:Q2066131 .
+  ?item wdt:P31 wd:Q5 . 
+} LIMIT 1000

@@ -1,0 +1,11 @@
+SELECT ?qid ("P31" AS ?pid) ("Q6881511" AS ?value) ("/* add statement based on existing statements */" AS ?comment) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q4830453.
+  ?item wdt:P1454 ?Rechtsform.
+  {?Rechtsform wdt:P31 wd:Q1269299.}
+  UNION
+  {?Rechtsform wdt:P279 wd:Q1269299.}
+  MINUS { ?item wdt:P31/wdt:P279* wd:Q6881511. }
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+}
+LIMIT 1000

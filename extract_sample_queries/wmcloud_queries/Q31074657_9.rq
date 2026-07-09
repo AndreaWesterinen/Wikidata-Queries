@@ -1,0 +1,11 @@
+#title: Cims amb més d'una altitud
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item ?alt1 ?alt2 where {
+  ?item p:P361 ?stat .
+  ?stat ps:P361 wd:Q31074657 .
+  ?stat pq:P2699 [] .
+  ?item wdt:P2044 ?alt1 .
+  ?item wdt:P2044 ?alt2 .
+  filter(str(?alt1) < str(?alt2))
+}

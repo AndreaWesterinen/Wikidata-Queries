@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?givenLabel ?praenomenLabel
+WHERE
+{
+  ?item wdt:P2358 ?praenomen.
+  ?item wdt:P735 ?given.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

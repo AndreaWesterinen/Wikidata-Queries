@@ -1,0 +1,9 @@
+# National heroes of Indonesia
+SELECT *
+WHERE {
+  ?itemID wdt:P166 wd:Q1369309 . # items with award received National Hero of Indonesia
+  OPTIONAL { ?itemID rdfs:label ?labelEN . # English label
+             FILTER(LANG(?labelEN)="en") }
+  OPTIONAL { ?itemID rdfs:label ?labelID . # Indonesian label
+             FILTER(LANG(?labelID)="id") }
+}

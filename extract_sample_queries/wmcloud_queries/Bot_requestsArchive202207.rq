@@ -1,0 +1,1 @@
+SELECT * { ?item wdt:P21 wd:Q6581097 ; schema:description "politicienne allemande"@fr }

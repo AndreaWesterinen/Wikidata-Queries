@@ -1,0 +1,11 @@
+#title: check V for ISSN
+# Complex constraint from [[Property talk:P10283]]
+# Initial V (venue) would generally have an ISSN
+SELECT ?item ?value
+{
+  ?item wdt:P10283 ?value .
+  FILTER( REGEX( ?value, '^V') )
+  FILTER NOT EXISTS { ?item wdt:P236 [ ] }
+  FILTER NOT EXISTS { ?item wdt:P7363 [ ] }
+}
+LIMIT 100

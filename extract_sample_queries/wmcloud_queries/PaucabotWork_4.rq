@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?article
+WHERE
+{
+  ?item wdt:P31 wd:Q5;
+        wdt:P19 wd:Q8826.
+  ?article a schema:Article;
+             schema:about ?item;
+             schema:inLanguage "ca".
+  FILTER NOT EXISTS {
+    ?item schema:description ?description.
+    FILTER(LANG(?description) = "ca").
+  }
+}

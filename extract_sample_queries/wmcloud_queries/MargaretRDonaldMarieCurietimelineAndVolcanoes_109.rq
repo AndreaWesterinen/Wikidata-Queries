@@ -1,0 +1,11 @@
+# Venue statistics for a specific author
+SELECT ?work ?workLabel ?venue ?venueLabel ?DOI
+   WHERE {
+    ?item wdt:P50 wd:Q38590672 . 
+	?work wdt:P50 wd:Q38590672 .
+    ?work wdt:P1433 ?venue .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    optional {?work wdt:P356 ?DOI.} 
+  }
+
+ORDER BY ?venueLabel

@@ -1,0 +1,6 @@
+SELECT ?item ?sl
+{
+	?item wdt:P641 wd:Q3930 ; wikibase:statements 1 ; wikibase:sitelinks ?sl 
+}
+ORDER BY DESC(xsd:integer(strafter(str(?item), "Q")))
+LIMIT 1000

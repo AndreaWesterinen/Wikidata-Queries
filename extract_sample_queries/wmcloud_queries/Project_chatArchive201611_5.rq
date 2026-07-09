@@ -1,0 +1,8 @@
+PREFIX ps: <http://www.wikidata.org/prop/statement/value/>
+
+SELECT ?item ?itemLabel ?length WHERE {
+  ?item p:P2043/ps:P2043/wikibase:quantityAmount ?length .
+  SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en" .
+}
+} ORDER BY DESC(?length) LIMIT 10

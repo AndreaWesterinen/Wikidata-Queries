@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item WHERE {
+  {
+    { ?item wdt:P31 wd:Q532 }
+    UNION
+    { ?item wdt:P31 wd:Q23442 } .
+    ?item wdt:P131* wd:Q5689 .
+  }
+  UNION
+  {
+    {
+      SERVICE wikibase:box {
+      # Looking for items with coordinate locations(P625)
+      ?item wdt:P625 ?location .
+      # Set the south west and north east corners of the box
+      bd:serviceParam wikibase:cornerSouthWest "Point(19.2627 59.7363)"^^geo:wktLiteral .
+      bd:serviceParam wikibase:cornerNorthEast "Point(21.3244 60.6656)"^^geo:wktLiteral .
+        }
+    }
+  }
+}

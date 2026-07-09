@@ -1,0 +1,7 @@
+SELECT *
+{
+    ?item wdt:P1559 ?nl . 
+    FILTER(strends( ?nl, "Sr."@en) ) 
+    BIND( CONCAT( strafter( str(?item), "y/" ), ',en:"', str(?nl), '",L252248-F2') as ?qid_P8107_qal8017)
+}
+LIMIT 5000

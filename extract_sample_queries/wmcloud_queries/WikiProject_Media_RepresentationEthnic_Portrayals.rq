@@ -1,0 +1,27 @@
+#summary of test results for ethnicity related tests, ordered by number of wikipedia sitelinks
+SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?riz; separator = '/') AS ?Riz) 
+(GROUP_CONCAT(DISTINCT ?waithe; separator = '/') AS ?Waithe) 
+(GROUP_CONCAT(DISTINCT ?shukla; separator = '/') AS ?Shukla) 
+?sitelinks
+#first I'm getting all items with at least one result for one of the tests
+WITH { SELECT DISTINCT ?item WHERE {
+    #getting possible results
+    VALUES ?result {wd:Q102182411 wd:Q102182525 wd:Q102182612 wd:Q104144336 wd:Q104144353 wd:Q104144423 wd:Q104144432}
+    #for consideration an item has to have at least one result for one of the tests
+    ?item wdt:P1552 ?result.
+}
+} AS %items
+#now I get the results for all relevant tests
+ WHERE {    
+    INCLUDE %items
+    #getting riz
+    OPTIONAL{{?item wdt:P1552 wd:Q102182411 BIND("pass" AS ?riz)} UNION {?item wdt:P1552 wd:Q102182525 BIND("fail" AS ?riz)} UNION {?item wdt:P1552 wd:Q102182612 BIND("NA" AS ?riz)}}
+    #getting waithe
+    OPTIONAL{{?item wdt:P1552 wd:Q104144336 BIND("pass" AS ?waithe)} UNION {?item wdt:P1552 wd:Q104144353 BIND("fail" AS ?waithe)}}
+    #getting shukla
+    OPTIONAL{{?item wdt:P1552 wd:Q104144423 BIND("pass" AS ?shukla)} UNION {?item wdt:P1552 wd:Q104144432 BIND("fail" AS ?shukla)}}
+    ?item wikibase:sitelinks ?sitelinks
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?sitelinks
+ORDER BY DESC(?sitelinks)

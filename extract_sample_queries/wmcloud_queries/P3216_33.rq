@@ -1,0 +1,9 @@
+#title: Missing ClassInd ID
+# Complex constraint from [[Property talk:P3216]]
+# Items with this property should include either a [[Property:P8782|ClassInd game ID&#32;<small dir="ltr">(P8782)</small>]] or a [[Property:P8958|ClassInd audiovisual work ID&#32;<small dir="ltr">(P8958)</small>]]
+SELECT ?item (SAMPLE(?types) AS ?type) WHERE {
+  ?item wdt:P3216 [ ] .
+  MINUS { ?item wdt:P8782 [] }
+  MINUS { ?item wdt:P8958 [] }
+  OPTIONAL { ?item wdt:P31 ?types }
+} GROUP BY ?item

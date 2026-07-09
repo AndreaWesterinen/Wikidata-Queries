@@ -1,0 +1,11 @@
+#title: References
+# Complex constraint from [[Property talk:P5436]]
+#
+SELECT ?item ?value {
+	?item wdt:P5436 ?value.
+    FILTER NOT EXISTS {
+      ?item ?property ?object.
+      ?object prov:wasDerivedFrom ?provenance.
+      ?provenance pr:P854 ?reference.
+    }
+}

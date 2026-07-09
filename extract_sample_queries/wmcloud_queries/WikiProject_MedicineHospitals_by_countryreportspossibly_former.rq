@@ -1,0 +1,18 @@
+SELECT ?item ?check ?type
+WHERE
+{
+    ?item wdt:P31/wdt:P279* wd:Q16917 .
+    MINUS { ?item wdt:P31 wd:Q64578911 } .
+    MINUS { ?item p:P31/ps:P31 wd:Q64578911 } .
+    { ?item rdfs:label ?check . FILTER( lang(?check) = "fr" && contains(lcase(str(?check)), "ancien ") ) . BIND("fr-label" as ?type) }
+    UNION
+    { ?item rdfs:label ?check . FILTER( lang(?check) = "en" && contains(lcase(str(?check)), "former ") ) . BIND("en-label" as ?type) }
+    UNION
+    { ?item schema:description ?check . FILTER( lang(?check) = "en" && contains(lcase(str(?check)), "former") ) . BIND("en-desc" as ?type)  }
+    UNION
+    { ?item schema:description ?check . FILTER( lang(?check) = "es" && contains(lcase(str(?check)), "desaparecido") ) . BIND("es-desc" as ?type)  }
+    UNION
+    { ?item schema:description ?check . FILTER( lang(?check) = "fr" && contains(lcase(str(?check)), "ancien") ) . BIND("fr-desc" as ?type)  }
+    UNION
+    { ?item wdt:P31 wd:Q33506 . BIND("museum" as ?check) . BIND("P31" as ?type)  }
+}

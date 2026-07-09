@@ -1,0 +1,7 @@
+#title: Born in future
+# Complex constraint from [[Property talk:P841]]
+#
+SELECT ?item ?born {
+  ?item wdt:P841 []; wdt:P569 ?born.
+  FILTER (?born >= NOW())
+}

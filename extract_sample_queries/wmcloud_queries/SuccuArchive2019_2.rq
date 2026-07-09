@@ -1,0 +1,8 @@
+SELECT ?rank WHERE {
+  ?rank wdt:P105 wd:Q34740. # Q37517=class; Q36602=order; Q35409=family; Q34740=genus; Q7432=species
+  FILTER(NOT EXISTS {
+    ?rank schema:description ?itemdesc.
+    FILTER(LANG(?itemdesc) = "en") # with missing English description
+  })
+}
+LIMIT 3000

@@ -1,0 +1,3 @@
+# number of geolocation (P625) statements
+# runtime: instantaneous
+SELECT (COUNT(*) AS ?count) WHERE { [] p:P625 []. }

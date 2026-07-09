@@ -1,9 +1,8 @@
-# ----
+#title: Authors of scientific articles who received a Nobel prize
+#added in 2016-10; updated 2025-08
 #  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
 
-#added in 2016-10; updated 2025-08
 
-#Authors of scientific articles who received a Nobel prize
 SELECT ?article ?articleLabel ?person ?personLabel ?_image ?award ?awardLabel
 WHERE {
   hint:Query hint:optimizer "None" .      

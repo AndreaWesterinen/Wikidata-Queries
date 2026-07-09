@@ -1,0 +1,4 @@
+#title: Check postal codes in Malaysia
+# Complex constraint from [[Property talk:P281]]
+#
+SELECT DISTINCT ?item ?zipCode WHERE { ?item wdt:P17 wd:Q833; wdt:P281 ?zipCode. FILTER( REGEX( STR( ?zipCode ), "^(\\d{5})(–\\d{5})?$" ) = false ) . } ORDER BY ?item

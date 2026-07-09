@@ -1,0 +1,9 @@
+#title: WMI code should match a value in P6793
+# Complex constraint from [[Property talk:P6322]]
+#
+SELECT ?item ?value ?wmi
+{
+    ?item wdt:P6322 ?value .
+    BIND( substr(?value,1,3) as ?wmi )
+    MINUS { [] wdt:P6793 ?wmi }
+}

@@ -1,0 +1,9 @@
+# All subclasses of = game mechanics 
+SELECT
+  ?item ?itemLabel
+  ?value ?valueLabel
+WHERE 
+{
+  ?item wdt:P279* wd:Q1751513 ;
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

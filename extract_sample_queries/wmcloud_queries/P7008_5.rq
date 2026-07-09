@@ -1,0 +1,4 @@
+#title: Qualifier of P1684 only
+# Complex constraint from [[Property talk:P7008]]
+# Is defined as a qualifier of [[Property:P1684|inscription&#32;<small dir="ltr">(P1684)</small>]], not other properties
+SELECT ?item ?p WHERE { ?st pq:P7008 [] . MINUS { ?item p:P1684 ?st } MINUS { ?item p:P1855 ?st } ?item ?p ?st }

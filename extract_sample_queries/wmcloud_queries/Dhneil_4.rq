@@ -1,0 +1,11 @@
+#Jews in the Crown of Aragon
+#defaultView:Timeline{"hide": ["?dob","?dod"]} 
+SELECT ?person ?personLabel ?dob (YEAR(?dob) as ?datebirth) ?dod (YEAR(?dod) as ?datedeath) 
+WHERE 
+{
+  ?person wdt:P140 wd:Q9268 .
+  ?person wdt:P27 wd:Q204920 .
+  ?person wdt:P569 ?dob .
+  ?person wdt:P570 ?dod .  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

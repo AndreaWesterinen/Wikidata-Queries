@@ -1,0 +1,10 @@
+#title: French roads
+# Complex constraint from [[Property talk:P14]]
+#
+SELECT ?item ?value ?country WHERE {
+  ?item wdt:P14 ?value.
+  ?item wdt:P17 ?country.
+  FILTER(REGEX(STR(?value), "fran%C3%A7")) .
+  FILTER(?country != wd:Q142).
+  FILTER( ?item NOT IN ( wd:Q1666149 ) ) .
+}

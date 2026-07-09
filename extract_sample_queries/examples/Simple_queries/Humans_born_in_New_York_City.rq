@@ -1,4 +1,3 @@
-# ----
 #title: Humans born in New York City
 SELECT DISTINCT ?item ?itemLabel ?itemDescription ?sitelinks
 WHERE {

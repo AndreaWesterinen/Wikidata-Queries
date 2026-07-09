@@ -1,0 +1,21 @@
+SELECT *
+WITH 
+{
+SELECT ?item (COUNT(DISTINCT ?p) as ?ct)  (SAMPLE(?p) as ?sample) (SAMPLE(?art) as ?sample_entry)
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?art wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q19389637 . 
+    ?art wdt:P921 ?p . 
+    ?p wdt:P1412 ?item . 
+}
+GROUP BY ?item
+HAVING ( ?ct > 4)
+ORDER BY DESC(?ct) ?item
+LIMIT 100
+} as %a
+WHERE
+{
+  INCLUDE %a
+}
+ORDER BY DESC(?ct) ?item

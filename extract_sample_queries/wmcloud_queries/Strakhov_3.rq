@@ -1,0 +1,10 @@
+#Inventari BRL
+SELECT ?item ?itemLabel ?municipi ?municipiLabel ?identif ?URL WHERE {
+  ?item wdt:P1435 wd:Q11910247.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P2473 ?identif. }
+  OPTIONAL { ?item p:P2473 _:b4.
+  _:b4 pq:P2699 ?URL.
+ } 
+  OPTIONAL { ?item wdt:P131 ?municipi. }
+}

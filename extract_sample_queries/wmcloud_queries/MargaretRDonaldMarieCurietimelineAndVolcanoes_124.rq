@@ -1,0 +1,5 @@
+# count taxon names with NT_Flora_ID ids
+SELECT (COUNT (?NT_Flora_ID) AS ?countID) WHERE {
+    ?item wdt:P5953  ?NT_Flora_ID.
+    ?item wdt:P225 ?taxon_name.
+}

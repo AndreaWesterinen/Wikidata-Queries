@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?humanLabel ?itemLabel WHERE {
+  ?human wdt:P31 wd:Q5.
+  ?human wdt:P106 ?item.
+  ?human wdt:P6379 wd:Q17153751.
+  ?human wdt:P6275 wd:Q71528227.
+  ?item wdt:P31 ?soort.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

@@ -1,0 +1,25 @@
+SELECT ?item ?itemLabel ?itemDescription ?name ?sitelink WHERE {
+  { ?sitelink schema:about ?item; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://de.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://fr.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://ja.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://ar.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://ru.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://it.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://hu.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://es.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+  UNION
+  { ?sitelink schema:about ?item; schema:isPartOf <https://zh.wikipedia.org/>; schema:name ?name; wikibase:badge wd:Q70893996 . }
+
+    ?item wdt:P31 wd:Q4936952 . 
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} LIMIT 250

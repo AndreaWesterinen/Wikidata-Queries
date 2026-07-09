@@ -1,3 +1,4 @@
+#title: Padua University Rectors by dates
 SELECT ?rettore ?rettoreLabel ?starttime ?endtime WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }
   ?rettore p:P106 [

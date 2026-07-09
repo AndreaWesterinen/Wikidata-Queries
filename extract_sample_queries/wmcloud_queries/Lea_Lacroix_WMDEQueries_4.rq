@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q618123.
+  ?item wdt:P17 wd:Q145.
+  ?item rdfs:label ?itemLabel.
+  MINUS {
+    ?item rdfs:label ?label2.
+    FILTER((LANG(?label2)) = "cy")
+  }
+  FILTER((LANG(?itemLabel)) = "en")
+}
+LIMIT 1000

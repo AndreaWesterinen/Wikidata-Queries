@@ -1,0 +1,10 @@
+#title: Statements with an end date shouldn't have best rank
+# Complex constraint from [[Property talk:P297]]
+#
+SELECT DISTINCT ?item ?value
+{
+	?item p:P297 ?st.
+	?st ps:P297 ?value.
+	?st pq:P582 [].
+	?item wdt:P297 ?value.
+}

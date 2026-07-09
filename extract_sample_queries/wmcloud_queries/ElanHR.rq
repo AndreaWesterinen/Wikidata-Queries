@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?criteria ?criteriaLabel
+WHERE
+{
+     ?item p:P31 ?statement.
+     ?statement ps:P31 wd:Q30432511.
+     ?statement pq:P1013 ?criteria.
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

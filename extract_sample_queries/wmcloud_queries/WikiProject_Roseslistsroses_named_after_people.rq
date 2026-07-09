@@ -1,0 +1,8 @@
+SELECT ?item ?i ?p ?yob ?yod
+{
+ ?item wdt:P31 wd:Q26817508; wdt:P138 ?p . ?p wdt:P31 wd:Q5 .
+ OPTIONAL { ?item wdt:P495 / p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?i ] } 
+ OPTIONAL { ?p wdt:P569 ?dob . BIND(YEAR(?dob) as ?yob) }
+ OPTIONAL { ?p wdt:P570 ?dod . BIND(YEAR(?dod) as ?yod) }
+}
+ORDER BY ?item

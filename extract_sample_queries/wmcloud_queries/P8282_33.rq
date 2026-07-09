@@ -1,0 +1,8 @@
+#title: Maryland
+# Complex constraint from [[Property talk:P8282]]
+#
+SELECT ?item ?loc {
+  ?item wdt:P8282 [];
+        wdt:P131 ?loc.
+  FILTER NOT EXISTS { ?item wdt:P131* wd:Q1391 }
+}

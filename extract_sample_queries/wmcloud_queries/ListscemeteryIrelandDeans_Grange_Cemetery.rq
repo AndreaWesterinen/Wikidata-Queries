@@ -1,0 +1,17 @@
+SELECT ?item ?img ?section
+WHERE 
+{ 
+    BIND( wd:Q1181173 as ?cem ) 
+    {  
+        ?item wdt:P119 ?cem . 
+        OPTIONAL { ?item wdt:P1442 ?img } 
+        BIND(wd:Q12131650 as ?section )                 
+    }
+    UNION
+    {     
+        ?item wdt:P276* ?cem  
+        OPTIONAL { ?item wdt:P18 ?img } 
+        BIND(IF (?item = ?cem, wd:Q39614 , wd:Q17334923 ) as ?section )                 
+    }
+}
+ORDER BY ?section ?item

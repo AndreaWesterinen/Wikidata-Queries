@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?instanceLabel (year(?pubdate) as ?pubyear)
+WHERE
+{
+  ?item wdt:P921 wd:Q462.     # Takes place in fictional Star Wars universe 
+#  ?item wdt:P1434 wd:Q19786052.     # Takes place in fictional Star Wars universe 
+  OPTIONAL{?item wdt:P31 ?instance.}# an Instance of
+  OPTIONAL{?item wdt:P577 ?pubdate.}# Publication Year
+  OPTIONAL{?item wdt:P580 ?pubdate.}# Start Time
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?pubyear

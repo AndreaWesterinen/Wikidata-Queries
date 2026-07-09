@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+  ?item wdt:P195 wd:Q403080 .
+  ?item wdt:P31 wd:Q3305213 .
+  } LIMIT 4000

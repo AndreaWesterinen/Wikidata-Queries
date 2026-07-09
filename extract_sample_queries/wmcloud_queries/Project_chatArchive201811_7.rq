@@ -1,0 +1,4 @@
+SELECT (COUNT(*) as ?count) WHERE {
+  ?person wdt:P27 wd:Q55 .
+  FILTER NOT EXISTS { ?person wdt:P570 [] }
+}

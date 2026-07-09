@@ -1,0 +1,12 @@
+SELECT ?taxon ?taxonLabel ?taxonDescription ?rankLabel ?authorLabel ?year ?publication
+WHERE 
+{
+  {?taxon wdt:P31 wd:Q16521 } UNION {?taxon wdt:P31 wd:Q310890} UNION {?taxon wdt:P31 wd:Q23038290} .
+  MINUS { ?taxon p:P1403 ?status. }
+  ?taxon p:P225 ?name .
+  ?taxon wdt:P105 ?rank .
+  ?name ps:P225 []; pq:P405 ?author .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?taxon wdt:P5326 ?publication .
+}
+ORDER BY ?taxon

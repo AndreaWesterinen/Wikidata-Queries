@@ -1,0 +1,37 @@
+#Jury members for awards won by given ?author 
+SELECT DISTINCT 
+?authorLabel ?award_author ?award_authorLabel ?year_author
+?jury ?juryLabel ?jurypic ?juryDescription ?award_jury ?award_juryLabel ?year_jury 
+# ?year_authorwon ?author ?authorLabel  # s1 ?s2  #?year_award
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)} 
+  # Awards won by the author
+  ?author p:P166 ?s1.
+  ?s1 ps:P166 ?award_author .
+  OPTIONAL {
+    ?s1 pq:P585 ?year_author1
+    BIND(YEAR(?year_author1) AS ?year_author)
+  }
+   ########
+  
+  ?jury wdt:P2868 wd:Q52008309.
+    FILTER(?jury != ?author) # jury=not ?author, as he/she is not a jury member for the awars he/she won
+  ?jury p:P2868 ?s2.
+  ?s2 pq:P642 ?award_jury. # the thing the person was a jury member of
+  ?s2 pq:P585 ?year_jury1. # the year the person was a jury member
+  BIND(YEAR(?year_jury1) AS ?year_jury)
+
+  # Next, we must match both on 
+  # 1: the thing the person was jury member of = an award that ?author won
+  # 2 the year the person was jury member = a year in which ?author won an award
+  FILTER (?award_jury = ?award_author && ?year_jury = ?year_author)
+  
+  OPTIONAL {?jury wdt:P18 ?jurypic}
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} 
+ORDER BY ?year_author
+LIMIT 1000 

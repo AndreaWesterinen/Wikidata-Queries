@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P1447/ps:P1447 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https://www.sports-reference.com/olympics/athletes/)?(.*)\\.html)$") )
+}

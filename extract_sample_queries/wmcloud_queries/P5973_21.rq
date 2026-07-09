@@ -1,0 +1,4 @@
+#title: Synonym senses can't be equivalent to different items
+# Complex constraint from [[Property talk:P5973]]
+# if <span class="statement"><b class="subject">sense A</b><span class="predicate">[[d:Property:P5973|synonym <small>(P5973)</small>]]</span><span class="object">sense B</span></span>, then the value of <span class="statement"><b class="subject">sense A</b><span class="predicate">[[d:Property:P5137|item for this sense <small>(P5137)</small>]]</span><span class="object"></span></span> and the value of <span class="statement"><b class="subject">sense B</b><span class="predicate">[[d:Property:P5137|item for this sense <small>(P5137)</small>]]</span><span class="object"></span></span> should be the same.
+SELECT ?senseA ?senseB WHERE { ?senseA wdt:P5973 ?senseB . ?senseA wdt:P5137 ?itemForSenseA . ?senseB wdt:P5137 ?itemForSenseB . FILTER (?itemForSenseA != ?itemForSenseB) }

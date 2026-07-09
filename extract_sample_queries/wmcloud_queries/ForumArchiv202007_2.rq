@@ -1,0 +1,4 @@
+SELECT ?item ?id WHERE {
+  VALUES ?id { 'D-6-6027-0168' 'D-6-6127-0084' 'D-7-78-173-2' }
+  OPTIONAL { ?item wdt:P4244 ?id }
+}

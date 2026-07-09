@@ -1,0 +1,14 @@
+embed.html##top 50 for P31 and P279 of items using P3628
+SELECT ?class ?classLabel ?count ?use_as_Label ?samp ?sampLabel
+{	{	SELECT ?class (COUNT(*) AS ?count) (wd:P31 as ?use_as_) (SAMPLE(?a) AS ?samp)
+		{	?a	wdt:P3628	?p	; wdt:P31	?class}
+        GROUP BY ?class ORDER BY DESC(?count) LIMIT 50
+  	}
+  	UNION
+	{	SELECT ?class (COUNT(*) AS ?count) (wd:P279 as ?use_as_) (SAMPLE(?a) AS ?samp)
+		{	?a	wdt:P3628	?p	; wdt:P279	?class}
+        GROUP BY ?class ORDER BY DESC(?count) LIMIT 50
+  	}
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}
+ORDER BY DESC(?count) ?class

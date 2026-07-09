@@ -1,0 +1,7 @@
+# flags in collections
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?collection ?image WHERE {
+  ?item (wdt:P31*/wdt:P279*) wd:Q14660.
+  ?item (wdt:P195/wdt:P361*) ?collection.
+  OPTIONAL { ?item wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}

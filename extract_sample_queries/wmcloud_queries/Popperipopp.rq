@@ -1,0 +1,31 @@
+SELECT DISTINCT ?item ?itemLabel ?pos ?posLabel ?st2 WHERE {
+  ?item wdt:P31 wd:Q5 ; p:P39 ?st1 ; p:P39 ?st2 .
+  ?st1 ps:P39 wd:Q10655178 ; pq:P582 ?end1 .
+  ?st2 ps:P39 ?pos ; pq:P580 ?start2 .
+  
+  MINUS { ?pos wdt:P279* wd:Q83307 }                                      # ministrar
+  MINUS { ?pos wdt:P279* wd:Q4573805 }                                    # kommunalråd
+  MINUS { ?pos wdt:P279* wd:Q3504856 }                                    # suppleanter
+  MINUS { ?pos wdt:P279* wd:Q39871607 }                                   # KSO
+  MINUS { ?pos wdt:P279* wd:Q921747 }                                     # landshövding
+  MINUS { ?pos wdt:P279 wd:Q10556182 ; wdt:P361 [wdt:P31 wd:Q10655185] }  # TODO: FIXA SUPERKLASS
+  MINUS { ?pos wdt:P279 wd:Q140686 ; wdt:P361 [wdt:P31 wd:Q10655185] }    # TODO: FIXA SUPERKLASS
+  FILTER ( ?pos NOT IN (wd:Q10655178,                                     # riksdagsledamot
+                        wd:Q27169,                                        # europaparlamentariker
+                        wd:Q65494714,                                     # ledamot av Europeiska rådets parl. församling
+                        wd:Q96442592,                                     # ledamot av Krigsdelegationen
+                        wd:Q65494724,                                     # suppleant i Europeiska rådets parl. församling
+                        wd:Q314264,                                       # ålderspresident
+                        wd:Q108639423,                                    # ledamot av kyrkomötet
+                        wd:Q1553195,                                      # partiledare
+                        wd:Q928764,                                       # gruppledare
+                        wd:Q1850749,                                      # talman
+                        wd:Q836971,                                       # partisekreterare
+                        wd:Q27137568) )                                   # medlem av Europarådets parl. församling
+  FILTER ( ?start2 > ?end1 )
+  FILTER NOT EXISTS { ?item p:P39 ?st . ?st ps:P39 wd:Q10655178 ; pq:P580 ?start . FILTER ( ?start > ?end1 ) }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}
+
+ORDER BY ?posLabel

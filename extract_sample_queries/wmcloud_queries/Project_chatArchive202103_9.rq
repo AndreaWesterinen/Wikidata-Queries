@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription ?start ?end
+{
+	wd:Q472 p:P17 ?st . ?st ps:P17 ?item . 
+    OPTIONAL { ?st pq:P580 ?start }
+    OPTIONAL { ?st pq:P582 ?end }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?start)

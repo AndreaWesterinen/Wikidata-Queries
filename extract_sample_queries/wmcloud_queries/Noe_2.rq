@@ -1,0 +1,7 @@
+embed.html#SELECT ?a ?aLabel
+WHERE
+{
+  ?a ?b ?statement .
+  ?statement prov:wasDerivedFrom/<http://www.wikidata.org/prop/reference/P143> wd:Q22001373 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+}

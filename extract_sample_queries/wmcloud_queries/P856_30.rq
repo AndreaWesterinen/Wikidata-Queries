@@ -1,0 +1,10 @@
+#title: Active WMF sites
+# Complex constraint from [[Property talk:P856]]
+# Ensure urls for active WMF sites include https and trailing slash. Sample:  https://en.wikipedia.org/ not http://en.wikipedia.org/ or https://en.wikipedia.org
+SELECT DISTINCT ?item (str(?s) as ?s1)
+{
+ 	{ ?item wdt:P279/wdt:P31* wd:Q14827288 } UNION { ?item wdt:P137 \u007C wdt:P127 wd:Q180 }
+  	?item wdt:P856 ?s
+	OPTIONAL { ?item wdt:P576 ?closed } FILTER(!BOUND(?closed))          
+  	FILTER( strafter(str(?s),".org") != "/" \u007C\u007C  strstarts(str(?s),"http:") )
+}

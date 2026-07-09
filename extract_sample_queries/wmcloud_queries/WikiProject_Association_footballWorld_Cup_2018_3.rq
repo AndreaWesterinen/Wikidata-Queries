@@ -1,0 +1,14 @@
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+SELECT ?countryLabel ?player ?playerLabel ?number ?positionLabel ?birth WHERE {
+  ?team wdt:P31 wd:Q54812340 .
+  ?team p:P710 ?playerSet . ?playerSet v:P710 ?player
+  OPTIONAL{?playerSet pq:P413 ?position FILTER(?position != wd:Q715772)}
+  OPTIONAL{?playerSet pq:P1618 ?number}
+  OPTIONAL{?player wdt:P569 ?birth}
+  ?team wdt:P31 ?nationalTeam . ?nationalTeam wdt:P31 wd:Q6979593 . ?nationalTeam wdt:P1532 ?country
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en,de"}
+}
+ORDER BY ?countryLabel ASC(xsd:integer(?number))

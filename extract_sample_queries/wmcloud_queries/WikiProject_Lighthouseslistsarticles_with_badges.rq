@@ -1,0 +1,6 @@
+SELECT
+	?item  
+	(COUNT(DISTINCT ?article1) as ?ct) 
+	(GROUP_CONCAT(DISTINCT CONCAT("[",str(?article1)," ",?title,"]"); separator="; ") as ?articles)
+	(GROUP_CONCAT(DISTINCT ?l; separator=" ") as ?langs)
+	(GROUP_CONCAT(DISTINCT CONCAT("{","{Label","

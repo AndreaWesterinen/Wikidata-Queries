@@ -1,0 +1,4 @@
+#title: relations between instances and classes must use P2670
+# Complex constraint from [[Property talk:P527]]
+# if a concrete object is made out of classes, [[Property:P2670|has part(s) of the class&#32;<small dir="ltr">(P2670)</small>]] instead of [[Property:P527|has part(s)&#32;<small dir="ltr">(P527)</small>]] must be used.
+SELECT DISTINCT ?item WHERE { ?item wdt:P527 ?class . ?item wdt:P31 [] . ?class wdt:P279 [] . MINUS { ?item wdt:P279 [] } MINUS { ?class wdt:P31 [] } }

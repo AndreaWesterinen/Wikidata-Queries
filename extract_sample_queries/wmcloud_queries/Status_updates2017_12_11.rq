@@ -1,0 +1,8 @@
+embed.html##defaultView:Map
+SELECT ?person ?personLabel ?placeLabel ?coord ?page WHERE {
+  ?person wdt:P19 ?place .
+  ?place wdt:P625 ?coord .
+  ?page schema:about ?person .
+  ?page schema:isPartOf <https://fr.wikisource.org/> .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

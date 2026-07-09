@@ -1,0 +1,22 @@
+# RADA students who where nominated or received a Tony award  
+SELECT DISTINCT ?item ?itemLabel ?reason ?distinctionLabel (year(?date) as ?year) 
+WHERE
+{
+	?item wdt:P69 wd:Q523926 .
+    ?item ?prop ?distinctionStatement .
+    ?distinctionStatement ?propS ?distinction .
+
+    VALUES (?prop ?propS ?reason) {
+      (p:P1411 ps:P1411 "nominated for") 
+      (p:P166 ps:P166 "award received")
+    }
+
+    ?distinction wdt:P31*/wdt:P279 wd:Q191874 .
+
+    OPTIONAL { ?distinctionStatement pq:P585 ?date . }
+
+    ?item wdt:P31 wd:Q5 .
+
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+
+} ORDER BY ?itemLabel ?distinction ?year

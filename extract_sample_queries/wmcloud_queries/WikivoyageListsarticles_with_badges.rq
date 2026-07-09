@@ -1,0 +1,19 @@
+SELECT ?item  
+	(COUNT(DISTINCT ?lang) as ?ct) 
+	(COUNT(DISTINCT ?lang1) as ?ct1) 
+	(GROUP_CONCAT(DISTINCT ?lang1) as ?langs)
+	(GROUP_CONCAT(DISTINCT ?badge1) as ?badges)
+{
+  	?article1 schema:about ?item .
+  	?article1 wikibase:badge ?badge1 .
+	?article1 schema:isPartOf ?site1 .
+	?article1 schema:inLanguage ?lang1 .
+	FILTER(strends(str(?site1), "voyage.org/"))
+	?article schema:about ?item .
+	?article schema:inLanguage ?lang .
+	?article schema:isPartOf ?site .
+	FILTER(strends(str(?site), "voyage.org/"))
+}
+GROUP BY ?item 
+ORDER BY DESC(?ct1) ASC(?ct)
+LIMIT 200

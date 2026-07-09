@@ -1,0 +1,1 @@
+sparql?format=json&query=SELECT ?prop ?value WHERE { wd:Q115569934 ?prop ?value . [] wikibase:directClaim ?prop }

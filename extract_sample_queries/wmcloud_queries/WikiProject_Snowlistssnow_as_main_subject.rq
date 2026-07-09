@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item
+{
+    ?value wdt:P279*/wdt:P1269* wd:Q7561 .
+    ?item wdt:P921 ?value .
+}
+ORDER BY DESC(xsd:integer(strafter(str(?item),"Q") ) )
+LIMIT 2000

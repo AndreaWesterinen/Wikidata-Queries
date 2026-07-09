@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel WHERE {
+    ?item wdt:P1433 wd:Q655617.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+    FILTER NOT EXISTS { ?item wdt:P921 ?mainSubject }
+    FILTER NOT EXISTS { ?item wdt:P136 wd:Q5185279 }
+}

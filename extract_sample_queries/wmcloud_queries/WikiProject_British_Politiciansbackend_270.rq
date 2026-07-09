@@ -1,0 +1,20 @@
+# members of the 1832-34 Parliament -658 seats.
+## MPs who have more than one of the standard qualifiers on a membership item
+SELECT DISTINCT ?item ?itemLabel 
+{
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q41582546 . 
+       { ?positionStatement pq:P768 ?constituency, ?constituency2 .  
+         FILTER ( ?constituency != ?constituency2 ) . }
+ UNION { ?positionStatement pq:P4100 ?party, ?party2 .  
+         FILTER ( ?party != ?party2 ) . }
+ UNION { ?positionStatement pq:P2715 ?election, ?election2 .  
+         FILTER ( ?election != ?election2 ) . }
+ UNION { ?positionStatement pq:P582 ?end, ?end2 .  
+         FILTER ( ?end != ?end2 ) . }
+ UNION { ?positionStatement pq:P580 ?start, ?start2 .  
+         FILTER ( ?start != ?start2 ) . }
+ UNION { ?positionStatement pq:P1534 ?cause, ?cause2 .  
+         FILTER ( ?cause != ?cause2 ) . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

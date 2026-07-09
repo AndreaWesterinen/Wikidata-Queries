@@ -1,0 +1,1 @@
+bigdata/namespace/wdq/sparql?query=SELECT+?article+?item+?badge+WHERE+{+?article+schema:about+?item+.+?article+wikibase:badge+?badge+.+}

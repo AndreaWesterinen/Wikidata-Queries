@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item WHERE { ?item p:P1447/rdf:type wdno:P1447 }

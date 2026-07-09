@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?painter wdt:P106 wd:Q1028181 .
+  ?painter wdt:P31 wd:Q5 .
+  ?painter wdt:P937 ?item .
+} GROUP BY ?item
+ORDER BY DESC(?count) 
+LIMIT 250

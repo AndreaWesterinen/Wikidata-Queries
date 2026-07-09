@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-removeFirst>
+SELECT DISTINCT ?item WHERE { ?item wdt:P2003 ?value . FILTER( REGEX(STR(?value), '^@') = true )}

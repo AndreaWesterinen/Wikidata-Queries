@@ -1,0 +1,5 @@
+SELECT ?item ?value ?value2 WHERE {
+  ?item wdt:P1015 ?value .
+  bind (replace(?value, "\u200f", "[U+200F]") as ?value2) .
+  FILTER ( REGEX(?value, "[0-9]$") = false ) .
+} 

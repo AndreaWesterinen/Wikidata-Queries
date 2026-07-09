@@ -1,0 +1,5 @@
+SELECT ?item {
+  VALUES ?type {wd:Q1172284 wd:Q816747}
+  ?item wdt:P31 ?type;
+        wdt:P366 wd:Q1078276.
+}

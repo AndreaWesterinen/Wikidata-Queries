@@ -1,0 +1,22 @@
+SELECT ?item ?itemLabel ?value ?valueLabel  ?snak
+{
+	{
+		SELECT DISTINCT ?item ?value ?target ?snak {
+			{
+				?item p:Was a bee/ConstraintTemplate/ps:Was a bee/ConstraintTemplate ?value .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement0 pq:Was a bee/ConstraintTemplate ?value .
+				?item ?p0 ?statement0 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:Was a bee/ConstraintTemplate ?value .
+				?statement1 prov:wasDerivedFrom ?ref .
+				?item ?p1 ?statement1 .
+				BIND("reference" AS ?snak) .
+			} .
+			MINUS { ?value p:{{{property}}} [] } .
+		} LIMIT 500
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+}

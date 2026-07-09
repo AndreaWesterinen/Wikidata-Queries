@@ -1,0 +1,9 @@
+#Ki Hajar Dewantara: list of all documents
+SELECT ?item ?itemLabel ?instanceLabel
+WHERE 
+{
+  ?item wdt:P5008 wd:Q66826871.
+  ?item wdt:P31 ?instance
+  FILTER NOT EXISTS{ ?item wdt:P31 wd:Q5 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,nl". }
+}

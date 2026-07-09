@@ -1,0 +1,9 @@
+#title: Participant of a conclave (papal election) without christian religion information
+# Complex constraint from [[Property talk:P140]]
+#
+SELECT ?item {
+  ?item wdt:P1344 ?event.
+  ?event wdt:P31 wd:Q186431.
+  FILTER NOT EXISTS { ?item wdt:P140 wd:Q9592 }
+  FILTER NOT EXISTS { ?item wdt:P140 wd:Q5043 }
+}

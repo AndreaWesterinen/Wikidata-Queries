@@ -1,0 +1,5 @@
+SELECT ?entity ?entityLabel WHERE {
+  ?entity (wdt:P31/(wdt:P279?)) wd:Q667276.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?entity wdt:P276 wd:Q180788.
+}

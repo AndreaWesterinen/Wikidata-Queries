@@ -1,0 +1,37 @@
+# Street number (P670) and Postal code (P281) must both be qualifiers for Located on street (P669) 
+# Postal code as qualifier of P669 must match (be the same as) the postal code code as statement P281
+
+SELECT DISTINCT 
+?item ?itemLabel
+?streetLabel #?streetDescription
+?streetnumber 
+?PCQualP669 ?PCQualP669_SpacesStripped #postalcode as qualifier of P669
+?PCP281 ?PCP281_SpacesStripped # postal code as statement P281
+?PCsTheSame
+
+WHERE
+  {
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  
+  OPTIONAL {?item p:P669 [ps:P669 ?street]. } #Located on street   
+  OPTIONAL {?item p:P669 [pq:P670 ?streetnumber].}
+    
+  OPTIONAL {?item p:P669 [pq:P281 ?PCQualP669].#}
+  BIND(REPLACE(?PCQualP669,"(\u00a0| )","") as ?PCQualP669_SpacesStripped).} #get rid op spaces 
+ 
+  OPTIONAL {?item (p:P281/ps:P281) ?PCP281.
+  BIND(REPLACE(?PCP281,"(\u00a0| )","") as ?PCP281_SpacesStripped).} #get rid op spaces
+
+    #https://www.wikidata.org/wiki/Property_talk:P281#Stripping_spaces_from_Dutch_postal_code_using_REPLACE_does_not_work_on_values_of_P281??
+    #@OlafJanssen: Spaces in main values are automatically changed from regular spaces (U+0020) to non-breaking spaces (U+00A0), 
+    #so if you search for the former, it will obviously not remove the latter. So you should use REPLACE(?PCP281,"\u00a0","") 
+    #instead (REPLACE(?PCP281," ","")—with the non-breaking space—is also fine, but it doesn’t make obvious at first that it’s not a usual space). 
+    #If you want to catch normal spaces as well (although they appear only temporarily), you can write REPLACE(?PCP281,"(\u00a0| )","") 
+    
+  # ?PCQualP669_SpacesStripped must match (be the same as) ?PCP281_SpacesStripped
+  BIND(IF(?PCQualP669_SpacesStripped = ?PCP281_SpacesStripped, "TRUE", "FALSE") as ?PCsTheSame).  
+    
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }  
+}
+
+ORDER BY DESC(?item)

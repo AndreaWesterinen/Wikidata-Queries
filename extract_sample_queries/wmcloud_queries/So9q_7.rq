@@ -1,0 +1,34 @@
+SELECT DISTINCT
+    ?l ?form ?word ?categoryLabel ?grammatical_featureLabel ?sense ?gloss
+    WHERE {
+      ?l a ontolex:LexicalEntry; dct:language wd:Q9027.
+      VALUES ?excluded {
+        # exclude affixes and interfix
+        wd:Q62155 # affix
+        wd:Q134830 # prefix
+        wd:Q102047 # suffix
+        wd:Q1153504 # interfix
+      }
+      MINUS {?l wdt:P31 ?excluded.}
+      ?l wikibase:lexicalCategory ?category.
+
+      # We want only lexemes with both forms and at least one sense
+      ?l ontolex:lexicalForm ?form.
+      ?l ontolex:sense ?sense.
+
+      # Exclude lexemes without a linked QID from at least one sense
+      ?sense wdt:P5137 [].
+      ?sense skos:definition ?gloss.
+      # Get only the swedish gloss, exclude otherwise
+      FILTER(LANG(?gloss) = "sv")
+
+      # This remove all lexemes with at least one example which is not
+      # ideal
+      MINUS {?l wdt:P5831 ?example.}
+      ?form wikibase:grammaticalFeature ?grammatical_feature.
+      # We extract the word of the form
+      ?form ontolex:representation ?word.
+      SERVICE wikibase:label
+      { bd:serviceParam wikibase:language "en". }
+    }
+    limit 1

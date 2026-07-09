@@ -1,0 +1,4 @@
+#title: Incompatible date of birth
+# Complex constraint from [[Property talk:P3874]]
+# Person lived in a time that Justia Patents doesn't record
+SELECT ?s WHERE { { ?s wdt:P31 wd:Q5 . ?s wdt:P3874 ?id . ?s wdt:P569 ?born . FILTER (?born < "1880-01-01T00:00:00Z"^^xsd:dateTime) . } UNION { ?s wdt:P31 wd:Q5 . ?s wdt:P3874 ?id . ?s wdt:P570 ?dead . FILTER (?dead < "1970-01-01T00:00:00Z"^^xsd:dateTime) . } }

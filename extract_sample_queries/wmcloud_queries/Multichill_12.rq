@@ -1,0 +1,21 @@
+SELECT DISTINCT ?item ?item2 ?inv WHERE {
+{ ?inv1statement pq:P195 wd:Q28045665 . } union
+{ ?inv1statement pq:P195 wd:Q28045660 . } union
+{ ?inv1statement pq:P195 wd:Q28045674 . } union
+{ ?inv1statement pq:P195 wd:Q2066737 . } union
+{ ?inv1statement pq:P195 wd:Q18600731 . }
+
+  ?item p:P217 ?inv1statement .
+  ?inv1statement ps:P217 ?inv .
+
+{ ?inv2statement pq:P195 wd:Q28045665 . } union
+{ ?inv2tatement pq:P195 wd:Q28045660 . } union
+{ ?inv2statement pq:P195 wd:Q28045674 . } union
+{ ?inv2statement pq:P195 wd:Q2066737 . } union
+{ ?inv2statement pq:P195 wd:Q18600731 . }
+
+  ?item2 p:P217 ?inv2statement .
+  ?inv2statement ps:P217 ?inv .
+  FILTER(?item!=?item2)
+
+  } ORDER BY ?inv LIMIT 500

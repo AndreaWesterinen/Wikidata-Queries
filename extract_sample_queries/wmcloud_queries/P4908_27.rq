@@ -1,0 +1,14 @@
+#title: Episodes generally have this property (count by series)
+# Complex constraint from [[Property talk:P4908]]
+# Series with most episodes lacking P4908. Limited to 100.
+SELECT ?item (COUNT(?ep) as ?ct) 
+WHERE 
+{
+	?ep wdt:P31 wd:Q21191270 ; wdt:P179 ?item . 
+	?item wdt:P2437 ?seasons . FILTER ( xsd:integer(?seasons) > 1 ) .
+	FILTER NOT EXISTS { ?ep wdt:P4908 [] } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,it,es" }
+}
+GROUP BY ?item
+ORDER BY DESC(?ct)
+LIMIT 50

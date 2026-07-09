@@ -1,0 +1,6 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?geo WHERE {  
+       ?item wdt:P31 wd:Q6256 ;
+             wdt:P3896 ?geo .          
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

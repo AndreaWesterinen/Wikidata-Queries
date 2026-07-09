@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P6278/ps:P6278 ?value .
+  MINUS { ?item p:P750/ps:P750 wd:Q59510068 }
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^([a-z\\d]+(([\\-]{0,3}|\\_)[^\\sA-Z\\W\\_]+)*)$") )
+}

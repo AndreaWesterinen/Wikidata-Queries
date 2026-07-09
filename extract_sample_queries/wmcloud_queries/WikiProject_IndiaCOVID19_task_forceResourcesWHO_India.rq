@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?publication_date ?full_work_available_at WHERE {
+  ?item wdt:P31 wd:Q10870555;
+    wdt:P123 wd:Q7817;
+    wdt:P921 wd:Q84055514.
+  OPTIONAL { ?item wdt:P577 ?publication_date. }
+  OPTIONAL { ?item wdt:P953 ?full_work_available_at. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC (?publication_date)

@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?date ?approvalLabel ?ref_url
+WHERE 
+{
+  ?item p:P1435 ?thing.
+  ?thing ps:P1435 wd:Q18342392.
+  optional {?thing pqv:P580 ?datez. ?datez wikibase:timeValue ?date.} 
+  optional {?thing pq:P790 ?approval}
+  optional {?thing prov:wasDerivedFrom ?ref. ?ref pr:P854 ?ref_url.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,1 @@
+embed.html#SELECT ?item ?publication_date WHERE { ?item wdt:P31 wd:Q13442814. OPTIONAL { ?item wdt:P577 ?publication_date. } } LIMIT 10000

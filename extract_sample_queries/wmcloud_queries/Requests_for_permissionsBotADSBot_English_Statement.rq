@@ -1,0 +1,6 @@
+#search all articles that include P819
+SELECT DISTINCT ?item
+WHERE
+{
+  ?item wdt:P819 ?value
+} group by ?item

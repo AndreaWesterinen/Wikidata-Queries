@@ -1,0 +1,9 @@
+#title: Missing VIAF or LCAuth
+# Complex constraint from [[Property talk:P2163]]
+# Items with this property, but [[Property:P214|VIAF ID&#32;<small dir="ltr">(P214)</small>]], [[Property:P244|Library of Congress authority ID&#32;<small dir="ltr">(P244)</small>]] and [[Property:P4953|Library of Congress Genre/Form Terms ID&#32;<small dir="ltr">(P4953)</small>]] are missing
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P2163 [] .
+  MINUS { ?item wdt:P214 [] } .
+  MINUS { ?item wdt:P244 [] } .
+  MINUS { ?item wdt:P4953 [] } .
+} LIMIT 1000

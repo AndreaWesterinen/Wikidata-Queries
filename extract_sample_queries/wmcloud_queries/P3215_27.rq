@@ -1,0 +1,30 @@
+#title: Validate SIRET numbers
+# Complex constraint from [[Property talk:P3215]]
+# Report organizations with incorrect SIRET numbers, found by validating the checksum
+SELECT ?item #?itemLabel ?siretnr ?checksum
+WITH {
+  SELECT DISTINCT *
+  WHERE {
+    ?item wdt:P3215 ?siretnr . FILTER(strlen(?siretnr) = 14)
+    BIND(IF(xsd:integer(substr(?siretnr,  1, 1))*2 > 9, xsd:integer(substr(?siretnr,  1, 1))*2 - 9, xsd:integer(substr(?siretnr,  1, 1))*2) +
+            xsd:integer(substr(?siretnr,  2, 1))*1 +
+         IF(xsd:integer(substr(?siretnr,  3, 1))*2 > 9, xsd:integer(substr(?siretnr,  3, 1))*2 - 9, xsd:integer(substr(?siretnr,  3, 1))*2) +
+            xsd:integer(substr(?siretnr,  4, 1))*1 +
+         IF(xsd:integer(substr(?siretnr,  5, 1))*2 > 9, xsd:integer(substr(?siretnr,  5, 1))*2 - 9, xsd:integer(substr(?siretnr,  5, 1))*2) +
+            xsd:integer(substr(?siretnr,  6, 1))*1 +
+         IF(xsd:integer(substr(?siretnr,  7, 1))*2 > 9, xsd:integer(substr(?siretnr,  7, 1))*2 - 9, xsd:integer(substr(?siretnr,  7, 1))*2) +
+            xsd:integer(substr(?siretnr,  8, 1))*1 +
+         IF(xsd:integer(substr(?siretnr,  9, 1))*2 > 9, xsd:integer(substr(?siretnr,  9, 1))*2 - 9, xsd:integer(substr(?siretnr,  9, 1))*2) +
+            xsd:integer(substr(?siretnr, 10, 1))*1 +
+         IF(xsd:integer(substr(?siretnr, 11, 1))*2 > 9, xsd:integer(substr(?siretnr, 11, 1))*2 - 9, xsd:integer(substr(?siretnr, 11, 1))*2) +
+            xsd:integer(substr(?siretnr, 12, 1))*1 +
+         IF(xsd:integer(substr(?siretnr, 13, 1))*2 > 9, xsd:integer(substr(?siretnr, 13, 1))*2 - 9, xsd:integer(substr(?siretnr, 13, 1))*2) +
+            xsd:integer(substr(?siretnr, 14, 1))*1 AS ?checksum)
+    FILTER(substr(STR(?checksum), 2, 1) != "0")
+  }
+  #LIMIT 1000
+} AS %i
+WHERE {
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

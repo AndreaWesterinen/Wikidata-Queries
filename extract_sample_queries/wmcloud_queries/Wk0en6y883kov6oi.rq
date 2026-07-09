@@ -1,0 +1,74 @@
+embed.html##TEMPLATE={ "template": { "fr": "Oeuvres (livres, films, …) de ?auteur" }, "variables": { "?auteur": {  } } }
+select ?oeuvreLabel ?titre ?oeuvre ?langueLabel (min(?date) as ?parution)
+       (group_concat(distinct ?genreLabel;separator=", ") as ?genres) 
+       (group_concat(distinct ?typeLabel;separator=", ") as ?sortes) 
+       # (group_concat(distinct ?auteurLabel;separator=", ") as ?auteurs) 
+       (sample(?image) as ?illustration) 
+       (sample(?url) as ?url)
+       ?ordre { 
+  BIND(wd:Q535 AS ?auteur)
+
+  ?oeuvre wdt:P50 ?auteur .
+
+  # exclusion des oeuvres et éditions parues dans un ouvrage déjà dans la liste
+
+  filter not exists {
+    ?oeuvre wdt:P629 | wdt:P1433 | wdt:P1574  ?ouvrage . 
+    ?ouvrage wdt:P50 ?auteur .
+  }
+  
+
+  optional {
+    ?oeuvre wdt:P921 ?sujet . # changer la valeur 
+  }
+  optional {
+    ?oeuvre wdt:P407 ?langue
+  }
+  
+  optional {
+    ?oeuvre wdt:P136 ?genre
+  }
+  optional {
+    ?oeuvre wdt:P31 ?type
+  }
+
+  optional {
+    ?oeuvre wdt:P577 ?date
+  }
+  service wikibase:label { 
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+    ?langue rdfs:label ?langueLabel .
+    ?genre rdfs:label ?genreLabel .
+    ?type rdfs:label ?typeLabel .
+    ?oeuvre rdfs:label ?oeuvreLabel .
+  }
+  optional {
+    ?oeuvre wdt:P1476 ?titre
+  }
+  optional {
+    ?oeuvre wdt:P18 ?image
+  }
+  optional {
+    ?oeuvre wdt:P50|wdt:P57|wdt:P58 ?auteur .
+    optional {?auteur rdfs:label ?nom filter(lang(?nom) = "fr")}
+    bind(
+      coalesce(
+        if(wikibase:isSomeValue(?auteur), "[inconnu]",?nom), ?nom, "[libellé fr manquant]" ) as ?auteurLabel)
+  }
+  
+  #récupération d’une url, test
+  optional {
+     ?oeuvre wdt:P2699|wdt:P953|wdt:P4945 ?url
+  }
+  
+  #essai de tri en fonction de la langue, français puis les langues des pays proche de France en premier
+  optional {
+    values (?langue ?ordreL) {
+      (wd:Q150 1)  # fr
+      (wd:Q1860 2) # en
+      (wd:Q1321 3) # es
+      (wd:Q188 4)  # de
+    }
+  }
+  bind(coalesce(?ordreL, 100) as ?ordre)
+} group by ?titre ?oeuvre ?langueLabel ?oeuvreLabel ?ordre order by  ?ordre ?langueLabel

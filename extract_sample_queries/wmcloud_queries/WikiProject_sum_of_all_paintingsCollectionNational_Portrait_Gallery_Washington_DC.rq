@@ -1,0 +1,7 @@
+SELECT ?item ?npgurl WHERE {
+  wd:P6152 wdt:P1630 ?formatterurl .
+  ?item p:P195/ps:P195 wd:Q1967614 .
+  ?item wdt:P31 wd:Q3305213 .
+  OPTIONAL { ?item wdt:P6152 ?npgid }.
+  BIND(REPLACE(?npgid, '^(.+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?npgurl)  .
+} LIMIT 3000

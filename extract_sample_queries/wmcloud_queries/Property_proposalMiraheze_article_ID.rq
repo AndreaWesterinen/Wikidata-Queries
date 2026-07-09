@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?fandom
+WHERE 
+{
+  ?item wdt:P6262 ?fandom.
+  FILTER CONTAINS (?fandom,"lgbta:")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

@@ -1,0 +1,14 @@
+SELECT DISTINCT ?constituency ?constituencyLabel ?start ?end ?members ?saidtobe ?saidtobeLabel ?article
+{
+ ?item wdt:P31 wd:Q5 ; p:P39 ?positionStatement .
+ ?positionStatement ps:P39 ?mpterm . 
+ ?mpterm wdt:P279* wd:Q16707842 .
+ ?positionStatement pq:P768 ?constituency . 
+ OPTIONAL { ?constituency wdt:P31 ?type . }
+ OPTIONAL { ?constituency wdt:P571 ?start . }
+ OPTIONAL { ?constituency wdt:P576 ?end . }
+ OPTIONAL { ?constituency wdt:P1410 ?members . }
+ OPTIONAL { ?constituency wdt:P460 ?saidtobe . }
+ OPTIONAL { ?article schema:about ?constituency . ?article schema:isPartOf <https://en.wikipedia.org/>. }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

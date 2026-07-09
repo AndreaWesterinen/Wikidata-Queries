@@ -1,0 +1,21 @@
+# Llocs a menys de 180 km de Sineu
+SELECT ?place ?placeLabel ?location ?dist WHERE {
+
+  # Coordenades de Sineu
+  wd:Q943922 wdt:P625 ?sineuLoc . 
+  SERVICE wikibase:around { 
+      ?place wdt:P625 ?location . 
+      bd:serviceParam wikibase:center ?sineuLoc . 
+      bd:serviceParam wikibase:radius "180" . 
+  } 
+  # Llocs
+  ?place wdt:P625 ?coord .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" . 
+  }
+  BIND(geof:distance(?sineuLoc, ?location) as ?dist)
+ FILTER(NOT EXISTS {
+   ?place rdfs:label ?lang_label.
+   FILTER(LANG(?lang_label) = "ca")
+ })
+} ORDER BY ?dist

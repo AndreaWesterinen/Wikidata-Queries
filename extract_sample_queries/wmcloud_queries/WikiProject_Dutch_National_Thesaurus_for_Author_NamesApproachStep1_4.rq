@@ -1,0 +1,15 @@
+SELECT 
+?subject ?subjectLabel 
+?nta
+?subjectIsA ?subjectIsALabel
+?subjectRank
+WHERE
+{
+  ?subject p:P1006/ps:P1006 ?nta.
+  ?subject rdfs:label ?subjectLabel.
+  FILTER(LANG(?subjectLabel) = 'en').
+  OPTIONAL{?subject p:P31 [ps:P31 ?subjectIsA; wikibase:rank ?subjectRank].
+  ?subjectIsA rdfs:label ?subjectIsALabel.
+  FILTER(LANG(?subjectIsALabel) = 'en').
+           }
+} LIMIT 1000

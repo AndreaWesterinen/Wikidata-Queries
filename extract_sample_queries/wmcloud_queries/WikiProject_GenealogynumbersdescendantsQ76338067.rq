@@ -1,0 +1,1 @@
+SELECT (wd:Q76338067 as ?item) (COUNT(DISTINCT ?relative) as ?descendants) { wd:Q76338067 wdt:P40+ ?relative }

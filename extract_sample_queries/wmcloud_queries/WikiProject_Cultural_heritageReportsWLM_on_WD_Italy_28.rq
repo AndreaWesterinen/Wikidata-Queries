@@ -1,0 +1,9 @@
+SELECT ?qual ?qualLabel (COUNT(DISTINCT ?item) AS ?count) WHERE {
+       hint:Query hint:optimizer "None" .
+     ?item wdt:P17 wd:Q38 .
+     ?item p:P2186 ?statement .
+     ?statement ?pq_qual ?pq_obj .
+     ?qual wikibase:qualifier ?pq_qual .
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "it" . }
+}  GROUP BY ?qual ?qualLabel
+ORDER BY DESC (?count)

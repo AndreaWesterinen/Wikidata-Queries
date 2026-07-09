@@ -1,0 +1,11 @@
+#title:Count of qualifiers within a sample of statements (maybe the first 500,000 - 1 million)
+SELECT ?qual ?qualLabel ?countSample {
+  {
+    SELECT ?qual (COUNT(*) AS ?countSample) {
+      { SELECT * { [] ps:P6258 []; ?pq [] } LIMIT 4000000 } .
+      ?qual wikibase:qualifier ?pq
+    }
+    GROUP BY ?qual
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

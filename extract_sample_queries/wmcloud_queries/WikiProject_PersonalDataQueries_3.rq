@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?countryLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q55499415;
+        wdt:P17 ?country;
+        wdt:P463 wd:Q26877724.
+  ?country wdt:P463 wd:Q458.
+}
+LIMIT 1000

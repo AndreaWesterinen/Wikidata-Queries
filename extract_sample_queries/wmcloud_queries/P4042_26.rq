@@ -1,0 +1,9 @@
+#title: people with property died on January 1 (best rank, day precision dates only)
+SELECT ?item ?itemLabel ?value ?dod
+{
+  ?item wdt:P4042 ?value .
+  ?item p:P570 [ a wikibase:BestRank; psv:P570 [ wikibase:timeValue ?dod; wikibase:timePrecision 11 ]] . 
+  FILTER( MONTH(?dod) = 1 && DAY(?dod) = 1 ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 1000

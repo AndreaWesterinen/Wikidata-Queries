@@ -1,0 +1,8 @@
+SELECT ?entity ?entityLabel ?entityDescription 
+WHERE
+{
+  ?entity wdt:P31 ?type; wdt:P17 wd:Q34. FILTER(?type in (wd:Q14659, wd:Q2532754)) . 
+  MINUS { ?entity wdt:P31 []; wdt:P31 ?type; wdt:P17 wd:Q34. FILTER(?type in (wd:Q14659, wd:Q2532754))  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

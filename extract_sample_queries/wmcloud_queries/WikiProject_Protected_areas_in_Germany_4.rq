@@ -1,0 +1,6 @@
+SELECT ?Bundesland ?BundeslandLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Bundesland wdt:P31 wd:Q1221156.
+  ?Bundesland wdt:P131 wd:Q183.
+}
+LIMIT 100

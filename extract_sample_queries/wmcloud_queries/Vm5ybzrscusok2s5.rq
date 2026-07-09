@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel (COUNT (?country) as ?countries)
+where
+{
+  ?item wdt:P31 wd:Q8502.
+  ?item wdt:P17 wd:Q40.
+  ?item wdt:P17 ?country.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],de,en' }
+}
+
+GROUP BY ?item ?itemLabel
+HAVING (?countries > 1)
+ORDER BY DESC(?countries)

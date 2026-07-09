@@ -1,0 +1,21 @@
+SELECT ?church ?churchLabel ?img
+WITH {
+  SELECT ?church ?img WHERE {
+    ?church wdt:P31 wd:Q16970 . 
+    ?church wdt:P18 ?img 
+    MINUS {?church wdt:P527 [] .}
+   MINUS {?church wdt:P361 [] .}
+    
+  }
+} AS %church_images
+WHERE {
+  {     
+     SELECT ?img (count(?church) AS ?cnt)  {
+       INCLUDE %church_images
+     } GROUP BY ?img 
+     HAVING (?cnt>1)
+  }
+  INCLUDE %church_images .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY desc(?cnt) ?img ?churchLabel

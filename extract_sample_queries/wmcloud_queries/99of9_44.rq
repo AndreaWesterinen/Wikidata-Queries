@@ -1,0 +1,16 @@
+#added before 2016-10
+SELECT DISTINCT ?item ?itemLabel ?asgsid ?itemDescription
+WHERE
+{
+   ?item wdt:P4014 ?asgsid .
+    #FILTER( regex(str(?asgsid), "UCL") )
+ 
+  
+    FILTER(NOT EXISTS {
+      ?item wdt:P31 ?instance .
+    })
+ 
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}

@@ -1,0 +1,8 @@
+#songs named after a day of the week
+SELECT ?day ?dayLabel ?item ?itemLabel ?performer ?performerLabel WHERE {
+  ?day wdt:P31 wd:Q41825.
+  ?item wdt:P31/wdt:P279* wd:Q7366; wdt:P138 ?day.
+  OPTIONAL{?item wdt:P175 ?performer}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?day

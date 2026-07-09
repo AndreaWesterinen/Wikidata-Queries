@@ -1,0 +1,12 @@
+   SELECT ?item ?pageid ?ns WHERE {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "nl.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:\"Artikelweg\"" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+      ?pageid wikibase:apiOutput "@pageid" .
+      ?ns wikibase:apiOutput "@ns" .
+    }
+  } LIMIT 15000

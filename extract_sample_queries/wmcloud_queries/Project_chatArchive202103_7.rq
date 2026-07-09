@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?propertyLabel ?planeLabel WHERE {
+  ?item wdt:P31 wd:Q744913. hint:Prior hint:runFirst true.
+  ?plane wdt:P31/wdt:P279* wd:Q11436. hint:Prior hint:gearing "forward".
+  ?item ?ppp ?plane.
+  ?property wikibase:directClaim ?ppp.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

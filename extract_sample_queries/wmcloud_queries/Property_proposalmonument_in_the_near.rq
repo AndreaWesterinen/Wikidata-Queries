@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?location WHERE {
+  wd:Q1094294 wdt:P625 ?loc .
+  SERVICE wikibase:around {
+    ?item wdt:P625 ?location .    
+    bd:serviceParam wikibase:center ?loc .
+    bd:serviceParam wikibase:radius "0.5" .
+  } .
+  FILTER EXISTS { ?item wdt:P31/wdt:P279* wd:Q811979 }
+  ?item wikibase:sitelinks ?sitelinks .
+  FILTER( ?sitelinks >= 5 )
+  SERVICE wikibase:label {  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }  
+}

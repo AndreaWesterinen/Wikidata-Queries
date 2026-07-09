@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?value
+WHERE
+{
+	{
+		SELECT ?item ?value {
+			?item wdt:P1712 ?value .
+            FILTER NOT EXISTS {
+              ?item p:P1712 ?pval.
+              ?pval pq:P400 ?plat.
+            }
+            FILTER (STRSTARTS(?value,"game/"))
+		}
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" } .
+}
+ORDER BY DESC(?value)

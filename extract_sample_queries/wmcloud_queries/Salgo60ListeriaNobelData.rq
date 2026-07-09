@@ -1,0 +1,11 @@
+SELECT ?NobelId ?About ?item ?LaureateNobelUri  {
+   SERVICE <http://data.nobelprize.org/sparql> {
+      SELECT distinct ?NobelId ?LaureateNobelUri ?About WHERE {
+      ?LaureateNobelUri <http://data.nobelprize.org/terms/laureateAward> ?NobelAwardid.
+      OPTIONAL{?NobelAwardid rdfs:label ?About}
+      BIND(REPLACE(str(?LaureateNobelUri),"http://data.nobelprize.org/resource/laureate/","") AS ?NobelId)
+      }
+   }
+  # Match with Wikidata P2888 Exact match
+  OPTIONAL {?item wdt:P2888 ?LaureateNobelUri}
+}  order by desc(xsd:integer(?NobelId))

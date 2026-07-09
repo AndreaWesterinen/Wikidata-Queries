@@ -1,0 +1,1 @@
+SELECT ?item ?pq_qual ?pq_obj WHERE { VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q506240 wd:Q336144} . VALUES ?filming {wd:Q1256415} . hint:Query hint:optimizer "None" . ?item wdt:P31 ?filmtype . ?item p:P793 ?statement . ?statement v:P793 ?filming . wd:P580 wikibase:qualifier ?pq_qual . ?statement ?pq_qual ?pq_obj . } ORDER BY DESC(?pq_obj) LIMIT 12

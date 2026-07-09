@@ -1,0 +1,7 @@
+SELECT ?property ?subjectItem WHERE {  
+    ?property wikibase:propertyType wikibase:ExternalId .
+    ?property wdt:P1629 ?subjectItem .
+    ?subjectItem wdt:P31|wdt:P279 wd:Q6545185 . 
+    #FILTER(!BOUND(?subjectItem)) 
+    #FILTER(BOUND(?subjectItem)) 
+}

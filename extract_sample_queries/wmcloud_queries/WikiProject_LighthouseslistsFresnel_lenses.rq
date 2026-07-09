@@ -1,0 +1,12 @@
+SELECT ?item ?ord ?itemLabel ?fl ?cat ?catLabel ?image (COUNT(DISTINCT ?ltho) as ?count) (SAMPLE(?ltho) as ?ltho_sample)
+{
+	?item wdt:P279 wd:Q14672 . 
+  	OPTIONAL { ?item wdt:P2151 ?fl }
+  	OPTIONAL { ?item wdt:P1545 ?ord }
+  	OPTIONAL { ?cat wdt:P971 ?item }  
+  	OPTIONAL { ?item wdt:P18 ?image }
+    OPTIONAL { ?item ^ wdt:P9597 ?ltho }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?ord ?itemLabel ?fl ?cat ?catLabel ?image
+ORDER BY DESC(xsd:integer(?fl)) DESC(xsd:integer(?ord))

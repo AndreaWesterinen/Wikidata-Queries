@@ -1,0 +1,9 @@
+#defaultView:Timeline
+SELECT distinct ?event ?eventLabel ?date ?location ?image WHERE {
+    ?event wdt:P106 wd:Q10729326 ;
+           wdt:P31 wd:Q5 ;
+           wdt:P569 ?date .
+           
+    OPTIONAL {?event wdt:P18 ?image .} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, it, es". }
+}

@@ -1,0 +1,7 @@
+#title: Human without occupation
+# Complex constraint from [[Property talk:P3814]]
+# [[d:Q5|human <small>(Q5)</small>]] without [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]]
+SELECT ?item {
+	?item wdt:P3814 []; wdt:P31 wd:Q5.
+	FILTER NOT EXISTS { ?item wdt:P106 [] }.
+}

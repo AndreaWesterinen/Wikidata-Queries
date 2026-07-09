@@ -1,0 +1,9 @@
+#Dbnl-id but no gender
+SELECT ?item ?itemLabel ?dbnlid
+WHERE 
+{
+  ?item wdt:P723 ?dbnlid .
+  FILTER NOT EXISTS {?item wdt:P21 wd:Q6581097} 
+  FILTER NOT EXISTS {?item wdt:P21 wd:Q6581072} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

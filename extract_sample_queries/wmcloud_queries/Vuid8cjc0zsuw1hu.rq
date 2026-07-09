@@ -1,0 +1,6 @@
+SELECT ?country ?countryLabel ?item ?itemLabel ?itemDescription
+{
+	?item wdt:P31 wd:Q23983664 ; wdt:P276 ?country ; wdt:P17 ?country .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?countryLabel

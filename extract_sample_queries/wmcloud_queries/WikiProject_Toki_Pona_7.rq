@@ -1,0 +1,18 @@
+SELECT ?lexeme1 ?category1Label ?lemma1 ?gloss1 ?gloss2 ?lemma2 ?category2Label ?lexeme2 WHERE {
+  ?lexeme1 a ontolex:LexicalEntry;
+       wikibase:lemma ?lemma1;
+       dct:language wd:Q36846;
+       wikibase:lexicalCategory ?category1;
+       ontolex:sense ?sense1.
+  ?lexeme2 a ontolex:LexicalEntry;
+       wikibase:lemma ?lemma2;
+       wikibase:lexicalCategory ?category2;
+       ontolex:sense ?sense2.
+  ?sense1 wdt:P5974 ?sense2.
+  ?sense2 wdt:P5974 ?sense1.
+  ?sense1 skos:definition ?gloss1.
+  ?sense2 skos:definition ?gloss2.
+  filter(lang(?gloss1) = 'en')
+  filter(lang(?gloss2) = 'en')
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?lemma1

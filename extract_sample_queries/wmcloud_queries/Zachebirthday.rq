@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?date ?article
+WHERE { 
+  
+    ?date_node wikibase:timePrecision "11"^^xsd:integer . 
+    ?date_node wikibase:timeValue ?date . 
+    FILTER (year(?date) > 1899) 
+    FILTER (day(?date) = day(now())) 
+    FILTER (month(?date) = month(now())) 
+    ?item p:P569/<http://www.wikidata.org/prop/statement/value/P569> ?date_node . 
+    ?item wdt:P31 wd:Q5 . 
+    OPTIONAL {?item wdt:P570 ?dod} 
+    FILTER (!bound(?dod)) 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    ?article schema:about ?item ; schema:isPartOf <https://nl.wikipedia.org/> ;   
+}  
+ORDER BY DESC(?date) ?item

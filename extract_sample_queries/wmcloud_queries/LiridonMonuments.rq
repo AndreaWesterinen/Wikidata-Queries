@@ -1,0 +1,15 @@
+SELECT ?sq ?sqLabel ?cnt ?imazh ?P3227 ?article WHERE {
+  {
+    SELECT ?sq (COUNT(?value) AS ?cnt) WHERE { ?sq wdt:P3227 ?value. }
+    GROUP BY ?sq
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sq". }
+  OPTIONAL { ?sq wdt:P18 ?imazh. }
+  OPTIONAL { ?sq wdt:P3227 ?P3227. }
+  OPTIONAL {
+    ?article schema:about ?sq;
+    schema:inLanguage "sq".
+  }
+}
+ORDER BY DESC (?cnt)
+LIMIT 10

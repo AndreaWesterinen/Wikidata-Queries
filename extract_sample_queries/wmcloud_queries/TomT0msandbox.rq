@@ -1,0 +1,23 @@
+#defaultView:Map
+SELECT (?London_Wall as ?id)  
+       (sample(?coordinate_location) as ?coord) 
+       ?type
+       (sample(?instance_of) as ?nature) 
+#       (sample (?London_WallLabel) as ?text)  
+#       (sample(?image) as ?img)
+ {
+  SERVICE wikibase:label { 
+        bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+        ?heritage_designation rdfs:label ?heritage_designationLabel. 
+        ?London_Wall rdfs:label ?London_WallLabel. 
+  }
+  ?London_Wall wdt:P361 wd:Q60308.
+  OPTIONAL { ?London_Wall wdt:P31 ?instance_of. }
+  ?London_Wall wdt:P625 ?coordinate_location. 
+  OPTIONAL { ?London_Wall wdt:P1435 ?heritage_designation. }
+  OPTIONAL { 
+          ?London_Wall wdt:P18 ?image. 
+          bind (True as ?AsImg) 
+  }
+  bind (coalesce(?AsImg, False) as ?type)
+} group by ?London_Wall ?type

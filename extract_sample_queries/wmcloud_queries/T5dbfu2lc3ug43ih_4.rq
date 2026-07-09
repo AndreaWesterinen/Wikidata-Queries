@@ -1,0 +1,8 @@
+#defaultView:BubbleChart
+SELECT ?eyeColorLabel (COUNT(?person) AS ?count)
+WHERE
+{
+  ?person wdt:P1340 ?eyeColor.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?eyeColorLabel

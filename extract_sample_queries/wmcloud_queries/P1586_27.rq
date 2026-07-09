@@ -1,0 +1,81 @@
+#title: Estatus patrimonial sense el rol corresponent
+# Complex constraint from [[Property talk:P1586]]
+# element amb estatus patrimonial BCIN però on el rol de l'estatus i el codi BCIN no coincideixen
+select ?item where {
+  ?item p:P1435 ?s .
+  ?s ps:P1435 wd:Q1019352 .
+  {
+    ?item wdt:P1586 ?codi .
+    filter regex(str(?codi), "MH")
+    minus { ?s pq:P2868 wd:Q907116 }
+  } union {
+    ?s pq:P2868 wd:Q907116 .
+    minus {
+      ?item wdt:P1586 ?codi .
+      filter regex(str(?codi), "MH")
+    }
+  } union {
+    ?item wdt:P1586 ?codi .
+    filter regex(str(?codi), "CH")
+    minus { ?s pq:P2868 wd:Q3317612 }
+  } union {
+    ?s pq:P2868 wd:Q3317612 .
+    minus {
+      ?item wdt:P1586 ?codi .
+      filter regex(str(?codi), "CH")
+    }
+  } union {
+    ?item wdt:P1586 ?codi .
+    filter regex(str(?codi), "JH")
+    minus { ?s pq:P2868 wd:Q14946335 }
+  } union {
+    ?s pq:P2868 wd:Q14946335 .
+    minus {
+      ?item wdt:P1586 ?codi .
+      filter regex(str(?codi), "JH")
+    }
+  } union {
+    ?item wdt:P1586 ?codi .
+    filter regex(str(?codi), "LH")
+    minus { ?s pq:P2868 wd:Q48892005 }
+  } union {
+    ?s pq:P2868 wd:Q48892005 .
+    minus {
+      ?item wdt:P1586 ?codi .
+      filter regex(str(?codi), "LH")
+    }
+  } union {
+    ?item wdt:P1586 ?codi .
+    filter regex(str(?codi), "ZIE")
+    minus { ?s pq:P2868 wd:Q108596845 }
+  } union {
+    ?s pq:P2868 wd:Q108596845 .
+    minus {
+      ?item wdt:P1586 ?codi .
+      filter regex(str(?codi), "ZIE")
+    }
+  } union {
+    ?item wdt:P1586 ?codi .
+    filter regex(str(?codi), "ZA")
+    minus { ?s pq:P2868 wd:Q48794661 }
+  } union {
+    ?s pq:P2868 wd:Q48794661 .
+    minus {
+      ?item wdt:P1586 ?codi .
+      filter regex(str(?codi), "ZA")
+    }
+  } union {
+    ?item wdt:P1586 ?codi .
+    filter regex(str(?codi), "ZP")
+    minus { ?s pq:P2868 wd:Q108596884 }
+  } union {
+    ?s pq:P2868 wd:Q108596884 .
+    minus {
+      ?item wdt:P1586 ?codi .
+      filter regex(str(?codi), "ZP")
+    }
+  } union {
+    ?s pq:P2868 ?tipus .
+    filter(?tipus not in (wd:Q907116, wd:Q3317612, wd:Q14946335, wd:Q48794661, wd:Q48892005, wd:Q108596845, wd:Q108596884))
+  }
+}

@@ -1,0 +1,4 @@
+#title: Human without participation (P1344)
+# Complex constraint from [[Property talk:P1447]]
+# Item with a [[Property:P1447|Sports-Reference.com Olympic athlete ID (archived)&#32;<small dir="ltr">(P1447)</small>]] identifier should have a [[Property:P1344|participant in&#32;<small dir="ltr">(P1344)</small>]] claim for their Olympic participation
+SELECT DISTINCT ?item WHERE { ?item wdt:P1447 ?id; wdt:P31 wd:Q5 . MINUS { ?item wdt:P1344 [] } } ORDER BY ASC(xsd:integer(STRAFTER(STR(?item), 'Q')))

@@ -1,0 +1,10 @@
+#title: USSR is used as nationality for people dead before 1922-12-30
+# Complex constraint from [[Property talk:Q15180]]
+# Items with [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]] equal to [[d:Q15180|Soviet Union <small>(Q15180)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] before 1922-12-30
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P27 wd:Q15180 .
+  ?item p:P570/psv:P570 ?node .
+  ?node wikibase:timeValue ?born .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (
+    ?born < "1922-12-30T00:00:00Z"^^xsd:dateTime && ?precision >= "11"^^xsd:integer

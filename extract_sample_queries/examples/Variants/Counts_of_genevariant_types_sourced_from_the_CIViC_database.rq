@@ -1,3 +1,4 @@
+#title: Counts of gene-variant types sourced from the CIViC database
 #defaultView:BarChart
 SELECT ?variant_typeLabel (count(?variant_typeLabel) as ?counts)
 WHERE

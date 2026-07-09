@@ -1,0 +1,4 @@
+select distinct (count(?item) as ?count) where {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P793 ?expedition . # uses P793, event
+  ?expedition wdt:P31/wdt:P279* wd:Q2401485 . }

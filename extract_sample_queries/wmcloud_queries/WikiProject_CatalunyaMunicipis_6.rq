@@ -1,0 +1,8 @@
+select ?item ?vegueria1 ?vegueria2 where {
+    ?item wdt:P31 wd:Q33146843.
+    ?item wdt:P131+ ?vegueria1.
+    ?item wdt:P131+ ?vegueria2.
+    ?vegueria1 wdt:P31 wd:Q162620.
+    ?vegueria2 wdt:P31 wd:Q162620.
+    filter (?vegueria1 != ?vegueria2)
+  }

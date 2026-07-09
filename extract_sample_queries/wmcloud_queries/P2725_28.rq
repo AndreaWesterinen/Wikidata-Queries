@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P2725/ps:P2725 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((?:en|de|fr|pl|ru|zh)\\/((movie|game)\\/[a-z\\d]+(\\_[a-z\\d]+)*))$") )
+}

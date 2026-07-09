@@ -1,0 +1,9 @@
+SELECT ?item  {
+  ?item wdt:P31 wd:Q1539532 .
+  ?item wdt:P641 wd:Q2736 .
+  ?item wdt:P580 ?any
+  FILTER EXISTS {
+    ?item rdfs:label ?label .
+    FILTER((LANG(?label) = 'en')) .
+  }
+}

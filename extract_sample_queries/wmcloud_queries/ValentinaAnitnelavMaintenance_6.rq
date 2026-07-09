@@ -1,0 +1,16 @@
+#Cats
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+WHERE 
+{
+  ?item wdt:P4933 ?bcdb.
+  MINUS{?item wdt:P31/wdt:P279* wd:Q202866}
+  MINUS{?item wdt:P31/wdt:P279* wd:Q56884562}
+  MINUS{?item wdt:P136/wdt:P279* wd:Q202866}
+  MINUS{?item wdt:P136/wdt:P279* wd:Q56884562}
+  MINUS{?item wdt:P31/wdt:P279* wd:Q21191270}
+  #whitelist
+  FILTER (?item NOT IN (
+    wd:wd:Q172271, wd:Q174385, wd:Q211693, wd:Q165325, wd:Q483852
+  ))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

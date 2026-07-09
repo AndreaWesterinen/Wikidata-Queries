@@ -1,0 +1,12 @@
+SELECT ?profession ?label ?clabel 
+WHERE 
+{
+    ?profession wdt:P279*/wdt:P31 wd:Q28640 ;
+            wdt:P17 ?country .
+  ?profession rdfs:label ?label. 
+  ?country rdfs:label ?clabel. 
+  
+  FILTER( LANG(?label)="en" )
+
+  FILTER( LANG(?clabel)="en" )
+  } 

@@ -1,0 +1,37 @@
+SELECT
+  ?item
+
+  # Author as a string
+  ?authornamestring
+
+ # Build URL to the Author disambiguator tool
+  (CONCAT(
+      'https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=',
+      ENCODE_FOR_URI(?authornamestring)) AS ?resolver_url)
+
+# Number of works with the author
+  ?count
+
+WITH {
+  SELECT DISTINCT ?work WHERE {
+    ?work wdt:P921 wd:Q202864 .
+  }
+} AS %works
+WITH {
+  SELECT
+    (COUNT(?work) AS ?count)
+    (SAMPLE(?work) AS ?item) 
+    ?authornamestring
+  WHERE {
+    INCLUDE %works
+    ?work wdt:P2093 ?authornamestring .
+  }
+  GROUP BY ?item ?authornamestring
+} AS %result
+WHERE {
+  INCLUDE %result
+  FILTER ( ?count > 4 )
+
+}
+ORDER BY DESC(?count)
+LIMIT 500

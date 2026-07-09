@@ -1,0 +1,16 @@
+#defaultView:Map
+SELECT ?q ?qLabel ?link ?coord WHERE {
+  # All items which are instance of university (Q3918) or subclasses
+  ?q wdt:P31/wdt:P279* wd:Q3918;
+     # Coordinates (Property:P625)
+     wdt:P625 ?coord .
+  # Get English sitelink
+  OPTIONAL {
+    ?link schema:about ?q;
+          schema:inLanguage "en" .
+  }
+  # English label
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

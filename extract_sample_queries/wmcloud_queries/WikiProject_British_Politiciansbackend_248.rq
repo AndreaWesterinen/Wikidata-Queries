@@ -1,0 +1,11 @@
+#MPs with end date on December 31 - which may be an import glitch needing checked
+SELECT DISTINCT ?item ?itemLabel ?positionLabel ?end ?causeLabel WHERE {
+  ?position wdt:P279* wd:Q16707842 . # position is a UK MP
+ ?item p:P39 ?statement. # person holds a position
+ ?statement ps:P39 ?position; 
+ pq:P582 ?end . # with an end date
+ FILTER(month(?end) = 12)
+ FILTER(day(?end) = 31)
+ OPTIONAL { ?statement pq:P1534 ?cause . } # optionally a cause 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  

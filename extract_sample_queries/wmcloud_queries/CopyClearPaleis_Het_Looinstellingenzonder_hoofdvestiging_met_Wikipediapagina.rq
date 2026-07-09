@@ -1,0 +1,22 @@
+SELECT  ?item ?itemLabel ?objectsoort ?titel 
+  WITH {
+    SELECT DISTINCT ?item ?itemLabel ?objectsoort ?titel WHERE {
+  ?item wdt:P6379 wd:Q99349995.
+  MINUS {  ?item wdt:P31 wd:Q5.}
+  FILTER NOT EXISTS {
+  ?item wdt:P159 [].
+  }
+  ?item p:P6379 [ ps:P6379 wd:Q99349995;
+                    prov:wasDerivedFrom 
+                    [ pr:P3865 ?objectsoort; 
+                      pr:P1476 ?titel;
+                    ]
+                  ].
+}
+}AS %items
+WHERE {
+INCLUDE %items
+  ?sitelink schema:about ?item .
+  ?sitelink schema:inLanguage ?lang .   
+  ?sitelink schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+}

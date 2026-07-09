@@ -1,0 +1,17 @@
+select ?subclass ?subclassLabel ?instances 
+	with {
+	  select ?subclass {
+		?subclass wdt:P279* wd:Q7725634
+	  }
+	} as %subclasses 
+	with { 
+		select ?subclass (count(?thing) as ?instances) 
+			{
+				include %subclasses .
+				?thing wdt:P31 ?subclass . 
+			} group by ?subclass 
+	} as %counts 
+where { 
+	include %counts 
+	service wikibase:label { bd:serviceParam wikibase:language ",en" }
+} order by desc(?instances)

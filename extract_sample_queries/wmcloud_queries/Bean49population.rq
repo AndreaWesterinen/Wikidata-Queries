@@ -1,0 +1,12 @@
+#title:Népesség
+SELECT ?item ?n ?ksh ?population ?time WHERE {
+  ?item wdt:P939 ?ksh;
+    wdt:P1082 ?population;
+    p:P1082 ?statement.
+  ?statement rdf:type wikibase:BestRank;
+    pq:P585 ?time.
+  _:b1 schema:about ?item;
+    schema:isPartOf <https://hu.wikipedia.org/>;
+    schema:name ?n.
+}
+ORDER BY (?n)

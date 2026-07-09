@@ -1,0 +1,16 @@
+SELECT   ?date ?sick_people ?country ?countryLabel ?cases ?recoveries 
+WHERE
+{
+  wd:Q83873577 wdt:P17 ?country.
+  wd:Q83873548 p:P1603 ?casesstatement. 
+  ?casesstatement a wikibase:BestRank.
+  ?casesstatement ps:P1603 ?cases.   
+  wd:Q83873577 p:P8010 ?recoveries_statement.
+  ?recoveries_statement a wikibase:BestRank.
+  ?recoveries_statement ps:P8010 ?recoveries.
+  ?casesstatement pq:P585 ?date.         # The date
+  ?recoveries_statement pq:P585 ?date.   # The same date again
+ 
+  BIND (?cases - ?recoveries AS ?sick_people)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

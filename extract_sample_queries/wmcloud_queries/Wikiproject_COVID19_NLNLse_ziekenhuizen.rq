@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?organisatieLabel ?beds WHERE { 
+  ?item wdt:P31 wd:Q16917 .
+  ?item wdt:P31 ?organisatie .
+  ?item wdt:P17 wd:Q55.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". } 
+    FILTER NOT EXISTS{ ?item wdt:P576 ?opgeheven. }
+
+}
+ORDER BY ?country ?dates

@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(DISTINCT(?sitelink)) As ?count) WHERE {  ?item wdt:P31 wd:Q21450877 . OPTIONAL { ?sitelink <http://schema.org/about> ?item . } . }  GROUP BY ?item

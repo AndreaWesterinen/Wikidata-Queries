@@ -1,0 +1,17 @@
+SELECT (wd:Q2481549 as ?item) ("spouse or child (P26/P40)" as ?legend) (GROUP_CONCAT(?p;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{	SELECT  ?p (COUNT(DISTINCT ?mainsubject) as ?ct)
+		{
+			?entry 	wdt:P31 wd:Q19389637
+  			; 		wdt:P1433 wd:Q665807 .
+          	?entry wdt:P921 ?mainsubject
+          	OPTIONAL { ?mainsubject wdt:P26 ?dob }
+          	OPTIONAL { ?mainsubject wdt:P40 ?chi }          
+			BIND(CONCAT(IF(!BOUND(?dob),"---","spouse-"),
+                        IF(!BOUND(?chi),"---","-child"))
+                 as ?p)
+		}
+		GROUP BY  ?p
+		ORDER BY ASC(?p)                  
+	}
+}

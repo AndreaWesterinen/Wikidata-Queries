@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?anno
+WHERE
+{
+    ?item wdt:P31 wd:Q13442814.
+    ?item wdt:P577 ?date .
+    ?item wdt:P1433 ?pubb.
+    BIND (YEAR(?date) as ?anno).
+    OPTIONAL { ?item schema:description ?itemDescription  }
+    FILTER (!BOUND(?itemDescription))
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "it"}
+} LIMIT 250

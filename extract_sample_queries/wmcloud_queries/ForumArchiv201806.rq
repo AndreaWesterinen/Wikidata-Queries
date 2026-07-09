@@ -1,0 +1,1 @@
+SELECT DISTINCT ?item { ?item p:P118/ps:P118 wd:Q154069; wdt:P31 wd:Q5 }  

@@ -1,0 +1,4 @@
+#title: Articles with genre=review might use this property
+# Complex constraint from [[Property talk:P6977]]
+# add applicable P6977
+SELECT ?item { ?item wdt:P136 wd:Q637866; wdt:P31 wd:Q13442814 } ORDER BY ?item LIMIT 500

@@ -1,0 +1,13 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?label ?coord 
+WHERE
+{
+  ?item wdt:P17 wd:Q142 .
+  ?item wdt:P31 wd:Q484170.
+  ?item wdt:P625 ?coord .
+  ?item rdfs:label ?labelWithLanguage.
+  FILTER(CONTAINS(LCASE(STR(?labelWithLanguage)), "saint"))
+  FILTER(LANG(?labelWithLanguage) = "fr")
+  BIND(STR(?labelWithLanguage) AS ?label)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

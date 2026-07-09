@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item p:P31 ?statement0.
+      ?statement0 (ps:P31/(wdt:P279*)) wd:Q5.
+      ?item p:P569 ?statement_1.
+      ?statement_1 psv:P569 ?statementValue_1.
+      ?statementValue_1 wikibase:timePrecision ?precision_1.
+      FILTER(?precision_1 >= 11 )
+      ?statementValue_1 wikibase:timeValue ?P569_1.
+      BIND("+2003-01-03T00:00:00Z"^^xsd:dateTime AS ?P569_1)
+    }
+    LIMIT 250
+  }
+}

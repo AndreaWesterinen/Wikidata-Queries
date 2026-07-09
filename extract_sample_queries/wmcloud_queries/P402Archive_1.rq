@@ -1,0 +1,8 @@
+SELECT  ?iso2 (?item AS ?wd_id) ?osm_id  ?itemLabel
+WHERE
+{
+  ?item wdt:P297 ?iso2 .
+  OPTIONAL{?item wdt:P402 ?osm_id .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?iso2

@@ -1,0 +1,27 @@
+SELECT ?item ?itemLabel ?uses ?wqc ?ht ?or ?krb WHERE {
+  ?item wdt:P279* wd:Q21502402 .
+  {
+    SELECT ?item (COUNT(*) AS ?ct) WHERE {
+      ?prop wdt:P2302 ?item
+    } GROUP BY ?item
+  }
+  BIND(STRAFTER(STR(?item), 'entity/') AS ?qid) .
+  BIND(CONCAT('[https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere&target=', ?qid, '&namespace=120 ', STR(?ct), ']') AS ?uses) .
+  OPTIONAL { ?item p:P1535 ?use_wqc .
+             ?use_wqc ps:P1535 wd:Q54812269 .
+            FILTER NOT EXISTS { ?use_wqc pq:P582 ?end_date }
+            BIND('\u007B\u007Byes\u007C\u2714\u007D\u007D' AS ?wqc) }
+  OPTIONAL { ?item p:P1535 ?use_ht .
+             ?use_ht ps:P1535 wd:Q21914398 .
+            FILTER NOT EXISTS { ?use_ht pq:P582 ?end_date }
+            BIND('\u007B\u007Byes\u007C\u2714\u007D\u007D' AS ?ht) }
+  OPTIONAL { ?item p:P1535 ?use_or .
+             ?use_or ps:P1535 wd:Q54826158 .
+            FILTER NOT EXISTS { ?use_or pq:P582 ?end_date }
+            BIND('\u007B\u007Byes\u007C\u2714\u007D\u007D' AS ?or) }
+  OPTIONAL { ?item p:P1535 ?use_krb .
+             ?use_krb ps:P1535 wd:Q54812300 .
+            FILTER NOT EXISTS { ?use_krb pq:P582 ?end_date }
+            BIND('\u007B\u007Byes\u007C\u2714\u007D\u007D' AS ?krb) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language '[AUTO_LANGUAGE],en' }
+} ORDER BY DESC(?ct)

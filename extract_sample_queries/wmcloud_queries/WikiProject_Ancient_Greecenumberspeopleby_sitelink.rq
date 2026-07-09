@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel (COUNT(DISTINCT ?item1) as ?ct)
+{
+	VALUES ?R { wd:Q486761 wd:Q428995 }
+	?item1 wdt:P2348 ?R ; wdt:P31 wd:Q5 .
+	?article schema:about ?item1
+	;	schema:isPartOf	?siteurl .
+  	?item wdt:P856 ?siteurl
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel
+HAVING (?ct > 49)
+ORDER BY DESC(?ct)

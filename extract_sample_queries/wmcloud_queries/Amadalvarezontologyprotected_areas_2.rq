@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?value ?identificador_INPN_d__rea_protegida ?identificador_Conservatori_del_litoral ?inst_ncia_de ?inst_ncia_deLabel WHERE {
+  ?item wdt:P1848 ?value.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca,en". }
+  OPTIONAL { ?item wdt:P3327 ?identificador_INPN_d__rea_protegida. }
+  OPTIONAL { ?item wdt:P3009 ?identificador_Conservatori_del_litoral. }
+  OPTIONAL { ?item wdt:P31 ?inst_ncia_de. }
+}
+LIMIT 30000

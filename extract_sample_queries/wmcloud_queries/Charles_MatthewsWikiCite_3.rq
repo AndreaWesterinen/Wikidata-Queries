@@ -1,0 +1,8 @@
+SELECT ?item ?person
+
+WHERE {
+  ?item wdt:P31 wd:Q15944511 .
+  ?item wdt:P634 wd:person .
+  ?person wdt:P106 wd:occupation .
+  ?occupation wdt:P279 wd:2066131 .
+}

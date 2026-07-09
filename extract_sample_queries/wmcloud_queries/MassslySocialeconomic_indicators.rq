@@ -1,0 +1,9 @@
+#Cats
+SELECT ?item ?itemLabel ?GDP WHERE {
+  ?item wdt:P30 wd:Q15.#continent is Africa
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }#labels are in English
+  ?item wdt:P31 wd:Q6256.#instanc of country
+  ?item wdt:P2131 ?GDP#nominal GDP
+  FILTER (?GDP > 38616536131)
+}
+  ORDER BY DESC (?GDP)

@@ -1,3 +1,4 @@
+#title: All subclasses of "Literary Work"
 SELECT ?s ?desc
 WHERE
 {

@@ -1,0 +1,13 @@
+SELECT ?work ?workLabel ?classLabel ?date WHERE {
+  {
+    SELECT DISTINCT ?work (SAMPLE(?class) AS ?class) (MIN(?date) AS ?date) WHERE {
+      ?work wdt:P31 ?class;
+            wdt:P577 ?date.
+      ?class wdt:P279* wd:Q386724.
+      FILTER(?date > NOW()).
+    }
+    GROUP BY ?work
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en", "de". }
+}
+ORDER BY ?date

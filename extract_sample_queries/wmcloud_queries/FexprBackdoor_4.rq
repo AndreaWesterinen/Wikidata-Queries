@@ -1,0 +1,18 @@
+SELECT ?manga_chapter ?manga_chapterLabel ?title ?volume ?series ?date ?placeLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?manga_chapter wdt:P31 wd:Q53460949;
+    wdt:P179 wd:Q185143.
+  OPTIONAL { ?manga_chapter wdt:P1476 ?title. }
+  OPTIONAL {
+    ?manga_chapter p:P179 ?qual.
+    ?qual pq:P478 ?volume;
+      pq:P1545 ?series.
+  }
+  OPTIONAL {
+    ?manga_chapter p:P577 ?publication_date_node.
+    ?publication_date_node ps:P577 ?date.
+    ?publication_date_node pq:P291 ?place.
+    
+  }
+}
+ORDER BY ?manga_chapter ?date

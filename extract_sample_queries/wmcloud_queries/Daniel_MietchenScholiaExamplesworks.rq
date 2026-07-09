@@ -1,0 +1,24 @@
+SELECT DISTINCT ?item ?count
+WITH {
+  SELECT ?item (COUNT(DISTINCT ?statement) AS ?count) WHERE {
+    SERVICE bd:sample { ?item wdt:P275 [] . bd:serviceParam bd:sample.limit 100000 }     
+    ?citing wdt:P2860 ?item . 
+    ?statement prov:wasDerivedFrom/pr:P248 ?item .
+  }
+  GROUP BY ?item
+  LIMIT 10000
+}
+AS %items
+WHERE { 
+  SELECT ?item ?count WHERE {
+    INCLUDE %items
+            ?item wdt:P50 ?author ;
+            wdt:P932 [] ;
+            wdt:P921 [].
+    ?author wdt:P21 wd:Q6581072 ;
+            wdt:P496 ?orcid .
+
+  } 
+  GROUP BY ?item ?count
+}
+ORDER BY DESC(?count)

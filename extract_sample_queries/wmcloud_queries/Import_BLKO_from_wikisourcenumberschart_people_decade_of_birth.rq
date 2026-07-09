@@ -1,0 +1,23 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("decade" as ?xAxisTitle) 
+  ("people born in decade" as ?yAxisTitle)
+  (GROUP_CONCAT(?decade;separator=",") as ?x)
+  (GROUP_CONCAT(?count_all;separator=",") as ?y)
+  ("area" as ?type)
+  ("200" as ?heigth) 
+  ("600" as ?width) 
+WHERE
+{
+  { SELECT ?decade (COUNT(DISTINCT ?item) as ?count_all)
+  {
+    ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item .
+    ?item wdt:P569 ?d . 
+    FILTER( YEAR(?d) > 1499 && YEAR(?d) < 1890 )
+    BIND( FLOOR( YEAR(?d)/10) *10 as ?decade) 
+    ?item wdt:P31 wd:Q5 .
+  }
+  GROUP BY ?decade
+  ORDER BY DESC(?decade)
+  }
+}

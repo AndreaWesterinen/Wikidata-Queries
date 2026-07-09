@@ -1,0 +1,6 @@
+embed.html#SELECT ?item ?itemLabel ?Legacies_of_British_Slave_ownership_person_ID ?Oxford_Dictionary_of_National_Biography_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P3023 ?Legacies_of_British_Slave_ownership_person_ID. }
+  OPTIONAL { ?item wdt:P1415 ?Oxford_Dictionary_of_National_Biography_ID. }
+ }
+LIMIT 1000

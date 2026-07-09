@@ -1,0 +1,10 @@
+SELECT ?watercourse ?watercourseLabel ?confluenceWith ?confluenceWithLabel ?givesRiseTo ?givesRiseToLabel 
+WHERE 
+{
+  ?watercourse p:P2789 ?stat .
+  ?stat pq:P1552 wd:Q111794957 .
+  ?stat ps:P2789 ?confluenceWith.
+  filter(str(?watercourse) < str(?confluenceWith))
+  ?watercourse wdt:P403 ?givesRiseTo .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

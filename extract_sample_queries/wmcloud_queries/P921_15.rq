@@ -1,0 +1,7 @@
+#Katter
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P921 wd:Q1778788. # Måste vara av en katt
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Hjälper dig hämta etiketten på ditt språk, om inte annat på engelska
+}

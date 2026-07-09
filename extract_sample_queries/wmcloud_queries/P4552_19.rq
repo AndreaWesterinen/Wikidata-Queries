@@ -1,0 +1,14 @@
+#title: Replaces other properties
+# Complex constraint from [[Property talk:P4552]]
+# Other properties to link item and value are generally not need. [[Property:P138|named after&#32;<small dir="ltr">(P138)</small>]] can remain as it's about the name of the dam.
+#SELECT ?item ?itemLabel ?p ?pLabel ?value ?valueLabel
+SELECT DISTINCT ?item
+{
+  hint:Query hint:optimizer "None" .
+  ?item wdt:P4552 ?value;
+        ?wdt ?value .
+  ?wdt ^wikibase:directClaim ?p .
+  FILTER( ?wdt != wdt:P4552 ) .
+  FILTER( ?wdt != wdt:P138 ) .
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

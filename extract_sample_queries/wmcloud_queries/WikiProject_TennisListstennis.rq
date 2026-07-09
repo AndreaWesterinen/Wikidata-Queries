@@ -1,0 +1,34 @@
+SELECT  ?item (SAMPLE(?enwp) as ?enwp)  (COALESCE(SAMPLE(?group), wd:Q847 ) as ?group)  (GROUP_CONCAT(DISTINCT ?wp) as ?wp) (SAMPLE(?t) as ?t)
+WHERE 
+{
+    {VALUES ?item { 
+wd:Q847 wd:Q10833314 wd:Q741118 wd:Q246514 wd:Q153362 wd:Q47514942 
+wd:Q46190676 wd:Q47459169 wd:Q18123880 wd:Q18123885 wd:Q27925286
+wd:Q5030749 wd:Q198718 wd:Q1330871 wd:Q1151291 wd:Q29167278 wd:Q7700500 
+wd:Q47530913 wd:Q1246411 wd:Q7624024 wd:Q5358384 wd:Q4839569 wd:Q3502546 wd:Q47530502 wd:Q18088275 wd:Q47530512 wd:Q1478481 
+wd:Q849132 wd:Q1371988 wd:Q1202096 wd:Q4496845 wd:Q1344019 wd:Q30337019 wd:Q3502546 wd:Q1344019 wd:Q746246 wd:Q102113 wd:Q1550852
+wd:Q851584 wd:Q7207922 wd:Q2316141 wd:Q10911683 wd:Q8964916 wd:Q47537675 wd:Q47537672
+wd:Q47678505 wd:Q47678177 wd:Q47677460 wd:Q47677214 wd:Q47676928 wd:Q47676325 wd:Q47675824 wd:Q47668490
+wd:Q47546365 wd:Q1666985 wd:Q47755582 wd:Q47801802 wd:Q48524502 wd:Q48524033 wd:Q48469016 wd:Q48463602 wd:Q48463558 wd:Q48309970  wd:Q48309137 wd:Q3867045 wd:Q3860919 
+wd:Q48293288 wd:Q47530518 wd:Q47531778 wd:Q47522515 wd:Q47530495
+     } }
+    UNION      {  ?item wdt:P31 wd:Q849132 }  
+    UNION      {  ?item wdt:P279 wd:Q47677460 }  
+    UNION   { 	?item wdt:P31 wd:Q48291351  }
+    UNION   { 	?item wdt:P31*/wdt:P279* wd:Q48298065  }  
+	OPTIONAL {  ?url1 schema:about ?item; schema:inLanguage "en" ; schema:name ?enwiki ; schema:isPartOf <https://en.wikipedia.org/> . 
+              BIND(CONCAT("[[:en:",str(?enwiki),"|en]]") as ?enwp)  }
+	OPTIONAL {  ?url3 schema:about ?item; schema:inLanguage ?wplg ; schema:name ?title ; schema:isPartOf ?wiki . ?wiki wikibase:wikiGroup "wikipedia"   
+              FILTER(?wplg != "en" && ?item != wd:Q847 ) . 
+              BIND(CONCAT("[[:",?wplg,":",str(?title),"|",?wplg,"]]") as ?wp)  }
+    OPTIONAL {  ?item p:P641 [ps:P641 wd:Q847 ;prov:wasDerivedFrom/pr:P4656 ?url2]  . 
+              BIND(CONCAT("[[:en:",strafter(str(?url2),"/wiki/"),"|en]]") as ?t) }
+    OPTIONAL { ?item wdt:P279*/wdt:P31 wd:Q12737077 . BIND( wd:Q214339 as ?group) }
+    OPTIONAL { ?item wdt:P279*/wdt:P31* wd:Q768186 . BIND( wd:Q768186  as ?group) }
+    OPTIONAL { ?item wdt:P279*/wdt:P361* wd:Q741118 . BIND( wd:Q741118 as ?group) }
+    OPTIONAL { wd:Q7700500 wdt:P2670* ?item . BIND( wd:Q47459169 as ?group) }
+    OPTIONAL { ?item wdt:P31 wd:Q48291351 . BIND( wd:Q48291351 as ?group) }
+    OPTIONAL { ?item wdt:P31*/wdt:P279* wd:Q48298065 . BIND( wd:Q48298065 as ?group) }
+}
+GROUP BY ?item  
+ORDER BY DESC( ?group = wd:Q847 ) ?group DESC(?item = ?group)  ASC(xsd:integer(strafter(str(?item), "Q")))

@@ -1,0 +1,9 @@
+SELECT ?category ?label (LANG(?label) AS ?lang)
+WHERE
+{
+  ?category wdt:P31 wd:Q4167836;
+          rdfs:label ?label.
+  FILTER(LANG(?label) = "nl").
+  FILTER(STRSTARTS(?label, "Category:")).
+}
+LIMIT 10000

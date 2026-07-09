@@ -1,0 +1,12 @@
+embed.html##defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?location ?image (SAMPLE(?layer) AS ?layer)
+WHERE {
+  ?item wdt:P17 wd:Q27 . 
+  ?item wdt:P2186 ?wlmid .
+  FILTER(STRSTARTS(?wlmid, 'IE-')) .
+  ?item wdt:P625 ?location . 
+  OPTIONAL { ?item wdt:P18 ?image }
+  BIND(IF(isBlank(?image), "No Image", "Image") AS ?layer)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?item ?itemLabel ?location ?image

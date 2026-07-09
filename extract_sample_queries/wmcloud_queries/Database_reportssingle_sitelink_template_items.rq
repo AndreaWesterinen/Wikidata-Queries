@@ -1,0 +1,10 @@
+SELECT ?item (CONCAT("[",str(?sitelink)," ",str(?name),"]") as ?template) ?dbname
+WITH
+{
+    SELECT * { ?item wikibase:sitelinks 1 ; wdt:P279*/wdt:P31 wd:Q11266439 } 
+    ORDER BY DESC(xsd:integer(substr(str(?item),33))) LIMIT 1010
+} as %t
+{
+  include %t ?sitelink schema:about ?item ; schema:isPartOf ?wp ; schema:name ?name . ?wiki wdt:P856 ?wp ; wdt:P1800 ?dbname .
+}
+ORDER BY DESC(xsd:integer(substr(str(?item),33))) LIMIT 1000

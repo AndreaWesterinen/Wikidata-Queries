@@ -1,0 +1,12 @@
+#title: Parlement & Politiek ID without Biografisch Portaal
+# Complex constraint from [[Property talk:P651]]
+# People with [[Property:P1749|Parlement.com ID&#32;<small dir="ltr">(P1749)</small>]], [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]] -> [[d:Q29999|Kingdom of the Netherlands <small>(Q29999)</small>]] and died before 1980, but no [[Property:P651|Biografisch Portaal van Nederland ID&#32;<small dir="ltr">(P651)</small>]]
+SELECT ?item WHERE {
+  ?item wdt:P1749 [] .
+  ?item wdt:P31 wd:Q5 . 
+  ?item wdt:P27 wd:Q29999 .
+  ?item p:P570 ?deathclaim .
+  ?deathclaim ps:P570 ?death .
+  FILTER(?death < "+1980-00-00T00:00:00Z"^^xsd:dateTime) .
+  MINUS {?item wdt:P651 [] } .
+}

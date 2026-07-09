@@ -1,0 +1,13 @@
+SELECT ?descES ?descEN ?descFR ?element ?country ?bornYear ?sex
+WHERE {
+  ?element wdt:P106 wd:Q2309784.
+  OPTIONAL {?element rdfs:label ?descES filter (lang(?descES) = "es").}
+  OPTIONAL {?element rdfs:label ?descEN filter (lang(?descEN) = "en").}
+  OPTIONAL {?element rdfs:label ?descFR filter (lang(?descFR) = "fr").}
+  OPTIONAL { ?element wdt:P27 ?country. }
+  OPTIONAL { ?element wdt:P569 ?date. }
+  OPTIONAL { ?element wdt:P21 ?sex. }
+  BIND(YEAR(?date) AS ?bornYear)
+}
+
+ORDER BY ?bornYear

@@ -1,0 +1,3 @@
+SELECT * WHERE {
+  ?item p:P31 ?st 
+} LIMIT 100

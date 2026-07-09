@@ -1,0 +1,12 @@
+SELECT  ?n ?nLabel ?nDescription (COUNT(DISTINCT ?item) as ?count)
+WHERE {
+  ?item wdt:P31 wd:Q15661340.
+  OPTIONAL { ?item wdt:P576 ?date_de_dissolution_ou_de_d_molition. }
+  OPTIONAL { ?item wdt:P31 ?n }
+  MINUS { ?item wdt:P576 [] }
+  # FILTER NOT EXISTS { ?item wdt:P31 wd:Q1637706 }
+  # FILTER NOT EXISTS { ?item wdt:P31 wd:Q23828039 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" }
+}
+GROUP BY ?n ?nLabel ?nDescription
+ORDER BY DESC(?count)

@@ -1,0 +1,10 @@
+embed.html## Gemälde, die Tränen zeigen
+#TEMPLATE={ "template": { "en": "paintings depicting ?depicted", "de": "Gemälde, die ?depicted zeigen" }, "variables": { "?depicted": { "query": "SELECT ?id WHERE { ?subject wdt:P180 ?id. } GROUP BY ?id ORDER BY DESC(COUNT(*)) LIMIT 100" } } }
+#defaultView:ImageGrid
+SELECT ?painting ?paintingLabel ?image WHERE {
+  BIND(wd:Q76469 AS ?depicted)
+  ?painting wdt:P31 wd:Q3305213;
+            wdt:P180 ?depicted.
+  OPTIONAL { ?painting wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,14 @@
+SELECT DISTINCT ?itemLabel ?item  ?geboortedatum
+{
+	?item wdt:P6379 wd:Q99349995 .
+    ?item wdt:P31 wd:Q5.
+    ?item rdfs:label ?label.
+  FILTER NOT EXISTS {
+   ?item p:P569 [ ps:P569 ?geboortedatum;
+                    prov:wasDerivedFrom 
+                    [  ]
+                  ].
+    }
+      ?item wdt:P569 ?geboortedatum.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" } .
+}

@@ -1,0 +1,14 @@
+#title: potential values (from category combines topic = honorary citizenship), version 2
+# Complex constraint from [[Property talk:P10280]]
+# todo: determine place
+SELECT ?item (SAMPLE(?l) as ?sample) (lang(?sample) as ?lang) (COUNT(?l) as ?count)
+WHERE 
+{
+  ?item wdt:P971 wd:Q987080 .
+  FILTER NOT EXISTS { ?item wdt:P971/wdt:P31 wd:Q24571886 }
+  MINUS { [ ] ps:P10280 ?item }
+  ?item rdfs:label ?l .
+  FILTER NOT EXISTS { ?item wdt:P971/wdt:P625 [ ] }  
+  FILTER NOT EXISTS { ?item wdt:P971 wd:Q13406463 }  
+}
+GROUP BY ?item

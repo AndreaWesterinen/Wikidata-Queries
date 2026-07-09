@@ -1,0 +1,3 @@
+SELECT DISTINCT ?item (STRAFTER(STR(?item), STR(wd:)) AS ?id) WHERE {
+  ?item wdt:P31 wd:Q21686038 .
+  OPTIONAL { ?item wdt:P571

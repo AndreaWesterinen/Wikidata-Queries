@@ -1,0 +1,8 @@
+embed.html##defaultView:Map
+SELECT ?pays (floor(year(?date)/10)*10 as ?layer) ?date ?image ?location WHERE { 
+  ?pays p:P31 ?property.
+       ?property ps:P31 wd:Q160016.
+  	  ?property pq:P580 ?date.
+  ?pays wdt:P625 ?location.
+        ?pays wdt:P41 ?image.
+               }

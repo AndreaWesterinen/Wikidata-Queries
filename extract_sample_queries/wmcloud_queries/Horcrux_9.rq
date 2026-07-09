@@ -1,0 +1,6 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q3685476 ;
+     p:P36 ?capitalStmt .
+  FILTER NOT EXISTS { ?capitalStmt pq:P582 ?anyDate. }
+}

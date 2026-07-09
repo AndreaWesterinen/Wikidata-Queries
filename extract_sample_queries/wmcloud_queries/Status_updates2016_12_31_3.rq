@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?globeLabel ?coordinates WITH {
+  SELECT DISTINCT ?globe WHERE {
+    [] wikibase:geoGlobe ?globe.
+  }
+} AS %globes WHERE {
+  INCLUDE %globes.
+  FILTER(?globe != wd:Q2).
+  ?item p:P625 [
+    ps:P625 ?coordinates;
+    psv:P625/wikibase:geoGlobe ?globe
+  ].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

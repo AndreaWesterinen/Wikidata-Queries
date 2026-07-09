@@ -1,0 +1,1 @@
+SELECT * { ?item wdt:P973 ?value . FILTER(CONTAINS( str(?value),"structurae") )  }

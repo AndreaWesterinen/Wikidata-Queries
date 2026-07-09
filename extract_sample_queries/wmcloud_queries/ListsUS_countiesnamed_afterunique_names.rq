@@ -1,0 +1,18 @@
+SELECT
+  (SAMPLE(?c) as ?item) 
+  ?l
+  (COUNT(DISTINCT ?c) as ?ct)
+  (COUNT(DISTINCT ?hasnamed ) as ?ct_named) 
+  (?ct = ?ct_named as ?all)  
+  (GROUP_CONCAT( DISTINCT ?namedct ; separator = ", ") as ?nn) 
+  (GROUP_CONCAT( DISTINCT ?todo; separator = " ") as ?todos) 
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?c wdt:P882 [] ; rdfs:label ?l . FILTER(lang(?l) = "en" ) 
+    OPTIONAL { ?c wdt:P138 ?na . BIND(?c as ?hasnamed)  }
+    BIND( IF( !BOUND( ?hasnamed), CONCAT( "[[", strafter(str(?c),"y/"),"]]") , "") as ?todo)
+}
+GROUP BY ?l
+HAVING ( ?ct = 1) 
+ORDER BY ?all ?l

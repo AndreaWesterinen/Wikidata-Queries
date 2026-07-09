@@ -1,0 +1,5 @@
+SELECT ?Oliver_Braddick ?Oliver_BraddickLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Oliver_Braddick wdt:P50 wd:Q7087416.
+}
+LIMIT 100

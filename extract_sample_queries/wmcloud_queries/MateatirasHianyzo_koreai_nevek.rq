@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?koLabel ?enLabel ?property ?cikk ?link
+WHERE {
+  ?item wdt:P31 wd:Q5; wdt:P27 wd:Q884; rdfs:label ?koLabel
+  FILTER( lang(?koLabel) = "ko" )
+  MINUS{ ?item rdfs:label ?huLabel FILTER( lang(?huLabel) = "hu" ) }
+  OPTIONAL{ ?item rdfs:label ?enLabel FILTER( lang(?enLabel) = "en" ) }
+  [] schema:about [ ?direct ?item ]; schema:isPartOf <https://hu.wikipedia.org/>; schema:name ?title  .
+  OPTIONAL{ ?property wikibase:directClaim ?direct }
+  BIND(CONCAT("[[:hu:",?title,"]]") AS ?cikk )
+  BIND(CONCAT("[https://atiro.toolforge.org/koreaiatiras.cgi?t=",REPLACE(?koLabel," ","+")," Átíró]") AS ?link )
+}

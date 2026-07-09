@@ -1,0 +1,7 @@
+SELECT DISTINCT ?x
+WHERE {
+  VALUES ?class { wd:Q3685476 }
+  ?x wdt:P31 ?class .
+  FILTER NOT EXISTS { ?x wdt:P31 ?class2 FILTER(?class != ?class2) }
+}
+LIMIT 100000

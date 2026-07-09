@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P4012/ps:P4012 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https://www\\.semanticscholar\\.org/author/)?[A-Za-z\\.\\-]+/([1-9][0-9]+))$") )
+}

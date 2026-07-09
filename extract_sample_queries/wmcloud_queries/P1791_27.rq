@@ -1,0 +1,9 @@
+#title: most linked wikis on values of property P1791
+SELECT ?wiki (COUNT( DISTINCT ?item ) as ?count) (SAMPLE(?item) as ?sample)
+{
+	?p wdt:P1791 ?item . 
+    [] schema:about ?item ; schema:isPartOf ?wiki . 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }      
+}
+GROUP BY ?wiki 
+ORDER BY DESC(?count) ?wiki

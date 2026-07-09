@@ -1,0 +1,13 @@
+#title: Unsuitable height for human
+# Complex constraint from [[Property talk:P2048]]
+# Person with height smaller than 50 cm
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5;
+        wdt:P21 ?sex.
+  ?item          p:P2048                     ?stmnode.
+  ?stmnode       psn:P2048                   ?valuenode.  # normalised value
+  ?valuenode     wikibase:quantityAmount     ?height.
+
+ FILTER (?height < 0.5).
+ FILTER (?item NOT IN (wd:Q38579198))
+}

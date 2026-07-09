@@ -1,0 +1,13 @@
+SELECT ?item ?party ?constituency ?start ?end ?url ?twfy
+  WHERE { 
+    ?item p:P39 ?ps . 
+    ?ps ps:P39 wd:Q30524718 .
+    OPTIONAL { ?ps pq:P580 ?start }
+    OPTIONAL { ?ps pq:P582 ?end }
+    OPTIONAL { ?ps pq:P4100 ?party }
+    OPTIONAL { ?ps pq:P768 ?constituency }
+    OPTIONAL { ?item wdt:P2171 ?twfy }
+    ?item p:P973 ?describedAt .
+    ?describedAt ps:P973 ?url .
+    FILTER(CONTAINS(LCASE(STR(?url)), "democracy.leeds.gov.uk/"))
+  }

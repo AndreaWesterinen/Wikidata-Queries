@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?property ?propertyLabel ?value ?valueLabel
+WHERE
+{
+	{
+		SELECT DISTINCT ?item ?property ?value {
+			?item wdt:P17 [] .
+			VALUES ?value { wd:Q3172759 wd:Q11460 wd:Q28823 wd:Q7832362 wd:Q24334685 wd:Q25810847 wd:Q943929 wd:Q223393 wd:Q60733114 wd:Q771035 wd:Q2578402 wd:Q13002315 wd:Q251777 wd:Q11921029 wd:Q11639 wd:Q1292119 wd:Q41710 wd:Q105575966 wd:Q188451 wd:Q11042 } .
+			?item wdt:P31 ?value .
+			BIND( wd:P31 AS ?property ) .
+		} LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

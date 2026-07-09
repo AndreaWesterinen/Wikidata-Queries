@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item  WHERE {
+  ?item wdt:P88 ?commissioner .
+  OPTIONAL { ?commissioner wdt:P18 ?portrait . }
+  ?item wdt:P31 wd:Q3305213 .   
+  } 
+ LIMIT 5000

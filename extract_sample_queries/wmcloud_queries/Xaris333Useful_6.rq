@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?event ?eventLabel (GROUP_CONCAT(DISTINCT ?sportL; separator=', ') AS ?sportLabels) WITH {
+  SELECT ?item ?p1 ?p2 WHERE {  
+    ?item p:P1344 ?p1; p:P1344 ?p2 .
+    FILTER(?p1 != ?p2) .
+  }
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  ?p1 ps:P1344 ?event .
+  ?p2 ps:P1344 ?event .
+  OPTIONAL { ?item wdt:P641/rdfs:label ?sportL . FILTER(LANG(?sportL) = 'en') }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?item ?itemLabel ?event ?eventLabel

@@ -1,0 +1,20 @@
+embed.html##defaultView:Map{"hide":["?coor"],"layer":"?partofLabel"}
+SELECT DISTINCT (SAMPLE(?phone) AS ?phone) (SAMPLE(?email) AS ?email) (SAMPLE(?place) AS ?place) ?placeLabel (SAMPLE(?location) AS ?location) ?locationLabel (SAMPLE(?address) AS ?address) 
+                             (SAMPLE(?website) AS ?website) (SAMPLE(?coor) AS ?coor) (SAMPLE(?image) AS ?image) (SAMPLE(?partof) AS ?partof) ?partofLabel ?x ?xLabel
+                            WHERE {
+  ?x wdt:P31 wd:Q28564 ;
+     wdt:P17 wd:Q55 .
+             OPTIONAL { ?x wdt:P625 ?coor . }
+             OPTIONAL { ?x wdt:P18 ?image . }
+             OPTIONAL { ?x wdt:P131 ?place . }
+             OPTIONAL { ?x wdt:P969 ?address .}
+             OPTIONAL { ?x wdt:P281 ?postcode .}
+             OPTIONAL { ?x wdt:P276 ?location . }
+             OPTIONAL { ?x wdt:P1329 ?phone .}
+             OPTIONAL { ?x wdt:P856 ?website .}
+             OPTIONAL { ?x wdt:P361 ?partof . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl" }
+                              FILTER NOT EXISTS{ ?x wdt:P31 wd:Q28324850  }
+}
+GROUP BY ?x ?xLabel ?placeLabel ?locationLabel ?partofLabel
+ORDER BY ?xLabel

@@ -1,0 +1,6 @@
+select distinct (?l as ?item) (concat(replace(str(?l),str(wd:),"{{L|"),"}}") as ?l_) ?aux {
+  ?l dct:language wd:Q188;
+     wikibase:lemma ?lemma;
+     wikibase:lexicalCategory wd:Q24905.
+  ?l wdt:P5401 ?aux filter (?aux not in (wd:L1761, wd:L4179)).
+} order by ?lemma ?l limit 100

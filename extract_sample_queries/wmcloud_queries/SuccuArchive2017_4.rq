@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?taxonName  WHERE {
+  ?item wdt:P105 wd:Q34740 .  # genus
+  ?item wdt:P225 ?taxonName .
+  ?item wdt:P842 ?fossilworksId .
+  ?item wdt:P961 ?ipniId .
+}
+ORDER BY ASC(?taxonName)

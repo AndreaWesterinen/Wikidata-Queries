@@ -1,3 +1,4 @@
+#title: Authors, writers and poets ranked by sitelink and also includes "country of citizenship"
 SELECT DISTINCT ?writer ?place ?linkcount
 WHERE
 {

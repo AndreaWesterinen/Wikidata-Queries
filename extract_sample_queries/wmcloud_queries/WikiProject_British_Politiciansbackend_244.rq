@@ -1,0 +1,12 @@
+SELECT DISTINCT ?constituency ?constituencyLabel ?typeLabel ?start ?end ?sameAs ?sameAsLabel ?article
+{
+ ?constituency wdt:P31 wd:Q27971968 . 
+ OPTIONAL { ?constituency wdt:P31 ?type . }
+ OPTIONAL { ?constituency wdt:P571 ?start . }
+ OPTIONAL { ?constituency wdt:P576 ?end . }
+ OPTIONAL { ?constituency wdt:P460 ?sameAs . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+ OPTIONAL { ?article schema:about ?constituency ; schema:isPartOf <https://en.wikipedia.org/> . }
+ 
+}
+ORDER BY ?start

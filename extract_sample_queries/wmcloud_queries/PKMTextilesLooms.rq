@@ -1,0 +1,22 @@
+SELECT ?item ?en_label (SAMPLE(?img) AS ?image) (COUNT(DISTINCT ?label) AS ?labels) (COUNT(DISTINCT ?st) AS ?statements) (COUNT(DISTINCT ?sourced) AS ?with_ref)
+(COUNT(DISTINCT ?P1343) AS ?source_described) (COUNT(DISTINCT ?P973) AS ?url_described)
+{
+  ?item wdt:P279* wd:Q173056 .
+  OPTIONAL { ?item wdt:P18 ?img } .
+  OPTIONAL { ?item rdfs:label ?en_label FILTER( LANG( ?en_label ) = 'en' ) } .
+  ?item rdfs:label ?label;
+        ?p ?st .
+  ?st wikibase:rank [] .
+  OPTIONAL {
+    ?st prov:wasDerivedFrom [] .
+    BIND( ?st AS ?sourced ) .
+  } .
+  OPTIONAL {
+    ?st ps:P1343 [] .
+    BIND( ?st AS ?P1343 ) .
+  } .
+  OPTIONAL {
+    ?st ps:P973 [] .
+    BIND( ?st AS ?P973 ) .
+  } .
+} GROUP BY ?item ?en_label

@@ -1,0 +1,19 @@
+#items being male and female
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P21 wd:Q6581097; wdt:P21 wd:Q6581072.
+  
+   #whitelist
+  FILTER(?item NOT IN 
+         #persons being male and female
+         (wd:Q34358,  wd:Q246154, wd:Q364688, wd:Q464357, wd:Q850685, wd:Q1472590, wd:Q1662713, wd:Q1997176
+                      , wd:Q1929840, wd:Q2357164, wd:Q3040061, wd:Q3575012, wd:Q7409772, wd:Q14432239, wd:Q15615388, wd:Q15808149
+                      , wd:Q16203761, wd:Q16466864, wd:Q28146055, wd:Q27864168, wd:Q10394292, wd:Q15275239, wd:Q3175379
+        #don't know
+         ,wd:Q11626763, wd:Q12596748, wd:Q12615803, wd:Q21521664, wd:Q41882155, wd:Q47530314, wd:Q11611778, wd:Q12582858
+         , wd:Q55284525, wd:Q56012711, wd:Q56705656)
+        )
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

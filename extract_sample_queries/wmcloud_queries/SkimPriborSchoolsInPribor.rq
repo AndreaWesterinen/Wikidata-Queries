@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?instanceLabel WHERE {
+  ?item wdt:P31 ?instance.
+  ?item wdt:P31/wdt:P279* wd:Q3914.
+  {
+    ?item wdt:P131 wd:Q654019.
+  } UNION {
+    ?item wdt:P276 wd:Q654019.
+  } UNION {
+    ?item wdt:P159 wd:Q654019.
+  }
+  ?item wdt:P571 ?inception.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "cs,en". }
+} ORDER BY DESC(?instanceLabel) ?inception

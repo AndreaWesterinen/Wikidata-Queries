@@ -1,0 +1,9 @@
+#Neujahrskonzert with conductor by country and age
+SELECT ?item ?itemLabel ?conductorLabel ?countryLabel ?age
+WHERE
+{
+	?item wdt:P31 wd:Q339152 ; wdt:P585 ?date ; wdt:P3300 ?conductor .
+	?conductor wdt:P569 ?DOB ; wdt:P27 ?country .
+	BIND(YEAR(?date) - YEAR(?DOB) as ?age) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+} order by ?date

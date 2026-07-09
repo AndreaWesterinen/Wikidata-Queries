@@ -1,0 +1,22 @@
+SELECT DISTINCT ?Pokédex ?item ?type1Label ?type2Label WHERE
+{
+  ?item wdt:P31 / wdt:P279 wd:Q3966183 .
+  OPTIONAL {
+    ?item p:P31 ?type1_statement .
+    ?type1_statement ps:P31 ?type1 .
+    ?type1_statement pq:P518 wd:Q25931659 .
+  }
+  OPTIONAL {
+    ?item p:P31 ?type2_statement .
+    ?type2_statement ps:P31 ?type2 .
+    ?type2_statement pq:P518 wd:Q25931668 .
+  }
+  OPTIONAL {
+    ?item p:P1685 ?Pokédex_statement .
+    ?Pokédex_statement ps:P1685 ?Pokédex_value .
+    ?Pokédex_statement pq:P972 wd:Q20005020 . # Use catalog National Pokédex
+    BIND (IF(wikibase:isSomeValue(?Pokédex_value), "unknown value", ?Pokédex_value) AS ?Pokédex)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+ORDER BY ?Pokédex

@@ -1,0 +1,15 @@
+#defaultView:Map
+SELECT ?item ?coor ?image ?itemlabel
+{
+	{ 	SELECT ?c (COUNT(DISTINCT ?lighthouse) as ?ct) 
+		{
+			{ ?lighthouse wdt:P31 wd:Q39715 ; wdt:P17 ?c } UNION { ?lighthouse wdt:P31 wd:Q39715 ; p:P17/a wdno:P17 ; wdt:P131 wd:Q21590062 . BIND( wd:Q21590062 as ?c) }
+		}
+		GROUP BY ?c
+		HAVING (?ct<25  && ?c NOT IN ( wd:Q31 ) )
+	}
+	{ ?item wdt:P31 wd:Q39715; wdt:P17 ?c } UNION { ?item wdt:P31 wd:Q39715 ; p:P17/a wdno:P17 ; wdt:P131 wd:Q21590062 . BIND( wd:Q21590062 as ?c) }
+	OPTIONAL { ?item wdt:P625 ?coor }
+	OPTIONAL { ?item wdt:P18 ?image }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?item rdfs:label ?itemlabel }
+}

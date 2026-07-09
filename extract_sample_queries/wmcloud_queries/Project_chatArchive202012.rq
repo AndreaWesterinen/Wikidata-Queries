@@ -1,0 +1,6 @@
+SELECT ?item ?sl ?st WHERE {
+  ?item wdt:P5008 wd:Q5460604.
+  OPTIONAL { ?item wikibase:sitelinks ?sl. }
+  OPTIONAL { ?item wikibase:statements ?st. }
+}
+ORDER BY (?item)

@@ -1,0 +1,5 @@
+SELECT ?officialname ?uniblock
+WHERE 
+{
+ [ wdt:P4213 "6666" ] wdt:P9382 ?officialname ; wdt:P5522 ?uniblock
+}

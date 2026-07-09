@@ -1,0 +1,10 @@
+#title: No profession in visual art or design
+# Complex constraint from [[Property talk:P4580]]
+# People with [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] but without a [[d:Q3391743|visual artist <small>(Q3391743)</small>]] or [[d:Q5322166|designer <small>(Q5322166)</small>]] profession
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P4580 [] . 
+  ?item wdt:P106 [] . 
+  ?item wdt:P31 wd:Q5 . 
+  MINUS {?item wdt:P106/wdt:P279* wd:Q3391743} .
+  MINUS {?item wdt:P106/wdt:P279* wd:Q5322166} 
+} LIMIT 1000

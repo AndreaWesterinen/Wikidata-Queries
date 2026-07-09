@@ -1,0 +1,16 @@
+SELECT ?player ?article ?birthyear ?placeLabel ?occupation ?occupationLabel ?sex_or_gender ?sex_or_genderLabel WHERE {
+  ?player wdt:P1303 wd:Q191000.
+  OPTIONAL { ?player wdt:P569 ?born. }
+  OPTIONAL { ?player wdt:P19 ?place. }
+  BIND(YEAR(?born) AS ?birthyear)
+  OPTIONAL {
+    ?article schema:about ?player;
+      schema:isPartOf <https://en.wikipedia.org/>.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?player wdt:P106 ?occupation. }
+  OPTIONAL {  }
+  OPTIONAL { ?player wdt:P21 ?sex_or_gender. }
+  OPTIONAL {  }
+}
+ORDER BY (?birthyear)

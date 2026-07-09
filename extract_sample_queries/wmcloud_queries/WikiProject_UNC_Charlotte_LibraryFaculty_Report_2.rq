@@ -1,0 +1,5 @@
+SELECT ?item (COUNT(?member) AS ?count) WHERE 
+{
+  ?member wdt:P108 wd:Q1783178 .
+  ?member wdt:P8413 ?item .
+  FILTER ( EXISTS {?item wdt:P5008 wd:Q100153988 . }

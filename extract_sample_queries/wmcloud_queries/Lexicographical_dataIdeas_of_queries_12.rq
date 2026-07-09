@@ -1,0 +1,6 @@
+SELECT ?lexicalCategory ?lexicalCategoryLabel ?count WHERE {
+  {SELECT ?lexicalCategory (COUNT(?lexeme) AS ?count) WHERE {
+      ?lexeme wikibase:lexicalCategory ?lexicalCategory.
+  } GROUP BY ?lexicalCategory}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+} ORDER BY DESC(?count)

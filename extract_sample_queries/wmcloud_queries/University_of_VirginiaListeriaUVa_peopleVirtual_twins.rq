@@ -1,0 +1,23 @@
+SELECT ?item WHERE {
+  ?item wdt:P1889 ?twin.
+  { ?item ?property wd:Q213439. }
+  UNION
+  {
+    ?item ?property2 _:b8.
+    _:b8 wdt:P361 wd:Q213439.
+  }
+  UNION
+  { ?twin ?property wd:Q213439. }
+  UNION
+  {
+    ?twin ?property2 _:b9.
+    _:b9 wdt:P361 wd:Q213439.
+  }
+  ?item wdt:P31 wd:Q5.
+  ?item (p:P1889/pq:P1013) wd:Q20978290.
+  OPTIONAL { ?item wdt:P18 ?twin_portrait. }
+  ?item wikibase:statements ?st.
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q159979. })
+}
+GROUP BY ?item
+LIMIT 100

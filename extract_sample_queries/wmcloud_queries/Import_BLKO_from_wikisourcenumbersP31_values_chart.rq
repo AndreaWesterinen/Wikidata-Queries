@@ -1,0 +1,26 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("P31 values" as ?legend) 
+  (GROUP_CONCAT(?cLabel;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+  ("pie" as ?type)
+  ("80" as ?heigth) 
+  ("80" as ?width) 
+WHERE
+{
+  { SELECT ?cLabel ?count 
+    {
+    { SELECT ?c ?cLabel (COUNT(DISTINCT ?entry) as ?count)
+    {
+    ?entry wdt:P1433 wd:Q665807 . 
+    ?entry wdt:P31 ?c .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+    GROUP BY ?c ?cLabel
+    ORDER BY DESC(?count)
+    }
+  hint:Query hint:optimizer "None".
+  }
+  ORDER BY DESC(?count)
+  }
+}

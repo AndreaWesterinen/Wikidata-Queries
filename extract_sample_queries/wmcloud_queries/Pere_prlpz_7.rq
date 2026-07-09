@@ -1,0 +1,32 @@
+#coses costaneres
+SELECT DISTINCT ?item ?name ?coord ?lat ?lon ?itemun ?nomun
+WHERE {
+#?item wdt:P17 wd:Q29.
+  ?item wdt:P31/wdt:P279*/wdt:P1269? wd:Q93352.
+  ?item wdt:P31 ?tipus.
+OPTIONAL {
+?item wdt:P625 ?coord .
+?item p:P625 ?coordinate .
+?coordinate psv:P625 ?coordinate_node .
+?coordinate_node wikibase:geoLatitude ?lat .
+?coordinate_node wikibase:geoLongitude ?lon .
+  }
+OPTIONAL {
+  ?item wdt:P131 ?itemun
+}  
+  #MINUS {?item wdt:P131 []}
+  FILTER (?lat > 40.5)
+  FILTER (?lon > 0.1)  
+  FILTER (?lat < 42.5)
+  FILTER (?lon < 4)  
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ca,en,es,an,eu,pl,sv,ceb" .
+?item rdfs:label ?name
+}
+    SERVICE wikibase:label {
+bd:serviceParam wikibase:language "ca,ca" .
+?itemun rdfs:label ?nomun
+}
+}
+#ORDER BY ASC (?name)
+#defaultView:Map

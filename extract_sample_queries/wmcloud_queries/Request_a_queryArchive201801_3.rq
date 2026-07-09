@@ -1,0 +1,11 @@
+#People who were born after the end of their country of citizenship
+SELECT DISTINCT ?person ?personLabel ?born ?countryLabel ?ended
+WHERE
+{
+  ?person wdt:P27 ?country .
+  ?person wdt:P569 ?born .
+  ?country wdt:P576 ?ended .
+  FILTER (?born > ?ended ) .
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .} 
+}

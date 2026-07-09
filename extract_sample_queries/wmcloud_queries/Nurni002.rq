@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?name ?bc ?aname
+{
+      {?item wdt:P31 wd:Q3305213.}
+      UNION
+      {?item wdt:P31 wd:Q860861.}
+      ?item rdfs:label ?name.
+      ?item wdt:P18 ?img.
+      FILTER (REGEX(?name, ?bc, "i")).
+      # FILTER (?item NOT IN (wd:Q17319702,wd:Q17323557,wd:Q17323560,wd:Q17327617,wd:Q17334826,wd:Q18573768,wd:Q18597517,wd:Q19162876,wd:Q19911536)).
+      BIND(?bc as ?expr).
+      {SELECT (GROUP_CONCAT(?b ; separator="

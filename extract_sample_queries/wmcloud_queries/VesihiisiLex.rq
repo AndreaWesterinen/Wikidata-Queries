@@ -1,0 +1,9 @@
+# Lemmas with usage examples but without any senses
+SELECT ?l ?lemma ?example WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?language ;
+       wikibase:lemma ?lemma .
+  ?language wdt:P218 'sv'.
+  ?l wdt:P5831 ?example.
+  FILTER NOT EXISTS {?l ontolex:sense ?sense }
+}
+ORDER BY ?lemma

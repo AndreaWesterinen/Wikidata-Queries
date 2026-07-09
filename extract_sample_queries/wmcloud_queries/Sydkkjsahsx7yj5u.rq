@@ -1,0 +1,20 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+PREFIX prov: <http://www.w3.org/ns/prov#> 
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+select distinct ?item ?itemLabel ?person ?personLabel ?humancheck ?humancheckLabel WHERE
+{
+  ?item wdt:P58 ?person .
+  OPTIONAL {?person wdt:P31 ?humancheck .}
+  FILTER(?humancheck NOT IN (wd:Q5,wd:Q159979,wd:Q2985549,wd:Q10648343,wd:Q6934877,wd:Q16017119,wd:Q61002,wd:Q3046146,wd:Q14073567,wd:Q14756018))
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl,en" .
+   } 
+  } ORDER BY ?person

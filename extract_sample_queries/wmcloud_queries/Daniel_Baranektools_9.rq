@@ -1,0 +1,29 @@
+embed.html#SELECT ?cas ?item ?lokalita ?cs ?de ?domy ?obyv_celkem ?katol ?evang ?csl ?zid ?jine ?bv ?cj ?nj ?jina WHERE {
+   ?item wdt:P31 wd:Q39825;
+         wdt:P361 [ wdt:P131 wd:Q94384808];
+         wdt:P585 ?cas.
+          
+   OPTIONAL { ?item wdt:P131 ?lokalita. }
+   OPTIONAL { ?item wdt:P1448 ?cs. FILTER(LANG(?cs) = "cs"). }
+   OPTIONAL { ?item wdt:P1448 ?de. FILTER(LANG(?de) = "de"). }
+   OPTIONAL {?item wdt:P4080 ?domy.}
+
+   OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank;(pq:P1013|pq:P518) wd:Q56229478; ps:P1082 ?obyv_celkem].}
+
+   OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank;pq:P518 wd:Q111253568; ps:P1082 ?katol].}
+   OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank;pq:P518 wd:Q111265847; ps:P1082 ?evang].}
+   OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank;pq:P518 wd:Q111270503; ps:P1082 ?zid].}
+   OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank;pq:P518 wd:Q111271745; ps:P1082 ?csl].}
+   OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank;pq:P518 wd:Q111272481; ps:P1082 ?bv].}
+   OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank;pq:P518 wd:Q111271626; ps:P1082 ?jine].}
+
+   BIND(IF(BOUND(?katol),?katol,0) AS ?katolC)
+   BIND(IF(BOUND(?evang),?evang,0) AS ?evangC)
+   BIND(IF(BOUND(?zid),?zid,0) AS ?zidC)
+   BIND(IF(BOUND(?bv),?bv,0) AS ?bvC)
+   BIND(IF(BOUND(?csl),?csl,0) AS ?cslC)
+   BIND(IF(BOUND(?jine),?jine,0) AS ?jineC)
+
+ FILTER (?obyv_celkem != ?katolC + ?evangC + ?zidC + ?bvC + ?cslC + ?jineC)
+}
+ORDER BY ?cs

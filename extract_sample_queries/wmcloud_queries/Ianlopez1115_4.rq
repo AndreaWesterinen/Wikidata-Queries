@@ -1,0 +1,10 @@
+# Schools in the Philippines named after humans/persons
+SELECT DISTINCT ?item ?itemLabel ?namedAfter ?namedAfterLabel
+WHERE
+{
+  ?item wdt:P31 / wdt:P279* wd:Q2385804 . # educational institution
+  ?item wdt:P17 wd:Q928 . # in the Philippines
+  ?item wdt:P138 ?namedAfter .
+  ?namedAfter wdt:P31 wd:Q5 . # is human
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

@@ -1,0 +1,6 @@
+SELECT ?Objekt ?ObjektLabel Where {
+   { ?Objekt wdt:P31 wd:Q8261.} # ist ein Roman
+    union { ?Objekt wdt:P31 wd:Q571.} # oder ist ein Buch
+    ?Objekt wdt:P50 wd:Q271824. # Autor: Edgar Wallace
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

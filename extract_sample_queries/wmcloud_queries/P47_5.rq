@@ -1,0 +1,4 @@
+#title: Equal level violation
+# Complex constraint from [[Property talk:P47]]
+# Item is a sovereign state but value is not
+SELECT ?item WHERE { ?item wdt:P47 ?itemB .  ?item wdt:P31 wd:Q3624078 .  MINUS { ?itemB wdt:P31 wd:Q3624078 } }

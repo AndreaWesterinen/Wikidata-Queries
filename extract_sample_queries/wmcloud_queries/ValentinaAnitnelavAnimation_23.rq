@@ -1,0 +1,53 @@
+#Completeness Estimation (all animated films) per 
+#sources:
+#Bulgaria: according to http://www.baicaa.org/images/uploaded/PDFs/list.pdf
+#Canada: according to imdb
+#Cechoslovakia: according to https://www.csfd.cz
+#Cech Republic: according to www.fdb.cz
+#Denmark: according to Danish Film Institute
+#France: according to https://www.unifrance.org/recherche/film?genres=film.genre.animation
+#GDR: according to DEFA film database [http://www.defa-stiftung.de/DesktopDefault.aspx?TabID=412&q=Filmart:Animationsfilm;Produktionsland:DDR])
+#Germany: according to imdb
+#Hungary: according to http://filmarchiv.hu/en/collections/film-collections/animations 
+#Italy: according to imdb
+#Japan: according to imdb, according to anime news networks list https://www.animenewsnetwork.com/encyclopedia/anime-list.php?limit_to=&showT=1&showM=1&showO=1&showN=1&showS=1&licensed=1&sort=title
+#Poland: according to filmweb.pl
+#Russia: according to kinopoisk.ru
+#Soviet Union: according to kinopoisk.ru
+#Spain: according to imdb
+#United Kingdom: according to imdb
+#USA: https://www.imdb.com (at least 1 vote)
+SELECT DISTINCT ?country ?countryLabel 
+              (COUNT(DISTINCT ?film) AS ?filmCountWikidata) 
+              ?estimatedNumberOfAnimatedFilms
+              ((COUNT(DISTINCT ?film))/ ?estimatedNumberOfAnimatedFilms*100 AS ?share)
+WHERE 
+{
+  VALUES(?country ?estimatedNumberOfAnimatedFilms){
+    (wd:Q219 969)
+    (wd:Q33946 1643)
+    (wd:Q16957 965)
+    (wd:Q15180 2971)
+    (wd:Q30 8554)
+    (wd:Q213 424)
+    (wd:Q142 2671)
+    (wd:Q29 975)
+    (wd:Q38 545)
+    (wd:Q17 3000)
+    (wd:Q159 1420)
+    (wd:Q35 650)
+    (wd:Q183 1490)
+    (wd:Q145 3177)
+    (wd:Q16 2779)
+    (wd:Q36 1852)
+    (wd:Q28 600)
+    }
+  {?film (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866.} UNION
+  {?film (wdt:P31/wdt:P136)/wdt:P279* wd:Q1107.}
+  MINUS{?film wdt:P31/wdt:P279* wd:Q24856}
+  MINUS{?film wdt:P31/wdt:P279* wd:Q5398426}
+  ?film wdt:P495/(wdt:P1366|^wdt:P1365)* ?country.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?country ?countryLabel ?estimatedNumberOfAnimatedFilms
+ORDER BY DESC(?share)

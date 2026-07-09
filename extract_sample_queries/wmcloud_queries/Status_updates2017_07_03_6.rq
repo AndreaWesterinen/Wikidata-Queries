@@ -1,0 +1,12 @@
+# items with more child (P40) statements than number of children (P1971)
+# (comparing to the max number of children in case of multiple statements,
+# because some items (e. g. Q91) have several P1971 statements,
+# some with applies to part: children who lived to adulthood)
+SELECT ?item ?itemLabel (MAX(?numChildren) AS ?numChildren) (COUNT(DISTINCT ?child) AS ?countChilden) WHERE {
+  ?item wdt:P1971 ?numChildren;
+        wdt:P40 ?child.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel
+HAVING(?countChilden > ?numChildren)
+ORDER BY DESC(?countChilden - ?numChildren)

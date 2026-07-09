@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemlabel ?coor ?image ?r
+{
+	?item wdt:P31 wd:Q39715 . 
+	?item wdt:P17 wd:Q183 .
+	OPTIONAL { ?item wdt:P625 ?coor }
+	OPTIONAL { ?item wdt:P18 ?image }  
+	OPTIONAL { ?item rdfs:label ?itemlabel . FILTER(lang(?itemlabel)="de")  }  
+  	OPTIONAL { ?item wdt:P131* ?r . ?r wdt:P31 wd:Q1221156 }
+}

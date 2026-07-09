@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?value ?valueLabel ?institution ?institutionLabel WHERE {
+  ?item wdt:P31 wd:Q4167836 .
+  ?item p:P360 [ ps:P360 ?value; pq:P69 ?institution ] .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

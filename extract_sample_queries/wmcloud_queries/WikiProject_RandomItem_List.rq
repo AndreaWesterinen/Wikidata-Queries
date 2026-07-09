@@ -1,0 +1,15 @@
+SELECT ?item {
+  SERVICE bd:sample {
+    ?item wikibase:sitelinks [].
+    bd:serviceParam bd:sample.limit "10000".
+   }
+    MINUS {?item wdt:P31/wdt:P279* wd:Q4167836.}
+    MINUS {?item wdt:P31/wdt:P279* wd:Q4167410.}
+    MINUS {?item wdt:P31 wd:Q13406463.}
+    MINUS {?item wdt:P31/wdt:P279* wd:Q11266439.}
+    MINUS {?item wdt:P31 wd:Q17633526.}
+    MINUS {?item wdt:P31 wd:Q13442814.}
+    MINUS {?item wdt:P3083 [].}
+    MINUS {?item wdt:P1566 [].}
+    MINUS {?item wdt:P442 [].}
+ }

@@ -1,0 +1,4 @@
+SELECT ?q ?qLabel ?status ?statusLabel WHERE {
+  ?q wdt:P31/wdt:P279* wd:Q1248784 ; wdt:P1435 ?status .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

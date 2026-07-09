@@ -1,0 +1,24 @@
+select ?item ?itemLabel ?itemDescription   ?designation ?designationLabel ?P709 ?P709_2 where {
+  VALUES ?designation {
+    wd:Q10729142 # cat C
+    wd:Q10729054 # cat A
+    wd:Q10729125 # cat B
+    wd:Q219538   # Scheduled Monument
+    wd:Q83245825 # part of a Scheduled Monument
+  }
+  ?item p:P1435 ?stat . 
+  ?stat ps:P1435 ?designation . 
+  FILTER NOT EXISTS {  ?item p:P1435 ?stat2 . filter(str(?stat2) != str(?stat)) } 
+  filter not exists { ?stat pq:P217  [] . }
+  OPTIONAL {?item p:P709 ?stat3 . 
+            ?stat3 ps:P709 ?P709.
+           
+             OPTIONAL {?item p:P709 ?stat4 . 
+            ?stat4 ps:P709 ?P709_2. FILTER  (?P709_2 != ?P709) }
+           }
+
+
+
+  ?item wdt:P131/wdt:P131 wd:Q22 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . } 
+} group by ?item ?itemLabel ?itemDescription  ?designation ?designationLabel ?P709 ?P709_2

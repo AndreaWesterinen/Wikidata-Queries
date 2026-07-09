@@ -1,0 +1,10 @@
+#defaultView:Timeline
+SELECT ?image ?creatorLabel ?datecreation ?itemLabel WHERE {
+  ?item wdt:P195 wd:Q1540707.
+  OPTIONAL {
+    ?item wdt:P571 ?datecreation.
+    ?item wdt:P170 ?creator.
+    ?item wdt:P18 ?image.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,fr,en,de". }
+}

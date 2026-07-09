@@ -1,0 +1,14 @@
+#title: Venues with pages but missing number of pages
+SELECT 
+?item (SAMPLE(?title_) AS ?title) (COUNT(?work) AS ?count) 
+(CONCAT("[https://query.wikidata.org/embed.html#PREFIX%20target%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F", REPLACE(STR(?item), ".*Q", "Q"), "%3E%0A%0ASELECT%20%0A%20%20DISTINCT%0A%20%20%20%20%3Fqs%20%0A%23%20%20%20%20%20%3Fpaper%20%3Fpages%20%3Fstart_page%20%3Fend_page%20%3Fnumber_of_pages%0AWHERE%20%7B%0A%20%20%7B%20BIND%28%22qid%2CP1104%2CS887%22%20AS%20%3Fqs%29%20%7D%0A%20%20UNION%0A%20%20%7B%0A%20%20%20%20SERVICE%20bd%3Asample%20%7B%20%3Fpaper%20wdt%3AP1433%20target%3A%20.%20bd%3AserviceParam%20bd%3Asample.limit%205000%20%7D%20%0A%20%20%20%20%3Fpaper%20wdt%3AP304%20%3Fpages%20.%20%20%20%20%20%0A%20%20%20%20MINUS%20%7B%20%3Fpaper%20wdt%3AP1104%20%5B%5D%20%7D%0A%20%20%20%20FILTER%20REGEX%28%3Fpages%2C%20%22%5E%5B1-9%5D%5B0-9%5D%2a-%5B1-9%5D%5B0-9%5D%2a%24%22%29%0A%20%20%20%20BIND%28xsd%3Ainteger%28STRBEFORE%28%3Fpages%2C%20%22-%22%29%29%20AS%20%3Fstart_page%29%0A%20%20%20%20BIND%28xsd%3Ainteger%28STRAFTER%28%3Fpages%2C%20%22-%22%29%29%20AS%20%3Fend_page%29%0A%20%20%20%20FILTER%20%28STRLEN%28%3Fend_page%29%20%3E%3D%20STRLEN%28%3Fstart_page%29%29%0A%20%20%20%20BIND%28%3Fend_page%20-%20%3Fstart_page%20%2B%201%20AS%20%3Fnumber_of_pages%29%0A%20%20%20%20FILTER%20%28%3Fnumber_of_pages%20%3E%200%29%0A%20%20%20%20BIND%28CONCAT%28SUBSTR%28STR%28%3Fpaper%29%2C%2032%29%2C%20%22%2C%22%2C%20STR%28%3Fnumber_of_pages%29%2C%20%22%2CQ110768064%22%29%20AS%20%3Fqs%29%0A%20%20%7D%0A%7D", " QuickStatements]") AS ?url)
+
+WHERE {
+SERVICE bd:sample { ?work wdt:P304 [] . bd:serviceParam bd:sample.limit 5000 }    
+  FILTER NOT EXISTS { ?work wdt:P1104 [] .}
+  ?work wdt:P1433 ?item .
+  ?item wdt:P1476 ?title_ .
+}
+GROUP BY ?item ?title
+ORDER BY DESC(?count)
+LIMIT 500

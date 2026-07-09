@@ -1,0 +1,23 @@
+SELECT ?title ?authorstring ?author ?authorlabel ?date_time ?item WHERE { { 
+  VALUES (?earliest) {("2018-01-01T00:00:00Z"^^xsd:dateTime)}
+  VALUES (?latest) {("2018-12-31T00:00:00Z"^^xsd:dateTime)}
+  ?item wdt:P577 ?date_time .
+  hint:Prior hint:rangeSafe true .
+  FILTER (?date_time >= ?earliest)
+  FILTER (?date_time <= ?latest)
+ { 
+  ?item wdt:P2093 ?authorstring . 
+  FILTER(CONTAINS(LCASE(?authorstring), "wang")) 
+ }
+  UNION
+  {
+    ?item wdt:P50 ?author. 
+    ?author rdfs:label ?authorlabel .
+  FILTER(CONTAINS(LCASE(?authorlabel), "wang")) 
+    }
+
+  ?item wdt:P1476 ?title.
+  FILTER CONTAINS(LCASE(?title), "wang").
+  #FILTER CONTAINS(LCASE(?title), "mice").
+}
+                                                                }

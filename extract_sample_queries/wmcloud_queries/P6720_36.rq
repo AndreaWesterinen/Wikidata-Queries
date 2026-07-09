@@ -1,0 +1,7 @@
+#title: item has dissolved date
+# Complex constraint from [[Property talk:P6720]]
+# item has [[Property:P576|dissolved, abolished or demolished date&#32;<small dir="ltr">(P576)</small>]]. If this is correctly applied (i.e. the website is deleted), an update should be requested at [[m:Talk:Interwiki_map]]. Once the interwiki map is updated, the relevant changes should be done. This can be do add an end date qualifier to the statement and a new statement with "no value" in preferred rank.
+SELECT ?item ?value ?abolisheddate 
+{
+  ?item wdt:P6720 ?value; wdt:P576 ?abolisheddate
+}

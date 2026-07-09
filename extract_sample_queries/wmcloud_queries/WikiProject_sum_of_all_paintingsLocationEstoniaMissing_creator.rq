@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?url WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P195 ?collection .
+  ?collection wdt:P17 wd:Q191
+  MINUS { ?item p:P170 [] } .
+  wd:P4525 wdt:P1630 ?formatterurl .
+  OPTIONAL { ?item wdt:P4525 ?id }.
+  BIND(REPLACE(?id, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?url)  .
+  OPTIONAL { ?item schema:description ?description .  FILTER (LANG(?description) = "en") }
+  } ORDER BY ?description

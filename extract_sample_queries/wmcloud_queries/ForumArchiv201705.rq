@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?value
+{
+	?item wdt:P1931 ?value .
+	FILTER(?value = '0054') .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" } .
+}

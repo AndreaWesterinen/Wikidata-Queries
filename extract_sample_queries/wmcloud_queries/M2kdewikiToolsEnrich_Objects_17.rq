@@ -1,0 +1,14 @@
+SELECT ?item ?sitelink
+WHERE
+{
+?sitelink schema:about ?item .
+?sitelink schema:isPartOf <https://de.wikipedia.org/> .
+SERVICE wikibase:mwapi
+{
+bd:serviceParam wikibase:api "Search" .
+bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+bd:serviceParam mwapi:srsearch "haswbstatement:P106=Q82955|P106=Q11513337|P106=Q937857|P106=Q1281618|P106=Q1028181|P106=Q1925963 -hasdescription:de" .
+?item wikibase:apiOutputItem mwapi:title.
+
+}
+}

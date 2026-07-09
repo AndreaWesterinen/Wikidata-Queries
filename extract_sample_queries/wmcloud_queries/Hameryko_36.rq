@@ -1,0 +1,13 @@
+select ?lexemeId ?lemma ?gloss WHERE {
+  ?lexemeId dct:language wd:Q1321;
+            wikibase:lemma ?lemma.
+  OPTIONAL
+  {
+    ?lexemeId ontolex:sense ?sense .
+    ?sense a ontolex:LexicalSense .
+    ?sense skos:definition ?gloss .
+    FILTER (LANG(?gloss) = "es")
+  }
+  FILTER ( regex(?lemma, 'atría$') || regex(?lemma, 'átrico$') || regex(?lemma, 'atra$') ).
+}
+ORDER BY (?lemma)

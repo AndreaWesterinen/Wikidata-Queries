@@ -1,0 +1,5 @@
+#title: Items with property P7506 and no other statements
+SELECT ?item ?itemLabel ?value {
+  ?item wdt:P7506 ?value ; wikibase:statements 1
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

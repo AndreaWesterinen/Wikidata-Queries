@@ -1,0 +1,8 @@
+# Australian taxa without basionyms 
+SELECT ?item ?taxon_name ?apni_id ?APNILink   WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P225 ?taxon_name . 
+  ?item wdt:P5984 ?apni_id.
+  bind(uri(concat("https://biodiversity.org.au/nsl/services/rest/name/apni/",?apni_id)) as ?APNILink)  
+  MINUS {?item wdt:P566 ?basionym.} 
+}

@@ -1,0 +1,4 @@
+SELECT (COUNT(?statement) AS ?statements) (COUNT(DISTINCT ?reference) AS ?references) WHERE {
+  ?statement prov:wasDerivedFrom ?reference.
+  ?reference pr:P1476 ?title.
+}

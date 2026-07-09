@@ -1,0 +1,6 @@
+SELECT ?skip ?skipLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?skip wdt:P31 wd:Q11446.
+  ?skip wdt:P176 wd:Q51257286.
+}
+LIMIT 1000

@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?instanceOfLabel ?instanceOptionsLabel WHERE {
+  VALUES ?instanceOptions {wd:Q2544 wd:Q2545 wd:Q2547 wd:Q2549 wd:Q2550 wd:Q2552 wd:Q2553 wd:Q2555 wd:Q2556 wd:Q2557 wd:Q2558 wd:Q2559 wd:Q2560 wd:Q2561 wd:Q2562 wd:Q2574 wd:Q2575 wd:Q2576 wd:Q2578 wd:Q2579 wd:Q2580 wd:Q2581 wd:Q2583 wd:Q2584 wd:Q2585 wd:Q2586 wd:Q2587 wd:Q2588 wd:Q2589 wd:Q2590 wd:Q2591}
+  ?item wdt:P31 ?instanceOptions .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

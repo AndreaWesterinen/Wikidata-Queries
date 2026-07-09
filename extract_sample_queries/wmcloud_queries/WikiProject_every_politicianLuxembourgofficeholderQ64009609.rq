@@ -1,0 +1,10 @@
+SELECT ?item ?start ?end ?replace ?replacedby
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q64009609 .
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P1365 ?replace }
+  OPTIONAL { ?statement pq:P1366 ?replacedby }
+}

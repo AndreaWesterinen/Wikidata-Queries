@@ -1,0 +1,18 @@
+# List of all properties described within Wikibase. Displays P-number and label for each entry, together with corresponding property type, description, and aliases, if provided.
+# Click on column headers to change sort order. Note: the initial sort treats upper case, lower case, and diacritical letters alike. This is not true for subsequent sorts.
+# The optional prefix "WB" for all identifiers refers to WikiBase.
+
+SELECT ?WBpropertyType ?WBproperty ?WBpropertyLabel ?WBpropertyDescription ?WBpropertyAltLabel WHERE {
+  
+  ?WBproperty wikibase:propertyType ?WBpropertyType .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+
+# #### Alternative ORDER statements that treat upper case, lower case, and diacritical letters alike. Choose between ASCending od DESCending order.
+#      Remove "hash = #" from desired ORDER statement and place in front of current ORDER statement. Note: only one active ORDER statement allowed. 
+# ORDER BY ASC(UCASE(?WBpropertyType))                         # Order column WBpropertyType
+# ORDER BY ASC(xsd:integer(STRAFTER(STR(?WBproperty), 'P')))   # Order column WBproperty 
+ORDER BY ASC(UCASE(?WBpropertyLabel))                        # Order column WBpropertyLabel, ASC
+# ORDER BY DESC(UCASE(?WBpropertyLabel))                       # Order column WBpropertyLabel, DESC
+# ORDER BY ASC(UCASE(?WBpropertyDescription))                  # Order column WBpropertyDescription

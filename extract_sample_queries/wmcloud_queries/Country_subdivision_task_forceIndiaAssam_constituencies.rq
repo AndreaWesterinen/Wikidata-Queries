@@ -1,0 +1,1 @@
+SELECT ?item ?as ?hi WHERE { ?item wdt:P31 wd:Q54375419 . OPTIONAL { ?item rdfs:label ?as. FILTER(LANG(?as)="as") } OPTIONAL { ?item rdfs:label ?hi. FILTER(LANG(?hi)="hi") } }

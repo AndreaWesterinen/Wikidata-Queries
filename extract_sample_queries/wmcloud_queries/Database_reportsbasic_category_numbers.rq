@@ -1,0 +1,26 @@
+SELECT *
+WHERE
+{
+  {SELECT  (wd:Q35455850 as ?item) (1 as ?sort) (COUNT(DISTINCT(?itm))	as ?ct)	WHERE  {?itm wdt:P31 wd:Q4167836 } }
+  UNION
+  {
+    SELECT 
+    (wd:Q35456147 as ?item) (2 as ?sort)
+    (COUNT(DISTINCT(?itm))	as ?ct)	
+    (COUNT(?bestvalue) as ?statements_ct)
+    WHERE    {?itm wdt:P301 ?bestvalue }
+  }
+  UNION
+  {
+    SELECT 
+    (wd:Q35456629 as ?item) (3 as ?sort)
+    (COUNT(DISTINCT(?itm))	as ?ct)	
+    (COUNT(?bestvalue) as ?statements_ct)
+    WHERE    {?itm wdt:P971 ?bestvalue }
+  }
+  UNION
+  {SELECT (wd:Q35457045 as ?item) (4 as ?sort)  (COUNT(DISTINCT(?itm))	as ?ct)	WHERE  { {?itm wdt:P971 []} UNION { ?itm wdt:P301 []}  } }
+  UNION
+  {SELECT (wd:Q35457404 as ?item) (5 as ?sort)  (COUNT(DISTINCT(?itm))	as ?ct)	WHERE  {?itm wdt:P971 [] ; wdt:P301 [] } }
+}
+ORDER BY ?sort

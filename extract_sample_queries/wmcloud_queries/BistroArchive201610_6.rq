@@ -1,0 +1,5 @@
+select ?chef ?propr where {
+  ?chef ?prop wd:Q2817847 .
+  ?chef wdt:P31/wdt:P279* wd:Q5 .
+  ?propr wikibase:directClaim ?prop
+}

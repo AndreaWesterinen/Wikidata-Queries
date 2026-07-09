@@ -1,0 +1,6 @@
+SELECT * 
+WHERE
+{
+    BIND( wds:Q1499981-ABD16E40-06D5-48C8-8544-D5C541DF63C3 as ?a) 
+    ?a ?b ?c 
+}

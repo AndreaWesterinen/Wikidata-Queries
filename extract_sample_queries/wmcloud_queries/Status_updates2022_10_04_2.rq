@@ -1,0 +1,48 @@
+embed.html##defaultView:Graph
+#title: British Monarchs vs. US Presidents
+SELECT DISTINCT ?president ?presidentLabel ?presidentImage ?monarch ?monarchLabel ?monarchImage WITH {
+  
+# not sure if there is a more straightforward way to access British monarchs (this query runs second)
+SELECT DISTINCT ?monarch ?monarch_start ?monarch_end WHERE {
+  INCLUDE %start_US .
+  VALUES $MONARCH  { wd:Q9134365 wd:Q111722535 wd:Q110324075 }
+  ?monarch wdt:P31 wd:Q5 .
+  ?monarch p:P39 ?ph .
+  ?ph ps:P39 $MONARCH .
+  ?ph pq:P580 ?monarch_start .
+  OPTIONAL { ?ph pq:P582 ?monarch_end }
+  FILTER (?monarch_start >= ?start_US || ?monarch_end >= ?start_US)
+  BIND ( NOW() AS ?today )   
+  BIND(COALESCE(?monarch_end, ?today) as ?monarch_end) # handle missing end dates, hopefully it's just the current monarch
+} } AS %monarchs
+
+# Find the start date of the first US President so we can filter monarchs that reigned after this point (this query runs first) 
+WITH { SELECT ?start_US WHERE {
+  ?x wdt:P31 wd:Q5 .
+  ?x p:P39 ?ph .
+  ?ph ps:P39 wd:Q11696 .
+  ?ph pq:P1545 ?number .
+  ?ph pq:P580 ?start_US .
+  FILTER (?number = "1")
+} } AS %start_US
+
+# this query runs last and uses the select in line 2; it produces the visualisation specified in line 1
+WHERE {
+  INCLUDE %monarchs
+  ?president wdt:P31 wd:Q5 . 
+  ?president p:P39 ?node .
+  ?node ps:P39 wd:Q11696 .
+  OPTIONAL { ?node pq:P1545 ?number }
+  OPTIONAL { ?node pq:P580 ?president_start }
+  OPTIONAL { ?node pq:P582 ?president_end }
+  BIND ( NOW() AS ?today )
+  BIND(COALESCE(?president_end, ?today) as ?president_end) # handle missing end dates, hopefully it's just the current president
+  FILTER( (?monarch_start >= ?president_start && ?monarch_start <= ?president_end) || (?monarch_end >= ?president_start && ?monarch_end <= ?president_end ) ||
+          (?president_start >= ?monarch_start && ?president_start <= ?monarch_end) || (?president_end >= ?monarch_start && ?president_end <= ?monarch_end ))
+# get images, use a default image if none found
+  OPTIONAL { ?monarch wdt:P18 ?monarchImage }
+  BIND(COALESCE(?monarchImage, <http://commons.wikimedia.org/wiki/Special:FilePath/Image_needed,_please_upload_to_commons.wikimedia.org.jpg>) as ?monarchImage)
+  OPTIONAL { ?president wdt:P18 ?presidentImage }
+  BIND(COALESCE(?presidentImage, <http://commons.wikimedia.org/wiki/Special:FilePath/Image_needed,_please_upload_to_commons.wikimedia.org.jpg>) as ?presidentImage)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,34 @@
+PREFIX llemma:   <http://wikiba.se/ontology#lemma>
+PREFIX lcat:     <http://wikiba.se/ontology#lexicalCategory>
+PREFIX llang:    <http://purl.org/dc/terms/language>
+PREFIX lforms:   <http://www.w3.org/ns/lemon/ontolex#lexicalForm>
+PREFIX lhasform: <http://www.w3.org/ns/lemon/ontolex#representation>
+PREFIX lfeature: <http://wikiba.se/ontology#grammaticalFeature>
+PREFIX lsenses:  <http://www.w3.org/ns/lemon/ontolex#sense>
+PREFIX lglos:    <http://www.w3.org/2004/02/skos/core#definition>
+
+SELECT *
+WITH 
+{
+SELECT ?item (COUNT(DISTINCT ?p) as ?ct)  (SAMPLE(?p) as ?sample)
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    ?art wdt:P1433 wd:Q665807 ; wdt:P31 wd:Q19389637 . 
+    ?art wdt:P921 ?p . 
+    ?p wdt:P19 ?item . 
+}
+GROUP BY ?item
+HAVING ( ?ct > 2)
+ORDER BY DESC(?ct) ?item
+LIMIT 1000
+} as %a
+WHERE
+{
+  INCLUDE %a
+  OPTIONAL {
+      ?lsense wdt:P5137 ?item . 
+      ?lexeme lsenses: ?lsense .
+      ?lexeme llang: wd:Q188 ; lforms: ?lforms .
+      ?lforms wdt:P5323/wdt:P1433 wd:Q665807 .
+      BIND(CONCAT("{","{L","

@@ -1,0 +1,8 @@
+SELECT ?item ?year ?doi WHERE {
+  ?item wdt:P1433 wd:Q220370 .
+  OPTIONAL {?item wdt:P577 ?published1} . 
+  ?item p:P356 ?statement .
+  ?statement wikibase:rank wikibase:DeprecatedRank .
+  ?statement ps:P356 ?doi .
+  BIND(xsd:integer(YEAR(?published1)) as ?year) 
+}

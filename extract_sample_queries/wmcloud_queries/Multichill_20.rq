@@ -1,0 +1,15 @@
+# Get all the paintings that have incpetion qualified with earliest and latest date
+# For proper sorting the year of the inception date should between the other two dates
+# That's not the case here. 
+# Todo: Check that inception precision is bigger than year and earliest and latest date are set to year. Could also do that in a bot
+
+SELECT * WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item p:P571 ?inceptionstatement .
+  ?inceptionstatement ps:P571 ?sortdate .
+  ?inceptionstatement pq:P1319 ?earliestdate .
+  ?inceptionstatement pq:P1326 ?latestdate .
+  FILTER(!(?earliestdate <= ?sortdate && ?sortdate<=?latestdate))
+  FILTER(?earliestdate < ?latestdate) . 
+  BIND(ROUND((YEAR(?latestdate)-YEAR(?earliestdate))/2)+YEAR(?earliestdate) AS ?newsortdate)
+  } ORDER BY ?sortdate 

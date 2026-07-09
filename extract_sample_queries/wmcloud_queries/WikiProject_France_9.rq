@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel (SUM (?duree_mandat) AS ?duree) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+    ?item p:P39 ?statement.
+    ?statement ps:P39 ?ministere.
+    ?ministere (wdt:P279*) wd:Q1587677 ;
+      wdt:P17 wd:Q142.
+   ?statement pq:P580 ?datedebut.
+   ?statement pq:P582 ?datefin.
+   BIND( (?datefin - ?datedebut) AS ?duree_mandat )
+  OPTIONAL { ?item wdt:P18 ?image. }
+  FILTER(YEAR(?datedebut) >= 1945).
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC (?duree)

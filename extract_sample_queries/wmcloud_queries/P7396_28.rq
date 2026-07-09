@@ -1,0 +1,12 @@
+#title: Check localisation
+# Complex constraint from [[Property talk:P7396]]
+#
+SELECT ?item ?value ?loc ?iso ?substr ?lcase ?substrValue {
+  ?item p:P7396 [ps:P7396 ?value] .
+  ?item wdt:P131 ?loc.
+  ?loc wdt:P300 ?iso.
+  BIND (SUBSTR(?iso, 4, 3) AS ?substr).
+  BIND (LCASE(?substr) AS ?lcase).
+  BIND (SUBSTR(?value, 1, STRLEN(?lcase)) AS ?substrValue).
+  FILTER (?lcase != ?substrValue).
+}

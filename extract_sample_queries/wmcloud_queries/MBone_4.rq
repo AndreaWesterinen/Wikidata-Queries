@@ -1,0 +1,9 @@
+SELECT ?qid ("P15" AS ?pid) (CONCAT('"', ?label, '"') AS ?value)  WHERE {
+  ?item wdt:P16 wd:Q25712298.
+  ?item wdt:P31 wd:Q34442;
+        rdfs:label ?label.
+  FILTER(LANG(?label) = "pt")
+  MINUS { ?item wdt:P1824 ?Stra_ennummer. }
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+}
+LIMIT 200

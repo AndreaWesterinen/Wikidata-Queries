@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?value 
+WHERE
+{ 
+  wd:Q828224 p:P2370/psn:P2370 

@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?itemDescription ?statements ?sitelinks (COUNT(DISTINCT ?a) as ?incoming_itemlinks)
+{
+	?item wdt:P31 wd:Q21484471 . 
+    ?item wikibase:statements ?statements ; wikibase:sitelinks ?sitelinks .
+    OPTIONAL { ?p wikibase:directClaim ?wdt . 
+               ?a ?wdt ?item }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?statements ?sitelinks

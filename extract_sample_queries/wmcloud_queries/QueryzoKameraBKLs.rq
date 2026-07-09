@@ -1,0 +1,6 @@
+SELECT ?item ?kamera (CONCAT("http://www.imdb.com/title/", ?imdb, "/fullcredits/") as ?imdb_link) (CONCAT('CREATE#LAST  Len  "', ?l, '"#LAST  Den  "cinematographer"#LAST  Lde  "', ?l, '"#LAST  Dde  "Kameramann"#LAST  P31  Q5#LAST  P21  Q6581097#LAST  P106  Q222344') as ?qs) WHERE {
+  ?item wdt:P344 ?kamera .
+  ?kamera rdfs:label ?l FILTER (LANG (?l) = "en") .
+  ?item wdt:P345 ?imdb .
+  ?kamera wdt:P31 wd:Q4167410
+}

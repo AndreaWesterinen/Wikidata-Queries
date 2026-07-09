@@ -1,0 +1,6 @@
+SELECT ?item (CONCAT("[https://ssl.ofdb.de/film/", ?ofdb, ", OFDb-Link]") as ?ofdb_link) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q11424 .
+  ?item wdt:P3138 ?ofdb .
+  MINUS { ?item p:P345/a wdno:P345 . }
+  MINUS { ?item wdt:P345 ?imdb . }
+} ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))

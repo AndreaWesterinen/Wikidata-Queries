@@ -1,0 +1,15 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?qid ?nr ?DT
+WHERE {
+    ?qid wdt:P179 wd:Q57814450.
+    ?qid wdt:P31 wd:Q21191270.
+    ?qid p:P179 ?series.
+    ?series pq:P1545 ?nr.
+    OPTIONAL {
+      ?qid rdfs:label ?DT.
+      FILTER (LANG(?DT) = "de").
+    }
+}
+GROUP BY ?qid ?nr ?DT
+ORDER BY xsd:integer(?nr)

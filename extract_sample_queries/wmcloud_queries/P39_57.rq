@@ -1,0 +1,11 @@
+#title: Cannot hold a position that was formed after death.
+# Complex constraint from [[Property talk:P39]]
+# Cannot hold a position that was formed after death. Indicates a potential problem with [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]], [[Property:P39|position held&#32;<small dir="ltr">(P39)</small>]], or position's [[Property:P571|inception&#32;<small dir="ltr">(P571)</small>]].
+SELECT ?item ?itemLabel ?position ?positionLabel ?date_of_death ?date_of_inception WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q5;
+    wdt:P39 ?position; 
+    wdt:P570 ?date_of_death.
+  ?position wdt:P571 ?date_of_inception.
+  FILTER(?date_of_death < ?date_of_inception )
+}

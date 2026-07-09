@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?genderLabel (URI($url) AS $lien) WHERE {
+  $item wdt:P31 wd:Q5 ; wdt:P6872 wd:Q216047 . 
+  $item p:P6872 $n . 
+  OPTIONAL { $item wdt:P21 $gender . }
+  OPTIONAL { $n pq:P2699 $url . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr". }
+}

@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(?edition) As ?count) WHERE { ?item wdt:P31 wd:Q220505 . ?edition wdt:P31 wd:Q27787439 ; wdt:P179 ?item } GROUP BY ?item ORDER BY DESC(?count) LIMIT 12

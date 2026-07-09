@@ -1,0 +1,5 @@
+SELECT ?cmpd ?inchi
+{
+  ?cmpd wdt:P234 ?inchi .
+  FILTER regex(str(?inchi),"InChI") .
+}

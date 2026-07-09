@@ -1,0 +1,8 @@
+SELECT DISTINCT ?app ?appLabel ?licenseLabel ?classLabel
+WHERE {
+  ?app (p:P31/ps:P31/wdt:P279*) wd:Q7397.
+  ?app wdt:P275 ?license.
+  ?license wdt:P279 ?class
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

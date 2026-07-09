@@ -1,0 +1,9 @@
+#defaultView:BubbleChart
+SELECT (COUNT(DISTINCT ?human) AS ?count) ?occupationLabel WHERE {
+  ?human wdt:P108 ?university.
+  ?human wdt:P106 ?occupation.
+  ?university wdt:P31 wd:Q3918.
+  ?university wdt:P463 wd:Q3212092.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}
+GROUP BY ?occupation ?occupationLabel

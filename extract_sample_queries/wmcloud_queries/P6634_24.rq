@@ -1,0 +1,8 @@
+#title: Online access status of LinkedIn profiles
+SELECT ?item ?itemLabel ?url ?statusLabel WHERE {
+  ?item p:P6634 ?n .
+  ?n ps:P6634 ?val ;
+     pq:P6954 ?status .
+  BIND (URI(CONCAT('https://www.linkedin.com/in/', ?val)) AS ?url)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?statusLabel)

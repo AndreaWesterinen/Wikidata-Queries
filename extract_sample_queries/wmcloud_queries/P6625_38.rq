@@ -1,0 +1,13 @@
+#title: In collection missing property
+# Complex constraint from [[Property talk:P6625]]
+# Items what have [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] set to [[d:Q674427|Salvador Dalí Museum <small>(Q674427)</small>]], but [[Property:P6625|Salvador Dali Museum ID&#32;<small dir="ltr">(P6625)</small>]] is missing.
+SELECT ?item WHERE {
+  { 
+    ?item wdt:P195 wd:Q674427
+  } UNION {
+    ?item p:P217 [ pq:P195 wd:Q674427 ; wikibase:rank wikibase:PreferredRank ]
+  } MINUS {
+    ?item wdt:P6625 []
+  }
+}
+LIMIT 100

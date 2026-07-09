@@ -1,0 +1,9 @@
+# uk-статті з позначкою (badge) "перевірена" Q20748093; 
+# див. також посилання на Q17442550
+SELECT ?item ?itemLabel ?siteLink
+       WHERE {
+         ?siteLink schema:about ?item;
+         schema:isPartOf <https://uk.wikipedia.org/>;
+         wikibase:badge wd:Q20748093.
+         SERVICE wikibase:label { bd:serviceParam wikibase:language "uk,en".}
+       }

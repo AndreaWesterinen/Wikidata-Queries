@@ -1,0 +1,6 @@
+SELECT ?item (SHA512(CONCAT(str(?item),str(RAND()))) as ?random)  WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P18 ?image .
+  MINUS { ?item wdt:P180 ?depicts }
+} ORDER BY ?random
+LIMIT 50

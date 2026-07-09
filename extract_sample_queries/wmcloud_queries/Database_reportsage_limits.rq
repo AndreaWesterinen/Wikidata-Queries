@@ -1,0 +1,7 @@
+SELECT ?item  
+{
+  	VALUES ?p { wdt:P2997 wdt:P2998 wdt:P2999 wdt:P3000 wdt:P3001 wdt:P3270 wdt:3271 }
+  	?item ?p [] .
+  	?item wdt:P31 wd:Q6256
+	MINUS { ?item wdt:P31 wd:Q3024240 }           
+}

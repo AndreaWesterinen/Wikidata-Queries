@@ -1,0 +1,15 @@
+SELECT DISTINCT ?underscoredPage ?lang
+WHERE {
+  # Facet of => 2019–20 COVID-19 pandemic
+  { ?item wdt:P1269 wd:Q81068910. } UNION
+  # Part of => 2019–20 coronavirus pandemic by country and territory
+  { ?item wdt:P361 wd:Q83741704. } UNION
+  # maintained by WikiProject => WikiProject COVID-19
+  { ?item wdt:P6104 wd:Q87748614. }
+  ?sitelink schema:about ?item.
+  ?sitelink schema:isPartOf [ wikibase:wikiGroup 'wikipedia' ].
+  ?sitelink schema:name ?page.
+  ?sitelink schema:inLanguage ?lang.
+  BIND( REPLACE( ?page, ' ', '_' ) as ?underscoredPage )
+}
+ORDER BY DESC(?page)

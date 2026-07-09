@@ -1,0 +1,7 @@
+SELECT DISTINCT ?value ?valueLabel (COUNT(DISTINCT ?st) AS ?occurences) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q95074; p:P3342 ?st.
+  ?st pq:P3831 ?value.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?value ?valueLabel
+ORDER BY DESC(?occurences)

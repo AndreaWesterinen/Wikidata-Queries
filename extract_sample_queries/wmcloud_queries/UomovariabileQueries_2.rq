@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?doi
+WHERE {
+  ?item wdt:P31 wd:Q13442814.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P1433 wd:Q7743603.
+  OPTIONAL { ?item wdt:P1476 ?itemLabel. }
+  OPTIONAL { ?item wdt:P356 ?doi. }
+}
+LIMIT 10

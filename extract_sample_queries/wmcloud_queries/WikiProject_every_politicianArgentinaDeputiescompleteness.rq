@@ -1,0 +1,20 @@
+SELECT ?item ?total ?gender ?dob ?birthplace ?givenName ?familyName ?twitter ?facebook ?mems ?district ?group ?term ?start ?end ?election
+WHERE 
+{
+  BIND(wd:Q18229570 AS ?item)
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?total) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?gender) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] ; wdt:P21 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?dob) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] ; wdt:P569 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?birthplace) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] ; wdt:P19 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?givenName) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] ; wdt:P735 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?familyName) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] ; wdt:P734 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?twitter) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] ; wdt:P2002 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mp) AS ?facebook) WHERE { ?mp p:P39 [ ps:P39/wdt:P279* wd:Q18229570 ] ; wdt:P2013 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mem) AS ?mems) WHERE { [] p:P39 ?mem . ?mem ps:P39/wdt:P279* wd:Q18229570 } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mem) AS ?district) WHERE { [] p:P39 ?mem . ?mem ps:P39/wdt:P279* wd:Q18229570 ; pq:P768 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mem) AS ?group) WHERE { [] p:P39 ?mem . ?mem ps:P39/wdt:P279* wd:Q18229570 ; pq:P4100 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mem) AS ?term) WHERE { [] p:P39 ?mem . ?mem ps:P39/wdt:P279* wd:Q18229570 ; pq:P2937 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mem) AS ?start) WHERE { [] p:P39 ?mem . ?mem ps:P39/wdt:P279* wd:Q18229570 ; pq:P580 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mem) AS ?end) WHERE { [] p:P39 ?mem . ?mem ps:P39/wdt:P279* wd:Q18229570 ; pq:P582 [] } }
+  OPTIONAL { SELECT (COUNT(DISTINCT ?mem) AS ?election) WHERE { [] p:P39 ?mem . ?mem ps:P39/wdt:P279* wd:Q18229570 ; pq:P2715 [] } }
+}

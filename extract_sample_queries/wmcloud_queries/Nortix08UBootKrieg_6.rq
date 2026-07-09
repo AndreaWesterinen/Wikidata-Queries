@@ -1,0 +1,63 @@
+#defaultView:Map{"hide":["?location"]}
+SELECT DISTINCT ?uboat ?uboatLabel (SAMPLE(?location) AS ?location) (SAMPLE(?date) AS ?date) ?layer
+WHERE
+{
+  ?uboat wdt:P31 wd:Q428661 ; # ist ein Weltkriegs-U-Boot
+         wdt:P137 wd:Q151701 . # Betreiber ist Kriegsmarine
+  OPTIONAL {
+    ?uboat p:P793 ?event . # hat ein Schlüsselereignis…
+    ?event ps:P793 wd:Q30880545 ; # …vom Typ Versenkung…
+           pq:P1478 wd:Q653260 ; # …hat unmittelbare Ursache Wasserbombe…
+           pq:P585 ?date ; # …mit dem Zeitpunkt…
+           pq:P625 ?location . # …und den Koordinaten
+    BIND ("Wasserbombe" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat p:P793 ?event . 
+    ?event ps:P793 wd:Q30880545 ; 
+           pq:P1478 wd:Q189929 ; 
+           pq:P585 ?date ; 
+           pq:P625 ?location . 
+    BIND ("Seemine" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat p:P793 ?event . 
+    ?event ps:P793 wd:Q57261880 ; 
+           pq:P1478 wd:Q1137468 ; 
+           pq:P585 ?date ; 
+           pq:P625 ?location . 
+    BIND ("Fliegerbombe" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat p:P793 ?event . 
+    ?event ps:P793 wd:Q30880545 ; 
+           pq:P1478 wd:Q2380335 ; 
+           pq:P585 ?date ; 
+           pq:P625 ?location . 
+    BIND ("Luftangriff" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat p:P793 ?event . 
+    ?event ps:P793 wd:Q30880545 ; 
+           pq:P1478 wd:Q171558 ; 
+           pq:P585 ?date ; 
+           pq:P625 ?location . 
+    BIND ("Unfall" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat p:P793 ?event . 
+    ?event ps:P793 wd:Q30880545 ; 
+           pq:P1478 wd:Q165363 ; 
+           pq:P585 ?date ; 
+           pq:P625 ?location . 
+    BIND ("Torpedo" AS ?layer)
+  }
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". }
+}
+GROUP BY ?uboat ?uboatLabel ?date ?layer

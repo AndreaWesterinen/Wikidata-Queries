@@ -1,0 +1,4 @@
+#title: conflict with physico-geographical object
+# Complex constraint from [[Property talk:P407]]
+# instances of [[d:Q20719696|physico-geographical object <small>(Q20719696)</small>]] should not use this property. Generally, physico-geographical objects don't have a language.
+SELECT DISTINCT ?item WHERE { ?item wdt:P407 []; wdt:P31/wdt:P279* wd:Q20719696}

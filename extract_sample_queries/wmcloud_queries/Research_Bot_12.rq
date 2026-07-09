@@ -1,0 +1,16 @@
+SELECT ?authorLabel 
+WITH {
+ SELECT (COUNT(?citing_work) AS ?count) ?author WHERE {
+ ?work wdt:P50 ?author .
+ ?author wdt:P21 wd:Q6581072 .
+ ?citing_work wdt:P2860 ?work
+ }
+ GROUP BY ?author 
+ ORDER BY DESC(?count)
+ # LIMIT 100
+} AS %result
+WHERE {
+ INCLUDE %result
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

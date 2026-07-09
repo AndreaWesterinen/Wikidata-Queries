@@ -1,0 +1,9 @@
+embed.html#SELECT (COUNT(?tribunal) AS ?count) ?code_INSEE_d_une_commune WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }
+  ?tribunal wdt:P31 wd:Q644371.
+  ?tribunal wdt:P131 ?commune.
+  ?commune wdt:P17 wd:Q142.
+  ?commune wdt:P374 ?code_INSEE_d_une_commune.
+}
+GROUP BY ?code_INSEE_d_une_commune
+LIMIT 1000

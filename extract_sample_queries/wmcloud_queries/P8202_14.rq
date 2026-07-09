@@ -1,0 +1,7 @@
+#title: Esperanto lexeme
+# Complex constraint from [[Property talk:P8202]]
+# Lexemes in Esperanto lexeme
+SELECT ?item {
+  ?item p:P8202 [].
+  FILTER NOT EXISTS { ?item <http://purl.org/dc/terms/language> wd:Q143 }
+}

@@ -1,0 +1,6 @@
+# items with author abbreviations
+SELECT ?item ?itemLabel ?abbrev  WHERE {
+  ?item wdt:P428 ?abbrev . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+ORDER BY ?abbrev

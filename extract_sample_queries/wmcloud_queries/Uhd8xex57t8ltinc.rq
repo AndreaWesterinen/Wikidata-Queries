@@ -1,0 +1,1 @@
+SELECT ?q (count(?x) AS ?cnt) { ?q wdt:P961 ?x MINUS { ?q wdt:P171 [] } } GROUP BY ?q HAVING (?cnt>1) ORDER BY desc(?cnt)

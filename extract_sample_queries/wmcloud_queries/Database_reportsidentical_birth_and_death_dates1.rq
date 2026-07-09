@@ -1,0 +1,12 @@
+SELECT ?x ?y ?name ?bd WHERE {
+  ?x wdt:P31 wd:Q5 .
+  ?y wdt:P31 wd:Q5 .
+  ?x rdfs:label ?name .
+  ?y rdfs:label ?name .
+  FILTER (?x != ?y)
+  FILTER (lang(?name) = "en")
+  ?x p:P569/psv:P569 ?bdv .
+  ?bdv wikibase:timeValue ?bd .
+  ?bdv wikibase:timePrecision 11 .
+  ?y wdt:P569 ?bd .
+} LIMIT 10

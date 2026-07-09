@@ -1,0 +1,6 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q3685476 .
+  FILTER NOT EXISTS { ?x wdt:P131/wdt:P31 wd:Q747074. }
+  FILTER NOT EXISTS { ?x wdt:P131/wdt:P131/wdt:P31 wd:Q747074. }
+}

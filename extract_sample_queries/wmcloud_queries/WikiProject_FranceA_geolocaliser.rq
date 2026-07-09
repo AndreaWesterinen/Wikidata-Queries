@@ -1,0 +1,10 @@
+SELECT ?item ?commune (CONCAT("[https://www.geoportail.gouv.fr/carte?c=", STR(?longitude), ",", STR(?latitude), "&z=15&l0=GEOGRAPHICALGRIDSYSTEMS.MAPS::GEOPORTAIL:OGC:WMTS(1)&l1=ADMINISTRATIVEUNITS.BOUNDARIES::GEOPORTAIL:OGC:WMTS(1)&permalink=yes Géoportail]") AS ?geoportail) (CONCAT("[https://commons.wikimedia.org/wiki/Category:", REPLACE(?commons, " ", "_"), " ", ?commons, "]") AS ?lien) WHERE {
+  ?item wdt:P17 wd:Q142;
+        (wdt:P31/wdt:P279*) wd:Q811979;
+        wdt:P131 ?commune.       
+  ?commune p:P625 [ psv:P625 [ wikibase:geoLatitude ?latitude; wikibase:geoLongitude ?longitude ] ];
+    wdt:P373 ?commons.
+  MINUS { ?item wdt:P625 []. }
+  MINUS { ?item wdt:P5816 wd:Q56556915. }
+}
+LIMIT 100

@@ -1,0 +1,9 @@
+?fbclid=IwAR0eK4hWK-dNCSilKV8Mjv0nWXw-5az9kXxacqXPwdxYk8ct4LbuN_nUw0Q#
+SELECT ?item ?itemLabel ?code
+WHERE
+{
+  ?item wdt:P31 wd:Q34770 .
+  ?item wdt:P17 wd:Q865 .
+  ?item wdt:P424 ?code.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

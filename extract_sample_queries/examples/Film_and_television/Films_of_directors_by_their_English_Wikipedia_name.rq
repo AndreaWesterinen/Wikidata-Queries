@@ -1,3 +1,4 @@
+#title: Films of directors by their English Wikipedia name
 SELECT ?film ?filmLabel ?genere ?d WHERE {
   {
     SELECT ?film (GROUP_CONCAT(DISTINCT ?gL; SEPARATOR = ", ") AS ?genere) (MIN(YEAR(?date)) AS ?d) WHERE {

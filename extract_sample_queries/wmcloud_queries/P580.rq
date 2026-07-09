@@ -1,0 +1,19 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?instance ?instanceLabel ?count 
+WHERE
+{
+	{
+    	SELECT ?instance (COUNT(*) AS ?count)
+		WHERE
+		{
+    		?a	wdt:P582	?p	.
+       		?a	wdt:P31		?instance
+    	}
+		GROUP BY ?instance 
+  	}
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}
+ORDER BY DESC(?count) ?instance
+LIMIT 30

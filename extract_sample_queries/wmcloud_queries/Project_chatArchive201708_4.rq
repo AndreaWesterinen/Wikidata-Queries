@@ -1,0 +1,8 @@
+embed.html#SELECT ?item ?birth ?birthprecision WHERE {
+  ?item p:P570 ?birthclaim .
+  ?birthclaim pq:P31 wd:Q26961029 .
+  ?birthclaim psv:P570 ?birthvalue .
+  ?birthvalue wikibase:timeValue ?birth .
+  ?birthvalue wikibase:timePrecision ?birthprecision .
+  FILTER(?birthprecision <=9 && year(?birth) < 1580 )
+} 

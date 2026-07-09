@@ -1,0 +1,3 @@
+select (count(?taxon) as ?count){ ?taxon wdt:P105 wd:Q7432 ;
+                                         wdt:P31 ?val filter(?val != wd:Q42310380 && ?val != wd:Q1040689)
+                                }

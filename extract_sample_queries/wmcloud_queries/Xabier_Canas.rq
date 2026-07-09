@@ -1,0 +1,15 @@
+SELECT ?person ?personLabel ?jaiolekuLabel ?koordenatuak ?jaiodata ?irudia
+
+WHERE {
+  ?person wdt:P106 wd:Q630993 .
+  ?person wdt:P19 ?jaioleku .
+  ?jaioleku wdt:P625 ?koordenatuak .
+  ?person wdt:P569 ?jaiodata .
+  ?person wdt:P18 ?irudia .
+         
+          
+SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "eu" .
+      }
+  
+}  

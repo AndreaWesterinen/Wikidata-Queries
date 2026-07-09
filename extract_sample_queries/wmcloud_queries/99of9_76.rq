@@ -1,0 +1,21 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT DISTINCT ?p ?pLabel ?usnpl WHERE {
+   ?c wdt:P279* wd:Q11032 .
+   ?p wdt:P31 ?c .
+   {
+     ?p wdt:P17 wd:Q30 .
+   } UNION { 
+     ?p wdt:P495 wd:Q30 .
+   }
+   OPTIONAL {?p wdt:P5454  ?usnpl.}                      # usnpl (option)
+
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+ }

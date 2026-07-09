@@ -1,0 +1,35 @@
+SELECT
+  # A sample topic for the given coauthor
+  DISTINCT ?item
+
+  # Number of works with the coauthor
+  ?count
+
+# Build URL to the Author disambiguator tool for a given author name string
+  (CONCAT(
+      '[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=',
+      ENCODE_FOR_URI(?coauthor ), ' Publications with author name string ', ?coauthor , ']') AS ?disambiguator1)
+
+# Build URL to the Author disambiguator tool for a given author name string and thesample topic
+  (CONCAT(
+      '[https://tools.wmflabs.org/author-disambiguator/?doit=Look+for+author&name=',
+      ENCODE_FOR_URI(?coauthor ), '&filter=wdt%3AP921+wd%3A', ?qid , ' Publications on the sample topic with author name string ', ?coauthor , ']') AS ?disambiguator2)
+
+# Build URL to Scholia's /topic/QID/missing page for the QID of the sample topic
+## This is commented out because it tends to time out
+#  (CONCAT(
+#      '[https://tools.wmflabs.org/scholia/topic/',
+#      ENCODE_FOR_URI(?qid ), '/missing Disambiguate more authors of publications on the sample topic]') AS ?disambiguator3)
+ 
+WHERE {
+  SELECT DISTINCT ?coauthor (COUNT(DISTINCT ?work) as ?count) (SAMPLE(DISTINCT ?topic) AS ?item) (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) WHERE {
+    ?topic wdt:P699 [] .
+    ?work wdt:P921 ?topic ; wdt:P2093 ?coauthor .
+
+  }
+  GROUP BY ?coauthor ?count ?item ?qid
+  HAVING (?count > 99)
+#           LIMIT 2000
+}
+ORDER BY DESC(?count) 
+LIMIT 100

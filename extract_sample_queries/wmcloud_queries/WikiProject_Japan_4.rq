@@ -1,0 +1,19 @@
+SELECT ?義務教育学校 ?義務教育学校Label ?位置座標 ?県Label ?行政区画Label ?設置者Label ?公私立Label ?男女Label ?郵便番号 ?住所 ?電話 ?FAX ?画像 ?公式サイト ?生徒数 ?状態Label ?廃止日 WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?義務教育学校 wdt:P31 wd:Q24863351;
+    wdt:P17 wd:Q17.
+  OPTIONAL { ?義務教育学校 wdt:P131 ?行政区画. }
+  OPTIONAL { ?義務教育学校 wdt:P126 ?設置者. }
+  OPTIONAL { ?義務教育学校 wdt:P2868 ?公私立. }
+  OPTIONAL { ?義務教育学校 wdt:P7419 ?男女. }
+  OPTIONAL { ?義務教育学校 wdt:P281 ?郵便番号. }
+  OPTIONAL { ?義務教育学校 wdt:P6375 ?住所. }
+  OPTIONAL { ?義務教育学校 wdt:P625 ?位置座標. }
+  OPTIONAL { ?義務教育学校 wdt:P1329 ?電話. }
+  OPTIONAL { ?義務教育学校 wdt:P2900 ?FAX. }
+  OPTIONAL { ?義務教育学校 wdt:P18 ?画像. }
+  OPTIONAL { ?義務教育学校 wdt:P856 ?公式サイト. }
+  OPTIONAL { ?義務教育学校 wdt:P2196 ?生徒数. }
+  OPTIONAL { ?義務教育学校 wdt:P5817 ?状態. }
+  OPTIONAL { ?義務教育学校 wdt:P576 ?廃止日. }
+}

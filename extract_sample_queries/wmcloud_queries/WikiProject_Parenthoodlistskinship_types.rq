@@ -1,0 +1,31 @@
+SELECT 
+?item 
+("" as ?localizeditem)
+(COUNT(DISTINCT ?s) as ?count) 
+(SAMPLE(?sparql) as ?sparql)
+(SAMPLE(strafter(str(?pr),"y/P")) as ?pr) 
+(SAMPLE(?inverse) as ?inverse) 
+(SAMPLE(?othergender) as ?othergender)
+(SAMPLE(?olderyounger) as ?olderyounger)
+(SAMPLE(?ancgen) as ?ancgen)
+WHERE 
+{
+    { ?v pq:P1039 ?item . 
+    ?s p:P1038 ?v . 
+    ?s wdt:P31 wd:Q5 }
+    UNION
+    { ?item wdt:P4316 ?s }
+    UNION
+    { ?item wdt:P31/wdt:P279* wd:Q171318 }
+    UNION
+    { ?item wdt:P179 wd:Q267388 }
+    OPTIONAL { ?item wdt:P4316 ?sl . BIND(CONCAT("<code></code>") as ?sparql) }
+    OPTIONAL { ?item wdt:P1687 ?pr }
+    OPTIONAL { ?item p:P461 [ ps:P461 ?inverse ; pq:P1013 wd:Q42248293 ] }
+    OPTIONAL { ?item p:P461 [ ps:P461 ?othergender; pq:P1013 wd:Q5530970 ] }
+    OPTIONAL { ?item p:P461 [ ps:P461 ?olderyounger; pq:P1013 wd:Q42302391 ] }
+    OPTIONAL { ?item p:P4500 [ ps:P4500 ?ancgen; pq:P1013 wd:Q42841417 ] }
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q28937102 }
+} 
+GROUP BY ?item
+ORDER BY ?item

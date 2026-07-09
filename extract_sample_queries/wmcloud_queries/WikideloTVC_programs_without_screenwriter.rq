@@ -1,0 +1,24 @@
+SELECT ?item  WHERE {
+  { ?item wdt:P449 wd:Q935960. }
+  UNION
+  { ?item wdt:P449 wd:Q2429494. }
+  UNION
+  { ?item wdt:P449 wd:Q3323383. }
+  UNION
+  { ?item wdt:P449 wd:Q3320899. }
+  UNION
+  { ?item wdt:P449 wd:Q8347160. }
+  UNION
+  { ?item wdt:P449 wd:Q3750465. }
+  UNION
+  { ?item wdt:P449 wd:Q3321715. }
+  UNION
+  { ?item wdt:P449 wd:Q3320866. }
+  UNION
+  { ?item wdt:P449 wd:Q4896435. }
+ 
+  FILTER NOT EXISTS {
+   ?item wdt:P58 ?guionista.
+}
+   
+}

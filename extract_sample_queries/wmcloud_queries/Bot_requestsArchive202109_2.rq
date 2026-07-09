@@ -1,0 +1,6 @@
+embed.html#SELECT (COUNT(*) as ?count)
+{
+	[] wdt:P31 wd:Q22808320 ; rdfs:label ?l . 
+    FILTER( lang(?l) = "en" ) 
+    ?item rdfs:label ?l ; wdt:P31 wd:Q5 
+}

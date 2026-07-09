@@ -1,0 +1,9 @@
+# Timeline of files authored by a Wikimedia Commons user
+#TEMPLATE={"template":"Timeline of files authored by ?username","variables":{"?username":{"query":" SELECT DISTINCT ?username WHERE { [] p:P170/pq:P4174 ?username .} LIMIT 100"} } }
+#defaultView:Timeline
+SELECT ?file ?date WHERE {
+  BIND("Coyau" AS ?username)
+  ?file (p:P170/pq:P4174) ?username;
+    wdt:P571 ?date.
+}
+LIMIT 1000

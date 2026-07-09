@@ -1,0 +1,11 @@
+embed.html#SELECT DISTINCT ?item WHERE {
+  ?property wikibase:propertyType wikibase:Time .
+  ?property wikibase:claim ?propertyclaim . 
+  ?property wikibase:statementValue ?propertyvalue . 
+  ?item ?propertyclaim ?dateclaim .
+  ?dateclaim pq:P31 wd:Q26961029 .
+  ?dateclaim ?propertyvalue ?claimvalue .
+  ?claimvalue wikibase:timeValue ?datetime .
+  ?claimvalue wikibase:timePrecision ?dateprecision .
+  FILTER(?dateprecision <=9 && year(?datetime) < 1580 )
+} LIMIT 50000

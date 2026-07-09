@@ -1,0 +1,15 @@
+SELECT ?sample ?ct ?qt (?ct >= ?qt as ?complete)
+WHERE
+{
+    {   SELECT ?sample (COUNT(DISTINCT ?person) as ?ct)
+        WHERE
+        {
+            hint:Query hint:optimizer "None".
+            VALUES ?sample { wd:Q128910 wd:Q775407 wd:Q2917717 }
+            ?sample wdt:P180 ?person . 
+            ?person wdt:P31*/wdt:P279* wd:Q215627
+        }
+        GROUP BY ?sample
+    }
+    ?sample wdt:P369 / wdt:P1181 ?qt 
+}    

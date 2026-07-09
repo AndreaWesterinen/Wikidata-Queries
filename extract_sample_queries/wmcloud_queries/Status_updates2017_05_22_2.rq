@@ -1,0 +1,7 @@
+#Plant Species with emoji, lol
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?Unicode_character WHERE {
+  ?item (wdt:P31?/wdt:P279*) wd:Q756.
+  ?item wdt:P105 wd:Q7432.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  { ?item wdt:P487 ?Unicode_character. }
+}

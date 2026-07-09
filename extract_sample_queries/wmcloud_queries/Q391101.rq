@@ -1,0 +1,12 @@
+SELECT ?work ?workLabel ?characterLabel WITH {
+  SELECT DISTINCT ?work ?character WHERE {
+    ?work wdt:P31/wdt:P279* wd:Q17537576;
+          wdt:P144 ?character.
+    ?character wdt:P31/wdt:P279* wd:Q95074.
+  }
+  LIMIT 100
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

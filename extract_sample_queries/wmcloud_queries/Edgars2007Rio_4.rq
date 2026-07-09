@@ -1,0 +1,9 @@
+select ?descipline ?desciplineLabel where {
+  ?event wdt:P361 wd:Q8613 .#daļa no 2016 OS
+  ?descipline wdt:P361 ?event .#daļa no event
+  
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en,de,fr,nl" .
+	}
+  
+  }

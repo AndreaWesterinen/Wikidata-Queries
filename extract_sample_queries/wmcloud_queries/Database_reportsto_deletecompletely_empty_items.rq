@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item (CONCAT("{","{rfd links2\u007C",strafter(str(?item), "entity/"),"\u007Cfrom [[Wikidata:Database reports/to delete/completely empty items]]}","}") as ?del)
+WHERE {
+  ?item wikibase:statements 0; wikibase:sitelinks 0 .
+  MINUS { ?item rdfs:label [] } .
+  MINUS {
+    ?item ?claim [] .
+    [] wikibase:directClaim ?claim .
+  } .
+  MINUS { [] ?claim2 ?item } . # this also removes items with sitelinks (schema:about) from the results and thus helps with https://phabricator.wikimedia.org/T145712
+  FILTER( ?item NOT IN (wd:Q16943273, wd:Q17566023) ) # comma separated list; Q16943273=sandbox item, Q17566023=Wikidata tours
+}
+ORDER BY ?item

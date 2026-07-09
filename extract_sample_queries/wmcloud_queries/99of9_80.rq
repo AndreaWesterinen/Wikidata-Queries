@@ -1,0 +1,16 @@
+# items with property P4093 and no other statements
+# added by User:Jura1, 2017-07-30
+
+#defaultView:Map{"layer":"?state"}
+
+SELECT ?item ?itemLabel ?value ?coords ?state
+{
+   ?item wdt:P4093 ?value .
+   ?item wdt:P625 ?coords.
+   ?item wdt:P131 ?state .
+   ?state wdt:P31 ?statetype .
+   ?statetype wdt:P279 wd:Q178712 .
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+}
+LIMIT 30000

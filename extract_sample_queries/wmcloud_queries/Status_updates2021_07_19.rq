@@ -1,0 +1,17 @@
+#title: List of all stages
+SELECT * WHERE {
+  ?tour wdt:P31 wd:Q33881;
+        rdfs:label ?tourLabel.
+  FILTER(LANG(?tourLabel) = "[AUTO_LANGUAGE]" )
+ ?item wdt:P361 ?tour;
+    rdfs:label ?itemLabel.
+  FILTER((LANG(?itemLabel)) = "[AUTO_LANGUAGE]")
+  ?item wdt:P1427 ?depart.
+  ?depart rdfs:label ?departLabel.
+  FILTER((LANG(?departLabel)) = "[AUTO_LANGUAGE]")
+  ?item wdt:P1444 ?arrivee. 
+  ?arrivee rdfs:label ?arriveeLabel. 
+  FILTER((LANG(?arriveeLabel)) = "[AUTO_LANGUAGE]" )
+  ?item wdt:P585 ?date. 
+}
+ORDER BY ?date

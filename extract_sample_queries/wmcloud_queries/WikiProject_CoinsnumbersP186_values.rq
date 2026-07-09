@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel (COUNT(DISTINCT ?coin) as ?ct) (SAMPLE(?coin) as ?sample)
+{
+ ?coin wdt:P31 wd:Q41207 . 
+ ?coin wdt:P186 ?item .
+ FILTER (?coin != wd:Q15397819 )
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }  
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?ct)

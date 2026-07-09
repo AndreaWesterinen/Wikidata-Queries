@@ -1,0 +1,21 @@
+#title: parent taxon unsuited for ichnogenus
+# Complex constraint from [[Property talk:P171]]
+# Ichnogenera are defined by the morphology of traces produced by organisms rather than organism morphology and does not involve parent ranks above the binomial nomenclature for ichnotaxa.
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      {
+        ?item p:P105 ?statement0.
+        ?statement0 ps:P105 wd:Q112082101.
+      }
+      UNION
+      {
+        ?item p:P31 ?statement1.
+        ?statement1 ps:P31 wd:Q112082101.
+      }
+      ?item p:P171 ?statement2.
+      ?statement2 (ps:P171/(wdt:P171*)) _:anyValueP171.
+    }
+  }
+}

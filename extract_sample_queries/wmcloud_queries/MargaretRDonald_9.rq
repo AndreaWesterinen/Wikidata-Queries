@@ -1,0 +1,20 @@
+# Australian photographers
+SELECT ?photographer ?photographerLabel ?PICid with { select distinct ?photographer WHERE 
+ {
+   ?photographer wdt:P31 wd:Q5.             # is human
+   ?photographer wdt:P21 wd:Q6581072.       # is female
+   ?photographer wdt:P106 wd:Q33231.        # photographer
+   ?photographer wdt:P6379 ?collection.     # collection
+   VALUES ?collection {wd:Q705551 wd:Q705557 wd:Q795228 wd:Q1464509 wd:Q690242 wd:Q19917343 wd:Q66685222} # Australian institutions
+   # ?photographer rdf:type wdno:P2750 .         # has no PIC id     
+ } } as %i where
+
+{
+  include %i
+
+    OPTIONAL {?photographer wdt:P2750 ?PICid}
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+  }
+ }
+ORDER BY (?photographerLabel)

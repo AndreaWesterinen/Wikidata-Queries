@@ -1,0 +1,11 @@
+#Italian mountains higher than 4000 m
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord ?elev 
+{
+  ?item p:P2044/psn:P2044/wikibase:quantityAmount ?elev ;  # normalized height
+        wdt:P625 ?coord ;
+        wdt:P17 wd:Q39
+  FILTER(?elev < 200)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,fr,it" }
+}

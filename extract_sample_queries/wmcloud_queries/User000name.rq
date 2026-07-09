@@ -1,0 +1,7 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel ?property
+WHERE 
+{
+  ?stat pq:P1013 wd:Q4167410.
+  ?item ?predicate ?stat .
+  ?property wikibase:claim ?predicate.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 

@@ -1,0 +1,14 @@
+#title: Value "Republic of the Congo" and place of birth in "Democratic Republic of the Congo"
+# Complex constraint from [[Property talk:P27]]
+# Possible, but likely an error. TODO: double-check, then add a reference to the P27 statement or fix P27=[[d:Q971|Republic of the Congo <small>(Q971)</small>]] -> [[d:Q974|Democratic Republic of the Congo <small>(Q974)</small>]]
+SELECT DISTINCT ?item 
+{ 
+  ?item wdt:P27 wd:Q971 .
+  ?item wdt:P19/wdt:P17? wd:Q974 .
+  FILTER NOT EXISTS { ?item wdt:P27 wd:Q974 }
+  ?item wdt:P31 wd:Q5.
+  ?item p:P27 ?claim .
+  ?claim ps:P27 wd:Q971 .
+  OPTIONAL { ?claim prov:wasDerivedFrom ?source . ?source ?p ?v . FILTER NOT EXISTS { ?v wdt:P31 wd:Q10876391 } } 
+  FILTER(!bound(?source)) 
+}

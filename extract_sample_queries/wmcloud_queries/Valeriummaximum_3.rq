@@ -1,0 +1,9 @@
+SELECT ?item ?yaleid ?earliest ?latest ?averageyear WHERE {
+  ?item wdt:P8583 ?yaleid ;
+        p:P571 ?inceptionstatement .
+  ?inceptionstatement ps:P571 ?inception ;
+                      pq:P1319 ?earliest ;
+                      pq:P1326 ?latest .  
+   FILTER (wikibase:isSomeValue(?inception) && YEAR(?earliest) > 0 && YEAR(?latest) > 0 && YEAR(?earliest) <YEAR(?latest) )
+  BIND((YEAR(?earliest)+YEAR(?latest))/2 AS ?averageyear)
+  } LIMIT 10000

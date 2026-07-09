@@ -1,0 +1,9 @@
+#defaultView:LineChart
+SELECT ?year (COUNT(?person) AS ?count) WHERE {
+  ?person wdt:P31 wd:Q5;
+          wdt:P570 ?date.
+  BIND(YEAR(?date) AS ?year).
+  filter(?year > 1)
+}
+GROUP BY ?year
+ORDER BY ?year

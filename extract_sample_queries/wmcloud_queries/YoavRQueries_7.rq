@@ -1,0 +1,16 @@
+SELECT ?item ?linkcount ?_articleEN ?born
+WHERE
+{
+  ?item wdt:P31 wd:Q5 ; wdt:P569 ?born .
+  # person with birthdate
+  FILTER (?born >= "1920-01-01T00:00:00Z"^^xsd:dateTime) .
+  # birthdate on or after 1/1/1920
+  FILTER (?born < "1920-12-31T00:00:00Z"^^xsd:dateTime) .
+  # birthdate before 1/1/1921
+  ?_articleEN schema:about ?item. ?_articleEN schema:isPartOf <https://en.wikipedia.org/>.
+  # has an enwiki article
+  filter not exists { ?_articleHE schema:about ?item. ?_articleHE schema:isPartOf <https://he.wikipedia.org/>. }
+  # does not have hewiki article
+  ?item wikibase:sitelinks ?linkcount .
+  # how many sitelinks has it got?
+} order by desc(?linkcount)

@@ -1,0 +1,21 @@
+SELECT DISTINCT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?occLabel; SEPARATOR = ", ") AS ?occps) ?linkcount WHERE {
+  ?item wdt:P4342 ?snl.
+  FILTER(NOT EXISTS {
+    ?wen schema:about ?item;
+      schema:isPartOf <https://sv.wikipedia.org/>.
+  })
+  FILTER(NOT EXISTS {
+    ?wen schema:about ?item;
+      schema:isPartOf <https://no.wikipedia.org/>.
+  })
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL { ?item wdt:P106 ?occ. }
+  OPTIONAL { ?item wikibase:sitelinks ?linkcount. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?item rdfs:label ?itemLabel.
+    ?occ rdfs:label ?occLabel.
+  }
+}
+GROUP BY ?item ?itemLabel ?linkcount
+ORDER BY DESC (?linkcount)

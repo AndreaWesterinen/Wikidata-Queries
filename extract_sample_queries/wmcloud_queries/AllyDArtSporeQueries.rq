@@ -1,0 +1,2 @@
+SELECT ?item WHERE { { ?item wdt:P1640 wd:Q8273285. } . ?item wdt:P571 ?itemDate.
+} ORDER BY ?itemDate

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item
+WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q811430.
+  ?item wdt:P131/wdt:P131* wd:Q4040.
+}
+LIMIT 10

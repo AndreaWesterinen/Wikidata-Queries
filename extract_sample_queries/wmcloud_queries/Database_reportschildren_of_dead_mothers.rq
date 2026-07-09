@@ -1,0 +1,9 @@
+SELECT ?item ?bdate (CONCAT("{", "{Q\u007C", STRAFTER(STR(?mother), "Q"), "}", "}") AS ?mo) ?mddate (year(?bdate) - year(?mddate) as ?delta) WHERE {
+  ?item wdt:P31 wd:Q5 ; (p:P569/psv:P569) ?bdate_node; wdt:P25 ?mother.
+  ?mother (p:P570/psv:P570) ?mddate_node.
+  ?bdate_node wikibase:timePrecision ?bprec ; wikibase:timeValue ?bdate.
+  ?mddate_node wikibase:timePrecision ?mdprec;  wikibase:timeValue ?mddate.
+  FILTER(?bdate > ?mddate)
+  FILTER(?bprec >= 9 && ?mdprec >= 9 && (?bprec = ?mdprec \u007C\u007C year(?bdate) > year(?mddate)))
+}
+ORDER BY DESC(?delta) ?mother ?item

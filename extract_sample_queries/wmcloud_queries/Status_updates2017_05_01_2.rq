@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?creatorLabel ?coords ?image WHERE {
+  ?item wdt:P180 wd:Q7226 ;
+        wdt:P136 wd:Q659396 ;
+        wdt:P625 ?coords .
+  OPTIONAL { ?item wdt:P170 ?creator }
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

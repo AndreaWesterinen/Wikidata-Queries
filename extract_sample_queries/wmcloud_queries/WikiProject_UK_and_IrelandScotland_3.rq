@@ -1,0 +1,10 @@
+# places in Scotland according to P131, having a single P131
+
+select ?item ?itemLabel ?P31Label ?P279Label  where {
+  ?item wdt:P131* wd:Q22  .
+  filter not exists {?item wdt:P625 ?coords .}
+  optional {?item wdt:P31 ?P31 .} 
+  optional {?item wdt:P279 ?P279 .} 
+  
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by lcase(?P31Label) ?itemLabel

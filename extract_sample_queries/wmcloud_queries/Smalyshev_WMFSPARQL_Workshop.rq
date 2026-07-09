@@ -1,0 +1,10 @@
+#Even more cats, with pictures
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?pic
+WHERE
+{
+	?item ?x1 wd:Q146 . 
+	OPTIONAL {
+		?item wdt:P18 ?pic
+   }
+}

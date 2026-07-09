@@ -1,3 +1,4 @@
+#title: Cats
 SELECT ?item ?itemLabel
 WHERE
 {

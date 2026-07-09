@@ -1,0 +1,6 @@
+SELECT ?item WHERE
+{
+  ?item wdt:P5008 wd:Q100999455;
+wdt:P485 ?location;
+wdt:P31 ?unit
+ FILTER ( ?unit = wd:Q5

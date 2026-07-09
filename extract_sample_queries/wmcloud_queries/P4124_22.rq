@@ -1,0 +1,85 @@
+#title: No link with France
+# Complex constraint from [[Property talk:P4124]]
+# link with France not found
+SELECT DISTINCT ?item {
+    ?item wdt:P4124 [].
+    ?item wdt:P569 ?born.
+    ?item wdt:P19 ?lieuBorn.
+    FILTER NOT EXISTS {
+      ?item wdt:P27 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      VALUES ?countries { wd:Q142 wd:Q235 }
+      ?item wdt:P166 ?distinction.
+      ?distinction wdt:P17 ?countries.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P1412 wd:Q150.
+    }
+    FILTER NOT EXISTS {
+      ?lieuBorn wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P551 ?res.
+      ?res wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P69 ?school.
+      ?school wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P69 ?school.
+      ?school wdt:P31 wd:Q2511322.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P69 ?school.
+      ?school wdt:P2936 wd:Q150.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P108 ?employeur.
+      ?employeur wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P119 ?lieusepulture.
+      ?lieusepulture wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P463 ?memberOf.
+      ?memberOf wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P20 ?localisationDied.
+      ?localisationDied wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P937 ?localisationWork.
+      ?localisationWork wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      VALUES ?occupation { wd:Q43845 wd:Q191493 wd:Q3499072 wd:Q1198887 wd:Q193391 }
+      ?item wdt:P106 ?occupation.
+    }
+    FILTER NOT EXISTS {
+      VALUES ?fon { wd:Q1198887 wd:Q706364 wd:Q667982 wd:Q1162163 wd:Q37803746 }
+      ?item wdt:P39 ?fon.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P39 ?fonction.
+      ?fonction wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P39 ?fonction.
+      ?fonction wdt:P31 wd:Q19359050.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P800 ?artwork.
+      ?artwork wdt:P17 wd:Q142.
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P4434 [].
+    }
+    FILTER NOT EXISTS {
+      ?item wdt:P2383 [].
+    }
+    FILTER (?item NOT IN (wd:Q235231, wd:Q465249, wd:Q15433192, wd:Q2286807, wd:Q725513, wd:Q3262507, wd:Q1712094, wd:Q7294051)).  
+}

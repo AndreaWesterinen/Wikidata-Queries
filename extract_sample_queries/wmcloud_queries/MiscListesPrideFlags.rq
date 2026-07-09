@@ -1,0 +1,7 @@
+SELECT ?item ?community { 
+  ?item wdt:P31 wd:Q7242811 .
+  OPTIONAL {
+    ?community wdt:P41 ?image .
+    ?item wdt:P18 ?image .
+  }
+}

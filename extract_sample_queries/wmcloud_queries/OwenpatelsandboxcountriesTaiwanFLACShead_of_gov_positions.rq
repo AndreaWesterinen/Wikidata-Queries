@@ -1,0 +1,8 @@
+SELECT ?item ?council ?region WHERE { 
+    VALUES ?flacs {wd:Q2225003 wd:Q83020 wd:Q706447} #three types of FLACS in Taiwan, but only one of these subclassed from Q10864048 
+    ?region wdt:P31/wdt:P279* ?flacs ; 
+            wdt:P17 wd:Q865 ;
+            wdt:P1313 ?item .
+    MINUS { ?item wdt:P576 [] }
+    MINUS { ?region wdt:P576 [] }
+}

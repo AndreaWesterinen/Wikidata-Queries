@@ -1,0 +1,12 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P3372]]
+# List of works that are in [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] [[d:Q4819492|Auckland Art Gallery <small>(Q4819492)</small>]] and have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]] set, but that creator doesn't have a [[Property:P3372|Auckland Art Gallery artist ID&#32;<small dir="ltr">(P3372)</small>]] link
+SELECT ?item ?url ?creator
+{
+	?item wdt:P195 wd:Q4819492 .
+	?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P3372 [] } .
+	MINUS { ?item wdt:P170 wd:Q4233718 } . # Filter out anonymous
+	OPTIONAL {?item wdt:P973 ?url } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+} ORDER BY ?creatorLabel

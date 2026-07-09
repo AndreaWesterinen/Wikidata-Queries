@@ -1,0 +1,7 @@
+SELECT ?title ?statement WHERE{
+ ?statement prov:wasDerivedFrom ?ref .
+ ?ref pr:P1476 ?title .
+ FILTER(
+  CONTAINS(?title,"International Numbering Resources Database")
+ )
+ }

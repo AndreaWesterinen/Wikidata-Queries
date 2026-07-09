@@ -1,0 +1,6 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT * WHERE {
+  ?type <http://www.wikidata.org/prop/statement/P279>
+        <http://www.wikidata.org/entity/Q10675206> .
+  OPTIONAL { ?type rdfs:label ?l }
+}

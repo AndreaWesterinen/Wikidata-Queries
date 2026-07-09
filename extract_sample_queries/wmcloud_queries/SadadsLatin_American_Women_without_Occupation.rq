@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item 
+
+WHERE {
+?item wdt:P27 ?nationality.
+?nationality wdt:P361* wd:Q12585.
+?item wdt:P21 wd:Q6581072.
+?item wdt:P31 wd:Q5.
+MINUS {?item wdt:P106 ?occupation}
+?item schema:description ?itemDescription . }
+
+ORDER BY ?itemDescription
+limit 1000

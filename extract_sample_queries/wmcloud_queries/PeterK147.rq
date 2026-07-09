@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?namedAs ?OSGR
+WHERE 
+{
+  ?item p:P7659 ?stat . 
+  ?stat ps:P7659 ?POWiS .
+  OPTIONAL {?stat pq:P1810 ?namedAs .}
+  OPTIONAL {?stat pq:P613 ?OSGR .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

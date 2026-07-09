@@ -1,0 +1,4 @@
+SELECT (COUNT(?item) as ?ct) (SAMPLE(?ep) as ?sample)
+{
+	?ep wdt:P31 wd:Q21191270 ; wdt:P407 ?item
+}

@@ -1,0 +1,3 @@
+SELECT ?item ?catcode WHERE { 
+?item p:P528 [ pq:P972 wd:Q91012915 ; ps:P528 ?catcode].  
+} ORDER BY xsd:integer(?catcode)

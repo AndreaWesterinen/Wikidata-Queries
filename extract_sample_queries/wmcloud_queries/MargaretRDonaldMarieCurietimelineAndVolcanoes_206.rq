@@ -1,0 +1,12 @@
+# taxa with an article where ancestor is reptilia & has an AFD-id
+SELECT ?item  ?taxon_name ?article WHERE {
+  ?item wdt:P225 ?taxon_name.
+  ?item wdt:P171* wd:Q10811.
+  ?item wdt:P6039 ?AFD_id
+  {
+     ?article schema:about ?item. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+}
+ORDER BY ?taxon_name ?itemAFD

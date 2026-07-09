@@ -1,0 +1,7 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?image WHERE {
+  ?item wdt:P31 wd:Q5; wdt:P18 ?image .
+  FILTER(CONTAINS(STR(?image), "COA")) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+LIMIT 60

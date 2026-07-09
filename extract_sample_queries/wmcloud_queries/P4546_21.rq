@@ -1,0 +1,9 @@
+#title: women, men
+# Complex constraint from [[Property talk:P4546]]
+# Check [[Property:P21|sex or gender&#32;<small dir="ltr">(P21)</small>]] and ID
+SELECT ?item {
+	?item wdt:P4546 ?id.
+    ?item wdt:P21 ?sex. 
+    FILTER (?sex = wd:Q499327 && REGEX(?id, "men.+") ).
+    FILTER (?sex = wd:Q6581072 && REGEX(?id, "women.+") )
+}

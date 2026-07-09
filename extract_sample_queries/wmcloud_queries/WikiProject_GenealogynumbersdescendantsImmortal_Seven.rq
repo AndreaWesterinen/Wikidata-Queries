@@ -1,0 +1,1 @@
+SELECT (wd:Q1954419 as ?item)  (COUNT(DISTINCT ?relative) as ?descendants)  WHERE { wd:Q1954419 wdt:P1891 ?signatory . ?signatory (wdt:P40)+ ?relative FILTER (?relative != ?signatory)  }

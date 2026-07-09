@@ -1,0 +1,83 @@
+#summary of test results for women related tests, ordered by number of wikipedia sitelinks
+SELECT ?item ?itemLabel ?type (MIN(YEAR(?date)) AS ?year)
+(GROUP_CONCAT(DISTINCT ?bechdel; separator = ' / ') AS ?Bechdel) 
+(GROUP_CONCAT(DISTINCT ?mako_mori; separator = ' / ') AS ?Mako_Mori)
+(GROUP_CONCAT(DISTINCT ?landau; separator = ' / ') AS ?Landau) 
+(GROUP_CONCAT(DISTINCT ?feldman; separator = ' / ') AS ?Feldman)
+(GROUP_CONCAT(DISTINCT ?waithe; separator = ' / ') AS ?Waithe)
+(GROUP_CONCAT(DISTINCT ?russ; separator = ' / ') AS ?Russ) 
+(GROUP_CONCAT(DISTINCT ?tauriel; separator = ' / ') AS ?Tauriel)
+(GROUP_CONCAT(DISTINCT ?raleigh_becket; separator = ' / ') AS ?Raleigh_Becket)
+?sitelinks
+#first I'm getting all items with at least one result for one of the tests
+WITH { SELECT DISTINCT ?item ?type WHERE {
+    #getting possible results
+    VALUES ?test {wd:Q4165246 wd:Q85783379 wd:Q104144947 wd:Q104144557 wd:Q104144087 wd:Q105700813 wd:Q105702736 wd:Q105708928
+    }
+    #for consideration an item has to have at least one result for one of the tests
+    ?item wdt:P5021 ?test.
+    #excluding television series episodes and chapters
+    MINUS{?item wdt:P31/wdt:P279* wd:Q21191270}
+    MINUS{?item wdt:P31/wdt:P279* wd:Q1980247}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q11424 BIND("film" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q5398426 BIND("television series" AS ?type)}
+    OPTIONAL{?item wdt:P31/wdt:P279* wd:Q7725634 BIND("literary work" AS ?type)}
+}
+} AS %items
+#now I get the results for all relevant tests
+ WHERE {    
+    INCLUDE %items
+    #getting Bechdel
+    OPTIONAL{?item p:P5021 ?st_bechdel. ?st_bechdel ps:P5021 wd:Q4165246; pq:P9259 ?bechdel_result.
+             ?bechdel_result rdfs:label ?bechdel_label. FILTER(LANG(?bechdel_label)="en")
+              OPTIONAL{?st_bechdel pq:P444 ?bechdel_score}
+              BIND(IF(BOUND(?bechdel_score),CONCAT(?bechdel_label," (",?bechdel_score,")"),?bechdel_label) AS ?bechdel)
+            }
+    #getting mako mori
+    OPTIONAL{?item p:P5021 ?st_mako_mori. ?st_mako_mori ps:P5021 wd:Q85783379; pq:P9259 ?mako_mori_result.
+             ?mako_mori_result rdfs:label ?mako_mori_label. FILTER(LANG(?mako_mori_label)="en")
+             OPTIONAL{?st_mako_mori pq:P444 ?mako_mori_score}
+             BIND(IF(BOUND(?mako_mori_score),CONCAT(?mako_mori_label," (",?mako_mori_score,")"),?mako_mori_label) AS ?mako_mori)
+            }
+    #getting landau
+    OPTIONAL{?item p:P5021 ?st_landau. ?st_landau ps:P5021 wd:Q104144947; pq:P9259 ?landau_result.
+            ?landau_result rdfs:label ?landau. FILTER(LANG(?landau)="en")}
+    #getting feldman
+    OPTIONAL{?item p:P5021 ?st_feldman. ?st_feldman ps:P5021 wd:Q104144557; pq:P9259 ?feldman_result.
+             ?feldman_result rdfs:label ?feldman_label. FILTER(LANG(?feldman_label)="en")
+             OPTIONAL{?st_feldman pq:P444 ?feldman_score}
+             BIND(IF(BOUND(?feldman_score),CONCAT(?feldman_label," (",?feldman_score,")"),?feldman_label) AS ?feldman)
+            }
+    #getting waithe
+    OPTIONAL{?item p:P5021 ?st_waithe. ?st_waithe ps:P5021 wd:Q104144087; pq:P9259 ?waithe_result.
+             ?waithe_result rdfs:label ?waithe_label. FILTER(LANG(?waithe_label)="en")
+             OPTIONAL{?st_waithe pq:P444 ?waithe_score}
+             BIND(IF(BOUND(?waithe_score),CONCAT(?waithe_label," (",?waithe_score,")"),?waithe_label) AS ?waithe)
+            }
+    #getting russo
+    OPTIONAL{?item p:P5021 ?st_russo. ?st_russo ps:P5021 wd:Q93605402; pq:P9259 ?russo_result.
+             ?russo_result rdfs:label ?russo_label. FILTER(LANG(?russo_label)="en")
+             OPTIONAL{?st_russo pq:P444 ?russo_score}
+             BIND(IF(BOUND(?russo_score),CONCAT(?russo_label," (",?russo_score,")"),?russo_label) AS ?russo)
+            }
+   #getting tauriel
+    OPTIONAL{?item p:P5021 ?st_tauriel. ?st_tauriel ps:P5021 wd:Q105702736; pq:P9259 ?tauriel_result.
+             ?tauriel_result rdfs:label ?tauriel_label. FILTER(LANG(?tauriel_label)="en")
+             OPTIONAL{?st_tauriel pq:P444 ?tauriel_score}
+             BIND(IF(BOUND(?tauriel_score),CONCAT(?tauriel_label," (",?tauriel_score,")"),?tauriel_label) AS ?tauriel)
+            }
+    #getting tauriel
+    OPTIONAL{?item p:P5021 ?st_raleigh_becket. ?st_raleigh_becket ps:P5021 wd:Q105708928; pq:P9259 ?raleigh_becket_result.
+             ?raleigh_becket_result rdfs:label ?raleigh_becket_label. FILTER(LANG(?raleigh_becket_label)="en")
+             OPTIONAL{?st_raleigh_becket pq:P444 ?raleigh_becket_score}
+             BIND(IF(BOUND(?raleigh_becket_score),CONCAT(?raleigh_becket_label," (",?raleigh_becket_score,")"),?raleigh_becket_label) AS ?raleigh_becket)
+            }
+    ?item wikibase:sitelinks ?sitelinks.
+    OPTIONAL{?item wdt:P577 ?publication}
+    OPTIONAL{?item wdt:P580 ?start}
+    BIND(IF(BOUND(?publication),?publication,?start) AS ?date)
+   
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?count ?sitelinks ?type
+ORDER BY DESC(?sitelinks)

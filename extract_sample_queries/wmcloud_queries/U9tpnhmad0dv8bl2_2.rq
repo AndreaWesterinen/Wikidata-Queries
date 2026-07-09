@@ -1,0 +1,9 @@
+SELECT ?klosterdatenbank (concat('http://de.wikipedia.org/wiki/',replace(?artikelname,' ','_')) as ?url) {
+  ?kloster wdt:P3407 ?klosterdatenbank .
+  OPTIONAL { ?kloster wdt:P227 ?gnd }
+  OPTIONAL {
+    ?article schema:about ?kloster ; schema:isPartOf <https://de.wikipedia.org/> ;  schema:name ?artikelname
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+}
+ORDER BY xsd:integer(?klosterdatenbank)

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?subject ?subjectLabel WHERE {
+  ?episode wdt:P31 wd:Q1983062.
+  ?episode wdt:P179 wd:Q3577037.
+  ?episode wdt:P921 ?subject.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,13 @@
+SELECT ?pid ?pidLabel ?tv ?tvLabel WHERE {
+  ?pid wdt:P19 ?pob .
+  ?pob wdt:P17 wd:Q408 .
+  ?pid wdt:P106 wd:Q82955 .
+
+  ?tv wdt:P161 ?pid .
+  
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}
+
+LIMIT 500

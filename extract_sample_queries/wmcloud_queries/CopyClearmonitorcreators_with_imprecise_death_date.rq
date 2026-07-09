@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel 
+WITH {
+  SELECT DISTINCT ?item ?born ?death WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 ?collectie.
+  ?item wdt:P570 ?death .
+  FILTER NOT EXISTS {?item wdt:P7763 ?status.}
+}
+} AS %items
+WHERE {
+  INCLUDE %items.
+   ?item p:P570/psv:P570 ?death_date_node .
+   ?death_date_node wikibase:timePrecision ?deathPrecision .
+  filter(?deathPrecision<9)
+}

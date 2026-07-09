@@ -1,0 +1,27 @@
+SELECT DISTINCT ?itemLabel ?item  ?origineleNaam  ?naam ?auteursrechtenstatusLabel ?RKD ?geboortedatum ?overlijdensdatum ?gelijk 
+{
+	?item wdt:P6379 wd:Q99349995 .
+    ?item wdt:P31 wd:Q5.
+    ?item rdfs:label ?label.
+   ?item p:P6379 [ ps:P6379 wd:Q99349995;
+                    prov:wasDerivedFrom 
+                    [ pr:P1810 ?origineleNaam; 
+                    ]
+                  ].
+    BIND (CONTAINS(?label, ?origineleNaam) AS ?gelijk)
+    FILTER(!CONTAINS(?label, ?origineleNaam))
+     FILTER((LANG(?label)) = "nl")
+    OPTIONAL { 
+      ?item wdt:P569 ?geboortedatum.
+    }
+    OPTIONAL {
+      ?item wdt:P570 ?overlijdensdatum.
+	}
+    ?item wdt:P7763 ?auteursrechtenstatus.
+    OPTIONAL {
+    ?item wdt:P650 ?RKD.
+     }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" } .
+}
+ORDER BY ?itemLabel 
+LIMIT 300

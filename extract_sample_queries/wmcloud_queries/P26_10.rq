@@ -1,0 +1,9 @@
+#title: Born after date of wedding
+# Complex constraint from [[Property talk:P26]]
+#
+SELECT ?item ?starttime ?born {
+       ?item wdt:P569 ?born.
+     ?item p:P26 ?statement.
+     ?statement pq:P580 ?starttime.
+  FILTER (?born > ?starttime)
+}

@@ -1,0 +1,13 @@
+#Goats
+SELECT ?item ?itemLabel ?image
+WHERE {
+  ?item wdt:P31 ?goats.
+  
+  VALUES ?goats {
+    wd:Q2934
+    wd:Q172923
+    wd:Q27713372
+  }
+  OPTIONAL { ?item wdt:P18 ?image . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

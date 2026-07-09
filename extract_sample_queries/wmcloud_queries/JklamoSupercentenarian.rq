@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?dob ((NOW() - ?dob) AS ?age)
+WHERE {   
+  ?item wdt:P31 wd:Q5.
+OPTIONAL { ?item wdt:P570 ?dod. }
+ ?item p:P569/psv:P569 [
+                wikibase:timePrecision ?prec ;
+                wikibase:timeValue     ?dob
+              ] filter (?prec > 10 ).
+FILTER (?dob <= "1912-01-01T00:00:00Z"^^xsd:dateTime  ) 
+FILTER (?dob >= "1900-01-01T00:00:00Z"^^xsd:dateTime  ) 
+FILTER (!bound(?dod ))
+} 
+ORDER BY DESC(?age)
+LIMIT 200

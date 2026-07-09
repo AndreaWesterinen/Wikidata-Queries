@@ -1,0 +1,23 @@
+#Women born in Wales without an article in Welsh for Listeria
+#added before 2016-10
+ #sample from cywiki:Wicipedia:Merched_a_anwyd_yng_Nghymru
+SELECT ?item ?itemLabel
+WHERE
+{
+	# gender = female
+  	?item wdt:P21 wd:Q6581072 .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+	# look for articles (sitelinks) in Welsh ("cy")
+  	OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "de" }
+	# but select items with no such article
+	FILTER (!BOUND(?sitelink))
+
+	# humans only
+  	?item wdt:P31 wd:Q5 .
+  
+  ?item wdt:P106 wd:Q1476215
+}
+#Listeria can only handle up to 5000
+LIMIT 1000

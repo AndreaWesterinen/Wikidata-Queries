@@ -1,0 +1,14 @@
+#title: Cims sense altitud referenciada
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item where {
+  ?item p:P361 ?stat .
+  ?stat ps:P361 wd:Q31074657 .
+  ?stat pq:P2699 [] .
+  minus {
+    ?item p:P2044/prov:wasDerivedFrom ?ref .
+    ?ref pr:P248 wd:Q31074657 .
+    ?ref pr:P854 [] .
+    ?ref pr:P813 [] .
+  }
+}

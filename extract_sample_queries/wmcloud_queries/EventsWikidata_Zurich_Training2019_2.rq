@@ -1,0 +1,4 @@
+SELECT * WHERE {
+  ?lexeme dct:language wd:Q1321;
+          wikibase:lemma ?lemma.
+}

@@ -1,0 +1,11 @@
+embed.html#SELECT ?place ?placeLabel ?p ?pLabel ?entry ?entryLabel ?fl 
+WHERE
+{
+  VALUES ?place { wd:Q208794  }
+  ?p  (wdt:P19|wdt:P20) ?place 
+  ;   ^wdt:P921 ?entry.
+  ?entry wdt:P1433 wd:Q665807
+  ;    wdt:P1922 ?fl.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+ORDER BY ?entryLabel

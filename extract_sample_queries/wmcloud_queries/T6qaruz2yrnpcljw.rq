@@ -1,0 +1,4 @@
+select * where {
+?item wdt:P279* wd:Q1434505 .
+optional { ?item rdfs:label ?enlabel filter (lang(?enlabel) = "en") . }
+} order by ?enlabel

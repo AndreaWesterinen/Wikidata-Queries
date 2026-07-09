@@ -1,0 +1,3 @@
+SELECT ?item (count(?sense) as ?count) WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?item ; ontolex:sense ?sense .
+} group by ?item order by desc(?count)

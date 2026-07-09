@@ -1,0 +1,7 @@
+embed.html#SELECT ?constraint ?clarification (LANG(?clarification) AS ?lang) WHERE {
+  ?property a wikibase:Property;
+            p:P2302 ?constraint.
+  ?constraint a wikibase:BestRank;
+              pq:P6607 ?clarification.
+}
+ORDER BY DESC(?lang = "en")

@@ -1,0 +1,20 @@
+#title: Two inverse statements inferred from each other
+# Complex constraint from [[Property talk:P3452]]
+# Two inverse statements inferred from each other
+SELECT ?item WHERE {
+  ?property_1 wikibase:claim ?property_1_claim;
+      wikibase:statementProperty ?property_1_ps;
+      p:P2302 [
+        ps:P2302 wd:Q21510855;
+                pq:P2306 ?property_2
+      ] .
+  
+  ?property_2 wikibase:claim ?property_2_claim;
+      wikibase:statementProperty ?property_2_ps;
+      p:P2302 [
+        ps:P2302 wd:Q21510855;
+                pq:P2306 ?property_1 
+      ].
+  ?item   ?property_1_claim [ ?property_1_ps ?target; prov:wasDerivedFrom / pr:P3452 ?target ].
+  ?target ?property_2_claim [ ?property_2_ps ?item;   prov:wasDerivedFrom / pr:P3452 ?item ].
+}

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?building ?buildingLabel WHERE {
+  ?building wdt:P131+ wd:Q42880.
+  ?building wdt:P31 wd:Q55488.
+  FILTER NOT EXISTS { ?building wdt:P954 ?prize . } 
+}

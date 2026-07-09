@@ -1,0 +1,9 @@
+SELECT ?l ?lemma ?etymologia WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ; p:P5191 ?statement.
+  ?language wdt:P218 'pl'.
+  ?statement ps:P5191 ?etymologia.
+  ?statement prov:wasDerivedFrom ?refnode.
+  ?refnode pr:P248 ?source.
+  FILTER NOT EXISTS {?refnode pr:P1065 ?archive }
+} ORDER BY ?lemma

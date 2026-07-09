@@ -1,0 +1,5 @@
+SELECT ?Landschaftsschutzgebiet ?LandschaftsschutzgebietLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Landschaftsschutzgebiet wdt:P31 wd:Q21503788.
+  ?Landschaftsschutzgebiet wdt:P131* wd:Q1199.
+}

@@ -1,0 +1,4 @@
+SELECT ?id WHERE {
+  ?item p:P1800/ps:P1800 ?id.
+  FILTER(NOT EXISTS { ?item wdt:P31 wd:Q33120923. })
+}

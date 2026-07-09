@@ -1,0 +1,19 @@
+# URLs in references entered as “page(s)” instead of “reference URL”
+# (most likely: cases where someone misinterpreted that property as “webpage” and not “book page”)
+SELECT ?subject ?subjectLabel ?predicateLabel ?object ?objectLabel ?page WITH {
+  # subquery: first find the references, then the rest of the information
+  SELECT ?reference ?page WHERE {
+    ?reference pr:P304 ?page.
+    FILTER("http" < ?page && ?page < "httq"). # *slightly* more efficient than STRSTARTS(?page, "http")
+  }
+} AS %references WHERE {
+  INCLUDE %references.
+  # now find the statement(s) with this reference
+  ?predicate a wikibase:Property;
+             wikibase:claim ?p;
+             wikibase:statementProperty ?ps.
+  ?subject ?p ?statement.
+  ?statement ?ps ?object;
+             prov:wasDerivedFrom ?reference.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

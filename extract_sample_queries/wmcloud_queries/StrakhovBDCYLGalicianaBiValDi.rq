@@ -1,0 +1,3 @@
+SELECT ?item WHERE {
+ {?item wdt:P3964 ?bdcyl . } UNION {?item wdt:P3307 ?galiciana. } UNION {?item wdt:P3932 ?bivaldi . }
+}

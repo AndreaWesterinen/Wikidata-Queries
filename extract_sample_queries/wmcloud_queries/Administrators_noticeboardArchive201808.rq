@@ -1,0 +1,24 @@
+# Make an overview of people who have their Wikimedia username set
+# articlecount - Number of Wikipedia articles
+# linkcount - Number of incoming links
+# externallinks - Number of external id's 
+SELECT DISTINCT ?item ?label ?description ?articlecount ?linkcount ?externallinks WHERE {
+  ?item wdt:P4174 ?wikiusername .
+  ?item wdt:P31 wd:Q5 . 
+  ?item wikibase:identifiers ?externallinks . 
+  OPTIONAL { ?item rdfs:label ?label . FILTER(lang(?label)='en') }
+  OPTIONAL { ?item schema:description ?description . FILTER(lang(?description)='en') } .
+  OPTIONAL {
+    SELECT ?item (COUNT(DISTINCT ?article) AS ?articlecount) WHERE {
+      ?item wdt:P4174 ?wikiusername . 
+      ?article schema:about ?item . FILTER REGEX(STR(?article), ".wikipedia.org/wiki/") 
+    } GROUP BY ?item 
+  }
+  OPTIONAL {
+  SELECT ?item (COUNT(DISTINCT ?link) AS ?linkcount) WHERE {
+      ?item wdt:P4174 ?wikiusername . 
+      ?link ?someprop ?item . 
+    ?property wikibase:statementProperty ?someprop 
+    } GROUP BY ?item 
+  }
+} ORDER BY ?articlecount ?linkcount

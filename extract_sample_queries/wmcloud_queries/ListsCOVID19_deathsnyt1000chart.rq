@@ -1,0 +1,22 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("area" as ?type)
+  ("200" as ?height) 
+  ("800" as ?width) 
+  ("date" as ?xType) 
+  ("date of death" as ?xAxisTitle) 
+  ("number of people with item" as ?yAxisTitle)
+  (GROUP_CONCAT(?date;separator=",") as ?x)
+  (GROUP_CONCAT(?total;separator=",") as ?y)
+WHERE
+{
+  SELECT ?date (COUNT(DISTINCT ?p) as ?total)
+  {
+    ?p wdt:P1343 wd:Q95431705.
+    ?p wdt:P570 ?date .
+    ?p wdt:P31 wd:Q5 .
+    ?p p:P570 / psv:P570 [ wikibase:timeValue ?date ; wikibase:timePrecision 11 ] .
+  }
+  GROUP BY ?date
+  ORDER BY DESC(?date)
+}

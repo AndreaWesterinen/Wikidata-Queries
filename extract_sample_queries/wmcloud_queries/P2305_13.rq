@@ -1,0 +1,9 @@
+#title: Items of an "lexeme requires language constraint" must be human languages
+# Complex constraint from [[Property talk:P2305]]
+# The only allowed items for the [[Property:P2305|item of property constraint&#32;<small dir="ltr">(P2305)</small>]] qualifier to the [[d:Q52004125|allowed-entity-types constraint <small>(Q52004125)</small>]] are instances of [[d:Q20162172|human language <small>(Q20162172)</small>]] or instances of a subclass of [[d:Q20162172|human language <small>(Q20162172)</small>]].
+SELECT ?item ?itemLabel ?language ?languageLabel WHERE {
+  ?item p:P2302 [ ps:P2302 wd:Q55819106; pq:P2305 ?language; wikibase:rank ?rank ].
+  FILTER NOT EXISTS { ?language wdt:P31/wdt:P279* wd:Q20162172. }
+  FILTER (?rank != wikibase:DeprecatedRank)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

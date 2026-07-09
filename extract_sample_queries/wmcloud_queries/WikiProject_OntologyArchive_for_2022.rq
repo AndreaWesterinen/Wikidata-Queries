@@ -1,0 +1,17 @@
+embed.html#SELECT ?item ?itemLabel ?property ?propertyLabel ?targetLabel
+WHERE {
+  {
+    SELECT ?item ?property {
+      hint:Query hint:optimizer "None" .
+      ?property wikibase:claim ?p ;
+        wikibase:statementProperty ?ps .
+      ?st ?ps wd:Q557141 .
+      ?item ?p ?st .
+    }
+    LIMIT 1000
+  }
+  BIND(wd:Q557141 AS ?target)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" .
+  }
+}

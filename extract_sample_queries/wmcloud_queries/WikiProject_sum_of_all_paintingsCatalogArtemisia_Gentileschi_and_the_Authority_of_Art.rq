@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?catcode ?catnum ?catletter ?pic WHERE { 
+?item p:P528 [ pq:P972 wd:Q29032733  ; ps:P528 ?catcode]. 
+BIND( xsd:decimal(REPLACE(?catcode, "[a-zA-Z().-]", "")) AS ?catnum) 
+BIND(REPLACE(?catcode, "[0-9]*", "") AS ?catletter) 
+BIND(CONTAINS(?catletter, "X") AS ?x) 
+OPTIONAL {?item wdt:P18 ?pic . }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,es,ca,pt,fr,de". }
+} ORDER BY ?x ?catnum

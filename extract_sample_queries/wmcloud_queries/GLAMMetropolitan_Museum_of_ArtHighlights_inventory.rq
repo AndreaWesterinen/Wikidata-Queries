@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE 
+{
+  BIND (wd:Q160236 AS ?institution)
+  ?item p:P195 [ ps:P195 ?institution ; 
+                 pq:P2868 wd:Q29188408 ] .
+  OPTIONAL { ?item wdt:P170 ?creator . 
+  } 
+  # SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

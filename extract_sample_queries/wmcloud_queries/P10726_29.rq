@@ -1,0 +1,3 @@
+SELECT DISTINCT ?prop WHERE {
+  ?prop a wikibase:Property ; wdt:P1552 wd:Q83336425
+}

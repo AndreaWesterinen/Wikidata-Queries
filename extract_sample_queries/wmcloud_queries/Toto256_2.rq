@@ -1,0 +1,9 @@
+SELECT ?oric ?oricLabel ?image ?date ?lien WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?oric wdt:P179 wd:Q17042679.
+  OPTIONAL { ?oric wdt:P18 ?image. }
+  OPTIONAL { ?oric wdt:P5204 ?date. }
+  ?lien schema:about ?oric.
+  ?lien schema:isPartOf <https://fr.wikipedia.org/>.
+} ORDER BY  ?date
+LIMIT 100

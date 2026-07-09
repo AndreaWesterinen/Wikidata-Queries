@@ -1,0 +1,6 @@
+SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q3305213;
+        wdt:P186 ?madestatement .
+  FILTER NOT EXISTS { ?item p:P186/pq:P518 wd:Q861259  } .
+  }
+LIMIT 500

@@ -1,0 +1,82 @@
+#defaultView:Map{"hide":["?coord2", "?line", "?rgb"]}
+SELECT ?item ?itemLabel ?coord2 ?line ?rgb ?layer WHERE 
+{
+  
+  {?item wdt:P131/wdt:P131 wd:Q22.} hint:Prior hint:runFirst true.
+  {
+  ?item p:P625 ?stat . 
+  ?stat ps:P625 ?coord .
+  ?stat wikibase:rank wikibase:NormalRank .
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat psv:P625/wikibase:geoLatitude ?lat.
+  
+  ?item p:P625 ?stat2 . 
+  ?stat2 ps:P625 ?coord2 .
+  ?stat2 prov:wasDerivedFrom/pr:P248 wd:Q1194038.
+  ?stat2 wikibase:rank wikibase:DeprecatedRank .
+  ?stat2 psv:P625/wikibase:geoLongitude ?long2.
+  ?stat2 psv:P625/wikibase:geoLatitude ?lat2.
+  
+  BIND(CONCAT('LINESTRING (', STR(?long), ' ', STR(?lat), ',', STR(?long2), ' ', STR(?lat2), ')') AS ?str) .
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line) 
+  BIND("FF0000" AS ?rgb)
+  BIND("Inaccurate GeoNames coordinate" AS ?layer)
+  }
+  UNION
+  {
+  ?item p:P625 ?stat . 
+  ?stat ps:P625 ?coord2 .
+  ?stat wikibase:rank wikibase:NormalRank .
+  
+  ?item p:P625 ?stat2 . 
+  ?stat2 prov:wasDerivedFrom/pr:P248 wd:Q1194038.
+  ?stat2 wikibase:rank wikibase:DeprecatedRank .
+  BIND("00FF00" AS ?rgb)
+  BIND("Corrected coordinate" AS ?layer)
+  }
+  UNION
+  {
+  ?item p:P625 ?stat . 
+  ?stat ps:P625 ?coord .
+  ?stat wikibase:rank wikibase:PreferredRank .
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat psv:P625/wikibase:geoLatitude ?lat.
+  
+  ?item p:P625 ?stat2 . 
+  ?stat2 ps:P625 ?coord2 .
+  ?stat2 prov:wasDerivedFrom/pr:P248 wd:Q1194038.
+  ?stat2 wikibase:rank wikibase:NormalRank .
+  ?stat2 psv:P625/wikibase:geoLongitude ?long2.
+  ?stat2 psv:P625/wikibase:geoLatitude ?lat2.
+  
+  BIND(CONCAT('LINESTRING (', STR(?long), ' ', STR(?lat), ',', STR(?long2), ' ', STR(?lat2), ')') AS ?str) .
+  BIND(STRDT(?str, geo:wktLiteral) AS ?line) 
+  BIND("808000" AS ?rgb)
+  BIND("Close but not centered GeoNames coordinate" AS ?layer)
+  }
+  UNION
+  {
+  ?item p:P625 ?stat . 
+  ?stat ps:P625 ?coord2 .
+  ?stat wikibase:rank wikibase:PreferredRank .
+  
+  ?item p:P625 ?stat2 . 
+  ?stat2 prov:wasDerivedFrom/pr:P248 wd:Q1194038.
+  ?stat2 wikibase:rank wikibase:NormalRank .
+  BIND("00FF00" AS ?rgb)
+  BIND("Corrected coordinate" AS ?layer)
+  }
+  UNION
+  {
+  ?item p:P625 ?stat . 
+  ?stat ps:P625 ?coord2 .
+  ?stat wikibase:rank wikibase:NormalRank .
+  ?stat prov:wasDerivedFrom/pr:P248 wd:Q1194038.
+  ?stat prov:wasDerivedFrom/pr:P854 ?refurl.
+  filter(strstarts(str(?refurl),"https://maps.nls.uk")) 
+  BIND("0000FF" AS ?rgb)
+  BIND("Correct GeoNames coordinate" AS ?layer)
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} 

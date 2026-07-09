@@ -1,0 +1,18 @@
+SELECT
+  ?book ?bookLabel
+  ?kilogram ?weight ?unit ?unitLabel
+WITH {
+  SELECT * WHERE {
+  ?book wdt:P31 wd:Q3331189 .
+  ?book p:P2067 / psv:P2067 ?weight_value .
+  ?weight_value wikibase:quantityAmount ?weight .
+  ?weight_value wikibase:quantityUnit ?unit .
+  ?unit wdt:P2370 ?factor .
+  BIND(?weight * ?factor AS ?kilogram)
+  }
+} AS %results
+WHERE {
+  INCLUDE %results
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?kilogram

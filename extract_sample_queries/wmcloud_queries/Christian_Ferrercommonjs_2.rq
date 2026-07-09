@@ -1,0 +1,2 @@
+embed.html#SELECT DISTINCT ?item ?itemLabel (YEAR(?date_de_publication) as ?year) ?wikispecies ?wikimediaCommons WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "

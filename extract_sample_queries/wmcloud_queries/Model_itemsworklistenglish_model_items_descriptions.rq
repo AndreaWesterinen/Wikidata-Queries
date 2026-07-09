@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?itemDescription ?value ?valueLabel ?valueDescription
+WHERE {
+  ?item wdt:P5869 ?value .
+  MINUS {
+    ?item rdfs:label ?englishLabel .
+    FILTER (lang(?englishLabel) = "en")
+  }
+  MINUS {
+    ?item schema:description ?englishDescription .
+    FILTER (lang(?englishDescription) = "en")
+  }  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}ORDER BY ?item

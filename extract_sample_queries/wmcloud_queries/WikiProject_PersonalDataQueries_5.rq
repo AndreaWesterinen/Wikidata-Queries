@@ -1,0 +1,12 @@
+#defaultView:Tree
+SELECT ?property ?propertyLabel ?country ?countryLabel ?value ?valueLabel WHERE {
+  {
+        ?item wdt:P463 wd:Q26877724.
+        ?item wdt:P31 wd:Q55499415.
+        ?item wdt:P17 ?country.
+        ?item ?prop ?value.
+        ?property ?ref ?prop.
+        ?property rdf:type wikibase:Property. 
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

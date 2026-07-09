@@ -1,0 +1,3 @@
+SELECT ?person ?personLabel ?relative ?relativeLabel
+{ 
+  ?person

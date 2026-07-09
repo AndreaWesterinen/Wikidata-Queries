@@ -1,0 +1,14 @@
+SELECT ?wd ?wdLabel ?wdP ?wdPLabel ?value ?valueLabel ?retrieved WHERE {
+  hint:Query hint:optimizer "None".
+  ?wds wikibase:rank wikibase:DeprecatedRank.
+  ?wd ?p ?wds.
+  ?wds ?v ?value.
+  ?wdP wikibase:statementProperty ?v.
+  ?wdP wikibase:claim ?p.
+  ?wds prov:wasDerivedFrom ?wdref.
+  ?wdref pr:P248 wd:Q17299517.
+  OPTIONAL { ?wdref pr:P813 ?retrieved. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?retrieved)
+LIMIT 100

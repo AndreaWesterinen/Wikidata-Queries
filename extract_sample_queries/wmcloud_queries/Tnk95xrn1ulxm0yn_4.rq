@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?ecluse ?ecluseLabel ?coords
+WHERE {
+  ?ecluse wdt:P31/wdt:P279* wd:Q105731 ;
+          wdt:P625 ?coords ;
+          wdt:P361 ?canal .
+  ?canal wdt:P131 wd:Q12130 .
+  SERVICE wikibase:label { #BabelRainbow
+    bd:serviceParam wikibase:language "fr"
+  } 
+}

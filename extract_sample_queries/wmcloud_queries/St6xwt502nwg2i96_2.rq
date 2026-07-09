@@ -1,0 +1,8 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?country ?name {
+  ?country wdt:P31 wd:Q6256 .
+  ?country wdt:P1549 ?name .
+  FILTER ( lang(?name)='en')
+}

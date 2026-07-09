@@ -1,0 +1,20 @@
+#Works written or translated by a given ?author
+SELECT distinct ?work ?workLabel ?workDescription
+(GROUP_CONCAT(DISTINCT ?IsALabel ; separator = "****") as ?WorkIsA)
+?authorLabel 
+WHERE
+{
+  BIND(wd:Q2677204 as ?author) . 
+  BIND(wd:Q2677204 as ?translator) .
+  {?work wdt:P50 ?author} UNION {?work wdt:P655 ?translator}.
+  ?work wdt:P31 ?IsA.
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+    ?IsA rdfs:label ?IsALabel.
+    ?work rdfs:label ?workLabel .
+    ?work schema:description ?workDescription .
+    ?author rdfs:label ?authorLabel .
+    
+  }
+} GROUP BY ?work ?workLabel ?authorLabel ?workDescription

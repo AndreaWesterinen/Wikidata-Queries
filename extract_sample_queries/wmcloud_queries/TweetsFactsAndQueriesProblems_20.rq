@@ -1,0 +1,8 @@
+SELECT ?person ?personLabel ?propertyLabel ?sexOrGenderLabel WHERE {
+ VALUES ?sexOrGender { wd:Q44148 wd:Q43445 }
+ ?person wdt:P31 wd:Q5;
+ ?p [ ?ps ?sexOrGender ].
+ ?property wikibase:claim ?p;
+ wikibase:statementProperty ?ps.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?rfcid WHERE {
+  ?item p:P31 ?statement0.
+  ?statement0 ps:P31 wd:Q212971.
+  ?item p:P2093 ?statement1.
+  ?statement1 (ps:P2093) _:anyValueP2093.
+  ?item wdt:P892 ?rfcid.
+}
+ORDER BY xsd:integer(?rfcid)
+LIMIT 1000
+OFFSET 2000

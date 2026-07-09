@@ -1,0 +1,11 @@
+#persones que han treballat amb un ocupador determinat (per FILTER ?equip) amb dates inici-fi + professió  
+SELECT ?item ?itemLabel ?inici  ?fins  ?equip ?equipLabel ?ocupacio ?ocupacioLabel WHERE {
+  ?item p:P108 ?statement .
+  ?statement ps:P108 ?equip.
+  OPTIONAL { ?statement pq:P580 ?inici } .
+  OPTIONAL { ?statement pq:P582 ?fins } .
+  OPTIONAL { ?item wdt:P106 ?ocupacio } .
+  FILTER(?equip = wd:Q1814503) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+}
+LIMIT 1000

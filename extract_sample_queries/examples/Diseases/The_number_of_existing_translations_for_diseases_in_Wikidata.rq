@@ -1,3 +1,5 @@
+#title: The number of existing translations for diseases in Wikidata
+
 SELECT ?disease ?doid ?enLabel (count(?language) as ?languages)
 WHERE
 {

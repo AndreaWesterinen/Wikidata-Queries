@@ -1,0 +1,62 @@
+SELECT DISTINCT ?item 
+WHERE {
+ {
+   SELECT ?item WHERE {
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "eu.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Scholia" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Scholia" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "mk.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Scholia" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "ml.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Scholia" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+     UNION
+     {
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:endpoint "sv.wikipedia.org" .
+      bd:serviceParam wikibase:api "Generator" .
+      bd:serviceParam mwapi:generator "search" .
+      bd:serviceParam mwapi:gsrsearch "hastemplate:Scholia" .
+      bd:serviceParam mwapi:gsrlimit "max" .
+      ?item wikibase:apiOutputItem mwapi:item .
+    }
+       }
+  } LIMIT 1500
+ }
+ hint:Prior hint:runFirst "true".
+} LIMIT 1500

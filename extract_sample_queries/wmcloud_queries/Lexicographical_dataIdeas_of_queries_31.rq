@@ -1,0 +1,10 @@
+SELECT DISTINCT ?lexeme ?lemma ?langLabel ?createsLabel WHERE {
+  ?lexeme a ontolex:LexicalEntry ;
+            dct:language ?lang;
+            wikibase:lemma ?lemma ;
+            wdt:P5923 ?creates .
+  #Optional filter that removes all lexemes with a "-"
+  #filter(!regex(?lemma, "-"))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+order by lcase(?langLabel)

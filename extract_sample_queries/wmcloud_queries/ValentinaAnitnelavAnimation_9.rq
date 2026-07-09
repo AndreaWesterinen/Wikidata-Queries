@@ -1,0 +1,55 @@
+embed.html##characters with female supervising animators
+SELECT ?characterLabel ?filmLabel (ROUND(SUM(?weightedWoman)/(SUM(?weightedWoman) + SUM(?weightedMan))*100) AS ?weighted_femaleShare) (group_concat(DISTINCT ?label;separator=", ") as ?names)
+{  
+SELECT ?characterLabel ?filmLabel ?animator ?label ?roleLabel ((?man * ?positionWeight) AS ?weightedMan) ((?woman * ?positionWeight) AS ?weightedWoman)
+WHERE
+{
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511.
+
+  #getting the characters
+  ?character p:P767 ?st;
+             wdt:P1441 ?film.
+  
+  #getting the animators
+  ?st ps:P767 ?animator;
+      pq:P3831 ?role;
+      pq:P642 ?film.
+  
+  #Getting the labels of female crew members
+  OPTIONAL
+  {
+  ?animator wdt:P21/wdt:P279* wd:Q6581072;
+        rdfs:label ?label.
+  FILTER (lang(?label) = "en")
+  }
+  
+  #filtering for character animators or supervising animators or computer animators
+  FILTER(?role = wd:Q28007056 || ?role = wd:Q28122926 || ?role = wd:Q28834881)
+  
+  #POSITIONCOUNT
+  #weighting the position of supervising animator x3
+  { ?st (pq:P3831) wd:Q28007056. BIND(3 AS ?positionWeight). } UNION
+  #weighting the position of character animator/computer animator x1
+  { ?st (pq:P3831) wd:Q28122926. BIND(1 AS ?positionWeight). } UNION
+  { ?st (pq:P3831) wd:Q28834881. BIND(1 AS ?positionWeight). } 
+  
+  #GENDERCOUNT
+  #counting male...
+  { ?animator wdt:P21 wd:Q6581097. BIND(1 AS ?man). } UNION
+  #and transgender male persons as male.
+  { ?animator wdt:P21 wd:Q2449503. BIND(1 AS ?man). } UNION
+  #counting female...
+  { ?animator wdt:P21 wd:Q6581072. BIND(1 AS ?woman).} UNION
+  #and transgender female persons as female
+  { ?animator wdt:P21 wd:Q1052281. BIND(1 AS ?woman).}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  
+  
+}
+}
+GROUP BY ?characterLabel ?filmLabel
+HAVING (ROUND(SUM(?weightedWoman)/(SUM(?weightedWoman) + SUM(?weightedMan))*100) > 0)
+ORDER BY DESC(?weighted_femaleShare)

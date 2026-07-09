@@ -1,0 +1,12 @@
+#title: Reference should generally have a reference url as well
+# Complex constraint from [[Property talk:P6333]]
+# [[Property:P854|reference URL&#32;<small dir="ltr">(P854)</small>]] would generally be present
+SELECT DISTINCT ?item ?p ?title_of_broader_work
+WHERE
+{
+  ?ref pr:P6333 ?title_of_broader_work .
+  MINUS { ?ref pr:P854 ?refurl }  .
+  ?st prov:wasDerivedFrom ?ref . 
+  ?item ?p ?st
+}
+LIMIT 100

@@ -1,0 +1,6 @@
+SELECT ?item ?value {
+  ?item p:P225 ?statement .
+  ?statement ps:P225 ?value .
+  ?statement prov:wasDerivedFrom/pr:P143 wd:Q309388 . # NHM
+}
+ORDER BY ?value

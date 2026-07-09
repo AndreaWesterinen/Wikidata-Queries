@@ -1,0 +1,36 @@
+#Described at URL (?daturl) P973 
+# Is optional
+# Is unique ?? Or can there be more than 1 value?
+#------
+# If it is stated, it must be a https://www.gidsvoornederland.nl URL ?? Or can it also be a different website?
+# If it is stated, it must have an Internet Archive URL (https://web.archive.org) as reference (P1065)
+# The web.archive.org-URL must contain the Gidsvoornederland-URL
+#------
+# Timestamp must be "Retrieved" (P813), not "Archive date" (P2960)
+
+SELECT DISTINCT 
+?item ?itemLabel 
+?daturl_flat #Described at URL P973 
+?daturlArchiveURL_flat #Archive URL P1065
+?contains # Check that the web.archive.org-URL contains the Gidsvoornederland-URL. This value shoud be True
+?daturlRetrievedDate
+?daturlArchivedDate #this column shoud be empty
+
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL {?item p:P973 [ps:P973 ?daturl].} #Described at URL P973   
+  BIND(STR(?daturl) as ?daturl_flat) #flat url without hyperlink
+
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P1065 ?daturlArchiveURL]].} #reference --> Archive url P1065
+  BIND(STR(?daturlArchiveURL) as ?daturlArchiveURL_flat) #flat url without hyperlink
+  
+  BIND(CONTAINS(?daturlArchiveURL_flat, ?daturl_flat)  as ?contains)   # Check that the web.archive.org-URL contains the Gidsvoornederland-URL
+    
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P813 ?daturlRetrievedDate]].} #reference --> Retrieved date P813
+  OPTIONAL {?item p:P973 [prov:wasDerivedFrom [pr:P2960 ?daturlArchivedDate]] .} #reference --> Archive date P2960
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+
+}
+ORDER BY ASC(?item)

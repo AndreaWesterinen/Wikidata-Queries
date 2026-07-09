@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item  WHERE {
+  ?item wdt:P195 wd:Q1236032 .
+  ?item wdt:P31 wd:Q3305213 .   
+  OPTIONAL { ?item wdt:P217 ?inv }   
+  } order by desc(fn:starts-with(?inv,"PE")) xsd:float(replace(?inv,"[^0-9.]*",""))
+ LIMIT 5000

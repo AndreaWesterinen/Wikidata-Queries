@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?count
+WHERE 
+{
+  {
+    SELECT ?item (COUNT(?parent) AS ?count)
+    WHERE
+    {
+      ?parent wdt:P21 ?item FILTER(!wikibase:isSomeValue(?item)).
+    } GROUP BY ?item
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?count

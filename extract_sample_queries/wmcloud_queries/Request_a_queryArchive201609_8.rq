@@ -1,0 +1,22 @@
+# Women writers at :ca
+SELECT ?item ?label
+WHERE
+{
+	# gender = female
+  	?item wdt:P21 wd:Q6581072 .
+  
+	# humans only
+  	?item wdt:P31 wd:Q5 . 
+  
+  	# ocupation = writer
+  	?item wdt:P106* wd:Q36180 .
+
+	# look for articles (sitelinks) in Catalan ("ca")
+  	OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage "ca" } 
+	# and select items with article
+	FILTER (BOUND(?sitelink))
+  
+    # list
+    ?item rdfs:label ?label filter (lang(?label) = "en")
+}
+LIMIT 5000

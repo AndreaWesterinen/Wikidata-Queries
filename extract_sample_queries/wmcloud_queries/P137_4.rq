@@ -1,0 +1,8 @@
+#title: Operate a railway line
+# Complex constraint from [[Property talk:P137]]
+#
+SELECT ?item ?operator {
+  ?item wdt:P31 wd:Q728937.
+  ?item wdt:P137 ?operator.
+  FILTER NOT EXISTS { ?operator p:P31 [] }
+}

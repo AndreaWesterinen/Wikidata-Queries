@@ -1,0 +1,9 @@
+PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+SELECT ?item ?itemLabel ?imagen ?coord WHERE {
+  ?item wdt:P20 ?lugarmuerte .
+  ?lugarmuerte wdt:P17 wd:Q38 .
+  ?item wdt:P509 ?causamuerte .
+  ?causamuerte wdt:P31/wdt:P279* wd:Q15169167 .
+ 
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "es" }
+}

@@ -1,0 +1,12 @@
+SELECT DISTINCT ?name ?originalname
+WHERE {
+  ?name wdt:P31/wdt:P279* wd:Q101352 ;
+        wdt:P31 ?nature ;
+        wdt:P1705 ?originalname ;
+        wdt:P1705 ?some .
+  FILTER NOT EXISTS { ?name wdt:P282 ?alphabet . }
+  FILTER(LANG(?originalname) = "fr") .
+}
+GROUP BY ?name ?name_label ?originalname
+HAVING((COUNT(?nature) = 1) && (COUNT(?some) = 1))
+ORDER BY ?name_label

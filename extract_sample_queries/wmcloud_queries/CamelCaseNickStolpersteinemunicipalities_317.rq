@@ -1,0 +1,38 @@
+#by CamelCaseNick
+prefix commons:<http://commons.wikimedia.org/wiki/Special:FilePath/>
+select (?place as ?item) ?region ?listItem ?stolpersteine ?stolperschwellen ?first ?last ?installmentsComplete
+with {
+  select distinct ?place ?region where {
+    { select distinct ?place { wd:Q314003 ^wdt:P361/wdt:P131+ ?place. } }
+    filter exists { ?place wdt:P31/wdt:P279* ?type. values ?type { wd:Q515 wd:Q15284 wd:Q3266850 } }
+    minus { ?place wdt:P31/wdt:P279* wd:Q447523. } filter(?place not in (wd:Q1209, wd:Q240))
+    optional { ?place wdt:P131* ?region. filter exists { ?region wdt:P31/wdt:P279* wd:Q10864048. } filter(?region != wd:Q90027) }
+  }
+} as %places
+where {
+  {
+    select ?place ?region (sum(coalesce(?replaced, ?stolperstein)) as ?stolpersteine) (sum(coalesce(?replaced, ?stolperschwelle)) as ?stolperschwellen)
+           (min(?installment) as ?first) (max(?installment) as ?last) (count(?stolperEntity) - count(?installment) = 0 as ?installmentsComplete) where {
+      include %places
+      values (?stolperType ?stolperstein ?stolperschwelle) {
+         (wd:Q26703203 1 0)
+         (wd:Q43638585 0 1)
+      }
+      ?stolperEntity wdt:P31 ?stolperType; wdt:P131+ ?place.
+      optional { ?stolperEntity wdt:P576|wdt:P1366 []. bind(0 as ?replaced) }
+      optional { ?stolperEntity p:P793 [ a wikibase:BestRank; ps:P793 wd:Q3010369; pq:P585 ?installment ]. }
+    }
+    group by ?place ?region
+  }
+  {
+    select ?place (sample(replace(str(?list), str(wd:), "")) as ?listItem) where {
+      include %places optional {
+        {
+          ?list wdt:P31 wd:Q13406463; p:P360 ?s; ^schema:about/schema:isPartOf <https://de.wikipedia.org/>.
+          ?s (pq:P131|pq:P17)/^wdt:P17?/^wdt:P131* ?place; ps:P360 wd:Q26703203. minus { ?s pq:P1011/^wdt:P131* ?place. }
+        } union { ?list wdt:P31 wd:Q33532284; p:P360 [ pq:P131|pq:P276|pq:P8138 ?place; ps:P360 wd:Q26703203 ]; ^schema:about/schema:isPartOf <https://de.wikipedia.org/>. }
+      }
+    }
+    group by ?place
+  }
+}

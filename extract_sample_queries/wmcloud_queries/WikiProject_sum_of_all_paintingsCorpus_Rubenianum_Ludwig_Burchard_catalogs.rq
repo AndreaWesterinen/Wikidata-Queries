@@ -1,0 +1,7 @@
+SELECT ?item (COUNT(DISTINCT ?work) AS ?count) WHERE {
+  ?work p:P528 ?catalogstatement .
+  ?catalogstatement ps:P528 ?catcode . 
+  ?catalogstatement pq:P972 ?item .
+  ?item wdt:P361  wd:Q18611048 .  
+  } GROUP BY ?item
+ORDER BY DESC(?count)

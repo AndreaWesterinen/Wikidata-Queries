@@ -1,0 +1,16 @@
+SELECT ?item (COUNT(DISTINCT ?artwork) AS ?count) (SUM(?hasOneImg) as ?nbImg) 
+    (MAX(IF(BOUND(?oneNumId),?oneNumId,0)) as ?maxId) {
+{ SELECT ?item (MAX(?numId) as ?oneNumId) ?artwork (SAMPLE(?hasImg) as ?hasOneImg) {
+   ?artwork wdt:P31 wd:Q3305213 . 
+   ?item wdt:P31/wdt:P279* wd:Q47114558.
+  ?artwork p:P528 ?catalogstatement .
+  ?catalogstatement ps:P528 ?catalogid . 
+  ?catalogstatement pq:P972/wdt:P361* ?item .
+  OPTIONAL { ?artwork wdt:P18 ?img }
+  BIND(IF(BOUND(?img),1,0) as ?hasImg) .
+  BIND(xsd:integer(REPLACE(?catalogid,"^[A-Z]* ?([0-9]+).*","$1")) as ?cId) .
+  BIND(IF(BOUND(?cId),?cId,0) as ?numId)
+  } GROUP BY ?item ?artwork
+} } GROUP BY ?item
+HAVING (?count > 20)
+ORDER BY DESC(?count)

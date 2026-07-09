@@ -1,0 +1,5 @@
+SELECT ?item WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P108 wd:Q1065414.
+  FILTER((LANG(?label)) = "nl" && CONTAINS(?label, "("))
+}

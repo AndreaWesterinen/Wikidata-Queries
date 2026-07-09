@@ -1,0 +1,9 @@
+SELECT ?person ?label (LANG(?label) AS ?lang)
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          rdfs:label ?label.
+  FILTER(LANG(?label) IN ("en", "es", "fr", "de")). # tweak to taste
+  FILTER(CONTAINS(?label, "(")).
+}
+LIMIT 10

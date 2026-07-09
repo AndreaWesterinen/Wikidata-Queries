@@ -1,0 +1,10 @@
+SELECT ?person ?personLabel ?artukLabel ?ULANLabel ?OBINLabel
+WHERE {
+ 
+  ?person wdt:P1367 ?dummy1.
+  
+  OPTIONAL{?person wdt:P1367 ?artuk .} 
+  OPTIONAL{?person wdt:P245 ?ULAN .} 
+  OPTIONAL{?person wdt:P1415 ?OBIN .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

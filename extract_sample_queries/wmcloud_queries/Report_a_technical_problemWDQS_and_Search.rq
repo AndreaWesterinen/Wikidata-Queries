@@ -1,0 +1,35 @@
+#Title: Articles de la Wikipédia en français (hors Portail) avec un badge « bon article » sur Wikidata non catégorisés dans la catégorie « Bon article » sur frwiki 
+SELECT ?item 
+with {
+      select ?item {
+        SERVICE wikibase:mwapi {
+       bd:serviceParam wikibase:endpoint "fr.wikipedia.org"; 
+                       wikibase:api "Generator";
+                       mwapi:generator "categorymembers"; 
+                       mwapi:gcmtitle "Catégorie:Bon_article";. 
+       ?item wikibase:apiOutputItem mwapi:item.
+       
+      }
+       
+    }
+} as %category
+     
+WHERE {
+
+  {
+     {
+        ?article schema:about ?item ;
+             schema:isPartOf <https://fr.wikipedia.org/> ;
+             wikibase:badge wd:Q17437798 .
+        filter not exists {
+             ?item wdt:P31 wd:Q4663903 # exclusion des portails
+        }
+     }
+  
+    minus {
+      include %category
+    }
+  } #union {
+    #  bind ( wd:Q28838171 as ?item) # contournement du bug actuel de listeria qui n’aime pas les listes qui deviennent vide et ne met plus à jour
+  #} 
+} order by ?item

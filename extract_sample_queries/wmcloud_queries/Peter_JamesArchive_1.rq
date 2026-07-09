@@ -1,0 +1,23 @@
+SELECT *
+{ VALUES ?item1 { 
+          wd:Q93824910
+          wd:Q93824911
+          wd:Q93824913
+          wd:Q93824916
+          wd:Q93824917
+          wd:Q93824919
+          }
+ VALUES ?item2 { 
+          wd:Q93824910
+          wd:Q93824911
+          wd:Q93824913
+          wd:Q93824916
+          wd:Q93824917
+          wd:Q93824919
+          }
+  ?item1 wdt:P528 ?a .
+  ?item2 wdt:P528 ?a .
+  BIND( xsd:integer( STRAFTER( STR( ?item1 ), STR( wd:Q ) ) ) AS ?num1 ) .
+  BIND( xsd:integer( STRAFTER( STR( ?item2 ), STR( wd:Q ) ) ) AS ?num2 ) .
+  FILTER( ?num1 > ?num2 ) 
+}

@@ -1,0 +1,13 @@
+embed.html#SELECT ?item ?itemLabel ?property ?propertyLabel ?targetLabel WHERE {
+  {
+    SELECT ?item ?property WHERE {
+      ?property wikibase:claim ?p;
+        wikibase:statementProperty ?ps.
+      ?st ?ps wd:Q51845238.
+      ?item ?p ?st.
+    }
+  }
+  BIND(wd:Q51845238 AS ?target)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+}
+ORDER BY (?property)

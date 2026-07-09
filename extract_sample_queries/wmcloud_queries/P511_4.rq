@@ -1,0 +1,10 @@
+#title: Items with an English label starting with "Sir " would generally have this property
+# Complex constraint from [[Property talk:P511]]
+# Add statement with value [[d:Q209690|Sir <small>(Q209690)</small>]] if applicable
+SELECT ?item ?l WHERE 
+{  
+  ?item wdt:P31 wd:Q5 ; rdfs:label ?l . 
+  FILTER( REGEX(?l, "^Sir .*$") && lang(?l)="en" )
+  MINUS { ?item wdt:P511 wd:Q209690 }
+}
+LIMIT 5

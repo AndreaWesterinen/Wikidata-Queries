@@ -1,0 +1,14 @@
+#Campsites in Härnösand Municipality
+SELECT DISTINCT ?item ?itemLabel ?adminLabel ?coor ?pic
+WHERE 
+{
+  ?item wdt:P31 wd:Q832778; #campsite
+        wdt:P17 wd:Q34;
+        wdt:P131 wd:Q209634;
+        wdt:P625 ?coor;
+        wdt:P131 ?admin;
+  
+  OPTIONAL 
+  {?item wdt:P18 ?pic.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,sv". }
+}

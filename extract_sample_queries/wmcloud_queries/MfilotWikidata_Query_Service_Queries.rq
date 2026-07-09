@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel ?zeitpunkt ?typLabel ?beteiligte ?überlebende ?verletzte ?tote
+WHERE {
+  ?item wdt:P31 wd:Q3002150.
+  OPTIONAL {?item wdt:P585 ?zeitpunkt}.
+  OPTIONAL {?item wdt:P121 ?typ}.
+  OPTIONAL {?item wdt:P1132 ?beteiligte}.
+  OPTIONAL {?item wdt:P1561 ?überlebende}.
+  OPTIONAL {?item wdt:P1339 ?verletzte}.
+  OPTIONAL {?item wdt:P1120 ?tote}.
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "de,fr" . 
+	 }
+ }
+ ORDER BY DESC (?zeitpunkt)

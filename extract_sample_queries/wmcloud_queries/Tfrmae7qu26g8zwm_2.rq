@@ -1,0 +1,7 @@
+SELECT ?document ?documentLabel (COUNT(?signatory) AS ?count) WHERE {
+  ?document wdt:P1891 ?signatory.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en", "fr", "he", "pt", "id". }
+}
+GROUP BY ?document ?documentLabel
+HAVING(?count > 1)
+ORDER BY DESC(?count)

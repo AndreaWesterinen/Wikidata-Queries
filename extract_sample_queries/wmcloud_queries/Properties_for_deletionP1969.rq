@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item p:P1969 ?statement0.
+      ?statement0 (ps:P1969) _:anyValueP1969.
+      MINUS {
+        ?item p:P9463 ?statement1.
+        ?statement1 (ps:P9463) _:anyValueP9463.
+      }
+    }
+    LIMIT 100
+  }
+}

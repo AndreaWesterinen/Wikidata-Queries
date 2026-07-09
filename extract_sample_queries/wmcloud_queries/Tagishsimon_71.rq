@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?itemDescription ?date
+WHERE 
+{
+  ?item wdt:P7659 [].
+  ?item schema:dateModified ?date .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by desc(?date)

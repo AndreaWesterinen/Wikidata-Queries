@@ -1,0 +1,1 @@
+SELECT ?value { ?item wdt:P5086 ?value}

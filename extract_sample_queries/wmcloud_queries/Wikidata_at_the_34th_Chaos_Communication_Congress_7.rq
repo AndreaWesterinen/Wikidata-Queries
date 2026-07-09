@@ -1,0 +1,26 @@
+embed.html## awards received by more women than men
+SELECT ?award (SAMPLE(?label) AS ?awardLabel) ?women ?men WITH {
+  SELECT ?award (SUM(?woman) AS ?women) (SUM(?man) AS ?men) WHERE {
+    ?person wdt:P31 wd:Q5;
+            p:P166/ps:P166 ?award.
+    { ?person wdt:P21 wd:Q6581097. BIND(1 AS ?man). } UNION
+    { ?person wdt:P21 wd:Q2449503. BIND(1 AS ?man). } UNION
+    { ?person wdt:P21 wd:Q6581072. BIND(1 AS ?woman). } UNION
+    { ?person wdt:P21 wd:Q1052281. BIND(1 AS ?woman). }
+  }
+  GROUP BY ?award
+  HAVING(
+    # more women than men
+    ?women > ?men &&
+    # but exclude women-only awards
+    ?men > 0
+  )
+} AS %results WHERE {
+  INCLUDE %results.
+  OPTIONAL { ?award wdt:P1448 ?officialName. }
+  OPTIONAL { ?award rdfs:label ?enLabel. FILTER(LANG(?enLabel) = "en"). }
+  OPTIONAL { ?award rdfs:label ?anyLabel. }
+  BIND(COALESCE(?officialName, ?enLabel, ?anyLabel) AS ?label).
+}
+GROUP BY ?award ?women ?men
+ORDER BY STR(?awardLabel)

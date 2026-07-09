@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel  ?sitelinks ?dir ?country ?operator (year(?alapit) as ?kezd) (year(?megszunt) as ?bezar) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  { ?item wdt:P31 wd:Q372690 }  UNION { ?item wdt:P31 wd:Q7843791 }.
+  FILTER (?item NOT IN (wd:Q372690, wd:Q1783003, wd:Q23891529, wd:Q24868622, wd:Q80905563)) .
+  FILTER (NOT EXISTS { ?item wdt:P31 wd:Q80905563.})
+  ?item wikibase:sitelinks ?sitelinks.
+  OPTIONAL { ?item wdt:P571 ?alapit. }
+  OPTIONAL { ?item wdt:P576 ?megszunt. }
+  OPTIONAL { ?item wdt:P17 ?country . }
+  OPTIONAL { ?item wdt:P137 ?operator . }
+  OPTIONAL { ?item wdt:P1037 ?dir. }
+}
+ORDER BY BOUND(?sitelinks ) DESC(?sitelinks )
+LIMIT 200

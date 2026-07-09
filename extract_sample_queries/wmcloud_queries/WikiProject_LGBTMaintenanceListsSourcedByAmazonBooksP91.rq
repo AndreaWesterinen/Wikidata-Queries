@@ -1,0 +1,6 @@
+SELECT ?item ?ref WHERE {
+  ?item p:P91 ?orientation .
+  ?orientation prov:wasDerivedFrom ?refnode .
+  ?refnode pr:P854 ?ref .
+  FILTER(REGEX(STR(?ref), "amazon", ""))
+}

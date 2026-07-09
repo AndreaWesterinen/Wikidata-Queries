@@ -1,0 +1,12 @@
+#title: Episodes generally have this property
+# Complex constraint from [[Property talk:P4908]]
+# Episodes of television series with multiple seasons generally have this property. Limited to 500.
+SELECT ?item ?itemLabel ?seriesLabel WHERE 
+{
+	?item wdt:P31 wd:Q21191270 ; wdt:P179 ?series . 
+	?series wdt:P2437 ?seasons .
+	FILTER ( xsd:integer(?seasons) > 1 ) .
+	FILTER NOT EXISTS { ?item wdt:P4908 [] } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,it,es" }
+}
+LIMIT 500

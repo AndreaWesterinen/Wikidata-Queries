@@ -1,0 +1,15 @@
+# Integers that are a subclass of something.
+SELECT * WHERE {
+  SELECT
+    (SAMPLE(?item) as ?item)
+    (SAMPLE(?en_label) as ?name)
+    (GROUP_CONCAT(DISTINCT ?en_class_label; SEPARATOR = ", ") AS ?classes)
+  WHERE {
+    ?item p:P31/ps:P31/wdt:P279* wd:Q11563.
+    ?item p:P279/ps:P279 ?class.
+    OPTIONAL {?item rdfs:label ?en_label. FILTER(LANG(?en_label) = "en")}
+    OPTIONAL {?class rdfs:label ?en_class_label. FILTER(LANG(?en_class_label) = "en")}
+  }
+  GROUP BY ?item
+}
+ORDER BY DESC(?name)

@@ -1,0 +1,9 @@
+SELECT (?castmember AS ?item) ?movie ?MovieMeter_identificatiecode_voor_persoon ?TMDb_identificatiecode_voor_persoon WHERE {
+  ?movie wdt:P345 ?imdbmovie;
+    wdt:P161 ?castmember.
+  OPTIONAL { ?castmember wdt:P345 ?imdbcast. }
+  FILTER(!(BOUND(?imdbcast)))
+  OPTIONAL { ?castmember wdt:P9463 ?MovieMeter_identificatiecode_voor_persoon. }
+  OPTIONAL { ?castmember wdt:P4985 ?TMDb_identificatiecode_voor_persoon. }
+}
+LIMIT 1000

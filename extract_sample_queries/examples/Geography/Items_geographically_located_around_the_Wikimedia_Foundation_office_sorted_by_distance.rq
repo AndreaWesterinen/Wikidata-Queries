@@ -1,3 +1,4 @@
+#title: Items geographically located around the Wikimedia Foundation office, sorted by distance
 SELECT ?place ?location ?distance ?placeLabel WHERE {
     SERVICE wikibase:around {
       ?place wdt:P625 ?location .

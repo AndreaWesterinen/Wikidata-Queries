@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?gamesClass ?year (COUNT(DISTINCT ?discipline) AS ?disciplines) (COUNT(DISTINCT ?event) AS ?events) ?SR_events ((?SR_events - ?events) AS ?missing_events) WHERE {
+  VALUES (?item ?SR_events) {
+    (wd:Q8080 43) (wd:Q8088 95) (wd:Q8098 95) (wd:Q8105 74) (wd:Q8111 109) (wd:Q8118 107) (wd:Q8123 0) (wd:Q8128 160) (wd:Q8132 130) (wd:Q8138 120) (wd:Q8143 126) (wd:Q8150 143) (wd:Q8368 0) (wd:Q8376 0) (wd:Q8403 149) (wd:Q8407 149) (wd:Q8411 145) (wd:Q8415 150) (wd:Q8420 163) (wd:Q8429 172) (wd:Q8438 195) (wd:Q8444 198) (wd:Q8450 203) (wd:Q8456 221) (wd:Q8470 237) (wd:Q8488 257) (wd:Q8531 271) (wd:Q8544 300) (wd:Q8558 301) (wd:Q8567 302) (wd:Q8577 302) (wd:Q8613 306) (wd:Q181278 339) (wd:Q995653 0) (wd:Q1451505 0) (wd:Q31039462 0)
+    (wd:Q9583 17) (wd:Q9591 13) (wd:Q9596 14) (wd:Q9600 17) (wd:Q9607 0) (wd:Q9613 0) (wd:Q9615 22) (wd:Q9623 22) (wd:Q9632 24) (wd:Q9634 27) (wd:Q9636 34) (wd:Q9642 35) (wd:Q9646 35) (wd:Q9651 37) (wd:Q9652 38) (wd:Q9657 39) (wd:Q9658 46) (wd:Q9660 57) (wd:Q9663 61) (wd:Q9664 68) (wd:Q9668 78) (wd:Q9672 84) (wd:Q9674 86) (wd:Q9678 98) (wd:Q9680 102) (wd:Q193074 109) (wd:Q4630399 0)
+  }
+  VALUES ?gamesClass { wd:Q159821 wd:Q82414 }
+  ?item wdt:P31 ?gamesClass .
+  OPTIONAL {
+    { ?discipline wdt:P361 ?item; wdt:P31 wd:Q26132862 } UNION { ?item wdt:P527 ?discipline . ?discipline wdt:P31 wd:Q26132862 }
+    OPTIONAL {
+      { ?event wdt:P361 ?discipline; wdt:P31 wd:Q18536594 } UNION { ?discipline wdt:P527 ?event . ?event wdt:P31 wd:Q18536594 }
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?item ?itemLabel ?gamesClass ?year ?SR_events

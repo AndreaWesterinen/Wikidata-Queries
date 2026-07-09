@@ -1,6 +1,6 @@
-# ----
+#title: Lexemes that meann (liquid) water, ordered by language
 # By So9q
-# Lexemes that means (liquid) water
+
 SELECT ?l ?sense ?lemma ?languageLabel WHERE {
   ?l a ontolex:LexicalEntry ; # get from the special LexicalEntry
        ontolex:sense ?sense ; # the sense

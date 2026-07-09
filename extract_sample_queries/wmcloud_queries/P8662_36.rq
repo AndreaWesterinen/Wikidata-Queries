@@ -1,0 +1,11 @@
+#title: Missing short name on P170 value
+# Complex constraint from [[Property talk:P8662]]
+#
+SELECT DISTINCT ?item (COUNT(*) as ?count) (SAMPLE(?rose) as ?sample_rose) (SAMPLE(?id) as ?sample_id)
+WHERE
+{
+	?rose wdt:P8662 ?id ; wdt:P170 ?item . 
+    FILTER NOT EXISTS { ?item wdt:P1813 [] } 
+}
+GROUP BY ?item
+ORDER BY DESC(?count)

@@ -1,0 +1,1 @@
+SELECT (COUNT(*) as ?ct1) (COUNT(DISTINCT ?person) as ?ct2) (COUNT(DISTINCT ?relative) as ?ct3) {  ?person (wdt:P22|wdt:P25) ?parent . { ?parent wdt:P3373 ?relative } UNION { ?parent wdt:P3373/wdt:P26 ?relative } . ?relative wdt:P21 wd:Q6581097 . ?person wdt:P31 wd:Q5 . ?relative wdt:P31 wd:Q5 } 

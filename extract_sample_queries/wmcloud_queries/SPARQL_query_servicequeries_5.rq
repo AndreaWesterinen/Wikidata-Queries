@@ -1,0 +1,23 @@
+#Women scientist born in Scotland
+
+SELECT distinct ?item ?itemLabel ?dob ?occupationLabel
+WHERE
+{
+  
+  	{#start subquery------ #Using a sub query for this large list part of the query stops it from timing out
+    SELECT ?item
+  		WHERE {           
+    	?item wdt:P106/wdt:P279* wd:Q901 . #all people with occupation scientist or any subclass of
+  		}
+  	}#end subquery------
+  
+  ?item wdt:P19/wdt:P131* wd:Q22 . 	#born anywhere in Scotland (or towns cities within)
+  ?item wdt:P31 wd:Q5 . 			#humans
+  ?item wdt:P21 wd:Q6581072 .		#female
+  ?item wdt:P106 ?occupation .		#get the occupation
+  OPTIONAL { ?item wdt:P569 ?dob  } #get the dob (if there is one)
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr,it" }
+}
+
+ORDER BY ?dob

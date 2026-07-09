@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel (LANG(?itemLabel) AS ?itemLabelLang) WHERE {
+  ?item wdt:P4887 ?id .
+  ?item rdfs:label ?itemLabel .
+  FILTER(REGEX(STR(?itemLabel), "^.+st\\.$")) .
+  } LIMIT 2500

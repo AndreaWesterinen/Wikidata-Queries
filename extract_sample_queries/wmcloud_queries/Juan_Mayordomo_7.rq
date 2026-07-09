@@ -1,0 +1,10 @@
+#defaultView:ImageGrid
+SELECT ?imagen ?casa_consistorial ?ubicaci_n ?ubicaci_nLabel ?situado_en_la_entidad_territorial_administrativa ?situado_en_la_entidad_territorial_administrativaLabel ?casa_consistorialLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+  ?casa_consistorial wdt:P31 wd:Q22996476.
+  ?casa_consistorial wdt:P17 wd:Q29.
+  OPTIONAL { ?casa_consistorial wdt:P18 ?imagen. }
+           { ?casa_consistorial wdt:P276 ?ubicaci_n. }
+  OPTIONAL { ?casa_consistorial wdt:P131 ?situado_en_la_entidad_territorial_administrativa. }
+}
+ORDER BY ?situado_en_la_entidad_territorial_administrativaLabel

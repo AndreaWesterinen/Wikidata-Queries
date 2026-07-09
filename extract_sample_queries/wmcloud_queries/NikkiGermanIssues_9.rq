@@ -1,0 +1,6 @@
+select distinct (?l as ?item) (concat(replace(str(?l),str(wd:),"{{L|"),"}}") as ?l_) {
+  wd:P8376 p:P2302 [ ps:P2302 wd:Q21502404; pq:P1793 ?regex ].
+  ?l p:P8376/ps:P8376 ?duden;
+     wikibase:lemma ?lemma.
+  filter (!regex(str(?duden), concat("^", ?regex, "$"))).
+} order by ?lemma

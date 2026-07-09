@@ -1,0 +1,6 @@
+embed.html#SELECT DISTINCT
+?p ?idLabel
+(GROUP_CONCAT( DISTINCT ?topicLabel; SEPARATOR = ", ") as ?topics)
+WHERE {
+  
+  VALUES ?topics_of_interest {wd:'

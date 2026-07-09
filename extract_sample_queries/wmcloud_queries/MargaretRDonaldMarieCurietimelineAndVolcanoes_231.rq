@@ -1,0 +1,7 @@
+# articles with AFD_Pub_id s
+SELECT ?item  ?itemLabel ?afd_pub_id WHERE {
+  
+  ?item wdt:P6982 ?afd_pub_id.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+  } 
+ORDER BY ?item ?itemLabel ?afd_pub_id

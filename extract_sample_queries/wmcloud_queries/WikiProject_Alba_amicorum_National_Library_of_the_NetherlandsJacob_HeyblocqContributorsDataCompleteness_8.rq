@@ -1,0 +1,208 @@
+#Overview of all registered external identifier values for contributors to the AA JH
+SELECT DISTINCT *
+WHERE { 
+  BIND(wd:Q72752496 as ?album)
+  ?album wdt:P767 ?contributor.
+  #MINUS {?contributor wdt:P1006 "06866558X"} #Excluding Rembrandt
+
+  OPTIONAL{?contributor wdt:P213 ?213.} #ISNI
+  OPTIONAL{?contributor wdt:P214 ?214.} #VIAF ID
+  OPTIONAL{?contributor wdt:P227 ?227.} #GND ID
+  OPTIONAL{?contributor wdt:P244 ?244.} #Library of Congress authority ID
+  OPTIONAL{?contributor wdt:P245 ?245.} #ULAN ID
+  OPTIONAL{?contributor wdt:P1005 ?1005.} #Portuguese National Library ID
+  OPTIONAL{?contributor wdt:P1006 ?1006.} #NTA ID
+  OPTIONAL{?contributor wdt:P1015 ?1015.} #NORAF ID
+  OPTIONAL{?contributor wdt:P1017 ?1017.} #BAV ID
+  OPTIONAL{?contributor wdt:P1138 ?1138.} #Kunstindeks Danmark Artist ID
+  OPTIONAL{?contributor wdt:P1150 ?1150.} #Regensburg Classification
+  OPTIONAL{?contributor wdt:P1207 ?1207.} #NUKAT ID
+  OPTIONAL{?contributor wdt:P1233 ?1233.} #ISFDB author ID
+  OPTIONAL{?contributor wdt:P1248 ?1248.} #KulturNav-ID
+  OPTIONAL{?contributor wdt:P1263 ?1263.} #NNDB people ID
+  OPTIONAL{?contributor wdt:P1273 ?1273.} #CANTIC ID
+  OPTIONAL{?contributor wdt:P1280 ?1280.} #CONOR ID
+  OPTIONAL{?contributor wdt:P1296 ?1296.} #Gran Enciclopèdia Catalana ID
+  OPTIONAL{?contributor wdt:P1315 ?1315.} #NLA Trove ID
+  OPTIONAL{?contributor wdt:P1367 ?1367.} #Art UK artist ID
+  OPTIONAL{?contributor wdt:P1415 ?1415.} #Oxford Dictionary of National Biography ID
+  OPTIONAL{?contributor wdt:P1417 ?1417.} #Encyclopædia Britannica Online ID
+  OPTIONAL{?contributor wdt:P1422 ?1422.} #Sandrart.net person ID
+  OPTIONAL{?contributor wdt:P1430 ?1430.} #OpenPlaques subject ID
+  OPTIONAL{?contributor wdt:P1463 ?1463.} #PRDL Author ID
+  OPTIONAL{?contributor wdt:P1473 ?1473.} #Nupill Literatura Digital - Author
+  OPTIONAL{?contributor wdt:P1556 ?1556.} #zbMATH author ID
+  OPTIONAL{?contributor wdt:P1580  ?1580.}#University of Barcelona authority ID
+  OPTIONAL{?contributor wdt:P1615 ?1615.} #CLARA-ID
+  OPTIONAL{?contributor wdt:P1695 ?1695.} #NLPID (unique)
+  OPTIONAL{?contributor wdt:P1711 ?1711.} #British Museum person-institution
+  OPTIONAL{?contributor wdt:P1741 ?1741.} #GTAA ID
+  OPTIONAL{?contributor wdt:P1788 ?1788.} #DVN ID
+  OPTIONAL{?contributor wdt:P1795 ?1795.} #Smithsonian American Art Museum person/institution ID
+  OPTIONAL{?contributor wdt:P1802 ?1802.} #EMLO person ID
+  OPTIONAL{?contributor wdt:P1816 ?1816.} #National Portrait Gallery (London) person ID
+  OPTIONAL{?contributor wdt:P1819 ?1819.} #genealogics.org person ID
+  OPTIONAL{?contributor wdt:P1842 ?1842.} #Global Anabaptist Mennonite Encyclopedia Online ID
+  OPTIONAL{?contributor wdt:P1871 ?1871.} #CERL ID
+  OPTIONAL{?contributor wdt:P1882 ?1882.} #Web Gallery of Art ID
+  OPTIONAL{?contributor wdt:P1899 ?1899.} #LibriVox author ID
+  OPTIONAL{?contributor wdt:P1901 ?1901.} #BALaT person/organisation id
+  OPTIONAL{?contributor wdt:P1938 ?1938.} #Project Gutenberg author ID
+  OPTIONAL{?contributor wdt:P1953 ?1953.} #Discogs artist ID
+  OPTIONAL{?contributor wdt:P2011 ?2011.} #Cooper-Hewitt Person ID
+  OPTIONAL{?contributor wdt:P2016 ?2016.} #Catalogus Professorum Academiae Groninganae id
+  OPTIONAL{?contributor wdt:P2018 ?2018.} #Teuchos ID
+  OPTIONAL{?contributor wdt:P2041 ?2041.} #National Gallery of Victoria artist ID
+  OPTIONAL{?contributor wdt:P2042 ?2042.} #Artsy artist ID
+  OPTIONAL{?contributor wdt:P2163 ?2163.} #FAST ID
+  OPTIONAL{?contributor wdt:P2174 ?2174.} #Museum of Modern Art artist ID
+  OPTIONAL{?contributor wdt:P2188 ?2188.} #BiblioNet author ID
+  OPTIONAL{?contributor wdt:P2252 ?2252.} #National Gallery of Art artist ID
+  OPTIONAL{?contributor wdt:P2342 ?2342.} #AGORHA person/institution ID
+  OPTIONAL{?contributor wdt:P2349 ?2349.} #Stuttgart Database of Scientific Illustrators ID
+  OPTIONAL{?contributor wdt:P2381 ?2381.} #Academic Tree ID
+  OPTIONAL{?contributor wdt:P2401 ?2401.} #Six Degrees of Francis Bacon ID
+  OPTIONAL{?contributor wdt:P2431 ?2431.} #Thyssen-Bornemisza artist ID
+  OPTIONAL{?contributor wdt:P2432 ?2432.} #J. Paul Getty Museum artist id
+  OPTIONAL{?contributor wdt:P2435 ?2435.} #PORT person ID
+  OPTIONAL{?contributor wdt:P2469 ?2469.} #Theatricalia person ID
+  OPTIONAL{?contributor wdt:P2492 ?2492.} #MTMT author ID
+  OPTIONAL{?contributor wdt:P2533 ?2533.} #WomenWriters ID
+  OPTIONAL{?contributor wdt:P2538 ?2538.} #Nationalmuseum Sweden artist ID
+  OPTIONAL{?contributor wdt:P2604 ?2604.} #Kinopoisk person ID
+  OPTIONAL{?contributor wdt:P2639 ?2639.} #Filmportal ID
+  OPTIONAL{?contributor wdt:P268 ?268.} #Bibliothèque nationale de France ID
+  OPTIONAL{?contributor wdt:P269 ?269.} #SUDOC authorities ID
+  OPTIONAL{?contributor wdt:P271 ?271.} #CiNii author ID (books)
+  OPTIONAL{?contributor wdt:P2741 ?2741.} #Tate artist ID
+  OPTIONAL{?contributor wdt:P2799 ?2799.} #BVMC person ID
+  OPTIONAL{?contributor wdt:P2843 ?2843.} #Benezit ID
+  OPTIONAL{?contributor wdt:P2861 ?2861.} #Leidse Hoogleraren ID
+  OPTIONAL{?contributor wdt:P2862 ?2862.} #Catalogus Professorum Academiae Rheno-Traiectinae ID
+  OPTIONAL{?contributor wdt:P2886 ?2886.} #Shakeosphere person ID
+  OPTIONAL{?contributor wdt:P2915 ?2915.} #ECARTICO person ID
+  OPTIONAL{?contributor wdt:P2924 ?2924.} #Great Russian Encyclopedia Online ID
+  OPTIONAL{?contributor wdt:P2949 ?2949.} #WikiTree person ID
+  OPTIONAL{?contributor wdt:P2977 ?2977.} #LBT person ID
+  OPTIONAL{?contributor wdt:P3029 ?3029.} #UK National Archives ID
+  OPTIONAL{?contributor wdt:P3065 ?3065.} #RERO ID
+  OPTIONAL{?contributor wdt:P3154 ?3154.} #Runeberg author ID
+  OPTIONAL{?contributor wdt:P3219 ?3219.} #Encyclopædia Universalis ID
+  OPTIONAL{?contributor wdt:P3222 ?3222.} #NE.se ID
+  OPTIONAL{?contributor wdt:P3241 ?3241.} #Catholic Encyclopedia ID
+  OPTIONAL{?contributor wdt:P3348 ?3348.} #National Library of Greece ID
+  OPTIONAL{?contributor wdt:P3365 ?3365.} #Treccani ID
+  OPTIONAL{?contributor wdt:P3372 ?3372.} #Auckland Art Gallery artist ID
+  OPTIONAL{?contributor wdt:P3417 ?3417.} #Quora topic ID
+  OPTIONAL{?contributor wdt:P3429 ?3429.} #Electronic Enlightenment ID
+  OPTIONAL{?contributor wdt:P3430 ?3430.} #SNAC Ark ID
+  OPTIONAL{?contributor wdt:P345 ?345.}   #IMDb ID
+  OPTIONAL{?contributor wdt:P349 ?349.}   #National Diet Library Auth ID
+  OPTIONAL{?contributor wdt:P3544 ?3544.} #Te Papa person ID
+  OPTIONAL{?contributor wdt:P3569 ?3569.} #Cultureel Woordenboek ID
+  OPTIONAL{?contributor wdt:P3603 ?3603.} #Minneapolis Institute of Art constituent ID
+  OPTIONAL{?contributor wdt:P3630 ?3630.} #Babelio author ID
+  OPTIONAL{?contributor wdt:P3762 ?3762.} #openMLOL author ID
+  OPTIONAL{?contributor wdt:P3782 ?3782.} #Artnet artist ID
+  OPTIONAL{?contributor wdt:P3888 ?3888.} #Boijmans artist ID
+  OPTIONAL{?contributor wdt:P3919 ?3919.} #contributed to creative work
+  OPTIONAL{?contributor wdt:P396 ?396.}   #SBN author ID
+  OPTIONAL{?contributor wdt:P3965 ?3965.} #Bridgeman artist ID
+  OPTIONAL{?contributor wdt:P3987 ?3987.} #SHARE Catalogue author ID
+  OPTIONAL{?contributor wdt:P4025 ?4025.} #Pinakothek artist ID
+  OPTIONAL{?contributor wdt:P4081 ?4081.} #BHL creator ID
+  OPTIONAL{?contributor wdt:P409 ?409.}   #Libraries Australia ID
+  OPTIONAL{?contributor wdt:P4145 ?4145.} #Athenaeum person ID
+  OPTIONAL{?contributor wdt:P4169 ?4169.} #YCBA agent ID
+  OPTIONAL{?contributor wdt:P4177 ?4177.} #Finnish National Gallery artist ID
+  OPTIONAL{?contributor wdt:P4200 ?4200.} #Christie's creator ID
+  OPTIONAL{?contributor wdt:P4223 ?4223.} #Enciclopedia Italiana ID
+  OPTIONAL{?contributor wdt:P434 ?434.} #MusicBrainz artist ID
+  OPTIONAL{?contributor wdt:P4342 ?4342.} #Store norske leksikon ID
+  OPTIONAL{?contributor wdt:P4359 ?4359.} #gravsted.dk ID
+  OPTIONAL{?contributor wdt:P4399 ?4399.} #Enciclopédia Itaú Cultural ID
+  OPTIONAL{?contributor wdt:P4431 ?4431.} #Google Doodle
+  OPTIONAL{?contributor wdt:P4491 ?4491.} #Isidore ID
+  OPTIONAL{?contributor wdt:P4539 ?4539.} #Collective Biographies of Women ID
+  OPTIONAL{?contributor wdt:P4553 ?4553.} #RA Collections ID
+  OPTIONAL{?contributor wdt:P4563 ?4563.} #Art Museum of Estonia artist ID
+  OPTIONAL{?contributor wdt:P4581 ?4581.} #Städel Museum artist ID
+  OPTIONAL{?contributor wdt:P4629 ?4629.} #Online Books Page author ID
+  OPTIONAL{?contributor wdt:P4808 ?4808.} #Royal Academy new identifier
+  OPTIONAL{?contributor wdt:P4823 ?4823.} #American National Biography ID
+  OPTIONAL{?contributor wdt:P4887 ?4887.} #Web umenia creator ID
+  OPTIONAL{?contributor wdt:P4889 ?4889.} #MuIS person or grouPID
+  OPTIONAL{?contributor wdt:P4927 ?4927.} #Invaluable.com person ID
+  OPTIONAL{?contributor wdt:P5019 ?5019.} #Brockhaus Enzyklopädie online ID
+  OPTIONAL{?contributor wdt:P5034 ?5034.} #National Library of Korea Identifier
+  OPTIONAL{?contributor wdt:P5068 ?5068.} #Flanders Arts Institute person ID
+  OPTIONAL{?contributor wdt:P5101 ?5101.} #Swedish Literature Bank AuthorID
+  OPTIONAL{?contributor wdt:P5271 ?5271.} #Saint Louis Art Museum person ID
+  OPTIONAL{?contributor wdt:P5273 ?5273.} #Nelson-Atkins Museum of Art person ID
+  OPTIONAL{?contributor wdt:P5321 ?5321.} #Museo del Prado artist ID
+  OPTIONAL{?contributor wdt:P535 ?535.} #Find A Grave memorial ID
+  OPTIONAL{?contributor wdt:P5357 ?5357.} #The Encyclopedia of Science Fiction ID
+  OPTIONAL{?contributor wdt:P5361 ?5361.} #BNB person ID
+  OPTIONAL{?contributor wdt:P5368 ?5368.} #National Gallery of Canada artist ID
+  OPTIONAL{?contributor wdt:P5370 ?5370.} #Entomologists of the World ID
+  OPTIONAL{?contributor wdt:P5375 ?5375.} #BIU Santé person ID
+  OPTIONAL{?contributor wdt:P5392 ?5392.} #Poetry Archive poet ID
+  OPTIONAL{?contributor wdt:P5398 ?5398.} #TDKIV term ID
+  OPTIONAL{?contributor wdt:P5415 ?5415.} #Whonamedit? doctor ID
+  OPTIONAL{?contributor wdt:P5441 ?5441.} #Encyclopaedia Herder author ID
+  OPTIONAL{?contributor wdt:P5469 ?5469.} #Mormon Literature and Creative Arts Database artist ID
+  OPTIONAL{?contributor wdt:P5489 ?5489.} #artist-info artist ID
+  OPTIONAL{?contributor wdt:P549 ?549.} #Mathematics Genealogy Project ID
+  OPTIONAL{?contributor wdt:P5587 ?5587.} #Libris-URI
+  OPTIONAL{?contributor wdt:P5597 ?5597.} #Artcyclopedia artist ID
+  OPTIONAL{?contributor wdt:P5613 ?5613.} #Bibliothèque de la Pléiade ID
+  OPTIONAL{?contributor wdt:P5731 ?5731.} #Angelicum author ID
+  OPTIONAL{?contributor wdt:P5739 ?5739.} #PUSC author ID
+  OPTIONAL{?contributor wdt:P5882 ?5882.} #Muziekweb performer ID
+  OPTIONAL{?contributor wdt:P5905 ?5905.} #Comic Vine ID
+  OPTIONAL{?contributor wdt:P6002 ?6002.} #WikiArt ID
+  OPTIONAL{?contributor wdt:P6077 ?6077.} #British Museum bioID
+  OPTIONAL{?contributor wdt:P6156 ?6156.} #MNAV artist ID
+  OPTIONAL{?contributor wdt:P6295 ?6295.} #ARTIC artist ID
+  OPTIONAL{?contributor wdt:P6300 ?6300.} #Hymnary author ID
+  OPTIONAL{?contributor wdt:P646 ?646.} #Freebase ID
+  OPTIONAL{?contributor wdt:P648 ?648.} #Open Library ID
+  OPTIONAL{?contributor wdt:P6482 ?6482.} #Image Archive, Herder Institute
+  OPTIONAL{?contributor wdt:P650 ?650.} #RKDartists ID
+  OPTIONAL{?contributor wdt:P651 ?651.} #Biografisch Portaal number
+  OPTIONAL{?contributor wdt:P6573 ?6573.} #Klexikon article ID
+  OPTIONAL{?contributor wdt:P6578 ?6578.} #MutualArt artist ID
+  OPTIONAL{?contributor wdt:P6656 ?6656.} #BHCL ID
+  OPTIONAL{?contributor wdt:P6698 ?6698.} #Japan Search name ID
+  OPTIONAL{?contributor wdt:P6722 ?6722.} #FemBio ID
+  OPTIONAL{?contributor wdt:P6735 ?6735.} #Watercolour World artist ID
+  OPTIONAL{?contributor wdt:P6745 ?6745.} #Orlando author ID
+  OPTIONAL{?contributor wdt:P6804 ?6804.} #Art Gallery of South Australia creator ID
+  OPTIONAL{?contributor wdt:P6815 ?6815.} #University of Amsterdam Album Academicum ID
+  OPTIONAL{?contributor wdt:P6821 ?6821.} #Uppsala University Alvin ID
+  OPTIONAL{?contributor wdt:P6844 ?6844.} #abART person ID
+  OPTIONAL{?contributor wdt:P6873 ?6873.} #IntraText author ID
+  OPTIONAL{?contributor wdt:P6903 ?6903.} #ArtBrokerage artist ID
+  OPTIONAL{?contributor wdt:P6907 ?6907.} #BVLarramendi ID
+  OPTIONAL{?contributor wdt:P691 ?691.} #NKCR AUT ID
+  OPTIONAL{?contributor wdt:P6925 ?6925.} #Musicalics composer ID
+  OPTIONAL{?contributor wdt:P7032 ?7032.} #Repertorium van ambtsdragers en ambtenaren id
+  OPTIONAL{?contributor wdt:P7041 ?7041.} #Perseus author ID
+  OPTIONAL{?contributor wdt:P723 ?723.} #DBNL author ID
+  OPTIONAL{?contributor wdt:P7400 ?7400.} #LibraryThing author ID
+  OPTIONAL{?contributor wdt:P7466 ?7466.} #Edvard Munch's correspondance person ID
+  OPTIONAL{?contributor wdt:P7507 ?7507.} #Ben Yehuda author ID
+  OPTIONAL{?contributor wdt:P7578 ?7578.} #DUC ID
+  OPTIONAL{?contributor wdt:P7613 ?7613.} #Biblioteche dei filosofi ID
+  OPTIONAL{?contributor wdt:P7704 ?7704.} #Europeana Entity
+  OPTIONAL{?contributor wdt:P839 ?839.} #IMSLPID
+  OPTIONAL{?contributor wdt:P863 ?863.} #InPhO ID
+  OPTIONAL{?contributor wdt:P902 ?902.} #HDS ID
+  OPTIONAL{?contributor wdt:P906 ?906.} #SELIBR ID
+  OPTIONAL{?contributor wdt:P949 ?949.} #National Library of Israel identifier
+  OPTIONAL{?contributor wdt:P950 ?950.} #Biblioteca Nacional de España ID
+   
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} 
+ORDER BY ?contributor

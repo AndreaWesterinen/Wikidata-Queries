@@ -1,0 +1,5 @@
+SELECT DISTINCT ?Treaty ?TreatyLabel WHERE {
+  ?Treaty (wdt:P31/wdt:P279*) wd:Q131569.
+  MINUS { ?Treaty wdt:P585 ?date. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

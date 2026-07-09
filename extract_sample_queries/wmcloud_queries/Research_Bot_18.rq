@@ -1,0 +1,10 @@
+# Scientific articles with English titles in brackets
+# usually from PubMed, indicating that original language was not English
+SELECT ?paper ?paperLabel ?pmid WHERE {
+    ?paper wdt:P31 wd:Q13442814;
+           wdt:P698 ?pmid;
+           rdfs:label ?paperLabel
+    FILTER(lang(?paperLabel)="en")
+    FILTER(STRSTARTS(?paperLabel, "[")).
+    FILTER(STRENDS(?paperLabel, "]")).
+} LIMIT 100

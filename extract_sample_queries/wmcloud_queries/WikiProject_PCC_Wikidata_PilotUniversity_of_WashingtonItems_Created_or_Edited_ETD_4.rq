@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel WHERE 
+{ ?thesis wdt:P279* wd:Q1266946. 
+ ?item wdt:P5008 wd:Q98970039. 
+ ?item wdt:P31 ?thesis. 
+ ?item wdt:P571 ?inception. 
+ filter (?inception > "2018-12-31"^^xsd:dateTime && ?inception < "2019-12-31"^^xsd:dateTime)
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }

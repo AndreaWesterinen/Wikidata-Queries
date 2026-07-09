@@ -1,0 +1,8 @@
+#title: Q59542487 missing P4224
+# Complex constraint from [[Property talk:P4224]]
+# [[d:Q59542487|Wikimedia category <small>(Q59542487)</small>]]s should define their membership semantics using [[Property:P4224|category contains&#32;<small dir="ltr">(P4224)</small>]] and relevant qualifiers (when applicable).
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q59542487.
+  FILTER NOT EXISTS { ?item wdt:P4224 ?category_contains. }
+}

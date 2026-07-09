@@ -1,0 +1,7 @@
+embed.html#SELECT ?chapelle ?chapelleLabel ?chapelleDescription ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?chapelle wdt:P31 wd:Q63197717.
+  ?chapelle wdt:P361 wd:Q2981.
+  OPTIONAL { ?chapelle wdt:P18 ?image. }
+}
+LIMIT 100

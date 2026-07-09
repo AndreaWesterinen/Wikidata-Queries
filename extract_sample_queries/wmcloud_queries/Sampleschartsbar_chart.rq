@@ -1,0 +1,24 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("Number of zoos with polar bears" as ?legend) 
+  ("country" as ?xAxisTitle) 
+  ("zoos" as ?yAxisTitle)
+  (GROUP_CONCAT(?country;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y)
+  ("rect" as ?type)
+  ("200" as ?height) 
+  ("400" as ?width) 
+WHERE
+{
+  { 
+    SELECT ?country (COUNT(DISTINCT ?zoo) as ?count)
+    {
+      ?zoo wdt:P1990 wd:Q33609 . 
+      ?zoo wdt:P31 wd:Q43501 .
+      ?zoo wdt:P17 / wdt:P901 ?country .
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    }
+    GROUP BY ?country
+    ORDER BY ASC(?count) ?country
+  }
+}

@@ -1,0 +1,9 @@
+#defaultView:LineChart
+# number of persons per QID (using P735=Q4925477)
+# by Jura1, 2017-08-27
+SELECT ?n (COUNT(?item)*72 as ?ct)
+{
+    ?item wdt:P735 wd:Q4925477 ; wdt:P31 wd:Q5 .
+    BIND(ROUND(xsd:integer(strafter(str(?item),"y/Q"))/1000000) as ?n)
+}
+GROUP BY ?n

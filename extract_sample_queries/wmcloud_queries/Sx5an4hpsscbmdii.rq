@@ -1,0 +1,21 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+#by Jura1, 2016-01-18
+
+SELECT DISTINCT ?age ?country ?countryLabel ?hgovernmentLabel  WHERE {
+  ?country wdt:P31 wd:Q3624078 . 
+  FILTER NOT EXISTS {?country wdt:P31 wd:Q3024240}
+  ?country p:P6 ?statement .     
+  ?statement v:P6 ?hgovernment . 
+  FILTER NOT EXISTS { ?statement q:P582 ?x }  
+  ?hgovernment wdt:P569 ?dob . BIND(YEAR(now())-YEAR(?dob) as ?age)
+  FILTER(?age>=65)
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,en" .
+  }
+ } 
+ORDER BY DESC(?age)

@@ -1,0 +1,3 @@
+SELECT ?image (count(?image) AS ?cnt) (group_concat(?item) AS ?items) {
+  ?item wdt:P18 ?image
+  } group by ?image having (?cnt>10)

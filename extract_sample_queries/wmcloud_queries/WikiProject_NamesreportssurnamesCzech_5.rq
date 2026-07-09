@@ -1,0 +1,23 @@
+SELECT ?item (GROUP_CONCAT(distinct ?value) as ?t2) (SAMPLE(?p0) as ?sample) ?count
+WITH
+{
+  SELECT ?item ?value
+  (COUNT(DISTINCT ?p) as ?count)
+  {
+    ?item wdt:P407 wd:Q9056 ;
+          wdt:P31 wd:Q101352.
+    ?p wdt:P734 ?item .
+  OPTIONAL { ?item wdt:P1705 ?string.}
+  BIND (STR(?string) as ?value)
+  }
+  GROUP BY ?item ?value
+  ORDER BY DESC(?count) ?item
+  LIMIT 50
+} as %a
+WHERE
+{
+  INCLUDE %a 
+  OPTIONAL { ?p0 wdt:P734 ?item ; wdt:P27 wd:Q213 ; wdt:P569 [] ; wdt:P570 [] ; wdt:P19 [] ; wdt:P20 []  }          
+}
+GROUP BY ?item ?count
+ORDER BY DESC(?count) ?item

@@ -1,0 +1,7 @@
+select distinct (?l as ?item) (concat(replace(str(?l),str(wd:),"{{L|"),"}}") as ?l_) {
+  ?l dct:language wd:Q188;
+     wikibase:lexicalCategory wd:Q1084;
+     wikibase:lemma ?lemma.
+  minus { ?l wdt:P5185 [] }
+  minus { ?l wdt:P31 wd:Q138246 }
+} order by ?lemma

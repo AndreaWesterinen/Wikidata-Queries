@@ -1,0 +1,7 @@
+#title: No Commons category statement
+# Complex constraint from [[Property talk:P935]]
+# Items with a statement Commons gallery, but not statement Commons category
+SELECT DISTINCT ?item {
+   ?item wdt:P935 ?gallery .
+   MINUS {?item wdt:P373 ?commonscat} .
+  }

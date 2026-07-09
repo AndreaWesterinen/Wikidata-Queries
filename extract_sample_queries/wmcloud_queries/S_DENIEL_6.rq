@@ -1,0 +1,10 @@
+#Vérifier que musée national de la Marine de Brest n'est pas utilisé dans collection
+SELECT ?item ?itemLabel ?collection ?collectionLabel
+WHERE 
+{
+  ?item wdt:P195 wd:Q3330709. # collection : collection du musée national de la Marine
+        
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    OPTIONAL{?item wdt:P195 ?collection .}       # P195  : collection
+    OPTIONAL{?itemLabel wdt:P195 ?collectionLabel .}       # P195 : Label de la collection
+}

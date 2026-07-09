@@ -1,0 +1,9 @@
+SELECT (CONCAT('-', STRAFTER(STR(?item), 'entity/')) AS ?c1) ('P91' AS ?c2) (STRAFTER(STR(?sexualOrientation), 'entity/') AS ?c3) WHERE { 
+  ?item wdt:P31 wd:Q5; p:P91 ?statementNode . 
+  ?statementNode ps:P91 ?sexualOrientation . 
+  OPTIONAL {
+    ?statementNode prov:wasDerivedFrom ?sourceNode .
+    MINUS { ?sourceNode pr:P143|pr:P4656|pr:P887|pr:P3452 [] }
+  }
+  FILTER(!BOUND(?sourceNode)) .
+}

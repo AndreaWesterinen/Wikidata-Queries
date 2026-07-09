@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?value
+{
+  ?item wdt:P6770 ?value ; wdt:P31 wd:Q5 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+  FILTER(  xsd:integer( strafter(str(?item), "Q")) > 64800000 ) 
+}

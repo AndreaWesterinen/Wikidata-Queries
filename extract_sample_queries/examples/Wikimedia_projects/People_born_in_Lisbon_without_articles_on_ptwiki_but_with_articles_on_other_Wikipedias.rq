@@ -1,4 +1,4 @@
-# ----
+#title: People born in Lisbon without articles on ptwiki but with articles on other Wikipedias
 # People born in Lisbon that don't have an article on Portuguese Wikipedia
 # but do have an article on other Wikipedias.
 SELECT DISTINCT ?person ?personLabel WHERE

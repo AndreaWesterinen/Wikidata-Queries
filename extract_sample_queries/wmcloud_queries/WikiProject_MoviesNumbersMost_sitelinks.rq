@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(distinct ?sitelink) as ?count) WHERE { VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?item wdt:P31 ?filmtype . ?sitelink <http://schema.org/about> ?item . } GROUP BY ?item HAVING (?count>40) ORDER BY DESC(?count) LIMIT 12

@@ -1,0 +1,10 @@
+SELECT ?item ?ws (COUNT(DISTINCT ?p) as ?count) (SAMPLE(?p) as ?sampleitem)
+{
+    hint:Query hint:optimizer "None".
+    ?p wdt:P1343 wd:Q16055052 .
+    ?url schema:about ?p ; schema:isPartOf ?ws . 
+    ?item wdt:P856 ?ws ; wdt:P1800 ?group .
+    ?p wdt:P31 wd:Q5 .
+}
+GROUP BY ?item ?ws
+ORDER BY DESC(?count)

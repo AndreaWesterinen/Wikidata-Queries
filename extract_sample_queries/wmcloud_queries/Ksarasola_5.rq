@@ -1,0 +1,12 @@
+#Eskulturak Donostian mapa
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?coor ?image WHERE {
+  ?item wdt:P495 ?tokia.
+  ?tokia wdt:P131* ?non.
+  wd:Q47588 wdt:P527 ?non.
+  ?item wdt:P31 wd:Q4384751.
+  OPTIONAL { ?tokia wdt:P625 ?coor. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu,es". }
+}
+ORDER BY ?itemLabel

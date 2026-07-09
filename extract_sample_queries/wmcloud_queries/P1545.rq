@@ -1,0 +1,26 @@
+SELECT ?season ?seasonNumber ?episode ?episodeLabel ?numberInSeries ?numberInSeason WHERE {
+  BIND(wd:Q3577037 AS ?series)
+  # The episode should be 'part of' the season:
+  ?episode wdt:P361 ?season ;
+  # ... and have a 'series' relationship to the series as a whole:
+           p:P179 ?episodeSeriesPropertyToSeriesStatement .
+  ?episodeSeriesPropertyToSeriesStatement ps:P179 ?series ;
+  # ... qualified by the number of that episode in the series as a whole:
+                                          pq:P1545 ?numberInSeries .
+  # The season should be an 'instance of' 'TV series',
+  ?season wdt:P31 wd:Q3464665 ;
+  # ... be 'part of' a series:
+          wdt:P361 ?series ;
+  # The season should have a 'series' relationship to the series as a whole,
+          p:P179 ?seasonSeriesPropertyToSeriesStatement .
+  ?seasonSeriesPropertyToSeriesStatement ps:P179 ?series ;
+  # ... qualified by the number of the season:
+                                        pq:P1545 ?seasonNumber .          
+  # The episode should have a 'series' relationship to the season:
+  ?episode p:P179 ?episodeSeriesPropertyToSeasonStatement .
+  ?episodeSeriesPropertyToSeasonStatement ps:P179 ?season;
+  # ... qualified by the number of that episode in the season
+                                          pq:P1545 ?numberInSeason .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY xsd:integer(?seasonNumber) xsd:integer(?numberInSeries)

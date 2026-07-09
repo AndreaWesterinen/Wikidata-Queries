@@ -1,0 +1,27 @@
+#Popular television series (in treeview)
+#added before 2016-10
+
+#defaultView:TreeMap
+SELECT ?show ?showLabel  ?season ?seasonLabel ?episode ?episodeLabel
+WHERE 
+{
+	{
+ 		BIND(wd:Q886 as ?show) .
+		?season wdt:P179 ?show .
+		?episode wdt:P4908 ?season .
+	}  
+	UNION 
+	{
+		BIND(wd:Q16538 as ?show) .
+		?season wdt:P179 ?show .
+  		?episode wdt:P4908 ?season .
+	}   
+	UNION
+	{
+		BIND(wd:Q147235 as ?show) .
+		?season wdt:P179 ?show .
+  		?episode wdt:P4908 ?season .
+	} 
+
+	SERVICE wikibase:label {  bd:serviceParam wikibase:language "en" }
+}

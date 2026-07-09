@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P2671/ps:P2671 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^((https://www\\.google\\.com/search\\?kgmid=)?/?(m/0[0-9a-zA-Z_]{2,7})(&hl)?)$") )
+}

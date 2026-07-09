@@ -1,0 +1,3 @@
+select ?person {
+  ?person wdt:P31 wd:Q5; wdt:P569 []; ^schema:about/schema:isPartOf <https://ru.wikipedia.org/>
+} GROUP BY ?person HAVING(COUNT(*)>1)

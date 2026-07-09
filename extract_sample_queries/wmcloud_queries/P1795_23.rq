@@ -1,0 +1,11 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P1795]]
+# List of works that are in [[Property:P195|collection&#32;<small dir="ltr">(P195)</small>]] [[d:Q1192305|Smithsonian American Art Museum <small>(Q1192305)</small>]] and have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]] set, but that creator doesn't have a [[Property:P1795|Smithsonian American Art Museum person/institution ID&#32;<small dir="ltr">(P1795)</small>]] link
+SELECT ?item ?creator 
+{
+	?item wdt:P195 wd:Q1192305 .
+    ?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P1795 [] } .
+	MINUS { ?item wdt:P170 wd:Q4233718 } . # Filter out anonymous
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ?creatorLabel

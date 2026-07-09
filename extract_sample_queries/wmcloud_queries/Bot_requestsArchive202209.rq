@@ -1,0 +1,8 @@
+select ?item ?s ?local ?stat ?international where {
+hint:Query hint:optimizer "None".
+?item p:P473 ?s . 
+?s ps:P473 ?local filter(contains(?local,"+")).
+?item wdt:P17 ?stat. 
+?stat wdt:P474 ?international .
+
+} ##

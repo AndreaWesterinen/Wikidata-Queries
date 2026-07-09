@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?fam_pos ?famous_author ?unid_pos 
+(CONCAT("[https://tools.wmflabs.org/author-disambiguator/names_oauth.php?name=", ENCODE_FOR_URI(?fam_label), " ", ?fam_label, "]") 
+                                AS ?famous_string)
+(CONCAT("[https://tools.wmflabs.org/author-disambiguator/names_oauth.php?name=", ENCODE_FOR_URI(?author_name), " ", ?author_name, "]") 
+                                AS ?unidentified)
+WHERE {
+  ?item p:P50 ?author_statement .
+  ?author_statement ps:P50 ?famous_author .
+  ?author_statement pq:P1545 ?fam_pos .
+  ?item p:P2093 ?author_name_statement.
+  ?author_name_statement ps:P2093 ?author_name.
+  ?author_name_statement pq:P1545 ?unid_pos.
+  ?famous_author wdt:P31 wd:Q5.
+  ?famous_author wikibase:sitelinks ?linkcount.
+  FILTER(?linkcount > 5)
+  ?famous_author rdfs:label ?fam_label .
+  FILTER (lang(?fam_label) = "en")
+
+}
+LIMIT 1000

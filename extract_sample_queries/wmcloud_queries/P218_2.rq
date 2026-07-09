@@ -1,0 +1,34 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT DISTINCT ?databaseid ?wikiLabel ?languageLabel ?langid ?wiki ?inception ?iso4 ?directionl ?iso3 ?iso1 ?iso2 ?website ?instanceofl WHERE {
+  ?wiki p:P1800/v:P1800 ?databaseid .
+  OPTIONAL { ?wiki wdt:P424  ?langid     }
+  OPTIONAL { ?wiki wdt:P571  ?inception  }
+  OPTIONAL {
+    ?wiki wdt:P1406 ?direction .
+    ?direction rdfs:label ?directionl filter (lang(?directionl) = "en")
+  }
+  OPTIONAL { ?wiki wdt:P856  ?website    }
+  OPTIONAL {
+    ?wiki wdt:P31   ?instanceof .
+    ?instanceof rdfs:label ?instanceofl filter (lang(?instanceofl) = "en")
+  }
+ 
+  ?wiki p:P407 ?statement .
+  ?statement v:P407 ?language .
+ 
+  OPTIONAL { ?language wdt:P218 ?iso1 }
+  OPTIONAL { ?language wdt:P219 ?iso2 }
+  OPTIONAL { ?language wdt:P220 ?iso3 }
+  OPTIONAL { ?wiki     wdt:P506 ?iso4 }
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+ } ORDER BY ?databaseid

@@ -1,0 +1,17 @@
+embed.html#select ?person ?personLabel ?statedinLabel ?namedAS
+{
+   hint:Query hint:optimizer "None" .
+	?person wdt:P119 wd:Q19781340. #Place of burial
+   ?person ?prop ?statement. #all props
+   {?statement prov:wasDerivedFrom ?ref}
+   OPTIONAL {?ref pr:P854 ?refURL} 
+   {?ref pr:P248 ?statedin} 
+    {?ref pr:P1810 ?namedAS} 
+   { ?ref pr:P248 wd:Q10686079}
+#   FILTER (CONTAINS(str(?refURL),'riksarkivet')) .  
+   ?property wikibase:claim ?prop .
+
+   SERVICE wikibase:label { bd:serviceParam wikibase:language "en","sv"}
+}
+Group by ?person ?personLabel ?statedin ?statedinLabel ?refURL ?namedAS ?SPAID
+Order by ?personLabel ?statedinLabel 

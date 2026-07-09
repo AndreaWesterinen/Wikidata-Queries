@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?sitelink
+WHERE
+{
+        ?item rdfs:label ?label; wdt:P31 wd:Q13406463.
+        ?sitelink schema:about  ?item; schema:inLanguage "en"; schema:isPartOf <https://en.wikipedia.org/>
+        FILTER CONTAINS(?label,"programming") .
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+LIMIT 100

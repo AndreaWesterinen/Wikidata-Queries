@@ -1,0 +1,54 @@
+#ISIL code P791
+# Is optional
+# Is unique
+# Reference URL (P854) must be https://www.gidsvoornederland.nl url
+# ISIL codes of Dutch public library branches must start with "NL-0"
+# ISIL codes of Dutch public library branches must be 13 characters long 
+# ISIL codes of Dutch public library headquarters/main offices (hoofdvestigingen, basisbibliotheken) must end with "0000"
+# Middle part of isil (?isilmiddle) must correspond with library organisation (PartOf)
+
+SELECT DISTINCT 
+?item ?itemLabel ?itemDescription
+?isil #ISIL code P791
+?isillenght
+?isilbeginCorrect # isil starts with "NL-0" //correct or not 
+?isilmiddle # characters 5 t/m 10 of the isil code
+(GROUP_CONCAT(DISTINCT ?partofLabel ; separator = " --- ") as ?PartOf) 
+?isilend #find last 4 digits of isil
+?isheadquarter #true if library is a headquarter/main office, false if library is a normal branch
+?isilRefURL ?isilRetrievedDate
+
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL{?item p:P361 [ps:P361 ?partof]. } #partof P361
+ 
+  OPTIONAL {?item p:P791 [ps:P791 ?isil]. } #ISIL code P791 
+
+  # ISIL codes of Dutch public library branches must be 13 characters long 
+  BIND(STRLEN(?isil) as ?isillenght).
+  
+  # ISIL codes of Dutch public library branches must start with "NL-0"
+  BIND(STRSTARTS(?isil,"NL-0") as ?isilbeginCorrect).
+  # characters 5 t/m 10 of the isil code
+  BIND(SUBSTR(?isil,5,5) as ?isilmiddle). # Middle part of isil (?isilmiddle) must correspond with library organisation (PartOf)
+  # ISIL codes of Dutch public library headquarters/main offices (hoofdvestigingen, basisbibliotheken) must end with "0000"
+  BIND(SUBSTR(?isil,10,4) as ?isilend). 
+  
+  #Check nu of alle vestigingen waarvan de isilcode eindigt op 0000, inderdaad hoofdvestigingen/hoofdkantoren zijn (instances of (P31)headquarters (Q7540126))
+  # --> find differences between ISIL and Administrative ISIL codes, and correct these
+  OPTIONAL{?item p:P31 ?statement.
+  ?statement ps:P31 wd:Q7540126.      
+  ?statement ps:P31 ?temp. 
+  BIND(IF(?temp = wd:Q7540126, "TRUE", "FALSE") as ?isheadquarter).}
+      
+  OPTIONAL {?item p:P791 [prov:wasDerivedFrom [pr:P854 ?isilRefURL]] .} #reference --> Reference URL P854
+  OPTIONAL {?item p:P791 [prov:wasDerivedFrom [pr:P813 ?isilRetrievedDate]].} #reference --> Retrieved date P813
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". 
+                           ?partof rdfs:label ?partofLabel.
+                           ?item rdfs:label ?itemLabel.
+                           ?item schema:description ?itemDescription.}
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?isil ?isillenght ?isilbeginCorrect ?isilmiddle ?isilend ?isheadquarter ?isilRefURL ?isilRetrievedDate
+ORDER BY ASC(?isilend)

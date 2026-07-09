@@ -1,0 +1,24 @@
+SELECT (STRAFTER( STR( ?item ), STR( wd: ) ) AS ?1) ('P31' AS ?P31) (STRAFTER( STR( ?instance ), STR( wd: ) ) AS ?2) {
+  ?item wdt:P762 [] .
+  MINUS { ?item wdt:P31 [] } .
+  ?item rdfs:label ?label FILTER( LANG( ?label ) = 'cs' ) .
+  VALUES ( ?init ?instance ) {
+    ( 'Socha' wd:Q179700 )
+    ( 'Kaple' wd:Q108325 )
+    ( 'Kostel' wd:Q16970 )
+    ( 'Sousoší' wd:Q2334148 )
+    ( 'Pomník' wd:Q4989906 )
+    ( 'Usedlost' wd:Q5890494 )
+    ( 'Kaplička' wd:Q14552192 )
+    ( 'Sýpka' wd:Q114768 )
+    ( 'Boží muka' wd:Q3395121 )
+    ( 'Smírčí kříž' wd:Q1640496 )
+    ( 'Dům' wd:Q3947 )
+    ( 'Kašna' wd:Q12029081 )
+    ( 'Smírčí kříž' wd:Q1640496 )
+    ( 'Krucifix' wd:Q2309609 )
+    ( 'Mohylník' wd:Q34023 )
+    ( 'Zvonice' wd:Q200334 )
+  } .
+  FILTER( STRSTARTS( STR( ?label ), CONCAT( ?init, ' ' ) ) || STR( ?label ) = ?init ) .
+} ORDER BY ?instance

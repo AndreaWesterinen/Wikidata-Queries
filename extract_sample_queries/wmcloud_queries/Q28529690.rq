@@ -1,0 +1,9 @@
+SELECT ?chem ?chemLabel ?mass
+WHERE
+{
+  ?chem wdt:P31 wd:Q11173;
+          wdt:P2067 ?mass;
+  FILTER(?mass < 1500 && ?mass > 1400).
+  BIND(?mass AS ?mass).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}

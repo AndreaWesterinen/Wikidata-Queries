@@ -1,0 +1,12 @@
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?pubdate
+WHERE
+{
+	?item wdt:P31 wd:Q482994.
+    ?item wdt:P175 ?group.
+    ?group wdt:P495 wd:Q668.
+    ?item wdt:P577 ?pubdate.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel ?pubdate
+#

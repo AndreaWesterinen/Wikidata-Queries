@@ -1,0 +1,11 @@
+SELECT ?item ?itemdesc 
+WHERE
+{
+  ?item wdt:P31 wd:Q7318358.
+  ?item wdt:P921 wd:Q415178.
+  ?item wdt:P921 wd:Q84263196.
+  ?item wdt:P577 ?date.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?item schema:description ?itemdesc }
+}
+ORDER BY ?date

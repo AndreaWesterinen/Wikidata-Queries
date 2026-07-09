@@ -1,0 +1,10 @@
+select ?item ?en ?et {
+# quickstatements-compatible select:
+#select (replace(str(?item), ".*/", "") as ?item2) ("Len" as ?lang) (concat("\"", ?munname, "\"") as ?desc2) {
+
+  ?item wdt:P31 wd:Q51049922 .
+  ?item rdfs:label ?en filter (lang(?en) = "en") .
+  ?item rdfs:label ?et filter (lang(?et) = "et") .
+
+  filter( xsd:string(?et) != xsd:string(?en))
+} order by ?en

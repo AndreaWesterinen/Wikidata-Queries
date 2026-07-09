@@ -1,0 +1,11 @@
+# members of the 2001-05 Parliament -659 seats.
+SELECT DISTINCT ?constituency ?constituencyLabel ?typeLabel ?start ?end ?item ?itemLabel
+{
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q35921591 . 
+ ?positionStatement pq:P768 ?constituency . 
+ OPTIONAL { ?constituency wdt:P31 ?type . }
+ OPTIONAL { ?constituency wdt:P571 ?start . }
+ OPTIONAL { ?constituency wdt:P576 ?end . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

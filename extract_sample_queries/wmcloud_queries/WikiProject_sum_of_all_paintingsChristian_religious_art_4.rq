@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?genre ?mainsubject ?religion ?depicts  WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item rdfs:label ?label .
+  FILTER(STR(?label)="Noli me tangere") .
+  OPTIONAL { ?item wdt:P136 ?genre } 
+  OPTIONAL { ?item wdt:P921 ?mainsubject }
+  OPTIONAL { ?item wdt:P140 ?religion }
+  OPTIONAL { ?item wdt:P180 ?depicts }
+  FILTER NOT EXISTS {
+    ?item wdt:P136 wd:Q2864737 . 
+    ?item wdt:P921 wd:Q124362 .
+    ?item wdt:P140 wd:Q5043 .
+    ?item wdt:P180 wd:Q302 .
+    ?item wdt:P180 wd:Q63070 .
+    }
+                 
+  
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

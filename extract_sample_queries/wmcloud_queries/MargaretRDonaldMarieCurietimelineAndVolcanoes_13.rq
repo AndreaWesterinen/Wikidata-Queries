@@ -1,0 +1,14 @@
+SELECT ?author  ?authorLabel ?paper ?genderLabel ?age_num WHERE {
+  ?paper wdt:P31 wd:Q13442814 .
+  ?paper wdt:P577 ?date .
+  ?paper wdt:P50 ?author .
+  ?author wdt:P27 wd:Q408 .
+  ?author wdt:P569 ?dob .
+  ?author wdt:P21 ?gender .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+  bind( year(?date)-year(?dob) as ?age_num )
+  FILTER(year(?date)>=1900)
+  FILTER(BOUND(?age_num))
+}

@@ -1,0 +1,11 @@
+SELECT ?use ?useLabel ?p ?item ?itemLabel
+{
+	?use ?p ?item
+  	VALUES ?instance { wd:Q19887878 wd:Q11266439 } 
+	?item wdt:P31 ?instance .
+	OPTIONAL { ?sitelink schema:about ?item }
+  	FILTER (!BOUND(?sitelink))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY RAND()
+LIMIT 500

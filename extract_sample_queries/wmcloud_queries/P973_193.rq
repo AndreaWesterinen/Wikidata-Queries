@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P973/ps:P973 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://www\\.dhm\\.de/datenbank/linzdbv2/queryresult\\.php\\?obj_no\\=(LI0\\d+))$") )
+}

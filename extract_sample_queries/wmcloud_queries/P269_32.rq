@@ -1,0 +1,2 @@
+#title:<DeltaBot-viaf>
+SELECT DISTINCT ?item WHERE{ ?item wdt:P269 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^[0-9]{8}[0-9X]$'))}

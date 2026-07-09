@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?continentLabel ?countryLabel ?coords WHERE {
+  ?item wdt:P31 wd:Q752003 .
+  OPTIONAL { ?item wdt:P30 ?continent }
+  OPTIONAL { ?item wdt:P17 ?country }
+  ?item wdt:P625 ?coords .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

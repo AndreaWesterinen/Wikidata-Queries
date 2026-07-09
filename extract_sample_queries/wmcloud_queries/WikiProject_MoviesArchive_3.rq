@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?itemDescription ?loc ?locLabel ?coor
+{
+	?item wdt:P179 wd:Q18214421 . 
+    ?item ( wdt:P915 | wdt:P840 ) ?loc . 
+    ?loc wdt:P625 ?coor 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" }
+}

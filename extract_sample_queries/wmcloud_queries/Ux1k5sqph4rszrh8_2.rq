@@ -1,0 +1,28 @@
+SELECT ?sort ?item ?itemLabel ?article 
+    (GROUP_CONCAT(DISTINCT ?occ_label; SEPARATOR = ' / ') AS ?occs) 
+    (GROUP_CONCAT(DISTINCT ?field_label; SEPARATOR = ' / ') AS ?fields)
+    ?dob ?dod
+
+WHERE {
+    wd:Q81096 ^wdt:P279* ?occ .
+    FILTER (?occ != wd:Q183945) .
+    ?occ ^wdt:P106 ?item .
+    ?item wdt:P21 wd:Q6581072 .
+    ?item wdt:P31 wd:Q5 .
+    OPTIONAL {?item wdt:P569 ?dob} .
+    BIND(COALESCE (year(?dob), 9999) AS ?sort) .
+    OPTIONAL {?item wdt:P570 ?dod} .
+    FILTER (!bound(?dod) || !(year(?dod) < 1919)).
+    VALUES ?uk {wd:Q145 wd:Q174193}
+    ?item wdt:P27|((wdt:P937|wdt:P19|wdt:P20)/wdt:P131*) ?uk .
+    
+      
+    OPTIONAL {?item wdt:P101 ?field . 
+       OPTIONAL {?field rdfs:label ?field_label. FILTER(lang(?field_label) = 'en') } .
+    }
+    OPTIONAL {?occ rdfs:label ?occ_label. FILTER(lang(?occ_label) = 'en') } .
+    OPTIONAL {?article schema:about ?item . ?article schema:isPartOf <https://en.wikipedia.org/> } .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+} GROUP BY ?item ?itemLabel ?article ?dob ?sort ?dod
+ORDER BY ?sort ?itemLabel

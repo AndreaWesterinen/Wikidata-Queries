@@ -1,0 +1,17 @@
+SELECT DISTINCT ?m ?mLabel (SAMPLE(?geb) AS ?geb) (SAMPLE(?sterf) AS ?sterf) ?startjaar ?eindjaar
+WHERE 
+{
+ ?m p:P463 ?org .
+ ?org ps:P463 wd:Q56764476 . 
+ ?org pq:P580 ?start . 
+ ?org pq:P582 ?eind . 
+ OPTIONAL { ?m wdt:P569 ?geb . }
+ OPTIONAL { ?m wdt:P570 ?sterf . }
+ BIND(year(?start) AS ?startjaar) .
+ BIND(year(?eind) AS ?eindjaar) .
+ FILTER(?startjaar <= 1671)
+ FILTER(?eindjaar >= 1671)
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+GROUP BY ?m ?mLabel ?startjaar ?eindjaar
+ORDER BY ?geb

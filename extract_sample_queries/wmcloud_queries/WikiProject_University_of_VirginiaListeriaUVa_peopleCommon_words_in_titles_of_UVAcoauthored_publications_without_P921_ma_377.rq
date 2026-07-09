@@ -1,0 +1,26 @@
+#title: Works with two or more authors affiliated with the organization
+PREFIX target: <http://www.wikidata.org/entity/Q112326635>
+
+SELECT
+  DISTINCT
+    ?work ?title
+  (COUNT(DISTINCT ?work1) AS ?citations)
+  WHERE {
+    target: ^wdt:P361* / ^( wdt:P108 | wdt:P1416 | wdt:P463 ) ?author1 , ?author2 .
+    ?work wdt:P50 ?author1 , ?author2 .
+
+    # Only display co-authorship for certain types of documents
+    # Journal and conference articles, books, not (yet?) software
+    VALUES ?publication_type { wd:Q13442814 wd:Q571 wd:Q26973022 wd:Q17928402 wd:Q947859 wd:Q54670950 }
+    FILTER EXISTS { ?work wdt:P31 ?publication_type . }
+
+    # No self-links.
+    FILTER (?author1 != ?author2)
+    ?work wdt:P1476 ?title .
+    ?work wdt:P932 [] .
+    ?work1 wdt:P2860 ?work .
+
+  }
+GROUP BY ?work ?title
+ORDER BY DESC(?citations)
+LIMIT 200

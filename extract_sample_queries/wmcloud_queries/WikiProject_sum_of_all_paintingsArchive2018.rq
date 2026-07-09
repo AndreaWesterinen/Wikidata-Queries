@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?image ?imageAvailable WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P18 ?image.
+  ?item wdt:P4765 ?imageAvailable .
+}
+LIMIT 100

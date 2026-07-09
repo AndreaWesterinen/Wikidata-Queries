@@ -1,0 +1,5 @@
+SELECT ?item ?NumberInTheSeries WHERE {
+   { ?item wdt:P31 wd:Q34841310 . } UNION { ?item wdt:P31 wd:Q37953779 . } UNION { ?item wdt:P31 wd:Q3773971 . }
+     ?item wdt:P31 ?istanza ; p:P31 [pq:P1545 ?NumberInTheSeries] .
+   }
+ORDER BY ?istanza xsd:integer(?NumberInTheSeries)

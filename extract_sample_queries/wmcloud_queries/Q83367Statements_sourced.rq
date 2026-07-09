@@ -1,0 +1,2 @@
+SELECT ?item ?subject ?property ?value ?book ?chapter ?verse WHERE {
+  ?book ( wdt:P361

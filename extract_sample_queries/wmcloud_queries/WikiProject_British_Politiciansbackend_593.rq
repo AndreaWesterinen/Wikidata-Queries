@@ -1,0 +1,16 @@
+# List of MPs with manually checked terms to fill by script 
+# use eg https://petscan.wmflabs.org/?psid=21380676 to generate worklist 
+# then run through the aq batch script
+
+select distinct ?positionStatement1
+WHERE {
+  values ?mp { 
+    wd:Q213756 wd:Q332612 wd:Q333223 wd:Q334234 wd:Q334614 wd:Q336404
+    wd:Q337468 wd:Q337671 wd:Q26732764 wd:Q26732778 wd:Q26732786 wd:Q26732794
+    wd:Q26733812 wd:Q26733888 wd:Q26733896 wd:Q26734761 wd:Q26735881 wd:Q26732195
+    wd:Q26722296 wd:Q26722180
+  }
+  ?mp p:P39 ?positionStatement1 . ?positionStatement1 ps:P39 ?position1 . ?position1 wdt:P279 wd:Q16707842. 
+  filter not exists { ?positionStatement1 pq:P4100 ?party1 } .
+  # avoid any with already known parties
+} 

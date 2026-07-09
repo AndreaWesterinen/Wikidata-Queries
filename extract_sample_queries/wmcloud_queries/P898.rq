@@ -1,0 +1,5 @@
+embed.html#SELECT * WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P898 ?IPA_transcription. }
+}
+LIMIT 1000

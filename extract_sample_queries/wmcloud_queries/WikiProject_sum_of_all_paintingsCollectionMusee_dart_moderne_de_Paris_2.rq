@@ -1,0 +1,8 @@
+SELECT ?item ?url WHERE {
+  wd:P6246 wdt:P1630 ?formatterurl .
+  ?item p:P195/ps:P195 wd:Q857276.
+  ?item wdt:P31 wd:Q3305213 .  
+  OPTIONAL { ?item wdt:P6246 ?id }.
+  BIND(REPLACE(?id, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?url)  .
+  } 
+LIMIT 3000

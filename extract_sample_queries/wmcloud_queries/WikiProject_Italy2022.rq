@@ -1,0 +1,11 @@
+SELECT DISTINCT
+  (replace(str(?x), "https?://www\\.wikidata\\.org\\/entity\\/", "") as ?itemId)
+  ("P373" as ?propId)
+  (concat('"', replace(?xTitle, "^Category:", ""), '"') as ?catName)
+WHERE {
+  ?x wdt:P2186 ?wlmId .
+  ?xLink schema:about ?x ;
+         schema:isPartOf <https://commons.wikimedia.org/> ;
+         schema:name ?xTitle .
+  FILTER NOT EXISTS { ?x wdt:P373 ?c . }
+}

@@ -1,0 +1,9 @@
+#title: GTIN matches ISBN
+# Complex constraint from [[Property talk:P3962]]
+# Use [[Property:P212|ISBN-13&#32;<small dir="ltr">(P212)</small>]] instead of [[Property:P3962|Global Trade Item Number&#32;<small dir="ltr">(P3962)</small>]] for published works.
+SELECT ?item ?value ?value2
+{
+  ?item wdt:P3962 ?value .
+  ?item wdt:P212 ?value2 .  
+  FILTER( ?value = REPLACE(?value2, "-", "") )
+}

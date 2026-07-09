@@ -1,0 +1,25 @@
+#defaultView:Map
+SELECT
+	?item
+	(MIN(?blt) as ?yr)
+	(Sample(?itemLabel) as ?itemLabel)
+	(Sample(?itemDescription) as ?itemDescription) 
+	(Sample(?st) as ?st)
+	(Sample(?sl) as ?sl)
+	(Sample(?ids) as ?ids)
+	(Sample(?coor) as ?coor)
+	(Sample(?image) as ?image)
+{
+	?item wdt:P31 wd:Q39715 . 
+  	OPTIONAL {?item wikibase:statements ?st }.
+  	OPTIONAL {?item wikibase:sitelinks ?sl }.
+  	OPTIONAL { ?item wikibase:identifiers ?ids . }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	OPTIONAL { ?item wdt:P625 ?coor }
+	OPTIONAL { ?item wdt:P18 ?image } 
+  	?item wdt:P571 ?blt 
+	FILTER (?item != wd:Q15397819 )
+}
+GROUP BY ?item
+ORDER BY ASC(?yr) ?item
+LIMIT 50

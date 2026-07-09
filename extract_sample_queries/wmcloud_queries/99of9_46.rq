@@ -1,0 +1,13 @@
+#defaultView:BubbleChart
+SELECT ?namedafter ?namedafteren (COUNT(*) AS ?count) WHERE {
+#SELECT ?cid ?namedafter WHERE {
+  ?cid wdt:P138 ?namedafter .
+  ?cid wdt:P17 wd:Q408 .
+  OPTIONAL {
+    ?namedafter rdfs:label ?namedafteren
+    FILTER((LANG(?namedafteren)) = "en")
+  }
+}
+GROUP BY ?namedafter ?namedafteren
+ORDER BY DESC(?count)
+LIMIT 1000

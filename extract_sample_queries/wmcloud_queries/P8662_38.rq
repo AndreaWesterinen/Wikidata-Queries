@@ -1,0 +1,13 @@
+#title: Year of P571 should be ≤ 1902
+# Complex constraint from [[Property talk:P8662]]
+#
+SELECT ?item ?year ?hay ?itemLabel
+WHERE
+{
+	?item wdt:P31 wd:Q26817508 ; wdt:P571 ?d . 
+	?item wdt:P8662 ?hay .
+	BIND(YEAR(?d) as ?year)
+	FILTER( ?year > 1902 )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?year ?itemLabel

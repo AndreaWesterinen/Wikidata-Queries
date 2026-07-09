@@ -1,0 +1,10 @@
+#title: deprecated statements should have a reason qualifier
+# Complex constraint from [[Property talk:P8701]]
+# TODO check, add P2241 or adjust rank(s) if needed
+SELECT ?item ?value  
+WHERE 
+{
+  ?item p:P8701 ?st.
+  ?st ps:P8701 ?value; wikibase:rank wikibase:DeprecatedRank
+  FILTER NOT EXISTS { ?st pq:P2241 [] }      
+}

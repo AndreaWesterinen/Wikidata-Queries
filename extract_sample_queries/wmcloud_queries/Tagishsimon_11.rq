@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P19 ?place.
+  ?place wdt:P17 wd:Q30.
+  ?item wdt:P31 wd:Q5.
+  filter not exists {?item wdt:P21 [].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+# male (Q6581097), 
+# female (Q6581072), 
+# intersex (Q1097630), 
+# transgender female (Q1052281), 
+# transgender male (Q2449503). 
+# male animal (Q44148)
+# female animal (Q43445)

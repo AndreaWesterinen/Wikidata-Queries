@@ -1,0 +1,11 @@
+#title: Born after 2100
+# Complex constraint from [[Property talk:P569]]
+# Fast query: Query in 9 seconds (in 2020)
+SELECT ?item ?date
+  WHERE {
+    ?item wdt:P569 ?date.
+    FILTER ( ?date > "2100-04-20T00:00:00Z"^^xsd:dateTime )
+    FILTER NOT EXISTS { ?item p:P6262 [] }
+    FILTER NOT EXISTS { ?item p:P1441 [] }
+    FILTER NOT EXISTS { ?item p:P1080 [] }
+  }

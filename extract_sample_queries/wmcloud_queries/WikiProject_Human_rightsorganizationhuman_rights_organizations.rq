@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?label ?_image ?st WHERE {
+ { ?item wdt:P101/wdt:P279* wd:Q8458.} UNION { ?item wdt:P31/wdt:P279* wd:Q1920810}
+?item wikibase:statements ?st. 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?label
+  }
+  MINUS {?item wdt:P31 wd:Q5}
+OPTIONAL { ?item wdt:P18 ?_image. }
+}
+ORDER BY ASC(?st)

@@ -1,0 +1,6 @@
+SELECT ?item ?label WHERE {
+  ?item wdt:P27 wd:Q189;
+        rdfs:label ?label.
+  FILTER(LANG(?label) = "is")
+  FILTER(!REGEX(?label, "(?:son|dottir|dóttir)$"))
+}

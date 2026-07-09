@@ -1,0 +1,4 @@
+SELECT ?lexeme ?lexemeLabel WHERE {
+  ?lexeme wikibase:lexicalCategory wd:Q1084; wikibase:lemma ?lexemeLabel.
+  ?lexeme dct:language wd:Q1860.
+}

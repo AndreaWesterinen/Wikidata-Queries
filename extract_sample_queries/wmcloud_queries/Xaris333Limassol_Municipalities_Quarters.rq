@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?coord ?municipality WHERE
+{
+  ?municipality wdt:P131 wd:Q59150 .
+  ?municipality wdt:P150 ?item .
+  ?municipality rdfs:label ?layer . FILTER(lang(?layer)='en')
+  OPTIONAL { ?item wdt:P625 ?coord }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

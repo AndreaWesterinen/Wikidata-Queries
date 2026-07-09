@@ -1,0 +1,25 @@
+# Wikipedia articles and other wiki pages using a transgender person’s deadname in the title
+# (this query only checks the given name of a person)
+SELECT ?item ?itemLabel ?article ?title WHERE {
+  ?item wdt:P31 wd:Q5;
+        # transgender or non-binary
+        wdt:P21/wdt:P279* wd:Q17884;
+        # deadnames are any names with an end time qualifier
+        p:P735 [
+          ps:P735/wdt:P1705 ?deadname;
+          pq:P582 ?deadnameEndTime
+        ].
+  # find articles (any project, not just Wikipedias) containing the deadname
+  ?article schema:about ?item;
+           schema:name ?title.
+  FILTER(CONTAINS(?title, ?deadname))
+  # remove articles that actually use the new name, but it’s a variant of the deadname (e. g. Andrej → Andreja) so they contain the deadname as well
+  FILTER NOT EXISTS {
+    ?item p:P735 ?nameStatement.
+    MINUS { ?nameStatement pq:P582 ?nameEndTime. }
+    ?nameStatement ps:P735/wdt:P1705 ?name.
+    FILTER(CONTAINS(?name, ?deadname) && CONTAINS(?title, ?name))
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?itemLabel ?article

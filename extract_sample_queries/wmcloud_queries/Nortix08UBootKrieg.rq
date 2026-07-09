@@ -1,0 +1,56 @@
+#defaultView:Map{"hide":["?location"]}
+SELECT DISTINCT ?uboat ?uboatLabel (SAMPLE(?location) AS ?location) (SAMPLE(?date) AS ?date) ?layer
+WHERE
+{
+  ?uboat wdt:P31 wd:Q428661 .
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q621854 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse I" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q694684 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse II" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q167991 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse VII" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q480500 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse IX" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q819452 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse X" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q698417 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse XIV" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q161331 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse XXI" AS ?layer)
+  }
+
+  OPTIONAL {
+    ?uboat wdt:P289 wd:Q602196 ;
+           wdt:P625 ?location .
+    BIND ("U-Boot-Klasse XXIII" AS ?layer)
+  }
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en". }
+}
+GROUP BY ?uboat ?uboatLabel ?date ?layer

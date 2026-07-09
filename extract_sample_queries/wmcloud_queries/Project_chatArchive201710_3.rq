@@ -1,0 +1,6 @@
+select ?work ?workLabel ?contributor ?contributorLabel
+{
+  ?work wdt:P767 ?contributor .
+  ?work wdt:P31/wdt:P279* wd:Q24573088 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

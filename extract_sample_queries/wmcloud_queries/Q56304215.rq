@@ -1,0 +1,9 @@
+#title: Items with IDs "stated in" IPIC
+SELECT ?item ?itemLabel ?propLabel ?id ?link WHERE {
+  ?prop wdt:P9073 wd:Q56304215 .
+  ?prop wikibase:directClaim ?pred .
+  ?item ?pred ?id .
+  ?prop wdt:P1630 ?url .
+  BIND (URI(REPLACE(str(?url), "\\$1", str(?id))) AS ?link )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?item ?id

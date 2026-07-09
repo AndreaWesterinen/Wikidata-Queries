@@ -1,0 +1,7 @@
+SELECT ?concept ?conceptLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?concept (wdt:P31/wdt:P279*) wd:Q24034552.
+  FILTER NOT EXISTS { ?concept wdt:P31 wd:Q101072 }.
+  FILTER NOT EXISTS { ?concept wdt:P31 wd:Q11345 }.
+}
+LIMIT 100

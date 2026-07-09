@@ -1,0 +1,12 @@
+#title: Publisher does not share ISBN publisher prefix
+# Complex constraint from [[Property talk:P212]]
+# ISBNs contain a publisher prefix that should also be present as a value of [[Property:P3035|ISBN&#32;publisher prefix&#32;<small dir="ltr">(P3035)</small>]] on the corresponding [[Property:P123|publisher&#32;<small dir="ltr">(P123)</small>]] item.
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P212 ?ISBN13.
+  OPTIONAL {
+    ?item wdt:P123 ?publisher.
+    ?publisher wdt:P3035 ?pub_prefix.
+  }
+  BIND(REPLACE(?ISBN13, "-\\d+-[\\dX]$", "") AS ?isbn_pub_prefix)
+  FILTER((BOUND(?pub_prefix)) && (?isbn_pub_prefix NOT IN(?pub_prefix)))
+}

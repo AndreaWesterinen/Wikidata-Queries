@@ -1,0 +1,13 @@
+# Australian Botanical Liaison Officers
+SELECT ?botanist ?botanistLabel ?startyear ?endyear ?ipni
+WHERE {
+  ?botanist p:P39 ?ablo .
+  OPTIONAL { ?botanist wdt:P428 ?ipni } .
+  ?ablo ps:P39 wd:Q3630003 .
+  ?ablo pq:P580 ?start .
+  ?ablo pq:P582 ?end .
+  BIND(YEAR(?start) AS ?startyear) .
+  BIND(YEAR(?end) AS ?endyear) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?startyear

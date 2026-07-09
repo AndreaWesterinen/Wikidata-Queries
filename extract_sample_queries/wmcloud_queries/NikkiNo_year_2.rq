@@ -1,0 +1,6 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?h ?date WHERE {
+	?h wdt:P569 ?date .
+	FILTER(REGEX(?date, "0000"))
+} ORDER BY ?date

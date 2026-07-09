@@ -1,0 +1,14 @@
+SELECT ?item ?released ?title ?l
+WHERE 
+{
+    VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . 
+    ?item wdt:P31 ?filmtype . 
+    ?item wdt:P577 ?released . 
+    OPTIONAL{?item wdt:P1476 ?title} . 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],cy,en,es,de,pt,nl,nn,fr".
+                           ?item rdfs:label ?l .
+                           }
+    FILTER (?released < "1900-01-01T00:00:00Z"^^xsd:dateTime) 
+} 
+ORDER BY (?released) ?item 
+LIMIT 1000

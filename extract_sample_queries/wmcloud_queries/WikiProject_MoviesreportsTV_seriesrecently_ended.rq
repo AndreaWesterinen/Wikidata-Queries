@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?itemDescription ?end ?epnb (COUNT(?ep) as ?counted) (?counted = ?epnb as ?all) ?sts ?sls ?ids
+{
+	?item wdt:P31 wd:Q5398426 ; wdt:P582 ?end . 
+    FILTER (?end > "2020-01-01"^^xsd:dateTime)
+    FILTER (?end > (now()-"P365D"^^xsd:duration) && ?end < now() )
+    OPTIONAL { ?ep wdt:P179 ?item ; wdt:P31 wd:Q21191270 }
+    OPTIONAL { ?item wdt:P1113 ?epnb }
+	?item wikibase:identifiers ?ids ; wikibase:statements ?sts; wikibase:sitelinks ?sls     
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?item ?itemLabel ?itemDescription ?end ?epnb ?sts ?sls ?ids
+ORDER BY DESC(?end)

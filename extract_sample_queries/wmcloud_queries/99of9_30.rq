@@ -1,0 +1,13 @@
+#defaultView:LineChart
+SELECT ?year (COUNT(?publisher) AS ?count ) (SAMPLE(?publisherLabel) AS ?publisherLabel )  WHERE {
+  ?item wdt:P31 wd:Q571.
+  ?item wdt:P577 ?_publication_date.
+  ?item wdt:P123 ?publisher .
+  ?publisher rdfs:label ?publisherLabel.
+  BIND(str(YEAR(?_publication_date)) AS ?year)
+  FILTER((LANG(?publisherLabel)) = "en")
+  
+ FILTER (?_publication_date >= "1950-00-00T00:00:00Z"^^xsd:dateTime)
+}
+GROUP BY ?publisherLabel ?year
+HAVING (?count > 10)

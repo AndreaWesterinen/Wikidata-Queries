@@ -1,0 +1,18 @@
+# Things that are BOTH 'instance of' Ski Resort AND 
+# a town/village or,
+# a mountain.
+
+#Should these be separated into different items, or is it accepable for an item to be both of these things simultaneously?
+
+SELECT ?resort ?resortLabel ?countryLabel ?mountainLabel ?postcode (SAMPLE(?coord) AS ?location) ?elevation WHERE {
+  ?resort wdt:P31 wd:Q130003.
+  ?resort wdt:P31/wdt:P279* wd:Q486972. #Hide this line and un-hide the following line, to swap between searches for 'town' and 'mountain'.
+#  ?resort wdt:P31/wdt:P279* wd:Q8502.
+  OPTIONAL { ?resort wdt:P625 ?coord. }
+  OPTIONAL { ?resort wdt:P4552 ?mountain. }
+  OPTIONAL { ?resort wdt:P17 ?country. }
+  OPTIONAL { ?resort wdt:P281 ?postcode. }
+  OPTIONAL { ?resort wdt:P2044 ?elevation. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?resort ?resortLabel ?countryLabel ?mountainLabel ?postcode ?elevation

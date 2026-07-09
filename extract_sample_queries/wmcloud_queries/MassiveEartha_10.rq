@@ -1,0 +1,15 @@
+SELECT ?a ?aLabel ?dod (SAMPLE(?b) AS ?b) (GROUP_CONCAT(?occupation; SEPARATOR = "; ") AS ?occ) WHERE {
+  ?a wdt:P31 wd:Q5.
+  ?a wdt:P570 ?dod.
+  OPTIONAL { ?a wdt:P18 ?b. }
+  BIND(YEAR(?dod) AS ?yod)
+  ?a wdt:P19 wd:Q766.
+  OPTIONAL { ?a wdt:P106 ?occupation. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en, nl".
+    ?occupation rdfs:label ?occupation.
+    ?a rdfs:label ?aLabel.
+  }
+  FILTER(?yod = 1948)
+}
+GROUP BY ?a ?aLabel ?b ?dod

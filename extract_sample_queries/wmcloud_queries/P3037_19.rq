@@ -1,0 +1,4 @@
+#title: Not suitable as qualifier for property [[Property:P625|coordinate location&#32;<small dir="ltr">(P625)</small>]] with globe:earth
+# Complex constraint from [[Property talk:P3037]]
+# This property shouldn't be used as qualifier for P625 to introduce coordinates with non-standard systems to the property
+SELECT ?item { ?item p:P625 ?p . ?p 	pq:P3037 [] ; 	psv:P625/wikibase:geoGlobe wd:Q2 }

@@ -1,0 +1,8 @@
+#defaultView:Map
+SELECT DISTINCT ?candidat ?candidatLabel ?naissanceLieuLabel ?naissanceLieuCoords WHERE {
+  ?election wdt:P31 wd:Q890055 ;
+            wdt:P726 ?candidat .
+  ?candidat wdt:P19 ?naissanceLieu .
+  ?naissanceLieu wdt:P625 ?naissanceLieuCoords .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}

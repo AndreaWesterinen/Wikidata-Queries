@@ -1,0 +1,3 @@
+SELECT ?s WHERE {
+  wd:Q35332 wdt:P26 ?s .
+}

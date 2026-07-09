@@ -1,0 +1,27 @@
+SELECT 
+  DISTINCT
+# comment out the next line in order to get the query results in QuickStatements format
+  ?item ?title
+  (REPLACE(STR(?item), ".*Q", "Q") AS ?qid) 
+  ("P921" AS ?property)
+  ("Q200016" AS ?ReplaceWithYourTargetID) # change "Q200016" to the QID of your target item
+  ("S887" AS ?heuristic)
+  ("Q69652283" AS ?deduced)
+
+WHERE {
+  hint:Query hint:optimizer "None".
+  
+{  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    # in the next line, replace "Visakhapatnam" with a search string of your choice and "Q200016" with the QID of your target item 
+                    mwapi:srsearch "\"Visakhapatnam\" haswbstatement:P31=Q13442814 -haswbstatement:P921=Q200016".
+      ?page_title wikibase:apiOutput mwapi:title.
+  }
+ }
+  BIND(IRI(CONCAT(STR(wd:), ?page_title)) AS ?item)
+  
+  ?item wdt:P1476 ?title.
+  FILTER CONTAINS(LCASE(?title), "visakhapatnam").
+
+}

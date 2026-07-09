@@ -1,0 +1,10 @@
+#title: A participant in a conclave must be a cardinal
+# Complex constraint from [[Property talk:P1344]]
+# Items with [[Property:P1344|participant in&#32;<small dir="ltr">(P1344)</small>]] = [[d:Q186431|conclave <small>(Q186431)</small>]] need a [[Property:P39|position held&#32;<small dir="ltr">(P39)</small>]] = [[d:Special:EntityPage/WD:Q45722|cardinal <small>(WD:Q45722)</small>]]. Good (mandatory) constraint to detect few mistakes.
+SELECT ?item {
+  ?item wdt:P1344/wdt:P31/wdt:P279* wd:Q29102902.
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q45722 }
+  FILTER NOT EXISTS { ?item wdt:P39 wd:Q19546 }
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q250867 }
+  FILTER NOT EXISTS { ?item wdt:P39/wdt:P279* wd:Q45722 }
+}

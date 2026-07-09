@@ -1,0 +1,7 @@
+SELECT ?Places ?fictional_universe_described_in ?fictional_universe_described_inLabel ?image WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Star_Wars_Places wdt:P1066 wd:Q51740.
+  OPTIONAL { ?Star_Wars_Places wdt:P3798 ?fictional_universe_described_in. }
+  OPTIONAL { ?Star_Wars_Places wdt:P18 ?image. }
+}
+LIMIT 100

@@ -1,0 +1,8 @@
+#Expedities
+SELECT ?item ?itemLabel ?countryLabel
+WHERE 
+{
+  {?item wdt:P31 wd:Q2401485} UNION {?item wdt:P31 wd:Q366301} .
+  ?item wdt:P17 ?country .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

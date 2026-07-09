@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?numero_episode ?date (GROUP_CONCAT(DISTINCT ?guestLabel; SEPARATOR = ", ") AS ?liste_invites) (URI(CONCAT("https://www.youtube.com/watch?v=", ?youtube)) AS ?lien_youtube)
+WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q1983062.
+  ?item p:P179 ?statement.
+  OPTIONAL { ?item wdt:P5030 ?guest. }
+  ?item wdt:P577 ?date.
+  ?statement ps:P179 wd:Q56816469.
+  ?statement pq:P1545 ?numero_episode.
+  OPTIONAL { ?item wdt:P1651 ?youtube. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr,en".
+    ?guest rdfs:label ?guestLabel.
+  }
+}
+GROUP BY ?item ?numero_episode ?date ?youtube
+ORDER BY DESC(xsd:integer(?numero_episode))

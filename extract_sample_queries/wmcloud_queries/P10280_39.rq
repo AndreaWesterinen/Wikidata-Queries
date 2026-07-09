@@ -1,0 +1,10 @@
+#title: categories with "list related to category" (P1753)-value not also on item for citizenship with "has list" (P2354)
+# Complex constraint from [[Property talk:P10280]]
+# add P2354 statement
+SELECT DISTINCT ?item ?hc ?list
+WHERE
+{
+  [] wdt:P10280 ?item .
+  ?item wdt:P301 ?hc ; wdt:P1753 ?list .
+  MINUS { ?hc wdt:2354 ?list }
+}

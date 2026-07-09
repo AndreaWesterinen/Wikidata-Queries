@@ -1,0 +1,8 @@
+SELECT ?item ?property ?propertyLink ?propertyLabel ?constraint ?deeplink (COUNT(?s) AS ?exceptions) WHERE {
+  ?property p:P2302 ?s .
+  ?s ps:P2302 ?constraint; pq:P2303 ?exception .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+  BIND(CONCAT('[[Property:', STRAFTER(STR(?property), 'entity/'), '|', STRAFTER(STR(?property), 'entity/'), ']]') AS ?propertyLink) .
+  BIND(CONCAT('[[Property:', STRAFTER(STR(?property), 'entity/'), '#', STRAFTER(STR(?property), 'entity/'), '$', SUBSTR(STR(?s), STRLEN(STR(?s))-35), '|Constraint definition]]') AS ?deeplink) .
+  BIND(IRI(CONCAT('http://www.wikidata.org/entity/Q', STR(xsd:integer(SUBSTR(REPLACE(STRAFTER(STR(?s), 'statement/'), '[a-zA-Z\\-]', ''), 5, 8))))) AS ?item) .
+} GROUP BY ?item ?property ?propertyLabel ?s ?constraint ?deeplink ?propertyLink HAVING (?exceptions >= 25) ORDER BY DESC(?exceptions)

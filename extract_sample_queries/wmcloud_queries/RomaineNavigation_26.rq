@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel WHERE {
+    ?nl_article schema:about ?item .
+    ?nl_article schema:isPartOf <https://nl.wikipedia.org/> .
+  
+    OPTIONAL {?item wdt:P31 ?type }
+    OPTIONAL {?item wdt:P279 ?subclass }
+    FILTER ( !BOUND(?type) && !BOUND(?subclass) )
+  
+  OPTIONAL {?item rdfs:label ?itemLabel FILTER (lang(?itemLabel) = "nl") }
+  
+  }
+LIMIT 100

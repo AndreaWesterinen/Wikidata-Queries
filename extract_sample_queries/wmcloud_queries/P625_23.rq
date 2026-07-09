@@ -1,0 +1,12 @@
+#title: Places around the point (0, 0)
+# Complex constraint from [[Property talk:P625]]
+# 50 km around the point (0, 0)
+SELECT ?item ?dist {
+  SERVICE wikibase:around { 
+      ?item wdt:P625 ?location. 
+      bd:serviceParam wikibase:center "Point(0.0 0.0)"^^geo:wktLiteral.
+      bd:serviceParam wikibase:radius "50".
+  }
+  BIND(geof:distance("Point(0.0 0.0)"^^geo:wktLiteral, ?location) as ?dist)
+  FILTER (?item NOT IN (wd:Q24041662, wd:Q16896007, wd:Q23538)).
+}

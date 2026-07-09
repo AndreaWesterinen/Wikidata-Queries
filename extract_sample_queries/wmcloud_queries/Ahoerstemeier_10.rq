@@ -1,0 +1,14 @@
+#defaultView:Table
+SELECT ?human ?humanLabel ?Find_A_Grave_Personen_ID ?plot ?location ?image ?birthdate ?deathdate WHERE {
+  ?human wdt:P31 wd:Q5 .
+  ?human wdt:P119 wd:Q2035472 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  ?human p:P119 ?grave_statement ;
+  OPTIONAL { ?human wdt:P535 ?Find_A_Grave_Personen_ID. }
+  OPTIONAL { ?grave_statement pq:P625 ?location. }
+  OPTIONAL { ?grave_statement pq:P965 ?plot. }
+  OPTIONAL { ?human wdt:P569 ?birthdate. }
+  OPTIONAL { ?human wdt:P570 ?deathdate. }
+  OPTIONAL { ?human wdt:P1442 ?image. }
+}
+LIMIT 100

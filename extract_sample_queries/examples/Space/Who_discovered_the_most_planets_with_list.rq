@@ -1,3 +1,4 @@
+#title: Who discovered the most planets? (with list)
 SELECT
   ?discoverer ?discovererLabel
   (COUNT(DISTINCT ?planet) as ?count)

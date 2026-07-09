@@ -1,0 +1,18 @@
+#title:Qualifiers for P1006
+SELECT DISTINCT ?qual ?qualLabel ?count ?allowed_qualifier ?required_qualifier
+WHERE
+{
+  {
+    SELECT ?qual (COUNT(DISTINCT ?item) AS ?count) WHERE {
+         hint:Query hint:optimizer "None" .
+         ?item p:P1006 ?statement .
+         ?statement ?pq_qual ?pq_obj .
+         ?qual wikibase:qualifier ?pq_qual .
+    }  GROUP BY ?qual
+  } .
+  OPTIONAL { ?qual rdfs:label ?qualLabel filter (lang(?qualLabel) = "nl") }
+  OPTIONAL { wd:P1006 p:P2302 [ pq:P2306 ?qual ; ps:P2302 wd:Q21510851 ] . BIND("y" as ?allowed_qualifier) }
+  OPTIONAL { wd:P1006 p:P2302 [ pq:P2306 ?qual ; ps:P2302 wd:Q21510856 ] . BIND("y" as ?required_qualifier ) }
+}
+ORDER BY DESC(?count) ASC(?qualLabel)
+LIMIT 20

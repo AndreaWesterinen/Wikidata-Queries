@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?autore ?autoreLabel ?shortnameLabel 
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814;
+        wdt:P1433 wd:Q3805294;
+        wdt:P50 ?autore; 
+        wdt:P2093 ?shortname. 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

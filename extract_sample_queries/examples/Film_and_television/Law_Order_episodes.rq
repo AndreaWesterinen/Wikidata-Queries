@@ -1,5 +1,4 @@
-# ----
-# All Law & Order episodes on Wikidata.
+#title: All Law & Order episodes on Wikidata.
 # According to enwp, “[a] total of 456 original episodes… aired before cancellation” (https://en.wikipedia.org/wiki/List_of_Law_%26_Order_episodes).
 # As of this writing, the query returns 451 results, so some episodes are missing (either without item or lacking the necessary statements to match this query).
 

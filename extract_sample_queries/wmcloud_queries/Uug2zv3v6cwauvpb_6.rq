@@ -1,0 +1,10 @@
+#Red pandas
+#defaultView:Timeline
+SELECT ?item ?itemLabel ?itemDescription ?dob ?dod
+WHERE 
+{
+  ?item wdt:P31 wd:Q41960.
+  OPTIONAL {?item wdt:P569 ?dob}.
+  OPTIONAL {?item wdt:P570 ?dod}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr, en". }
+}

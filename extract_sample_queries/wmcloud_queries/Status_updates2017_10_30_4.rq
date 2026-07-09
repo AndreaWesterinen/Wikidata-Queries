@@ -1,0 +1,15 @@
+# cities with most first performances
+SELECT ?city ?cityLabel ?count WHERE {
+  {
+    SELECT ?city (COUNT(DISTINCT ?performance) AS ?count) WHERE {
+      ?work p:P1191 ?performance.
+      ?performance pq:P276 ?location. hint:Prior hint:runFirst true.
+      ?location wdt:P276?/wdt:P131* ?city.
+      ?city p:P31/ps:P31/wdt:P279* wd:Q515.
+    }
+    GROUP BY ?city
+    HAVING(?count > 1)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count) ?cityLabel

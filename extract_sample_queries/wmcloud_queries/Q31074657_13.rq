@@ -1,0 +1,9 @@
+#title: Etiquetes amb parèntesis o majúscules que no toquen
+# Complex constraint from [[Property talk:Q31074657]]
+#
+select ?item ?label where {
+  ?item p:P361/ps:P361 wd:Q31074657 .
+  ?item rdfs:label ?label .
+  filter(lang(?label) = "ca")
+  filter(regex(str(?label), "(\\()|(El )|(Els )|(Era )|(L')|(La )|(Les )|(Lo )"))
+}

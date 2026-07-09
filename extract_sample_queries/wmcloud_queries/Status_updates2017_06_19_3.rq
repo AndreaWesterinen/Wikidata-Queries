@@ -1,0 +1,19 @@
+# occupations most likely to result in death by homicide
+SELECT ?occupation ?occupationLabel ?homicides ?total ?rate WITH {
+  SELECT ?occupation (SUM(?homicide) AS ?homicides) (COUNT(?person) AS ?total) WHERE {
+    ?person wdt:P31 wd:Q5;
+            wdt:P106 ?occupation;
+            wdt:P1196 ?manner.
+    FILTER(!ISBLANK(?occupation)).
+    BIND(IF(?manner = wd:Q149086, 1, 0) AS ?homicide).
+  }
+  GROUP BY ?occupation
+  HAVING(?total > 5)
+  ORDER BY DESC(?homicides/?total)
+  LIMIT 100
+} AS %results WHERE {
+  INCLUDE %results.
+  BIND(?homicides/?total AS ?rate).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?rate) DESC(?total)

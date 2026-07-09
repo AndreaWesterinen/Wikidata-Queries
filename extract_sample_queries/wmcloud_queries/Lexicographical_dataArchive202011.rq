@@ -1,0 +1,7 @@
+SELECT ?l ?lemma ?lang (COUNT(?form) AS ?forms) WHERE {
+  ?l a ontolex:LexicalEntry ; dct:language ?lang ;
+        wikibase:lemma ?lemma .
+  ?l ontolex:lexicalForm ?form .
+}
+GROUP BY ?l ?lemma ?lang
+HAVING (?forms > 200)

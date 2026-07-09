@@ -1,0 +1,19 @@
+SELECT ?prop ?propLabel ?count WHERE {
+     {
+         SELECT ?prop (COUNT(DISTINCT ?item) AS ?count) WHERE {
+            
+            hint:Query hint:optimizer "None" .
+            ?item wdt:P1435 wd:Q21405908 .
+            ?item wdt:P17 wd:Q145 .
+            ?item ?p ?id .
+            ?prop wikibase:directClaim ?p .
+                       
+         }  GROUP BY ?prop
+     }
+            
+     SERVICE wikibase:label {
+         bd:serviceParam wikibase:language "en" .
+     }
+ 
+} ORDER BY DESC (?count) ?propLabel
+LIMIT 100

@@ -1,0 +1,15 @@
+#defaultView:BubbleChart
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+SELECT ?firstnameLabel (COUNT(*) AS ?count)
+WHERE {
+  ?depute wdt:P31 wd:Q5 .
+  ?depute p:P39 ?mandate .
+  ?mandate v:P39 wd:Q3044918 . # French depute
+  ?mandate q:P2937 wd:Q24939798 . # 15th legislature
+  ?depute wdt:P735 ?firstname .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}
+GROUP BY ?firstnameLabel
+HAVING (?count >= 3)
+ORDER BY DESC(?count)

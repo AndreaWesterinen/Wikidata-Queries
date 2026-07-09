@@ -1,0 +1,36 @@
+SELECT distinct ?item ?person_name ?institution ?category ?cat_title ?type
+#SELECT distinct ?category ?categoryLabel ?institution ?institutionLabel ?cat_title
+                                      # two queries in one, for when I want to junk MWAPi and
+                                      # check what categories are returned by the top of the query
+{  
+ # hint:Query hint:optimizer "None".  # Just in case it's required. Who knows. Make WDQS fear you.
+  ?category wdt:P31 wd:Q4167836 .     # it's a wikimedia category
+  ?category wdt:P971 wd:Q703534 .     # category combines topics: employee
+  ?category wdt:P971 ?institution .   # category combines topics: something we hope is an ?institution
+  filter (?institution != wd:Q703534) # make sure ?institution is not 'employee'; been there, done that
+                                      # need to segment the categories 'cos MWAPI only has time to do so much
+  filter not exists {?institution wdt:P31 wd:Q3918 .}     # so the ?institution mentioned in the ?category's P971 is a university     
+  ?institution wdt:P17 wd:Q30 .      # in the UK                      
+  ?link schema:about ?category; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?cat_title .
+                                      # and the ?cat_title we feed to MWAPI is the en-wikipedia category name
+#  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+                                      # get labels when looking at category rather than person lists
+                                      # junk the MWAPI stuff entirely when you want cats.
+  SERVICE wikibase:mwapi {
+                                      # in - feed all the ?cat_title to MWAPI
+     bd:serviceParam wikibase:endpoint "en.wikipedia.org";
+                     wikibase:api "Generator";
+                     mwapi:generator "categorymembers";
+                     mwapi:gcmtitle ?cat_title ;         # specifically here
+                     mwapi:gcmprop "ids|title|type";
+                     mwapi:gcmlimit "max".
+     # out
+     ?person_name wikibase:apiOutput mwapi:title.        # en-wikipedia article / category name
+     ?item wikibase:apiOutputItem mwapi:item.            # wikidata QId for the person's item
+    }
+ ?item wdt:P31 wd:Q5 .                                   # we only want humans (MWAPI gives us subcategories as well)
+ filter not exists { ?item p:P108 [ps:P108 ?institution] . }  # only want items where P108 - educated at - has no statement 
+                                                         # for the ?institution the person's category membership suggests
+                                                         # they were employed by. Including statements that are not truthy / bestRank
+                                                         # hence the p: ps: stuff
+}

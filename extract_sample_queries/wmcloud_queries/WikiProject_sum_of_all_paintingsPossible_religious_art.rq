@@ -1,0 +1,7 @@
+SELECT ?item ?addlink WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P136 [] } .
+  { ?item wdt:P180 ?depicts . { ?depicts wdt:P411 [] } UNION { ?depicts wdt:P31/wdt:P279* wd:Q12405827 } UNION { ?depicts wdt:P279* wd:Q467420 } } UNION { 
+    ?item wdt:P921 ?subject . ?subject wdt:P31 wd:Q856663 }
+  BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P136&entityid=Q2864737 Add]") AS ?addlink)
+  } LIMIT 400

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blazegraph Feature Usage Report: WMCloud Queries</title>
+<style>
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem auto; max-width: 1100px; padding: 0 1rem; line-height: 1.5; color: #1f2937; }
+        h1, h2, h3 { color: #111827; }
+        code { background: #f3f4f6; padding: 0.1rem 0.3rem; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; }
+        th, td { border: 1px solid #d1d5db; padding: 0.5rem 0.65rem; text-align: left; vertical-align: top; }
+        th { background: #f9fafb; }
+        .meta { margin-bottom: 1.5rem; }
+        .feature { margin-bottom: 2rem; }
+        .count { font-weight: 600; }
+        ul.files { margin-top: 0.5rem; }
+        li.none { color: #6b7280; }
+        a { color: #0f766e; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+</style>
+</head>
+<body>
+<h1>Blazegraph Feature Usage Report: WMCloud Queries</h1>
+<div class="meta">
+<p>Source page reviewed: <a href="https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities">https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities</a></p>
+<p>Scanned local example queries: <span class="count">482255</span> <code>.rq</code> files under <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries</code>.</p>
+<p>This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local example trees.</p>
+</div>
+<h2>Summary Table</h2>
+<table>
+<thead><tr><th>Section</th><th>Feature</th><th>Matches</th></tr></thead>
+<tbody>
+<tr><td>Blazegraph Features</td><td>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</td><td>68469</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:globe()</code></td><td>0</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:latitude()</code></td><td>7</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:longitude()</code></td><td>6</td></tr>
+<tr><td>Function Extensions</td><td><code>geof:distance()</code></td><td>66</td></tr>
+<tr><td>Function Extensions</td><td><code>wikibase:decodeUri()</code></td><td>289</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:around</code></td><td>95</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:box</code></td><td>16</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:label</code></td><td>349084</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:slice</code></td><td>26</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:mwapi</code></td><td>35411</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE gas:service</code></td><td>719</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:sample</code></td><td>11753</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>hint:Query ...</code> query hints</td><td>60468</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>bd:serviceParam</code></td><td>373848</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:geoGlobe</code></td><td>16</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:globe</code></td><td>0</td></tr>
+</tbody>
+</table>
+<h2>Blazegraph Features</h2>
+<p>Features in this section: <span class="count">1</span><br>Total matches across this section: <span class="count">68469</span></p>
+<div class="feature">
+<h3>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</h3>
+<p>Local matches: <span class="count">68469</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>68469 matching files (not listed individually)</li></ul>
+</div>
+<h2>Function Extensions</h2>
+<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">368</span></p>
+<div class="feature">
+<h3><code>geof:globe()</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>geof:latitude()</code></h3>
+<p>Local matches: <span class="count">7</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_50.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_50.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_18_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_18_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/TweetsFactsAndQueriesvshlaeumqueries.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/TweetsFactsAndQueriesvshlaeumqueries.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_7.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>geof:longitude()</code></h3>
+<p>Local matches: <span class="count">6</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_50.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_50.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/EventsWikidata_Zurich_Training2019Showcase_queries_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_18_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_18_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/TweetsFactsAndQueriesvshlaeumqueries.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/TweetsFactsAndQueriesvshlaeumqueries.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_6.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>geof:distance()</code></h3>
+<p>Local matches: <span class="count">66</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_55.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_55.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_58.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_58.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_59.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_59.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_72.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_72.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_73.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_73.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_74.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_74.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_75.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_75.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Administrators_noticeboardArchive201901.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Administrators_noticeboardArchive201901.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_69.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_69.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Conny_9.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Conny_9.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Hitrandil_WMIT.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Hitrandil_WMIT.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Import_BLKO_from_wikisourcereportsborn_farthest_from_Vienna.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Import_BLKO_from_wikisourcereportsborn_farthest_from_Vienna.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/JebPesterwitz.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/JebPesterwitz.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Jura1test97.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Jura1test97.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P1334_16.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P1334_16.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P2632_25.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P2632_25.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P2659_23.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P2659_23.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_22.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_22.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_23.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_23.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_24.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_24.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_19.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_19.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_26.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_26.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_15.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_15.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_16.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_16.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Philbarker.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Philbarker.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive202111.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive202111.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201609_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201609_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202005.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202005.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202209_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202209_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202209_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202209_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Requests_for_deletionsArchive20200620.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Requests_for_deletionsArchive20200620.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_07_02_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_07_02_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_10_15_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_10_15_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_10_15_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_10_15_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_05_01_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_05_01_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_11_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_11_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_11_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_11_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_28_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_28_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_07_16_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_07_16_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_09_03_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_09_03_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_03_04.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_03_04.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_06_10_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_06_10_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_09_02_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_09_02_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2021_06_14.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2021_06_14.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/T73wvhyx97sczye4_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/T73wvhyx97sczye4_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_102.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_102.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_109.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_109.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tdma8f0ho8cwdmx8_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tdma8f0ho8cwdmx8_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tdma8f0ho8cwdmx8_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tdma8f0ho8cwdmx8_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tpsehw4tvwjzewbr_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tpsehw4tvwjzewbr_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Txyifske8x1r0csm.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Txyifske8x1r0csm.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Txyifske8x1r0csm_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Txyifske8x1r0csm_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ue1jymqb8r2t6rf0_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ue1jymqb8r2t6rf0_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uk3e012ahtau6jn3_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uk3e012ahtau6jn3_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uvbc552oqnevpp6t.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uvbc552oqnevpp6t.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpmlosgrx2q_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpmlosgrx2q_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpn8fc6vbnp_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpn8fc6vbnp_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Wausi3w43zyj6v7t.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Wausi3w43zyj6v7t.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_every_politicianWalesWikifying_the_Welsh_Assembly_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_every_politicianWalesWikifying_the_Welsh_Assembly_3.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:decodeUri()</code></h3>
+<p>Local matches: <span class="count">289</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>289 matching files (not listed individually)</li></ul>
+</div>
+<h2>SERVICE Extensions</h2>
+<p>Features in this section: <span class="count">7</span><br>Total matches across this section: <span class="count">397104</span></p>
+<div class="feature">
+<h3><code>SERVICE wikibase:around</code></h3>
+<p>Local matches: <span class="count">95</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_50.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_50.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_51.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_51.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_55.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_55.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_56.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_56.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_57.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_57.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_58.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_58.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_59.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_59.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_86.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_86.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Alexmar983.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Alexmar983.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Asia.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Asia.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Benoit_Soubeyran.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Benoit_Soubeyran.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Benoit_Soubeyran_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Benoit_Soubeyran_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Bot_requestsArchive201611.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Bot_requestsArchive201611.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Conny_9.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Conny_9.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Daniel_Mietchen_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Daniel_Mietchen_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/DiracHaitiQuisqueyafr.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/DiracHaitiQuisqueyafr.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/DnaX.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/DnaX.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Holapaco77.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Holapaco77.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Jiri_Komarek.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Jiri_Komarek.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/L0ll0.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/L0ll0.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/LukeWiller_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/LukeWiller_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Manuelarosi.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Manuelarosi.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Mezi_bajtyArchive2017.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Mezi_bajtyArchive2017.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Nicola_Quirico.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Nicola_Quirico.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Nortix08.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Nortix08.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Nortix08Stolperstein_Query_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Nortix08Stolperstein_Query_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P10271_27.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P10271_27.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P10271_28.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P10271_28.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_22.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_22.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_23.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_23.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_24.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_24.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Pampuco.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Pampuco.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Paolobon140.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Paolobon140.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_19.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_19.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_26.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_26.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotVisuals_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_15.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_15.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_16.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/PaucabotWork_16.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201801_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201801_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201807_10.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201807_10.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive202111.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive202111.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalmonument_in_the_near.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalmonument_in_the_near.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalopening_hours_v3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalopening_hours_v3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Q100000001.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Q100000001.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201609_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201609_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201702.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201702.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201810_15.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201810_15.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201903_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202005.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202005.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Requests_for_deletionsArchive20160529.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Requests_for_deletionsArchive20160529.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Requests_for_deletionsArchive20200620.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Requests_for_deletionsArchive20200620.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/SPARQL_query_serviceWikidata_Query_HelpResult_Views_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/SPARQL_query_serviceWikidata_Query_HelpResult_Views_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/SPARQL_query_serviceWikidata_Query_HelpResult_Views_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/SPARQL_query_serviceWikidata_Query_HelpResult_Views_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60Gamla_stan.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60Gamla_stan.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60Visby.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60Visby.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_05_14_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_05_14_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_06_18_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_06_18_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_10_08_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_10_08_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_11_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_11_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_11_13_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_11_13_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_14.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_14.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_14_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_14_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_21_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_05_21_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_06_04_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_06_04_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_07_09_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_07_09_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_12_10.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_12_10.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Syced_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Syced_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/T42pps9ezjnn4p9y_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/T42pps9ezjnn4p9y_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/T68ew9dhb05axtn6_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/T68ew9dhb05axtn6_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_154.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_154.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_46.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_46.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_52.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_52.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_67.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_67.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_86.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_86.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_95.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_95.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Td65rdfyzv8hmhm7_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Td65rdfyzv8hmhm7_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Txyifske8x1r0csm.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Txyifske8x1r0csm.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/U1utwpo0y8l84zza_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/U1utwpo0y8l84zza_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ud4a97c3og509cyk.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ud4a97c3og509cyk.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ud4a97c3og509cyk_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ud4a97c3og509cyk_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Udld74ie5zb30w9h_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Udld74ie5zb30w9h_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uef2ivzfa6xpss2n_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uef2ivzfa6xpss2n_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ugmoa7208bwsjzen_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ugmoa7208bwsjzen_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Unkiksh9h0k8vmsc.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Unkiksh9h0k8vmsc.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Upozl10vt4ljuzm1.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Upozl10vt4ljuzm1.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uq471ncru2dspwt1.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uq471ncru2dspwt1.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/VIGNERONCeltic_Knot_Translathon_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/VIGNERONCeltic_Knot_Translathon_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Vitplister_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Vitplister_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_UK_and_IrelandScotland_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_UK_and_IrelandScotland_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Younger_Dryas_impact_hypothesis.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Younger_Dryas_impact_hypothesis.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_sum_of_all_paintingsCzech_streets_named_after_painters.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_sum_of_all_paintingsCzech_streets_named_after_painters.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_sum_of_all_paintingsDutch_streets_named_after_painters_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_sum_of_all_paintingsDutch_streets_named_after_painters_2.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE wikibase:box</code></h3>
+<p>Local matches: <span class="count">16</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_51.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_51.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Andrew_Grayarchive_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Andrew_Grayarchive_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Andrew_Grayarchive_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Andrew_Grayarchive_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Antarctica_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P17.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P17.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P17_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P17_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalbounding_box.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalbounding_box.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalbounding_box_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Property_proposalbounding_box_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Thevrchriss.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Thevrchriss.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Utjtuppf80kqeeuw_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Utjtuppf80kqeeuw_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_FinlandVillages_and_islands_in_Aland_Islands.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_FinlandVillages_and_islands_in_Aland_Islands.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_FinlandVillages_islands_and_lakes_in_Uusimaa.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_FinlandVillages_islands_and_lakes_in_Uusimaa.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_8.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Netherlands_Public_LibrariesMaps_8.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE wikibase:label</code></h3>
+<p>Local matches: <span class="count">349084</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>349084 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE bd:slice</code></h3>
+<p>Local matches: <span class="count">26</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_8.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_8.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_10.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_10.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_11.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_11.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_12.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_12.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_13.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_13.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_14.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_14.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_8.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_8.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_9.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsunmarked_supercentenarians_9.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_127.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_127.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_128.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_128.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_133.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_133.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_152.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_152.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_155.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_155.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WdRyan_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WdRyan_3.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE wikibase:mwapi</code></h3>
+<p>Local matches: <span class="count">35411</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>35411 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE gas:service</code></h3>
+<p>Local matches: <span class="count">719</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>719 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>SERVICE bd:sample</code></h3>
+<p>Local matches: <span class="count">11753</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>11753 matching files (not listed individually)</li></ul>
+</div>
+<h2>Supporting Blazegraph-Specific Syntax</h2>
+<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">434332</span></p>
+<div class="feature">
+<h3><code>hint:Query ...</code> query hints</h3>
+<p>Local matches: <span class="count">60468</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>60468 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>bd:serviceParam</code></h3>
+<p>Local matches: <span class="count">373848</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>373848 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:someValue</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:geoGlobe</code></h3>
+<p>Local matches: <span class="count">16</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Bot_requestsArchive201605.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Bot_requestsArchive201605.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/J_N_SquireArchive_1.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/J_N_SquireArchive_1.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P3037_19.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P3037_19.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P376_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P376_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P8981_16.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P8981_16.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_12_31_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_12_31_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2021_06_14.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2021_06_14.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/U8uwc4p16hjv6v4l.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/U8uwc4p16hjv6v4l.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uz6pfsawzd14b38c.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uz6pfsawzd14b38c.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V7febdtf3f7btivn.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V7febdtf3f7btivn.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Wausi3w43zyj6v7t.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Wausi3w43zyj6v7t.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Astronomy_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Astronomy_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:globe</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+SELECT (CONCAT('-', ?qid) AS ?str) ("P17" AS ?pid) ("Q43287" AS ?value) WHERE {
+  ?item wdt:P17 wd:Q43287.
+  ?item wdt:P31 wd:Q7075.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "de" . 
+    ?item rdfs:label ?label
+  }
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+
+}

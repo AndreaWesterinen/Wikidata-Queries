@@ -1,0 +1,4 @@
+#title: 2020 presidential candidates should have one starting with "P"
+# Complex constraint from [[Property talk:P1839]]
+#
+SELECT ?item WHERE { wd:Q22923830 p:P726/ps:P726 ?item . FILTER NOT EXISTS { ?item wdt:P1839 ?v . FILTER(strstarts(?v, "P") )  }   }

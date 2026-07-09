@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-removePrefix>
+SELECT DISTINCT ?item WHERE { ?item wdt:P465 ?value . FILTER( REGEX(STR(?value), '^([0-9A-Fa-f]{6})$') = false )}

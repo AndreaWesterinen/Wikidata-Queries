@@ -1,0 +1,14 @@
+#desapariciones forzadas por lugar de reclusión y país
+#defaultView:Graph
+SELECT ?centro ?centroLabel ?centroImagen  ?item ?itemLabel ?itemimagen ?pais ?paisLabel ?paisImagen {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P27 wd:Q77.
+  OPTIONAL {?item wdt:P18 ?itemimagen}.
+  ?item wdt:P746 [].
+  ?item wdt:P2632 ?centro.
+  OPTIONAL {?centro wdt:P18 ?centroImagen}.
+  
+  ?centro wdt:P17 ?pais.
+  OPTIONAL {?pais wdt:P41 ?paisImagen}.
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+}

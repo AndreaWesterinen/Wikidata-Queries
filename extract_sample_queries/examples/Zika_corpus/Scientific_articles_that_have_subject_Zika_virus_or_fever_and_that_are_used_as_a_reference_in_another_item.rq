@@ -1,4 +1,4 @@
-# ----
+#title: Scientific articles that have subject Zika virus or fever and that are used as a reference in another item
 # NOTE - This scholarly query is written for use in WDQS-Scholarly UI only  (query-scholarly.wikidata.org).
 
 SELECT ?item ?itemLabel ?reference ?referenceType

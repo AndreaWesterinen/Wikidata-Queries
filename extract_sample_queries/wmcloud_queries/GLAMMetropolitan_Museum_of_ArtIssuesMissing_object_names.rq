@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(?item) AS ?count) 
+WHERE 
+{
+  ?work p:P31 [ ps:P31 wd:Q18593264;
+                pq:P1932 ?item ].
+  ?work wdt:P3634 ?id .
+}
+GROUP BY ?item
+ORDER BY DESC(?count)

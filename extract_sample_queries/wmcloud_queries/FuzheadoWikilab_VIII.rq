@@ -1,0 +1,11 @@
+SELECT ?item ?linkcount WHERE {
+  ?item wdt:P106 ?occ .
+  VALUES ?occ {
+    wd:Q33999 # actor
+    }
+  ?item wdt:P27 wd:Q155 .     # country of citizenship: Brazil
+  ?item wdt:P21 wd:Q6581072 . # gender: female
+  ?item wdt:P31 wd:Q5 .       # human
+  OPTIONAL {?item wikibase:sitelinks ?linkcount .} # count of sitelinks
+  FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:isPartOf <https://en.wikipedia.org/>.}
+} limit 5000

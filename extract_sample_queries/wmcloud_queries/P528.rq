@@ -1,0 +1,14 @@
+SELECT ?q ?qLabel ?items {
+ {
+ SELECT ?q (COUNT(DISTINCT(?item)) AS ?items) {
+ ?item p:P528 ?s .
+ ?s ps:P528 ?z .
+ ?s pq:P972 ?q .
+	}
+	group by ?q}
+
+ SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en" .
+ }
+}
+ORDER BY DESC(?items)

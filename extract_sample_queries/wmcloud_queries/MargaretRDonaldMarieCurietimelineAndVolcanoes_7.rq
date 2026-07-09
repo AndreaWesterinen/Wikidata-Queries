@@ -1,0 +1,13 @@
+SELECT DISTINCT ?film ?filmLabel ?cast ?castLabel ?age WHERE {
+#SELECT DISTINCT ?age ?cast WHERE {
+#SELECT DISTINCT ?age WHERE {
+  ?film wdt:P31 wd:Q11424.
+  ?film wdt:P577 ?date .
+  ?film wdt:P161 ?cast .
+  ?cast wdt:P569 ?dob .
+  #OPTIONAL { BIND(SUBSTR(STR(?datestr), 1, 10) AS ?date) }
+  bind( year(?date)-year(?dob) as ?age )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+#GROUP BY ?film ?cast
+LIMIT 100

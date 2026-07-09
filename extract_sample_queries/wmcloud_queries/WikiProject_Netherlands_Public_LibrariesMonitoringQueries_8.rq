@@ -1,0 +1,33 @@
+#Phone number P1329 
+# Phone number is optional
+# Can have multiple values (fixed, mobile..)
+# Must have standardized format RFC3966 --> decompose phone number into 4 parts
+
+SELECT DISTINCT 
+?item ?itemLabel 
+?phone #official Phone number P1329 
+?phonePart1 ?phonePart2 ?phonePart3 ?phonePart4 ?phonePart4Length
+?phoneRefURL ?phoneRefDate ?OffWebsiteP856
+
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL {?item p:P1329 [ps:P1329 ?phone].} #Phone number P1329 
+    
+  BIND(STRBEFORE( ?phone, "-") as ?phonePart1)
+  BIND(STRAFTER( ?phone, "-") as ?phoneTemp1)
+  BIND(STRBEFORE( ?phoneTemp1, "-") as ?phonePart2)
+  BIND(STRAFTER( ?phoneTemp1, "-") as ?phoneTemp2)
+  BIND(STRBEFORE( ?phoneTemp2, "-") as ?phonePart3)
+  BIND(STRAFTER( ?phoneTemp2, "-") as ?phoneTemp3)
+  BIND(?phoneTemp3 as ?phonePart4)
+  BIND(STRLEN(?phonePart4) as ?phonePart4Length)
+
+  OPTIONAL {?item p:P856 [ps:P856 ?OffWebsiteP856].} #official website (P856)
+  OPTIONAL {?item p:P1329 [prov:wasDerivedFrom [pr:P854 ?phoneRefURL]] .} #reference --> Reference url P854
+  OPTIONAL {?item p:P1329 [prov:wasDerivedFrom [pr:P813 ?phoneRefDate ]] .} #reference --> Retrieved P813
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+
+}
+ORDER BY ASC(?phonePart4Length)

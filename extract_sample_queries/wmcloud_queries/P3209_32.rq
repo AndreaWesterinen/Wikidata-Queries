@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P3209]]
+# Items that do have [[d:Q3098283|Heritage Railway Station of Canada <small>(Q3098283)</small>]] in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P3209|Heritage Railway Station of Canada ID&#32;<small dir="ltr">(P3209)</small>]]
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q3098283 } . ?item wdt:P1435 ?value . MINUS { ?item wdt:P3209 [] } }

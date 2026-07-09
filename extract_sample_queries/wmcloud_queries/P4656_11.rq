@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?statement ?value (STRLEN(STR(?value)) AS ?stringlength)
+{
+	{
+		SELECT ?ref ?value
+		{
+                hint:Query hint:optimizer "None".
+                ?ref pr:P4656 ?value .
+                FILTER NOT EXISTS { ?ref pr:P3452 [] }
+  			    FILTER(  CONTAINS( str(?value), "wikidata.org" ) 
+                         && !CONTAINS( str(?value), "proposal" ) 
+                      )
+		} 
+		LIMIT 1
+	} .
+	?statement prov:wasDerivedFrom ?ref .
+	?item ?p2 ?statement .  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

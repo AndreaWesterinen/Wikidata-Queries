@@ -1,0 +1,11 @@
+embed.html#SELECT ?lexeme ?lemma ?languageLabel ?number WHERE {
+  ?lexeme wikibase:lemma ?lemma;
+          dct:language ?language;
+          ontolex:sense/wdt:P5137 [
+            wdt:P31 wd:Q21199; # exclude ordinal numbers (“fifth” is 5 letters long)
+            wdt:P1181 ?number
+          ].
+  FILTER(STRLEN(?lemma) = ?number)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?number)

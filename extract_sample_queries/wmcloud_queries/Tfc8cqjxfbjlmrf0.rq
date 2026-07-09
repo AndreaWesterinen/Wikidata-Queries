@@ -1,0 +1,8 @@
+#Locations of educational insitutes allover the world
+#defaultView:Map
+SELECT ?universityLabel ?universityDescription ?website ?coord WHERE {
+  ?university (wdt:P31/wdt:P279*) wd:Q2385804.
+  ?university wdt:P625 ?coord.
+  OPTIONAL { ?university wdt:P856 ?website. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

@@ -1,0 +1,12 @@
+PREFIX p: <http://www.wikidata.org/prop/>  #optional
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/> #optional
+PREFIX v: <http://www.wikidata.org/prop/statement/> #mandatory
+
+SELECT ?item ?itemLabel ?file ?lang ?langLabel
+WHERE
+{
+	?item p:P2919 ?file_statement .
+    ?file_statement v:P2919 ?file .
+    OPTIONAL { ?file_statement pq:P407 ?lang }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

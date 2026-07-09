@@ -1,0 +1,14 @@
+#title: ⚠️ Mandatory: Check units
+# Complex constraint from [[Property talk:P2370]]
+# ⚠️ Mandatory, no exception. ''Please use [[Property:P2442|conversion to standard unit&#32;<small dir="ltr">(P2442)</small>]] for other conversion''.
+SELECT ?item ?unit
+WHERE {
+  ?item p:P2370/psv:P2370/wikibase:quantityUnit ?unit.
+  MINUS {
+    VALUES ?unitsSI { wd:Q223662 wd:Q208469 }.
+    ?unit wdt:P31 ?unitsSI.
+  }.
+  MINUS {
+    ?unit wdt:P2370 [].
+  }
+}

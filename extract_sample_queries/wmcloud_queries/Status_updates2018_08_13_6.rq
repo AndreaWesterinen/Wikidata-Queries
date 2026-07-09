@@ -1,0 +1,4 @@
+SELECT ?q ?article {
+  ?q wdt:P31 wd:Q16521 ; rdfs:label 'Amara'@en .
+  ?article schema:about ?q ; schema:isPartOf <https://species.wikimedia.org/>
+}

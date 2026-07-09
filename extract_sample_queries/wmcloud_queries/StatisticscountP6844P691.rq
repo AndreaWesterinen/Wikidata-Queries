@@ -1,0 +1,8 @@
+SELECT (wd:Q5 as ?item) (COUNT(?item) AS ?statcount) WHERE {
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item wdt:P6844 ?abart_person_id.
+      FILTER NOT EXISTS { ?item wdt:P691 ?nkcr_aut_id. }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+SELECT ?item ?article ?title
+WHERE
+{
+	?article schema:about ?item ;
+	         schema:isPartOf <https://hu.wikipedia.org/> .
+	?article schema:name ?title .
+	?item wikibase:sitelinks 1;
+	      wikibase:statements 0
+}

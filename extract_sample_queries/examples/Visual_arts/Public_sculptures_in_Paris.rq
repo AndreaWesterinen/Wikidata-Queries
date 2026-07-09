@@ -1,3 +1,4 @@
+#title: Public sculptures in Paris
 SELECT DISTINCT ?item ?Titre ?createur (year(?date) as ?AnneeCreation) ?image ?coord
 WHERE
 {

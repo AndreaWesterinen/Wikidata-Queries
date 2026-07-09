@@ -1,0 +1,6 @@
+SELECT (COUNT(DISTINCT ?item) AS ?names)
+WHERE
+{
+  ?item wdt:P3987 ?share;
+        wdt:P950 ?bne.
+  }

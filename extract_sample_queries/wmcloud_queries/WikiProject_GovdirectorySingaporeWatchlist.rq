@@ -1,0 +1,19 @@
+SELECT ?item
+WHERE {
+  BIND(wd:Q334 AS ?country)
+
+  VALUES ?type {
+    wd:Q35749 # Parliament of Singapore (1)
+    wd:Q7188 # Government of Singapore (1)
+    wd:Q190752 # Supreme Court of Singapore (1)
+    wd:Q112818479 # Ministries (16)
+    wd:Q3507268 # Town Councils (17)
+    wd:Q4426538  # Community Development Council Districts (5)
+  }
+  ?item wdt:P31 ?type .
+
+  ?item wdt:P17 ?country .
+
+  MINUS { ?item wdt:P576 [] }
+  MINUS { ?item wdt:P1366 [] }
+}

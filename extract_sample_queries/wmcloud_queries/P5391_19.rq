@@ -1,0 +1,14 @@
+#title: Unexpected coordinates
+# Complex constraint from [[Property talk:P5391]]
+# Coordinates should be near Svalbard, Jan Mayen, Bouvet Island, Peter I Island or Queen Maud Land.
+select distinct ?item {
+  ?item wdt:P5391 [] .
+  ?item p:P625/psv:P625 [ wikibase:geoLatitude ?lat ; wikibase:geoLongitude ?lon ] .
+
+  filter (!(
+    (?lat <= -65) # Queen Maud Land, Peter I Island and miscellaneous Antarctic places, below 65°S
+    || (?lat > 73 && ?lon > -3 && ?lon < 36) # Svalbard and miscellaneous Arctic places, above 73°N and between 3°W and 36°E
+    || (?lat > 70 && ?lat < 72 && ?lon > -10 && ?lon < -6) # Jan Mayen, 70-72°N and 6-10°W
+    || (?lat > -55 && ?lat < -54 && ?lon > 3 && ?lon < 4) # Bouvet Island, 54-55°S and 3-4°E
+  )) .
+}

@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31 wd:Q1952852. 
+}
+LIMIT 2600

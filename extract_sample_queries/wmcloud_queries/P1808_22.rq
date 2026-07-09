@@ -1,0 +1,14 @@
+#title: Missing date of death
+# Complex constraint from [[Property talk:P1808]]
+# Person born before 1916 with no date of death
+SELECT DISTINCT ?item
+WHERE 
+{
+	?item wdt:P1808 ?senat;
+		wdt:P31 wd:Q5;
+		wdt:P569 ?date .
+
+	FILTER (?date < "1916-01-01T00:00:00Z"^^xsd:dateTime)
+	OPTIONAL {?item wdt:P570 ?d } .
+	FILTER (!bound(?d))
+}

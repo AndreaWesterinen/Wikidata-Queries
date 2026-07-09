@@ -1,0 +1,16 @@
+embed.html##Public libraries that are situated above (are north of) Scheveningen Pier 
+#defaultView:Map
+SELECT DISTINCT ?dpl ?dplLabel ?dplLat ?dplLoc WHERE {
+  #Is Dutch public library dpl
+  ?dpl wdt:P31 wd:Q28564. #public library
+  ?dpl wdt:P31 wd:Q11396180. #library branch 
+  ?dpl wdt:P17 wd:Q55. #in the Netherlands
+  ?dpl wdt:P625 ?dplLoc. #Location of the dpl 
+  #Scheveningen Pier coordinates
+  wd:Q2176333 wdt:P625 ?PierLoc . # Location of Scheveningen Pier (Q2176333) 
+  BIND(geof:latitude(?dplLoc) AS ?dplLat) #Latitude of the library
+  BIND(geof:latitude(?PierLoc) AS ?PierLat) #Latitude of the Pier 
+  FILTER(?dplLat > ?PierLat).  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en" .}
+} 
+ORDER BY ASC(?dplLat)

@@ -1,0 +1,16 @@
+SELECT ?item ?count ?name ?sitelink {
+  VALUES (?lang ?regex) {
+    #('cs' 'rozcestník|příjmení')
+    #('de' 'Begriffsklärung|Wegweiser')
+    ('en' 'disambiguation|name')
+    #('vi' 'định hướng|đổi hướng')
+    #('ceb' 'pagklaro|awtor')
+    #('war' 'pansayod|awtor')
+    #('sv' 'olika (betydelser|platser)|auktor|namn|efternamn')
+  } .
+  ?item wdt:P31 wd:Q4167410; ^schema:about ?sitelink .
+  ?sitelink schema:inLanguage ?lang; schema:name ?name .
+  FILTER ( STRENDS ( STR( ?name ), ')' ) ) .
+  FILTER ( !REGEX( STRBEFORE( STRAFTER( STR( ?name ), '(' ), ')' ), ?regex ) ) .
+  OPTIONAL { ?item wikibase:sitelinks ?count } .
+} LIMIT 100

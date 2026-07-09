@@ -1,0 +1,13 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?placeLabel  ?coordinate_location ?dist ?img WHERE {
+  SERVICE wikibase:around {
+    ?place wdt:P625 ?location.
+    bd:serviceParam wikibase:center "[AUTO_COORDINATES]".
+    bd:serviceParam wikibase:radius "20".
+    bd:serviceParam wikibase:distance ?dist.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,sv". }
+  ?item  wdt:P180 ?place.
+  ?item  wdt:P18 ?img
+  OPTIONAL { ?place wdt:P625 ?coordinate_location. }
+}

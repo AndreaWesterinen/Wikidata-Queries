@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 ?type.
+  FILTER(?type = wd:Q47521)
+  FILTER(NOT EXISTS { ?item wdt:P17 ?country. })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

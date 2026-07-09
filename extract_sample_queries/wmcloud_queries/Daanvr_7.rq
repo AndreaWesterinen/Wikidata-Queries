@@ -1,0 +1,48 @@
+#Map of hospitals
+#added 2017-08
+#defaultView:Map
+SELECT DISTINCT * WHERE {
+  { ?item wdt:P3607 ?bookingID. }
+  UNION
+  { ?item wdt:P3134 ?tripadvisorID. }
+  UNION
+  { ?item wdt:P3898 ?hotelcomID. }
+  UNION
+  { ?item wdt:P5651 ?ExpediaID. }
+  UNION
+  { ?item wdt:P3134 ?tripadvisorID. }
+  UNION
+  { ?item wdt:P3134 ?TripAdvisorID. }
+  UNION
+  { ?item wdt:P3607 ?BookingomHotelID. }
+  UNION
+  { ?item wdt:P3898 ?HotelscomHotelID. }
+  UNION
+  { ?item wdt:P5651 ?ExpediaHotelID. }
+  UNION
+  { ?item wdt:P5734 ?HistoricHotelsofAmericaID. }
+  UNION
+  { ?item wdt:P5735 ?HistoricHotelsWorldwideID. }
+  UNION
+  { ?item wdt:P5774 ?HistoricHotelsofEuropeID. }
+  UNION
+  { ?item wdt:P5834 ?LeadingHotelsoftheWorldHotelID. }
+  UNION
+  { ?item wdt:P5836 ?RelaisChâteauxID. }
+  UNION
+  { ?item wdt:P5890 ?PreferredHotelsResortsHotelID. }
+  UNION
+  { ?item wdt:P6008 ?AgodaHotelID. }
+  UNION
+  { ?item wdt:P6985 ?OYOHotelID. }
+  UNION
+  { ?item wdt:P7133 ?CleartripHotelID. }
+  UNION
+  { ?item wdt:P7136 ?GoibiboHotelID. }
+  UNION
+  { ?item wdt:P8868 ?AAAHotelID. }
+  UNION
+  { ?item wdt:P4161 ?MichelinVoyagesID. }
+  OPTIONAL { ?item wdt:P18 ?img. }
+  OPTIONAL { ?item wdt:P625 ?geo. }
+}

@@ -1,0 +1,9 @@
+embed.html#SELECT ?item ?label (count(?o) AS ?nr) WHERE {
+  ?item wdt:P279 wd:Q615980.
+  OPTIONAL {?o wdt:P31 ?item}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "sv" . 
+    ?item rdfs:label ?label
+  } 
+} group by ?item ?label
+order by desc(?nr)

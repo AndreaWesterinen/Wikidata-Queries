@@ -1,0 +1,16 @@
+PREFIX schema: <http://schema.org/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?cid ?country ?article WHERE {
+    ?cid wdt:P31 wd:Q178561 .
+    OPTIONAL {
+      ?cid rdfs:label ?country filter (lang(?country) = "en") .
+    }
+    OPTIONAL {
+      ?article schema:about ?cid .
+      ?article schema:inLanguage "en" .
+      ?article schema:isPartOf <https://en.wikipedia.org/> .
+    }
+} 

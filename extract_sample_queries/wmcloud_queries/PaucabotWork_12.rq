@@ -1,0 +1,8 @@
+SELECT ?taxon ?taxonLabel ?sitelink WHERE
+{
+  ?taxon wdt:P31 wd:Q16521 .                                                      # instància de tàxon
+  MINUS { ?taxon wdt:P171 [] } .                                                  # sense "tàxon superior immediat"
+  OPTIONAL { ?sitelink schema:about ?taxon . ?sitelink schema:inLanguage "ca" }   # cerca a la Viquipèdia en català ("ca")
+  FILTER (BOUND(?sitelink))                                                       # i selecciona només aquests
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ca" }               # etiquetes en català
+}

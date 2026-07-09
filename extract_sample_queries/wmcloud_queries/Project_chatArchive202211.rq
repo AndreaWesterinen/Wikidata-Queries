@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item
+WHERE
+{
+  ?item wdt:P31 wd:Q4167410, ?other FILTER(?other != wd:Q4167410) FILTER(?other != wd:Q22808320).
+}

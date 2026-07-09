@@ -1,0 +1,7 @@
+#title: Prizes with no winners recorded in Wikidata
+# Complex constraint from [[Property talk:P8742]]
+#
+SELECT ?item {
+  ?item wdt:P8742 [].
+  FILTER NOT EXISTS {?human wdt:P166 ?item }.
+}

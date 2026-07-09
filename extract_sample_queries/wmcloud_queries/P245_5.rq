@@ -1,0 +1,25 @@
+#title: Missing Library of Congress authority ID
+# Complex constraint from [[Property talk:P245]]
+# People with [[Property:P245|Union List of Artist Names ID&#32;<small dir="ltr">(P245)</small>]], but no link to [[Property:P244|Library of Congress authority ID&#32;<small dir="ltr">(P244)</small>]]. This is based on a federated query which gets all ULAN entries with a LOC link from the Getty and compares it with the items here that have an ULAN link, but no LOC link.
+SELECT ?item ?ulanuri ?locuri
+WITH {
+  SELECT ?item ?ulanuri ?locuri WHERE {
+  ?item wdtn:P245 ?ulanuri .
+  MINUS { ?item wdtn:P244 ?locuri } . 
+  } 
+} AS %wikidata
+WITH {
+  SELECT * {
+  SERVICE <http://vocab.getty.edu/sparql.json> {
+    SELECT ?ulanuri ?locuri WHERE {
+      ?ulanuri rdf:type <http://vocab.getty.edu/ontology#PersonConcept> .
+      ?ulanuri <http://www.w3.org/2004/02/skos/core#exactMatch> ?locuri .
+      FILTER(REGEX(STR(?locuri), '^http://id.loc.gov/authorities/names/n'))
+    }
+  }
+}
+} AS %ulan
+WHERE {
+  INCLUDE %wikidata.
+  INCLUDE %ulan.
+}

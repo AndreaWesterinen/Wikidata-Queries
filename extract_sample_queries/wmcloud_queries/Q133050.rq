@@ -1,0 +1,13 @@
+SELECT
+  ?film ?filmLabel ?filmDescription ?depLabel ?replacedbyLabel 
+WHERE
+{
+  	?film p:P161 ?st . ?st ps:P161 wd:Q133050 ; pq:P2241 ?dep .
+    OPTIONAL { ?st pq:P1366 ?replacedby }
+  	{ ?film wdt:P31/wdt:P279* wd:Q11424 } UNION { ?film wdt:P31 wd:Q5398426 }
+    SERVICE wikibase:label
+    {
+      bd:serviceParam wikibase:language "en,en".
+    }
+}
+ORDER BY DESC(?filmDescription) 

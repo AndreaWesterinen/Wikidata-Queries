@@ -1,0 +1,9 @@
+#defaultView:ImageGrid
+SELECT distinct ?estructura_arquitect_nicaLabel ?instancia_de ?instancia_deLabel ?imagen WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+  
+  ?estructura_arquitect_nica wdt:P131 wd:Q8818.
+  OPTIONAL { ?estructura_arquitect_nica wdt:P31 ?instancia_de. }
+  OPTIONAL { ?estructura_arquitect_nica wdt:P18 ?imagen. }
+}
+ORDER BY ?instancia_deLabel ?estructura_arquitect_nicaLabel

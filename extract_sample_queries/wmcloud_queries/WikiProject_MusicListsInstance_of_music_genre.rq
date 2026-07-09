@@ -1,0 +1,31 @@
+SELECT ?item ?qid ?P495 ?P495Label (GROUP_CONCAT(DISTINCT ?discog) as ?discogs) (GROUP_CONCAT(DISTINCT ?rymurl) as ?rym_url) (GROUP_CONCAT(DISTINCT ?evnurl) as ?evn_url) (GROUP_CONCAT(DISTINCT ?mburl) as ?mb_url) (GROUP_CONCAT(DISTINCT ?amurl) as ?am_url) WHERE {
+  BIND( xsd:integer( STRAFTER( STR( ?item ), STR( wd:Q ) ) ) AS ?qid )
+  ?item wdt:P31/wdt:P279* wd:Q188451.
+  OPTIONAL {?item wdt:P495 ?P495.} 
+  OPTIONAL {?item wdt:P9218 ?DgID. 
+            BIND(CONCAT("[https://www.discogs.com/genre/",?DgID," ",?DgID,"]") as ?DgIDurl)}
+  OPTIONAL {?item wdt:P9219 ?DsID. 
+            BIND(CONCAT("[https://www.discogs.com/style/",?DsID," ",?DsID,"]") as ?DsIDurl)}
+  BIND(IF(BOUND(?DgIDurl) && BOUND(?DsIDurl),concat(?DgIDurl," ",?DsIDurl),
+          IF(BOUND(?DgIDurl),?DgIDurl,
+            IF(BOUND(?DsIDurl),?DsIDurl,""))) as ?discog) 
+  OPTIONAL {?item wdt:P9173 ?rymID.
+            BIND(CONCAT("[https://rateyourmusic.com/genre/",?rymID," ",?rymID,"]") as ?rymurl)}
+  OPTIONAL {?item wdt:P9881 ?evnID. 
+            BIND(CONCAT("[https://everynoise.com/engenremap-",?evnID,".html ",?evnID,"]") as ?evnurl)}
+  OPTIONAL {?item p:P8052 ?mbstat .  
+    OPTIONAL {?mbstat pq:P1810 ?mbQ_ .}
+    ?mbstat ps:P8052 ?mbID .
+    BIND(IF(BOUND(?mbQ_),?mbQ_,"_ID_") as ?mbQ)
+    wd:P9185 rdfs:label ?propItemLabelmb.
+    FILTER((LANG(?propItemLabelmb)) = "en")
+    BIND(CONCAT("[https://musicbrainz.org/genre/", ?mbID," ",?mbQ, "]") AS ?mburl)}
+  OPTIONAL {?item p:P9185 ?amstat .  
+    OPTIONAL {?amstat pq:P1810 ?amQ_ .}
+    ?amstat ps:P9185 ?amID .
+    BIND(IF(BOUND(?amQ_),?amQ_,"_ID_") as ?amQ)
+    wd:P9185 rdfs:label ?propItemLabelam.
+    FILTER((LANG(?propItemLabelam)) = "en")
+    BIND(CONCAT("[https://www.allmusic.com/style/", ?amID," ",?amQ, "]") AS ?amurl)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} group by ?item ?P495 ?P495Label ?qid ORDER BY ?qid

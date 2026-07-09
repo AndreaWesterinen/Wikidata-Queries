@@ -1,0 +1,4 @@
+SELECT ?AuthPlaceID ?AuthPlaceIDLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?AuthPlaceID wdt:P31/wdt:P279* wd:Q19829908.
+}

@@ -1,0 +1,7 @@
+# title: L2 (the 16 Districts of Northern Region, Ghana)
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q545769.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  MINUS { ?item wd:Q107663145 _:b1. }
+  ?item wdt:P131 wd:Q502215.
+}

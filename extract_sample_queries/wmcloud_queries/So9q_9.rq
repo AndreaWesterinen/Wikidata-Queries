@@ -1,0 +1,14 @@
+#deployed nuclear weapons in the world per country
+SELECT #?item ?itemLabel 
+?countryLabel ?coord 
+?number
+WHERE 
+{
+  ?item wdt:P31 wd:Q106317256;
+        wdt:P17 ?country.
+  ?country wdt:P625 ?coord.
+  
+  ?item p:P527 [ps:P527 wd:Q106212175; # deployed nuclear weapons
+                pq:P1114 ?number].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

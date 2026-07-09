@@ -1,3 +1,4 @@
+#title: Number of jurisdictions by driving side
 SELECT ?sideLabel (COUNT(?jurisdiction) AS ?count)
 WHERE
 {

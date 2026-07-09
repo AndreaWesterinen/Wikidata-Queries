@@ -1,0 +1,10 @@
+SELECT ?item ?person ?office (COUNT(DISTINCT ?descendants) as ?ct)
+{
+    ?person wdt:P40+ ?descendants .
+    ?item wdt:P35 ?person ; wdt:P1906 ?office . 
+    MINUS { ?item p:P576 [] }
+    { ?office wdt:P31 wd:Q42045197 } UNION { ?office wdt:P31 wd:Q5737899 }
+    ?person wdt:P39 ?office .
+    MINUS { ?person p:P570 [] }  
+}
+GROUP BY ?item ?person ?office

@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?taxonName WHERE {
+  ?item p:P225/ps:P225 ?taxonName .
+  ?item p:P225 ?taxonNameStatement .
+  ?taxonNameStatement prov:wasDerivedFrom ?ref .
+  ?ref pr:P31 []  #role=recombination
+}
+ORDER BY ASC(?taxonName) 

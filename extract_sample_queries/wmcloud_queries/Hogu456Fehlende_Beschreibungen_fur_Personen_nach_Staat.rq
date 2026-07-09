@@ -1,0 +1,20 @@
+PREFIX schema: <http://schema.org/>
+
+#Missing description for a target language
+#Search for missing descriptions in a target language.
+#Can be input for Q29032512
+SELECT ?item ?occupationLabel ?domainLabel ?positionLabel ?itemDescription ?Land_der_Staatsangeh_rigkeit ?Land_der_Staatsangeh_rigkeitLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P27 wd:Q40.
+  OPTIONAL { ?item wdt:P106 ?occupation. }
+  OPTIONAL { ?item wdt:P101 ?domain. }
+  OPTIONAL { ?item wdt:P39 ?position. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+  ?item wdt:P21 wd:Q6581097.
+  FILTER(NOT EXISTS {
+    ?item schema:description ?itemdesc.
+    FILTER((LANG(?itemdesc)) = "de")
+  })
+  OPTIONAL { ?item wdt:P27 ?Land_der_Staatsangeh_rigkeit. }
+}
+ORDER BY ?itemLabel

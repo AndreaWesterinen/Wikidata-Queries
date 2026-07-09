@@ -1,0 +1,39 @@
+# Items in NSW that do not have an admin district
+#defaultView:Map
+SELECT DISTINCT ?place ?placeLabel ?location WHERE {
+  {
+  SERVICE wikibase:box {
+    ?place wdt:P625 ?location .
+    bd:serviceParam wikibase:cornerWest "Point(141 -34.02099167)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerEast "Point(148.9581996 -29)"^^geo:wktLiteral .
+  }
+  } UNION {
+  SERVICE wikibase:box {
+    ?place wdt:P625 ?location .
+    bd:serviceParam wikibase:cornerWest "Point(144.67 -29.2035)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerEast "Point(155 -35.1)"^^geo:wktLiteral .
+  }
+  } UNION {
+  SERVICE wikibase:box {
+    ?place wdt:P625 ?location .
+    bd:serviceParam wikibase:cornerWest "Point(149.4829 -32)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerEast "Point(155 -37.2)"^^geo:wktLiteral .
+  }    
+  } UNION {
+  wd:Q21925249 wdt:P625 ?loc00 . 
+  SERVICE wikibase:around { 
+    ?place wdt:P625 ?location . 
+    bd:serviceParam wikibase:center ?loc00 . 
+    bd:serviceParam wikibase:radius "80" . 
+  }
+
+  }
+  
+  OPTIONAL {?place wdt:P131 ?inadmin .}
+  OPTIONAL {?place wdt:P17 ?country .}
+  MINUS {?place a wdno:P131 .} #to exclude examples where there is explicitly "admin district= no value"
+  MINUS {?place wdt:P17 wd:Q691}
+  MINUS {?place wdt:P17 wd:Q252}
+  FILTER(!BOUND(?inadmin))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .  }
+}

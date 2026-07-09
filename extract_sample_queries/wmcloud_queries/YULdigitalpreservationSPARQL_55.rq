@@ -1,0 +1,14 @@
+#defaultView:BubbleChart
+SELECT   ?award ?awardLabel (COUNT(?person) AS ?count)
+
+WHERE {
+  
+   ?person wdt:P485 wd:Q814779.
+  ?person wdt:P166 ?award .
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+}
+  }
+GROUP BY ?award ?awardLabel
+ORDER BY DESC(?count)

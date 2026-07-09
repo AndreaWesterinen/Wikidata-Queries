@@ -1,0 +1,12 @@
+#defaultView:Map
+SELECT ?item ?label ?_image ?geoloc WHERE {
+  ?item wdt:P31 wd:Q26703203;
+        wdt:P625 ?geoloc.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?label
+  }
+  
+OPTIONAL { ?item wdt:P18 ?_image. }
+}
+#LIMIT 100

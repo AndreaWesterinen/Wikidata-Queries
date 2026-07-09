@@ -1,3 +1,4 @@
+#title: Politicians who died of cancer (of any type)
 SELECT ?politician ?cause ?politician_label ?cause_of_death_label
 WHERE
 {

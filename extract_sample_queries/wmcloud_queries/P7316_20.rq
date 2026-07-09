@@ -1,0 +1,4 @@
+#title: Items for numbers with values too large for quantity datatype should have this property
+# Complex constraint from [[Property talk:P7316]]
+#
+SELECT ?item WHERE { ?item p:P1181 [pq:P2241 wd:Q54767019] MINUS { ?item wdt:P7316 [] }  } ORDER BY ?item

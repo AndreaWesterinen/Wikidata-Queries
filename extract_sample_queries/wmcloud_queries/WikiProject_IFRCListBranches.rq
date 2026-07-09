@@ -1,0 +1,34 @@
+select ?sn ?item ?itemDescription ?volunteers ?employees ?members ?it ?en ?de ?es ?fr ?st
+where {
+  ?item wdt:P749 ?sn .
+  ?sn wdt:P31/wdt:P279* wd:Q1968122 .
+  ?sn wdt:P355 ?item .
+  OPTIONAL { ?item p:P6125 ?pvol .
+    ?pvol ps:P6125 ?volunteers .
+    OPTIONAL {?pvol pq:P585 ?vdata . }
+  }
+  FILTER NOT EXISTS { ?item p:P6125/pq:P585 ?vdate . FILTER (?vdate > ?vdata) }
+  OPTIONAL { ?item p:P1128 ?pemp .
+    ?pemp ps:P1128 ?employees .
+    OPTIONAL {?pemp pq:P585 ?edata . }
+  }
+  FILTER NOT EXISTS { ?item p:P1128/pq:P585 ?edate . FILTER (?edate > ?edata) }
+    OPTIONAL { ?item p:P2124 ?pmem .
+               ?pmem ps:P2124 ?members .
+              OPTIONAL {?pmem pq:P585 ?mdata .}
+              }
+  FILTER NOT EXISTS {?item p:P2124/pq:P585 ?mdate . FILTER (?mdate > ?mdata)}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  OPTIONAL {?it schema:about ?item ;
+                     schema:isPartOf <https://it.wikipedia.org/> .}
+  OPTIONAL {?en schema:about ?item ;
+                     schema:isPartOf <https://en.wikipedia.org/> .}
+  OPTIONAL {?de schema:about ?item ;
+                     schema:isPartOf <https://de.wikipedia.org/> .}
+  OPTIONAL {?es schema:about ?item ;
+                     schema:isPartOf <https://es.wikipedia.org/> .}
+  OPTIONAL {?fr schema:about ?item ;
+                     schema:isPartOf <https://fr.wikipedia.org/> .}
+  optional {?item wikibase:statements ?st .}
+}
+order by ?sn

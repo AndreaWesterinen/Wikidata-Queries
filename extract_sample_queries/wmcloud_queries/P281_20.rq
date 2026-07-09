@@ -1,0 +1,8 @@
+#title: Long postal identifiers
+# Complex constraint from [[Property talk:P281]]
+# postal identifiers having more than 50 chars
+SELECT ?item ?stringvalueNowiki WHERE {
+   ?item wdt:P281 ?stringvalue .
+   FILTER(strlen(?stringvalue) > 50) .
+   BIND(CONCAT('') AS ?stringvalueNowiki)
+}

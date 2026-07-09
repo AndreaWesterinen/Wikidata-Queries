@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel ?y
+{
+    ?item wdt:P971 wd:Q38073102 ; wdt:P971 wd:Q11424  .
+    ?item wdt:P971 ?yr . ?yr wdt:P31 wd:Q577 . ?yr wdt:P585 ?yy . BIND(YEAR(?yy) as ?y)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr,it,pl,es,pt,da". }
+}

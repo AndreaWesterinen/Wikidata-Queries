@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  VALUES ?uncc { wd:Q1783178 wd:Q73495399 wd:Q91348501 }
+  ?item wdt:P485 ?uncc .
+}
+ORDER BY ?item

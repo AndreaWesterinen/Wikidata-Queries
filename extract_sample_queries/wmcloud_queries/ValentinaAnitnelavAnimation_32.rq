@@ -1,0 +1,60 @@
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#share of animated films per year
+#defaultView:LineChart
+SELECT (STR(?year) AS ?years) ?animationShare ?filmType ?itemCount
+    
+WITH {
+  SELECT DISTINCT (YEAR(?date) AS ?year) ?filmType WHERE {
+    ?yearItem wdt:P31 wd:Q577; wdt:P585 ?date.
+    FILTER(YEAR(?date)>= 1880 && YEAR(?date)<= 2025)
+    {BIND("unknown" AS ?filmType)} UNION
+    {BIND("feature" AS ?filmType)} UNION
+    {BIND("short" AS ?filmType)}     
+    }
+  } AS %years
+
+WITH {
+  SELECT DISTINCT ?year ?filmType ((COUNT(DISTINCT ?anim)/COUNT(DISTINCT ?item))*100 AS ?animShare) (COUNT(?item) AS ?itemCount) WHERE {
+    FILTER(BOUND(?year))
+    {
+    SELECT DISTINCT ?item ?anim (MIN(YEAR(?date)) AS ?year) ?filmType WHERE {
+      ?item (wdt:P31/wdt:P279*) wd:Q11424; (wdt:P577|wdt:P2754) ?date.
+      OPTIONAL{{?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q202866} UNION {?item (wdt:P31|wdt:P136)/wdt:P279* wd:Q1107} BIND(?item AS ?anim)}
+      MINUS { ?item (wdt:P31/wdt:P279*) wd:Q24856. }
+      MINUS { ?item (wdt:P31/wdt:P279*) wd:Q5398426. }
+        OPTIONAL {
+        {?item (wdt:P31/wdt:P279*) wd:Q24869. } UNION {
+          ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+          FILTER(?duration >= 2700)
+        }
+        BIND("feature" AS ?filmT)
+      }
+      OPTIONAL {
+        {?item (wdt:P31/wdt:P279*) wd:Q24862. } UNION {
+          ?item p:P2047/psn:P2047/wikibase:quantityAmount ?duration.
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24869}
+          MINUS {?item wdt:P31/wdt:P279* wd:Q24862}
+          FILTER(?duration < 2700)
+        }
+        BIND("short" AS ?filmT)
+      }
+      BIND(IF(!BOUND(?filmT),"unknown",?filmT) AS ?filmType)
+    }
+    GROUP BY ?item ?filmType ?anim
+    }
+  }
+GROUP BY ?year ?filmType
+} AS %films
+
+WHERE {
+  INCLUDE %years
+  OPTIONAL{
+  INCLUDE %films
+  BIND(?animShare AS ?share)
+  }
+  BIND(IF(!BOUND(?share),0,?animShare) AS ?animationShare)
+  }

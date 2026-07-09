@@ -1,0 +1,14 @@
+SELECT (COUNT(?paper) AS ?countPapers) ?item ?nameString {
+  ?item wdt:P108 wd:Q317070 ;
+        rdfs:label ?name .
+  BIND(STR(?name) AS ?nameString)
+  FILTER(LANG(?name)="en")
+  FILTER NOT EXISTS {
+    ?anotherPerson wdt:P31 wd:Q5;
+                   rdfs:label ?name .
+    FILTER(?anotherPerson != ?item)
+  }
+  ?paper wdt:P2093 ?nameString .
+}
+GROUP BY ?item ?nameString
+ORDER BY DESC(?countPapers)

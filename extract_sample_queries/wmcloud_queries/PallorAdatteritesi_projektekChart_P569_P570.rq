@@ -1,0 +1,14 @@
+SELECT (wdt:P27 wd:Q28 as ?item) ("Dates of birth/death precision" as ?legend) (GROUP_CONCAT(?itemLabel;separator = ",") as ?labels) (GROUP_CONCAT(?ct;separator = ",") as ?values)
+{
+	{	SELECT  ?p (COUNT(DISTINCT ?n) as ?ct)
+		{
+  			VALUES ?p3 { psv:P570 psv:P569 }
+  			?n ?p3 ?n1 . ?n1	wikibase:timePrecision ?p .
+		}
+		GROUP BY  ?p
+		ORDER BY ASC(?ct)                  
+	}
+	?item wdt:P2803 ?p1
+	FILTER (?p = ?p1)          
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "hu" . ?item rdfs:label ?itemLabel  }
+}

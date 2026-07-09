@@ -1,0 +1,7 @@
+SELECT ?item ?id ?inv ?image WHERE {
+  ?item wdt:P2539 ?id ;
+        wdt:P217 ?inv ;
+        wdt:P31 wd:Q3305213 .
+  MINUS { ?item  wdt:P1476 ?title } .
+  OPTIONAL { ?item wdt:P18 ?image } . 
+  }

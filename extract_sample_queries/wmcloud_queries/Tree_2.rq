@@ -1,0 +1,9 @@
+sparql?query=#mtDNA Haplogroups
+SELECT ?item ?itemLabel ?p156 ?p156Label
+WHERE 
+{
+  ?item wdt:P31 wd:Q1356230.
+  OPTIONAL { ?item wdt:P156 ?p156 } #followed by
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}&format=json

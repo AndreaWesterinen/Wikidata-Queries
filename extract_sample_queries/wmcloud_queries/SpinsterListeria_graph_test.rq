@@ -1,0 +1,23 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("pie" as ?type)
+  ("100" as ?width) 
+  ("100" as ?height) 
+  ("Most popular types (P31) of public artwork on Wikidata:" as ?legend) 
+  ("true" as ?showValues) 
+  (GROUP_CONCAT(?instanceLabel;separator=",") as ?x)
+  (GROUP_CONCAT(?count;separator=",") as ?y1)
+WHERE
+{
+  { 
+    SELECT ?instanceLabel (COUNT(DISTINCT ?artwork) as ?count)
+    {
+      ?artwork wdt:P136/wdt:P279* wd:Q557141 . 
+      ?artwork wdt:P31 ?instance .
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    }
+    GROUP BY ?instanceLabel
+    HAVING (?count > 30)
+    ORDER BY ASC(?count)
+  }
+}

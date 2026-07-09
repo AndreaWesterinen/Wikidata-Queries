@@ -1,0 +1,3 @@
+SELECT ?personneA ?personneB WHERE {
+  ?personneA wdt:P22 ?personneB .
+  MINUS { ?personneB wdt:P21 wd:Q

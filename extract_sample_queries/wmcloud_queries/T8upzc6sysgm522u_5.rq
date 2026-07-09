@@ -1,0 +1,16 @@
+SELECT ?director ?directorLabel ?actor ?actorLabel ?filmCount ?minYear ?maxYear WHERE {
+  {
+    SELECT ?director ?actor (COUNT(?film) AS ?filmCount) (MIN(?year) AS ?minYear) (MAX(?year) AS ?maxYear) WHERE {
+      ?film wdt:P57 ?director.
+      ?film wdt:P161 ?actor.
+      OPTIONAL {
+        ?film wdt:P577 ?date .
+        BIND (YEAR(?date) AS ?year)
+      }
+    }
+    GROUP BY ?director ?actor
+    HAVING (?filmCount > 20)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?filmCount) ?directorLabel ?actorLabel

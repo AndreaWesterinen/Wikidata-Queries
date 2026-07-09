@@ -1,0 +1,22 @@
+SELECT ?item ?itemLabel ?governorof ?governorofLabel ?begin ?jLabel ?ord ?sl ?st ?id ?hs ?f ?v ?wp
+{
+	?item wdt:P39 ?governorof .
+	?item p:P39 ?statement .
+	?statement ps:P39 ?governorof .
+  	?statement pq:P580 ?begin
+  	OPTIONAL { ?statement pq:P1545 ?ord }
+	FILTER NOT EXISTS { ?statement pq:P582 [] }  
+	?governorof wdt:P31 wd:Q4164871 .
+	?governorof wdt:P279* wd:Q132050 .  
+  	?governorof wdt:P17 wd:Q30 . 
+	?governorof wdt:P1001 ?j .
+	OPTIONAL { ?item wikibase:statements ?st }
+	OPTIONAL { ?item wdt:P69 ?hs . ?hs wdt:P31 wd:Q9826 }
+	OPTIONAL { ?item wikibase:sitelinks ?sl }
+	OPTIONAL { ?item wikibase:identifiers ?id }
+	OPTIONAL { ?item wdt:P646 ?f1 } OPTIONAL { ?item wdt:P2671 ?f2 } . BIND(IF(!BOUND(?f1)&&!BOUND(?f2),"","y") as ?f)
+	OPTIONAL { ?item wdt:P214 ?v1 } . BIND(IF(!BOUND(?v1),"","y") as ?v)
+	OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?w1  BIND( CONCAT("[[:en:",str(?w1),"|en]]") as ?wp) } 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?begin) ?item

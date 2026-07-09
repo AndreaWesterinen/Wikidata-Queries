@@ -1,0 +1,6 @@
+#title: In France but no country(P17)
+# anyting with a administrative location that is a subclass of France but without P17: France
+SELECT ?item WHERE {
+  ?item (wdt:P131*) wd:Q142.
+  FILTER(NOT EXISTS { ?item wdt:P17 [] })
+}

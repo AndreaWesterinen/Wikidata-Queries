@@ -1,0 +1,5 @@
+embed.html#SELECT DISTINCT ?x
+WHERE {
+ { ?x wdt:P449 wd:Q907311 . } UNION { ?x wdt:P750 wd:Q907311 . }
+ FILTER NOT EXISTS { ?x wdt:P1874 ?y . }
+}

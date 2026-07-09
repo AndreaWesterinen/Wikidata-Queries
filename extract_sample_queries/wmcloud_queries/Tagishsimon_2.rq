@@ -1,0 +1,11 @@
+SELECT ?occupation ?occupationLabel ?cnt WHERE {
+  {
+    SELECT ?occupation (COUNT(?occupation) AS ?cnt) WHERE {
+      FILTER NOT EXISTS { ?wikilink schema:about ?item; schema:inLanguage "en" . }
+      ?item wdt:P21 wd:Q6581072 .
+      OPTIONAL { ?item wdt:P106 ?occ . }
+      BIND(IF(!BOUND(?occ), wd:Q19798648, ?occ) AS ?occupation) .
+    } GROUP BY (?occupation)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY DESC(?cnt)

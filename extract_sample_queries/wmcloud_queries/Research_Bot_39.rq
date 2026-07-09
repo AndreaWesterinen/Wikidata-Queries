@@ -1,0 +1,11 @@
+#added before 2016-10
+
+SELECT DISTINCT ?item ?label
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814;
+        rdfs:label ?label.
+  FILTER NOT EXISTS {?item wdt:P921 ?topic.}
+  FILTER(CONTAINS(LCASE(?label), "virus")).
+}
+LIMIT 100

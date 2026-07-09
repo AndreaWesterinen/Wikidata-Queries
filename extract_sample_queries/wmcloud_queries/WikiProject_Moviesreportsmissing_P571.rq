@@ -1,0 +1,8 @@
+SELECT ?item ?sl ?st
+{
+    ?item wdt:P31 wd:Q11424 .
+    ?article schema:about ?item ; schema:isPartOf <https://ca.wikipedia.org/> .
+    FILTER NOT EXISTS { ?item wdt:P57 ?dir }
+    OPTIONAL { ?item wikibase:sitelinks ?sl; wikibase:statements ?st }
+}
+ORDER BY DESC(xsd:integer(STRAFTER(str(?item), "Q")))

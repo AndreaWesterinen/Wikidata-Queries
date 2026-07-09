@@ -1,0 +1,35 @@
+SELECT 
+    ?item ?lang 
+    ((CONCAT("<code><","nowiki>",?t,"</","nowiki></code>")) as ?template) 
+    ?count_all 
+    (COALESCE(?count_non,0) as ?count_non_) 
+( ROUND( (?count_all - ?count_non_) / ?count_all * 1000 )/10 as ?pc_template)
+WITH
+{
+    SELECT ?t ?lang { wd:P1740 p:P1552 [ ps:P1552 wd:Q100884525 ; pq:P8770 ?t ] BIND( lang(?t) as ?lang) }
+} as %t
+WITH
+{
+    SELECT ?lang (COUNT(?value) as ?count_all)
+    {
+        INCLUDE %t
+        ?aa wdt:P1740 ?value . ?value rdfs:label ?v . FILTER(lang(?v) = ?lang)
+     } GROUP BY ?lang 
+} as %all
+WITH
+{
+    SELECT ?lang (COUNT(?value) as ?count_non)  
+    {
+        INCLUDE %t
+          ?ab wdt:P1740 ?value .
+          ?value rdfs:label ?v . FILTER(lang(?v) = ?lang)
+          FILTER ( !REGEX(str(?v), str(?t) )  )
+    } GROUP BY ?lang
+} as %non               
+WHERE 
+{
+  INCLUDE %t
+  INCLUDE %all
+  OPTIONAL { INCLUDE %non }
+  ?item wdt:P424 ?lang ; wdt:P305 []
+}

@@ -1,0 +1,8 @@
+SELECT ?item ?upstart ?upend ?up ?uproute ?down ?downroute WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q15141321 ; wdt:P17 wd:Q668 ; p:P527 ?upstmt ; p:P527 ?downstmt.
+  ?upstmt ps:P527 ?up ; pq:P560 wd:Q15332375. ?downstmt ps:P527 ?down ; pq:P560 wd:Q15332388. 
+  OPTIONAL { { ?up wdt:P1671 ?uproute } UNION { ?up wdt:P8180 ?uproute }
+  ?up wdt:P1427 ?upstart ; wdt:P1444 ?upend. ?item wdt:P559 ?upstart ; wdt:P559 ?upend.
+  { ?down wdt:P1671 ?downroute. } UNION { ?down wdt:P8180 ?downroute } }
+}
+ORDER BY ?uproute

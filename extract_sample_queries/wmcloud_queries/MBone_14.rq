@@ -1,0 +1,8 @@
+SELECT DISTINCT (CONCAT("-", ?qid) AS ?minus) ("P131" AS ?pid) ("Q1904" AS ?value) ("/* more specific P131 value already set */" AS ?comment) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P131 ?admin.
+  ?admin wdt:P31 wd:Q14762300.
+  ?item wdt:P131 wd:Q1904.
+  BIND(SUBSTR(STR(?item), (STRLEN(STR(<http://www.wikidata.org/entity/>))) + 1) AS ?qid)
+}
+LIMIT 100

@@ -1,4 +1,4 @@
-# ----
+#title: Population of cities and towns in Denmark and their OSM relation id
 # Population of cities and towns in Denmark and their OSM relation id
 # This shows a simple OR using VALUES and a variable
 SELECT ?city ?cityLabel ?population ?OSM_relation_ID WHERE {

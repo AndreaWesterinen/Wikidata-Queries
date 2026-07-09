@@ -1,0 +1,11 @@
+#title: 80+ years in the same jail
+# Complex constraint from [[Property talk:P2632]]
+#
+SELECT ?item ?jail ?diff {
+  ?item p:P2632 [ps:P2632 ?jail;
+                 pq:P580 ?beginDate;
+                 pq:P582 ?endDate;
+                ].
+  BIND ((?endDate - ?beginDate)/365 AS ?diff)
+  FILTER (?diff > 80)
+}

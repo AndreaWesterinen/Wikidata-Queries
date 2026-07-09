@@ -1,0 +1,1 @@
+SELECT ?item ?so ?url WHERE { ?item p:P91 [ ps:P91 ?so; prov:wasDerivedFrom/pr:P854 ?url ] . FILTER(CONTAINS(STR(?url), 'wikipedia.org')) }

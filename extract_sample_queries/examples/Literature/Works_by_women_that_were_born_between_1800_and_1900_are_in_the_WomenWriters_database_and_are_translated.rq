@@ -1,3 +1,4 @@
+#title: Works by women that were born between 1800 and 1900, are in the WomenWriters database and are translated
 SELECT ?translator ?translatorLabel ?work ?workLabel ?author ?authorLabel {
     ?work wdt:P655 ?translator;
           wdt:P50 ?author.

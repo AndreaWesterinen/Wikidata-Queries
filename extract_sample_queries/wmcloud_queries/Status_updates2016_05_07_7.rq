@@ -1,0 +1,8 @@
+SELECT ?work (COUNT(?depicted) AS ?count)
+WHERE
+{
+  ?work wdt:P180 ?depicted.
+}
+GROUP BY ?work
+ORDER BY DESC(?count)
+LIMIT 10

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?namedAfter ?namedAfterLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q3863. 
+  ?item wdt:P138 ?namedAfter .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+} order by ?itemLabel ?namedAfterLabel

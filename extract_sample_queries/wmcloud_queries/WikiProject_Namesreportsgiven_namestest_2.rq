@@ -1,0 +1,12 @@
+SELECT ?item ?nl
+  (COUNT(DISTINCT ?p) as ?count)
+  (SAMPLE(?p) as ?sample_p)
+{
+    ?item wdt:P407 wd:Q652 ;
+          wdt:P31 wd:Q11879590 ;
+          wdt:P1705 ?nl . 
+    FILTER( regex( str(?nl), "[^a]$") )
+    OPTIONAL { ?p wdt:P735 ?item }
+}
+GROUP BY ?item ?nl
+ORDER BY DESC(?count) ?nl

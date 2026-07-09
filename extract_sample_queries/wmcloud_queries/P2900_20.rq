@@ -1,0 +1,12 @@
+#title: Check for country code
+# Complex constraint from [[Property talk:P2900]]
+# Entries should start with "+" and the country code (+1 for US numbers)
+SELECT ?item ?itemLabel ?value
+WHERE
+{
+	?item wdt:P2900 ?value .
+	?item wdt:P17/wdt:P474 ?cc .
+	FILTER(!strstarts(?value, ?cc)) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 
+}
+LIMIT 1000

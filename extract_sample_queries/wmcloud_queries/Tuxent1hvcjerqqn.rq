@@ -1,0 +1,10 @@
+# properties with most “statement disputed by” qualifiers on statements
+SELECT ?property ?propertyLabel (COUNT(?statement) AS ?count) WHERE {
+  ?property a wikibase:Property;
+            wikibase:claim ?p.
+  ?entity ?p ?statement.
+  ?statement pq:P1310 [].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?property ?propertyLabel
+ORDER BY DESC(?count)

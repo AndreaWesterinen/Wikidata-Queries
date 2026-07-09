@@ -1,3 +1,4 @@
+#title: Longest rivers
 #defaultView:BubbleChart
 SELECT ?item ?itemLabel ?length ?pic ?location
 WHERE

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value ?nv (strlen(str(?nv)) as ?len)
+{
+  ?item wdt:P7316 ?value ; wdt:P1181 ?nv . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}
+ORDER BY DESC(?nv) 
+LIMIT 10

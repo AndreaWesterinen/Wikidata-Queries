@@ -1,0 +1,1 @@
+SELECT ?item ?irignd WHERE { ?item wdt:P227 ?gnd . BIND(URI(CONCAT('http://d-nb.info/gnd/', ?gnd)) AS ?irignd) . }

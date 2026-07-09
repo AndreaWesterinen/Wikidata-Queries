@@ -1,0 +1,12 @@
+SELECT DISTINCT  ?zoologist ?zoologistLabel ?article WHERE {
+  ?zoologist wdt:P31 wd:Q5.
+  ?zoologist wdt:P106 wd:Q350979. # occupation zoologist
+  ?zoologist wdt:P108 wd:Q769416. #employer Australian Museum
+  OPTIONAL {
+     ?article schema:about ?zoologist. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?zoologistLabel
+#LIMIT 500

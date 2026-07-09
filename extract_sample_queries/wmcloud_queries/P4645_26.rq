@@ -1,0 +1,9 @@
+#title: Id comparison with INSEE code
+# Complex constraint from [[Property talk:P4645]]
+# RCR id first 5 character for France should be the same as INSEE code [[Property:P374|INSEE municipality code&#32;<small dir="ltr">(P374)</small>]]
+SELECT * WHERE {
+  ?q wdt:P4645 ?RCR ; wdt:P131/wdt:P374 ?codeINSEE .
+  BIND(REPLACE(REPLACE(?codeINSEE,"A","0"),"B","0") AS ?substrINSEE) #for Corsica A and B is replace by 0
+  BIND(SUBSTR(?RCR, 0 , 6 ) AS ?substr)
+  FILTER ( ?substr != ?substrINSEE )
+}

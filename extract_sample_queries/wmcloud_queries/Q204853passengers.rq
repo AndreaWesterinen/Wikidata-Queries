@@ -1,0 +1,24 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("fontsize:10,offset:5,angle:90" as ?showValues)
+  ("line" as ?type)
+  ("200" as ?heigth) 
+  ("600" as ?width) 
+  ("year/month" as ?xAxisTitle) 
+  ("date" as ?xType) 
+  ("monthly passengers (thousands)" as ?yAxisTitle)
+  (GROUP_CONCAT(?month;separator=",") as ?x)
+  (GROUP_CONCAT(?t;separator=",") as ?y)
+WHERE
+{
+  { 
+
+  SELECT ?month (ROUND(SUM(?passengers)/1000) as ?t)
+  {
+  wd:Q204853 p:P3872 [ ps:P3872 ?passengers ; pqv:P585 [ wikibase:timePrecision 10 ; wikibase:timeValue ?month ] ]
+  FILTER( YEAR(?month)>2017)             
+  }
+  GROUP BY ?month
+  ORDER BY DESC(?month)
+  }
+}

@@ -1,0 +1,18 @@
+SELECT DISTINCT
+	?title
+	?item	?itemLabel	?itemDescription
+	?item2 	?item2Label	?item2Description
+WHERE
+{
+  	{ ?item wdt:P31 wd:Q11424 . } UNION { ?item wdt:P31 wd:Q506240 . } UNION { ?item wdt:P31 wd:Q226730 . } UNION { ?item wdt:P31 wd:Q20667187 . }  
+	?item wdt:P364 wd:Q150 .
+	OPTIONAL { ?sitelink schema:about ?item . ?sitelink schema:inLanguage ?lang .  } . 
+	FILTER NOT EXISTS { ?wfr schema:about ?item . ?wfr schema:inLanguage "fr" } 
+  	?item rdfs:label ?title . FILTER(lang(?title)="fr")
+	# ?item2 wdt:P364 wd:Q150 .
+  	?item2 rdfs:label ?title . 
+  	FILTER(		?item != ?item2 && str(?item) < str(?item2) )
+	FILTER NOT EXISTS {?item2 wdt:P31 ?t . VALUES ?t { wd:Q4167410 wd:Q12308941 wd:Q5 wd:Q21191270 wd:Q571 wd:Q8261 wd:Q1344 wd:Q25379 wd:Q169930 wd:Q482994 } } 
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?itemDescription ?title ?item2Description 

@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?coords ?uic {
+  VALUES ?type { wd:Q55488 wd:Q55678 wd:Q784159 }.
+  ?item wdt:P31 ?type.
+  MINUS { ?item wdt:P31 wd:Q15893266 }
+  ?item wdt:P17 wd:Q213.
+  OPTIONAL { ?item wdt:P722 ?uic }
+  OPTIONAL { ?item wdt:P625 ?coords }
+  FILTER (!BOUND(?uic)

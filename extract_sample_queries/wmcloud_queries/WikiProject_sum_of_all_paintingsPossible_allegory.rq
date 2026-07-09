@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?addlink WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P136 [] } .
+  ?item rdfs:label ?label .
+  FILTER(REGEX(STR(?label), "(allegorical

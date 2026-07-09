@@ -1,0 +1,19 @@
+#Churches, with another church really close by
+
+SELECT ?church ?churchLabel ?churchloc ?dist ?other ?otherLabel
+WHERE
+{
+  ?church wdt:P31 wd:Q16970 .                           # this thing is a church
+  ?church wdt:P17 wd:Q145 .                             # and it's in the UK
+  ?church wdt:P625 ?churchloc .                         # and it has a location
+  ?other wdt:P31 wd:Q16970 .                            # another thing is also a church
+  SERVICE wikibase:around {
+      ?other wdt:P625 ?otherloc .
+      bd:serviceParam wikibase:center ?churchloc .
+      bd:serviceParam wikibase:radius "0.025" .          # and is pretty much exactly on the same spot (±25m)
+  } 
+  FILTER (STR(?church) > STR(?other))                   # filter so each pair only shows up once
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  BIND(geof:distance(?churchloc, ?otherloc) as ?dist)         
+}
+ORDER BY ?dist

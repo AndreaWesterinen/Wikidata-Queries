@@ -1,0 +1,5 @@
+SELECT ?rank ?rankLabel {
+  ?rank wdt:P31/wdt:P279* wd:Q427626 ;
+        wdt:P361/wdt:P31/wdt:P279* wd:Q427626 .
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "fr,en" }
+}

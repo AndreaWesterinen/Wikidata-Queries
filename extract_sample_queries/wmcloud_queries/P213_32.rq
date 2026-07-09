@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-isniformat>
+SELECT DISTINCT ?item WHERE { ?item wdt:P213 ?value . FILTER( REGEX(STR(?value), '^(0000 000[0-5] \\d{4} \\d{3}[\\dX])$') = false )}

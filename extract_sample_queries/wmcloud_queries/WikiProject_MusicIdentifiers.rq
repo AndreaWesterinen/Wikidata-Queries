@@ -1,0 +1,34 @@
+SELECT DISTINCT ?property  
+?shortprop  ?item ?constraintreport ?editgroups ?completeness ?records ?regex
+?templates ?catalogs ?constraints ?subjects ?languages
+(COUNT(?propertyclaim) AS ?usage) (ROUND(100*?usage/?records) AS ?percent)
+WITH {
+  SELECT DISTINCT ?property
+  WHERE {
+    VALUES ?type {
+      wikibase:ExternalId
+      wikibase:Url
+    }
+    VALUES ?class {
+      wd:Q22965078
+      wd:Q66712599
+      wd:Q66118361
+      wd:Q105672006
+      wd:Q66118387
+    }
+    ?property wikibase:propertyType ?type;
+      (wdt:P31/(wdt:P279*)) ?class
+  }
+} AS %properties
+WITH {
+  SELECT DISTINCT ?item ?property
+                  ?shortprop ?constraintreport ?editgroups ?completeness ?regex ?records
+                  (GROUP_CONCAT(DISTINCT ?subject) as ?subjects)
+                  (GROUP_CONCAT(DISTINCT ?language) as ?languages)
+                  (GROUP_CONCAT(DISTINCT ?template) as ?templates)
+                  (GROUP_CONCAT(DISTINCT ?catalog) as ?catalogs)
+                  (GROUP_CONCAT(DISTINCT ?constraint) as ?constraints) 
+  WHERE {
+    INCLUDE %properties.
+    BIND(xsd:integer(REPLACE(STR(?property), "http://www.wikidata.org/entity/P", "")) AS ?propid)
+    BIND(CONCAT("{", "{P

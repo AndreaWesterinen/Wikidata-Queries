@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel (YEAR(?dob) as ?born) (YEAR(?dod) as ?died)
+WHERE
+{
+	?item wdt:P31 wd:Q5 .
+        OPTIONAL { ?item wdt:P569 ?dob }.
+        OPTIONAL { ?item wdt:P570 ?dod }.
+    ?article schema:about ?item .
+    ?article schema:isPartOf <https://he.wikipedia.org/>.
+    FILTER((YEAR(?dod) < -1 && YEAR(?dod) > -100)|| (YEAR(?dob) < -1 && YEAR(?dob) > -100))
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

@@ -1,0 +1,12 @@
+SELECT ?item ?article
+  WITH {
+  SELECT *
+  WHERE {
+    ?article schema:about ?item;
+             schema:isPartOf <https://www.wikidata.org/>.
+  }
+} AS %i
+WHERE {
+  INCLUDE %i.
+  ?item wdt:P31 wd:Q16695773.
+}

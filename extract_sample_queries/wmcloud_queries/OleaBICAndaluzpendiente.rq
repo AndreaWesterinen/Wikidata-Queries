@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?Bien_de_Inter_s_Cultural__BIC__code ?heritage_designation ?heritage_designationLabel ?coordinate_location WHERE {
+  ?item wdt:P808 ?Bien_de_Inter_s_Cultural__BIC__code;
+    (wdt:P131*) wd:Q5783.
+  OPTIONAL { ?item wdt:P1435 ?heritage_designation. }
+  OPTIONAL { ?item wdt:P625 ?coordinate_location. }
+  FILTER(NOT EXISTS { ?item wdt:P8425 ?IAPH_code. })
+  FILTER(NOT EXISTS { ?item wdt:P3318 ?Patrimonio_Inmueble_de_Andaluc_a_ID. })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+}

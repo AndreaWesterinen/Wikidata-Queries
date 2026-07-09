@@ -1,0 +1,8 @@
+SELECT ?item ("Den" as ?Dde) (CONCAT("episode of ", ?l) as ?desc) WHERE {
+  ?item wdt:P31 wd:Q21191270 .
+  ?item wdt:P179 ?serie .
+  ?serie wdt:P31 wd:Q5398426 .
+  MINUS { ?item schema:description ?d FILTER (LANG (?d) = "en") .}
+  ?serie rdfs:label ?l .
+  FILTER(lang(?l) = "en")
+} ORDER BY xsd:integer(SUBSTR(STR(?item), STRLEN("http://www.wikidata.org/entity/Q")+1))

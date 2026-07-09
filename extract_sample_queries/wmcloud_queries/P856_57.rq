@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P856/ps:P856 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://comic-walker\\.com/contents/detail/(KDCW_[A-Z]{2}\\d{2}[012]0\\d{4}0[123]0000_68)/?)$") )
+}

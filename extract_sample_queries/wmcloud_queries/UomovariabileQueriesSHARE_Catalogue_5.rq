@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?SHARECatID ?SHAREVDEID
+WHERE
+{
+  ?item wdt:P3987 ?SHARECatID;
+        wdt:P6329 ?SHAREVDEID.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

@@ -1,0 +1,4 @@
+#title: Check edition with the "bima" prefix
+# Complex constraint from [[Property talk:P950]]
+#
+SELECT DISTINCT ?item WHERE { ?item wdt:P950 ?id. FILTER (substr(?id,0,5) = 'bima') MINUS { ?item wdt:P31 wd:Q3331189 }. } ORDER BY ?item

@@ -1,0 +1,69 @@
+# Met knowledge graph of Afrofuturist period room
+#defaultView:Graph
+SELECT ?item1 ?image1 ?item1Label ?item2 ?image2 ?item2Label ?edgeLabel # ?size # ?rgb ?sitelinks
+WHERE 
+{
+  VALUES ?work { wd:Q109674835 }
+  {
+  { # Get participant
+    VALUES ?item1 { wd:Q109674835 }
+    VALUES ?rgb { "AABD33" }
+    ?item1 wdt:P710 ?item2 .
+    ?item1 wikibase:sitelinks ?sitelinks .
+    ?item1 ?prop ?item2.
+    ?edge ?dummy ?prop ; rdf:type wikibase:Property
+    OPTIONAL { ?item1 wdt:P18 ?image1. }
+    OPTIONAL { ?item2 wdt:P18 ?image2. }
+  } 
+  UNION
+  { # Get parts
+    VALUES ?item1 { wd:Q109674835 }
+    VALUES ?rgb { "AABD33" }
+    ?item1 wdt:P527 ?item2 .
+    ?item1 wikibase:sitelinks ?sitelinks .
+    ?item1 ?prop ?item2.
+    ?edge ?dummy ?prop ; rdf:type wikibase:Property
+
+    OPTIONAL { ?item1 wdt:P18 ?image1. }
+    OPTIONAL { ?item2 wdt:P18 ?image2. }
+  } 
+  UNION
+  { # Get creator of parts
+    VALUES ?rgb { "AABD33" }
+    # VALUES ?size { 2 }
+    ?work wdt:P527 ?item1 .
+    ?item1 wdt:P170 ?item2 .
+    ?item1 ?prop ?item2.
+    ?edge ?dummy ?prop ; rdf:type wikibase:Property
+
+    OPTIONAL { ?item1 wdt:P18 ?image1. }
+    OPTIONAL { ?item2 wdt:P18 ?image2. }
+  } 
+  UNION
+  { # Get instance of, of parts
+    VALUES ?rgb { "AABD33" }
+    VALUES ?size { 2 }
+    ?work wdt:P527 ?item1 .
+    ?item1 wdt:P31 ?item2 .
+    ?item1 ?prop ?item2.
+    ?edge ?dummy ?prop ; rdf:type wikibase:Property .
+    ?item1 wikibase:sitelinks ?sitelinks .
+    OPTIONAL { ?item1 wdt:P18 ?image1. }
+    OPTIONAL { ?item2 wdt:P18 ?image2. }
+  } 
+  UNION
+  { # Get named after
+    VALUES ?item1 { wd:Q109674835 }
+    VALUES ?rgb { "AABD33" }
+    VALUES ?size { 2 }
+    ?item1 wdt:P138 ?item2 .
+    ?item1 wikibase:sitelinks ?sitelinks .
+    ?item1 ?prop ?item2.
+    ?edge ?dummy ?prop ; rdf:type wikibase:Property
+
+    OPTIONAL { ?item1 wdt:P18 ?image1. }
+    OPTIONAL { ?item2 wdt:P18 ?image2. }
+  }
+  } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?sitelinks) LIMIT 500

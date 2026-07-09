@@ -1,0 +1,17 @@
+# accused Scottish witches: significant event is witchcraft investigation: point in time
+SELECT DISTINCT  ?witch ?witchLabel ?date ?article WHERE {
+  ?witch wdt:P793 wd:Q66458810. 
+  ?witch wdt:P4478 ?personID.
+  ?witch p:P793 ?stat.
+  ?stat ps:P793 ?sigEvent.
+  ?stat pq:P585 ?date.
+  OPTIONAL {
+     ?article schema:about ?witch. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+
+#ORDER BY (?st) ?witch
+
+#LIMIT 500

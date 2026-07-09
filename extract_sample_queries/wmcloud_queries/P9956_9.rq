@@ -1,0 +1,16 @@
+# items without property P9956, but no sitelink to cywiki
+# added by Jura1, 2017-11-27
+SELECT ?item ?itemLabel ?value ?sl
+{
+  {
+       SELECT *
+       {
+          ?item wdt:P9956 ?value ; wikibase:sitelinks ?sl
+          FILTER NOT EXISTS { [] schema:about ?item ; schema:isPartOf <https://cy.wikipedia.org/> }
+       }
+       ORDER BY DESC(?sl) ?item
+       LIMIT 1000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?sl) ?item

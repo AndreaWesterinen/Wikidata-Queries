@@ -1,0 +1,10 @@
+#title: For stepmothers, use "stepparent"
+# Complex constraint from [[Property talk:P25]]
+# use [[Property:P3448|stepparent&#32;<small dir="ltr">(P3448)</small>]] not [[Property:P25|mother&#32;<small dir="ltr">(P25)</small>]] for stepmothers
+SELECT ?item ?itemLabel ?value ?valueLabel ?pq ?pqLabel 
+WHERE
+{
+  VALUES ?pq { wd:Q15384699 wd:Q19822352 }
+  ?item p:P25 [ps:P25 ?value; pq:P1039 ?pq ] ; wdt:P31 wd:Q5 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

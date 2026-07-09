@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item WHERE {
+  ?item p:P195/ps:P195 wd:Q7005718 ;
+        wdt:P31 wd:Q3305213 .
+  } LIMIT 2000

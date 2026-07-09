@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?okresLabel ?email ?web {
+  ?item wdt:P31 wd:Q5153359;
+        wdt:P131 ?okres;
+        wdt:P968 ?email .
+  OPTIONAL { ?item wdt:P856 ?web } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } .
+}

@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?classificationLabel ?ofLabel WHERE {
+  ?item p:P2094 [
+    ps:P2094 ?classification;
+    pq:P642 ?of
+  ].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

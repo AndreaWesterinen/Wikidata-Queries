@@ -1,0 +1,14 @@
+SELECT ?errata ?errataLabel ?itemLabel ?item
+WHERE 
+{
+  hint:Query hint:optimizer "None" .
+  ?errata wdt:P31 wd:Q45203135 .                  # ?errata is an errata
+  filter not exists {?itemZ wdt:P5824 ?errata . } # there's no ?item pointing to the errata.
+  ?errata rdfs:label ?errataLabel . filter(lang(?errataLabel)="en")
+  filter(strstarts(?errataLabel,"Retraction Notice:"))
+  bind(replace(?errataLabel,"Retraction Notice: ","") as ?111) .
+  bind(replace(?111,"”","") as ?itemLabel) .
+  ?item rdfs:label ?itemLabel.
+  filter(strlen(?itemLabel)>20)
+  filter(?item != ?errata)
+}

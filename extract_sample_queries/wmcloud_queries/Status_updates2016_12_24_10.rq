@@ -1,0 +1,11 @@
+# The number of Wikipedia articles (in any language) of paintings by painter
+#defaultView:BubbleChart
+SELECT ?painter ?painterLabel (COUNT(DISTINCT ?article) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+    ?article schema:about ?item .
+  ?article schema:isPartOf ?wiki .
+  FILTER regex (str(?wiki), ".+.wikipedia.org").
+  ?item wdt:P170 ?painter .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+        
+} GROUP BY ?painter ?painterLabel HAVING (?count > 4 )

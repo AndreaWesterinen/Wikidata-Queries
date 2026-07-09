@@ -1,0 +1,1 @@
+SELECT*{?p wikibase:propertyType wikibase:String;wdt:P1630[]}

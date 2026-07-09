@@ -1,0 +1,7 @@
+SELECT ?item WHERE {
+  ?item wdt:P106 wd:Q488111 .
+  ?item wdt:P21 wd:Q6581072 .
+  ?item wdt:P569 ?time0 .
+  FILTER ( ?time0 >= "1994-01-01T00:00:00Z"^^xsd:dateTime && ?time0 <= "1997-12-31T00:00:00Z"^^xsd:dateTime )
+  MINUS { ?item wdt:P31 wd:Q15632617 }
+}

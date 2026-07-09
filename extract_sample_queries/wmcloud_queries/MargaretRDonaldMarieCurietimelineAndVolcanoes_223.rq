@@ -1,0 +1,12 @@
+# Find 1000 Curciulionidae with AFD ids and with insects of the world ids 
+SELECT ?item ?itemLabel
+  WHERE
+  {
+    ?item wdt:P6039 ?afd_id .
+    ?item wdt:P171* wd:Q7415384.
+    hint:Prior hint:gearing "forward" .
+    minus {?item wdt:P7224 ?insecta_id.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    
+  }
+limit 1000

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?website ?subject WHERE {
+  ?item wdt:P31 wd:Q51139628.
+  ?item wdt:P856 ?website.
+  OPTIONAL { ?item wdt:P921 ?subject } .
+}

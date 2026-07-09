@@ -1,0 +1,13 @@
+select distinct ?item ?itemLabel ?occupationLabel ?dob where {
+   ?item wdt:P31 wd:Q5;  # Any istance of a human.
+   wdt:P1344/wdt:P31 wd:Q84476898. #YOG2020
+   OPTIONAL { ?item wdt:P569 ?dob }
+   OPTIONAL { ?item wdt:P106 ?occupation }
+   BIND(YEAR(?dob) as ?yob)
+   BIND(MONTH(?dob) as ?mob)
+   BIND(DAY(?dob) as ?dayob)
+   FILTER(?mob=12)
+   FILTER(?dayob=31)
+SERVICE wikibase:label {  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en" }
+}
+ORDER BY ASC(?dob)

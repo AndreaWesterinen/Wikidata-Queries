@@ -1,0 +1,13 @@
+#date of birth referenced with Wikispecies
+
+SELECT ?item ?itemLabel
+WHERE
+{
+  ?item p:P569 ?statement .
+  ?statement prov:wasDerivedFrom ?x .
+  ?x <http://www.wikidata.org/prop/reference/P143> wd:Q13679 .
+
+  SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en" .
+}
+}

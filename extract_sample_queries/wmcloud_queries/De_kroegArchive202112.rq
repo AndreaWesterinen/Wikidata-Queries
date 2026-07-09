@@ -1,0 +1,6 @@
+SELECT ?item ?itemLabel ?n 
+{
+	?item wdt:P31 wd:Q3464665 . 
+    [] schema:about ?item ; schema:isPartOf <https://nl.wikipedia.org/> ; schema:name ?n .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?person2
+WHERE {
+  ?item wdt:P31 wd:Q5 ; wdt:P39 wd:Q16707842.
+  ?person2 wdt:P31 wd:Q5 ; wdt:P39 wd:Q16707842 ; wdt:P26 ?item .
+  FILTER(STR(?person2) > STR(?item))
+}

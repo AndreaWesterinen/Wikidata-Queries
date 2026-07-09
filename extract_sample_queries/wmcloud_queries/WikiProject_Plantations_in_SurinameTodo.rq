@@ -1,0 +1,6 @@
+SELECT ?plantation ?plantationLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?plantation wdt:P31 wd:Q188913.
+  
+  ?plantation wdt:P17 wd:Q730.
+}

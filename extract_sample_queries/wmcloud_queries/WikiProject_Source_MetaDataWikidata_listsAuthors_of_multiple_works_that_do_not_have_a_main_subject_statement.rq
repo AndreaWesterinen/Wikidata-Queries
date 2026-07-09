@@ -1,0 +1,15 @@
+# Authors of multiple works that do not have a main subject statement
+SELECT DISTINCT ?item (COUNT(?work) AS ?count) (SAMPLE(?work) AS ?pub) WHERE {
+ { 
+  SELECT DISTINCT ?work 
+                  WHERE  {
+                    ?work wdt:P31 wd:Q13442814 .
+                    }
+  LIMIT 20000
+ } 
+  MINUS { ?work wdt:P921 ?topic . }
+  ?work wdt:P50 ?item  .
+}
+GROUP BY ?item
+ORDER BY DESC(?count)
+LIMIT 200

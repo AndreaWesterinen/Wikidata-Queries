@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?itemLabel ?wlm
+WHERE
+{
+?item  p:P2186 [ ps:P2186 ?wlm; prov:wasDerivedFrom/pr:P143 wd:Q19960422 ] .
+SERVICE wikibase:label { bd:

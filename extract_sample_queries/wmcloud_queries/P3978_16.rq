@@ -1,0 +1,15 @@
+#defaultView:AreaChart
+SELECT ?st ?ct {
+  {
+   BIND (0 AS ?ct)
+   BIND (-0.0001 AS ?st)
+  }
+  UNION {
+    SELECT ?st (COUNT(*) as ?ct)
+    {
+      ?item wdt:P3978 ?value ; wikibase:sitelinks ?st
+    }
+    GROUP BY ?st
+    ORDER BY ?st
+  }
+}

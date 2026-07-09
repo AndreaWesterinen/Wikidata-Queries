@@ -1,0 +1,9 @@
+#Number of dates per century
+SELECT ?century (COUNT(?item) as ?count)
+WHERE
+{
+  ?item wdt:P1191 ?date .
+  BIND(FLOOR((YEAR(?date)-1)/100)+1 as ?century)
+}
+GROUP BY ?century
+ORDER BY DESC(?century)

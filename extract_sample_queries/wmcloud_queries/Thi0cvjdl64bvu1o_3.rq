@@ -1,0 +1,17 @@
+# birthplaces of people buried in Norra Begravningsplatsen
+#defaultView:Map
+SELECT ?person ?personLabel (SAMPLE(?birthCoords) AS ?birthCoords) (SAMPLE(?layer) AS ?layer) WHERE {
+  VALUES ?cemetery {
+    wd:Q252312 # Norra Begravningsplatsen
+  }
+  ?person wdt:P31 wd:Q5;
+          wdt:P119 ?cemetery;
+          wdt:P19/wdt:P625 ?birthCoords.
+  OPTIONAL {
+    ?person wdt:P27 ?country.
+    ?country rdfs:label ?layer.
+    FILTER(LANG(?layer) = "en").
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?person ?personLabel

@@ -1,0 +1,16 @@
+#title: Check very short strings
+# Complex constraint from [[Property talk:P670]]
+# Can by a future mandatory complex constraint
+SELECT ?item ?value
+WHERE {
+  {
+    ?item p:P670 [ ps:P670 ?value] .
+  } UNION {
+    ?statement1 pq:P670 ?value.
+  } UNION {
+    ?ref pr:P670 ?value .
+    ?statement2 prov:wasDerivedFrom ?ref.
+  } .
+  FILTER(REGEX(STR(?value), "^([\\d\\-a-zA-Z\\/ ,à\\.&)]+)$" ) = false).
+  FILTER (STRLEN(?value) < 2)
+}

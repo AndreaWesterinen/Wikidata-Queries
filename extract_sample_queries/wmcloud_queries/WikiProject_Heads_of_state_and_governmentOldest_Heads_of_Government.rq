@@ -1,0 +1,15 @@
+SELECT DISTINCT ?item ?country ?age ?retirement ?old (ROUND((NOW() - ?st)/365.2425) AS ?years_in_office)
+WHERE
+{ 
+  ?country wdt:P31 wd:Q3624078 ; p:P6 ?statement .    
+  ?statement ps:P6 ?item .
+  ?country wdt:P6 ?item .
+  FILTER NOT EXISTS { ?statement pq:P582 ?x } 
+  ?item wdt:P569 ?dob . BIND(ROUND((NOW() - ?dob)/365.2425) AS ?age)
+  FILTER (!isBLANK(?item))
+  OPTIONAL { ?country wdt:P3001 ?retirement }
+  OPTIONAL { ?statement pq:P580 ?st }
+  BIND(COALESCE( ?retirement, 65 ) as ?old)
+  FILTER (?age >= ?old)
+}
+ORDER BY ?dob ?country

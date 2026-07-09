@@ -1,0 +1,10 @@
+SELECT ?item ?label_id WHERE {
+  ?item wdt:P31 wd:Q101659.
+  ?item wdt:P17 wd:Q142.
+  ?item rdfs:label ?label_de.
+  MINUS {
+    ?item rdfs:label ?label_fr.
+    FILTER((LANG(?label_fr)) = "fr")
+  }
+  FILTER((LANG(?label_de)) = "de")
+}

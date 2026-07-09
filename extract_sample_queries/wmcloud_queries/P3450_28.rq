@@ -1,0 +1,8 @@
+#title: Specify "operating area" for UK values
+# Complex constraint from [[Property talk:P3450]]
+# TODO: if the value has [[Property:P17|country&#32;<small dir="ltr">(P17)</small>]]=[[d:Q145|United Kingdom <small>(Q145)</small>]], please add [[Property:P2541|operating area&#32;<small dir="ltr">(P2541)</small>]]. Sample: [[Q2267464]]
+SELECT DISTINCT (?competition as ?item) WHERE {
+    ?season wdt:P3450 ?competition .
+    ?competition wdt:P17 wd:Q145 .
+    FILTER NOT EXISTS { ?competition wdt:P2541 [] }
+}

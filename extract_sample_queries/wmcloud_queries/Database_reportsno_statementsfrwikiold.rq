@@ -1,0 +1,40 @@
+SELECT ?item ?itemLabel ?itemDescription ?art (CONCAT(" → [[:fr:",?art,"]]") as ?extr)
+WITH
+{
+  select (IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  {
+    service wikibase:mwapi {
+     bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+     bd:serviceParam wikibase:api "Generator" .
+     bd:serviceParam mwapi:generator "links" .
+     bd:serviceParam mwapi:titles "Wikidata:Database_reports/to_delete/without_statements_sitelink_to_redirect/frwiki" .
+     bd:serviceParam mwapi:gplnamespace 0 .
+     ?title wikibase:apiOutput mwapi:title. 
+    }
+  }
+} as %redirects
+WITH
+{
+  SELECT ?item {
+    ?item wikibase:statements 0 . 
+    [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> . 
+    FILTER( xsd:integer( substr(str(?item), 33)) < 16001030 )
+    MINUS { INCLUDE %redirects }    
+  } LIMIT 300
+} as %items
+WHERE
+{
+  INCLUDE %items
+  [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/>; schema:name ?art . 
+  hint:Prior hint:rangeSafe true .
+    SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:api "Generator" ; wikibase:endpoint "fr.wikipedia.org" ; 
+                      mwapi:generator "allpages" ; 
+                      mwapi:gapfrom ?art ; mwapi:gapto ?art ; 
+                      mwapi:gapnamespace "0" ; 
+                      mwapi:prop "extracts"  ; mwapi:explaintext "true" ;                     
+                      mwapi:rvlimit "1" ; wikibase:limit "once".
+      ?extract wikibase:apiOutput "extract/text()".
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+}

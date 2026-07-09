@@ -1,0 +1,13 @@
+#Name variants (pseudonymes etc.) of ?author (from the NTA)
+SELECT DISTINCT ?author ?authorLabel ?s ?nta ?nta_uri ?namedAs #?award ?awardLabel ?year ?forwork ?forworkLabel
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)}
+  ?author p:P1006 ?s .
+  ?s ps:P1006 ?nta
+  BIND(URI(CONCAT("https://data.bibliotheken.nl/doc/thes/p",?nta)) AS ?nta_uri)   
+  OPTIONAL {?s pq:P1810 ?namedAs.}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} 

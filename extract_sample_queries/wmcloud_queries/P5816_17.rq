@@ -1,0 +1,18 @@
+# This query finds all usages of property P5816 AS a statement.
+#
+# Important note: most SPARQL users don't need such level of complication!
+# If you want to get only concrete values with best rank, replace body with something like:
+# ?item wdt:P5816 ?value.
+
+SELECT ?item ?itemLabel ?statement ?rank ?snacktype ?value
+{
+  ?item p:P5816 ?statement .
+  ?statement wikibase:rank ?rank .
+  OPTIONAL { ?statement ps:P5816 ?dbvalue }
+
+  BIND(COALESCE(IF(wikibase:isSomeValue(?dbvalue), "unknown", "concrete"), "novalue") AS ?snacktype)
+  BIND(IF(wikibase:isSomeValue(?dbvalue), "", ?dbvalue) AS ?value)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

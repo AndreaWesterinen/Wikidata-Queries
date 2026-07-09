@@ -1,3 +1,4 @@
+#title: Literary works by label count
 SELECT ?s ?desc (COUNT(DISTINCT ?label) as ?labelcount)
 WHERE
 {

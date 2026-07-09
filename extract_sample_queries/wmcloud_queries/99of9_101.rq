@@ -1,0 +1,22 @@
+SELECT ?item ?label ?life_in_s ?abundance WHERE {
+  ?eleiso wdt:P279* wd:Q25276 .
+  ?item wdt:P31 ?eleiso.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    ?item rdfs:label ?label
+  }
+  ?item p:P2114 ?stmnode .  
+  
+  ?stmnode       psv:P2114                   ?valuenode.
+  ?valuenode     wikibase:quantityAmount     ?life.
+  ?valuenode     wikibase:quantityUnit       ?unit.
+  # conversion to SI unit
+  ?unit          p:P2370                 ?unitstmnode.   # conversion to SI unit
+  ?unitstmnode   psv:P2370               ?unitvaluenode. 
+  ?unitvaluenode wikibase:quantityAmount ?conversion.
+  ?unitvaluenode wikibase:quantityUnit   wd:Q11574.      # second
+  BIND(?life * ?conversion AS ?life_in_s).
+
+  OPTIONAL{?item wdt:P2374 ?abundance .}
+}
+LIMIT 10000

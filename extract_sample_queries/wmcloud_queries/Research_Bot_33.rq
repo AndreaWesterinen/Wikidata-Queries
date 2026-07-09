@@ -1,0 +1,23 @@
+SELECT DISTINCT ?work ?taxon 
+WITH {
+  SELECT DISTINCT ?taxon ?taxonName WHERE
+                              {?other_work wdt:P31 wd:Q13442814 ; wdt:P921 ?taxon .
+                               ?taxon wdt:P31 wd:Q16521 ; wdt:P105 wd:Q7432 ; wdt:P225 ?taxonName .}
+  LIMIT 25
+} 
+AS %taxa
+WITH {
+  SELECT DISTINCT ?work ?title WHERE
+                              {?work wdt:P31 wd:Q13442814 ; rdfs:label ?title . 
+    FILTER NOT EXISTS { ?work wdt:P921 ?topic . ?topic wdt:P31 wd:Q16521. }
+                              }
+  LIMIT 200000
+} 
+AS %works
+
+{
+  INCLUDE %works
+  INCLUDE %taxa
+    FILTER ( contains(str(?title),?taxonName) )
+  }
+LIMIT 10000

@@ -1,0 +1,11 @@
+SELECT ?item ?d1 ?d2
+WHERE
+{
+	{ SELECT ?item WHERE { 	?item wdt:P569 ?val } group by(?item) having(count(distinct ?val)>1) }
+	?item wdt:P569 ?d1 .  
+	?item wdt:P569 ?d2 .
+	FILTER (?d1 > "1880-01-01T00:00:00Z"^^xsd:dateTime)
+  	BIND(YEAR(?d1)-YEAR(?d2) as ?yr)
+	FILTER (?yr >1)
+}
+LIMiT 200

@@ -1,0 +1,20 @@
+SELECT ?item ?itemLabel ?items 
+(CONCAT(str(round(10000 * ?o/?items) / 100), "%")  as ?O) 
+(CONCAT(str(round(10000 * ?a/?items) / 100), "%")  as ?A) 
+(CONCAT(str(round(10000 * ?b/?items) / 100), "%")  as ?B) 
+(CONCAT(str(round(10000 * ?ab/?items) / 100), "%")  as ?AB) {
+  { SELECT ?item 
+           (count(?o_items) as ?o) 
+           (count(?a_items) as ?a) 
+           (count(?b_items) as ?b) 
+           (count(?ab_items) as ?ab) 
+           (count(?all_items) as ?items) {
+             {?o_items wdt:P1853 wd:Q19831451 ; wdt:P27 ?item } UNION 
+             {?a_items wdt:P1853 wd:Q19831453 ; wdt:P27 ?item } UNION 
+             {?b_items wdt:P1853 wd:Q19831454 ; wdt:P27 ?item } UNION 
+             {?ab_items wdt:P1853 wd:Q19831455 ; wdt:P27 ?item } UNION 
+             {?all_items wdt:P1853 [] ; wdt:P27 ?item }
+           } GROUP BY ?item
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }
+} ORDER BY DESC(?items) ?itemLabel

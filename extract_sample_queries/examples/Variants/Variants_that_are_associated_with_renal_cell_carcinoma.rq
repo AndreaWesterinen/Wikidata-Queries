@@ -1,4 +1,4 @@
-# ----
+#title: Variants that are associated with renal cell carcinoma
 # variants that are associated with renal cell carcinoma
 SELECT DISTINCT ?civic_id ?item ?itemLabel
 WHERE

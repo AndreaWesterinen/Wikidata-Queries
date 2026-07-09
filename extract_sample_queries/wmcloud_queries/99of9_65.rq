@@ -1,0 +1,10 @@
+#defaultView:Graph
+#SELECT ?item1 ?item1Label ?item2 ?item2Label ?paper WHERE {
+SELECT ?item1 ?item1Label ?item2 ?item2Label WHERE {
+  VALUES ?item1 { wd:Q49887256 wd:Q27645843 wd:Q42757777  wd:Q49897147  wd:Q49882071  wd:Q49885323  wd:Q49886089  wd:Q49882552  wd:Q42227305  wd:Q49900514  wd:Q49883840  wd:Q48669311  wd:Q49880925   wd:Q45335664 }. # all individuals
+  VALUES ?item2 { wd:Q49887256 wd:Q27645843 wd:Q42757777  wd:Q49897147  wd:Q49882071  wd:Q49885323  wd:Q49886089  wd:Q49882552  wd:Q42227305  wd:Q49900514  wd:Q49883840  wd:Q48669311  wd:Q49880925   wd:Q45335664 }. # all individuals
+  ?paper wdt:P50 ?item1 .
+  ?paper wdt:P50 ?item2 .
+#FILTER( ?item1 != ?item2 ) .
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

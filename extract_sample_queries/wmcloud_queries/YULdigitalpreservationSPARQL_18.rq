@@ -1,0 +1,11 @@
+#defaultView:ImageGridlut
+SELECT  ?personLabel  ?image
+
+WHERE {
+  ?person wdt:P166 wd:Q194944 .
+  ?person wdt:P18 ?image
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

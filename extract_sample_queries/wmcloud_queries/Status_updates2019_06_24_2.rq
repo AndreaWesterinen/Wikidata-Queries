@@ -1,0 +1,15 @@
+SELECT ?count ?property ?propertyLabel ?samp WHERE {
+  {
+    SELECT (COUNT(?item) AS ?count) ?property (SAMPLE(?item) AS ?samp) WHERE {
+       hint:Query hint:optimizer "None".
+       ?org_class wdt:P279* wd:Q17149090.
+       ?org wdt:P31? ?org_class .
+       ?item ?prop ?org .
+       ?item wdt:P106 ?role .
+       ?role wdt:P279* wd:Q1250916 .
+       ?property wikibase:directClaim ?prop .
+    } GROUP BY ?property
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC (?count)

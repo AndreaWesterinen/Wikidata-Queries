@@ -1,0 +1,5 @@
+SELECT ?item ?one ?two WHERE {
+  ?item ?one ?statement .
+  ?statement wikibase:rank ?rank .
+  ?statement ?two ?item .
+} LIMIT 100

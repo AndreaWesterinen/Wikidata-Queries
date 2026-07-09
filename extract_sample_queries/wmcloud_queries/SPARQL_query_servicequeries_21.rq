@@ -1,0 +1,11 @@
+# RADA alumni with a good or featured article on Wikipedia
+SELECT ?item ?itemLabel ?badgeLabel ?lang WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P69 wd:Q523926 .
+  ?sitelink schema:about ?item .
+  ?sitelink wikibase:badge ?badge .
+  ?sitelink schema:inLanguage ?lang .
+  FILTER (SUBSTR(str(?sitelink), 11, 15) = ".wikipedia.org/") .
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

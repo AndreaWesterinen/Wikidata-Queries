@@ -1,0 +1,9 @@
+SELECT DISTINCT ?property ?propertyLabel ?item ?itemLabel WHERE {
+  ?item ?p wd:Q1246516 .
+  FILTER NOT EXISTS { ?item a ?type . }
+  
+  ?property ?ref ?p .
+  ?property a wikibase:Property .
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?property ?item

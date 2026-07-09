@@ -1,0 +1,14 @@
+#defaultView:Map
+SELECT ?item ?itemLabel ?itemDescription ?canmore ?coord ?lat ?long  WHERE {
+  ?item wdt:P31 wd:Q575759.
+  ?item wdt:P131/wdt:P131 wd:Q22.  
+  ?item p:P625 ?stat . 
+  ?stat ps:P625 ?coord. 
+  ?stat psv:P625/wikibase:geoLongitude ?long.
+  ?stat psv:P625/wikibase:geoLatitude ?lat.
+
+  
+  
+  filter not exists { ?item wdt:P718 ?canmore. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

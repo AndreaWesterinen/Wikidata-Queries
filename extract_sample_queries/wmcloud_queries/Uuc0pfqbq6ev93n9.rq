@@ -1,0 +1,13 @@
+SELECT ?compoundGivenName ?nameLabel (GROUP_CONCAT(DISTINCT ?languageLabel; separator=', ') AS ?languageLabels) (COUNT(*) AS ?cnt) WHERE {
+  ?compoundGivenName wdt:P31 wd:Q1243157 .
+  OPTIONAL {
+    ?compoundGivenName rdfs:label ?nameLabel .
+    FILTER(LANG(?nameLabel) = 'en') .
+  }
+  FILTER(!CONTAINS(?nameLabel, '-')) .
+  OPTIONAL {
+    ?compoundGivenName wdt:P407/rdfs:label ?languageLabel .
+    FILTER(LANG(?languageLabel) = 'en') .
+  }
+  ?entity wdt:P735 ?compoundGivenName .
+} GROUP BY ?compoundGivenName ?nameLabel ORDER BY DESC(?cnt)

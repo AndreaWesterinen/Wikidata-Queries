@@ -1,0 +1,7 @@
+#title: Property cannot form cycles (size 2)
+# Complex constraint from [[Property talk:P279]]
+# impossible claim or items should be merged — specific to the size 2 cycles as the generic query is too expensive
+select ?item ?intermediate {
+  ?item wdt:P279 ?intermediate .
+  ?intermediate wdt:P279 ?item .
+} limit 100

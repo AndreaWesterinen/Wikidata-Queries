@@ -1,0 +1,12 @@
+#publications brigitte_voit
+SELECT DISTINCT ?item ?itemLabel ?publicationDate (COUNT(?citations) AS ?count)
+WHERE 
+{
+  ?item wdt:P31 wd:Q13442814.
+  ?item wdt:P50 wd:Q21256003.
+  ?item wdt:P577 ?publicationDate.
+  optional {
+    ?item wdt:P2860 ?citations.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?item ?itemLabel ?publicationDate ?count ORDER BY ?publicationDate

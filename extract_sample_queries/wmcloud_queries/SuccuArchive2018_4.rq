@@ -1,0 +1,6 @@
+SELECT ?item ?taxonName WHERE {
+      ?item p:P225 ?taxonNameStatement .
+      ?taxonNameStatement ps:P225 ?taxonName .
+      ?taxonNameStatement pq:P1135 wd:Q922448. 
+}
+ORDER BY ASC(?taxonName)

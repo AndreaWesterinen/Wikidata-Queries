@@ -1,0 +1,42 @@
+#Located in the administrative territorial entity P131
+# Must be a Dutch municipality 
+# Unique value, as a library can only be in one municipality
+# Can not be empty, as there are no libraries that are NOT in a municipality 
+# The municipality must lie in a Dutch province (found via P131 in the WD-item of the municipality
+
+SELECT DISTINCT 
+?item ?itemLabel
+#--- municipalities stuff----
+?muni ?muniLabel ?muniDescription
+(GROUP_CONCAT(DISTINCT ?muniIsALabel ; separator = " --- ") as ?muniInstanceOf) 
+(GROUP_CONCAT(DISTINCT ?muniRank ; separator = " --- ") as ?muniRanks)
+#-- province stuff---
+?prov ?provLabel ?provDescription
+(GROUP_CONCAT(DISTINCT ?provIsALabel ; separator = " --- ") as ?provInstanceOf) 
+(GROUP_CONCAT(DISTINCT ?provRank ; separator = " --- ") as ?provRanks)
+
+WHERE
+  {
+  ?item p:P31/ps:P31 wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL{
+  #--- municipalities stuff----
+  ?item wdt:P131 ?muni. #mun. derived from library item, has one single value
+  ?muni p:P31 [ps:P31 ?muniIsA; wikibase:rank ?muniRank].
+  FILTER(?muniIsA = wd:Q2039348) 
+  #-- Province stuff
+  ?muni wdt:P131 ?prov.  #find the province
+  ?prov p:P31 [ps:P31 ?provIsA; wikibase:rank ?provRank].  
+  }
+    
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                          ?item rdfs:label ?itemLabel.
+                          ?muni rdfs:label ?muniLabel.                         
+                          ?muni schema:description ?muniDescription.
+                          ?muniIsA rdfs:label ?muniIsALabel.
+                          ?prov rdfs:label ?provLabel.                         
+                          ?prov schema:description ?provDescription.
+                          ?provIsA rdfs:label ?provIsALabel.
+                         }  
+}
+GROUP BY ?item ?itemLabel ?muni ?muniLabel ?muniDescription ?prov ?provLabel ?provDescription  
+ORDER BY DESC(?item)

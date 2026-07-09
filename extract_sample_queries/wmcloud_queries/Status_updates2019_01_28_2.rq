@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel (SAMPLE(?image) AS ?image) ?sitelinks WHERE {
+  {
+    ?item wdt:P31/wdt:P279* wd:Q34379;
+          wdt:P170 wd:Q182011.
+  } UNION {
+    ?item wdt:P31/wdt:P279* wd:Q1068162.
+  }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  ?item wikibase:sitelinks ?sitelinks.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?item ?itemLabel ?sitelinks
+ORDER BY DESC(?sitelinks)

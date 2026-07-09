@@ -1,0 +1,11 @@
+embed.html#SELECT ?x ?xLabel ?ethos ?url ?authorLabel ?isni ?orcid WHERE {
+  ?x wdt:P31/wdt:P279* wd:Q1266946 ;
+     wdt:P4101 wd:Q503424 ;
+     wdt:P4536 ?ethos .
+  { ?x wdt:P50 ?author  } UNION { ?x wdt:P2093 ?author }
+OPTIONAL { ?author wdt:P496 ?orcid . }
+OPTIONAL { ?author wdt:P213 ?isni . }  
+OPTIONAL { ?x wdt:P953 ?url . }   
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

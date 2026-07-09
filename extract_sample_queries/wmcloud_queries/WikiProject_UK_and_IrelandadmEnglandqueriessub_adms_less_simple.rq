@@ -1,0 +1,49 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+
+ #  Query to find places and adms located in the subdivision tree of wd:Q47983
+
+    SELECT DISTINCT ?adm ?admLabel WHERE {
+        hint:Query hint:optimizer "None" .
+        ?adm1_stmt ps:P131 wd:Q47983 .    # North-East England
+        ?adm1 p:P131 ?adm1_stmt .
+
+        OPTIONAL {
+            ?adm1 p:P131 ?adm1_stmt .                                                   # (dummy statement required by Blazegraph)
+            OPTIONAL {?adm1_stmt pq:P518 ?adm2} .
+            OPTIONAL {?adm2_stmt ps:P131 ?adm1 .  ?adm2 p:P131 ?adm2_stmt} .            # will not add new values of ?adm2 if some have been found in the previous line
+            FILTER(bound(?adm2)) .
+
+            OPTIONAL {
+                 ?adm1 p:P131 ?adm1_stmt .                                              # (dummy statement required by Blazegraph)
+                 OPTIONAL {?adm2_stmt pq:P518 ?adm3} .
+                 OPTIONAL {?adm3_stmt ps:P131 ?adm2 .  ?adm3 p:P131 ?adm3_stmt} .       # will not add new values of ?adm3 if some have been found in the previous line
+                 FILTER(bound(?adm3)) .
+
+                 OPTIONAL {
+                     ?adm1 p:P131 ?adm1_stmt .                                          # (dummy statement required by Blazegraph)
+                     OPTIONAL {?adm3_stmt pq:P518 ?adm4} .
+                     OPTIONAL {?adm4_stmt ps:P131 ?adm3 .  ?adm4 p:P131 ?adm4_stmt}     # will not add new values of ?adm4 if some have been found in the previous line
+                 }
+            }
+        } .
+      
+        {BIND (?adm1 AS ?adm)}  
+           UNION  {BIND (?adm2 AS ?adm)}
+           UNION  {BIND (?adm3 AS ?adm)}  
+           UNION  {BIND (?adm4 AS ?adm)}  
+      
+        FILTER(bound(?adm))
+
+        SERVICE wikibase:label {
+           bd:serviceParam wikibase:language "en" .
+        }
+    } LIMIT 100

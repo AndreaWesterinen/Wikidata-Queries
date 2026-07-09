@@ -1,0 +1,27 @@
+#defaultView:Map{"hide":["?viaCoord", "?destinationCoord", "?destinationCoord", "?originCoord", "?line"],"layer":"?itemLabel"}
+SELECT ?item ?itemLabel ?maker ?makerLabel ?serviceEntry ?serviceRetirement ?event ?eventLabel ?role ?roleLabel ?origin ?originLabel ?originCoord ?destination ?destinationLabel ?destinationCoord ?line ?sitelink 
+{
+    ?item wdt:P1071 wd:Q127095 .
+    OPTIONAL { ?item p:P793 ?eventStm . ?eventStm ps:P793 ?event }
+    OPTIONAL { ?item p:P793 ?eventStm . ?eventStm pq:P2868 ?role }
+    OPTIONAL { ?item wdt:P176 ?maker }
+    OPTIONAL { ?item wdt:P729 ?serviceEntry } 
+    OPTIONAL { ?item wdt:P730 ?serviceRetirement }                                                                    
+    OPTIONAL { ?item p:P793 ?eventStm .
+               ?eventStm ps:P793 wd:Q17990955 ;
+                         pq:P1427 ?origin .
+               ?origin wdt:P625 ?originCoord .
+               ?origin p:P625 [ ps:P625 [];  psv:P625 [ wikibase:geoLongitude ?originLon; wikibase:geoLatitude ?originLat; ] ]. }
+    OPTIONAL { ?item p:P793 ?eventStm .
+               ?eventStm ps:P793 wd:Q17990955 ;
+                         pq:P1444 ?destination .
+               ?destination wdt:P625 ?destinationCoord .
+               ?destination p:P625 [ ps:P625 [];  psv:P625 [ wikibase:geoLongitude ?destinationLon; wikibase:geoLatitude ?destinationLat; ] ]. }
+    BIND(CONCAT('LINESTRING (', STR(?originLon), ' ', STR(?originLat), ',', STR(?destinationLon), ' ', STR(?destinationLat), ')') AS ?str1) .
+    BIND(STRDT(?str1, geo:wktLiteral) AS ?line) .
+
+  ?sitelink schema:about ?item;
+    schema:isPartOf <https://en.wikipedia.org/>.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

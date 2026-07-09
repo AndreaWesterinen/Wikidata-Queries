@@ -1,0 +1,19 @@
+select ?valP569 (COUNT(?item) AS ?items) where {
+  #values ?item { wd:Q20155751 wd:Q2439822 }
+ { ?item wdt:P1344 wd:Q8613 . }
+  UNION
+  {?item wdt:P1344 ?event .
+  ?event wdt:P361 wd:Q8613 .
+   }
+  UNION
+  {?item wdt:P1344 ?descipline .
+  ?event wdt:P361 wd:Q8613 .#daļa no 2016 OS
+  ?descipline wdt:P361 ?event .#daļa no event
+   }
+  ?item wdt:P569 ?valP569 .
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en,fr,de,no,pl,es,ru" .
+    }
+  }
+group by ?valP569
+HAVING (?items > 1)

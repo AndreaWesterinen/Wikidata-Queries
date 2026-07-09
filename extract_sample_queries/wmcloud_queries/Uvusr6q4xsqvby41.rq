@@ -1,0 +1,4 @@
+embed.html#SELECT * WHERE {
+  ?q wdt:P481 ?id ; wdt:P31 wd:Q16887380 ; wdt:P527 ?sousgroup .
+  ?sousgroup wdt:P31 wd:Q16887380 .
+}

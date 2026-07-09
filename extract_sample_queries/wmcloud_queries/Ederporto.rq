@@ -1,0 +1,5 @@
+SELECT ?item ?AntWiki_article_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P6812 ?AntWiki_article_ID.
+  ?item wdt:P31 wd:Q16521.
+}

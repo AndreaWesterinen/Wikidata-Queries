@@ -1,0 +1,22 @@
+SELECT ?item 
+(COUNT(?female) AS ?countedfemale) 
+?fe ?pl
+WHERE {
+  {
+    SELECT DISTINCT ?item ?pl ?fe WHERE
+           { ?item wdt:P31 wd:Q28640. 
+           OPTIONAL {
+    ?item schema:description ?pl.
+    FILTER((LANG(?pl)) = "ar")
+  } 
+ OPTIONAL { ?item wdt:P2521 ?fe.
+         FILTER((LANG(?fe)) = "ar")  }
+  } }
+  ?female wdt:P31 wd:Q5.
+  ?female wdt:P106 ?item.
+  ?female wdt:P21 wd:Q6581072.
+  
+}
+#Limit 10
+GROUP BY ?item ?fe  ?pl
+ORDER BY DESC(?countedfemale)

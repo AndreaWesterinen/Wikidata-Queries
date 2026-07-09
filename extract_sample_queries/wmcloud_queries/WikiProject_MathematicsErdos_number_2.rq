@@ -1,0 +1,8 @@
+#Find Paul Erdős co-authors
+#defaultView:Graph
+SELECT ?item ?itemLabel ("7FFF00" as ?rgb) ?article (" " as ?articleLabel) WHERE{
+  ?article wdt:P31 wd:Q13442814;
+           wdt:P50 wd:Q173746, ?item.
+  #FILTER(?item != wd:Q173746)
+  ?article wdt:P2093 ?itemname
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } }

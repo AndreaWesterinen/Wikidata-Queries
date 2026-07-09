@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?label ?output2 WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P108 ?university.
+  BIND(replace(?label,"([A-Z])[a-z\u0080-\uFFFF]+ (?:([A-Z])[a-z\u0080-\uFFFF]+ )?(?:([A-Z])[a-z\u0080-\uFFFF]+ )?(?:([A-Z])[a-z\u0080-\uFFFF]+ )?(.*)([A-Z][a-z\u0080-\uFFFF]+)$","$1.$2.$3.$4. $5$6") AS ?output) .
+  BIND(replace(?output,"[\\.]+",".") AS ?output2) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  FILTER((LANG(?label)) = "nl")
+  ?university wdt:P463 wd:Q3212092.
+}

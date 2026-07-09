@@ -1,0 +1,4 @@
+SELECT ?item WHERE {
+  ?item wdt:P3218 ?aunamendi .
+  ?item wdt:P735 wd:Q19273889 .
+  }

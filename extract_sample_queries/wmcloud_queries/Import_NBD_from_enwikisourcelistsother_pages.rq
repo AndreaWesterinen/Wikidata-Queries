@@ -1,0 +1,11 @@
+SELECT  ?item ?itemLabel ?subject ?subjectLabel ?instanceof ?instanceofLabel ?scanp
+WHERE
+{
+	?item	wdt:P1433 wd:Q16055052
+	MINUS { ?item wdt:P31 wd:Q19389637 }
+	OPTIONAL {?item	wdt:P31 ?instanceof }.
+	OPTIONAL {?item wdt:P921 ?subject }.
+	OPTIONAL { ?item p:P996 / pq:P7668 ?scanp }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY ?scanp ?itemLabel

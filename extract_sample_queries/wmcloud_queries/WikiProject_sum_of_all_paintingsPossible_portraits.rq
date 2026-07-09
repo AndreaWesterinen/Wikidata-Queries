@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?addlink WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  MINUS { ?item wdt:P136 [] } .
+  { ?item wdt:P180 ?human .
+   ?human wdt:P31 wd:Q5 .
+   ?human wdt:P569 ?dob .
+   FILTER(YEAR(?dob) > 1000)
+  FILTER NOT EXISTS { ?human wdt:P31 wd:Q20643955 }
+  FILTER NOT EXISTS { ?human wdt:P411 [] } 
+ } UNION {
+     ?item rdfs:label ?itemLabel .        
+  FILTER((LANG(?itemLabel)="en" && REGEX(STR(?itemLabel), "^Portrait of.+$"))

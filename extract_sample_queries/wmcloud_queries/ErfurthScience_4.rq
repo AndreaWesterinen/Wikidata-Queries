@@ -1,0 +1,11 @@
+SELECT ?item ?title ?pages (COUNT(?citations) AS ?count) WHERE {
+  ?item wdt:P31 wd:Q13442814.
+  ?item wdt:P1433 wd:Q1919514.
+  ?item wdt:P478 "13".
+  ?item wdt:P433 "6".
+  ?item wdt:P1476 ?title.
+  ?item wdt:P304 ?pages.
+  optional {
+    ?item wdt:P2860 ?citations.
+  }
+} GROUP BY ?item ?title ?pages

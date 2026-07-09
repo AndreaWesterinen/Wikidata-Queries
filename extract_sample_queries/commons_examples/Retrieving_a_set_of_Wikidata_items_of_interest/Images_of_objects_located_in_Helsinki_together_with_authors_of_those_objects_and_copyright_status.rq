@@ -1,0 +1,22 @@
+# Images of objects located in Helsinki, together with authors of those objects and copyright status
+#defaultView:ImageGrid
+select ?image ?item ?itemLabel ?itemDescription ?thumb (?p170Label as ?author) (YEAR(?p570) as ?death) ?copyright_statusLabel with {
+  select * {
+    service <https://query.wikidata.org/sparql> {
+      ?item wdt:P131* wd:Q1757 .            
+      ?item wdt:P170 ?p170 .
+      OPTIONAL { ?p170 wdt:P570 ?p570 } 
+      OPTIONAL { ?p170 wdt:P7763 ?copyright_status. }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". 
+                               ?item rdfs:label ?itemLabel.
+                               ?item schema:description ?itemDescription.    
+                               ?p170 rdfs:label ?p170Label.
+                               ?copyright_status rdfs:label ?copyright_statusLabel.
+                             } 
+    }
+  }
+} as %works where {
+  include %works.
+  ?image wdt:P180 ?item;
+         schema:url ?thumb.
+}

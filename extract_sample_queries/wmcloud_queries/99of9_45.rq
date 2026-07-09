@@ -1,0 +1,11 @@
+#defaultView:Timeline
+SELECT ?subject ?subjectLabel ?item ?itemLabel ?_image ?inception WHERE {
+  {?subject wdt:P27 wd:Q81931 .} UNION {?subject wdt:P241 wd:Q1125021}
+  OPTIONAL { {?item wdt:P180 ?subject .} UNION {?item wdt:P138 ?subject .}
+            OPTIONAL {?item wdt:P571 ?inception}
+            OPTIONAL { ?item wdt:P18 ?_image. }
+           }
+   SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+   }
+}

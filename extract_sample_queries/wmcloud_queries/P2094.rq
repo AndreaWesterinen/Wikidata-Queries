@@ -1,0 +1,4 @@
+SELECT ?competitionClass ?competitionClassLabel (COUNT(DISTINCT ?item) AS ?cnt) WHERE {
+  ?item wdt:P31 wd:Q5; wdt:P2094 ?competitionClass .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?competitionClass ?competitionClassLabel

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P106 wd:Q17125263; wikibase:sitelinks 0 . # YouTubers without sitelink
+  MINUS { ?item wdt:P214|wdt:P227|wdt:P3602|wdt:P166|wdt:P102|wdt:P570 [] } # exclude a few properties here in order to keep the list managable
+  OPTIONAL { ?backlink ?any ?item }
+} GROUP BY ?item HAVING (COUNT(?backlink) = 0) ORDER BY DESC(xsd:integer(STRAFTER(STR(?item), 'entity/Q'))) # no backlinks

@@ -1,0 +1,18 @@
+#title:Are UK mountain items in OpenStreetMap, with a URL to assist in adding missing QIds to OSM
+PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>
+SELECT DISTINCT ?item ?itemLabel ?osmid ?OSMLINK WHERE { 
+  ?item wdt:P31 wd:Q8502;
+        wdt:P17 wd:Q145.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,cy,de,fr,nl,es,sv". }
+  OPTIONAL { 
+    SERVICE <https://sophox.org/sparql> {
+      ?osmid  osmt:wikidata ?item.
+      }
+    }
+  OPTIONAL { 
+    ?item p:P625/psv:P625/wikibase:geoLatitude ?lat ;
+          p:P625/psv:P625/wikibase:geoLongitude ?long. 
+    BIND(IRI(CONCAT("https://www.openstreetmap.org/?mlat=",str(?lat),"&mlon=",str(?long),"&zoom=11")) as ?OSMLINK)
+  }
+}
+ORDER BY ?itemLabel

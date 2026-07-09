@@ -1,0 +1,8 @@
+select ?item ?link ?badge {
+   values ?item {
+     wd:Q111030044 
+     wd:Q17061596
+   }
+  ?link schema:about ?item ;
+        wikibase:badge ?badge .
+}

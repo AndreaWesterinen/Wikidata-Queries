@@ -1,0 +1,33 @@
+embed.html#SELECT ?cas ?item ?lokalita ?cs ?de ?cj ?nj ?zid ?jina ?cizi WHERE {
+  VALUES ?so { wd:Q94384808 }     
+
+  ?item wdt:P31 wd:Q39825;
+        wdt:P361 [ wdt:P131 ?so];
+        wdt:P585 ?cas.
+
+  OPTIONAL { ?item wdt:P131 ?lokalita. }
+  OPTIONAL { ?item wdt:P1448 ?cs. FILTER(LANG(?cs) = "cs"). }
+  OPTIONAL { ?item wdt:P1448 ?de. FILTER(LANG(?de) = "de"). }
+  OPTIONAL {?item wdt:P4080 ?domy.}
+  OPTIONAL { ?item p:P1082 ?obyv.
+      ?obyv pq:P1013 wd:Q56229478.
+      ?obyv ps:P1082 ?obyv_celkem.
+      }
+  FILTER NOT EXISTS { ?obyv pq:P518 ?celkem_temp. }
+
+  OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q91075059; ps:P1082 ?cjN].}
+  OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q42884; ps:P1082 ?njN].}
+  OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q7325; ps:P1082 ?zidN].}
+  OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P1013 wd:Q231002; pq:P518 wd:Q55107540; ps:P1082 ?jinaN].}
+  OPTIONAL {?item p:P1082 [wikibase:rank wikibase:NormalRank; pq:P518 wd:Q473741; ps:P1082 ?ciziN].}
+
+  BIND(IF(BOUND(?cjN),?cjN,0) AS ?cj)
+  BIND(IF(BOUND(?njN),?njN,0) AS ?nj)
+  BIND(IF(BOUND(?zidN),?zidN,0) AS ?zid)
+  BIND(IF(BOUND(?jinaN),?jinaN,0) AS ?jina)
+  BIND(IF(BOUND(?ciziN),?ciziN,0) AS ?cizi)
+
+  FILTER (?cas > "1921-01-01"^^xsd:dateTime)
+  FILTER( ?obyv_celkem != ?cj + ?nj + ?zid + ?jina + ?cizi)
+}
+ORDER BY ?cs

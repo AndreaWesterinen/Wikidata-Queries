@@ -1,0 +1,16 @@
+SELECT ?sultan ?sultanLabel ?sultan_start ?sultan_end ?vizier ?vizierLabel ?vizier_start ?vizier_end WHERE {
+ 
+    ?sultan p:P39 ?sultan_stmt .
+    ?sultan_stmt ps:P39 wd:Q15315411 .
+    OPTIONAL {?sultan_stmt pq:P580 ?sultan_start } .      
+    OPTIONAL {?sultan_stmt pq:P582 ?sultan_end } .
+
+    ?vizier p:P39 ?vizier_stmt .
+    ?vizier_stmt ps:P39 wd:Q15063567 .
+    OPTIONAL {?vizier_stmt pq:P580 ?vizier_start } .      
+    OPTIONAL {?vizier_stmt pq:P582 ?vizier_end } .
+  
+    FILTER ((?vizier_start <= ?sultan_end) && (?vizier_end >= ?sultan_start))
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],tr". }
+} ORDER BY ?sultan_start ?vizier_start

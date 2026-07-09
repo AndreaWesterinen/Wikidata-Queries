@@ -1,0 +1,6 @@
+# Works for which Lesley Joy Rogers is an author
+SELECT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P50 wd:Q18166499.
+}
+LIMIT 100

@@ -1,0 +1,10 @@
+#title: "value-type constraint" must only be used on properties with an Item, Property or Lexeme datatype
+# Complex constraint from [[Property talk:P2302]]
+# Only properties with an [[d:Q29934200|Wikibase item <small>(Q29934200)</small>]], [[d:Q29934218|Wikibase property <small>(Q29934218)</small>]] or [[d:Q51885771|Wikibase lexeme <small>(Q51885771)</small>]] datatype should have [[d:Q21510865|value-type constraint <small>(Q21510865)</small>]] applied.
+SELECT ?item ?itemLabel ?datatype WHERE {
+  VALUES ?constraints { wd:Q21510865 }.
+  ?item wdt:P2302 ?constraints.
+  ?item wikibase:propertyType ?datatype.
+  FILTER (?datatype NOT IN (wikibase:WikibaseItem, wikibase:WikibaseProperty, wikibase:WikibaseLexeme)).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

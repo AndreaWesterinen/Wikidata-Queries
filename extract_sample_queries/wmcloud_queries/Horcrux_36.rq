@@ -1,0 +1,12 @@
+SELECT DISTINCT ?x ?cityLabel
+WHERE {
+  ?x wdt:P31 wd:Q1134686 ;
+     p:P131 ?cityStmt .
+  ?cityStmt ps:P131/wdt:P131* ?city .
+  OPTIONAL { ?city rdfs:label ?cityLabel FILTER (LANG(?cityLabel)="it") . }
+  { ?city wdt:P31 wd:Q1134686 . } UNION
+  { ?city wdt:P31 wd:Q486972 . }
+  FILTER NOT EXISTS { ?cityStmt pq:P582 ?_ }
+  FILTER NOT EXISTS { ?city wdt:P31 wd:Q3685476 }
+}
+ORDER BY ?cl

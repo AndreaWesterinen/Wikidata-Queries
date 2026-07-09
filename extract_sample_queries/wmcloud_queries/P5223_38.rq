@@ -1,0 +1,9 @@
+#title: Items with creator not linked to Information Center for Israeli Art artist ID
+# Complex constraint from [[Property talk:P5223]]
+# Items that have [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]], but that item doesn't have [[Property:P1736|Information Center for Israeli Art artist ID&#32;<small dir="ltr">(P1736)</small>]] and also not [[Property:P460|said to be the same as&#32;<small dir="ltr">(P460)</small>]]. Missing link can probably be added
+SELECT DISTINCT ?item ?creator {
+	?item wdt:P5223 ?value .
+    ?item wdt:P170 ?creator .
+    MINUS { ?creator wdt:P1736 [] } .
+    MINUS { ?creator wdt:P460 [] }
+} ORDER BY DESC(?count) LIMIT 500

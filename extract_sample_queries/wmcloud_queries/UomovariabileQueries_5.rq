@@ -1,0 +1,10 @@
+#papers about Wikidata
+SELECT ?item ?itemLabel ?arxivID
+WHERE
+{
+  ?item wdt:P31 wd:Q13442814 .
+  ?item wdt:P921 wd:Q2013.
+  OPTIONAL { ?item wdt:P818 ?arxivID. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+LIMIT 100

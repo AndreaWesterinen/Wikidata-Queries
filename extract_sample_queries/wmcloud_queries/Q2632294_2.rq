@@ -1,0 +1,8 @@
+embed.html#SELECT (CONCAT("S",COALESCE(?s,"?")," ","E",COALESCE(?e,"?")) as ?SE) ?item ?original_title
+{
+  ?item wdt:P31 wd:Q21191270 ; wdt:P4908 ?season ; wdt:P179 wd:Q2632294 .
+  OPTIONAL { ?season p:P179 [ pq:P1545 ?s ] }
+  OPTIONAL { ?item p:P4908 [ pq:P1545 ?e ] }
+  OPTIONAL { ?item wdt:P1476 ?original_title . }
+}
+ORDER BY xsd:integer(?s) xsd:integer(?e)

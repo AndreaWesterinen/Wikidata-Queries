@@ -1,0 +1,15 @@
+#title: Genera for which species co-occur with invasion biology in papers, tagged as to whether or not they contain a species within scope of WikiProject invasion biology
+
+SELECT 
+  DISTINCT 
+  ?item 
+  (CONCAT("[https://query.wikidata.org/embed.html#PREFIX%20target%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F", REPLACE(STR(?item), ".*Q", "Q"), "%3E%0ASELECT%20DISTINCT%0A%28CONCAT%28%0AENCODE_FOR_URI%28REPLACE%28STR%28%3Fitem%29%2C%20%22.%2aQ%22%2C%20%22Q%22%29%29%2C%20%22%7CP921%7C%22%2C%20ENCODE_FOR_URI%28REPLACE%28STR%28%3Ftaxon%29%2C%20%22.%2aQ%22%2C%20%22Q%22%29%29%2C%20%22%7CP1932%7C%22%2C%20%28CONCAT%28%22%5C%22%22%2C%20%3Fa%2C%20%22%5C%22%22%29%29%2C%20%22%7CS887%7CQ69652283%22%29%20AS%20%3FQuickStatements%29%0AWITH%20%7B%0ASELECT%20DISTINCT%20%3Ftaxon%20WHERE%20%7B%0ASERVICE%20bd%3Asample%20%7B%20%3Ftaxon%20wdt%3AP171%20target%3A%20.%20bd%3AserviceParam%20bd%3Asample.limit%20100%20%7D%0A%3Ftaxon%20wdt%3AP105%20wd%3AQ7432%20.%0A%7D%0A%7D%20AS%20%25taxa%0AWITH%0A%7B%20SELECT%20%3Fitem%20%3Ftitle%20%3Ftaxon%20%3Ftaxonname%20WHERE%20%7B%0AINCLUDE%20%25taxa%0A%3Ftaxon%20wdt%3AP225%20%3Ftaxonname%20.%0ASERVICE%20wikibase%3Amwapi%0A%7B%0Abd%3AserviceParam%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0Awikibase%3Aapi%20%22Generator%22%3B%0Amwapi%3Agenerator%20%22search%22%3B%0Amwapi%3Agsrsearch%20%3Ftaxonname%3B%0Amwapi%3Agsrlimit%20%22max%22.%0A%3Fitem%20wikibase%3AapiOutputItem%20mwapi%3Atitle.%0A%7D%0A%3Fitem%20wdt%3AP1476%20%3Ftitle%20.%0AMINUS%20%7B%3Fitem%20wdt%3AP921%20%3Ftaxon%20%7D%0AMINUS%20%7B%3Fitem%20wdt%3AP921%20%5Bwdt%3AP171%2a%20%3Ftaxon%20%5D%20%7D%0AFILTER%20%28REGEX%28LCASE%28%3Ftitle%29%2C%20LCASE%28CONCAT%28%20%22%5C%5C%22%2C%20%22b%22%2C%20%3Ftaxonname%20%2C%22%5C%5C%22%2C%20%22b%22%29%29%29%29%0A%7D%0A%7D%0AAS%20%25items%0AWHERE%20%7B%0AINCLUDE%20%25items%0ABIND%20%28SUBSTR%28%3Ftitle%2C%20STRLEN%28STRBEFORE%28REPLACE%28%3Ftitle%2C%20%3Ftaxonname%2C%20%22%3D%3A%3D%22%2C%20%22i%22%29%2C%20%22%3D%3A%3D%22%29%29%20%2B1%2C%20STRLEN%28%3Ftaxonname%29%29%20AS%20%3Fa%29%0A%7D", " QuickStatements]") AS ?url)
+
+WHERE {
+  SERVICE bd:sample { ?topic wdt:P105 wd:Q7432 . bd:serviceParam bd:sample.limit 200000 }
+  ?paper wdt:P921 ?topic .
+  ?paper wdt:P6104 wd:Q56241615 . 
+  ?topic wdt:P171 ?item .
+}
+GROUP BY ?item ?url
+LIMIT 500

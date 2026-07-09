@@ -1,0 +1,2 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?c ?layer { {{{1}}} . ?item wdt:P625 ?c .  OPTIONAL { ?item rdfs:label ?il. FILTER(LANG(?il)="pa") } BIND(IF(BOUND(?il),"with","without") as ?layer) SERVICE wikibase:label { bd:serviceParam wikibase:language "pa,en". } } #

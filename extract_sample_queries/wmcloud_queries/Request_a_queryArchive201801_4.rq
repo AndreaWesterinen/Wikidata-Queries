@@ -1,0 +1,17 @@
+#defaultView:AreaChart
+
+SELECT (str(YEAR(?pointInTime)) AS ?Jahr) ?Einwohnerzahl ?OrtsteilLabel ?Ortsteil   
+WHERE  
+{
+  {
+    ?Ortsteil wdt:P131 wd:Q587094.
+  } 
+  UNION 
+  {
+    VALUES (?Ortsteil) {(wd:Q587094)}
+  }
+  ?Ortsteil p:P1082 ?populationStatement.
+  ?populationStatement ps:P1082 ?Einwohnerzahl. 
+  ?populationStatement pq:P585 ?pointInTime.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

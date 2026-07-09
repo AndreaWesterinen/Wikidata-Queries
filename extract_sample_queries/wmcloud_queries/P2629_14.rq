@@ -1,0 +1,9 @@
+# items with BBFC ratings with a BBFC reference ID not matching the regex "AZ[FVG][0-9]{6}$"
+SELECT DISTINCT ?item ?itemLabel ?id
+WHERE {
+  ?item p:P2629/pq:P2676 ?id .
+  FILTER NOT EXISTS { ?item p:P2629/pq:P2676 ?id . FILTER regex (?id, "^AZ[FVG][0-9]{6}$") . }
+    SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+     }
+  }

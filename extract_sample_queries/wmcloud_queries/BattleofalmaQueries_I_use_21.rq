@@ -1,0 +1,29 @@
+#added before 2016-10
+
+SELECT
+  ?item
+  (SAMPLE (?itemL) AS ?title)
+  (YEAR(?date) AS ?year)
+  (SAMPLE (?typeL) AS ?type)
+  (SAMPLE (?img) AS ?image)
+?location ?collectionLabel 
+  WHERE {
+    ?item wdt:P179 wd:Q227494 .
+    ?item wdt:P18 ?img .
+    ?item wdt:P571 ?date .
+    ?item wdt:P31 ?instance .
+    
+    
+    
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".?item rdfs:label ?itemL .
+                            ?instance rdfs:label ?typeL .
+                            ?collection rdfs:label ?collectionLabel .}
+    OPTIONAL {
+      ?item wdt:P195 ?collection .
+      ?collection wdt:P625 ?location . 
+    }
+    
+ 
+}
+GROUP BY ?item ?location ?collectionLabel ?date
+ORDER BY ?year ?item ?itemLabelCollections

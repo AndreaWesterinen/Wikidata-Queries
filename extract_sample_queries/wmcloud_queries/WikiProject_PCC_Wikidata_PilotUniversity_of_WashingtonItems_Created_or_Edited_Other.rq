@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel WHERE 
+{ ?item wdt:P5008 wd:Q98970039. 
+ FILTER(NOT EXISTS { ?item wdt:P1855 ?o. }) 
+ FILTER(NOT EXISTS { ?item wdt:P31 wd:Q5. }) 
+ FILTER(NOT EXISTS { ?item (wdt:P31/(wdt:P279*)) wd:Q41176. }) 
+ FILTER(NOT EXISTS { ?item (wdt:P31/(wdt:P279*)) wd:Q43229. }) 
+ FILTER(NOT EXISTS { ?item (wdt:P31*) wd:Q18616576. }) 
+ FILTER(NOT EXISTS { ?item wdt:P31 wd:Q187685. })
+ FILTER(NOT EXISTS { ?item wdt:P31 wd:Q1907875. })
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } } 
+ORDER BY (LCASE(?itemLabel))

@@ -1,0 +1,37 @@
+#Gender ratio in Disney's traditionally animated films by character type
+#(Protagonist, Sidekick, Supporting Character, Antagonist, Villain, Minor Character, henchman)
+SELECT DISTINCT ?roleLabel (ROUND(COUNT(DISTINCT ?female)/COUNT(DISTINCT ?character)*100) AS ?femaleShare_inPercent) (COUNT(DISTINCT ?male) AS ?males) (COUNT(DISTINCT ?female) AS ?females) 
+WHERE
+{
+  #constraining "role"
+  VALUES ?role {
+         wd:Q55712911 #main antagonist
+         wd:Q245204 #antagonist
+         wd:Q4388180 #supporting character
+         wd:Q215972 #protagonist
+         wd:Q27623618 #minor character
+         wd:Q281525 #sidekick
+         wd:Q290691 #villain
+         wd:Q247297 #henchman
+        }
+  
+  #getting the films
+  ?film wdt:P179 wd:Q56070713;
+        wdt:P136 wd:Q28968511;
+        wdt:P527* ?film1.
+  
+  #getting the characters
+  ?character wdt:P1441 ?film1; p:P5800 ?st.
+  
+  #getting the character types
+  ?st ps:P5800/wdt:P279* ?role;
+      pq:P642 ?film1.
+  
+  #counting male characters
+  { {?character wdt:P21 wd:Q6581097} UNION {?character wdt:P21 wd:Q44148} BIND(?character AS ?male). } UNION
+  #counting female characters
+  { {?character wdt:P21 wd:Q43445} UNION {?character wdt:P21 wd:Q6581072} BIND(?character AS ?female). }
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?roleLabel

@@ -1,0 +1,13 @@
+#title: Wrong calendar
+# Complex constraint from [[Property talk:P570]]
+# People died before 1582 who's death date is registered using [[d:Q1985727|proleptic Gregorian calendar <small>(Q1985727)</small>]] instead of [[d:Q1985786|proleptic Julian calendar <small>(Q1985786)</small>]].
+SELECT ?item WHERE
+{
+?item p:P570/psv:P570 ?datevalue .
+?datevalue wikibase:timeValue ?date .           
+FILTER(?date < "+1582-10-15T00:00:00Z"^^xsd:dateTime)
+?datevalue wikibase:timePrecision ?dateprecision . 
+FILTER(?dateprecision > 9)
+?datevalue wikibase:timeCalendarModel wd:Q1985727 .
+}
+  LIMIT 1000

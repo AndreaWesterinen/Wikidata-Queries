@@ -1,0 +1,8 @@
+SELECT ?prop (count(distinct(?statement)) as ?count) WITH {
+ SELECT * WHERE {
+         ?item ?prop ?statement .
+         ?statement pq:P642 [] .} limit 500000 } as %items where {
+include %items
+} 
+group by ?prop
+order by desc(?count)

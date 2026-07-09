@@ -1,0 +1,10 @@
+SELECT DISTINCT 
+  ?item ?itemLabel ?itemDescription # ?hqLabel
+  (((URI(REPLACE("https://freebase.toolforge.org$1","\\$1",?fb)))) as ?t_)
+  ?sts ?ids ?sls
+WHERE
+{
+	?item wdt:P31 wd:Q5398426 ; wdt:P646 ?fb .
+    ?item wikibase:statements ?sts ; wikibase:identifiers 1 ; wikibase:sitelinks ?sls .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

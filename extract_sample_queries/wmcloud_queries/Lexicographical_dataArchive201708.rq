@@ -1,0 +1,7 @@
+embed.html#SELECT ?item ?itemLabel ?coord
+WHERE
+{
+	?item wdt:P27 wd:Q148 ; rdfs:label ?itemLabel.
+	FILTER (lang(?itemLabel) = "zh").
+	FILTER regex (?itemLabel, "雨").
+}

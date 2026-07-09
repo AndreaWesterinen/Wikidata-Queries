@@ -1,0 +1,10 @@
+#Fictional characters.
+SELECT DISTINCT ?item ?itemLabel ?article 
+WHERE {
+
+    ?item wdt:P31/wdt:P279 wd:Q95074.
+    ?article schema:about ?item ;
+             schema:isPartOf <https://en.wikipedia.org/>.
+
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

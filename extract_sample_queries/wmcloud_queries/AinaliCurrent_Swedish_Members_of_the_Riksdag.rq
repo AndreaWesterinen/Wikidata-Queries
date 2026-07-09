@@ -1,0 +1,12 @@
+SELECT ?item ?start ?groupLabel ?districtLabel ?replacesLabel WHERE {
+?item wdt:P31 wd:Q5;
+      p:P39 ?position.
+?position ps:P39 wd:Q10655178;
+          pq:P580 ?start.
+OPTIONAL { ?position pq:P582 ?end }
+OPTIONAL { ?position pq:P4100 ?group }  
+OPTIONAL { ?position pq:P768 ?district }
+OPTIONAL { ?position pq:P1365 ?replaces }  
+FILTER (!BOUND(?end))  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

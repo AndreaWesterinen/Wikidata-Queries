@@ -1,0 +1,21 @@
+SELECT ?item ?itemLabel ?year ?P31 ?creator with 
+{ SELECT ?item ?itemLabel 
+  (count(distinct ?author) as ?pp)  
+  (count(distinct ?type) as ?qq) 
+  (group_concat(distinct ?typelabel) as ?P31) 
+  (min(year(?date)) as ?year) 
+  (group_concat(distinct ?authorLabel) as ?creator) WHERE 
+  {
+    ?item wdt:P31/wdt:P279* wd:Q5185279.
+    filter not exists {?item schema:description ?Len. filter(lang(?Len)="en")}
+    ?item wdt:P31 ?type. ?type rdfs:label ?typelabel. filter(lang(?typelabel)="en")
+    optional {?item rdfs:label ?itemLabel. filter(lang(?itemLabel)="en")}
+    optional {?item wdt:P577 ?date .}
+    optional {?item wdt:P50 ?author . optional {?author rdfs:label ?authorLabel. filter(lang(?authorLabel)="en")} }
+  } group by ?item ?itemLabel
+} as %i
+where 
+{include %i
+ filter (?pp <2)
+ filter (?qq <2)
+}

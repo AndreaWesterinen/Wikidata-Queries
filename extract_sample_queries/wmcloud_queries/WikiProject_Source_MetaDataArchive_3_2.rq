@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?emp ?empLabel ?empStatement ?count WHERE {
+  {
+    SELECT ?item ?emp ?empStatement (COUNT(DISTINCT ?startTime) AS ?count) WHERE {
+       ?item wdt:P496 ?ORCID ;
+        p:P108 ?empStatement .
+  ?empStatement ps:P108 ?emp ;
+                pq:P580 ?startTime . 
+    } GROUP BY ?empStatement ?item ?emp
+    HAVING (?count > 1)
+  } . 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+ORDER BY DESC(?count) ?emp

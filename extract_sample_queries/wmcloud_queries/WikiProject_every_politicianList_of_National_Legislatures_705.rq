@@ -1,0 +1,12 @@
+SELECT ?qual ?qualLabel ?count 
+WHERE {
+  {
+    SELECT ?qual (COUNT(DISTINCT ?person) AS ?count) WHERE {
+      ?person p:P39 [ ps:P39 [ wdt:P279* wd:Q19971999 ]; ?pq_qual ?pq_obj ] .
+      ?qual wikibase:qualifier ?pq_qual .
+    }
+    GROUP BY ?qual ?qualLabel
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC (?count)

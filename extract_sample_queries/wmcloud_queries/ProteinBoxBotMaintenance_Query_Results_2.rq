@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?itemLabel ?count {
+	{
+		SELECT ?item (COUNT(?value) AS ?count) {
+			?item wdt:P351 ?val .
+		} GROUP BY ?item
+	} .
+	FILTER(?count > 1) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" } .
+} ORDER BY DESC(?count) LIMIT 1000

@@ -1,0 +1,10 @@
+#exhibitions in the Colonial museum
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  { ?item wdt:P31 wd:Q29023906 . } #temporary exhibition/tentoonstelling
+  UNION 
+  { ?item wdt:P31 wd:Q464980 . } #exhibition/opstelling in vaste collection
+  ?item wdt:P276 wd:Q2042754 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

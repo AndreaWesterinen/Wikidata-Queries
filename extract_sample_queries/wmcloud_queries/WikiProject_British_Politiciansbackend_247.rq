@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel ?constituencyLabel ?partyLabel ?start ?electionLabel {
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 [wdt:P279 wd:Q3406079 ] . 
+ OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+ OPTIONAL { ?positionStatement pq:P4100|pq:P102 ?party . }
+ OPTIONAL { ?positionStatement pq:P580 ?start . }
+ OPTIONAL { ?positionStatement pq:P2715 ?election . }
+ FILTER NOT EXISTS { ?positionStatement pq:P582 ?end . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?start

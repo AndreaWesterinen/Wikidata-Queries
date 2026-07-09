@@ -1,0 +1,10 @@
+SELECT 
+?item ?gnd ?viaf ?isni
+{
+ ?item wdt:P31 wd:Q5.
+ ?item wdt:P227 ?gnd.
+ ?item wdt:P31 wd:Q14946528.
+ OPTIONAL {?item wdt:P214 ?viaf.} 
+ OPTIONAL {?item wdt:P213 ?isni.}
+} 
+LIMIT 100

@@ -1,0 +1,8 @@
+SELECT ?item ?dob ?dod ?url ?namedAs ?ageAtDeath WHERE {
+  ?item p:P570 [ psv:P570 [ wikibase:timeValue ?dod; wikibase:timePrecision 9 ]; prov:wasDerivedFrom [ pr:P813 '2017-10-09T00:00:00Z'^^xsd:dateTime; pr:P854 ?url; pr:P1810 ?namedAs ] ] .
+  FILTER(CONTAINS(STR(?url), 'digitale.beic.it')) .
+  OPTIONAL {
+    ?item wdt:P569 ?dob .
+  }
+  BIND((YEAR(?dod) - YEAR(?dob)) AS ?ageAtDeath) .
+}

@@ -1,0 +1,10 @@
+#Unique value constraint report for P6600: report listing each item
+
+SELECT DISTINCT ?item1 ?item1Label ?item2 ?item2Label ?value 
+{
+	?item1 wdt:P6600 ?value .
+	?item2 wdt:P6600 ?value .
+	FILTER( ?item1 != ?item2 && STR( ?item1 ) < STR( ?item2 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+LIMIT 100

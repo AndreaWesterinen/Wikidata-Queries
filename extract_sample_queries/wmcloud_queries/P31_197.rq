@@ -1,0 +1,4 @@
+#title: Can't be instance of song and single
+# Complex constraint from [[Property talk:P31]]
+# Items should not be an [[Property:P31|instance of&#32;<small dir="ltr">(P31)</small>]] both a [[d:Q7366|song <small>(Q7366)</small>]] and a [[d:Q134556|single <small>(Q134556)</small>]]; the [[d:Q2031291|musical release <small>(Q2031291)</small>]] (single) should be separate from the [[d:Q17537576|creative work <small>(Q17537576)</small>]] (song). Sitelinks should usually be attached to items about songs. Consider removing one statement (probably [[d:Q134556|single <small>(Q134556)</small>]]), and creating a new item for the other entity. Songs and singles can be linked with [[Property:P658|tracklist&#32;<small dir="ltr">(P658)</small>]] and [[Property:P361|part of&#32;<small dir="ltr">(P361)</small>]].
+SELECT ?item WHERE { ?item wdt:P31 wd:Q7366. ?item wdt:P31 wd:Q134556. }

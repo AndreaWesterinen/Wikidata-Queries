@@ -1,0 +1,10 @@
+#Disney animated movies and their narrative location on a map
+#defaultView:Map
+SELECT ?movie ?movieLabel ?narrative_location ?narrative_locationLabel ?coordinates ?company WHERE {
+   ?movie wdt:P840 ?narrative_location ;
+          wdt:P31 wd:Q29168811 ;
+          wdt:P272 ?company .
+   ?company wdt:P127* wd:Q7414 .
+   ?narrative_location wdt:P625 ?coordinates .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

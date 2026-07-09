@@ -1,0 +1,13 @@
+#title: Model year ≤ discontinued date of car model
+# Complex constraint from [[Property talk:P5444]]
+# correct [[Property:P2669|discontinued date&#32;<small dir="ltr">(P2669)</small>]] on item for car model or define exception(s)
+SELECT ?item ?my ?model ?discont
+{
+	?item wdt:P5444 / wdt:P585 ?mydate .
+	BIND(YEAR(?mydate) as ?my) 
+	?item wdt:P279 ?model .
+	?model wdt:P31 wd:Q3231690 .
+	?model wdt:P2669 ?discont .
+	FILTER(YEAR(?discont) < ?my) 
+}
+LIMIT 200

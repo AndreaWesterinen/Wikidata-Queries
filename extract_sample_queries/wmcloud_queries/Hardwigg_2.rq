@@ -1,0 +1,5 @@
+SELECT ?x ?xLabel ?langLabel {
+  ?x p:P747 ?edStatement.
+  FILTER NOT EXISTS { ?edStatement pq:P407 ?lang. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

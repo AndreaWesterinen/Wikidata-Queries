@@ -1,0 +1,23 @@
+# Artists and their works depictions
+#defaultView:Graph
+SELECT ?item1 ?image1 ?item1Label ?item2 ?image2 ?item2Label ?size ?rgb 
+WHERE 
+{
+ VALUES ?creator { wd:Q1064767 }
+ { # Get works and instances
+  VALUES ?rgb { "FFBD33" }
+  VALUES ?size { 2 }
+  ?item1 wdt:P170 ?creator .
+  ?item1 wdt:P31 ?item2 .
+  OPTIONAL { ?item1 wdt:P18 ?image1. }
+ } 
+ UNION
+ { # Depictions
+  VALUES ?rgb { "fff033" }
+  VALUES ?size { 1 }
+  ?item1 wdt:P170 ?creator .
+  ?item1 wdt:P180 ?item2 .
+  OPTIONAL { ?item1 wdt:P18 ?image1. }
+ }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

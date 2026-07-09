@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  	# beroep = fotograaf of onderliggend
+  ?item (wdt:P106/wdt:P279*) wd:Q33231.
+  {?item wdt:P19 wd:Q9920
+   	# OR work location within Netherlands
+	} UNION  {?item wdt:P937 wd:Q9920}
+   	# OR residency within Netherlands
+	UNION  {?item wdt:P551 wd:Q9920}
+   	# OR place of death within Netherlands
+	UNION  {?item wdt:P20 wd:Q9920}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+}

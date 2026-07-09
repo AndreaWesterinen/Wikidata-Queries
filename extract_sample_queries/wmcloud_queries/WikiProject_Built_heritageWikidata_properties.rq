@@ -1,0 +1,5 @@
+SELECT ?item ?property WHERE {
+  ?item wdt:P279* wd:Q2065736 . 
+  OPTIONAL { ?item wdt:P1687 ?property } . 
+} 
+LIMIT 500

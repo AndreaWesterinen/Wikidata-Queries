@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item WHERE {
+#  ?item wdt:P18 [] .
+#  ?item wdt:P373 [] .
+  ?work wdt:P921 ?item ;
+        wdt:P50 ?author ;
+        wdt:P2860 ?cited .
+  ?cited wdt:P50 ?citedauthor .
+  ?work wdt:P921 ?item2 .
+  ?work wdt:P50 ?author2 .
+  ?item2 wdt:P625 ?geoloc .
+  FILTER(?item2 != ?item)
+  FILTER(?author2 != ?author)
+  ?work2 wdt:P2860 ?work .
+  
+}
+LIMIT 100

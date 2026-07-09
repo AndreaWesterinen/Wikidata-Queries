@@ -1,3 +1,4 @@
+#title: Erdos Numbers and images of people who have oral histories in the Computer History Museum's collection
 #defaultView:ImageGrid
 SELECT ?personLabel ?image ?Erdos
 

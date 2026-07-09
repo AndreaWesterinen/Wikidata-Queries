@@ -1,0 +1,10 @@
+SELECT ?item ?series ?inception (COALESCE(?e2, ?e1) as ?e)
+{
+    ?series wdt:P31 wd:Q58863414 . 
+    ?series wdt:P2354 ?item .
+    MINUS { ?series wdt:P31 wd:Q63253904 }
+    OPTIONAL  { ?series wdt:P571 ?inception }
+    OPTIONAL { ?series wdt:P2541 wd:Q62900839  . BIND ("🌐" as ?e2) } 
+    OPTIONAL { ?series wdt:P17/p:P1813 [ pq:P31 wd:Q28840786 ; ps:P1813 ?e1 ] } 
+}
+ORDER BY DESC(BOUND(?e)) ?e ?series

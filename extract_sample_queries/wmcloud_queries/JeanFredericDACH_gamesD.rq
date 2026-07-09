@@ -1,0 +1,10 @@
+SELECT ?item (YEAR(?game_date) AS ?year) WHERE {
+  {
+    VALUES ?country {
+      wd:Q40
+    }
+    ?item wdt:P31 wd:Q7889;
+      wdt:P495 ?country.
+    OPTIONAL { ?item wdt:P577 ?game_date. }
+  }
+}

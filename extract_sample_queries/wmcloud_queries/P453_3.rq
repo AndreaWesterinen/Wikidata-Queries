@@ -1,0 +1,4 @@
+#title: Missing character roles
+# Complex constraint from [[Property talk:P453]]
+# Items with [[Property:P674|characters&#32;<small dir="ltr">(P674)</small>]] and [[Property:P161|cast member&#32;<small dir="ltr">(P161)</small>]] but without the same [[Property:P453|character role&#32;<small dir="ltr">(P453)</small>]] qualifier
+SELECT DISTINCT ?item WHERE { ?item wdt:P674 ?value; wdt:P161 [] . MINUS { ?item p:P161/pq:P453 ?value } }

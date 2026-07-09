@@ -1,0 +1,12 @@
+SELECT ?item WHERE
+{
+?item wdt:P31 wd:Q5 .           #instance of: human
+  ?item wdt:P27 wd:Q30 .          #country: USA
+
+  {?item wdt:P106  wd:Q21281706 . } #occupation: acad admin
+  UNION
+  {?item wdt:P106  wd:Q5428874 . } #occupation: acad faculty
+  UNION
+  {?item wdt:P39 wd:Q1255921 ;
+         wdt:P642 wd:Q3918. }  #position held
+}

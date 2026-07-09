@@ -1,0 +1,1 @@
+SELECT ?item (COUNT(DISTINCT(?film)) AS ?ct) WHERE { VALUES ?filmtype {wd:Q11424 wd:Q24862 wd:Q20667187 wd:Q226730} . ?film wdt:P31 ?filmtype . ?film wdt:P272 ?item . } GROUP BY ?item ORDER BY DESC(?ct) LIMIT 12

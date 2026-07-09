@@ -1,0 +1,4 @@
+select * where {
+values ?item { wd:Q843784 wd:Q1113755 wd:Q1324709 wd:Q3500024 }
+?item p:P625/psv:P625/wikibase:geoPrecision ?val
+}

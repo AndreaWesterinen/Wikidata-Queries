@@ -1,0 +1,13 @@
+# Examples from newspapers
+SELECT DISTINCT ?l ?example ?publication ?publicationLabel WHERE {
+  ?l a ontolex:LexicalEntry;
+       dct:language ?language.
+  ?language wdt:P218 'sv'.
+  ?l wdt:P5831 ?example.
+    ?l p:P5831 ?statement.
+    ?statement prov:wasDerivedFrom ?refnode.
+    ?refnode pr:P248 ?stated_in.
+  ?stated_in wdt:P1433 ?publication. 
+  ?publication wdt:P31/wdt:P279* wd:Q11032.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

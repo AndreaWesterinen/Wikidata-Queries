@@ -1,0 +1,5 @@
+SELECT ?representative ?representativeLabel WHERE {
+  ?representative ?property ?value.
+  ?value pq:P2937 wd:Q113123448.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} LIMIT 200

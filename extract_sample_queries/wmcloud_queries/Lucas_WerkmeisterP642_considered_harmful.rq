@@ -1,0 +1,12 @@
+embed.html#SELECT ?subject ?subjectLabel ?propertyLabel ?valueLabel ("of"@en AS ?of) ?qualifierLabel WHERE {
+  SERVICE bd:sample {
+    ?statement pq:P642 ?qualifier.
+    bd:serviceParam bd:sample.limit 10000
+  }
+  ?subject ?p ?statement.
+  FILTER(?p != p:P2215)
+  ?property wikibase:claim ?p;
+            wikibase:statementProperty ?ps.
+  ?statement ?ps ?value.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

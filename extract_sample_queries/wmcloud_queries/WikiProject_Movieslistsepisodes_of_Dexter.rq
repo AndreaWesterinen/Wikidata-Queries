@@ -1,0 +1,39 @@
+SELECT 
+  ?item 
+  ?nr_s ?nr_e ?nr_es 
+  (CONCAT("[[",strafter(str(?season),"y/"),"\u007C",COALESCE(?nr_s,"?"),"]]") as ?s)
+  (CONCAT("S",?nr_s,"&nbsp;E",?nr_e) as ?se) 
+  (CONCAT("[[w:",str(COALESCE(?episodearticle,?twopartepisodearticle,CONCAT(COALESCE(?seasonarticle,?episodelist,?seriesarticle),"#ep",?nr_es))),"\u007C",?en_label,"]]") as ?enwiki) 
+  (CONCAT("[[:fr:",str(COALESCE(?episodearticle_fr,?twopartepisodearticle_fr,CONCAT(COALESCE(?seasonarticle_fr,?episodelist_fr,?seriesarticle_fr),"#Épisode ",?nr_e," : ",?fr_label))),"\u007C",?fr_label,"]]") as ?frwiki) 
+WHERE 
+{  
+  BIND(wd:Q23577 as ?series)
+  ?item wdt:P179 ?series .
+  hint:Prior hint:rangeSafe true .
+  ?item wdt:P31/wdt:P279* wd:Q21191270 .
+
+  OPTIONAL { ?item rdfs:label ?en_label . FILTER(lang(?en_label) = "en") }
+  OPTIONAL { ?item rdfs:label ?fr_label . FILTER(lang(?fr_label) = "fr") }
+
+  OPTIONAL { ?item wdt:P4908 ?season  
+              OPTIONAL { ?season p:P179 [ pq:P1545 ?nr_s ] } 
+              OPTIONAL { ?item wdt:P4908 ?season . [] schema:about ?season ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?seasonarticle }              
+              OPTIONAL { ?item wdt:P4908 ?season . [] schema:about ?season ; schema:isPartOf <https://fr.wikipedia.org/>; schema:name ?seasonarticle_fr }              
+           }
+  OPTIONAL { ?item p:P4908 [ pq:P1545 ?nr_e ] }
+  OPTIONAL { ?item p:P179 [ pq:P1545 ?nr_es ] } 
+
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?episodearticle }     
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?episodearticle_fr }     
+
+  OPTIONAL { ?item wdt:P361 ?2part . ?2part wdt:P31 wd:Q21664088 . 
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?twopartepisodearticle }
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?twopartepisodearticle_fr }
+           }
+
+  OPTIONAL { ?series wdt:P1811 ?el . [] schema:about ?el ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?episodelist }    
+
+  OPTIONAL { [] schema:about ?series ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?seriesarticle }    
+  OPTIONAL { [] schema:about ?series ; schema:isPartOf <https://fr.wikipedia.org/>; schema:name ?seriesarticle_fr .}    
+}
+ORDER BY xsd:integer(?nr_s) xsd:integer(?nr_e)

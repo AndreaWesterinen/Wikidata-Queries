@@ -1,0 +1,12 @@
+#defaultView:Tree
+SELECT ?ideology ?ideologyLabel ?imageI ?political_ideology ?political_ideologyLabel ?political_party ?political_partyLabel ?image ?political_alignment ?political_alignmentLabel ?country ?countryLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de,en,es,fr,it". }
+  ?political_party (wdt:P31/wdt:P279*) wd:Q7278.
+  ?political_party wdt:P1142 ?political_ideology.
+  ?political_ideology wdt:P279 ?ideology.
+  ?ideology wdt:P31 wd:Q14934048.
+  OPTIONAL { ?political_party wdt:P1387 ?political_alignment. }
+  OPTIONAL { ?political_party wdt:P18 ?image. }
+  OPTIONAL { ?ideology wdt:P18 ?imageI. }
+  OPTIONAL { ?political_party wdt:P17 ?country. }
+}

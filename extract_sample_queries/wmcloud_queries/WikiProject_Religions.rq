@@ -1,0 +1,8 @@
+select ?person ?personLabel ?christianismLabel where {
+  ?person wdt:P279*/wdt:P31 wd:Q5 .
+  ?person wdt:P140 ?christianism .
+  ?christianism wdt:P279* wd:Q5043 . # christianity and subclasses 
+  SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "fr, en" .
+ }
+}

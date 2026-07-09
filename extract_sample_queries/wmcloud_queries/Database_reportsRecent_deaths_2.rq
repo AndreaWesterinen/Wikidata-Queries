@@ -1,0 +1,10 @@
+SELECT ?item ?dod ?stct ?slct
+{
+	?item wdt:P570 ?dod
+	FILTER ( ?dod > "2021-10-01T00:00:00Z"^^xsd:dateTime)
+	FILTER ( ?dod > (now()-"P30D"^^xsd:duration) && ?dod < now() )
+	?item wdt:P31 wd:Q5 .
+  	OPTIONAL { ?item wikibase:statements ?stct }
+  	OPTIONAL { ?item wikibase:sitelinks ?slct }
+}
+ORDER BY DESC(?dod) ?item

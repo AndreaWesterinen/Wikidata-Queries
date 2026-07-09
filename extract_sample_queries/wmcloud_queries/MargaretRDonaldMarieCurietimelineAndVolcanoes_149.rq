@@ -1,0 +1,12 @@
+# articles authored by Gert Wörheide
+# the query also finds their article
+
+
+SELECT DISTINCT ?item ?itemLabel ?journal ?journalLabel WHERE {
+  ?item wdt:P31 wd:Q13442814 ;         # is a scholarly article
+    wdt:P50  wd:Q25712856 ;              # authored by Gert Wörheide
+    wdt:P1433 ?journal.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?itemLabel ?journalLabel
+ LIMIT 4000    

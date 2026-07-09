@@ -1,0 +1,14 @@
+#Egyptologists with Dutch nationality, with dates of birth and death
+SELECT DISTINCT ?item ?itemLabel ?geboortedatum ?overlijdensdatum WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item p:P106 ?statement0.
+      ?statement0 (ps:P106/(wdt:P279*)) wd:Q1350189.
+      ?item p:P27 ?statement1.
+      ?statement1 (ps:P27/(wdt:P279*)) wd:Q29999.
+    }
+  }
+  OPTIONAL { ?item wdt:P569 ?geboortedatum. }
+  OPTIONAL { ?item wdt:P570 ?overlijdensdatum. }
+}

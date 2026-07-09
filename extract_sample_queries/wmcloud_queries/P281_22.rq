@@ -1,0 +1,4 @@
+#title: Check postal codes in New South Wales
+# Complex constraint from [[Property talk:P281]]
+#
+SELECT DISTINCT ?item ?zipCode WHERE { ?item wdt:P17 wd:Q408; wdt:P131 wd:Q3224; wdt:P281 ?zipCode. FILTER( REGEX( STR( ?zipCode ), "^((1\\d{3}|2[0-5]\\d{2}|2619|26[2-9]\\d|2[78]\\d{2}|292[1-9]|29[3-9]\\d))$" ) = false ) . } ORDER BY ?item

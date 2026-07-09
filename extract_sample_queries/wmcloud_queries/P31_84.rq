@@ -1,0 +1,22 @@
+#title: default P31 values for frwiki (claimless items)
+# Complex constraint from [[Property talk:P31]]
+# TODO: add P31
+SELECT ?item ?n ?pref ?inst
+WHERE
+{
+  VALUES ( ?pref ?inst ) { 
+    ( "Modèle:" wd:Q11266439 )
+    ( "Module:" wd:Q15184295 )
+    ( "Catégorie:" wd:Q4167836 )
+    ( "Projet:" wd:Q14204246 )    
+    ( "Wikipédia:" wd:Q14204246 )  
+    ( "Aide:" wd:Q56005592 )     
+    ( "Liste de" wd:Q13406463 )  
+    ( "Glossaire d" wd:Q859161 )      
+    ( "Vocabulaire d" wd:Q859161 )       
+  }    
+  ?item wikibase:statements 0 . 
+  [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?n . 
+  FILTER( strstarts(?n , ?pref) ) 
+}  
+LIMIT 1000

@@ -1,0 +1,12 @@
+# This query finds all usages of property P7719 AS a statement.
+#
+# Important note: most SPARQL users don't need such level of complication!
+# If you want to get only concrete values with best rank, replace body with something like:
+# ?item wdt:P7719 ?value.
+
+SELECT ?item ?itemLabel ?statementLabel
+{
+  ?item wdt:P7719 ?statement .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+LIMIT 1000

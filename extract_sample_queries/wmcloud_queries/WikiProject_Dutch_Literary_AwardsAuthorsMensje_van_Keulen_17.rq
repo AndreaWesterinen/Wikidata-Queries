@@ -1,0 +1,15 @@
+# Works for which ?author was nominated for an award, but did not win
+SELECT DISTINCT ?authorLabel ?work ?workLabel ?workDescription ?award ?awardLabel ?nominatedyear 
+WHERE
+{
+  VALUES (?author) {(wd:Q4362745)}
+  ?author p:P1411 ?s.
+  ?s ps:P1411 ?award #nominated for award
+  OPTIONAL { ?s pq:P585 ?year1
+  BIND(YEAR(?year1) AS ?nominatedyear)}
+  ?s pq:P1686 ?work
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl" .
+  }
+} ORDER BY ?nominatedyear

@@ -1,0 +1,6 @@
+SELECT ?Museum_of_Modern_Art ?Museum_of_Modern_ArtLabel ?Museum_of_Modern_Art_work_ID WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Museum_of_Modern_Art wdt:P195 wd:Q188740.
+  MINUS { ?Museum_of_Modern_Art wdt:P2014 ?Museum_of_Modern_Art_work_ID. }
+}
+LIMIT 100

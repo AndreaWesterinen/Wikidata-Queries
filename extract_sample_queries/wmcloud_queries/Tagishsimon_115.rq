@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?partof ?partofLabel ?parent ?parentLabel (GROUP_CONCAT(?P31Label;separator="; ") as ?instance) WHERE {
+  ?item wdt:P31 wd:Q17431399.
+  SERVICE wikibase:label {    bd:serviceParam wikibase:language "en" . 
+                               ?item rdfs:label ?itemLabel .
+                               ?partof rdfs:label ?partofLabel .
+                               ?parent rdfs:label ?parentLabel .
+                         ?P31 rdfs:label ?P31Label}
+  ?item wdt:P17 wd:Q145.
+OPTIONAL { ?item wdt:P361 ?partof. }
+OPTIONAL { ?item wdt:P749 ?parent. }
+  ?item wdt:P31 ?P31 . 
+  
+ } group by ?item ?itemLabel ?partof ?partofLabel ?parent ?parentLabel 

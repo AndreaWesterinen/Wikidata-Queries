@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT ?coordinates ?item ?itemLabel ?image {
+  ?item wdt:P5223 ?id .
+  ?item wdt:P625 ?coordinates .
+  OPTIONAL {?item wdt:P18 ?image } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

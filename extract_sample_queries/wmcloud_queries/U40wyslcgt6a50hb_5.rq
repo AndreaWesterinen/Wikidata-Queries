@@ -1,0 +1,11 @@
+#defaultView:ImageGrid
+SELECT ?crypto ?cryptoLabel ?namesakeLabel ?image
+WHERE {
+  ?crypto wdt:P31 wd:Q13479982.
+  ?crypto wdt:P138 ?namesake.
+  ?namesake wdt:P18 ?image.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+    
+  }
+}

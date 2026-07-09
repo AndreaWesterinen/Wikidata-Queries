@@ -1,0 +1,17 @@
+SELECT 
+   (wd:Q47498838 as ?item) 
+   (SAMPLE(?a) as ?sample) 
+   (COUNT(DISTINCT ?a) as ?ct)
+   (wd:Q47498838 as ?type)
+("{{{level}}}" as ?level)
+("{{{descr}}}" as ?descr)
+WHERE
+{
+    ?a wdt:P641 wd:Q847 .
+    FILTER NOT EXISTS { ?a wdt:P31 [] }
+    FILTER NOT EXISTS { ?a wdt:P279 [] }
+    FILTER NOT EXISTS { ?a wdt:P3450 [] }    
+    FILTER NOT EXISTS { ?a wdt:P361 [] }    
+    FILTER NOT EXISTS { ?a wdt:P179 [] }  
+    FILTER NOT EXISTS { ?a wdt:P1269 [] } 
+}

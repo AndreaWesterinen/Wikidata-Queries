@@ -1,3 +1,4 @@
+#title: Ranking of most cited work in WikiPathways
 SELECT ?citation ?citationLabel (count(?pathway) as ?times_cited) WHERE {
   ?pathway wdt:P2410 ?WikiPathwaysID ;
            wdt:P2860 ?citation .

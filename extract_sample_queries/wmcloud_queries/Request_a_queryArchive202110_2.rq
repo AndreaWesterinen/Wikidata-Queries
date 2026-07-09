@@ -1,0 +1,4 @@
+SELECT ?object (count(?subject) as ?count) WHERE 
+{
+  ?subject  wikibase:wikiGroup ?object . 
+} group by ?object order by desc(?count)

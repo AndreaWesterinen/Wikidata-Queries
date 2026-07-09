@@ -1,0 +1,8 @@
+embed.html#SELECT ?item ?itemLabel (str(YEAR(?date)) AS ?year) ?members WHERE {
+  ?item wdt:P463 wd:Q1781672 .
+  ?item wdt:P131 wd:Q9908 .
+  ?item p:P2124 ?memberstatement . 
+  ?memberstatement ps:P2124 ?members.
+  ?memberstatement pq:P585 ?date.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}

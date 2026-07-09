@@ -1,0 +1,11 @@
+#Unique value constraint report for P1006: report listing each item
+
+SELECT DISTINCT ?item1 ?item1Label ?item1Description ?item2 ?item2Label ?item2Description ?value 
+{
+	?item1 wdt:P1006 ?value .
+	?item2 wdt:P1006 ?value .
+	FILTER( ?item1 != ?item2 && STR( ?item1 ) < STR( ?item2 ) ) .
+#  	FILTER( ?item1 != ?item2 && STR( ?item1 ) > STR( ?item2 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" } .
+}
+LIMIT 100

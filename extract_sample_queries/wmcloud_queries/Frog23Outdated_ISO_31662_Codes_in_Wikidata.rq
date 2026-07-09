@@ -1,0 +1,16 @@
+SELECT ?region ?regionLabel $iso_3166_1_Code $iso_3166_2_Code ?geonamesID
+WHERE 
+{
+  ?region p:P300 ?statement .
+  ?statement ps:P300 ?iso_3166_2_Code .
+  FILTER NOT EXISTS { ?statement pq:P582 ?x }
+  FILTER ($iso_3166_2_Code IN ("AL-BR", "AL-BU", "AL-DI", "AL-DL", "AL-DR", "AL-DV", "AL-EL", "AL-ER", "AL-FR", "AL-GJ", "AL-GR", "AL-HA", "AL-KA", "AL-KB", "AL-KC", "AL-KO", "AL-KR", "AL-KU", "AL-LB", "AL-LE", "AL-LU", "AL-MK", "AL-MM", "AL-MR", "AL-MT", "AL-PG", "AL-PQ", "AL-PR", "AL-PU", "AL-SH", "AL-SK", "AL-SR", "AL-TE", "AL-TP", "AL-TR", "AL-VL", "BA-01", "BA-02", "BA-03", "BA-04", "BA-05", "BA-06", "BA-07", "BA-08", "BA-09", "BA-10", "BH-16", "CI-01", "CI-02", "CI-03", "CI-04", "CI-05", "CI-06", "CI-07", "CI-08", "CI-09", "CI-10", "CI-11", "CI-12", "CI-13", "CI-14", "CI-15", "CI-16", "CI-17", "CI-18", "CI-19", "FI-IS", "FI-LS", "GB-ANT", "GB-ARD", "GB-ARM", "GB-BLA", "GB-BLY", "GB-BNB", "GB-CGV", "GB-CKF", "GB-CKT", "GB-CLR", "GB-CSR", "GB-DGN", "GB-DOW", "GB-DRY", "GB-FER", "GB-LMV", "GB-LRN", "GB-LSB", "GB-MFT", "GB-MYL", "GB-NDN", "GB-NTA", "GB-NYM", "GB-OMH", "GB-STB", "IS-0", "KE-110", "KE-200", "KE-300", "KE-400", "KE-500", "KE-600", "KE-700", "KE-800", "LA-XN", "LC-04", "LC-09", "LU-D", "LU-G", "LU-L", "MD-CG", "MD-VL", "MK-01", "MK-09", "MK-15", "MK-17", "MK-28", "MK-29", "MK-31", "MK-38", "MK-39", "MK-57", "MK-68", "MK-77", "MK-79", "MK-84", "MR-NKC", "NA-OK", "NZ-N", "NZ-S", "OM-BA", "OM-SH", "PH-18", "PL-KI", "TD-EN", "TT-ETO", "TT-RCM", "TT-WTO", "TW-KHQ", "TW-TNQ", "TW-TPQ", "TW-TXQ"))
+  BIND (SUBSTR($iso_3166_2_Code,0,2) AS $iso_3166_1_Code)
+  OPTIONAL{
+    ?region wdt:P1566 ?geonamesID 
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}
+ORDER BY $iso_3166_2_Code

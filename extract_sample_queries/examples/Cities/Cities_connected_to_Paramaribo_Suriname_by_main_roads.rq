@@ -1,3 +1,5 @@
+#title: Cities connected to Paramaribo (Suriname) by main roads
+
 #defaultView:Map
 SELECT DISTINCT ?connection ?connectionLabel ?connectedWith ?connectedWithLabel ?coor
 WHERE

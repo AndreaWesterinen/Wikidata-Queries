@@ -1,0 +1,22 @@
+SELECT ?item ?ordinal ?flag ?plan_view_image WHERE {
+  ?item wdt:P31 ?Indycar_race.
+  ?Indycar_race wdt:P279 wd:Q63860191.
+  ?item wdt:P585 ?start.
+  ?item p:P361 ?season.
+  ?season ps:P361 ?year.
+  {?year wdt:P3450 wd:Q832052.}
+  union
+  {?year wdt:P3450 wd:Q840399.}
+  union
+  {?year wdt:P3450 wd:Q6601261.}
+  OPTIONAL {?season pq:P1545 ?ordinal.}
+  OPTIONAL {
+    ?item wdt:P17 ?country.
+    ?country wdt:P41 ?flag.
+  }
+  OPTIONAL { 
+    ?item wdt:P2283 ?layout.
+    ?layout wdt:P3311 ?plan_view_image.
+  }
+}
+order by ?start

@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item  ?linkcount WHERE { 
+  {?item wdt:P21 wd:Q6581072; wdt:P496 ?orcid; wikibase:sitelinks ?linkcount .} 
+#  {?paper wdt:P50 ?item; wdt:P31 wd:Q13442814 ; wdt:P921 ?topic. ?anotherpaper wdt:P2860 ?paper; wdt:P921 ?topic ; wdt:P50 []. }
+  FILTER (?linkcount >1)
+}

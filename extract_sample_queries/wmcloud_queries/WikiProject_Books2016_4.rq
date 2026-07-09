@@ -1,0 +1,15 @@
+embed.html##defaultView:BubbleChart
+SELECT ?genre ?gL (count(*) as ?count)
+WHERE
+{
+	{?i wdt:P136 wd:Q5967378 .} union
+    {?i wdt:P136 wd:Q2387832 .} union
+    {?i wdt:P136 wd:Q5240628 .}
+    OPTIONAL {
+        ?i wdt:P136 ?genre.
+		?genre rdfs:label ?gL.
+		filter (lang(?gL) = "en")
+	}
+}
+GROUP BY ?genre ?gL
+ORDER BY DESC(?count)

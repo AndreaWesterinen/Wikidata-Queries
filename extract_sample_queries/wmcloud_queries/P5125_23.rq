@@ -1,0 +1,9 @@
+#title: Outlines should be linked with this property
+# Complex constraint from [[Property talk:P5125]]
+# Outlines not used as value of this property
+SELECT DISTINCT ?item ?itemLabel
+{
+  ?item wdt:P31 wd:Q26884324 .
+  FILTER NOT EXISTS { [] wdt:P5125 ?item }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

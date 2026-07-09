@@ -1,0 +1,8 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?3dmodel
+WHERE {
+  ?item wdt:P4896 ?3dmodel.
+  SERVICE wikibase:label { 
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+  }
+}

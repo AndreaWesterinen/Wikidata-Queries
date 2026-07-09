@@ -1,0 +1,24 @@
+embed.html## find all English/British MPs born outside the modern UK or Ireland
+SELECT DISTINCT ?person ?personLabel ?birth_place ?birth_placeLabel ?birth_place_coords ?birth_country ?birth_countryLabel
+WHERE 
+{      
+     { ?person wdt:P31 wd:Q5 ; wdt:P39 wd:Q16707842 }        # this person is a UK MP (1801 onwards)
+     UNION { ?person wdt:P31 wd:Q5 ; wdt:P39 wd:Q18015642 }  # or a British MP (1707-1800)
+     UNION { ?person wdt:P31 wd:Q5 ; wdt:P39 wd:Q18018860 }  # or an English MP (to 1707)
+    
+    ?person wdt:P19 ?birth_place .                      # and we know their place of birth
+    ?birth_place wdt:P625 ?birth_place_coords .         # and their place of birth has coordianates
+    OPTIONAL { ?birth_place wdt:P17 ?birth_country . }  # find country of place of birth if known
+                                                  # but make sure that it is not in...
+    FILTER ( ?birth_country != wd:Q145 )          # the (current) UK
+    FILTER ( ?birth_country != wd:Q22 )             # or Scotland
+    FILTER ( ?birth_country != wd:Q25 )             # or Wales
+    FILTER ( ?birth_country != wd:Q26 )             # or Northern Ireland
+    FILTER ( ?birth_country != wd:Q27 )             # or England
+    FILTER ( ?birth_country != wd:Q179876 )       # or the Kingdom of England (to 1707)
+    FILTER ( ?birth_country != wd:Q161885 )       # or the Kingdom of Great Britain (1707-1800)
+    FILTER ( ?birth_country != wd:Q174193 )       # or the UK + Ireland (1801-1927)
+  
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "en" }
+}
+#defaultView:Map

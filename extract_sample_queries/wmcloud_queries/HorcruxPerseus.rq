@@ -1,0 +1,13 @@
+SELECT DISTINCT ?author ?authorLabel ?perseusID (?countryLabel as ?country) (group_concat(distinct ?jobLabel;separator=', ') as ?jobs) ?approximateDate
+WHERE {
+  SELECT DISTINCT ?author ?authorLabel ?perseusID ?countryLabel ?jobLabel (year(?fl) as ?approximateDate)
+  WHERE {
+    ?author wdt:P7041 ?perseusID .
+    OPTIONAL { ?author wdt:P27   ?country . }
+    OPTIONAL { ?author wdt:P106  ?job . }
+    OPTIONAL { ?author wdt:P1317 ?fl . }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+  }
+}
+GROUP BY ?author ?authorLabel ?perseusID ?countryLabel ?approximateDate
+ORDER BY ?perseusID

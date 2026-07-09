@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT ?painting ?depictsLabel ?location ?pic
+WHERE 
+{
+  ?painting wdt:P31/wdt:P279* wd:Q4502142.
+  ?painting wdt:P170 wd:Q5582.
+  ?painting wdt:P180 ?depicts.
+  ?depicts wdt:P625 ?location.
+  OPTIONAL { ?painting wdt:P18 ?pic }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

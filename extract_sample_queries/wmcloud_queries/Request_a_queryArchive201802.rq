@@ -1,0 +1,3 @@
+select (count(?taxon) as ?count){ ?taxon wdt:P105 wd:Q7432 
+                                         filter not exists { ?taxon wdt:P31 ?val ;  values ?val { wd:Q42310380 wd:Q42310380} } 
+                                }

@@ -1,0 +1,5 @@
+SELECT ?item ?property ?value ?competition_class WHERE {
+  ?property wikibase:claim ?p; wikibase:statementProperty ?ps .
+  ?item ?p [ ?ps ?value; pq:P2094 ?competition_class ] .
+  ?competition_class wdt:P31 wd:Q22936940; wdt:P641/wdt:P279* wd:Q847 .
+}

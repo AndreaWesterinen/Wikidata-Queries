@@ -1,0 +1,4 @@
+#title: Avoid P31 of P279 of Q5 (P106 or other properties should be created)
+# Complex constraint from [[Property talk:P31]]
+#
+SELECT ?item WHERE { ?item wdt:P31/wdt:P279+ wd:Q5 }

@@ -1,0 +1,13 @@
+embed.html##defaultView:Tree
+SELECT ?x ?xLabel ?y ?yLabel
+WHERE 
+{
+  ?x wdt:P276 wd:Q666063 ;
+     wdt:P31/wdt:P279* wd:Q2668072 .
+  
+  OPTIONAL { ?y wdt:P361 ?x . }
+  OPTIONAL { ?y wdt:P1343 ?x . }
+           
+    
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

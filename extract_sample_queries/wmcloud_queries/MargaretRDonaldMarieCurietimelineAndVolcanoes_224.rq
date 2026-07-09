@@ -1,0 +1,11 @@
+# taxa with an article about Lepidoptera which has an AFD-id
+SELECT ?item  ?itemLabel ?article ?afd_id WHERE {
+  ?item wdt:P171* wd:Q28319. 
+  ?item wdt:P6039 ?afd_id.
+  {
+     ?article schema:about ?item. # and have an article about them
+     ?article schema:isPartOf <https://en.wikipedia.org/> . # on *English* Wikipedia}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 
+    }
+}
+ORDER BY ?itemLabel

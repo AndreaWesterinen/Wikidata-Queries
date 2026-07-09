@@ -1,3 +1,4 @@
+#title: Academy award data
 SELECT ?human ?humanLabel ?awardEditionLabel ?awardLabel ?awardWork ?awardWorkLabel ?director ?directorLabel ?time
 WHERE
 {

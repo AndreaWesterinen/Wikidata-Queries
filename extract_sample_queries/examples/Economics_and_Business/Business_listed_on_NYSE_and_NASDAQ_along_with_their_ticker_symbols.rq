@@ -1,4 +1,4 @@
-# ----
+#title: Business listed on NYSE and NASDAQ along with their ticker symbols
 # Business listed on NYSE and NASDAQ along with their ticker symbols
 SELECT DISTINCT ?id ?idLabel ?exchangesLabel ?ticker WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }

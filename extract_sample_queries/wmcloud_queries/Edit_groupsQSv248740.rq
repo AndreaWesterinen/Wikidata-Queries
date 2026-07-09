@@ -1,0 +1,18 @@
+#Horses (showing some info about them)
+#Illustrates optional fields, instances of subclasses, language fallback on label service, date to year conversion
+#Horses on Wikidata
+SELECT ?p31 ?label (COUNT(?admin) as ?count_admin_locations) (COUNT(?location) as ?count_locations)
+
+WHERE
+{
+  ?building wdt:P31/wdt:P279* wd:Q41176 .
+  ?building wdt:P17 wd:Q148.
+  ?building wdt:P31 ?p31 .
+  
+  OPTIONAL{?building wdt:P131 ?admin .}    
+  OPTIONAL{?building wdt:P276 ?location .}
+ ?p31 rdfs:label ?label .
+  FILTER(LANG(?label) = 'en') .
+  }
+
+GROUP BY ?p31 ?label 

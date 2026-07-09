@@ -1,0 +1,8 @@
+SELECT ?item ?taxonName ?title ?firstName WHERE {
+   ?item wdt:P225 ?taxonName .
+   ?item wdt:P5326/wdt:P1476 ?title .
+   OPTIONAL {?item wdt:P1403/wdt:P225 ?firstName} .
+   OPTIONAL {?item wdt:P566/wdt:P225 ?firstName} .
+   FILTER(BOUND(?firstName))
+} 
+ORDER BY ASC(?taxonName)

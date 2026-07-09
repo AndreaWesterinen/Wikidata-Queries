@@ -1,0 +1,9 @@
+#title: EE roads
+# Complex constraint from [[Property talk:P14]]
+# [[d:Q191|Estonia <small>(Q191)</small>]] roads
+SELECT ?item ?value ?country WHERE {
+  ?item wdt:P14 ?value.
+  ?item wdt:P17 ?country.
+  FILTER(REGEX(STR(?value), "\\-EE")) .
+  FILTER(?country != wd:Q191).
+}

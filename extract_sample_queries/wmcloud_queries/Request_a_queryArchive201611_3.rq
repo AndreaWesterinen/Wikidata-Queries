@@ -1,0 +1,5 @@
+select * where {
+  ?item wdt:P131 ?p131val .
+  minus { ?p131val wdt:P131 [] }
+  }
+limit 10

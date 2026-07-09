@@ -1,0 +1,28 @@
+SELECT ?item ?linkcount WHERE {
+  ?item wdt:P106 ?occ .
+  VALUES ?occ {
+    wd:Q14906342 # biophysicist
+    wd:Q1113838 # climatologist
+    wd:Q15142825 # crystallographer
+    wd:Q29909337 # experimental physicist
+    wd:Q16335117 # geophysicist
+    wd:Q6804564 # mechanician
+    wd:Q3746141 # medical physicist
+    wd:Q16742096 # nuclear scientist
+    wd:Q53754694 # paleomagnetist
+    wd:Q16744668 # physical chemist
+    wd:Q169470 # physicist
+    wd:Q16745601 # quantum physicist
+    wd:Q12051314 # seismologist
+    wd:Q27067722 # statistical physicist
+    wd:Q19350898 # theoretical physicist
+    wd:Q7783170 # thermodynamicist
+  }
+  FILTER NOT EXISTS {                              # has no en.wikipedia sitelink
+    ?wen schema:about ?item .
+    ?wen schema:isPartOf <https://en.wikipedia.org/> .
+  }
+  ?item wdt:P21 wd:Q6581072 .                      # gender: female
+  ?item wdt:P31 wd:Q5 .                            # human
+  OPTIONAL {?item wikibase:sitelinks ?linkcount .} # count of sitelinks  
+}

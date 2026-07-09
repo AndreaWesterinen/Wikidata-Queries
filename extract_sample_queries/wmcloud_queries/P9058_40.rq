@@ -1,0 +1,12 @@
+#title: Potential items
+# Complex constraint from [[Property talk:P9058]]
+# persons who died in France since 1970 without P9058
+SELECT ?item ?d
+WHERE
+{
+  ?item wdt:P20 / wdt:P17 wd:Q142; wdt:P570 ?d.
+  FILTER(YEAR(?d) > 1969 && YEAR(?d) < YEAR(now()) )
+  MINUS { ?item p:P9058 [] }
+  ?item wdt:P31 wd:Q5 .
+}
+LIMIT 500

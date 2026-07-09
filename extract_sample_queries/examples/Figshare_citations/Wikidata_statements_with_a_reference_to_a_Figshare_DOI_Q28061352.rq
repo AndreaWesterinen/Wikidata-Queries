@@ -1,3 +1,4 @@
+#title: Wikidata statements with a reference to a Figshare DOI (Q28061352)
 SELECT DISTiNCT ?item ?itemLabel WHERE {
    ?item ?p ?statement.
    ?statement prov:wasDerivedFrom ?ref .

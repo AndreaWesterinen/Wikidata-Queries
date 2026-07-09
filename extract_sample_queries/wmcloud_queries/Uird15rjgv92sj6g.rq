@@ -1,0 +1,18 @@
+SELECT ?descRU ?descFR ?element ?bornYear WHERE {
+  ?element wdt:P31 wd:Q484170.
+  OPTIONAL {
+    ?element rdfs:label ?descRU.
+    FILTER((LANG(?descRU)) = "ru")
+  }
+ 
+  OPTIONAL {
+    ?element rdfs:label ?descFR.
+    FILTER((LANG(?descFR)) = "fr")
+  }
+  OPTIONAL {  }
+  OPTIONAL { ?element wdt:P569 ?date. }
+  OPTIONAL {  }
+  BIND(YEAR(?date) AS ?bornYear)
+  OPTIONAL {  }
+}
+ORDER BY ?bornYear

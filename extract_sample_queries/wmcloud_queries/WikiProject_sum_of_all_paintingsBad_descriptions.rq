@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?Den ?Dde ?Dnl WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,de". }
+  ?item schema:description "painting by Unbekannt"@en.
+  ?item wdt:P31 wd:Q3305213.
+  OPTIONAL { ?item schema:description ?Den. FILTER((LANG(?Den)) = "en") }
+  OPTIONAL { ?item schema:description ?Dde. FILTER((LANG(?Dde)) = "de") }
+  OPTIONAL { ?item schema:description ?Dnl. FILTER((LANG(?Dnl)) = "nl") }
+}

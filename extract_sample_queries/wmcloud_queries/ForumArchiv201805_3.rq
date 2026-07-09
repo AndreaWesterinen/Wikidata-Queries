@@ -1,0 +1,6 @@
+SELECT ?Schachspieler ?SchachspielerLabel ?Commons_Kategorie WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Schachspieler wdt:P106 wd:Q10873124.
+  ?Schachspieler wdt:P373 ?Commons_Kategorie.
+}
+LIMIT 100000

@@ -1,0 +1,12 @@
+#title: Budapest is used as birth place for people born before 1873
+# Complex constraint from [[Property talk:Q1781]]
+# Items with [[Property:P19|place of birth&#32;<small dir="ltr">(P19)</small>]] equal to [[d:Q1781|Budapest <small>(Q1781)</small>]] and [[Property:P569|date of birth&#32;<small dir="ltr">(P569)</small>]] before 1873-01-01
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P19 wd:Q1781.
+  ?item p:P569 [ psv:P569 ?node; wikibase:rank ?rank ] .
+  FILTER(?rank != wikibase:DeprecatedRank) .
+  ?node wikibase:timeValue ?born .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (?born < "1873-01-01T00:00:00Z"^^xsd:dateTime)
+  FILTER (?precision >= "9"^^xsd:integer)
+}

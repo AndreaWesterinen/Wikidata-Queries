@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?creatorLabel ?urlLabel 
+WHERE {
+  ?item wdt:P195 wd:Q1952944 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P973 ?url .
+  OPTIONAL { ?item wdt:P170 ?creator }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en,es,de" .}
+  FILTER ( contains(str(?url),"museedegrenoble.fr")   ).
+} 
+ORDER BY ?itemLabel 

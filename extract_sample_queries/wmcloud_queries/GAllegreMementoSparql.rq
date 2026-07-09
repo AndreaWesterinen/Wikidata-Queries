@@ -1,0 +1,12 @@
+bigdata/namespace/wdq/sparql?query=#Tours de Babel
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?natureLabel ?creator ?creatorLabel ?image ?date
+WHERE
+{
+	?item wdt:P180 wd:Q41213 .
+    ?item wdt:P31 ?nature .
+    OPTIONAL {?item wdt:P18 ?image . }
+    OPTIONAL {?item wdt:P170 ?creator . }
+    OPTIONAL {?item wdt:P571 ?date . }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+}

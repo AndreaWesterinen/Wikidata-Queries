@@ -1,0 +1,6 @@
+SELECT ?type (COUNT(?property) AS ?count) (SAMPLE(?property) AS ?example) (SAMPLE(?label) AS ?exampleLabel) WHERE {
+
+  ?property wikibase:propertyType ?type .
+  ?property rdfs:label ?label .
+  FILTER(LANG(?label)="en") .
+} GROUP BY ?type ORDER BY DESC(?count)

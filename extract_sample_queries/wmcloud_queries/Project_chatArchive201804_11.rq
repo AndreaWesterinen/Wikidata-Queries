@@ -1,0 +1,15 @@
+prefix prov: <http://www.w3.org/ns/prov#>
+prefix pr: <http://www.wikidata.org/prop/reference/>
+SELECT ?taxon ?taxonLabel ?rankLabel ?parentLabel ?parent
+WHERE
+{
+     ?taxon p:P105 ?taxonrank.
+     ?taxon p:P225 ?taxonname.
+     ?taxon p:P171 ?parenttaxon.
+     ?parenttaxon ps:P171 ?parent.
+     ?taxonrank ps:P105 ?rank.
+     ?taxonname prov:wasDerivedFrom ?ref.
+     ?ref pr:P248 wd:Q29000566.
+   
+     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

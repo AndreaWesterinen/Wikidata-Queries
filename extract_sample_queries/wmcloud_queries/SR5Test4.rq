@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?P217 ?P580 WHERE {
+  ?article schema:about ?item.
+  ?article schema:isPartOf <https://ko.wikipedia.org/>.
+  ?item wdt:P1435 ?P1435.
+  OPTIONAL {   ?item wdt:P1435 ?P1435;
+    p:P1435 _:b2.
+  _:b2 pq:P217 ?P217. }
+  OPTIONAL {   ?item wdt:P1435 ?P1435;
+    p:P1435 _:b3.
+  _:b3 pq:P580 ?P580. }
+        MINUS { ?item wdt:P1435 wd:Q11233289. }
+        MINUS { ?item wdt:P1435 wd:Q486245 } 
+        MINUS { ?item wdt:P1435 wd:Q483275 } 
+        MINUS { ?item wdt:P1435 wd:Q9259 .}
+}
+LIMIT 5000

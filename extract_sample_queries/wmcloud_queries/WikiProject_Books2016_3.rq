@@ -1,0 +1,36 @@
+# Créations audiovisuelles adaptées d'une œuvre de Jules Verne avec alignement entre IMDb et le catalogue BnF
+SELECT DISTINCT ?film ?filmLabel (year(?date) as ?annee)  ?natureLabel (GROUP_CONCAT(DISTINCT ?realisateur; separator=", ") as ?realisateurs) ?pays ?IMDb
+?oeuvres ?ID_BnF
+WHERE {
+  ?oeuvre wdt:P50 wd:Q33977 . 
+  ?film wdt:P31/wdt:P279* wd:Q2431196 .
+  ?film wdt:P144 ?oeuvre .
+  ?film wdt:P31 ?nature .
+  {SELECT DISTINCT ?film (CONCAT("cb",GROUP_CONCAT(DISTINCT  ?BnF; separator=", ")) as ?ID_BnF ) (GROUP_CONCAT(DISTINCT  ?wdoeuvre; separator=", ") as ?oeuvres)
+    WHERE{
+      ?oeuvre wdt:P50 wd:Q33977 . 
+      ?oeuvre wdt:P268 ?BnF .
+      ?film wdt:P144 ?oeuvre .
+      ?oeuvre rdfs:label ?wdoeuvre .
+               filter (lang(?wdoeuvre) = "fr") .
+      }GROUP BY ?film
+  }
+  {SELECT DISTINCT ?film (GROUP_CONCAT(DISTINCT  ?lbpays; separator=", ") as ?pays)
+    WHERE{
+      ?oeuvre wdt:P50 wd:Q33977 .
+      ?film wdt:P144 ?oeuvre .
+      ?film wdt:P495 ?wdpays .
+      ?wdpays rdfs:label ?lbpays .
+               filter (lang(?lbpays) = "fr") .
+      }GROUP BY ?film
+  }
+  OPTIONAL {?film wdt:P577 ?date .}
+  ?film wdt:P345 ?IMDb .
+  OPTIONAL {?film wdt:P57 ?real .
+           ?real rdfs:label ?realisateur .
+           FILTER (lang(?realisateur)="fr")}
+  SERVICE wikibase:label { #BabelRainbow
+    bd:serviceParam wikibase:language "fr,en,ar,be,bg,bn,ca,cs,da,de,el,es,et,fa,fi,he,hi,hu,hy,id,it,ja,jv,ko,nb,nl,eo,pa,pl,pt,ro,ru,sh,sk,sr,sv,sw,te,th,tr,uk,yue,vec,vi,zh" 
+  } 
+}GROUP BY ?film ?filmLabel ?date ?natureLabel ?pays ?IMDb ?oeuvres ?ID_BnF
+ORDER BY ?annee

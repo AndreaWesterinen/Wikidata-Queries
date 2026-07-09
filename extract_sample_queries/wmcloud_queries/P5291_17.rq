@@ -1,0 +1,8 @@
+#title: P106 missing on humain
+# Complex constraint from [[Property talk:P5291]]
+#
+SELECT ?item {
+  ?item p:P5291 [].
+  ?item wdt:P31 wd:Q5.
+  FILTER NOT EXISTS { ?item wdt:P106 ?occupation }
+}

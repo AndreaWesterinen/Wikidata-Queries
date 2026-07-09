@@ -1,0 +1,11 @@
+SELECT ?item ?inception ?creator ?dateofbirth ?dateofdeath ?othercreator ?otherdateofbirth ?otherdateofdeath WHERE { 
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P571 ?inception .
+  ?item wdt:P170 ?creator .
+  ?creator wdt:P1889 ?othercreator .
+  ?othercreator wdt:P106 wd:Q1028181 .
+  OPTIONAL { ?creator wdt:P569 ?dateofbirth } .
+  OPTIONAL { ?creator wdt:P570 ?dateofdeath } .
+  OPTIONAL { ?othercreator wdt:P569 ?otherdateofbirth } .
+  OPTIONAL { ?othercreator wdt:P570 ?otherdateofdeath } .
+  FILTER ( ( year(?dateofbirth)+5 > year(?inception)

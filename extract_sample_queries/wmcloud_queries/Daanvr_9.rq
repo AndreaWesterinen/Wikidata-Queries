@@ -1,0 +1,20 @@
+SELECT ?item ?_image WHERE {
+  # item  location  Olst
+  {?item wdt:P276 wd:Q3032495.}
+  # item -> administrative location -> Olst-Wijhe
+  UNION {?item wdt:P131 wd:Q10017}
+  UNION {?item wdt:P276 wd:Q10001} #Deventer
+  UNION {?item wdt:P131 wd:Q10001}
+  UNION { ?item wdt:P281 "8121CM". } # postal code
+  UNION { ?item wdt:P281 "8121CN". }
+  UNION { ?item wdt:P281 "8121CP". }
+  UNION { ?item wdt:P281 "8121PA". }
+  UNION { ?item wdt:P281 "8121PB". }
+  
+  # keep - claim does not exist - item > coordinates > nothing
+  FILTER ( NOT EXISTS { ?item  wdt:P625 [] } ) 
+  
+  
+  OPTIONAL { ?item wdt:P18 ?_image. }
+}
+LIMIT 1000

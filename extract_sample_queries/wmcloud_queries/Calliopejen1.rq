@@ -1,0 +1,5 @@
+SELECT ?value (COUNT(?i) as ?count) {
+  ?i wdt:P1257 ?value.
+}
+GROUP BY ?value
+ORDER BY DESC(?count)

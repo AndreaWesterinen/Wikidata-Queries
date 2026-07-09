@@ -1,0 +1,10 @@
+SELECT ?item ?year ?rationale
+WHERE {
+  ?item p:P166 ?x.
+  ?x ps:P166 wd:Q26268774.
+  ?x pq:P585 ?time
+  BIND(year(?time) as ?year)
+  OPTIONAL {?x pq:P6208 ?rationale}
+}
+
+ORDER BY ?time ?item

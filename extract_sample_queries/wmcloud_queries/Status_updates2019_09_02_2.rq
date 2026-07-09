@@ -1,0 +1,29 @@
+SELECT DISTINCT ?country1Label ?country2Label ?capital1Label ?capital2Label ?distance WHERE {
+  {
+    SELECT DISTINCT ?country1 ?country2 ?capital1 ?capital2 ?distance WHERE {
+      ?country1 p:P463 ?statement1 ;
+                wdt:P36 ?capital1 .
+      ?statement1 ps:P463 wd:Q1065 .
+      FILTER NOT EXISTS { ?statement1 pq:P582 ?x }
+      FILTER NOT EXISTS { ?country1 wdt:P31 wd:Q3024240 }
+      ?country2 p:P463 ?statement2 ;
+                wdt:P36 ?capital2 .
+      ?statement2 ps:P463 wd:Q1065 .
+      FILTER NOT EXISTS { ?statement2 pq:P582 ?x }
+      FILTER NOT EXISTS { ?country2 wdt:P31 wd:Q3024240 }
+      ?capital1 wdt:P625 ?coords1 .
+      ?capital2 wdt:P625 ?coords2 .
+      FILTER(xsd:string(?country1) < xsd:string(?country2)) 
+      FILTER NOT EXISTS {
+        ?country1 p:P47 ?statementBorder .
+        ?statementBorder ps:P47 ?country2 .
+        { FILTER NOT EXISTS { ?statementBorder pq:P5102 ?x } } UNION
+        { ?statementBorder pq:P5102 wd:Q15104814 }
+      }
+      BIND(ROUND(geof:distance(?coords1, ?coords2)) AS ?distance) .
+      FILTER (?distance<200)
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?distance

@@ -1,0 +1,11 @@
+SELECT ?entity ?entityLabel ?entityDescription ?st ?sl ?ids
+WHERE
+{
+  ?entity wdt:P641 ?sport ;
+        wdt:P31 ?competition.
+  FILTER (?sport IN (wd:Q1682809, wd:Q926191, wd:Q4179462, wd:Q4305887, wd:Q1482312, wd:Q38108))
+  FILTER (?competition IN (wd:Q57305027, wd:Q2990963)). 
+  # MINUS { ?entity wdt:   [] }
+  OPTIONAL { ?entity wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" } 
+}

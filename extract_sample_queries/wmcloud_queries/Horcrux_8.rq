@@ -1,0 +1,7 @@
+SELECT DISTINCT ?x
+WHERE {
+  ?x wdt:P31 wd:Q3685476 ;
+     p:P31 ?frazStmt .
+  ?frazStmt ps:P31 wd:Q1134686 .
+  FILTER NOT EXISTS { ?frazStmt pq:P580 ?anyDate. }
+}

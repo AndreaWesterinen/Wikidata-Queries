@@ -1,0 +1,5 @@
+#Anzahl der Menschen in Wikidata
+SELECT (COUNT(?item) AS ?count)
+WHERE {
+  ?item wdt:P31 wd:Q13442814 .
+}

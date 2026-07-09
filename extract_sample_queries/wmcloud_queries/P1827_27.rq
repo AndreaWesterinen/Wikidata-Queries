@@ -1,0 +1,28 @@
+#title: Validate ISWC numbers
+# Complex constraint from [[Property talk:P1827]]
+# Report incorrect ISWC numbers, found by validating the checksum
+SELECT ?item #?itemLabel ?iswcnr ?checksum ?checksum2 ?quot ?rem
+WITH {
+  SELECT DISTINCT *
+  WHERE {
+    ?item wdt:P1827 ?iswcnr . FILTER(strlen(?iswcnr) = 15)
+    BIND(xsd:integer(substr(?iswcnr, 3, 1))*1 +
+         xsd:integer(substr(?iswcnr, 4, 1))*2 +
+         xsd:integer(substr(?iswcnr, 5, 1))*3 +
+         xsd:integer(substr(?iswcnr, 7, 1))*4 +
+         xsd:integer(substr(?iswcnr, 8, 1))*5 +
+         xsd:integer(substr(?iswcnr, 9, 1))*6 +
+         xsd:integer(substr(?iswcnr, 11, 1))*7 +
+         xsd:integer(substr(?iswcnr, 12, 1))*8 +
+         xsd:integer(substr(?iswcnr, 13, 1))*9 + 1 AS ?checksum)
+    #BIND(floor(?checksum/10) AS ?quot)
+    #BIND(?checksum - 10*?quot AS ?rem)
+    BIND(10 - ?checksum + 10*floor(?checksum/10) AS ?checksum2)
+    FILTER(SUBSTR(STR(?checksum2), strlen(?checksum2), 1) != substr(?iswcnr, 15, 1))
+  }
+  #LIMIT 1000
+} AS %i
+WHERE {
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}

@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item rdfs:label ?label.
+  ?item wdt:P108 ?university.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,fr,en,de,it,es,no,pt". }
+ FILTER(NOT EXISTS {
+   ?item rdfs:label ?lang_label.
+   FILTER(LANG(?lang_label) = "nl")
+ })  
+  ?university wdt:P463 wd:Q3212092.
+}

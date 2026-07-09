@@ -1,0 +1,10 @@
+SELECT ?item ?group ?elected ?start ?end ?cause
+  WHERE { 
+    ?item p:P39 ?ps . 
+    ?ps ps:P39 wd:Q28331905 ; pq:P2937 wd:Q61946705 .
+    OPTIONAL { ?ps pq:P580 ?start } .
+    OPTIONAL { ?ps pq:P582 ?end }  .
+    OPTIONAL { ?ps pq:P4100 ?group } .
+    OPTIONAL { ?ps pq:P2715 ?elected } .
+    OPTIONAL { ?ps pq:P1534 ?cause } .
+ }

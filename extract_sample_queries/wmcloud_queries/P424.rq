@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value
+{
+    ?item wdt:P424 ?value . 
+    FILTER (CONTAINS(?value, "zh"))  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 100

@@ -1,0 +1,9 @@
+SELECT ?item ?country WITH {
+  SELECT ?item WHERE {
+    ?item p:P1532 [] .
+  } GROUP BY ?item HAVING(COUNT(*) = 1)
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  ?item p:P1532 [ ps:P1532 ?country; prov:wasDerivedFrom/pr:P143 wd:Q48183 ] .
+  FILTER NOT EXISTS { ?item p:P27/ps:P27 ?country } 
+}

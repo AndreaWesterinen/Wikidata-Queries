@@ -1,0 +1,8 @@
+select ?obec (count(distinct(?ulice)) as ?pocet) where {
+
+?ulice wdt:P4533 [] .
+?obec wdt:P31 wd:Q5153359 .
+?ulice wdt:P131+ ?obec .
+
+
+} group by ?obec

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?addportraitlink ?addmarinelink WHERE {
+  ?item wdt:P31 wd:Q3305213 ;
+        wdt:P195 wd:Q7374509 ;
+        wdt:P18 [] .
+  MINUS { ?item wdt:P136 [] } .
+    BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P136&entityid=Q134307 Add portrait]") AS ?addportraitlink)
+    BIND(CONCAT("[https://www.wikidata.org/w/index.php?title=", REPLACE(STR(?item), "http://www.wikidata.org/entity/", ""), "&action=edit&withJS=MediaWiki:AddQuickClaim.js&propertyid=P136&entityid=Q158607 Add marine]") AS ?addmarinelink)
+  } ORDER BY ?label 
+LIMIT 800

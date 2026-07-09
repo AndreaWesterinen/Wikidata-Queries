@@ -1,0 +1,34 @@
+select distinct ?item ?list ?count ?count2 ?count3 ?start ?end with
+{ 
+  select ?item ?start ?end where
+  {
+     ?item wdt:P31 wd:Q27971968 .  # constituency
+     optional {?item wdt:P571 ?s . bind(year(?s) as ?start) }
+     optional {?item wdt:P576 ?e . bind(year(?e) as ?end) }
+  } } as %i with 
+{ select ?item (count( distinct ?person) as ?count) where
+  {
+    include %i 
+    optional {?person p:P39 ?statement . ?statement pq:P768 ?item .} #MP in constituency
+  } group by ?item  } as %p with 
+
+{ select ?item (count(distinct ?term) as ?count3) where
+  {
+    include %i 
+    optional {?person p:P39 [pq:P768 ?item; pq:P2937 ?term] .}
+  } group by ?item } as %z with
+{ select ?item (count(?person) as ?count2) where
+  {
+    include %i 
+    optional {?person p:P39 [pq:P768 ?item] .}
+  } group by ?item } as %q where
+{
+  include %i
+  include %p
+  include %q
+  include %z
+  BIND (xsd:integer( SUBSTR(STR(?item), 33) ) as ?itemNumber)
+  BIND ("https://query.wikidata.org/embed.html#select%20%3Fconstituency%20%3Fitem%20%3Fname%20%3Fgroup%20%3Fstart%20%3Fend%20where%20%7B%0A%3Fitem%20p%3AP39%20%3Fz.%20%3Fz%20pq%3AP768%20wd%3AQXX.%0Awd%3AQXX%20rdfs%3Alabel%20%3Fconstituency.%20filter%28lang%28%3Fconstituency%29%3D%22en%22%29%0A%3Fitem%20rdfs%3Alabel%20%3Fname.%20filter%28lang%28%3Fname%29%3D%22en%22%29%0Aoptional%20%7B%3Fz%20pq%3AP4100%20%3Fg.%20%3Fg%20rdfs%3Alabel%20%3Fgroup.%20filter%28lang%28%3Fgroup%29%3D%22en%22%29%7D%20%20%0Aoptional%20%7B%3Fz%20pq%3AP580%20%3Fi.%20bind%28year%28%3Fi%29%20as%20%3Fstart%29%7D%0Aoptional%20%7B%3Fz%20pq%3AP582%20%3Fj.%20bind%28year%28%3Fj%29%20as%20%3Fend%29%7D%0A%7D%20order%20by%20%3Fstart%20%3Fi" as ?query_template)       
+  BIND (REPLACE(?query_template,"XX", STR(?itemNumber)) as ?list_ambs) #generate query URL by inserting QId into template
+  BIND (concat("[",str(?list_ambs)," List MP P39s]") as ?list) 
+}

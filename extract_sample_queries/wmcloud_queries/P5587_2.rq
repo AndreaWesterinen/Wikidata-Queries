@@ -1,0 +1,21 @@
+embed.html##defaultView:Map{"hide":["?location","?layer","?adminLabel"]}
+#Layer with located in Administrative territorial entity
+SELECT ?sn ?snLabel ?snDescription   ?adminLabel (?adminLabel as ?layer) ?snCode ?img ?map ?coatOfArms ?location ?article ?fornFynd ?SOFI WHERE {
+  ?sn wdt:P777 ?snkod
+  OPTIONAL {?sn wdt:P94 ?coatOfArms}
+  OPTIONAL {?sn wdt:P242 ?map}
+  OPTIONAL {?sn wdt:P18 ?img}
+  OPTIONAL {?sn wdt:P625 ?location}
+   {?sn wdt:P5536 ?SOFIcode}
+  BIND (CONCAT("Sockenkod ",?snkod) as ?snCode)
+  BIND (URI(CONCAT("http://www.fmis.raa.se/cocoon/fornsok/search.html?tab=2&page=1&parish=",?snkod)) as ?fornFynd)
+  BIND (URI(CONCAT("http://www4.sprakochfolkminnen.se/NAU/bilder/_s",?SOFIcode,".htm")) as ?SOFI)
+  OPTIONAL {
+      ?article schema:about ?sn .
+      ?article schema:inLanguage "sv" .
+      ?article schema:isPartOf <https://sv.wikipedia.org/> .
+    }  
+  OPTIONAL {?sn wdt:P131 ?admin}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv". }
+}
+order by ?adminLabel

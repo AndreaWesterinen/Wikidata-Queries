@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel (COUNT(distinct ?sitelink) as ?count)
+{
+	?item wdt:P360 wd:Q39715 . 
+	?sitelink schema:about ?item .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }  
+}
+GROUP BY ?item ?itemLabel 
+ORDER BY ?itemLabel

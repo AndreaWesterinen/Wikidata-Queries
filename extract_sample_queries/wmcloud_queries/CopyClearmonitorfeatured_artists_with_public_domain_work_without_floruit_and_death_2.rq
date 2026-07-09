@@ -1,0 +1,23 @@
+SELECT DISTINCT ?item ?object ?creatiedatum
+  WITH {
+  SELECT ?item WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P6379 ?collection.
+  FILTER NOT EXISTS {?item wdt:P7763 []}.  
+  FILTER NOT EXISTS {?item wdt:P570 []}.  
+  FILTER NOT EXISTS {?item wdt:P1317 []}.  
+  } 
+  } AS %results
+  WHERE {
+    INCLUDE %results.
+  {?object wdt:P170 ?item.
+  ?object wdt:P6216 wd:Q19652 .  
+  OPTIONAL {
+  ?object wdt:P571 ?creatiedatum.
+  }
+   #TODO: GROUP by YEAR and filter on most recent date
+  ?sitelink schema:about ?item .
+  ?sitelink schema:inLanguage ?lang .   
+  ?sitelink schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+  }#maker
+}

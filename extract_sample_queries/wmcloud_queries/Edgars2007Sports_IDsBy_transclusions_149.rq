@@ -1,0 +1,16 @@
+prefix prov: <http://www.w3.org/ns/prov#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+prefix pr: <http://www.wikidata.org/prop/reference/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+SELECT ?source ?sourceLabel (count(?source) as ?mentions)
+WHERE {
+     ?statement ps:P3542 ?one .
+  ?statement prov:wasDerivedFrom ?ref .
+  ?ref pr:P143 ?source .
+     SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "lv,en" .
+   }
+}
+group by ?source ?sourceLabel
+ORDER BY DESC(?mentions)

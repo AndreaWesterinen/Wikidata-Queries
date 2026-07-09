@@ -1,0 +1,11 @@
+#Items about authors with a Wikispecies page
+SELECT ?school ?schoolLabel (COUNT(?item) AS ?count)
+WHERE
+{
+    ?item wdt:P31 wd:Q5;
+            wdt:P1416 wd:Q63270898.
+    ?item wdt:P69 ?school .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}
+GROUP BY ?school ?schoolLabel
+ORDER BY DESC(?count)

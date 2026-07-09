@@ -1,0 +1,11 @@
+SELECT ?l ?language ?word ?category 
+WHERE 
+{
+  ?l a ontolex:LexicalEntry .
+  ?l dct:language wd:Q5287 . # Japanese
+  ?l wikibase:lemma ?word .
+  FILTER(LANG(?word) = "ja-x-q53979341").
+  ?l wikibase:lexicalCategory ?category .
+  BIND( LANG(?word) AS ?language )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

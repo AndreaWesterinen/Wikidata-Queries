@@ -1,0 +1,2 @@
+#title:Move source to qualifier
+SELECT DISTINCT ?item WHERE { ?ref pr:P972 [] . ?statement prov:wasDerivedFrom ?ref . ?item p:P528 ?statement }

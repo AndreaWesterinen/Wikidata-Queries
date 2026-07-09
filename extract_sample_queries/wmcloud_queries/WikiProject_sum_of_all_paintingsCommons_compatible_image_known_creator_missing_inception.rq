@@ -1,0 +1,12 @@
+SELECT ?item ?creator ?dob ?dod WHERE {
+    ?item p:P4765/ps:P4765 ?downloadurl ;
+          wdt:P31 wd:Q3305213 ;
+          schema:dateModified ?modified ;
+          wdt:P170 ?creator .
+  MINUS { ?item wdt:P571 [] } .
+  MINUS { ?item wdt:P170 wd:Q4233718 . }
+  MINUS { ?creator wdt:P570 ?dod . FILTER(YEAR(?dod) < (YEAR(NOW())-95) ) }
+  OPTIONAL { ?creator wdt:P569 ?dob } .
+  OPTIONAL { ?creator wdt:P570 ?dod } .
+  } ORDER BY ?modified
+LIMIT 2000

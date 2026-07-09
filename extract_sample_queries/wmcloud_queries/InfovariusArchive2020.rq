@@ -1,0 +1,7 @@
+sparql?query=SELECT ?reltype ?reltypeLabel (COUNT(?reltype) as ?count) WHERE {
+?person wdt:P31 wd:Q5;
+  ?reltype wd:Q1062083.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+
+} group by ?reltypeLabel ?reltype

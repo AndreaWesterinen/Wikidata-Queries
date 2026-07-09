@@ -1,0 +1,4 @@
+#title: Claims without source
+# Complex constraint from [[Property talk:P172]]
+# Each P172 claim needs to have at least one (non Wikipedia) source
+SELECT DISTINCT ?item { ?item p:P172 ?claim; wdt:P31 wd:Q5 . OPTIONAL { ?claim prov:wasDerivedFrom ?source . ?source ?p ?v . FILTER NOT EXISTS { ?v wdt:P31 wd:Q10876391 } } FILTER(!bound(?source)) }

@@ -1,0 +1,7 @@
+SELECT ?item WHERE {
+  ?item wdt:P106 ?occupation .
+  ?occupation wdt:P279 wd:Q1028181 .
+  ?occupation wdt:P425 ?genre .
+  ?genre wdt:P31 wd:Q16743958 .
+  FILTER NOT EXISTS { ?item wdt:P106 wd:Q1028181 } .
+  } LIMIT 1000

@@ -1,0 +1,32 @@
+# This query finds all usages of property P6476 as a reference.
+#
+# Important note: most SPARQL users don't need such level of complication!
+# If you want to get only concrete values with best rank, replace body with something like:
+# ?item ?relation [rdf:type wikibase:BestRank; prov:wasDerivedFrom/pr:P6476 ?ref_value ]
+
+SELECT ?item ?itemLabel ?relitem ?relitemLabel ?statement ?rank ?snacktype ?value ?ref_snacktype ?ref_value
+WITH
+{
+  # sometimes blank values are indexed multiple times; to fix the output, we select distinct values in a subquery
+  SELECT DISTINCT ?statement ?provenance ?ref_snacktype ?ref_value {
+    { ?provenance pr:P6476 ?ref_dbvalue; ^prov:wasDerivedFrom ?statement } UNION {?provenance rdf:type wdno:P6476; ^prov:wasDerivedFrom ?statement }
+
+    BIND(COALESCE(IF(wikibase:isSomeValue(?ref_dbvalue), "", ?ref_dbvalue), "") AS ?ref_value)
+    BIND(COALESCE(IF(wikibase:isSomeValue(?ref_dbvalue), "unknown", "concrete"), "novalue") AS ?ref_snacktype)
+  } LIMIT 1000
+} AS %prov
+{
+  INCLUDE %prov
+
+  ?item ?relation ?statement .
+  ?statement wikibase:rank ?rank .
+
+  ?relitem wikibase:claim ?relation; wikibase:novalue ?wdno; wikibase:statementProperty ?ps .
+
+  OPTIONAL { ?statement ?ps ?dbvalue }
+
+  BIND(COALESCE(IF(wikibase:isSomeValue(?dbvalue), "unknown", "concrete"), "novalue") AS ?snacktype)
+  BIND(IF(wikibase:isSomeValue(?dbvalue), "", ?dbvalue) AS ?value)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

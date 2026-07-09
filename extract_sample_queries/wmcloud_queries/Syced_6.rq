@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?classLabel
+WHERE 
+{
+  ?item wdt:P131* wd:Q193638.
+  MINUS{?item wdt:P625 ?geo}
+  OPTIONAL{?item wdt:P31 ?class}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ja,en". }
+}

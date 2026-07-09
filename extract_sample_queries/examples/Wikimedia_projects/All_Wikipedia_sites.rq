@@ -1,4 +1,4 @@
-# ----
+#title: All Wikipedia sites
 # Get all Wikipedia sites
 SELECT ?item ?itemLabel ?website
 WHERE

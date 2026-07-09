@@ -1,0 +1,4 @@
+SELECT ?item ?location WHERE {
+  ?item wdt:P31 wd:Q2732840.
+  ?item wdt:P131* wd:Q1356.
+  }

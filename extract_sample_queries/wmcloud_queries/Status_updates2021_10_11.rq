@@ -1,0 +1,31 @@
+SELECT DISTINCT ?item ?itemLabel ?height ?countryLabel ?subjectLabel ?coords ?image WITH {
+  SELECT ?item ?heightStatement WHERE {
+    ?item wdt:P31 ?type .
+    VALUES ?type { wd:Q1779653 wd:Q179700 wd:Q1051606 wd:Q29168169 wd:Q3476533 }
+    FILTER NOT EXISTS { ?item wdt:P31 wd:Q21745157 }
+    FILTER NOT EXISTS { ?item wdt:P5816 wd:Q56556915 }
+    ?item p:P2048 ?heightStatement .
+    { ?heightStatement pq:P518 wd:Q179700 } UNION
+    { FILTER NOT EXISTS { ?heightStatement pq:P518 ?x } }    
+  }
+} AS %i WHERE {
+  INCLUDE %i .
+  ?heightStatement psv:P2048 [
+      wikibase:quantityAmount ?baseHeight;
+                              wikibase:quantityUnit [
+                                p:P2370/psv:P2370 [
+                                  wikibase:quantityAmount ?unitHeight ;
+                                                          wikibase:quantityUnit wd:Q11573
+                                ]
+                              ]
+    ].
+  BIND ( ?baseHeight * ?unitHeight AS ?height )
+  FILTER ( ?height >= 30 )
+  OPTIONAL { ?item wdt:P17 ?country }
+  OPTIONAL { ?item wdt:P625 ?coords }
+  OPTIONAL { ?item wdt:P18 ?image }
+  OPTIONAL { ?item wdt:P921 ?subject }
+  #SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?height) ?countryLabel ?itemLabel

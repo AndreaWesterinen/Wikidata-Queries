@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel
+WHERE
+{
+  VALUES ?item {
+    wd:Q10481768
+    wd:Q1551604
+    wd:Q131196
+    wd:Q739765
+    wd:Q11989726
+    wd:Q18332920
+  }
+  ?item wdt:P361+ wd:Q24175569 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

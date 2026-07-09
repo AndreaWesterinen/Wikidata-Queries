@@ -1,0 +1,1 @@
+embed.html#SELECT ?property ?propertyLabel ?object ?objectLabel ((ROUND(1000 * ?count/

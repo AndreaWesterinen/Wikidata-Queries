@@ -1,0 +1,8 @@
+SELECT ?item WHERE{
+  ?item p:P31 ?node .
+  ?node ps:P31 wd:Q6805426 .
+  OPTIONAL{
+    ?node pq:P582 ?enddate .
+  }
+  FILTER(!bound(?enddate))
+}

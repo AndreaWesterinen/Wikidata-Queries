@@ -1,0 +1,7 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?item ?itemLabel ?recNum WHERE {
+  ?item wdt:P5239 ?recNum.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(xsd:integer(?recNum))

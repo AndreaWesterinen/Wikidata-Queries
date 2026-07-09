@@ -1,0 +1,9 @@
+SELECT ?covidence (COUNT(DISTINCT ?qid) as ?count) (GROUP_CONCAT(?qid;separator=",") as ?qids)
+{
+	?item wdt:P8150 ?value .
+    FILTER( strstarts(?value, "covidwho-") )
+    BIND(xsd:integer(STRAFTER(?value, "-")) as ?covidence)
+    BIND(STRAFTER(str(?item), "y/") as ?qid)
+}
+GROUP BY ?covidence
+ORDER by ?covidence

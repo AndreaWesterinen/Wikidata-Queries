@@ -1,0 +1,15 @@
+#defaultView:Table
+SELECT ?count ?topic ?topicLabel
+WITH {
+  SELECT (count(?work) as ?count) ?topic WHERE {
+    { SERVICE bd:sample { ?work wdt:P31 wd:Q13442814 . bd:serviceParam bd:sample.limit 100000 } }
+    ?work wdt:P921 ?topic .
+  } 
+  GROUP BY ?topic
+  HAVING (?count > 50)
+} AS %result
+WHERE {
+  INCLUDE %result
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,da,de,es,fr,jp,nl,no,ru,sv,zh" . } 
+}
+ORDER BY DESC(?count)

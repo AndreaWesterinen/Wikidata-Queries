@@ -1,0 +1,26 @@
+SELECT
+  (wd:Q2481549 as ?item) 
+  ("fontsize:10,offset:5,angle:0" as ?showValues)
+  ("rect" as ?type)
+  ("200" as ?heigth) 
+  ("600" as ?width) 
+  ("decade of birth" as ?xAxisTitle) 
+  ("coverage %" as ?yAxisTitle)
+  (GROUP_CONCAT(?decade;separator=",") as ?x)
+  (GROUP_CONCAT(?percentage;separator=",") as ?y)
+WHERE
+{
+  { SELECT ?decade (COUNT(DISTINCT ?item) as ?count_all) (COUNT(DISTINCT ?has) as ?count_with) (ROUND( ?count_with / ?count_all * 100 )  as ?percentage)
+  {
+    ?place wdt:P17 wd:Q40 . 
+    ?item wdt:P19 ?place .
+    ?item wdt:P569 ?d . 
+    FILTER( YEAR(?d) > 1699 && YEAR(?d) < 1900 )
+    BIND( FLOOR( YEAR(?d)/10) *10 as ?decade) 
+    OPTIONAL { ?entry wdt:P1433 wd:Q665807 ; wdt:P921 ?item . BIND(?item as ?has) }
+    ?item wdt:P31 wd:Q5 .
+  }
+  GROUP BY ?decade
+  ORDER BY DESC(?decade)
+  }
+}

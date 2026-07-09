@@ -1,0 +1,18 @@
+SELECT DISTINCT ?term ?instanceof ?legislature ?ordinal ?inception ?dissolved ?follows ?followedby ?item WHERE {
+  ?region wdt:P31/wdt:P279* wd:Q10864048; 
+          wdt:P17 wd:Q298.
+  ?item wdt:P1001 ?region ;
+           wdt:P31/wdt:P279* wd:Q11204 .
+  OPTIONAL { 
+    ?statement ps:P31/wdt:279* wd:Q15238777 ;
+               pq:P642 ?item .
+    ?term p:P31 ?statement .
+    ?term wdt:P31 ?instanceof .
+    OPTIONAL { ?statement pq:P642 ?legislature }
+    OPTIONAL { ?statement pq:P1545 ?ordinal }
+    OPTIONAL { ?term wdt:P571 ?inception }
+    OPTIONAL { ?term wdt:P576 ?dissolved }
+    OPTIONAL { ?term wdt:P156 ?followedby }
+    OPTIONAL { ?term wdt:P155 ?follows }
+  }
+}

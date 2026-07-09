@@ -1,0 +1,7 @@
+SELECT ?revista_acad_mica ?revista_acad_micaLabel ?identificador_DOAJ ?ISSN WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?revista_acad_mica wdt:P31 wd:Q737498.
+  OPTIONAL { ?revista_acad_mica wdt:P5115 ?identificador_DOAJ. }
+  OPTIONAL { ?revista_acad_mica wdt:P236 ?ISSN. }
+}
+order by desc(?identificador_DOAJ)

@@ -1,0 +1,13 @@
+SELECT ?item ?inv WHERE {
+	?item  wdt:P31 wd:Q21199 .
+	?item  wdt:P1181 ?value .
+	filter (?value >= 1 && ?value <= 5500) .
+	bind(concat("NG", str(?value)) as ?inv)
+
+	filter not exists {
+		?painting wdt:P217 ?inv .
+#		?painting wdt:P195 wd:Q180788 .
+#		?painting wdt:P31 wd:Q3305213 .
+	}
+} ORDER BY ?value
+LIMIT 2000

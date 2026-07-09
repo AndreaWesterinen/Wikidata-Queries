@@ -1,0 +1,12 @@
+SELECT ?author ?authorLabel WHERE {
+  { ?paper2 wdt:P921 wd:Q202864 . } UNION { ?paper2 wdt:P921 wd:Q8071861 . }
+  ?paper2 wdt:P50 ?author.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?author rdfs:label ?authorLabel.
+  }
+  FILTER(CONTAINS(LCASE(?authorLabel), "george"))
+
+}
+GROUP BY ?author ?authorLabel 
+LIMIT 10

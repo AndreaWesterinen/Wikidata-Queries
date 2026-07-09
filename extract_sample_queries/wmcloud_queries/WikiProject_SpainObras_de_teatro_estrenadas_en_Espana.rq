@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item  ?teatro  ?ciudad  
+WHERE
+{
+    ?item wdt:P31/wdt:P279* wd:Q25379 . 
+    ?item wdt:P4647 ?teatro . 
+    ?teatro wdt:P17 wd:Q29 .
+    ?teatro wdt:P131 ?ciudad .
+}

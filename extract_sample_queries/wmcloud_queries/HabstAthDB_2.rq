@@ -1,0 +1,6 @@
+SELECT ?person ?personLabel ?pb WHERE {
+  ?person p:P2415 ?pbQual .
+  ?pbQual pq:P2416 wd:Q164761 .
+  ?pbQual ps:P2415 ?pb .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} ORDER BY ASC(?pb)

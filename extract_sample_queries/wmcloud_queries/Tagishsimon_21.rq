@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel  WHERE 
+{
+  ?item wdt:P31 wd:Q5 . 
+  ?item wikibase:statements "1"^^xsd:integer.
+  ?item rdfs:label ?itemLabel. filter(lang(?itemLabel)="en")
+  ?article schema:about ?item ;
+          schema:isPartOf <https://en.wikipedia.org/> .
+
+} limit 1500 

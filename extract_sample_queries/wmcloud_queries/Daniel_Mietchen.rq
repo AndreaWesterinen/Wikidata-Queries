@@ -1,0 +1,1 @@
+select (count(?i) as ?count) where { ?i wdt:P698 ?c }

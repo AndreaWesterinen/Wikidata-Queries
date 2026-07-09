@@ -1,0 +1,4 @@
+SELECT ?instanceOf ?instanceOfLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  wd:Q42 wdt:P31/wdt:P279* ?instanceOf.
+}

@@ -1,0 +1,6 @@
+embed.html##defaultView:ImageGrid
+SELECT ?dataset ?datasetLabel ?image WHERE {
+  ?dataset wdt:P1535 wd:Q110553382.
+  OPTIONAL { ?dataset wdt:P18 ?image. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+}

@@ -1,0 +1,1 @@
+SELECT ?item ?name WHERE { ?sitelink schema:about ?item; schema:isPartOf <https://hi.wikipedia.org/>; schema:name ?name . ?item wikibase:sitelinks 1 . }

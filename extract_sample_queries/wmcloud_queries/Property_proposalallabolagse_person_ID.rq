@@ -1,0 +1,12 @@
+#Katter
+SELECT (count(?item) as ?count)
+#?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q5;
+        wdt:P27 wd:Q34.
+  minus {
+  ?item wdt:P570 [].
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

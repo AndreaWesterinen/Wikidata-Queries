@@ -1,0 +1,19 @@
+# uncomment lines to test ( remove inital # ) 
+SELECT DISTINCT ?item ?itemLabel ?coach ?coachLabel ?website
+WHERE
+{
+	?item wdt:P31 wd:Q476028 .
+  	# ?item wdt:P17 wd:Q21 .			
+	# FILTER NOT EXISTS { ?item wdt:P576 [] . }
+  
+  	?item p:P856 ?claim .  							# has property
+  	# FILTER NOT EXISTS { ?claim pq:P407 ?lang }  	# property P856 without qualifier P407 
+  	?claim ps:P856 ?website . 						# display value
+  	?item wdt:P856 ?website . 						# limit to values that are also preferred (or normal if there is no preferred rank)
+  
+  	?item p:P286 ?p286claim . 
+  		?p286claim wikibase:rank wikibase:DeprecatedRank . #select only deprecated rank (that is, the rank for erreonously reported data)
+		?p286claim ps:P286 ?coach . 				# display value
+  	# FILTER NOT EXISTS { ?item wdt:P286 [] }  		# exclude all items with "best" values (preferred or normal)
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,el" }
+}

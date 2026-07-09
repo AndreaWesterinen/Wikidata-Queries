@@ -1,0 +1,8 @@
+# Theather (building) in Canada
+#defaultView:Map
+SELECT ?item ?itemLabel ?coord WHERE {
+  ?item (wdt:P31/wdt:P279*) wd:Q24354.
+  ?item wdt:P17 wd:Q16.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P625 ?coord. }
+}

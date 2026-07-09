@@ -1,0 +1,4 @@
+#title: Residence should not be an instance of prison
+# Complex constraint from [[Property talk:P551]]
+# For prisons [[Property:P2632|place of detention&#32;<small dir="ltr">(P2632)</small>]] should be used instead
+SELECT ?item WHERE { ?item wdt:P551 ?place . ?place wdt:P279*/wdt:P31 wd:Q40357 }

@@ -1,5 +1,4 @@
-# ----
-#title:Map of the world's sign languages with number of practicians
+#title: Map of the world's sign languages with number of practicians
 #defaultView:Map
 SELECT ?sign_language ?sign_languageLabel ?indigenous_to ?coordinate_location ?practicians WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". }

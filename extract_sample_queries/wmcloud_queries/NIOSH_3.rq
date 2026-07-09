@@ -1,0 +1,11 @@
+#potential merges
+SELECT ?doi ?item ?otheritem ?itemLabel ?otheritemLabel
+WHERE 
+{
+  ?item wdt:P2880 ?nid.
+  ?item wdt:P356 ?doi.
+  ?otheritem wdt:P356 ?doi.
+  #OPTIONAL{?item wdt:P698 ?pmid.}
+  FILTER (?item != ?otheritem)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

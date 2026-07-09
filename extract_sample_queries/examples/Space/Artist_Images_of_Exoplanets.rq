@@ -1,3 +1,4 @@
+#title: (Artist) Images of Exoplanets
 #defaultView:ImageGrid
 SELECT ?exoplanet ?exoplanetLabel ?image WHERE {
   ?exoplanet wdt:P31 wd:Q44559 ;

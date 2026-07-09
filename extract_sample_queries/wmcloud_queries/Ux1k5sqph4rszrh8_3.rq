@@ -1,0 +1,7 @@
+SELECT ?human ?humanLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?human wdt:P31 wd:Q5.
+  ?human wdt:P21 wd:Q6581072.
+  ?human wdt:P106 wd:Q19507792.
+}
+LIMIT 1000

@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item WHERE { ?item wdt:P31 wd:Q3305213 . 
+                    {?item wdt:P195 wd:Q195436 } UNION
+                    {?item wdt:P195 wd:Q517612 } UNION
+                    {?item wdt:P195 wd:Q2577210 } UNION
+                    {?item wdt:P195 wd:Q193375 } UNION
+                    {?item wdt:P195 wd:Q19675 } UNION
+                    {?item wdt:P195 wd:Q1075988 } UNION
+                    {?item wdt:P195 wd:Q29247 } UNION
+                    {?item wdt:P195 wd:Q19675 } UNION
+                    {?item wdt:P195 wd:Q180401 } UNION
+                    {?item wdt:P195 wd:Q154568 } UNION
+                    {?item wdt:P195 wd:Q170152 } UNION
+                    {?item wdt:P195 wd:Q165631 } UNION
+                    {?item wdt:P195 wd:Q162111 } UNION
+                    {?item wdt:P195 wd:Q693615 } 
+                    } LIMIT 500

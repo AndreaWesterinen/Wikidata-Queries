@@ -1,0 +1,7 @@
+SELECT ?item 
+WHERE { 
+  ?item wdt:P1343 wd:Q602358 ; wdt:P5002 ?id ; wdt:P31 wd:Q5 .
+FILTER NOT EXISTS { ?wru schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> . }
+#OPTIONAL {?item wikibase:sitelinks ?linkcount .} 
+#LIMIT 1000
+}

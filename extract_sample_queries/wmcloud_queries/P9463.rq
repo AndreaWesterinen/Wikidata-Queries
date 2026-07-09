@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?value ?v2 
+{
+  ?item wdt:P9463 ?value .
+  ?item wdt:P4985 ?v2 .
+  FILTER ( ?value != ?v2) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en"  }
+}

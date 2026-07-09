@@ -1,0 +1,19 @@
+#Missing description for a target language
+#Search for missing descriptions in a target language.
+#Can be input for Q29032512
+SELECT ?item ?itemLabel ?genderLabel ?occupationLabel ?domainLabel ?positionLabel ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q5.  # instance of human
+  VALUES (?country) {(wdt:P27)(wdt:P495)}. 
+  FILTER NOT EXISTS {?item wdt:P21 wd:Q6581097}.
+  ?item  ?country wd:Q31.
+optional{ ?item wdt:P21 ?gender.}
+optional{ ?item wdt:P106 ?occupation.}
+optional{ ?item wdt:P101 ?domain.}
+optional{ ?item wdt:P39 ?position.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,fr,en,de,it,es,pt,no". }
+  FILTER(NOT EXISTS {
+    ?item schema:description ?itemdesc.
+    FILTER(LANG(?itemdesc) = "nl") # with missing Dutch description
+  })
+}
+order by ?itemLabel

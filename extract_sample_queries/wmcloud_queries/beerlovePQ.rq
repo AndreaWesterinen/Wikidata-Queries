@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item where {
+ ?item wdt:P31 wd:Q5 ; wikibase:sitelinks ?slct . 
+ FILTER ( ?slct >= 1 ) .
+ OPTIONAL { ?item wdt:P21 ?gender } .
+ FILTER ( !BOUND (?gender ) ) .
+ BIND (xsd:integer(STRAFTER(str(?item), "Q")) AS ?qid)
+ FILTER ( ?qid > 7250000 ). # 12-jan-2017 
+ FILTER ( ?qid > 17250000 ). # 12-jan-2017 
+}

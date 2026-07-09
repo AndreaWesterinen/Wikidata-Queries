@@ -1,0 +1,2 @@
+#title:<DeltaBot-format-removePrefix>
+SELECT DISTINCT ?item WHERE { ?item wdt:P715 ?value . FILTER( REGEX(STR(?value), '^((SALT[0-9])?[0-9]{5})$') = false )}

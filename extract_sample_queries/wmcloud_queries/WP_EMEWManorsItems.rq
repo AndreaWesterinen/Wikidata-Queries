@@ -1,0 +1,9 @@
+SELECT ?item (GROUP_CONCAT(?listing; SEPARATOR = ' / ') AS ?listed) ?itemLabel (GROUP_CONCAT(?class_label; SEPARATOR = ' / ') AS ?also) ?countyLabel ?countryLabel ?start ?end (SAMPLE(?coords) AS ?coords) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q2116450 .
+  ?item wdt:P17 wd:Q145 .
+  OPTIONAL {?item wdt:P571 ?start} .
+  OPTIONAL {?item wdt:P576 ?end} .
+  OPTIONAL {
+    ?item wdt:P7959 ?county .
+    OPTIONAL {
+      ?county (wdt:P131

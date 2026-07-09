@@ -1,0 +1,7 @@
+SELECT ?item ?image1 ?image2 WHERE {
+  ?item wdt:P195 wd:Q1201549 .
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P18 ?image1 .
+  ?item wdt:P18 ?image2 .
+  FILTER(?image1!=?image2) .
+  }

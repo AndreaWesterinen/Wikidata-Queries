@@ -1,0 +1,5 @@
+SELECT DISTINCT ?country ?countryLabel ?shape WHERE {
+  ?item wdt:P17 ?country.
+  ?country wdt:P3896 ?shape.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

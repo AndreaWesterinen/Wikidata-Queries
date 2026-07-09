@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabel ?ar_sex ?occupationLabel {
+  ?item wdt:P31 wd:Q5 .
+  optional {
+  ?item wdt:P21 wd:Q6581097 .
+  ?item wdt:P106 ?occupation .
+  ?item wdt:P27 ?article .
+
+    VALUES ?sex_val { wd:Q6581097 wd:Q499327 } .
+
+  ?article p:P1549 ?ar_sex_statement .
+  ?ar_sex_statement pq:P518 ?sex_val; ps:P1549 ?ar_sex .
+  FILTER( LANG( ?ar_sex ) = 'ar' ) .
+  FILTER(NOT EXISTS {
+    ?item schema:description ?itemdesc.
+    FILTER(LANG(?itemdesc) = "ar")
+  })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ar" } .
+  }
+} 
+LIMIT 100

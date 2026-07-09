@@ -1,0 +1,8 @@
+embed.html#SELECT ?e ?eLabel ?fl 
+WHERE
+{
+    ?e wdt:P1433 wd:Q665807;wdt:P31 wd:Q19389637.
+    MINUS{ ?e wdt:P921 [] }.
+    ?e wdt:P1922 ?fl .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+}

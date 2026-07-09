@@ -1,3 +1,4 @@
+#title: Works of art where the title is an alliteration
 SELECT ?work ?title
 WHERE
 {

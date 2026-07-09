@@ -1,0 +1,74 @@
+SELECT
+  # A coauthor
+  DISTINCT ?item
+
+  # Number of works with the coauthor
+  ?count
+#  ?c1
+#  ?c2
+
+# Build URL to the comparison aspect
+# https://tools.wmflabs.org/scholia/authors/Q80,Q6135847,Q18618629
+  (CONCAT(
+      "[https://tools.wmflabs.org/scholia/authors/",
+      ENCODE_FOR_URI(?qiditem), ",", ENCODE_FOR_URI(?qidc1), ",", ENCODE_FOR_URI(?qidc2), ",", ENCODE_FOR_URI(?qidc3), " 𝄛]") AS ?comparison)
+
+#  ?coauthor2
+
+#  ?coauthor1
+WHERE {
+  SELECT DISTINCT ?item #?coauthor1 
+                  (COUNT(DISTINCT ?work) as ?count) 
+
+                  (SAMPLE(?coauthor1) AS ?c1)
+                  (SAMPLE(?coauthor2) AS ?c2)
+                  (SAMPLE(?coauthor3) AS ?c3)
+
+                  (REPLACE(STR(?item), ".*Q", "Q") AS ?qiditem) 
+                  (REPLACE(STR(?c1), ".*Q", "Q") AS ?qidc1) 
+                  (REPLACE(STR(?c2), ".*Q", "Q") AS ?qidc2) 
+                  (REPLACE(STR(?c3), ".*Q", "Q") AS ?qidc3) 
+
+                                                    WHERE {
+    { ?coauthor1 wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?coauthor1 wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?coauthor1 wdt:P1416 / wdt:P361* wd:Q213439 .}
+
+    { ?coauthor2 wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?coauthor2 wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?coauthor2 wdt:P1416 / wdt:P361* wd:Q213439 .}
+
+    { ?coauthor3 wdt:P108 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?coauthor3 wdt:P463 / wdt:P361* wd:Q213439 .}
+    UNION
+    { ?coauthor3 wdt:P1416 / wdt:P361* wd:Q213439 .}
+
+    ?work wdt:P50 ?coauthor1 ; wdt:P50 ?coauthor2 ; wdt:P50 ?coauthor3 ; wdt:P50 ?item .
+    FILTER (?item != ?coauthor1 )
+    FILTER (?item != ?coauthor2 )
+    FILTER (?item != ?coauthor3 )
+    FILTER (?coauthor1 != ?coauthor2 )
+    FILTER (?coauthor1 != ?coauthor3 )
+    FILTER (?coauthor2 != ?coauthor3 )
+
+  }
+  GROUP BY ?item #?coauthor1 
+           ?count #?item ?qid
+#           ?c1
+#           ?c2
+           
+           ?qiditem
+           ?qidc1
+           ?qidc2
+           ?qidc3
+           
+  HAVING (?count > 2)
+#           LIMIT 2000
+}
+ORDER BY DESC(?count) 
+LIMIT 1000

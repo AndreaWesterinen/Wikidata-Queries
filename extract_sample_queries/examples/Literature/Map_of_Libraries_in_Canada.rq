@@ -1,4 +1,4 @@
-# ----
+#title: Map of Libraries in Canada
 # Canadian libraries on a map (must have coordinates!)
 #defaultView:Map
 SELECT ?library ?libraryLabel ?coords WHERE {

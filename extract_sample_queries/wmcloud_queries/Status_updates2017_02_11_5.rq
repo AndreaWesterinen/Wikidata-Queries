@@ -1,0 +1,16 @@
+SELECT ?item ?itemLabel ?commonscat ?date ?map ?coord WHERE {
+  
+  ?item wdt:P361+ wd:Q8676 .
+  OPTIONAL {?item wdt:P580 ?date} .
+  OPTIONAL {?item wdt:P585 ?date}
+  OPTIONAL {?item wdt:P625 ?coord} .  
+  OPTIONAL {?item wdt:P1621 ?map} .
+  OPTIONAL {?item wdt:P1943 ?map} .
+  OPTIONAL {?item wdt:P1944 ?map} .
+  OPTIONAL {?item wdt:P242 ?map} .
+  OPTIONAL {?item wdt:P373 ?commonscat} 
+  
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+} ORDER BY ?date

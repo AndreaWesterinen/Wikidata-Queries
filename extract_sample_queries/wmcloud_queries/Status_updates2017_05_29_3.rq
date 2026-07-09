@@ -1,0 +1,11 @@
+select ?item ?itemLabel where { 
+	?item wdt:P31 wd:Q3305213;
+          rdfs:label ?label .
+  FILTER( LANG(?label) = "en" ) .
+  FILTER( CONTAINS(LCASE(?label), "portrait") ) .
+  OPTIONAL {
+    ?item wdt:P180 ?dummy
+  }
+  FILTER ( !bound(?dummy) ) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

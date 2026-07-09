@@ -1,0 +1,17 @@
+# average age of members of the Landtag of Thuringia
+SELECT ?period ?periodLabel ?periodNumber (SUBSTR((AVG(?periodStart - ?dob))/365.2425, 0, 5) AS ?avgAge) WHERE {
+  ?abg wdt:P31 wd:Q5;
+       wdt:P569 ?dob;
+       p:P39 [
+         ps:P39 wd:Q17344251;
+         pq:P2937 ?period
+       ].
+  ?period p:P31 [
+    ps:P31 wd:Q15238777;
+    pq:P1545 ?periodNumber
+  ].
+  ?period wdt:P580 ?periodStart.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+}
+GROUP BY ?period ?periodLabel ?periodNumber
+ORDER BY ?periodNumber

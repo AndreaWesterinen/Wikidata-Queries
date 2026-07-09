@@ -1,0 +1,9 @@
+select ?item ?itemLabel where {
+  {?item wdt:P1344 ?disc .
+  ?disc wdt:P361 wd:Q8613 . } union {?item wdt:P1344 wd:Q8613 .}
+  filter not exists {?item wdt:P31 wd:Q5 }
+  
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en,fr,de,no,pl,es,ru" .
+    }
+  }

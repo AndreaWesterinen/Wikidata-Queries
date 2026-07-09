@@ -1,0 +1,7 @@
+#defaultView:ImageGrid
+SELECT ?q ?qLabel ?img {
+  ?q wdt:P31 wd:Q5 .
+  ?q wdt:P39 wd:Q37110 
+     OPTIONAL { ?q wdt:P18 ?img }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }

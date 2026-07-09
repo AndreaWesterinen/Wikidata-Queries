@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?sn ?ksamsok
+WHERE 
+{
+  ?item wdt:P777 ?sn .
+  minus {?item wdt:P1260 ?ksamsok}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}

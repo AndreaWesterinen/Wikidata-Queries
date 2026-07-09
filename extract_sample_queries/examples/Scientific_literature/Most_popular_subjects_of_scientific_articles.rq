@@ -1,7 +1,6 @@
-# ----
+#title: Most popular subjects of scientific articles
 #  NOTE - This scholarly query is written for use in WDQS-Main UI only  (query.wikidata.org).
 
-#title:Most popular subjects of scientific articles
 SELECT (COUNT(?work) AS ?count) ?subject ?subjectLabel WHERE {
   hint:Query hint:optimizer "None".
   SERVICE wdsubgraph:scholarly_articles {

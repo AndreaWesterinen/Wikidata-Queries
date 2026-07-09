@@ -1,0 +1,8 @@
+# Show all subclasses of food and their photos, if they exist
+SELECT ?item ?itemLabel ?image
+WHERE 
+{
+  ?item wdt:P279+ wd:Q2095.
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

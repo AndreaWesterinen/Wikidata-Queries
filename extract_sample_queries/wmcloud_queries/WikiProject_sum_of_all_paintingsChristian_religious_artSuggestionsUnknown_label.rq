@@ -1,0 +1,26 @@
+SELECT ?label (SAMPLE(?item) AS ?item) (COUNT(?item) AS ?itemcount)
+WITH {
+  SELECT DISTINCT ?item ?label WHERE {
+    ?item wdt:P136 wd:Q2864737 .
+    MINUS { ?item wdt:P921 [] } .
+  ?item wdt:P31 wd:Q3305213 .  
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q1278452 } . 
+  ?item rdfs:label ?label .
+  }
+} AS %missingmainsubject
+WITH {
+  SELECT DISTINCT ?label ?mainsubject (COUNT(CONCAT(LANG(?label),STR(?label), STR(?mainsubject))) AS ?count) (SAMPLE(?item2) AS ?item2) WHERE {
+  ?item2 wdt:P31 wd:Q3305213 . 
+  ?item2 wdt:P921 ?mainsubject .
+  ?item2 wdt:P136 wd:Q2864737 .
+  ?item2 rdfs:label ?label .
+  FILTER NOT EXISTS { ?item2 wdt:P31/wdt:P279* wd:Q1278452 } . 
+  } GROUP BY ?label ?mainsubject
+ORDER BY DESC(?count)
+} AS %mainsubjects
+WHERE {
+  INCLUDE %missingmainsubject.
+  MINUS { INCLUDE %mainsubjects. }
+} GROUP BY ?label
+ORDER BY DESC(?itemcount)
+LIMIT 2000

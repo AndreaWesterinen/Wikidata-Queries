@@ -1,0 +1,8 @@
+sparql?query=SELECT ?romanzo ?romanzoLabel ?year WHERE {
+  ?romanzo wdt:P31 wd:Q571.
+  ?romanzo wdt:P674 wd:Q830561.
+  OPTIONAL { ?romanzo wdt:P577 ?year. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+  
+}
+ORDER BY ?year

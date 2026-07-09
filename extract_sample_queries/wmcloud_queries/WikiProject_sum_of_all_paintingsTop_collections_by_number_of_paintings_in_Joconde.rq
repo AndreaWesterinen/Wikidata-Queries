@@ -1,0 +1,12 @@
+SELECT ?item (COUNT(DISTINCT ?painting) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P195 ?item .
+  ?painting wdt:P347 ?Joconde. 
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+  } GROUP BY ?item ?name 
+ORDER BY DESC(?count)
+LIMIT 100

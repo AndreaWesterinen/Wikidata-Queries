@@ -1,0 +1,12 @@
+#Qui ha guanyat més lligues?
+#defaultView:BubbleChart
+SELECT ?name ?nameLabel (count(*) as ?count)
+WHERE {
+	?primeradivisio wdt:P3450 wd:Q324867
+	; wdt:P1346 ?name
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "ca" .
+  }
+}
+GROUP BY ?name ?nameLabel
+ORDER BY DESC(?count)

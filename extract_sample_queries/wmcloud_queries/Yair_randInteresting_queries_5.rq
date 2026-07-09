@@ -1,0 +1,8 @@
+SELECT ?person ?personLabel ?occupation ?occupationLabel WHERE {
+  ?person p:P569 / psv:P569 [
+       wikibase:timeValue "1999-12-31T00:00:00Z"^^xsd:dateTime;
+       wikibase:timePrecision "11"^^xsd:integer
+     ];
+     wdt:P106 ?occupation .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

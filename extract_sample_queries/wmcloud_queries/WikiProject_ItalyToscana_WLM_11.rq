@@ -1,0 +1,6 @@
+SELECT DISTINCT ?n (COUNT(?item) AS ?item_count) 
+WHERE {
+  { ?item wdt:P131* wd:Q1273 . } UNION { ?item wdt:P276/wdt:P131* wd:Q1273 . }
+  ?item wikibase:identifiers ?n .
+} GROUP BY ?n
+ORDER BY xsd:integer(?n)

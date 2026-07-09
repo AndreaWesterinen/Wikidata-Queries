@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?itemLabel ?sitelink WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q11032; wdt:P17 wd:Q30 .
+  ?sitelink schema:about ?item; schema:isPartOf <https://en.wikipedia.org/> .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

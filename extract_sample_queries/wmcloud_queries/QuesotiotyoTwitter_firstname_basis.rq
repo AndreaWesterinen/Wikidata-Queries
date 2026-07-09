@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item ?itemLabel ?twitterid ?givennameLabel ?followers
+WHERE {
+  ?item p:P2002  ?state1  ;
+        wdt:P735 ?givenname .
+  MINUS{?item wdt:P2002 "FALCAO" .}
+  MINUS{?item wdt:P2002 "ayman" .}
+  ?state1 ps:P2002 ?twitterid .
+  OPTIONAL{?state1 pq:P3744 ?followers .}
+  ?givenname wdt:P1705 ?givennameLabel .
+  FILTER(UCASE(str(?twitterid)) = UCASE(str(?givennameLabel)))
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?followers)

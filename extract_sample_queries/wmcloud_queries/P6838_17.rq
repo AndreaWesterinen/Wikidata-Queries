@@ -1,0 +1,8 @@
+#title: Check language
+# Complex constraint from [[Property talk:P6838]]
+#
+SELECT ?item ?lang {
+  ?item p:P6838 [];
+        dct:language ?lang.
+  FILTER (?lang NOT IN (wd:Q1860, wd:Q150, wd:Q8752, wd:Q1321))
+}

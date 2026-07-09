@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?name (IF(wikibase:isSomeValue(?cre),"No/unknown value",CONCAT("[[",replace(str(?cre),str(wd:),''),"|",?name,"]]")) AS ?creator) WHERE {
+  ?item wdt:P31 wd:Q3305213 .
+  ?item wdt:P195 ?collection .
+  ?collection wdt:P17 wd:Q142 .
+  ?collection wdt:P361*/wdt:P31/wdt:P279* wd:Q33506 .
+  OPTIONAL { ?item wdt:P170 ?cre . OPTIONAL { ?cre rdfs:label ?name . FILTER (lang(?name)="fr") } }
+  FILTER NOT EXISTS { ?item wdt:P195/wdt:P17 ?country . FILTER(!sameTerm(?country,wd:Q142)) }
+  MINUS { ?item wdt:P361 [] } .
+  MINUS { ?item wdt:P217 [] } .
+  }

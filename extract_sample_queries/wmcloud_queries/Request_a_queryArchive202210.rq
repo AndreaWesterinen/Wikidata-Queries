@@ -1,0 +1,4 @@
+sparql?query=SELECT ?item {
+  ?item wdt:P279* wd:Q47461344.
+}
+LIMIT 1&explain=details

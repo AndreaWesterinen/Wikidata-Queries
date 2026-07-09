@@ -1,0 +1,7 @@
+select ?item (count(?item) / 200000 * 100 as ?percent) (count(?item) as ?count)  {
+    service bd:sample {
+        [] wdt:P31 ?item.
+        bd:serviceParam bd:sample.limit 200000 .
+    }
+    
+} group by ?item having (?percent > 0.2) order by desc(?count)

@@ -1,0 +1,8 @@
+SELECT DISTINCT ?property1 ?property1Label ?property2 ?property2Label
+WHERE 
+{
+  ?property1 wdt:P1696 ?property2 .
+  FILTER (?property1 != ?property2)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de". }
+} 
+ORDER BY ?item1Label

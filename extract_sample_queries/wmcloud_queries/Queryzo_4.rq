@@ -1,0 +1,13 @@
+#Unique value constraint report for P4985: report listing each item
+
+SELECT DISTINCT ?item1 ?item1Label  ?geb1 ?item2 ?item2Label ?value 
+{
+	?item1 wdt:P4985 ?value .
+  ?item1 wdt:P569 ?geb1 .
+	?item2 wdt:P4985 ?value .
+  
+  ?item2 wdt:P569 ?geb1 .
+	FILTER( ?item1 != ?item2 && STR( ?item1 ) < STR( ?item2 ) ) .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" } .
+}
+LIMIT 100

@@ -1,0 +1,3 @@
+embed.html##defaultView:ImageGrid
+SELECT ?i?iLabel?p WHERE{{?i wdt:P31?t;wdt:P170 wd:Q762;wdt:P18?p.
+FILTER(?t=wd:Q3305213||?t=wd:Q219423)}SERVICE wikibase:label{bd:serviceParam wikibase:language"ja,en,fr".}}

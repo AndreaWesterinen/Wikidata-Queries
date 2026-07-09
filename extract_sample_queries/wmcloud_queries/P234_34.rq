@@ -1,0 +1,2 @@
+#title:Change the property P234 to P235
+SELECT DISTINCT ?item WHERE { ?item wdt:P234 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{14}-[A-Z]{10}-[A-Z]$') = true ) }

@@ -1,0 +1,6 @@
+SELECT DISTINCT ?film ?filmLabel WHERE {
+  ?film wdt:P31 wd:Q506240 .
+  ?film wdt:P179 wd:Q689438 .
+  FILTER NOT EXISTS { ?film wdt:P1476 ?title} .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de". }
+}

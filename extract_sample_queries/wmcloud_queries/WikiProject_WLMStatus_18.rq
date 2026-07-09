@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?WLM_ID
+WHERE
+{
+  ?item wdt:P2186 ?WLM_ID.
+  FILTER(STRSTARTS(?WLM_ID, 'TN-')) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr". }
+}

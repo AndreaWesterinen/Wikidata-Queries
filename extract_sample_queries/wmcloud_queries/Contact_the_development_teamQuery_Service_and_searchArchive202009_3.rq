@@ -1,0 +1,18 @@
+SELECT ?item ?itemLabel ?altLabel ?birthDate
+  WHERE
+  {
+    VALUES (?item) { (wd:Q366209) (wd:Q16063040) (wd:Q7350082) (wd:Q76178526) (wd:Q76340733) }
+    
+    OPTIONAL{
+      ?item wdt:P569 ?birthDate.
+    }
+    
+    OPTIONAL {
+      ?item skos:altLabel ?altLabel .
+      FILTER (lang(?altLabel) = "en")
+    }
+
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "en" .
+    }
+}

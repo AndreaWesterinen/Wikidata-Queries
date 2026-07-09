@@ -1,0 +1,6 @@
+SELECT ?Sammelstk ?SammelstkLabel ?inventarnr (URI(CONCAT("https://belvedere-primo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?context=L&vid=43OGB_VU1&search_scope=43OGB_ALL&tab=default_tab&lang=de_DE&docid=43OGB_EMUSEUM",?inventarnr)) AS ?KatalogLink) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Sammelstk p:P217 ?inventar.
+  ?inventar ps:P217 ?inventarnr.
+  ?inventar pq:P195 wd:Q303139.
+}

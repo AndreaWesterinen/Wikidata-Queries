@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?itemDescription
+WHERE
+{
+    ?item wdt:P31 wd:Q13442814 . 
+    ?item wdt:P2093 "Karin Loser" .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

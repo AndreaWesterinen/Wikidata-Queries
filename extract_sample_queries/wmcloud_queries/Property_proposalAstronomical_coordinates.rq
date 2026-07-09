@@ -1,0 +1,3 @@
+SELECT * WHERE {
+  wd:Q520 wdt:P625 ?coord .
+}

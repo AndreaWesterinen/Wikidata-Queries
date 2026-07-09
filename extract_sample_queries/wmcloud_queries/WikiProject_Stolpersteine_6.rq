@@ -1,0 +1,12 @@
+embed.html#SELECT ?qid ?lang ?stolpersteinLabelFixed WHERE {
+  ?stolperstein wdt:P31 wd:Q26703203;
+                rdfs:label ?stolpersteinLabel.
+  FILTER(LANG(?stolpersteinLabel) = "en")
+  FILTER(CONTAINS(?stolpersteinLabel, "("))
+  FILTER EXISTS { ?stolperstein wdt:P969 ?address. }
+  VALUES ?lang { "Lde" "Len" }
+  BIND(REPLACE(?stolpersteinLabel, "Stolperstein .*\\) (.*$)", "Stolperstein für $1") AS ?stolpersteinLabelDe)
+  BIND(REPLACE(?stolpersteinLabel, "Stolperstein .*\\) (.*$)", "Stolperstein dedicated to $1") AS ?stolpersteinLabelEn)
+  BIND(IF(?lang = "Lde", ?stolpersteinLabelDe, ?stolpersteinLabelEn) AS ?stolpersteinLabelFixed)
+  BIND(SUBSTR(STR(?stolperstein), STRLEN(STR(wd:)) + 1) AS ?qid)
+}

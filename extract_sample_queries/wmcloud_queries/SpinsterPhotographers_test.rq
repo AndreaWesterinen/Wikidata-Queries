@@ -1,0 +1,9 @@
+SELECT ?human ?humanLabel ?place_of_birth ?place_of_birthLabel ?residence ?residenceLabel WHERE {
+  ?human wdt:P31 wd:Q5.
+  ?human wdt:P5008 wd:Q28781198.
+  ?human wdt:P21 wd:Q6581072.
+  ?human wdt:P106 wd:Q33231.
+  OPTIONAL { ?human wdt:P19 ?place_of_birth. }
+  OPTIONAL { ?human wdt:P551 ?residence. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?afbeelding ?geb ?sterf ?start ?eind
+WHERE 
+{
+   ?item wdt:P463 wd:Q56764476 .
+   OPTIONAL {
+     ?item p:P463 ?org .
+     ?org ps:P463 wd:Q56764476 . 
+     ?org pq:P580 ?start . 
+     ?org pq:P582 ?eind . 
+   }
+ OPTIONAL { ?item wdt:P569 ?geb . }
+ OPTIONAL { ?item wdt:P570 ?sterf . }
+ OPTIONAL { ?item wdt:P18 ?afbeelding . }
+ OPTIONAL { ?item wdt:P106 ?beroep .}
+}

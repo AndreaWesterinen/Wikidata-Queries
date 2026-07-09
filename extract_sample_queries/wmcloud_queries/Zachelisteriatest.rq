@@ -1,0 +1,16 @@
+SELECT ?item ?lat ?lon ?itemLabel
+(SAMPLE(?img) as ?img) 
+(concat('[[File:', substr(str(?img), 52, 100), '|200px]]') as ?description)
+WHERE {
+  ?item wdt:P361 wd:Q2094828 .
+  ?item p:P625 ?coordinate .
+  ?coordinate psv:P625 ?coordinate_node .
+  ?coordinate_node wikibase:geoLatitude ?lat .
+  ?coordinate_node wikibase:geoLongitude ?lon .
+  OPTIONAL {
+    ?item wdt:P18 ?img .
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'sv,en' .
+  }
+} GROUP BY ?item ?lon ?lat ?itemLabel

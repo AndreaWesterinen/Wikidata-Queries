@@ -1,0 +1,11 @@
+#ski resorts that are also something else.
+SELECT ?linkcount ?item ?itemLabel ?otherClassLabel WHERE {
+  { ?item wdt:P31 wd:Q130003. }
+  UNION
+  { ?item wdt:P31 wd:Q6925559. }
+  ?item wdt:P31 ?otherClass.
+  OPTIONAL { ?item wikibase:sitelinks ?linkcount. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  FILTER(?otherClass != wd:Q130003)
+}
+ORDER BY DESC(?linkcount)

@@ -1,0 +1,22 @@
+#defaultView:Map
+SELECT
+	?item
+	(Sample(?itemLabel) as ?itemLabel)
+	(Sample(?itemDescription) as ?itemDescription) 
+	(Sample(?st) as ?st)
+	(Sample(?sl) as ?sl)
+	(Sample(?ids) as ?ids)
+	(Sample(?coor) as ?coor)
+	(Sample(?image) as ?image)
+{
+	?item wdt:P31 wd:Q39715 . 
+  	?item wikibase:statements ?st .
+  	?item wikibase:sitelinks ?sl .
+  	OPTIONAL { ?item wikibase:identifiers ?ids . }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	OPTIONAL { ?item wdt:P625 ?coor }
+	OPTIONAL { ?item wdt:P18 ?image }  
+}
+GROUP BY ?item
+ORDER BY DESC(?sl)
+LIMIT 50

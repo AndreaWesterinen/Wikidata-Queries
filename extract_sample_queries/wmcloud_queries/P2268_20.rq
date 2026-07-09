@@ -1,0 +1,10 @@
+#title: Missing P106 on humans
+# Complex constraint from [[Property talk:P2268]]
+#
+SELECT ?item {
+  ?item wdt:P2268 [];
+        wdt:P31 wd:Q5.
+  FILTER NOT EXISTS {
+    ?item wdt:P106 [].
+  }.
+}

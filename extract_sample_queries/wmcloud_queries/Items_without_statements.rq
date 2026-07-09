@@ -1,0 +1,1 @@
+SELECT * WHERE { ?item wikibase:statements 0 . ?wiki schema:about ?item ; schema:isPartof <https://en.wikipedia.org/> }  LIMIT 10

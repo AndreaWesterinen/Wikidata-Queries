@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?itemLabel ?status_statement WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P570 ?death.
+  ?item wdt:P7763 wd:Q73555012.
+  FILTER(YEAR(?death) = 1951)
+   ?item p:P570/psv:P570 ?death_date_node .
+   ?item p:P7763 ?status_statement .
+   ?status_statement pq:P1001 wd:Q60845045.#in jurisdictie 70 jaar of langer
+   ?death_date_node wikibase:timePrecision ?deathPrecision .
+  filter(?deathPrecision>=9)
+}

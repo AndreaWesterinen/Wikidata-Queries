@@ -1,0 +1,13 @@
+# Lijst van gemeenten per provincie
+SELECT ?provincieLabel ?gemeenteLabel ?gemeente ?CBS_gemeentecode ?Amsterdamse_code 
+WHERE {
+  ?gemeente wdt:P31 wd:Q2039348.                          # Nederlandse gemeente
+  FILTER(NOT EXISTS { ?gemeente wdt:P31 wd:Q7265977. })   # -/- Voormalige gemeente in Nederland
+  ?gemeente wdt:P131 ?provincie.
+  ?provincie wdt:P31 wd:Q134390.                          # Provincie van Nederland
+  OPTIONAL { ?gemeente wdt:P382 ?CBS_gemeentecode. }
+  OPTIONAL { ?gemeente wdt:P6434 ?Amsterdamse_code. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?provincieLabel) (?gemeenteLabel)
+LIMIT 1000

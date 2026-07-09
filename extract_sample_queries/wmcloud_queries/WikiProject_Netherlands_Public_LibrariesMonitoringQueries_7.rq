@@ -1,0 +1,22 @@
+#Official website URL (P856)
+#Must have Retrieved (P813) as qualifier
+#Cannot have the url-value as reference (P854)
+SELECT DISTINCT 
+?item ?itemLabel 
+?websiteP856 #official website (P856)
+?websiteRetrievedQualifier #qualifier Retrieved P813
+?websiteRefURL #reference --> Reference url P854
+?websiteRefDate  #reference --> Retrieved P813
+
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  OPTIONAL {?item p:P856 [ps:P856 ?websiteP856].} #official website (P856)
+  OPTIONAL {?item p:P856 [pq:P813 ?websiteRetrievedQualifier].} #qualifier --> Retrieved P813
+  OPTIONAL {?item p:P856 [prov:wasDerivedFrom [pr:P854 ?websiteRefURL]] .} #reference --> Reference url P854
+  OPTIONAL {?item p:P856 [prov:wasDerivedFrom [pr:P813 ?websiteRefDate ]] .} #reference --> Retrieved P813
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+
+}
+ORDER BY ASC(?item)

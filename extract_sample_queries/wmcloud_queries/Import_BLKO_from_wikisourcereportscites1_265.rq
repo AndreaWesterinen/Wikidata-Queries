@@ -1,0 +1,9 @@
+SELECT ?item ?l ?count ?lang
+WITH
+{ SELECT ?item (COUNT(DISTINCT ?entry) as ?count) { ?entry wdt:P1433 wd:Q665807 ; wdt:P2860 ?item } GROUP BY ?item HAVING( ?count < 4) } as %a
+WHERE
+{
+  INCLUDE %a
+  OPTIONAL { ?item wdt:P407 / wdt:P424 ?lang .}          
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,it,la,fr,hu,pl,cs,en" . ?item rdfs:label ?l }          
+}

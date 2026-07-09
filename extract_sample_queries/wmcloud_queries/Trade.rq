@@ -1,0 +1,15 @@
+SELECT ?cast ?castLabel
+WHERE
+{
+  SERVICE wikibase:mwapi
+  {
+    bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+    bd:serviceParam wikibase:api "Generator" .
+    bd:serviceParam mwapi:generator "categorymembers" .
+    bd:serviceParam mwapi:gcmtitle "Category:XXX" .
+    bd:serviceParam mwapi:gcmlimit "max" .
+    bd:serviceParam mwapi:gcmnamespace "0" .
+    ?cast wikibase:apiOutputItem mwapi:item .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUtTO_LANGUAGE],en" . } 
+}

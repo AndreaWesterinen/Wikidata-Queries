@@ -1,0 +1,6 @@
+select ?item ?platiba where {
+  ?item wdt:P31 wd:Q23397 .
+  ?item wdt:P17 wd:Q211 .
+  ?item wdt:P2046 ?platiba
+}
+order by DESC(?platiba)

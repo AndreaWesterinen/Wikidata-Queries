@@ -1,0 +1,11 @@
+SELECT ?candidate ?candidateLabel ?orgLabel (year(?dob) AS ?birthdate) ?pobLabel ?countryLabel ?location WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?candidate wdt:P3602 wd:Q15062956.
+  OPTIONAL{?candidate wdt:P569 ?dob.}
+    OPTIONAL{?candidate wdt:P19 ?pob. ?pob wdt:P17 ?country. ?pob wdt:P625 ?location. FILTER (NOT EXISTS {  ?country wdt:P582 ?endtime }) }
+  OPTIONAL{
+    ?candidate p:P3602 ?candicyNode.
+    ?candicyNode pq:P1268 ?org.
+    ?candicyNode ps:P3602 wd:Q15062956
+  }
+} ORDER BY ?candidateLabel

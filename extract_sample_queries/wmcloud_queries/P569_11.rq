@@ -1,0 +1,15 @@
+#title: Inverted month/day on items with 2 dates
+# Complex constraint from [[Property talk:P569]]
+# Items with 2 dates, day of the first date = month number of the second date, month of of first = day of the second. To fix, set on to preferred or deprecated [[Help:Ranking|rank]]
+SELECT *
+  WHERE {
+    ?item wdt:P569 ?d1 ; wdt:P569 ?d2 .
+    FILTER( 
+      ?d1 != ?d2 
+      && MONTH(?d1) = DAY(?d2) 
+      && DAY(?d1) = MONTH(?d2) 
+      && YEAR(?d1) = YEAR(?d2) 
+      && DAY(?d1) != DAY(?d2) 
+      )
+  }
+  LIMIT 10

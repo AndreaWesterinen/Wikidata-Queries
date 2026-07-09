@@ -1,0 +1,34 @@
+# Most common classes of the values of "depicts" (P180) on Commons
+SELECT ((?sum / 40) AS ?percent) ?class ?class_label ?instance ?instance_label ?sample
+
+WITH { 
+  SELECT (COUNT(DISTINCT(?file)) AS ?count) ?value (SAMPLE(?file) AS ?example) WHERE {
+     service bd:sample {
+       ?file wdt:P180 ?value . 
+        bd:serviceParam bd:sample.limit 4000 .
+        bd:serviceParam bd:sample.sampleType "RANDOM" .
+     }  
+  } GROUP BY ?value
+  ORDER BY DESC(?count)
+#  LIMIT 2000           
+} AS %values
+ 
+WITH {
+  SELECT (SUM(?count) AS ?sum) ?class (SAMPLE(?value) AS ?instance) (SAMPLE(?example) AS ?sample) WHERE {
+    INCLUDE %values .
+    service <https://query.wikidata.org/sparql> {
+         ?value wdt:P31 ?class
+    }
+  } GROUP BY ?class 
+} AS %classes
+
+WHERE {
+  INCLUDE %classes . 
+  service <https://query.wikidata.org/sparql> {
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". 
+                               ?instance rdfs:label ?instance_label.
+                               ?class rdfs:label ?class_label. 
+                             } 
+  }
+} 
+ORDER BY DESC(?sum)

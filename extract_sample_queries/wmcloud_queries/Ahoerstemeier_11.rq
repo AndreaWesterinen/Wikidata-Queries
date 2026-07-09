@@ -1,0 +1,16 @@
+#Wat in Bangkok Noi
+#defaultView:Map
+SELECT DISTINCT ?watLabel ?native_label ?locationLabel ?coord ?image ?Commons_category ?Thai_cultural_heritage_ID ?GeoNames_ID ?Foursquare_ID WHERE {
+  ?wat wdt:P31 wd:Q427287.
+  ?wat wdt:P131 ?location.
+  ?location wdt:P131* wd:Q806486.
+  ?wat wdt:P625 ?coord.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?wat wdt:P18 ?image. }
+  OPTIONAL { ?wat wdt:P373 ?Commons_category. }
+  OPTIONAL { ?wat wdt:P1626 ?Thai_cultural_heritage_ID. }
+  OPTIONAL { ?wat wdt:P1705 ?native_label. }
+  OPTIONAL { ?wat wdt:P1566 ?GeoNames_ID. }
+  OPTIONAL { ?wat wdt:P1968 ?Foursquare_ID. }
+}
+ORDER BY ?watLabel

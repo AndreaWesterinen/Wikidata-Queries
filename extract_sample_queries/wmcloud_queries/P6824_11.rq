@@ -1,0 +1,9 @@
+#title: Qualifier for none-of constraint and conflicts-with constraint
+# Complex constraint from [[Property talk:P6824]]
+# This qualifier is generally used for [[d:Q52558054|none-of constraint <small>(Q52558054)</small>]] or [[d:Q21502838|conflicts-with constraint <small>(Q21502838)</small>]]. TODO: double-check
+SELECT ?item ?constraint ?rep
+{
+    ?item p:P2302 [ pq:P6824 ?rep ; ps:P2302 ?constraint ]
+    FILTER( ?constraint != wd:Q52558054 )    
+    FILTER( ?constraint != wd:Q21502838 )
+}

@@ -1,0 +1,5 @@
+SELECT ?item ?website WHERE {
+  ?item wdt:P31 wd:Q51139628.
+  ?item wdt:P31/wdt:P279* wd:Q7889.
+  ?item wdt:P856 ?website.
+}

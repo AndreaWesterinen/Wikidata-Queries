@@ -1,0 +1,79 @@
+SELECT
+  ?item
+  ?nr_s ?nr_e ?nr_es
+  ?d
+  (CONCAT("[[",strafter(str(?season),"y/"),"\u007C","S3","]]") as ?s)
+  (CONCAT("[[",strafter(str(?el),"y/"),"\u007C","EL","]]") as ?el_i)
+  (CONCAT("[[w:",str(COALESCE(?episodearticle,?twopartepisodearticle,CONCAT(COALESCE(?seasonarticle,?episodelist,?seriesarticle),"#ep",?nr_es))),"\u007C",?en_label,"]]") as ?enwiki)
+  (CONCAT("[[:fr:",COALESCE(?episodearticle_fr,?twopartepisodearticle_fr,CONCAT(COALESCE(?seasonarticle_fr,?episodelist_fr),"#Épisode ",?nr_e," : ",COALESCE(?fr_label,CONCAT("titre_français_inconnu_(",?en_label,")")))),"\u007C",COALESCE(?fr_label,"??"),"]]") as ?frwiki)
+  (CONCAT("[[:it:",str(COALESCE(?episodearticle_it,?twopartepisodearticle_it,CONCAT(COALESCE(?seasonarticle_it),"#",COALESCE(?it_label,"")))),"\u007C",COALESCE(?it_label,"??"),"]]") as ?itwiki)
+  (CONCAT("[[:ru:",str(COALESCE(?episodearticle_ru,?twopartepisodearticle_ru,CONCAT(COALESCE(?seasonarticle_ru,?episodelist_ru),"#ep",?nr_es))),"\u007C",COALESCE(?ru_label,"??"),"]]") as ?ruwiki)
+  (CONCAT("[[:es:",str(COALESCE(?episodearticle_es,?twopartepisodearticle_es,CONCAT(COALESCE(?seasonarticle_es,?episodelist_es),"#ep",?nr_es))),"\u007C",COALESCE(?es_label,"??"),"]]") as ?eswiki)
+  (CONCAT("[[:de:",str(COALESCE(?episodearticle_de,?twopartepisodearticle_de,CONCAT(COALESCE(?seasonarticle_de,?episodelist_de),"#Episode_",?nr_es))),"\u007C",COALESCE(?de_label,"??"),"]]") as ?dewiki)
+  ?langs ?lang_ct
+WITH
+{
+  SELECT DISTINCT ?item  {   ?item wdt:P31 wd:Q21191270 ; p:P4908 [ pq:P1545 "3" ; ps:P4908 / p:P179 / pq:P1545 "3" ] }
+} as %what  
+WHERE
+{  
+  INCLUDE %what
+  BIND("3" as ?nr_s)
+  BIND("3" as ?nr_e)
+  ?item p:P4908 [ pq:P1545 ?nr_e ] .
+  ?season p:P179 [ pq:P1545 ?nr_s ] .
+  ?item wdt:P4908 ?season .
+  ?item wdt:P179 ?series .
+  ?item wdt:P31 wd:Q21191270 .
+
+  OPTIONAL { ?item wdt:P577 ?d }
+  FILTER NOT EXISTS { ?item wdt:P577 ?d2. FILTER(?d2<?d) }
+
+  OPTIONAL { ?item p:P179 [ pq:P1545 ?nr_es ] }
+
+  OPTIONAL { ?item rdfs:label ?en_label . FILTER(lang(?en_label) = "en") }
+  OPTIONAL { ?item rdfs:label ?fr_label . FILTER(lang(?fr_label) = "fr") }
+  OPTIONAL { ?item rdfs:label ?it_label . FILTER(lang(?it_label) = "it") }
+  OPTIONAL { ?item rdfs:label ?ru_label . FILTER(lang(?ru_label) = "ru") }
+  OPTIONAL { ?item rdfs:label ?es_label . FILTER(lang(?es_label) = "es") }
+  OPTIONAL { ?item rdfs:label ?de_label . FILTER(lang(?de_label) = "de") }
+
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?episodearticle }    
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?episodearticle_fr }
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://it.wikipedia.org/> ; schema:name ?episodearticle_it }
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> ; schema:name ?episodearticle_ru }
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://es.wikipedia.org/> ; schema:name ?episodearticle_es }
+  OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://de.wikipedia.org/> ; schema:name ?episodearticle_de }
+
+  OPTIONAL { ?item wdt:P361 ?2part . ?2part wdt:P31 wd:Q21664088 .
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?twopartepisodearticle }
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://fr.wikipedia.org/> ; schema:name ?twopartepisodearticle_fr }
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://it.wikipedia.org/> ; schema:name ?twopartepisodearticle_it }
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://ru.wikipedia.org/> ; schema:name ?twopartepisodearticle_ru }
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://es.wikipedia.org/> ; schema:name ?twopartepisodearticle_es }
+               OPTIONAL { [] schema:about ?2part ; schema:isPartOf <https://de.wikipedia.org/> ; schema:name ?twopartepisodearticle_de }
+           }
+
+  OPTIONAL { [] schema:about ?season ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?seasonarticle }
+  OPTIONAL { [] schema:about ?season ; schema:isPartOf <https://fr.wikipedia.org/>; schema:name ?seasonarticle_fr }
+  OPTIONAL { [] schema:about ?season ; schema:isPartOf <https://it.wikipedia.org/>; schema:name ?seasonarticle_it }
+  OPTIONAL { [] schema:about ?season ; schema:isPartOf <https://ru.wikipedia.org/>; schema:name ?seasonarticle_ru }
+  OPTIONAL { [] schema:about ?season ; schema:isPartOf <https://es.wikipedia.org/>; schema:name ?seasonarticle_es }
+  OPTIONAL { [] schema:about ?season ; schema:isPartOf <https://de.wikipedia.org/>; schema:name ?seasonarticle_de }
+
+  OPTIONAL { ?series wdt:P1811 ?el . 
+               OPTIONAL { [] schema:about ?el ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?episodelist }
+               OPTIONAL { [] schema:about ?el ; schema:isPartOf <https://fr.wikipedia.org/>; schema:name ?episodelist_fr }
+               OPTIONAL { [] schema:about ?el ; schema:isPartOf <https://ru.wikipedia.org/>; schema:name ?episodelist_ru }
+               OPTIONAL { [] schema:about ?el ; schema:isPartOf <https://es.wikipedia.org/>; schema:name ?episodelist_es }
+               OPTIONAL { [] schema:about ?el ; schema:isPartOf <https://de.wikipedia.org/>; schema:name ?episodelist_de }
+           }
+
+  OPTIONAL { [] schema:about ?series ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?seriesarticle . ?series wdt:P364 wd:Q1860 }
+  OPTIONAL { SELECT ?item (GROUP_CONCAT(DISTINCT ?lg) as ?langs) (COUNT(DISTINCT ?lg) as ?lang_ct) { ?item wdt:P179 ?s2 .
+                                                         { ?s2 wdt:P1811 ?el2 . ?el2 ^ schema:about [ schema:inLanguage ?lg ] }
+                                                         UNION { ?s2 wdt:P527 ?seas2 . ?seas2 wdt:P31 wd:Q3464665 . ?seas2 ^ schema:about [ schema:inLanguage ?lg ] }
+                                               } GROUP BY ?item
+   }
+}
+ORDER BY desc(?d) DESC(xsd:integer(SUBSTR(STR(?item),33)))

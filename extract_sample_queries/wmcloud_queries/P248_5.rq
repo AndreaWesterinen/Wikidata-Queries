@@ -1,0 +1,9 @@
+#title: Value shouldn't be an item for a date
+# Complex constraint from [[Property talk:P248]]
+# use [[Property:P813|retrieved&#32;<small dir="ltr">(P813)</small>]] or [[Property:P577|publication date&#32;<small dir="ltr">(P577)</small>]] instead
+SELECT ?item ?itemLabel ?p ?value ?valueLabel
+{
+?item ?p [ prov:wasDerivedFrom / pr:P248 ?value ] .
+?value wdt:P31 wd:Q47150325 . SERVICE wikibase:label { bd:serviceParam wikibase:language "en"  }    
+}
+LIMIT 2000

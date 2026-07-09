@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?commune ?communeLabel ?fin
+# Output for QuickStatements:
+	(strafter(str(?item), "entity/") as ?QSitem)
+	("P39" as ?QSproperty)
+	(?syn as ?QSvalue)
+	("P582" as ?QSqualifier)
+	("+00000002016-06-30T00:00:00Z/11" as ?QSqualifiervalue)
+{
+	?item p:P106 ?statement0 .
+	?statement0 ps:P106 wd:Q1339249 .
+	?statement0 pq:P131 ?commune .
+	?statement0 pq:P582 ?fin .
+  	OPTIONAL { ?commune wdt:P1313 ?offsyndic }
+  	BIND(IF(!BOUND(?offsyndic),"<insert off>", strafter(str(?offsyndic), "entity/")) as ?syn)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en" } .
+}
+ORDER BY ?communeLabel LIMIT 5000

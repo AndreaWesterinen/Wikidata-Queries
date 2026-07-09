@@ -1,0 +1,24 @@
+SELECT (SAMPLE (?work) AS ?item)
+(COUNT(?work) AS ?count) ?string 
+  (CONCAT(
+      '[https://www.wikidata.org/w/index.php?search=',
+
+      ENCODE_FOR_URI(?string), ' 🔍]') AS ?WD_search_string)  (CONCAT(
+      '[https://author-disambiguator.toolforge.org/names_oauth.php?doit=Look+for+author&name=',
+      ENCODE_FOR_URI(?string), ' 🔗]') AS ?resolver_url)
+
+WITH {
+  SELECT DISTINCT ?string
+   { 
+      SERVICE bd:sample { ?paper wdt:P2093 ?string . bd:serviceParam bd:sample.limit 50000 }   
+     FILTER (REGEX(LCASE(?string), "(society|committee|association|academy|council|collab|experiment|research|study|trial|project|initiative|institute|national|\\bstate\\b|program|university|\\bschool\\b|\\bcenter\\b|\\bcentre\\b|\\bhospital\\b|patient|\\bstaff\\b|editor|\\(|\\)|america|\\basia\\b|\\basian\\b|europe|africa)"))
+   }
+} AS %strings 
+
+
+WHERE {
+  INCLUDE %strings
+          ?work wdt:P2093 ?string
+  }
+GROUP BY ?count ?string ?resolver_url ?item 
+ORDER BY DESC(?count)

@@ -1,0 +1,2 @@
+#title:Change the property P158 to P41
+SELECT DISTINCT ?item WHERE { ?item wdt:P158 ?value . FILTER(REGEX(STR(?value), '[Ss]tandard%20of') = true ) }

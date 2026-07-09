@@ -1,0 +1,7 @@
+SELECT DISTINCT ?team ?country2
+{
+  ?match wdt:P361 ?partof . ?partof rdfs:label ?stage . FILTER(lang(?stage) = "en")
+  ?match p:P179 ?matchSeries . ?matchSeries ps:P179 wd:Q189571 .
+  ?match wdt:P710 ?team . 
+  OPTIONAL { ?team wdt:P1532 ?country2  }
+}

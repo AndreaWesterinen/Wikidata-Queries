@@ -1,0 +1,7 @@
+select ?writer ?writerLabel ?work ?workLabel
+where {
+  ?writer wdt:P19 wd:Q23436 .
+  ?writer wdt:P106 wd:Q36180 .
+  OPTIONAL{?writer wdt:P800 ?work }.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  }

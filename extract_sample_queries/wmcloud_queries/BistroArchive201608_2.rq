@@ -1,0 +1,4 @@
+SELECT ?canton ?cantonLabel {
+  ?canton wdt:P31 wd:Q184188 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+}

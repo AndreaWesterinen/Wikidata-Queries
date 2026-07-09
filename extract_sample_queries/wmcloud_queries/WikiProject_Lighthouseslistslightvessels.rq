@@ -1,0 +1,7 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemlabel ?coor ?image
+{
+	?item wdt:P31 wd:Q831515 . 
+	OPTIONAL { ?item wdt:P625 ?coor }
+	OPTIONAL { ?item wdt:P18 ?image }  
+}

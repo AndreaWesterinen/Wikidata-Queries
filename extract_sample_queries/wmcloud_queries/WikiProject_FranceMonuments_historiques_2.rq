@@ -1,0 +1,11 @@
+SELECT distinct ?merimee ?item ?itemLabel ?communeLabel (substr(?insee,1,2) as ?communeDept)
+WHERE 
+{
+	?item wdt:P380 ?merimee .
+    OPTIONAL { ?item wdt:P131 ?commune . ?commune wdt:P374 ?insee }
+    FILTER( REGEX(?merimee, 'PA([0-9][1-9AB]|[1-9]0)\\d+') && substr(?merimee,3,2) != substr(?insee,1,2)  )
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "fr" .
+	}
+}
+order by ?merimee

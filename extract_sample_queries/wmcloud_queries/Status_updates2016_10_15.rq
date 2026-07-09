@@ -1,0 +1,30 @@
+# First Nobel Prize winner born after Alfred Nobel’s death
+# Nobel Prize data seems to be a bit messy right now, so we cover three different ways to represent “awardee got prize on date X” – hopefully that’s enough…
+SELECT ?awardee ?awardeeLabel ?awardeeBorn ?awarded ?prizeLabel WHERE {
+  wd:Q23810 wdt:P570 ?nobelDied.
+  ?awardee wdt:P31 wd:Q5;
+           wdt:P569 ?awardeeBorn.
+  ?prize wdt:P279 wd:Q7191.
+  FILTER(?awardeeBorn > ?nobelDied).
+  {
+    # awardee has award received: nobel prize with point in time
+    ?awardee p:P166 [
+      ps:P166/wdt:P31? ?prize;
+      pq:P585 ?awarded
+    ].
+  } UNION {
+    # nobel prize has winner: awardee with point in time
+    ?prize p:P1346 [
+      ps:P1346 ?awardee;
+      pq:P585 ?awarded
+    ].
+  } UNION {
+    # awardee has award received: <year> nobel prize
+    ?awardee wdt:P166 ?yearPrize.
+    ?yearPrize wdt:P31 ?prize;
+               wdt:P585 ?awarded.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?awarded
+LIMIT 1

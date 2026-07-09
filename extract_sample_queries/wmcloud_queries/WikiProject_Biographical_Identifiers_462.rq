@@ -1,0 +1,7 @@
+#count number of people with a given identifier
+SELECT (COUNT(DISTINCT ?subject) AS ?subjcount ) 
+WHERE
+{
+    ?subject wdt:P1749 ?id .
+    ?subject wdt:P31 wd:Q5 .
+}

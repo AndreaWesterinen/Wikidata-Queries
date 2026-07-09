@@ -1,0 +1,6 @@
+SELECT ?superclass ?superclassLabel (COUNT(*) AS ?cnt) WHERE {
+  ?item wdt:P279* wd:Q13406554; wdt:P279 ?superclass; rdfs:label ?label .
+  FILTER(LANG(?label) = 'en') .
+  FILTER(REGEX(STR(?label), '\\d\\d\\d\\d')) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} GROUP BY ?superclass ?superclassLabel ORDER BY DESC(?cnt)

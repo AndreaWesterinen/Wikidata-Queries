@@ -1,0 +1,11 @@
+#title: Two category items linking to the same Commons category
+# Complex constraint from [[Property talk:P373]]
+# Generally only one category item should link to a Commons category
+SELECT DISTINCT ?item ?item2 ?value {
+  ?item wdt:P373 ?value .
+  ?item wdt:P31 wd:Q4167836 .
+  ?item2 wdt:P373 ?value .
+  ?item2 wdt:P31 wd:Q4167836 .
+  FILTER( ?item != ?item2 && STR( ?item ) < STR( ?item2 ) ) .
+}
+LIMIT 1000

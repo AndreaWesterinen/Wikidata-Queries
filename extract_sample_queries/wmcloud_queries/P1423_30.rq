@@ -1,0 +1,2 @@
+#title:Add inverse statements from P1424
+SELECT ?item WHERE { { SELECT ?item (count(*) as ?cnt) WHERE { ?item wdt:P1423 ?value } GROUP BY ?item HAVING (?cnt = 1) } MINUS { ?value wdt:P1424/owl:sameAs? ?item } }

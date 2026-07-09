@@ -1,0 +1,4 @@
+#title: Items without ID
+# Complex constraint from [[Property talk:P4120]]
+# Items that do have [[d:Q15080599|designated heritage property (part IV) <small>(Q15080599)</small>]] in [[Property:P1435|heritage designation&#32;<small dir="ltr">(P1435)</small>]], but not [[Property:P4120|Ontario Heritage Act Register ID&#32;<small dir="ltr">(P4120)</small>]]
+SELECT DISTINCT ?item WHERE { VALUES ?value { wd:Q15080599 } . ?item wdt:P1435 ?value . MINUS { ?item wdt:P4120 [] } }

@@ -1,0 +1,5 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?item ?id WHERE {
+  ?item wdt:P1218 ?id .
+}

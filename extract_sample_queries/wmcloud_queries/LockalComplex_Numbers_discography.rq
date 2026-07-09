@@ -1,0 +1,7 @@
+SELECT ?item ?band
+{
+  VALUES ?band { wd:Q100269171 wd:Q105767535 }
+  VALUES ?kind { wd:Q482994 wd:Q59564754 }
+  ?item wdt:P175 ?band .
+  ?item wdt:P31 ?kind
+}

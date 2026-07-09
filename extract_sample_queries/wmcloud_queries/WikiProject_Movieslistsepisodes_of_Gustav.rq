@@ -1,0 +1,12 @@
+SELECT ?item ?nr_s ?nr_e ?nr_es (CONCAT("[[",strafter(str(?season),"y/"),"\u007C",COALESCE(?nr_s,"?"),"]]") as ?s)
+(CONCAT("S",?nr_s,"&nbsp;E",?nr_e) as ?se) 
+WHERE 
+{  
+  ?item wdt:P31 wd:Q21191270 .
+  ?item wdt:P179 wd:Q1028923 .   
+  ?item wdt:P4908 ?season .
+  OPTIONAL { ?item wdt:P4908 ?season  OPTIONAL { ?season p:P179 [ pq:P1545 ?nr_s ] } }
+  OPTIONAL { ?item p:P4908 [ pq:P1545 ?nr_e ] }
+  OPTIONAL { ?item p:P179 [ pq:P1545 ?nr_es ] } 
+} 
+ORDER BY xsd:integer(?nr_s) xsd:integer(?nr_e)

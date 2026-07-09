@@ -1,0 +1,4 @@
+embed.html#SELECT ?prop ?propLabel ?propDescription WHERE {
+    ?prop wikibase:propertyType wikibase:MusicalNotation
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

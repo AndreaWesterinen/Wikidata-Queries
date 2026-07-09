@@ -1,0 +1,11 @@
+?#SELECT ?h ?hLabel ?inception ?dissolved ?coor
+{
+	?h wdt:P31 wd:Q3024240 .
+	?h wdt:P571 ?inception .
+	OPTIONAL { ?h wdt:P576 ?dissolved } .
+	FILTER (?inception < "1755-00-0T00:00:00Z"^^xsd:dateTime)
+	FILTER (?dissolved > "1754-00-0T00:00:00Z"^^xsd:dateTime || !Bound(?dissolved) )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	OPTIONAL { ?h wdt:P625 ?coor } .
+}
+ORDER BY ?inception

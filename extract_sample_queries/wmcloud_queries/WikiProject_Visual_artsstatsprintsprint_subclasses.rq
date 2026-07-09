@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(DISTINCT ?print) AS ?item_count) WHERE {
+           
+           hint:Query hint:optimizer "None" .
+           wd:Q11060274 ^wdt:P279* ?item .
+           ?item ^wdt:P31 ?print .
+                   
+        }  GROUP BY ?item
+        ORDER BY DESC (?item_count)

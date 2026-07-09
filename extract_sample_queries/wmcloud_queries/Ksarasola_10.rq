@@ -1,0 +1,19 @@
+#People born in Basque Country for Listeria
+#added before 2016-10
+#LIMIT to 2000 as Listeria can only handle up to 5000
+SELECT ?item ?itemLabel ?yob ?yod WHERE {
+  ?item wdt:P19 ?pob.
+  ?pob wdt:P131* ?parts.
+  wd:Q93366 wdt:P527 ?parts.
+  ?item wdt:P31 wd:Q5.
+  OPTIONAL {
+    ?item wdt:P569 ?dob.
+    BIND(YEAR(?dob) AS ?yob)
+  }
+  OPTIONAL {
+    ?item wdt:P570 ?dod.
+    BIND(YEAR(?dod) AS ?yod)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu,es, en". }
+}
+LIMIT 2000

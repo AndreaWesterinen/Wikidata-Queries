@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item (?label AS ?Anl) (?labelEn AS ?Lnl) WHERE {
+  ?item rdfs:label ?label.
+  ?item rdfs:label ?labelEn.
+  ?item wdt:P108 ?university.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl, en". }
+  FILTER((LANG(?label)) = "nl")
+  FILTER(REGEX(?label, "^([A-Z][.]?)+ "))
+  FILTER(REGEX(?labelEn, "^[A-z]{3,}"))
+  ?university wdt:P463 wd:Q3212092.
+}

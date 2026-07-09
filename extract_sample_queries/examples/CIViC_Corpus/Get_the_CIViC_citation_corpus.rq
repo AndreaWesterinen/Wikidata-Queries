@@ -1,3 +1,4 @@
+#title: Get the CIViC citation corpus
 SELECT DISTINCT ?pmid ?citation ?citationLabel
 WHERE
 {

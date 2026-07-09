@@ -1,0 +1,4 @@
+#title: Names would generally match
+# Complex constraint from [[Property talk:P4284]]
+# compare with [[Property:P1705|native label&#32;<small dir="ltr">(P1705)</small>]] on item
+SELECT ?item ?value ?name { ?item wdt:P4284 ?value ; wdt:P1705 ?name . FILTER( strafter(str(?value),"/") != str(?name) ) } LIMIT 100

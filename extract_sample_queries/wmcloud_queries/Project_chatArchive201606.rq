@@ -1,0 +1,21 @@
+#Search for items by UNESCO URL
+SELECT ?item ?itemLabel ?url
+WHERE 
+{ 
+ ?item wdt:P463 wd:Q14018439 .
+ ?item wdt:P2520 ?url .
+  
+
+ VALUES ?url {
+   
+    #Add as many URLS as you like here, with < > characters at either end.... use a space or new line for each URL
+   <http://www.unesco.org/mabdb/br/brdir/directory/biores.asp?code=UKM+08&mode=all>
+   <http://www.unesco.org/new/en/natural-sciences/environment/ecological-sciences/biosphere-reserves/asia-and-the-pacific/australia/uluru-ayers-rock-mount-olga/>  
+   
+   
+ }
+  
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+	}
+}

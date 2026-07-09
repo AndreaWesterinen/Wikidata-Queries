@@ -1,0 +1,20 @@
+#title: taxon without parent taxon and rank other than ichnogenus
+# Complex constraint from [[Property talk:P171]]
+# Retains generic constraint requiring a parent taxon on taxon items for items which do not represent ichnogenera.
+SELECT DISTINCT ?item ?itemLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+  {
+    SELECT DISTINCT ?item WHERE {
+      ?item wikibase:sitelinks _:anyValue.
+      MINUS {
+        ?item p:P171 ?statement0.
+        ?statement0 (ps:P171/(wdt:P171*)) _:anyValueP171.
+      }
+      MINUS {
+        ?item p:P105 ?statement1.
+        ?statement1 (ps:P105) ?instance.
+      }
+      MINUS { ?item (p:P105/ps:P105) wd:Q112082101. }
+    }
+  }
+}

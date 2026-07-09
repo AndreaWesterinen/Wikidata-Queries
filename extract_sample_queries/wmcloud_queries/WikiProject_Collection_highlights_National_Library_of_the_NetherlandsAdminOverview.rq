@@ -1,0 +1,7 @@
+select ?item ?itemLabel 
+where {
+  ?item p:P195 ?st .
+  ?st ps:P195 wd:Q1526131 .
+  ?st pq:P2868 wd:Q29188408
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+}

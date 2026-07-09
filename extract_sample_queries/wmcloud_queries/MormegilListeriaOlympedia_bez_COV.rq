@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P8286 ?olympediaid.
+  # jen se sportem, čímž snad vyfiltrujeme většinu funkcionářů (?)
+  ?item wdt:P641 ?sport.
+  MINUS { ?item wdt:P4062 ?covid }
+  # musíme znát státní příslušnost nebo zemi reprezentace
+  OPTIONAL { ?item wdt:P27 ?nationality }
+  OPTIONAL { ?item wdt:P1532 ?country }
+  FILTER ( bound(?nationality)

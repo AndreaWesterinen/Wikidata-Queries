@@ -1,0 +1,1 @@
+SELECT ?item WHERE {  ?item wdt:P31 wd:Q13442814.  ?item p:P953 ?full_text.  ?full_text pq:P3274 ?wrro.  ?item wdt:P953 ?wrro_url .  ?item wdt:P1433 ?journal .  } LIMIT 100

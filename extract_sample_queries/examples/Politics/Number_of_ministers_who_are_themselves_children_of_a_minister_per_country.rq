@@ -1,3 +1,4 @@
+#title: Number of ministers who are themselves children of a minister, per country
 SELECT ?cc (COUNT(DISTINCT ?child) AS ?number) {
   ?child wdt:P31 wd:Q5 ; # Looking for real humans and not fictional ones
          wdt:P39/wdt:P279* wd:Q83307 ;

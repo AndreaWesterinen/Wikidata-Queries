@@ -1,0 +1,13 @@
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+
+SELECT ?taxon ?rankLabel ?taxonLabel ?taxon_name {
+  ?taxon wdt:P31 wd:Q16521 . # ?taxon is an item with instance of:taxon
+  ?taxon wdt:P171* wd:Q2294121 . # and that taxon has a parent taxon:Sciurini
+  ?taxon wdt:P105 ?rank . # and that taxon has a rank
+  ?taxon p:P225 ?taxon_name_statement . # and has a ?taxon_name_statement
+  ?taxon_name_statement ps:P225 ?taxon_name . # and that statement has a value that is the taxon name
+  ?taxon_name_statement pq:P405 wd:Q1043 . # and that statement has a qualifier taxon author:Carl Linnaeus 
+  ?taxon_name_statement prov:wasDerivedFrom ?reference . # and that statement has a reference
+  ?reference pr:P248 wd:Q1538807 . # and that reference is stated in:Mammal Species of the World
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

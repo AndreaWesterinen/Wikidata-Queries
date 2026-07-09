@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?HS_ID WHERE
+{
+  ?item wdt:P1435 wd:Q219538 . 
+  ?item wdt:P709 ?HS_ID .
+  FILTER NOT EXISTS {?article schema:about ?item ;
+  schema:isPartOf <https://en.wikipedia.org/> . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

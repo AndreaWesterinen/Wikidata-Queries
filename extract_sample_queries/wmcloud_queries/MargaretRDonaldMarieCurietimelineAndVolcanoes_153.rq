@@ -1,0 +1,28 @@
+# Finding Vietnamese articles with an image for taxa beginning with "P"
+SELECT ?item ?itemLabel ?image ?article ?sitelink
+WHERE 
+{
+  {
+    ?item wdt:P18 ?image.
+    filter(strstarts(str(?image),"http://commons.wikimedia.org/wiki/Special:FilePath/P"))
+    ?item wdt:P225 ?taxon. 
+    ?sitelink ^schema:name ?article .
+    ?article schema:about ?item ;
+             schema:isPartOf <https://vi.wikipedia.org/> .
+  }
+  MINUS
+  {
+    SERVICE wikibase:mwapi
+    {
+      bd:serviceParam wikibase:api "Search" .
+      bd:serviceParam wikibase:endpoint "en.wikipedia.org" .
+      bd:serviceParam mwapi:srnamespace "0" .
+      bd:serviceParam mwapi:srlimit "max" .
+      bd:serviceParam mwapi:srwhat "text" .
+      bd:serviceParam mwapi:srsearch 'insource:"image = P"' .
+      ?title wikibase:apiOutput mwapi:title .
+    }
+    BIND (STRLANG(?title, "fr") as ?sitelink)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],vi". }
+}

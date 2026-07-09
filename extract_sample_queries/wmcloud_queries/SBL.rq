@@ -1,0 +1,9 @@
+embed.html#SELECT ?item ?itemLabel ?itemDescription ?_image WHERE {
+  ?item wdt:P108 wd:Q379406.
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "sv" . 
+  }
+  
+OPTIONAL { ?item wdt:P18 ?_image. }
+}
+LIMIT 100

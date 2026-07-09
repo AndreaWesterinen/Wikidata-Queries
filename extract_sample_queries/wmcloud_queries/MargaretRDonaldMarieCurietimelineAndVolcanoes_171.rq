@@ -1,0 +1,9 @@
+# species within the genus Comersperma
+SELECT ?item  ?taxon_name  WHERE {
+  ?item wdt:P31 wd:Q16521 . 
+  ?item wdt:P171* wd:Q5151564.
+  ?item wdt:P225 ?taxon_name.
+  {?item wdt:P105 wd:Q7432.} UNION {?item wdt:P105 wd:Q68947.}
+  ?item wdt:P5984 ?APNI_id.
+}
+ORDER BY ?taxon_name ?item

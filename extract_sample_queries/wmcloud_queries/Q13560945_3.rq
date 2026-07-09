@@ -1,0 +1,21 @@
+embed.html## Cumulative count of items with the family name at a milestone
+# adapted by Jura1 from a query by 99of9, February 2020, [[Wikidata:Request_a_query/Archive/2019/06#dateCreated_instead_of_dateModified?]]
+#
+#defaultView:LineChart
+SELECT (SAMPLE(?date) AS ?date) (SUM(?count) AS ?cumulative_count) ?milestone
+{
+
+  { SELECT ?qid_rounded (count(?item) AS ?count) WHERE {
+      ?item wdt:P734 wd:Q13560945 .
+      BIND( xsd:integer( substr(str(?item), 33)) as ?qid)
+      BIND(xsd:integer(?qid/50000) as ?qid_cut)
+      BIND(?qid_cut*50000 as ?qid_rounded)
+    }
+    GROUP BY ?qid_rounded
+  }
+  wd:Q38074555 p:P1114 ?milestonep .
+  ?milestonep ps:P1114 ?milestone .
+  FILTER(?milestone > ?qid_rounded) .
+  ?milestonep pq:P585 ?date .
+}
+GROUP BY ?milestone

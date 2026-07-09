@@ -1,0 +1,11 @@
+SELECT DISTINCT ?item ?itemLabel WHERE 
+{
+  { # government agency - jurisdiction NYS
+    ?item wdt:P31/wdt:P279* wd:Q327333.
+    ?item wdt:P1001 wd:Q1384 .
+  } 
+  UNION 
+  { # NYS public benefit-corporation
+    ?item wdt:P31 wd:Q7015127 .
+  }
+}

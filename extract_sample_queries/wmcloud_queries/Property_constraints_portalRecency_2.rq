@@ -1,0 +1,15 @@
+embed.html#SELECT 
+  ?p ?pLabel 
+  ?recency ?recencyunitLabel
+  ?pDescription
+  ?SingleBestValueConstraint ?SingleValueConstraint
+WHERE
+{
+	?p wikibase:propertyType wikibase:Quantity .
+    ?p p:P2302 [ ps:P2302 wd:Q21510856 ; pq:P2306 wd:P585 ] 
+	OPTIONAL { ?p p:P1552 [ ps:P1552 wd:Q102173107 ; pq:P2047 ?recency ; pqv:P2047 / wikibase:quantityUnit ?recencyunit ] }
+	OPTIONAL { ?p wdt:P2302 wd:Q19474404 . BIND("y" as ?SingleValueConstraint ) }  	
+    OPTIONAL { ?p wdt:P2302 wd:Q52060874 . BIND("y" as ?SingleBestValueConstraint ) }  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?p = wd:P1082) (BOUND(?recency)) (!BOUND(?SingleBestValueConstraint))

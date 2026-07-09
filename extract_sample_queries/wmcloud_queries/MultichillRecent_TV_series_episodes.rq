@@ -1,0 +1,16 @@
+SELECT DISTINCT ?item ?airdate (CONCAT("[[w:",str(COALESCE(?ep0,?epguide0,?epguide1,?epguide2)),"#ep",?ord,"\u007C","enwiki]]") as ?enwiki) 
+WHERE
+{
+  ?item wdt:P31 wd:Q21191270 .
+  ?item wdt:P577 ?airdate . 
+  FILTER NOT EXISTS { ?item wdt:P577 ?airdate2 . FILTER( ?airdate2 < ?airdate ) }
+    OPTIONAL { [] schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?ep0 . BIND("" as ?ord) }     
+    OPTIONAL 
+      { ?item p:P179 [ps:P179 ?series; pq:P1545 ?ord] 
+      OPTIONAL { ?item wdt:P4908 ?season . [] schema:about ?season ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?epguide0 }              
+      OPTIONAL { ?series wdt:P1811 ?el . [] schema:about ?el ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?epguide1 }    
+      OPTIONAL { [] schema:about ?series ; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?epguide2 }    
+      }
+} 
+ORDER BY DESC (?airdate) ?item
+LIMIT 100

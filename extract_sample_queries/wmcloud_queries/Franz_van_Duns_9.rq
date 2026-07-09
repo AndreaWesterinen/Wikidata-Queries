@@ -1,0 +1,30 @@
+# Find all 'instances of (P31)' a 'camera lens (Q192234)' within WikiData.
+# Last revision:  2021-12-15.
+# Table columns with explanations:  ?lens ?lensLabel ?manufacturerLabel ?instanceOfLabel ?subclassOfLabel ?image (hyperlink only) ?massLabel ?focallengthLabel ?WPENarticle (WPEN=Wikipedia:en) ?WPDEarticle (WPDE=Wikipedia:de)
+# NOTE:  The sort order applied to the column "lensLabel" displays entries containing foreign characters, such as "umlauts" or Greek characters, e.g. "Sony α7R IV", first after all entries containing the regular set of characters.
+# NOTE:  This query reveals only a small fraction of all lenses stored within WikiData!
+
+SELECT DISTINCT ?lens ?lensLabel ?manufacturerLabel ?instanceOfLabel ?subclassOfLabel ?image ?massLabel ?focallengthLabel ?WPENarticle ?WPDEarticle  # WPEN/WPDE = Wikipedia:en/de
+WHERE
+{
+  ?lens wdt:P31 wd:Q192234 .            # instance of (P31): camera lens (Q192234)   # RESULT => 28 items
+  
+  OPTIONAL {?lens wdt:P176 ?manufacturer . }       # manufacturer (P176)
+  OPTIONAL {?lens wdt:P31 ?instanceOf . }          # instance of (P31)
+  OPTIONAL {?lens wdt:P279 ?subclassOf . }         # subclass of (P279)   # NOTE: Adding this term to the query raises RESULT from 28 to 31 items due to 3 entries having two subclass entries, which are dutily displayed as separate items.
+  OPTIONAL {?lens wdt:P18 ?image . }           # image (P18)
+  OPTIONAL {?lens wdt:P2067 ?mass . }              # mass (P2067)
+  OPTIONAL {?lens wdt:P2151 ?focallength . }       # focal length (P2151)
+  
+  OPTIONAL {?WPENarticle schema:about ?lens .      #  has a Wikipedia:en article
+            ?WPENarticle schema:isPartOf <https://en.wikipedia.org/> .
+            ?WPENsitelink ^schema:name ?WPENarticle . }
+    
+  OPTIONAL {?WPDEarticle schema:about ?lens .      #  has a Wikipedia:de article
+            ?WPDEarticle schema:isPartOf <https://de.wikipedia.org/> .
+            ?WPDEsitelink ^schema:name ?WPDEarticle . }
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+
+ORDER BY ASC(UCASE(?lensLabel))

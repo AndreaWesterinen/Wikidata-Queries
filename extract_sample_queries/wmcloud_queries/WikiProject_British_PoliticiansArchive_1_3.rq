@@ -1,0 +1,21 @@
+SELECT DISTINCT ?item ?itemLabel ?constituencyLabel ?partyLabel ?start ?electionLabel ?end ?causeLabel {
+ ?item p:P39 ?positionStatement .
+ { ?positionStatement ps:P39 wd:Q30580541 . } UNION # 1st (1999-2003)
+ { ?positionStatement ps:P39 wd:Q30580542 . } UNION # 2nd (2003-07)
+ { ?positionStatement ps:P39 wd:Q30580544 . } UNION # 3rd (2007-11)
+ { ?positionStatement ps:P39 wd:Q30580545 . } UNION # 4th (2011-16)
+ { ?positionStatement ps:P39 wd:Q30580546 . }       # 5th (2016 on)
+  
+ # in an ideal world we'd have a more clever rule than this 
+ # something with P279 to get all the single-term items automatically
+ # but for the moment, it works okay
+  
+ OPTIONAL { ?item wdt:P735 ?givenName . }
+ OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+ OPTIONAL { ?positionStatement pq:P102 ?party . }
+ OPTIONAL { ?positionStatement pq:P580 ?start . }
+ OPTIONAL { ?positionStatement pq:P2715 ?election . }
+ OPTIONAL { ?positionStatement pq:P582 ?end . }
+ OPTIONAL { ?positionStatement pq:P1534 ?cause . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

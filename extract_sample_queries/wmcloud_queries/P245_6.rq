@@ -1,0 +1,28 @@
+#title: Female according to Wikidata, male according to ULAN
+# Complex constraint from [[Property talk:P245]]
+# People with [[Property:P245|Union List of Artist Names ID&#32;<small dir="ltr">(P245)</small>]] where [[Property:P21|sex or gender&#32;<small dir="ltr">(P21)</small>]] is set to [[d:Q6581072|female <small>(Q6581072)</small>]], but the ULAN entry links to http://vocab.getty.edu/aat/300189559
+SELECT ?item ?ulanuri
+WITH {
+  # 
+  SELECT ?item ?ulanuri WHERE {
+    ?item wdtn:P245 ?ulanuri .
+    ?item wdt:P21 wd:Q6581072 .
+    MINUS { ?item p:P21 ?genderstatement . ?genderstatement ps:P21 wd:Q6581097 } 
+  } 
+} AS %wikidata
+WITH {
+SELECT * {
+  SERVICE <http://vocab.getty.edu/sparql.json> {
+    SELECT ?ulanuri  WHERE {
+      ?ulanuri rdf:type <http://vocab.getty.edu/ontology#PersonConcept> .
+      ?ulanuri foaf:focus ?agent .
+      ?agent <http://vocab.getty.edu/ontology#biographyPreferred> ?bio .
+      ?bio <http://schema.org/gender>  <http://vocab.getty.edu/aat/300189559>      
+    } 
+  } 
+} 
+  }AS %ulan
+WHERE {
+  INCLUDE %wikidata.
+  INCLUDE %ulan.
+}

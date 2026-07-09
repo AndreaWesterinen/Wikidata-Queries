@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?itemDescription WHERE {
+
+   ?item p:P31 ?shiptype .
+   ?shiptype ps:P31 wd:Q1917626 .  # Commander of the Legion of Honour
+   FILTER NOT EXISTS {
+        ?shiptype ?pq_pred ?pq_obj . # a triple involving the award statement ...
+        ?prop wikibase:qualifier ?pq_pred . # ... with a predicate ?pq_pred that is a qualifier
+   }
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

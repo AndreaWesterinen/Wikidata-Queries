@@ -1,0 +1,8 @@
+SELECT ?firstLetter (COUNT(?lemma) AS ?count ) WHERE {
+  ?lexeme a ontolex:LexicalEntry ; dct:language ?language ; wikibase:lemma ?lemma .
+  ?language wdt:P218 'cs' .
+  BIND ( SUBSTR(UCASE(STR(?lemma)), 1, 1) AS ?firstLetter )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],cs". }
+}
+GROUP BY ?firstLetter
+ORDER BY ASC(?firstLetter)

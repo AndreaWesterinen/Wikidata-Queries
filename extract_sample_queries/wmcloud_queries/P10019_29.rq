@@ -1,0 +1,5 @@
+#title: Items with property P10019 and no other statements
+SELECT ?item ?itemLabel ?value {
+  ?item wdt:P10019 ?value ; wikibase:statements 1
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

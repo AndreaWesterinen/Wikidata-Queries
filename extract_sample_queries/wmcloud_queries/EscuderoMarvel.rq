@@ -1,0 +1,7 @@
+SELECT ?item ?dateF WHERE { 
+  ?item wdt:P31 wd:Q11424 .
+  ?item wdt:P179 wd:Q642878 .
+  ?item p:P577 ?date . 
+  ?date v:P577 ?dateF .
+  ?date q:P291 wd:Q30 .
+}

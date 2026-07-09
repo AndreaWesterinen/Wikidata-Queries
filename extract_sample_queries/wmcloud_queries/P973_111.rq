@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P973/ps:P973 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(https?://movie\\.daum\\.net/moviedetail/moviedetailMain\\.do\\?movieId=([1-9]\\d*))$") )
+}

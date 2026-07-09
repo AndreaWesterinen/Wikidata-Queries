@@ -1,0 +1,11 @@
+#title: best rank, but end date
+# Complex constraint from [[Property talk:P6720]]
+# If the prefix/formatter is no longer in use (it has an end date) and no new prefix/formatter is defined, no value should be added with preferred rank.
+SELECT ?item ?iw (CONCAT("[[",?iw,":]]") as ?iwlinked) ?f ?ws 
+{
+  ?item p:P6720 ?st . 
+  ?st ps:P6720 ?iw . 
+  ?st pq:P1630 ?f . 
+  ?st a wikibase:BestRank .
+  ?st pq:P582 [] . 
+}

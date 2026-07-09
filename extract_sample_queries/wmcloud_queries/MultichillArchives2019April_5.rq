@@ -1,0 +1,14 @@
+SELECT ?item ?label ?title ?diff
+WHERE {
+  ?item wdt:P195 wd:Q1568434.
+  ?item wdt:P1476 ?title.
+  ?item rdfs:label ?label. FILTER (lang(?label) = "en")
+
+  FILTER(substr(str(?title), strlen(?title)) = 's')
+  FILTER(substr(str(?label), strlen(?label)) != 's')
+
+  BIND( ((strlen(?title)-strlen(?label))) AS ?diff)
+  FILTER(?diff > 2)
+}
+ORDER BY DESC(?diff)
+LIMIT 1000

@@ -1,0 +1,6 @@
+SELECT ?item ?admin WHERE {
+  ?item wdt:P31 wd:Q14350.
+  ?item wdt:P17 wd:Q408.
+  OPTIONAL { ?item wdt:P131+ ?admin.
+             ?admin wdt:P31/wdt:P279 wd:Q178712 }
+}

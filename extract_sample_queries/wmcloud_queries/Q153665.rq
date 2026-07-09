@@ -1,0 +1,19 @@
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+				where 
+				{
+				{optional{?item wdt:P17/wdt:P279* wd:Q329618 .}}
+				 union
+				{optional{?item wdt:P2541/wdt:P279* wd:Q329618 .}}
+				 union
+				{ optional{?item wdt:P131/wdt:P279* wd:Q329618 .}} 
+				 union
+				{ optional{?item wdt:P17/wdt:P279* wd:Q329618 .}}
+				 union
+				{ optional{?item wdt:P361/wdt:P279* wd:Q329618 .}}
+				 union
+				{ optional{?item wdt:P2650/wdt:P279* wd:Q329618 .}}
+				 union
+				{ optional{?item wdt:P937/wdt:P279* wd:Q329618 .}}
+                   SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+				 } 
+				order by ?item

@@ -1,0 +1,18 @@
+embed.html#SELECT DISTINCT ?person ?personLabel ?positionLabel ?countryLabel WHERE {
+  { ?person wdt:P39 wd:Q16707842 }             # uk mp
+    UNION { ?person wdt:P39 wd:Q18015642 }     # or british mp
+    UNION { ?person wdt:P39 wd:Q18018860 } .   # or english mp
+  ?person wdt:P39 ?position .          # who held some position
+  ?position wdt:P279* wd:Q486839 .       # which is a subclass of member of parliament
+  ?position wdt:P17 ?country .           # and which applies to a country which is
+  FILTER ( ?country != wd:Q145 )           # not UK & NI
+  FILTER ( ?country != wd:Q174193 )        # not UK & Ireland
+  FILTER ( ?country != wd:Q161885 )        # not GB
+  FILTER ( ?country != wd:Q215530 )        # not Kingdom of Ireland
+  FILTER ( ?country != wd:Q844250 )        # not Lordship of Ireland
+  FILTER ( ?country != wd:Q179876 )        # not Kingdom of England
+  FILTER ( ?country != wd:Q230791 )        # not Kingdom of Scotland
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+}

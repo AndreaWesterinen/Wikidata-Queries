@@ -1,0 +1,5 @@
+SELECT ?item ?bunrui ?junjo WHERE {
+ ?item wdt:P31 wd:Q75093704;
+        p:P31 ?bunrui.
+OPTIONAL { ?bunrui pq:P1545 ?junjo }
+ }

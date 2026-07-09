@@ -1,0 +1,21 @@
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?coor ?image ?par ?dist (IF(BOUND(?coor),"✓","") as ?c1) ?b ?131tocheck ?sl ?st
+{
+	{ ?item wdt:P17 wd:Q25230 } UNION { ?item wdt:P17 wd:Q23197275 } .
+	OPTIONAL {
+      	?item wdt:P625 ?coor .
+  		wd:Q7402084 wdt:P625 ?spp .
+  		BIND(ROUND(100*geof:distance(?spp, ?coor))/100 as ?dist) 
+        	}
+	OPTIONAL { ?item wdt:P18 ?image }  
+	OPTIONAL { ?item wikibase:sitelinks ?sl }  
+	OPTIONAL { ?item wikibase:statements ?st }  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+	OPTIONAL { ?item wdt:P131* ?par . ?par wdt:P31 wd:Q3365965 }
+	OPTIONAL { ?item wdt:P131 wd:Q25230 . BIND("?" as ?131tocheck) }
+  	OPTIONAL { ?item wikibase:sitelinks 2 . 
+              ?a schema:about ?item . ?a schema:isPartOf <https://ceb.wikipedia.org/> . 
+              ?a2 schema:about ?item . ?a2 schema:isPartOf <https://sv.wikipedia.org/> .
+              BIND("✓" as ?b) }
+}
+ORDER BY ASC(?b) ?itemLabel

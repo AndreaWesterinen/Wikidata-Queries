@@ -1,0 +1,4 @@
+SELECT ?item ?id WHERE {
+    ?item wdt:P3064 ?id .
+    FILTER (contains(?id,  "."))
+}

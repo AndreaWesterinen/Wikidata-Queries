@@ -1,0 +1,11 @@
+SELECT ?l ?lemma ?posLabel (COUNT(?form) AS ?formcount ) WHERE {
+   ?l a ontolex:LexicalEntry ; dct:language ?language ;
+        wikibase:lemma ?lemma ;
+        wikibase:lexicalCategory ?pos.
+  ?language wdt:P218 'sv'.
+            ?l ontolex:lexicalForm ?form 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?l ?lemma ?posLabel
+HAVING (?formcount = 1)
+ORDER BY ?posLabel

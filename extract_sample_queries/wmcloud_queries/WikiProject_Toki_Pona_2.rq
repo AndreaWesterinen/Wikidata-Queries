@@ -1,0 +1,11 @@
+SELECT (COUNT(?lexeme) as ?senses) (COUNT(?item) as ?items) (?items/?senses as ?percent) WHERE {
+  ?lexeme a ontolex:LexicalEntry;
+       wikibase:lemma ?lemma;
+       dct:language wd:Q36846;
+       wikibase:lexicalCategory wd:Q1084;
+       ontolex:sense ?sense.
+  ?sense skos:definition ?gloss.
+  OPTIONAL { ?sense wdt:P5137 ?item. }
+  filter(lang(?gloss) = 'en')
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

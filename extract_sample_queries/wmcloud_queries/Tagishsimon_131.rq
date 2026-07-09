@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?locLabel ?P131Label ?addy WHERE {
+
+  ?item wdt:P10873 [] .
+  OPTIONAL {?item wdt:P276 ?loc . } 
+  OPTIONAL {?item wdt:P131 ?P131 . }
+  filter(!BOUND(?loc) || !BOUND(?P131) ) 
+  ?item wdt:P625 ?coords. 
+  OPTIONAL {?item wdt:P6375 ?addy .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 

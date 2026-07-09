@@ -1,0 +1,21 @@
+SELECT ?item ?d ?vol ?publ ?years_since ?d1 ?d2 
+{
+  { SELECT ?item ?d ?vol ?d1 ?d2
+    WHERE
+    {
+      ?entry wdt:P1433 wd:Q665807  ; wdt:P478 ?vol ; wdt:P921 ?item .
+      ?item wdt:P31 wd:Q5 . 
+      OPTIONAL { ?item wdt:P569 ?d1 . FILTER( YEAR(?d1) > 10 )  } .
+      OPTIONAL { ?item wdt:P570 ?d2 . FILTER( YEAR(?d2) > 10 )  } .
+      FILTER ( BOUND(?d1)  \u007C\u007C  BOUND(?d2) ) 
+      BIND( YEAR(COALESCE(?d1, ?d2)) as ?d) 
+    }
+    ORDER BY ASC(?d)
+    LIMIT 200
+  }
+  ?volitem wdt:P179 wd:Q665807 ; wdt:P478 ?vol ; wdt:P577 ?publ .
+  BIND( YEAR(?pub0) as ?publ)
+  BIND( YEAR(?pub0) - YEAR(?d) as ?years_since)
+}
+ORDER BY ASC(?d)
+LIMIT 200

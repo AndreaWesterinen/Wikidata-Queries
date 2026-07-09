@@ -1,0 +1,12 @@
+SELECT ?item (CONCAT("[[Wikidata:WikiProject Sculpture/Creator/",?name, "|list]]") AS ?listlink) (COUNT(?item) as ?count) WHERE {
+  ?sculpture wdt:P31/wdt:P279* wd:Q860861 .  
+  ?sculpture wdt:P170 ?item . 
+  MINUS { ?sculpture wdt:P170 wd:Q4233718 } .
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item rdfs:label ?name .
+   }
+} GROUP BY ?item ?name ?listlink 
+HAVING (?count > 10)
+ORDER BY DESC(?count) 
+LIMIT 100

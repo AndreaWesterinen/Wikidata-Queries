@@ -1,0 +1,8 @@
+#Gemeentes met archieflocatie
+SELECT ?item ?itemLabel ?cityLabel ?archiefLabel
+WHERE 
+{
+  ?item wdt:P31 wd:Q2039348 .
+ FILTER NOT EXISTS { ?item wdt:P485 ?archief. } 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

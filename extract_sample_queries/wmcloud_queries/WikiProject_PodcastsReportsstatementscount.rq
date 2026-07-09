@@ -1,0 +1,5 @@
+select ?item ?itemLabel (count(?statement) as ?statements) where {
+  ?item wdt:P31/wdt:P279* wd:Q24634210;
+        ?p ?statement.
+  service wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} group by ?item ?itemLabel ?statements order by desc(?statements) limit 50

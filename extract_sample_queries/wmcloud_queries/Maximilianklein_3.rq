@@ -1,0 +1,6 @@
+SELECT ?x ?xLabel ?xDescription  WHERE {
+  ?x wdt:P136 wd:Q1
+ SERVICE wikibase:label {
+     bd:serviceParam wikibase:language "en" .
+ }
+} 

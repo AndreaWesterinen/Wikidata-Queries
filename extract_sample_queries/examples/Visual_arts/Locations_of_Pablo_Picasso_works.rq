@@ -1,3 +1,4 @@
+#title: Locations of Pablo Picasso works
 #defaultView:Map
 SELECT ?label ?coord ?subj
 WHERE

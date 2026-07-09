@@ -1,0 +1,8 @@
+SELECT ?mh ?mhLabel ?adminLabel ?merimee
+WHERE 
+{
+	?mh wdt:P380 ?merimee ; rdfs:label ?mhLabel .
+    ?mh wdt:P131 ?admin . ?admin rdfs:label ?adminLabel .
+    FILTER( ?mhLabel = ?adminLabel && lang(?mhLabel) = 'fr' && lang(?adminLabel) = 'fr') .
+}
+order by desc(?mh)

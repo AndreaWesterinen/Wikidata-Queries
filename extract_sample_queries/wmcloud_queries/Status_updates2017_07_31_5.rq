@@ -1,0 +1,8 @@
+SELECT DISTINCT ?cited ?citedLabel ?citedAuthor ?citedAuthorLabel ?award ?awardLabel WHERE {
+  ?work wdt:P50 wd:Q20895241 ; # replace by the item of another author
+        wdt:P2860 ?cited .
+  ?cited wdt:P50 ?citedAuthor .
+  ?citedAuthor wdt:P166 ?award .
+  ?award wdt:P31 wd:Q7191
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

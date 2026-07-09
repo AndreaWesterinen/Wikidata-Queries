@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel (STRAFTER(STR(?item), STR(<http://www.wikidata.org/entity/>)) AS ?id) ?holders WHERE {
+  {
+    SELECT ?item (COUNT(DISTINCT ?statement) AS ?holders) WHERE {
+      ?item wdt:P361* wd:Q16146568 .
+      OPTIONAL {
+        ?person p:P39 ?statement.
+        ?statement ps:P39 ?item.
+      }
+    }
+    GROUP BY ?item ?itemLabel
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,et". }
+}
+ORDER BY DESC(?holders) ?itemLabel

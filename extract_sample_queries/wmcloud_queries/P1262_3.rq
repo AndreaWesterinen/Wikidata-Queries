@@ -1,0 +1,11 @@
+#Fornlämningar that use raa-number as both qualifier and standalone (wrong),
+#with different values of both.
+SELECT ?item ?raa_qual ?raa_alone
+WHERE
+{
+  ?item wdt:P1435 wd:Q21287602.
+  ?item p:P1260 ?kulturarvsdata.
+  ?kulturarvsdata pq:P1262 ?raa_qual.
+  ?item wdt:P1262 ?raa_alone.
+  FILTER (?raa_qual != ?raa_alone).
+}

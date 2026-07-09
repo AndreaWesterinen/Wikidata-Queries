@@ -1,0 +1,58 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wds: <http://www.wikidata.org/entity/statement/>
+PREFIX wdv: <http://www.wikidata.org/value/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+SELECT Distinct ?item ?label ?desc ?itemLabel ?description ?BabelNet_ID ?based_on ?collection ?Commons_category ?copyright_status ?country ?country_of_origin ?creator ?described_at_URL ?discoverer_or_inventor ?Europeana_ID ?exhibition_history ?Freebase_ID ?full_work_available_at ?genre ?has_part ?height ?image ?inception ?instance_of ?inventory_number ?language_of_work_or_name ?Library_of_Congress_authority_ID ?located_in_the_administrative_territorial_entity ?location ?location_of_discovery ?material_used ?named_after ?NKCR_AUT_ID ?number_of_pages ?Orthodox_Encyclopedia_ID ?part_of ?point_in_time ?publication_date ?time_of_discovery_or_invention ?VIAF_ID ?width ?writing_system ?instance_ofLabel ?part_ofLabel ?inventory_numberLabel
+WHERE {
+  ?item wdt:P361 wd:Q12295065.
+  OPTIONAL { ?item wdt:P31 ?instance_of. }
+  OPTIONAL { ?item wdt:P361 ?part_of. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P195 ?collection. }
+  OPTIONAL { ?item wdt:P217 ?inventory_number. }
+  OPTIONAL { ?item wdt:P407 ?language_of_work_or_name. }
+  OPTIONAL { ?item wdt:P571 ?inception. }
+  OPTIONAL { ?item wdt:P276 ?location. }
+  OPTIONAL { ?item wdt:P186 ?material_used. }
+  OPTIONAL { ?item wdt:P282 ?writing_system. }
+  OPTIONAL { ?item wdt:P373 ?Commons_category. }
+  OPTIONAL { ?item wdt:P1104 ?number_of_pages. }
+  OPTIONAL { ?item wdt:P61 ?discoverer_or_inventor. }
+  OPTIONAL { ?item wdt:P189 ?location_of_discovery. }
+  OPTIONAL { ?item wdt:P138 ?named_after. }
+  OPTIONAL { ?item wdt:P691 ?NKCR_AUT_ID. }
+  OPTIONAL { ?item wdt:P646 ?Freebase_ID. }
+  OPTIONAL { ?item wdt:P2049 ?width. }
+  OPTIONAL { ?item wdt:P2048 ?height. }
+  OPTIONAL { ?item wdt:P6216 ?copyright_status. }
+  OPTIONAL { ?item wdt:P144 ?based_on. }
+  OPTIONAL { ?item wdt:P131 ?located_in_the_administrative_territorial_entity. }
+  OPTIONAL { ?item wdt:P495 ?country_of_origin. }
+  OPTIONAL { ?item wdt:P575 ?time_of_discovery_or_invention. }
+  OPTIONAL { ?item wdt:P17 ?country. }
+  OPTIONAL { ?item wdt:P953 ?full_work_available_at. }
+  OPTIONAL { ?item wdt:P727 ?Europeana_ID. }
+  OPTIONAL { ?item wdt:P608 ?exhibition_history. }
+  OPTIONAL { ?item wdt:P577 ?publication_date. }
+  OPTIONAL { ?item wdt:P527 ?has_part. }
+  OPTIONAL { ?item wdt:P2581 ?BabelNet_ID. }
+  OPTIONAL { ?item wdt:P585 ?point_in_time. }
+  OPTIONAL { ?item wdt:P136 ?genre. }
+  OPTIONAL { ?item wdt:P973 ?described_at_URL. }
+  OPTIONAL { ?item wdt:P5002 ?Orthodox_Encyclopedia_ID. }
+  OPTIONAL { ?item wdt:P170 ?creator. }
+  OPTIONAL { ?item wdt:P244 ?Library_of_Congress_authority_ID. }
+  OPTIONAL { ?item wdt:P214 ?VIAF_ID. }
+  OPTIONAL { ?item wdt:P373 ?Commons_category. }
+SERVICE wikibase:label 
+{ 
+bd:serviceParam wikibase:language "bg, ru,pl, sk, sl, la, en, uk, el,es, de, fr,it,be, br, ca, cs, cu, da, eo, hr, id, ja, mk, nb, nl, nn, pt, ro, sh, sr, sv, ast, sr-ec, sr-el, マナッセス年代記, be-tarask".
+}
+}
+ORDER BY ?label

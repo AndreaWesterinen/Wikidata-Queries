@@ -1,0 +1,8 @@
+SELECT ?item (COUNT(DISTINCT ?landscape) AS ?landscapecount) WHERE {
+  ?landscape wdt:P31 wd:Q3305213 . 
+  wd:Q191163   ^wdt:P279*/^wdt:P136 ?landscape.
+  ?landscape wdt:P180* ?item .
+  wd:Q10387684  ^wdt:P279*/^wdt:P1435 ?item.
+}
+GROUP BY ?item ?landscapecount
+ORDER BY DESC(?landscapecount)

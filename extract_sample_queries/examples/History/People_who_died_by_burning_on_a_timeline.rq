@@ -1,3 +1,4 @@
+#title: People who died by burning - on a timeline
 #defaultView:Timeline
 SELECT ?person ?personLabel ?date
 WHERE

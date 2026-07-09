@@ -1,0 +1,12 @@
+SELECT DISTINCT ?name ?nameLabel ?originalname ?original_lang
+WHERE {
+ ?name wdt:P31/wdt:P279* wd:Q101352 ;
+ wdt:P31 ?nature ;
+ wdt:P282 wd:Q8229 ;
+ wdt:P1705 ?originalname .
+ BIND(LANG(?originalname) AS ?original_lang) .
+ FILTER NOT EXISTS { ?name rdfs:label ?name_label . FILTER(LANG(?name_label) = "oc") .}
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?name ?nameLabel ?originalname ?original_lang
+HAVING((COUNT(?nature) = 1) && (COUNT(?originalname) = 1))

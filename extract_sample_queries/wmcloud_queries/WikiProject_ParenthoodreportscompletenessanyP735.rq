@@ -1,0 +1,8 @@
+SELECT 
+  (wd:Q5 as ?item)
+  ("any" as ?in)
+  ("P735" as ?out)
+  (COUNT(DISTINCT ?item) as ?all)
+  (COUNT(DISTINCT ?has) as ?with)
+{
+    ?item ( wdt:P22

@@ -1,0 +1,12 @@
+#defaultView:Timeline
+SELECT DISTINCT ?item ?itemLabel ?discontinued ?logo
+WHERE 
+{
+  VALUES ?prod { wd:Q7397 wd:Q7406919 }
+  ?item wdt:P31/wdt:P279* ?prod .
+  ?item (wdt:P2669 | wdt:P576 ) ?discontinued.
+  {?item wdt:P178 wd:Q95}
+  UNION {?item wdt:P127+ wd:Q95}.
+  OPTIONAL {?item wdt:P154 ?logo}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,10 @@
+#title: Inconsistency between the languages
+# Complex constraint from [[Property talk:P5187]]
+# Language of the stem should be the same as the language of the main lemma.
+SELECT * WHERE {
+  ?l wikibase:lemma ?lemma ;
+     wdt:P5187 ?stem .
+  BIND ( SUBSTR(LANG(?lemma),1,2) AS ?langLemma )
+  BIND ( SUBSTR(LANG(?stem),1,2)  AS ?langStem )
+  FILTER ( ?langLemma != ?langStem )
+}

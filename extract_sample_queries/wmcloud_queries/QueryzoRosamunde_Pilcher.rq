@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?releaseDE ?releaseAU WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q506240.
+  ?item wdt:P179 wd:Q79384447.
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "de"}
+  OPTIONAL {
+    ?item p:P577 ?release_de.
+    ?release_de ps:P577 ?releaseDE.
+    ?release_de pq:P291 wd:Q183.
+  }
+  OPTIONAL {
+    ?item p:P577 ?release_au.
+    ?release_au ps:P577 ?releaseAU.
+    ?release_au pq:P291 wd:Q40.
+  }
+} ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))

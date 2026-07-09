@@ -1,0 +1,1 @@
+SELECT ?w ?f WHERE{?l a ontolex:LexicalEntry;dct:language wd:Q9056;ontolex:lexicalForm ?f.?f ontolex:representation ?x.{SELECT ?w WHERE{?l a ontolex:LexicalEntry;dct:language wd:Q9056;ontolex:lexicalForm ?y.?y ontolex:representation ?w.FILTER(NOT EXISTS{?y wdt:P5279 ?o})}LIMIT 1}FILTER(?x=?w)}

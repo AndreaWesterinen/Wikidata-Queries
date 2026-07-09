@@ -1,0 +1,9 @@
+SELECT ?item (COUNT(DISTINCT ?painting) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P170 ?item .
+   ?painting p:P528 ?catalogstatement .
+  ?catalogstatement ps:P528 ?catalogid . 
+  ?catalogstatement pq:P972 ?catalog .
+  ?catalog wdt:P50  wd:Q2960213 . 
+  } GROUP BY ?item 
+ORDER BY DESC(?count)

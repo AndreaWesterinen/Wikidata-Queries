@@ -1,0 +1,18 @@
+SELECT ?item ?status ?canton
+WHERE 
+{
+  ?item wdt:P39 wd:Q18510612 ; wdt:P31 wd:Q5 
+  OPTIONAL { 
+    ?st ps:P39 wd:Q18510612 .
+    ?item p:P39 ?st . 
+    ?st pq:P580 [] .
+    FILTER NOT EXISTS { ?st pq:P582 [] }
+    BIND(wd:Q42841 as ?status)
+  }
+  OPTIONAL { 
+    ?st1 ps:P39 wd:Q18510612 .
+    ?item p:P39 ?st1 .
+    ?st1 pq:P768 / wdt:P395 ?canton
+  }
+}
+ORDER BY ASC(xsd:integer(SUBSTR(STR(?item),33)))

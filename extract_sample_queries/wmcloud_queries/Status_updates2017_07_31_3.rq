@@ -1,0 +1,20 @@
+#defaultView:ImageGrid
+SELECT ?station ?stationLabel ?picture (SAMPLE(?pictureCategory) AS ?pictureCategory) WHERE {
+  hint:Query hint:optimizer "None".
+
+  # get metro stations in germany
+  ?station wdt:P31 wd:Q928830 ;
+           wdt:P17 wd:Q145 .
+
+  # and pictures of them
+  ?station wdt:P18 ?picture .
+
+  # build commons urls
+  BIND(STRAFTER(str(?picture), "Special:FilePath/") AS ?filename)
+  BIND(wikibase:decodeUri(CONCAT("File:", ?filename)) AS ?file)
+
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,[AUTO_LANGUAGE]". }
+}
+GROUP BY ?station ?stationLabel ?picture
+LIMIT 100

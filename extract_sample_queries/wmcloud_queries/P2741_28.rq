@@ -1,0 +1,10 @@
+#title: Works in wrong collection
+# Complex constraint from [[Property talk:P2741]]
+# List of works that have a [[Property:P170|creator&#32;<small dir="ltr">(P170)</small>]] with [[Property:P2741|Tate artist ID&#32;<small dir="ltr">(P2741)</small>]], but where the collection is set incorrectly to one of the parts of Tate instead [[d:Q430682|Tate <small>(Q430682)</small>]].
+SELECT ?item ?creator ?subtate
+{
+    wd:Q430682 wdt:P527 ?subtate .
+	?item wdt:P195 ?subtate .
+    ?item wdt:P170 ?creator .
+	?creator wdt:P2741 []  .
+}

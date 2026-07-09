@@ -1,0 +1,13 @@
+SELECT ?item ?party ?image ?start ?end
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 wd:Q22998436  ; pq:P2937 wd:Q47468472 .
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?item p:P18 ?image }
+  OPTIONAL { ?statement pq:P4100 ?party }
+  OPTIONAL { ?item p:P735 ?first }
+  OPTIONAL { ?item p:P734 ?surname1 }
+  OPTIONAL { ?item p:P1950 ?surname2 }
+}

@@ -1,0 +1,7 @@
+#title: recteur d'académie
+# Complex constraint from [[Property talk:P10721]]
+#
+SELECT ?item {
+	?item wdt:P10721 ?value .
+	FILTER NOT EXISTS { ?item   wdt:P39/wdt:P279? wd:Q3422561 }
+}

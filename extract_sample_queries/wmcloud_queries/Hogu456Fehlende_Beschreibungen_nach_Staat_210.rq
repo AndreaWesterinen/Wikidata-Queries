@@ -1,0 +1,6 @@
+SELECT (substr(str(?Fluss),32) AS ?id) ?FlussLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Fluss wdt:P31 wd:Q4022.
+  ?Fluss wdt:P17 wd:Q1000.
+}
+LIMIT 1000

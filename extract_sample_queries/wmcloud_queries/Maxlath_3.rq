@@ -1,0 +1,14 @@
+SELECT DISTINCT ?work WHERE {
+  ?work wdt:P31 wd:Q571 .
+  FILTER NOT EXISTS { ?work wdt:P629 ?realwork }
+  FILTER NOT EXISTS { ?realwork wdt:P747 ?work }
+  ?sitelink a schema:Article .
+  ?sitelink schema:about ?work .
+  FILTER REGEX(STR(?sitelink), ".wikipedia.org/wiki/") .
+  
+  FILTER NOT EXISTS {
+    ?sitelink2 a schema:Article .
+    ?sitelink2 schema:about ?work .
+    FILTER REGEX(STR(?sitelink2), ".wikisource.org/wiki/") .
+  }
+}

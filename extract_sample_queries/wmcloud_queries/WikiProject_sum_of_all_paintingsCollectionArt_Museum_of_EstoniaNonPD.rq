@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemDescription ?url (MIN(?authorIsPD) AS ?isPD) WHERE {
+  wd:P4525 wdt:P1630 ?formatterurl .
+  ?item p:P195 ?collectionstatement .
+  ?collectionstatement ps:P195 wd:Q56189782 .
+  OPTIONAL { ?item wdt:P571 ?date }.
+  OPTIONAL {
+    ?item wdt:P170 ?author.
+    ?author wdt:P570 ?deathdate.
+  } .     
+  BIND((BOUND(?deathdate) && !wikibase:isSomeValue(?deathdate) && YEAR(?deathdate) <= 1949) as ?authorIsPD).
+  OPTIONAL { ?item wdt:P4525 ?id }.
+  BIND(REPLACE(?id, '^(\\d+)$', CONCAT("[", ?formatterurl, " $1]")) AS ?url)  .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "et"}
+}
+GROUP BY ?item ?itemDescription ?url
+HAVING (?isPD = false)
+LIMIT 5000

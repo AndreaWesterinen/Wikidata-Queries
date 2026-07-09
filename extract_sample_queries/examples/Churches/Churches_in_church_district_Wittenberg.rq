@@ -1,3 +1,4 @@
+#title: Churches in church district Wittenberg
 #defaultView:Map{"layer": "?pbLabel"}
 SELECT ?item ?itemLabel ?pbLabel (SAMPLE(?cat) AS ?cat) (SAMPLE(?coord) AS ?coord) (SAMPLE(?img) AS ?img)
 WHERE {

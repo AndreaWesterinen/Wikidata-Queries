@@ -1,0 +1,10 @@
+#title: Check units
+# Complex constraint from [[Property talk:P2055]]
+#
+SELECT ?item ?unit
+WHERE {
+  ?item p:P2055/psv:P2055/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P111 wd:Q4593291.
+  }.
+}

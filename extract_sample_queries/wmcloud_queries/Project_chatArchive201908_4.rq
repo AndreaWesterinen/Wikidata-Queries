@@ -1,0 +1,19 @@
+select ?topic ?topicLabel ?article ?articleLabel {
+  
+  {
+    select ?topic ?article {
+      ?topic wdt:P2579 ?field .
+      ?topic rdfs:label ?topicLabel filter(lang(?topicLabel) = "en").
+      SERVICE wikibase:mwapi {
+           bd:serviceParam mwapi:language "en" .
+           bd:serviceParam wikibase:api "EntitySearch" .
+           bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+           bd:serviceParam mwapi:search ?topicLabel .
+           ?article wikibase:apiOutputItem mwapi:item .                
+      }
+      ?article (wdt:P31/wdt:P279+|wdt:P31) wd:Q13442814 .
+    } limit 1000
+  } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+}

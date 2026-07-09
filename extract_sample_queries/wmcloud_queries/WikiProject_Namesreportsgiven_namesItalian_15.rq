@@ -1,0 +1,16 @@
+SELECT ?item ?l ?l_it 
+  (COUNT(DISTINCT ?p) as ?count)
+  (SAMPLE(?p) as ?sample_p)
+  (SAMPLE(?nl_eq_en) as ?nlcheck) 
+  (SAMPLE(?iw_l) as ?iwl)
+{
+    ?item wdt:P407 wd:Q652 ;
+          wdt:P31/wdt:P279? wd:Q202444 . 
+    ?item wdt:P1705 ?l.
+    ?item rdfs:label ?l_it. FILTER (lang(?l_it) = "it"  && str(?l_it) != str(?l) ) 
+    OPTIONAL { ?p wdt:P735 ?item }
+    OPTIONAL { ?item rdfs:label ?l_en . BIND("y" as ?nl_eq_en) }
+    OPTIONAL {     [] schema:about ?item ; schema:isPartOf <https://it.wikipedia.org/> ; schema:name ?iw_l. }
+}
+GROUP BY ?item ?l ?l_it
+ORDER BY DESC(?count) ?item

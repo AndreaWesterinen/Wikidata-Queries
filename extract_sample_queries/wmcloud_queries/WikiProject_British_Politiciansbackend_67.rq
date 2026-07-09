@@ -1,0 +1,13 @@
+# members of the 1880-85 Parliament - 652 members.
+SELECT DISTINCT ?item ?itemLabel ?constituencyLabel ?partyLabel ?start ?electionLabel ?end ?causeLabel {
+ ?item p:P39 ?positionStatement .
+ ?positionStatement ps:P39 wd:Q41582565 . 
+ OPTIONAL { ?positionStatement pq:P768 ?constituency . }
+ OPTIONAL { ?positionStatement pq:P4100|pq:P102 ?party . }
+ OPTIONAL { ?positionStatement pq:P580 ?start . }
+ OPTIONAL { ?positionStatement pq:P2715 ?election . }
+ OPTIONAL { ?positionStatement pq:P582 ?end . }
+ OPTIONAL { ?positionStatement pq:P1534 ?cause . }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}
+ORDER BY ?start

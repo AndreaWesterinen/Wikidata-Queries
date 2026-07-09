@@ -1,0 +1,15 @@
+#title: English label, description, or alias should include place name (country or region)
+# Complex constraint from [[Property talk:P8701]]
+# TODO: generally add an alias in the form "<year> census of <place>"
+SELECT DISTINCT ?item ?loc ?year
+WHERE 
+{
+  hint:Query hint:optimizer "None".
+  ?item ^wdt:P8701 _:b28; wdt:P276 / rdfs:label ?loc .
+  FILTER( lang(?loc) = "en") 
+  FILTER NOT EXISTS { ?item rdfs:label ?l. FILTER( LANG(?l) = "en" && CONTAINS(?l, ?loc)) }
+  FILTER NOT EXISTS { ?item skos:altLabel ?l2. FILTER( LANG(?l2) = "en" && CONTAINS(?l2, ?loc)) }  
+  FILTER NOT EXISTS { ?item schema:description ?l3. FILTER( LANG(?l3) = "en" && CONTAINS(?l3, ?loc)) }  
+  OPTIONAL { ?item wdt:P585 ?d . BIND(YEAR(?d) as ?year) }
+}
+ORDER BY ?loc

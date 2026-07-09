@@ -1,0 +1,8 @@
+#Regional archives
+SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q166118 .
+  ?item wdt:P17 wd:Q55 . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}

@@ -1,0 +1,5 @@
+SELECT ?NRW ?NRWLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?NRW wdt:P131* wd:Q1198.
+  ?NRW wdt:P31 wd:Q21503788.
+}

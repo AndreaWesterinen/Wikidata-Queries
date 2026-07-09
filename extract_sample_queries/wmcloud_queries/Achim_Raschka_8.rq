@@ -1,0 +1,9 @@
+SELECT ?Objekt ?ObjektLabel ?UrheberLabel Where { # Tabellenbezeichnung
+   { ?Objekt wdt:P31 wd:Q8261.} # ist ein Roman
+    union { ?Objekt wdt:P31 wd:Q571.} # oder ist ein Buch
+    ?Objekt wdt:P50 ?Urheber. # Autor ist
+    ?Urheber wdt:P27 wd:Q145. # ... Staastsbürger GB
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } # Funktion für Labels
+}
+ORDER BY ?UrheberLabel
+LIMIT 1000

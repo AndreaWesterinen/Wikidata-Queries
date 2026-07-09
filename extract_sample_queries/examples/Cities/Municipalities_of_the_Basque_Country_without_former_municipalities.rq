@@ -1,4 +1,4 @@
-# ----
+#title: Municipalities of the Basque Country without former municipalities
 # This query has two different features:
 # First, it is able to search for municipalities which are part of two different states, looking to P527
 # Second, it doesn't show former municipalities, filtering the old ones from the P582 statement.

@@ -1,0 +1,37 @@
+SELECT ?item ?itemLabel ?value ?result (STRLEN(STR(?value)) AS ?stringlength)  ?snak ?rank
+WHERE
+{
+	{
+		SELECT ?item ?value ?result ?snak ?rank
+		WHERE
+		{
+			{
+				?item p:P10253 [ ps:P10253 ?value; wikibase:rank ?rank ] .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement1 pq:P10253 ?value;
+					wikibase:rank ?rank .
+				?item ?p1 ?statement1 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P10253 ?value .
+				?statement2 prov:wasDerivedFrom ?ref;
+					wikibase:rank ?rank .
+				?item ?p2 ?statement2 .
+				BIND("reference" AS ?snak) .
+			} .
+			BIND( REGEX( STR( ?value ), "^((?i)((?!\\b(1x1|none|image is needed|no free image|defaul?t\\b|comic image missing|Grey30 line|Image-request|no portrait|no (female|free|male) portrait|replace this image|upload free image|No-station-image|Taxoimagem|No free image|no image|Insert image here|falta imagen|no imagen disponible|sin foto\\.|NGC 000\\.|missing image text|irudi gabe eraikina|image manquante|Oeuvre d'art soumise au droit d'auteur\\.jpg|Bâtiment droit d'auteur|USGS map|within Bulgaria|P vip|no pic)\\b).)*)$" ) AS ?regexresult ) .
+			FILTER( ?regexresult = false ) .
+			BIND( IF( ?regexresult = true, "pass", "fail" ) AS ?result ) .
+			FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+		} 
+		LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+#ORDER BY ?rank ?snak ?value
+#PLEASE NOTE: This is experimental and may only work for simple patterns.
+#Tests may fail due to:
+#(1) differences in regex format between SPARQL (https://www.w3.org/TR/xpath-functions/#regex-syntax) and PCRE (used by constraint reports). Don't change the regex to work with SPARQL!
+#(2) some bug in the link that brought you here
+#Known to fail: P227 (multiple curly braces), P274, P281

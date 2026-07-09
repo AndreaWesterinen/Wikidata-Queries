@@ -1,0 +1,8 @@
+#defaultView:Map
+select ?building ?buildingLabel ?coord ?image WHERE 
+{
+ ?building wdt:P84 wd:Q151759 ;
+           wdt:P625 ?coord .
+  OPTIONAL {?building wdt:P18 ?image}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr, de, pl". }
+}

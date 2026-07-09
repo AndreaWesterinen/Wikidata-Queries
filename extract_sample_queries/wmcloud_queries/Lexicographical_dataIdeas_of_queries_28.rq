@@ -1,0 +1,14 @@
+SELECT DISTINCT ?l ?lemma ?word WHERE {
+  ?l a ontolex:LexicalEntry ; 
+       dct:language wd:Q1860 ; 
+       wikibase:lexicalCategory wd:Q1084 ; 
+       wikibase:lemma ?lemma ; 
+       ontolex:lexicalForm ?form .
+  filter not exists {
+    ?form ontolex:representation ?word ; 
+    # We have to filter here to make searching for plural forms work because english has multi-language forms
+    FILTER(LANG(?word) = "en"). # don't consider en-gb forms
+    # filter out any plurals (broken)
+    ?form wikibase:grammaticalFeature wd:Q146786 .
+    }.
+}

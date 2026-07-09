@@ -1,0 +1,10 @@
+SELECT ?kanji ?kanjiLabel ?grade ?gradeLabel ?class ?classLabel
+WHERE 
+{
+  ?kanji wdt:P5277 ?grade
+  FILTER NOT EXISTS {
+    ?kanji wdt:P31 wd:Q53764782
+  }
+  OPTIONAL {?kanji wdt:P31 ?class}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

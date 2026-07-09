@@ -1,0 +1,12 @@
+SELECT ?item ?females2011 ?males2011 ?total2011 ?households2011 ?urban2011 ?rural2011 WHERE {
+  ?item wdt:P31 wd:Q13005188.
+  {?item wdt:P131* wd:Q15404.}
+    MINUS 
+  {?item p:P131 ?dist. ?dist pq:P582 ?end. FILTER(year(?end) = 2014)}
+  ?item p:P1539 ?fps2011. ?fps2011 ps:P1539 ?females2011. ?fps2011 pq:P585 ?fp11d. FILTER(year(?fp11d) = 2011)
+  ?item p:P1540 ?mps2011. ?mps2011 ps:P1540 ?males2011. ?mps2011 pq:P585 ?mp11d. FILTER(year(?mp11d) = 2011)
+  ?item p:P1082 ?ps2011. ?ps2011 ps:P1082 ?total2011. ?ps2011 pq:P585 ?p11d. FILTER(year(?p11d) = 2011)
+  ?item p:P1538 ?hps2011. ?hps2011 ps:P1538 ?households2011. ?hps2011 pq:P585 ?hp11d. FILTER(year(?hp11d) = 2011)
+  ?item p:P6343 ?ups2011. ?ups2011 ps:P6343 ?urban2011. ?ups2011 pq:P585 ?up11d. FILTER(year(?up11d) = 2011)
+  ?item p:P6344 ?rps2011. ?rps2011 ps:P6344 ?rural2011. ?rps2011 pq:P585 ?rp11d. FILTER(year(?rp11d) = 2011)
+}

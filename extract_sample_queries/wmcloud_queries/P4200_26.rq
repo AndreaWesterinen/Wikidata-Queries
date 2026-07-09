@@ -1,0 +1,9 @@
+#title: Works with creator missing link
+# Complex constraint from [[Property talk:P4200]]
+# List of works that have [[Property:P3783|Christie&#39;s object ID&#32;<small dir="ltr">(P3783)</small>]] set, but that creator doesn't have a [[Property:P4200|Christie&#39;s creator ID&#32;<small dir="ltr">(P4200)</small>]] link
+SELECT DISTINCT ?item ?creator WHERE {
+	?item wdt:P3783 [] .
+    ?item wdt:P170 ?creator .
+	MINUS { ?creator wdt:P4200 [] } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl" }
+} ORDER BY ?creatorLabel

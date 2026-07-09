@@ -1,0 +1,9 @@
+embed.html##defaultView:Map
+SELECT ?dataset ?datasetLabel ?datasetImage ?creator ?creatorLabel ?creatorGeo ?creatorImage WHERE {
+  ?dataset wdt:P1535 wd:Q110553382.
+  OPTIONAL { ?dataset wdt:P18 ?datasetImage. }
+  OPTIONAL { ?dataset wdt:P170 ?creator. }
+  OPTIONAL { ?creator wdt:P625 ?creatorGeo. }
+  OPTIONAL { ?creator wdt:P18 ?creatorImage. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en". }
+}

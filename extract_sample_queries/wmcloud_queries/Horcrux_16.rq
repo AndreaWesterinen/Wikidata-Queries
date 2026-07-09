@@ -1,0 +1,15 @@
+SELECT ?list
+WHERE
+{
+  ?list wdt:P31 wd:Q33532284 .
+  FILTER NOT EXISTS {
+    ?list rdfs:label ?l
+          FILTER (lang(?l) = "en")
+          FILTER (regex(?l, "number[ \\-]one singles|^(list of )?.*lists( |$)")) .
+  }
+  FILTER NOT EXISTS {
+    ?list skos:altLabel ?a
+          FILTER (lang(?a) = "en")
+          FILTER (regex(?a, "number[ \\-]one singles|^(list of )?.*lists( |$)")) .
+  }
+}

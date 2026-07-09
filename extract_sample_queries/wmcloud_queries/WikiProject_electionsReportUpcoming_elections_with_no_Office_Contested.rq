@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q40231 ; wdt:P585 ?when .
+  FILTER NOT EXISTS { ?item wdt:P541 [] }
+  FILTER NOT EXISTS { ?item wdt:P527 [] } # skip anything with sub-parts (as the Office will usually be on those)
+  FILTER (?when > NOW())
+}
+ORDER BY ?when
+LIMIT 500

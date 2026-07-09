@@ -1,0 +1,11 @@
+#title: value of label is generally different
+# Complex constraint from [[Property talk:P1560]]
+# avoid using this property for given names used by both genders but mapped to different Wikidata items
+SELECT ?item ?value ?l
+{
+  ?item wdt:P1560 ?value .
+  ?item rdfs:label ?l . FILTER(lang(?l)="en") 
+  ?value rdfs:label ?l .
+  FILTER( str(?item) > str(?value) )
+}
+LIMIT 100

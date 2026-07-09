@@ -1,0 +1,12 @@
+SELECT ?item WHERE {
+  ?article schema:about ?item;
+    schema:inLanguage "ko";
+    schema:name ?page.
+  FILTER((SUBSTR(STR(?article), 1 , 16 )) = "https://ko.wikip")
+  ?item wdt:P495 wd:Q884.
+  MINUS { ?item wdt:P31 _:b6. }
+  ?item rdfs:label ?itemLabel.
+  FILTER((LANG(?itemLabel)) = "ko")
+}
+ORDER BY xsd:integer(SUBSTR(STR(?item),STRLEN("http://www.wikidata.org/entity/Q")+1))
+LIMIT 8000

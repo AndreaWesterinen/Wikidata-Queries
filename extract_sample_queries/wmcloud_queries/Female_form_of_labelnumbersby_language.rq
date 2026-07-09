@@ -1,0 +1,1 @@
+SELECT ?item ?lang (COUNT(DISTINCT(?withlabel)) as ?ct) WHERE { ?withlabel wdt:P2521 ?femalelabel . BIND(lang(?femalelabel) as ?lang) ?lang ^v:P424 ?lstatement . ?lstatement 	q:P794 wd:Q22283033 . ?lstatement ^p:P424	?item } GROUP BY ?lang ?item ORDER BY DESC(?ct) ?item

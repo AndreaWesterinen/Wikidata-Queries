@@ -1,0 +1,5 @@
+embed.html#SELECT DISTINCT ?item ( CONCAT(lcase(substr(?itemLabel,1,1)), substr(?itemLabel,2)) as ?nom ) WHERE {
+	?item wdt:P31/wdt:P279* wd:Q11424 ; rdfs:label ?itemLabel .
+	FILTER (lang(?itemLabel) = "en"). 
+	FILTER regex (?itemLabel, "\\)$").
+}

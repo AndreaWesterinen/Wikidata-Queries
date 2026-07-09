@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?howmany WHERE {
+  {
+    SELECT DISTINCT ?item (COUNT(DISTINCT ?statement) AS ?howmany) {
+      ?person p:P39 ?statement .
+      ?statement ps:P39/wdt:P279* wd:Q3406079 ; pq:P4100 ?item .
+    }
+    GROUP BY ?item
+  }
+}
+ORDER BY DESC(?howmany)

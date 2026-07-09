@@ -1,0 +1,26 @@
+embed.html#SELECT ?personLabel  ?birthDate ?died ?NobelURI  ?article
+{
+  ?person wdt:P3188 ?NobelID.
+  ?person wdt:P2888 ?NobelURI.
+  FILTER (strStarts(str(?NobelURI), "http://data.nobelprize.org/resource/laureate/"))
+
+  {?person wdt:P570 ?diedDate}
+  OPTIONAL {?person wdt:P569 ?birthDate}
+  OPTIONAL {?article schema:about ?person;
+           schema:isPartOf <https://en.wikipedia.org/>}
+  OPTIONAL {?article schema:about ?person;
+           schema:isPartOf <https://sv.wikipedia.org/>}
+  OPTIONAL {?article schema:about ?person;
+           schema:isPartOf <https://fr.wikipedia.org/>}
+  BIND (SUBSTR(CONCAT("0",STR(DAY(?diedDate))),STRLEN(STR(DAY(?diedDate))),2) AS ?diedDay)
+  BIND (SUBSTR(CONCAT("0",STR(MONTH(?diedDate))),STRLEN(STR(MONTH(?diedDate))),2) AS ?diedMonth)
+  BIND (CONCAT(STR(YEAR(?diedDate)),"-",?diedMonth,"-",?diedDay) AS ?died)
+
+  BIND (SUBSTR(CONCAT("0",STR(DAY(?birthDate))),STRLEN(STR(DAY(?birthDate))),2) AS ?birthDay)
+  BIND (SUBSTR(CONCAT("0",STR(MONTH(?birthDate))),STRLEN(STR(MONTH(?birthDate))),2) AS ?birthMonth)
+  BIND (CONCAT(STR(YEAR(?birthDate)),"-",?birthMonth,"-",?birthDay) AS ?birth)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "sv,en". }
+}
+order by desc(?died)
+limit 100

@@ -1,0 +1,16 @@
+select distinct ?item ?instance_id ?itemLabel ?siruta ?page_title (sample(?ima) as ?ima) (sample(?dra) as ?dra) (sample(?pop) as ?pop) (sample(?sup) as ?sup) (sample(?ste) as ?ste)
+WHERE {
+ ?item wdt:P31 ?instance.
+ values (?instance ?instance_id) { (wd:Q640364 1) (wd:Q16858213 2) (wd:Q659103 3) }
+ ?item wdt:P131 ?county.
+ ?county wdt:P843 '10'.
+ ?item wdt:P843 ?siruta.
+OPTIONAL {?item wdt:P18 ?ima }
+OPTIONAL {?item wdt:P41 ?dra }
+OPTIONAL {?item wdt:P1082 ?pop }
+OPTIONAL {?item wdt:P2046 ?sup }
+OPTIONAL {?item wdt:P94 ?ste }
+OPTIONAL {?article    schema:about ?item ;
+     schema:isPartOf <https://ro.wikipedia.org/>;  schema:name ?page_title  . }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "ro" } }
+GROUP BY ?item ?itemLabel ?instance_id ?siruta ?page_title ORDER BY ?itemLabel

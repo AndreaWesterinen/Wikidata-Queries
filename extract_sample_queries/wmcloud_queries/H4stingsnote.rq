@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?teamLabel ?nbsel WHERE {
+	?item p:P54 ?teams .
+	?teams ps:P54 ?team .
+  	?teams pq:P1350 ?nbsel filter(?nbsel > 900) .
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "fr,en" .
+	}
+} ORDER BY DESC(?nbsel)

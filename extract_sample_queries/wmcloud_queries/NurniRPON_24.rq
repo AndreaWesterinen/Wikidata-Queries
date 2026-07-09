@@ -1,0 +1,15 @@
+SELECT ?o ?oLabel ?r ?rLabel ?f ?fLabel (YEAR(?d1) AS ?_d1) (YEAR(?d2) AS ?_d2) ?ob ?obLabel WHERE {
+  {
+    SELECT ?o ?f ?d1 ?d2 WHERE {
+      ?f (wdt:P279*) wd:Q2662430.
+      ?o p:P39 ?fp.
+      ?fp ps:P39 ?f.
+      OPTIONAL { ?fp pq:P580 ?d1. }
+      OPTIONAL { ?fp pq:P582 ?d2. }
+    }
+  }
+  OPTIONAL { ?o wdt:P53 ?r. }
+  OPTIONAL { ?o wdt:P27 ?ob. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?fLabel) (?_d1) (?_d2)

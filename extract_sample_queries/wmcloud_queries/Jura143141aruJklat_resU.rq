@@ -1,0 +1,9 @@
+embed.html##defaultView:Map
+SELECT ?item ?coor ?image ?itemLabel
+WHERE
+{
+	?item wdt:P825\u007Cwdt:P138 wd:Q80979 .
+	OPTIONAL { ?item wdt:P625 ?coor }
+	OPTIONAL { ?item wdt:P18 ?image } 
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "cy,en" }
+}

@@ -1,0 +1,10 @@
+select * {
+  ?l1 dct:language wd:Q9027 ;
+      wikibase:lemma ?lemma1 ;
+      ontolex:lexicalForm ?f1 .
+  ?f1 ontolex:representation ?spelling .
+  ?f2 ontolex:representation ?spelling filter (?f1 != ?f2).
+  ?l2 dct:language wd:Q9027 ;
+      wikibase:lemma ?lemma2 ;
+      ontolex:lexicalForm ?f2 filter (?l1 != ?l2).
+}

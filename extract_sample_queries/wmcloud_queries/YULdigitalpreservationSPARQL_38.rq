@@ -1,0 +1,12 @@
+SELECT ?format ?formatLabel
+
+WHERE {
+  
+  ?format wdt:P31 wd:Q235557 .
+  ?format wdt:P3374 ?o .
+            
+  SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+    
+}
+  }

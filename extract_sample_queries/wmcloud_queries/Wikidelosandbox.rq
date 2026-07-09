@@ -1,0 +1,11 @@
+SELECT   ?item  ?progama WHERE {
+
+  {?progama wdt:P449 wd:Q935960 } UNION {?progama wdt:P449 wd:Q2429494 } UNION {?progama wdt:P449 wd:Q3323383 }
+  UNION {?progama wdt:P449 wd:Q3320899 } UNION {?progama wdt:P449 wd:Q8347160 }  UNION {?progama wdt:P449 wd:Q3750465 } 
+  UNION {?progama wdt:P449 wd:Q3321715 } UNION {?progama wdt:P449 wd:Q3320866 } UNION {?progama wdt:P449 wd:Q4896435 } 
+  UNION {?progama wdt:P449 wd:Q1058461 } UNION {?progama wdt:P449 wd:Q510452 }  UNION {?progama wdt:P449 wd:Q571833 } 
+  UNION {?progama wdt:P449 wd:Q301129 }  UNION {?progama wdt:P449 wd:Q962340 }  UNION {?progama wdt:P449 wd:Q1165360 }
+
+  ?progama wdt:P58 ?item.
+
+}

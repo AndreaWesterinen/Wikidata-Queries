@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemLabel  ?namesakeLabel ?namesakeImage WHERE {
+  ?item wdt:P31 wd:Q148578.
+  ?item wdt:P138 ?namesake.
+  ?namesake wdt:P18 ?namesakeImage.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }

@@ -1,0 +1,9 @@
+SELECT ?name ?nameLabel ?disambig ?disambigLabel
+WHERE {
+  ?name wdt:P31/wdt:P279* wd:Q101352 ;
+        wdt:P31 ?nature ;
+        wdt:P1889 ?disambig .
+  ?disambig wdt:P31 wd:Q101352 ;
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr". }
+  }GROUP BY ?name ?nameLabel ?disambig ?disambigLabel
+HAVING(COUNT(?nature) = 1)

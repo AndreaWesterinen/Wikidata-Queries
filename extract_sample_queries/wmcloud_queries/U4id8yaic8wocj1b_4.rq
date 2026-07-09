@@ -1,0 +1,9 @@
+# data sets released under a Creative Commons NoDerivatives license
+SELECT DISTINCT ?dataSet ?dataSetLabel ?dataSetDescription ?licenseLabel WHERE {
+  VALUES ?NoDerivatives { wd:Q6999319 wd:Q6937225 }
+  ?dataSet wdt:P31/wdt:P279* wd:Q1172284;
+           wdt:P275 ?license.
+  ?license wdt:P629?/wdt:P156* ?NoDerivatives.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?licenseLabel ?dataSetLabel

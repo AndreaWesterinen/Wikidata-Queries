@@ -1,0 +1,14 @@
+##defaultView:Table
+#Scientific authors known to Wikidata, who do not have an ORCID iD listed there
+SELECT ?author ?authorLabel (COUNT(DISTINCT ?publication) AS ?count) WHERE {
+  ?publication wdt:P31 wd:Q13442814.
+  ?publication wdt:P50 ?author.
+  MINUS { ?author wdt:P496 ?orcid. }
+  MINUS {
+    ?author wdt:P570 ?dod.
+    FILTER((YEAR(?dod)) < 2012)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?author ?authorLabel
+ORDER BY DESC(?count)

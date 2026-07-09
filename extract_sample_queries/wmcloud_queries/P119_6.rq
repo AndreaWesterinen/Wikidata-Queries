@@ -1,0 +1,28 @@
+#title: Check important persons
+# Complex constraint from [[Property talk:P119]]
+#
+SELECT ?item ?P31 {
+  ?item wdt:P119/wdt:P31 wd:Q162875. # 893
+  ?item wdt:P31 wd:Q5. # * tmp *
+  MINUS { ?item p:P97 ?a }
+  MINUS { ?item p:P53 ?aa } # 527
+  MINUS { ?item p:P106 ?b } # 87
+  MINUS { ?item wdt:P22/wdt:P39 ?functionFather } # 57
+  MINUS { ?item p:P1442 ?b } # 52
+  FILTER (?item NOT IN (
+    wd:Q127659, wd:Q128847, wd:Q24718760, wd:Q22684092, wd:Q7251611, wd:Q907283, wd:Q73837267, wd:Q74351108, wd:Q5397784, wd:Q5368394, wd:Q31040989,
+    wd:Q26208914
+  )) # tmp: exclude new Q127659, Q31040989, todo: Q26208914
+  MINUS { ?item wdt:P22/wdt:P119/wdt:P31 wd:Q162875 } # 43, exclude Q541665
+  MINUS { ?item p:P535 ?c } # 40, exclude Q64091692
+  OPTIONAL { ?item wdt:P31 ?P31 }
+  MINUS { ?item wdt:P26/wdt:P39 ?functionConjoint } # 29, exclude Q33673045
+  MINUS { ?item wdt:P39 ?function } # 25, exclude Q12709862
+  MINUS { ?item wdt:P40/wdt:P39 ?functionChild } # exclude : "mother of Jiajing Emperor" (Q8254570)
+  MINUS { ?item p:P166 ?d } # 13
+  MINUS { ?item wdt:P22/wdt:P1442 ?i } # 10, exclude: Q19521611
+  MINUS { ?item wdt:P119 wd:Q3893448 } # 8, exclude: Q3660093
+  MINUS { ?item wdt:P119 wd:Q994694 } # national, exclude: Q17632550
+  MINUS { ?item wdt:P140 ?religion } # * quick *
+  MINUS { ?item wdt:P40/wdt:P119/wdt:P31 wd:Q162875 } # to exclude Q6381943
+}

@@ -1,0 +1,22 @@
+embed.html## Points culminants par département français
+#defaultView:Map
+SELECT DISTINCT ?item ?itemLabel ?culminant ?culminantLabel ?altitude ?partieDeLabel ?coordinate ?image (concat(str(floor(?altitude/500)*500), '-',str(ceil(?altitude/500)*500))  as ?layer)
+WHERE {
+
+  ?item wdt:P31/wdt:P279* wd:Q6465 .
+  ?item p:P31 ?dep
+  FILTER NOT EXISTS { ?item p:P576 ?x } 
+  FILTER NOT EXISTS { ?item p:P582 ?x } 
+  FILTER NOT EXISTS { ?dep pq:P582 ?x }  
+  OPTIONAL{
+    ?item wdt:P610 ?culminant 
+    OPTIONAL{ ?culminant wdt:P2044 ?altitude }
+    OPTIONAL{ ?culminant wdt:P361 ?partieDe }
+    OPTIONAL{ ?culminant wdt:P625 ?coordinate }
+    optional { ?culminant wdt:P18 ?image }
+  }
+ 
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". }
+  
+} ORDER BY DESC(?altitude)

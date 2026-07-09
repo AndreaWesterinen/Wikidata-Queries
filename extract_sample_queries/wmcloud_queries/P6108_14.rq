@@ -1,0 +1,9 @@
+#title: Check URL contain `manifest`
+# Complex constraint from [[Property talk:P6108]]
+#
+SELECT ?item ?v {
+	?item wdt:P6108 ?value.
+    BIND (STR(?value) AS ?v)
+    FILTER (REGEX(?v, "^(.*(manifest).*)$") = false)  
+    FILTER (?item NOT IN (wd:Q78781054, wd:Q62066158)) # exceptions
+}

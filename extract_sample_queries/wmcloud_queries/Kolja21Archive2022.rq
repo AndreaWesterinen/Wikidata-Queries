@@ -1,0 +1,17 @@
+SELECT DISTINCT ?item ?itemLabel (SAMPLE(YEAR(?dateOfDeath)) AS ?year) ?count ?sample1 ?sample2  ?exception WITH {
+  SELECT ?item (COUNT(?value) AS ?count) (MIN(?value) AS ?sample1) (MAX(?value) AS ?sample2) {
+	?item p:P227/ps:P227 ?val .
+    OPTIONAL { wd:P227 wdt:P1630 ?formatter } .
+	BIND( IF( BOUND( ?formatter ), URI( REPLACE( ?formatter, '\\$1', ?val ) ), ?val ) AS ?value ) .
+  } GROUP BY ?item HAVING ( ?count > 1 )
+} AS %s WHERE {
+  INCLUDE %s .
+  OPTIONAL {
+    wd:P227 p:P2302 [ ps:P2302 wd:Q19474404; pq:P2303 ?exc ] .
+    FILTER( ?exc = ?item ) .
+  }
+  ?item wdt:P31 wd:Q5; wdt:P570 ?dateOfDeath .
+  FILTER(YEAR(?dateOfDeath) <= 1850) .
+  BIND( BOUND( ?exc ) AS ?exception ) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' } .
+} GROUP BY ?item ?itemLabel ?count ?sample1 ?sample2  ?exception ORDER BY DESC(?count)

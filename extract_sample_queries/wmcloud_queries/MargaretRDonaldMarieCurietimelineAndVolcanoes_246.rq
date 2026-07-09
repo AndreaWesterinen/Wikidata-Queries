@@ -1,0 +1,15 @@
+# South Korean screenwriters
+SELECT DISTINCT  ?sexLabel ?birthdate ?person ?personLabel WHERE {
+  ?person wdt:P31 wd:Q5.
+  optional {?person wdt:P21 ?sex.}
+  ?person wdt:P27 wd:Q884.  # Country of citizenship is south Korea
+  ?person wdt:P106 wd:Q28389.
+  optional {?person wdt:P569 ?birthdate.}
+  OPTIONAL {
+     ?article schema:about ?person. # and have an article about them
+     ?article schema:isPartOf <https://ko.wikipedia.org/> . # on *English* Wikipedia}
+    }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?sexLabel ?birthdate ?personLabel
+#LIMIT 500

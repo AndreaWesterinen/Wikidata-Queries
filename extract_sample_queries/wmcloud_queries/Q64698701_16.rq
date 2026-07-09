@@ -1,0 +1,23 @@
+embed.html### February 2020 / family name > given name / given name > family name
+PREFIX wdname: <http://www.wikidata.org/entity/Q64698701>
+SELECT ?gn ?f ?ct1 ?as_given_name ?as_given_nameLabel ?ct2 ?as_family_name ?as_family_nameLabel
+WITH
+{
+    SELECT ?f ?gn (COUNT(DISTINCT ?p) as ?ct1) (COUNT(DISTINCT ?p1) as ?ct2) (SAMPLE(?p1) as ?as_family_name) (SAMPLE(?p) as ?as_given_name)
+    WHERE 
+    {
+      wdname: wdt:P1533 ?fneq .
+      ?p1 wdt:P734 ?fneq .
+      ?p1 wdt:P735 ?gn .
+      ?gn wdt:P1533 ?f .
+      ?p wdt:P735 wdname: . 
+      ?p wdt:P734 ?f .
+    }
+    GROUP BY ?f ?gn
+} 
+as %all
+{
+  INCLUDE %all
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }          
+}
+ORDER BY DESC(?ct1)

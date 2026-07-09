@@ -1,0 +1,9 @@
+SELECT ?item WHERE {
+    ?item p:P4765/ps:P4765 ?downloadurl ;
+          wdt:P31 wd:Q3305213 ;
+          schema:dateModified ?modified ;
+          wdt:P571 ?inception .
+  FILTER (YEAR(?inception) > 1850)
+  MINUS { ?item wdt:P170 [] } .
+  } ORDER BY ?modified
+LIMIT 2000

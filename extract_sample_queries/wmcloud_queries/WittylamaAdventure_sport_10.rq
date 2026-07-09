@@ -1,0 +1,20 @@
+SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?countryLabel ?itemDescription 
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "ski resort".
+    ?title wikibase:apiOutput mwapi:title.
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q130003 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q13442814 . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item rdfs:label ?itemDescription.
+  OPTIONAL {?item wdt:P31 ?instance. }
+  OPTIONAL {?item wdt:P17 ?country. }
+  FILTER(CONTAINS(LCASE(?itemDescription), "ski resort"))
+  FILTER((LANG(?itemDescription)) = "en")
+}
+ORDER BY DESC (?country)

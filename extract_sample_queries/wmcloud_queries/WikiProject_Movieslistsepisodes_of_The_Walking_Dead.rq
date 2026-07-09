@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?itemDescription ?episode_nb
+{
+	?item wdt:P179 wd:Q232737. 
+	?item wdt:P31 wd:Q21191270 .
+	OPTIONAL { ?item p:P179 [ pq:P1545 ?episode_nb ; ps:P179 wd:Q232737 ] }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY xsd:integer(?episode_nb)

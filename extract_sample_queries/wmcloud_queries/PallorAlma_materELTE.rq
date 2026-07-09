@@ -1,0 +1,13 @@
+SELECT DISTINCT ?item ?dobyear ?dodyear ?dat WHERE {
+  ?item wdt:P69 wd:Q390287; wdt:P31 wd:Q5.
+  ?item p:P69 ?statement.
+  ?statement ps:P69 ?egyetem.
+  OPTIONAL { ?statement pq:P582 ?dat. } 
+  OPTIONAL { ?item wdt:P569 ?dob .
+    BIND(YEAR(?dob) AS ?dobyear) .
+  }
+  OPTIONAL {
+    ?item wdt:P570 ?dod .
+    BIND(YEAR(?dod) AS ?dodyear) .
+  }
+  FILTER(!BOUND(?dobyear)

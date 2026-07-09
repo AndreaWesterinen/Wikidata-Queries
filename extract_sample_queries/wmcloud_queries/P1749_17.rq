@@ -1,0 +1,10 @@
+#title: Better name needed
+# Complex constraint from [[Property talk:P1749]]
+# People with [[Property:P1749|Parlement.com ID&#32;<small dir="ltr">(P1749)</small>]] and [[Property:P735|given name&#32;<small dir="ltr">(P735)</small>]] of type [[d:Q19803443|initials instead of given names <small>(Q19803443)</small>]]
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P1749 [] .
+  ?item wdt:P31 wd:Q5 . 
+  ?item wdt:P735 ?name .
+  ?name wdt:P31 wd:Q19803443
+
+}  ORDER BY ?name LIMIT 1000

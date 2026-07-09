@@ -1,3 +1,4 @@
+#title: Bridges over rivers in former government district of Leipzig
 #defaultView:Map{"layer":"?wcourseLabel"}
 SELECT ?br ?brLabel ?wcourse ?wcourseLabel
        (SAMPLE(?coord) AS ?loc) (SAMPLE(?img) AS ?pic)

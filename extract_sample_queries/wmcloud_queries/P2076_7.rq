@@ -1,0 +1,10 @@
+#title: Check units
+# Complex constraint from [[Property talk:P2076]]
+# Unit must to be a [[d:Q2394680|temperature scale <small>(Q2394680)</small>]]
+SELECT ?item ?unit
+WHERE {	
+  ?item p:P2076/psv:P2076/wikibase:quantityUnit ?unit.
+  MINUS {
+    ?unit wdt:P31 wd:Q2394680.
+  }
+}

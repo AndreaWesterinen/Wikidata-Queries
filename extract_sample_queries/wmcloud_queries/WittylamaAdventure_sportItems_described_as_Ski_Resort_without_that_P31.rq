@@ -1,0 +1,30 @@
+SELECT DISTINCT ?item ?instanceLabel ?countryLabel
+WHERE {
+  hint:Query hint:optimizer "None".
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search";
+                    wikibase:endpoint "www.wikidata.org";
+                    mwapi:srsearch "ski resort".
+    ?title wikibase:apiOutput mwapi:title.
+  }
+  BIND(IRI(CONCAT(STR(wd:), ?title)) AS ?item)
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q130003 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q13442814 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q13406463 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q11266439 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q21191270 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q17633526 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q7889 . }
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q3034650 . }
+  FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* wd:Q13409250 . }
+  ?item rdfs:label ?itemLabel.
+  OPTIONAL { ?item schema:description ?itemDescription.
+            }
+  OPTIONAL {?item wdt:P31 ?instance.
+  ?instance rdfs:label ?instanceLabel. filter(lang(?instanceLabel)="en")
+   }
+  OPTIONAL {?item wdt:P17 ?country.
+  ?country rdfs:label ?countryLabel. filter(lang(?countryLabel)="en")
+  }
+  bind(if(CONTAINS(LCASE(?itemLabel), "ski resort")

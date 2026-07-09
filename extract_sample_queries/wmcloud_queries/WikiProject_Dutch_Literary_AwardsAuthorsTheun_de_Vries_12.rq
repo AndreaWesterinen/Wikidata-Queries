@@ -1,0 +1,16 @@
+# URLs where works by Theun de Vries are described
+SELECT distinct ?work ?workLabel ?workDescription
+?authorLabel 
+?describedAtURL
+
+WHERE
+{
+  BIND(wd:Q2143934 as ?author) . #Theun de Vries
+  BIND(wd:Q2143934 as ?translator) . #Theun de Vries
+  {?work wdt:P50 ?author} UNION {?work wdt:P655 ?translator}.
+  OPTIONAL {?work wdt:P973 ?describedAtURL.}
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "nl". 
+  }
+} ORDER BY ASC (?work )

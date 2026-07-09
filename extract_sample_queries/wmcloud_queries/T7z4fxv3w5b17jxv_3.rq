@@ -1,0 +1,11 @@
+embed.html##defaultView:Timeline
+SELECT distinct ?h ?hLabel ?location (CONCAT("injured: ",str(?injured)) as ?injuredl) (concat("dead: ",str(?dead)) as ?deadl) ?date ?image WHERE {
+        ?h wdt:P31/wdt:P279* wd:Q4202290.
+  
+    optional {    ?h wdt:P1339 ?injured . } 
+    optional {    ?h wdt:P1120 ?dead. }
+    optional {    ?h wdt:P276?/wdt:P625 ?location }
+    optional {    ?h wdt:P585 ?date }
+    optional {    ?h wdt:P18 ?image }  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}   order by desc(?date)

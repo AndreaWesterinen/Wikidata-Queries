@@ -1,0 +1,9 @@
+SELECT ?cause ?causeLabel ?count {
+  {
+    SELECT ?cause (COUNT(?statement) AS ?count) WHERE {
+      ?person p:P39 ?statement .
+      ?statement pq:P1534 ?cause
+    } GROUP BY ?cause
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?count)

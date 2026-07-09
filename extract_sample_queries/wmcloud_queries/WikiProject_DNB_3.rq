@@ -1,0 +1,24 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#biographical articles published in DNB00,DNB01,DNB12
+
+SELECT ?DNBentry ?DNBentry_label ?instance ?instancems ?instancems_label ?mainsubject ?mainsubject_label
+WHERE 
+{    	{ ?DNBentry wdt:P1433 wd:Q15987216 . } #DNB00
+  UNION { ?DNBentry wdt:P1433 wd:Q16014700 . } #DNB01
+  UNION { ?DNBentry wdt:P1433 wd:Q16014697 . } #DNB12
+  ?DNBentry wdt:P31 	?instance .
+  #?DNBentry wdt:P31   	wd:Q19389637 .    #instance of: biographical article
+  ?DNBentry 	wdt:P921  	?mainsubject .
+  ?mainsubject 	wdt:P31 	?instancems .
+  OPTIONAL 	{?instancems rdfs:label ?instancems_label filter (lang(?instancems_label) = "en")}
+  FILTER(?instancems != wd:Q5)
+ OPTIONAL 	{?DNBentry rdfs:label ?DNBentry_label filter (lang(?DNBentry_label) = "en")}
+ OPTIONAL 	{?mainsubject rdfs:label ?mainsubject_label filter (lang(?mainsubject_label) = "en")}
+}
+ORDER BY ?instancems_label

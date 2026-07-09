@@ -1,0 +1,13 @@
+#title: Tag:sport
+# Complex constraint from [[Property talk:P1282]]
+# This should be applied to instances of sport type and a few other games/etc. Expand constraint as needed
+SELECT ?item ?itemLabel ?value ?inst ?instLabel ?cl ?clLabel
+{
+  ?item wdt:P1282 ?value .
+  FILTER ( REGEX( STR( ?value ), "Tag:sport=" ) ) .
+  FILTER NOT EXISTS { ?item wdt:P31 wd:Q31629  } .
+  FILTER NOT EXISTS { ?item wdt:P279+ wd:Q349  } .
+  OPTIONAL { ?item wdt:P31 ?inst }
+  OPTIONAL { ?item wdt:P279 ?cl }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}

@@ -1,0 +1,9 @@
+#Cats
+select ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P17 wd:Q218.
+  ?item wdt:P1435 ?any.
+  filter not exists {?item wdt:P31 [].}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

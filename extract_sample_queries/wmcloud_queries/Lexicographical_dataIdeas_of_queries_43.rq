@@ -1,0 +1,8 @@
+SELECT ?l ?lemma ?lang WHERE {
+  ?l a ontolex:LexicalEntry ;
+       dct:language ?lang ;
+       wikibase:lemma ?lemma .
+  minus { ?l ontolex:lexicalForm [] }
+  minus { ?l ontolex:sense [] }
+  ?l wikibase:statements 0 .
+}

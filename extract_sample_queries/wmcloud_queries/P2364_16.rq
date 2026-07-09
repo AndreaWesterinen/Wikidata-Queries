@@ -1,0 +1,18 @@
+#title: Codes that are not mere numbers are generally unique
+# Complex constraint from [[Property talk:P2364]]
+# TODO: fix code or define applicable exceptions
+SELECT (SAMPLE(?item) as ?item)
+	?value 
+	(COUNT(DISTINCT ?item) as ?ct) 
+	(GROUP_CONCAT(DISTINCT(strafter(str(?item), "/entity/"));separator=", ") as ?items)
+	(GROUP_CONCAT(DISTINCT(?itemLabel);separator=" // ") as ?itemLabels)
+	(GROUP_CONCAT(DISTINCT(?seriesLabel);separator=" // ") as ?seriesLabels)
+WHERE
+{
+	?value ^wdt:P2364 ?item .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . ?item rdfs:label ?itemLabel . ?value rdfs:label ?valueLabel  . ?series rdfs:label ?seriesLabel } .
+  	FILTER ( !REGEX(STR(?value), "^\\d{1,4}$")  )
+  	?item wdt:P179 ?series .
+  	FILTER ( ?item not in ( wd:Q4115189,wd:Q13406268,wd:Q15397819 ) )
+}
+GROUP BY ?value HAVING (?ct>1) ORDER BY DESC(?ct) LIMIT 500

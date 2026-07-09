@@ -1,0 +1,7 @@
+SELECT ?item ?sitelink  WHERE {
+  { ?item wdt:P31 wd:Q5 . }
+  { ?item wdt:P21 wd:Q6581097 . }
+  ?sitelink schema:about ?item .
+  ?sitelink schema:isPartOf <https://de.wikipedia.org/> .
+   FILTER NOT EXISTS {?item wdt:P569 [] }     
+  }

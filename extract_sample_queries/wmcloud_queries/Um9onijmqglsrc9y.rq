@@ -1,0 +1,6 @@
+#defaultView:Graph
+SELECT ?item ?itemLabel ?game ?gameLabel ("00FFFF" AS ?rgb) WHERE {
+  ?item wdt:P31 wd:Q33093124.
+  ?item wdt:P1441 ?game.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

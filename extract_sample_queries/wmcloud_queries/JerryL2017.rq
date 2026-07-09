@@ -1,0 +1,10 @@
+SELECT ?Essex_Wildlife_Trust ?Essex_Wildlife_TrustLabel ?area ?official_website ?coordinate_location WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  
+  OPTIONAL {  }
+  ?Essex_Wildlife_Trust wdt:P137 wd:Q5399830.
+  OPTIONAL { ?Essex_Wildlife_Trust wdt:P2046 ?area. }
+  OPTIONAL { ?Essex_Wildlife_Trust wdt:P856 ?official_website. }
+  OPTIONAL { ?Essex_Wildlife_Trust wdt:P625 ?coordinate_location. }
+}
+LIMIT 100

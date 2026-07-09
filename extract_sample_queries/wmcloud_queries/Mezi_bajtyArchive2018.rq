@@ -1,0 +1,4 @@
+SELECT ?item ?label {
+  ?item wdt:P106 wd:Q2083978; rdfs:label ?label FILTER( LANG( ?label ) = 'en' ) .
+  MINUS { ?item rdfs:label ?_label FILTER( LANG( ?_label ) = 'cs' ) } .
+}

@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel (COUNT(distinct ?sitelink) as ?count)
+WHERE
+{
+	?item wdt:P31 wd:Q5 .
+	?item wdt:P106 wd:Q16029547 .
+	?sitelink schema:about ?item .
+	FILTER not EXISTS { ?item wdt:P2459 ?dummy }
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "lv,en" .
+	}
+}
+GROUP BY ?item ?itemLabel 
+ORDER BY DESC(?count)

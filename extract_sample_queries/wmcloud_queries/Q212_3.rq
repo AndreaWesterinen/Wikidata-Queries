@@ -1,0 +1,11 @@
+#title: Ukraina is used as nationality for people dead before 1991-08-24
+# Complex constraint from [[Property talk:Q212]]
+# Items with [[Property:P27|country of citizenship&#32;<small dir="ltr">(P27)</small>]] equal to [[d:Q212|Ukraine <small>(Q212)</small>]] and [[Property:P570|date of death&#32;<small dir="ltr">(P570)</small>]] before 1991-08-24
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P27 wd:Q212 .
+  ?item p:P570/psv:P570 ?node .
+  ?node wikibase:timeValue ?born .
+  ?node wikibase:timePrecision ?precision .
+  FILTER (?born < "1991-08-24T00:00:00Z"^^xsd:dateTime)
+  FILTER (?precision >= "9"^^xsd:integer)
+}

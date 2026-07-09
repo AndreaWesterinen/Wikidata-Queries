@@ -1,0 +1,7 @@
+SELECT ?country ?countryLabel (COUNT(?country) AS ?missing_es_descriptions) WHERE {
+  ?item wdt:P106/wdt:P279* wd:Q26270618; wdt:P27 ?country .
+  FILTER NOT EXISTS { ?item wdt:P106 ?occupation . FILTER(?occupation != wd:Q13382576) }
+  OPTIONAL { ?item schema:description ?description . FILTER(LANG(?description) = 'es') }
+  FILTER(!BOUND(?description)) .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+} GROUP BY ?country ?countryLabel ORDER BY DESC(?missing_es_descriptions)     

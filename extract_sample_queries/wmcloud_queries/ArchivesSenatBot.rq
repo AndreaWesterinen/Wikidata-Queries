@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel ?prenomLabel ?nomLabel ?idSenat WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P39 wd:Q20177062 .
+  OPTIONAL { ?item wdt:P735 ?prenom . }
+  OPTIONAL { ?item wdt:P734 ?nom . }
+  OPTIONAL {
+    ?item wdt:P1808 ?idSenat .
+    FILTER(STRSTARTS(?idSenat, "senateur-communaute")) .
+    }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" . }
+} ORDER BY ?nomLabel

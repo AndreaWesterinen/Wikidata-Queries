@@ -1,0 +1,9 @@
+embed.html##defaultView:Graph
+SELECT ?taxon ?taxonLabel ?taxonName ?linkTo ?linkToLabel ?linkToName WHERE {
+  BIND(wd:Q230177 AS ?root)
+  ?taxon wdt:P171 ?linkTo;
+         wdt:P225 ?taxonName.
+  ?linkTo wdt:P171* ?root;
+          wdt:P225 ?linkToName.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

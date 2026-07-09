@@ -1,0 +1,10 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+#Lexemes in Spanish: ranking of lemmata with most senses
+select ?lexemeId ?lemma (count (?sense) as ?senses)  WHERE {
+    ?lexemeId <http://purl.org/dc/terms/language> wd:Q1321;
+            wikibase:lemma ?lemma;
+			#wikibase:lexicalCategory ?category;
+		    ontolex:sense ?sense.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "eu". }
+ } group by ?lexemeId ?lemma ?senses order by desc(?senses)

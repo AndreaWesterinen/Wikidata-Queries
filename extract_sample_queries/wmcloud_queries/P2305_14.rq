@@ -1,0 +1,10 @@
+#title: Items of an "allowed units constraint" must be units of measurement
+# Complex constraint from [[Property talk:P2305]]
+# The only allowed values for the [[Property:P2305|item of property constraint&#32;<small dir="ltr">(P2305)</small>]] qualifier to [[d:Q21514353|allowed units constraint <small>(Q21514353)</small>]] are instances of [[d:Q47574|unit of measurement <small>(Q47574)</small>]] or instances of a subclass of [[d:Q47574|unit of measurement <small>(Q47574)</small>]]. Use [[Property:P518|applies to part&#32;<small dir="ltr">(P518)</small>]], [[Property:P6001|applies to people&#32;<small dir="ltr">(P6001)</small>]] or other similar qualifiers to distinguish counts.
+SELECT ?item ?itemLabel ?unit ?unitLabel WHERE {
+  ?item p:P2302 [ps:P2302 wd:Q21514353; pq:P2305 ?unit ].
+  MINUS { ?unit wdt:P2442 []. }
+  MINUS { ?unit wdt:P279* wd:Q8142. }
+  MINUS { ?unit wdt:P31/wdt:P279* wd:Q47574. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

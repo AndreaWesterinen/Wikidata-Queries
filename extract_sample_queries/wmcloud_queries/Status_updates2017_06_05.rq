@@ -1,0 +1,14 @@
+# number of citizens with “blood type” statements per country
+# runtime: 0.5-1 s
+SELECT ?countryLabel ?count WITH {
+  SELECT ?country (COUNT(DISTINCT ?human) AS ?count) WHERE {
+    ?human wdt:P31 wd:Q5;
+           wdt:P27 ?country;
+           wdt:P1853 ?bloodType.
+  }
+  GROUP BY ?country
+} AS %results WHERE {
+  INCLUDE %results.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY DESC(?count)

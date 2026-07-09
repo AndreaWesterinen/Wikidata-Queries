@@ -1,0 +1,8 @@
+#title: Non-Deprecated Elo rating after date of death
+# Complex constraint from [[Property talk:P1087]]
+# date of rating > date of death and normal or preferred rank
+SELECT DISTINCT ?item {
+  ?item p:P1087 [ pq:P585 ?date; wikibase:rank ?rank ]; wdt:P570 ?dod .
+  FILTER(?rank != wikibase:DeprecatedRank) .
+  FILTER(?date > ?dod) .
+}

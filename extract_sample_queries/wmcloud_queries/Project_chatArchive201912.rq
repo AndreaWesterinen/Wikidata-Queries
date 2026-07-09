@@ -1,0 +1,10 @@
+SELECT ?MeSHcode ?code ?item ?itemLabel  ?sitelinkEn ?sitelinkEs{
+  OPTIONAL {?item wdt:P486 ?MeSHcode .} #icd
+  #?item wdt:P1692 ?code . #icd
+  #?item wdt:P1692 ?code . #
+  #?item wdt:P31 wd:Q2671652 . #medical test
+  ?item wdt:P31 wd:Q15636229 . #surg proc
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?sitelinkEn schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> 
+  OPTIONAL { ?sitelinkEs schema:about ?item ; schema:isPartOf <https://es.wikipedia.org/> }
+  }

@@ -1,0 +1,25 @@
+SELECT DISTINCT ?item ?itemLabel ?cities ?position ?electoraldistrict ?edtype ?starttime ?parliametarygroup ?parliametaryterm ?fbid WHERE { 
+    ?cities wdt:P31/wdt:P279* wd:Q515 .
+    ?cities wdt:P17 wd:Q408 .
+    MINUS {?cities wdt:P31/wdt:P279* wd:Q10864048 }
+    ?cities wdt:P1313 ?head ;
+            wdt:P194 ?council .
+    ?council wdt:P1001 ?cities .
+    ?member wdt:P361 ?council ;
+            wdt:P279* wd:Q708492 .
+    MINUS {?member wdt:P576 [] }
+    MINUS { ?region wdt:P576 [] }
+    MINUS { ?council wdt:P576 [] }
+    ?node ps:P39 ?member .
+    OPTIONAL { ?node pq:P4100 ?parliametarygroup }
+    OPTIONAL { ?node pq:P2937 ?parliametaryterm }
+    OPTIONAL { ?node pq:P580 ?starttime }
+    OPTIONAL { ?node pq:P768 ?electoraldistrict .
+               ?electoraldistrict wdt:P31 ?edtype }
+    MINUS { ?node pq:P582 []}
+    ?node ps:P39 ?position .
+    ?item p:P39 ?node .
+    OPTIONAL { ?item wdt:P2013 ?fbid }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY ?item

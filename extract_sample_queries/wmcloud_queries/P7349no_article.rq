@@ -1,0 +1,28 @@
+SELECT ?item ?GfS_link ?odnb_link ?dnb_link WHERE {
+       ?item wdt:P7349 ?id. 
+    MINUS {
+       ?article schema:about ?item .
+       ?article schema:isPartOf <https://en.wikipedia.org/>.
+    }
+    wd:P7349 wdt:P1630 ?fmt .
+    BIND(IRI(REPLACE(?fmt, '\\$1'  , ?id)) AS ?url) .
+    BIND(CONCAT('[',str($url), ' ', $id,']') AS ?GfS_link) .
+
+    OPTIONAL {
+       ?item wdt:P1415 ?odnb. 
+        wd:P1415 wdt:P1630 ?odnb_fmt .
+        BIND(IRI(REPLACE(?odnb_fmt, '\\$1'  , ?odnb)) AS ?odnb_url) .
+        BIND(CONCAT('[',str($odnb_url), ' ', $odnb,']') AS ?odnb_link) .
+    }
+
+    OPTIONAL {
+        VALUES ?old_dnb {wd:Q15987216 wd:Q16014700 wd:Q16014697} .
+        ?item p:P1343 ?source_stmt .
+        ?source_stmt ps:P1343 ?old_dnb .
+        ?source_stmt pq:P805 ?artQ .
+        ?dnb_url schema:about ?artQ .
+        ?dnb_url schema:isPartOf <https://en.wikisource.org/>.
+        BIND(CONCAT('[',str($dnb_url), ' ', 'Old DNB',']') AS ?dnb_link) .
+    }
+
+}

@@ -1,0 +1,7 @@
+SELECT   *
+WHERE
+{
+    ?item wdt:P4970 [] .
+}
+ORDER BY DESC(xsd:integer(SUBSTR(STR(?item),33)))
+LIMIT 10

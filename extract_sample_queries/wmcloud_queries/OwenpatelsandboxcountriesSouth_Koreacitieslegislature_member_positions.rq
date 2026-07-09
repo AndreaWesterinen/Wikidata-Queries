@@ -1,0 +1,11 @@
+SELECT DISTINCT ?cities ?population ?item WHERE { 
+  VALUES ?citytypes {wd:Q29045219 wd:Q482821 wd:Q16181672 wd:Q4249901 wd:Q29045252}
+  ?cities wdt:P31 ?citytypes .
+  MINUS {?cities wdt:P31/wdt:P279* wd:Q10864048 }
+  ?cities wdt:P1082 ?population .
+  FILTER (?population > 250000) .
+  OPTIONAL {?cities wdt:P194 ?council .
+  OPTIONAL { ?council wdt:P527 ?item
+  MINUS { ?item wdt:P576 [] } }
+  }
+}

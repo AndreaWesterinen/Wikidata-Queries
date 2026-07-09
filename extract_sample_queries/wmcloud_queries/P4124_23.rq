@@ -1,0 +1,10 @@
+#title: Suggestion: under 19 year old
+# Complex constraint from [[Property talk:P4124]]
+#
+SELECT ?item ?born ?diff {
+  ?item wdt:P4124 ?value .
+  ?item wdt:P569 ?born.
+  BIND (YEAR(NOW()) - YEAR(?born) AS ?diff)
+  FILTER (?diff < 19)
+}
+ORDER BY DESC (?born)

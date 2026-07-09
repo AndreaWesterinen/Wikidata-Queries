@@ -1,0 +1,18 @@
+SELECT ?item (round(avg(?dif)*1000)/1000 AS ?average) (count(?dif) AS ?total) (round(avg(?count)*10)/10 AS ?count)
+WITH {
+  SELECT ?film (avg(?age0) as ?age) ?item
+  WHERE {
+    [] wdt:P31/wdt:P279* wd:Q24716199; wikibase:directClaim ?p; wdt:P17 ?item .
+    ?film wdt:P31/wdt:P279* wd:Q11424; ?p [ wdt:P2899 ?age0 ]
+  } GROUP BY ?film ?item
+} AS %films
+WHERE {
+  INCLUDE %films
+  {
+    SELECT ?film (avg(?age) AS ?avg) (count(?item)-1 as ?count)
+    WHERE {
+      INCLUDE %films
+    } GROUP BY ?film HAVING (?count > 0)
+  } 
+  BIND (?age-?avg AS ?dif)
+} GROUP BY ?item

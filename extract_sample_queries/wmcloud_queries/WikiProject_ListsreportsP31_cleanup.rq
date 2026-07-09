@@ -1,0 +1,1 @@
+SELECT ?item ?p31 {  { ?item wdt:P31 wd:Q13406463 ; wdt:P31 ?p31 . FILTER( ?p31 in ( wd:Q4167410 , wd:Q4167836 ) ) } UNION { BIND(wd:Q884375 as ?item) } } LIMIT 2000

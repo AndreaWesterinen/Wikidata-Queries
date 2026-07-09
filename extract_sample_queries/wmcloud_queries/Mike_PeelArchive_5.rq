@@ -1,0 +1,7 @@
+#title: Unreferenced Wikimedia username statements
+# 2021-09-26: 1020 results
+SELECT ?n ?itemLabel WHERE {
+  ?item p:P4174 ?n .
+  MINUS { ?n prov:wasDerivedFrom ?ref . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,5 @@
+select distinct (?l as ?item) (concat("[[Lexeme:", replace(str(?l), str(wd:), ""), "|", replace(str(?l), str(wd:), ""), "]]") as ?l_) ?lemma ?len {
+  ?l dct:language wd:Q188;
+     wikibase:lemma ?lemma.
+  filter (regex(lcase(str(?lemma)), "[b-df-hj-np-tv-zß]{7}")).
+  bind (replace(lcase(str(?lemma)), ".*(?<=[^b-df-hj-np-tv-zß]

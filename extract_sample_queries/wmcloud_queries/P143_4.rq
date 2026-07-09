@@ -1,0 +1,1 @@
+select (count(*) as ?total) { ?s prov:wasDerivedFrom/pr:P143 wd:Q936287 }

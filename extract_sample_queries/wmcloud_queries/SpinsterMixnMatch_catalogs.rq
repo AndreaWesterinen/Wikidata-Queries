@@ -1,0 +1,4 @@
+SELECT ?item ?mnm_id ?source WHERE {
+  ?item wdt:P1629 ?source .
+  ?item wdt:P2264 ?mnm_id
+}

@@ -1,0 +1,20 @@
+SELECT ?count ?item ?item_label ?commonscat_link
+
+WITH {
+  SELECT (COUNT(DISTINCT(?file)) AS ?count) ?item WHERE {
+     ?file wdt:P6243 ?item . 
+  } GROUP BY ?item
+  ORDER BY DESC(?count)
+  LIMIT 200
+} AS %items
+
+WHERE {
+  INCLUDE %items . 
+  service <https://query.wikidata.org/sparql> {
+    OPTIONAL {?item rdfs:label ?item_label FILTER (lang(?item_label) = 'en') } .
+    OPTIONAL {
+      ?item wdt:P373 ?commonscat .
+      BIND(IRI(CONCAT("https://commons.wikimedia.org/wiki/Category:", ?commonscat)) AS ?commonscat_link) .
+    }
+  }
+} ORDER BY DESC(?count) ?item_label

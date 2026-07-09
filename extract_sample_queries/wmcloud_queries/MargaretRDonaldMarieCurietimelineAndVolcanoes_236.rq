@@ -1,0 +1,19 @@
+#People born >1800 ordered by the number of sitelinks
+SELECT ?person ?personLabel ?born ?sitelinks
+WITH {
+  SELECT *
+  WHERE {
+    #?person wdt:P31 wd:Q5;
+    ?person wdt:P108 wd:Q769416;
+            wdt:P569 ?born.
+    FILTER (?born >= "1800-01-01T00:00:00Z"^^xsd:dateTime )
+    ?person wikibase:sitelinks ?sitelinks.
+  }
+  ORDER BY desc(?sitelinks)
+  LIMIT 100
+} AS %i
+WHERE {
+  INCLUDE %i
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" . }
+}
+ORDER BY desc(?sitelinks)

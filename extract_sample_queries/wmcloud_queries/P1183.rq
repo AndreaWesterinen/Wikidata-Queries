@@ -1,0 +1,4 @@
+select ?country (count(?country) as ?count) where {
+?item wdt:P1183 ?id .
+bind(replace(?id, "/.*", "") as ?country) .
+} group by ?country order by desc(?count)

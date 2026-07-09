@@ -1,0 +1,7 @@
+#defaultView:Graph
+SELECT ?q ?qLabel ?r ?rLabel ?edgeLabel WHERE {
+  wd:Q26456 ( wdt:P40 | ^ wdt:P40 | wdt:P802 | ^wdt:P802 )* ?q .
+  ?q ?re ?r .
+  VALUES ( ?re ?edgeLabel ) { ( wdt:P40 'child' ) ( wdt:P802 'student' ) }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "he". }
+}

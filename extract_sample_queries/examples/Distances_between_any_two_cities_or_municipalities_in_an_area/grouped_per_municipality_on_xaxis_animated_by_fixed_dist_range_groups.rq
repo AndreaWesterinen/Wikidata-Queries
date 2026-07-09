@@ -1,3 +1,4 @@
+#title: Distances between municipalities in an area, grouped per municipality on x-axis, animated by fixed dist range groups
 #defaultView:ScatterChart
 PREFIX var_muntype: <http://www.wikidata.org/entity/Q15284>
 PREFIX var_area: <http://www.wikidata.org/entity/Q6308>

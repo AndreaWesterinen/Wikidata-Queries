@@ -1,0 +1,9 @@
+#title: Check date of birth
+# Complex constraint from [[Property talk:P7974]]
+#
+SELECT ?item ?born ?AN {
+  ?item wdt:P7974 ?value.
+  ?item wdt:P569 ?born.
+  BIND (YEAR(?born) AS ?AN)
+  FILTER (?AN < 1753)
+}

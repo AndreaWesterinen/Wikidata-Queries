@@ -1,0 +1,6 @@
+#title: Signature != logotype
+# Complex constraint from [[Property talk:P109]]
+# Same value in [[Property:P109|signature&#32;<small dir="ltr">(P109)</small>]] and [[Property:P154|logo image&#32;<small dir="ltr">(P154)</small>]]
+SELECT ?item ?i {
+  ?item wdt:P109 ?i; wdt:P154 ?i.
+}

@@ -1,0 +1,8 @@
+SELECT ?item  (COUNT(DISTINCT ?sitelink) AS ?linkcount) WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P21 wd:Q6581072 .
+  MINUS { ?item p:P106 [] . ?item p:P569 [] . ?item p:P19 [] } .
+  ?article schema:about ?item .
+  ?article schema:isPartOf <https://nl.wikipedia.org/>
+}  GROUP BY ?item HAVING (?linkcount <= 3)
+LIMIT 500

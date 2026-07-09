@@ -1,0 +1,7 @@
+#title: Items with MCCP inventory number missing identifier
+# Complex constraint from [[Property talk:P10760]]
+# Items that have an [[Property:P217|inventory number&#32;<small dir="ltr">(P217)</small>]] in [[d:Q1053735|Munich Central Collecting Point <small>(Q1053735)</small>]], but [[Property:P10760|MCCP ID&#32;<small dir="ltr">(P10760)</small>]] is missing
+SELECT ?item ?id WHERE {
+ ?item p:P217 [ ps:P217 ?id ; pq:P195 wd:Q1053735 ] 
+  MINUS { ?item wdt:P10760 ?id } .
+  }

@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel
+WHERE
+{
+?item p:P776 ?statement.
+OPTIONAL { ?item wdt:P1082 ?dummy0. }
+FILTER(!BOUND(?dummy0))
+SERVICE wikibase:label { bd:serviceParam wikibase:language "sv" }
+}

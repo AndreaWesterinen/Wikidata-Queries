@@ -1,0 +1,10 @@
+#defaultView:Map
+SELECT ?item ?itemLabel (group_concat(distinct ?countryL ; separator = ", ") as ?countries) (SAMPLE(?coords) AS ?coords) WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q27345018 .
+  ?item wdt:P625 ?coords .
+  ?item wdt:P17 ?country .
+  ?country rdfs:label ?countryL filter (lang(?countryL) = "en") .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} 
+GROUP BY ?item ?itemLabel 
+ORDER BY ?countries 

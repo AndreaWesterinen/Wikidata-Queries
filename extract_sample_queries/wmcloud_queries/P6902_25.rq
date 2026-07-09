@@ -1,0 +1,11 @@
+#title: items for Emperors of Japan would have this property
+# Complex constraint from [[Property talk:P6902]]
+#
+SELECT ?item ?d
+{
+	?item wdt:P39 wd:Q208233 . 
+    MINUS { ?item wdt:P6902 [] } 
+    OPTIONAL { ?item wdt:P570 ?d  }
+}
+ORDER BY DESC(?d) 
+LIMIT 50

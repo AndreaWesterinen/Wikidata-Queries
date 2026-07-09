@@ -1,0 +1,8 @@
+#title: P31 missing on a biography
+# Complex constraint from [[Property talk:P1417]]
+#
+SELECT ?item ?value {
+	?item p:P1417 [ ps:P1417 ?value ].
+	FILTER( REGEX( STR( ?value ), "^(biography\\/[^\\s\\/]+)$" ) ) .
+    FILTER NOT EXISTS { ?item wdt:P31 ?e }
+}

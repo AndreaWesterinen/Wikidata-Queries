@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?party ?district ?districtLabel ?start ?end
+WHERE 
+{
+  ?item p:P39 ?statement .
+  ?statement ps:P39 [ wdt:P279* wd:Q16556694 ]; pq:P2937 wd:Q3521642 .
+  OPTIONAL { ?statement pq:P580 ?start }
+  OPTIONAL { ?statement pq:P582 ?end }
+  OPTIONAL { ?statement pq:P768 ?district }
+  OPTIONAL { ?statement pq:P4100 ?party }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?districtLabel ?itemLabel

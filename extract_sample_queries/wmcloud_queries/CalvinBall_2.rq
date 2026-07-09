@@ -1,0 +1,7 @@
+SELECT DISTINCT ?name ?nameLabel
+WHERE {
+  VALUES ?occ {wd:Q937283}
+?name wdt:P106/wdt:P279* ?occ.
+FILTER NOT EXISTS{?name wdt:P21 wd:Q6581097.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

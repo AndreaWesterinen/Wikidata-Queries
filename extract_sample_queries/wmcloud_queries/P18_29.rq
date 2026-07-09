@@ -1,0 +1,6 @@
+embed.html#SELECT ?item ?itemLabel (YEAR(?inception) as ?year) ?image WHERE {
+?item wdt:P170 wd:Q5603.
+?item wdt:P571 ?inception. 
+OPTIONAL {?item wdt:P18 ?image .}
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

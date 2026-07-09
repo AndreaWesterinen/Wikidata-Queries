@@ -1,0 +1,15 @@
+SELECT DISTINCT ?given ?name ?givenLabel ?nameLabel
+WHERE
+{
+ ?name	wdt:P31 wd:Q101352 ;
+ wdt:P31 ?nature ;
+		rdfs:label ?label .
+ ?given wdt:P31/wdt:P279* wd:Q202444 ;
+ wdt:P31 ?nature2 ;
+ rdfs:label ?label .
+ FILTER (lang(?label) = "en").
+ FILTER NOT EXISTS { ?given wdt:P1533 ?name .}
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" .}
+}GROUP BY ?given ?name ?givenLabel ?nameLabel
+HAVING((COUNT(?nature) = 1) && (COUNT(?nature2) = 1))
+LIMIT 5000

@@ -1,0 +1,14 @@
+#title: Signature without important information about the person
+# Complex constraint from [[Property talk:P109]]
+# Please add informations ([[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]], [[Property:P39|position held&#32;<small dir="ltr">(P39)</small>]], [[Property:P26|spouse&#32;<small dir="ltr">(P26)</small>]], ...)
+SELECT ?item ?i {
+  ?item wdt:P109 [].
+  FILTER NOT EXISTS { ?item wdt:P106 [] }.
+  FILTER NOT EXISTS { ?item wdt:P39 [] }.
+  FILTER NOT EXISTS { ?item wdt:P26 [] }.
+  FILTER NOT EXISTS { ?item wdt:P40 [] }.
+  FILTER NOT EXISTS { ?item wdt:P166 [] }.
+  FILTER NOT EXISTS { ?item wdt:P119 [] }.
+  FILTER NOT EXISTS { ?item wdt:P18 [] }.
+  FILTER NOT EXISTS { ?item wdt:P21 [] }.
+}

@@ -1,0 +1,15 @@
+SELECT ?item WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31*/wdt:P279* wd:Q205143.
+  ?item wdt:P31/wdt:P279* wd:Q34770.
+  OPTIONAL { ?item wdt:P220 ?ISO639_3. }
+  OPTIONAL { ?item wdt:P1252 ?AUSTLANG. }
+  OPTIONAL { ?item wdt:P1251 ?ASCL2011. }
+  OPTIONAL { ?item wdt:P6915 ?Gambay. }
+  OPTIONAL { ?item wdt:P1394 ?Glottolog. }
+  OPTIONAL { ?item wdt:P1627 ?Ethnologue. }
+  OPTIONAL { ?item wdt:P2192 ?end_lang. }
+  OPTIONAL { ?item wdt:P1466 ?WALS. }
+  OPTIONAL { ?item wdt:P305 ?IETF. }
+}
+GROUP BY ?item ?itemLabel ?ISO639_3 ?AUSTLANG ?ASCL2011 ?Gambay ?Glottolog ?Ethnologue ?end_lang ?WALS ?IETF

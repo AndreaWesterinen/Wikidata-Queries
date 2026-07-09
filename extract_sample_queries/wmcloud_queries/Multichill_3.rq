@@ -1,0 +1,21 @@
+SELECT DISTINCT ?item ?itemLabel
+{
+	{ ?item wdt:P245 [] } UNION
+    { ?item wdt:P650 [] } UNION
+    { ?item wdt:P781 [] } UNION
+    { ?item wdt:P1138 [] } UNION
+    { ?item wdt:P1367 [] } UNION
+    { ?item wdt:P1615 [] } UNION
+    { ?item wdt:P1707 [] } UNION
+    { ?item wdt:P1795 [] } UNION
+    { ?item wdt:P2041 [] } UNION
+    { ?item wdt:P2042 [] } UNION
+    { ?item wdt:P2174 [] } UNION
+    { ?item wdt:P2252 [] } UNION
+    { ?item wdt:P2268 [] } UNION
+    { ?item wdt:P2342 [] } UNION
+    { ?item wdt:P1472 [] }
+	MINUS { ?item wdt:P31 [] } .
+    MINUS { ?item wdt:P279 [] } .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en,en" }
+}

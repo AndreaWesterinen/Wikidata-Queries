@@ -1,0 +1,10 @@
+embed.html##defaultView:Map
+SELECT ?item ?itemLabel ?countryLabel ?territorialEntityLabel ?placeLabel ?coords ?image WHERE {
+  ?item wdt:P31 wd:Q1151014 . 
+  OPTIONAL { ?item wdt:P17 ?country . } 
+  OPTIONAL { ?item wdt:P131 ?territorialEntity . }
+  OPTIONAL { ?item wdt:P625 ?coords . }
+  OPTIONAL { ?item wdt:P276 ?place . }
+  OPTIONAL { ?item wdt:P18 ?image . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?countryLabel ?territorialEntityLabel ?itemLabel

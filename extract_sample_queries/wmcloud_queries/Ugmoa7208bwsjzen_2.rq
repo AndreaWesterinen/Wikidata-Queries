@@ -1,0 +1,28 @@
+SELECT ?project ?femaleArticles ?allArticles ?percentFemale
+WITH {
+  SELECT ?project (COUNT(DISTINCT ?article) AS ?femaleArticles) WHERE {
+    ?article schema:isPartOf ?project;
+             schema:about ?item.
+    ?project wikibase:wikiGroup "wikipedia".
+    ?item wdt:P31 wd:Q5;
+          wdt:P21/wdt:P279* wd:Q6581072;
+          wdt:P106/wdt:P279* wd:Q901.
+  }
+  GROUP BY ?project
+} AS <fe>maleArticles
+WITH {
+  SELECT ?project (COUNT(DISTINCT ?article) AS ?allArticles) WHERE {
+    ?article schema:isPartOf ?project;
+             schema:about ?item.
+    ?project wikibase:wikiGroup "wikipedia".
+    ?item wdt:P31 wd:Q5;
+          wdt:P106/wdt:P279* wd:Q901.
+  }
+  GROUP BY ?project
+} AS <b5>lArticles
+WHERE {
+  INCLUDE <fe>maleArticles.
+  INCLUDE <b5>lArticles.
+  BIND(100*?femaleArticles/?allArticles AS ?percentFemale)
+}
+ORDER BY DESC(?femaleArticles)

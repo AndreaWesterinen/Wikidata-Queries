@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?hoofdvestiging ?hoofdvestigingLabel ?kvk ?open ?land ?landLabel ?rechtsvormLabel ?iseenLabel WHERE {
+  ?item wdt:P9152 [].
+  ?item wdt:P159 ?hoofdvestiging.
+  ?item wdt:P31 ?iseen.
+  ?hoofdvestiging wdt:P17 ?land.
+
+  OPTIONAL {?item wdt:P3220 ?kvk.}
+  OPTIONAL {?item wdt:P1320 ?open.}
+  OPTIONAL {?item wdt:P1454 ?rechtsvorm.}
+  MINUS {  ?item wdt:P17 ?land.}
+  MINUS {  ?item wdt:P31 wd:Q5.}
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "nl" .}
+  
+  }

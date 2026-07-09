@@ -1,0 +1,5 @@
+SELECT ?person ?personLabel ?jaiotza_data WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?person wdt:P19 wd:Q1598962.
+  ?person wdt:P569 ?jaiotza_data.
+}

@@ -1,0 +1,26 @@
+embed.html##defaultView:Map
+# Carte des pays selon la ville de naissance du créateur de la peinture ayant le plus de liens Wikimedia 
+SELECT DISTINCT ?q ?qLabel ?nb ?pays ?paysLabel ?loc ?image WHERE {
+	{
+    	SELECT (MAX(?nb) AS ?nb) ?pays WHERE {
+            ?q (wdt:P31/wdt:P279*) wd:Q3305213 .
+            ?q wdt:P170 ?crea.
+            ?crea wdt:P19 ?villenaissance .
+            ?villenaissance wdt:P17 ?pays.
+            ?q wikibase:sitelinks ?nb
+		}
+		GROUP BY ?pays 
+        HAVING (?nb>1)
+		ORDER BY DESC(?nb)
+	}
+	?q wdt:P31/wdt:P279* wd:Q3305213 .
+    ?q wdt:P170 ?crea.
+    ?crea wdt:P19 ?villenaissance .
+    ?villenaissance wdt:P17 ?pays.
+    OPTIONAL{?q wdt:P18 ?image .}
+    ?q wikibase:sitelinks ?nb .
+	?pays wdt:P625 ?loc .
+    SERVICE wikibase:label { #BabelRainbow
+      bd:serviceParam wikibase:language "fr,en,ar,be,bg,bn,ca,cs,da,de,el,es,et,fa,fi,he,hi,hu,hy,id,it,ja,jv,ko,nb,nl,eo,pa,pl,pt,ro,ru,sh,sk,sr,sv,sw,te,th,tr,uk,yue,vec,vi,zh". 
+    }
+}

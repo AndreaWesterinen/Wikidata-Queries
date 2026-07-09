@@ -1,0 +1,12 @@
+# Zginęli na K2
+SELECT ?himalaista ?himalaistaLabel ?data ?plecLabel ?ilustracja
+WHERE 
+{
+  ?himalaista wdt:P20 wd:Q43512 ;
+        wdt:P570 ?data ;
+        wdt:P21 ?plec .
+  OPTIONAL {?himalaista wdt:P18 ?ilustracja .}
+        
+        
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

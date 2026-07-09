@@ -1,0 +1,6 @@
+# number of main subject (P921) statements
+# runtime: instantaneous
+SELECT (COUNT(DISTINCT ?item) AS ?count) WHERE { 
+  ?item wdt:P921 ?topic .  
+  ?topic wdt:P31 wd:Q16521 .
+}

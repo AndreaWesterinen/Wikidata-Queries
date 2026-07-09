@@ -1,0 +1,15 @@
+SELECT ?item ?enLabel ?nlLabel 
+
+WHERE {
+
+  ?item wdt:P279* wd:Q18616576 .
+  
+  ?item rdfs:label ?enLabel FILTER (lang(?enLabel) = "en") .
+  
+  ?item rdfs:label ?nlLabel FILTER (lang(?nlLabel) = "nl") .
+  
+  
+  FILTER (!BOUND(?nlLabel))
+  
+  FILTER (STRSTARTS(?enLabel,"Wikidata property"))
+}

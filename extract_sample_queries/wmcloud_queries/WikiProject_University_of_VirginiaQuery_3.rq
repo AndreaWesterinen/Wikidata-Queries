@@ -1,0 +1,4 @@
+SELECT (SUM(?count) as ?total) WHERE {
+?item wdt:P953 ?url FILTER(CONTAINS(STR(?url), "virginia.edu"))
+?item wikibase:statements ?count.
+} 

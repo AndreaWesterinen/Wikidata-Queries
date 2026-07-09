@@ -1,0 +1,7 @@
+#Timeline of mayors of Amsterdam, the Netherlands
+#defaultView:Table
+select ?藝術家 ?itemLabel where {
+  ?藝術家 wdt:P31 wd:Q5;
+        wdt:P1416 wd:Q63270898;
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],zh". }
+}

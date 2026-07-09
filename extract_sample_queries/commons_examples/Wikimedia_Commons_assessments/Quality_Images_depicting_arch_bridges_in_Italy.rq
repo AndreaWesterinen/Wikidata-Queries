@@ -1,0 +1,19 @@
+#shows files that depict arch bridges in Italy and with the Quality Image assessment 
+#defaultView:ImageGrid
+SELECT ?file ?image
+
+WITH {
+  SELECT ?item WHERE {
+    SERVICE <https://query.wikidata.org/sparql> {
+      ?item wdt:P31 wd:Q158438 .
+      ?item wdt:P17 wd:Q38 .
+    }
+  }
+} AS %get_items
+
+WHERE {
+  INCLUDE %get_items
+  ?file wdt:P180 ?item .
+  ?file schema:url ?image .
+  ?file wdt:P6731 wd:Q63348069 .
+}

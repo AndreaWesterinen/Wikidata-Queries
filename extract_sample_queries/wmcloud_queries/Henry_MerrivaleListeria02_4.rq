@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?sl
+WHERE {
+  ?item wdt:P1343 wd:Q17378135; wdt:P21 wd:Q6581097; wdt:P31 wd:Q5; wikibase:sitelinks ?sl .
+
+  #FILTER NOT EXISTS { [] schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> }
+  MINUS { ?wru schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> . }
+  FILTER ( ?sl > 1 )
+  #SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en" .  }
+}

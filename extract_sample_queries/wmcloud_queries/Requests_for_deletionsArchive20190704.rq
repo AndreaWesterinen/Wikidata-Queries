@@ -1,0 +1,6 @@
+SELECT ?book ?bookLabel ?depicts ?depictsLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?book wdt:P31 wd:Q571.
+  ?book wdt:P180 ?depicts.
+}
+LIMIT 100

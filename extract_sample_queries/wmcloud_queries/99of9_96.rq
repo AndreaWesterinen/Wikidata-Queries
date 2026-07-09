@@ -1,0 +1,11 @@
+SELECT ?item ?label ?title WHERE {
+  
+  ?item wdt:P31 wd:Q56731284;
+        wdt:P1476 ?title;
+        rdfs:label ?label
+  filter(lang(?label) = 'it' || lang(?label) = 'en')
+
+  
+  FILTER(str(?label)!=str(?title))
+}
+LIMIT 100

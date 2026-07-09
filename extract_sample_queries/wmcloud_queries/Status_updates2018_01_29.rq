@@ -1,0 +1,9 @@
+#defaultView:Map
+SELECT DISTINCT ?subjectLabel ?coord ?image  ?height ?subject WHERE {
+ ?subject wdt:P31/wdt:P279* wd:Q41176 .
+ ?subject wdt:P2048 ?height FILTER (?height > 300) 
+ OPTIONAL {?subject wdt:P729 ?time .}
+ OPTIONAL {?subject wdt:P18 ?image .}
+ OPTIONAL {?subject wdt:P625 ?coord .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en, fr" }
+}

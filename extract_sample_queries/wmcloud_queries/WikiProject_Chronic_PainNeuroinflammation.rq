@@ -1,0 +1,6 @@
+SELECT ?item ?title WHERE {
+  ?item wdt:P31 wd:Q191067.
+  ?item wdt:P921 wd:Q57706422.
+  OPTIONAL { ?item wdt:P1476 ?title. }
+}
+LIMIT 100

@@ -1,0 +1,7 @@
+SELECT (concat(str((?decade-1)*10),"-",str((?decade)*10)) AS ?decade) (count(DISTINCT ?lang) as ?count)
+WHERE {
+  ?lang wdt:P31/wdt:P279* wd:Q9143;
+        wdt:P571 ?day.
+  BIND( CEIL(year(?day)/10) as ?decade ).
+}
+GROUP by ?decade

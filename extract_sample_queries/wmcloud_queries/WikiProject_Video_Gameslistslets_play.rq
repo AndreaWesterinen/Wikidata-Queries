@@ -1,0 +1,11 @@
+SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?value; separator=" ") as ?let's play)
+{
+	{ ?item p:P1651 ?statement . ?statement ps:P1651 ?v . ?statement pq:P3831 wd:Q25975 . BIND(CONCAT("[https://www.youtube.com/watch?v=", ?v, " let's play]")  as ?value) }
+  	UNION
+	{ ?item p:P10   ?statement . ?statement ps:P10   ?v . ?statement pq:P3831 wd:Q25975 . BIND(CONCAT("[", str(?v), " C]")  as ?value) }
+	?item wdt:P31/wdt:P279* wd:Q7889 .
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(xsd:integer(strafter(str(?item), "Q")))
+LIMIT 2000

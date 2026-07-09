@@ -1,0 +1,18 @@
+SELECT ?name1 ?name2 ?name1Label ?name2Label ?hepburn ?japan ?orig1 ?orig2
+WHERE {
+  ?name1 wdt:P31/wdt:P279* wd:Q101352 ;
+         p:P1814 ?kana1 ;
+         wdt:P1705 ?count ;
+         wdt:P1705 ?japan .
+  ?kana1 ps:P1814 ?orig1 ;
+         pq:P2125 ?hepburn .
+  ?name2 wdt:P31/wdt:P279* wd:Q101352 ;
+         p:P1814 ?kana2 ;
+         wdt:P1705 ?count2 ;
+         wdt:P1705 ?japan .
+  ?kana2 ps:P1814 ?orig2 ;
+         pq:P2125 ?hepburn .
+  FILTER (?name1 != ?name2)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+  }GROUP BY ?name1 ?name2 ?name1Label ?name2Label ?hepburn ?japan ?orig1 ?orig2
+HAVING((COUNT(?count) = 1) && (COUNT(?count2) = 1))

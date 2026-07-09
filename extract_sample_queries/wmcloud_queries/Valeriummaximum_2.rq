@@ -1,0 +1,6 @@
+SELECT ?Dura_Europos ?Dura_EuroposLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?Dura_Europos wdt:P189 wd:Q464266.
+  ?Dura_Europos wdt:P4765 ?image.
+}
+LIMIT 100

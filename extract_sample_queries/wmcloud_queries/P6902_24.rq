@@ -1,0 +1,4 @@
+#title: instances of era names could be linked with this property
+# Complex constraint from [[Property talk:P6902]]
+#
+SELECT ?item WHERE { ?item wdt:P31/wdt:P279* wd:Q256408 . MINUS {  [ ] wdt:P6902 ?item }  } LIMIT 500

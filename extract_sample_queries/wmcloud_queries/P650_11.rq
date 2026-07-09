@@ -1,0 +1,13 @@
+#title: Biografisch Portaal artists without RKDartists
+# Complex constraint from [[Property talk:P650]]
+# People with [[Property:P651|Biografisch Portaal van Nederland ID&#32;<small dir="ltr">(P651)</small>]] and [[Property:P106|occupation&#32;<small dir="ltr">(P106)</small>]] (or subclass) [[d:Q3391743|visual artist <small>(Q3391743)</small>]], but no [[Property:P650|RKDartists ID&#32;<small dir="ltr">(P650)</small>]]
+SELECT DISTINCT ?item WHERE { 
+  ?item wdt:P651 [] .
+  { ?item  wdt:P106/wdt:P279* wd:Q3391743 . } UNION
+  { ?item  wdt:P106/wdt:P279* wd:Q5322166 }               
+  MINUS {?item wdt:P650 [] .
+        } .
+  # This is the exceptions list
+  MINUS {VALUES ?item {wd:Q84841 wd:Q968254 wd:Q1433073 wd:Q2010943 wd:Q2094344 wd:Q2161324} 
+        }                  
+}

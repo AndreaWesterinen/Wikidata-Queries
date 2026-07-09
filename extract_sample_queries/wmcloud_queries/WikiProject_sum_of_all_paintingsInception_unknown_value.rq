@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel ?itemDescription ?earliestdate ?latestdate ?averageyear ?creator ?creatorLabel ?creatorDescription ?dob ?dod WHERE {
+  ?item wdt:P31 wd:Q3305213;
+    p:P571 ?inceptionstatement .
+  ?inceptionstatement ps:P571 ?inception.
+  FILTER(wikibase:isSomeValue(?inception)) .
+  MINUS { ?inceptionstatement pq:P1319 ?tooearly . FILTER(YEAR(?tooearly) < 500) }
+  MINUS { ?inceptionstatement pq:P1326 ?latetooearly . FILTER(YEAR(?latetooearly) < 500) }
+  OPTIONAL { ?inceptionstatement pq:P1319 ?earliestdate ;
+                                 pq:P1326 ?latestdate .
+           BIND(((YEAR(?earliestdate)+YEAR(?latestdate))/2) AS ?averageyear )
+  }
+  OPTIONAL { ?item wdt:P170 ?creator .
+            OPTIONAL { ?creator wdt:P569 ?dob }
+            OPTIONAL { ?creator wdt:P570 ?dod }
+            }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

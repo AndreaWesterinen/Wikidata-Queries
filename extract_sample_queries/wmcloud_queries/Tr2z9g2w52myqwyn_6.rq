@@ -1,0 +1,9 @@
+#defaultView:ImageGrid
+SELECT ?item ?itemLabel ?elevators ?image
+WHERE {
+  ?item wdt:P1301 ?elevators .
+  ?item wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}
+ORDER BY DESC(?elevators)
+LIMIT 30

@@ -1,0 +1,10 @@
+SELECT ?oLabel ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5 .
+  ?item wdt:P6553 ?o;
+        
+    p:6553 ?pronoun.
+  FILTER(NOT EXISTS { ?pronoun prov:wasDerivedFrom ?ref. })
+  FILTER ( ! wikibase:isSomeValue(?o) ).
+  FILTER(  ?o != wd:Q1035954).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

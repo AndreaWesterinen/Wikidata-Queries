@@ -1,0 +1,11 @@
+# Count of P106 'occupation' grouped by occupation (minus politician), for  
+#'Wikidata entries for Ghanaian MPs in thre 7th Parliament of the 4th Republic
+
+ select ?occupationLabel (count(distinct ?person) as ?count)
+   where {
+    ?person p:P39 ?positionStatement . ?positionStatement ps:P39 wd:Q61659845 . 
+    ?person wdt:P106 ?occupation . # what was their occupation
+    filter not exists { ?occupation wdt:P106 wd:Q82955 .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+   } group by ?occupationLabel
+#defaultView:BubbleChart

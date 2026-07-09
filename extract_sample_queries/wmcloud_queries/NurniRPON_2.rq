@@ -1,0 +1,42 @@
+SELECT DISTINCT (STRAFTER(STR(?m), "/entity/") AS ?mm) ("P26" AS ?p40) (STRAFTER(STR(?i), "/entity/") AS ?ii) ("S3452" AS ?s143) (?ii AS ?src) WHERE {
+  ?i wdt:P26 ?m.
+  OPTIONAL {
+    ?m wdt:P26 ?xi.
+    FILTER(?xi = ?i)
+  }
+  FILTER((STR(?m)) != "")
+  FILTER(!(BOUND(?xi)))
+  { ?i wdt:P27 wd:Q172107. }
+  UNION
+  { ?i wdt:P27 wd:Q36. }
+  UNION
+  { ?i wdt:P27 wd:Q171348. }
+  UNION
+  { ?i wdt:P27 wd:Q49683. }
+  UNION
+  { ?i wdt:P27 wd:Q11710624. }
+  UNION
+  {
+    ?i wdt:P53 ?r.
+    { ?r wdt:P31 wd:Q27062351. }
+    UNION
+    { ?r wdt:P31 wd:Q18655646. }
+  }
+  UNION
+  { ?i wdt:P1412 wd:Q809. }
+  UNION
+  {
+    ?i wdt:P39 ?f.
+    { ?f (wdt:P31/(wdt:P279*)) wd:Q2662430. }
+    UNION
+    { ?f wdt:P1001 wd:Q11710624. }
+    UNION
+    { ?f wdt:P1001 wd:Q172107. }
+    UNION
+    { ?f wdt:P1001 wd:Q171348. }
+    UNION
+    { ?f wdt:P1001 wd:Q49683. }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+ORDER BY (?iLabel)

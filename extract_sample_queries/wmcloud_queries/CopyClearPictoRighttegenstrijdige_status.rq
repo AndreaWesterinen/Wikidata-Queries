@@ -1,0 +1,14 @@
+SELECT DISTINCT ?item ?itemLabel ?jaar ?naam ?gelijk ?value 
+{
+	?item wdt:P6275 wd:Q71528227 .
+	?item wdt:P6275 wd:Q71521142 .
+    OPTIONAL {?item wdt:P569 ?geboortedatum}
+   ?item p:P6275 [ ps:P6275 ?repr;
+                    prov:wasDerivedFrom 
+                    [ pr:P1810 ?naam; 
+                    ]
+                  ].
+    BIND (YEAR(?geboortedatum) AS ?jaar)
+    BIND (CONTAINS(?naam, ?jaar) AS ?gelijk)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en" } .
+}

@@ -1,0 +1,9 @@
+SELECT DISTINCT ?type ?typeLabel ?prop ?propLabel ?p
+{
+    ?p p:P2302 [ ps:P2302 wd:Q21503250 ; pq:P2308 ?type ] .
+    ?p p:P2302 ?st .
+    ?st ps:P2302 wd:Q21502838 ; pq:P2306 ?prop . 
+    FILTER NOT EXISTS { ?st pq:P2305 [] } 
+    FILTER NOT EXISTS { ?prop wikibase:propertyType wikibase:ExternalId } 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}  

@@ -1,0 +1,1 @@
+select * {?x wdt:P31 wd:Q101352}

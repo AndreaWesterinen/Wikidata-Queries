@@ -1,0 +1,4 @@
+SELECT ?item ?fcode ?jhcode WHERE { 
+  ?item wdt:P31 wd:Q3305213 . 
+  ?item wdt:P170 wd:Q259538 . }
+LIMIT 2000

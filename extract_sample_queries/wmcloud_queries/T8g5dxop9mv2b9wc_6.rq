@@ -1,0 +1,9 @@
+SELECT ?person ?personLabel ?givenNameLabel
+WHERE
+{
+  ?person wdt:P31 wd:Q5;
+          wdt:P735 ?givenName;
+          wdt:P734 ?familyName.
+  ?givenName wdt:P1533 ?familyName.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

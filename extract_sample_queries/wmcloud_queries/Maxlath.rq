@@ -1,0 +1,8 @@
+# items that have a human as serie statement
+SELECT ?item ?itemLabel ?human ?humanLabel ?serie_statement WHERE {
+  ?human wdt:P31 wd:Q5 .
+  ?item wdt:P50 ?human .
+  ?item p:P179 ?serie_statement .
+  ?serie_statement ps:P179 ?human .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

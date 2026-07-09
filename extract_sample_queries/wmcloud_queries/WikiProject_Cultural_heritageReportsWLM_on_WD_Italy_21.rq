@@ -1,0 +1,14 @@
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P17 wd:Q38 . 
+  ?item wdt:P2186 ?wlmid .
+  MINUS { ?item wdt:P131* ?prov
+          {?prov wdt:P31 wd:Q15089.} # Province
+  UNION {?prov wdt:P31 wd:Q15110.} # Città metropolitane
+  UNION {?prov wdt:P31 wd:Q21190155.} # Liberi consorzi comunali
+  UNION {?prov wdt:P31? wd:Q1222} # Val d'Aosta
+  UNION {?prov wdt:P131 wd:Q1250; wdt:P31 wd:Q3924474.} # Ex province del Friuli-Venezia Giulia
+}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "it,[AUTO_LANGUAGE]".
+  }
+}

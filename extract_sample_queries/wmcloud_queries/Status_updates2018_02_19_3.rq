@@ -1,0 +1,17 @@
+SELECT DISTINCT ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q6256 ;
+        wdt:P2046 ?area ;
+        p:P47 ?statement .
+  ?statement ps:P47 ?y ;
+             pq:P805 ?border .
+  ?border wdt:P31 wd:Q15104814 .
+  FILTER NOT EXISTS {
+    ?item p:P47 ?s .
+    ?s ps:P47 ?x ;
+       pq:P805 ?b .
+    ?b wdt:P31 wd:Q15104814 .
+    ?x wdt:P2046 ?area2 .
+   FILTER ( ?area2 < ?area )
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel

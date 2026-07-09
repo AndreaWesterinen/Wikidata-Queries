@@ -1,0 +1,7 @@
+SELECT Distinct ?item1 ?item1Label ?item2 ?item2Label
+WHERE {
+        ?item1 wdt:P31/wdt:P279* wd:Q9143.
+        ?item2 wdt:P31/wdt:P279* wd:Q9143.
+        ?item1 wdt:P737 ?item2.
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

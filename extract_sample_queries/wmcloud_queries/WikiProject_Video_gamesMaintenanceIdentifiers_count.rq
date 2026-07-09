@@ -1,0 +1,18 @@
+SELECT ?item ?count (COUNT(?entity) AS ?entities) WITH {
+SELECT ?entity (COUNT(DISTINCT(?property)) as ?count) WHERE {
+  ?entity wdt:P31 wd:Q7889.
+  OPTIONAL {
+    ?property rdf:type wikibase:Property;
+      wikibase:propertyType wikibase:ExternalId;
+      (wdt:P31/(wdt:P279*)) wd:Q28147643;
+      wikibase:directClaim ?wdt .
+    ?entity ?wdt [] .
+  }
+}
+GROUP BY ?entity
+} AS %i WHERE {
+  include %i.
+  BIND(URI(CONCAT("http://www.wikidata.org/entity/Q", STR(?count + 1000000000))) AS ?item ) .
+}
+GROUP BY ?count ?item
+ORDER BY ?count

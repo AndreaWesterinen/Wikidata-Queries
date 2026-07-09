@@ -1,0 +1,8 @@
+# type specimens
+SELECT DISTINCT ?item ?itemLabel  WHERE {
+  ?item wdt:P31 wd:Q51255340 ;         # is a type specimen
+    
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+  }
+ ORDER BY  ?item ?itemLabel 
+ LIMIT 4000    

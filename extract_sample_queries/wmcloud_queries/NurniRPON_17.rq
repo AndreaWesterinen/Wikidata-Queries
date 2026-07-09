@@ -1,0 +1,10 @@
+SELECT ?f ?fLabel (GROUP_CONCAT(?pl; SEPARATOR = ", ") AS ?_p) ?o ?oLabel WHERE {
+  ?f (wdt:P279*) wd:Q2662430.
+  OPTIONAL { ?f wdt:P1001 ?o. }
+  OPTIONAL { ?f wdt:P279 ?p. }
+  ?p rdfs:label ?pl.
+  FILTER((LANG(?pl)) = "pl")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?f ?fLabel ?o ?oLabel
+ORDER BY (?fLabel)

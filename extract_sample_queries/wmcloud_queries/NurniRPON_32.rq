@@ -1,0 +1,22 @@
+SELECT (COUNT(*) AS ?cnt) ?r ?rLabel ?h ?hLabel ?n ?nLabel ?k ?kLabel ?i ?iLabel WHERE {
+  {
+    {
+      SELECT DISTINCT ?r WHERE {
+        ?r (wdt:P31/(wdt:P279*)) wd:Q13417114.
+        ?o wdt:P53 ?r;
+          wdt:P27 ?p.
+        FILTER(?p IN(wd:Q172107, wd:Q49683, wd:Q171348, wd:Q1649871))
+      }
+    }
+    UNION
+    { SELECT ?r WHERE { ?r wdt:P31 wd:Q27062351. } }
+  }
+  OPTIONAL { ?r wdt:P734 ?n. }
+  OPTIONAL { ?o wdt:P53 ?r. }
+  OPTIONAL { ?r wdt:P237 ?h. }
+  OPTIONAL { ?r wdt:P910 ?k. }
+  OPTIONAL { ?r wdt:P138 ?i. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?r ?rLabel ?h ?hLabel ?n ?nLabel ?k ?kLabel ?i ?iLabel
+ORDER BY (?cnt) (?rLabel)

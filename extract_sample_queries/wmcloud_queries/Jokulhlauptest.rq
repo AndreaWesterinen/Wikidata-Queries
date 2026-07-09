@@ -1,0 +1,4 @@
+#defaultView:Map
+ SELECT ?item WHERE {
+ ?item wdt:P177 wd:Q1691406.
+ }

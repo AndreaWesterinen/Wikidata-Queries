@@ -1,0 +1,48 @@
+SELECT DISTINCT 
+?item ?itemLabel 
+
+#deprecated address stuff P696
+#?addressDep
+(GROUP_CONCAT(DISTINCT ?addressDep ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?DeprAddress)
+#?addressDepRef
+(GROUP_CONCAT(DISTINCT ?addressDepRef ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?DeprAddressRef)
+#?addressDepDate 
+(GROUP_CONCAT(DISTINCT ?addressDepDate ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?DeprAddressDate) 
+
+# current address stuff P6375
+#?address
+(GROUP_CONCAT(DISTINCT ?address ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?Address)
+#?addressRef
+(GROUP_CONCAT(DISTINCT ?addressRef ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?AddressRef)
+#?addressDate 
+(GROUP_CONCAT(DISTINCT ?addressDate ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?AddressDate) 
+
+#official website (P856) --> use as source of P6375
+#?off_website
+(GROUP_CONCAT(DISTINCT ?off_website ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?WebsiteOff)
+#?off_websiteRef
+(GROUP_CONCAT(DISTINCT ?off_websiteRef ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?WebsiteOffRef)
+#?off_websiteDate 
+(GROUP_CONCAT(DISTINCT ?off_websiteDate ; separator = " XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ") as ?WebsiteOffDate) 
+
+WHERE 
+{
+  ?item (p:P31/ps:P31) wd:Q28564,wd:Q11396180;wdt:P17 wd:Q55. 
+  
+  OPTIONAL {?item wdt:P969 ?addressDep .} #located at street address DEPRECATED(P969)
+  OPTIONAL {?item p:P969 [prov:wasDerivedFrom [pr:P854 ?addressDepRef]] .}
+  OPTIONAL {?item p:P969 [prov:wasDerivedFrom [pr:P813 ?addressDepDate]] .}
+  
+  OPTIONAL {?item wdt:P6375 ?address .} #located at street address (P6375)
+  OPTIONAL {?item p:P6375 [prov:wasDerivedFrom [pr:P854 ?addressRef]] .}
+  OPTIONAL {?item p:P6375 [prov:wasDerivedFrom [pr:P813 ?addressDate]] .}
+  
+  OPTIONAL {?item wdt:P856 ?off_website .} #official website (P856)
+  OPTIONAL {?item p:P856 [prov:wasDerivedFrom [pr:P854 ?off_websiteRef]] .}
+  OPTIONAL {?item p:P856 [prov:wasDerivedFrom [pr:P813 ?off_websiteDate]] .}
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl". }
+
+}
+GROUP BY ?item ?itemLabel 
+ORDER BY ASC(?item)

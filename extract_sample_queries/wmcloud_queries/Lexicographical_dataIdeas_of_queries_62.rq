@@ -1,0 +1,10 @@
+SELECT distinct ?l ?lemma ?sense (COUNT(?value) AS ?count) WHERE {
+  ?l a ontolex:LexicalEntry ;
+       wikibase:lemma ?lemma;
+       ontolex:sense ?sense .
+    ?sense wdt:P5137 ?value.
+  #filter(?count>1)
+}
+group by ?l ?lemma ?sense ?count
+order by desc(?count)
+limit 50

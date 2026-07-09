@@ -1,0 +1,29 @@
+embed.html##defaultView:Map{"hide":["?location",  "?rgb"]}
+SELECT ?item ?itemLabel ?itemDescription ?location ?rgb ?image WITH {
+  SELECT $COUNTRY ?north ?east ?south ?west WHERE {
+  VALUES $COUNTRY { wd:Q212 }
+  $COUNTRY p:P1332 [psv:P1332 [wikibase:geoLatitude ?north]].
+  $COUNTRY p:P1334 [psv:P1334 [wikibase:geoLongitude ?east]].
+  $COUNTRY p:P1333 [psv:P1333 [wikibase:geoLatitude ?south]].
+  $COUNTRY p:P1335 [psv:P1335 [wikibase:geoLongitude ?west]].
+} } AS %data
+WHERE {
+  INCLUDE %data
+  ?item wdt:P17 $COUNTRY .
+  ?item p:P625 [
+            ps:P625 ?location ;
+            psv:P625 [
+               wikibase:geoLongitude ?longitude;
+               wikibase:geoLatitude  ?latitude; 
+               ]
+   ].
+  OPTIONAL { ?item wdt:P18 ?image }
+  FILTER (?latitude <= ?north && ?latitude >= ?south && ?longitude >= ?west && ?longitude <= ?east)
+  BIND ( (?north + ?south) / 2 AS ?centre )
+  BIND ( COALESCE(
+    IF(?latitude >= ?centre, "0057b7", 1/0),
+    "ffd700"
+  ) AS ?rgb )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+LIMIT 10000 # try to increase the limit but might timeout or cause browser to hang when rendering the map

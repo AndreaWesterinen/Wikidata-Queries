@@ -1,0 +1,10 @@
+#title: Check the date in id
+# Complex constraint from [[Property talk:P4247]]
+#
+SELECT ?item ?value {
+  ?item wdt:P4247 ?value .
+  BIND(SUBSTR(?value, 0, 5) AS ?sub).
+  BIND(xsd:integer(?sub) AS ?int).
+  BIND(YEAR(NOW()) AS ?year).
+  FILTER(?int > ?year)
+}

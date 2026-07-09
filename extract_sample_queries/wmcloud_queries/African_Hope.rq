@@ -1,0 +1,11 @@
+# Ivorian female writers
+SELECT ?item ?itemLabel ?birthdate ?itemDescription ?image WHERE {
+  ?item wdt:P21 wd:Q6581072. # gender: female
+  ?item wdt:P106 wd:Q36180. # occupation: writer
+  ?item wdt:P27 wd:Q1008. # place of birth Côte d'Ivoire
+  OPTIONAL { ?item wdt:P569 ?birthdate. }
+  OPTIONAL { ?item wdt:P18 ?image }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,fr" }  
+}
+
+ORDER BY ?itemLabel

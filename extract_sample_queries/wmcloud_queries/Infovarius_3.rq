@@ -1,0 +1,1 @@
+SELECT DISTINCT ?city ?cityLabelWHERE{  {?city wdt:P17 wd:Q29520}  SERVICE wikibase:label { bd:serviceParam wikibase:language 

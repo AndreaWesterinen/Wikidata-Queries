@@ -1,0 +1,29 @@
+SELECT ?item ?itemLabel ?feldman_result ?score 
+       ?fem_writer_or_director ?fem_composer_or_photographer ?fem_producer_or_three_fem_dep_heads ?50_pc_female_crew
+       ?female_protagonist_who_determines_story_outcome ?no_female_characters_where_victimized_stereotyped_sexualised ?sex_scene_showing_foreplay_fem_initiating_reciprocating_sexual_advances
+
+WHERE {
+    #getting items (?item) passing the Feldman Test and the corresponding statements (?st)
+    {?item p:P1552 ?st. ?st ps:P1552 wd:Q104144628. BIND("passing" AS ?feldman_result)}
+    UNION
+    #getting items failing the Feldman Tests
+    {?item p:P1552 ?st. ?st ps:P1552 wd:Q104144642. BIND("failing" AS ?feldman_result)}
+    
+    OPTIONAL{?st pq:P444 ?score}
+    OPTIONAL{?st pq:P1013 wd:Q104144717. BIND("yes" AS ?fem_writer_or_director)}
+    OPTIONAL{?st pq:P1013 wd:Q104144730. BIND("no" AS ?fem_writer_or_director)}
+    OPTIONAL{?st pq:P1013 wd:Q104144741. BIND("yes" AS ?fem_composer_or_photographer)}
+    OPTIONAL{?st pq:P1013 wd:Q104144752. BIND("no" AS ?fem_composer_or_photographer)}
+    OPTIONAL{?st pq:P1013 wd:Q104144783. BIND("yes" AS ?fem_producer_or_three_fem_dep_heads)}
+    OPTIONAL{?st pq:P1013 wd:Q104144788. BIND("less than required" AS ?fem_producer_or_three_fem_dep_heads)}
+    OPTIONAL{?st pq:P1013 wd:Q104144797. BIND("no" AS ?fem_producer_or_three_fem_dep_heads)}
+    OPTIONAL{?st pq:P1013 wd:Q104145311. BIND("yes" AS ?50_pc_female_crew)}
+    OPTIONAL{?st pq:P1013 wd:Q104145337. BIND("no" AS ?50_pc_female_crew)}
+    OPTIONAL{?st pq:P1013 wd:Q104144812. BIND("yes" AS ?female_protagonist_who_determines_story_outcome)}
+    OPTIONAL{?st pq:P1013 wd:Q104144830. BIND("no" AS ?female_protagonist_who_determines_story_outcome)}
+    OPTIONAL{?st pq:P1013 wd:Q104144840. BIND("yes" AS ?no_female_characters_where_victimized_stereotyped_sexualised)}
+    OPTIONAL{?st pq:P1013 wd:Q104144848. BIND("no" AS ?no_female_characters_where_victimized_stereotyped_sexualised)}
+    OPTIONAL{?st pq:P1013 wd:Q104144927. BIND("yes" AS ?sex_scene_showing_foreplay_fem_initiating_reciprocating_sexual_advances)}
+    OPTIONAL{?st pq:P1013 wd:Q104144937. BIND("no" AS ?sex_scene_showing_foreplay_fem_initiating_reciprocating_sexual_advances)}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

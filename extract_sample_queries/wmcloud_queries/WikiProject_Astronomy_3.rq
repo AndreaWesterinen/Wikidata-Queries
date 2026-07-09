@@ -1,0 +1,5 @@
+SELECT * 
+{
+    VALUES ?place { wd:Q320936 wd:Q583 wd:Q499158 }
+    ?place wdt:P625 ?coor
+}

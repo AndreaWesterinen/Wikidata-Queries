@@ -1,0 +1,14 @@
+#defaultView:BubbleChart
+SELECT distinct ?item  ?itemLabel (?end - ?start as ?duration)
+
+WHERE {
+  ?item (wdt:P361)* wd:Q362 .
+  ?item wdt:P31/wdt:P279* wd:Q178561 .
+  ?item wdt:P580 ?start .
+  ?item wdt:P582 ?end .
+  
+ SERVICE wikibase:label {
+   bd:serviceParam wikibase:language "fr" .
+   }
+
+}

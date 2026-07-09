@@ -1,0 +1,19 @@
+# members of the 1865-68 Parliament -658 seats.
+SELECT DISTINCT ?constituency ?constituencyLabel ?members ?startMP ?startMPLabel
+{
+ ?item p:P39 ?positionStatement . # report for error-checking imports from Historic Hansard
+ ?positionStatement ps:P39 wd:Q41582559 . 
+ ?positionStatement pq:P768 ?constituency . 
+ OPTIONAL { ?constituency wdt:P31 ?type . } # find miscellaneous data about the constituency
+ OPTIONAL { ?constituency wdt:P571 ?start . }
+ OPTIONAL { ?constituency wdt:P576 ?end . } 
+ OPTIONAL { ?constituency wdt:P1410 ?members . } 
+ OPTIONAL { # find the MP elected at the general election which began the term
+ wd:Q41582559 wdt:P2715 ?election .
+ ?startMP p:P39 ?positionStatement2 .
+ ?positionStatement2 ps:P39 wd:Q41582559 . 
+ ?positionStatement2 pq:P768 ?constituency . 
+ ?positionStatement2 pq:P2715 ?election . 
+ }
+ SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' }
+}

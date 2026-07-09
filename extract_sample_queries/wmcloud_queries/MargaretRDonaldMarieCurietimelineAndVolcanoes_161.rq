@@ -1,0 +1,10 @@
+# Find Acacias without an image
+SELECT ?item ?itemLabel?taxon_name ?image  WHERE {
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    ?item wdt:P225 ?taxon_name.
+    ?item wdt:P171 wd:Q81666.   # whose genus is Acacia
+  MINUS
+  {?item wdt:P18 ?image.
+  }
+}
+ORDER BY ?itemLabel ?item ?taxon_name 

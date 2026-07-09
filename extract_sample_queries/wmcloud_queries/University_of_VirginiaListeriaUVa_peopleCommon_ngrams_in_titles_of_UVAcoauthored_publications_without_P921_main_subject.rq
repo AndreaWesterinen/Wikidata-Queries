@@ -1,0 +1,61 @@
+SELECT ?item (SAMPLE(?word) AS ?ngram) #?count ?l
+#(CONCAT("[https://query.wikidata.org/#SELECT%20%0A%20%20DISTINCT%20%3Fitem%20%3Ftitle%0A%20%20%28REPLACE%28STR%28%3Fitem%29%2C%20%22.%2aQ%22%2C%20%22Q%22%29%20AS%20%3Fqid%29%20%0A%20%20%28%22P921%22%20AS%20%3Fproperty%29%0A%20%20%28%22Q202864%22%20AS%20%3FReplaceWithYourTargetID%29%0A%20%20%28%22S887%22%20AS%20%3Fheuristic%29%0A%20%20%28%22Q69652283%22%20AS%20%3Fdeduced%29%0A%0AWHERE%20%7B%0A%20%20hint%3AQuery%20hint%3Aoptimizer%20%22None%22.%0A%20%20%0A%7B%20%20SERVICE%20wikibase%3Amwapi%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aapi%20%22Search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Asrsearch%20%22", ENCODE_FOR_URI(?word), "%20and%20haswbstatement%3AP31%3DQ13442814%20-haswbstatement%3AP921%3DQ202864%22.%0A%20%20%20%20%20%20%3Fpage_title%20wikibase%3AapiOutput%20mwapi%3Atitle.%0A%20%20%7D%0A%20%7D%0AUNION%0A%7B%20%20SERVICE%20wikibase%3Amwapi%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Aapi%20%22Search%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wikibase%3Aendpoint%20%22www.wikidata.org%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20mwapi%3Asrsearch%20%22", ENCODE_FOR_URI(?word), "%20-and%20haswbstatement%3AP31%3DQ13442814%20-haswbstatement%3AP921%3DQ202864%22.%0A%20%20%20%20%20%20%3Fpage_title%20wikibase%3AapiOutput%20mwapi%3Atitle.%0A%20%20%7D%0A%20%7D%0A%20%20BIND%28IRI%28CONCAT%28STR%28wd%3A%29%2C%20%3Fpage_title%29%29%20AS%20%3Fitem%29%0A%20%20%0A%20%20%3Fitem%20wdt%3AP31%20wd%3AQ13442814%3B%0A%20%20%20%20%20%20%20%20wdt%3AP1476%20%3Ftitle.%0A%20%20FILTER%20CONTAINS%28LCASE%28%3Ftitle%29%2C%20%22", ENCODE_FOR_URI(?word), "%22%29.%0A%0A%7D%0A 📰]") AS ?topic_string_resolver1) 
+#(CONCAT("[https://query.wikidata.org/#%0ASELECT%0A%20%20%23%20Number%20of%20works%20on%20the%20topic%20with%20the%20author%20name%20string%0A%20%20%3Fcount%0A%0A%20%20%23%20Number%20of%20works%20with%20the%20author%20name%20string%0A%20%20%3Fcount1%0A%0A%20%20%23%20Author%20as%20a%20string%0A%20%20%3Fauthorstring%0A%0A%20%20%23%20Build%20URL%20to%20the%20Author%20disambiguator%20tool%0A%20%20%28CONCAT%28%0A%20%20%20%20%20%20%27https%3A%2F%2Ftools.wmflabs.org%2Fauthor-disambiguator%2Fnames_oauth.php%3Fname%3D%27%2C%0A%20%20%20%20%20%20ENCODE_FOR_URI%28%3Fauthorstring%29%29%20AS%20%3Fresolver_url%29%0AWITH%20%7B%0A%20%20SELECT%20DISTINCT%20%3Fwork%20%3Fauthorstring%20WHERE%20%7B%0A%20%20%20%20%3Fwork%20wdt%3AP2093%20%3Fauthorstring%20.%0A%23%20%20%20%20%3Fwork%20wdt%3AP50%20%5B%20wdt%3AP21%20wd%3AQ6581072%20%5D.%0A%23%20%20%20%20%3Fwork%20wdt%3AP50%20%5Bwdt%3AP166%20%5B%5D%5D.%0A%23%20%20%20%20%3Fwork%20wdt%3AP921%20%5Bwdt%3AP625%20%5B%5D%5D.%0A%20%20%20%20%7B%20%3Fwork%20wdt%3AP1476%20%3Ftitle%20.%20%7D%20%0A%20%20%20%20FILTER%20CONTAINS%28LCASE%28%3Ftitle%29%2C%20%22", ENCODE_FOR_URI(?word), "%22%29.%20%20%0A%20%20%7D%0A%20%20LIMIT%20100%0A%7D%20AS%20%25works%0AWITH%20%7B%0A%20%20SELECT%0A%20%20%20%20%28COUNT%28DISTINCT%20%3Fwork%29%20AS%20%3Fcount%29%0A%20%20%20%20%28COUNT%28DISTINCT%20%3Fwork1%29%20AS%20%3Fcount1%29%0A%20%20%20%20%3Fauthorstring%0A%20%20WHERE%20%7B%0A%20%20%20%20INCLUDE%20%25works%0A%20%20%20%20%3Fwork1%20wdt%3AP2093%20%3Fauthorstring%20.%0A%20%20%7D%0A%20%20GROUP%20BY%20%3Fauthorstring%0A%7D%20AS%20%25result%0AWHERE%20%7B%0A%20%20INCLUDE%20%25result%0A%7D%0AORDER%20BY%20DESC%28%3Fcount%29%20DESC%28%3Fcount1%29%0A%23LIMIT%2050%0A%0A%20%20%0A 🙋]") AS ?topic_string_resolver2) 
+
+WITH
+{ # Generating a list of regexes to look for the nv-th word in a string                                                              
+  SELECT ?re1 ?re2 ?nv { ?n wdt:P5176 []; wdt:P1181 ?nv . FILTER(?nv > 0 ) FILTER( ?nv < 51)
+     BIND( CONCAT( "^([^ ]+ ){", str( ?nv - 1 ),"}([^ ]+) .*") as ?re1)
+     BIND( CONCAT( "^([^ ]+ ){", str( ?nv + 1),"}([^ ]+) .*") as ?re2) 
+                    }
+} as %regexscaffold 
+WITH
+{ # Generating a list of titles to be analyzed
+  SELECT ?title ?x ?input
+   { # Choosing the entities whose titles are to be analyzed
+      ?x wdt:P31 wd:Q13442814 ;
+         wdt:P1476 ?title.
+      ?x wdt:P50 ?author .
+      { ?author ?property wd:Q213439. }
+      UNION
+      {
+        ?author ?property2 _:b9.
+        _:b9 wdt:P361 wd:Q213439.
+      }
+     FILTER NOT EXISTS {?x wdt:P921 ?topic}
+     FILTER(lang(?title)="en") 
+     # Basic processing of the titles
+      BIND (CONCAT("::: ::: ::: ::: ", # add start codon to assist with processing of n-grams at beginning of title
+                            REPLACE(str(?title),"[\\.:,;\\[\\]()$]",""), # remove some frequent special characters
+                            " ;;; ;;; ;;; ;;;") # add stop codon to assist with processing of n-grams at end of title
+                     as ?input )
+   }
+ LIMIT 500
+} as %titlelist 
+WITH
+{ # Applying the regexes to the titles to extract ngrams, and counting occurrences of the ngrams across titles
+  SELECT DISTINCT ?word 
+                  (COUNT(DISTINCT ?title) as ?count) (SAMPLE(DISTINCT ?x) AS ?item) ?l
+                  { 
+                    INCLUDE %regexscaffold  INCLUDE %titlelist
+                            BIND( LCASE(REPLACE(?input, ?re1, "$1")) as ?0gram) 
+                            BIND( LCASE(REPLACE(?input, ?re1, "$2")) as ?1gram) 
+                            BIND( LCASE(REPLACE(?input, ?re2, "$1")) as ?0gram1) 
+                            BIND( LCASE(REPLACE(?input, ?re2, "$2")) as ?1gram1) 
+                            BIND( (CONCAT(?0gram, " ", ?1gram, " ", ?0gram1, " ", ?1gram1)) as ?word) 
+FILTER (!(CONTAINS(?word, "::: "))) # this filters out any n-gram where n != 4, from the start of the title
+FILTER (!(CONTAINS(?word, " ;;;"))) # this filters out any n-gram where n != 4, from the end of the title
+                            BIND(STRLEN(?word) AS ?l) 
+#                            FILTER (?l > 4 )  
+                  }
+  GROUP BY ?word  ?count ?item ?l
+#  HAVING(?count > 2)
+#  ORDER BY DESC(?count)
+#  LIMIT 250
+} as %words 
+WHERE {
+  INCLUDE %words 
+}
+GROUP BY ?item ?ngram #?count ?l ?topic_string_resolver1 ?topic_string_resolver2
+ORDER BY DESC(?count) DESC(?l)
+LIMIT 250

@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(?item) as ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .  
+  ?painting wdt:P170 ?item . 
+  ?article schema:about ?painting .
+  ?article schema:isPartOf ?sitelink .
+   FILTER REGEX(STR(?sitelink), ".+wikipedia.org.+") .
+} GROUP BY ?item ?namek 
+HAVING (?count > 10)
+ORDER BY DESC(?count) 
+LIMIT 220

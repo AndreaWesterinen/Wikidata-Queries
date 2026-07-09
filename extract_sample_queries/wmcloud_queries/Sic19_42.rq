@@ -1,0 +1,18 @@
+#defaultView:Map{"hide":["?geo"],"layer":"?schools"}
+
+SELECT ?geo (COUNT(DISTINCT ?article) as ?count) (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = " ; ") AS ?authors) (GROUP_CONCAT(DISTINCT ?affLabel; SEPARATOR = " ; ") AS ?schools) WHERE {
+  ?article wdt:P31 wd:Q13442814.
+  ?article wdt:P50 ?author.
+  ?author wdt:P108 wd:Q503424 ; wdt:P1416 ?aff .
+#OPTIONAL { ?aff wdt:P3896 ?geo. }
+  ?aff wdt:P361* ?faculty . 
+  OPTIONAL { ?faculty wdt:P3896 ?geo. }
+#  { ?aff wdt:P3896 ?geo. } UNION { ?faculty wdt:P3896 ?geo. }
+SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en" .
+		?aff rdfs:label ?affLabel .
+		?author rdfs:label ?authorLabel .
+        ?article rdfs:label ?paper
+	}
+}
+GROUP BY ?geo 

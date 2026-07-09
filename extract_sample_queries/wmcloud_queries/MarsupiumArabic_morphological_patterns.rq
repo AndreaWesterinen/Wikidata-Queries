@@ -1,0 +1,28 @@
+SELECT ?item ?linkedLabelEn ?patternLabelEn ?patternLabelAr ?patternAliasDe ?used_by ?used_byLabel ?formExample ?formExampleL ?lexemeExample ?lexemeExampleL ?linkedLexemeExample ?formRomanization WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P31 wd:Q6585054.
+  OPTIONAL {
+    ?item rdfs:label ?patternLabelEn.
+    FILTER((LANG(?patternLabelEn)) = "en")
+  }
+  OPTIONAL {
+    ?item rdfs:label ?patternLabelAr.
+    FILTER((LANG(?patternLabelAr)) = "ar")
+  }
+  OPTIONAL {
+    ?item skos:altLabel ?patternAliasDe.
+    FILTER((LANG(?patternAliasDe)) = "de")
+  }
+  OPTIONAL { ?item wdt:P1535 ?used_by. }
+  OPTIONAL {
+    ?formExample wdt:P2283 ?item;
+      ontolex:representation ?formExampleL.
+    OPTIONAL { ?formExample wdt:P8991 ?formRomanization. }
+    BIND(IF(BOUND(?formRomanization), CONCAT(?formRomanization, "; "), "") AS ?formRomanizationStr)
+    ?lexemeExample ontolex:lexicalForm ?formExample;
+      dct:language wd:Q29919;
+      wikibase:lemma ?lexemeExampleL.
+    BIND(CONCAT(?formExampleL, " (", ?formRomanizationStr, "[[Lexeme:", SUBSTR(STR(?lexemeExample), 32 ), "|", ?lexemeExampleL, "]])") AS ?linkedLexemeExample)
+  }
+  BIND(CONCAT("[[", SUBSTR(STR(?item), 32 ), "|", ?patternLabelEn, "]]") AS ?linkedLabelEn)
+}

@@ -1,0 +1,8 @@
+SELECT ?category ?categoryLabel (count(?category) as ?countTulu) WHERE {
+  ?lexeme dct:language wd:Q34251; 
+          wikibase:lexicalCategory ?category;
+          wikibase:lemma [].
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],tcy". }
+}
+GROUP BY ?category ?categoryLabel
+ORDER BY ?countTulu

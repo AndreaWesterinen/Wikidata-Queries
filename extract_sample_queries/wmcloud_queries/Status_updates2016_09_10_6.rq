@@ -1,0 +1,9 @@
+#defaultView:Map
+select ?p ?pLabel ?born ?loc {
+  ?p wdt:P411 wd:Q43115 .
+  ?p wdt:P569 ?born .
+  ?p wdt:P19 ?o .
+  ?o wdt:P625 ?loc .
+  filter (?born > "1899-12-31"^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

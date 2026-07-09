@@ -1,0 +1,15 @@
+SELECT ?type ?typeLabel (SAMPLE(?statement) AS ?st) (SAMPLE(?value) AS ?sval) (SAMPLE(?statedin) AS ?sti) (COUNT(?type) AS ?c) WHERE {
+  {
+    SELECT ?type ?typeLabel ?statement ?statedin ?value WHERE {
+      ?entry wdt:P31 wd:Q5.
+      ?entry ?prop ?statement.
+      ?statement prov:wasDerivedFrom ?ref.
+      ?ref pr:P248 ?statedin.
+      ?statedin wdt:P31 ?type.
+    }
+    LIMIT 100000
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?type ?typeLabel
+ORDER BY DESC (COUNT(?type))

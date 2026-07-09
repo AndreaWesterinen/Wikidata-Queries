@@ -1,0 +1,9 @@
+SELECT ?collection ?collectionLabel ?item (COUNT(?painting) AS ?count) WHERE {
+  ?painting wdt:P31 wd:Q3305213 .
+  ?painting wdt:P195 ?collection .
+  ?painting wdt:P276 ?item .
+  ?item wdt:P361 ?collection . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  } GROUP BY ?collection ?collectionLabel ?item
+HAVING (?count > 9)
+ORDER BY ?collectionLabel

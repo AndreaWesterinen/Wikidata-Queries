@@ -1,0 +1,54 @@
+select ?personne ?personneLabel (year(now())-sample(?annee_naissance) as ?age) 
+       ?precisionLabel  
+       (sample(?articleFr) as ?frwiki) (sample(?articleEn) as ?enwiki) 
+       (group_concat(distinct ?domaine_Label;separator=", ") as ?domaine) 
+       (group_concat(distinct ?travaux_connus_Label;separator=", ") as ?connuPour) 
+       (group_concat(distinct ?travail_Label;separator=", ") as ?a_créé)
+       (group_concat(distinct ?orga_Label;separator=", ") as ?membre_de)
+ with {
+      select ?personne ?naissance ?precision {
+           ?personne wdt:P106/wdt:P279* wd:Q82594; p:P569 [ps:P569 ?naissance
+                                                          ; psv:P569/wikibase:timePrecision ?precision 
+                                                          ; a wikibase:BestRank
+                                                 ] filter not exists { ?personne wdt:P570 [] }
+       #values ?rank {wikibase:BestRank wikibase:NormalRank}
+        filter (year(now())-year(?naissance) > 70 )
+      filter not exists {
+        ?personne p:P569 [ps:P569 ?naissance2
+                                                          ; psv:P569/wikibase:timePrecision ?precision2 ; a wikibase:BestRank] filter (?precision2 > ?precision)
+                  }
+        # values ?personne { wd:Q7704482 }
+    } 
+ } as %candidates 
+  { 
+ 
+ include %candidates
+  
+  SERVICE wikibase:label { 
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+    ?domaine_ rdfs:label ?domaine_Label .
+    ?travaux_connus_ rdfs:label ?travaux_connus_Label .
+    ?personne rdfs:label ?personneLabel .
+    ?travail_ rdfs:label ?travail_Label .
+    ?orga rdfs:label ?orga_Label
+  }
+  { ?articleFr schema:about ?personne ; schema:isPartOf <https://fr.wikipedia.org/> . } union { ?articleEn schema:about ?personne ; schema:isPartOf <https://en.wikipedia.org/> . }
+  bind(year(?naissance) as ?annee_naissance)
+  optional {
+    ?personne wdt:P101 ?domaine_ .
+  }
+  optional {
+    ?personne wdt:P800 ?travaux_connus_ .
+  }
+  optional {
+    ?travail_ wdt:P61 ?personne
+  }
+  optional {
+    ?personne wdt:P463 ?orga
+  }
+  # 0 - billion years, 1 - hundred million years, ..., 6 - millenia, 7 - century, 8 - decade, 9 - year, 10 - month, 11 - day
+  values (?precision ?precisionLabel) {
+    (7 "(+/- 100 ans)")
+    (8 "(+/- 10 ans)")
+    (9 "+/- 1 an") (10 "+/- 1 mois") (11 "année des") }
+} group by ?personne ?personneLabel ?precision ?precisionLabel order by desc(?age)  desc(?precision) 

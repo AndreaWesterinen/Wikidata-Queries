@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?stat2
+WHERE 
+{
+  ?item p:P9284 ?stat .
+  ?item p:P9284 ?stat2 .
+  filter(str(?stat) != str(?stat2)) 
+  ?stat ps:P9284 ?val .
+  ?stat2 ps:P9284 ?val2 .
+  filter(?val=?val2)
+  ?stat pq:P625 [].
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+}

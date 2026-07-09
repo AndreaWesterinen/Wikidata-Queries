@@ -1,0 +1,14 @@
+#title: Value requires "country" (P17)
+# Complex constraint from [[Property talk:P1444]]
+# add value or define exception
+SELECT DISTINCT ?item ?itemLabel ?itemDescription ?value ?valueLabel ?valueDescription
+{
+  ?item wdt:P1444 ?value .
+  MINUS { ?value p:P17 [] }
+  MINUS { ?value p:P376 [] }
+  MINUS { ?value p:P397 [] }  
+  MINUS { ?value wdt:P31 wd:Q5107 }
+  MINUS { ?value wdt:P31 wd:Q2098155 } 
+  FILTER( !isBlank(?value) && ?value not in ( wd:Q29876 , wd:Q41872 , wd:Q7204 ) ) 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

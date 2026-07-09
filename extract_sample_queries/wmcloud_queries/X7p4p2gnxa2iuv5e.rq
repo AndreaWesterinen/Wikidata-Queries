@@ -1,0 +1,33 @@
+SELECT distinct ?id
+  (if(BOUND(?idhexcolor),
+      concat('#', str(?idhexcolor)),
+      if(BOUND(?hexcolor),
+         concat('#', str(?hexcolor)),
+         '#07c63e'
+         )
+     )
+      as ?stroke)
+  (concat('Line length: ', str(?length), ' km') as ?description)
+  (if(BOUND(?link),
+      concat('[[', substr(str(?link),31,500),  '{{!}}', ?idLabel, ']]'),
+      ?idLabel)
+   as ?title)
+WHERE {
+  VALUES ?systems { wd:Q109457286 }
+  {
+  ?id p:P5817/ps:P5817 wd:Q55654238.
+  ?id p:P361/ps:P361/wdt:P361*|p:P16/ps:P16/wdt:P279* ?systems.
+  }
+  MINUS {
+  VALUES ?rem { wd:Q548662 wd:6501349} #stations and depot
+    ?id wdt:P31/wdt:P279* ?rem. }
+  OPTIONAL { ?id wdt:P465 ?idhexcolor. }
+  OPTIONAL { ?id wdt:P462 ?color.
+  ?color wdt:P465 ?hexcolor.}
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en' .
+    ?id rdfs:label ?idLabel .
+  }
+  OPTIONAL {?link schema:about ?id.
+  ?link schema:isPartOf <https://en.wikipedia.org/> . }
+} GROUP BY ?id ?link ?idLabel ?length ?hexcolor ?idhexcolor

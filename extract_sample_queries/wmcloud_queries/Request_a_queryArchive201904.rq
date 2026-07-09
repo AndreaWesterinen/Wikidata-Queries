@@ -1,0 +1,8 @@
+SELECT ?item ?itemLabel ?url
+WHERE 
+{
+  ?item wdt:P973 ?url.
+  filter(bound(?videogame)=false)
+  filter(contains(str(?url),"https://www.behindthevoiceactors.com/video-games/"))      
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

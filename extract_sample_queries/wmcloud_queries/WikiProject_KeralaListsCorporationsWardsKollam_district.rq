@@ -1,0 +1,9 @@
+SELECT ?item ?len ?lml ?den ?dml WHERE {
+  ?item wdt:P31 wd:Q1195098.
+  ?item wdt:P361 wd:Q18126899.
+  OPTIONAL { ?item rdfs:label ?Lang. FILTER(LANG(?Lang)="ml") }
+  OPTIONAL { ?item rdfs:label ?len. FILTER(LANG(?len)="en") }
+  OPTIONAL { ?item rdfs:label ?lml. FILTER(LANG(?lml)="ml") }
+  OPTIONAL { ?item schema:description ?den. FILTER(LANG(?den)="en") }
+  OPTIONAL { ?item schema:description ?dml. FILTER(LANG(?dml)="ml") }
+}

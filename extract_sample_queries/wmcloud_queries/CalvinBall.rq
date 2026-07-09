@@ -1,0 +1,8 @@
+SELECT DISTINCT ?name ?nameLabel
+WHERE {
+  VALUES ?occ {wd:Q36834 wd:Q639669 wd:Q177220}
+  VALUES ?gen {wd:Q6581072 wd:Q1052281 wd:Q48270}
+?name wdt:P106 ?occ.
+?name wdt:P21 ?gen.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

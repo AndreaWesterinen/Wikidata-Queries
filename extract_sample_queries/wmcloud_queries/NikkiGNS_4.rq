@@ -1,0 +1,6 @@
+select * {
+  ?item wdt:P2326 [] .
+  ?item p:P131 ?s .
+  ?s prov:wasDerivedFrom/pr:P248 wd:Q1194038 .
+  ?s prov:wasDerivedFrom/pr:P143 wd:Q169514 .
+}

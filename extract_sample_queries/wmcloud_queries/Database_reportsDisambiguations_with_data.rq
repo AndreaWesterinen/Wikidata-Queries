@@ -1,0 +1,16 @@
+SELECT ?item (CONCAT('[[Property:',STRAFTER(STR(?prop), STR(wd:)),'|',STR(?propLabel),']]') AS ?property) ?date ?sitelinks ?statements WITH {
+  SELECT ?item ?prop ?value {
+    hint:Query hint:optimizer "None" .
+    ?item wdt:P31 wd:Q4167410; wikibase:statements ?st .
+    FILTER( ?st > 1 ) .
+    ?item ?wdt ?value .
+    ?wdt ^wikibase:directClaim ?prop .
+    FILTER( ?wdt != wdt:P31 ) .
+    MINUS { ?value wdt:P31 wd:Q4167410 } .
+    FILTER( ?wdt NOT IN ( wdt:P361, wdt:P373, wdt:P460, wdt:P527, wdt:P935, wdt:P1889 ) ) .
+  } LIMIT 2000
+} AS %subquery WHERE {
+  INCLUDE %subquery .
+  ?item wikibase:sitelinks ?sitelinks; wikibase:statements ?statements; schema:dateModified ?date .
+  ?prop rdfs:label ?propLabel FILTER( LANG( ?propLabel ) = 'en' ) .
+} ORDER BY ?prop ?item

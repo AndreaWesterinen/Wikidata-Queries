@@ -1,0 +1,17 @@
+SELECT ?item ?itemLabel (group_concat(?a_n;separator=", ") as ?article_links) WHERE {
+  ?item wdt:P31 wd:Q5.
+  ?item wdt:P1142 wd:Q6199.
+  ?sitelink schema:about ?item.
+  ?sitelink wikibase:badge ?reviewedstatus.
+  VALUES ?reviewedstatus {
+    wd:Q17437796  # featured
+    wd:Q17437798  # good
+  }   
+  #?reviewedstatus rdfs:label ?rsl. filter(lang(?rsl)="en")
+  ?sitelink schema:inLanguage ?lang . 
+  ?sitelink schema:name ?sitelink_label .
+  ?reviewedstatus wdt:P18 ?icon .
+  bind(concat("[[:",str(?lang),":", str(?sitelink_label), "|", str(?lang),"]]"," ",str(?icon)) as ?a_n)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} group by ?item ?itemLabel
+ORDER BY ?itemLabel

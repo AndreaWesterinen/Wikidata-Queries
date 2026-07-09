@@ -1,0 +1,8 @@
+SELECT ?item WHERE {
+    BIND("Pterotopteryx" AS ?taxonName) 
+    BIND(wd:Q34740 AS ?taxonRank) # genus
+    BIND(wd:Q28319 AS ?higherParent) # Lepidoptera
+    ?item wdt:P225 ?taxonName .
+    ?item wdt:P105 ?taxonRank .
+    ?item (wdt:P171)* ?higherParent .
+}

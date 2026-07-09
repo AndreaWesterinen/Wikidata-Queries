@@ -1,0 +1,11 @@
+SELECT ?item ?wsp ?st ?sl ?ids
+WHERE
+{
+      ?entry wdt:P1433 wd:Q665807 ; wdt:P1922 ?fl ; wdt:P921 ?item .
+      ?item wdt:P31 wd:Q5 ; wdt:P106 wd:Q36834 .
+      ?ws schema:about ?entry ; schema:name ?wst2 ; schema:isPartOf <https://de.wikisource.org/> .
+      ?item wikibase:statements ?st ; wikibase:sitelinks ?sl ; wikibase:identifiers ?ids .
+      BIND( CONCAT('<span title="',strafter(?wst2,"BLKÖ:"),'">[',str(?ws)," ws]</span>") as ?wsp)
+}
+ORDER BY ?wst2 ?item
+LIMIT 2000

@@ -1,0 +1,13 @@
+SELECT DISTINCT ?property ?propertyLabel ?count
+WHERE
+{
+  {
+    SELECT DISTINCT ?property (COUNT(DISTINCT ?item) AS ?count)
+    WHERE
+    {
+      ?item ?wdt wd:Q188830.
+      ?property wikibase:directClaim ?wdt.
+    } GROUP BY ?property
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

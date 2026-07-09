@@ -1,0 +1,11 @@
+#title: Labels in English would generally be different from Italian (it)
+# Complex constraint from [[Property talk:P2358]]
+# output: item with English label, English label, Italian label
+SELECT ?item ?en ?it
+{
+  ?item wdt:P2358 [ ] ; wdt:P31 wd:Q5 .
+  ?item rdfs:label ?en . FILTER( lang(?en) = "en" ) 
+  ?item rdfs:label ?it . FILTER( lang(?it) = "it" ) 
+  FILTER( str(?en) = str(?it) )
+}
+LIMIT 1000

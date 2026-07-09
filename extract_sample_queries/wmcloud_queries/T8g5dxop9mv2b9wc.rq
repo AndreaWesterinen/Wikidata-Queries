@@ -1,0 +1,11 @@
+#   
+
+SELECT ?author1 ?author1Label (count(?citing_work) AS ?number_of_citations)  (group_concat(?citing_work_label; separator=" \\\\ ") as ?citing_works)  WHERE {
+  ?work wdt:P50 ?author1 .
+  ?author1 wdt:P27 wd:Q35 .
+  ?citing_work wdt:P2860 ?work .
+  service wikibase:label { bd:serviceParam wikibase:language "en" . } 
+  ?citing_work rdfs:label ?citing_work_label . filter (lang(?citing_work_label) = 'en')
+} 
+GROUP BY ?author1 ?author1Label
+ORDER BY DESC(?number_of_citations)

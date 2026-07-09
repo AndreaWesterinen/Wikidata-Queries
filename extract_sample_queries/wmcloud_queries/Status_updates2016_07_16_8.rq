@@ -1,0 +1,8 @@
+select ?nation (count(distinct ?person) as ?count)
+where {
+  ?person wdt:P27 ?n .
+  ?article schema:about ?person .
+  ?article schema:inLanguage "bar" .
+  ?n rdfs:label ?nation .
+  filter(lang(?nation)='en')
+} group by ?n ?nation order by desc(?count)

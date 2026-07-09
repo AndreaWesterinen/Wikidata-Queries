@@ -1,0 +1,13 @@
+SELECT ?item ?itemLabel ?itemDescription ?SHAREWorkID ?OCLCWorkID ?DDC ?LCC
+WHERE
+{
+  ?item wdt:P7609 ?SHAREWorkID.
+OPTIONAL {?item wdt:P5331 ?OCLCWorkID .}
+OPTIONAL {?item wdt:P1036 ?DDC .}
+OPTIONAL {?item wdt:P1149 ?LCC .}
+MINUS {?item wdt:P195 ?collection. }
+MINUS {?item wdt:P5008 ?focuslist. }
+MINUS {?item wdt:P972 ?catalogue. }
+MINUS {?item wdt:P361 ?partof. }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+  }

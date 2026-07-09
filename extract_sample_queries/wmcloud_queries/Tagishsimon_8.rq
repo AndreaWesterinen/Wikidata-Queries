@@ -1,0 +1,17 @@
+SELECT distinct ?item ?title 
+WHERE {
+  ?item wdt:P106 wd:Q1281618.         
+  filter not exists {?item rdfs:label ?Len. filter(lang(?Len)="en")}
+  optional {?item rdfs:label ?Lfr. filter(lang(?Lfr)="fr").}
+  optional {?item rdfs:label ?Lit. filter(lang(?Lit)="it").}
+  optional {?item rdfs:label ?Les. filter(lang(?Les)="es").}
+  optional {?item rdfs:label ?Lde. filter(lang(?Lde)="de").}
+  optional {?item rdfs:label ?Lpl. filter(lang(?Lpl)="pl").}
+  optional {?item rdfs:label ?Lfi. filter(lang(?Lfi)="fi").}
+  optional {?item rdfs:label ?Lpt. filter(lang(?Lpt)="pt").}
+  optional {?item rdfs:label ?Lnl. filter(lang(?Lnl)="nl").}
+  optional {?item rdfs:label ?Lsv. filter(lang(?Lsv)="sv").}
+  optional {?item rdfs:label ?Lda. filter(lang(?Lda)="da").}
+  bind(coalesce(?Lfr, ?Lit, ?Les, ?Lde, ?Lpl, ?Lfi, ?Lpt, ?Lnl, ?Lsv, ?Lda) as ?title)
+  filter(bound(?title))  
+} order by ?title

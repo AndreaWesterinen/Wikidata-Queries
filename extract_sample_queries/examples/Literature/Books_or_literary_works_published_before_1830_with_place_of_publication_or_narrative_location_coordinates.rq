@@ -1,3 +1,4 @@
+#title: Books or literary works published before 1830 with place of publication or narrative location coordinates
 SELECT ?item ?label ?coord ?place
 WHERE
 {

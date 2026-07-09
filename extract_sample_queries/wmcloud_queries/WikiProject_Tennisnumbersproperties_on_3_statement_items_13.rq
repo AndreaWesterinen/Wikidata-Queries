@@ -1,0 +1,15 @@
+SELECT 
+  ?item ?itemLabel ?itemDescription 
+  ?prop1Label ?value1Label 
+  ?prop2Label ?value2Label 
+WHERE
+{
+    hint:Query hint:optimizer "None".
+    BIND( wd:P279 as ?prop1)
+    BIND( wd:P17 as ?prop2)                      
+    ?prop1 wikibase:directClaim ?p1 .          
+    ?prop2 wikibase:directClaim ?p2 .          
+    ?item wdt:P641 wd:Q847 ; wikibase:statements 3 ; ?p1 ?value1 ; ?p2 ?value2 .
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,it,de,es,fr,nl,cs" }
+}
+LIMIT 1000

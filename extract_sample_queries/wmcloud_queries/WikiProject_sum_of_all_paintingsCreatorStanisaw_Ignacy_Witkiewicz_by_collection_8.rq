@@ -1,0 +1,6 @@
+SELECT ?item ?gronska  WHERE { 
+ ?item wdt:P170 wd:Q381238 .  
+ ?item wdt:P195 wd:Q856423.  
+ MINUS{ ?item wdt:P31 wd:Q3658341 .}
+ optional{ ?item p:P1433 [ ps:P1433 wd:Q109367622; pq:P1545 ?gronska ] }
+}

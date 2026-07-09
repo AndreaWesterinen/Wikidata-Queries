@@ -1,0 +1,10 @@
+SELECT ?item (COUNT(DISTINCT ?male) as ?male) (COUNT(DISTINCT ?female) as ?female) (COUNT(DISTINCT ?person) as ?all)
+{
+    ?person wdt:P106 ?item .
+    ?item wdt:P641 wd:Q847 .
+    ?person wdt:P31 wd:Q5 .
+    OPTIONAL { ?person wdt:P21 wd:Q6581097 . BIND(?person as ?male) } 
+    OPTIONAL { ?person wdt:P21 wd:Q6581072 . BIND(?person as ?female) }   
+} 
+GROUP BY ?item 
+ORDER BY DESC(?all)

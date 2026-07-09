@@ -1,3 +1,4 @@
+#title: Film directors ranked by number of sitelinks multiplied by their number of films
 SELECT ?director ?director_label ?films ?sitelinks ((?films * ?sitelinks) as ?rank)
 WHERE {
   {SELECT ?director (count(DISTINCT ?film) as ?films) (count(DISTINCT ?sitelink) as ?sitelinks)

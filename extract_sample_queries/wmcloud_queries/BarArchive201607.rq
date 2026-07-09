@@ -1,0 +1,7 @@
+#Writers
+SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+  ?item wdt:P106 wd:Q36180.
+}
+LIMIT 100

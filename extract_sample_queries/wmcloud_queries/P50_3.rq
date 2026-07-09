@@ -1,0 +1,9 @@
+#title: Duplicate between author and short author name at a given position in an authoring list
+# Complex constraint from [[Property talk:P50]]
+# Identical [[Property:P1545|series ordinal&#32;<small dir="ltr">(P1545)</small>]] for both a [[Property:P50|author&#32;<small dir="ltr">(P50)</small>]] and a [[Property:P2093|author name string&#32;<small dir="ltr">(P2093)</small>]] statement
+select ?item ?interval where {
+  ?item p:P2093 ?shortauthor .
+  ?item p:P50 ?fullauthor .
+  ?shortauthor pq:P1545 ?interval .
+  ?fullauthor pq:P1545 ?interval .
+  }

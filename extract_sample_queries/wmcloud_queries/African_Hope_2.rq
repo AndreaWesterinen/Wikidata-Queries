@@ -1,0 +1,28 @@
+# Notable people from Strasbourg
+#defaultView:Table
+SELECT  
+        ?fullname
+        (GROUP_CONCAT(DISTINCT ?occupationLabel; separator=", ") AS ?occupations)
+        ?photo
+        ?article
+        (year(?dob) AS ?birthyear) 
+WHERE 
+{
+        # studied in William Ponty
+        ?person wdt:P69 wd:Q1021824.
+        ?person wdt:P106 ?occupation.
+        ?person wdt:P18 ?image .
+        ?person wdt:P569 ?dob .
+        ?article schema:about ?person ; 
+                 schema:isPartOf <https://fr.wikipedia.org/> ; 
+                 schema:name ?fullname .
+        ?person rdfs:label ?fullname filter (lang(?fullname) = "fr") .
+        
+        SERVICE wikibase:label {
+          bd:serviceParam wikibase:language "fr" . 
+          ?occupation rdfs:label ?occupationLabel .
+          ?image rdfs:label ?photo .
+        }
+}
+
+GROUP BY ?fullname ?photo ?article ?dob ?birthyear

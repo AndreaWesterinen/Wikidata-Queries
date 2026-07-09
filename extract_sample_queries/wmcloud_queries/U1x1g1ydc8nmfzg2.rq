@@ -1,0 +1,1 @@
+SELECT DISTINCT ?q { ?q (p:P569|p:P570) ?statement . ?statement prov:wasDerivedFrom/<http://www.wikidata.org/prop/reference/P4025> [] }

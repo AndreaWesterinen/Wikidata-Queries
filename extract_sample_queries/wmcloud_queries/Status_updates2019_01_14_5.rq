@@ -1,0 +1,11 @@
+#defaultView:Map
+SELECT DISTINCT ?school ?schoolLabel ?geo ?item ?itemLabel ?item1 ?item1Label ?dob ?dod
+{ ?item wdt:P1889 [] ; wdt:P31 wd:Q5 ; p:P1889/pq:P1013 wd:Q20978290 ; wdt:P69 ?school ; wdt:P569 ?dob ; wdt:P570 ?dod. 
+  ?item1 wdt:P1889 [] ; wdt:P31 wd:Q5 ; p:P1889/pq:P1013 wd:Q20978290 ; wdt:P69 ?school . 
+ ?school wdt:P625 ?geo .
+ FILTER (?item != ?item1)
+ FILTER NOT EXISTS { ?item wdt:P31 wd:Q159979 } 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} 
+ORDER BY DESC(?dob)
+LIMIT 4000

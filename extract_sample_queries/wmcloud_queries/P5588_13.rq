@@ -1,0 +1,12 @@
+#title: P183=samevalue and P5588=samevalue
+# Complex constraint from [[Property talk:P5588]]
+#
+SELECT ?item # ?itemLabel ?class ?classLabel 
+WHERE { 
+	?item   wdt:P183   ?class ;
+            wdt:P5588  ?class .
+  
+    MINUS { ?class wdt:P183?/wdt:P5588* wd:Q17442446 } # any internal stuff
+    
+#   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}

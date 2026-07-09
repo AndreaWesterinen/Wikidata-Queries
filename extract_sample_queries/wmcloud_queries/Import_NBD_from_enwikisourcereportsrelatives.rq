@@ -1,0 +1,30 @@
+SELECT
+	?item ?itemLabel ?warticle ?start (COUNT(DISTINCT ?parent) as ?count) 
+    (GROUP_CONCAT( DISTINCT CONCAT("[[",  strafter(str(?parent),"y/"),
+                                     "|",?parentLabel, "]] (", REPLACE(REPLACE(REPLACE(REPLACE(?relationLabel,"sibling","brother"),"child","son"),"male first cousin","first cousin"),"wife's father","father-in-law"), ")"); separator=", ") as ?relatives)
+WHERE
+{
+    ?item wdt:P1343 wd:Q16055052 .
+	{ VALUES ?wdt { wdt:P40 wdt:P22 wdt:P3373 }
+      ?item ?wdt ?parent .
+      ?parent wdt:P1343 wd:Q16055052 .
+      FILTER ( ?parent != ?item ) 
+      ?relation wikibase:directClaim ?wdt .
+    }
+    UNION
+    {
+      ?item p:P1038 [ ps:P1038 ?parent ; pq:P1039 ?relation ] .
+      ?parent wdt:P1343 wd:Q16055052 .
+      FILTER ( ?parent != ?item ) 
+    } 
+    OPTIONAL { ?item p:P241 [ ps:P241 wd:Q172771 ; pq:P580 ?start ] }
+  	?entry 		wdt:P921 ?item ; wdt:P1433 wd:Q16055052 ; wdt:P31 wd:Q19389637 .
+    [] schema:about ?entry ; schema:isPartOf <https://en.wikisource.org/> ; schema:name ?wstitle    
+    BIND(CONCAT("[[s:",str(?wstitle), "|", replace(str(?wstitle),"A Naval Biographical Dictionary/",""), "]]") as ?warticle)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+                           ?item rdfs:label ?itemLabel . ?parent rdfs:label ?parentLabel . 
+                           ?relation rdfs:label ?relationLabel .
+                           }
+}
+GROUP BY ?item ?itemLabel ?start ?warticle
+ORDER BY DESC(?count) ?warticle

@@ -1,0 +1,15 @@
+SELECT ?item ?itemLabel ?e_main ?e_main_appliesToPartLabel ?e_main_ref ?e_P403_qualifier ?bankLabel ?osgr ?coord WHERE {
+  ?item p:P403 ?stat. 
+  ?stat ps:P403 wd:Q19720. hint:Prior hint:runFirst true.
+  OPTIONAL { ?stat pq:P2044 ?e_P403_qualifier . }
+  OPTIONAL { ?stat pq:P3871 ?bank . }
+  OPTIONAL { ?stat pq:P613 ?osgr . }
+  OPTIONAL { ?item p:P2044 ?stat2 . 
+             ?stat2 ps:P2044 ?e_main.
+             OPTIONAL { ?stat2 pq:P518 ?e_main_appliesToPart . } 
+             OPTIONAL { ?stat2 prov:wasDerivedFrom/pr:P854 ?e_main_ref . } }
+  OPTIONAL { ?stat pq:P625 ?coord .
+  ?stat pqv:P625/wikibase:geoLongitude ?long.
+  ?stat pqv:P625/wikibase:geoLatitude ?lat. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} order by ?e_main ?itemLabel

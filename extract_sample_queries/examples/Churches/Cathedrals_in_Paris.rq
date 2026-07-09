@@ -1,3 +1,4 @@
+#title: Cathedrals in Paris
 SELECT ?item ?itemLabel ?placeLabel ?coords ?image
 WHERE
 {

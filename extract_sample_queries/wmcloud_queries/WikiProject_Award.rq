@@ -1,0 +1,7 @@
+SELECT ?id ?idLabel ?winner ?winnerLabel
+WHERE
+{
+  ?id wdt:P279* wd:Q4220917.
+  ?winner wdt:P166 ?id
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} 

@@ -1,0 +1,15 @@
+#title:Bermudian Representatives and their fields of work
+#defaultView:BubbleChart
+SELECT ?fieldOfWorkLabel (COUNT(?representative) AS ?count) WHERE {
+  {
+    ?representative wdt:P39 wd:Q33487629;
+      wdt:P101 ?fieldOfWork.
+  }
+  UNION
+  { 
+  ?representative wdt:P39 wd:Q56611800;
+      wdt:P101 ?fieldOfWork.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?fieldOfWorkLabel

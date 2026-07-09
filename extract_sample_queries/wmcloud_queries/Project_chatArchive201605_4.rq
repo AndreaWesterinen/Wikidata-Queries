@@ -1,0 +1,12 @@
+#Prenoms mallorquins
+#defaultView:BubbleChart
+SELECT ?cid ?cause (count(*) as ?count)
+WHERE {
+  ?item wdt:P19/wdt:P706* wd:Q8828 .
+	?pid wdt:P735 ?cid .
+	OPTIONAL {
+		?cid rdfs:label ?cause filter (lang(?cause) = "en") .
+	}
+}
+GROUP BY ?cid ?cause
+ORDER BY DESC(?count) ASC(?cause)

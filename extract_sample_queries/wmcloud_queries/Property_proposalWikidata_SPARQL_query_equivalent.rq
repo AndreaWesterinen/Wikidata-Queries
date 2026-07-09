@@ -1,0 +1,6 @@
+bigdata/namespace/wdq/sparql?query=SELECT ?item ?itemLabel
+WHERE {
+	?item wdt:P31 wd:Q5.
+    ?item wdt:P27 wd:Q1036.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+}

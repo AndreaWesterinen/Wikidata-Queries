@@ -1,0 +1,10 @@
+SELECT distinct ?f ?fLabel ?p ?pLabel ?st  ?i WHERE {
+  ?p wdt:P53 ?f;
+     wdt:P569 ?st .
+  { SELECT distinct ?f (min(?b) as ?st) (count(?p) as ?i) WHERE {
+    ?p wdt:P53 ?f;
+       wdt:P569 ?b .
+    FILTER( !isBlank( ?b ) ) .
+  } GROUP BY ?f }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY DESC(?i)

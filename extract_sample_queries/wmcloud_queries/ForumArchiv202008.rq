@@ -1,0 +1,12 @@
+SELECT ?item ?itemLabel ?itemDescription WHERE {
+  ?item wdt:P31 wd:Q5;
+        wdt:P21/wdt:P279* wd:Q48270.
+  # label can fall back to English
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "de,en".
+    ?item rdfs:label ?itemLabel.
+  }
+  # description must be in German (and exist)
+  ?item schema:description ?itemDescription.
+  FILTER(LANG(?itemDescription) = "de")
+}

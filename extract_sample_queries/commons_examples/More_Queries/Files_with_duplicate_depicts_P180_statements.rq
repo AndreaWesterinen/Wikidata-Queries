@@ -1,0 +1,8 @@
+SELECT DISTINCT ?file {
+  ?file p:P180 ?statement1.
+  ?file p:P180 ?statement2.
+  ?statement1 ps:P180 ?value .
+  ?statement2 ps:P180 ?value .
+  FILTER(?statement1 != ?statement2)
+}
+limit 50

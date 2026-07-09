@@ -1,0 +1,11 @@
+# Swedish nouns without 'combines'
+SELECT ?l ?lemma WHERE {
+  ?l rdf:type ontolex:LexicalEntry;
+    dct:language ?language;
+    wikibase:lemma ?lemma;
+    wikibase:lexicalCategory wd:Q1084.
+  ?language wdt:P218 "sv".
+  # ?l wdt:P5831 ?example.
+  FILTER(NOT EXISTS { ?l wdt:P5238 ?combines. })
+}
+ORDER BY (?lemma)

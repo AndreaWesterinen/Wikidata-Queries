@@ -1,0 +1,12 @@
+SELECT DISTINCT ?item (COUNT(?tms) AS ?tmsCount) 
+{
+	?item wdt:P6379 wd:Q99349995 .
+   ?item p:P6379 [ ps:P6379 wd:Q99349995;
+                    prov:wasDerivedFrom 
+                    [ #pr:P1810 ?origineleNaam; 
+                      pr:P528 ?tms;
+                    ]
+                  ].
+}
+GROUP BY  ?item 
+HAVING (?tmsCount > 1)

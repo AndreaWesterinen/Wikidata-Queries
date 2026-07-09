@@ -1,0 +1,15 @@
+embed.html#SELECT ?item ?label ?inception ?start WHERE {
+  ?item wdt:P31 wd:Q622499;
+        wdt:P17 ?country .
+  ?country wdt:P30 wd:Q46 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en, nl" . 
+    ?item rdfs:label ?label
+  }
+  
+OPTIONAL { ?item wdt:P580 ?start. }
+OPTIONAL { ?item wdt:P571 ?inception. }
+  MINUS { ?item wdt:P582 ?end }
+  MINUS {?item wdt:P576 ?abolished }
+}
+LIMIT 100

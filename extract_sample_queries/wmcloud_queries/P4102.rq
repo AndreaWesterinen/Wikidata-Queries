@@ -1,0 +1,37 @@
+SELECT ?item ?itemLabel ?value ?result (STRLEN(STR(?value)) AS ?stringlength)  ?snak ?rank
+WHERE
+{
+	{
+		SELECT ?item ?value ?result ?snak ?rank
+		WHERE
+		{
+			{
+				?item p:P4102 [ ps:P4102 ?value; wikibase:rank ?rank ] .
+				BIND("mainsnak" AS ?snak) .
+			} UNION {
+				?statement1 pq:P4102 ?value;
+					wikibase:rank ?rank .
+				?item ?p1 ?statement1 .
+				BIND("qualifier" AS ?snak) .
+			} UNION {
+				?ref pr:P4102 ?value .
+				?statement2 prov:wasDerivedFrom ?ref;
+					wikibase:rank ?rank .
+				?item ?p2 ?statement2 .
+				BIND("reference" AS ?snak) .
+			} .
+			BIND( REGEX( STR( ?value ), "^(\\d{4})$" ) AS ?regexresult ) .
+			FILTER( ?regexresult = false ) .
+			BIND( IF( ?regexresult = true, "pass", "fail" ) AS ?result ) .
+			FILTER( ?item NOT IN ( wd:Q4115189, wd:Q13406268, wd:Q15397819 ) ) .
+		} 
+		LIMIT 100
+	} .
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } .
+}
+#ORDER BY ?rank ?snak ?value
+#PLEASE NOTE: This is experimental and may only work for simple patterns.
+#Tests may fail due to:
+#(1) differences in regex format between SPARQL (https://www.w3.org/TR/xpath-functions/#regex-syntax) and PCRE (used by constraint reports). Don't change the regex to work with SPARQL!
+#(2) some bug in the link that brought you here
+#Known to fail: P227 (multiple curly braces), P274, P281

@@ -1,0 +1,16 @@
+embed.html#PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+
+#Reservoir without GNS
+#defaultView:Map
+SELECT DISTINCT ?entity ?entityLabel ?locationLabel ?coord ?lat ?lon WHERE {
+  ?entity wdt:P31 wd:Q47521.
+  ?entity wdt:P17 wd:Q869.
+  ?entity wdt:P625 ?coord.
+  ?entity p:P625 ?coordinate.
+  ?coordinate psv:P625 ?coordinate_node.
+  ?coordinate_node wikibase:geoLatitude ?lat.
+  ?coordinate_node wikibase:geoLongitude ?lon.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  FILTER(NOT EXISTS { ?entity wdt:P2326 ?x. })
+}
+ORDER BY ?entityLabel

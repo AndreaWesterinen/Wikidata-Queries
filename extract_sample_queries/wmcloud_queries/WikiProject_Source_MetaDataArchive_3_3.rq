@@ -1,0 +1,6 @@
+SELECT ?item ?orcid WHERE {
+    ?item wdt:P496 ?orcid . 
+    FILTER not exists { ?item wdt:P108 ?employer }
+    FILTER not exists { ?item wdt:P1416 ?aff } 
+} 
+LIMIT 100

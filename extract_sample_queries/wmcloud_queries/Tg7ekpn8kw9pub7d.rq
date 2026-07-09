@@ -1,0 +1,8 @@
+SELECT (count(?itemSt) as ?countStatement) (count(?itemQu) as ?countQualifier) {
+  {
+    ?itemSt p:P1545/ps:P1545 ?value .
+  } UNION {
+    ?statement1 pq:P1545 ?value .
+    ?itemQu ?p1 ?statement1 .
+  } .
+}

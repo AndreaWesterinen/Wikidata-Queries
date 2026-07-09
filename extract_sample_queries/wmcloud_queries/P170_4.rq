@@ -1,0 +1,6 @@
+#title: Creator was not alive when the work was created
+# Complex constraint from [[Property talk:P170]]
+# The birth date of the creator is after the creation date or the death date of the creator is before the creation date.
+SELECT DISTINCT ?item { { SELECT ?item WHERE { ?item wdt:P170 ?creator . ?item p:P571/psv:P571 ?inception_node . ?creator p:P569/psv:P569 ?birth_node . ?birth_node wikibase:timeValue ?birth . ?birth_node wikibase:timePrecision ?birth_precision . ?inception_node wikibase:timeValue ?inception . ?inception_node wikibase:timePrecision ?inception_precision . FILTER (?inception_precision >= 9) . FILTER (?birth_precision >= 9) . FILTER (?inception < ?birth) } } UNION { SELECT ?item WHERE { ?item wdt:P170 ?creator . ?item p:P571/psv:P571 ?inception_node . ?creator p:P570/psv:P570 ?death_node . ?death_node wikibase:timeValue ?death . ?death_node wikibase:timePrecision ?death_precision . ?inception_node wikibase:timeValue ?inception . ?inception_node wikibase:timePrecision ?inception_precision . FILTER (?inception_precision >= 9) . FILTER (?death_precision >= 9) . FILTER (?inception > ?death) .  } } 
+FILTER (?item NOT IN (wd:Q7574240) ) #Add Exceptions here as comma seperated list (format: wd:QID)
+ }

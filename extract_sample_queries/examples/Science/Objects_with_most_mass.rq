@@ -1,3 +1,4 @@
+#title: Objects with most mass
 SELECT ?object ?objectLabel ?mass WHERE {
   {
     SELECT ?object (MAX(?mass) AS ?mass) WHERE {

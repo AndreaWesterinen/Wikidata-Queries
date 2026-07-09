@@ -1,0 +1,7 @@
+#title: Date after today
+# Complex constraint from [[Property talk:P2250]]
+#
+SELECT ?item {
+  ?item p:P2250 [pq:P585 ?date].
+  FILTER (NOW() < ?date)
+}

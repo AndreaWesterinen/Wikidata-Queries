@@ -1,0 +1,14 @@
+# Edizioni in italiano con autore/i ed editore ordinate per anno
+SELECT ?item ?itemLabel ?author ?authorLabel ?publisher ?publisherLabel ?image ?annopubblicazione 
+WHERE
+{
+  ?item wdt:P31 wd:Q3331189.
+  ?item wdt:P407 wd:Q652.
+  ?item wdt:P577 ?datapubblicazione.
+  ?item wdt:P123 ?publisher. 
+  OPTIONAL {?item wdt:P50 ?author. }
+  OPTIONAL {?item wdt:P996 ?image. }
+  BIND(YEAR(?datapubblicazione) AS ?annopubblicazione)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  }
+ORDER BY ?annopubblicazione

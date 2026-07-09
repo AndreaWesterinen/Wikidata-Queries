@@ -1,0 +1,6 @@
+SELECT ?item ?value WHERE
+{
+  ?item p:P968/ps:P968 ?value .
+  
+  FILTER( REGEX(REPLACE(STR(?value), "%20", " "), "^(mailto:\\/\\/([-\\w\\.]+@([-\\w]+\\.)+[\\w\\.]+)[^\\w]*)$") )
+}

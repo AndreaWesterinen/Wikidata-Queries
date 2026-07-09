@@ -1,0 +1,21 @@
+embed.html##defaultView:ScatterChart
+SELECT (?count1 AS ?in_Tate) (?count2 AS ?in_Smithsonian) (CONCAT(?propertyLabel,": ",?thingLabel)AS ?attribute) WHERE {
+{ SELECT (COUNT(?obj1) AS ?count1) ?property ?thing WHERE {
+ ?obj1 wdt:P195 wd:Q430682. #Tate
+ VALUES ?prop1 {wdt:P170}
+ ?obj1 ?prop1 ?thing.
+ ?property ?ref ?prop1 ; 
+           rdf:type wikibase:Property .
+  } GROUP BY ?property ?thing }
+{ SELECT (COUNT(?obj2) AS ?count2) ?property ?thing WHERE {
+ ?obj2 wdt:P195 wd:Q1192305. #Smithsonian
+ VALUES ?prop1 {wdt:P170}
+ ?obj2 ?prop1 ?thing.
+ ?property ?ref ?prop1 ;
+           rdf:type wikibase:Property .
+  } GROUP BY ?property ?thing }
+ FILTER (?count2 >0 )
+ FILTER (?count1 >0 )
+ FILTER (?thing != wd:Q4233718)
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en". ?property rdfs:label ?propertyLabel .?thing rdfs:label ?thingLabel }
+}

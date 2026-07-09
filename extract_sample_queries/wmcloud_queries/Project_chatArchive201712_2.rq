@@ -1,0 +1,9 @@
+SELECT DISTINCT ?item ?date ?points
+WHERE
+{
+  wd:Q43310 p:P1352 ?st .
+  ?st ps:P1352 ?item .
+  OPTIONAL { ?st pq:P585 ?date } 
+  OPTIONAL { ?st pq:P1358 ?points } 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

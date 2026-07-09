@@ -1,0 +1,3 @@
+SELECT ?item where{
+  ?item wdt:P180 wd:Q28070931 .
+  }

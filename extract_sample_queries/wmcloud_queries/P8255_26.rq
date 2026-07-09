@@ -1,0 +1,5 @@
+#title: Items with property P8255 and no other statements
+SELECT ?item ?itemLabel ?value {
+  ?item wdt:P8255 ?value ; wikibase:statements 1
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

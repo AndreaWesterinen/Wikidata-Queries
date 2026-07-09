@@ -1,0 +1,39 @@
+SELECT ?item ?seas ?fmt
+{
+  	?item wdt:P31 wd:Q3464665 . 
+	?item wdt:P179 ?series .
+  	?item p:P179 [ pq:P1545 "5" ; ps:P179 ?series ]
+  	OPTIONAL { ?series wdt:P2437 ?seas }
+    OPTIONAL {
+      ?item rdfs:label ?l . FILTER(lang(?l)="en") . 
+      ?series rdfs:label ?l2 . FILTER(lang(?l2)="en") .
+      FILTER( str(?l) = CONCAT( str(?l2), ", season 5") ) . 
+      BIND("std" as ?fmt1)
+    }
+    OPTIONAL {
+      ?item rdfs:label ?l . FILTER(lang(?l)="en") . 
+      ?series rdfs:label ?l2 . FILTER(lang(?l2)="en") .
+      FILTER( str(?l) = CONCAT( str(?l2), ", series 5") ) . 
+      BIND("std2" as ?fmt2)
+    }
+    OPTIONAL {
+      ?item rdfs:label ?l . FILTER(lang(?l)="en") . 
+      ?series rdfs:label ?l2 . FILTER(lang(?l2)="en") .
+      FILTER( str(?l) = CONCAT( str(?l2), ", cycle 5") ) . 
+      BIND("std2b" as ?fmt2b)
+    }
+    OPTIONAL { ?item wdt:P577 ?d . 
+      ?item rdfs:label ?l . FILTER(lang(?l)="en") . 
+      ?series rdfs:label ?l2 . FILTER(lang(?l2)="en") .
+      FILTER( str(?l) = CONCAT( str(?l2), " ", str(YEAR(?d)) ) ) . 
+      BIND("std (year)" as ?fmt3)
+    }
+    OPTIONAL { ?item wdt:P1476 ?title . 
+      ?item rdfs:label ?l . FILTER(lang(?l)="en") . 
+      ?series rdfs:label ?l2 . FILTER(lang(?l2)="en") .
+      FILTER( str(?l) = str(?title) ) . 
+      BIND("std (title)" as ?fmt4)
+    }  
+    BIND(COALESCE ( ?fmt1, ?fmt2, ?fmt2b, ?fmt3, ?fmt4, "?") as ?fmt)              
+}
+LIMIT 5000

@@ -1,0 +1,10 @@
+# statements disputed by their subject
+SELECT ?subject ?subjectLabel ?propertyLabel ?objectLabel WHERE {
+  ?property a wikibase:Property;
+            wikibase:claim ?p;
+            wikibase:statementProperty ?ps.
+  ?subject ?p ?statement.
+  ?statement ?ps ?object;
+             pq:P1310 ?subject.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

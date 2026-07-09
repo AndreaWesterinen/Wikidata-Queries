@@ -1,0 +1,21 @@
+embed.html#SELECT DISTINCT ?year ?x ?xLabel ?place ?placeLabel ?pub ?pubLabel ?url ?coord 
+WHERE {
+  { ?x wdt:P361 wd:Q2603503. }
+  UNION
+  { ?x wdt:P361 wd:Q16964319. }
+   ?x wdt:P577 ?date .   
+  
+  optional {?x wdt:P291 ?place . 
+  ?place wdt:P625 ?coord. }
+  
+  OPTIONAL { ?x wdt:P123 ?pub. }
+  
+  ?x p:P361 ?part_of.
+  ?part_of pq:P2699 ?url.
+  
+  BIND (YEAR(?date) AS ?year)
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?year ?x ?xLabel ?place ?placeLabel ?pub ?pubLabel ?url ?coord
+ORDER BY ?placeLabel

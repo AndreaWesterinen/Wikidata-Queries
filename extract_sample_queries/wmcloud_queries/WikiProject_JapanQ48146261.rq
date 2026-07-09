@@ -1,0 +1,5 @@
+SELECT ?item ?myozeki ?junjo WHERE {
+ ?item wdt:P106 wd:Q48146261;
+               p:P2838 ?myozeki.
+OPTIONAL { ?myozeki pq:P1545 ?junjo }
+ }

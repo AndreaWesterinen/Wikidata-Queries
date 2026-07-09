@@ -1,0 +1,3 @@
+select ?prop ?val {
+  <http://www.wikidata.org/entity/Q2126> p:P816 [?prop ?val].
+}

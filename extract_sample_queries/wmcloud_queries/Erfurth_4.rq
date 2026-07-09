@@ -1,0 +1,23 @@
+SELECT  ?sql
+WHERE {{
+  ?item wdt:P356 "".
+  ?item wdt:P356 ?doi.
+  BIND(CONCAT("UPDATE rawlog SET a='", STR(?item),"' WHERE c1='",STR(?doi),"';") as ?sql)
+  }union{ 
+    ?item wdt:P356 "".
+    ?item wdt:P356 ?doi.
+    BIND(CONCAT("UPDATE rawlog SET a='", STR(?item),"' WHERE c1='",STR(?doi),"';") as ?sql)
+  }union{ 
+    ?item wdt:P356 "".
+    ?item wdt:P356 ?doi.
+    BIND(CONCAT("UPDATE rawlog SET a='", STR(?item),"' WHERE c1='",STR(?doi),"';") as ?sql)
+  }union{ 
+    ?item wdt:P356 "".
+    ?item wdt:P356 ?doi.
+    BIND(CONCAT("UPDATE rawlog SET a='", STR(?item),"' WHERE c1='",STR(?doi),"';") as ?sql)
+  }union{ 
+    ?item wdt:P356 "".
+    ?item wdt:P356 ?doi.
+    BIND(CONCAT("UPDATE rawlog SET a='", STR(?item),"' WHERE c1='",STR(?doi),"';") as ?sql)
+  }SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} ORDER BY ?doi

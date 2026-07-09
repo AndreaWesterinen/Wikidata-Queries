@@ -1,0 +1,6 @@
+SELECT * WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  OPTIONAL { ?item wdt:P2455 ?Species_Profile_and_Threats_Database_ID. }
+  OPTIONAL { ?item wdt:P225 ?taxon_name. }
+}
+ORDER BY ?taxon_name

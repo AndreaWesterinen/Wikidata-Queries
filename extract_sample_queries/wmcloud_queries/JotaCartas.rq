@@ -1,0 +1,9 @@
+SELECT ?item ?itemLabel ?itemDescription ?currentcountry ?currentcountryLabel
+{
+	?item wdt:P17 wd:Q200464 . 
+    ?item wdt:P17 ?currentcountry . 
+    FILTER ( ?currentcountry != wd:Q200464 )
+    FILTER NOT EXISTS { ?item wdt:P576 [] }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],pt,en". }
+}
+ORDER BY ?currentcountryLabel

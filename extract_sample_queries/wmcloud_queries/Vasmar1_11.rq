@@ -1,0 +1,15 @@
+#Skipsregistreringer etter operatør
+#defaultView:BubbleChart
+SELECT ?operator ?operatorLabel ?bruttoregistertonntotal WHERE {
+  {
+    SELECT ?operator (SUM(?bruttoregistertonn) AS ?bruttoregistertonntotal) WHERE {
+      ?city wdt:P137 ?operator.
+      ?city wdt:P1093 ?bruttoregistertonn.
+    }
+    GROUP BY ?operator
+  }
+  OPTIONAL { ?operator wdt:P17 ?land. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nb". }
+}
+ORDER BY DESC(?bruttoregistertonntotal)
+LIMIT 100

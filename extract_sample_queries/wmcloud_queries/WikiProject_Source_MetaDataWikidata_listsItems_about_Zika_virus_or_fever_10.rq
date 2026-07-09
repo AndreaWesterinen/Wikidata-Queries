@@ -1,0 +1,15 @@
+#defaultView:BubbleChart
+#Institutions of the most cited authors who have published papers on Zika virus or Zika fever
+SELECT ?employer ?employerLabel (COUNT(?paper) AS ?count)
+WHERE
+{
+    ?item wdt:P2860 ?paper .
+  { ?paper wdt:P921 wd:Q202864 . } UNION { ?paper wdt:P921 wd:Q8071861 . }  
+    ?paper wdt:P50 ?author .
+    ?author wdt:P108 ?employer .
+    SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "en" .
+    }
+}
+GROUP BY ?employer ?employerLabel
+ORDER BY DESC(?count)
