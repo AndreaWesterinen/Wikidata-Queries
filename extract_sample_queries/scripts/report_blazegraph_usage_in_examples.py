@@ -18,7 +18,6 @@ DEFAULT_EXAMPLE_DIRS = [
     "advanced_examples",
     "human_examples",
     "maintenance_examples",
-    "commons_examples",
 ]
 DEFAULT_SUMMARY_THRESHOLD = 100
 DEFAULT_REPORT_DIR = PROJECT_ROOT / "blazegraph_usage_reports"
@@ -28,7 +27,6 @@ WIKIMEDIA_EXAMPLE_DIRS = [
     "advanced_examples",
     "human_examples",
     "maintenance_examples",
-    "commons_examples",
 ]
 WMCLOUD_EXAMPLE_DIRS = ["wmcloud_queries"]
 
@@ -48,7 +46,41 @@ class ReportData:
     total_queries: int
     section_order: list[str]
     grouped: dict[str, list[tuple[Feature, list[Path]]]]
+    miscellaneous: list[MiscellaneousResult]
     summary_threshold: int
+
+
+@dataclass
+class MiscellaneousResult:
+    category: str
+    detail: str
+    matches: list[Path]
+
+
+QLEVER_COMMONS_ENDPOINT = "https://qlever.dev/api/wikimedia-commons"
+QLEVER_COMMONS_SERVICE_PATTERN = re.compile(
+    rf"\bSERVICE\s+(?:SILENT\s+)?<\s*{re.escape(QLEVER_COMMONS_ENDPOINT)}\s*>",
+    flags=re.IGNORECASE,
+)
+SERVICE_IRI_PATTERN = re.compile(
+    r"\bSERVICE\s+(?:SILENT\s+)?<\s*([^>]+?)\s*>",
+    flags=re.IGNORECASE,
+)
+MWAPI_SERVICE_BLOCK_PATTERN = re.compile(
+    r"\bSERVICE\s+wikibase:mwapi\s*\{(?P<body>.*?)\}",
+    flags=re.IGNORECASE | re.DOTALL,
+)
+MWAPI_API_PATTERN = re.compile(
+    r"\bbd:serviceParam\s+wikibase:api\s+(?:\"([^\"]+)\"|'([^']+)')",
+    flags=re.IGNORECASE,
+)
+MWAPI_GENERATOR_PATTERN = re.compile(
+    r"(?:\bbd:serviceParam\s+)?\bmwapi:generator\s+(?:\"([^\"]+)\"|'([^']+)')",
+    flags=re.IGNORECASE,
+)
+KNOWN_MWAPI_API_VALUES = ["Generator", "Categories", "Search", "EntitySearch"]
+WIKIBASE_SOME_VALUE_PATTERN = re.compile(r"\bwikibase:someValue\b", flags=re.IGNORECASE)
+WIKIBASE_GLOBE_PATTERN = re.compile(r"\bwikibase:globe\b", flags=re.IGNORECASE)
 
 
 FEATURES = [
@@ -124,25 +156,9 @@ FEATURES = [
         pattern=r"\bhint:Query\b",
     ),
     Feature(
-        name="`bd:serviceParam`",
-        section="Supporting Blazegraph-Specific Syntax",
-        pattern=r"\bbd:serviceParam\b",
-        summarize=True,
-    ),
-    Feature(
-        name="`wikibase:someValue`",
-        section="Supporting Blazegraph-Specific Syntax",
-        pattern=r"\bwikibase:someValue\b",
-    ),
-    Feature(
         name="`wikibase:geoGlobe`",
         section="Supporting Blazegraph-Specific Syntax",
         pattern=r"\bwikibase:geoGlobe\b",
-    ),
-    Feature(
-        name="`wikibase:globe`",
-        section="Supporting Blazegraph-Specific Syntax",
-        pattern=r"\bwikibase:globe\b",
     ),
 ]
 
@@ -241,6 +257,105 @@ def summary_text(count: int) -> str:
     return f"{count} matching files (not listed individually)"
 
 
+def quoted_string_value(match: re.Match[str]) -> str:
+    return next(group for group in match.groups() if group is not None)
+
+
+def canonical_wikibase_api_value(value: str) -> str:
+    known_by_lower = {known.lower(): known for known in KNOWN_MWAPI_API_VALUES}
+    return known_by_lower.get(value.lower(), value)
+
+
+def extract_mwapi_details(text: str) -> tuple[set[str], set[str]]:
+    api_values: set[str] = set()
+    generator_values: set[str] = set()
+
+    for block in MWAPI_SERVICE_BLOCK_PATTERN.finditer(text):
+        body = block.group("body")
+        block_api_values = {
+            canonical_wikibase_api_value(quoted_string_value(match))
+            for match in MWAPI_API_PATTERN.finditer(body)
+        }
+        api_values.update(block_api_values)
+        if "Generator" in block_api_values:
+            generator_values.update(
+                quoted_string_value(match)
+                for match in MWAPI_GENERATOR_PATTERN.finditer(body)
+            )
+
+    return api_values, generator_values
+
+
+def has_other_federated_service_endpoint(text: str) -> bool:
+    for match in SERVICE_IRI_PATTERN.finditer(text):
+        endpoint = match.group(1).strip()
+        if endpoint.lower() != QLEVER_COMMONS_ENDPOINT.lower():
+            return True
+    return False
+
+
+def miscellaneous_results(
+    wikibase_some_value_matches: list[Path],
+    wikibase_globe_matches: list[Path],
+    qlever_commons_matches: list[Path],
+    other_federated_service_matches: list[Path],
+    mwapi_api_matches: dict[str, list[Path]],
+    mwapi_generator_matches: dict[str, list[Path]],
+) -> list[MiscellaneousResult]:
+    results = [
+        MiscellaneousResult(
+            category="Wikidata RDF Predicates",
+            detail="`wikibase:someValue`",
+            matches=wikibase_some_value_matches,
+        ),
+        MiscellaneousResult(
+            category="Wikidata RDF Predicates",
+            detail="`wikibase:globe`",
+            matches=wikibase_globe_matches,
+        ),
+        MiscellaneousResult(
+            category="Federated SERVICE endpoint",
+            detail=f"`{QLEVER_COMMONS_ENDPOINT}`",
+            matches=qlever_commons_matches,
+        ),
+        MiscellaneousResult(
+            category="Federated SERVICE endpoint",
+            detail="Other `SERVICE <...>` endpoint",
+            matches=other_federated_service_matches,
+        )
+    ]
+
+    known_api_values = set(KNOWN_MWAPI_API_VALUES)
+    for api_value in KNOWN_MWAPI_API_VALUES:
+        results.append(
+            MiscellaneousResult(
+                category="`wikibase:api` value",
+                detail=f"`{api_value}`",
+                matches=mwapi_api_matches.get(api_value, []),
+            )
+        )
+
+    for api_value in sorted(set(mwapi_api_matches) - known_api_values, key=str.lower):
+        results.append(
+            MiscellaneousResult(
+                category="`wikibase:api` value",
+                detail=f"`{api_value}`",
+                matches=mwapi_api_matches[api_value],
+            )
+        )
+
+    for generator_value in sorted(mwapi_generator_matches, key=str.lower):
+        results.append(
+            MiscellaneousResult(
+                category="`mwapi:generator` value for `wikibase:api` `Generator`",
+                detail=f"`{generator_value}`",
+                matches=mwapi_generator_matches[generator_value],
+            )
+        )
+
+    return results
+
+
 def should_summarize(feature: Feature, match_count: int, summary_threshold: int) -> bool:
     return feature.summarize or match_count >= summary_threshold
 
@@ -265,6 +380,12 @@ def collect_report_data(
     section_order = []
     grouped: dict[str, list[tuple[Feature, list[Path]]]] = {}
     matches_by_feature: dict[Feature, list[Path]] = {feature: [] for feature in FEATURES}
+    wikibase_some_value_matches: list[Path] = []
+    wikibase_globe_matches: list[Path] = []
+    qlever_commons_matches: list[Path] = []
+    other_federated_service_matches: list[Path] = []
+    mwapi_api_matches: dict[str, list[Path]] = {}
+    mwapi_generator_matches: dict[str, list[Path]] = {}
     compiled_features = [
         (feature, re.compile(feature.pattern, flags=re.IGNORECASE))
         for feature in FEATURES
@@ -275,6 +396,19 @@ def collect_report_data(
         for feature, rx in compiled_features:
             if rx.search(text):
                 matches_by_feature[feature].append(path)
+        if WIKIBASE_SOME_VALUE_PATTERN.search(text):
+            wikibase_some_value_matches.append(path)
+        if WIKIBASE_GLOBE_PATTERN.search(text):
+            wikibase_globe_matches.append(path)
+        if QLEVER_COMMONS_SERVICE_PATTERN.search(text):
+            qlever_commons_matches.append(path)
+        if has_other_federated_service_endpoint(text):
+            other_federated_service_matches.append(path)
+        api_values, generator_values = extract_mwapi_details(text)
+        for api_value in api_values:
+            mwapi_api_matches.setdefault(api_value, []).append(path)
+        for generator_value in generator_values:
+            mwapi_generator_matches.setdefault(generator_value, []).append(path)
 
     for feature in FEATURES:
         if feature.section not in grouped:
@@ -288,6 +422,14 @@ def collect_report_data(
         total_queries=len(files),
         section_order=section_order,
         grouped=grouped,
+        miscellaneous=miscellaneous_results(
+            wikibase_some_value_matches,
+            wikibase_globe_matches,
+            qlever_commons_matches,
+            other_federated_service_matches,
+            mwapi_api_matches,
+            mwapi_generator_matches,
+        ),
         summary_threshold=summary_threshold,
     )
 
@@ -300,6 +442,7 @@ def merge_report_data(title: str, report_parts: list[ReportData], summary_thresh
             total_queries=0,
             section_order=[],
             grouped={},
+            miscellaneous=miscellaneous_results([], [], [], [], {}, {}),
             summary_threshold=summary_threshold,
         )
 
@@ -308,6 +451,7 @@ def merge_report_data(title: str, report_parts: list[ReportData], summary_thresh
     section_order: list[str] = []
     grouped: dict[str, list[tuple[Feature, list[Path]]]] = {}
     matches_by_feature: dict[Feature, list[Path]] = {feature: [] for feature in FEATURES}
+    miscellaneous_matches: dict[tuple[str, str], list[Path]] = {}
 
     for report_part in report_parts:
         examples_dirs.extend(report_part.examples_dirs)
@@ -319,6 +463,8 @@ def merge_report_data(title: str, report_parts: list[ReportData], summary_thresh
         for feature_rows in report_part.grouped.values():
             for feature, matches in feature_rows:
                 matches_by_feature[feature].extend(matches)
+        for result in report_part.miscellaneous:
+            miscellaneous_matches.setdefault((result.category, result.detail), []).extend(result.matches)
 
     for feature in FEATURES:
         if feature.section not in grouped:
@@ -332,6 +478,10 @@ def merge_report_data(title: str, report_parts: list[ReportData], summary_thresh
         total_queries=total_queries,
         section_order=section_order,
         grouped=grouped,
+        miscellaneous=[
+            MiscellaneousResult(category, detail, matches)
+            for (category, detail), matches in miscellaneous_matches.items()
+        ],
         summary_threshold=summary_threshold,
     )
 
@@ -355,6 +505,28 @@ def build_report(report_data: ReportData) -> str:
         for feature, matches in report_data.grouped[section_name]:
             sections.append(f"| {section_name} | {feature.name} | {len(matches)} |")
     sections.append("")
+
+    sections.append("## Miscellaneous")
+    sections.append("")
+    sections.append("| Category | Detail | Matches |")
+    sections.append("| --- | --- | ---: |")
+    for result in report_data.miscellaneous:
+        sections.append(f"| {result.category} | {result.detail} | {len(result.matches)} |")
+    sections.append("")
+
+    for result in report_data.miscellaneous:
+        sections.append(f"### {result.category}: {result.detail}")
+        sections.append("")
+        sections.append(f"- Local matches: {len(result.matches)}")
+        sections.append("")
+        sections.append("Matching files:")
+        if result.matches and len(result.matches) >= report_data.summary_threshold:
+            sections.append(f"- {summary_text(len(result.matches))}")
+        elif result.matches:
+            sections.extend(f"- `{path.as_posix()}`" for path in result.matches)
+        else:
+            sections.append("- None in the current example trees")
+        sections.append("")
 
     for section_name in report_data.section_order:
         feature_rows = report_data.grouped[section_name]
@@ -442,6 +614,42 @@ def build_report_html(report_data: ReportData) -> str:
             )
     parts.append("</tbody>")
     parts.append("</table>")
+
+    parts.append("<h2>Miscellaneous</h2>")
+    parts.append("<table>")
+    parts.append("<thead><tr><th>Category</th><th>Detail</th><th>Matches</th></tr></thead>")
+    parts.append("<tbody>")
+    for result in report_data.miscellaneous:
+        parts.append(
+            "<tr>"
+            f"<td>{render_inline_markdown_html(result.category)}</td>"
+            f"<td>{render_inline_markdown_html(result.detail)}</td>"
+            f"<td>{len(result.matches)}</td>"
+            "</tr>"
+        )
+    parts.append("</tbody>")
+    parts.append("</table>")
+
+    for result in report_data.miscellaneous:
+        parts.append('<div class="feature">')
+        parts.append(
+            f"<h3>{render_inline_markdown_html(result.category)}: {render_inline_markdown_html(result.detail)}</h3>"
+        )
+        parts.append(f"<p>Local matches: <span class=\"count\">{len(result.matches)}</span></p>")
+        parts.append("<p>Matching files:</p>")
+        if result.matches and len(result.matches) >= report_data.summary_threshold:
+            parts.append(f'<ul class="files"><li>{html.escape(summary_text(len(result.matches)))}</li></ul>')
+        elif result.matches:
+            parts.append('<ul class="files">')
+            for path in result.matches:
+                rel = path.as_posix()
+                parts.append(
+                    f'<li><a href="{html.escape(rel)}"><code>{html.escape(rel)}</code></a></li>'
+                )
+            parts.append("</ul>")
+        else:
+            parts.append('<ul class="files"><li class="none">None in the current example trees</li></ul>')
+        parts.append("</div>")
 
     for section_name in report_data.section_order:
         feature_rows = report_data.grouped[section_name]

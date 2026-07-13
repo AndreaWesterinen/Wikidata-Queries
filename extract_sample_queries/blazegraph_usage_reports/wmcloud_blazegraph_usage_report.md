@@ -24,10 +24,258 @@ This report uses the feature inventory described on the referenced Wikitech page
 | SERVICE Extensions | `SERVICE gas:service` | 719 |
 | SERVICE Extensions | `SERVICE bd:sample` | 11753 |
 | Supporting Blazegraph-Specific Syntax | `hint:Query ...` query hints | 60468 |
-| Supporting Blazegraph-Specific Syntax | `bd:serviceParam` | 373848 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:someValue` | 0 |
 | Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` | 16 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:globe` | 0 |
+
+## Miscellaneous
+
+| Category | Detail | Matches |
+| --- | --- | ---: |
+| Wikidata RDF Predicates | `wikibase:someValue` | 0 |
+| Wikidata RDF Predicates | `wikibase:globe` | 0 |
+| Federated SERVICE endpoint | `https://qlever.dev/api/wikimedia-commons` | 0 |
+| Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 97 |
+| `wikibase:api` value | `Generator` | 22595 |
+| `wikibase:api` value | `Categories` | 6 |
+| `wikibase:api` value | `Search` | 996 |
+| `wikibase:api` value | `EntitySearch` | 3 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `allpages` | 22351 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `categorymembers` | 21 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `links` | 3 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `random` | 10 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `recentchanges` | 1 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `search` | 212 |
+
+### Wikidata RDF Predicates: `wikibase:someValue`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Wikidata RDF Predicates: `wikibase:globe`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Federated SERVICE endpoint: `https://qlever.dev/api/wikimedia-commons`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Federated SERVICE endpoint: Other `SERVICE <...>` endpoint
+
+- Local matches: 97
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_47.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/CamelCaseNickStolpersteineHamburgAltona.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/CamelCaseNickStolpersteineHamburgBergedorf.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/CamelCaseNickStolpersteineHamburgEimsbuttel.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/CamelCaseNickStolpersteineHamburgHarburg.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/CamelCaseNickStolpersteineHamburgMitte.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/CamelCaseNickStolpersteineHamburgNord.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/CamelCaseNickStolpersteineHamburgWandsbek.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_66.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Charles_MatthewsQueries_69.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/GhuronArchives2019_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MultichillKampen.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MultichillMissende_kampen.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MultichillRijksmonumentcomplex_missing_links.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NikkiTGN.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NikkiTGN_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NikkiTGN_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_12.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_13.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_15.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_20.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_30.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_31.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_34.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_35.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_36.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_39.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P1006Mismatches.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P245_36.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P245_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P245_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P7135.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P7135_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P981_22.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201810_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201810_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201811_10.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201903_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201904.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive202007_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Properties_for_deletionArchive2019_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201902_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201904_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201904_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Requests_for_permissionsBotEuropeanCommissionBot_1.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/SPARQL_federation_input_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/SPARQL_query_serviceFederation_report.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData2_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData2_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData2_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData2_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData3_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Salgo60ListeriaNobelData_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/ScienceSource_projectScienceSourceIngest_notebook.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Senator2029Archive_2_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Senator2029Archive_2_9.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_07_17_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_09_04_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_08_20.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_08_20_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_10_08_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2018_10_15_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_02_25_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_03_11_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_05_06.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_06_10.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2019_06_10_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_43.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tagishsimon_44.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tuhna9a1j01kadj0_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Txixwssuzxvnr7vz_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uj6jbz90ryua8uon.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uj6jbz90ryua8uon_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Um9onijmqglsrc9y_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Umnaj9hiixrk13xb_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uuvpkyxjdog22qjc_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uvqw5w1ideq1lxj3_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpmlosgrx2q.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpmlosgrx2q_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpn8fc6vbnp.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V1fqumpn8fc6vbnp_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Alba_amicorum_National_Library_of_the_NetherlandsSource_dataEuropeana.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Cultural_heritageReportsWLM_on_WD_Italy_32.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Cultural_heritageReportsWLM_on_WD_Italy_33.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Dutch_Literary_AwardsAuthorsPierre_Kemp_14.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Dutch_Literary_AwardsAuthorsTheun_de_Vries_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Dutch_National_Thesaurus_for_Author_NamesApproachStep2_8.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Figure_skatingTodo_43.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Wikidata_at_the_34th_Chaos_Communication_Congress_10.rq`
+
+### `wikibase:api` value: `Generator`
+
+- Local matches: 22595
+
+Matching files:
+- 22595 matching files (not listed individually)
+
+### `wikibase:api` value: `Categories`
+
+- Local matches: 6
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_07_17_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tuhna9a1j01kadj0_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_2.rq`
+
+### `wikibase:api` value: `Search`
+
+- Local matches: 996
+
+Matching files:
+- 996 matching files (not listed individually)
+
+### `wikibase:api` value: `EntitySearch`
+
+- Local matches: 3
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201908_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201706_8.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202210_2.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `allpages`
+
+- Local matches: 22351
+
+Matching files:
+- 22351 matching files (not listed individually)
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `categorymembers`
+
+- Local matches: 21
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_31.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Daniel_MietchenWikidata_listsCurrent_events.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_155.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_162.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_14.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_20.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_34.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_35.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_36.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_39.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_8.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_9.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201706_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202003_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Trade.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ua7by38ni68ppr8s.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_3.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `links`
+
+- Local matches: 3
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwiki.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwikiold.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MultichillCC0_data.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `random`
+
+- Local matches: 10
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_10.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_8.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_9.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `recentchanges`
+
+- Local matches: 1
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202207.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `search`
+
+- Local matches: 212
+
+Matching files:
+- 212 matching files (not listed individually)
 
 ## Blazegraph Features
 
@@ -347,8 +595,8 @@ Matching files:
 
 ## Supporting Blazegraph-Specific Syntax
 
-- Features in this section: 5
-- Total matches across this section: 434332
+- Features in this section: 2
+- Total matches across this section: 60484
 
 ### `hint:Query ...` query hints
 
@@ -356,20 +604,6 @@ Matching files:
 
 Matching files:
 - 60468 matching files (not listed individually)
-
-### `bd:serviceParam`
-
-- Local matches: 373848
-
-Matching files:
-- 373848 matching files (not listed individually)
-
-### `wikibase:someValue`
-
-- Local matches: 0
-
-Matching files:
-- None in the current example trees
 
 ### `wikibase:geoGlobe`
 
@@ -392,11 +626,4 @@ Matching files:
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq`
-
-### `wikibase:globe`
-
-- Local matches: 0
-
-Matching files:
-- None in the current example trees
 

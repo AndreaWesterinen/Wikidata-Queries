@@ -1,6 +1,6 @@
 # Blazegraph Features in the Sample Queries
 
-This task reviews the Wikitech page below and counts the Blazegraph-specific WDQS functionality it describes (plus a few other features such as wikibase:geoGlobe, wikibase:someValue and wikibase:globe) in the queries found in the extracted "example" directories, `wmcloud_queries/`, and `other_examples/`.
+This task reviews the Wikitech page below and counts the Blazegraph-specific WDQS functionality it describes (plus a few other features such as wikibase:someValue and wikibase:globe) in the queries found in the extracted Wikidata example directories (such as `advanced_examples/`), `wmcloud_queries/`, and `other_examples/`.
 
 Source page:
 
@@ -13,7 +13,7 @@ Identify the Blazegraph-specific features, extensions, and services discussed on
 ## Inputs
 
 - Source documentation page on Wikitech
-- Wikimedia query examples in `examples/`, `advanced_examples/`, `human_examples/`, `maintenance_examples/`, and `commons_examples/`
+- Wikidata query examples in `examples/`, `advanced_examples/`, `human_examples/`, and `maintenance_examples/`
 - WMCloud query exports in `wmcloud_queries/`
 - Additional query sets in immediate subdirectories of `other_examples/`
 
@@ -35,12 +35,14 @@ The report is split into:
 - `SERVICE Extensions`
 - `Supporting Blazegraph-Specific Syntax`
 
+The report also includes a `Miscellaneous` table for additional checks that are useful for migration analysis but are not part of the main Blazegraph feature inventory.
+
 For each feature, the report includes:
 
 - A local match count
 - A file-by-file list of matching `.rq` queries across the scanned example sets when the match count is below the summary threshold
 
-It also includes a summary table at the top for quick scanning.
+It also includes a summary table at the top for quick scanning. Miscellaneous rows use the same file-level counting model and include matching file lists when they are below the summary threshold.
 
 ## Currently Tracked Features
 
@@ -63,14 +65,23 @@ Features and extensions:
 Supporting syntax tracked separately:
 
 - `hint:Query`
-- `bd:serviceParam`
-- `wikibase:someValue`
 - `wikibase:geoGlobe`
-- `wikibase:globe`
+
+Miscellaneous checks:
+
+- Wikidata RDF predicates: `wikibase:someValue` and `wikibase:globe`
+- Federation to `SERVICE <https://qlever.dev/api/wikimedia-commons>`
+- Other federated `SERVICE <...>` endpoints, excluding the dedicated QLever Commons endpoint. Prefixed service names such as `wikibase:`, `bd:`, `mwapi:`, and `gas:` are not counted as federated endpoints.
+- `SERVICE wikibase:mwapi` request types declared with `bd:serviceParam wikibase:api "..."`, including `Generator`, `Categories`, `Search`, and `EntitySearch`
+- `mwapi:generator "..."` values inside `SERVICE wikibase:mwapi` blocks whose `wikibase:api` value is `Generator`
 
 ## How Matching Works
 
-The script applies case-insensitive regex-based feature matchers. The scanner reads each query file once and checks all tracked features during that pass. Matching file paths are reported as absolute paths, so matches from the different sets are unambiguous.
+The script applies case-insensitive regex-based feature matchers. The scanner reads each query file once and checks all tracked features plus the miscellaneous checks during that pass. Matching file paths are reported as absolute paths, so matches from the different sets are unambiguous.
+
+Federated endpoint rows are counted from angle-bracketed `SERVICE <...>` calls, including `SERVICE SILENT <...>`. The QLever Commons endpoint has its own row; all other angle-bracketed endpoints are counted in the other federated endpoint row.
+
+MWAPI request details are counted from `SERVICE wikibase:mwapi` blocks. A file contributes to a `wikibase:api` row when that block contains `bd:serviceParam wikibase:api "..."`. A file contributes to an `mwapi:generator` row only when the same MWAPI service block has `wikibase:api "Generator"` and a generator value such as `mwapi:generator "search"`.
 
 In standard generation mode, the script scans the Wikimedia, WMCloud, and other query groups once each. The `all` report is built by merging those completed scan results rather than rescanning the same directories.
 
@@ -124,7 +135,7 @@ python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples a
 
 `--examples-dir`
 
-- Default for custom reports: `examples advanced_examples human_examples maintenance_examples commons_examples`, resolved under the project root beside `scripts/`
+- Default for custom reports: `examples advanced_examples human_examples maintenance_examples`, resolved under the project root beside `scripts/`
 - One or more directories containing the `.rq` files to scan
 - Accepts a space-separated list, so you can scan a single set (`--examples-dir examples`) or any subset of the extracted query sets
 
@@ -150,7 +161,7 @@ python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples a
 
 - The report is based on the specific Wikitech page listed above, not on a broader independent taxonomy.
 - Some features discussed on the page may have zero matches across the current local example sets.
-- `wikibase:someValue` is tracked in the report even though the current local example sets have zero matches.
+- `wikibase:someValue` and `wikibase:globe` are reported as Wikidata RDF predicates in the miscellaneous table, not as Blazegraph-specific syntax.
 
 ## Related Files
 
@@ -160,6 +171,5 @@ python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples a
 - `advanced_examples/`
 - `human_examples/`
 - `maintenance_examples/`
-- `commons_examples/`
 - `wmcloud_queries/`
 - `other_examples/`

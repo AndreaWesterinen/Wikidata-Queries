@@ -88,7 +88,8 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             markdown = report.build_report(report_data)
             html = report.build_report_html(report_data)
 
-        self.assertIn("| Supporting Blazegraph-Specific Syntax | `wikibase:someValue` | 1 |", markdown)
+        self.assertIn("| Wikidata RDF Predicates | `wikibase:someValue` | 1 |", markdown)
+        self.assertNotIn("| Supporting Blazegraph-Specific Syntax | `wikibase:someValue` |", markdown)
         self.assertIn("<td><code>wikibase:someValue</code></td><td>1</td>", html)
 
     def test_report_includes_wikibase_geo_globe_findings(self) -> None:
@@ -114,8 +115,96 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             markdown = report.build_report(report_data)
             html = report.build_report_html(report_data)
 
-        self.assertIn("| Supporting Blazegraph-Specific Syntax | `wikibase:globe` | 1 |", markdown)
+        self.assertIn("| Wikidata RDF Predicates | `wikibase:globe` | 1 |", markdown)
+        self.assertNotIn("| Supporting Blazegraph-Specific Syntax | `wikibase:globe` |", markdown)
         self.assertIn("<td><code>wikibase:globe</code></td><td>1</td>", html)
+
+    def test_report_includes_qlever_commons_federation_in_miscellaneous_table(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            examples_dir = Path(tmp_dir)
+            query_path = examples_dir / "query.rq"
+            query_path.write_text(
+                "SELECT * WHERE { SERVICE <https://qlever.dev/api/wikimedia-commons> { ?s ?p ?o } }\n",
+                encoding="utf-8",
+            )
+
+            report_data = report.collect_report_data([examples_dir])
+            markdown = report.build_report(report_data)
+            html = report.build_report_html(report_data)
+
+        self.assertIn("## Miscellaneous", markdown)
+        self.assertIn(
+            "| Federated SERVICE endpoint | `https://qlever.dev/api/wikimedia-commons` | 1 |",
+            markdown,
+        )
+        self.assertIn("| Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 0 |", markdown)
+        self.assertIn(
+            "<td>Federated SERVICE endpoint</td><td><code>https://qlever.dev/api/wikimedia-commons</code></td><td>1</td>",
+            html,
+        )
+
+    def test_report_includes_other_federated_service_endpoints_in_miscellaneous_table(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            examples_dir = Path(tmp_dir)
+            query_path = examples_dir / "query.rq"
+            query_path.write_text(
+                """SELECT * WHERE {
+  SERVICE <https://query.example.org/sparql> { ?s ?p ?o }
+  SERVICE SILENT <https://query.other.example/sparql> { ?s ?p ?o }
+  SERVICE <https://qlever.dev/api/wikimedia-commons> { ?s ?p ?o }
+  SERVICE wikibase:label {}
+  SERVICE bd:slice {}
+  SERVICE mwapi:Example {}
+  SERVICE gas:service {}
+}
+""",
+                encoding="utf-8",
+            )
+
+            report_data = report.collect_report_data([examples_dir])
+            markdown = report.build_report(report_data)
+            html = report.build_report_html(report_data)
+
+        self.assertIn("| Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 1 |", markdown)
+        self.assertIn(
+            "<td>Federated SERVICE endpoint</td><td>Other <code>SERVICE &lt;...&gt;</code> endpoint</td><td>1</td>",
+            html,
+        )
+
+    def test_report_includes_mwapi_request_details_in_miscellaneous_table(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            examples_dir = Path(tmp_dir)
+            query_path = examples_dir / "query.rq"
+            query_path.write_text(
+                """SELECT * WHERE {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Generator" ;
+      mwapi:generator "search" .
+  }
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Search" .
+  }
+}
+""",
+                encoding="utf-8",
+            )
+
+            report_data = report.collect_report_data([examples_dir])
+            markdown = report.build_report(report_data)
+            html = report.build_report_html(report_data)
+
+        self.assertIn("| `wikibase:api` value | `Generator` | 1 |", markdown)
+        self.assertIn("| `wikibase:api` value | `Categories` | 0 |", markdown)
+        self.assertIn("| `wikibase:api` value | `Search` | 1 |", markdown)
+        self.assertIn(
+            "| `mwapi:generator` value for `wikibase:api` `Generator` | `search` | 1 |",
+            markdown,
+        )
+        self.assertNotIn("| Supporting Blazegraph-Specific Syntax | `bd:serviceParam` |", markdown)
+        self.assertIn(
+            "<td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>search</code></td><td>1</td>",
+            html,
+        )
 
     def test_merge_report_data_sums_counts_without_rescanning(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -124,8 +213,28 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             two = base / "two"
             one.mkdir()
             two.mkdir()
-            (one / "one.rq").write_text("SELECT * WHERE { SERVICE wikibase:around {} }\n", encoding="utf-8")
-            (two / "two.rq").write_text("SELECT * WHERE { SERVICE wikibase:around {} }\n", encoding="utf-8")
+            (one / "one.rq").write_text(
+                """SELECT * WHERE {
+  SERVICE wikibase:around {}
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Generator" ;
+      mwapi:generator "search" .
+  }
+}
+""",
+                encoding="utf-8",
+            )
+            (two / "two.rq").write_text(
+                """SELECT * WHERE {
+  SERVICE wikibase:around {}
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api "Generator" ;
+      mwapi:generator "search" .
+  }
+}
+""",
+                encoding="utf-8",
+            )
 
             first = report.collect_report_data([one], title="One")
             second = report.collect_report_data([two], title="Two")
@@ -133,7 +242,13 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
 
         self.assertEqual(merged.total_queries, 2)
         self.assertEqual(merged.examples_dirs, [one, two])
-        self.assertIn("| SERVICE Extensions | `SERVICE wikibase:around` | 2 |", report.build_report(merged))
+        markdown = report.build_report(merged)
+        self.assertIn("| SERVICE Extensions | `SERVICE wikibase:around` | 2 |", markdown)
+        self.assertIn("| `wikibase:api` value | `Generator` | 2 |", markdown)
+        self.assertIn(
+            "| `mwapi:generator` value for `wikibase:api` `Generator` | `search` | 2 |",
+            markdown,
+        )
 
     def test_generate_standard_reports_writes_four_report_pairs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -147,12 +262,17 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             wmcloud = base / "wmcloud_queries"
             other_root = base / "other_examples"
             other = other_root / "one"
-            for directory in [examples, advanced, human, maintenance, commons, wmcloud, other]:
+            for directory in [examples, advanced, human, maintenance, wmcloud, other]:
                 directory.mkdir(parents=True)
                 (directory / "query.rq").write_text(
                     "SELECT * WHERE { SERVICE wikibase:label {} }\n",
                     encoding="utf-8",
                 )
+            commons.mkdir()
+            (commons / "query.rq").write_text(
+                "SELECT * WHERE { SERVICE wikibase:label {} }\n",
+                encoding="utf-8",
+            )
 
             original_project_root = report.PROJECT_ROOT
             original_report_dir = report.DEFAULT_REPORT_DIR
@@ -183,8 +303,12 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
                 (report_dir / "wikimedia_blazegraph_usage_report.md").read_text(encoding="utf-8"),
             )
             self.assertIn(
-                "| SERVICE Extensions | `SERVICE wikibase:label` | 7 |",
+                "| SERVICE Extensions | `SERVICE wikibase:label` | 6 |",
                 (report_dir / "all_blazegraph_usage_report.md").read_text(encoding="utf-8"),
+            )
+            self.assertNotIn(
+                "commons_examples",
+                (report_dir / "wikimedia_blazegraph_usage_report.md").read_text(encoding="utf-8"),
             )
 
 

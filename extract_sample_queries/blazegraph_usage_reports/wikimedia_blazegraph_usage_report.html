@@ -26,38 +26,144 @@
 <h1>Blazegraph Feature Usage Report: Wikimedia Queries</h1>
 <div class="meta">
 <p>Source page reviewed: <a href="https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities">https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities</a></p>
-<p>Scanned local example queries: <span class="count">617</span> <code>.rq</code> files under <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/human_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples</code>.</p>
+<p>Scanned local example queries: <span class="count">557</span> <code>.rq</code> files under <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/human_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples</code>.</p>
 <p>This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local example trees.</p>
 </div>
 <h2>Summary Table</h2>
 <table>
 <thead><tr><th>Section</th><th>Feature</th><th>Matches</th></tr></thead>
 <tbody>
-<tr><td>Blazegraph Features</td><td>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</td><td>51</td></tr>
+<tr><td>Blazegraph Features</td><td>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</td><td>19</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:globe()</code></td><td>0</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:latitude()</code></td><td>1</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:longitude()</code></td><td>1</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:distance()</code></td><td>11</td></tr>
-<tr><td>Function Extensions</td><td><code>wikibase:decodeUri()</code></td><td>5</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:around</code></td><td>8</td></tr>
+<tr><td>Function Extensions</td><td><code>wikibase:decodeUri()</code></td><td>2</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:around</code></td><td>7</td></tr>
 <tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:box</code></td><td>1</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:label</code></td><td>441</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:slice</code></td><td>1</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:mwapi</code></td><td>16</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:label</code></td><td>419</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:slice</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:mwapi</code></td><td>10</td></tr>
 <tr><td>SERVICE Extensions</td><td><code>SERVICE gas:service</code></td><td>3</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:sample</code></td><td>6</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>hint:Query ...</code> query hints</td><td>21</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>bd:serviceParam</code></td><td>454</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:sample</code></td><td>1</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>hint:Query ...</code> query hints</td><td>20</td></tr>
 <tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:geoGlobe</code></td><td>3</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:globe</code></td><td>0</td></tr>
 </tbody>
 </table>
+<h2>Miscellaneous</h2>
+<table>
+<thead><tr><th>Category</th><th>Detail</th><th>Matches</th></tr></thead>
+<tbody>
+<tr><td>Wikidata RDF Predicates</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
+<tr><td>Wikidata RDF Predicates</td><td><code>wikibase:globe</code></td><td>0</td></tr>
+<tr><td>Federated SERVICE endpoint</td><td><code>https://qlever.dev/api/wikimedia-commons</code></td><td>0</td></tr>
+<tr><td>Federated SERVICE endpoint</td><td>Other <code>SERVICE &lt;...&gt;</code> endpoint</td><td>10</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>Generator</code></td><td>4</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>Categories</code></td><td>0</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>Search</code></td><td>2</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>EntitySearch</code></td><td>0</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>categorymembers</code></td><td>1</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>exturlusage</code></td><td>1</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>search</code></td><td>2</td></tr>
+</tbody>
+</table>
+<div class="feature">
+<h3>Wikidata RDF Predicates: <code>wikibase:someValue</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3>Wikidata RDF Predicates: <code>wikibase:globe</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3>Federated SERVICE endpoint: <code>https://qlever.dev/api/wikimedia-commons</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3>Federated SERVICE endpoint: Other <code>SERVICE &lt;...&gt;</code> endpoint</h3>
+<p>Local matches: <span class="count">10</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/External_Federation_Queries_using_Wikidata_plus_Other_sources/Getting_basic_information_for_one_item.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/External_Federation_Queries_using_Wikidata_plus_Other_sources/Getting_basic_information_for_one_item.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/External_Federation_Queries_using_Wikidata_plus_Other_sources/UK_Parliament_constituencies_whose_official_point_location_is_more_than_10km_from_the_location_in_Wikidata.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/External_Federation_Queries_using_Wikidata_plus_Other_sources/UK_Parliament_constituencies_whose_official_point_location_is_more_than_10km_from_the_location_in_Wikidata.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/ATMs_around_Munich_belonging_to_the_BankcardServicenetz_interbank_network_federated_query.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/ATMs_around_Munich_belonging_to_the_BankcardServicenetz_interbank_network_federated_query.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Metabolites/Metabolitemetabolite_interactions_mostly_conversions_and_their_pKa_change_federated_query.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Metabolites/Metabolitemetabolite_interactions_mostly_conversions_and_their_pKa_change_federated_query.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Pathways/Biomarkers_in_Wikidata_which_interact_with_proteins_in_human_pathways_from_Wikipathways.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Pathways/Biomarkers_in_Wikidata_which_interact_with_proteins_in_human_pathways_from_Wikipathways.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Pathways/Known_interaction_types_in_Wikipathways_for_a_pathway_with_Identifier_WP716_federated_query.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Pathways/Known_interaction_types_in_Wikipathways_for_a_pathway_with_Identifier_WP716_federated_query.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Pathways/Local_annotations_from_Wikipathways_using_Federated_query_on_a_Pathway_with_identifier_WP716_federated_query.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Pathways/Local_annotations_from_Wikipathways_using_Federated_query_on_a_Pathway_with_identifier_WP716_federated_query.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Science/Universities_ranked_by_PageRank_on_English_Wikipedia_federated_query.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Science/Universities_ranked_by_PageRank_on_English_Wikipedia_federated_query.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Federation/Get_OpenStreetMap_nodes_with_inarisami_label_in_wikipedia_but_without_inarisami_label_in_OSM.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Federation/Get_OpenStreetMap_nodes_with_inarisami_label_in_wikipedia_but_without_inarisami_label_in_OSM.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Federation/Get_information_of_Europeana_item.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Federation/Get_information_of_Europeana_item.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>Generator</code></h3>
+<p>Local matches: <span class="count">4</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Zika_corpus/Scholarly_articles_with_Zika_in_the_item_label.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Zika_corpus/Scholarly_articles_with_Zika_in_the_item_label.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_statements_with_references_containing_external_links_to_wipoint.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_statements_with_references_containing_external_links_to_wipoint.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Getting_pageviews_for_all_articles_in_a_category.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Getting_pageviews_for_all_articles_in_a_category.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Map_of_newspapers_in_the_United_States_by_presence_of_Infobox_newspaper_in_their_English_Wikipedia_article.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Map_of_newspapers_in_the_United_States_by_presence_of_Infobox_newspaper_in_their_English_Wikipedia_article.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>Categories</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>Search</code></h3>
+<p>Local matches: <span class="count">2</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Labels_containing_HTML_escape_sequences.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Labels_containing_HTML_escape_sequences.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>EntitySearch</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>categorymembers</code></h3>
+<p>Local matches: <span class="count">1</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Getting_pageviews_for_all_articles_in_a_category.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Getting_pageviews_for_all_articles_in_a_category.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>exturlusage</code></h3>
+<p>Local matches: <span class="count">1</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_statements_with_references_containing_external_links_to_wipoint.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_statements_with_references_containing_external_links_to_wipoint.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>search</code></h3>
+<p>Local matches: <span class="count">2</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Zika_corpus/Scholarly_articles_with_Zika_in_the_item_label.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Zika_corpus/Scholarly_articles_with_Zika_in_the_item_label.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Map_of_newspapers_in_the_United_States_by_presence_of_Infobox_newspaper_in_their_English_Wikipedia_article.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Map_of_newspapers_in_the_United_States_by_presence_of_Infobox_newspaper_in_their_English_Wikipedia_article.rq</code></a></li>
+</ul>
+</div>
 <h2>Blazegraph Features</h2>
-<p>Features in this section: <span class="count">1</span><br>Total matches across this section: <span class="count">51</span></p>
+<p>Features in this section: <span class="count">1</span><br>Total matches across this section: <span class="count">19</span></p>
 <div class="feature">
 <h3>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</h3>
-<p>Local matches: <span class="count">51</span></p>
+<p>Local matches: <span class="count">19</span></p>
 <p>Matching files:</p>
 <ul class="files">
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Chemistry/Solubilities_of_chemicals.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Chemistry/Solubilities_of_chemicals.rq</code></a></li>
@@ -79,42 +185,10 @@
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Performant_way_to_list_100_scholary_articles_sorted_by_linkcount.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Performant_way_to_list_100_scholary_articles_sorted_by_linkcount.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Personendaten_template_equivalent_dewiki.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Personendaten_template_equivalent_dewiki.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Translation_of_labels_and_descriptions/Translated_labels_and_aliases_for_a_collection.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Translation_of_labels_and_descriptions/Translated_labels_and_aliases_for_a_collection.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Camera_location_of_files_in_a_category.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Camera_location_of_files_in_a_category.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Depicts_statements_with_Dutch_labels_of_files_in_one_Commons_category.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Depicts_statements_with_Dutch_labels_of_files_in_one_Commons_category.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Wikidata_items_of_files_in_CategoryArtworks_with_structured_data_with_redirected_digital_representation_of_property.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Wikidata_items_of_files_in_CategoryArtworks_with_structured_data_with_redirected_digital_representation_of_property.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Federation_with_Wikidata_to_group_analyse_or_add_information_to_Commons_results/Most_common_wikidata_classes_for_values_of_depicts_P180_on_Commons.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Federation_with_Wikidata_to_group_analyse_or_add_information_to_Commons_results/Most_common_wikidata_classes_for_values_of_depicts_P180_on_Commons.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Federation_with_external_sources/Read_commons_categories_for_Europeana_subjects_using_federated_query.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Federation_with_external_sources/Read_commons_categories_for_Europeana_subjects_using_federated_query.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_predicates_on_a_sample_of_5000_Commons_files.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_predicates_on_a_sample_of_5000_Commons_files.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_property_qualifier_combinations_other_than_on_depicts_P180_statements.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_property_qualifier_combinations_other_than_on_depicts_P180_statements.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_qualifiers_used_on_depicts_statements.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_qualifiers_used_on_depicts_statements.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Looking_up_labels_and_descriptions_of_Wikidata_items/Most_common_expression_gesture_or_body_pose_P6022_qualifier_values_for_depicts_P180.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Looking_up_labels_and_descriptions_of_Wikidata_items/Most_common_expression_gesture_or_body_pose_P6022_qualifier_values_for_depicts_P180.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Looking_up_labels_and_descriptions_of_Wikidata_items/colors_of_roses.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Looking_up_labels_and_descriptions_of_Wikidata_items/colors_of_roses.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Maintenance_queries/Files_captured_with_a_camera_before_that_camera_was_released.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Maintenance_queries/Files_captured_with_a_camera_before_that_camera_was_released.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Maintenance_queries/Media_that_has_a_creator_set_to_some_value_where_it_could_actually_be_a_Q_number.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Maintenance_queries/Media_that_has_a_creator_set_to_some_value_where_it_could_actually_be_a_Q_number.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Count_of_number_of_Digital_Representations_P6243_by_type_of_object_represented.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Count_of_number_of_Digital_Representations_P6243_by_type_of_object_represented.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_with_largest_number_of_depicts_P180_values_but_no_preferred_values.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_with_largest_number_of_depicts_P180_values_but_no_preferred_values.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Look_up_images_that_are_near_duplicates_of_another_image.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Look_up_images_that_are_near_duplicates_of_another_image.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_providers_of_images_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_providers_of_images_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_qualifiers_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_qualifiers_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Objects_with_the_largest_number_of_Digital_Representations_P6243.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Objects_with_the_largest_number_of_Digital_Representations_P6243.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Things_depicted_with_cats.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Things_depicted_with_cats.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/All_images_depicting_Van_Gogh_artworks.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/All_images_depicting_Van_Gogh_artworks.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Detect_depiction_of_both_a_specific_church_and_the_generic_church_building.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Detect_depiction_of_both_a_specific_church_and_the_generic_church_building.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Illustration_published_in_German_magazine_Die_Gartenlaube_using_Wikidata_federation.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Illustration_published_in_German_magazine_Die_Gartenlaube_using_Wikidata_federation.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Images_of_objects_located_in_Helsinki_together_with_authors_of_those_objects_and_copyright_status.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Images_of_objects_located_in_Helsinki_together_with_authors_of_those_objects_and_copyright_status.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Map_of_files_participating_in_Wiki_Loves_Monuments_in_Sweden_colorcoded_by_year_of_competition.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Map_of_files_participating_in_Wiki_Loves_Monuments_in_Sweden_colorcoded_by_year_of_competition.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Media_files_depicting_former_heads_of_state_that_are_still_alive.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/Media_files_depicting_former_heads_of_state_that_are_still_alive.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/subclasses_of_roses.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Retrieving_a_set_of_Wikidata_items_of_interest/subclasses_of_roses.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Simple_Queries/Cameras_used_by_naturalist_using_iNaturalist_to_identify_species.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Simple_Queries/Cameras_used_by_naturalist_using_iNaturalist_to_identify_species.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Uncategorized/Most_frequently_used_depicts_statements_from_a_slice_of_media_files_that_dont_have_translations_in_Spanish.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Uncategorized/Most_frequently_used_depicts_statements_from_a_slice_of_media_files_that_dont_have_translations_in_Spanish.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Featured_Pictures_depicting_Lepidoptera_and_taken_with_a_Canon_camera.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Featured_Pictures_depicting_Lepidoptera_and_taken_with_a_Canon_camera.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Quality_Images_depicting_Hummingbirds.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Quality_Images_depicting_Hummingbirds.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Quality_Images_depicting_arch_bridges_in_Italy.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Quality_Images_depicting_arch_bridges_in_Italy.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Valued_Images_depicting_athletics_competitors.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Wikimedia_Commons_assessments/Valued_Images_depicting_athletics_competitors.rq</code></a></li>
 </ul>
 </div>
 <h2>Function Extensions</h2>
-<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">18</span></p>
+<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">15</span></p>
 <div class="feature">
 <h3><code>geof:globe()</code></h3>
 <p>Local matches: <span class="count">0</span></p>
@@ -157,21 +231,18 @@
 </div>
 <div class="feature">
 <h3><code>wikibase:decodeUri()</code></h3>
-<p>Local matches: <span class="count">5</span></p>
+<p>Local matches: <span class="count">2</span></p>
 <p>Matching files:</p>
 <ul class="files">
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Wikimedia_projects/List_of_small_monuments_and_other_similar_sites_with_link_to_Commons_category_sitelink_or_P373.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Wikimedia_projects/List_of_small_monuments_and_other_similar_sites_with_link_to_Commons_category_sitelink_or_P373.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_metadata_like_artist_and_license_for_an_image.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_metadata_like_artist_and_license_for_an_image.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_user_uploads/World_map_of_files_authored_by_Wikimedia_Commons_user_Coyau.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_user_uploads/World_map_of_files_authored_by_Wikimedia_Commons_user_Coyau.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_taken_1km_around_a_center.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_taken_1km_around_a_center.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_with_largest_number_of_depicts_P180_values_but_no_preferred_values.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_with_largest_number_of_depicts_P180_values_but_no_preferred_values.rq</code></a></li>
 </ul>
 </div>
 <h2>SERVICE Extensions</h2>
-<p>Features in this section: <span class="count">7</span><br>Total matches across this section: <span class="count">476</span></p>
+<p>Features in this section: <span class="count">7</span><br>Total matches across this section: <span class="count">441</span></p>
 <div class="feature">
 <h3><code>SERVICE wikibase:around</code></h3>
-<p>Local matches: <span class="count">8</span></p>
+<p>Local matches: <span class="count">7</span></p>
 <p>Matching files:</p>
 <ul class="files">
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Items_geographically_located_around_the_Wikimedia_Foundation_office_sorted_by_distance.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Items_geographically_located_around_the_Wikimedia_Foundation_office_sorted_by_distance.rq</code></a></li>
@@ -181,7 +252,6 @@
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Airports_within_100km_of_Berlin.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Airports_within_100km_of_Berlin.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Items_around_with_user_location.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Items_around_with_user_location.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Monuments_and_other_heritage_items_located_1_km_around_the_users_location.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Samples_with_coordinates_to_illustrate_maps/Monuments_and_other_heritage_items_located_1_km_around_the_users_location.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_taken_1km_around_a_center.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_taken_1km_around_a_center.rq</code></a></li>
 </ul>
 </div>
 <div class="feature">
@@ -194,21 +264,19 @@
 </div>
 <div class="feature">
 <h3><code>SERVICE wikibase:label</code></h3>
-<p>Local matches: <span class="count">441</span></p>
+<p>Local matches: <span class="count">419</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>441 matching files (not listed individually)</li></ul>
+<ul class="files"><li>419 matching files (not listed individually)</li></ul>
 </div>
 <div class="feature">
 <h3><code>SERVICE bd:slice</code></h3>
-<p>Local matches: <span class="count">1</span></p>
+<p>Local matches: <span class="count">0</span></p>
 <p>Matching files:</p>
-<ul class="files">
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Uncategorized/Most_frequently_used_depicts_statements_from_a_slice_of_media_files_that_dont_have_translations_in_Spanish.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Uncategorized/Most_frequently_used_depicts_statements_from_a_slice_of_media_files_that_dont_have_translations_in_Spanish.rq</code></a></li>
-</ul>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
 </div>
 <div class="feature">
 <h3><code>SERVICE wikibase:mwapi</code></h3>
-<p>Local matches: <span class="count">16</span></p>
+<p>Local matches: <span class="count">10</span></p>
 <p>Matching files:</p>
 <ul class="files">
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Zika_corpus/Scholarly_articles_with_Zika_in_the_item_label.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Zika_corpus/Scholarly_articles_with_Zika_in_the_item_label.rq</code></a></li>
@@ -221,12 +289,6 @@
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Articles_missing_an_item_for_their_subject_CRAN_R_packages.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Articles_missing_an_item_for_their_subject_CRAN_R_packages.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Labels_containing_HTML_escape_sequences.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Labels_containing_HTML_escape_sequences.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Camera_location_of_files_in_a_category.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Camera_location_of_files_in_a_category.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Depicts_statements_with_Dutch_labels_of_files_in_one_Commons_category.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Depicts_statements_with_Dutch_labels_of_files_in_one_Commons_category.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Wikidata_items_of_files_in_CategoryArtworks_with_structured_data_with_redirected_digital_representation_of_property.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Exploring_Commons_Categories/Wikidata_items_of_files_in_CategoryArtworks_with_structured_data_with_redirected_digital_representation_of_property.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Maintenance_queries/Files_in_a_category_that_do_not_have_inception_P571.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Maintenance_queries/Files_in_a_category_that_do_not_have_inception_P571.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Simple_Queries/Cameras_used_by_naturalist_using_iNaturalist_to_identify_species.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Simple_Queries/Cameras_used_by_naturalist_using_iNaturalist_to_identify_species.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Simple_Queries/Files_in_category_Spoken_English_Wikipedia.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Simple_Queries/Files_in_category_Spoken_English_Wikipedia.rq</code></a></li>
 </ul>
 </div>
 <div class="feature">
@@ -241,22 +303,17 @@
 </div>
 <div class="feature">
 <h3><code>SERVICE bd:sample</code></h3>
-<p>Local matches: <span class="count">6</span></p>
+<p>Local matches: <span class="count">1</span></p>
 <p>Matching files:</p>
 <ul class="files">
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Sampling/Scientific_articles_without_any_description.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Sampling/Scientific_articles_without_any_description.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Federation_with_Wikidata_to_group_analyse_or_add_information_to_Commons_results/Most_common_wikidata_classes_for_values_of_depicts_P180_on_Commons.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Federation_with_Wikidata_to_group_analyse_or_add_information_to_Commons_results/Most_common_wikidata_classes_for_values_of_depicts_P180_on_Commons.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_predicates_on_a_sample_of_5000_Commons_files.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Frequently_used_properties_on_Commons/Most_common_predicates_on_a_sample_of_5000_Commons_files.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Looking_up_labels_and_descriptions_of_Wikidata_items/Most_common_values_for_source_of_image_P7482.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Looking_up_labels_and_descriptions_of_Wikidata_items/Most_common_values_for_source_of_image_P7482.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_providers_of_images_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_providers_of_images_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_qualifiers_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Most_frequent_qualifiers_when_source_of_image_P7482_file_available_on_the_internet_Q74228490.rq</code></a></li>
 </ul>
 </div>
 <h2>Supporting Blazegraph-Specific Syntax</h2>
-<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">478</span></p>
+<p>Features in this section: <span class="count">2</span><br>Total matches across this section: <span class="count">23</span></p>
 <div class="feature">
 <h3><code>hint:Query ...</code> query hints</h3>
-<p>Local matches: <span class="count">21</span></p>
+<p>Local matches: <span class="count">20</span></p>
 <p>Matching files:</p>
 <ul class="files">
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/ATMs_around_Munich_belonging_to_the_BankcardServicenetz_interbank_network_federated_query.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/ATMs_around_Munich_belonging_to_the_BankcardServicenetz_interbank_network_federated_query.rq</code></a></li>
@@ -279,20 +336,7 @@
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Aliases_of_properties_which_are_used_more_than_once.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Aliases_of_properties_which_are_used_more_than_once.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Deprecated_rank_statements.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Deprecated_rank_statements.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_taken_1km_around_a_center.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/More_Queries/Images_taken_1km_around_a_center.rq</code></a></li>
 </ul>
-</div>
-<div class="feature">
-<h3><code>bd:serviceParam</code></h3>
-<p>Local matches: <span class="count">454</span></p>
-<p>Matching files:</p>
-<ul class="files"><li>454 matching files (not listed individually)</li></ul>
-</div>
-<div class="feature">
-<h3><code>wikibase:someValue</code></h3>
-<p>Local matches: <span class="count">0</span></p>
-<p>Matching files:</p>
-<ul class="files"><li class="none">None in the current example trees</li></ul>
 </div>
 <div class="feature">
 <h3><code>wikibase:geoGlobe</code></h3>
@@ -303,12 +347,6 @@
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq</code></a></li>
 </ul>
-</div>
-<div class="feature">
-<h3><code>wikibase:globe</code></h3>
-<p>Local matches: <span class="count">0</span></p>
-<p>Matching files:</p>
-<ul class="files"><li class="none">None in the current example trees</li></ul>
 </div>
 </body>
 </html>

@@ -26,43 +26,204 @@
 <h1>Blazegraph Feature Usage Report: All Queries</h1>
 <div class="meta">
 <p>Source page reviewed: <a href="https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities">https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities</a></p>
-<p>Scanned local example queries: <span class="count">482883</span> <code>.rq</code> files under <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/human_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted</code>.</p>
+<p>Scanned local example queries: <span class="count">482823</span> <code>.rq</code> files under <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/human_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues</code>, <code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted</code>.</p>
 <p>This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local example trees.</p>
 </div>
 <h2>Summary Table</h2>
 <table>
 <thead><tr><th>Section</th><th>Feature</th><th>Matches</th></tr></thead>
 <tbody>
-<tr><td>Blazegraph Features</td><td>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</td><td>68525</td></tr>
+<tr><td>Blazegraph Features</td><td>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</td><td>68493</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:globe()</code></td><td>0</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:latitude()</code></td><td>8</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:longitude()</code></td><td>7</td></tr>
 <tr><td>Function Extensions</td><td><code>geof:distance()</code></td><td>77</td></tr>
-<tr><td>Function Extensions</td><td><code>wikibase:decodeUri()</code></td><td>294</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:around</code></td><td>104</td></tr>
+<tr><td>Function Extensions</td><td><code>wikibase:decodeUri()</code></td><td>291</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:around</code></td><td>103</td></tr>
 <tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:box</code></td><td>17</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:label</code></td><td>349532</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:slice</code></td><td>27</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:mwapi</code></td><td>35427</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:label</code></td><td>349510</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:slice</code></td><td>26</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE wikibase:mwapi</code></td><td>35421</td></tr>
 <tr><td>SERVICE Extensions</td><td><code>SERVICE gas:service</code></td><td>722</td></tr>
-<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:sample</code></td><td>11759</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>hint:Query ...</code> query hints</td><td>60490</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>bd:serviceParam</code></td><td>374309</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
+<tr><td>SERVICE Extensions</td><td><code>SERVICE bd:sample</code></td><td>11754</td></tr>
+<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>hint:Query ...</code> query hints</td><td>60489</td></tr>
 <tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:geoGlobe</code></td><td>19</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:globe</code></td><td>0</td></tr>
 </tbody>
 </table>
+<h2>Miscellaneous</h2>
+<table>
+<thead><tr><th>Category</th><th>Detail</th><th>Matches</th></tr></thead>
+<tbody>
+<tr><td>Wikidata RDF Predicates</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
+<tr><td>Wikidata RDF Predicates</td><td><code>wikibase:globe</code></td><td>0</td></tr>
+<tr><td>Federated SERVICE endpoint</td><td><code>https://qlever.dev/api/wikimedia-commons</code></td><td>0</td></tr>
+<tr><td>Federated SERVICE endpoint</td><td>Other <code>SERVICE &lt;...&gt;</code> endpoint</td><td>108</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>Generator</code></td><td>22599</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>Categories</code></td><td>6</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>Search</code></td><td>998</td></tr>
+<tr><td><code>wikibase:api</code> value</td><td><code>EntitySearch</code></td><td>3</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>categorymembers</code></td><td>22</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>exturlusage</code></td><td>1</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>search</code></td><td>214</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>allpages</code></td><td>22351</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>links</code></td><td>3</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>random</code></td><td>10</td></tr>
+<tr><td><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code></td><td><code>recentchanges</code></td><td>1</td></tr>
+</tbody>
+</table>
+<div class="feature">
+<h3>Wikidata RDF Predicates: <code>wikibase:someValue</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3>Wikidata RDF Predicates: <code>wikibase:globe</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3>Federated SERVICE endpoint: <code>https://qlever.dev/api/wikimedia-commons</code></h3>
+<p>Local matches: <span class="count">0</span></p>
+<p>Matching files:</p>
+<ul class="files"><li class="none">None in the current example trees</li></ul>
+</div>
+<div class="feature">
+<h3>Federated SERVICE endpoint: Other <code>SERVICE &lt;...&gt;</code> endpoint</h3>
+<p>Local matches: <span class="count">108</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>108 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>Generator</code></h3>
+<p>Local matches: <span class="count">22599</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>22599 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>Categories</code></h3>
+<p>Local matches: <span class="count">6</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_07_17_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_07_17_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tuhna9a1j01kadj0_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tuhna9a1j01kadj0_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_2.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>Search</code></h3>
+<p>Local matches: <span class="count">998</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>998 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>wikibase:api</code> value: <code>EntitySearch</code></h3>
+<p>Local matches: <span class="count">3</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201908_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201908_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201706_8.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201706_8.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202210_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202210_2.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>categorymembers</code></h3>
+<p>Local matches: <span class="count">22</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Getting_pageviews_for_all_articles_in_a_category.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Getting_pageviews_for_all_articles_in_a_category.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_31.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_31.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Daniel_MietchenWikidata_listsCurrent_events.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Daniel_MietchenWikidata_listsCurrent_events.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_155.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_155.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_162.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_162.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_14.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_14.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_20.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_20.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_34.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_34.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_35.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_35.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_36.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_36.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_39.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_39.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_8.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_8.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_9.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_9.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201706_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201706_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202003_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202003_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Trade.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Trade.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ua7by38ni68ppr8s.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ua7by38ni68ppr8s.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_3.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>exturlusage</code></h3>
+<p>Local matches: <span class="count">1</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_statements_with_references_containing_external_links_to_wipoint.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_statements_with_references_containing_external_links_to_wipoint.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>search</code></h3>
+<p>Local matches: <span class="count">214</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>214 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>allpages</code></h3>
+<p>Local matches: <span class="count">22351</span></p>
+<p>Matching files:</p>
+<ul class="files"><li>22351 matching files (not listed individually)</li></ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>links</code></h3>
+<p>Local matches: <span class="count">3</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwiki.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwiki.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwikiold.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwikiold.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MultichillCC0_data.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MultichillCC0_data.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>random</code></h3>
+<p>Local matches: <span class="count">10</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_10.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_10.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_2.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_3.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_4.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_5.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_5.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_6.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_6.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_7.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_7.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_8.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_8.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_9.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_9.rq</code></a></li>
+</ul>
+</div>
+<div class="feature">
+<h3><code>mwapi:generator</code> value for <code>wikibase:api</code> <code>Generator</code>: <code>recentchanges</code></h3>
+<p>Local matches: <span class="count">1</span></p>
+<p>Matching files:</p>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202207.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202207.rq</code></a></li>
+</ul>
+</div>
 <h2>Blazegraph Features</h2>
-<p>Features in this section: <span class="count">1</span><br>Total matches across this section: <span class="count">68525</span></p>
+<p>Features in this section: <span class="count">1</span><br>Total matches across this section: <span class="count">68493</span></p>
 <div class="feature">
 <h3>Named sub-queries (<code>WITH { ... } AS %name</code>, <code>INCLUDE %name</code>)</h3>
-<p>Local matches: <span class="count">68525</span></p>
+<p>Local matches: <span class="count">68493</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>68525 matching files (not listed individually)</li></ul>
+<ul class="files"><li>68493 matching files (not listed individually)</li></ul>
 </div>
 <h2>Function Extensions</h2>
-<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">386</span></p>
+<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">383</span></p>
 <div class="feature">
 <h3><code>geof:globe()</code></h3>
 <p>Local matches: <span class="count">0</span></p>
@@ -184,17 +345,17 @@
 </div>
 <div class="feature">
 <h3><code>wikibase:decodeUri()</code></h3>
-<p>Local matches: <span class="count">294</span></p>
+<p>Local matches: <span class="count">291</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>294 matching files (not listed individually)</li></ul>
+<ul class="files"><li>291 matching files (not listed individually)</li></ul>
 </div>
 <h2>SERVICE Extensions</h2>
-<p>Features in this section: <span class="count">7</span><br>Total matches across this section: <span class="count">397588</span></p>
+<p>Features in this section: <span class="count">7</span><br>Total matches across this section: <span class="count">397553</span></p>
 <div class="feature">
 <h3><code>SERVICE wikibase:around</code></h3>
-<p>Local matches: <span class="count">104</span></p>
+<p>Local matches: <span class="count">103</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>104 matching files (not listed individually)</li></ul>
+<ul class="files"><li>103 matching files (not listed individually)</li></ul>
 </div>
 <div class="feature">
 <h3><code>SERVICE wikibase:box</code></h3>
@@ -222,16 +383,15 @@
 </div>
 <div class="feature">
 <h3><code>SERVICE wikibase:label</code></h3>
-<p>Local matches: <span class="count">349532</span></p>
+<p>Local matches: <span class="count">349510</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>349532 matching files (not listed individually)</li></ul>
+<ul class="files"><li>349510 matching files (not listed individually)</li></ul>
 </div>
 <div class="feature">
 <h3><code>SERVICE bd:slice</code></h3>
-<p>Local matches: <span class="count">27</span></p>
+<p>Local matches: <span class="count">26</span></p>
 <p>Matching files:</p>
 <ul class="files">
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Uncategorized/Most_frequently_used_depicts_statements_from_a_slice_of_media_files_that_dont_have_translations_in_Spanish.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Uncategorized/Most_frequently_used_depicts_statements_from_a_slice_of_media_files_that_dont_have_translations_in_Spanish.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_2.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_3.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_3.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_4.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_4.rq</code></a></li>
@@ -262,9 +422,9 @@
 </div>
 <div class="feature">
 <h3><code>SERVICE wikibase:mwapi</code></h3>
-<p>Local matches: <span class="count">35427</span></p>
+<p>Local matches: <span class="count">35421</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>35427 matching files (not listed individually)</li></ul>
+<ul class="files"><li>35421 matching files (not listed individually)</li></ul>
 </div>
 <div class="feature">
 <h3><code>SERVICE gas:service</code></h3>
@@ -274,29 +434,17 @@
 </div>
 <div class="feature">
 <h3><code>SERVICE bd:sample</code></h3>
-<p>Local matches: <span class="count">11759</span></p>
+<p>Local matches: <span class="count">11754</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>11759 matching files (not listed individually)</li></ul>
+<ul class="files"><li>11754 matching files (not listed individually)</li></ul>
 </div>
 <h2>Supporting Blazegraph-Specific Syntax</h2>
-<p>Features in this section: <span class="count">5</span><br>Total matches across this section: <span class="count">434818</span></p>
+<p>Features in this section: <span class="count">2</span><br>Total matches across this section: <span class="count">60508</span></p>
 <div class="feature">
 <h3><code>hint:Query ...</code> query hints</h3>
-<p>Local matches: <span class="count">60490</span></p>
+<p>Local matches: <span class="count">60489</span></p>
 <p>Matching files:</p>
-<ul class="files"><li>60490 matching files (not listed individually)</li></ul>
-</div>
-<div class="feature">
-<h3><code>bd:serviceParam</code></h3>
-<p>Local matches: <span class="count">374309</span></p>
-<p>Matching files:</p>
-<ul class="files"><li>374309 matching files (not listed individually)</li></ul>
-</div>
-<div class="feature">
-<h3><code>wikibase:someValue</code></h3>
-<p>Local matches: <span class="count">0</span></p>
-<p>Matching files:</p>
-<ul class="files"><li class="none">None in the current example trees</li></ul>
+<ul class="files"><li>60489 matching files (not listed individually)</li></ul>
 </div>
 <div class="feature">
 <h3><code>wikibase:geoGlobe</code></h3>
@@ -323,12 +471,6 @@
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq</code></a></li>
 </ul>
-</div>
-<div class="feature">
-<h3><code>wikibase:globe</code></h3>
-<p>Local matches: <span class="count">0</span></p>
-<p>Matching files:</p>
-<ul class="files"><li class="none">None in the current example trees</li></ul>
 </div>
 </body>
 </html>

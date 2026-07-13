@@ -2,7 +2,7 @@
 
 Source page reviewed: `https://wikitech.wikimedia.org/wiki/User:AWesterinen/Blazegraph_Features_and_Capabilities`
 
-Scanned local example queries: `482883` `.rq` files under `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/human_examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted`.
+Scanned local example queries: `482823` `.rq` files under `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/human_examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues`, `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/submitted`.
 
 This report uses the feature inventory described on the referenced Wikitech page, then maps each feature to matching files in the local example trees.
 
@@ -10,41 +10,202 @@ This report uses the feature inventory described on the referenced Wikitech page
 
 | Section | Feature | Matches |
 | --- | --- | ---: |
-| Blazegraph Features | Named sub-queries (`WITH { ... } AS %name`, `INCLUDE %name`) | 68525 |
+| Blazegraph Features | Named sub-queries (`WITH { ... } AS %name`, `INCLUDE %name`) | 68493 |
 | Function Extensions | `geof:globe()` | 0 |
 | Function Extensions | `geof:latitude()` | 8 |
 | Function Extensions | `geof:longitude()` | 7 |
 | Function Extensions | `geof:distance()` | 77 |
-| Function Extensions | `wikibase:decodeUri()` | 294 |
-| SERVICE Extensions | `SERVICE wikibase:around` | 104 |
+| Function Extensions | `wikibase:decodeUri()` | 291 |
+| SERVICE Extensions | `SERVICE wikibase:around` | 103 |
 | SERVICE Extensions | `SERVICE wikibase:box` | 17 |
-| SERVICE Extensions | `SERVICE wikibase:label` | 349532 |
-| SERVICE Extensions | `SERVICE bd:slice` | 27 |
-| SERVICE Extensions | `SERVICE wikibase:mwapi` | 35427 |
+| SERVICE Extensions | `SERVICE wikibase:label` | 349510 |
+| SERVICE Extensions | `SERVICE bd:slice` | 26 |
+| SERVICE Extensions | `SERVICE wikibase:mwapi` | 35421 |
 | SERVICE Extensions | `SERVICE gas:service` | 722 |
-| SERVICE Extensions | `SERVICE bd:sample` | 11759 |
-| Supporting Blazegraph-Specific Syntax | `hint:Query ...` query hints | 60490 |
-| Supporting Blazegraph-Specific Syntax | `bd:serviceParam` | 374309 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:someValue` | 0 |
+| SERVICE Extensions | `SERVICE bd:sample` | 11754 |
+| Supporting Blazegraph-Specific Syntax | `hint:Query ...` query hints | 60489 |
 | Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` | 19 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:globe` | 0 |
+
+## Miscellaneous
+
+| Category | Detail | Matches |
+| --- | --- | ---: |
+| Wikidata RDF Predicates | `wikibase:someValue` | 0 |
+| Wikidata RDF Predicates | `wikibase:globe` | 0 |
+| Federated SERVICE endpoint | `https://qlever.dev/api/wikimedia-commons` | 0 |
+| Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 108 |
+| `wikibase:api` value | `Generator` | 22599 |
+| `wikibase:api` value | `Categories` | 6 |
+| `wikibase:api` value | `Search` | 998 |
+| `wikibase:api` value | `EntitySearch` | 3 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `categorymembers` | 22 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `exturlusage` | 1 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `search` | 214 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `allpages` | 22351 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `links` | 3 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `random` | 10 |
+| `mwapi:generator` value for `wikibase:api` `Generator` | `recentchanges` | 1 |
+
+### Wikidata RDF Predicates: `wikibase:someValue`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Wikidata RDF Predicates: `wikibase:globe`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Federated SERVICE endpoint: `https://qlever.dev/api/wikimedia-commons`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Federated SERVICE endpoint: Other `SERVICE <...>` endpoint
+
+- Local matches: 108
+
+Matching files:
+- 108 matching files (not listed individually)
+
+### `wikibase:api` value: `Generator`
+
+- Local matches: 22599
+
+Matching files:
+- 22599 matching files (not listed individually)
+
+### `wikibase:api` value: `Categories`
+
+- Local matches: 6
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Query_pagesandbox_2_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2017_07_17_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Tuhna9a1j01kadj0_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_2.rq`
+
+### `wikibase:api` value: `Search`
+
+- Local matches: 998
+
+Matching files:
+- 998 matching files (not listed individually)
+
+### `wikibase:api` value: `EntitySearch`
+
+- Local matches: 3
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201908_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive201706_8.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202210_2.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `categorymembers`
+
+- Local matches: 22
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Getting_pageviews_for_all_articles_in_a_category.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/99of9_31.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Daniel_MietchenWikidata_listsCurrent_events.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_155.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldMarieCurietimelineAndVolcanoes_162.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_14.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_20.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_34.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_35.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_36.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_39.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_8.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/NurniRPON_9.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Project_chatArchive201706_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202003_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Trade.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Ua7by38ni68ppr8s.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Source_MetaDataWikidata_listsUsage_of_Template_ScholiaEnglish_WikipediaWith_CC0_images_3.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `exturlusage`
+
+- Local matches: 1
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_statements_with_references_containing_external_links_to_wipoint.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `search`
+
+- Local matches: 214
+
+Matching files:
+- 214 matching files (not listed individually)
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `allpages`
+
+- Local matches: 22351
+
+Matching files:
+- 22351 matching files (not listed individually)
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `links`
+
+- Local matches: 3
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwiki.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsno_statementsfrwikiold.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MultichillCC0_data.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `random`
+
+- Local matches: 10
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_10.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_4.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_6.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_8.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/MargaretRDonaldQueries_requested_9.rq`
+
+### `mwapi:generator` value for `wikibase:api` `Generator`: `recentchanges`
+
+- Local matches: 1
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Request_a_queryArchive202207.rq`
 
 ## Blazegraph Features
 
 - Features in this section: 1
-- Total matches across this section: 68525
+- Total matches across this section: 68493
 
 ### Named sub-queries (`WITH { ... } AS %name`, `INCLUDE %name`)
 
-- Local matches: 68525
+- Local matches: 68493
 
 Matching files:
-- 68525 matching files (not listed individually)
+- 68493 matching files (not listed individually)
 
 ## Function Extensions
 
 - Features in this section: 5
-- Total matches across this section: 386
+- Total matches across this section: 383
 
 ### `geof:globe()`
 
@@ -165,22 +326,22 @@ Matching files:
 
 ### `wikibase:decodeUri()`
 
-- Local matches: 294
+- Local matches: 291
 
 Matching files:
-- 294 matching files (not listed individually)
+- 291 matching files (not listed individually)
 
 ## SERVICE Extensions
 
 - Features in this section: 7
-- Total matches across this section: 397588
+- Total matches across this section: 397553
 
 ### `SERVICE wikibase:around`
 
-- Local matches: 104
+- Local matches: 103
 
 Matching files:
-- 104 matching files (not listed individually)
+- 103 matching files (not listed individually)
 
 ### `SERVICE wikibase:box`
 
@@ -207,17 +368,16 @@ Matching files:
 
 ### `SERVICE wikibase:label`
 
-- Local matches: 349532
+- Local matches: 349510
 
 Matching files:
-- 349532 matching files (not listed individually)
+- 349510 matching files (not listed individually)
 
 ### `SERVICE bd:slice`
 
-- Local matches: 27
+- Local matches: 26
 
 Matching files:
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/commons_examples/Uncategorized/Most_frequently_used_depicts_statements_from_a_slice_of_media_files_that_dont_have_translations_in_Spanish.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_2.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_3.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Database_reportsitems_with_P569_greater_than_P570_4.rq`
@@ -247,10 +407,10 @@ Matching files:
 
 ### `SERVICE wikibase:mwapi`
 
-- Local matches: 35427
+- Local matches: 35421
 
 Matching files:
-- 35427 matching files (not listed individually)
+- 35421 matching files (not listed individually)
 
 ### `SERVICE gas:service`
 
@@ -261,36 +421,22 @@ Matching files:
 
 ### `SERVICE bd:sample`
 
-- Local matches: 11759
+- Local matches: 11754
 
 Matching files:
-- 11759 matching files (not listed individually)
+- 11754 matching files (not listed individually)
 
 ## Supporting Blazegraph-Specific Syntax
 
-- Features in this section: 5
-- Total matches across this section: 434818
+- Features in this section: 2
+- Total matches across this section: 60508
 
 ### `hint:Query ...` query hints
 
-- Local matches: 60490
+- Local matches: 60489
 
 Matching files:
-- 60490 matching files (not listed individually)
-
-### `bd:serviceParam`
-
-- Local matches: 374309
-
-Matching files:
-- 374309 matching files (not listed individually)
-
-### `wikibase:someValue`
-
-- Local matches: 0
-
-Matching files:
-- None in the current example trees
+- 60489 matching files (not listed individually)
 
 ### `wikibase:geoGlobe`
 
@@ -316,11 +462,4 @@ Matching files:
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq`
-
-### `wikibase:globe`
-
-- Local matches: 0
-
-Matching files:
-- None in the current example trees
 

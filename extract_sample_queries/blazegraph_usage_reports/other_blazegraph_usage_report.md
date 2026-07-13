@@ -24,10 +24,76 @@ This report uses the feature inventory described on the referenced Wikitech page
 | SERVICE Extensions | `SERVICE gas:service` | 0 |
 | SERVICE Extensions | `SERVICE bd:sample` | 0 |
 | Supporting Blazegraph-Specific Syntax | `hint:Query ...` query hints | 1 |
-| Supporting Blazegraph-Specific Syntax | `bd:serviceParam` | 7 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:someValue` | 0 |
 | Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` | 0 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:globe` | 0 |
+
+## Miscellaneous
+
+| Category | Detail | Matches |
+| --- | --- | ---: |
+| Wikidata RDF Predicates | `wikibase:someValue` | 0 |
+| Wikidata RDF Predicates | `wikibase:globe` | 0 |
+| Federated SERVICE endpoint | `https://qlever.dev/api/wikimedia-commons` | 0 |
+| Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 1 |
+| `wikibase:api` value | `Generator` | 0 |
+| `wikibase:api` value | `Categories` | 0 |
+| `wikibase:api` value | `Search` | 0 |
+| `wikibase:api` value | `EntitySearch` | 0 |
+
+### Wikidata RDF Predicates: `wikibase:someValue`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Wikidata RDF Predicates: `wikibase:globe`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Federated SERVICE endpoint: `https://qlever.dev/api/wikimedia-commons`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### Federated SERVICE endpoint: Other `SERVICE <...>` endpoint
+
+- Local matches: 1
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T225205-NamedGraph.rq`
+
+### `wikibase:api` value: `Generator`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### `wikibase:api` value: `Categories`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### `wikibase:api` value: `Search`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
+
+### `wikibase:api` value: `EntitySearch`
+
+- Local matches: 0
+
+Matching files:
+- None in the current example trees
 
 ## Blazegraph Features
 
@@ -141,8 +207,8 @@ Matching files:
 
 ## Supporting Blazegraph-Specific Syntax
 
-- Features in this section: 5
-- Total matches across this section: 8
+- Features in this section: 2
+- Total matches across this section: 1
 
 ### `hint:Query ...` query hints
 
@@ -151,28 +217,7 @@ Matching files:
 Matching files:
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T278518-Bind.rq`
 
-### `bd:serviceParam`
-
-- Local matches: 7
-
-Matching files:
-- 7 matching files (not listed individually)
-
-### `wikibase:someValue`
-
-- Local matches: 0
-
-Matching files:
-- None in the current example trees
-
 ### `wikibase:geoGlobe`
-
-- Local matches: 0
-
-Matching files:
-- None in the current example trees
-
-### `wikibase:globe`
 
 - Local matches: 0
 
