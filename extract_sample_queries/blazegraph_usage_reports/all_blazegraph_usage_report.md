@@ -24,14 +24,13 @@ This report uses the feature inventory described on the referenced Wikitech page
 | SERVICE Extensions | `SERVICE gas:service` | 722 |
 | SERVICE Extensions | `SERVICE bd:sample` | 11754 |
 | Supporting Blazegraph-Specific Syntax | `hint:Query ...` query hints | 60489 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` | 19 |
 
 ## Miscellaneous
 
 | Category | Detail | Matches |
 | --- | --- | ---: |
-| Wikidata RDF Predicates | `wikibase:someValue` | 0 |
-| Wikidata RDF Predicates | `wikibase:globe` | 0 |
+| Wikidata RDF Pseudo-Value | `wikibase:someValue` | 0 |
+| Wikidata RDF Predicates | `wikibase:geoGlobe` | 19 |
 | Federated SERVICE endpoint | `https://qlever.dev/api/wikimedia-commons` | 0 |
 | Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 108 |
 | `wikibase:api` value | `Generator` | 22599 |
@@ -46,19 +45,37 @@ This report uses the feature inventory described on the referenced Wikitech page
 | `mwapi:generator` value for `wikibase:api` `Generator` | `random` | 10 |
 | `mwapi:generator` value for `wikibase:api` `Generator` | `recentchanges` | 1 |
 
-### Wikidata RDF Predicates: `wikibase:someValue`
+### Wikidata RDF Pseudo-Value: `wikibase:someValue`
 
 - Local matches: 0
 
 Matching files:
 - None in the current example trees
 
-### Wikidata RDF Predicates: `wikibase:globe`
+### Wikidata RDF Predicates: `wikibase:geoGlobe`
 
-- Local matches: 0
+- Local matches: 19
 
 Matching files:
-- None in the current example trees
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Bot_requestsArchive201605.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/J_N_SquireArchive_1.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P3037_19.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P376_5.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_7.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P8981_16.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_12_31_3.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2021_06_14.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/U8uwc4p16hjv6v4l.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uz6pfsawzd14b38c.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V7febdtf3f7btivn.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Wausi3w43zyj6v7t.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Astronomy_2.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq`
 
 ### Federated SERVICE endpoint: `https://qlever.dev/api/wikimedia-commons`
 
@@ -428,8 +445,8 @@ Matching files:
 
 ## Supporting Blazegraph-Specific Syntax
 
-- Features in this section: 2
-- Total matches across this section: 60508
+- Features in this section: 1
+- Total matches across this section: 60489
 
 ### `hint:Query ...` query hints
 
@@ -437,29 +454,4 @@ Matching files:
 
 Matching files:
 - 60489 matching files (not listed individually)
-
-### `wikibase:geoGlobe`
-
-- Local matches: 19
-
-Matching files:
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Bot_requestsArchive201605.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/J_N_SquireArchive_1.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P3037_19.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P376_5.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P625_7.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/P8981_16.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2016_12_31_3.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Status_updates2021_06_14.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/U8uwc4p16hjv6v4l.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Uz6pfsawzd14b38c.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/V7febdtf3f7btivn.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/Wausi3w43zyj6v7t.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Astronomy_2.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_European_Bathing_Waters.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Outdoor_Gyms.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/wmcloud_queries/WikiProject_Wikidata_for_researchState_of_the_Map_2018_2.rq`
 

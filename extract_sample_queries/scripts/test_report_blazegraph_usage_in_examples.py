@@ -88,7 +88,7 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             markdown = report.build_report(report_data)
             html = report.build_report_html(report_data)
 
-        self.assertIn("| Wikidata RDF Predicates | `wikibase:someValue` | 1 |", markdown)
+        self.assertIn("| Wikidata RDF Pseudo-Value | `wikibase:someValue` | 1 |", markdown)
         self.assertNotIn("| Supporting Blazegraph-Specific Syntax | `wikibase:someValue` |", markdown)
         self.assertIn("<td><code>wikibase:someValue</code></td><td>1</td>", html)
 
@@ -102,10 +102,11 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             markdown = report.build_report(report_data)
             html = report.build_report_html(report_data)
 
-        self.assertIn("| Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` | 1 |", markdown)
+        self.assertIn("| Wikidata RDF Predicates | `wikibase:geoGlobe` | 1 |", markdown)
+        self.assertNotIn("| Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` |", markdown)
         self.assertIn("<td><code>wikibase:geoGlobe</code></td><td>1</td>", html)
 
-    def test_report_includes_wikibase_globe_findings(self) -> None:
+    def test_report_does_not_include_wikibase_globe_findings(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             examples_dir = Path(tmp_dir)
             query_path = examples_dir / "query.rq"
@@ -115,9 +116,8 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             markdown = report.build_report(report_data)
             html = report.build_report_html(report_data)
 
-        self.assertIn("| Wikidata RDF Predicates | `wikibase:globe` | 1 |", markdown)
-        self.assertNotIn("| Supporting Blazegraph-Specific Syntax | `wikibase:globe` |", markdown)
-        self.assertIn("<td><code>wikibase:globe</code></td><td>1</td>", html)
+        self.assertNotIn("`wikibase:globe`", markdown)
+        self.assertNotIn("<code>wikibase:globe</code>", html)
 
     def test_report_includes_qlever_commons_federation_in_miscellaneous_table(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:

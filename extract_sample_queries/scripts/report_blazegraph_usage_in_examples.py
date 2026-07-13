@@ -80,7 +80,7 @@ MWAPI_GENERATOR_PATTERN = re.compile(
 )
 KNOWN_MWAPI_API_VALUES = ["Generator", "Categories", "Search", "EntitySearch"]
 WIKIBASE_SOME_VALUE_PATTERN = re.compile(r"\bwikibase:someValue\b", flags=re.IGNORECASE)
-WIKIBASE_GLOBE_PATTERN = re.compile(r"\bwikibase:globe\b", flags=re.IGNORECASE)
+WIKIBASE_GEO_GLOBE_PATTERN = re.compile(r"\bwikibase:geoGlobe\b", flags=re.IGNORECASE)
 
 
 FEATURES = [
@@ -154,11 +154,6 @@ FEATURES = [
         name="`hint:Query ...` query hints",
         section="Supporting Blazegraph-Specific Syntax",
         pattern=r"\bhint:Query\b",
-    ),
-    Feature(
-        name="`wikibase:geoGlobe`",
-        section="Supporting Blazegraph-Specific Syntax",
-        pattern=r"\bwikibase:geoGlobe\b",
     ),
 ]
 
@@ -296,7 +291,7 @@ def has_other_federated_service_endpoint(text: str) -> bool:
 
 def miscellaneous_results(
     wikibase_some_value_matches: list[Path],
-    wikibase_globe_matches: list[Path],
+    wikibase_geo_globe_matches: list[Path],
     qlever_commons_matches: list[Path],
     other_federated_service_matches: list[Path],
     mwapi_api_matches: dict[str, list[Path]],
@@ -304,14 +299,14 @@ def miscellaneous_results(
 ) -> list[MiscellaneousResult]:
     results = [
         MiscellaneousResult(
-            category="Wikidata RDF Predicates",
+            category="Wikidata RDF Pseudo-Value",
             detail="`wikibase:someValue`",
             matches=wikibase_some_value_matches,
         ),
         MiscellaneousResult(
             category="Wikidata RDF Predicates",
-            detail="`wikibase:globe`",
-            matches=wikibase_globe_matches,
+            detail="`wikibase:geoGlobe`",
+            matches=wikibase_geo_globe_matches,
         ),
         MiscellaneousResult(
             category="Federated SERVICE endpoint",
@@ -381,7 +376,7 @@ def collect_report_data(
     grouped: dict[str, list[tuple[Feature, list[Path]]]] = {}
     matches_by_feature: dict[Feature, list[Path]] = {feature: [] for feature in FEATURES}
     wikibase_some_value_matches: list[Path] = []
-    wikibase_globe_matches: list[Path] = []
+    wikibase_geo_globe_matches: list[Path] = []
     qlever_commons_matches: list[Path] = []
     other_federated_service_matches: list[Path] = []
     mwapi_api_matches: dict[str, list[Path]] = {}
@@ -398,8 +393,8 @@ def collect_report_data(
                 matches_by_feature[feature].append(path)
         if WIKIBASE_SOME_VALUE_PATTERN.search(text):
             wikibase_some_value_matches.append(path)
-        if WIKIBASE_GLOBE_PATTERN.search(text):
-            wikibase_globe_matches.append(path)
+        if WIKIBASE_GEO_GLOBE_PATTERN.search(text):
+            wikibase_geo_globe_matches.append(path)
         if QLEVER_COMMONS_SERVICE_PATTERN.search(text):
             qlever_commons_matches.append(path)
         if has_other_federated_service_endpoint(text):
@@ -424,7 +419,7 @@ def collect_report_data(
         grouped=grouped,
         miscellaneous=miscellaneous_results(
             wikibase_some_value_matches,
-            wikibase_globe_matches,
+            wikibase_geo_globe_matches,
             qlever_commons_matches,
             other_federated_service_matches,
             mwapi_api_matches,

@@ -47,15 +47,14 @@
 <tr><td>SERVICE Extensions</td><td><code>SERVICE gas:service</code></td><td>3</td></tr>
 <tr><td>SERVICE Extensions</td><td><code>SERVICE bd:sample</code></td><td>1</td></tr>
 <tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>hint:Query ...</code> query hints</td><td>20</td></tr>
-<tr><td>Supporting Blazegraph-Specific Syntax</td><td><code>wikibase:geoGlobe</code></td><td>3</td></tr>
 </tbody>
 </table>
 <h2>Miscellaneous</h2>
 <table>
 <thead><tr><th>Category</th><th>Detail</th><th>Matches</th></tr></thead>
 <tbody>
-<tr><td>Wikidata RDF Predicates</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
-<tr><td>Wikidata RDF Predicates</td><td><code>wikibase:globe</code></td><td>0</td></tr>
+<tr><td>Wikidata RDF Pseudo-Value</td><td><code>wikibase:someValue</code></td><td>0</td></tr>
+<tr><td>Wikidata RDF Predicates</td><td><code>wikibase:geoGlobe</code></td><td>3</td></tr>
 <tr><td>Federated SERVICE endpoint</td><td><code>https://qlever.dev/api/wikimedia-commons</code></td><td>0</td></tr>
 <tr><td>Federated SERVICE endpoint</td><td>Other <code>SERVICE &lt;...&gt;</code> endpoint</td><td>10</td></tr>
 <tr><td><code>wikibase:api</code> value</td><td><code>Generator</code></td><td>4</td></tr>
@@ -68,16 +67,20 @@
 </tbody>
 </table>
 <div class="feature">
-<h3>Wikidata RDF Predicates: <code>wikibase:someValue</code></h3>
+<h3>Wikidata RDF Pseudo-Value: <code>wikibase:someValue</code></h3>
 <p>Local matches: <span class="count">0</span></p>
 <p>Matching files:</p>
 <ul class="files"><li class="none">None in the current example trees</li></ul>
 </div>
 <div class="feature">
-<h3>Wikidata RDF Predicates: <code>wikibase:globe</code></h3>
-<p>Local matches: <span class="count">0</span></p>
+<h3>Wikidata RDF Predicates: <code>wikibase:geoGlobe</code></h3>
+<p>Local matches: <span class="count">3</span></p>
 <p>Matching files:</p>
-<ul class="files"><li class="none">None in the current example trees</li></ul>
+<ul class="files">
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq</code></a></li>
+<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq</code></a></li>
+</ul>
 </div>
 <div class="feature">
 <h3>Federated SERVICE endpoint: <code>https://qlever.dev/api/wikimedia-commons</code></h3>
@@ -310,7 +313,7 @@
 </ul>
 </div>
 <h2>Supporting Blazegraph-Specific Syntax</h2>
-<p>Features in this section: <span class="count">2</span><br>Total matches across this section: <span class="count">23</span></p>
+<p>Features in this section: <span class="count">1</span><br>Total matches across this section: <span class="count">20</span></p>
 <div class="feature">
 <h3><code>hint:Query ...</code> query hints</h3>
 <p>Local matches: <span class="count">20</span></p>
@@ -336,16 +339,6 @@
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Aliases_of_properties_which_are_used_more_than_once.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Aliases_of_properties_which_are_used_more_than_once.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Deprecated_rank_statements.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Deprecated_rank_statements.rq</code></a></li>
 <li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq</code></a></li>
-</ul>
-</div>
-<div class="feature">
-<h3><code>wikibase:geoGlobe</code></h3>
-<p>Local matches: <span class="count">3</span></p>
-<p>Matching files:</p>
-<ul class="files">
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq</code></a></li>
-<li><a href="/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq"><code>/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq</code></a></li>
 </ul>
 </div>
 </body>

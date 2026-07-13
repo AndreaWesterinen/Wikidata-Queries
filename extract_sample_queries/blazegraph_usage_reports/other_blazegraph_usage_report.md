@@ -24,14 +24,13 @@ This report uses the feature inventory described on the referenced Wikitech page
 | SERVICE Extensions | `SERVICE gas:service` | 0 |
 | SERVICE Extensions | `SERVICE bd:sample` | 0 |
 | Supporting Blazegraph-Specific Syntax | `hint:Query ...` query hints | 1 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` | 0 |
 
 ## Miscellaneous
 
 | Category | Detail | Matches |
 | --- | --- | ---: |
-| Wikidata RDF Predicates | `wikibase:someValue` | 0 |
-| Wikidata RDF Predicates | `wikibase:globe` | 0 |
+| Wikidata RDF Pseudo-Value | `wikibase:someValue` | 0 |
+| Wikidata RDF Predicates | `wikibase:geoGlobe` | 0 |
 | Federated SERVICE endpoint | `https://qlever.dev/api/wikimedia-commons` | 0 |
 | Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 1 |
 | `wikibase:api` value | `Generator` | 0 |
@@ -39,14 +38,14 @@ This report uses the feature inventory described on the referenced Wikitech page
 | `wikibase:api` value | `Search` | 0 |
 | `wikibase:api` value | `EntitySearch` | 0 |
 
-### Wikidata RDF Predicates: `wikibase:someValue`
+### Wikidata RDF Pseudo-Value: `wikibase:someValue`
 
 - Local matches: 0
 
 Matching files:
 - None in the current example trees
 
-### Wikidata RDF Predicates: `wikibase:globe`
+### Wikidata RDF Predicates: `wikibase:geoGlobe`
 
 - Local matches: 0
 
@@ -207,7 +206,7 @@ Matching files:
 
 ## Supporting Blazegraph-Specific Syntax
 
-- Features in this section: 2
+- Features in this section: 1
 - Total matches across this section: 1
 
 ### `hint:Query ...` query hints
@@ -216,11 +215,4 @@ Matching files:
 
 Matching files:
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/other_examples/phab_issues/T278518-Bind.rq`
-
-### `wikibase:geoGlobe`
-
-- Local matches: 0
-
-Matching files:
-- None in the current example trees
 

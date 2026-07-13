@@ -24,14 +24,13 @@ This report uses the feature inventory described on the referenced Wikitech page
 | SERVICE Extensions | `SERVICE gas:service` | 3 |
 | SERVICE Extensions | `SERVICE bd:sample` | 1 |
 | Supporting Blazegraph-Specific Syntax | `hint:Query ...` query hints | 20 |
-| Supporting Blazegraph-Specific Syntax | `wikibase:geoGlobe` | 3 |
 
 ## Miscellaneous
 
 | Category | Detail | Matches |
 | --- | --- | ---: |
-| Wikidata RDF Predicates | `wikibase:someValue` | 0 |
-| Wikidata RDF Predicates | `wikibase:globe` | 0 |
+| Wikidata RDF Pseudo-Value | `wikibase:someValue` | 0 |
+| Wikidata RDF Predicates | `wikibase:geoGlobe` | 3 |
 | Federated SERVICE endpoint | `https://qlever.dev/api/wikimedia-commons` | 0 |
 | Federated SERVICE endpoint | Other `SERVICE <...>` endpoint | 10 |
 | `wikibase:api` value | `Generator` | 4 |
@@ -42,19 +41,21 @@ This report uses the feature inventory described on the referenced Wikitech page
 | `mwapi:generator` value for `wikibase:api` `Generator` | `exturlusage` | 1 |
 | `mwapi:generator` value for `wikibase:api` `Generator` | `search` | 2 |
 
-### Wikidata RDF Predicates: `wikibase:someValue`
+### Wikidata RDF Pseudo-Value: `wikibase:someValue`
 
 - Local matches: 0
 
 Matching files:
 - None in the current example trees
 
-### Wikidata RDF Predicates: `wikibase:globe`
+### Wikidata RDF Predicates: `wikibase:geoGlobe`
 
-- Local matches: 0
+- Local matches: 3
 
 Matching files:
-- None in the current example trees
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq`
 
 ### Federated SERVICE endpoint: `https://qlever.dev/api/wikimedia-commons`
 
@@ -287,8 +288,8 @@ Matching files:
 
 ## Supporting Blazegraph-Specific Syntax
 
-- Features in this section: 2
-- Total matches across this section: 23
+- Features in this section: 1
+- Total matches across this section: 20
 
 ### `hint:Query ...` query hints
 
@@ -315,13 +316,4 @@ Matching files:
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Aliases_of_properties_which_are_used_more_than_once.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Deprecated_rank_statements.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/String_search_All_items_having_the_string_airport_without_having_instance_of_P31_nor_subclass_of_P279.rq`
-
-### `wikibase:geoGlobe`
-
-- Local matches: 3
-
-Matching files:
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Geography/Globes_used_to_represent_coordinates.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Mountains/Mons_mountains_with_coordinates_not_located_on_Earth.rq`
-- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Objects_that_have_globe_which_does_not_match_their_coordinates.rq`
 

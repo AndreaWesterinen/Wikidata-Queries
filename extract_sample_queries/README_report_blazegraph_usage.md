@@ -1,6 +1,6 @@
 # Blazegraph Features in the Sample Queries
 
-This task reviews the Wikitech page below and counts the Blazegraph-specific WDQS functionality it describes (plus a few other features such as wikibase:someValue and wikibase:globe) in the queries found in the extracted Wikidata example directories (such as `advanced_examples/`), `wmcloud_queries/`, and `other_examples/`.
+This task reviews the Wikitech page below and counts the Blazegraph-specific WDQS functionality it describes (plus a few other features such as wikibase:someValue and wikibase:geoGlobe) in the queries found in the extracted Wikidata example directories (such as `advanced_examples/`), `wmcloud_queries/`, and `other_examples/`.
 
 Source page:
 
@@ -65,11 +65,11 @@ Features and extensions:
 Supporting syntax tracked separately:
 
 - `hint:Query`
-- `wikibase:geoGlobe`
 
 Miscellaneous checks:
 
-- Wikidata RDF predicates: `wikibase:someValue` and `wikibase:globe`
+- Wikidata RDF pseudo-value: `wikibase:someValue`
+- Wikidata RDF predicate: `wikibase:geoGlobe`
 - Federation to `SERVICE <https://qlever.dev/api/wikimedia-commons>`
 - Other federated `SERVICE <...>` endpoints, excluding the dedicated QLever Commons endpoint. Prefixed service names such as `wikibase:`, `bd:`, `mwapi:`, and `gas:` are not counted as federated endpoints.
 - `SERVICE wikibase:mwapi` request types declared with `bd:serviceParam wikibase:api "..."`, including `Generator`, `Categories`, `Search`, and `EntitySearch`
@@ -161,7 +161,8 @@ python3 scripts/report_blazegraph_usage_in_examples.py --examples-dir examples a
 
 - The report is based on the specific Wikitech page listed above, not on a broader independent taxonomy.
 - Some features discussed on the page may have zero matches across the current local example sets.
-- `wikibase:someValue` and `wikibase:globe` are reported as Wikidata RDF predicates in the miscellaneous table, not as Blazegraph-specific syntax.
+- `wikibase:someValue` is reported as a Wikidata RDF pseudo-value in the miscellaneous table.
+- `wikibase:geoGlobe` is reported as a Wikidata RDF predicate in the miscellaneous table, not as Blazegraph-specific syntax.
 
 ## Related Files
 
