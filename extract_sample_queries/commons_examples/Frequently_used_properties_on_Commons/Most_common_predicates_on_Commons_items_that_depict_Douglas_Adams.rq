@@ -1,8 +1,0 @@
-#most common predictates on Commons items that depict Douglas Adams
-SELECT (COUNT(DISTINCT(CONCAT(str(?file),str(?value)))) AS ?count) ?prop (SAMPLE(?file) AS ?sample_file)  (SAMPLE(?value) AS ?sample_value) 
-
-WHERE {
-  ?file wdt:P180 wd:Q42 .
-  ?file ?prop ?value .
-} GROUP BY ?prop
-ORDER BY DESC(?count)

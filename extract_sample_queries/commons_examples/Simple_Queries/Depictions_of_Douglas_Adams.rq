@@ -1,4 +1,0 @@
-#shows M-entities that depict Douglas Adams
-SELECT ?file WHERE {
-  ?file wdt:P180 wd:Q42 .
-}

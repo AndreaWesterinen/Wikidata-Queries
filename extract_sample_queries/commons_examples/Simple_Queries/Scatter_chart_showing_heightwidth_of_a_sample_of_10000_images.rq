@@ -1,5 +1,0 @@
-#defaultView:ScatterChart
-select * {
-  ?file schema:height ?h ;
-        schema:width ?w .
-} limit 10000

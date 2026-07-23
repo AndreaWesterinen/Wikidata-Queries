@@ -10,12 +10,12 @@ import extract_wdqs_examples as extractor
 class ExtractWdqsExamplesTests(unittest.TestCase):
     def test_build_parse_url_uses_custom_api_url(self) -> None:
         url = extractor.build_parse_url(
-            "Commons:SPARQL_query_service/queries/examples",
-            "https://commons.wikimedia.org/w/api.php",
+            "Project:SPARQL/examples",
+            "https://example.org/w/api.php",
         )
 
-        self.assertTrue(url.startswith("https://commons.wikimedia.org/w/api.php?"))
-        self.assertIn("page=Commons%3ASPARQL_query_service%2Fqueries%2Fexamples", url)
+        self.assertTrue(url.startswith("https://example.org/w/api.php?"))
+        self.assertIn("page=Project%3ASPARQL%2Fexamples", url)
 
     def test_html_parser_extracts_category_title_and_query(self) -> None:
         html = """

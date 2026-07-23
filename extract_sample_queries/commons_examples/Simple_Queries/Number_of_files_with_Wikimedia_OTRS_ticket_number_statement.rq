@@ -1,3 +1,0 @@
-SELECT (COUNT(?file) AS ?count)  {
-  ?file wdt:P6305 ?value .
-}

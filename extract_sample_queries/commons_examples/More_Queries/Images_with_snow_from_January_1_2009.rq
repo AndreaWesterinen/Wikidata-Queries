@@ -1,9 +1,0 @@
-#defaultView:ImageGrid
-SELECT ?file ?image
-WHERE
-{
-  ?file wdt:P180  wd:Q7561 ;
-  p:P571 ?When.
-  FILTER EXISTS { ?When ps:P571 "2009-01-01T00:00:00Z"^^xsd:dateTime }
-  ?file schema:url ?image.
-}

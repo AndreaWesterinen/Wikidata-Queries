@@ -1,7 +1,0 @@
-# Show a map of images depicting bridges AND having a coordinate for their point of view
-#defaultView:Map
-select ?file ?pov_coords ?image where {
-  ?file wdt:P180 wd:Q12280;
-        wdt:P1259 ?pov_coords;
-        schema:url ?image.
-}

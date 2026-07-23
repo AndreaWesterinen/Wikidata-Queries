@@ -1,5 +1,0 @@
-#Captions of files depicting roses
-SELECT ?file ?fileLabel WHERE {
-  ?file wdt:P180 wd:Q102231 .
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-}

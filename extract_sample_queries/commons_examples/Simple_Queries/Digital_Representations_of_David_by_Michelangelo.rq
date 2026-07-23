@@ -1,7 +1,0 @@
-# Digital depictions of "David" by Michelangelo
-# Note how you can use a semicolon to group triples that have the same subject.
-#defaultView:ImageGrid
-select ?file ?image where {
-  ?file wdt:P6243 wd:Q179900;
-        schema:url ?image.
-}

@@ -258,7 +258,6 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             advanced = base / "advanced_examples"
             human = base / "human_examples"
             maintenance = base / "maintenance_examples"
-            commons = base / "commons_examples"
             wmcloud = base / "wmcloud_queries"
             other_root = base / "other_examples"
             other = other_root / "one"
@@ -268,12 +267,6 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
                     "SELECT * WHERE { SERVICE wikibase:label {} }\n",
                     encoding="utf-8",
                 )
-            commons.mkdir()
-            (commons / "query.rq").write_text(
-                "SELECT * WHERE { SERVICE wikibase:label {} }\n",
-                encoding="utf-8",
-            )
-
             original_project_root = report.PROJECT_ROOT
             original_report_dir = report.DEFAULT_REPORT_DIR
             try:
@@ -305,10 +298,6 @@ class ReportBlazegraphUsageTests(unittest.TestCase):
             self.assertIn(
                 "| SERVICE Extensions | `SERVICE wikibase:label` | 6 |",
                 (report_dir / "all_blazegraph_usage_report.md").read_text(encoding="utf-8"),
-            )
-            self.assertNotIn(
-                "commons_examples",
-                (report_dir / "wikimedia_blazegraph_usage_report.md").read_text(encoding="utf-8"),
             )
 
 

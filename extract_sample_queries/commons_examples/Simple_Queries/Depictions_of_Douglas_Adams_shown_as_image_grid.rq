@@ -1,5 +1,0 @@
-#defaultView:ImageGrid
-select ?file ?image where {
-  ?file wdt:P180 wd:Q42.
-  ?file schema:url ?image.
-}

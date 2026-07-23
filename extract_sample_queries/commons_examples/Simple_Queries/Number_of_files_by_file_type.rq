@@ -1,5 +1,0 @@
-select ?encoding (count(*) as ?total) {
-  ?file schema:encodingFormat ?encoding .
-} 
-group by ?encoding 
-order by desc(?total)
