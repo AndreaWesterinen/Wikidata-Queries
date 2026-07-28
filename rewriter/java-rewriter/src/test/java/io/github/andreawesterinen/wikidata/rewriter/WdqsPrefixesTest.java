@@ -54,7 +54,7 @@ final class WdqsPrefixesTest {
                 "PREFIX bd: <http://www.bigdata.com/rdf#>\n"
                 + "PREFIX gas: <http://www.bigdata.com/rdf/gas#>\n"
                 + "PREFIX hint: <http://www.bigdata.com/queryHints#>\n"
-                + "PREFIX mwapi: <http://wikiba.se/ontology#api#>\n"
+                + "PREFIX mwapi: <https://www.mediawiki.org/ontology#API/>\n"
                 + "PREFIX wd: <http://www.wikidata.org/entity/>\n"
                 + "SELECT * WHERE { VALUES ?item { wd:Q1 } }",
                 Syntax.syntaxSPARQL_11);

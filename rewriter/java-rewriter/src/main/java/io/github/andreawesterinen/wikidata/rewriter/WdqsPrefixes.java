@@ -114,7 +114,7 @@ final class WdqsPrefixes {
         values.put("bd", "http://www.bigdata.com/rdf#");
         values.put("gas", "http://www.bigdata.com/rdf/gas#");
         values.put("hint", "http://www.bigdata.com/queryHints#");
-        values.put("mwapi", "http://wikiba.se/ontology#api#");
+        values.put("mwapi", "https://www.mediawiki.org/ontology#API/");
         return Collections.unmodifiableMap(values);
     }
 }

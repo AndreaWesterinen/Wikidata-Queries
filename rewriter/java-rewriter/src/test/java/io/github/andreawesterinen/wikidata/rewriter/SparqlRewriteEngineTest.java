@@ -55,7 +55,7 @@ final class SparqlRewriteEngineTest {
         String query = "PREFIX bd: <http://www.bigdata.com/rdf#>\n"
                 + "PREFIX gas: <http://www.bigdata.com/rdf/gas#>\n"
                 + "PREFIX hint: <http://www.bigdata.com/queryHints#>\n"
-                + "PREFIX mwapi: <http://wikiba.se/ontology#api#>\n"
+                + "PREFIX mwapi: <https://www.mediawiki.org/ontology#API/>\n"
                 + "SELECT ?item ?itemLabel WHERE { ?item wdt:P31 wd:Q5 . "
                 + "SERVICE wikibase:label { "
                 + "bd:serviceParam wikibase:language \"en\" . } }";
