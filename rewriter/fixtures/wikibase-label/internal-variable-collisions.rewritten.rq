@@ -1,0 +1,73 @@
+PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX  schema: <http://schema.org/>
+PREFIX  skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX  wd:   <http://www.wikidata.org/entity/>
+PREFIX  wdt:  <http://www.wikidata.org/prop/direct/>
+PREFIX  wikibase: <http://wikiba.se/ontology#>
+
+SELECT  ?item ?label ?description ?alternate ?item__label_subject ?item__label_value ?item__description_value ?item__alias_value
+WHERE
+  { ?item  wdt:P31  wd:Q515
+    BIND("occupied subject" AS ?item__label_subject)
+    BIND("occupied label" AS ?item__label_value)
+    BIND("occupied description" AS ?item__description_value)
+    BIND("occupied alias" AS ?item__alias_value)
+    OPTIONAL
+      { ?item  rdfs:label  ?item__label_value__1
+        FILTER ( lang(?item__label_value__1) = "de" )
+      }
+    OPTIONAL
+      { ?item  rdfs:label  ?item__label_value__1
+        FILTER ( lang(?item__label_value__1) = "en" )
+      }
+    OPTIONAL
+      { ?item  rdfs:label  ?item__label_value__1
+        FILTER ( lang(?item__label_value__1) = "mul" )
+      }
+    BIND(if(bound(?item__label_value__1), str(?item__label_value__1), strafter(str(?item), "entity/")) AS ?label)
+    OPTIONAL
+      { ?item  schema:description  ?item__description_value__1
+        FILTER ( lang(?item__description_value__1) = "de" )
+      }
+    OPTIONAL
+      { ?item  schema:description  ?item__description_value__1
+        FILTER ( lang(?item__description_value__1) = "en" )
+      }
+    BIND(str(?item__description_value__1) AS ?description)
+    OPTIONAL
+      { SELECT  ?item (GROUP_CONCAT(DISTINCT ?item__alias_value__1 ; separator=', ') AS ?alternate)
+        WHERE
+          { { SELECT DISTINCT  ?item
+              WHERE
+                { ?item  wdt:P31  wd:Q515 }
+            }
+            ?item  skos:altLabel  ?item__alias_value__1
+            FILTER ( lang(?item__alias_value__1) = "de" )
+          }
+        GROUP BY ?item
+      }
+    OPTIONAL
+      { SELECT  ?item (GROUP_CONCAT(DISTINCT ?item__alias_value__1 ; separator=', ') AS ?alternate)
+        WHERE
+          { { SELECT DISTINCT  ?item
+              WHERE
+                { ?item  wdt:P31  wd:Q515 }
+            }
+            ?item  skos:altLabel  ?item__alias_value__1
+            FILTER ( lang(?item__alias_value__1) = "en" )
+          }
+        GROUP BY ?item
+      }
+    OPTIONAL
+      { SELECT  ?item (GROUP_CONCAT(DISTINCT ?item__alias_value__1 ; separator=', ') AS ?alternate)
+        WHERE
+          { { SELECT DISTINCT  ?item
+              WHERE
+                { ?item  wdt:P31  wd:Q515 }
+            }
+            ?item  skos:altLabel  ?item__alias_value__1
+            FILTER ( lang(?item__alias_value__1) = "mul" )
+          }
+        GROUP BY ?item
+      }
+  }

@@ -1,0 +1,10 @@
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?label WHERE {
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    <http://example.com/entity/Q1> rdfs:label ?label .
+  }
+}

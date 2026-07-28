@@ -1,0 +1,27 @@
+PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX  wd:   <http://www.wikidata.org/entity/>
+PREFIX  wdt:  <http://www.wikidata.org/prop/direct/>
+PREFIX  wikibase: <http://wikiba.se/ontology#>
+
+SELECT  ?item ?label1 ?label2
+WHERE
+  { ?item  wdt:P31  wd:Q515
+    OPTIONAL
+      { ?item  rdfs:label  ?item__label_value
+        FILTER ( lang(?item__label_value) = "en" )
+      }
+    OPTIONAL
+      { ?item  rdfs:label  ?item__label_value
+        FILTER ( lang(?item__label_value) = "mul" )
+      }
+    BIND(if(bound(?item__label_value), str(?item__label_value), strafter(str(?item), "entity/")) AS ?label1)
+    OPTIONAL
+      { ?item  rdfs:label  ?item__label_value__1
+        FILTER ( lang(?item__label_value__1) = "en" )
+      }
+    OPTIONAL
+      { ?item  rdfs:label  ?item__label_value__1
+        FILTER ( lang(?item__label_value__1) = "mul" )
+      }
+    BIND(if(bound(?item__label_value__1), str(?item__label_value__1), strafter(str(?item), "entity/")) AS ?label2)
+  }

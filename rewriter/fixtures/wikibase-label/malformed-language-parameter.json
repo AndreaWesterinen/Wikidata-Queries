@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "query_id": "rewrite-wikibase-label-service__manual__malformed-language-parameter",
+  "original_query_path": "malformed-language-parameter.original.rq",
+  "rewrites": [
+    {
+      "rule_id": "rewrite-wikibase-label-service",
+      "variant_id": "manual"
+    }
+  ],
+  "expected_rewrite_status": "skipped_unsupported",
+  "expected_warnings": [],
+  "expected_errors": [
+    {
+      "code": "wikibase_label_malformed_language_parameter",
+      "phase": "post-ARQ",
+      "rule_id": "rewrite-wikibase-label-service",
+      "variant_id": "manual",
+      "message": "The wikibase:language parameter is not a supported literal comma-separated list.",
+      "source_location": "where.elements[1]",
+      "retry_classification": "after_catalog_change",
+      "diagnostic_reference": "README-rewrites.md#language-normalization"
+    }
+  ],
+  "sparql_diff": {
+    "enabled": false
+  }
+}

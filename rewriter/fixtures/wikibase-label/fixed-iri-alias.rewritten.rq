@@ -1,0 +1,27 @@
+PREFIX  skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX  wd:   <http://www.wikidata.org/entity/>
+PREFIX  wikibase: <http://wikiba.se/ontology#>
+
+SELECT  ?aliases
+WHERE
+  { OPTIONAL
+      { SELECT  ?aliases__entity_candidate (GROUP_CONCAT(DISTINCT ?aliases__alias_value ; separator=', ') AS ?aliases)
+        WHERE
+          { VALUES ?aliases__entity_candidate { wd:Q42 }
+            ?aliases__entity_candidate
+                      skos:altLabel  ?aliases__alias_value
+            FILTER ( lang(?aliases__alias_value) = "en" )
+          }
+        GROUP BY ?aliases__entity_candidate
+      }
+    OPTIONAL
+      { SELECT  ?aliases__entity_candidate (GROUP_CONCAT(DISTINCT ?aliases__alias_value ; separator=', ') AS ?aliases)
+        WHERE
+          { VALUES ?aliases__entity_candidate { wd:Q42 }
+            ?aliases__entity_candidate
+                      skos:altLabel  ?aliases__alias_value
+            FILTER ( lang(?aliases__alias_value) = "mul" )
+          }
+        GROUP BY ?aliases__entity_candidate
+      }
+  }

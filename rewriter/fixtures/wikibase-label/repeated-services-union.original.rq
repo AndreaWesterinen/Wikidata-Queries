@@ -1,0 +1,19 @@
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?entity ?entityLabel WHERE {
+  {
+    VALUES ?entity { wd:Q42 }
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "de" .
+    }
+  }
+  UNION
+  {
+    VALUES ?entity { wd:Q1 }
+    SERVICE wikibase:label {
+      bd:serviceParam wikibase:language "en" .
+    }
+  }
+}

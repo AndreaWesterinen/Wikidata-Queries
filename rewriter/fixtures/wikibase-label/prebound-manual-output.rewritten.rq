@@ -1,0 +1,33 @@
+PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX  wd:   <http://www.wikidata.org/entity/>
+PREFIX  wikibase: <http://wikiba.se/ontology#>
+
+SELECT  ?item ?label
+WHERE
+  { VALUES ( ?item ?label ) {
+      ( wd:Q42 "sentinel" )
+      ( wd:Q1 UNDEF )
+    }
+    OPTIONAL
+      { SELECT  ?item ?label
+        WHERE
+          { { SELECT DISTINCT  ?item
+              WHERE
+                { VALUES ( ?item ?label ) {
+                    ( wd:Q42 "sentinel" )
+                    ( wd:Q1 UNDEF )
+                  }
+                }
+            }
+            OPTIONAL
+              { ?item  rdfs:label  ?item__label_value
+                FILTER ( lang(?item__label_value) = "en" )
+              }
+            OPTIONAL
+              { ?item  rdfs:label  ?item__label_value
+                FILTER ( lang(?item__label_value) = "mul" )
+              }
+            BIND(if(bound(?item__label_value), str(?item__label_value), strafter(str(?item), "entity/")) AS ?label)
+          }
+      }
+  }

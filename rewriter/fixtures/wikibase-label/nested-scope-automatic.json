@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "query_id": "rewrite-wikibase-label-service__automatic__nested-scope-projections",
+  "original_query_path": "nested-scope-automatic.original.rq",
+  "rewrites": [
+    {
+      "rule_id": "rewrite-wikibase-label-service",
+      "variant_id": "automatic"
+    }
+  ],
+  "expected_rewrite_status": "rewritten",
+  "expected_warnings": [],
+  "expected_errors": [],
+  "sparql_diff": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "query_id": "rewrite-wikibase-label-service__manual__output-not-variable",
+  "original_query_path": "manual-output-not-variable.original.rq",
+  "rewrites": [
+    {
+      "rule_id": "rewrite-wikibase-label-service",
+      "variant_id": "manual"
+    }
+  ],
+  "expected_rewrite_status": "skipped_unsupported",
+  "expected_warnings": [],
+  "expected_errors": [
+    {
+      "code": "wikibase_label_manual_output_not_variable",
+      "phase": "post-ARQ",
+      "rule_id": "rewrite-wikibase-label-service",
+      "variant_id": "manual",
+      "message": "A manual label-service output is not a variable.",
+      "source_location": "where.elements[1]",
+      "retry_classification": "after_catalog_change",
+      "diagnostic_reference": "README-rewrites.md#manual-and-automatic-modes"
+    }
+  ],
+  "sparql_diff": {
+    "enabled": false
+  }
+}

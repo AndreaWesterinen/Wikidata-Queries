@@ -1,0 +1,32 @@
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?item ?aliases WHERE {
+  {
+    {
+      VALUES ?source { wd:Q42 }
+      ?source wdt:P31/wdt:P279* ?item .
+    }
+    UNION { VALUES ?item { wd:Q42 wd:Q1 } }
+    UNION { BIND(wd:Q5 AS ?item) }
+    UNION {
+      VALUES ?source { wd:Q42 }
+      OPTIONAL { ?source wdt:P25 ?item . }
+    }
+    UNION {
+      {
+        SELECT ?item WHERE {
+          VALUES ?item { wd:Q42 wd:Q1 }
+          ?item wdt:P31 wd:Q5 .
+        }
+      }
+    }
+  }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?item skos:altLabel ?aliases .
+  }
+}

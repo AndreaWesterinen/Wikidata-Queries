@@ -1,0 +1,11 @@
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?item ?itemLabel ?country ?countryLabel WHERE {
+  ?item wdt:P31 wd:Q515 ; wdt:P17 ?country .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "de,en" .
+  }
+}

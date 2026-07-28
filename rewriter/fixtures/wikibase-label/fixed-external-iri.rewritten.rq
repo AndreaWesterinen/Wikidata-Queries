@@ -1,0 +1,17 @@
+PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX  wikibase: <http://wikiba.se/ontology#>
+
+SELECT  ?label
+WHERE
+  { OPTIONAL
+      { <http://example.com/entity/Q1>
+                  rdfs:label  ?label__label_value
+        FILTER ( lang(?label__label_value) = "en" )
+      }
+    OPTIONAL
+      { <http://example.com/entity/Q1>
+                  rdfs:label  ?label__label_value
+        FILTER ( lang(?label__label_value) = "mul" )
+      }
+    BIND(if(bound(?label__label_value), str(?label__label_value), str(<http://example.com/entity/Q1>)) AS ?label)
+  }
