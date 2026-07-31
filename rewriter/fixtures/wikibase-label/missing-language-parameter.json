@@ -19,7 +19,7 @@
       "message": "The label service has no wikibase:language parameter.",
       "source_location": "where.elements[1]",
       "retry_classification": "after_input_or_parser_change",
-      "diagnostic_reference": "README-rewrites.md#language-normalization"
+      "diagnostic_reference": "docs/services/wikibase-label.md#language-list-normalization"
     }
   ],
   "sparql_diff": {

@@ -1,7 +1,6 @@
 PREFIX  schema: <http://schema.org/>
 PREFIX  wd:   <http://www.wikidata.org/entity/>
 PREFIX  wdt:  <http://www.wikidata.org/prop/direct/>
-PREFIX  wikibase: <http://wikiba.se/ontology#>
 
 SELECT  ?item ?description
 WHERE

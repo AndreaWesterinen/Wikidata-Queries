@@ -11,7 +11,7 @@ import org.apache.jena.atlas.json.JSON;
 import org.apache.jena.atlas.json.JsonObject;
 import org.apache.jena.atlas.json.JsonValue;
 
-/** Runs the Java rewrite engine for a persistent stream of JSONL requests. */
+/** Runs the Java rewrite engine for a stream of JSONL requests. */
 public final class SparqlRewriteServer {
     private static final int PROTOCOL_VERSION = 1;
 

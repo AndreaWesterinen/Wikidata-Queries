@@ -16,7 +16,7 @@ from rewrite_queries import destination_path, discover_queries, main  # noqa: E4
 
 
 class QueryDirectoryPathTest(unittest.TestCase):
-    """Verify recursive query discovery and mirrored output behavior."""
+    """Verify recursive query discovery and mirrored outputs."""
 
     def test_discovers_queries_recursively_in_sorted_order(self) -> None:
         """Find ordinary queries while excluding prior rewritten outputs."""
@@ -64,7 +64,7 @@ class QueryDirectoryPathTest(unittest.TestCase):
 
         self.assertEqual(
             destination_path(original, input_root, Path("output")),
-            Path("output") / "nested" / "case.rewritten.rq",
+            Path("output") / "nested" / "case.rewritten.rq"
         )
 
     def test_main_rewrites_directory_with_one_batch_call(self) -> None:
@@ -80,8 +80,7 @@ class QueryDirectoryPathTest(unittest.TestCase):
             (nested / "two.rq").write_text("query two", encoding="utf-8")
             results = [
                 ("nested/two.rq", {"rewritten_query": "rewritten two"}),
-                ("one.rq", {"rewritten_query": "rewritten one"}),
-            ]
+                ("one.rq", {"rewritten_query": "rewritten one"})]
 
             with (
                 patch(
@@ -89,14 +88,11 @@ class QueryDirectoryPathTest(unittest.TestCase):
                 ) as rewrite_batch,
                 patch(
                     "sys.argv",
-                    [
-                        "rewrite_queries.py",
-                        str(input_root),
-                        "--output-dir",
-                        str(output_root),
-                    ],
-                ),
-            ):
+                    ["rewrite_queries.py",
+                     str(input_root),
+                     "--output-dir",
+                     str(output_root)]
+                )):
                 exit_code = main()
 
             self.assertEqual(exit_code, 0)
@@ -104,17 +100,16 @@ class QueryDirectoryPathTest(unittest.TestCase):
             query_pairs, _ = rewrite_batch.call_args.args
             self.assertEqual(
                 query_pairs,
-                [("nested/two.rq", "query two"), ("one.rq", "query one")],
+                [("nested/two.rq", "query two"), ("one.rq", "query one")]
             )
             self.assertEqual(
                 (output_root / "one.rewritten.rq").read_text(encoding="utf-8"),
-                "rewritten one",
+                "rewritten one"
             )
             self.assertEqual(
                 (output_root / "nested" / "two.rewritten.rq").read_text(
-                    encoding="utf-8"
-                ),
-                "rewritten two",
+                    encoding="utf-8"),
+                "rewritten two"
             )
 
 

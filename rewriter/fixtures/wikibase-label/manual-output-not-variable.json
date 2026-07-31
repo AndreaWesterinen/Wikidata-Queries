@@ -19,7 +19,7 @@
       "message": "A manual label-service output is not a variable.",
       "source_location": "where.elements[1]",
       "retry_classification": "after_catalog_change",
-      "diagnostic_reference": "README-rewrites.md#manual-and-automatic-modes"
+      "diagnostic_reference": "docs/services/wikibase-label.md#manual-and-automatic-modes"
     }
   ],
   "sparql_diff": {

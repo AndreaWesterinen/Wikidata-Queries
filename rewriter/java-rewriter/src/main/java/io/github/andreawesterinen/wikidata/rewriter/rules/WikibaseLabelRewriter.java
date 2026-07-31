@@ -75,9 +75,9 @@ public final class WikibaseLabelRewriter {
         } catch (RuleFailure failure) {
             RewriteResult result = new RewriteResult(failure.status, null);
             if (failure.includeRewrite && failure.variant != null) {
-                result.rewrites().add(rewriteRecord(failure.variant));
+                result.addRewrite(rewriteRecord(failure.variant));
             }
-            result.errors().add(errorRecord(failure));
+            result.addError(errorRecord(failure));
             return result;
         }
         if (plans.isEmpty()) {
@@ -88,7 +88,7 @@ public final class WikibaseLabelRewriter {
         }
         RewriteResult result = new RewriteResult("rewritten", null);
         for (String variant : variants) {
-            result.rewrites().add(rewriteRecord(variant));
+            result.addRewrite(rewriteRecord(variant));
         }
         return result;
     }
@@ -110,42 +110,68 @@ public final class WikibaseLabelRewriter {
         }
 
         List<ServiceInfo> infos = new ArrayList<ServiceInfo>();
-        List<String> languageValues = new ArrayList<String>();
+        Map<ElementGroup, List<String>> languageValuesByGroup =
+                new IdentityHashMap<ElementGroup, List<String>>();
         for (ServiceOccurrence occurrence : services) {
             ServiceInfo info = classify(occurrence);
             infos.add(info);
+            List<String> languageValues = languageValuesByGroup.get(occurrence.parent);
+            if (languageValues == null) {
+                languageValues = new ArrayList<String>();
+                languageValuesByGroup.put(occurrence.parent, languageValues);
+            }
             languageValues.addAll(info.languages);
         }
         String uniformVariant = uniformVariant(infos);
-        if (languageValues.isEmpty()) {
-            throw failure("wikibase_label_missing_language_parameter",
-                    uniformVariant, true, services.get(0).path);
-        }
-        List<String> languages = normalizeLanguages(languageValues);
-        if (languages.isEmpty()) {
-            throw failure("wikibase_label_malformed_language_parameter",
-                    uniformVariant, true, services.get(0).path);
+        Map<ElementGroup, List<String>> languagesByGroup =
+                new IdentityHashMap<ElementGroup, List<String>>();
+        for (ServiceInfo info : infos) {
+            ElementGroup group = info.occurrence.parent;
+            if (languagesByGroup.containsKey(group)) {
+                continue;
+            }
+            List<String> languageValues = languageValuesByGroup.get(group);
+            if (languageValues.isEmpty()) {
+                throw failure("wikibase_label_missing_language_parameter",
+                        uniformVariant, true, info.occurrence.path);
+            }
+            List<String> languages = normalizeLanguages(languageValues);
+            if (languages.isEmpty()) {
+                throw failure("wikibase_label_malformed_language_parameter",
+                        uniformVariant, true, info.occurrence.path);
+            }
+            languagesByGroup.put(group, languages);
         }
 
         List<Output> automatic = automaticOutputs(query);
         Set<String> patternVariables = variablesOutsideLabelServices(query.getQueryPattern());
+        Set<String> nestedOutputs = nestedOutputVariables(query.getQueryPattern());
         Set<ElementGroup> automaticGroups = Collections.newSetFromMap(
                 new IdentityHashMap<ElementGroup, Boolean>());
-        ScopePlan plan = new ScopePlan();
+        ScopePlan plan = new ScopePlan(query);
+        if (query.isDescribeType()) {
+            List<Output> describeOutputs = new ArrayList<Output>();
+            for (Var variable : query.getProjectVars()) {
+                addAutomaticOutput(variable, describeOutputs);
+            }
+            for (Output output : describeOutputs) {
+                plan.describeVariables.add(Var.alloc(output.output));
+            }
+        }
         for (ServiceInfo info : infos) {
             variants.add(info.variant);
+            List<String> languages = languagesByGroup.get(info.occurrence.parent);
             List<Output> outputs;
             if ("manual".equals(info.variant)) {
                 outputs = manualOutputs(info);
             } else {
-                if (!query.isSelectType()) {
-                    throw failure("wikibase_label_non_select_automatic_query",
-                            "automatic", true, info.occurrence.path);
-                }
-                if (automaticGroups.contains(info.occurrence.parent)) {
+                if (query.isAskType() || query.isDescribeType()) {
+                    outputs = new ArrayList<Output>();
+                } else if (automaticGroups.contains(info.occurrence.parent)) {
                     outputs = new ArrayList<Output>();
                 } else {
-                    outputs = validAutomaticOutputs(automatic, patternVariables);
+                    outputs = validAutomaticOutputs(
+                            automatic, patternVariables, nestedOutputs);
                     automaticGroups.add(info.occurrence.parent);
                 }
             }
@@ -156,6 +182,11 @@ public final class WikibaseLabelRewriter {
                     BindingAnalysis.before(query, info.occurrence.service,
                             info.occurrence.parent, info.occurrence.index);
             for (Output output : outputs) {
+                String entity = variableName(output.entity);
+                if ("alias".equals(output.type) && entity != null
+                        && !bindings.isPossiblyBound(entity)) {
+                    continue;
+                }
                 prepareOutput(output, info.occurrence, bindings, variables);
                 if (output.guard != null && emittedGuards.add(output.guard)) {
                     replacement.append(guardBind(output));
@@ -195,10 +226,6 @@ public final class WikibaseLabelRewriter {
             variables.add(output.guard);
         }
         if ("alias".equals(output.type) && entity != null) {
-            if (!bindings.isPossiblyBound(entity)) {
-                throw failure("wikibase_label_alias_entity_not_safely_constrained",
-                        output.variant, true, occurrence.path);
-            }
             output.candidates = candidates(preceding, entity);
             if (output.candidates.isEmpty()) {
                 throw failure("wikibase_label_alias_entity_not_safely_constrained",
@@ -307,35 +334,51 @@ public final class WikibaseLabelRewriter {
     }
 
     /**
-     * Derives automatic label outputs from recognized SELECT variable suffixes.
+     * Derives automatic outputs from SELECT projections or CONSTRUCT templates.
      *
-     * @param query SELECT query or subquery
-     * @return projected automatic output mappings in projection order
+     * @param query query or subquery containing the automatic label service
+     * @return automatic output mappings in projection or template order
      */
     private static List<Output> automaticOutputs(Query query) {
         List<Output> outputs = new ArrayList<Output>();
-        if (!query.isSelectType() || query.isQueryResultStar()) {
-            return outputs;
-        }
-        for (Var variable : query.getProjectVars()) {
-            String output = variable.getVarName();
-            String base = null;
-            String type = null;
-            if (output.endsWith("AltLabel") && output.length() > 8) {
-                base = output.substring(0, output.length() - 8);
-                type = "alias";
-            } else if (output.endsWith("Description") && output.length() > 11) {
-                base = output.substring(0, output.length() - 11);
-                type = "description";
-            } else if (output.endsWith("Label") && output.length() > 5) {
-                base = output.substring(0, output.length() - 5);
-                type = "label";
+        if (query.isSelectType() && !query.isQueryResultStar()) {
+            for (Var variable : query.getProjectVars()) {
+                addAutomaticOutput(variable, outputs);
             }
-            if (base != null) {
-                outputs.add(new Output(Var.alloc(base), output, type, base, "automatic"));
+        } else if (query.isConstructType() && query.getConstructTemplate() != null) {
+            Set<String> seen = new LinkedHashSet<String>();
+            for (Triple triple : query.getConstructTemplate().getTriples()) {
+                Node[] nodes = {triple.getSubject(), triple.getPredicate(), triple.getObject()};
+                for (Node node : nodes) {
+                    if (node.isVariable()
+                            && seen.add(Var.alloc(node).getVarName())) {
+                        addAutomaticOutput(Var.alloc(node), outputs);
+                    }
+                }
             }
         }
         return outputs;
+    }
+
+    /** Adds one recognized suffix mapping, or ignores an unrelated variable. */
+    private static void addAutomaticOutput(Var variable, List<Output> outputs) {
+        String output = variable.getVarName();
+        String base = null;
+        String type = null;
+        if (output.endsWith("AltLabel") && output.length() > 8) {
+            base = output.substring(0, output.length() - 8);
+            type = "alias";
+        } else if (output.endsWith("Description") && output.length() > 11) {
+            base = output.substring(0, output.length() - 11);
+            type = "description";
+        } else if (output.endsWith("Label") && output.length() > 5) {
+            base = output.substring(0, output.length() - 5);
+            type = "label";
+        }
+        if (base == null) {
+            return;
+        }
+        outputs.add(new Output(Var.alloc(base), output, type, base, "automatic"));
     }
 
     /**
@@ -343,17 +386,57 @@ public final class WikibaseLabelRewriter {
      *
      * @param outputs projected automatic output mappings
      * @param patternVariables variables used by ordinary patterns in this scope
+     * @param nestedOutputs variables produced by nested query scopes
      * @return independent copies of valid automatic output mappings
      */
     private static List<Output> validAutomaticOutputs(
-            List<Output> outputs, Set<String> patternVariables) {
+            List<Output> outputs, Set<String> patternVariables,
+            Set<String> nestedOutputs) {
         List<Output> result = new ArrayList<Output>();
         for (Output output : outputs) {
-            if (patternVariables.contains(output.base)) {
+            if (patternVariables.contains(output.base)
+                    && !nestedOutputs.contains(output.output)) {
                 result.add(output.copy());
             }
         }
         return result;
+    }
+
+    /** Returns variables projected by nested query scopes. */
+    private static Set<String> nestedOutputVariables(Element element) {
+        Set<String> result = new HashSet<String>();
+        collectNestedOutputs(element, result);
+        return result;
+    }
+
+    /** Collects projected variables without treating them as outputs of this scope. */
+    private static void collectNestedOutputs(Element element, Set<String> result) {
+        if (element == null) {
+            return;
+        }
+        if (element instanceof ElementSubQuery) {
+            Query nested = ((ElementSubQuery) element).getQuery();
+            for (Var variable : nested.getProjectVars()) {
+                result.add(variable.getVarName());
+            }
+            collectNestedOutputs(nested.getQueryPattern(), result);
+        } else if (element instanceof ElementGroup) {
+            for (Element child : ((ElementGroup) element).getElements()) {
+                collectNestedOutputs(child, result);
+            }
+        } else if (element instanceof ElementOptional) {
+            collectNestedOutputs(((ElementOptional) element).getOptionalElement(), result);
+        } else if (element instanceof ElementUnion) {
+            for (Element child : ((ElementUnion) element).getElements()) {
+                collectNestedOutputs(child, result);
+            }
+        } else if (element instanceof ElementMinus) {
+            collectNestedOutputs(((ElementMinus) element).getMinusElement(), result);
+        } else if (element instanceof ElementNamedGraph) {
+            collectNestedOutputs(((ElementNamedGraph) element).getElement(), result);
+        } else if (element instanceof ElementService) {
+            collectNestedOutputs(((ElementService) element).getElement(), result);
+        }
     }
 
     /**
@@ -943,42 +1026,36 @@ public final class WikibaseLabelRewriter {
         if ("wikibase_label_missing_language_parameter".equals(code)) {
             return new RuleFailure(code, "blazegraph_error",
                     "The label service has no wikibase:language parameter.",
-                    "after_input_or_parser_change", "README-rewrites.md#language-normalization",
+                    "after_input_or_parser_change", "docs/services/wikibase-label.md#language-list-normalization",
                     variant, includeRewrite, path);
         }
         if ("wikibase_label_alias_entity_not_safely_constrained".equals(code)) {
             return new RuleFailure(code, "skipped_unsupported",
                     "The alias entity variable cannot be safely constrained from preceding in-scope binding patterns.",
-                    "after_catalog_change", "README-rewrites.md#alias-aggregation",
+                    "after_catalog_change", "docs/services/wikibase-label.md#alias-aggregation",
                     variant, includeRewrite, path);
         }
         if ("wikibase_label_manual_output_not_variable".equals(code)) {
             return new RuleFailure(code, "skipped_unsupported",
                     "A manual label-service output is not a variable.",
-                    "after_catalog_change", "README-rewrites.md#manual-and-automatic-modes",
+                    "after_catalog_change", "docs/services/wikibase-label.md#manual-and-automatic-modes",
                     variant, includeRewrite, path);
         }
         if ("wikibase_label_malformed_language_parameter".equals(code)) {
             return new RuleFailure(code, "skipped_unsupported",
                     "The wikibase:language parameter is not a supported literal comma-separated list.",
-                    "after_catalog_change", "README-rewrites.md#language-normalization",
+                    "after_catalog_change", "docs/services/wikibase-label.md#language-list-normalization",
                     variant, includeRewrite, path);
         }
         if ("wikibase_label_invalid_entity_term".equals(code)) {
             return new RuleFailure(code, "skipped_unsupported",
                     "A manual label-service entity term is not a variable or fixed IRI.",
-                    "after_catalog_change", "README-rewrites.md#unsupported-label-service-input",
-                    variant, includeRewrite, path);
-        }
-        if ("wikibase_label_non_select_automatic_query".equals(code)) {
-            return new RuleFailure(code, "skipped_unsupported",
-                    "Automatic label-service mode is supported only in a SELECT query or projected subquery.",
-                    "after_catalog_change", "README-rewrites.md#manual-and-automatic-modes",
+                    "after_catalog_change", "docs/services/wikibase-label.md#unsupported-cases",
                     variant, includeRewrite, path);
         }
         return new RuleFailure(code, "skipped_unsupported",
                 "The label service contains unsupported content.",
-                "after_catalog_change", "README-rewrites.md#unsupported-label-service-input",
+                "after_catalog_change", "docs/services/wikibase-label.md#unsupported-cases",
                 variant, includeRewrite, path);
     }
 
@@ -1086,10 +1163,20 @@ public final class WikibaseLabelRewriter {
     }
 
     private static final class ScopePlan {
+        final Query query;
         final List<Replacement> replacements = new ArrayList<Replacement>();
+        final List<Var> describeVariables = new ArrayList<Var>();
+
+        /** Creates an atomic plan for one query scope. */
+        ScopePlan(Query query) {
+            this.query = query;
+        }
 
         /** Applies replacements from right to left within each containing group. */
         void apply() {
+            for (Var variable : describeVariables) {
+                query.getProject().remove(variable);
+            }
             Map<ElementGroup, List<Replacement>> byParent =
                     new IdentityHashMap<ElementGroup, List<Replacement>>();
             for (Replacement replacement : replacements) {

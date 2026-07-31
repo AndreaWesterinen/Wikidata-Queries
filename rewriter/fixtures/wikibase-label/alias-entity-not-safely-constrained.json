@@ -8,21 +8,10 @@
       "variant_id": "manual"
     }
   ],
-  "expected_rewrite_status": "skipped_unsupported",
+  "expected_rewrite_status": "rewritten",
   "expected_warnings": [],
-  "expected_errors": [
-    {
-      "code": "wikibase_label_alias_entity_not_safely_constrained",
-      "phase": "post-ARQ",
-      "rule_id": "rewrite-wikibase-label-service",
-      "variant_id": "manual",
-      "message": "The alias entity variable cannot be safely constrained from preceding in-scope binding patterns.",
-      "source_location": "where.elements[0]",
-      "retry_classification": "after_catalog_change",
-      "diagnostic_reference": "README-rewrites.md#alias-aggregation"
-    }
-  ],
+  "expected_errors": [],
   "sparql_diff": {
-    "enabled": false
+    "enabled": true
   }
 }

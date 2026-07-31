@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "query_id": "rewrite-wikibase-label-service__manual__nested-scope-manual-languages",
+  "original_query_path": "nested-scope-manual-languages.original.rq",
+  "rewrites": [
+    {
+      "rule_id": "rewrite-wikibase-label-service",
+      "variant_id": "manual"
+    }
+  ],
+  "expected_rewrite_status": "rewritten",
+  "expected_warnings": [],
+  "expected_errors": [],
+  "sparql_diff": {
+    "enabled": true
+  }
+}

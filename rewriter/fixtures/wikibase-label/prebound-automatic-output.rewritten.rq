@@ -1,5 +1,4 @@
 PREFIX  wd:   <http://www.wikidata.org/entity/>
-PREFIX  wikibase: <http://wikiba.se/ontology#>
 
 SELECT  ?item ?itemLabel
 WHERE

@@ -1,5 +1,5 @@
 .m2/
-java-rewriter/target/
+target/
 __pycache__/
 *.pyc
 .DS_Store

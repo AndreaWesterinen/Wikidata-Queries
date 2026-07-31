@@ -4,13 +4,10 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 import sys
+from pathlib import Path
 
-PYTHON_ROOT = Path(__file__).resolve().parent / "python"
-sys.path.insert(0, str(PYTHON_ROOT))
-
-from sparql_rewriter import RewriterError, rewrite_query  # noqa: E402
+from rewrite import RewriterError, rewrite_query
 
 
 def main() -> int:
@@ -19,13 +16,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Rewrite one Blazegraph SPARQL .rq file and print SPARQL 1.1.")
     parser.add_argument("query", type=Path, help="Path to the original .rq query")
-    parser.add_argument(
-        "--rewriter-jar",
-        type=Path,
-        default=Path(__file__).resolve().parent
-        / "java-rewriter"
-        / "target"
-        / "sparql-rewriter.jar")
+    parser.add_argument("--rewriter-jar", type=Path,
+        default=Path(__file__).resolve().parent / "java-rewriter" / "target" / "sparql-rewriter.jar")
     args = parser.parse_args()
 
     try:

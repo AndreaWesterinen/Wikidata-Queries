@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "query_id": "rewrite-query-hint__default__repeated",
+  "original_query_path": "repeated.original.rq",
+  "rewrites": [
+    {
+      "rule_id": "rewrite-query-hint",
+      "variant_id": "default"
+    }
+  ],
+  "expected_rewrite_status": "rewritten",
+  "expected_warnings": [],
+  "expected_errors": [],
+  "sparql_diff": {
+    "enabled": true
+  }
+}

@@ -1,4 +1,4 @@
-"""Manifest-driven regression tests for every checked-in rewrite fixture."""
+"""Manifest-driven regression tests for every rewrite fixture."""
 
 from __future__ import annotations
 
@@ -10,17 +10,16 @@ import unittest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_ROOT = PROJECT_ROOT / "fixtures"
-sys.path.insert(0, str(PROJECT_ROOT / "python"))
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from sparql_rewriter import rewrite_queries  # noqa: E402
+from rewrite import rewrite_queries  # noqa: E402
 
 
 class RewriteFixtureTest(unittest.TestCase):
     """Run every JSON fixture manifest beneath the fixture root."""
 
     def test_all_fixture_manifests(self) -> None:
-        """Require every result status, diagnostic, and golden query to match."""
+        """Require every result status, diagnostic, and "golden" query to match."""
 
         manifests = sorted(FIXTURE_ROOT.rglob("*.json"))
         self.assertTrue(manifests, "No fixture manifests were found")
@@ -30,10 +29,27 @@ class RewriteFixtureTest(unittest.TestCase):
         expected_rewrites = set()
         for manifest_path in manifests:
             record = json.loads(manifest_path.read_text(encoding="utf-8"))
+            sparql_diff = record["sparql_diff"]
+            diffs = sparql_diff.get("diffs", False)
+            self.assertIsInstance(
+                diffs,
+                bool,
+                f"sparql_diff.diffs must be boolean in {manifest_path}"
+            )
+            if diffs:
+                self.assertTrue(
+                    sparql_diff["enabled"],
+                    f"sparql_diff.diffs requires enabled=true in {manifest_path}"
+                )
+                self.assertIn(
+                    record["expected_rewrite_status"],
+                    {"rewritten", "unchanged"},
+                    f"sparql_diff.diffs requires comparable output in {manifest_path}"
+                )
             self.assertNotIn(
                 record["query_id"],
                 records,
-                f"Duplicate query_id in {manifest_path}",
+                f"Duplicate query_id in {manifest_path}"
             )
             records[record["query_id"]] = (manifest_path, record)
             original_path = manifest_path.parent / record["original_query_path"]
@@ -47,18 +63,18 @@ class RewriteFixtureTest(unittest.TestCase):
         self.assertEqual(
             set(FIXTURE_ROOT.rglob("*.original.rq")),
             referenced_originals,
-            "Every original query must have exactly one fixture manifest",
+            "Every original query must have exactly one fixture manifest"
         )
         self.assertEqual(
             set(FIXTURE_ROOT.rglob("*.rewritten.rq")),
             expected_rewrites,
-            "Golden queries must exist exactly for successful fixture manifests",
+            "Golden queries must exist exactly for successful fixture manifests"
         )
 
         actual = dict(
             rewrite_queries(
                 queries,
-                PROJECT_ROOT / "java-rewriter" / "target" / "sparql-rewriter.jar",
+                PROJECT_ROOT / "java-rewriter" / "target" / "sparql-rewriter.jar"
             )
         )
 
@@ -74,7 +90,7 @@ class RewriteFixtureTest(unittest.TestCase):
                     rewritten_path = manifest_path.with_suffix(".rewritten.rq")
                     self.assertEqual(
                         result["rewritten_query"],
-                        rewritten_path.read_text(encoding="utf-8"),
+                        rewritten_path.read_text(encoding="utf-8")
                     )
                 else:
                     self.assertIsNone(result["rewritten_query"])

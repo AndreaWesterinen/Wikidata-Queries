@@ -9,9 +9,9 @@ import unittest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 JAR = PROJECT_ROOT / "java-rewriter" / "target" / "sparql-rewriter.jar"
-sys.path.insert(0, str(PROJECT_ROOT / "python"))
+sys.path.insert(0, str(PROJECT_ROOT))
 
-from sparql_rewriter.java_client import JavaRewriter  # noqa: E402
+from rewrite import rewrite_queries, rewrite_query  # noqa: E402
 
 
 class JavaRewriterTest(unittest.TestCase):
@@ -28,9 +28,8 @@ class JavaRewriterTest(unittest.TestCase):
         ).read_text(encoding="utf-8")
         unchanged_query = "SELECT * WHERE { ?s ?p ?o }\n"
 
-        with JavaRewriter(JAR) as rewriter:
-            first = rewriter.rewrite(label_query, "first")
-            second = rewriter.rewrite(unchanged_query, "second")
+        first, second = [result for _, result in rewrite_queries(
+            (("first", label_query), ("second", unchanged_query)), JAR)]
 
         self.assertEqual(first["rewrite_status"], "rewritten")
         self.assertNotIn("wikibase:label", first["rewritten_query"])
@@ -42,10 +41,9 @@ class JavaRewriterTest(unittest.TestCase):
         self.assertEqual(second["rewritten_query"], unchanged_query)
 
     def test_parse_error_is_a_query_result(self) -> None:
-        """Keep deterministic parse failure distinct from transport failure."""
+        """Keep parse failures distinct from transport failures."""
 
-        with JavaRewriter(JAR) as rewriter:
-            result = rewriter.rewrite("SELECT WHERE {", "invalid")
+        result = rewrite_query("SELECT WHERE {", "invalid", JAR)
 
         self.assertEqual(result["rewrite_status"], "parse_error")
         self.assertIsNone(result["rewritten_query"])
@@ -55,8 +53,7 @@ class JavaRewriterTest(unittest.TestCase):
         """Reject root FROM clauses, which have no Wikidata dataset meaning."""
 
         query = "SELECT * FROM <http://example.com/data> WHERE { ?s ?p ?o }"
-        with JavaRewriter(JAR) as rewriter:
-            result = rewriter.rewrite(query, "dataset")
+        result = rewrite_query(query, "dataset", JAR)
 
         self.assertEqual(result["rewrite_status"], "skipped_unsupported")
         self.assertIsNone(result["rewritten_query"])

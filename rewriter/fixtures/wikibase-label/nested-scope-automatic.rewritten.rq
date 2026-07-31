@@ -1,10 +1,10 @@
 PREFIX  wd:   <http://www.wikidata.org/entity/>
 PREFIX  wdt:  <http://www.wikidata.org/prop/direct/>
-PREFIX  wikibase: <http://wikiba.se/ontology#>
 
-SELECT  ?item ?itemLabel ?country
+SELECT  ?item ?itemLabel ?country ?countryLabel
 WHERE
-  { ?item  wdt:P31  wd:Q515
+  { ?item  wdt:P31  wd:Q515 ;
+           wdt:P17  ?country
     OPTIONAL
       { ?item  <http://www.w3.org/2000/01/rdf-schema#label>  ?item__label_value
         FILTER ( lang(?item__label_value) = "de" )

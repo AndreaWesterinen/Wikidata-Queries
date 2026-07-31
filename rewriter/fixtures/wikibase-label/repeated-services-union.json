@@ -12,6 +12,7 @@
   "expected_warnings": [],
   "expected_errors": [],
   "sparql_diff": {
-    "enabled": true
+    "enabled": true,
+	"diffs": true
   }
 }

@@ -1,5 +1,4 @@
 PREFIX  wd:   <http://www.wikidata.org/entity/>
-PREFIX  wikibase: <http://wikiba.se/ontology#>
 
 SELECT  ?entity ?entityLabel
 WHERE
@@ -10,20 +9,12 @@ WHERE
           }
         OPTIONAL
           { ?entity  <http://www.w3.org/2000/01/rdf-schema#label>  ?entity__label_value
-            FILTER ( lang(?entity__label_value) = "en" )
-          }
-        OPTIONAL
-          { ?entity  <http://www.w3.org/2000/01/rdf-schema#label>  ?entity__label_value
             FILTER ( lang(?entity__label_value) = "mul" )
           }
         BIND(if(bound(?entity__label_value), str(?entity__label_value), strafter(str(?entity), "entity/")) AS ?entityLabel)
       }
     UNION
       { VALUES ?entity { wd:Q1 }
-        OPTIONAL
-          { ?entity  <http://www.w3.org/2000/01/rdf-schema#label>  ?entity__label_value__1
-            FILTER ( lang(?entity__label_value__1) = "de" )
-          }
         OPTIONAL
           { ?entity  <http://www.w3.org/2000/01/rdf-schema#label>  ?entity__label_value__1
             FILTER ( lang(?entity__label_value__1) = "en" )

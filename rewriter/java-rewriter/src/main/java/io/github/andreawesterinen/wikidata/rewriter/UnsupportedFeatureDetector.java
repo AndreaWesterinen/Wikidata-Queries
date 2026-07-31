@@ -31,9 +31,8 @@ import org.apache.jena.sparql.syntax.ElementTriplesBlock;
 import org.apache.jena.sparql.syntax.ElementVisitorBase;
 import org.apache.jena.sparql.syntax.ElementWalker;
 
-/** Classifies cataloged proprietary features that are not implemented yet. */
+/** Classifies cataloged proprietary features that are not yet implemented. */
 final class UnsupportedFeatureDetector {
-    private static final String HINT_NAMESPACE = "http://www.bigdata.com/queryHints#";
     private static final String WIKIBASE_NAMESPACE = "http://wikiba.se/ontology#";
     private static final String BIGDATA_NAMESPACE = "http://www.bigdata.com/rdf#";
     private static final String GAS_NAMESPACE = "http://www.bigdata.com/rdf/gas#";
@@ -46,10 +45,20 @@ final class UnsupportedFeatureDetector {
             "(?i)\\bINCLUDE\\s*%[A-Za-z_]");
     private static final Map<String, String> SERVICES = services();
     private static final Map<String, String> FUNCTIONS = functions();
+    private static final Map<String, String> TERM_NAMESPACES = termNamespaces();
 
     private String feature;
 
-    /** Returns an unsupported result for non-standard grammar before ARQ parsing. */
+    /** Creates an empty detector for one parsed query traversal. */
+    private UnsupportedFeatureDetector() {
+    }
+
+    /**
+     * Detects cataloged non-standard grammar before ARQ parsing.
+     *
+     * @param queryText original query text
+     * @return unsupported result, or {@code null} when no feature is found
+     */
     static RewriteResult detectPreParse(String queryText) {
         String syntax = maskCommentsStringsAndIris(queryText);
         if (NAMED_SUBQUERY_DEFINITION.matcher(syntax).find()
@@ -59,7 +68,12 @@ final class UnsupportedFeatureDetector {
         return null;
     }
 
-    /** Returns an unsupported result for a parsed, cataloged proprietary feature. */
+    /**
+     * Detects parsed, cataloged proprietary features throughout a query.
+     *
+     * @param query complete parsed query
+     * @return unsupported result, or {@code null} when no feature is found
+     */
     static RewriteResult detectPostParse(Query query) {
         UnsupportedFeatureDetector detector = new UnsupportedFeatureDetector();
         detector.inspectQuery(query);
@@ -68,6 +82,11 @@ final class UnsupportedFeatureDetector {
                 : unsupported("post-ARQ", detector.feature);
     }
 
+    /**
+     * Inspects one query scope and every nested query scope until a feature is found.
+     *
+     * @param query query scope to inspect
+     */
     private void inspectQuery(Query query) {
         if (feature != null) {
             return;
@@ -77,36 +96,43 @@ final class UnsupportedFeatureDetector {
             return;
         }
         ElementWalker.walk(query.getQueryPattern(), new ElementVisitorBase() {
+            /** Inspects one SERVICE endpoint. */
             @Override
             public void visit(ElementService service) {
                 inspectService(service.getServiceNode());
             }
 
+            /** Inspects every term in an ordinary triple block. */
             @Override
             public void visit(ElementTriplesBlock block) {
                 block.patternElts().forEachRemaining(UnsupportedFeatureDetector.this::inspectTriple);
             }
 
+            /** Inspects every triple path in a path block. */
             @Override
             public void visit(ElementPathBlock block) {
                 block.patternElts().forEachRemaining(UnsupportedFeatureDetector.this::inspectPath);
             }
 
+            /** Inspects a FILTER expression. */
             @Override
             public void visit(ElementFilter filter) {
                 inspectExpression(filter.getExpr());
             }
 
+            /** Inspects a BIND expression. */
             @Override
             public void visit(ElementBind bind) {
                 inspectExpression(bind.getExpr());
             }
 
+            /** Inspects an assignment expression. */
             @Override
             public void visit(ElementAssign assign) {
                 inspectExpression(assign.getExpr());
             }
 
+            /** Recursively inspects one nested query scope. */
             @Override
             public void visit(ElementSubQuery subquery) {
                 inspectQuery(subquery.getQuery());
@@ -114,6 +140,11 @@ final class UnsupportedFeatureDetector {
         });
     }
 
+    /**
+     * Inspects projection, grouping, HAVING, and ordering expressions.
+     *
+     * @param query query scope whose solution expressions are inspected
+     */
     private void inspectExpressions(Query query) {
         inspectExpressionList(query.getProject());
         inspectExpressionList(query.getGroupBy());
@@ -127,45 +158,66 @@ final class UnsupportedFeatureDetector {
         }
     }
 
+    /**
+     * Inspects every expression stored in a Jena variable-expression list.
+     *
+     * @param expressions expression list, possibly {@code null}
+     */
     private void inspectExpressionList(org.apache.jena.sparql.core.VarExprList expressions) {
         if (feature == null && expressions != null) {
             Walker.walk(expressions, expressionVisitor());
         }
     }
 
+    /**
+     * Inspects one expression tree when no earlier feature has matched.
+     *
+     * @param expression expression root, possibly {@code null}
+     */
     private void inspectExpression(Expr expression) {
         if (feature == null && expression != null) {
             Walker.walk(expression, expressionVisitor());
         }
     }
 
+    /**
+     * Creates an expression visitor that reports every supported function arity.
+     *
+     * @return visitor forwarding function nodes to {@link #inspectFunction}
+     */
     private ExprVisitorBase expressionVisitor() {
         return new ExprVisitorBase() {
+            /** Inspects a zero-argument function. */
             @Override
             public void visit(ExprFunction0 function) {
                 inspectFunction(function);
             }
 
+            /** Inspects a one-argument function. */
             @Override
             public void visit(ExprFunction1 function) {
                 inspectFunction(function);
             }
 
+            /** Inspects a two-argument function. */
             @Override
             public void visit(ExprFunction2 function) {
                 inspectFunction(function);
             }
 
+            /** Inspects a three-argument function. */
             @Override
             public void visit(ExprFunction3 function) {
                 inspectFunction(function);
             }
 
+            /** Inspects a variable-arity function. */
             @Override
             public void visit(ExprFunctionN function) {
                 inspectFunction(function);
             }
 
+            /** Inspects a function whose argument includes graph syntax. */
             @Override
             public void visit(ExprFunctionOp function) {
                 inspectFunction(function);
@@ -173,6 +225,11 @@ final class UnsupportedFeatureDetector {
         };
     }
 
+    /**
+     * Classifies a resolved function IRI as cataloged or unknown proprietary syntax.
+     *
+     * @param function parsed function expression
+     */
     private void inspectFunction(ExprFunction function) {
         if (feature == null) {
             String iri = function.getFunctionIRI();
@@ -188,6 +245,11 @@ final class UnsupportedFeatureDetector {
         }
     }
 
+    /**
+     * Classifies a resolved SERVICE endpoint IRI.
+     *
+     * @param service SERVICE endpoint node
+     */
     private void inspectService(Node service) {
         if (feature == null && service != null && service.isURI()) {
             String iri = service.getURI();
@@ -201,25 +263,51 @@ final class UnsupportedFeatureDetector {
         }
     }
 
+    /**
+     * Inspects every term of an ordinary triple for a proprietary namespace IRI.
+     *
+     * @param triple triple to inspect
+     */
     private void inspectTriple(Triple triple) {
-        inspectHintNode(triple.getSubject());
-        inspectHintNode(triple.getPredicate());
-        inspectHintNode(triple.getObject());
+        inspectProprietaryNode(triple.getSubject());
+        inspectProprietaryNode(triple.getPredicate());
+        inspectProprietaryNode(triple.getObject());
     }
 
+    /**
+     * Inspects the endpoint terms of a triple path for a proprietary namespace IRI.
+     *
+     * @param path triple path to inspect
+     */
     private void inspectPath(TriplePath path) {
-        inspectHintNode(path.getSubject());
-        inspectHintNode(path.getPredicate());
-        inspectHintNode(path.getObject());
+        inspectProprietaryNode(path.getSubject());
+        inspectProprietaryNode(path.getPredicate());
+        inspectProprietaryNode(path.getObject());
     }
 
-    private void inspectHintNode(Node node) {
-        if (feature == null && node != null && node.isURI()
-                && node.getURI().startsWith(HINT_NAMESPACE)) {
-            feature = "query hint";
+    /**
+     * Classifies a resolved RDF term through the proprietary namespace catalog.
+     *
+     * @param node RDF node to inspect, possibly {@code null}
+     */
+    private void inspectProprietaryNode(Node node) {
+        if (feature == null && node != null && node.isURI()) {
+            for (Map.Entry<String, String> entry : TERM_NAMESPACES.entrySet()) {
+                if (node.getURI().startsWith(entry.getKey())) {
+                    feature = entry.getValue();
+                    return;
+                }
+            }
         }
     }
 
+    /**
+     * Builds a terminal unsupported-feature rewrite result.
+     *
+     * @param phase detection phase reported in the diagnostic
+     * @param feature human-readable feature description
+     * @return skipped-unsupported result containing one diagnostic
+     */
     private static RewriteResult unsupported(String phase, String feature) {
         RewriteResult result = new RewriteResult("skipped_unsupported", null);
         JsonObject diagnostic = new JsonObject();
@@ -229,12 +317,17 @@ final class UnsupportedFeatureDetector {
         diagnostic.put("feature", feature);
         diagnostic.put("retry_classification", "after_catalog_change");
         diagnostic.put("diagnostic_reference",
-                "README-rewrites.md#known-unimplemented-features");
-        result.errors.add(diagnostic);
+                "README.md#current-status");
+        result.addError(diagnostic);
         return result;
     }
 
-    /** Masks lexical regions in which proprietary grammar text is inert. */
+    /**
+     * Masks lexical regions in which proprietary grammar text is inert.
+     *
+     * @param text original query text
+     * @return same-length text with comments, strings, and IRIs replaced by spaces
+     */
     private static String maskCommentsStringsAndIris(String text) {
         StringBuilder masked = new StringBuilder(text);
         int index = 0;
@@ -256,6 +349,14 @@ final class UnsupportedFeatureDetector {
         return masked.toString();
     }
 
+    /**
+     * Replaces one comment with spaces while preserving its line ending.
+     *
+     * @param text original query text
+     * @param masked mutable same-length masked copy
+     * @param start offset of the comment marker
+     * @return offset of the line ending or end of text
+     */
     private static int maskUntilLineEnd(String text, StringBuilder masked, int start) {
         int index = start;
         while (index < text.length() && text.charAt(index) != '\n'
@@ -265,6 +366,16 @@ final class UnsupportedFeatureDetector {
         return index;
     }
 
+    /**
+     * Replaces one IRI or quoted string, including escapes, with spaces.
+     *
+     * @param text original query text
+     * @param masked mutable same-length masked copy
+     * @param start offset of the opening delimiter
+     * @param closing closing delimiter character
+     * @param triple whether the delimiter has width three
+     * @return offset immediately after the closing delimiter or end of text
+     */
     private static int maskQuoted(String text, StringBuilder masked, int start,
             char closing, boolean triple) {
         int width = triple ? 3 : 1;
@@ -297,6 +408,11 @@ final class UnsupportedFeatureDetector {
         return index;
     }
 
+    /**
+     * Builds the resolved SERVICE IRI catalog and diagnostic descriptions.
+     *
+     * @return immutable catalog in deterministic insertion order
+     */
     private static Map<String, String> services() {
         Map<String, String> values = new LinkedHashMap<String, String>();
         values.put("http://www.bigdata.com/rdf/gas#service", "GAS service");
@@ -308,6 +424,11 @@ final class UnsupportedFeatureDetector {
         return Collections.unmodifiableMap(values);
     }
 
+    /**
+     * Builds the resolved function IRI catalog and diagnostic descriptions.
+     *
+     * @return immutable catalog in deterministic insertion order
+     */
     private static Map<String, String> functions() {
         Map<String, String> values = new LinkedHashMap<String, String>();
         values.put(GEOF_NAMESPACE + "globe", "geof:globe function");
@@ -315,6 +436,17 @@ final class UnsupportedFeatureDetector {
         values.put(GEOF_NAMESPACE + "longitude", "geof:longitude function");
         values.put(GEOF_NAMESPACE + "distance", "geof:distance function");
         values.put("http://wikiba.se/ontology#decodeUri", "wikibase:decodeUri function");
+        return Collections.unmodifiableMap(values);
+    }
+
+    /**
+     * Builds the namespace catalog for proprietary RDF terms outside functions.
+     *
+     * @return immutable namespace catalog in deterministic insertion order
+     */
+    private static Map<String, String> termNamespaces() {
+        Map<String, String> values = new LinkedHashMap<String, String>();
+        values.put("http://www.bigdata.com/queryHints#", "query hint");
         return Collections.unmodifiableMap(values);
     }
 }

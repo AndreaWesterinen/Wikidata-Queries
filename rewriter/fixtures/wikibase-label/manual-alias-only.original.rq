@@ -5,7 +5,7 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 
 SELECT ?item ?aliases WHERE {
-  ?item wdt:P31 wd:Q515 .
+  ?item wdt:P31 wd:Q2031121 .
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "de,en" .
     ?item skos:altLabel ?aliases .

@@ -53,6 +53,9 @@ final class SparqlRewriteServerTest {
         assertEquals("ok", string(response, "status"));
         assertEquals("parse_error", string(response.getObj("result"), "rewrite_status"));
         assertTrue(response.getObj("result").get("rewritten_query").isNull());
+        assertEquals("original_query_parse_error", response.getObj("result")
+                .get("errors").getAsArray().get(0).getAsObject()
+                .get("code").getAsString().value());
     }
 
     private static String request(int version, String query) {

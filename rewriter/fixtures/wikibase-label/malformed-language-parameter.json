@@ -19,7 +19,7 @@
       "message": "The wikibase:language parameter is not a supported literal comma-separated list.",
       "source_location": "where.elements[1]",
       "retry_classification": "after_catalog_change",
-      "diagnostic_reference": "README-rewrites.md#language-normalization"
+      "diagnostic_reference": "docs/services/wikibase-label.md#language-list-normalization"
     }
   ],
   "sparql_diff": {

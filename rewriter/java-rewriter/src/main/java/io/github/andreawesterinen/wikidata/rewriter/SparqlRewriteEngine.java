@@ -12,10 +12,13 @@ import org.apache.jena.query.QueryParseException;
 import org.apache.jena.query.Syntax;
 import org.apache.jena.riot.RiotException;
 
+import io.github.andreawesterinen.wikidata.rewriter.rules.QueryHintRewriter;
 import io.github.andreawesterinen.wikidata.rewriter.rules.WikibaseLabelRewriter;
 
 /** Parses, rewrites, serializes, and validates one complete SPARQL query. */
 final class SparqlRewriteEngine {
+    private static final List<PreParseRule> PRE_PARSE_RULES = preParseRules();
+
     /** Prevents instantiation of the static rewrite engine. */
     private SparqlRewriteEngine() {
     }
@@ -28,41 +31,76 @@ final class SparqlRewriteEngine {
      * @throws IllegalStateException if a rule reports success without a change
      */
     static RewriteResult rewrite(String queryText) {
-        RewriteResult preParseFailure = UnsupportedFeatureDetector.detectPreParse(queryText);
+        return rewrite(queryText, PRE_PARSE_RULES);
+    }
+
+    /**
+     * Rewrites one query using the supplied pre-parse rule order.
+     *
+     * <p>This package-private overload makes the pre-parse handoff directly
+     * testable without changing the production rule list.</p>
+     *
+     * @param queryText original query text
+     * @param preParseRules ordered pre-parse rules to apply once each
+     * @return deterministic rewrite result, including status and diagnostics
+     * @throws IllegalStateException if a rule reports success without a change
+     */
+    static RewriteResult rewrite(String queryText, List<PreParseRule> preParseRules) {
+        RewriteResult complete = new RewriteResult("unchanged", queryText);
+        String currentText = queryText;
+        for (PreParseRule rule : preParseRules) {
+            RewriteResult step;
+            try {
+                step = rule.rewrite(currentText);
+            } catch (RiotException error) {
+                return originalParseFailure();
+            }
+            if (step == null) {
+                continue;
+            }
+            if (!"rewritten".equals(step.status())) {
+                return step;
+            }
+            String rewritten = step.rewrittenQuery();
+            if (rewritten == null || rewritten.equals(currentText)) {
+                throw new IllegalStateException(
+                        "A pre-parse rule reported success without changing the query.");
+            }
+            complete.append(step);
+            currentText = rewritten;
+        }
+
+        RewriteResult preParseFailure = UnsupportedFeatureDetector.detectPreParse(currentText);
         if (preParseFailure != null) {
             return preParseFailure;
         }
-        Query query = parseOriginal(queryText);
-        if (query == null) {
-            return new RewriteResult("parse_error", null);
+        Query query;
+        try {
+            query = parseOriginal(currentText);
+        } catch (QueryParseException | RiotException error) {
+            return originalParseFailure();
         }
         RewriteResult datasetFailure = rejectDataset(query);
         if (datasetFailure != null) {
             return datasetFailure;
         }
 
-        RewriteResult complete = new RewriteResult("unchanged", queryText);
-        String currentText = queryText;
         while (true) {
             RewriteResult step = applyNextRule(query);
             if (step == null) {
-                if (!complete.rewrites.isEmpty()) {
-                    complete.status = "rewritten";
-                    complete.rewrittenQuery = serialize(query);
+                if (complete.hasRewrites()) {
+                    complete.setOutcome("rewritten",
+                            serialize(query, queryText));
                 }
                 return complete;
             }
 
-            complete.rewrites.addAll(step.rewrites);
-            complete.warnings.addAll(step.warnings);
-            complete.errors.addAll(step.errors);
-            if (!"rewritten".equals(step.status)) {
-                complete.status = step.status;
-                complete.rewrittenQuery = null;
-                return complete;
+            if (!"rewritten".equals(step.status())) {
+                return step;
             }
+            complete.append(step);
 
-            String rewritten = serialize(query);
+            String rewritten = serialize(query, queryText);
             if (rewritten.equals(currentText)) {
                 throw new IllegalStateException(
                         "A rewrite rule reported success without changing the query.");
@@ -77,18 +115,25 @@ final class SparqlRewriteEngine {
     }
 
     /**
+     * Builds the deterministic pre-parse rule order.
+     *
+     * @return immutable ordered pre-parse rule list
+     */
+    private static List<PreParseRule> preParseRules() {
+        List<PreParseRule> rules = new ArrayList<PreParseRule>();
+        rules.add(QueryHintRewriter::rewrite);
+        return Collections.unmodifiableList(rules);
+    }
+
+    /**
      * Parses original input with any required WDQS prefix defaults.
      *
      * @param queryText original query text
-     * @return parsed query, or {@code null} when the original query is invalid
+     * @return parsed query
      */
     private static Query parseOriginal(String queryText) {
-        try {
-            return QueryFactory.create(
-                    WdqsPrefixes.addMissingUsed(queryText), Syntax.syntaxSPARQL_11);
-        } catch (QueryParseException | RiotException error) {
-            return null;
-        }
+        return QueryFactory.create(
+                WdqsPrefixes.addMissingUsed(queryText), Syntax.syntaxSPARQL_11);
     }
 
     /**
@@ -133,8 +178,8 @@ final class SparqlRewriteEngine {
         diagnostic.put("source_location", "dataset[0]");
         diagnostic.put("retry_classification", "after_contract_change");
         diagnostic.put("diagnostic_reference",
-                "README_interface_python_java.md#rewrite-result");
-        result.errors.add(diagnostic);
+                "README.md#current-status");
+        result.addError(diagnostic);
         return result;
     }
 
@@ -144,10 +189,12 @@ final class SparqlRewriteEngine {
      * @param query parsed query to serialize
      * @return serialized query ending with a newline
      */
-    private static String serialize(Query query) {
+    private static String serialize(Query query, String originalQueryText) {
+        WdqsPrefixes.removeUnusedOutputPrefixes(query);
         WdqsPrefixes.removeInvalidOutputPrefixes(query);
-        String rewritten = sortPrefixDeclarations(
-                query.serialize(Syntax.syntaxSPARQL_11));
+        String rewritten = WdqsPrefixes.expandImplicitLabelOutputPrefixes(
+                query.serialize(Syntax.syntaxSPARQL_11), originalQueryText);
+        rewritten = sortPrefixDeclarations(rewritten);
         if (!rewritten.endsWith("\n")) {
             rewritten += "\n";
         }
@@ -221,16 +268,30 @@ final class SparqlRewriteEngine {
      */
     private static RewriteResult validationFailure(
             RewriteResult complete, QueryParseException error) {
-        complete.status = "validation_failed";
-        complete.rewrittenQuery = null;
+        complete.setOutcome("validation_failed", null);
         JsonObject diagnostic = new JsonObject();
         diagnostic.put("code", "rewritten_query_parse_error");
         diagnostic.put("phase", "validation");
         diagnostic.put("message", error.getMessage() == null ? "" : error.getMessage());
         diagnostic.put("retry_classification", "after_input_or_parser_change");
         diagnostic.put("diagnostic_reference",
-                "README_interface_python_java.md#successful-envelope");
-        complete.errors.add(diagnostic);
+                "docs/README_java_rewriter.md#rewrite-status-outputs");
+        complete.addError(diagnostic);
         return complete;
+    }
+
+    /** Returns the public diagnostic for invalid original SPARQL input. */
+    private static RewriteResult originalParseFailure() {
+        RewriteResult result = new RewriteResult("parse_error", null);
+        JsonObject diagnostic = new JsonObject();
+        diagnostic.put("code", "original_query_parse_error");
+        diagnostic.put("phase", "parse");
+        diagnostic.put("message",
+                "The original query could not be parsed as SPARQL 1.1.");
+        diagnostic.put("retry_classification", "after_input_or_parser_change");
+        diagnostic.put("diagnostic_reference",
+                "docs/README_java_rewriter.md#rewrite-status-outputs");
+        result.addError(diagnostic);
+        return result;
     }
 }

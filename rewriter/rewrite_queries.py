@@ -5,12 +5,8 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-import sys
 
-PYTHON_ROOT = Path(__file__).resolve().parent / "python"
-sys.path.insert(0, str(PYTHON_ROOT))
-
-from sparql_rewriter import RewriterError, rewrite_queries  # noqa: E402
+from rewrite import RewriterError, rewrite_queries
 
 
 def discover_queries(input_root: Path, output_root: Path) -> list[Path]:
@@ -41,27 +37,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Recursively rewrite ordinary SPARQL .rq files.")
     parser.add_argument("queries", type=Path, help="Directory containing input .rq files")
-    parser.add_argument(
-        "--output-dir",
-        type=Path,
-        required=True,
+    parser.add_argument("--output-dir", type=Path, required=True,
         help="Directory for rewritten .rq files")
-    parser.add_argument(
-        "--rewriter-jar",
-        type=Path,
-        default=Path(__file__).resolve().parent
-        / "java-rewriter"
-        / "target"
-        / "sparql-rewriter.jar")
+    parser.add_argument("--rewriter-jar", type=Path,
+        default=Path(__file__).resolve().parent / "java-rewriter" / "target" / "sparql-rewriter.jar")
     args = parser.parse_args()
 
     try:
         paths = discover_queries(args.queries, args.output_dir)
         queries = [
-            (
-                path.relative_to(args.queries).as_posix(),
-                path.read_text(encoding="utf-8"),
-            )
+            (path.relative_to(args.queries).as_posix(),
+             path.read_text(encoding="utf-8"))
             for path in paths]
         results = dict(rewrite_queries(queries, args.rewriter_jar))
     except (OSError, RewriterError) as error:

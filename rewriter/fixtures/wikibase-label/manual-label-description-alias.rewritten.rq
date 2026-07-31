@@ -3,11 +3,10 @@ PREFIX  schema: <http://schema.org/>
 PREFIX  skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX  wd:   <http://www.wikidata.org/entity/>
 PREFIX  wdt:  <http://www.wikidata.org/prop/direct/>
-PREFIX  wikibase: <http://wikiba.se/ontology#>
 
 SELECT  ?item ?label ?description ?alternate
 WHERE
-  { ?item  wdt:P31  wd:Q515
+  { ?item  wdt:P31  wd:Q2031121
     OPTIONAL
       { ?item  rdfs:label  ?item__label_value
         FILTER ( lang(?item__label_value) = "de" )
@@ -35,7 +34,7 @@ WHERE
         WHERE
           { { SELECT DISTINCT  ?item
               WHERE
-                { ?item  wdt:P31  wd:Q515 }
+                { ?item  wdt:P31  wd:Q2031121 }
             }
             ?item  skos:altLabel  ?item__alias_value
             FILTER ( lang(?item__alias_value) = "de" )
@@ -47,7 +46,7 @@ WHERE
         WHERE
           { { SELECT DISTINCT  ?item
               WHERE
-                { ?item  wdt:P31  wd:Q515 }
+                { ?item  wdt:P31  wd:Q2031121 }
             }
             ?item  skos:altLabel  ?item__alias_value
             FILTER ( lang(?item__alias_value) = "en" )
@@ -59,7 +58,7 @@ WHERE
         WHERE
           { { SELECT DISTINCT  ?item
               WHERE
-                { ?item  wdt:P31  wd:Q515 }
+                { ?item  wdt:P31  wd:Q2031121 }
             }
             ?item  skos:altLabel  ?item__alias_value
             FILTER ( lang(?item__alias_value) = "mul" )

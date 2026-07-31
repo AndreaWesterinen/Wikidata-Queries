@@ -13,7 +13,7 @@
       "message": "The label service contains unsupported content.",
       "source_location": "where.elements[1]",
       "retry_classification": "after_catalog_change",
-      "diagnostic_reference": "README-rewrites.md#unsupported-label-service-input"
+      "diagnostic_reference": "docs/services/wikibase-label.md#unsupported-cases"
     }
   ],
   "sparql_diff": {

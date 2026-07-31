@@ -12,10 +12,10 @@ import org.apache.jena.sparql.syntax.ElementGroup;
 import org.apache.jena.sparql.syntax.ElementService;
 import org.junit.jupiter.api.Test;
 
-/** Tests incoming-variable analysis at exact SERVICE occurrences. */
 final class BindingAnalysisTest {
     private static final String LABEL = "http://wikiba.se/ontology#label";
 
+    /** Tests bound/possibly bound/unbound analysis at SERVICE occurrences. */
     @Test
     void requiredTripleDefinitelyBindsEntity() {
         Target target = target("?item <http://example.com/p> <http://example.com/o> .");
@@ -80,7 +80,8 @@ final class BindingAnalysisTest {
         assertTrue(bindings.definite.contains("item"));
         assertTrue(bindings.possible.contains("item"));
     }
-
+	
+	/** Verifies the special compilation lifecycle. */
     @Test
     void compilationMarkerAvoidsCollisionAndRestoresSyntax() {
         Target target = target(

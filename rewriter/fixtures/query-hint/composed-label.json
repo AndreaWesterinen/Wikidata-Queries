@@ -1,11 +1,15 @@
 {
   "schema_version": 1,
-  "query_id": "rewrite-wikibase-label-service__manual__nested-scope-languages",
-  "original_query_path": "nested-scope-languages.original.rq",
+  "query_id": "rewrite-query-hint__default__composed-label",
+  "original_query_path": "composed-label.original.rq",
   "rewrites": [
     {
+      "rule_id": "rewrite-query-hint",
+      "variant_id": "default"
+    },
+    {
       "rule_id": "rewrite-wikibase-label-service",
-      "variant_id": "manual"
+      "variant_id": "automatic"
     }
   ],
   "expected_rewrite_status": "rewritten",

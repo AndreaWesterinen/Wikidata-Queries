@@ -8,21 +8,10 @@
       "variant_id": "automatic"
     }
   ],
-  "expected_rewrite_status": "skipped_unsupported",
+  "expected_rewrite_status": "rewritten",
   "expected_warnings": [],
-  "expected_errors": [
-    {
-      "code": "wikibase_label_non_select_automatic_query",
-      "phase": "post-ARQ",
-      "rule_id": "rewrite-wikibase-label-service",
-      "variant_id": "automatic",
-      "message": "Automatic label-service mode is supported only in a SELECT query or projected subquery.",
-      "source_location": "where.elements[1]",
-      "retry_classification": "after_catalog_change",
-      "diagnostic_reference": "README-rewrites.md#manual-and-automatic-modes"
-    }
-  ],
+  "expected_errors": [],
   "sparql_diff": {
-    "enabled": false
+    "enabled": true
   }
 }

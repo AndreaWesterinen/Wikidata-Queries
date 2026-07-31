@@ -18,7 +18,7 @@ class FixturePathTest(unittest.TestCase):
     """Verify recursive fixture catalog path behavior."""
 
     def test_discovers_nested_originals_in_sorted_order(self) -> None:
-        """Find only original query files and derive sibling golden paths."""
+        """Find only original query files and derive "golden" paths."""
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -32,10 +32,8 @@ class FixturePathTest(unittest.TestCase):
 
         self.assertEqual(
             [(item[0].name, item[1].name) for item in fixtures],
-            [
-                ("a.original.rq", "a.rewritten.rq"),
-                ("b.original.rq", "b.rewritten.rq"),
-            ],
+            [("a.original.rq", "a.rewritten.rq"),
+             ("b.original.rq", "b.rewritten.rq")]
         )
 
     def test_empty_fixture_root_is_rejected(self) -> None:
@@ -46,18 +44,18 @@ class FixturePathTest(unittest.TestCase):
                 discover_fixtures(Path(directory))
 
     def test_destination_is_generated_or_explicit_golden(self) -> None:
-        """Keep normal output separate unless golden replacement is requested."""
+        """Keep normal output separate unless "golden" replacement is requested."""
 
         fixture_root = Path("fixtures")
         original = fixture_root / "rule" / "case.original.rq"
         output_root = Path("generated")
         self.assertEqual(
             destination_path(original, fixture_root, output_root, False),
-            output_root / "rule" / "case.rewritten.rq",
+            output_root / "rule" / "case.rewritten.rq"
         )
         self.assertEqual(
             destination_path(original, fixture_root, output_root, True),
-            fixture_root / "rule" / "case.rewritten.rq",
+            fixture_root / "rule" / "case.rewritten.rq"
         )
 
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "query_id": "rewrite-wikibase-label-service__automatic__nested-scope-projections",
+  "query_id": "rewrite-wikibase-label-service__automatic__nested-scope-automatic",
   "original_query_path": "nested-scope-automatic.original.rq",
   "rewrites": [
     {
