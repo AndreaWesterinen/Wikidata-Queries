@@ -1,7 +1,0 @@
-SELECT ?item ?itemLabel WHERE {
-  hint:Query hint:optimizer "None" .
-  ?item wdt:P31 wd:Q2031121 .
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-  }
-}

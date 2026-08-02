@@ -1,5 +1,0 @@
-PREFIX hint: <http://example.com/hint/>
-
-SELECT * WHERE {
-  hint:Query hint:optimizer "None" .
-}

@@ -1,3 +1,0 @@
-SELECT  ?item ?aliases
-WHERE
-  {  }
