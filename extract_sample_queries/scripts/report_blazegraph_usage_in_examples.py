@@ -115,6 +115,11 @@ FEATURES = [
         pattern=r"\bwikibase:decodeUri\s*\(",
     ),
     Feature(
+        name="`wikibase:isSomeValue()`",
+        section="Function Extensions",
+        pattern=r"\bwikibase:isSomeValue\s*\(",
+    ),
+    Feature(
         name="`SERVICE wikibase:around`",
         section="SERVICE Extensions",
         pattern=r"SERVICE\s+wikibase:around\b",

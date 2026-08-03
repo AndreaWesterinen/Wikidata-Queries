@@ -16,6 +16,7 @@ This report uses the feature inventory described on the referenced Wikitech page
 | Function Extensions | `geof:longitude()` | 7 |
 | Function Extensions | `geof:distance()` | 77 |
 | Function Extensions | `wikibase:decodeUri()` | 291 |
+| Function Extensions | `wikibase:isSomeValue()` | 37785 |
 | SERVICE Extensions | `SERVICE wikibase:around` | 103 |
 | SERVICE Extensions | `SERVICE wikibase:box` | 17 |
 | SERVICE Extensions | `SERVICE wikibase:label` | 349510 |
@@ -221,8 +222,8 @@ Matching files:
 
 ## Function Extensions
 
-- Features in this section: 5
-- Total matches across this section: 383
+- Features in this section: 6
+- Total matches across this section: 38168
 
 ### `geof:globe()`
 
@@ -347,6 +348,13 @@ Matching files:
 
 Matching files:
 - 291 matching files (not listed individually)
+
+### `wikibase:isSomeValue()`
+
+- Local matches: 37785
+
+Matching files:
+- 37785 matching files (not listed individually)
 
 ## SERVICE Extensions
 

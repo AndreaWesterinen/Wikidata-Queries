@@ -16,6 +16,7 @@ This report uses the feature inventory described on the referenced Wikitech page
 | Function Extensions | `geof:longitude()` | 1 |
 | Function Extensions | `geof:distance()` | 11 |
 | Function Extensions | `wikibase:decodeUri()` | 2 |
+| Function Extensions | `wikibase:isSomeValue()` | 6 |
 | SERVICE Extensions | `SERVICE wikibase:around` | 7 |
 | SERVICE Extensions | `SERVICE wikibase:box` | 1 |
 | SERVICE Extensions | `SERVICE wikibase:label` | 419 |
@@ -166,8 +167,8 @@ Matching files:
 
 ## Function Extensions
 
-- Features in this section: 5
-- Total matches across this section: 15
+- Features in this section: 6
+- Total matches across this section: 21
 
 ### `geof:globe()`
 
@@ -214,6 +215,18 @@ Matching files:
 Matching files:
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Wikimedia_projects/List_of_small_monuments_and_other_similar_sites_with_link_to_Commons_category_sitelink_or_P373.rq`
 - `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/advanced_examples/Mediawiki_API/Find_metadata_like_artist_and_license_for_an_image.rq`
+
+### `wikibase:isSomeValue()`
+
+- Local matches: 6
+
+Matching files:
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Fictional_characters/Pokemon.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Music/Paintings_depicting_woodwind_instruments.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Simple_queries/Humans_whose_gender_we_know_we_dont_know.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Visual_arts/Painters_related_to_anonymous_works.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/examples/Visual_arts/Painters_type_of_relations_with_anonymous_works.rq`
+- `/Users/arwest/Hold/Wikidata-Queries/extract_sample_queries/maintenance_examples/Queries_for_maintenance/Fathers_with_nonexistent_or_unusual_gender_statements.rq`
 
 ## SERVICE Extensions
 

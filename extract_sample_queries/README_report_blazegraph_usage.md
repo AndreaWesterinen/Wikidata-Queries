@@ -54,6 +54,7 @@ Features and extensions:
 - `geof:longitude()`
 - `geof:distance()`
 - `wikibase:decodeUri()`
+- `wikibase:isSomeValue()`
 - `SERVICE wikibase:around`
 - `SERVICE wikibase:box`
 - `SERVICE wikibase:label`
